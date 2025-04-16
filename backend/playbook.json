@@ -1,0 +1,19 @@
+{
+    "high_memory": {
+      "condition": {
+        "key": "memory",
+        "operator": "gt",
+        "value": 100000000
+      },
+      "action": "quarantine"
+    },
+    "encoded_command": {
+      "condition": {
+        "key": "cmd",
+        "operator": "contains",
+        "value": "-encodedcommand"
+      },
+      "action": "escalate"
+    }
+  }
+  
