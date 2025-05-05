@@ -1,0 +1,36 @@
+{
+    "hostname": "host-c",
+    "timestamp": 1714891000,
+    "cloud_provider": "gcp",
+    "region": "us-central1",
+    "instance_id": "gce-instance-1234",
+    "org_id": "org-5678",
+    "iam_tags": ["dev", "non-prod"],
+    "processes": [
+      {
+        "pid": 707,
+        "name": "node",
+        "cmd": "/usr/bin/node index.js",
+        "memory": 180000,
+        "cpu_usage": 20.0,
+        "status": "Running",
+        "user": "devops"
+      }
+    ],
+    "registry": [],
+    "file_events": [
+      {
+        "path": "/tmp/build_artifact.zip",
+        "event": "create"
+      }
+    ],
+    "auth_events": [
+      {
+        "user": "devops",
+        "method": "api-token",
+        "success": true,
+        "timestamp": 1714891000
+      }
+    ]
+  }
+  

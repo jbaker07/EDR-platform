@@ -1,0 +1,31 @@
+{
+    "hostname": "host-e",
+    "timestamp": 1714892000,
+    "cloud_provider": "oracle",
+    "region": "us-phoenix-1",
+    "instance_id": "ocid1.instance.oc1.phx.test",
+    "org_id": "org-oc-987",
+    "iam_tags": ["isolated", "ot"],
+    "processes": [
+      {
+        "pid": 909,
+        "name": "systemd",
+        "cmd": "/lib/systemd/systemd",
+        "memory": 50000,
+        "cpu_usage": 0.3,
+        "status": "Sleeping",
+        "user": "root"
+      }
+    ],
+    "registry": [],
+    "file_events": [],
+    "auth_events": [
+      {
+        "user": "sysadmin",
+        "method": "vpn",
+        "success": true,
+        "timestamp": 1714892000
+      }
+    ]
+  }
+  

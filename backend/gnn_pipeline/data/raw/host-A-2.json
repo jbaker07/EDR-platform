@@ -1,0 +1,41 @@
+{
+    "hostname": "host-b",
+    "timestamp": 1714890500,
+    "cloud_provider": "azure",
+    "region": "eastus",
+    "instance_id": "vm-445566",
+    "org_id": "org-9988",
+    "iam_tags": ["finance", "high-value"],
+    "processes": [
+      {
+        "pid": 505,
+        "name": "java",
+        "cmd": "/usr/bin/java -jar /opt/app/app.jar",
+        "memory": 150000,
+        "cpu_usage": 40.2,
+        "status": "Running",
+        "user": "svc-app"
+      }
+    ],
+    "registry": [
+      {
+        "key": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
+        "action": "write"
+      }
+    ],
+    "file_events": [
+      {
+        "path": "/var/log/app.log",
+        "event": "write"
+      }
+    ],
+    "auth_events": [
+      {
+        "user": "svc-admin",
+        "method": "rdp",
+        "success": false,
+        "timestamp": 1714890500
+      }
+    ]
+  }
+  

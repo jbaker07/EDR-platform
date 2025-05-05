@@ -1,0 +1,41 @@
+{
+    "hostname": "host-d",
+    "timestamp": 1714891500,
+    "cloud_provider": "aws",
+    "region": "eu-west-1",
+    "instance_id": "i-111122223333",
+    "org_id": "org-777",
+    "iam_tags": ["shared-services"],
+    "processes": [
+      {
+        "pid": 808,
+        "name": "bash",
+        "cmd": "/bin/bash /tmp/malware.sh",
+        "memory": 300000,
+        "cpu_usage": 95.6,
+        "status": "Running",
+        "user": "nobody"
+      }
+    ],
+    "registry": [
+      {
+        "key": "HKLM\\Software\\Malicious\\Startup",
+        "action": "write"
+      }
+    ],
+    "file_events": [
+      {
+        "path": "/var/tmp/malware_payload",
+        "event": "execute"
+      }
+    ],
+    "auth_events": [
+      {
+        "user": "unknown",
+        "method": "ssh",
+        "success": false,
+        "timestamp": 1714891500
+      }
+    ]
+  }
+  
