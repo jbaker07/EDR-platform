@@ -1,0 +1,19 @@
+{
+    "execution::process_spawn": {
+      "description": "Spawning of a new process by a parent executable.",
+      "category": "execution",
+      "kill_chain_phase": "execution",
+      "examples": ["cmd.exe /c powershell", "/bin/bash -c"],
+      "version": "v1.0",
+      "threat_level": "medium"
+    },
+    "evasion::anti_debug": {
+      "description": "Behavior that avoids or disables debugger visibility.",
+      "category": "evasion",
+      "kill_chain_phase": "defense evasion",
+      "examples": ["ptrace self-check", "NtQueryInformationProcess"],
+      "version": "v1.0",
+      "threat_level": "high"
+    }
+  }
+  

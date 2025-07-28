@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: edr-backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://edr:edrpass@postgres:5432/edr_db
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+
+  redis:
+    image: redis:7-alpine
+    container_name: edr-redis
+    # Comment this out unless debugging
+    # ports:
+    #   - "6379:6379"
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: edr-postgres
+    environment:
+      POSTGRES_USER: edr
+      POSTGRES_PASSWORD: edrpass
+      POSTGRES_DB: edr_db
+    # Comment this out unless debugging
+    # ports:
+    #   - "5432:5432"

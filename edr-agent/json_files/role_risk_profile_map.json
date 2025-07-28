@@ -1,0 +1,50 @@
+{
+    "defaults": {
+      "trust_decay_rate": 0.015,
+      "high_risk_threshold": 0.25,
+      "critical_risk_threshold": 0.10,
+      "sensitive_command_alert": true
+    },
+    "roles": {
+      "DevOps": {
+        "trust_decay_rate": 0.007,
+        "high_risk_threshold": 0.22,
+        "allowed_tools": ["kubectl", "helm", "terraform"],
+        "flag_unusual_admin_escalation": true
+      },
+      "Finance": {
+        "trust_decay_rate": 0.025,
+        "high_risk_threshold": 0.35,
+        "critical_risk_threshold": 0.15,
+        "flag_usb_insertions": true,
+        "block_cloud_script_execution": true
+      },
+      "HR": {
+        "trust_decay_rate": 0.03,
+        "critical_risk_threshold": 0.20,
+        "sensitive_file_alert": true
+      },
+      "RedTeam": {
+        "trust_decay_rate": 0.05,
+        "alert_on_replay_mutation": true,
+        "auto_tag_behavior_fingerprint": true
+      }
+    },
+    "device_types": {
+      "server": {
+        "auto_escalate_on_binary_modification": true,
+        "monitor_idle_ports": true,
+        "block_interactive_login": true
+      },
+      "workstation": {
+        "flag_privileged_shells": true,
+        "sensitive_file_write_alert": true
+      },
+      "cloud_instance": {
+        "monitor_container_spawns": true,
+        "flag_cross-region_actions": true
+      }
+    }
+  }
+  
+  

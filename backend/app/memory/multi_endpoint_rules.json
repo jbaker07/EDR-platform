@@ -1,0 +1,58 @@
+[
+    {
+      "id": "MC001",
+      "description": "Credential Theft Followed by Lateral Movement",
+      "severity": "critical",
+      "logic": "SEQUENCE",
+      "pattern": [
+        {"field": "event_type", "value": "credential_access"},
+        {"field": "event_type", "value": "remote_access_tool_execution"}
+      ],
+      "window_seconds": 1800
+    },
+    {
+      "id": "MC002",
+      "description": "Malicious File Dropped then Executed",
+      "severity": "high",
+      "logic": "SEQUENCE",
+      "pattern": [
+        {"field": "event_type", "value": "file_write"},
+        {"field": "event_type", "value": "malware_execution"}
+      ],
+      "window_seconds": 1200
+    },
+    {
+      "id": "MC003",
+      "description": "Antivirus Disabled Followed by Malware Persistence",
+      "severity": "critical",
+      "logic": "SEQUENCE",
+      "pattern": [
+        {"field": "event_type", "value": "defense_evasion"},
+        {"field": "event_type", "value": "persistence_mechanism_created"}
+      ],
+      "window_seconds": 900
+    },
+    {
+      "id": "MC004",
+      "description": "Unusual Admin Account Created then Remote Access",
+      "severity": "critical",
+      "logic": "SEQUENCE",
+      "pattern": [
+        {"field": "event_type", "value": "admin_account_created"},
+        {"field": "event_type", "value": "remote_access_tool_execution"}
+      ],
+      "window_seconds": 3600
+    },
+    {
+      "id": "MC005",
+      "description": "Discovery Activity Followed by Data Exfiltration",
+      "severity": "critical",
+      "logic": "SEQUENCE",
+      "pattern": [
+        {"field": "event_type", "value": "network_discovery"},
+        {"field": "event_type", "value": "data_exfiltration"}
+      ],
+      "window_seconds": 3600
+    }
+  ]
+  

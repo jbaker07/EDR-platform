@@ -1,0 +1,454 @@
+{
+  "Process": {
+    "edges": {
+      "spawned": [
+        "Process"
+      ],
+      "accessed": [
+        "File"
+      ],
+      "scheduled": [
+        "Process"
+      ],
+      "terminated": [
+        "Process"
+      ],
+      "connected-to": [
+        "IP"
+      ],
+      "communicated-with": [
+        "Process"
+      ],
+      "privilege-escalated": [
+        "Process"
+      ],
+      "injected-to": [
+        "Process"
+      ],
+      "monitored": [
+        "Process"
+      ],
+      "ran-on": [
+        "Device"
+      ],
+      "wrote": [
+        "File"
+      ],
+      "deleted": [
+        "File"
+      ],
+      "loaded": [
+        "File"
+      ],
+      "unpacked": [
+        "File"
+      ],
+      "created-shortcut": [
+        "File"
+      ],
+      "executed-by": [
+        "File"
+      ],
+      "received-from": [
+        "IP"
+      ],
+      "resolved": [
+        "IP"
+      ],
+      "scanned": [
+        "IP"
+      ],
+      "beaconed": [
+        "IP"
+      ],
+      "impersonated": [
+        "User"
+      ],
+      "created-user": [
+        "User"
+      ],
+      "switched-to": [
+        "User"
+      ],
+      "enumerated": [
+        "Device"
+      ],
+      "mounted": [
+        "Device"
+      ],
+      "scanned-devices": [
+        "Device"
+      ],
+      "sent-to": [
+        "Email"
+      ],
+      "extracted-from": [
+        "Archive"
+      ],
+      "originated-from": [
+        "USBDevice"
+      ],
+      "triggered": [
+        "Alert"
+      ],
+      "executed-from": [
+        "Process"
+      ]
+    }
+  },
+  "User": {
+    "edges": {
+      "launched": [
+        "Process"
+      ],
+      "logged-in-on": [
+        "Device"
+      ],
+      "logged-in-to": [
+        "Session"
+      ],
+      "downloaded": [
+        "File"
+      ],
+      "received": [
+        "Email"
+      ],
+      "accessed-user": [
+        "Device"
+      ],
+      "mounted": [
+        "USBDevice"
+      ],
+      "opened": [
+        "File"
+      ],
+      "executed-script": [
+        "File"
+      ],
+      "scheduled": [
+        "Process"
+      ],
+      "uploaded": [
+        "File"
+      ],
+      "switched-role": [
+        "User"
+      ],
+      "authenticated-to": [
+        "Service"
+      ],
+      "triggered-alert": [
+        "Alert"
+      ]
+    }
+  },
+  "File": {
+    "edges": {
+      "originated-from": [
+        "USBDevice"
+      ],
+      "attached-to-email": [
+        "Email"
+      ],
+      "executed-by": [
+        "Process"
+      ],
+      "loaded-by": [
+        "Process"
+      ],
+      "accessed-by": [
+        "Process"
+      ],
+      "written-by": [
+        "Process"
+      ],
+      "deleted-by": [
+        "Process"
+      ],
+      "downloaded-from": [
+        "IP"
+      ],
+      "extracted-from": [
+        "Archive"
+      ],
+      "signed-by": [
+        "Certificate"
+      ],
+      "owned-by": [
+        "User"
+      ],
+      "shared-with": [
+        "User"
+      ],
+      "dropped-copy-of": [
+        "File"
+      ],
+      "extracted": [
+        "File"
+      ],
+      "linked-to": [
+        "File"
+      ],
+      "stored-on": [
+        "Device"
+      ],
+      "mounted-on": [
+        "Device"
+      ],
+      "beaconed-to": [
+        "IP"
+      ],
+      "triggered-alert": [
+        "Alert"
+      ],
+      "uploaded-by": [
+        "User"
+      ]
+    }
+  },
+  "Script": {
+    "edges": {
+      "executed-by": [
+        "Process"
+      ],
+      "written-by": [
+        "User"
+      ],
+      "downloaded-from": [
+        "IP"
+      ],
+      "used-in": [
+        "Process"
+      ]
+    }
+  },
+  "MemoryRegion": {
+    "edges": {
+      "scanned-by": [
+        "AVEngine"
+      ],
+      "injected-by": [
+        "Process"
+      ],
+      "allocated-by": [
+        "Process"
+      ]
+    }
+  },
+  "Domain": {
+    "edges": {
+      "resolved-by": [
+        "Process"
+      ],
+      "queried-from": [
+        "Device"
+      ],
+      "linked-to": [
+        "IP"
+      ],
+      "phished": [
+        "User"
+      ]
+    }
+  },
+  "APIKey": {
+    "edges": {
+      "accessed-by": [
+        "User"
+      ],
+      "exfiltrated-by": [
+        "Process"
+      ],
+      "stored-in": [
+        "File"
+      ],
+      "used-by": [
+        "Script"
+      ]
+    }
+  },
+  "CloudStorage": {
+    "edges": {
+      "accessed-by": [
+        "User"
+      ],
+      "synced-with": [
+        "Process"
+      ],
+      "uploaded-by": [
+        "User"
+      ],
+      "downloaded-by": [
+        "User"
+      ]
+    }
+  },
+  "ScheduledTask": {
+    "edges": {
+      "created-by": [
+        "User",
+        "Process"
+      ],
+      "executes": [
+        "Process"
+      ],
+      "modified-by": [
+        "Process"
+      ]
+    }
+  },
+  "Token": {
+    "edges": {
+      "created-by": [
+        "Process"
+      ],
+      "used-by": [
+        "Process"
+      ],
+      "impersonates": [
+        "User"
+      ]
+    }
+  },
+  "CloudIdentity": {
+    "edges": {
+      "authenticated-to": [
+        "CloudService"
+      ],
+      "used-by": [
+        "User"
+      ],
+      "accessed-secret": [
+        "Secret"
+      ],
+      "assumed-by": [
+        "Token"
+      ]
+    }
+  },
+  "OfficeDocument": {
+    "edges": {
+      "contains": [
+        "Macro"
+      ],
+      "opened-by": [
+        "User"
+      ],
+      "spawned": [
+        "Process"
+      ],
+      "downloaded-from": [
+        "URL"
+      ]
+    }
+  },
+  "Email": {
+    "edges": {
+      "received-by": [
+        "User"
+      ],
+      "contains": [
+        "Attachment",
+        "URL"
+      ],
+      "linked-to": [
+        "PhishingKit"
+      ],
+      "sent-from": [
+        "ExternalEntity"
+      ]
+    }
+  },
+  "URL": {
+    "edges": {
+      "linked-to": [
+        "PhishingKit"
+      ],
+      "downloaded": [
+        "File"
+      ],
+      "accessed-by": [
+        "User",
+        "Process"
+      ]
+    }
+  },
+  "Archive": {
+    "edges": {
+      "contains": [
+        "File"
+      ],
+      "extracted-by": [
+        "User",
+        "Process"
+      ]
+    }
+  },
+  "USBDevice": {
+    "edges": {
+      "mounted-by": [
+        "User"
+      ],
+      "contained": [
+        "File"
+      ],
+      "exec-started": [
+        "Process"
+      ]
+    }
+  },
+  "Secret": {
+    "edges": {
+      "stored-in": [
+        "CloudStorage"
+      ],
+      "accessed-by": [
+        "CloudIdentity"
+      ]
+    }
+  },
+  "Macro": {
+    "edges": {
+      "executed-by": [
+        "OfficeDocument"
+      ],
+      "spawned": [
+        "Process"
+      ]
+    }
+  },
+  "PhishingKit": {
+    "edges": {
+      "hosted-at": [
+        "URL"
+      ],
+      "referenced-in": [
+        "Email"
+      ]
+    }
+  },
+  "ExternalEntity": {
+    "edges": {
+      "sent": [
+        "Email"
+      ],
+      "hosted": [
+        "URL"
+      ]
+    }
+  },
+  "CloudService": {
+    "edges": {
+      "accessed-by": [
+        "CloudIdentity",
+        "User"
+      ],
+      "contains": [
+        "Secret"
+      ],
+      "connected-from": [
+        "Process"
+      ]
+    }
+  }
+}

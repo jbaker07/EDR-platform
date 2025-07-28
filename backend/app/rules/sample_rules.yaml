@@ -1,0 +1,15 @@
+- name: High CPU Usage
+  description: Trigger if CPU usage is over 85%
+  field: cpu_percent
+  operator: ">"
+  value: 85
+  risk_level: high
+  risk_score: 90
+
+- name: Suspicious Process Name
+  description: Trigger if process name is "mimikatz"
+  field: process_name
+  operator: "=="
+  value: "mimikatz"
+  risk_level: critical
+  risk_score: 99

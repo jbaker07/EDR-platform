@@ -1,0 +1,4726 @@
+{
+  "hostname": "JermainacStudio.attlocal.net",
+  "timestamp": 1744937694,
+  "processes": [
+    {
+      "pid": 322,
+      "name": "findmybeaconingd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1555,
+      "name": "PerfPowerTelemetryClientRegistrationService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 725,
+      "name": "com.apple.Safari.SearchHelper",
+      "cmd": "/System/Library/PrivateFrameworks/SafariShared.framework/Versions/A/XPCServices/com.apple.Safari.SearchHelper.xpc/Contents/MacOS/com.apple.Safari.SearchHelper",
+      "memory": 24952832,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 570,
+      "name": "com.apple.hiservices-xpcservice",
+      "cmd": "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/XPCServices/com.apple.hiservices-xpcservice.xpc/Contents/MacOS/com.apple.hiservices-xpcservice",
+      "memory": 8929280,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 449,
+      "name": "mdbulkimport",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1080,
+      "name": "com.apple.SiriTTSService.TrialProxy",
+      "cmd": "/System/Library/PrivateFrameworks/SiriTTSService.framework/Versions/A/XPCServices/com.apple.SiriTTSService.TrialProxy.xpc/Contents/MacOS/com.apple.SiriTTSService.TrialProxy",
+      "memory": 13074432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1074,
+      "name": "SiriAUSP",
+      "cmd": "/System/Library/PrivateFrameworks/TextToSpeech.framework/PlugIns/SiriAUSP.appex/Contents/MacOS/SiriAUSP -AppleLanguages (\"en-US\")",
+      "memory": 17350656,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 647,
+      "name": "gamecontrolleragentd",
+      "cmd": "/usr/libexec/gamecontrolleragentd",
+      "memory": 12566528,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 728,
+      "name": "ContainerMetadataExtractor",
+      "cmd": "/System/Library/PrivateFrameworks/iCloudDriveService.framework/XPCServices/ContainerMetadataExtractor.xpc/Contents/MacOS/ContainerMetadataExtractor",
+      "memory": 17055744,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 401,
+      "name": "com.apple.ColorSyncXPCAgent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 212,
+      "name": "sysextd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1087,
+      "name": "findmydevice-user-agent",
+      "cmd": "/usr/libexec/findmydevice-user-agent",
+      "memory": 17022976,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 325,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1073,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9322496,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 384,
+      "name": "dhcp6d",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 286,
+      "name": "storagekitd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 6841,
+      "name": "Python",
+      "cmd": "/opt/homebrew/Cellar/python@3.13/3.13.3/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=5, pipe_handle=7) --multiprocessing-fork",
+      "memory": 55197696,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 641,
+      "name": "mobiletimerd",
+      "cmd": "/System/Library/PrivateFrameworks/MobileTimer.framework/Executables/mobiletimerd",
+      "memory": 16957440,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 634,
+      "name": "heard",
+      "cmd": "/System/Library/PrivateFrameworks/HearingCore.framework/heard",
+      "memory": 57606144,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 314,
+      "name": "searchpartyd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 729,
+      "name": "linkd",
+      "cmd": "/usr/libexec/linkd",
+      "memory": 22708224,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 536,
+      "name": "TrustedPeersHelper",
+      "cmd": "/System/Library/Frameworks/Security.framework/Versions/A/XPCServices/TrustedPeersHelper.xpc/Contents/MacOS/TrustedPeersHelper",
+      "memory": 21708800,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 792,
+      "name": "keyboardservicesd",
+      "cmd": "/usr/libexec/keyboardservicesd",
+      "memory": 16793600,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1034,
+      "name": "appstoreagent",
+      "cmd": "/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent",
+      "memory": 40468480,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 207,
+      "name": "usbd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 603,
+      "name": "idleassetsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 466,
+      "name": "GSSCred",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1072,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9371648,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 125,
+      "name": "launchservicesd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 624,
+      "name": "contactsd",
+      "cmd": "/System/Library/Frameworks/Contacts.framework/Support/contactsd",
+      "memory": 73056256,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 652,
+      "name": "ProtectedCloudKeySyncing",
+      "cmd": "/System/Library/PrivateFrameworks/ProtectedCloudStorage.framework/Helpers/ProtectedCloudKeySyncing",
+      "memory": 15925248,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 296,
+      "name": "appleh13camerad",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 206,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 747,
+      "name": "SubmitDiagInfo",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1062,
+      "name": "siriknowledged",
+      "cmd": "/usr/libexec/siriknowledged",
+      "memory": 46039040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 397,
+      "name": "adid",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 633,
+      "name": "suggestd",
+      "cmd": "/System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/suggestd",
+      "memory": 213336064,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 600,
+      "name": "fontworker",
+      "cmd": "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Support/fontworker",
+      "memory": 20447232,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 103,
+      "name": "remoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 3188,
+      "name": "lskdd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 130,
+      "name": "locationd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 89,
+      "name": "mediaremoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 717,
+      "name": "ScopedBookmarkAgent",
+      "cmd": "/System/Library/CoreServices/ScopedBookmarkAgent",
+      "memory": 19300352,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 260,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 163,
+      "name": "runningboardd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 563,
+      "name": "usernotificationsd",
+      "cmd": "/System/Library/PrivateFrameworks/UserNotificationsCore.framework/Support/usernotificationsd",
+      "memory": 23183360,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 581,
+      "name": "Dock",
+      "cmd": "/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock",
+      "memory": 58392576,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 124,
+      "name": "apsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 432,
+      "name": "secd",
+      "cmd": "/usr/libexec/secd",
+      "memory": 70926336,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 273,
+      "name": "aned",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1919,
+      "name": "CallHistorySyncHelper",
+      "cmd": "/System/Library/PrivateFrameworks/CallHistory.framework/Support/CallHistorySyncHelper",
+      "memory": 33341440,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 670,
+      "name": "AssetCache",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 388,
+      "name": "WiFiCloudAssetsXPCService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 545,
+      "name": "ContinuityCaptureAgent",
+      "cmd": "/usr/libexec/ContinuityCaptureAgent server",
+      "memory": 26345472,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 385,
+      "name": "audioclocksyncd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1077,
+      "name": "WardaSynthesizer_x86_64",
+      "cmd": "/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_x86_64.appex/Contents/MacOS/WardaSynthesizer_x86_64 -AppleLanguages (\"en-US\")",
+      "memory": 10027008,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 562,
+      "name": "lockoutagent",
+      "cmd": "/System/Library/CoreServices/lockoutagent",
+      "memory": 15728640,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 334,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 607,
+      "name": "UsageTrackingAgent",
+      "cmd": "/System/Library/PrivateFrameworks/UsageTracking.framework/Versions/A/UsageTrackingAgent",
+      "memory": 22609920,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 591,
+      "name": "familycircled",
+      "cmd": "/System/Library/PrivateFrameworks/FamilyCircle.framework/Versions/A/Resources/familycircled",
+      "memory": 43974656,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 146,
+      "name": "sandboxd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 548,
+      "name": "BackgroundTaskManagementAgent",
+      "cmd": "/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Support/BackgroundTaskManagementAgent.app/Contents/MacOS/BackgroundTaskManagementAgent",
+      "memory": 25559040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 587,
+      "name": "Finder",
+      "cmd": "/System/Library/CoreServices/Finder.app/Contents/MacOS/Finder",
+      "memory": 147865600,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 731,
+      "name": "com.apple.CloudDocs.iCloudDriveFileProvider",
+      "cmd": "/System/Library/PrivateFrameworks/CloudDocs.framework/PlugIns/com.apple.CloudDocs.iCloudDriveFileProvider.appex/Contents/MacOS/com.apple.CloudDocs.iCloudDriveFileProvider -AppleLanguages (\"en-US\")",
+      "memory": 19415040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 565,
+      "name": "secinitd",
+      "cmd": "/usr/libexec/secinitd",
+      "memory": 21872640,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1229,
+      "name": "com.apple.DictionaryServiceHelper",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/DictionaryServices.framework/Versions/A/XPCServices/com.apple.DictionaryServiceHelper.xpc/Contents/MacOS/com.apple.DictionaryServiceHelper",
+      "memory": 4554752,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 764,
+      "name": "AirPlayUIAgent",
+      "cmd": "/System/Library/CoreServices/AirPlayUIAgent.app/Contents/MacOS/AirPlayUIAgent --launchd",
+      "memory": 27508736,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 692,
+      "name": "iCloudNotificationAgent",
+      "cmd": "/System/Library/PrivateFrameworks/iCloudNotification.framework/iCloudNotificationAgent",
+      "memory": 31375360,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 772,
+      "name": "WindscribeLauncher",
+      "cmd": "com.windscribe.launcher.macos",
+      "memory": 34390016,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 597,
+      "name": "siriactionsd",
+      "cmd": "/System/Library/PrivateFrameworks/VoiceShortcuts.framework/Versions/A/Support/siriactionsd",
+      "memory": 31195136,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 682,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 557,
+      "name": "nsurlsessiond",
+      "cmd": "/usr/libexec/nsurlsessiond",
+      "memory": 43073536,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1101,
+      "name": "loginitemregisterd",
+      "cmd": "/usr/libexec/loginitemregisterd",
+      "memory": 6799360,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1038,
+      "name": "system_installd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 533,
+      "name": "securityd_service",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 696,
+      "name": "ScreenTimeWidgetExtension",
+      "cmd": "/System/Library/CoreServices/Screen Time.app/Contents/PlugIns/ScreenTimeWidgetExtension.appex/Contents/MacOS/ScreenTimeWidgetExtension",
+      "memory": 83066880,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 152,
+      "name": "tccd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1250,
+      "name": "com.apple.FaceTime.FTConversationService",
+      "cmd": "/System/Library/PrivateFrameworks/TelephonyUtilities.framework/XPCServices/com.apple.FaceTime.FTConversationService.xpc/Contents/MacOS/com.apple.FaceTime.FTConversationService",
+      "memory": 16826368,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1094,
+      "name": "misagent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 742,
+      "name": "pbs",
+      "cmd": "/System/Library/CoreServices/pbs",
+      "memory": 9404416,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1604,
+      "name": "nsattributedstringagent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 5104,
+      "name": "node",
+      "cmd": "npm run dev   ",
+      "memory": 55181312,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 687,
+      "name": "CGPDFService",
+      "cmd": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/XPCServices/CGPDFService.xpc/Contents/MacOS/CGPDFService",
+      "memory": 20054016,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 209,
+      "name": "XProtectPluginService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 663,
+      "name": "com.apple.StreamingUnzipService.privileged",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1610,
+      "name": "nsattributedstringagent",
+      "cmd": "/System/Library/PrivateFrameworks/UIFoundation.framework/Versions/A/XPCServices/nsattributedstringagent.xpc/Contents/MacOS/nsattributedstringagent",
+      "memory": 55328768,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1542,
+      "name": "IMTranscoderAgent",
+      "cmd": "/System/Library/PrivateFrameworks/IMTranscoding.framework/XPCServices/IMTranscoderAgent.xpc/Contents/MacOS/IMTranscoderAgent",
+      "memory": 240697344,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 611,
+      "name": "wallpaperexportd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 108,
+      "name": "watchdogd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1126,
+      "name": "liquiddetectiond",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 210,
+      "name": "PowerUIAgent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1619,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9027584,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1264,
+      "name": "CategoriesService",
+      "cmd": "/System/Library/PrivateFrameworks/Categories.framework/Versions/A/XPCServices/CategoriesService.xpc/Contents/MacOS/CategoriesService",
+      "memory": 16039936,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 594,
+      "name": "WallpaperAgent",
+      "cmd": "/System/Library/CoreServices/WallpaperAgent.app/Contents/MacOS/WallpaperAgent",
+      "memory": 43794432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 487,
+      "name": "ScreenSharingSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 617,
+      "name": "automountd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 614,
+      "name": "gamepolicyd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 490,
+      "name": "LegacyProfilesSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1137,
+      "name": "Electron",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/MacOS/Electron",
+      "memory": 205635584,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1142,
+      "name": "VTDecoderXPCService",
+      "cmd": "/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService",
+      "memory": 17743872,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 613,
+      "name": "ViewBridgeAuxiliary",
+      "cmd": "/System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/XPCServices/ViewBridgeAuxiliary.xpc/Contents/MacOS/ViewBridgeAuxiliary",
+      "memory": 18300928,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 290,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 646,
+      "name": "CMFSyncAgent",
+      "cmd": "/System/Library/PrivateFrameworks/CommunicationsFilter.framework/CMFSyncAgent",
+      "memory": 17203200,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 543,
+      "name": "com.apple.sbd",
+      "cmd": "/System/Library/PrivateFrameworks/CloudServices.framework/Helpers/com.apple.sbd",
+      "memory": 9289728,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1085,
+      "name": "com.apple.SiriTTSService.TrialProxy",
+      "cmd": "/System/Library/PrivateFrameworks/SiriTTSService.framework/Versions/A/XPCServices/com.apple.SiriTTSService.TrialProxy.xpc/Contents/MacOS/com.apple.SiriTTSService.TrialProxy",
+      "memory": 12238848,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 281,
+      "name": "com.apple.audio.DriverHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1552,
+      "name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "memory": 36814848,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1598,
+      "name": "NRDUpdated",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1064,
+      "name": "com.apple.audio.ComponentTagHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.ComponentTagHelper.xpc/Contents/MacOS/com.apple.audio.ComponentTagHelper",
+      "memory": 4390912,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1272,
+      "name": "CalendarFocusConfigurationExtension",
+      "cmd": "/System/Applications/Calendar.app/Contents/Extensions/CalendarFocusConfigurationExtension.appex/Contents/MacOS/CalendarFocusConfigurationExtension",
+      "memory": 20316160,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1076,
+      "name": "MacinTalkAUSP",
+      "cmd": "/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/MacinTalkAUSP.appex/Contents/MacOS/MacinTalkAUSP -AppleLanguages (\"en-US\")",
+      "memory": 26476544,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 571,
+      "name": "talagent",
+      "cmd": "/System/Library/CoreServices/talagent",
+      "memory": 33685504,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2761,
+      "name": "AuthenticationServicesAgent",
+      "cmd": "/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent",
+      "memory": 24166400,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 564,
+      "name": "tccd",
+      "cmd": "/System/Library/PrivateFrameworks/TCC.framework/Support/tccd",
+      "memory": 22757376,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2048,
+      "name": "ThemeWidgetControlViewService",
+      "cmd": "/System/Library/Frameworks/AppKit.framework/Versions/C/XPCServices/ThemeWidgetControlViewService.xpc/Contents/MacOS/ThemeWidgetControlViewService",
+      "memory": 57688064,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1597,
+      "name": "installerauthagent",
+      "cmd": "/System/Library/PrivateFrameworks/IASUtilities.framework/Versions/A/Resources/installerauthagent",
+      "memory": 4440064,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 700,
+      "name": "CVMServer",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 598,
+      "name": "QuickLookUIService",
+      "cmd": "/System/Library/Frameworks/QuickLookUI.framework/Versions/A/XPCServices/QuickLookUIService.xpc/Contents/MacOS/QuickLookUIService",
+      "memory": 30916608,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 585,
+      "name": "SystemUIServer",
+      "cmd": "/System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer",
+      "memory": 42778624,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 485,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 595,
+      "name": "fontd",
+      "cmd": "/System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/fontd",
+      "memory": 19906560,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 294,
+      "name": "cfprefsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 272,
+      "name": "aneuserd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 83,
+      "name": "logd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 783,
+      "name": "com.apple.appkit.xpc.openAndSavePanelService",
+      "cmd": "/System/Library/Frameworks/AppKit.framework/Versions/C/XPCServices/com.apple.appkit.xpc.openAndSavePanelService.xpc/Contents/MacOS/com.apple.appkit.xpc.openAndSavePanelService",
+      "memory": 104890368,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 678,
+      "name": "corespotlightd",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/corespotlightd",
+      "memory": 299139072,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 554,
+      "name": "APFSUserAgent",
+      "cmd": "/System/Library/CoreServices/APFSUserAgent",
+      "memory": 8011776,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 155,
+      "name": "analyticsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 643,
+      "name": "assistant_cdmd",
+      "cmd": "/System/Library/PrivateFrameworks/ContinuousDialogManagerService.framework/assistant_cdmd",
+      "memory": 28884992,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 625,
+      "name": "PAH_Extension",
+      "cmd": "/System/Library/Input Methods/PressAndHold.app/Contents/PlugIns/PAH_Extension.appex/Contents/MacOS/PAH_Extension -AppleLanguages (\"en-US\")",
+      "memory": 25657344,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 609,
+      "name": "bird",
+      "cmd": "/System/Library/PrivateFrameworks/CloudDocsDaemon.framework/Versions/A/Support/bird",
+      "memory": 44744704,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 6839,
+      "name": "Python",
+      "cmd": "/opt/homebrew/Cellar/python@3.13/3.13.3/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python /Users/jermainebaker/EDR-platform/venv/bin/uvicorn backend.app.main:app --reload",
+      "memory": 31555584,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1052,
+      "name": "com.apple.AppStoreDaemon.StorePrivilegedTaskService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1033,
+      "name": "CrashReporterSupportHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 719,
+      "name": "coresymbolicationd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 691,
+      "name": "com.apple.CloudPhotosConfiguration",
+      "cmd": "/System/Library/PrivateFrameworks/CloudPhotoServices.framework/Versions/A/XPCServices/com.apple.CloudPhotosConfiguration.xpc/Contents/MacOS/com.apple.CloudPhotosConfiguration",
+      "memory": 24264704,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 431,
+      "name": "csnameddatad",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/XPCServices/csnameddatad.xpc/Contents/MacOS/csnameddatad",
+      "memory": 5013504,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 735,
+      "name": "VTDecoderXPCService",
+      "cmd": "/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService",
+      "memory": 19185664,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 754,
+      "name": "axassetsd",
+      "cmd": "/System/Library/PrivateFrameworks/AXAssetLoader.framework/Support/axassetsd",
+      "memory": 32653312,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2510,
+      "name": "XProtect",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1166,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node --max-old-space-size=3072 /private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Resources/app/extensions/node_modules/typescript/lib/tsserver.js --serverMode partialSemantic --useInferredProjectPerProjectRoot --disableAutomaticTypingAcquisition --cancellationPipeName /var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/vscode-typescript501/1e1b027a70926d2710b8/tscancellation-37f8993226201633de87.tmp* --locale en --noGetErrOnBackgroundUpdate --validateDefaultNpmLocation --useNodeIpc",
+      "memory": 117719040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 123,
+      "name": "opendirectoryd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1207,
+      "name": "mlhostd",
+      "cmd": "/usr/libexec/mlhostd",
+      "memory": 19808256,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 605,
+      "name": "financed",
+      "cmd": "/System/Library/Frameworks/FinanceKit.framework/financed",
+      "memory": 29474816,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 367,
+      "name": "ctkahp",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 2237,
+      "name": "OSDUIHelper",
+      "cmd": "/System/Library/CoreServices/OSDUIHelper.app/Contents/MacOS/OSDUIHelper",
+      "memory": 32997376,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 486,
+      "name": "InteractiveLegacyProfilesSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 4680,
+      "name": "proactiveeventtrackerd",
+      "cmd": "/usr/libexec/proactiveeventtrackerd",
+      "memory": 10567680,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1543,
+      "name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "memory": 419840000,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 535,
+      "name": "corekdld",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 854,
+      "name": "CursorUIViewService",
+      "cmd": "/System/Library/PrivateFrameworks/TextInputUIMacHelper.framework/Versions/A/XPCServices/CursorUIViewService.xpc/Contents/MacOS/CursorUIViewService",
+      "memory": 32227328,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 268,
+      "name": "PlugInLibraryService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 451,
+      "name": "mdbulkimport",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdbulkimport -s mdworker-bundle -c MDSImporterBundleFinder -m com.apple.metadata.mdbulkimport",
+      "memory": 35274752,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 578,
+      "name": "WiFiAgent",
+      "cmd": "/System/Library/CoreServices/WiFiAgent.app/Contents/MacOS/WiFiAgent",
+      "memory": 77791232,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 602,
+      "name": "ctkd",
+      "cmd": "/System/Library/Frameworks/CryptoTokenKit.framework/ctkd -tw",
+      "memory": 14286848,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1559,
+      "name": "assistant_service",
+      "cmd": "/System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/Support/assistant_service",
+      "memory": 76054528,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1567,
+      "name": "appleaccountd",
+      "cmd": "/usr/libexec/appleaccountd",
+      "memory": 23314432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1051,
+      "name": "installcoordinationd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 767,
+      "name": "diagnostics_agent",
+      "cmd": "/System/Library/CoreServices/diagnostics_agent",
+      "memory": 14565376,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2900,
+      "name": "netbiosd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 657,
+      "name": "BiomeAgent",
+      "cmd": "/System/Library/PrivateFrameworks/BiomeStreams.framework/Support/BiomeAgent",
+      "memory": 29884416,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 653,
+      "name": "Keychain Circle Notification",
+      "cmd": "/System/Library/CoreServices/Keychain Circle Notification.app/Contents/MacOS/Keychain Circle Notification",
+      "memory": 29966336,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1249,
+      "name": "StatusKitAgent",
+      "cmd": "/System/Library/PrivateFrameworks/StatusKit.framework/StatusKitAgent",
+      "memory": 44072960,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1763,
+      "name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "memory": 301662208,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 740,
+      "name": "fairplayd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 669,
+      "name": "rtcreportingd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1432,
+      "name": "betaenrollmentd",
+      "cmd": "/usr/libexec/betaenrollmentd",
+      "memory": 11108352,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 199,
+      "name": "apfsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 113,
+      "name": "iconservicesd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1035,
+      "name": "installd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 539,
+      "name": "seld",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 361,
+      "name": "coreauthd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 484,
+      "name": "SecuritySubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 708,
+      "name": "AudioComponentRegistrar",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar",
+      "memory": 15319040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 277,
+      "name": "containermanagerd_system",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 2569,
+      "name": "MTLCompilerService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 339,
+      "name": "symptomsd-diag",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 188,
+      "name": "mobileassetd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 323,
+      "name": "com.apple.MobileSoftwareUpdate.CleanupPreparePathService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 151,
+      "name": "cfprefsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1276,
+      "name": "com.apple.tonelibraryd",
+      "cmd": "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/XPCServices/com.apple.tonelibraryd.xpc/Contents/MacOS/com.apple.tonelibraryd",
+      "memory": 5619712,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 714,
+      "name": "CarbonComponentScannerXPC",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/CarbonComponentScannerXPC.xpc/Contents/MacOS/CarbonComponentScannerXPC",
+      "memory": 8880128,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 649,
+      "name": "com.apple.hiservices-xpcservice",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 346,
+      "name": "com.apple.AppleUserHIDDrivers",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 297,
+      "name": "trustd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 139,
+      "name": "logind",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 4210,
+      "name": "extensionkitservice",
+      "cmd": "/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice",
+      "memory": 9011200,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1913,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 749,
+      "name": "VisualizerService",
+      "cmd": "/System/Applications/Music.app/Contents/XPCServices/VisualizerService.xpc/Contents/MacOS/VisualizerService",
+      "memory": 28344320,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 398,
+      "name": "wifianalyticsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 88,
+      "name": "fseventsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 87,
+      "name": "uninstalld",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1608,
+      "name": "com.apple.accessibility.mediaaccessibilityd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 157,
+      "name": "logd_helper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 645,
+      "name": "fmfd",
+      "cmd": "/usr/libexec/fmfd",
+      "memory": 31145984,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 592,
+      "name": "sharedfilelistd",
+      "cmd": "/System/Library/CoreServices/sharedfilelistd",
+      "memory": 20054016,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 429,
+      "name": "cfprefsd",
+      "cmd": "/usr/sbin/cfprefsd agent",
+      "memory": 17170432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1262,
+      "name": "SidecarRelay",
+      "cmd": "/usr/libexec/SidecarRelay",
+      "memory": 11501568,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 628,
+      "name": "AppSSODaemon",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 364,
+      "name": "xpcroleaccountd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 2313,
+      "name": "intelligenceplatformd",
+      "cmd": "/System/Library/PrivateFrameworks/IntelligencePlatformCore.framework/Versions/A/intelligenceplatformd",
+      "memory": 29769728,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1190,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /Users/jermainebaker/.vscode/extensions/bradlc.vscode-tailwindcss-0.14.15/dist/tailwindServer.js --node-ipc --clientProcessId=1159",
+      "memory": 94027776,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1399,
+      "name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "memory": 19070976,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1136,
+      "name": "PlugInLibraryService",
+      "cmd": "/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService",
+      "memory": 3653632,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 321,
+      "name": "multipassd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 246,
+      "name": "hidd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1378,
+      "name": "WiFiCloudAssetsXPCService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 95,
+      "name": "configd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 630,
+      "name": "replayd",
+      "cmd": "/usr/libexec/replayd",
+      "memory": 66519040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 568,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 736,
+      "name": "com.apple.WebKit.GPU",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+      "memory": 377995264,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 360,
+      "name": "com.apple.AccountPolicyHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 266,
+      "name": "mDNSResponder",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 311,
+      "name": "securityd_system",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 542,
+      "name": "CoreServicesUIAgent",
+      "cmd": "/System/Library/CoreServices/CoreServicesUIAgent.app/Contents/MacOS/CoreServicesUIAgent",
+      "memory": 62930944,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1125,
+      "name": "SoftwareUpdateNotificationManager",
+      "cmd": "/System/Library/PrivateFrameworks/SoftwareUpdate.framework/Resources/SoftwareUpdateNotificationManager.app/Contents/MacOS/SoftwareUpdateNotificationManager",
+      "memory": 49430528,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1695,
+      "name": "logd_reporter",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 5120,
+      "name": "node",
+      "cmd": "node /Users/jermainebaker/EDR-platform/dashboard/node_modules/.bin/vite",
+      "memory": 191004672,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 200,
+      "name": "airportd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 170,
+      "name": "contextstored",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 850,
+      "name": "deleted_helper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 778,
+      "name": "TextInputSwitcher",
+      "cmd": "/System/Library/CoreServices/TextInputSwitcher.app/Contents/MacOS/TextInputSwitcher",
+      "memory": 31932416,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 710,
+      "name": "contentlinkingd",
+      "cmd": "/System/Library/PrivateFrameworks/Synapse.framework/Support/contentlinkingd",
+      "memory": 19234816,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 491,
+      "name": "PasscodeSettingsSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 2057,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 386,
+      "name": "ioupsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 576,
+      "name": "syncdefaultsd",
+      "cmd": "/System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd",
+      "memory": 28868608,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 686,
+      "name": "commerce",
+      "cmd": "/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerce",
+      "memory": 30375936,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 106,
+      "name": "softwareupdated",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 101,
+      "name": "amfid",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 457,
+      "name": "containermanagerd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 586,
+      "name": "NotificationCenter",
+      "cmd": "/System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter",
+      "memory": 104202240,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 572,
+      "name": "CoreLocationAgent",
+      "cmd": "/System/Library/CoreServices/CoreLocationAgent.app/Contents/MacOS/CoreLocationAgent",
+      "memory": 27656192,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 667,
+      "name": "AMPLibraryAgent",
+      "cmd": "/System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPLibraryAgent --launchd",
+      "memory": 71892992,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 722,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9879552,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1274,
+      "name": "MessagesActionExtension",
+      "cmd": "/System/Applications/Messages.app/Contents/Extensions/MessagesActionExtension.appex/Contents/MacOS/MessagesActionExtension",
+      "memory": 26886144,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1070,
+      "name": "KonaSynthesizer",
+      "cmd": "/System/Library/PrivateFrameworks/TextToSpeechKonaSupport.framework/Versions/A/PlugIns/KonaSynthesizer.appex/Contents/MacOS/KonaSynthesizer -AppleLanguages (\"en-US\")",
+      "memory": 16400384,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 381,
+      "name": "InternetSharing",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 5121,
+      "name": "esbuild",
+      "cmd": "/Users/jermainebaker/EDR-platform/dashboard/node_modules/@esbuild/darwin-arm64/bin/esbuild --service=0.25.2 --ping",
+      "memory": 74514432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 345,
+      "name": "com.apple.DriverKit-IOUserDockChannelSerial",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 433,
+      "name": "mdworker",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker -s mdworker-sizing -c MDSSizingWorker -m com.apple.mdworker.sizing",
+      "memory": 13008896,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 185,
+      "name": "nehelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 604,
+      "name": "ndoagent",
+      "cmd": "/System/Library/PrivateFrameworks/NewDeviceOutreach.framework/ndoagent",
+      "memory": 8208384,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 748,
+      "name": "spindump_agent",
+      "cmd": "/usr/libexec/spindump_agent",
+      "memory": 6127616,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 552,
+      "name": "Safari",
+      "cmd": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari",
+      "memory": 318504960,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 137,
+      "name": "PerfPowerServices",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 3812,
+      "name": "MTLCompilerService",
+      "cmd": "/System/Library/Frameworks/Metal.framework/Versions/A/XPCServices/MTLCompilerService.xpc/Contents/MacOS/MTLCompilerService",
+      "memory": 14483456,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 779,
+      "name": "PlugInLibraryService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 140,
+      "name": "revisiond",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 541,
+      "name": "knowledge-agent",
+      "cmd": "/usr/libexec/knowledge-agent",
+      "memory": 73580544,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1582,
+      "name": "tipsd",
+      "cmd": "/usr/libexec/tipsd",
+      "memory": 32669696,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1620,
+      "name": "reversetemplated",
+      "cmd": "/System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/reversetemplated",
+      "memory": 25378816,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1575,
+      "name": "newsd",
+      "cmd": "/System/Library/PrivateFrameworks/NewsDaemon.framework/newsd",
+      "memory": 37126144,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 149,
+      "name": "com.apple.cmio.registerassistantservice",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 608,
+      "name": "nearbyd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 721,
+      "name": "com.apple.WebKit.Networking",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking",
+      "memory": 203849728,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1009,
+      "name": "ReportCrash",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1343,
+      "name": "mdwrite",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdwrite",
+      "memory": 11436032,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1710,
+      "name": "VTDecoderXPCService",
+      "cmd": "/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService",
+      "memory": 15532032,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1697,
+      "name": "avatarsd",
+      "cmd": "/System/Library/PrivateFrameworks/AvatarPersistence.framework/Support/avatarsd",
+      "memory": 28131328,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1086,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 8978432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 223,
+      "name": "AudioComponentRegistrar",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 328,
+      "name": "colorsyncd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 234,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 569,
+      "name": "ContextStoreAgent",
+      "cmd": "/System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/ContextStoreAgent",
+      "memory": 35602432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1531,
+      "name": "biomesyncd",
+      "cmd": "/usr/libexec/biomesyncd",
+      "memory": 37863424,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 4155,
+      "name": "remindd",
+      "cmd": "/usr/libexec/remindd",
+      "memory": 43581440,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 752,
+      "name": "proactived",
+      "cmd": "/usr/libexec/proactived",
+      "memory": 25362432,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 5025,
+      "name": "com.apple.WebKit.WebContent",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "memory": 87556096,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 97,
+      "name": "powerd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 606,
+      "name": "diagnosticextensionsd",
+      "cmd": "/usr/libexec/diagnosticextensionsd",
+      "memory": 17891328,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1144,
+      "name": "Code Helper (Renderer)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) --type=renderer --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --app-path=/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Resources/app --enable-sandbox --enable-blink-features=HighlightAPI --first-renderer-process --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1744918696617978 --launch-time-ticks=322454177 --shared-files --field-trial-handle=1718379636,r,10335706383250496247,10207812422290232437,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --vscode-window-config=vscode:7f78a860-6118-44df-b785-6aee90a96887 --seatbelt-client=57",
+      "memory": 617889792,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 115,
+      "name": "diskarbitrationd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 142,
+      "name": "usermanagerd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 288,
+      "name": "syspolicyd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1045,
+      "name": "IntelligencePlatformComputeService",
+      "cmd": "/System/Library/PrivateFrameworks/IntelligencePlatformCompute.framework/Versions/A/XPCServices/IntelligencePlatformComputeService.xpc/Contents/MacOS/IntelligencePlatformComputeService",
+      "memory": 38289408,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 992,
+      "name": "XprotectService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 320,
+      "name": "com.windscribe.helper.macos",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1271,
+      "name": "MailShortcutsExtension",
+      "cmd": "/System/Applications/Mail.app/Contents/Extensions/MailShortcutsExtension.appex/Contents/MacOS/MailShortcutsExtension",
+      "memory": 23330816,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1069,
+      "name": "MauiAUSP",
+      "cmd": "/System/Library/PrivateFrameworks/TextToSpeechMauiSupport.framework/Versions/A/PlugIns/MauiAUSP.appex/Contents/MacOS/MauiAUSP -AppleLanguages (\"en-US\")",
+      "memory": 25313280,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 154,
+      "name": "aslmanager",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 145,
+      "name": "notifyd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 98,
+      "name": "IOMFB_bics_daemon",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 811,
+      "name": "deleted",
+      "cmd": "/System/Library/PrivateFrameworks/CacheDelete.framework/deleted",
+      "memory": 41959424,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 492,
+      "name": "AccountSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 664,
+      "name": "com.apple.quicklook.ThumbnailsAgent",
+      "cmd": "/System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent",
+      "memory": 30965760,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 189,
+      "name": "tzd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 5155,
+      "name": "zsh",
+      "cmd": "/bin/zsh -il",
+      "memory": 4521984,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1605,
+      "name": "com.apple.hiservices-xpcservice",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1541,
+      "name": "searchpartyuseragent",
+      "cmd": "/usr/libexec/searchpartyuseragent",
+      "memory": 151126016,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 745,
+      "name": "spindump",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 342,
+      "name": "bootinstalld",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 636,
+      "name": "intelligentroutingd",
+      "cmd": "/usr/libexec/intelligentroutingd",
+      "memory": 26263552,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 138,
+      "name": "dirhelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 655,
+      "name": "WiFiVelocityAgent",
+      "cmd": "/usr/libexec/WiFiVelocityAgent",
+      "memory": 10371072,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1,
+      "name": "launchd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1071,
+      "name": "WardaSynthesizer_arm64",
+      "cmd": "/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_arm64.appex/Contents/MacOS/WardaSynthesizer_arm64 -AppleLanguages (\"en-US\")",
+      "memory": 19349504,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 310,
+      "name": "UVCAssistant",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 726,
+      "name": "passd",
+      "cmd": "/System/Library/PrivateFrameworks/PassKitCore.framework/passd",
+      "memory": 38535168,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 690,
+      "name": "extensionkitservice",
+      "cmd": "/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice",
+      "memory": 14909440,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 750,
+      "name": "VisualizerService_x86",
+      "cmd": "/System/Applications/Music.app/Contents/XPCServices/VisualizerService_x86.xpc/Contents/MacOS/VisualizerService_x86",
+      "memory": 14540800,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 648,
+      "name": "cdpd",
+      "cmd": "/System/Library/PrivateFrameworks/CoreCDP.framework/Versions/A/Resources/cdpd",
+      "memory": 16973824,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 255,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 6863,
+      "name": "mdworker_shared",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared",
+      "memory": 23707648,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 289,
+      "name": "com.apple.geod",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1075,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9207808,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 723,
+      "name": "PasswordBreachAgent",
+      "cmd": "/System/Cryptexes/App/usr/libexec/PasswordBreachAgent",
+      "memory": 18268160,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 119,
+      "name": "syslogd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 4271,
+      "name": "rtadvd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 141,
+      "name": "KernelEventAgent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 2515,
+      "name": "XProtect",
+      "cmd": "/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/MacOS/XProtect",
+      "memory": 5865472,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 769,
+      "name": "TextInputMenuAgent",
+      "cmd": "/System/Library/CoreServices/TextInputMenuAgent.app/Contents/MacOS/TextInputMenuAgent",
+      "memory": 41713664,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 483,
+      "name": "remotemanagementd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 593,
+      "name": "ManagedSettingsAgent",
+      "cmd": "/System/Library/Frameworks/ManagedSettings.framework/Versions/A/ManagedSettingsAgent",
+      "memory": 11517952,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2540,
+      "name": "VTDecoderXPCService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 680,
+      "name": "AssetCacheTetheratorService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1138,
+      "name": "online-auth-agent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1117,
+      "name": "lockdownmoded",
+      "cmd": "/System/Library/PrivateFrameworks/LockdownMode.framework/Versions/A/XPCServices/lockdownmoded",
+      "memory": 18317312,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 757,
+      "name": "Multipass",
+      "cmd": "multipass.gui --autostarting",
+      "memory": 71139328,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 282,
+      "name": "authd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1258,
+      "name": "avconferenced",
+      "cmd": "/usr/libexec/avconferenced",
+      "memory": 32538624,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 635,
+      "name": "akd",
+      "cmd": "/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd",
+      "memory": 47988736,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 575,
+      "name": "accountsd",
+      "cmd": "/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd",
+      "memory": 95010816,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 278,
+      "name": "mDNSResponderHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1266,
+      "name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "memory": 23920640,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 651,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 3958,
+      "name": "com.apple.WebKit.WebContent",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "memory": 1451294720,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 396,
+      "name": "akd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1140,
+      "name": "chrome_crashpad_handler",
+      "cmd": "/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Electron Framework.framework/Helpers/chrome_crashpad_handler --no-rate-limit --monitor-self-annotation=ptype=crashpad-handler --database=/Users/jermainebaker/Library/Application Support/Code/Crashpad --url=appcenter://code?aid=de75e3cc-e22f-4f42-a03f-1409c21d8af8&uid=6fffc116-8ade-47a5-a943-1a243e5e9bec&iid=6fffc116-8ade-47a5-a943-1a243e5e9bec&sid=6fffc116-8ade-47a5-a943-1a243e5e9bec --annotation=IsOfficialBuild=1 --annotation=_companyName=Microsoft --annotation=_productName=VSCode --annotation=_version=1.79.2 --annotation=exe=Electron --annotation=plat=OS X --annotation=prod=Electron --annotation=ver=22.5.7 --handshake-fd=27",
+      "memory": 7127040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 689,
+      "name": "SafariBookmarksSyncAgent",
+      "cmd": "/System/Cryptexes/App/System/Library/CoreServices/SafariSupport.bundle/Contents/MacOS/SafariBookmarksSyncAgent",
+      "memory": 42237952,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 363,
+      "name": "com.apple.MobileSoftwareUpdate.UpdateBrainService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 718,
+      "name": "osanalyticshelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 746,
+      "name": "NewsToday2",
+      "cmd": "/System/Applications/News.app/Contents/PlugIns/NewsToday2.appex/Contents/MacOS/NewsToday2 -AppleLanguages (\"en-US\")",
+      "memory": 115097600,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 788,
+      "name": "AppleSpell",
+      "cmd": "/System/Library/Services/AppleSpell.service/Contents/MacOS/AppleSpell",
+      "memory": 239124480,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 672,
+      "name": "CallHistoryPluginHelper",
+      "cmd": "/System/Library/PrivateFrameworks/CallHistory.framework/Support/CallHistoryPluginHelper",
+      "memory": 27492352,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 666,
+      "name": "AssetCacheLocatorService",
+      "cmd": "/System/Library/PrivateFrameworks/AssetCacheServices.framework/Versions/A/XPCServices/AssetCacheLocatorService.xpc/Contents/MacOS/AssetCacheLocatorService -a",
+      "memory": 17858560,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 494,
+      "name": "ManagementTestSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 147,
+      "name": "corebrightnessd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 776,
+      "name": "Parallels Toolbox",
+      "cmd": "/Applications/Parallels Toolbox.app/Contents/MacOS/Parallels Toolbox",
+      "memory": 86147072,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 724,
+      "name": "dataaccessd",
+      "cmd": "/System/Library/PrivateFrameworks/DataAccess.framework/Support/dataaccessd",
+      "memory": 34095104,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 732,
+      "name": "com.apple.Safari.SandboxBroker",
+      "cmd": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.SandboxBroker.xpc/Contents/MacOS/com.apple.Safari.SandboxBroker",
+      "memory": 38715392,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 685,
+      "name": "ReportCrash",
+      "cmd": "/System/Library/CoreServices/ReportCrash agent",
+      "memory": 32374784,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 623,
+      "name": "sharingd",
+      "cmd": "/usr/libexec/sharingd",
+      "memory": 57229312,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 362,
+      "name": "BTLEServer",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 315,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 291,
+      "name": "secinitd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 650,
+      "name": "com.apple.geod",
+      "cmd": "/System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod",
+      "memory": 36405248,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 353,
+      "name": "wifip2pd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 3498,
+      "name": "com.apple.WebKit.WebContent",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "memory": 1322844160,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 558,
+      "name": "usernoted",
+      "cmd": "/usr/sbin/usernoted",
+      "memory": 32800768,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1130,
+      "name": "ASPCarryLog",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 573,
+      "name": "donotdisturbd",
+      "cmd": "/System/Library/PrivateFrameworks/DoNotDisturbServer.framework/Support/donotdisturbd",
+      "memory": 36470784,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 493,
+      "name": "SoftwareUpdateSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 150,
+      "name": "WindowServer",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1143,
+      "name": "Code Helper",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=network --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,10335706383250496247,10207812422290232437,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --seatbelt-client=39",
+      "memory": 38764544,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1534,
+      "name": "captiveagent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1082,
+      "name": "voicebankingd",
+      "cmd": "/System/Library/PrivateFrameworks/TextToSpeechVoiceBankingSupport.framework/Support/voicebankingd",
+      "memory": 21037056,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 337,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 211,
+      "name": "coreaudiod",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1168,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Resources/app/extensions/node_modules/typescript/lib/typingsInstaller.js --globalTypingsCacheLocation /Users/jermainebaker/Library/Caches/typescript/5.1 --enableTelemetry --typesMapLocation /private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Resources/app/extensions/node_modules/typescript/lib/typesMap.json --validateDefaultNpmLocation",
+      "memory": 65339392,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 295,
+      "name": "ZhuGeService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 555,
+      "name": "Music",
+      "cmd": "/System/Applications/Music.app/Contents/MacOS/Music",
+      "memory": 359874560,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1078,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9289728,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 727,
+      "name": "corespeechd",
+      "cmd": "/System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd",
+      "memory": 25559040,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 683,
+      "name": "com.apple.Safari.History",
+      "cmd": "/System/Cryptexes/App/usr/libexec/com.apple.Safari.History",
+      "memory": 39370752,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 316,
+      "name": "mobileactivationd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 216,
+      "name": "symptomsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1047,
+      "name": "progressd",
+      "cmd": "/System/Library/Frameworks/ClassKit.framework/Versions/A/progressd",
+      "memory": 19709952,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 580,
+      "name": "studentd",
+      "cmd": "/usr/libexec/studentd",
+      "memory": 45154304,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 662,
+      "name": "Spotlight",
+      "cmd": "/System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight",
+      "memory": 219938816,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1556,
+      "name": "weatherd",
+      "cmd": "/System/Library/PrivateFrameworks/WeatherDaemon.framework/weatherd",
+      "memory": 24461312,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1694,
+      "name": "griddatad",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1766,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9207808,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2117,
+      "name": "LinkedNotesUIService",
+      "cmd": "/System/Library/PrivateFrameworks/PaperKit.framework/Contents/LinkedNotesUIService.app/Contents/MacOS/LinkedNotesUIService",
+      "memory": 31850496,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 610,
+      "name": "calaccessd",
+      "cmd": "/System/Library/PrivateFrameworks/CalendarDaemon.framework/Support/calaccessd",
+      "memory": 47104000,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 411,
+      "name": "distnoted",
+      "cmd": "/usr/sbin/distnoted agent",
+      "memory": 11550720,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 263,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 794,
+      "name": "naturallanguaged",
+      "cmd": "/usr/libexec/naturallanguaged",
+      "memory": 52068352,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 693,
+      "name": "WeatherWidget",
+      "cmd": "/System/Applications/Weather.app/Contents/PlugIns/WeatherWidget.appex/Contents/MacOS/WeatherWidget",
+      "memory": 79839232,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 694,
+      "name": "CloudKeychainProxy",
+      "cmd": "/System/Library/Frameworks/Security.framework/Versions/A/Resources/CloudKeychainProxy.bundle/Contents/MacOS/CloudKeychainProxy",
+      "memory": 18202624,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 553,
+      "name": "CommCenter",
+      "cmd": "/System/Library/Frameworks/CoreTelephony.framework/Support/CommCenter -L",
+      "memory": 33947648,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 359,
+      "name": "com.apple.geod",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 112,
+      "name": "mds",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 561,
+      "name": "Notes",
+      "cmd": "/System/Applications/Notes.app/Contents/MacOS/Notes",
+      "memory": 168525824,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 579,
+      "name": "identityservicesd",
+      "cmd": "/System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd",
+      "memory": 97665024,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 534,
+      "name": "nesessionmanager",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 656,
+      "name": "seserviced",
+      "cmd": "/usr/libexec/seserviced",
+      "memory": 15433728,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 547,
+      "name": "WindowManager",
+      "cmd": "/System/Library/CoreServices/WindowManager.app/Contents/MacOS/WindowManager",
+      "memory": 48726016,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 765,
+      "name": "imagent",
+      "cmd": "/System/Library/PrivateFrameworks/IMCore.framework/imagent.app/Contents/MacOS/imagent",
+      "memory": 85934080,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 171,
+      "name": "backgroundtaskmanagementd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 787,
+      "name": "CSExattrCryptoService",
+      "cmd": "/System/Library/PrivateFrameworks/CSExattrCrypto.framework/Versions/A/XPCServices/CSExattrCryptoService.xpc/Contents/MacOS/CSExattrCryptoService",
+      "memory": 10551296,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1129,
+      "name": "backgroundassets.user",
+      "cmd": "/usr/libexec/backgroundassets.user",
+      "memory": 10797056,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 105,
+      "name": "keybagd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 699,
+      "name": "StocksWidget",
+      "cmd": "/System/Applications/Stocks.app/Contents/PlugIns/StocksWidget.appex/Contents/MacOS/StocksWidget",
+      "memory": 111427584,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 615,
+      "name": "extensionkitservice",
+      "cmd": "/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice",
+      "memory": 9502720,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 128,
+      "name": "securityd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1765,
+      "name": "audiomxd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 336,
+      "name": "oahd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 661,
+      "name": "com.apple.dock.extra",
+      "cmd": "/System/Library/CoreServices/Dock.app/Contents/XPCServices/com.apple.dock.extra.xpc/Contents/MacOS/com.apple.dock.extra",
+      "memory": 67387392,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 538,
+      "name": "gamecontrollerd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 454,
+      "name": "trustd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 760,
+      "name": "ollama",
+      "cmd": "/opt/homebrew/opt/ollama/bin/ollama serve",
+      "memory": 33800192,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1692,
+      "name": "metrickitd",
+      "cmd": "/usr/libexec/metrickitd",
+      "memory": 8568832,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 601,
+      "name": "transparencyd",
+      "cmd": "/usr/libexec/transparencyd",
+      "memory": 42434560,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1039,
+      "name": "storedownloadd",
+      "cmd": "/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storedownloadd",
+      "memory": 15597568,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 495,
+      "name": "ManagedConfigurationFilesSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 293,
+      "name": "com.apple.CodeSigningHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 629,
+      "name": "followupd",
+      "cmd": "/System/Library/PrivateFrameworks/CoreFollowUp.framework/Versions/A/Support/followupd",
+      "memory": 12025856,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 92,
+      "name": "systemstats",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 751,
+      "name": "peopled",
+      "cmd": "/System/Library/PrivateFrameworks/People.framework/peopled",
+      "memory": 34930688,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 741,
+      "name": "XProtectBridgeService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 127,
+      "name": "usbmuxd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1141,
+      "name": "Code Helper (GPU)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (GPU).app/Contents/MacOS/Code Helper (GPU) --type=gpu-process --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --gpu-preferences=UAAAAAAAAAAgAAAIAAAAAAAAAAAAAAAAAABgAAAAAAAwAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAACgFAAAAAAAAKAUAAAAAAAC4AQAANgAAALABAAAAAAAAuAEAAAAAAADAAQAAAAAAAMgBAAAAAAAA0AEAAAAAAADYAQAAAAAAAOABAAAAAAAA6AEAAAAAAADwAQAAAAAAAPgBAAAAAAAAAAIAAAAAAAAIAgAAAAAAABACAAAAAAAAGAIAAAAAAAAgAgAAAAAAACgCAAAAAAAAMAIAAAAAAAA4AgAAAAAAAEACAAAAAAAASAIAAAAAAABQAgAAAAAAAFgCAAAAAAAAYAIAAAAAAABoAgAAAAAAAHACAAAAAAAAeAIAAAAAAACAAgAAAAAAAIgCAAAAAAAAkAIAAAAAAACYAgAAAAAAAKACAAAAAAAAqAIAAAAAAACwAgAAAAAAALgCAAAAAAAAwAIAAAAAAADIAgAAAAAAANACAAAAAAAA2AIAAAAAAADgAgAAAAAAAOgCAAAAAAAA8AIAAAAAAAD4AgAAAAAAAAADAAAAAAAACAMAAAAAAAAQAwAAAAAAABgDAAAAAAAAIAMAAAAAAAAoAwAAAAAAADADAAAAAAAAOAMAAAAAAABAAwAAAAAAAEgDAAAAAAAAUAMAAAAAAABYAwAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAGAAAAEAAAAAAAAAAAAAAABwAAABAAAAAAAAAAAAAAAAgAAAAQAAAAAAAAAAAAAAAJAAAAEAAAAAAAAAAAAAAACwAAABAAAAAAAAAAAAAAAAwAAAAQAAAAAAAAAAAAAAAOAAAAEAAAAAAAAAAAAAAADwAAABAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAEAAAAGAAAAEAAAAAAAAAABAAAABwAAABAAAAAAAAAAAQAAAAgAAAAQAAAAAAAAAAEAAAAJAAAAEAAAAAAAAAABAAAACwAAABAAAAAAAAAAAQAAAAwAAAAQAAAAAAAAAAEAAAAOAAAAEAAAAAAAAAABAAAADwAAABAAAAAAAAAABAAAAAAAAAAQAAAAAAAAAAQAAAAGAAAAEAAAAAAAAAAEAAAABwAAABAAAAAAAAAABAAAAAgAAAAQAAAAAAAAAAQAAAAJAAAAEAAAAAAAAAAEAAAACwAAABAAAAAAAAAABAAAAAwAAAAQAAAAAAAAAAQAAAAOAAAAEAAAAAAAAAAEAAAADwAAABAAAAAAAAAABwAAAAAAAAAQAAAAAAAAAAcAAAAGAAAAEAAAAAAAAAAHAAAABwAAABAAAAAAAAAABwAAAAgAAAAQAAAAAAAAAAcAAAAJAAAAEAAAAAAAAAAHAAAACwAAABAAAAAAAAAABwAAAAwAAAAQAAAAAAAAAAcAAAAOAAAAEAAAAAAAAAAHAAAADwAAABAAAAAAAAAACAAAAAAAAAAQAAAAAAAAAAgAAAAGAAAAEAAAAAAAAAAIAAAABwAAABAAAAAAAAAACAAAAAgAAAAQAAAAAAAAAAgAAAAJAAAAEAAAAAAAAAAIAAAACwAAABAAAAAAAAAACAAAAAwAAAAQAAAAAAAAAAgAAAAOAAAAEAAAAAAAAAAIAAAADwAAABAAAAAAAAAACgAAAAAAAAAQAAAAAAAAAAoAAAAGAAAAEAAAAAAAAAAKAAAABwAAABAAAAAAAAAACgAAAAgAAAAQAAAAAAAAAAoAAAAJAAAAEAAAAAAAAAAKAAAACwAAABAAAAAAAAAACgAAAAwAAAAQAAAAAAAAAAoAAAAOAAAAEAAAAAAAAAAKAAAADwAAAAgAAAAAAAAACAAAAAAAAAA= --shared-files --field-trial-handle=1718379636,r,10335706383250496247,10207812422290232437,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --seatbelt-client=39",
+      "memory": 120930304,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 707,
+      "name": "photolibraryd",
+      "cmd": "/System/Library/PrivateFrameworks/PhotoLibraryServices.framework/Versions/A/Support/photolibraryd",
+      "memory": 184320000,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1273,
+      "name": "SafariLinkExtension",
+      "cmd": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Extensions/SafariLinkExtension.appex/Contents/MacOS/SafariLinkExtension",
+      "memory": 19251200,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 658,
+      "name": "wifivelocityd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1209,
+      "name": "zsh",
+      "cmd": "/bin/zsh -il",
+      "memory": 4505600,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1564,
+      "name": "storeaccountd",
+      "cmd": "/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd",
+      "memory": 18317312,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 702,
+      "name": "networkserviceproxy",
+      "cmd": "/usr/libexec/networkserviceproxy",
+      "memory": 36290560,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 743,
+      "name": "CalendarWidgetExtension",
+      "cmd": "/System/Applications/Calendar.app/Contents/PlugIns/CalendarWidgetExtension.appex/Contents/MacOS/CalendarWidgetExtension",
+      "memory": 52887552,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1050,
+      "name": "cloudphotod",
+      "cmd": "cloudphotod",
+      "memory": 35323904,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 455,
+      "name": "containermanagerd",
+      "cmd": "/usr/libexec/containermanagerd --runmode=agent --user-container-mode=current --bundle-container-mode=proxy --system-container-mode=none",
+      "memory": 19136512,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 5128,
+      "name": "com.apple.WebKit.WebContent",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "memory": 604815360,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1081,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9158656,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1617,
+      "name": "com.apple.WebKit.WebContent",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "memory": 1887551488,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2464,
+      "name": "iconservicesagent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 546,
+      "name": "cloudd",
+      "cmd": "/System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd",
+      "memory": 64684032,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 356,
+      "name": "systemstats",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 184,
+      "name": "cryptexd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1036,
+      "name": "geodMachServiceBridge",
+      "cmd": "/System/Library/PrivateFrameworks/GeoServices.framework/geodMachServiceBridge",
+      "memory": 10780672,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 738,
+      "name": "keychainsharingmessagingd",
+      "cmd": "/usr/libexec/keychainsharingmessagingd",
+      "memory": 17973248,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 84,
+      "name": "smd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 136,
+      "name": "AppleCredentialManagerDaemon",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 774,
+      "name": "ctkahp",
+      "cmd": "/System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp",
+      "memory": 10371072,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1606,
+      "name": "cfprefsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 703,
+      "name": "itunescloudd",
+      "cmd": "/System/Library/PrivateFrameworks/iTunesCloud.framework/Support/itunescloudd",
+      "memory": 35225600,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 660,
+      "name": "triald",
+      "cmd": "/usr/libexec/triald",
+      "memory": 28147712,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 659,
+      "name": "useractivityd",
+      "cmd": "/System/Library/PrivateFrameworks/UserActivity.framework/Agents/useractivityd",
+      "memory": 16973824,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 168,
+      "name": "coreservicesd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 122,
+      "name": "thermalmonitord",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 734,
+      "name": "webpushd",
+      "cmd": "/System/Cryptexes/App/usr/libexec/webpushd --machServiceName com.apple.webkit.webpushd.service",
+      "memory": 14467072,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 341,
+      "name": "sysmond",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 599,
+      "name": "imklaunchagent",
+      "cmd": "/System/Library/Frameworks/InputMethodKit.framework/Resources/imklaunchagent",
+      "memory": 14254080,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 327,
+      "name": "softwareupdated",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 780,
+      "name": "IMDPersistenceAgent",
+      "cmd": "/System/Library/PrivateFrameworks/IMDPersistence.framework/XPCServices/IMDPersistenceAgent.xpc/Contents/MacOS/IMDPersistenceAgent",
+      "memory": 255246336,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 222,
+      "name": "csnameddatad",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1162,
+      "name": "Code Helper",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,10335706383250496247,10207812422290232437,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",
+      "memory": 63537152,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 768,
+      "name": "bluetoothuserd",
+      "cmd": "/usr/libexec/bluetoothuserd",
+      "memory": 21725184,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 588,
+      "name": "homed",
+      "cmd": "/System/Library/PrivateFrameworks/HomeKitDaemon.framework/Support/homed",
+      "memory": 74268672,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 304,
+      "name": "mds_stores",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1760,
+      "name": "MobileSMSSpotlightImporterCatalyst",
+      "cmd": "/System/Applications/Messages.app/Contents/PlugIns/MobileSMSSpotlightImporterCatalyst.appex/Contents/MacOS/MobileSMSSpotlightImporterCatalyst -AppleLanguages (\"en-US\")",
+      "memory": 31850496,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1769,
+      "name": "audioanalyticsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1616,
+      "name": "com.apple.Safari.SafeBrowsing.Service",
+      "cmd": "/System/Library/PrivateFrameworks/SafariSafeBrowsing.framework/com.apple.Safari.SafeBrowsing.Service",
+      "memory": 39124992,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 766,
+      "name": "audioaccessoryd",
+      "cmd": "/System/Library/CoreServices/audioaccessoryd",
+      "memory": 38240256,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 400,
+      "name": "com.apple.AmbientDisplayAgent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1270,
+      "name": "extensionkitservice",
+      "cmd": "/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice",
+      "memory": 9289728,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1261,
+      "name": "BTLEServerAgent",
+      "cmd": "/usr/sbin/BTLEServerAgent",
+      "memory": 9224192,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1696,
+      "name": "contactsdonationagent",
+      "cmd": "/System/Library/PrivateFrameworks/ContactsDonation.framework/Versions/A/Support/contactsdonationagent",
+      "memory": 32980992,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 5054,
+      "name": "zsh",
+      "cmd": "/bin/zsh -il",
+      "memory": 3342336,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 761,
+      "name": "askpermissiond",
+      "cmd": "/System/Library/PrivateFrameworks/AskPermission.framework/Versions/A/Resources/askpermissiond",
+      "memory": 19873792,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 665,
+      "name": "sirittsd",
+      "cmd": "/System/Library/PrivateFrameworks/SiriTTSService.framework/sirittsd",
+      "memory": 20054016,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 582,
+      "name": "awdd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 380,
+      "name": "qemu-system-aarch64",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 132,
+      "name": "autofsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 976,
+      "name": "MTLCompilerService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 303,
+      "name": "containermanagerd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 733,
+      "name": "com.apple.siri.embeddedspeech",
+      "cmd": "/System/Library/PrivateFrameworks/CoreEmbeddedSpeechRecognition.framework/Versions/A/XPCServices/com.apple.siri.embeddedspeech.xpc/Contents/MacOS/com.apple.siri.embeddedspeech",
+      "memory": 64372736,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 632,
+      "name": "sociallayerd",
+      "cmd": "/System/Library/PrivateFrameworks/SocialLayer.framework/sociallayerd.app/Contents/MacOS/sociallayerd",
+      "memory": 22691840,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 544,
+      "name": "universalaccessd",
+      "cmd": "/usr/sbin/universalaccessd launchd -s",
+      "memory": 30638080,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 697,
+      "name": "WorldClockWidget",
+      "cmd": "/System/Applications/Clock.app/Contents/PlugIns/WorldClockWidget.appex/Contents/MacOS/WorldClockWidget",
+      "memory": 69943296,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2932,
+      "name": "com.apple.siri.embeddedspeech",
+      "cmd": "/System/Library/PrivateFrameworks/CoreEmbeddedSpeechRecognition.framework/Versions/A/XPCServices/com.apple.siri.embeddedspeech.xpc/Contents/MacOS/com.apple.siri.embeddedspeech",
+      "memory": 68894720,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2908,
+      "name": "mlruntimed",
+      "cmd": "/usr/libexec/mlruntimed",
+      "memory": 18841600,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1160,
+      "name": "Code Helper",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --nolazy --inspect=null --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,10335706383250496247,10207812422290232437,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",
+      "memory": 77266944,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 706,
+      "name": "com.apple.accessibility.mediaaccessibilityd",
+      "cmd": "/System/Library/Frameworks/MediaAccessibility.framework/Versions/A/XPCServices/com.apple.accessibility.mediaaccessibilityd.xpc/Contents/MacOS/com.apple.accessibility.mediaaccessibilityd",
+      "memory": 8224768,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 366,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 159,
+      "name": "loginwindow",
+      "cmd": "/System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow console",
+      "memory": 93782016,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 118,
+      "name": "coreduetd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1277,
+      "name": "intents_helper",
+      "cmd": "/System/Library/Frameworks/Intents.framework/XPCServices/intents_helper.xpc/Contents/MacOS/intents_helper",
+      "memory": 39010304,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1098,
+      "name": "triald_system",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 135,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1583,
+      "name": "fairplaydeviceidentityd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 737,
+      "name": "SafariNotificationAgent",
+      "cmd": "/System/Cryptexes/App/usr/libexec/SafariNotificationAgent",
+      "memory": 22200320,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 335,
+      "name": "appleeventsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1693,
+      "name": "ospredictiond",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 85,
+      "name": "UserEventAgent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 317,
+      "name": "WirelessRadioManagerd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 283,
+      "name": "backupd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 126,
+      "name": "timed",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1570,
+      "name": "intents_helper",
+      "cmd": "/System/Library/Frameworks/Intents.framework/XPCServices/intents_helper.xpc/Contents/MacOS/intents_helper",
+      "memory": 13123584,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 5205,
+      "name": "com.apple.WebKit.WebContent",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "memory": 48627712,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 785,
+      "name": "QuickLookUIService",
+      "cmd": "/System/Library/Frameworks/QuickLookUI.framework/Versions/A/XPCServices/QuickLookUIService.xpc/Contents/MacOS/QuickLookUIService",
+      "memory": 30752768,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1557,
+      "name": "powerdatad",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1278,
+      "name": "writeconfig",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 596,
+      "name": "filecoordinationd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 621,
+      "name": "WallpaperVideoExtension",
+      "cmd": "/System/Library/ExtensionKit/Extensions/WallpaperVideoExtension.appex/Contents/MacOS/WallpaperVideoExtension",
+      "memory": 71467008,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 784,
+      "name": "XProtectPluginService",
+      "cmd": "/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService",
+      "memory": 11812864,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1159,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --inspect-port=0 --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,10335706383250496247,10207812422290232437,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",
+      "memory": 556793856,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 324,
+      "name": "colorsync.displayservices",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 6866,
+      "name": "mdworker_shared",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared",
+      "memory": 23068672,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1257,
+      "name": "mediaremoteagent",
+      "cmd": "/System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoteagent",
+      "memory": 9125888,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 577,
+      "name": "colorsync.useragent",
+      "cmd": "/System/Library/Frameworks/ColorSync.framework/Support/colorsync.useragent",
+      "memory": 8470528,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1037,
+      "name": "cloudd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1553,
+      "name": "adprivacyd",
+      "cmd": "/usr/libexec/adprivacyd",
+      "memory": 22183936,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 453,
+      "name": "pkd",
+      "cmd": "/usr/libexec/pkd",
+      "memory": 22626304,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1259,
+      "name": "PlugInLibraryService",
+      "cmd": "/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService",
+      "memory": 3899392,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 261,
+      "name": "trustdFileHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 164,
+      "name": "lsd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 677,
+      "name": "localizationswitcherd",
+      "cmd": "/System/Library/PrivateFrameworks/IntlPreferences.framework/Support/localizationswitcherd",
+      "memory": 13123584,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 358,
+      "name": "nfcd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1016,
+      "name": "photoanalysisd",
+      "cmd": "/System/Library/PrivateFrameworks/PhotoAnalysis.framework/Versions/A/Support/photoanalysisd",
+      "memory": 210042880,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 626,
+      "name": "assistantd",
+      "cmd": "/System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/Support/assistantd",
+      "memory": 72187904,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 462,
+      "name": "trustd",
+      "cmd": "/usr/libexec/trustd --agent",
+      "memory": 29802496,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 99,
+      "name": "biomed",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 96,
+      "name": "endpointsecurityd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1200,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /Users/jermainebaker/.vscode/extensions/ms-python.vscode-pylance-2024.2.4/dist/server.bundle.js --cancellationReceive=file:7036ef608e72eea2cba8b4899b79411c5338193483 --node-ipc --clientProcessId=1159",
+      "memory": 262275072,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 371,
+      "name": "ctkd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 551,
+      "name": "distnoted",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 2247,
+      "name": "com.apple.WebKit.WebContent",
+      "cmd": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "memory": 61423616,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 695,
+      "name": "QuickLookSatellite",
+      "cmd": "/System/Library/Frameworks/QuickLook.framework/Versions/A/XPCServices/QuickLookSatellite.xpc/Contents/MacOS/QuickLookSatellite",
+      "memory": 158285824,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 4211,
+      "name": "RepackagingWorker",
+      "cmd": "/System/Library/ExtensionKit/Extensions/RepackagingWorker.appex/Contents/MacOS/RepackagingWorker",
+      "memory": 11141120,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1265,
+      "name": "findmylocateagent",
+      "cmd": "/usr/libexec/findmylocateagent",
+      "memory": 26312704,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 2016,
+      "name": "com.apple.ColorSyncXPCAgent",
+      "cmd": "/System/Library/Frameworks/ColorSync.framework/Versions/A/XPCServices/com.apple.ColorSyncXPCAgent.xpc/Contents/MacOS/com.apple.ColorSyncXPCAgent",
+      "memory": 4734976,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 638,
+      "name": "VTDecoderXPCService",
+      "cmd": "/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService",
+      "memory": 27181056,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 584,
+      "name": "fileproviderd",
+      "cmd": "/System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd",
+      "memory": 53297152,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 430,
+      "name": "lsd",
+      "cmd": "/usr/libexec/lsd",
+      "memory": 33308672,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 144,
+      "name": "bluetoothd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 3249,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Resources/app/extensions/json-language-features/server/dist/node/jsonServerMain --node-ipc --clientProcessId=1159",
+      "memory": 57212928,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 6858,
+      "name": "agent-core",
+      "cmd": "target/release/agent-core",
+      "memory": 34226176,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 713,
+      "name": "webprivacyd",
+      "cmd": "/System/Library/PrivateFrameworks/WebPrivacy.framework/webprivacyd",
+      "memory": 15630336,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 644,
+      "name": "UIKitSystem",
+      "cmd": "/System/Library/CoreServices/UIKitSystem.app/Contents/MacOS/UIKitSystem system_app_start",
+      "memory": 36618240,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1972,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Resources/app/extensions/css-language-features/server/dist/node/cssServerMain --node-ipc --clientProcessId=1159",
+      "memory": 65142784,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 618,
+      "name": "AppSSOAgent",
+      "cmd": "/System/Library/PrivateFrameworks/AppSSO.framework/Support/AppSSOAgent.app/Contents/MacOS/AppSSOAgent",
+      "memory": 35307520,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 712,
+      "name": "amsaccountsd",
+      "cmd": "/System/Library/PrivateFrameworks/AppleMediaServices.framework/Resources/amsaccountsd",
+      "memory": 25051136,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 620,
+      "name": "AMPDeviceDiscoveryAgent",
+      "cmd": "/System/Library/PrivateFrameworks/AMPDevices.framework/Versions/A/Support/AMPDeviceDiscoveryAgent --launchd",
+      "memory": 15368192,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 267,
+      "name": "secinitd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 208,
+      "name": "biometrickitd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 399,
+      "name": "countryd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1761,
+      "name": "PlugInLibraryService",
+      "cmd": "/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService",
+      "memory": 4014080,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 6840,
+      "name": "Python",
+      "cmd": "/opt/homebrew/Cellar/python@3.13/3.13.3/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python -c from multiprocessing.resource_tracker import main;main(4)",
+      "memory": 14090240,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 574,
+      "name": "callservicesd",
+      "cmd": "/System/Library/PrivateFrameworks/TelephonyUtilities.framework/callservicesd",
+      "memory": 57081856,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 217,
+      "name": "systemstatusd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1167,
+      "name": "Code Helper (Plugin)",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node --max-old-space-size=3072 /private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Resources/app/extensions/node_modules/typescript/lib/tsserver.js --useInferredProjectPerProjectRoot --enableTelemetry --cancellationPipeName /var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/vscode-typescript501/1e1b027a70926d2710b8/tscancellation-72b8915989e402f7a591.tmp* --locale en --noGetErrOnBackgroundUpdate --validateDefaultNpmLocation --useNodeIpc",
+      "memory": 273252352,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 711,
+      "name": "swcd",
+      "cmd": "/usr/libexec/swcd",
+      "memory": 17547264,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 375,
+      "name": "backupd-helper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 230,
+      "name": "trustd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 616,
+      "name": "com.apple.ColorSyncXPCAgent",
+      "cmd": "/System/Library/Frameworks/ColorSync.framework/Versions/A/XPCServices/com.apple.ColorSyncXPCAgent.xpc/Contents/MacOS/com.apple.ColorSyncXPCAgent",
+      "memory": 4358144,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 496,
+      "name": "ASConfigurationSubscriber",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 406,
+      "name": "siriinferenced",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 684,
+      "name": "parsecd",
+      "cmd": "/System/Library/PrivateFrameworks/CoreParsec.framework/parsecd",
+      "memory": 35422208,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1263,
+      "name": "UniversalControl",
+      "cmd": "/System/Library/CoreServices/UniversalControl.app/Contents/MacOS/UniversalControl",
+      "memory": 32260096,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 720,
+      "name": "translationd",
+      "cmd": "/System/Library/PrivateFrameworks/Translation.framework/translationd",
+      "memory": 31309824,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 133,
+      "name": "dasd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 186,
+      "name": "nsurlsessiond",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 2452,
+      "name": "com.apple.BKAgentService",
+      "cmd": "/System/Library/PrivateFrameworks/BookKit.framework/Versions/A/XPCServices/com.apple.BKAgentService.xpc/Contents/MacOS/com.apple.BKAgentService",
+      "memory": 14581760,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 619,
+      "name": "coreauthd",
+      "cmd": "/System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd",
+      "memory": 16056320,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 148,
+      "name": "AirPlayXPCHelper",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1624,
+      "name": "homeenergyd",
+      "cmd": "/System/iOSSupport/System/Library/PrivateFrameworks/HomeEnergyDaemon.framework/Support/homeenergyd",
+      "memory": 28000256,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 567,
+      "name": "ScreenTimeAgent",
+      "cmd": "/System/Library/PrivateFrameworks/ScreenTimeCore.framework/Versions/A/ScreenTimeAgent",
+      "memory": 53100544,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 549,
+      "name": "pboard",
+      "cmd": "/usr/libexec/pboard",
+      "memory": 14516224,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1253,
+      "name": "recentsd",
+      "cmd": "/System/Library/PrivateFrameworks/CoreRecents.framework/Versions/A/Support/recentsd",
+      "memory": 17760256,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1161,
+      "name": "Code Helper",
+      "cmd": "/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/5916911E-6928-4F0B-8689-5AB8D85EACE5/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,10335706383250496247,10207812422290232437,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",
+      "memory": 105070592,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 560,
+      "name": "rapportd",
+      "cmd": "/usr/libexec/rapportd",
+      "memory": 39403520,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1599,
+      "name": "com.apple.NRD.UpdateBrainService",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 344,
+      "name": "suhelperd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1061,
+      "name": "MTLAssetUpgraderD",
+      "cmd": "/usr/libexec/MTLAssetUpgraderD",
+      "memory": 12140544,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 639,
+      "name": "chronod",
+      "cmd": "/System/Library/PrivateFrameworks/ChronoCore.framework/Support/chronod",
+      "memory": 83099648,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1764,
+      "name": "VTDecoderXPCService",
+      "cmd": "/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService",
+      "memory": 15843328,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 4261,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9060352,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1548,
+      "name": "com.apple.audio.SandboxHelper",
+      "cmd": "/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper",
+      "memory": 9043968,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 537,
+      "name": "UserEventAgent",
+      "cmd": "/usr/libexec/UserEventAgent (Aqua)",
+      "memory": 31899648,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 379,
+      "name": "systemsoundserverd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 715,
+      "name": "amsengagementd",
+      "cmd": "/System/Library/PrivateFrameworks/AppleMediaServicesUI.framework/amsengagementd",
+      "memory": 27099136,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1762,
+      "name": "com.apple.photos.ImageConversionService",
+      "cmd": "/System/Library/PrivateFrameworks/MediaConversionService.framework/Versions/A/XPCServices/com.apple.photos.ImageConversionService.xpc/Contents/MacOS/com.apple.photos.ImageConversionService",
+      "memory": 1067941888,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 407,
+      "name": "sshfs_server",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 709,
+      "name": "ContextService",
+      "cmd": "/System/Library/PrivateFrameworks/ContextKit.framework/Versions/A/XPCServices/ContextService.xpc/Contents/MacOS/ContextService",
+      "memory": 39583744,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 744,
+      "name": "AMPArtworkAgent",
+      "cmd": "/System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPArtworkAgent --launchd",
+      "memory": 21364736,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 612,
+      "name": "iconservicesagent",
+      "cmd": "/System/Library/CoreServices/iconservicesagent",
+      "memory": 43909120,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1208,
+      "name": "dprivacyd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 730,
+      "name": "SafariLaunchAgent",
+      "cmd": "/System/Cryptexes/App/usr/libexec/SafariLaunchAgent",
+      "memory": 22790144,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 583,
+      "name": "ControlCenter",
+      "cmd": "/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter",
+      "memory": 123781120,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 326,
+      "name": "com.apple.ColorSyncXPCAgent",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 404,
+      "name": "IOUserBluetoothSerialDriver",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 114,
+      "name": "kernelmanagerd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 1134,
+      "name": "ipcserver",
+      "cmd": "/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/ipcserver",
+      "memory": 4292608,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 566,
+      "name": "dmd",
+      "cmd": "/usr/libexec/dmd",
+      "memory": 20692992,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 704,
+      "name": "maild",
+      "cmd": "/System/Library/PrivateFrameworks/EmailDaemon.framework/Versions/A/maild",
+      "memory": 27901952,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 759,
+      "name": "icdd",
+      "cmd": "/System/Library/Image Capture/Support/icdd",
+      "memory": 12140544,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 215,
+      "name": "findmydeviced",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    },
+    {
+      "pid": 637,
+      "name": "neagent",
+      "cmd": "/usr/libexec/neagent",
+      "memory": 19595264,
+      "cpu_usage": 0.0,
+      "status": "Run"
+    },
+    {
+      "pid": 1435,
+      "name": "fbahelperd",
+      "cmd": "",
+      "memory": 0,
+      "cpu_usage": 0.0,
+      "status": "Unknown(0)"
+    }
+  ]
+}

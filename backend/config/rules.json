@@ -1,0 +1,28 @@
+[
+    {
+      "name": "High memory usage",
+      "match": {
+        "memory_gt": 500000
+      },
+      "exclude_name_contains": "chrome"
+    },
+    {
+      "name": "Suspicious network command",
+      "match": {
+        "cmd_contains": ["ncat", "curl", "wget"]
+      }
+    },
+    {
+      "name": "Zombie process",
+      "match": {
+        "status": "Zombie"
+      }
+    },
+    {
+      "name": "Encoded PowerShell execution",
+      "match": {
+        "cmd_contains": ["powershell", "-encodedcommand"]
+      }
+    }
+  ]
+  

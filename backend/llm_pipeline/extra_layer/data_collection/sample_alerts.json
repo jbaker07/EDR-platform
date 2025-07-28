@@ -1,0 +1,1302 @@
+[
+  {
+    "timestamp": 1745209906,
+    "hostname": "endpoint-2",
+    "pid": 8341,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 34,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745218763,
+    "hostname": "endpoint-2",
+    "pid": 8617,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 90,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745287560,
+    "hostname": "endpoint-5",
+    "pid": 6331,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 82,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745263263,
+    "hostname": "endpoint-1",
+    "pid": 3400,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 38,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745268274,
+    "hostname": "endpoint-2",
+    "pid": 3935,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 83,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745291082,
+    "hostname": "endpoint-5",
+    "pid": 3641,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 30,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745279065,
+    "hostname": "endpoint-4",
+    "pid": 3827,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 86,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745210389,
+    "hostname": "endpoint-4",
+    "pid": 9211,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 60,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745264039,
+    "hostname": "endpoint-5",
+    "pid": 5921,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 65,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745213736,
+    "hostname": "endpoint-2",
+    "pid": 2994,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 85,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745281353,
+    "hostname": "endpoint-3",
+    "pid": 5795,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 63,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745290727,
+    "hostname": "endpoint-4",
+    "pid": 9577,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 56,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745290645,
+    "hostname": "endpoint-2",
+    "pid": 8081,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 78,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745278146,
+    "hostname": "endpoint-5",
+    "pid": 5617,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 52,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745219858,
+    "hostname": "endpoint-3",
+    "pid": 5869,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 51,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745224762,
+    "hostname": "endpoint-5",
+    "pid": 2386,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 72,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745287536,
+    "hostname": "endpoint-4",
+    "pid": 5187,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 60,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745228509,
+    "hostname": "endpoint-3",
+    "pid": 7209,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 37,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745261991,
+    "hostname": "endpoint-1",
+    "pid": 3839,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 90,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745223548,
+    "hostname": "endpoint-4",
+    "pid": 6779,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 62,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745259490,
+    "hostname": "endpoint-5",
+    "pid": 5212,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 48,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745219551,
+    "hostname": "endpoint-3",
+    "pid": 7568,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 58,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745244650,
+    "hostname": "endpoint-1",
+    "pid": 7072,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 42,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745277902,
+    "hostname": "endpoint-1",
+    "pid": 9279,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 81,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745242670,
+    "hostname": "endpoint-3",
+    "pid": 7806,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 40,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745282396,
+    "hostname": "endpoint-1",
+    "pid": 1434,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 64,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745249607,
+    "hostname": "endpoint-4",
+    "pid": 8096,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 50,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745234167,
+    "hostname": "endpoint-3",
+    "pid": 1127,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 96,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745225100,
+    "hostname": "endpoint-2",
+    "pid": 9323,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 47,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745240261,
+    "hostname": "endpoint-5",
+    "pid": 4637,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 72,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745288129,
+    "hostname": "endpoint-4",
+    "pid": 5489,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 63,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745274634,
+    "hostname": "endpoint-4",
+    "pid": 9303,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 42,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745284407,
+    "hostname": "endpoint-1",
+    "pid": 1267,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 78,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745214356,
+    "hostname": "endpoint-1",
+    "pid": 3608,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 44,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745213568,
+    "hostname": "endpoint-5",
+    "pid": 7173,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 71,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745259898,
+    "hostname": "endpoint-1",
+    "pid": 7414,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 69,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745238133,
+    "hostname": "endpoint-2",
+    "pid": 9315,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 40,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745213380,
+    "hostname": "endpoint-4",
+    "pid": 3157,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 33,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745220512,
+    "hostname": "endpoint-3",
+    "pid": 3542,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 30,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745255835,
+    "hostname": "endpoint-4",
+    "pid": 6364,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 73,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745241146,
+    "hostname": "endpoint-3",
+    "pid": 8547,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 57,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745224363,
+    "hostname": "endpoint-5",
+    "pid": 1629,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 50,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745267018,
+    "hostname": "endpoint-2",
+    "pid": 2033,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 70,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745271804,
+    "hostname": "endpoint-5",
+    "pid": 1618,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 61,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745264612,
+    "hostname": "endpoint-2",
+    "pid": 6974,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 34,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745243351,
+    "hostname": "endpoint-3",
+    "pid": 2122,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 35,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745215008,
+    "hostname": "endpoint-2",
+    "pid": 4697,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 85,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745217778,
+    "hostname": "endpoint-1",
+    "pid": 8288,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 76,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745213925,
+    "hostname": "endpoint-1",
+    "pid": 3910,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 95,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745274630,
+    "hostname": "endpoint-4",
+    "pid": 5828,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 53,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745244732,
+    "hostname": "endpoint-5",
+    "pid": 5243,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 98,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745280105,
+    "hostname": "endpoint-3",
+    "pid": 9766,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 82,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745289601,
+    "hostname": "endpoint-4",
+    "pid": 5596,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 75,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745237343,
+    "hostname": "endpoint-3",
+    "pid": 1134,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 37,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745231357,
+    "hostname": "endpoint-1",
+    "pid": 1665,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 97,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745219501,
+    "hostname": "endpoint-3",
+    "pid": 6019,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 91,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745266282,
+    "hostname": "endpoint-2",
+    "pid": 7191,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 77,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745274814,
+    "hostname": "endpoint-5",
+    "pid": 4187,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 60,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745269947,
+    "hostname": "endpoint-3",
+    "pid": 5238,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 90,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745267702,
+    "hostname": "endpoint-1",
+    "pid": 5609,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 65,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745228310,
+    "hostname": "endpoint-2",
+    "pid": 6192,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 68,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745211720,
+    "hostname": "endpoint-1",
+    "pid": 4338,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 63,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745259570,
+    "hostname": "endpoint-5",
+    "pid": 5307,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 90,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745270840,
+    "hostname": "endpoint-5",
+    "pid": 2489,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 32,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745209174,
+    "hostname": "endpoint-3",
+    "pid": 6385,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 64,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745277152,
+    "hostname": "endpoint-5",
+    "pid": 4702,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 64,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745210039,
+    "hostname": "endpoint-3",
+    "pid": 8344,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 43,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745293523,
+    "hostname": "endpoint-1",
+    "pid": 3416,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 89,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745254694,
+    "hostname": "endpoint-3",
+    "pid": 5986,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 96,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745272293,
+    "hostname": "endpoint-2",
+    "pid": 1287,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 54,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745286290,
+    "hostname": "endpoint-4",
+    "pid": 9554,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 32,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745293931,
+    "hostname": "endpoint-3",
+    "pid": 8907,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 76,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745266997,
+    "hostname": "endpoint-2",
+    "pid": 8389,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 81,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745234126,
+    "hostname": "endpoint-4",
+    "pid": 4607,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 90,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745290696,
+    "hostname": "endpoint-4",
+    "pid": 3422,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 66,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745227084,
+    "hostname": "endpoint-5",
+    "pid": 5724,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 54,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745239323,
+    "hostname": "endpoint-2",
+    "pid": 3891,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 50,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745263112,
+    "hostname": "endpoint-2",
+    "pid": 4596,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 54,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745261665,
+    "hostname": "endpoint-5",
+    "pid": 1384,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 77,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745241222,
+    "hostname": "endpoint-4",
+    "pid": 7825,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 61,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745277242,
+    "hostname": "endpoint-2",
+    "pid": 6945,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 86,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745212222,
+    "hostname": "endpoint-1",
+    "pid": 9124,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 90,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745270587,
+    "hostname": "endpoint-1",
+    "pid": 6295,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 83,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745279071,
+    "hostname": "endpoint-5",
+    "pid": 7492,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 93,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745225150,
+    "hostname": "endpoint-1",
+    "pid": 5865,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 75,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745268153,
+    "hostname": "endpoint-1",
+    "pid": 4286,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 65,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745219568,
+    "hostname": "endpoint-4",
+    "pid": 2020,
+    "process_name": "powershell.exe",
+    "cmd": "powershell -nop -exec bypass",
+    "risk_score": 92,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745263839,
+    "hostname": "endpoint-1",
+    "pid": 8517,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 59,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745213380,
+    "hostname": "endpoint-2",
+    "pid": 1459,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 30,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745230801,
+    "hostname": "endpoint-2",
+    "pid": 4067,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 78,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745285829,
+    "hostname": "endpoint-1",
+    "pid": 7267,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 58,
+    "risk_level": "medium",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745218173,
+    "hostname": "endpoint-3",
+    "pid": 9193,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 38,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  },
+  {
+    "timestamp": 1745231747,
+    "hostname": "endpoint-1",
+    "pid": 4308,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 33,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745228116,
+    "hostname": "endpoint-4",
+    "pid": 4737,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 41,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745286701,
+    "hostname": "endpoint-3",
+    "pid": 6819,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 40,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1003",
+      "name": "Credential Dumping"
+    }
+  },
+  {
+    "timestamp": 1745283349,
+    "hostname": "endpoint-5",
+    "pid": 6565,
+    "process_name": "cmd.exe",
+    "cmd": "cmd /c whoami",
+    "risk_score": 87,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745217554,
+    "hostname": "endpoint-2",
+    "pid": 5255,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 97,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter"
+    }
+  },
+  {
+    "timestamp": 1745278446,
+    "hostname": "endpoint-4",
+    "pid": 1548,
+    "process_name": "lsass.exe",
+    "cmd": "dump_lsass.exe",
+    "risk_score": 83,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information"
+    }
+  },
+  {
+    "timestamp": 1745232072,
+    "hostname": "endpoint-1",
+    "pid": 2300,
+    "process_name": "explorer.exe",
+    "cmd": "explorer launchpad",
+    "risk_score": 50,
+    "risk_level": "low",
+    "mitre_technique": {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution"
+    }
+  },
+  {
+    "timestamp": 1745280555,
+    "hostname": "endpoint-4",
+    "pid": 4949,
+    "process_name": "regsvr32.exe",
+    "cmd": "regsvr32 /s malicious.dll",
+    "risk_score": 83,
+    "risk_level": "high",
+    "mitre_technique": {
+      "id": "T1086",
+      "name": "PowerShell"
+    }
+  }
+]

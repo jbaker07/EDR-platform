@@ -1,0 +1,5644 @@
+{
+  "tags": {
+    "macro_payload_exec": {
+      "mapped_fields": [
+        "process_name",
+        "parent_process",
+        "file_origin"
+      ],
+      "trust_reason": "Macro in document spawned a child process.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "script_obfuscation": {
+      "mapped_fields": [
+        "cmdline",
+        "file_entropy"
+      ],
+      "trust_reason": "Obfuscated script detected based on entropy and execution pattern.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "mshta_inline_script": {
+      "mapped_fields": [
+        "process_name",
+        "cmdline"
+      ],
+      "trust_reason": "mshta.exe used to execute inline script.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "signed_binary_proxy_exec": {
+      "mapped_fields": [
+        "process_name",
+        "child_process"
+      ],
+      "trust_reason": "Signed binary used to launch unauthorized child.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "lolbin_exec_detected": {
+      "mapped_fields": [
+        "process_name"
+      ],
+      "trust_reason": "Living-off-the-land binary execution detected.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "dns_tunneling": {
+      "mapped_fields": [
+        "dns_query_length",
+        "query_type"
+      ],
+      "trust_reason": "Excessive length or frequency of DNS queries indicating tunneling.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "domain_fronting": {
+      "mapped_fields": [
+        "sni_host",
+        "http_host"
+      ],
+      "trust_reason": "HTTP host differs from TLS SNI, possible domain fronting.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "slow_beacon": {
+      "mapped_fields": [
+        "beacon_interval",
+        "network_volume"
+      ],
+      "trust_reason": "Low-rate consistent outbound traffic, may indicate beacon.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "command_and_control",
+      "subcategory": "c2_beaconing"
+    },
+    "encrypted_payload_transfer": {
+      "mapped_fields": [
+        "file_entropy",
+        "file_type"
+      ],
+      "trust_reason": "Payload likely encrypted, possibly exfiltrated.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "exfil_over_http": {
+      "mapped_fields": [
+        "process_name",
+        "upload_volume"
+      ],
+      "trust_reason": "Detected large outbound data transfer over HTTP.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "registry_run_key_write": {
+      "mapped_fields": [
+        "registry_key_modified"
+      ],
+      "trust_reason": "Run key written to registry indicating persistence.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "task_scheduled_by_user": {
+      "mapped_fields": [
+        "process_name",
+        "user_context"
+      ],
+      "trust_reason": "Scheduled task created by user process.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "dll_hijack_attempt": {
+      "mapped_fields": [
+        "file_path",
+        "dll_loaded"
+      ],
+      "trust_reason": "DLL load from unexpected path suggesting hijack.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "autorun_registry_change": {
+      "mapped_fields": [
+        "registry_key_modified"
+      ],
+      "trust_reason": "Autorun registry modified.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "service_install_detected": {
+      "mapped_fields": [
+        "process_name",
+        "service_name"
+      ],
+      "trust_reason": "Service installed by user process.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "usb_autorun_exec": {
+      "mapped_fields": [
+        "file_origin",
+        "mount_source"
+      ],
+      "trust_reason": "Execution from USB autorun.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "archive_lure_detected": {
+      "mapped_fields": [
+        "file_type",
+        "file_origin"
+      ],
+      "trust_reason": "Suspicious file extracted from archive.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "usb_exfil_offhours": {
+      "mapped_fields": [
+        "usb_write_volume",
+        "login_hour"
+      ],
+      "trust_reason": "Large USB writes during off-hours.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "high_entropy_file": {
+      "mapped_fields": [
+        "file_entropy",
+        "file_size"
+      ],
+      "trust_reason": "High entropy file may indicate packing/encryption.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "fileless_exec_detected": {
+      "mapped_fields": [
+        "memory_allocation",
+        "exec_region"
+      ],
+      "trust_reason": "Executable code ran directly from memory.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "fileless"
+    },
+    "iam_role_overuse": {
+      "mapped_fields": [
+        "cloud_identity",
+        "role_assumptions"
+      ],
+      "trust_reason": "IAM role assumed unusually often.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_key_pivot": {
+      "mapped_fields": [
+        "access_key_id",
+        "api_usage"
+      ],
+      "trust_reason": "Key used to enumerate or move laterally.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "external_cloud_login": {
+      "mapped_fields": [
+        "geo_location",
+        "cloud_login_event"
+      ],
+      "trust_reason": "Unusual cloud login pattern.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_secret_access": {
+      "mapped_fields": [
+        "cloud_identity",
+        "resource_access"
+      ],
+      "trust_reason": "Access to secrets store or config bucket.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_admin_tool_exec": {
+      "mapped_fields": [
+        "tool_used",
+        "user_role"
+      ],
+      "trust_reason": "Execution of cloud admin tool by unprivileged role.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "offhours_usb_write": {
+      "mapped_fields": [
+        "write_time",
+        "usb_volume"
+      ],
+      "trust_reason": "USB writes outside normal hours.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "internal_enum_burst": {
+      "mapped_fields": [
+        "network_connection",
+        "scan_behavior"
+      ],
+      "trust_reason": "Rapid internal IP enumeration.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "reconnaissance",
+      "subcategory": "network_probe"
+    },
+    "employee_privilege_creep": {
+      "mapped_fields": [
+        "role_change_event"
+      ],
+      "trust_reason": "User gained access to privileged group.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "privilege_escalation",
+      "subcategory": "iam_role"
+    },
+    "role_jump_outlier": {
+      "mapped_fields": [
+        "user_role",
+        "target_role"
+      ],
+      "trust_reason": "Unusual jump in privilege or access.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "privilege_escalation",
+      "subcategory": "iam_role"
+    },
+    "exfil_to_external_drive": {
+      "mapped_fields": [
+        "file_copied",
+        "usb_id"
+      ],
+      "trust_reason": "File exfiltrated to removable drive.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "embedded_pdf_shell": {
+      "mapped_fields": [
+        "file_type",
+        "script_trigger"
+      ],
+      "trust_reason": "PDF with embedded shell execution.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "macro_dropped_binary": {
+      "mapped_fields": [
+        "file_origin",
+        "child_process"
+      ],
+      "trust_reason": "Office macro dropped and executed binary.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "document_spawned_script": {
+      "mapped_fields": [
+        "parent_process",
+        "process_name"
+      ],
+      "trust_reason": "Doc process spawned shell or script.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "doc_script_encoded": {
+      "mapped_fields": [
+        "cmdline"
+      ],
+      "trust_reason": "Document-executed script using encoded command.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "phishing_doc_opened": {
+      "mapped_fields": [
+        "user_behavior",
+        "file_origin"
+      ],
+      "trust_reason": "Suspicious document opened from email.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "debugger_disable": {
+      "mapped_fields": [
+        "api_call",
+        "process_name"
+      ],
+      "trust_reason": "Attempt to disable debugger.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "defense_evasion",
+      "subcategory": "evasion_technique"
+    },
+    "yara_evasion": {
+      "mapped_fields": [
+        "process_behavior"
+      ],
+      "trust_reason": "Known YARA detection evasion technique used.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "defense_evasion",
+      "subcategory": "evasion_technique"
+    },
+    "edr_api_masquerade": {
+      "mapped_fields": [
+        "api_call",
+        "dll_loaded"
+      ],
+      "trust_reason": "Masquerading API calls to bypass EDR.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "proc_tamper_flag": {
+      "mapped_fields": [
+        "target_process",
+        "tamper_flag"
+      ],
+      "trust_reason": "Tamper attempt on another process.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "suspended_injection": {
+      "mapped_fields": [
+        "process_state",
+        "injected_to"
+      ],
+      "trust_reason": "Code injected into suspended process.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "macro_to_beacon_chain": {
+      "mapped_fields": [
+        "process_chain"
+      ],
+      "trust_reason": "Macro \u2192 Powershell \u2192 Beacon observed.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "email_to_dropper_exec": {
+      "mapped_fields": [
+        "process_chain"
+      ],
+      "trust_reason": "Email link \u2192 Download \u2192 Execution observed.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "explorer_to_cmd_to_powershell": {
+      "mapped_fields": [
+        "parent_chain"
+      ],
+      "trust_reason": "Explorer spawned cmd which then ran powershell.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "scheduled_exec_of_unsigned": {
+      "mapped_fields": [
+        "task_name",
+        "binary_signature"
+      ],
+      "trust_reason": "Scheduled task runs unsigned binary.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "usb_file_exec_persistence": {
+      "mapped_fields": [
+        "mount_device",
+        "exec_trace"
+      ],
+      "trust_reason": "Executable from USB maintains persistence.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "vpn_jump_from_new_device": {
+      "mapped_fields": [
+        "geo_location",
+        "device_fingerprint",
+        "vpn_login_event"
+      ],
+      "trust_reason": "User connected to VPN from a previously unseen device and new location.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "lateral_movement",
+      "subcategory": "vpn"
+    },
+    "azure_token_misuse": {
+      "mapped_fields": [
+        "token_id",
+        "cloud_api_usage",
+        "geo_location"
+      ],
+      "trust_reason": "Access token used from an unexpected region or with suspicious API call patterns.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "kubernetes_priv_escalation": {
+      "mapped_fields": [
+        "k8s_command",
+        "container_user",
+        "role_binding"
+      ],
+      "trust_reason": "Kubernetes role escalation attempt detected via container privilege manipulation.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "pdf_double_encoding": {
+      "mapped_fields": [
+        "file_entropy",
+        "script_trigger",
+        "file_type"
+      ],
+      "trust_reason": "PDF file uses multi-layer encoding to bypass static inspection.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "embedded_doc_macro": {
+      "mapped_fields": [
+        "macro_flag",
+        "embedded_object_type",
+        "file_origin"
+      ],
+      "trust_reason": "Suspicious macro embedded inside a document payload.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "disable_eventlog_service": {
+      "mapped_fields": [
+        "service_control_call",
+        "process_name"
+      ],
+      "trust_reason": "Windows Event Log service disabled, indicating evasion attempt.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "defense_evasion",
+      "subcategory": "evasion_technique"
+    },
+    "rundll32_stager_chain": {
+      "mapped_fields": [
+        "process_name",
+        "cmdline",
+        "parent_process"
+      ],
+      "trust_reason": "Rundll32 invoked with suspicious parameters linked to staging behavior.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "doc_open_offhours_with_macro": {
+      "mapped_fields": [
+        "file_origin",
+        "open_time",
+        "macro_flag"
+      ],
+      "trust_reason": "Document with macros opened outside normal hours.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "cloud_iam_role_misuse": {
+      "mapped_fields": [
+        "cloud_identity",
+        "role_assumptions",
+        "geo_location"
+      ],
+      "trust_reason": "Cloud identity assumed privileged role from an unusual location.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_s3_bulk_exfil": {
+      "mapped_fields": [
+        "bucket_read_count",
+        "download_volume",
+        "cloud_identity"
+      ],
+      "trust_reason": "High-volume S3 download indicating potential exfiltration.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_api_key_reuse": {
+      "mapped_fields": [
+        "access_key_id",
+        "geo_location",
+        "api_usage_pattern"
+      ],
+      "trust_reason": "Cloud API key reused across multiple geographies or IPs.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_console_login_anomaly": {
+      "mapped_fields": [
+        "login_source",
+        "cloud_identity",
+        "mfa_status"
+      ],
+      "trust_reason": "Console login with unusual source or without MFA.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_secret_manager_access": {
+      "mapped_fields": [
+        "cloud_identity",
+        "secret_accessed",
+        "timestamp"
+      ],
+      "trust_reason": "Access to cloud secret storage outside normal window.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_ec2_reverse_shell": {
+      "mapped_fields": [
+        "process_name",
+        "ec2_instance_id",
+        "network_connection"
+      ],
+      "trust_reason": "Suspicious shell activity from a cloud VM.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_admin_tool_by_unpriv": {
+      "mapped_fields": [
+        "tool_name",
+        "user_role"
+      ],
+      "trust_reason": "Privileged cloud admin tool used by a non-admin user.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_bucket_list_enum": {
+      "mapped_fields": [
+        "cloud_identity",
+        "bucket_list_count"
+      ],
+      "trust_reason": "Excessive bucket enumeration from a single identity.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_storage_write_anomaly": {
+      "mapped_fields": [
+        "bucket_write_event",
+        "user_context",
+        "filetype"
+      ],
+      "trust_reason": "Unusual file write to cloud storage detected.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_function_abuse": {
+      "mapped_fields": [
+        "cloud_identity",
+        "function_name",
+        "api_call"
+      ],
+      "trust_reason": "Misuse of serverless function for automation or evasion.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_identity_switching": {
+      "mapped_fields": [
+        "session_chain",
+        "cloud_identity",
+        "role_switch"
+      ],
+      "trust_reason": "Multiple identity switches in short succession.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_login_from_blacklisted_ip": {
+      "mapped_fields": [
+        "ip_address",
+        "cloud_identity",
+        "login_time"
+      ],
+      "trust_reason": "Cloud login attempt from known malicious IP.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_api_fingerprint": {
+      "mapped_fields": [
+        "api_sequence",
+        "user_agent",
+        "cloud_service"
+      ],
+      "trust_reason": "Sequence of API calls matches known adversarial behavior.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_lateral_movement_attempt": {
+      "mapped_fields": [
+        "access_key_id",
+        "target_account_id"
+      ],
+      "trust_reason": "Detected potential pivot across cloud accounts.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_console_tamper": {
+      "mapped_fields": [
+        "cloud_identity",
+        "ui_event_log",
+        "role_policy_change"
+      ],
+      "trust_reason": "Attempt to modify cloud console settings or disable logging.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_security_group_change": {
+      "mapped_fields": [
+        "security_group_id",
+        "change_source"
+      ],
+      "trust_reason": "Inbound port exposed through unauthorized rule edit.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_sso_session_mismatch": {
+      "mapped_fields": [
+        "user_agent",
+        "device_fingerprint",
+        "cloud_sso_token"
+      ],
+      "trust_reason": "SSO session reused on different device or browser.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_logging_disabled": {
+      "mapped_fields": [
+        "logging_service",
+        "identity"
+      ],
+      "trust_reason": "Cloud logging disabled by unauthorized entity.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_key_rotation_failure": {
+      "mapped_fields": [
+        "cloud_identity",
+        "key_rotation_event",
+        "last_rotation_date"
+      ],
+      "trust_reason": "Key rotation policy failed or overdue.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_malicious_lambda_deploy": {
+      "mapped_fields": [
+        "function_name",
+        "deployment_source",
+        "cloud_identity"
+      ],
+      "trust_reason": "Suspicious deployment of a Lambda function detected.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_cross_account_access": {
+      "mapped_fields": [
+        "role",
+        "assumed_by_account"
+      ],
+      "trust_reason": "Cloud identity accessed from a different account unexpectedly.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_policy_overprivilege": {
+      "mapped_fields": [
+        "role_policy",
+        "resource_wildcard"
+      ],
+      "trust_reason": "IAM role or policy grants more access than intended.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_unusual_time_access": {
+      "mapped_fields": [
+        "access_time",
+        "identity",
+        "region"
+      ],
+      "trust_reason": "Resource access during abnormal hours or regions.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_api_script_automation": {
+      "mapped_fields": [
+        "api_sequence",
+        "automation_tool"
+      ],
+      "trust_reason": "Suspicious scripted automation of cloud operations.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_token_replay": {
+      "mapped_fields": [
+        "access_token",
+        "geo_location",
+        "device_fingerprint"
+      ],
+      "trust_reason": "Same token reused across incompatible device or region.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_vm_scheduled_start": {
+      "mapped_fields": [
+        "vm_id",
+        "scheduled_action",
+        "cloud_identity"
+      ],
+      "trust_reason": "Cloud VM set to start on an unusual schedule, possibly for stealth operation.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_config_drift_detected": {
+      "mapped_fields": [
+        "resource_id",
+        "baseline_hash",
+        "current_config"
+      ],
+      "trust_reason": "Cloud resource deviated from expected secure configuration.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_iam_backdoor_creation": {
+      "mapped_fields": [
+        "iam_policy",
+        "user_creation_event"
+      ],
+      "trust_reason": "IAM user or policy created with hidden or overly broad permissions.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_inactive_account_used": {
+      "mapped_fields": [
+        "cloud_identity",
+        "last_login_date"
+      ],
+      "trust_reason": "Dormant cloud identity suddenly used to access resources.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_vault_enum": {
+      "mapped_fields": [
+        "vault_access_log",
+        "cloud_identity"
+      ],
+      "trust_reason": "Enumeration of cloud key vault or secret store.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_tmp_access_policy": {
+      "mapped_fields": [
+        "policy_duration",
+        "resource_policy",
+        "issuer"
+      ],
+      "trust_reason": "Temporary policy applied to sensitive resource.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_unauthorized_api_combo": {
+      "mapped_fields": [
+        "api_sequence",
+        "access_level"
+      ],
+      "trust_reason": "Sequence of high-risk APIs invoked by a non-admin user.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_tag_spoofing": {
+      "mapped_fields": [
+        "resource_tags",
+        "user_role"
+      ],
+      "trust_reason": "Resource tags modified to mask behavior or cost center.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_root_account_activity": {
+      "mapped_fields": [
+        "cloud_identity",
+        "event_type"
+      ],
+      "trust_reason": "Root account used for actions that should be delegated.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_firewall_rule_open": {
+      "mapped_fields": [
+        "firewall_rule",
+        "port_range",
+        "rule_creator"
+      ],
+      "trust_reason": "Cloud firewall rule opened to the internet unexpectedly.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_automation_key_used": {
+      "mapped_fields": [
+        "access_key_id",
+        "tool_name",
+        "role"
+      ],
+      "trust_reason": "Automation key reused outside of normal schedule or scope.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_cross_region_copy": {
+      "mapped_fields": [
+        "resource_id",
+        "region",
+        "destination_region"
+      ],
+      "trust_reason": "Cloud resources copied across regions without justification.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_storage_malware_drop": {
+      "mapped_fields": [
+        "filetype",
+        "upload_event",
+        "cloud_identity"
+      ],
+      "trust_reason": "Malicious binary uploaded into cloud storage.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_persistence_with_lambda": {
+      "mapped_fields": [
+        "function_name",
+        "creation_context",
+        "cloud_identity"
+      ],
+      "trust_reason": "Lambda or cloud function used to establish hidden persistence.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "cloud_log_forwarding_disabled": {
+      "mapped_fields": [
+        "logging_config",
+        "log_forwarding",
+        "cloud_user"
+      ],
+      "trust_reason": "Log export pipeline turned off by cloud user.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_asset_visibility_change": {
+      "mapped_fields": [
+        "resource_visibility",
+        "event_source"
+      ],
+      "trust_reason": "Cloud asset moved to public or shared access unexpectedly.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_injected_shellcode": {
+      "mapped_fields": [
+        "memory_region",
+        "ec2_instance_id",
+        "behavior_pattern"
+      ],
+      "trust_reason": "In-memory shellcode behavior identified in cloud VM.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_env_var_secret_leak": {
+      "mapped_fields": [
+        "environment_variable",
+        "resource_type",
+        "deployment_source"
+      ],
+      "trust_reason": "Secrets found embedded in environment variables in cloud function.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_code_commit_triggered": {
+      "mapped_fields": [
+        "repo_event",
+        "ci_pipeline",
+        "actor"
+      ],
+      "trust_reason": "Code commit triggered sensitive pipeline by unauthorized actor.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_insecure_api_gateway": {
+      "mapped_fields": [
+        "api_gateway_config",
+        "auth_type",
+        "cloud_identity"
+      ],
+      "trust_reason": "API Gateway configured with weak or no authentication.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_token_refresh_loop": {
+      "mapped_fields": [
+        "token_usage",
+        "refresh_event",
+        "device_id"
+      ],
+      "trust_reason": "Suspicious automated token refresh cycle detected.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_dev_to_prod_push": {
+      "mapped_fields": [
+        "source_env",
+        "target_env",
+        "push_trigger"
+      ],
+      "trust_reason": "Resources pushed from dev to prod environment unexpectedly.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_container_escape": {
+      "mapped_fields": [
+        "container_name",
+        "capabilities",
+        "host_access"
+      ],
+      "trust_reason": "Container behavior consistent with privilege breakout.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "cloud_attack_surface",
+      "subcategory": "cloud_service"
+    },
+    "cloud_log_injection": {
+      "mapped_fields": [
+        "log_event",
+        "input_payload",
+        "actor"
+      ],
+      "trust_reason": "Input structure designed to inject or obfuscate cloud logs.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "usb_exfil_during_offhours": {
+      "mapped_fields": [
+        "usb_write_volume",
+        "login_time",
+        "user_role"
+      ],
+      "trust_reason": "High-volume USB write activity occurred outside normal working hours.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "multiple_host_logins_short_window": {
+      "mapped_fields": [
+        "user_id",
+        "device_id",
+        "login_timestamp"
+      ],
+      "trust_reason": "Same user logged into multiple hosts within an unusually short timeframe.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "clipboard_to_usb_correlation": {
+      "mapped_fields": [
+        "clipboard_copy_event",
+        "usb_mount",
+        "process_name"
+      ],
+      "trust_reason": "Clipboard contents copied shortly before USB file activity.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "login_after_termination_date": {
+      "mapped_fields": [
+        "user_id",
+        "access_time",
+        "termination_record"
+      ],
+      "trust_reason": "Terminated user account attempted or succeeded in authentication.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "privilege_creep_violation": {
+      "mapped_fields": [
+        "user_id",
+        "access_level_change",
+        "change_frequency"
+      ],
+      "trust_reason": "User\u2019s privileges escalated repeatedly beyond policy.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "privilege_escalation",
+      "subcategory": "iam_role"
+    },
+    "excessive_role_switching": {
+      "mapped_fields": [
+        "user_id",
+        "session_roles",
+        "time_window"
+      ],
+      "trust_reason": "User changed roles multiple times during single session.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "privilege_escalation",
+      "subcategory": "iam_role"
+    },
+    "sensitive_file_open_during_meeting": {
+      "mapped_fields": [
+        "file_access_event",
+        "calendar_status",
+        "user_id"
+      ],
+      "trust_reason": "File marked sensitive accessed while user was on a call.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "social_engineering"
+    },
+    "document_opened_by_hr_on_engineering_share": {
+      "mapped_fields": [
+        "file_path",
+        "user_role",
+        "access_scope"
+      ],
+      "trust_reason": "HR or finance employee accessed document outside departmental boundaries.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "usb_device_with_spoofed_serial": {
+      "mapped_fields": [
+        "usb_id",
+        "device_signature",
+        "auth_status"
+      ],
+      "trust_reason": "USB device had an invalid or spoofed serial identifier.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "login_time_deviation_by_user": {
+      "mapped_fields": [
+        "user_id",
+        "login_time",
+        "historical_profile"
+      ],
+      "trust_reason": "User logged in at an unusual time based on their baseline pattern.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "executive_machine_accessed_by_intern": {
+      "mapped_fields": [
+        "user_role",
+        "device_tag",
+        "access_event"
+      ],
+      "trust_reason": "Low-trust role accessed high-sensitivity endpoint.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "internal_ip_scan_without_admin_role": {
+      "mapped_fields": [
+        "network_scan_event",
+        "user_role",
+        "process_name"
+      ],
+      "trust_reason": "Internal network enumeration performed without proper admin context.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "privilege_escalation",
+      "subcategory": "iam_role"
+    },
+    "data_burst_to_internal_share": {
+      "mapped_fields": [
+        "file_copy_event",
+        "destination_path",
+        "user_id"
+      ],
+      "trust_reason": "High-volume data transfer to internal share outside of assigned project scope.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "exfil_attempt_to_personal_email": {
+      "mapped_fields": [
+        "email_to",
+        "file_attachment",
+        "user_context"
+      ],
+      "trust_reason": "Potential insider exfiltration via unsanctioned email.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "vpn_session_too_long": {
+      "mapped_fields": [
+        "session_duration",
+        "user_id",
+        "role"
+      ],
+      "trust_reason": "VPN session exceeds reasonable duration threshold.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "lateral_movement",
+      "subcategory": "vpn"
+    },
+    "role_jump_engineering_to_finance": {
+      "mapped_fields": [
+        "user_id",
+        "prev_role",
+        "new_role",
+        "access_time"
+      ],
+      "trust_reason": "Unusual cross-functional role change occurred.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "privilege_escalation",
+      "subcategory": "iam_role"
+    },
+    "file_rename_to_archive_post_usb_mount": {
+      "mapped_fields": [
+        "file_rename_event",
+        "file_extension",
+        "usb_mount_time"
+      ],
+      "trust_reason": "Suspicious file rename to zip or archive shortly after USB insertion.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "activity_spike_during_unusual_hours": {
+      "mapped_fields": [
+        "event_count",
+        "timestamp",
+        "user_id"
+      ],
+      "trust_reason": "Anomalous burst of events occurred during off-peak hours.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "screenshot_process_launched": {
+      "mapped_fields": [
+        "process_name",
+        "active_window",
+        "user_id"
+      ],
+      "trust_reason": "Screenshot or screen capture utility launched while sensitive data visible.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "internal_resource_scraped_by_unassigned_user": {
+      "mapped_fields": [
+        "url_pattern",
+        "http_method",
+        "user_role"
+      ],
+      "trust_reason": "Internal web resource accessed using scraping pattern by unauthorized role.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "login_time_drift_weekly": {
+      "mapped_fields": [
+        "user_id",
+        "login_time",
+        "historical_profile"
+      ],
+      "trust_reason": "Login time has gradually shifted across multiple weeks outside the user\u2019s historical window.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "file_type_access_deviation": {
+      "mapped_fields": [
+        "user_id",
+        "file_extension",
+        "access_frequency"
+      ],
+      "trust_reason": "User began accessing new file types not historically present in their behavior.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "commandline_pattern_shift": {
+      "mapped_fields": [
+        "cmdline",
+        "process_name",
+        "behavior_delta"
+      ],
+      "trust_reason": "CLI behavior changed significantly compared to user\u2019s historical norm.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "device_switching_pattern_anomaly": {
+      "mapped_fields": [
+        "device_id",
+        "session_timeline",
+        "user_id"
+      ],
+      "trust_reason": "User's endpoint rotation deviates from typical session usage profile.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "access_scope_expansion": {
+      "mapped_fields": [
+        "resource_access",
+        "time_window",
+        "user_id"
+      ],
+      "trust_reason": "User began accessing more resource categories than usual over a time window.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "sensitive_data_interest_rise": {
+      "mapped_fields": [
+        "classification_level",
+        "access_count",
+        "delta_from_baseline"
+      ],
+      "trust_reason": "Gradual increase in access to sensitive files over time.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "late_login_on_friday": {
+      "mapped_fields": [
+        "user_id",
+        "day_of_week",
+        "login_time"
+      ],
+      "trust_reason": "Unusual late login before weekend shutdown \u2014 behavioral red flag.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "exec_behavior_on_non_exec_machine": {
+      "mapped_fields": [
+        "process_name",
+        "device_role",
+        "user_context"
+      ],
+      "trust_reason": "Suspicious script or binary executed on a device not assigned for development or administrative use.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "macro_execution_from_untrusted_doc": {
+      "mapped_fields": [
+        "file_origin",
+        "macro_flag",
+        "user_role"
+      ],
+      "trust_reason": "Document with macro executed from an untrusted source or outside typical context.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "macro_chain_with_network_activity": {
+      "mapped_fields": [
+        "macro_flag",
+        "network_connection",
+        "process_name"
+      ],
+      "trust_reason": "Macro spawned a process that initiated outbound network communication.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "embedded_lnk_triggered": {
+      "mapped_fields": [
+        "file_extension",
+        "child_process",
+        "origin_context"
+      ],
+      "trust_reason": "Embedded `.lnk` file used to launch hidden process.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "pdf_with_embedded_javascript": {
+      "mapped_fields": [
+        "file_type",
+        "script_flag",
+        "execution_trace"
+      ],
+      "trust_reason": "PDF triggered JavaScript engine with suspicious behavior.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "doc_with_double_extension": {
+      "mapped_fields": [
+        "file_name",
+        "file_extension"
+      ],
+      "trust_reason": "Document used misleading double extensions to bypass filters.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "doc_macro_dropped_exe": {
+      "mapped_fields": [
+        "macro_flag",
+        "file_write_event",
+        "binary_signature"
+      ],
+      "trust_reason": "Macro dropped and launched an unsigned executable.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "doc_rtf_embedded_shell": {
+      "mapped_fields": [
+        "file_type",
+        "child_process",
+        "binary_origin"
+      ],
+      "trust_reason": "RTF document embedded a shell execution payload.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "pdf_with_unicode_obfuscation": {
+      "mapped_fields": [
+        "file_encoding",
+        "script_trigger"
+      ],
+      "trust_reason": "PDF used obfuscated characters to hide payloads.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "email_attachment_macro_autoexec": {
+      "mapped_fields": [
+        "email_sender",
+        "macro_flag",
+        "exec_path"
+      ],
+      "trust_reason": "Email attachment contained macro that executed without prompt.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "macro_execution_without_ui_interaction": {
+      "mapped_fields": [
+        "process_name",
+        "ui_events",
+        "exec_timeline"
+      ],
+      "trust_reason": "Macro executed without any user-triggered interaction.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "doc_xlm_macro_detected": {
+      "mapped_fields": [
+        "file_type",
+        "macro_flag",
+        "xlm_formula_usage"
+      ],
+      "trust_reason": "Excel XLM macro used, often abused by modern phishing kits.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "pdf_remote_file_embed": {
+      "mapped_fields": [
+        "pdf_metadata",
+        "linked_uri",
+        "launch_event"
+      ],
+      "trust_reason": "PDF embedded link to remote file with execution potential.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "doc_spoofed_trusted_source": {
+      "mapped_fields": [
+        "file_metadata",
+        "origin_domain",
+        "download_url"
+      ],
+      "trust_reason": "Document claimed to originate from a trusted org but metadata mismatch found.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "office_macro_iex_chain": {
+      "mapped_fields": [
+        "cmdline",
+        "macro_flag",
+        "script_function"
+      ],
+      "trust_reason": "Office macro ran PowerShell with `IEX` and remote content.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "pdf_hex_encoded_javascript": {
+      "mapped_fields": [
+        "script_encoding",
+        "file_entropy"
+      ],
+      "trust_reason": "PDF JavaScript was hex or unicode encoded to bypass detection.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "macro_rundll32_chain": {
+      "mapped_fields": [
+        "parent_process",
+        "process_name",
+        "cmdline"
+      ],
+      "trust_reason": "Macro launched `rundll32.exe` with suspicious command chain.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "macro_to_certutil_chain": {
+      "mapped_fields": [
+        "macro_flag",
+        "certutil_usage",
+        "binary_written"
+      ],
+      "trust_reason": "Macro used `certutil` to download or decode payload.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "pdf_triggered_cmd": {
+      "mapped_fields": [
+        "file_origin",
+        "process_name",
+        "pdf_renderer"
+      ],
+      "trust_reason": "PDF triggered system shell directly via exploit or embedded object.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "doc_spawned_hidden_process": {
+      "mapped_fields": [
+        "process_name",
+        "visibility_flag",
+        "parent_process"
+      ],
+      "trust_reason": "Office app spawned a hidden process chain.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "malicious_macro_behavior_family": {
+      "mapped_fields": [
+        "macro_flag",
+        "child_process",
+        "network_activity"
+      ],
+      "trust_reason": "Heuristic pattern match for known malicious macro behavior.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "autoexec_macro_from_mounted_volume": {
+      "mapped_fields": [
+        "macro_flag",
+        "volume_source",
+        "file_path"
+      ],
+      "trust_reason": "Macro auto-executed from mounted removable media.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "macro_decoded_base64_payload": {
+      "mapped_fields": [
+        "cmdline",
+        "decoded_string_entropy"
+      ],
+      "trust_reason": "Macro decoded and executed base64-encoded payload.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "doc_macro_spawned_netutil": {
+      "mapped_fields": [
+        "macro_flag",
+        "child_process",
+        "binary_signature"
+      ],
+      "trust_reason": "Macro spawned network tool like `ftp`, `curl`, or `net.exe`.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "excel_macro_created_task": {
+      "mapped_fields": [
+        "macro_flag",
+        "task_scheduling",
+        "excel_instance"
+      ],
+      "trust_reason": "Excel macro scheduled a persistent task.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "embedded_image_macro_trick": {
+      "mapped_fields": [
+        "file_type",
+        "image_layer",
+        "macro_trigger"
+      ],
+      "trust_reason": "Document disguised macro within image or hidden layer.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "fake_invoice_attachment_opened": {
+      "mapped_fields": [
+        "email_subject",
+        "file_name",
+        "user_click_event"
+      ],
+      "trust_reason": "User opened an attachment resembling an invoice, a common phishing lure.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "urgent_exec_request_subject": {
+      "mapped_fields": [
+        "email_subject",
+        "sender_display_name",
+        "user_context"
+      ],
+      "trust_reason": "Email spoofed as executive with subject suggesting urgency.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "link_clicked_from_external_email": {
+      "mapped_fields": [
+        "email_sender_domain",
+        "click_event",
+        "url_domain"
+      ],
+      "trust_reason": "User clicked on link from untrusted or external sender.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "malicious_doc_named_invoice": {
+      "mapped_fields": [
+        "file_name",
+        "macro_flag",
+        "file_origin"
+      ],
+      "trust_reason": "File named like an invoice triggered macro or hidden process.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "sender_display_name_mismatch": {
+      "mapped_fields": [
+        "sender_display_name",
+        "email_address"
+      ],
+      "trust_reason": "Display name does not match actual sender address.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "reply_to_domain_mismatch": {
+      "mapped_fields": [
+        "email_from",
+        "reply_to_address"
+      ],
+      "trust_reason": "Reply-to domain differs from original sender \u2014 phishing indicator.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "open_tracking_beacon_detected": {
+      "mapped_fields": [
+        "email_body",
+        "image_src",
+        "http_call"
+      ],
+      "trust_reason": "Tiny image in email used to track opens, often used in spear phishing.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "command_and_control",
+      "subcategory": "c2_beaconing"
+    },
+    "fake_hr_file_sharing_link": {
+      "mapped_fields": [
+        "url_text",
+        "url_domain",
+        "click_event"
+      ],
+      "trust_reason": "Phishing link disguised as HR document delivery.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "shared_drive_lure_opened": {
+      "mapped_fields": [
+        "email_content",
+        "url_clicked",
+        "referer_domain"
+      ],
+      "trust_reason": "Shared drive link accessed without authenticated session.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "doc_with_hr_theme_macro_trigger": {
+      "mapped_fields": [
+        "macro_flag",
+        "document_theme",
+        "origin_context"
+      ],
+      "trust_reason": "Macro from HR-themed doc triggered a suspicious process.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "embedded_email_signature_link": {
+      "mapped_fields": [
+        "html_signature",
+        "click_event",
+        "url_behavior"
+      ],
+      "trust_reason": "User clicked embedded signature link leading to unexpected domain.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "phishing_attachment_double_extension": {
+      "mapped_fields": [
+        "file_name",
+        "file_extension"
+      ],
+      "trust_reason": "Attachment used double file extension to deceive user.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "html_attachment_with_redirect": {
+      "mapped_fields": [
+        "file_type",
+        "url_redirect",
+        "click_event"
+      ],
+      "trust_reason": "HTML file redirected to external site post-open.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "voice_phish_followup_flag": {
+      "mapped_fields": [
+        "call_metadata",
+        "email_trigger",
+        "device_id"
+      ],
+      "trust_reason": "Call behavior suggests follow-up to a phishing email - pattern matched vishing campaign.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "certutil_used_to_download": {
+      "mapped_fields": [
+        "process_name",
+        "cmdline",
+        "file_written"
+      ],
+      "trust_reason": "Certutil used to fetch or write external file \u2014 classic LOtL technique.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "rundll32_exec_with_url": {
+      "mapped_fields": [
+        "process_name",
+        "cmdline"
+      ],
+      "trust_reason": "Rundll32 invoked with a URL as parameter \u2014 payload staging.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "powershell_iex_remote_payload": {
+      "mapped_fields": [
+        "cmdline",
+        "network_connection",
+        "parent_process"
+      ],
+      "trust_reason": "PowerShell command uses IEX with remote content fetch.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "mshta_remote_html_exec": {
+      "mapped_fields": [
+        "process_name",
+        "url_called"
+      ],
+      "trust_reason": "Mshta executed a remote HTML or script file.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "wmic_process_exec": {
+      "mapped_fields": [
+        "process_name",
+        "cmdline"
+      ],
+      "trust_reason": "WMIC used to spawn or kill processes unexpectedly.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "regsvr32_silent_execution": {
+      "mapped_fields": [
+        "process_name",
+        "cmdline"
+      ],
+      "trust_reason": "Regsvr32 ran with /s flag, possibly to avoid logging.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "bitsadmin_transfer_with_exec": {
+      "mapped_fields": [
+        "process_name",
+        "url_downloaded",
+        "exec_context"
+      ],
+      "trust_reason": "BITSAdmin used to fetch and run a payload.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "schtasks_created_by_user": {
+      "mapped_fields": [
+        "task_creation",
+        "user_id",
+        "exec_path"
+      ],
+      "trust_reason": "Scheduled task created manually by user \u2014 potential persistence.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "cmd_spawned_hidden_powershell": {
+      "mapped_fields": [
+        "parent_process",
+        "process_name",
+        "window_style"
+      ],
+      "trust_reason": "Cmd.exe used to spawn hidden PowerShell session.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "excel_macro_triggered_cmd": {
+      "mapped_fields": [
+        "process_name",
+        "macro_flag",
+        "cmdline"
+      ],
+      "trust_reason": "Excel macro directly invoked command line utility.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "vbs_or_js_script_executed": {
+      "mapped_fields": [
+        "file_extension",
+        "interpreter",
+        "cmdline"
+      ],
+      "trust_reason": "VBScript or JavaScript file executed via native interpreter.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "net_use_mapping_external": {
+      "mapped_fields": [
+        "cmdline",
+        "target_ip",
+        "share_path"
+      ],
+      "trust_reason": "Network share mapped to external host.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "wscript_launched_from_lnk": {
+      "mapped_fields": [
+        "launch_method",
+        "file_type",
+        "interpreter"
+      ],
+      "trust_reason": "LNK file triggered wscript with hidden payload.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "signed_binary_proxy_with_injected_cmd": {
+      "mapped_fields": [
+        "process_name",
+        "cmdline",
+        "binary_signature"
+      ],
+      "trust_reason": "Signed binary misused to execute attacker-controlled command.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "compressed_payload_extracted_via_script": {
+      "mapped_fields": [
+        "file_type",
+        "script_command",
+        "output_path"
+      ],
+      "trust_reason": "Payload unpacked from archive using scripted logic.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "etw_patch_behavior_detected": {
+      "mapped_fields": [
+        "memory_region",
+        "api_call",
+        "process_name"
+      ],
+      "trust_reason": "ETW patching detected to disable telemetry collection.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "amsi_bypass_attempt": {
+      "mapped_fields": [
+        "cmdline",
+        "api_call",
+        "dll_loaded"
+      ],
+      "trust_reason": "Command or script attempted to bypass AMSI scanning.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "suspicious_parentless_process": {
+      "mapped_fields": [
+        "process_name",
+        "parent_process",
+        "launch_time"
+      ],
+      "trust_reason": "Process launched with no parent \u2014 possible unlinked execution.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "log_clearing_event": {
+      "mapped_fields": [
+        "event_log",
+        "clear_timestamp",
+        "user_context"
+      ],
+      "trust_reason": "Windows event logs were cleared, indicating anti-forensic behavior.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "debugger_evasion_call": {
+      "mapped_fields": [
+        "api_call",
+        "process_name"
+      ],
+      "trust_reason": "Process made known debugger detection or evasion calls.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "defense_evasion",
+      "subcategory": "evasion_technique"
+    },
+    "unhooked_edr_driver_trace": {
+      "mapped_fields": [
+        "kernel_call",
+        "memory_scan",
+        "driver_context"
+      ],
+      "trust_reason": "Behavior matches known EDR unhooking attempts.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "process_masquerade_as_signed": {
+      "mapped_fields": [
+        "binary_signature",
+        "path_location",
+        "mismatch_reason"
+      ],
+      "trust_reason": "Unsigned or tampered binary presented as signed.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "cmdline_obfuscation_pattern": {
+      "mapped_fields": [
+        "cmdline",
+        "entropy_score",
+        "execution_trace"
+      ],
+      "trust_reason": "Obfuscation patterns found in command line arguments.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "registry_timestamp_backdating": {
+      "mapped_fields": [
+        "registry_key",
+        "last_modified_time",
+        "process_name"
+      ],
+      "trust_reason": "Timestamp backdating behavior detected on registry entries.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "token_duplication_event": {
+      "mapped_fields": [
+        "user_token",
+        "source_pid",
+        "destination_pid"
+      ],
+      "trust_reason": "Process duplicated a token to escalate or impersonate.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "hollowed_process_behavior": {
+      "mapped_fields": [
+        "process_name",
+        "parent_process",
+        "injected_memory_region"
+      ],
+      "trust_reason": "Hollowed process behavior consistent with malicious injection.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "hidden_process_spawned": {
+      "mapped_fields": [
+        "window_visibility",
+        "process_name",
+        "launch_time"
+      ],
+      "trust_reason": "Process spawned with hidden or suppressed window state.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "edr_api_overwrite": {
+      "mapped_fields": [
+        "api_call",
+        "memory_patch",
+        "target_module"
+      ],
+      "trust_reason": "Suspicious overwrite of known EDR monitoring APIs.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "disk_cleanup_spoof_event": {
+      "mapped_fields": [
+        "process_name",
+        "cleanup_log",
+        "file_deletion"
+      ],
+      "trust_reason": "Disk cleanup utility used in non-standard way \u2014 may be used to hide logs.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "temp_file_payload_staging": {
+      "mapped_fields": [
+        "file_path",
+        "filetype",
+        "execution_source"
+      ],
+      "trust_reason": "Payload dropped and executed from temp directory.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "inline_shellcode_injection": {
+      "mapped_fields": [
+        "memory_region",
+        "injection_technique",
+        "shellcode_entropy"
+      ],
+      "trust_reason": "Inline shellcode injected into process memory.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "dll_unhook_chain": {
+      "mapped_fields": [
+        "dll_name",
+        "function_pointer_change",
+        "api_call"
+      ],
+      "trust_reason": "DLL was unhooked from system instrumentation.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "encoded_payload_in_script_block": {
+      "mapped_fields": [
+        "script_block",
+        "entropy_score",
+        "exec_length"
+      ],
+      "trust_reason": "Script contained encoded block likely containing payload.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "network_forensics_obfuscation": {
+      "mapped_fields": [
+        "connection_pattern",
+        "tls_fingerprint",
+        "hostname_entropy"
+      ],
+      "trust_reason": "Outbound traffic shows signs of header or SNI evasion.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "powershell_disabling_eventlogs": {
+      "mapped_fields": [
+        "cmdline",
+        "script_flag",
+        "eventlog_action"
+      ],
+      "trust_reason": "PowerShell used to disable or modify event log retention.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "parent_chain_cleared": {
+      "mapped_fields": [
+        "process_name",
+        "ppid",
+        "launch_context"
+      ],
+      "trust_reason": "Process chain history or metadata is missing or inconsistent.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "access_token_replay": {
+      "mapped_fields": [
+        "access_token",
+        "geo_location",
+        "user_agent"
+      ],
+      "trust_reason": "Access token reused across sessions or geos without refresh.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "script_content_disguised_as_image": {
+      "mapped_fields": [
+        "file_type",
+        "image_signature",
+        "exec_behavior"
+      ],
+      "trust_reason": "Script executed from file extension `.jpg`, `.png`, or similar.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "powershell_env_check_evasion": {
+      "mapped_fields": [
+        "cmdline",
+        "env_var_calls",
+        "parent_process"
+      ],
+      "trust_reason": "Script checked for sandbox or AV emulation environment.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "system_restore_deleted": {
+      "mapped_fields": [
+        "vss_event",
+        "system_restore_point",
+        "deletion_time"
+      ],
+      "trust_reason": "System restore points were deleted before attack sequence.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "task_scheduler_modification_by_user": {
+      "mapped_fields": [
+        "task_name",
+        "modification_source",
+        "user_context"
+      ],
+      "trust_reason": "User-modified task scheduler entry without admin context \u2014 potential stealth persistence.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "forensic_artifact_tamper_attempt": {
+      "mapped_fields": [
+        "artifact_path",
+        "modification_timestamp",
+        "user_role"
+      ],
+      "trust_reason": "Security or audit file was edited, deleted, or renamed unexpectedly.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "eventlog_service_disable_via_reg": {
+      "mapped_fields": [
+        "registry_key",
+        "process_name",
+        "reg_mod_type"
+      ],
+      "trust_reason": "Registry entry modified to disable event log service.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "defense_evasion",
+      "subcategory": "evasion_technique"
+    },
+    "telemetry_collector_uninstall_trigger": {
+      "mapped_fields": [
+        "process_name",
+        "uninstall_event",
+        "package_name"
+      ],
+      "trust_reason": "Telemetry collector service or EDR agent uninstalled via script or binary.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "forensics_tool_executed_by_non_admin": {
+      "mapped_fields": [
+        "process_name",
+        "user_role",
+        "tool_type"
+      ],
+      "trust_reason": "Digital forensics tool executed by user outside allowed roles.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "eventlog_clearing_chain_detected": {
+      "mapped_fields": [
+        "clear_event",
+        "cmdline",
+        "timeline_context"
+      ],
+      "trust_reason": "Detected coordinated log clearing pattern across multiple log sources.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "defense_evasion",
+      "subcategory": "evasion_technique"
+    },
+    "fileless_payload_injected_into_trusted_process": {
+      "mapped_fields": [
+        "target_process",
+        "memory_region",
+        "injection_method"
+      ],
+      "trust_reason": "Fileless payload injected into trusted signed binary.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "fileless"
+    },
+    "telemetry_stream_disruption_via_proxy": {
+      "mapped_fields": [
+        "network_proxy",
+        "telemetry_host",
+        "disruption_event"
+      ],
+      "trust_reason": "Proxy interference or DNS poisoning disrupted outbound telemetry flow.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "eventlog_suppression_via_powershell": {
+      "mapped_fields": [
+        "cmdline",
+        "script_block",
+        "event_source"
+      ],
+      "trust_reason": "PowerShell script suppressed or redirected event logging.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "system_log_service_disable_chain": {
+      "mapped_fields": [
+        "service_event",
+        "startup_mode_change",
+        "execution_context"
+      ],
+      "trust_reason": "System logging services were disabled or moved to manual start.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "macro_to_cmd_to_beacon": {
+      "mapped_fields": [
+        "macro_flag",
+        "child_process_chain",
+        "network_connection"
+      ],
+      "trust_reason": "Macro launched cmd which initiated a beacon \u2014 classic phishing chain.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "unsigned_binary_executed_post_usb_insert": {
+      "mapped_fields": [
+        "file_signature",
+        "usb_mount_time",
+        "process_name"
+      ],
+      "trust_reason": "Unsigned binary ran shortly after USB device insertion.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "task_scheduled_by_non_admin_user": {
+      "mapped_fields": [
+        "user_role",
+        "task_creation_event",
+        "exec_context"
+      ],
+      "trust_reason": "Non-privileged user created a scheduled task.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "cmd_chain_triggered_by_pdf_viewer": {
+      "mapped_fields": [
+        "parent_process",
+        "file_type",
+        "cmdline"
+      ],
+      "trust_reason": "PDF viewer launched suspicious shell command chain.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "powershell_execution_followed_by_log_clear": {
+      "mapped_fields": [
+        "cmdline",
+        "eventlog_clear",
+        "process_name"
+      ],
+      "trust_reason": "PowerShell script ran and cleared logs \u2014 evasion behavior.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "macro_with_certutil_and_task_scheduling": {
+      "mapped_fields": [
+        "macro_flag",
+        "process_chain",
+        "certutil_usage"
+      ],
+      "trust_reason": "Macro triggered certutil, then scheduled a persistent task.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "network_tool_execution_post_file_drop": {
+      "mapped_fields": [
+        "file_written",
+        "child_process",
+        "network_connection"
+      ],
+      "trust_reason": "Payload dropped locally then initiated outbound network tool.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "high_entropy_file_opened_then_uploaded": {
+      "mapped_fields": [
+        "file_entropy",
+        "upload_event",
+        "remote_host"
+      ],
+      "trust_reason": "Highly obfuscated file opened and uploaded externally.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "token_theft_then_role_escalation": {
+      "mapped_fields": [
+        "token_use",
+        "privilege_change",
+        "timeline_context"
+      ],
+      "trust_reason": "Access token replayed and followed by privilege escalation.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "privilege_escalation",
+      "subcategory": "iam_role"
+    },
+    "macro_triggered_hidden_netuse": {
+      "mapped_fields": [
+        "macro_flag",
+        "cmdline",
+        "share_mapped"
+      ],
+      "trust_reason": "Macro connected to hidden or external network share.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "user_switch_then_remote_shell": {
+      "mapped_fields": [
+        "user_context_change",
+        "remote_connection",
+        "process_name"
+      ],
+      "trust_reason": "User context switch followed by remote access tool.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "signed_binary_with_suspicious_arg": {
+      "mapped_fields": [
+        "process_name",
+        "binary_signature",
+        "cmdline"
+      ],
+      "trust_reason": "Signed system binary invoked with uncommon or dangerous argument.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "script_triggered_post_system_restore_deletion": {
+      "mapped_fields": [
+        "vss_deletion",
+        "script_event",
+        "exec_time"
+      ],
+      "trust_reason": "Script execution after system restore deletion \u2014 anti-recovery tactic.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "multiple_eventlog_clears_within_hour": {
+      "mapped_fields": [
+        "clear_timestamp",
+        "log_type",
+        "user_id"
+      ],
+      "trust_reason": "Numerous log clear events in short time window.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "defense_evasion",
+      "subcategory": "evasion_technique"
+    },
+    "user_login_from_new_geo_and_priv_escalate": {
+      "mapped_fields": [
+        "geo_location",
+        "login_time",
+        "role_change_event"
+      ],
+      "trust_reason": "New login location followed by privilege escalation.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "temp_file_created_then_email_sent": {
+      "mapped_fields": [
+        "file_path",
+        "temp_write",
+        "email_attachment"
+      ],
+      "trust_reason": "File staged in temp directory was attached to outbound email.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "email_link_click_followed_by_payload_download": {
+      "mapped_fields": [
+        "url_clicked",
+        "download_event",
+        "file_type"
+      ],
+      "trust_reason": "User clicked phishing link that downloaded a suspicious file.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "usb_mount_then_archive_extraction_then exec": {
+      "mapped_fields": [
+        "usb_event",
+        "file_extracted",
+        "execution_event"
+      ],
+      "trust_reason": "USB inserted, archive extracted, then binary executed \u2014 delivery vector.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "task_creation_post_rundll32_chain": {
+      "mapped_fields": [
+        "process_chain",
+        "task_created",
+        "cmdline"
+      ],
+      "trust_reason": "Rundll32 used to trigger task scheduling chain.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "lsass_read_then_outbound_beacon": {
+      "mapped_fields": [
+        "lsass_access_event",
+        "network_connection",
+        "user_context"
+      ],
+      "trust_reason": "LSASS memory read followed by outbound beacon.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "command_and_control",
+      "subcategory": "c2_beaconing"
+    },
+    "powershell_staged_in_env_variable": {
+      "mapped_fields": [
+        "env_variable",
+        "powershell_command",
+        "process_chain"
+      ],
+      "trust_reason": "Staged payload found in environment variable passed to PowerShell.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "user_login_from_geo_x_then_file_open_in_geo_y": {
+      "mapped_fields": [
+        "user_id",
+        "file_access",
+        "geo_mismatch"
+      ],
+      "trust_reason": "File accessed from impossible geolocation after login.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "initial_access",
+      "subcategory": "valid_accounts"
+    },
+    "suspicious_browsing_then_downloaded_macro_doc": {
+      "mapped_fields": [
+        "browser_history",
+        "downloaded_file",
+        "macro_flag"
+      ],
+      "trust_reason": "Browsing suspicious site immediately followed by malicious document download.",
+      "mode": "forensic",
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "cloud_storage_burst_after_macro_trigger": {
+      "mapped_fields": [
+        "macro_flag",
+        "upload_event",
+        "cloud_service"
+      ],
+      "trust_reason": "Macro activity followed by large cloud upload \u2014 potential exfil.",
+      "mode": "cloud",
+      "telemetry_depth": {
+        "linux": "cloud API",
+        "macos": "cloud API",
+        "windows": "cloud API"
+      },
+      "explainability_level": {
+        "linux": "cloud_contextual",
+        "macos": "cloud_contextual",
+        "windows": "cloud_contextual"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "endpoint_rdp_access_then_edr_process_killed": {
+      "mapped_fields": [
+        "rdp_event",
+        "edr_process",
+        "kill_event"
+      ],
+      "trust_reason": "RDP used to connect then EDR process was terminated.",
+      "mode": "minimal",
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "scripted_office_macro": {
+      "trust_reason": "Office document with embedded macro or script",
+      "mode": "forensic",
+      "mapped_fields": [
+        "exe",
+        "cmdline",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "macro"
+    },
+    "wmi_code_injection": {
+      "trust_reason": "Suspicious WMI usage for code execution",
+      "mode": "forensic",
+      "mapped_fields": [
+        "cmdline",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "disabled_event_logs": {
+      "trust_reason": "Event logging service disabled or modified",
+      "mode": "minimal",
+      "mapped_fields": [
+        "cmdline",
+        "exe",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "network_sniffing_tool": {
+      "trust_reason": "Network sniffer tool executed",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "suspicious_service_creation": {
+      "trust_reason": "Service created pointing to suspicious binary",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "ppid",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "kerberoasting_attempt": {
+      "trust_reason": "Unusual TGS ticket activity detected",
+      "mode": "minimal",
+      "mapped_fields": [
+        "user",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "scheduled_task_backdoor": {
+      "trust_reason": "Scheduled task with suspicious payload created",
+      "mode": "minimal",
+      "mapped_fields": [
+        "cmdline",
+        "exe"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "local_file_infiltration": {
+      "trust_reason": "Local sensitive file access followed by exfil",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "dll_sideloading": {
+      "trust_reason": "Suspicious DLL loaded by legit binary",
+      "mode": "forensic",
+      "mapped_fields": [
+        "exe",
+        "ppid"
+      ],
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "execution",
+      "subcategory": "code_injection"
+    },
+    "hidden_startup_registry": {
+      "trust_reason": "Startup persistence through hidden registry",
+      "mode": "minimal",
+      "mapped_fields": [
+        "tags",
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "bypass_uac_silent": {
+      "trust_reason": "Silent privilege escalation bypassing UAC",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "curl_powercat_combo": {
+      "trust_reason": "Download + remote shell pattern detected",
+      "mode": "minimal",
+      "mapped_fields": [
+        "cmdline",
+        "exe"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "encrypted_zip_exfil": {
+      "trust_reason": "Encrypted ZIP being exfiltrated",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "gcp_metadata_abuse": {
+      "trust_reason": "GCP metadata token access attempt",
+      "mode": "minimal",
+      "mapped_fields": [
+        "tags",
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "azure_spn_token_abuse": {
+      "trust_reason": "Azure SPN impersonation behavior",
+      "mode": "minimal",
+      "mapped_fields": [
+        "user",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "anomalous_cmd_path": {
+      "trust_reason": "System utility executed from odd location",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "powershell_obfuscation": {
+      "trust_reason": "Base64 or obfuscated PowerShell detected",
+      "mode": "minimal",
+      "mapped_fields": [
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "usb_registry_mount": {
+      "trust_reason": "Registry activity tied to USB device mount",
+      "mode": "minimal",
+      "mapped_fields": [
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "evtx_file_deletion": {
+      "trust_reason": "Event log deletion attempt observed",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "terminal_history_wipe": {
+      "trust_reason": "Command history wiped from terminal",
+      "mode": "minimal",
+      "mapped_fields": [
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "remote_clipboard_access": {
+      "trust_reason": "Interaction with remote clipboard detected",
+      "mode": "minimal",
+      "mapped_fields": [
+        "tags",
+        "user"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "exfiltration",
+      "subcategory": "usb"
+    },
+    "darkweb_tool_string": {
+      "trust_reason": "Tool string seen in dark web malware",
+      "mode": "minimal",
+      "mapped_fields": [
+        "exe",
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "ip_blocklist_intersection": {
+      "trust_reason": "Outbound IP hit matches threat intel blocklist",
+      "mode": "minimal",
+      "mapped_fields": [
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "invalid_auth_spam": {
+      "trust_reason": "Rapid invalid logon attempts detected",
+      "mode": "minimal",
+      "mapped_fields": [
+        "user",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "compressed_script_delivery": {
+      "trust_reason": "Script delivered inside compressed file",
+      "mode": "minimal",
+      "mapped_fields": [
+        "tags",
+        "exe"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "execution",
+      "subcategory": "script_based"
+    },
+    "token_impersonation": {
+      "trust_reason": "Process running with impersonated token",
+      "mode": "minimal",
+      "mapped_fields": [
+        "user",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "manual_proxy_persistence": {
+      "trust_reason": "Manual proxy set for persistence",
+      "mode": "forensic",
+      "mapped_fields": [
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "kernel + user",
+        "macos": "user + partial-kernel (ES framework)",
+        "windows": "ETW + Sysmon"
+      },
+      "explainability_level": {
+        "linux": "full",
+        "macos": "full",
+        "windows": "full"
+      },
+      "category": "persistence",
+      "subcategory": "startup_modification"
+    },
+    "time_drift_attack": {
+      "trust_reason": "System time modified for evasion",
+      "mode": "minimal",
+      "mapped_fields": [
+        "cmdline",
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "fake_error_dialog": {
+      "trust_reason": "Fake error or UI deception prompt",
+      "mode": "minimal",
+      "mapped_fields": [
+        "cmdline"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    },
+    "dns_txt_payload": {
+      "trust_reason": "Payload delivered via DNS TXT response",
+      "mode": "minimal",
+      "mapped_fields": [
+        "tags"
+      ],
+      "telemetry_depth": {
+        "linux": "user",
+        "macos": "user",
+        "windows": "user + ETW"
+      },
+      "explainability_level": {
+        "linux": "behavioral_only",
+        "macos": "behavioral_only",
+        "windows": "behavioral_only"
+      },
+      "category": "custom_behavior",
+      "subcategory": "manual_review"
+    }
+  }
+}
