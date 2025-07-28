@@ -1,0 +1,1961 @@
+{
+    "minimal_mode": {
+      "lolbins": [
+        {
+          "pattern": "powershell",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'powershell' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "wmic",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'wmic' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "cmd",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'cmd' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "certutil",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'certutil' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "rundll32",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'rundll32' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "mshta",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'mshta' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "regsvr32",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'regsvr32' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "msbuild",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'msbuild' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "installutil",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'installutil' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "scriptrunner",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'scriptrunner' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "forfiles",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'forfiles' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "bitsadmin",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'bitsadmin' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "cscript",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'cscript' under context 'lolbins'.",
+          "references": []
+        },
+        {
+          "pattern": "wscript",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "lolbin",
+            "native_binary"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'wscript' under context 'lolbins'.",
+          "references": []
+        }
+      ],
+      "dangerous_extensions": [
+        {
+          "pattern": ".exe",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.exe' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".dll",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.dll' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".js",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.js' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".vbs",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.vbs' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".scr",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.scr' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".bat",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.bat' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".ps1",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.ps1' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".lnk",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.lnk' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".hta",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.hta' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".pif",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.pif' under context 'dangerous_extensions'.",
+          "references": []
+        },
+        {
+          "pattern": ".jar",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "suspicious_extension"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '.jar' under context 'dangerous_extensions'.",
+          "references": []
+        }
+      ],
+      "evasion_obfuscation_cmds": [
+        {
+          "pattern": "-enc",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '-enc' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "base64",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'base64' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "frombase64string",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'frombase64string' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "iex",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'iex' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "invoke-expression",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'invoke-expression' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "compress",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'compress' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "obfuscate",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'obfuscate' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "sleep",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'sleep' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "-w hidden",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '-w hidden' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "-nop",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '-nop' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "-noni",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '-noni' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "-ep bypass",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '-ep bypass' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        },
+        {
+          "pattern": "-windowstyle hidden",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "evasion",
+            "obfuscation"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '-windowstyle hidden' under context 'evasion_obfuscation_cmds'.",
+          "references": []
+        }
+      ],
+      "memory_injection_keywords": [
+        {
+          "pattern": "virtualalloc",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'virtualalloc' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "writeprocessmemory",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'writeprocessmemory' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "createremotethread",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'createremotethread' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "reflective",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'reflective' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "shellcode",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'shellcode' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "mmap",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'mmap' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "inject",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'inject' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "PEB",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'PEB' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "DLL hollowing",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'DLL hollowing' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "process hollowing",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'process hollowing' under context 'memory_injection_keywords'.",
+          "references": []
+        },
+        {
+          "pattern": "early bird",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "injection",
+            "memory_abuse"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'early bird' under context 'memory_injection_keywords'.",
+          "references": []
+        }
+      ],
+      "recon_privilege_cred_access": [
+        {
+          "pattern": "whoami",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'whoami' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "netstat",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'netstat' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "tasklist",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'tasklist' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "systeminfo",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'systeminfo' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "ipconfig",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'ipconfig' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "quser",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'quser' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "nltest",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'nltest' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "hostname",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'hostname' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "icacls",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'icacls' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "secedit",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'secedit' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "token::elevate",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'token::elevate' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "mimikatz",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'mimikatz' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "lsass",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'lsass' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "dumpcred",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'dumpcred' under context 'recon_privilege_cred_access'.",
+          "references": []
+        },
+        {
+          "pattern": "rundll32 lsadump.dll",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "recon",
+            "privilege_check"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'rundll32 lsadump.dll' under context 'recon_privilege_cred_access'.",
+          "references": []
+        }
+      ],
+      "dual_use_binary_paths": [
+        {
+          "pattern": "\\AppData\\",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "dual_use",
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '\\AppData\\' under context 'dual_use_binary_paths'.",
+          "references": []
+        },
+        {
+          "pattern": "\\Temp\\",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "dual_use",
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '\\Temp\\' under context 'dual_use_binary_paths'.",
+          "references": []
+        },
+        {
+          "pattern": "\\Recycle Bin\\",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "dual_use",
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '\\Recycle Bin\\' under context 'dual_use_binary_paths'.",
+          "references": []
+        },
+        {
+          "pattern": "\\ProgramData\\",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "dual_use",
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '\\ProgramData\\' under context 'dual_use_binary_paths'.",
+          "references": []
+        },
+        {
+          "pattern": "\\Users\\Public\\",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "dual_use",
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '\\Users\\Public\\' under context 'dual_use_binary_paths'.",
+          "references": []
+        },
+        {
+          "pattern": "C:\\Users\\Public\\python.exe",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "dual_use",
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'C:\\Users\\Public\\python.exe' under context 'dual_use_binary_paths'.",
+          "references": []
+        },
+        {
+          "pattern": "C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "dual_use",
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup' under context 'dual_use_binary_paths'.",
+          "references": []
+        }
+      ],
+      "network_behavior": [
+        {
+          "pattern": "ngrok",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'ngrok' under context 'network_behavior'.",
+          "references": []
+        },
+        {
+          "pattern": "ssh -R",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'ssh -R' under context 'network_behavior'.",
+          "references": []
+        },
+        {
+          "pattern": "frp",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'frp' under context 'network_behavior'.",
+          "references": []
+        },
+        {
+          "pattern": "tunnel",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'tunnel' under context 'network_behavior'.",
+          "references": []
+        },
+        {
+          "pattern": "proxychains",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'proxychains' under context 'network_behavior'.",
+          "references": []
+        },
+        {
+          "pattern": "127.0.0.1:8081",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern '127.0.0.1:8081' under context 'network_behavior'.",
+          "references": []
+        },
+        {
+          "pattern": "cloudflared",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'cloudflared' under context 'network_behavior'.",
+          "references": []
+        },
+        {
+          "pattern": "localhost.run",
+          "kill_chain_stage": "command_and_control",
+          "semantic_tags": [
+            "network_tunnel",
+            "proxy"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'localhost.run' under context 'network_behavior'.",
+          "references": []
+        }
+      ],
+      "masquerading_names": [
+        {
+          "pattern": "svch0st",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'svch0st' under context 'masquerading_names'.",
+          "references": []
+        },
+        {
+          "pattern": "expl0rer",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'expl0rer' under context 'masquerading_names'.",
+          "references": []
+        },
+        {
+          "pattern": "taskmgr_",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'taskmgr_' under context 'masquerading_names'.",
+          "references": []
+        },
+        {
+          "pattern": "lsasss",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'lsasss' under context 'masquerading_names'.",
+          "references": []
+        },
+        {
+          "pattern": "dllhosst",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'dllhosst' under context 'masquerading_names'.",
+          "references": []
+        },
+        {
+          "pattern": "csrss_",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'csrss_' under context 'masquerading_names'.",
+          "references": []
+        },
+        {
+          "pattern": "winl0g0n",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'winl0g0n' under context 'masquerading_names'.",
+          "references": []
+        },
+        {
+          "pattern": "spoolsvv",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "masquerade"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'spoolsvv' under context 'masquerading_names'.",
+          "references": []
+        }
+      ],
+      "script_automation_abuse": [
+        {
+          "pattern": "powershell -enc",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'powershell -enc' under context 'script_automation_abuse'.",
+          "references": []
+        },
+        {
+          "pattern": "macro",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'macro' under context 'script_automation_abuse'.",
+          "references": []
+        },
+        {
+          "pattern": "autorun",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'autorun' under context 'script_automation_abuse'.",
+          "references": []
+        },
+        {
+          "pattern": "vbs",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'vbs' under context 'script_automation_abuse'.",
+          "references": []
+        },
+        {
+          "pattern": "excel /x",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'excel /x' under context 'script_automation_abuse'.",
+          "references": []
+        },
+        {
+          "pattern": "wmic process call",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'wmic process call' under context 'script_automation_abuse'.",
+          "references": []
+        },
+        {
+          "pattern": "schtasks",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'schtasks' under context 'script_automation_abuse'.",
+          "references": []
+        },
+        {
+          "pattern": "at.exe",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "macro",
+            "automation"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'at.exe' under context 'script_automation_abuse'.",
+          "references": []
+        }
+      ],
+      "resource_abuse": []
+    },
+    "forensic_mode": {
+      "credential_access": [
+        {
+          "pattern": "mimikatz",
+          "kill_chain_stage": "credential_access",
+          "semantic_tags": [
+            "credential_theft"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'mimikatz' under context 'credential_access'.",
+          "references": []
+        },
+        {
+          "pattern": "lsass",
+          "kill_chain_stage": "credential_access",
+          "semantic_tags": [
+            "credential_theft"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'lsass' under context 'credential_access'.",
+          "references": []
+        },
+        {
+          "pattern": "pwdump",
+          "kill_chain_stage": "credential_access",
+          "semantic_tags": [
+            "credential_theft"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'pwdump' under context 'credential_access'.",
+          "references": []
+        },
+        {
+          "pattern": "security.sav",
+          "kill_chain_stage": "credential_access",
+          "semantic_tags": [
+            "credential_theft"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'security.sav' under context 'credential_access'.",
+          "references": []
+        },
+        {
+          "pattern": "dumpcred",
+          "kill_chain_stage": "credential_access",
+          "semantic_tags": [
+            "credential_theft"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'dumpcred' under context 'credential_access'.",
+          "references": []
+        },
+        {
+          "pattern": "wceaux",
+          "kill_chain_stage": "credential_access",
+          "semantic_tags": [
+            "credential_theft"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'wceaux' under context 'credential_access'.",
+          "references": []
+        }
+      ],
+      "privilege_escalation": [
+        {
+          "pattern": "token::elevate",
+          "kill_chain_stage": "privilege_escalation",
+          "semantic_tags": [
+            "priv_esc"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'token::elevate' under context 'privilege_escalation'.",
+          "references": []
+        },
+        {
+          "pattern": "bypassuac",
+          "kill_chain_stage": "privilege_escalation",
+          "semantic_tags": [
+            "priv_esc"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'bypassuac' under context 'privilege_escalation'.",
+          "references": []
+        },
+        {
+          "pattern": "schtasks /create",
+          "kill_chain_stage": "privilege_escalation",
+          "semantic_tags": [
+            "priv_esc"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'schtasks /create' under context 'privilege_escalation'.",
+          "references": []
+        },
+        {
+          "pattern": "startupinfo",
+          "kill_chain_stage": "privilege_escalation",
+          "semantic_tags": [
+            "priv_esc"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'startupinfo' under context 'privilege_escalation'.",
+          "references": []
+        },
+        {
+          "pattern": "trustedinstaller",
+          "kill_chain_stage": "privilege_escalation",
+          "semantic_tags": [
+            "priv_esc"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'trustedinstaller' under context 'privilege_escalation'.",
+          "references": []
+        },
+        {
+          "pattern": "seclogon",
+          "kill_chain_stage": "privilege_escalation",
+          "semantic_tags": [
+            "priv_esc"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'seclogon' under context 'privilege_escalation'.",
+          "references": []
+        },
+        {
+          "pattern": "printspoofer",
+          "kill_chain_stage": "privilege_escalation",
+          "semantic_tags": [
+            "priv_esc"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'printspoofer' under context 'privilege_escalation'.",
+          "references": []
+        }
+      ],
+      "internal_recon": [
+        {
+          "pattern": "net view",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'net view' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "net group",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'net group' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "arp -a",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'arp -a' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "route print",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'route print' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "netstat -ano",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'netstat -ano' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "tasklist /v",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'tasklist /v' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "systeminfo",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'systeminfo' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "quser",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'quser' under context 'internal_recon'.",
+          "references": []
+        },
+        {
+          "pattern": "whoami /priv",
+          "kill_chain_stage": "discovery",
+          "semantic_tags": [
+            "internal_discovery"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'whoami /priv' under context 'internal_recon'.",
+          "references": []
+        }
+      ],
+      "dual_use_tools": [
+        {
+          "pattern": "adfind",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "red_team_tool"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'adfind' under context 'dual_use_tools'.",
+          "references": []
+        },
+        {
+          "pattern": "powersploit",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "red_team_tool"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'powersploit' under context 'dual_use_tools'.",
+          "references": []
+        },
+        {
+          "pattern": "empire",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "red_team_tool"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'empire' under context 'dual_use_tools'.",
+          "references": []
+        },
+        {
+          "pattern": "cobaltstrike",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "red_team_tool"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'cobaltstrike' under context 'dual_use_tools'.",
+          "references": []
+        },
+        {
+          "pattern": "rubeus",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "red_team_tool"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'rubeus' under context 'dual_use_tools'.",
+          "references": []
+        },
+        {
+          "pattern": "p0wnedShell",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "red_team_tool"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'p0wnedShell' under context 'dual_use_tools'.",
+          "references": []
+        }
+      ],
+      "memory_injection": [
+        {
+          "pattern": "VirtualAllocEx",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "memory_injection"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'VirtualAllocEx' under context 'memory_injection'.",
+          "references": []
+        },
+        {
+          "pattern": "WriteProcessMemory",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "memory_injection"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'WriteProcessMemory' under context 'memory_injection'.",
+          "references": []
+        },
+        {
+          "pattern": "CreateRemoteThread",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "memory_injection"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'CreateRemoteThread' under context 'memory_injection'.",
+          "references": []
+        },
+        {
+          "pattern": "NtUnmapViewOfSection",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "memory_injection"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'NtUnmapViewOfSection' under context 'memory_injection'.",
+          "references": []
+        },
+        {
+          "pattern": "ReflectiveLoader",
+          "kill_chain_stage": "defense_evasion",
+          "semantic_tags": [
+            "memory_injection"
+          ],
+          "impact_weight": 0.5,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'ReflectiveLoader' under context 'memory_injection'.",
+          "references": []
+        }
+      ],
+      "persistence_indicators": [
+        {
+          "pattern": "run registry key",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'run registry key' under context 'persistence_indicators'.",
+          "references": []
+        },
+        {
+          "pattern": "WMI subscription",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'WMI subscription' under context 'persistence_indicators'.",
+          "references": []
+        },
+        {
+          "pattern": "Scheduled Task",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'Scheduled Task' under context 'persistence_indicators'.",
+          "references": []
+        },
+        {
+          "pattern": "Startup folder",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'Startup folder' under context 'persistence_indicators'.",
+          "references": []
+        },
+        {
+          "pattern": "Services.exe",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'Services.exe' under context 'persistence_indicators'.",
+          "references": []
+        },
+        {
+          "pattern": "AppInit_DLLs",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'AppInit_DLLs' under context 'persistence_indicators'.",
+          "references": []
+        },
+        {
+          "pattern": "IFEO",
+          "kill_chain_stage": "persistence",
+          "semantic_tags": [
+            "persistence"
+          ],
+          "impact_weight": 0.7,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'IFEO' under context 'persistence_indicators'.",
+          "references": []
+        }
+      ],
+      "malicious_scripts": [
+        {
+          "pattern": "powershell -enc",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "script_attack"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'powershell -enc' under context 'malicious_scripts'.",
+          "references": []
+        },
+        {
+          "pattern": "cmd /c bitsadmin",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "script_attack"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'cmd /c bitsadmin' under context 'malicious_scripts'.",
+          "references": []
+        },
+        {
+          "pattern": "certutil -urlcache",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "script_attack"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'certutil -urlcache' under context 'malicious_scripts'.",
+          "references": []
+        },
+        {
+          "pattern": "mshta",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "script_attack"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'mshta' under context 'malicious_scripts'.",
+          "references": []
+        },
+        {
+          "pattern": "jscript",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "script_attack"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'jscript' under context 'malicious_scripts'.",
+          "references": []
+        },
+        {
+          "pattern": "vbscript",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "script_attack"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'vbscript' under context 'malicious_scripts'.",
+          "references": []
+        },
+        {
+          "pattern": "macro-enabled",
+          "kill_chain_stage": "execution",
+          "semantic_tags": [
+            "script_attack"
+          ],
+          "impact_weight": 0.65,
+          "replay_hook_trigger": true,
+          "reverse_triggerable": true,
+          "unknown_risk_profile_fallback": "generic_suspicion",
+          "description": "Detected pattern 'macro-enabled' under context 'malicious_scripts'.",
+          "references": []
+        }
+      ]
+    }
+  }

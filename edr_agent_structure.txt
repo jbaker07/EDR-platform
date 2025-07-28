@@ -1,0 +1,133 @@
+edr-agent
+├── Cargo.lock
+├── Cargo.toml
+├── adaptive_threshold_engine.py
+├── adaptive_threshold_engine.rs
+├── airgap_replay_loader.py
+├── attack_loyalty_tracker.py
+├── attack_sim_autogen.py
+├── auto_tag_generator.py
+├── buffered_data.json
+├── config_users
+│   ├── trust_log_collector.py
+│   ├── trust_log_sender.py
+│   └── users.json
+├── decay_engine.rs
+├── distributed_fingerprint_tracker.py
+├── fingerprint_archive.rs
+├── forensic
+│   ├── auth_watch.rs
+│   ├── cloud_watch.rs
+│   ├── container_engine.rs
+│   ├── container_monitor.rs
+│   ├── ebpf_loader.rs
+│   ├── file_watcher.rs
+│   ├── forensic_config.json
+│   ├── forensic_engine.rs
+│   ├── forensic_sweep_controller.rs
+│   ├── job_sched_monitors.rs
+│   ├── logon_tracker.rs
+│   ├── memory_monitor.rs
+│   ├── mod.rs
+│   ├── network_monitor.rs
+│   ├── persistence_engine.rs
+│   ├── privilege_engine.rs
+│   ├── syscall_collector.rs
+│   ├── syscall_monitor.rs
+│   ├── telemetry_pruner.rs
+│   └── utils.rs
+├── forensic_bundle_exporter.py
+├── forensic_bundle_exporter.rs
+├── generate_checksums.py
+├── gnn_score_analyzer.rs
+├── gnn_score_fetcher.rs
+├── gnn_server.py
+├── gnn_signal_deduplicator.rs
+├── gnn_training_audit_logger.py
+├── intel_pack_signer.py
+├── json_files
+│   ├── role_risk_profile_map.json
+│   └── update_manifest.json
+├── live_breadcrumb_narrator.py
+├── llm_client.py
+├── log_gap_detector.rs
+├── log_integrity_verifier.rs
+├── main.rs
+├── manifest_verifier.py
+├── mod.rs
+├── modules
+│   ├── gnn_label_mapper.rs
+│   ├── phase_coordinator.rs
+│   ├── replay_writer.rs
+│   ├── score_reason.rs
+│   ├── session_tracker.rs
+│   ├── signature_engine.rs
+│   └── telemetry_enricher.rs
+├── ontology_mapper.rs
+├── predictive_decay_forecaster.py
+├── relay.rs
+├── remediation_reasoner.py
+├── replay_delta_trainer.py
+├── replay_graph_hashchain.py
+├── replay_graph_hashchain.rs
+├── replay_index_generator.py
+├── replay_metadata_indexer.py
+├── replay_mutator.py
+├── replay_scheduler.rs
+├── replay_trigger.rs
+├── replay_writer.rs
+├── retention_scheduler.rs
+├── semantic_enricher.rs
+├── semantic_enrichment_auditor.py
+├── semantic_gap_analyzer.py
+├── session_anomaly_tracker.rs
+├── session_digest_cache.rs
+├── session_explainer.rs
+├── session_trust_curve.rs
+├── shap_explain.rs
+├── shap_server.py
+├── sign_manifest.py
+├── signal_integrity_mapper.rs
+├── soc_explainer_llm.py
+├── src
+│   ├── config.rs
+│   ├── ebpf
+│   ├── gnn_bridge.rs
+│   ├── gnn_hook.rs
+│   ├── modes
+│   ├── modules
+│   ├── services
+│   └── trust_hook.rs
+├── storage_profile.rs
+├── target
+│   ├── CACHEDIR.TAG
+│   └── debug
+├── telemetry.rs
+├── telemetry_types.rs
+├── telemetry_writer.rs
+├── threat_delta_sync.py
+├── trust_api_overlay_plugin.py
+├── trust_census_collector.py
+├── trust_curve_registry.rs
+├── trust_digest_engine.py
+├── trust_drift.rs
+├── trust_engine_final.rs
+├── trust_escape_detector.py
+├── trust_escape_detector.rs
+├── trust_fingerprint.rs
+├── trust_hardness.rs
+├── trust_model_sentry.rs
+├── trust_rule_matcher.rs
+├── trust_snapshot_scheduler.py
+├── trust_state_restorer.rs
+├── trust_stress_test_runner.py
+├── trust_vote_config.json
+├── trust_vote_engine.py
+├── trust_vote_engine.rs
+├── ttl_replay_vault.py
+├── ttl_replay_vault.rs
+├── ttl_retention.rs
+├── update_manifest_checker.py
+└── vault_exporter.py
+
+12 directories, 119 files

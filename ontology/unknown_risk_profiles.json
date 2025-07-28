@@ -1,0 +1,48 @@
+{
+    "tags": {
+      "unknown_beacon_like_behavior": {
+        "mapped_fields": [
+          "network_interval",
+          "parent_absence",
+          "entropy_score"
+        ],
+        "trust_reason": "Observed repeated external connections without parent process. Behavior resembles slow beaconing.",
+        "mode": "minimal"
+      },
+      "orphan_process_exec": {
+        "mapped_fields": [
+          "process_name",
+          "ppid",
+          "cmdline_length"
+        ],
+        "trust_reason": "Process executed with no valid parent (PPID = 0 or missing). Indicates anomaly or evasion.",
+        "mode": "forensic"
+      },
+      "excessive_child_processes": {
+        "mapped_fields": [
+          "num_children",
+          "spawn_rate"
+        ],
+        "trust_reason": "Process spawned unusually high number of child processes in short time. Could indicate fork bomb or script loop.",
+        "mode": "forensic"
+      },
+      "unknown_file_modification_burst": {
+        "mapped_fields": [
+          "file_write_rate",
+          "file_entropy",
+          "file_type"
+        ],
+        "trust_reason": "High volume of writes to system or user directory with high entropy files. Potential ransomware or staging.",
+        "mode": "forensic"
+      },
+      "unsigned_network_script": {
+        "mapped_fields": [
+          "script_language",
+          "signature_status",
+          "network_activity"
+        ],
+        "trust_reason": "Unsigned script initiated network connection. No known semantic match, but high-risk behavior pattern.",
+        "mode": "minimal"
+      }
+    }
+  }

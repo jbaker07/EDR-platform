@@ -1,0 +1,2072 @@
+[
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "overlay",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 229376,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "uinput",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "joydev",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "uhid",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "rfcomm",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 131072,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "bnep",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "brcmfmac_wcc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "hid_apple",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_mfi_fastcharge",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "brcmfmac",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 507904,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "hci_bcm4377",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "bluetooth",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 917504,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "brcmutil",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "cfg80211",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 1179648,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "atlantic",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 311296,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "macsec",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 98304,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "mmc_core",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 294912,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_seq_dummy",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_hrtimer",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_seq",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 147456,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_seq_device",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "rfkill",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_conntrack_netbios_ns",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_conntrack_broadcast",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_fib_inet",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_fib_ipv4",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_fib_ipv6",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_fib",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_reject_inet",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_reject_ipv4",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_reject_ipv6",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_reject",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_ct",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nft_chain_nat",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_nat",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 98304,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_conntrack",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 212992,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_defrag_ipv6",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_defrag_ipv4",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nf_tables",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 360448,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "qrtr",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 81920,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "sunrpc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 770048,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "binfmt_misc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "appledrm",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "ofpart",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_soc_macaudio",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_soc_cs42l84",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "spi_nor",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 196608,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_soc_tas2764",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_dcp",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 344064,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "mtd",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 131072,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "drm_dma_helper",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "mux_core",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "macsmc_hid",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_soc_apple_mca",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_soc_core",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 442368,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_compress",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "ac97_bus",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_pcm_dmaengine",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_soc_cpufreq",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "loop",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "dm_multipath",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 81920,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nfnetlink",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "zram",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 81920,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "lz4hc_compress",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "lz4_compress",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "tps6598x",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 131072,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nvmem_spmi_mfd",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "macsmc_hwmon",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "macsmc_power",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "macsmc_reboot",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "gpio_macsmc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "rtc_macsmc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "simple_mfd_spmi",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "polyval_ce",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "polyval_generic",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "asahi",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 1277952,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "ghash_ce",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_pcm",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 196608,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "sha3_ce",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "sha512_ce",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "sha512_arm64",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd_timer",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 81920,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "snd",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 163840,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_sio",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "phy_apple_dptx",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "soundcore",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "dwc3",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 245760,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "phy_apple_atc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 98304,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "ulpi",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "macsmc_rtkit",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "i2c_pasemi_platform",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "spi_apple",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "typec",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 131072,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "macsmc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "udc_core",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 114688,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_admac",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "i2c_pasemi_core",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_wdt",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nvmem_apple_efuses",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "pinctrl_apple_gpio",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "spmi_apple_controller",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_dart",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "clk_apple_nco",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "xhci_plat_hcd",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "vfat",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "fat",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 114688,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nvme_apple",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "apple_sart",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nvme_core",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 245760,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "nvme_auth",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "scsi_dh_rdac",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "scsi_dh_emc",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "scsi_dh_alua",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 49152,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "fuse",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 278528,
+      "permissions": null,
+      "hash": null
+    }
+  },
+  {
+    "KernelModule": {
+      "variant": "kernel_module",
+      "value": "i2c_dev",
+      "category": "kernel_module",
+      "tags": [
+        "kernel",
+        "module",
+        "dynamic"
+      ],
+      "source_module": "crawl_kernel_modules",
+      "created_at": 1753436833,
+      "description": null,
+      "size_bytes": 65536,
+      "permissions": null,
+      "hash": null
+    }
+  }
+]

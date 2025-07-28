@@ -1,0 +1,14 @@
+{
+  "hostname": "test",
+  "timestamp": 123456789,
+  "processes": [
+    {
+      "pid": 1,
+      "name": "test_proc",
+      "cmd": "/bin/test",
+      "memory": 1024,
+      "cpu_usage": 0.1,
+      "status": "running"
+    }
+  ]
+}

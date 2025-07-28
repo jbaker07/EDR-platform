@@ -1,0 +1,41 @@
+[
+  {
+    "id": "R001",
+    "name": "High CPU usage",
+    "description": "Detects high CPU usage processes",
+    "severity": "high",
+    "target_os": ["windows", "linux"],
+    "logic": "AND",
+    "conditions": [
+      {
+        "field": "cpu_usage",
+        "operator": ">",
+        "value": 80
+      }
+    ],
+    "exceptions": [],
+    "actions": ["generate_alert"]
+  },
+  {
+    "id": "R002",
+    "name": "Dangerous Command Execution",
+    "description": "Detects execution of dangerous 'rm -rf' command",
+    "severity": "critical",
+    "target_os": ["linux"],
+    "logic": "OR",
+    "conditions": [
+      {
+        "field": "command",
+        "operator": "contains",
+        "value": "rm -rf"
+      }
+    ],
+    "exceptions": [
+      {
+        "field": "username",
+        "value": "trusted_admin"
+      }
+    ],
+    "actions": ["generate_alert", "flag_for_review"]
+  }
+]

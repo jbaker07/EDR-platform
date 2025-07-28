@@ -1,0 +1,296 @@
+{
+  "replay_triggers": [
+    {
+      "pattern": "Process \u2192 injected-to \u2192 signed binary",
+      "label": "T1055",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 authenticated-to \u2192 Service (external)",
+      "label": "Suspicious Auth Flow",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "File \u2192 exfiltrated-to \u2192 ExternalHost",
+      "label": "Data Exfiltration",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 beaconed \u2192 IP",
+      "label": "C2 Beacon",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 spawned \u2192 rundll32.exe",
+      "label": "LOLBIN Execution",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "File \u2192 accessed-by \u2192 powershell.exe",
+      "label": "Script Obfuscation Attempt",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 accessed \u2192 HRData.xlsx",
+      "label": "Insider Curiosity",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 connected-to \u2192 TOR node",
+      "label": "Anonymized Exfiltration",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 switched-role \u2192 privileged",
+      "label": "Unauthorized Privilege Escalation",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 wrote \u2192 .lnk file",
+      "label": "Persistence via Shortcut",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 loaded \u2192 unsigned DLL",
+      "label": "Memory Injection (Unsigned)",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 executed \u2192 macro script",
+      "label": "Macro-Based Attack",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 authenticated-to \u2192 CloudService (suspicious)",
+      "label": "Cloud Lateral Movement",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 downloaded \u2192 credential_dump.bin",
+      "label": "Credential Theft",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 executed \u2192 installutil.exe",
+      "label": "Signed Binary Proxy Execution",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "File \u2192 opened-by \u2192 explorer.exe \u2192 spawned \u2192 powershell",
+      "label": "User Execution via File Explorer",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 uploaded \u2192 base64 payload",
+      "label": "Encoded Payload Exfiltration",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 created-shortcut \u2192 startup folder",
+      "label": "Persistence via Startup Shortcut",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 switched-role \u2192 root",
+      "label": "Root Privilege Switch",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 scanned \u2192 10+ internal IPs",
+      "label": "Internal Reconnaissance",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 executed \u2192 signed binary \u2192 injected-to \u2192 child",
+      "label": "Defense Evasion via Signed Binary",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "User \u2192 accessed \u2192 outdated SaaS API",
+      "label": "Legacy Cloud Exploitation",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "Process \u2192 dropped-copy-of \u2192 OfficeDocument",
+      "label": "Document-Based Propagation",
+      "action": "start_replay_capture"
+    },
+    {
+      "pattern": "File \u2192 linked-to \u2192 script \u2192 executed-by \u2192 powershell",
+      "label": "Script Relay Execution",
+      "action": "start_replay_capture"
+    }
+  ],
+  "escalation_rules": [
+    {
+      "trigger": "process_spawn_anomaly",
+      "threshold": "num_children > 10",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "external_comm_attempt",
+      "context": "unsigned_process + beaconed",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "geo_anomaly",
+      "context": "new_device + remote_access_tool",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "file_entropy",
+      "threshold": "entropy > 0.95",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "macro_exec",
+      "context": "office_macro + powershell + IEX",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "usb_exfil",
+      "context": "usb_mount + file_entropy > 0.9 + off_hours",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "cloud_token_misuse",
+      "context": "access_key + geo_anomaly",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "script_chain",
+      "context": "wscript + cmd + base64",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "excessive_downloads",
+      "context": "file_volume > 1GB + compressed",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "forensic_artifact_tampering",
+      "context": "eventlog_clear + regedit",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "shadow_admin_creation",
+      "context": "created-user + admin_group",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "external_auth_volume_spike",
+      "context": "auth > 20 per hr + remote_ip",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "scheduled_task_mod",
+      "context": "schtasks + hidden + modified_by_non_admin",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "clipboard_exfil",
+      "context": "clipboard_volume > 1MB + usb_mount",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "multiple_macro_docs",
+      "context": "macro_count > 3 + auto_open + no signature",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "stolen_token_usage",
+      "context": "token_used + outside_geo + nonstandard_hours",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "signed_binary_sequence",
+      "context": "signed_binary + child_exec + hidden_window",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "script_logon_sequence",
+      "context": "script_exec + auth_attempt + credential_misuse",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "cloud_admin_creation",
+      "context": "created-user + role:admin + cloud_console",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "registry_autorun_addition",
+      "context": "regkey:Run + added_by_non_admin",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "document_spray",
+      "context": "doc_opened > 20 + spread_path = shared_drive",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "host_enum_tools",
+      "context": "hostname_enum + arp_scan + nmap",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "internal_port_scan",
+      "context": "netcat + internal_range + >20 ports",
+      "action": "switch_to_forensic"
+    },
+    {
+      "trigger": "suspicious_clipboard_usage",
+      "context": "clipboard_read + no UI event + encoding detected",
+      "action": "switch_to_forensic"
+    },
+      {
+        "trigger": "privileged_escalation_attempt",
+        "context": "token_impersonation + admin_group_enum + access_denied",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "stealthy_file_dropper",
+        "context": "lolbin + dropped_executable + hidden_file_attr",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "scripted_lateral_movement",
+        "context": "psexec + domain_spread + scheduled_task_created",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "cloud_secrets_exfiltration",
+        "context": "awscli + secretsmanager + offhours_access",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "keylogger_behavior",
+        "context": "clipboard_read + keystroke_injection + no_visible_window",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "persistence_scheduled_task",
+        "context": "schtasks + recurring_daily + non_admin_creator",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "remote_shell_access",
+        "context": "powershell + base64_encoded + external_ip",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "insider_mass_file_access",
+        "context": "doc_opened > 200 + user:internal + role:finance",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "obfuscated_bypass_chain",
+        "context": "amsi_bypass + encoded_command + dll_injection",
+        "action": "switch_to_forensic"
+      },
+      {
+        "trigger": "cloud_shadow_user_created",
+        "context": "created-user + no MFA + console_login",
+        "action": "switch_to_forensic"
+      }
+    ]
+}

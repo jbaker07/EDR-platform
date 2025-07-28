@@ -1,0 +1,1522 @@
+   Compiling cfg-if v1.0.0
+   Compiling once_cell v1.21.3
+   Compiling smallvec v1.15.0
+   Compiling memchr v2.7.4
+   Compiling bytes v1.10.1
+   Compiling scopeguard v1.2.0
+   Compiling stable_deref_trait v1.2.0
+   Compiling pin-project-lite v0.2.16
+   Compiling log v0.4.27
+   Compiling allocator-api2 v0.2.21
+   Compiling equivalent v1.0.2
+   Compiling foldhash v0.1.5
+   Compiling writeable v0.5.5
+   Compiling litemap v0.7.5
+   Compiling libc v0.2.171
+   Compiling typenum v1.18.0
+   Compiling itoa v1.0.15
+   Compiling bitflags v2.9.0
+   Compiling crossbeam-utils v0.8.21
+   Compiling icu_locid_transform_data v1.5.1
+   Compiling zerofrom v0.1.6
+   Compiling lock_api v0.4.13
+   Compiling futures-core v0.3.31
+   Compiling icu_properties_data v1.5.1
+   Compiling fnv v1.0.7
+   Compiling foreign-types-shared v0.1.1
+   Compiling subtle v2.6.1
+   Compiling icu_normalizer_data v1.5.1
+   Compiling slab v0.4.9
+   Compiling crc32fast v1.4.2
+   Compiling utf8_iter v1.0.4
+   Compiling yoke v0.7.5
+   Compiling futures-sink v0.3.31
+   Compiling foreign-types v0.3.2
+   Compiling pin-utils v0.1.0
+   Compiling pyo3-build-config v0.20.3
+   Compiling tracing-core v0.1.33
+   Compiling utf16_iter v1.0.5
+   Compiling futures-io v0.3.31
+   Compiling futures-task v0.3.31
+   Compiling write16 v1.0.0
+   Compiling serde v1.0.219
+   Compiling thiserror v1.0.69
+   Compiling zerocopy v0.8.25
+   Compiling percent-encoding v2.3.1
+   Compiling try-lock v0.2.5
+   Compiling openssl-probe v0.1.6
+   Compiling core-error v0.0.0
+   Compiling httparse v1.10.1
+   Compiling futures-channel v0.3.31
+   Compiling tower-service v0.3.3
+   Compiling bitflags v1.3.2
+   Compiling httpdate v1.0.3
+   Compiling zerovec v0.10.4
+   Compiling want v0.3.1
+   Compiling ryu v1.0.20
+   Compiling zeroize v1.3.0
+   Compiling num_enum v0.7.3
+   Compiling byteorder v1.5.0
+   Compiling signature v1.6.4
+   Compiling either v1.15.0
+   Compiling crossbeam-epoch v0.9.18
+   Compiling futures-util v0.3.31
+   Compiling hashbrown v0.15.2
+   Compiling form_urlencoded v1.2.1
+   Compiling aho-corasick v1.1.3
+   Compiling adler2 v2.0.0
+   Compiling same-file v1.0.6
+   Compiling opaque-debug v0.3.1
+   Compiling assert_matches v1.5.0
+   Compiling tracing v0.1.41
+   Compiling regex-syntax v0.8.5
+   Compiling base64 v0.21.7
+   Compiling generic-array v0.14.7
+   Compiling http v0.2.12
+   Compiling pyo3-macros-backend v0.20.3
+   Compiling walkdir v2.5.0
+   Compiling miniz_oxide v0.8.8
+   Compiling ed25519 v1.5.3
+   Compiling crossbeam-channel v0.5.15
+   Compiling object v0.28.4
+   Compiling aya-log-common v0.1.15
+   Compiling crossbeam-deque v0.8.6
+   Compiling rustls-pemfile v1.0.4
+   Compiling memoffset v0.9.1
+   Compiling num-traits v0.2.19
+   Compiling portable-atomic v1.11.1
+   Compiling encoding_rs v0.8.35
+   Compiling ipnet v2.11.0
+   Compiling mime v0.3.17
+   Compiling iana-time-zone v0.1.63
+   Compiling indexmap v2.9.0
+   Compiling sync_wrapper v0.1.2
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.6
+   Compiling digest v0.9.0
+   Compiling rayon-core v1.12.1
+   Compiling tinystr v0.7.6
+   Compiling icu_collections v1.5.0
+   Compiling digest v0.10.7
+   Compiling block-buffer v0.9.0
+   Compiling parking_lot_core v0.9.11
+   Compiling socket2 v0.5.9
+   Compiling signal-hook-registry v1.4.5
+   Compiling mio v1.0.3
+   Compiling icu_locid v1.5.0
+   Compiling openssl-sys v0.9.107
+   Compiling parking_lot v0.12.4
+   Compiling cpufeatures v0.2.17
+   Compiling getrandom v0.1.16
+   Compiling pyo3-ffi v0.20.3
+   Compiling object v0.36.7
+   Compiling ppv-lite86 v0.2.21
+   Compiling http-body v0.4.6
+   Compiling pyo3 v0.20.3
+   Compiling inotify-sys v0.1.5
+   Compiling keccak v0.1.5
+   Compiling sha2 v0.9.9
+   Compiling tokio v1.44.2
+   Compiling rand_core v0.5.1
+   Compiling inotify v0.9.6
+   Compiling rayon v1.10.0
+   Compiling mio v0.8.11
+   Compiling icu_provider v1.5.0
+   Compiling filetime v0.2.25
+   Compiling rand_chacha v0.2.2
+   Compiling curve25519-dalek v3.2.1
+   Compiling icu_locid_transform v1.5.0
+   Compiling rand v0.7.3
+   Compiling regex-automata v0.4.9
+   Compiling match_cfg v0.1.0
+   Compiling lazy_static v1.5.0
+   Compiling unindent v0.2.4
+   Compiling hostname v0.3.1
+   Compiling notify v6.1.1
+   Compiling sha3 v0.10.8
+   Compiling sha2 v0.10.9
+   Compiling hmac v0.12.1
+   Compiling aya v0.11.0
+   Compiling serde_urlencoded v0.7.1
+   Compiling serde_json v1.0.140
+   Compiling chrono v0.4.41
+   Compiling nix v0.28.0
+   Compiling openssl v0.10.72
+   Compiling netlink-sys v0.6.0
+   Compiling flate2 v1.1.2
+   Compiling anyhow v1.0.98
+   Compiling hex v0.4.3
+   Compiling icu_properties v1.5.1
+   Compiling ed25519-dalek v1.0.1
+   Compiling pyo3-macros v0.20.3
+   Compiling sysinfo v0.30.13
+   Compiling regex v1.11.1
+   Compiling icu_normalizer v1.5.0
+   Compiling idna_adapter v1.2.0
+   Compiling idna v1.0.3
+   Compiling aya-obj v0.2.1
+   Compiling native-tls v0.2.14
+   Compiling url v2.5.4
+   Compiling tokio-util v0.7.14
+   Compiling tokio-native-tls v0.3.1
+   Compiling h2 v0.3.26
+   Compiling aya v0.13.1
+   Compiling aya-log v0.2.1
+   Compiling hyper v0.14.32
+   Compiling hyper-tls v0.5.0
+   Compiling reqwest v0.11.27
+   Compiling forensic_hooks v0.1.0 (/home/jermaineb/EDR-platform/edr-agent)
+error: expected one of `!` or `::`, found `;`
+ --> src/forensic_engine.rs:2:50
+  |
+2 | crate::modules::process_monitor::gather_processes;
+  |                                                  ^ expected one of `!` or `::`
+
+error[E0583]: file not found for module `shap_explain`
+  --> src/lib.rs:19:1
+   |
+19 | pub mod shap_explain;
+   | ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `shap_explain`, create file "src/shap_explain.rs" or "src/shap_explain/mod.rs"
+   = note: if there is a `mod shap_explain` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `trust_state_writer`
+  --> src/lib.rs:20:1
+   |
+20 | pub mod trust_state_writer;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `trust_state_writer`, create file "src/trust_state_writer.rs" or "src/trust_state_writer/mod.rs"
+   = note: if there is a `mod trust_state_writer` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `ontology_mapper`
+  --> src/lib.rs:32:1
+   |
+32 | pub mod ontology_mapper;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `ontology_mapper`, create file "src/ontology_mapper.rs" or "src/ontology_mapper/mod.rs"
+   = note: if there is a `mod ontology_mapper` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `replay_trigger`
+  --> src/lib.rs:37:1
+   |
+37 | pub mod replay_trigger;
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `replay_trigger`, create file "src/replay_trigger.rs" or "src/replay_trigger/mod.rs"
+   = note: if there is a `mod replay_trigger` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `adaptive_threshold_engine`
+ --> src/modules/mod.rs:1:1
+  |
+1 | pub mod adaptive_threshold_engine;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `adaptive_threshold_engine`, create file "src/modules/adaptive_threshold_engine.rs" or "src/modules/adaptive_threshold_engine/mod.rs"
+  = note: if there is a `mod adaptive_threshold_engine` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `trust_digest_engine`
+ --> src/modules/mod.rs:2:1
+  |
+2 | pub mod trust_digest_engine;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `trust_digest_engine`, create file "src/modules/trust_digest_engine.rs" or "src/modules/trust_digest_engine/mod.rs"
+  = note: if there is a `mod trust_digest_engine` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `gnn_hook`
+ --> src/modules/mod.rs:3:1
+  |
+3 | pub mod gnn_hook;
+  | ^^^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `gnn_hook`, create file "src/modules/gnn_hook.rs" or "src/modules/gnn_hook/mod.rs"
+  = note: if there is a `mod gnn_hook` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `session_revalidator`
+  --> src/modules/mod.rs:19:1
+   |
+19 | pub mod session_revalidator;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `session_revalidator`, create file "src/modules/session_revalidator.rs" or "src/modules/session_revalidator/mod.rs"
+   = note: if there is a `mod session_revalidator` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `trust_config`
+  --> src/modules/mod.rs:23:1
+   |
+23 | pub mod trust_config;
+   | ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `trust_config`, create file "src/modules/trust_config.rs" or "src/modules/trust_config/mod.rs"
+   = note: if there is a `mod trust_config` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `trust_escalation`
+  --> src/modules/mod.rs:24:1
+   |
+24 | pub mod trust_escalation;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `trust_escalation`, create file "src/modules/trust_escalation.rs" or "src/modules/trust_escalation/mod.rs"
+   = note: if there is a `mod trust_escalation` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0428]: the name `get_registry_changes` is defined multiple times
+   --> src/telemetry.rs:143:1
+    |
+118 | fn get_registry_changes(_pid: i32) -> Option<Vec<RegistryChange>> {
+    | ----------------------------------------------------------------- previous definition of the value `get_registry_changes` here
+...
+143 | fn get_registry_changes(_pid: i32) -> Option<Vec<RegistryChange>> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `get_registry_changes` redefined here
+    |
+    = note: `get_registry_changes` must be defined only once in the value namespace of this module
+
+error[E0428]: the name `get_loaded_modules` is defined multiple times
+   --> src/telemetry.rs:147:1
+    |
+122 | fn get_loaded_modules(_pid: i32) -> Option<Vec<String>> {
+    | ------------------------------------------------------- previous definition of the value `get_loaded_modules` here
+...
+147 | fn get_loaded_modules(_pid: i32) -> Option<Vec<String>> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `get_loaded_modules` redefined here
+    |
+    = note: `get_loaded_modules` must be defined only once in the value namespace of this module
+
+error[E0428]: the name `get_syscall_summary` is defined multiple times
+   --> src/telemetry.rs:151:1
+    |
+126 | fn get_syscall_summary(_pid: i32) -> Option<SyscallActivity> {
+    | ------------------------------------------------------------ previous definition of the value `get_syscall_summary` here
+...
+151 | fn get_syscall_summary(_pid: i32) -> Option<SyscallActivity> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `get_syscall_summary` redefined here
+    |
+    = note: `get_syscall_summary` must be defined only once in the value namespace of this module
+
+error[E0428]: the name `get_memory_usage` is defined multiple times
+   --> src/telemetry.rs:158:1
+    |
+130 | fn get_memory_usage(_pid: i32) -> Option<u64> {
+    | --------------------------------------------- previous definition of the value `get_memory_usage` here
+...
+158 | fn get_memory_usage(_pid: i32) -> Option<u64> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `get_memory_usage` redefined here
+    |
+    = note: `get_memory_usage` must be defined only once in the value namespace of this module
+
+error[E0428]: the name `get_cpu_usage` is defined multiple times
+   --> src/telemetry.rs:162:1
+    |
+134 | fn get_cpu_usage(_pid: i32) -> Option<f32> {
+    | ------------------------------------------ previous definition of the value `get_cpu_usage` here
+...
+162 | fn get_cpu_usage(_pid: i32) -> Option<f32> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `get_cpu_usage` redefined here
+    |
+    = note: `get_cpu_usage` must be defined only once in the value namespace of this module
+
+error[E0428]: the name `get_session_id` is defined multiple times
+   --> src/telemetry.rs:166:1
+    |
+138 | fn get_session_id(_pid: i32) -> Option<String> {
+    | ---------------------------------------------- previous definition of the value `get_session_id` here
+...
+166 | fn get_session_id(_pid: i32) -> Option<String> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `get_session_id` redefined here
+    |
+    = note: `get_session_id` must be defined only once in the value namespace of this module
+
+error[E0432]: unresolved import `sysinfo::SystemExt`
+  --> src/main.rs:10:23
+   |
+10 | use sysinfo::{System, SystemExt};
+   |                       ^^^^^^^^^
+   |                       |
+   |                       no `SystemExt` in the root
+   |                       help: a similar name exists in the module: `System`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/services/trust_engine_final.rs:2:12
+  |
+2 | use crate::gnn_hook::send_to_gnn;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::replay_trigger`
+ --> src/services/trust_engine_final.rs:3:12
+  |
+3 | use crate::replay_trigger::trigger_replay_if_needed;
+  |            ^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::replay_trigger`
+
+error[E0432]: unresolved import `crate::trust_state_writer`
+ --> src/services/trust_engine_final.rs:5:12
+  |
+5 | use crate::trust_state_writer::persist_trust_state;
+  |            ^^^^^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::trust_state_writer`
+
+error[E0432]: unresolved import `crate::trust_config`
+ --> src/services/trust_escalation.rs:2:12
+  |
+2 | use crate::trust_config::TrustConfig;
+  |            ^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::trust_config`
+
+error[E0432]: unresolved import `crate::replay_writer`
+ --> src/services/trust_escalation.rs:3:5
+  |
+3 | use crate::replay_writer;
+  |     ^^^^^^^^^^^^^^^^^^^^ no `replay_writer` in the root
+
+error[E0432]: unresolved import `crate::alert_engine`
+ --> src/services/trust_escalation.rs:4:5
+  |
+4 | use crate::alert_engine;
+  |     ^^^^^^^^^^^^^^^^^^^ no `alert_engine` in the root
+
+error[E0432]: unresolved import `crate::logger`
+ --> src/services/trust_escalation.rs:5:5
+  |
+5 | use crate::logger;
+  |     ^^^^^^^^^^^^^ no `logger` in the root
+
+error[E0432]: unresolved import `crate::ontology_mapper`
+ --> src/services/trust_escalation.rs:6:5
+  |
+6 | use crate::ontology_mapper;
+  |     ^^^^^^^^^^^^^^^^^^^^^^ no `ontology_mapper` in the root
+  |
+help: a similar name exists in the module
+  |
+6 | use crate::init_ontology_mapper;
+  |            +++++
+help: consider importing this module instead
+  |
+6 | use crate::services::ontology_mapper;
+  |            ++++++++++
+
+error[E0432]: unresolved import `crate::decay_engine`
+  --> src/services/trust_state_writer.rs:13:12
+   |
+13 | use crate::decay_engine::{TrustState, TrustDecayManager};
+   |            ^^^^^^^^^^^^
+   |            |
+   |            unresolved import
+   |            help: a similar path exists: `services::decay_engine`
+
+error[E0432]: unresolved import `crate::session_revalidator`
+ --> src/services/trust_state_restorer.rs:5:12
+  |
+5 | use crate::session_revalidator::SessionData;
+  |            ^^^^^^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::session_revalidator`
+
+error[E0432]: unresolved import `crate::decay_engine`
+ --> src/services/session_revalidator.rs:4:12
+  |
+4 | use crate::decay_engine::TrustDecayManager;
+  |            ^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::decay_engine`
+
+error[E0432]: unresolved import `crate::trust_hook`
+ --> src/services/session_revalidator.rs:5:5
+  |
+5 | use crate::trust_hook;
+  |     ^^^^^^^^^^^^^^^^^ no `trust_hook` in the root
+
+error[E0432]: unresolved import `crate::replay_writer`
+ --> src/services/session_revalidator.rs:6:12
+  |
+6 | use crate::replay_writer::{generate_replay_event, persist_replay_event};
+  |            ^^^^^^^^^^^^^ could not find `replay_writer` in the crate root
+
+error[E0432]: unresolved import `crate::vault_exporter`
+ --> src/services/replay_trigger.rs:4:12
+  |
+4 | use crate::vault_exporter::export_to_vault;
+  |            ^^^^^^^^^^^^^^ could not find `vault_exporter` in the crate root
+
+error[E0432]: unresolved import `crate::session_trust_curve`
+  --> src/services/replay_trigger.rs:42:12
+   |
+42 | use crate::session_trust_curve::{SessionTrustCurve};
+   |            ^^^^^^^^^^^^^^^^^^^ could not find `session_trust_curve` in the crate root
+
+error[E0432]: unresolved imports `crate::modules::password_spray`, `crate::modules::mfa_bypass`, `crate::modules::geo_ip_anomaly`, `crate::modules::cloud_tracker`
+  --> src/modes/minimal.rs:10:5
+   |
+10 |     password_spray::detect_password_spray,
+   |     ^^^^^^^^^^^^^^ could not find `password_spray` in `modules`
+11 |     mfa_bypass::detect_mfa_bypass,
+   |     ^^^^^^^^^^ could not find `mfa_bypass` in `modules`
+12 |     geo_ip_anomaly::check_geo_ip_anomaly,
+   |     ^^^^^^^^^^^^^^ could not find `geo_ip_anomaly` in `modules`
+13 |     cloud_tracker::minimal_cloud_tracking,
+   |     ^^^^^^^^^^^^^ could not find `cloud_tracker` in `modules`
+
+error[E0432]: unresolved import `crate::relay`
+  --> src/modes/minimal.rs:16:12
+   |
+16 | use crate::relay::transmit_or_buffer;
+   |            ^^^^^ could not find `relay` in the crate root
+
+error[E0432]: unresolved imports `crate::modules::auth_watch`, `crate::modules::file_watcher`, `crate::modules::network_monitor`, `crate::modules::persistence_watch`, `crate::modules::privilege_monitor`, `crate::modules::process_monitor::monitor_processes`, `crate::modules::registry_watch`, `crate::modules::user_tracker`, `crate::modules::usb_monitor`, `crate::modules::logon_tracker`, `crate::modules::cloud_tracker`, `crate::modules::container_monitor`, `crate::modules::container_engine`, `crate::modules::job_sched_monitors`, `crate::modules::script_monitor`, `crate::modules::mem_scan`
+  --> src/modes/forensic.rs:8:5
+   |
+8  |     auth_watch::monitor_auth_events,
+   |     ^^^^^^^^^^ could not find `auth_watch` in `modules`
+9  |     file_watcher::monitor_file_events,
+   |     ^^^^^^^^^^^^ could not find `file_watcher` in `modules`
+10 |     net_watch::log_network_events,
+11 |     network_monitor::collect_network_stats,
+   |     ^^^^^^^^^^^^^^^ could not find `network_monitor` in `modules`
+12 |     persistence_watch::scan_persistence_indicators,
+   |     ^^^^^^^^^^^^^^^^^ could not find `persistence_watch` in `modules`
+13 |     privilege_monitor::scan_privilege_escalations,
+   |     ^^^^^^^^^^^^^^^^^ could not find `privilege_monitor` in `modules`
+14 |     process_monitor::monitor_processes,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `monitor_processes` in `modules::process_monitor`
+15 |     registry_watch::scan_registry_entries,
+   |     ^^^^^^^^^^^^^^ could not find `registry_watch` in `modules`
+16 |     user_tracker::track_user_sessions,
+   |     ^^^^^^^^^^^^ could not find `user_tracker` in `modules`
+17 |     usb_monitor::scan_usb_devices,
+   |     ^^^^^^^^^^^ could not find `usb_monitor` in `modules`
+18 |     logon_tracker::track_logons,
+   |     ^^^^^^^^^^^^^ could not find `logon_tracker` in `modules`
+19 |     cloud_tracker::cloud_telemetry,
+   |     ^^^^^^^^^^^^^
+20 |     container_monitor::scan_containers,
+   |     ^^^^^^^^^^^^^^^^^
+21 |     container_engine::analyze_container_activity,
+   |     ^^^^^^^^^^^^^^^^
+22 |     job_sched_monitors::track_job_schedulers,
+   |     ^^^^^^^^^^^^^^^^^^
+23 |     script_monitor::monitor_script_execs,
+   |     ^^^^^^^^^^^^^^
+24 |     mem_scan::scan_memory_anomalies,
+   |     ^^^^^^^^
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+  --> src/modes/forensic.rs:28:23
+   |
+28 | use sysinfo::{System, SystemExt, ProcessExt};
+   |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+   |                       |
+   |                       no `SystemExt` in the root
+   |
+   = help: consider importing this unresolved item through its public re-export instead:
+           crate::SystemExt
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, System, ProcessExt};
+   |
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, SystemExt, Process};
+   |
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/process_monitor.rs:7:12
+  |
+7 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+ --> src/modules/process_monitor.rs:3:23
+  |
+3 | use sysinfo::{System, SystemExt, ProcessExt};
+  |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+  |                       |
+  |                       no `SystemExt` in the root
+  |
+  = help: consider importing this unresolved item through its public re-export instead:
+          crate::SystemExt
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, System, ProcessExt};
+  |
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, SystemExt, Process};
+  |
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/net_watch.rs:5:12
+  |
+5 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/process_monitor.rs:8:12
+  |
+8 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::trust_hook`
+ --> src/modules/auth_monitor.rs:6:12
+  |
+6 | use crate::trust_hook::{get_trust_payload, generate_feature_vector};
+  |            ^^^^^^^^^^ could not find `trust_hook` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/auth_monitor.rs:7:12
+  |
+7 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::modules::auth_monitor::light_auth_monitor`
+ --> src/modes/minimal.rs:9:5
+  |
+9 |     auth_monitor::light_auth_monitor,
+  |     ^^^^^^^^^^^^^^------------------
+  |     |             |
+  |     |             help: a similar name exists in the module: `start_auth_monitor`
+  |     no `light_auth_monitor` in `modules::auth_monitor`
+
+error[E0432]: unresolved import `crate::modes::forensic::start_forensic_mode`
+  --> src/modes/minimal.rs:17:5
+   |
+17 | use crate::modes::forensic::start_forensic_mode;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `start_forensic_mode` in `modes::forensic`
+
+error[E0432]: unresolved import `crate::modules::net_watch::log_network_events`
+  --> src/modes/forensic.rs:10:5
+   |
+10 |     net_watch::log_network_events,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `log_network_events` in `modules::net_watch`
+
+error[E0432]: unresolved import `services::trust_state_writer::start_trust_state_writer`
+  --> src/main.rs:39:5
+   |
+39 | use services::trust_state_writer::start_trust_state_writer;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `start_trust_state_writer` in `services::trust_state_writer`
+
+error[E0432]: unresolved import `services::session_revalidator::SessionData`
+  --> src/main.rs:41:64
+   |
+41 | use services::session_revalidator::{start_session_revalidator, SessionData};
+   |                                                                ^^^^^^^^^^^ no `SessionData` in `services::session_revalidator`
+
+error[E0425]: cannot find function `process_digest_file` in module `trust_digest_engine`
+  --> src/main.rs:67:26
+   |
+67 |     trust_digest_engine::process_digest_file("digest_input/telemetry_input.jsonl");
+   |                          ^^^^^^^^^^^^^^^^^^^ not found in `trust_digest_engine`
+
+warning: unused import: `chrono::Utc`
+  --> src/services/trust_engine_final.rs:11:5
+   |
+11 | use chrono::Utc;
+   |     ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::collections::HashMap`
+ --> src/services/trust_escalation.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `BufRead`
+ --> src/services/trust_state_writer.rs:3:33
+  |
+3 | use std::io::{Write, BufReader, BufRead};
+  |                                 ^^^^^^^
+
+warning: unused import: `std::process::Command`
+ --> src/services/replay_trigger.rs:5:5
+  |
+5 | use std::process::Command;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/services/replay_trigger.rs:6:5
+  |
+6 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/modes/forensic.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0432]: unresolved import `crate::telemetry_types`
+ --> src/trust_decay_profiler.rs:4:12
+  |
+4 | use crate::telemetry_types::TelemetrySnapshot;
+  |            ^^^^^^^^^^^^^^^ could not find `telemetry_types` in the crate root
+
+error[E0432]: unresolved import `crate::decay_engine`
+ --> src/trust_decay_profiler.rs:6:12
+  |
+6 | use crate::decay_engine::calculate_decay;
+  |            ^^^^^^^^^^^^ could not find `decay_engine` in the crate root
+
+error[E0433]: failed to resolve: could not find `forensic` in the crate root
+ --> src/zero_day_exploit_fallout.rs:2:12
+  |
+2 | use crate::forensic::utils::{get_kernel_logs, check_protected_mem_access, detect_syscall_anomalies};
+  |            ^^^^^^^^ could not find `forensic` in the crate root
+
+error[E0432]: unresolved import `crate::session_digest_cache`
+ --> src/trust_decay_profiler.rs:7:12
+  |
+7 | use crate::session_digest_cache::get_recent_session_digest;
+  |            ^^^^^^^^^^^^^^^^^^^^ could not find `session_digest_cache` in the crate root
+
+error[E0432]: unresolved import `crate::adaptive_threshold_engine`
+ --> src/services/trust_engine_final.rs:1:12
+  |
+1 | use crate::adaptive_threshold_engine::{AdaptiveThresholdEngine, evaluate_role_thresholds, load_role_profile_map};
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::adaptive_threshold_engine`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/services/trust_engine_final.rs:2:12
+  |
+2 | use crate::gnn_hook::send_to_gnn;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0432]: unresolved import `crate::trust_digest_engine`
+ --> src/services/trust_engine_final.rs:4:12
+  |
+4 | use crate::trust_digest_engine::TrustDigestEngine;
+  |            ^^^^^^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::trust_digest_engine`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/auth_monitor.rs:7:12
+  |
+7 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/cloud_tracker.rs:4:12
+  |
+4 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0432]: unresolved import `crate::relay`
+ --> src/modules/cloud_tracker.rs:5:12
+  |
+5 | use crate::relay::transmit_or_buffer;
+  |            ^^^^^ could not find `relay` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/container_monitor.rs:6:12
+  |
+6 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0432]: unresolved import `crate::relay`
+ --> src/modules/container_monitor.rs:7:12
+  |
+7 | use crate::relay::transmit_or_buffer;
+  |            ^^^^^ could not find `relay` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/job_sched_monitor.rs:9:12
+  |
+9 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/password_spray.rs:7:12
+  |
+7 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+
+error[E0432]: unresolved import `crate::replay_writer::send_to_replay_queue`
+ --> src/modules/logon_tracker.rs:9:5
+  |
+9 | use crate::replay_writer::send_to_replay_queue;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `send_to_replay_queue` in `replay_writer`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/privilege_monitor.rs:9:12
+  |
+9 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+  --> src/modules/privilege_monitor.rs:10:5
+   |
+10 | use crate::replay_writer::log_replay_event;
+   |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+   |     |                     |
+   |     |                     help: a similar name exists in the module: `store_replay_event`
+   |     no `log_replay_event` in `replay_writer`
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+ --> src/modules/process_monitor.rs:3:23
+  |
+3 | use sysinfo::{System, SystemExt, ProcessExt};
+  |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+  |                       |
+  |                       no `SystemExt` in the root
+  |
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, System, ProcessExt};
+  |
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, SystemExt, Process};
+  |
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/process_monitor.rs:8:12
+  |
+8 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/script_monitor.rs:8:12
+  |
+8 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/usb_monitor.rs:7:12
+  |
+7 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+ --> src/modules/script_monitor.rs:9:5
+  |
+9 | use crate::replay_writer::log_replay_event;
+  |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+  |     |                     |
+  |     |                     help: a similar name exists in the module: `store_replay_event`
+  |     no `log_replay_event` in `replay_writer`
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/user_tracker.rs:8:12
+  |
+8 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/user_tracker.rs:7:12
+  |
+7 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::gnn_hook`
+
+error[E0432]: unresolved import `crate::session_revalidator`
+ --> src/modules/trust_state_restorer.rs:5:12
+  |
+5 | use crate::session_revalidator::SessionData;
+  |            ^^^^^^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modules::session_revalidator`
+
+error[E0432]: unresolved imports `crate::telemetry::get_current_telemetry_snapshot`, `crate::telemetry::TelemetryEvent`
+ --> src/telemetry_writer.rs:9:24
+  |
+9 | use crate::telemetry::{get_current_telemetry_snapshot, TelemetryEvent};
+  |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^ no `TelemetryEvent` in `telemetry`
+  |                        |
+  |                        no `get_current_telemetry_snapshot` in `telemetry`
+
+error[E0432]: unresolved import `crate::telemetry::MemorySnapshot`
+ --> src/trust_hook.rs:6:5
+  |
+6 | use crate::telemetry::MemorySnapshot;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `MemorySnapshot` in `telemetry`
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/trust_decay_profiler.rs:5:5
+  |
+5 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `send_trust_signal` in `trust_hook`
+
+error[E0432]: unresolved imports `crate::trust_hook::build_trust_payload`, `crate::trust_hook::submit_trust_signal`
+ --> src/time_aware_trust_decay.rs:7:25
+  |
+7 | use crate::trust_hook::{build_trust_payload, submit_trust_signal};
+  |                         ^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^ no `submit_trust_signal` in `trust_hook`
+  |                         |
+  |                         no `build_trust_payload` in `trust_hook`
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/multi_stage_exfil_detector.rs:5:5
+  |
+5 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `send_trust_signal` in `trust_hook`
+
+error[E0432]: unresolved imports `crate::trust_hook::build_trust_payload`, `crate::trust_hook::submit_trust_signal`
+ --> src/zero_day_fallout_monitor.rs:1:25
+  |
+1 | use crate::trust_hook::{build_trust_payload, submit_trust_signal};
+  |                         ^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^ no `submit_trust_signal` in `trust_hook`
+  |                         |
+  |                         no `build_trust_payload` in `trust_hook`
+
+error[E0432]: unresolved imports `crate::telemetry::get_kernel_anomalies`, `crate::telemetry::check_unlinked_binaries`
+ --> src/zero_day_fallout_monitor.rs:2:44
+  |
+2 | use crate::telemetry::{get_loaded_modules, get_kernel_anomalies, check_unlinked_binaries};
+  |                                            ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^ no `check_unlinked_binaries` in `telemetry`
+  |                                            |
+  |                                            no `get_kernel_anomalies` in `telemetry`
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/encrypted_payload_detector.rs:4:5
+  |
+4 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `send_trust_signal` in `trust_hook`
+
+error[E0432]: unresolved imports `crate::telemetry::calculate_entropy`, `crate::telemetry::is_memory_only`, `crate::telemetry::get_file_metadata`
+ --> src/encrypted_payload_detector.rs:5:24
+  |
+5 | use crate::telemetry::{calculate_entropy, is_memory_only, get_file_metadata};
+  |                        ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^ no `get_file_metadata` in `telemetry`
+  |                        |                  |
+  |                        |                  no `is_memory_only` in `telemetry`
+  |                        no `calculate_entropy` in `telemetry`
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/file_hash_watcher.rs:6:5
+  |
+6 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `send_trust_signal` in `trust_hook`
+
+error[E0432]: unresolved imports `crate::trust_hook::get_trust_payload`, `crate::trust_hook::generate_feature_vector`
+ --> src/modules/auth_monitor.rs:6:25
+  |
+6 | use crate::trust_hook::{get_trust_payload, generate_feature_vector};
+  |                         ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^ no `generate_feature_vector` in `trust_hook`
+  |                         |
+  |                         no `get_trust_payload` in `trust_hook`
+  |                         help: a similar name exists in the module: `generate_trust_payload`
+
+error[E0432]: unresolved import `crate::trust_hook::generate_feature_vector`
+ --> src/modules/cloud_tracker.rs:3:49
+  |
+3 | use crate::trust_hook::{generate_trust_payload, generate_feature_vector};
+  |                                                 ^^^^^^^^^^^^^^^^^^^^^^^ no `generate_feature_vector` in `trust_hook`
+
+error[E0432]: unresolved import `crate::trust_hook::generate_feature_vector`
+ --> src/modules/container_monitor.rs:5:49
+  |
+5 | use crate::trust_hook::{generate_trust_payload, generate_feature_vector};
+  |                                                 ^^^^^^^^^^^^^^^^^^^^^^^ no `generate_feature_vector` in `trust_hook`
+
+error[E0432]: unresolved imports `crate::trust_hook::get_trust_payload`, `crate::trust_hook::generate_feature_vector`
+ --> src/modules/job_sched_monitor.rs:8:49
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload, generate_feature_vector};
+  |                                                 ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^ no `generate_feature_vector` in `trust_hook`
+  |                                                 |
+  |                                                 no `get_trust_payload` in `trust_hook`
+  |                                                 help: a similar name exists in the module: `generate_trust_payload`
+
+error[E0432]: unresolved import `crate::trust_hook::generate_feature_vector`
+  --> src/modules/logon_tracker.rs:11:49
+   |
+11 | use crate::trust_hook::{generate_trust_payload, generate_feature_vector};
+   |                                                 ^^^^^^^^^^^^^^^^^^^^^^^ no `generate_feature_vector` in `trust_hook`
+
+error[E0432]: unresolved import `crate::trust_hook::get_trust_payload`
+ --> src/modules/privilege_monitor.rs:8:49
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload};
+  |                                                 ^^^^^^^^^^^^^^^^^
+  |                                                 |
+  |                                                 no `get_trust_payload` in `trust_hook`
+  |                                                 help: a similar name exists in the module: `generate_trust_payload`
+
+error[E0432]: unresolved imports `crate::trust_hook::generate_feature_vector`, `crate::trust_hook::get_trust_payload`
+ --> src/modules/script_monitor.rs:7:25
+  |
+7 | use crate::trust_hook::{generate_feature_vector, get_trust_payload};
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^
+  |                         |                        |
+  |                         |                        no `get_trust_payload` in `trust_hook`
+  |                         |                        help: a similar name exists in the module: `generate_trust_payload`
+  |                         no `generate_feature_vector` in `trust_hook`
+
+error[E0433]: failed to resolve: could not find `trust_config` in `services`
+  --> src/services/trust_engine_final.rs:97:38
+   |
+97 |     _trust_config: &crate::services::trust_config::TrustConfig,
+   |                                      ^^^^^^^^^^^^ could not find `trust_config` in `services`
+
+error[E0425]: cannot find function `build_trust_payload` in module `trust_hook`
+  --> src/insider_data_staging.rs:59:51
+   |
+59 |                         let payload = trust_hook::build_trust_payload(
+   |                                                   ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `submit_trust_signal` in module `trust_hook`
+  --> src/insider_data_staging.rs:63:37
+   |
+63 |                         trust_hook::submit_trust_signal(payload);
+   |                                     ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `build_trust_payload` in module `trust_hook`
+  --> src/post_exploit_anomaly_flagger.rs:30:65
+   |
+30 | ...                   let trust_payload = trust_hook::build_trust_payload(
+   |                                                       ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `submit_trust_payload` in module `trust_hook`
+  --> src/post_exploit_anomaly_flagger.rs:37:45
+   |
+37 | ...                   trust_hook::submit_trust_payload(trust_payload);
+   |                                   ^^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `build_trust_payload` in module `trust_hook`
+  --> src/zero_day_exploit_fallout.rs:10:43
+   |
+10 |                 let payload = trust_hook::build_trust_payload("zero_day_exploit_crash_pattern", 90);
+   |                                           ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `submit_trust_signal` in module `trust_hook`
+  --> src/zero_day_exploit_fallout.rs:11:29
+   |
+11 |                 trust_hook::submit_trust_signal(payload);
+   |                             ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `build_trust_payload` in module `trust_hook`
+  --> src/zero_day_exploit_fallout.rs:15:43
+   |
+15 |                 let payload = trust_hook::build_trust_payload("zero_day_protected_memory_violation", 92);
+   |                                           ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `submit_trust_signal` in module `trust_hook`
+  --> src/zero_day_exploit_fallout.rs:16:29
+   |
+16 |                 trust_hook::submit_trust_signal(payload);
+   |                             ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `build_trust_payload` in module `trust_hook`
+  --> src/zero_day_exploit_fallout.rs:20:43
+   |
+20 |                 let payload = trust_hook::build_trust_payload("zero_day_syscall_anomaly", 95);
+   |                                           ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `submit_trust_signal` in module `trust_hook`
+  --> src/zero_day_exploit_fallout.rs:21:29
+   |
+21 |                 trust_hook::submit_trust_signal(payload);
+   |                             ^^^^^^^^^^^^^^^^^^^ not found in `trust_hook`
+
+error[E0425]: cannot find function `generate_feature_vector` in module `crate::trust_hook`
+  --> src/modules/privilege_monitor.rs:31:55
+   |
+31 |                     let features = crate::trust_hook::generate_feature_vector(cpu_usage, memory_usage, risk_score);
+   |                                                       ^^^^^^^^^^^^^^^^^^^^^^^ not found in `crate::trust_hook`
+   |
+help: consider importing this function
+   |
+3  + use crate::services::trust_engine_final::generate_feature_vector;
+   |
+help: if you import `generate_feature_vector`, refer to it directly
+   |
+31 -                     let features = crate::trust_hook::generate_feature_vector(cpu_usage, memory_usage, risk_score);
+31 +                     let features = generate_feature_vector(cpu_usage, memory_usage, risk_score);
+   |
+
+error[E0603]: function `get_loaded_modules` is private
+   --> src/zero_day_fallout_monitor.rs:2:24
+    |
+2   | use crate::telemetry::{get_loaded_modules, get_kernel_anomalies, check_unlinked_binaries};
+    |                        ^^^^^^^^^^^^^^^^^^ private function
+    |
+note: the function `get_loaded_modules` is defined here
+   --> src/telemetry.rs:122:1
+    |
+122 | fn get_loaded_modules(_pid: i32) -> Option<Vec<String>> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+ --> src/telemetry_writer.rs:8:5
+  |
+8 | use chrono::Utc;
+  |     ^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::path::Path`
+ --> src/insider_data_staging.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/trust_decay_profiler.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Duration`
+ --> src/multi_stage_exfil_detector.rs:2:29
+  |
+2 | use std::time::{SystemTime, Duration};
+  |                             ^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/post_exploit_anomaly_flagger.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::time::SystemTime`
+ --> src/post_exploit_anomaly_flagger.rs:5:5
+  |
+5 | use std::time::SystemTime;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/encrypted_payload_detector.rs:2:5
+  |
+2 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused imports: `SystemTime` and `UNIX_EPOCH`
+ --> src/encrypted_payload_detector.rs:3:17
+  |
+3 | use std::time::{SystemTime, UNIX_EPOCH};
+  |                 ^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+  --> src/services/trust_engine_final.rs:11:5
+   |
+11 | use chrono::Utc;
+   |     ^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_explainer.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_trust_curve.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `HashMap`
+ --> src/replay_scheduler.rs:1:24
+  |
+1 | use std::collections::{HashMap, HashSet};
+  |                        ^^^^^^^
+
+warning: unused import: `self`
+ --> src/replay_scheduler.rs:2:15
+  |
+2 | use std::fs::{self, OpenOptions};
+  |               ^^^^
+
+warning: unused doc comment
+  --> src/modules/geo_ip_anomaly.rs:23:1
+   |
+23 | /// Thread-safe history map
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^ rustdoc does not generate documentation for macro invocations
+   |
+   = help: to document an item produced by a macro, the macro must produce the documentation as part of its expansion
+   = note: `#[warn(unused_doc_comments)]` on by default
+
+warning: unused import: `generate_trust_payload`
+ --> src/modules/job_sched_monitor.rs:8:25
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload, generate_feature_vector};
+  |                         ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/modules/persistence_watch.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `generate_trust_payload`
+ --> src/modules/privilege_monitor.rs:8:25
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload};
+  |                         ^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0015]: cannot call non-const associated function `HashMap::<std::string::String, Vec<SystemTime>>::new` in statics
+  --> src/modules/password_spray.rs:10:74
+   |
+10 | static ATTEMPT_LOG: Mutex<HashMap<String, Vec<SystemTime>>> = Mutex::new(HashMap::new());
+   |                                                                          ^^^^^^^^^^^^^^
+   |
+   = note: calls in statics are limited to constant functions, tuple structs and tuple variants
+   = note: consider wrapping this expression in `std::sync::LazyLock::new(|| ...)`
+
+error[E0599]: no method named `lock` found for struct `SESSION_CURVES` in the current scope
+  --> src/services/replay_trigger.rs:51:34
+   |
+46 | / lazy_static::lazy_static! {
+47 | |     static ref SESSION_CURVES: Arc<Mutex<HashMap<String, SessionTrustCurve>>> = Arc::new(Mutex::new(HashMap::new()));
+48 | | }
+   | |_- method `lock` not found for this struct
+...
+51 |       let mut map = SESSION_CURVES.lock().unwrap();
+   |                                    ^^^^ method not found in `SESSION_CURVES`
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `lock`, perhaps you need to implement it:
+           candidate #1: `lock_api::RawMutex`
+
+error[E0599]: no method named `iter` found for unit type `()` in the current scope
+  --> src/modes/minimal.rs:37:25
+   |
+37 |                 if data.iter().any(|s| s.contains("suspicious_process_name")) {
+   |                         ^^^^ method not found in `()`
+
+error[E0599]: no method named `iter` found for unit type `()` in the current scope
+  --> src/modes/minimal.rs:56:25
+   |
+56 |                 if data.iter().any(|s| s.contains("suspicious_network_activity")) {
+   |                         ^^^^ method not found in `()`
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+ --> src/zero_day_exploit_fallout.rs:8:16
+  |
+8 |         if let Ok(kernel_logs) = get_kernel_logs() {
+  |                ^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+  |
+  = help: the trait `Sized` is not implemented for `str`
+note: required by a bound in `Ok`
+ --> /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/result.rs:552:5
+
+error[E0308]: mismatched types
+  --> src/main.rs:64:49
+   |
+64 |     start_session_revalidator(&mut session_map, trust_config.clone());
+   |     -------------------------                   ^^^^^^^^^^^^^^^^^^^^ expected `&str`, found `TrustConfig`
+   |     |
+   |     arguments to this function are incorrect
+   |
+note: function defined here
+  --> src/services/session_revalidator.rs:16:8
+   |
+16 | pub fn start_session_revalidator(mut trust_cache: TrustDecayManager, hostname: &str) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^                                     --------------
+
+warning: unused variable: `pid`
+  --> src/services/trust_engine_final.rs:93:5
+   |
+93 |     pid: u32,
+   |     ^^^ help: if this is intentional, prefix it with an underscore: `_pid`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `device_type`
+  --> src/services/trust_engine_final.rs:96:5
+   |
+96 |     device_type: &str,
+   |     ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_device_type`
+
+error[E0599]: no method named `lock` found for struct `DIGEST_ENGINE` in the current scope
+  --> src/services/trust_engine_final.rs:52:36
+   |
+34 | / lazy_static! {
+35 | |     static ref DIGEST_ENGINE: Mutex<TrustDigestEngine> = Mutex::new(TrustDigestEngine::new());
+36 | |     static ref THRESHOLD_ENGINE: Mutex<AdaptiveThresholdEngine> = Mutex::new(AdaptiveThresholdEngine::new(70.0, 0.15));
+37 | |     static ref ESCALATION_THRESHOLD: f64 = 120.0;
+38 | | }
+   | |_- method `lock` not found for this struct
+...
+52 |       let mut digest = DIGEST_ENGINE.lock().unwrap();
+   |                                      ^^^^ method not found in `DIGEST_ENGINE`
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `lock`, perhaps you need to implement it:
+           candidate #1: `lock_api::RawMutex`
+
+error[E0599]: no method named `lock` found for struct `THRESHOLD_ENGINE` in the current scope
+  --> src/services/trust_engine_final.rs:57:42
+   |
+34 | / lazy_static! {
+35 | |     static ref DIGEST_ENGINE: Mutex<TrustDigestEngine> = Mutex::new(TrustDigestEngine::new());
+36 | |     static ref THRESHOLD_ENGINE: Mutex<AdaptiveThresholdEngine> = Mutex::new(AdaptiveThresholdEngine::new(70.0, 0.15));
+37 | |     static ref ESCALATION_THRESHOLD: f64 = 120.0;
+38 | | }
+   | |_- method `lock` not found for this struct
+...
+57 |       let mut threshold = THRESHOLD_ENGINE.lock().unwrap();
+   |                                            ^^^^ method not found in `THRESHOLD_ENGINE`
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `lock`, perhaps you need to implement it:
+           candidate #1: `lock_api::RawMutex`
+
+Some errors have detailed explanations: E0308, E0425, E0432, E0433, E0599.
+For more information about an error, try `rustc --explain E0308`.
+warning: `forensic_hooks` (bin "forensic_hooks") generated 8 warnings
+error: could not compile `forensic_hooks` (bin "forensic_hooks") due to 36 previous errors; 8 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/geo_ip_anomaly.rs:46:45
+   |
+46 |             println!("[🛡️ Trust Alert] {}", payload);
+   |                                            ^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0599]: no method named `get` found for struct `TrustPayload` in the current scope
+  --> src/modules/logon_tracker.rs:41:26
+   |
+40 |                       let trust_score = trust_payload
+   |  _______________________________________-
+41 | |                         .get("trust_score")
+   | |                         -^^^ method not found in `TrustPayload`
+   | |_________________________|
+   |
+   |
+  ::: src/trust_hook.rs:9:1
+   |
+9  |   pub struct TrustPayload {
+   |   ----------------------- method `get` not found for this struct
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following traits define an item `get`, perhaps you need to implement one of them:
+           candidate #1: `SliceIndex`
+           candidate #2: `aya::maps::IterableMap`
+           candidate #3: `aya::maps::IterableMap`
+           candidate #4: `object::read::elf::Relr`
+help: some of the expressions' fields have a method of the same name
+   |
+41 |                         .reason.get("trust_score")
+   |                          +++++++
+41 |                         .source_type.get("trust_score")
+   |                          ++++++++++++
+41 |                         .tags.get("trust_score")
+   |                          +++++
+
+error[E0560]: struct `TelemetryRecord` has no field named `process_name`
+  --> src/modules/logon_tracker.rs:53:25
+   |
+53 |                         process_name: "sessiond".into(),
+   |                         ^^^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `user`
+  --> src/modules/logon_tracker.rs:57:25
+   |
+57 |                         user: user.clone(),
+   |                         ^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `cpu_usage`
+  --> src/modules/logon_tracker.rs:58:25
+   |
+58 |                         cpu_usage,
+   |                         ^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `memory_usage`
+  --> src/modules/logon_tracker.rs:59:25
+   |
+59 |                         memory_usage,
+   |                         ^^^^^^^^^^^^ unknown field
+   |
+help: a field with a similar name exists
+   |
+59 |                         memory_usage_kb,
+   |                                     +++
+
+error[E0560]: struct `TelemetryRecord` has no field named `network_activity`
+  --> src/modules/logon_tracker.rs:60:25
+   |
+60 |                         network_activity: "".into(),
+   |                         ^^^^^^^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `file_activity`
+  --> src/modules/logon_tracker.rs:61:25
+   |
+61 |                         file_activity: "".into(),
+   |                         ^^^^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `registry_activity`
+  --> src/modules/logon_tracker.rs:62:25
+   |
+62 |                         registry_activity: "".into(),
+   |                         ^^^^^^^^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `privilege_level`
+  --> src/modules/logon_tracker.rs:63:25
+   |
+63 |                         privilege_level: if user == "root" { "high".into() } else { "user".into() },
+   |                         ^^^^^^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:64:25
+   |
+64 |                         risk_score,
+   |                         ^^^^^^^^^^ expected `Option<u32>`, found floating-point number
+   |
+   = note: expected enum `std::option::Option<u32>`
+              found type `{float}`
+
+error[E0560]: struct `TelemetryRecord` has no field named `trust_score`
+  --> src/modules/logon_tracker.rs:65:25
+   |
+65 |                         trust_score,
+   |                         ^^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `reason`
+  --> src/modules/logon_tracker.rs:66:25
+   |
+66 |                         reason: "User login session detected".into(),
+   |                         ^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:73:29
+   |
+73 | ...                   tags
+   |                       ^^^^ expected `Vec<String>`, found `HashMap<_, {float}>`
+   |
+   = note: expected struct `Vec<std::string::String>`
+              found struct `HashMap<_, {float}>`
+
+error[E0560]: struct `TelemetryRecord` has no field named `extra`
+  --> src/modules/logon_tracker.rs:75:25
+   |
+75 |                         extra: std::collections::HashMap::new(),
+   |                         ^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `timestamp`, `uid`, `binary_path`, `cwd`, `env_vars` ... and 8 others
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/mem_scan.rs:31:51
+   |
+31 | ...                   pid, cmd, rss_kb, trust_payload
+   |                                         ^^^^^^^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/mfa_bypass.rs:45:39
+   |
+45 |             event.user, event.method, payload
+   |                                       ^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/mfa_bypass.rs:60:25
+   |
+60 |             event.user, payload
+   |                         ^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/persistence_watch.rs:32:39
+   |
+32 | ...                   path, trust_payload
+   |                             ^^^^^^^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `Output: Default` is not satisfied
+  --> src/modules/user_tracker.rs:62:18
+   |
+62 |                 .unwrap_or_default();
+   |                  ^^^^^^^^^^^^^^^^^ the trait `Default` is not implemented for `Output`
+   |
+note: required by a bound in `Result::<T, E>::unwrap_or_default`
+  --> /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/result.rs:1168:5
+
+Some errors have detailed explanations: E0015, E0277, E0308, E0425, E0428, E0432, E0433, E0560, E0583...
+For more information about an error, try `rustc --explain E0015`.
+warning: `forensic_hooks` (lib) generated 17 warnings
+error: could not compile `forensic_hooks` (lib) due to 98 previous errors; 17 warnings emitted

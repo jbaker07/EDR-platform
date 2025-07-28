@@ -1,0 +1,18 @@
+{
+  "artifacts": [
+    {
+      "path": "/lib/systemd/system/systemd-pcrlock-file-system.service",
+      "hash": "1418807eb58f73fd8f58012b47583db567a6e45eb780b607e68ee545e9416c7f",
+      "uid": 0,
+      "first_seen": 1753088266,
+      "allowed": true
+    },
+    {
+      "path": "/lib/systemd/system/systemd-pcrlock-machine-id.service",
+      "hash": "6f57a388ec24a3a07a2a9cb434c1defb1d7004adca38742dc1a69ebd589f7fd1",
+      "uid": 0,
+      "first_seen": 1753088266,
+      "allowed": true
+    }
+  ]
+}

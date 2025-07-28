@@ -1,0 +1,21 @@
+# Example additions:
+*.safetensors
+*.pt
+*.log
+*.db
+*.jsonl
+*.csv
+*.rev
+*.pack
+*.idx
+*.pickle
+*.joblib
+node_modules/
+logs/
+telemetry.db*
+*.gpickle
+edr-agent/src/asahi-kernel-exact/
+edr-agent/src/asahi-kernel-exact/
+edr-agent/src/ebpf/asahi-linux/
+edr-agent/target/
+target/

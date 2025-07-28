@@ -1,0 +1,105 @@
+error: expected one of `!` or `[`, found `#`
+error[E0428]: the name `MemoryAnomalyType` is defined multiple times
+error[E0252]: the name `thread` is defined multiple times
+error[E0252]: the name `Duration` is defined multiple times
+error[E0428]: the name `MemoryAnomalyType` is defined multiple times
+error[E0432]: unresolved import `crate::modules::net_watch::scan_unusual_connections`
+error[E0432]: unresolved import `crate::telemetry_types::TelemetryOutput`
+error[E0433]: failed to resolve: could not find `AnomalyType` in `telemetry_types`
+error[E0433]: failed to resolve: could not find `AnomalyType` in `telemetry_types`
+error[E0433]: failed to resolve: could not find `AnomalyType` in `telemetry_types`
+error[E0425]: cannot find function `push_memory_telemetry` in this scope
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+error[E0425]: cannot find value `map` in this scope
+error[E0425]: cannot find value `buf` in this scope
+error[E0425]: cannot find value `tx` in this scope
+error[E0425]: cannot find value `rx` in this scope
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+error[E0422]: cannot find struct, variant or union type `TelemetryOutput` in this scope
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+error[E0422]: cannot find struct, variant or union type `TelemetryOutput` in this scope
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+error[E0433]: failed to resolve: use of undeclared type `WalkDir`
+error[E0425]: cannot find function `calculate_entropy` in this scope
+error[E0425]: cannot find function `is_memory_only` in this scope
+error[E0425]: cannot find function `get_file_metadata` in this scope
+error[E0433]: failed to resolve: use of undeclared type `Local`
+error[E0422]: cannot find struct, variant or union type `TrustEvent` in this scope
+error[E0425]: cannot find function `submit_trust_event` in this scope
+error[E0433]: failed to resolve: use of undeclared type `HashMap`
+error[E0425]: cannot find function `write_telemetry_record` in this scope
+error[E0422]: cannot find struct, variant or union type `TelemetryOutput` in this scope
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `ProcHollowing` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0271]: type mismatch resolving `<Vec<TelemetryOutput> as IntoIterator>::Item == HashMap<String, String>`
+error[E0308]: mismatched types
+error[E0308]: mismatched types
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `SuspiciousActivity` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0308]: mismatched types
+error[E0599]: no method named `ok` found for enum `std::option::Option` in the current scope
+error[E0277]: the trait bound `PerfEventArray<_>: TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not satisfied
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+error[E0599]: no variant or associated item named `FileTampering` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `KernelExploitFallout` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0308]: mismatched types
+error[E0308]: mismatched types
+error[E0308]: mismatched types
+error[E0599]: no method named `ok` found for enum `std::option::Option` in the current scope
+error[E0277]: the trait bound `PerfEventArray<_>: TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not satisfied
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+error[E0599]: no variant or associated item named `ProcessInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `IPCAbuse` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0308]: mismatched types
+error[E0599]: no method named `ok` found for enum `std::option::Option` in the current scope
+error[E0277]: the trait bound `PerfEventArray<_>: TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not satisfied
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+error[E0599]: no variant or associated item named `SuspiciousIPC` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0560]: struct `TelemetryOutput` has no field named `timestamp`
+error[E0560]: struct `TelemetryOutput` has no field named `pid`
+error[E0560]: struct `TelemetryOutput` has no field named `event_type`
+error[E0560]: struct `TelemetryOutput` has no field named `anomaly`
+error[E0560]: struct `TelemetryOutput` has no field named `summary`
+error[E0599]: no method named `hour` found for struct `DateTime` in the current scope
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+error[E0596]: cannot borrow `perf` as mutable, as it is not declared as mutable
+error[E0382]: use of moved value: `results`
+error: could not compile `forensic_hooks` (lib) due to 112 previous errors; 61 warnings emitted

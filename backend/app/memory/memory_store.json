@@ -1,0 +1,1016 @@
+{
+  "JermainacStudio.attlocal.net": [
+    {
+      "pid": 87707,
+      "process_name": "AccountSubscriber",
+      "cmd": "/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/AccountSubscriber.xpc/Contents/MacOS/AccountSubscriber",
+      "cpu_percent": 0,
+      "memory": 10764288,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.6909068
+    },
+    {
+      "pid": 87709,
+      "process_name": "SoftwareUpdateSubscriber",
+      "cmd": "/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/SoftwareUpdateSubscriber.xpc/Contents/MacOS/SoftwareUpdateSubscriber",
+      "cpu_percent": 0,
+      "memory": 7995392,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.691493
+    },
+    {
+      "pid": 87710,
+      "process_name": "ManagementTestSubscriber",
+      "cmd": "/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/ManagementTestSubscriber.xpc/Contents/MacOS/ManagementTestSubscriber",
+      "cpu_percent": 0,
+      "memory": 5898240,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.692078
+    },
+    {
+      "pid": 87711,
+      "process_name": "ManagedConfigurationFilesSubscriber",
+      "cmd": "/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/ManagedConfigurationFilesSubscriber.xpc/Contents/MacOS/ManagedConfigurationFilesSubscriber",
+      "cpu_percent": 0,
+      "memory": 6193152,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.692696
+    },
+    {
+      "pid": 87714,
+      "process_name": "ASConfigurationSubscriber",
+      "cmd": "/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/ASConfigurationSubscriber.xpc/Contents/MacOS/ASConfigurationSubscriber",
+      "cpu_percent": 0,
+      "memory": 9191424,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.693279
+    },
+    {
+      "pid": 87715,
+      "process_name": "financed",
+      "cmd": "/System/Library/Frameworks/FinanceKit.framework/financed",
+      "cpu_percent": 0,
+      "memory": 14958592,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.693859
+    },
+    {
+      "pid": 87716,
+      "process_name": "proactiveeventtrackerd",
+      "cmd": "/usr/libexec/proactiveeventtrackerd",
+      "cpu_percent": 0,
+      "memory": 7733248,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.694446
+    },
+    {
+      "pid": 87717,
+      "process_name": "linkd",
+      "cmd": "/usr/libexec/linkd",
+      "cpu_percent": 0,
+      "memory": 10944512,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.695047
+    },
+    {
+      "pid": 87718,
+      "process_name": "deleted",
+      "cmd": "/System/Library/PrivateFrameworks/CacheDelete.framework/deleted",
+      "cpu_percent": 0,
+      "memory": 19890176,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.695623
+    },
+    {
+      "pid": 87721,
+      "process_name": "AssetCache",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.6962261
+    },
+    {
+      "pid": 87722,
+      "process_name": "sysdiagnosed",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.696822
+    },
+    {
+      "pid": 87725,
+      "process_name": "AssetCacheTether",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.697406
+    },
+    {
+      "pid": 87727,
+      "process_name": "cloudphotod",
+      "cmd": "cloudphotod",
+      "cpu_percent": 0,
+      "memory": 17072128,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.6979961
+    },
+    {
+      "pid": 87728,
+      "process_name": "sirittsd",
+      "cmd": "/System/Library/PrivateFrameworks/SiriTTSService.framework/sirittsd",
+      "cpu_percent": 0,
+      "memory": 11190272,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.6985788
+    },
+    {
+      "pid": 87730,
+      "process_name": "MTLAssetUpgraderD",
+      "cmd": "/usr/libexec/MTLAssetUpgraderD",
+      "cpu_percent": 0,
+      "memory": 9224192,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.6991942
+    },
+    {
+      "pid": 87734,
+      "process_name": "media-indexer",
+      "cmd": "/System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/XPCServices/media-indexer.xpc/Contents/MacOS/media-indexer",
+      "cpu_percent": 0,
+      "memory": 28622848,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.699817
+    },
+    {
+      "pid": 87735,
+      "process_name": "PodcastContentService",
+      "cmd": "/System/Library/PrivateFrameworks/PodcastServices.framework/XPCServices/PodcastContentService.xpc/Contents/MacOS/PodcastContentService",
+      "cpu_percent": 0,
+      "memory": 8536064,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.700403
+    },
+    {
+      "pid": 87736,
+      "process_name": "com.apple.BKAgentService",
+      "cmd": "/System/Library/PrivateFrameworks/BookKit.framework/Versions/A/XPCServices/com.apple.BKAgentService.xpc/Contents/MacOS/com.apple.BKAgentService",
+      "cpu_percent": 0,
+      "memory": 9371648,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.701028
+    },
+    {
+      "pid": 87737,
+      "process_name": "sandboxd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.701621
+    },
+    {
+      "pid": 87738,
+      "process_name": "AMPArtworkAgent",
+      "cmd": "/System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPArtworkAgent --launchd",
+      "cpu_percent": 0,
+      "memory": 13828096,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.702225
+    },
+    {
+      "pid": 87742,
+      "process_name": "mlhostd",
+      "cmd": "/usr/libexec/mlhostd",
+      "cpu_percent": 0,
+      "memory": 12845056,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.702813
+    },
+    {
+      "pid": 87745,
+      "process_name": "installd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.703419
+    },
+    {
+      "pid": 87746,
+      "process_name": "system_installd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.704017
+    },
+    {
+      "pid": 87747,
+      "process_name": "geodMachServiceBridge",
+      "cmd": "/System/Library/PrivateFrameworks/GeoServices.framework/geodMachServiceBridge",
+      "cpu_percent": 0,
+      "memory": 7028736,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.704608
+    },
+    {
+      "pid": 87750,
+      "process_name": "csnameddatad",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/XPCServices/csnameddatad.xpc/Contents/MacOS/csnameddatad",
+      "cpu_percent": 0,
+      "memory": 2441216,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.705194
+    },
+    {
+      "pid": 87806,
+      "process_name": "com.apple.siri-distributed-evaluation",
+      "cmd": "/System/Library/PrivateFrameworks/DistributedEvaluation.framework/Versions/A/XPCServices/com.apple.siri-distributed-evaluation.xpc/Contents/MacOS/com.apple.siri-distributed-evaluation",
+      "cpu_percent": 0,
+      "memory": 7077888,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.70579
+    },
+    {
+      "pid": 87833,
+      "process_name": "extensionkitservice",
+      "cmd": "/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice",
+      "cpu_percent": 0,
+      "memory": 6127616,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.706379
+    },
+    {
+      "pid": 87834,
+      "process_name": "BitacoraWorker",
+      "cmd": "/System/Library/ExtensionKit/Extensions/BitacoraWorker.appex/Contents/MacOS/BitacoraWorker",
+      "cpu_percent": 0,
+      "memory": 12353536,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.707008
+    },
+    {
+      "pid": 87836,
+      "process_name": "com.apple.mlhost.TelemetryWorker",
+      "cmd": "/System/Library/ExtensionKit/Extensions/com.apple.mlhost.TelemetryWorker.appex/Contents/MacOS/com.apple.mlhost.TelemetryWorker",
+      "cpu_percent": 0,
+      "memory": 11452416,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.707595
+    },
+    {
+      "pid": 87837,
+      "process_name": "SiriCoreMetricsWorker",
+      "cmd": "/System/Library/ExtensionKit/Extensions/SiriCoreMetricsWorker.appex/Contents/MacOS/SiriCoreMetricsWorker",
+      "cpu_percent": 0,
+      "memory": 13631488,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7081852
+    },
+    {
+      "pid": 87838,
+      "process_name": "MetricsExtension",
+      "cmd": "/System/Library/ExtensionKit/Extensions/MetricsExtension.appex/Contents/MacOS/MetricsExtension",
+      "cpu_percent": 0,
+      "memory": 8798208,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7087731
+    },
+    {
+      "pid": 87870,
+      "process_name": "XProtect",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7093801
+    },
+    {
+      "pid": 87871,
+      "process_name": "XProtectPluginSe",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.709964
+    },
+    {
+      "pid": 87901,
+      "process_name": "ReportCrash",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.710547
+    },
+    {
+      "pid": 87913,
+      "process_name": "com.apple.mlhost.CloudWorker",
+      "cmd": "/System/Library/ExtensionKit/Extensions/com.apple.mlhost.CloudWorker.appex/Contents/MacOS/com.apple.mlhost.CloudWorker",
+      "cpu_percent": 0,
+      "memory": 8077312,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.711144
+    },
+    {
+      "pid": 87981,
+      "process_name": "ProtectedCloudKeySyncing",
+      "cmd": "/System/Library/PrivateFrameworks/ProtectedCloudStorage.framework/Helpers/ProtectedCloudKeySyncing",
+      "cpu_percent": 0,
+      "memory": 11157504,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7117498
+    },
+    {
+      "pid": 88011,
+      "process_name": "XProtect",
+      "cmd": "/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/MacOS/XProtect",
+      "cpu_percent": 0,
+      "memory": 2916352,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.712346
+    },
+    {
+      "pid": 88012,
+      "process_name": "XProtectPluginService",
+      "cmd": "/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService",
+      "cpu_percent": 0,
+      "memory": 6307840,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.712947
+    },
+    {
+      "pid": 88311,
+      "process_name": "mmaintenanced",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.713525
+    },
+    {
+      "pid": 88312,
+      "process_name": "microstackshot",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7141309
+    },
+    {
+      "pid": 88317,
+      "process_name": "SoftwareUpdateNotificationManager",
+      "cmd": "/System/Library/PrivateFrameworks/SoftwareUpdate.framework/Resources/SoftwareUpdateNotificationManager.app/Contents/MacOS/SoftwareUpdateNotificationManager",
+      "cpu_percent": 0,
+      "memory": 28672000,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.714723
+    },
+    {
+      "pid": 88320,
+      "process_name": "nsattributedstringagent",
+      "cmd": "/System/Library/PrivateFrameworks/UIFoundation.framework/Versions/A/XPCServices/nsattributedstringagent.xpc/Contents/MacOS/nsattributedstringagent",
+      "cpu_percent": 0,
+      "memory": 38567936,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.715327
+    },
+    {
+      "pid": 88324,
+      "process_name": "softwareupdated",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7159302
+    },
+    {
+      "pid": 88325,
+      "process_name": "com.apple.Mobile",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7165282
+    },
+    {
+      "pid": 88326,
+      "process_name": "installerauthagent",
+      "cmd": "/System/Library/PrivateFrameworks/IASUtilities.framework/Versions/A/Resources/installerauthagent",
+      "cpu_percent": 0,
+      "memory": 2719744,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.717153
+    },
+    {
+      "pid": 88327,
+      "process_name": "NRDUpdated",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.717752
+    },
+    {
+      "pid": 88329,
+      "process_name": "com.apple.NRD.Up",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7183309
+    },
+    {
+      "pid": 88330,
+      "process_name": "xpcroleaccountd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.718935
+    },
+    {
+      "pid": 88332,
+      "process_name": "nsattributedstri",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.719546
+    },
+    {
+      "pid": 88333,
+      "process_name": "com.apple.hiserv",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7201312
+    },
+    {
+      "pid": 88334,
+      "process_name": "cfprefsd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.720722
+    },
+    {
+      "pid": 88336,
+      "process_name": "com.apple.access",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.721347
+    },
+    {
+      "pid": 88371,
+      "process_name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "cpu_percent": 0,
+      "memory": 15466496,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.721932
+    },
+    {
+      "pid": 88373,
+      "process_name": "IMTranscoderAgent",
+      "cmd": "/System/Library/PrivateFrameworks/IMTranscoding.framework/XPCServices/IMTranscoderAgent.xpc/Contents/MacOS/IMTranscoderAgent",
+      "cpu_percent": 0,
+      "memory": 29687808,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.722521
+    },
+    {
+      "pid": 88374,
+      "process_name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "cpu_percent": 0,
+      "memory": 15581184,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7231119
+    },
+    {
+      "pid": 88375,
+      "process_name": "com.apple.tonelibraryd",
+      "cmd": "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/XPCServices/com.apple.tonelibraryd.xpc/Contents/MacOS/com.apple.tonelibraryd",
+      "cpu_percent": 0,
+      "memory": 4308992,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.723745
+    },
+    {
+      "pid": 88510,
+      "process_name": "peopled",
+      "cmd": "/System/Library/PrivateFrameworks/People.framework/peopled",
+      "cpu_percent": 0,
+      "memory": 21446656,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.724376
+    },
+    {
+      "pid": 88512,
+      "process_name": "recentsd",
+      "cmd": "/System/Library/PrivateFrameworks/CoreRecents.framework/Versions/A/Support/recentsd",
+      "cpu_percent": 0,
+      "memory": 14221312,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.724973
+    },
+    {
+      "pid": 88566,
+      "process_name": "WorldClockWidget",
+      "cmd": "/System/Applications/Clock.app/Contents/PlugIns/WorldClockWidget.appex/Contents/MacOS/WorldClockWidget",
+      "cpu_percent": 0,
+      "memory": 24526848,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7255669
+    },
+    {
+      "pid": 88583,
+      "process_name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "cpu_percent": 0,
+      "memory": 10764288,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.726154
+    },
+    {
+      "pid": 88643,
+      "process_name": "XProtectBridgeSe",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.726746
+    },
+    {
+      "pid": 88663,
+      "process_name": "MobileSMSSpotlightImporterCatalyst",
+      "cmd": "/System/Applications/Messages.app/Contents/PlugIns/MobileSMSSpotlightImporterCatalyst.appex/Contents/MacOS/MobileSMSSpotlightImporterCatalyst -AppleLanguages (\"en-US\")",
+      "cpu_percent": 0,
+      "memory": 23478272,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7273412
+    },
+    {
+      "pid": 88664,
+      "process_name": "PlugInLibraryService",
+      "cmd": "/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService",
+      "cpu_percent": 0,
+      "memory": 2113536,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.727932
+    },
+    {
+      "pid": 88665,
+      "process_name": "com.apple.photos.ImageConversionService",
+      "cmd": "/System/Library/PrivateFrameworks/MediaConversionService.framework/Versions/A/XPCServices/com.apple.photos.ImageConversionService.xpc/Contents/MacOS/com.apple.photos.ImageConversionService",
+      "cpu_percent": 0,
+      "memory": 18923520,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.728534
+    },
+    {
+      "pid": 88666,
+      "process_name": "MessagesBlastDoorService",
+      "cmd": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "cpu_percent": 0,
+      "memory": 12763136,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.729152
+    },
+    {
+      "pid": 89451,
+      "process_name": "CallHistoryPluginHelper",
+      "cmd": "/System/Library/PrivateFrameworks/CallHistory.framework/Support/CallHistoryPluginHelper",
+      "cpu_percent": 0,
+      "memory": 16891904,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7297359
+    },
+    {
+      "pid": 89455,
+      "process_name": "CallHistorySyncHelper",
+      "cmd": "/System/Library/PrivateFrameworks/CallHistory.framework/Support/CallHistorySyncHelper",
+      "cpu_percent": 0,
+      "memory": 25575424,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.730348
+    },
+    {
+      "pid": 89548,
+      "process_name": "PerfPowerService",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.730952
+    },
+    {
+      "pid": 89631,
+      "process_name": "intents_helper",
+      "cmd": "/System/Library/Frameworks/Intents.framework/XPCServices/intents_helper.xpc/Contents/MacOS/intents_helper",
+      "cpu_percent": 0,
+      "memory": 10862592,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.731545
+    },
+    {
+      "pid": 89634,
+      "process_name": "intents_helper",
+      "cmd": "/System/Library/Frameworks/Intents.framework/XPCServices/intents_helper.xpc/Contents/MacOS/intents_helper",
+      "cpu_percent": 0,
+      "memory": 11681792,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7321432
+    },
+    {
+      "pid": 89900,
+      "process_name": "spindump",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.732745
+    },
+    {
+      "pid": 90534,
+      "process_name": "iCloudNotificationAgent",
+      "cmd": "/System/Library/PrivateFrameworks/iCloudNotification.framework/iCloudNotificationAgent",
+      "cpu_percent": 0,
+      "memory": 15335424,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7333372
+    },
+    {
+      "pid": 90871,
+      "process_name": "IMTransferAgent",
+      "cmd": "/System/Library/PrivateFrameworks/IMTransferServices.framework/IMTransferAgent.app/Contents/MacOS/IMTransferAgent",
+      "cpu_percent": 0,
+      "memory": 17285120,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.733943
+    },
+    {
+      "pid": 91188,
+      "process_name": "CategoriesService",
+      "cmd": "/System/Library/PrivateFrameworks/Categories.framework/Versions/A/XPCServices/CategoriesService.xpc/Contents/MacOS/CategoriesService",
+      "cpu_percent": 0,
+      "memory": 10452992,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.734556
+    },
+    {
+      "pid": 91482,
+      "process_name": "com.apple.iCloudHelper",
+      "cmd": "/System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/XPCServices/com.apple.iCloudHelper.xpc/Contents/MacOS/com.apple.iCloudHelper",
+      "cpu_percent": 0,
+      "memory": 8404992,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.735182
+    },
+    {
+      "pid": 91602,
+      "process_name": "PasswordBreachAgent",
+      "cmd": "/System/Cryptexes/App/usr/libexec/PasswordBreachAgent",
+      "cpu_percent": 0,
+      "memory": 8830976,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7358122
+    },
+    {
+      "pid": 91603,
+      "process_name": "nfcd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.736427
+    },
+    {
+      "pid": 91612,
+      "process_name": "bootpd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.737024
+    },
+    {
+      "pid": 91622,
+      "process_name": "python3.11",
+      "cmd": "/Users/jermainebaker/anaconda3/envs/edr-env/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=5, pipe_handle=7) --multiprocessing-fork",
+      "cpu_percent": 6.5,
+      "memory": 553664512,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7376168
+    },
+    {
+      "pid": 91636,
+      "process_name": "rtadvd",
+      "cmd": "",
+      "cpu_percent": 0,
+      "memory": 0,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.738219
+    },
+    {
+      "pid": 91758,
+      "process_name": "python3.11",
+      "cmd": "python3 scripts/send_real_telemetry_daemon.py",
+      "cpu_percent": 0.7,
+      "memory": 36880384,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.73881
+    },
+    {
+      "pid": 91761,
+      "process_name": "mdworker_shared",
+      "cmd": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared",
+      "cpu_percent": 0,
+      "memory": 14958592,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746057275.7394292
+    },
+    {
+      "pid": 1000,
+      "process_name": "proc-1000",
+      "cmd": "/usr/bin/proc-1000",
+      "cpu_percent": 48.2,
+      "memory": 16777216,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058369.648978
+    },
+    {
+      "pid": 1001,
+      "process_name": "proc-1001",
+      "cmd": "/usr/bin/proc-1001",
+      "cpu_percent": 19.7,
+      "memory": 271581184,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058369.64978
+    },
+    {
+      "pid": 1002,
+      "process_name": "proc-1002",
+      "cmd": "/usr/bin/proc-1002",
+      "cpu_percent": 1.2,
+      "memory": 218103808,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058369.650461
+    },
+    {
+      "pid": 1000,
+      "process_name": "proc-1000",
+      "cmd": "/usr/bin/proc-1000",
+      "cpu_percent": 64.5,
+      "memory": 162529280,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058369.651478
+    },
+    {
+      "pid": 1001,
+      "process_name": "proc-1001",
+      "cmd": "/usr/bin/proc-1001",
+      "cpu_percent": 26.8,
+      "memory": 244318208,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058369.652153
+    },
+    {
+      "pid": 1002,
+      "process_name": "proc-1002",
+      "cmd": "/usr/bin/proc-1002",
+      "cpu_percent": 50.3,
+      "memory": 523239424,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058369.652777
+    },
+    {
+      "pid": 1000,
+      "process_name": "proc-1000",
+      "cmd": "/usr/bin/proc-1000",
+      "cpu_percent": 89.1,
+      "memory": 159383552,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058372.602902
+    },
+    {
+      "pid": 1001,
+      "process_name": "proc-1001",
+      "cmd": "/usr/bin/proc-1001",
+      "cpu_percent": 28.5,
+      "memory": 312475648,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058372.603669
+    },
+    {
+      "pid": 1002,
+      "process_name": "proc-1002",
+      "cmd": "/usr/bin/proc-1002",
+      "cpu_percent": 4.8,
+      "memory": 407896064,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058372.604311
+    },
+    {
+      "pid": 1000,
+      "process_name": "proc-1000",
+      "cmd": "/usr/bin/proc-1000",
+      "cpu_percent": 89.4,
+      "memory": 502267904,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058377.618919
+    },
+    {
+      "pid": 1001,
+      "process_name": "proc-1001",
+      "cmd": "/usr/bin/proc-1001",
+      "cpu_percent": 87.0,
+      "memory": 105906176,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058377.622387
+    },
+    {
+      "pid": 1002,
+      "process_name": "proc-1002",
+      "cmd": "/usr/bin/proc-1002",
+      "cpu_percent": 93.4,
+      "memory": 266338304,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058377.625985
+    },
+    {
+      "pid": 1003,
+      "process_name": "proc-1003",
+      "cmd": "/usr/bin/proc-1003",
+      "cpu_percent": 83.6,
+      "memory": 17825792,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058377.6290061
+    },
+    {
+      "pid": 1000,
+      "process_name": "proc-1000",
+      "cmd": "/usr/bin/proc-1000",
+      "cpu_percent": 83.4,
+      "memory": 19922944,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058382.642526
+    },
+    {
+      "pid": 1001,
+      "process_name": "proc-1001",
+      "cmd": "/usr/bin/proc-1001",
+      "cpu_percent": 79.8,
+      "memory": 464519168,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058382.647758
+    },
+    {
+      "pid": 1002,
+      "process_name": "proc-1002",
+      "cmd": "/usr/bin/proc-1002",
+      "cpu_percent": 51.6,
+      "memory": 484442112,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058382.6511202
+    },
+    {
+      "pid": 1003,
+      "process_name": "proc-1003",
+      "cmd": "/usr/bin/proc-1003",
+      "cpu_percent": 72.7,
+      "memory": 229638144,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058382.653416
+    },
+    {
+      "pid": 1004,
+      "process_name": "proc-1004",
+      "cmd": "/usr/bin/proc-1004",
+      "cpu_percent": 34.6,
+      "memory": 479199232,
+      "hostname": "JermainacStudio.attlocal.net",
+      "os_type": "darwin",
+      "timestamp": 1746058382.655603
+    }
+  ],
+  "test-host": [
+    {
+      "pid": 1234,
+      "process_name": "my-test-process",
+      "cmd": "/usr/bin/test",
+      "cpu_percent": 12.5,
+      "memory": 204800,
+      "hostname": "test-host",
+      "os_type": "linux",
+      "timestamp": 1746057859.8061812
+    }
+  ]
+}

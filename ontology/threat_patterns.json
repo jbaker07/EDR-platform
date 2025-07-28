@@ -1,0 +1,124 @@
+{
+  "process_names": {
+    "powershell.exe": "T1059.001",
+    "cmd.exe": "T1059.003",
+    "wscript.exe": "T1059.005",
+    "mshta.exe": "T1218.005",
+    "regsvr32.exe": "T1218.010",
+    "rundll32.exe": "T1218.011",
+    "schtasks.exe": "T1053.005",
+    "certutil.exe": "T1105",
+    "net.exe": "T1087",
+    "whoami.exe": "T1033",
+    "at.exe": "T1053.002",
+    "cscript.exe": "T1059.005",
+    "ftp.exe": "T1105",
+    "psexec.exe": "T1021.002"
+  },
+  "process_flags": {
+    "-enc": "T1140",
+    "-noni": "T1059.001",
+    "-w hidden": "T1059.001",
+    "IEX": "T1059.001",
+    "-ep bypass": "T1059.001",
+    "--no-profile": "T1059.001",
+    "/b": "T1059.003",
+    "/c whoami": "T1033"
+  },
+  "chain_patterns": {
+    "powershell \u2192 net.exe \u2192 schtasks.exe": "T1059 + T1087 + T1053",
+    "cmd \u2192 rundll32 \u2192 regsvr32": "T1218",
+    "wscript \u2192 downloaded script \u2192 spawned powershell": "T1059.005 \u2192 T1059.001",
+    "explorer.exe \u2192 cmd.exe \u2192 powershell": "Execution Hijack",
+    "scheduled \u2192 unsigned process": "T1053 \u2192 T1204.002",
+    "installutil \u2192 net.exe \u2192 downloaded payload": "T1218.004 + T1087 + T1105",
+    "wmic \u2192 process call create \u2192 powershell": "T1047 + T1059.001",
+    "msiexec \u2192 .cab payload \u2192 rundll32": "T1218.007 + T1204 + T1218.011",
+    "bash \u2192 curl \u2192 chmod +x": "T1059.004 + T1105 + T1548",
+    "wscript \u2192 js \u2192 powershell": "T1059.005 + T1059.001",
+    "cmd \u2192 net use \u2192 admin$": "T1059.003 + T1021.002"
+  },
+  "edge_triggers": {
+    "Process \u2192 connected-to \u2192 external IP": "T1071.001",
+    "Process \u2192 accessed \u2192 high-entropy File": "T1027",
+    "Process \u2192 ran-on \u2192 device with no prior login": "T1021.001",
+    "Process \u2192 wrote \u2192 powershell script": "T1059.001",
+    "Process \u2192 impersonated \u2192 privileged user": "T1078.003",
+    "Process \u2192 injected-into \u2192 signed binary": "T1055",
+    "Process \u2192 loaded \u2192 unsigned DLL": "T1055.001",
+    "User \u2192 uploaded \u2192 encrypted archive": "T1041",
+    "Process \u2192 created-user \u2192 privileged role": "T1136.001",
+    "Process \u2192 executed \u2192 high entropy script": "T1027.004",
+    "User \u2192 accessed \u2192 out-of-scope SaaS": "T1530"
+  },
+  "rare_features": {
+    "entropy > 0.95": "T1027",
+    "nesting_depth > 4": "T1055",
+    "unsigned + outbound + no parent": "Suspicious orphan process",
+    "cmdline length > 2000": "Encoded payload",
+    "parent = userinit.exe": "T1037.001",
+    "exec_time < 2s + beaconed": "T1071",
+    "num_children > 15": "T1055 (spawn storm)",
+    "network_volume > 500MB": "T1048 (Exfiltration)",
+    "child process = installutil + parent = office.exe": "Signed binary misuse",
+    "parent = explorer.exe + child = mshta.exe": "Execution hijack",
+    "net use executed 3+ times in 10s": "Lateral movement prep",
+    "cmdline starts with 'Set-MpPreference'": "T1562.001 (Defender Tampering)",
+    "script with >5 base64 strings": "Obfuscated multi-stage payload",
+    "memory write from excel.exe": "Macro injection"
+  },
+  "login_patterns": {
+    "multi-host-same-hour": "T1078 (Valid Account Abuse)",
+    "geo-anomaly": "T1078.004 (Unusual Geolocation Access)",
+    "off-hours-login": "T1071.001 (Command and Control)",
+    "failed-logins > 10": "T1110 (Brute Force)"
+  },
+  "launch_patterns": {
+    "powershell.exe": "T1059.001 (PowerShell Execution)",
+    "cmd.exe": "T1059.003 (Command-Line Execution)",
+    "schtasks.exe": "T1053.005 (Scheduled Task)",
+    "regsvr32.exe": "T1218.010 (Regsvr32 Proxy Execution)",
+    "runas /netonly": "T1078.003 (Token Manipulation)"
+  },
+  "download_behavior": {
+    "filetype:.ps1": "T1059.001",
+    "entropy > 0.95": "T1027 (Obfuscated Files)",
+    "url contains bit.ly / tinyurl": "T1204.001 (User Execution via Malicious Link)"
+  },
+  "role_escalation": {
+    "sudo / runas to privileged": "T1078.003",
+    "added to Administrators group": "T1069.001 (Permission Group Modification)"
+  },
+  "session_behavior": {
+    "ssh_to_multiple_internal_hosts": "T1021.004 (SSH Lateral Movement)",
+    "used RDP after normal hours": "T1076 (Remote Desktop Protocol)",
+    "accessed sensitive share": "T1039 (Data from Network Shared Drive)"
+  },
+  "file_interaction": {
+    "opened .lnk file from email": "T1204.002 (Malicious File Execution)",
+    "double-clicked macro-enabled doc": "T1059.005 (WMI/VBScript Execution)",
+    "executed script from USB": "T1091 (Malware from Removable Media)"
+  },
+  "names": {
+    "wmic.exe": "T1047",
+    "msiexec.exe": "T1218.007",
+    "installutil.exe": "T1218.004",
+    "msbuild.exe": "T1127.001",
+    "control.exe": "T1218.002",
+    "csc.exe": "T1127",
+    "bash.exe": "T1059.004",
+    "curl.exe": "T1105",
+    "wget.exe": "T1105",
+    "sftp.exe": "T1048.002"
+  },
+  "flags": {
+    "-nop": "T1059.001",
+    "-w hidden": "T1059.001",
+    "-windowstyle hidden": "T1059.001",
+    "-noninteractive": "T1059.001",
+    "-encodedcommand": "T1140",
+    "/silent": "T1218",
+    "/c whoami": "T1033",
+    "/b": "T1059.003"
+  }
+}
