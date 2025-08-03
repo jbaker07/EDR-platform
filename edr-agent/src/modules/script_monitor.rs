@@ -96,6 +96,9 @@ fn check_and_log_script(path: &PathBuf) -> Option<TelemetryOutput> {
                     return None;
                 }
 
+                let exec_capable = meta.permissions().mode() & 0o111 != 0;
+
+                // Read entropy
                 let entropy_score = match File::open(&path) {
                     Ok(mut file) => {
                         let mut contents = Vec::new();
@@ -109,14 +112,47 @@ fn check_and_log_script(path: &PathBuf) -> Option<TelemetryOutput> {
                 };
 
                 if entropy_score < 3.0 {
-                    return None; // not complex enough to flag
+                    return None;
                 }
+
+                // Compute file hash
+                let file_hash = calculate_sha256(&path).unwrap_or_else(|| "unknown".into());
+
+                // Try to extract shebang
+                let shebang_line = std::fs::File::open(&path)
+                    .ok()
+                    .and_then(|mut f| {
+                        let mut buf = [0; 256];
+                        f.read(&mut buf).ok()?;
+                        let text = std::str::from_utf8(&buf).ok()?;
+                        text.lines().next().map(|s| s.trim().to_string())
+                    });
 
                 let cpu = 0.5_f32;
                 let mem = 90_000;
                 let risk = 15.0_f32;
                 let ts = now_ts();
                 let uid = meta.uid();
+                let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+
+                // Build the comparison HashMap
+                let mut data = HashMap::new();
+                data.insert("file_path".into(), path.display().to_string());
+                data.insert("file_hash".into(), file_hash.clone());
+                data.insert("uid".into(), uid.to_string());
+                data.insert("entropy".into(), entropy_score.to_string());
+                data.insert("exec_capable".into(), exec_capable.to_string());
+                if let Some(shebang) = &shebang_line {
+                    data.insert("shebang".into(), shebang.clone());
+                }
+
+                if is_known_good(&data, &fingerprints) {
+                    log(&format!(
+                        "[ScriptMonitor] Skipping known-good script: {}",
+                        path.display()
+                    ));
+                    return None;
+                }
 
                 let trust = generate_trust_payload("script_monitor", cpu.into(), mem, risk.into());
                 let features = generate_feature_vector(cpu.into(), mem, risk.into());
@@ -131,7 +167,6 @@ fn check_and_log_script(path: &PathBuf) -> Option<TelemetryOutput> {
                 hasher.update(path.to_string_lossy().as_bytes());
                 map.insert("script_hash".into(), format!("{:x}", hasher.finalize()));
 
-                // Submit telemetry and trust
                 write_telemetry_record(map.clone());
                 push_to_gnn_vector_log(map.clone());
 
@@ -183,6 +218,8 @@ fn check_and_log_script(path: &PathBuf) -> Option<TelemetryOutput> {
 
     None
 }
+
+
 
 fn is_whitelisted(path: &Path) -> bool {
     let path_str = path.to_string_lossy();

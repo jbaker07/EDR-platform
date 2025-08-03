@@ -32,6 +32,50 @@ pub struct TrustVector {
     pub dimension_stats: HashMap<String, DimensionStats>,
 }
 
+use std::collections::HashMap;
+use std::sync::Mutex;
+use lazy_static::lazy_static;
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct MahalanobisStats {
+    pub mean: f64,
+    pub std_dev: f64,
+}
+
+lazy_static! {
+    pub static ref BASELINE_STATS: Mutex<HashMap<String, MahalanobisStats>> = Mutex::new(HashMap::new());
+}
+
+use std::fs;
+use crate::trust_vector::load_mahalanobis_baseline;
+
+fn main() {
+    load_mahalanobis_baseline("json_files/mahalanobis_baseline.json");
+    // ...rest of your startup
+}
+
+pub fn load_mahalanobis_baseline(path: &str) {
+    match fs::read_to_string(path) {
+        Ok(data) => match serde_json::from_str::<HashMap<String, MahalanobisStats>>(&data) {
+            Ok(stats) => {
+                let mut map = BASELINE_STATS.lock().unwrap();
+                *map = stats;
+                log("mahalanobis_loader", &format!("✅ Loaded {} Mahalanobis baselines", map.len()));
+            }
+            Err(e) => log("mahalanobis_loader", &format!("❌ Failed to parse JSON: {}", e)),
+        },
+        Err(e) => log("mahalanobis_loader", &format!("❌ Failed to read file: {}", e)),
+    }
+}
+
+
+pub fn get_stats(&self, dim: &str) -> Option<MahalanobisStats> {
+    self.per_dimension_stats.get(dim).cloned().or_else(|| {
+        BASELINE_STATS.lock().unwrap().get(dim).cloned()
+    })
+}
+
 impl TrustVector {
     pub fn new() -> Self {
         let mut dimensions = HashMap::new();
@@ -187,7 +231,93 @@ pub fn mahalanobis_distance(current: &TrustVector, baseline: &TrustVector) -> f6
 }
 
 
+pub fn apply_decay_and_analyze(&mut self, decay_rate: f64, growth_factor: f64) {
+    for (dim, score) in self.dimensions.iter_mut() {
+        *score *= decay_rate;
+        *score = (*score * growth_factor).min(100.0);
+        self.append_history(dim, *score);
+    }
+}
 
+pub fn collect_mahalanobis_anomalies(&self) -> Vec<String> {
+    let mut anomalies = Vec::new();
+
+    for (dim, score) in &self.dimensions {
+        if let Some(stats) = self.get_stats(dim) {
+            let distance = stats.mahalanobis(*score);
+            if distance > 3.5 {
+                anomalies.push(format!(
+                    "Dimension '{}' triggered hard escalation (M-Distance: {:.2})", dim, distance
+                ));
+            } else if distance > 2.0 {
+                anomalies.push(format!(
+                    "Anomaly in '{}' (M-Distance: {:.2})", dim, distance
+                ));
+            }
+        }
+    }
+
+    anomalies
+}
+
+pub fn emit_score_reasons(&self) -> Vec<ScoreReason> {
+    let mut reasons = Vec::new();
+
+    for (dim, score) in &self.dimensions {
+        if *score < 70.0 {
+            let history = self.get_history(dim);
+            reasons.push(ScoreReason::Custom(format!(
+                "{} dropped to {:.1} — history: {:?}", dim, score, history
+            )));
+        }
+
+        if let Some(stats) = self.get_stats(dim) {
+            let distance = stats.mahalanobis(*score);
+            if distance > 3.5 {
+                reasons.push(ScoreReason::Custom(format!(
+                    "Hard escalation: {} (M-Dist = {:.2})", dim, distance
+                )));
+            } else if distance > 2.0 {
+                reasons.push(ScoreReason::Custom(format!(
+                    "Outlier: {} (M-Dist = {:.2})", dim, distance
+                )));
+            }
+        }
+    }
+
+    reasons
+}
+
+pub fn emit_tag_penalties(&self, tags: &[String]) -> Vec<ScoreReason> {
+    tags.iter().map(|tag| ScoreReason::Tagged(tag.clone())).collect()
+}
+
+pub fn analyze_dimension_scores(&self) -> Vec<ScoreReason> {
+    let mut reasons = Vec::new();
+
+    for (dim, score) in &self.dimensions {
+        if *score < 70.0 {
+            reasons.push(ScoreReason::Custom(format!(
+                "{} dropped to {:.1}", dim, score
+            )));
+        }
+
+        if let Some(stats) = self.get_stats(dim) {
+            let distance = stats.mahalanobis(*score);
+            if distance > 3.5 {
+                reasons.push(ScoreReason::Custom(format!(
+                    "Hard anomaly: {} → {:.2}", dim, distance
+                )));
+            } else if distance > 2.0 {
+                reasons.push(ScoreReason::Custom(format!(
+                    "Soft anomaly: {} → {:.2}", dim, distance
+                )));
+            }
+        }
+    }
+
+    reasons
+}
 
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

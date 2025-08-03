@@ -1496,6 +1496,49 @@ pub fn crawl_kernel_modules() -> Vec<FingerprintEntry> {
     entries
 }
 
+pub fn is_known_good(
+    data: &HashMap<String, String>,
+    fingerprints: &[FingerprintEntry],
+) -> bool {
+    for fp in fingerprints {
+        match fp {
+            FingerprintEntry::File { path, hash, trusted_uid, .. } => {
+                if let (Some(d_path), Some(d_hash), Some(d_uid_str)) = (
+                    data.get("file_path").or_else(|| data.get("path")),
+                    data.get("file_hash"),
+                    data.get("uid"),
+                ) {
+                    if d_path == path && d_hash == hash && d_uid_str.parse::<u32>().ok() == Some(*trusted_uid) {
+                        return true;
+                    }
+                }
+            }
+            FingerprintEntry::Script { path, hash, trusted_uid, .. } => {
+                if let (Some(d_path), Some(d_hash), Some(d_uid_str)) = (
+                    data.get("file_path"),
+                    data.get("file_hash"),
+                    data.get("uid"),
+                ) {
+                    if d_path == path && d_hash == hash && d_uid_str.parse::<u32>().ok() == Some(*trusted_uid) {
+                        return true;
+                    }
+                }
+            }
+            FingerprintEntry::MemoryRegion { path, pid, .. } => {
+                if let (Some(d_path), Some(d_pid_str)) = (
+                    data.get("path"),
+                    data.get("pid"),
+                ) {
+                    if d_path == path && d_pid_str.parse::<u32>().ok() == Some(*pid) {
+                        return true;
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    false
+}
 
 pub fn crawl_all_advanced_and_write(output_path: &str) {
     let start = Instant::now();

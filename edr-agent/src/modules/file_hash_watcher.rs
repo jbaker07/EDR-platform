@@ -79,6 +79,8 @@ fn compute_sha256(path: &Path) -> Option<String> {
 
     Some(format!("{:x}", hasher.finalize()))
 }
+use std::os::unix::fs::MetadataExt;
+use mime_guess::MimeGuess;
 
 pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
     let writer_clone = Arc::clone(&writer);
@@ -99,16 +101,44 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                             let canonical_path = fs::canonicalize(&path).unwrap_or_else(|_| path.clone());
                             let binary_path_str = canonical_path.to_string_lossy().into_owned();
 
-                            // Default values
-                            let mut pid = 0;
-                            let mut ppid = 0;
-                            let mut uid = 0;
-                            let mut cwd = dir.to_string();
-                            let mut cmdline = "hash_check".to_string();
+                            // Extract file metadata
+                            let metadata = match fs::metadata(&path) {
+                                Ok(meta) => meta,
+                                Err(_) => continue,
+                            };
+                            let permissions = metadata.permissions().mode();
+                            let uid = metadata.uid();
+                            let exec_capable = permissions & 0o111 != 0;
+                            let category = MimeGuess::from_path(&path)
+                                .first_raw()
+                                .unwrap_or("application/octet-stream")
+                                .to_string();
 
-                            // Attempt enrichment if any PIDs map to the file
-                            // (In the future, inode matching or LSOF-style lookup)
-                            // Placeholder here: keep default
+                            // Load fingerprints and suppress if known-good
+                            let mut fingerprint_data = HashMap::new();
+                            fingerprint_data.insert("path".into(), binary_path_str.clone());
+                            fingerprint_data.insert("hash".into(), hash.clone());
+                            fingerprint_data.insert("trusted_uid".into(), uid.to_string());
+                            fingerprint_data.insert("permissions".into(), permissions.to_string());
+                            fingerprint_data.insert("exec_capable".into(), exec_capable.to_string());
+                            fingerprint_data.insert("category".into(), category.clone());
+                            fingerprint_data.insert("source_module".into(), "file_hash_watcher".into());
+                            fingerprint_data.insert("timestamp".into(), timestamp.to_string());
+
+                            let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+                            if is_known_good(&fingerprint_data, &fingerprints) {
+                                log(&format!(
+                                    "[FileHashWatcher] Suppressed known-good file: {}",
+                                    binary_path_str
+                                ));
+                                continue;
+                            }
+
+                            // Default enrichment
+                            let pid = 0;
+                            let ppid = 0;
+                            let cwd = dir.to_string();
+                            let cmdline = "hash_check".to_string();
 
                             let record = TelemetryRecord {
                                 timestamp,
@@ -191,13 +221,18 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
     });
 }
 
-#[cfg(target_os = "linux")]
+
+#[cfg(target_os = "linux")]#
+
 pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
     use std::sync::mpsc::{channel, Sender};
+    use std::os::unix::fs::MetadataExt;
+    use mime_guess::MimeGuess;
 
     let mut results = Vec::new();
 
-    let data = std::fs::read("/opt/edr-ebpf/file_access_monitor.bpf.o").expect("Missing eBPF object");
+    let data = std::fs::read("/opt/edr-ebpf/file_access_monitor.bpf.o")
+        .expect("Missing eBPF object");
     let mut bpf = Bpf::load(&data).expect("Failed to load eBPF");
 
     let program = bpf.program_mut("trace_file_access").expect("Missing program");
@@ -238,54 +273,71 @@ pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
     let timeout = Instant::now() + Duration::from_millis(100);
     while Instant::now() < timeout {
         if let Ok(parsed) = rx.try_recv() {
-            let data = parsed.data.clone();
+            let mut data = parsed.data.clone();
+            let path_str = data.get("path").cloned().unwrap_or_else(|| "[unknown]".to_string());
 
-            write_telemetry_record(data.clone());
+            // Enrich with metadata for fingerprint suppression
+            if let Ok(meta) = std::fs::metadata(&path_str) {
+                let uid = meta.uid();
+                let permissions = meta.permissions().mode();
+                let exec_capable = permissions & 0o111 != 0;
+                let category = MimeGuess::from_path(&path_str)
+                    .first_raw()
+                    .unwrap_or("application/octet-stream")
+                    .to_string();
+
+                data.insert("trusted_uid".into(), uid.to_string());
+                data.insert("permissions".into(), permissions.to_string());
+                data.insert("exec_capable".into(), exec_capable.to_string());
+                data.insert("category".into(), category.clone());
+            }
+
+            let fingerprints = load_fingerprints();
+            if is_known_good_fingerprint(&data, &fingerprints) {
+                log(&format!(
+                    "[eBPF File Watch] Skipping known-good file access: {}",
+                    path_str
+                ));
+                continue;
+            }
+
+            // Continue with telemetry and trust processing
             push_to_gnn_vector_log(data.clone());
             store_replay_event(data.clone());
             crate::gnn_hook::push_metadata_to_gnn_vector_log(data.clone());
             results.push(parsed.clone());
 
-            // Emit TrustEvent
             if let Some(pid_str) = data.get("pid") {
                 let pid = pid_str.parse::<u32>().unwrap_or(0);
 
-                // ✅ Define path_str from data
-                let path_str = data
-                    .get("path")
-                    .cloned()
-                    .unwrap_or_else(|| "[unknown path]".into());
-
-                // ✅ Define risk_score explicitly
-                let risk_score = 90.0;
-
-                // ✅ Construct metadata HashMap
-                let mut metadata = HashMap::new();
-                metadata.insert("path".into(), path_str.clone());
-                metadata.insert("reason".into(), "Matched known malicious hash".into());
-                metadata.insert("scanner".into(), "local_hash_db".into());
-
-                // ✅ Now safe to call
                 submit_trust_event(TrustEvent {
                     timestamp: now_ts(),
                     pid: pid as i32,
                     ppid: 0,
-                    uid: 0,
+                    uid: data.get("trusted_uid")
+                        .and_then(|v| v.parse::<u32>().ok())
+                        .unwrap_or(0),
                     binary_path: path_str.clone(),
-                    command_line: "[unknown]".into(),
-                    cwd: "/".into(),
+                    command_line: data.get("command_line").cloned().unwrap_or_else(|| "[unknown]".into()),
+                    cwd: data.get("cwd").cloned().unwrap_or_else(|| "/".into()),
                     anomaly_type: "file_hash_detected".into(),
                     component: "file_hash_watcher".into(),
-                    metadata,
-                    risk_score,
+                    metadata: data.clone(),
+                    risk_score: 90.0,
                     source_module: "file_hash_watcher".into(),
                     decay_context: Some("known_malware".into()),
                     module: Some("file".into()),
                     signal: Some("malicious_file".into()),
                     signal_type: Some("hash_match".into()),
-                    score: Some(risk_score),
-                    raw_score: Some(risk_score),
-                    tags: Some(vec!["malware".into(), "file".into(), "hash".into()]),
+                    score: Some(90.0),
+                    raw_score: Some(90.0),
+                    tags: Some(vec![
+                        "malware".into(),
+                        "file".into(),
+                        "hash".into(),
+                        "tag:file_integrity".into(),
+                        "tag:threat_intel_match".into(),
+                    ]),
                     description: Some("Known malicious file hash detected".into()),
                 });
             }
@@ -296,6 +348,7 @@ pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
 
     results
 }
+
 
 #[cfg(target_os = "linux")]
 fn parse_file_access_event(buf: &[u8]) -> Option<TelemetryOutput> {

@@ -47,6 +47,11 @@ impl std::convert::TryFrom<TelemetryOutput> for TelemetryRecord {
     }
 }
 
+pub fn get_stats(&self, dim: &str) -> Option<MahalanobisStats> {
+    self.per_dimension_stats.get(dim).cloned().or_else(|| {
+        BASELINE_STATS.lock().unwrap().get(dim).cloned()
+    })
+}
 
 fn main() {
     init_logger();

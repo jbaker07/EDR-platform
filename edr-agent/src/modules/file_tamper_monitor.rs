@@ -97,6 +97,24 @@ pub fn start_ebpf_file_tamper_watch() {
                                             let binary_path = read_proc_value(pid, "exe").unwrap_or_else(|_| "unknown".into());
                                             let cmdline     = read_proc_value(pid, "cmdline").unwrap_or_else(|_| "unknown".into());
                                             let cwd         = read_proc_value(pid, "cwd").unwrap_or_else(|_| "unknown".into());
+                                            let file_path = read_proc_value(pid, "exe").unwrap_or_else(|_| "unknown".into());
+                                            let uid = get_ppid_and_uid(pid).1;
+                                            let hash = compute_file_hash(&file_path).unwrap_or_else(|_| "N/A".into()); // Optional, if you support it
+
+                                            let mut fingerprint_data = HashMap::new();
+                                            fingerprint_data.insert("file_path".into(), file_path.clone());
+                                            fingerprint_data.insert("file_hash".into(), hash.clone());
+                                            fingerprint_data.insert("uid".into(), uid.to_string());
+
+                                            let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+
+                                            if is_known_good(&fingerprint_data, &fingerprints) {
+                                                log(&format!(
+                                                    "[FileTamperMonitor] Suppressed known-good file tamper: {}",
+                                                    file_path
+                                                ));
+                                                return; // Skip processing this event
+                                            }
 
                                             let mut data = HashMap::new();
                                             data.insert("timestamp".into(), evt.timestamp.to_string());
