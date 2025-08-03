@@ -1,50 +1,62 @@
 use std::collections::HashMap;
-use std::fs::{self, File};
-use std::io::Write;
+use std::fs::{File, create_dir_all};
+use std::io::{Read, Write};
 use std::path::PathBuf;
 
-use walkdir::WalkDir;
-use sha2::{Sha256, Digest};
-use serde_json::json;
-
+use crate::services::trust_vector::TrustVector;
 use crate::logger::log;
 
-pub fn generate_baseline_fingerprint(output_path: &str, patterns: &[&str]) {
-    let mut fingerprint_map = HashMap::new();
+pub fn load_baseline(role: &str) -> Option<TrustVector> {
+    let path = format!("json_files/baselines/{}.vector.json", role);
+    let path_buf = PathBuf::from(&path);
 
-    for pattern in patterns {
-        for entry in WalkDir::new(pattern).into_iter().filter_map(Result::ok) {
-            let path = entry.path();
+    if !path_buf.exists() {
+        log("baseline_loader", &format!("No baseline file found for role '{}'", role));
+        return None;
+    }
 
-            if !path.is_file() {
-                continue;
+    match File::open(&path_buf) {
+        Ok(mut file) => {
+            let mut json_str = String::new();
+            if let Err(err) = file.read_to_string(&mut json_str) {
+                log("baseline_loader", &format!("Failed to read baseline file: {}", err));
+                return None;
             }
 
-            match fs::read(path) {
-                Ok(contents) => {
-                    let mut hasher = Sha256::new();
-                    hasher.update(&contents);
-                    let hash = format!("{:x}", hasher.finalize());
-                    fingerprint_map.insert(hash, path.to_string_lossy().to_string());
-                }
+            match serde_json::from_str::<TrustVector>(&json_str) {
+                Ok(vector) => Some(vector),
                 Err(err) => {
-                    log("baseline_creator", &format!("Failed to read {:?}: {}", path, err));
+                    log("baseline_loader", &format!("Failed to parse baseline JSON: {}", err));
+                    None
                 }
             }
         }
+        Err(err) => {
+            log("baseline_loader", &format!("Failed to open baseline file: {}", err));
+            None
+        }
+    }
+}
+
+pub fn save_baseline(role: &str, vector: &TrustVector) {
+    let dir_path = PathBuf::from("json_files/baselines/");
+    if let Err(e) = create_dir_all(&dir_path) {
+        log("baseline_loader", &format!("Failed to create baseline directory: {}", e));
+        return;
     }
 
-    let serialized = json!(fingerprint_map);
-    match File::create(output_path) {
+    let path = dir_path.join(format!("{}.vector.json", role));
+    match File::create(&path) {
         Ok(mut file) => {
-            if let Err(e) = write!(file, "{}", serialized.to_string()) {
-                log("baseline_creator", &format!("Failed to write JSON: {}", e));
+            let serialized = serde_json::to_string_pretty(vector).unwrap_or_default();
+            if let Err(e) = file.write_all(serialized.as_bytes()) {
+                log("baseline_loader", &format!("Failed to write baseline file: {}", e));
             } else {
-                log("baseline_creator", &format!("Wrote {} safe fingerprints", fingerprint_map.len()));
+                log("baseline_loader", &format!("Wrote baseline for role '{}' to {:?}", role, path));
             }
         }
         Err(e) => {
-            log("baseline_creator", &format!("Failed to create baseline file: {}", e));
+            log("baseline_loader", &format!("Failed to create baseline file: {}", e));
         }
     }
 }

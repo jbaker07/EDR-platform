@@ -135,7 +135,85 @@ pub fn stream_to_gnn_fifo(feature_map: &HashMap<String, f64>) {
         eprintln!("[GNN Hook] Failed to serialize feature map to JSON");
     }
 }
+use std::fs::OpenOptions;
+use std::io::Write;
+use crate::gnn_models::GnnScoringInput;
+use chrono::Utc;
+
+fn send_to_gnn_daemon(trust_vector: TrustVector, tags: Vec<String>) {
+    let pipe_path = "/tmp/gnn_input.pipe";
+
+    let gnn_input = GnnScoringInput {
+        trust_vector,
+        session_id: "session_xyz".to_string(), // or hash of graph
+        timestamp: Utc::now().timestamp(),
+        tags,
+        graph_snapshot: Some("/tmp/gnn_input_graph_snapshot.json".to_string()), // optional
+    };
+
+    if let Ok(mut pipe) = OpenOptions::new().write(true).open(pipe_path) {
+        if let Ok(payload) = serde_json::to_string(&gnn_input) {
+            let _ = writeln!(pipe, "{}", payload);
+        }
+    } else {
+        eprintln!("[gnn_hook] Could not open GNN pipe for writing");
+    }
+}
+
 /// ✅ Allows logging a prebuilt HashMap as a GNN vector
 pub fn push_metadata_to_gnn_vector_log(metadata: HashMap<String, String>) {
     push_feature_map_to_gnn_log(metadata);
+}
+
+use crate::graph_builder::{GraphNode, GraphEdge};
+use crate::trust_vector::TrustVector;
+use crate::gnn_models::GnnScoringInput;
+use chrono::Utc;
+
+pub fn build_gnn_scoring_input(
+    subgraph_nodes: &[GraphNode],
+    subgraph_edges: &[GraphEdge],
+    trust_vector: TrustVector,
+    snapshot_path: Option<String>,
+) -> GnnScoringInput {
+    let timestamp = Utc::now().timestamp();
+
+    let semantic_tags: Vec<String> = subgraph_nodes
+        .iter()
+        .flat_map(|n| n.tags.clone())
+        .collect::<std::collections::HashSet<_>>() // dedup
+        .into_iter()
+        .collect();
+
+    let anchor_hits: Vec<String> = subgraph_nodes
+        .iter()
+        .flat_map(|n| n.anchor_ids.clone())
+        .collect::<std::collections::HashSet<_>>()
+        .into_iter()
+        .collect();
+
+    let suppressed_by_fingerprint: Vec<String> = subgraph_nodes
+        .iter()
+        .filter(|n| n.fingerprint_suppressed.unwrap_or(false))
+        .map(|n| n.id.clone())
+        .collect();
+
+    let decay_score = subgraph_nodes
+        .iter()
+        .map(|n| 1.0 - n.trust_score)
+        .sum::<f32>();
+
+    let session_id = format!("graph_{}", timestamp);
+
+    GnnScoringInput {
+        session_id,
+        timestamp,
+        trust_vector,
+        semantic_tags,
+        anchor_hits,
+        suppressed_by_fingerprint,
+        decay_score,
+        graph_snapshot_path: snapshot_path,
+        notes: Some("Auto-generated from causal subgraph".to_string()),
+    }
 }
