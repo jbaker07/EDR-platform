@@ -1,414 +1,309 @@
-use std::collections::{HashMap, VecDeque};
-use std::f64::EPSILON;
-use std::sync::Mutex;
+// src/trust_vector.rs
+//! TrustVector: 10-D per-endpoint trust with dimension-targeted penalties,
+//! soft penalties (with "damp"), decay toward baseline, causal history, and
+//! tag→dimension mapping. Values are in [0.0, 1.0] where 1.0 = fully trusted.
+
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+use std::fmt;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use once_cell::sync::Lazy;
-use serde::{Deserialize, Serialize};
-
-pub static TRUST_VECTOR_GLOBAL: Lazy<Mutex<HashMap<String, TrustVector>>> = Lazy::new(|| {
-    Mutex::new(HashMap::new())
-});
-
-use lazy_static::lazy_static;
-
-lazy_static! {
-    pub static ref BASELINES: HashMap<String, TrustVector> = {
-        let mut m = HashMap::new();
-        // Example: insert some default roles
-        m.insert("default".to_string(), TrustVector::new());
-        m
-    };
-
-    pub static ref DEFAULT_BASELINE: TrustVector = TrustVector::new();
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct TrustVector {
-    pub dimensions: HashMap<String, f64>,
-    pub last_updated: HashMap<String, u64>,
-    pub causal_history: HashMap<String, Vec<String>>,
-    pub history: HashMap<String, Vec<f64>>,
-    pub dimension_stats: HashMap<String, DimensionStats>,
-}
-
-use std::collections::HashMap;
 use std::sync::Mutex;
-use lazy_static::lazy_static;
-use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct MahalanobisStats {
-    pub mean: f64,
-    pub std_dev: f64,
+/// Global map (optional) for per-endpoint TrustVectors keyed by endpoint_id/host.
+pub static TRUST_VECTOR_GLOBAL: Lazy<Mutex<HashMap<String, TrustVector>>> =
+    Lazy::new(|| Mutex::new(HashMap::new()));
+
+pub const TRUST_DIM_CT: usize = 10;
+
+/// Canonical dimensions (stable order/index).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub enum TrustDim {
+    Memory = 0,     // RWX flips, injection, memfd, hollowing
+    Network = 1,    // connect/accept, jitter, exfil, beacon signals
+    Privilege = 2,  // setuid/capset/ptrace/seccomp/bpf/module tamper
+    Persistence = 3,// autoruns, scheduler abuse, tamper
+    FileSys = 4,    // unlink/rename/xattr/tamper, destructive ops
+    Process = 5,    // exec/parent anomalies, fork storms, retained FDs
+    Container = 6,  // setns/unshare/pivot_root
+    Lateral = 7,    // cred dump, remote exec, pivots
+    Beacon = 8,     // cadence/ASN/JA3 novelty, retrans spikes
+    Stealth = 9,    // suppression/visibility gaps, anti-forensics
 }
 
-lazy_static! {
-    pub static ref BASELINE_STATS: Mutex<HashMap<String, MahalanobisStats>> = Mutex::new(HashMap::new());
-}
-
-use std::fs;
-use crate::trust_vector::load_mahalanobis_baseline;
-
-fn main() {
-    load_mahalanobis_baseline("json_files/mahalanobis_baseline.json");
-    // ...rest of your startup
-}
-
-pub fn load_mahalanobis_baseline(path: &str) {
-    match fs::read_to_string(path) {
-        Ok(data) => match serde_json::from_str::<HashMap<String, MahalanobisStats>>(&data) {
-            Ok(stats) => {
-                let mut map = BASELINE_STATS.lock().unwrap();
-                *map = stats;
-                log("mahalanobis_loader", &format!("✅ Loaded {} Mahalanobis baselines", map.len()));
-            }
-            Err(e) => log("mahalanobis_loader", &format!("❌ Failed to parse JSON: {}", e)),
-        },
-        Err(e) => log("mahalanobis_loader", &format!("❌ Failed to read file: {}", e)),
+impl TrustDim {
+    #[inline] pub fn idx(self) -> usize { self as usize }
+    pub fn all() -> &'static [TrustDim; TRUST_DIM_CT] {
+        use TrustDim::*;
+        static ALL: [TrustDim; TRUST_DIM_CT] = [
+            Memory, Network, Privilege, Persistence, FileSys,
+            Process, Container, Lateral, Beacon, Stealth,
+        ];
+        &ALL
+    }
+    pub fn name(self) -> &'static str {
+        use TrustDim::*;
+        match self {
+            Memory => "memory",
+            Network => "network",
+            Privilege => "privilege",
+            Persistence => "persistence",
+            FileSys => "filesystem",
+            Process => "process",
+            Container => "container",
+            Lateral => "lateral",
+            Beacon => "beacon",
+            Stealth => "stealth",
+        }
     }
 }
 
+impl fmt::Display for TrustDim {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "{}", self.name()) }
+}
 
-pub fn get_stats(&self, dim: &str) -> Option<MahalanobisStats> {
-    self.per_dimension_stats.get(dim).cloned().or_else(|| {
-        BASELINE_STATS.lock().unwrap().get(dim).cloned()
-    })
+/// Per-endpoint trust vector.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TrustVector {
+    /// Per-dimension trust values in [0,1].
+    pub v: [f32; TRUST_DIM_CT],
+    /// Optional tag echoes for diagnostics/snapshots.
+    pub tags: Vec<String>,
+    /// Per-dimension last-updated timestamps (secs since epoch).
+    #[serde(skip)]
+    pub last_updated: [u64; TRUST_DIM_CT],
+    /// Light causal history (bounded length; human-facing).
+    #[serde(skip)]
+    pub causal_history: HashMap<String, Vec<String>>,
+    /// Cache of total deficit sum Σ(1 - v[i]) for quick overall score.
+    #[serde(skip)]
+    cached_deficit_sum: f32,
+}
+
+impl Default for TrustVector {
+    fn default() -> Self { Self::new() }
 }
 
 impl TrustVector {
+    /// Start fully trusted.
     pub fn new() -> Self {
-        let mut dimensions = HashMap::new();
-        let mut last_updated = HashMap::new();
-        let history = HashMap::new();
-        let dimension_stats = HashMap::new();
-
-        for dim in [
-            "process", "memory", "network", "file", "auth",
-            "geo", "usb", "script", "container", "graph"
-        ] {
-            dimensions.insert(dim.to_string(), 100.0);
-            last_updated.insert(dim.to_string(), now_ts());
-        }
-
         Self {
-            dimensions,
-            last_updated,
+            v: [1.0; TRUST_DIM_CT],
+            tags: Vec::new(),
+            last_updated: [now_ts(); TRUST_DIM_CT],
             causal_history: HashMap::new(),
-            history,
-            dimension_stats,
+            cached_deficit_sum: 0.0,
         }
     }
-     pub fn has_valid_stats(&self) -> bool {
-        for (dim, _) in &self.dimensions {
-            if let Some(stats) = self.get_stats(dim) {
-                if stats.variance.sqrt() == 0.0 || stats.count < 5 {
-                    return false;
-                }
-            } else {
-                return false;
+
+    /// Construct from a list of tags (applies small, targeted penalties).
+    pub fn from_tag_list(tags: &[String]) -> Self {
+        let mut tv = Self::new();
+        for t in tags { tv.apply_tag(t); }
+        tv.tags.extend_from_slice(tags);
+        tv.recompute_cache();
+        tv
+    }
+
+    /// Direct penalty: subtract `strength` (≥0) from dimension trust.
+    pub fn penalty(&mut self, dim: TrustDim, strength: f32) {
+        if strength <= 0.0 { return; }
+        let i = dim.idx();
+        let before = self.v[i];
+        self.v[i] = (self.v[i] - strength).clamp(0.0, 1.0);
+        self.cached_deficit_sum += (before - self.v[i]).max(0.0);
+        self.last_updated[i] = now_ts();
+        self.push_history(dim, format!("penalty:{:.3}", strength));
+    }
+
+    /// Damped penalty (e.g., pass Mahalanobis/Envelope "damp" here).
+    pub fn soft_penalty(&mut self, dim: TrustDim, base_strength: f32, damp: f32) {
+        self.penalty(dim, (base_strength * damp).min(1.0));
+    }
+
+    /// Heal a dimension by some amount.
+    pub fn heal(&mut self, dim: TrustDim, amount: f32) {
+        if amount <= 0.0 { return; }
+        let i = dim.idx();
+        let before_def = 1.0 - self.v[i];
+        self.v[i] = (self.v[i] + amount).clamp(0.0, 1.0);
+        let after_def = 1.0 - self.v[i];
+        self.cached_deficit_sum -= (before_def - after_def).max(0.0);
+        self.last_updated[i] = now_ts();
+        self.push_history(dim, format!("heal:{:.3}", amount));
+    }
+
+    /// Time decay: deficits (1 - v[i]) shrink by half every `half_life_s`.
+    pub fn apply_decay(&mut self, dt_s: f32, half_life_s: f32) {
+        if half_life_s <= 0.0 || dt_s <= 0.0 { return; }
+        let df = (0.5f32).powf(dt_s / half_life_s);
+        self.cached_deficit_sum = 0.0;
+        for i in 0..TRUST_DIM_CT {
+            let deficit = (1.0 - self.v[i]) * df;
+            self.v[i] = 1.0 - deficit;
+            self.cached_deficit_sum += deficit;
+        }
+    }
+
+    /// Conservative merge (min per dimension).
+    pub fn merge_min(&mut self, other: &TrustVector) {
+        for i in 0..TRUST_DIM_CT {
+            let before = self.v[i];
+            self.v[i] = self.v[i].min(other.v[i]);
+            self.cached_deficit_sum += (before - self.v[i]).max(0.0);
+        }
+        if self.tags.len() < 128 {
+            for t in &other.tags {
+                if self.tags.len() >= 128 { break; }
+                if !self.tags.iter().any(|x| x == t) { self.tags.push(t.clone()); }
             }
         }
-        true
-    }
-    pub fn get(&self, dim: &str) -> f64 {
-        *self.dimensions.get(dim).unwrap_or(&100.0)
     }
 
-    pub fn set(&mut self, dim: &str, score: f64) {
-        self.dimensions.insert(dim.to_string(), score.clamp(0.0, 100.0));
-        self.last_updated.insert(dim.to_string(), now_ts());
+    /// Overall trust = mean across dimensions.
+    pub fn score_overall(&self) -> f32 {
+        1.0 - (self.cached_deficit_sum / (TRUST_DIM_CT as f32))
     }
 
-    pub fn apply_penalty(&mut self, dim: &str, amount: f64, reason_tag: &str) {
-        let current = self.get(dim);
-        self.set(dim, current - amount);
-
-        self.causal_history
-            .entry(dim.to_string())
-            .or_insert_with(Vec::new)
-            .push(format!("{}@{}", reason_tag, now_ts()));
+    /// Deficit (1 - trust) for a dimension.
+    #[inline] pub fn deficit_by(&self, dim: TrustDim) -> f32 {
+        1.0 - self.v[dim.idx()]
     }
 
-    pub fn apply_tagged_penalty(&mut self, tag: &str) {
-        let penalty_map = get_tag_penalty_map(tag);
-        for (dim, penalty) in penalty_map {
-            self.apply_penalty(&dim, penalty, tag);
-        }
+    /// Convenience: apply penalty by dimension string (case-insensitive).
+    pub fn penalty_by_name(&mut self, dim: &str, strength: f32) {
+        if let Some(d) = dim_from_str(dim) { self.penalty(d, strength); }
     }
 
-    pub fn get_stats(&self, dim: &str) -> Option<&DimensionStats> {
-        self.dimension_stats.get(dim)
-    }
-    pub fn apply_decay(&mut self, decay_rate: f64, exponent: f64) {
-        let now = now_ts();
-
-        for (dim, score) in self.dimensions.clone() {
-            let last = self.last_updated.get(&dim).cloned().unwrap_or(now);
-            let dt = ((now - last) as f64) / 60.0; // minutes
-            if dt > 0.0 {
-                let decay_amount = decay_rate * dt.powf(exponent);
-                self.set(&dim, score - decay_amount);
-            }
-        }
-    }
-
-    pub fn compute_weighted_score(&self) -> f64 {
-        let weights = [
-            ("process", 1.2),
-            ("memory", 1.2),
-            ("network", 1.1),
-            ("file", 1.1),
-            ("auth", 1.0),
-            ("geo", 0.8),
-            ("usb", 0.7),
-            ("script", 1.0),
-            ("container", 1.0),
-            ("graph", 1.3),
-        ];
-
-        let mut total = 0.0;
-        let mut weight_sum = 0.0;
-
-        for (dim, weight) in weights.iter() {
-            let val = self.get(dim);
-            total += val * weight;
-            weight_sum += weight;
-        }
-
-        total / weight_sum
-    }
-
-    pub fn compute_average(&self) -> f64 {
-        let total: f64 = self.dimensions.values().sum();
-        total / (self.dimensions.len() as f64)
-    }
-
-    pub fn get_history(&self, dim: &str) -> Vec<String> {
-        self.causal_history.get(dim).cloned().unwrap_or_default()
-    }
-
+    /// Export as a map of "trust.<name>" → value (0.0–1.0).
     pub fn to_map(&self) -> HashMap<String, f64> {
-        self.dimensions.clone()
-    }
-
-    pub fn set_dimension_score(&mut self, key: &str, value: f64) {
-        self.dimensions.insert(key.to_string(), value);
-        self.history.entry(key.to_string()).or_default().push(value);
-
-        self.dimension_stats
-            .entry(key.to_string())
-            .or_insert_with(|| DimensionStats::new(50))
-            .update(value);
-    }
-
-    pub fn get_mahalanobis_for(&self, dim: &str) -> Option<f64> {
-        if let (Some(stats), Some(current)) = (self.dimension_stats.get(dim), self.dimensions.get(dim)) {
-            Some(stats.mahalanobis(*current))
-        } else {
-            None
+        let mut m = HashMap::with_capacity(TRUST_DIM_CT);
+        for d in TrustDim::all() {
+            m.insert(format!("trust.{}", d.name()), self.v[d.idx()] as f64);
         }
+        m
     }
-}
 
-pub fn mahalanobis_distance(current: &TrustVector, baseline: &TrustVector) -> f64 {
-    let mut sum_sq = 0.0;
-    let mut count = 0;
+    /// Keeps a small human-readable history per dimension.
+    fn push_history(&mut self, dim: TrustDim, note: String) {
+        let key = dim.name().to_string();
+        let ent = self.causal_history.entry(key).or_insert_with(Vec::new);
+        if ent.len() >= 64 { ent.remove(0); }
+        ent.push(format!("{note}@{}", now_ts()));
+    }
 
-    for (dim, score) in &current.dimensions {
-        if let Some(base_score) = baseline.dimensions.get(dim) {
-            let diff = score - base_score;
-            sum_sq += diff * diff;
-            count += 1;
+    /// Recompute cached deficit (call after batch updates).
+    pub fn recompute_cache(&mut self) {
+        self.cached_deficit_sum = self.v.iter().map(|&x| 1.0 - x).sum::<f32>();
+    }
+
+    // ----------------- Tag → dimension mapping (small targeted nudges) -----------------
+
+    pub fn apply_tag(&mut self, tag: &str) {
+        use TrustDim::*;
+        let t = tag.to_ascii_lowercase();
+
+        // Memory & injection signatures
+        if t.contains("mprotect_exec") || t.contains("dllinject") || t.contains("proc_hollow")
+            || t.contains("memfd") || t.contains("memory_anomaly")
+        {
+            self.penalty(Memory, 0.12);
+            self.penalty(Process, 0.05);
         }
-    }
 
-    if count == 0 {
-        return 0.0;
-    }
-
-    (sum_sq / count as f64).sqrt()
-}
-
-
-pub fn apply_decay_and_analyze(&mut self, decay_rate: f64, growth_factor: f64) {
-    for (dim, score) in self.dimensions.iter_mut() {
-        *score *= decay_rate;
-        *score = (*score * growth_factor).min(100.0);
-        self.append_history(dim, *score);
-    }
-}
-
-pub fn collect_mahalanobis_anomalies(&self) -> Vec<String> {
-    let mut anomalies = Vec::new();
-
-    for (dim, score) in &self.dimensions {
-        if let Some(stats) = self.get_stats(dim) {
-            let distance = stats.mahalanobis(*score);
-            if distance > 3.5 {
-                anomalies.push(format!(
-                    "Dimension '{}' triggered hard escalation (M-Distance: {:.2})", dim, distance
-                ));
-            } else if distance > 2.0 {
-                anomalies.push(format!(
-                    "Anomaly in '{}' (M-Distance: {:.2})", dim, distance
-                ));
+        // Network / beacon
+        if t.starts_with("net_") || t.starts_with("tcp_") || t.contains("beacon") || t.contains("ja3") {
+            self.penalty(Network, 0.08);
+            if t.contains("state") || t.contains("retrans") || t.contains("beacon") {
+                self.penalty(Beacon, 0.08);
             }
         }
-    }
 
-    anomalies
-}
-
-pub fn emit_score_reasons(&self) -> Vec<ScoreReason> {
-    let mut reasons = Vec::new();
-
-    for (dim, score) in &self.dimensions {
-        if *score < 70.0 {
-            let history = self.get_history(dim);
-            reasons.push(ScoreReason::Custom(format!(
-                "{} dropped to {:.1} — history: {:?}", dim, score, history
-            )));
+        // Privilege / kernel tamper
+        if t.contains("priv_") || t == "ptrace" || t == "seccomp" || t.contains("kernel_module") || t == "bpf_usage" {
+            self.penalty(Privilege, 0.12);
+            self.penalty(Stealth, 0.04);
         }
 
-        if let Some(stats) = self.get_stats(dim) {
-            let distance = stats.mahalanobis(*score);
-            if distance > 3.5 {
-                reasons.push(ScoreReason::Custom(format!(
-                    "Hard escalation: {} (M-Dist = {:.2})", dim, distance
-                )));
-            } else if distance > 2.0 {
-                reasons.push(ScoreReason::Custom(format!(
-                    "Outlier: {} (M-Dist = {:.2})", dim, distance
-                )));
-            }
+        // Filesystem / persistence
+        if t.starts_with("file_") || t.starts_with("fs_") || t.contains("xattr") || t.contains("tamper") {
+            self.penalty(FileSys, 0.06);
         }
-    }
-
-    reasons
-}
-
-pub fn emit_tag_penalties(&self, tags: &[String]) -> Vec<ScoreReason> {
-    tags.iter().map(|tag| ScoreReason::Tagged(tag.clone())).collect()
-}
-
-pub fn analyze_dimension_scores(&self) -> Vec<ScoreReason> {
-    let mut reasons = Vec::new();
-
-    for (dim, score) in &self.dimensions {
-        if *score < 70.0 {
-            reasons.push(ScoreReason::Custom(format!(
-                "{} dropped to {:.1}", dim, score
-            )));
+        if t.contains("autorun") || t.contains("persistence") || t.contains("scheduler") {
+            self.penalty(Persistence, 0.08);
         }
 
-        if let Some(stats) = self.get_stats(dim) {
-            let distance = stats.mahalanobis(*score);
-            if distance > 3.5 {
-                reasons.push(ScoreReason::Custom(format!(
-                    "Hard anomaly: {} → {:.2}", dim, distance
-                )));
-            } else if distance > 2.0 {
-                reasons.push(ScoreReason::Custom(format!(
-                    "Soft anomaly: {} → {:.2}", dim, distance
-                )));
-            }
+        // Container / namespaces
+        if t.starts_with("ns_") || t.contains("setns") || t.contains("unshare") || t.contains("pivot_root") {
+            self.penalty(Container, 0.06);
         }
-    }
 
-    reasons
-}
-
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DimensionStats {
-    pub mean: f64,
-    pub variance: f64,
-    pub count: usize,
-
-    // Add these fields for sliding window stats
-    pub recent_values: VecDeque<f64>,
-    pub max_len: usize,
-}
-
-impl DimensionStats {
-    pub fn new(max_len: usize) -> Self {
-        Self {
-            count: 0,
-            mean: 0.0,
-            variance: 0.0,
-            recent_values: VecDeque::with_capacity(max_len),
-            max_len,
+        // Lateral movement cues
+        if t.contains("cred_dump") || t.contains("lateral_move") || t.contains("psexec") || t.contains("winrm") {
+            self.penalty(Lateral, 0.12);
         }
-    }
 
-    pub fn update(&mut self, value: f64) {
-        if self.recent_values.len() >= self.max_len {
-            self.recent_values.pop_front();
+        // Global batch outlier gates
+        if t == "mahalanobis_outlier" || t == "elliptic_outlier" || t == "krim_alert" {
+            for d in TrustDim::all() { self.penalty(*d, 0.02); }
         }
-        self.recent_values.push_back(value);
-    }
 
-    pub fn mean(&self) -> f64 {
-        if self.recent_values.is_empty() {
-            return 0.0;
+        // Process churn
+        if t == "exec" || t.contains("proc_fork") || t.contains("proc_exit") {
+            self.penalty(Process, 0.02);
         }
-        self.recent_values.iter().copied().sum::<f64>() / self.recent_values.len() as f64
-    }
 
-    pub fn variance(&self) -> f64 {
-        let mean = self.mean();
-        self.recent_values
-            .iter()
-            .map(|v| (v - mean).powi(2))
-            .sum::<f64>()
-            / (self.recent_values.len() as f64 + EPSILON)
-    }
-
-     pub fn mahalanobis(&self, current: f64) -> f64 {
-        let var = if self.variance <= EPSILON { EPSILON } else { self.variance };
-        ((current - self.mean).powi(2) / var).sqrt()
+        self.tags.push(tag.to_string());
     }
 }
 
-pub fn update_trust_vector(vector: &mut TrustVector, category: &str, delta: f64) {
-    let current = vector.get(category);
-    vector.set(category, current + delta);
-    vector
-        .causal_history
-        .entry(category.to_string())
-        .or_insert_with(Vec::new)
-        .push(format!("delta:{}@{}", delta, now_ts()));
-}
+// --------------------- helpers ---------------------
 
 fn now_ts() -> u64 {
-    SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .unwrap()
-        .as_secs()
+    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
 }
 
-fn get_tag_penalty_map(tag: &str) -> HashMap<String, f64> {
-    let mut map = HashMap::new();
-    match tag {
-        "evasion::reflective_injection" => {
-            map.insert("memory".to_string(), 40.0);
-            map.insert("process".to_string(), 20.0);
-        }
-        "insider::script_exfil" => {
-            map.insert("script".to_string(), 25.0);
-            map.insert("file".to_string(), 30.0);
-            map.insert("auth".to_string(), 10.0);
-        }
-        "network::beaconing" => {
-            map.insert("network".to_string(), 35.0);
-        }
-        "gnn::cluster_shift" => {
-            map.insert("graph".to_string(), 20.0);
-        }
-        _ => {
-            map.insert("process".to_string(), 10.0);
-        }
+/// Parse various names/aliases to a TrustDim.
+pub fn dim_from_str(s: &str) -> Option<TrustDim> {
+    let t = s.to_ascii_lowercase();
+    use TrustDim::*;
+    Some(match t.as_str() {
+        "memory" | "mem" => Memory,
+        "network" | "net" => Network,
+        "privilege" | "priv" | "kernel" => Privilege,
+        "persistence" | "persist" => Persistence,
+        "filesystem" | "file" | "fs" => FileSys,
+        "process" | "proc" => Process,
+        "container" | "cont" | "ns" => Container,
+        "lateral" | "lat" => Lateral,
+        "beacon" | "c2" => Beacon,
+        "stealth" | "evade" => Stealth,
+        _ => return None,
+    })
+}
+
+// --------------------- optional tests ---------------------
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn penalties_and_decay() {
+        let mut tv = TrustVector::new();
+        tv.penalty(TrustDim::Memory, 0.3);
+        assert!((tv.deficit_by(TrustDim::Memory) - 0.3).abs() < 1e-6);
+        let pre = tv.score_overall();
+        tv.apply_decay(3600.0, 3600.0); // one half-life
+        let post = tv.score_overall();
+        assert!(post > pre);
     }
-    map
+
+    #[test]
+    fn from_tags() {
+        let tv = TrustVector::from_tag_list(&vec!["mprotect_exec".into(), "net_connect".into()]);
+        assert!(tv.deficit_by(TrustDim::Memory) > 0.0);
+        assert!(tv.deficit_by(TrustDim::Network) > 0.0);
+        assert!(tv.score_overall() < 1.0);
+    }
 }

@@ -15,3 +15,5 @@ pub mod session_trust_curve;
 pub mod telemetry_types;
 pub mod forensic;
 pub mod graph_snapshot_writer;
+pub mod ingest;
+pub mod ebpf;

@@ -1,53 +1,65 @@
-
 use crate::adaptive_threshold_engine::{AdaptiveThresholdEngine, evaluate_role_thresholds, load_role_profile_map};
-use crate::gnn_hook::export_trust_vector_to_gnn;
+use crate::gnn_hook::{export_trust_vector_to_gnn, stream_to_gnn_fifo};
 use crate::services::replay_trigger::trigger_replay_if_needed;
-use crate::trust_digest_engine::TrustDigestEngine;
 use crate::services::trust_state_writer::persist_trust_state;
 use crate::score_reason::ScoreReason;
 use crate::services::trust_config::TrustConfig;
-use crate::services::trust_vector::{TrustVector, TRUST_VECTOR_GLOBAL, BASELINES, DEFAULT_BASELINE, mahalanobis_distance};
 
-use crate::gnn_hook::stream_to_gnn_fifo;
-use std::path::Path;
-use std::fs::OpenOptions;
-use std::io::BufWriter;
-use serde_json::json;
-use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
-use libc;
-use serde::{Deserialize, Serialize};
-use lazy_static::lazy_static;
-use chrono::Utc;
-use crate::services::trust_anchor_logger::{AnchorDropEvent, log_anchor_drop};
-use crate::services::graph_snapshot_writer::store_graph_snapshot;
-use crate::telemetry::TelemetryRecord;
 use crate::logger::log;
-use std::fs::File;
-use std::io::Read;
-use std::sync::OnceLock;
+use crate::telemetry::TelemetryRecord;
+use crate::services::graph_snapshot_writer::store_graph_snapshot;
+use crate::services::trust_anchor_logger::{AnchorDropEvent, log_anchor_drop};
 use crate::modules::telemetry_fingerprint::{load_fingerprint_db, is_known_good};
 
-static BASELINE_STATS: OnceLock<(Vec<f32>, Vec<Vec<f32>>)> = OnceLock::new();
+use crate::trust_vector::{TrustVector, TrustDim, TRUST_DIM_CT};
+use crate::trust_vector::TRUST_VECTOR_GLOBAL; // global per-endpoint store
 
-const MAHALANOBIS_THRESHOLD: f64 = 4.0; // You can tune this threshold later
+use chrono::Utc;
+use lazy_static::lazy_static;
+use serde::{Deserialize, Serialize};
+use std::collections::{HashMap, HashSet};
+use std::sync::Mutex;
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Env helpers
+// ─────────────────────────────────────────────────────────────────────────────
+#[inline]
+fn env_f32(name: &str, default: f32) -> f32 {
+    std::env::var(name).ok().and_then(|s| s.parse::<f32>().ok()).unwrap_or(default)
+}
+#[inline]
+fn env_f64(name: &str, default: f64) -> f64 {
+    std::env::var(name).ok().and_then(|s| s.parse::<f64>().ok()).unwrap_or(default)
+}
 
-/// Returns the Mahalanobis distance threshold per trust dimension.
-/// Later this can be adaptive based on endpoint role or history.
-fn get_critical_threshold(dim: &str) -> f64 {
-    match dim {
-        "memory" => 4.5,
-        "network" => 4.0,
-        "file" => 3.8,
-        "auth" => 4.2,
-        "geo" => 4.0,
-        _ => 5.0, // default catch-all
+// Outlier weights are in TRUST units (0..1). Tune via env if needed.
+#[derive(Debug, Clone, Copy)]
+struct OutlierWeights { mahal: f32, elliptic: f32, krim: f32 }
+impl Default for OutlierWeights {
+    fn default() -> Self {
+        Self {
+            mahal:   env_f32("EDR_W_MAHAL",   0.15),
+            elliptic:env_f32("EDR_W_ELLIP",   0.20),
+            krim:    env_f32("EDR_W_KRIM",    0.25),
+        }
     }
 }
 
-// --- Data Structures ---
+// Risk thresholds (risk = 100 - trust)
+lazy_static! {
+    static ref DIGEST_ENGINE: Mutex<crate::trust_digest_engine::TrustDigestEngine> =
+        Mutex::new(crate::trust_digest_engine::TrustDigestEngine::new());
+    static ref THRESHOLD_ENGINE: Mutex<AdaptiveThresholdEngine> =
+        Mutex::new(AdaptiveThresholdEngine::new(env_f64("EDR_ADAPT_BASE", 60.0), env_f64("EDR_ADAPT_SLOPE", 0.15)));
+    // When rolling risk (from digest) exceeds this, we consider escalation
+    static ref ESCALATION_RISK_THRESHOLD: f64 = env_f64("EDR_RISK_THRESHOLD", 60.0);
+    // Decay half-life for trust deficits (seconds)
+    static ref TRUST_HALFLIFE_S: f32 = env_f32("EDR_TRUST_HALFLIFE_S", 3600.0);
+}
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Public types (kept compatible)
+// ─────────────────────────────────────────────────────────────────────────────
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TelemetryData {
     pub endpoint_id: String,
@@ -60,7 +72,6 @@ pub struct TelemetryData {
 impl TelemetryData {
     pub fn from_record(record: &TelemetryRecord) -> Self {
         let risk_score = record.risk_score.unwrap_or(0) as f64;
-
         Self {
             endpoint_id: format!("endpoint_{}", record.pid),
             endpoint_role: "default".to_string(),
@@ -75,342 +86,48 @@ impl TelemetryData {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TrustResult {
     pub endpoint_id: String,
+    /// Returned as TRUST (0..100, higher is better).
     pub score: f64,
     pub escalated: bool,
     pub reasons: Vec<ScoreReason>,
 }
 
-#[derive(Debug, Clone)]
-pub enum TrustVerdict {
-    Normal,
-    Monitor,
-    IsolateImmediately {
-        score: f64,
-        reason: String,
-    },
-}
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────────
 
-// --- Global Engines ---
+fn apply_tagged_outlier_penalties_dimmed(
+    tv: &mut TrustVector,
+    data: &TelemetryData,
+    reasons: &mut Vec<ScoreReason>,
+    w: OutlierWeights,
+) {
+    let tags: HashSet<&str> = data.tags.iter().map(|s| s.as_str()).collect();
 
-lazy_static! {
-    static ref DIGEST_ENGINE: Mutex<TrustDigestEngine> = Mutex::new(TrustDigestEngine::new());
-    static ref THRESHOLD_ENGINE: Mutex<AdaptiveThresholdEngine> = Mutex::new(AdaptiveThresholdEngine::new(70.0, 0.15));
-    static ref ESCALATION_THRESHOLD: f64 = 120.0;
-}
-
-// --- Core Scoring Logic ---
-
-fn calculate_base_score(telemetry: &TelemetryData) -> f64 {
-    (telemetry.cpu_usage + telemetry.memory_usage + telemetry.risk_score) / 3.0
-}
-
-// --- Main Evaluation Flow ---
-fn apply_mahalanobis_gate(trust_vector: &TrustVector, role: &str) -> bool {
-    let baseline = BASELINES.get(role).unwrap_or(&DEFAULT_BASELINE);
-    let distance = mahalanobis_distance(trust_vector, baseline);
-    distance >= MAHALANOBIS_THRESHOLD
-}
-
-pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResult {
-    // 🔐 Load fingerprint DB once (lazy-static or cached globally in future)
-    let fingerprint_db = load_fingerprint_db("src/modules/telemetry_fingerprint.json");
-    vector.apply_decay_and_analyze(0.25, 1.2);
-    let weighted_score = vector.compute_weighted_score();
-    let anomalies = vector.collect_mahalanobis_anomalies();
-
-    for a in anomalies {
-        reasons.push(ScoreReason::Custom(a));
+    // Mahalanobis gate → Process/Memory/Network
+    if tags.contains("mahalanobis_outlier") {
+        tv.penalty_by_name("process",  w.mahal * 0.50);
+        tv.penalty_by_name("memory",   w.mahal * 0.30);
+        tv.penalty_by_name("network",  w.mahal * 0.20);
+        reasons.push(ScoreReason::outlier("mahalanobis", "χ² gate exceeded".into()));
     }
 
-    if is_known_good(telemetry, &fingerprint_db) {
-        log("trust_suppress", &format!("🔕 Suppressed known-good telemetry: {:?}", telemetry));
-        return TrustResult {
-            endpoint_id: telemetry.endpoint_id.clone(),
-            score: 100.0,
-            escalated: false,
-            reasons: vec![ScoreReason::Custom("Suppressed due to fingerprint match".into())],
-        };
-    
-
-    // ... rest of function continues ...
-    vector.apply_decay_and_analyze(0.25, 1.2);
-    reasons.extend(vector.emit_score_reasons());
-
-    for tag in &telemetry.tags {
-        vector.apply_tagged_penalty(tag);
-    }
-    reasons.extend(vector.emit_tag_penalties(&telemetry.tags));
-
-    let weighted_score = vector.compute_weighted_score();
-    reasons.push(ScoreReason::Custom(format!("Weighted trust vector score: {:.2}", weighted_score)));
-
-    // Mahalanobis or adaptive anomalies are already added above
-// Adaptive escalation
-    if adaptive_decision {
-        reasons.push(ScoreReason::Custom("Adaptive threshold exceeded".into()));
+    // Robust envelope → Memory/Privilege/Process
+    if tags.contains("elliptic_outlier") {
+        tv.penalty_by_name("memory",     w.elliptic * 0.40);
+        tv.penalty_by_name("privilege",  w.elliptic * 0.30);
+        tv.penalty_by_name("process",    w.elliptic * 0.30);
+        reasons.push(ScoreReason::outlier("elliptic_envelope", "robust envelope margin < 0".into()));
     }
 
-    pub fn load_mahalanobis_baseline() {
-    if BASELINE_STATS.get().is_some() {
-        return;
-    }
-
-    let mut file = match File::open("json_files/mahalanobis_baseline.json") {
-        Ok(f) => f,
-        Err(_) => return,
-    };
-
-    let mut contents = String::new();
-    if file.read_to_string(&mut contents).is_err() {
-        return;
-    }
-
-    let parsed: serde_json::Value = serde_json::from_str(&contents).unwrap_or_default();
-    let mean = parsed["mean"].as_array().unwrap_or(&vec![])
-        .iter().map(|v| v.as_f64().unwrap_or(0.0) as f32).collect::<Vec<_>>();
-
-    let cov = parsed["cov"].as_array().unwrap_or(&vec![])
-        .iter().map(|row| {
-            row.as_array().unwrap_or(&vec![])
-                .iter().map(|v| v.as_f64().unwrap_or(0.0) as f32).collect::<Vec<_>>()
-        }).collect::<Vec<_>>();
-
-    BASELINE_STATS.set((mean, cov)).ok();
-}
-
-pub fn calculate_mahalanobis_distance(vec: &Vec<f32>) -> Option<f32> {
-    let (mean, cov) = BASELINE_STATS.get()?;
-
-    if vec.len() != mean.len() || cov.len() != vec.len() {
-        return None;
-    }
-
-    let mut diff = vec.iter().zip(mean.iter()).map(|(a, b)| a - b).collect::<Vec<_>>();
-
-    // Naive inverse of diagonal covariance (no full inversion)
-    let mut distance = 0.0;
-    for i in 0..vec.len() {
-        let var = cov[i][i];
-        if var > 0.0 {
-            distance += (diff[i] * diff[i]) / var;
-        }
-    }
-
-    Some(distance.sqrt())
-}
-
-use crate::config::get_config;
-let config = get_config();
-
-if config.bootstrap_mode.unwrap_or(false) {
-    log("🚧 Bootstrap mode enabled — skipping Mahalanobis and adaptive scoring");
-    
-    return TrustResult {
-        endpoint_id: telemetry.endpoint_id.clone(),
-        score: 100.0,
-        escalated: false,
-        reasons: vec![ScoreReason::Custom("Bootstrap mode: no scoring".into())],
-    };
-}
-
-
-
-pub fn to_serialized_json(&self) -> String {
-    match serde_json::to_string_pretty(&self) {
-        Ok(s) => s,
-        Err(_) => "{}".to_string(),
+    // KRIM causal subgraph → Network/Privilege/Persistence
+    if tags.contains("krim_alert") {
+        tv.penalty_by_name("network",     w.krim * 0.40);
+        tv.penalty_by_name("privilege",   w.krim * 0.30);
+        tv.penalty_by_name("persistence", w.krim * 0.30);
+        reasons.push(ScoreReason::CausalSubgraph);
     }
 }
-
-pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResult {
-    let mut reasons: Vec<ScoreReason> = Vec::new();
-    let mut global_vector_map = TRUST_VECTOR_GLOBAL.lock().unwrap();
-    let vector = global_vector_map.entry(telemetry.endpoint_id.clone()).or_insert_with(TrustVector::new);
-    let mut dimension_escalated = false;
-    let mut dimension_drops = vec![];
-
-    // Apply decay early
-    vector.apply_decay(0.25, 1.2);
-
-    // Mahalanobis: central distance from full vector (baseline-wide)
-    if let Some(role) = Some(&telemetry.endpoint_role) {
-        let baseline = match load_baseline(role) {
-            Some(v) => v,
-            None => DEFAULT_BASELINE.clone(),
-        };
-        
-        let distance = mahalanobis_distance(vector, baseline);
-
-        if distance.is_nan() {
-            log("⚠️ Mahalanobis scoring skipped: distance is NaN");
-            reasons.push(ScoreReason::Custom("Skipping Mahalanobis scoring due to missing stats".into()));
-        } else {
-            reasons.push(ScoreReason::Custom(format!("Global Mahalanobis distance: {:.2}", distance)));
-            if distance >= MAHALANOBIS_THRESHOLD {
-                reasons.push(ScoreReason::Custom(format!(
-                    "🚨 Global Mahalanobis anomaly (dist={:.2} ≥ {:.2})", distance, MAHALANOBIS_THRESHOLD
-                )));
-            }
-        }
-    }
-
-    // Example CPU usage hook
-    if telemetry.cpu_usage > 90.0 {
-        reasons.push(ScoreReason::HighCpuUsage);
-    }
-
-    // Score computation
-    let weighted_score = vector.compute_weighted_score();
-    reasons.push(ScoreReason::Custom(format!("Weighted trust vector score: {:.2}", weighted_score)));
-
-    // Per-dimension Mahalanobis checks
-    for (dim, score) in &vector.dimensions {
-        if *score < 70.0 {
-            let history = vector.get_history(dim);
-            dimension_drops.push(format!("{} dropped to {:.1} due to {:?}", dim, score, history));
-            log_anchor_drop(AnchorDropEvent {
-                timestamp: Utc::now().to_rfc3339(),
-                endpoint_id: telemetry.endpoint_id.clone(),
-                endpoint_role: telemetry.endpoint_role.clone(),
-                dimension: dim.clone(),
-                score: *score,
-                reason: format!("{:?}", history),
-            });
-        }
-
-        if let Some(stats) = vector.get_stats(dim) {
-            let dist = stats.mahalanobis(*score);
-            if dist > 2.0 {
-                reasons.push(ScoreReason::Custom(format!(
-                    "{} dimension is an outlier (M-Distance: {:.2})", dim, dist
-                )));
-            }
-            if dist > 3.5 {
-                reasons.push(ScoreReason::Custom(format!(
-                    "{} dimension triggered escalation (M-Distance: {:.2})", dim, dist
-                )));
-                dimension_escalated = true;
-                trigger_replay_if_needed(
-                    &telemetry.endpoint_id,
-                    weighted_score,
-                    &[format!("dimension::{}", dim)],
-                    &vec![],
-                    &telemetry.endpoint_role,
-                );
-                store_graph_snapshot(
-                    &telemetry.endpoint_id,
-                    &reasons.iter().map(|r| format!("{:?}", r)).collect::<Vec<_>>(),
-                    weighted_score,
-                );
-            }
-        }
-    }
-
-    // Log drop summary if any
-    if !dimension_drops.is_empty() {
-        reasons.push(ScoreReason::Custom(format!(
-            "Drop details: [{}]", dimension_drops.join("; ")
-        )));
-    }
-
-    // Tag logic
-    for tag in &telemetry.tags {
-        if is_critical_tag(tag) {
-            reasons.push(ScoreReason::CriticalTag(tag.to_string()));
-            trigger_replay_if_needed(
-                &telemetry.endpoint_id,
-                weighted_score,
-                &[format!("tag::{}", tag)],
-                &vec![],
-                &telemetry.endpoint_role,
-            );
-            store_graph_snapshot(
-                &telemetry.endpoint_id,
-                &reasons.iter().map(|r| format!("{:?}", r)).collect::<Vec<_>>(),
-                weighted_score,
-            );
-            return TrustResult {
-                endpoint_id: telemetry.endpoint_id.clone(),
-                score: weighted_score,
-                escalated: true,
-                reasons,
-            };
-        }
-
-        vector.apply_tagged_penalty(tag);
-        reasons.push(ScoreReason::Tagged(tag.clone()));
-    }
-
-    // Stream and finalize
-    stream_to_gnn_fifo(&vector.to_map());
-
-    let average_score = vector.compute_average();
-    let mut digest = DIGEST_ENGINE.lock().unwrap();
-    digest.ingest_score(&telemetry.endpoint_id, average_score);
-
-    // Adaptive threshold logic
-    let mut threshold = THRESHOLD_ENGINE.lock().unwrap();
-    threshold.update(&telemetry.endpoint_id, average_score);
-    let adaptive_decision = threshold.should_escalate(&telemetry.endpoint_id, average_score);
-
-    let cumulative_score = digest.get_score(&telemetry.endpoint_id);
-    let mut final_score = cumulative_score;
-    let mut escalated = false;
-
-    if cumulative_score >= *ESCALATION_THRESHOLD {
-        reasons.push(ScoreReason::TrustDecayExceeded);
-    }
-
-    if adaptive_decision {
-        reasons.push(ScoreReason::Custom("Adaptive threshold exceeded".into()));
-    }
-
-    if adaptive_decision && (cumulative_score >= *ESCALATION_THRESHOLD || dimension_escalated) {
-        escalated = true;
-        final_score += 10.0;
-    }
-
-    for (dim, score) in &vector.dimensions {
-        if *score < 30.0 {
-            reasons.push(ScoreReason::Custom(format!(
-                "Critical drop in {}: {:.1} — triggering escalation", dim, score
-            )));
-            escalated = true;
-            final_score += 10.0;
-        }
-    }
-
-    // Role-based thresholding
-    let role_map = load_role_profile_map("json_files/role_risk_profile_map.json");
-    let adjusted_score = evaluate_role_thresholds(&telemetry.endpoint_role, final_score, &role_map);
-
-    persist_trust_state(&telemetry.endpoint_id, adjusted_score);
-    export_trust_vector_to_gnn(
-        &telemetry.endpoint_id,
-        &telemetry.endpoint_role,
-        adjusted_score,
-        vector.to_map(),
-        telemetry.tags.clone(),
-    );
-
-    if escalated {
-        trigger_replay_if_needed(
-            &telemetry.endpoint_id,
-            adjusted_score,
-            &telemetry.tags,
-            &vec![],
-            &telemetry.endpoint_role,
-        );
-    }
-
-    TrustResult {
-        endpoint_id: telemetry.endpoint_id.clone(),
-        score: adjusted_score.clamp(0.0, 100.0),
-        escalated,
-        reasons,
-    }
-}
-
 
 fn is_critical_tag(tag: &str) -> bool {
     matches!(tag,
@@ -423,4 +140,156 @@ fn is_critical_tag(tag: &str) -> bool {
         | "signal::tamper"
         | "geo::suspicious"
     )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Main evaluation flow
+// ─────────────────────────────────────────────────────────────────────────────
+
+pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResult {
+    // Optional bootstrap bypass
+    if let Ok(cfg) = std::env::var("EDR_BOOTSTRAP") {
+        if cfg == "1" || cfg.eq_ignore_ascii_case("true") {
+            log("trust", "🚧 Bootstrap mode — skipping scoring");
+            return TrustResult {
+                endpoint_id: telemetry.endpoint_id.clone(),
+                score: 100.0,
+                escalated: false,
+                reasons: vec![ScoreReason::Custom("Bootstrap mode: no scoring".into())],
+            };
+        }
+    }
+
+    let mut reasons: Vec<ScoreReason> = Vec::new();
+
+    // Load fingerprint DB and suppress known-good if matched
+    let fingerprint_db = load_fingerprint_db("src/modules/telemetry_fingerprint.json");
+    if is_known_good(telemetry, &fingerprint_db) {
+        log("trust_suppress", &format!("🔕 Suppressed known-good telemetry: {:?}", telemetry));
+        return TrustResult {
+            endpoint_id: telemetry.endpoint_id.clone(),
+            score: 100.0,
+            escalated: false,
+            reasons: vec![ScoreReason::Custom("Suppressed due to fingerprint match".into())],
+        };
+    }
+
+    // Get or create per-endpoint TrustVector
+    let mut map = TRUST_VECTOR_GLOBAL.lock().unwrap();
+    let tv = map.entry(telemetry.endpoint_id.clone()).or_insert_with(TrustVector::new);
+
+    // 1) Time-based decay toward baseline (half-life)
+    // Main loop period is ~30s; if different, pass actual dt here.
+    tv.apply_decay(30.0, *TRUST_HALFLIFE_S);
+
+    // 2) Apply tag-level nudges immediately (dimension-targeted)
+    for tag in &telemetry.tags {
+        tv.apply_tag(tag);
+        reasons.push(ScoreReason::Tagged(tag.clone()));
+    }
+
+    // 3) Apply outlier gates (Mahalanobis, EllipticEnvelope, KRIM) with splits
+    apply_tagged_outlier_penalties_dimmed(tv, telemetry, &mut reasons, OutlierWeights::default());
+
+    // 4) CPU heuristic (kept)
+    if telemetry.cpu_usage > 90.0 {
+        reasons.push(ScoreReason::HighCpuUsage);
+        tv.penalty_by_name("process", 0.03); // small process penalty for pegged CPU
+    }
+
+    // 5) Per-dimension checks for sharp drops (trust < 0.70)
+    let mut dimension_drops = Vec::new();
+    for d in TrustDim::all() {
+        let trust = tv.v[d.idx()];
+        if trust < 0.70 {
+            let dim_name = d.to_string();
+            dimension_drops.push(format!("{dim_name} dropped to {:.2}", trust));
+            log_anchor_drop(AnchorDropEvent {
+                timestamp: Utc::now().to_rfc3339(),
+                endpoint_id: telemetry.endpoint_id.clone(),
+                endpoint_role: telemetry.endpoint_role.clone(),
+                dimension: dim_name.clone(),
+                score: (trust * 100.0) as f64,
+                reason: "below 0.70".into(),
+            });
+        }
+    }
+    if !dimension_drops.is_empty() {
+        reasons.push(ScoreReason::Custom(format!("Drop details: [{}]", dimension_drops.join("; "))));
+    }
+
+    // 6) Critical tags: immediate escalation path
+    for tag in &telemetry.tags {
+        if is_critical_tag(tag) {
+            reasons.push(ScoreReason::CriticalTag(tag.clone()));
+            let trust_now = (tv.score_overall() * 100.0) as f64;
+            trigger_replay_if_needed(
+                &telemetry.endpoint_id,
+                trust_now,
+                &[format!("tag::{}", tag)],
+                &vec![],
+                &telemetry.endpoint_role,
+            );
+            store_graph_snapshot(
+                &telemetry.endpoint_id,
+                &reasons.iter().map(|r| format!("{:?}", r)).collect::<Vec<_>>(),
+                trust_now,
+            );
+            // Continue to sinks/export below; mark escalated
+        }
+    }
+
+    // 7) Stream current vector to GNN FIFO (map of trust.* -> value)
+    stream_to_gnn_fifo(&tv.to_map());
+
+    // 8) Compute TRUST (0..100) and RISK (0..100), feed digest/adaptive threshold
+    let trust_score = (tv.score_overall() * 100.0) as f64;    // higher is better
+    let risk_score  = 100.0 - trust_score;                    // higher is worse
+
+    let mut digest = DIGEST_ENGINE.lock().unwrap();
+    digest.ingest_score(&telemetry.endpoint_id, risk_score);
+
+    let mut threshold = THRESHOLD_ENGINE.lock().unwrap();
+    threshold.update(&telemetry.endpoint_id, risk_score);
+    let adaptive_escalate = threshold.should_escalate(&telemetry.endpoint_id, risk_score);
+
+    let rolling_risk = digest.get_score(&telemetry.endpoint_id);
+
+    // 9) Role-aware thresholding (keep your existing flow)
+    let role_map = load_role_profile_map("json_files/role_risk_profile_map.json");
+    let adjusted_trust = evaluate_role_thresholds(&telemetry.endpoint_role, trust_score, &role_map);
+
+    // 10) Persist state & export to GNN
+    persist_trust_state(&telemetry.endpoint_id, adjusted_trust);
+    export_trust_vector_to_gnn(
+        &telemetry.endpoint_id,
+        &telemetry.endpoint_role,
+        adjusted_trust,
+        tv.to_map(),
+        telemetry.tags.clone(),
+    );
+
+    // 11) Decide escalation (adaptive + rolling risk, plus any critical per-dim)
+    let mut escalated = false;
+    if rolling_risk >= *ESCALATION_RISK_THRESHOLD || adaptive_escalate {
+        escalated = true;
+        reasons.push(ScoreReason::Custom(format!(
+            "Escalation: risk {:.1} (thr {:.1}) adaptive={}",
+            rolling_risk, *ESCALATION_RISK_THRESHOLD, adaptive_escalate
+        )));
+        trigger_replay_if_needed(
+            &telemetry.endpoint_id,
+            adjusted_trust,
+            &telemetry.tags,
+            &vec![],
+            &telemetry.endpoint_role,
+        );
+    }
+
+    TrustResult {
+        endpoint_id: telemetry.endpoint_id.clone(),
+        score: adjusted_trust.clamp(0.0, 100.0),
+        escalated,
+        reasons,
+    }
 }
