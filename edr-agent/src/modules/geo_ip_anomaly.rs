@@ -1,27 +1,27 @@
 // edr-agent/src/modules/geo_ip_anomaly.rs
 
 use std::collections::HashMap;
-use std::net::IpAddr;
+use std::net::{IpAddr, Ipv4Addr};
 use std::sync::RwLock;
 use std::time::{Duration, SystemTime};
-use std::net::Ipv4Addr;
-use serde::{Deserialize, Serialize};
-use crate::telemetry_writer::write_telemetry_record;
-use crate::gnn_hook::push_to_gnn_vector_log;
-use std::sync::Mutex;
-use crate::trust_hook::{submit_trust_event, TrustEvent};
-use crate::modules::replay_writer::store_replay_event;
-use crate::utils::time::now_ts;
-use crate::telemetry_types::TelemetryOutput;
-use chrono::Utc;
+
 use lazy_static::lazy_static;
 use std::sync::atomic::{AtomicBool, Ordering};
-use crate::services::trust_vector::{update_trust_vector, TrustVector};
+use std::sync::Mutex;
+
+use crate::gnn_hook::push_to_gnn_vector_log;
+use crate::modules::replay_writer::store_replay_event;
 use crate::services::trust_decay_audit::log_decay_reason;
+use crate::services::trust_vector::{update_trust_vector, TrustVector};
+use crate::telemetry_types::TelemetryOutput;
+use crate::telemetry_writer::write_telemetry_record;
+use crate::trust_hook::{submit_trust_event, TrustEvent};
+use crate::utils::time::now_ts;
 
 lazy_static! {
     static ref GEO_ANOMALY_FOUND: AtomicBool = AtomicBool::new(false);
-    static ref GEO_LOGS: Mutex<Vec<(String, String, u64)>> = Mutex::new(Vec::new()); // (user, geo, timestamp)
+    // (user, geo, timestamp) – reserved if you later want rolling analytics
+    static ref GEO_LOGS: Mutex<Vec<(String, String, u64)>> = Mutex::new(Vec::new());
 }
 
 #[derive(Debug, Clone)]
@@ -40,7 +40,6 @@ pub struct LoginAttempt {
     pub uid: Option<u32>,
 }
 
-
 #[derive(Debug, Clone)]
 pub struct LoginHistory {
     pub country: String,
@@ -56,15 +55,23 @@ lazy_static! {
 }
 
 fn is_vpn_or_anonymized(ip: &IpAddr) -> bool {
-    let suspicious_ranges = vec!["185.", "45.129", "172.67", "104.244", "198.18", "192.42"];
-    suspicious_ranges.iter().any(|prefix| ip.to_string().starts_with(prefix))
+    // Very light heuristic; keep as-is unless you wire to a provider
+    let suspicious_ranges = [
+        "185.", "45.129", "172.67", "104.244", // common CDN/VPN-ish blocks
+        "198.18", "192.42",                    // benchmarking / Tor exits
+    ];
+    suspicious_ranges
+        .iter()
+        .any(|prefix| ip.to_string().starts_with(prefix))
 }
 
 fn is_whitelisted(user: &str, country: &str) -> bool {
-    if let Some(allowed) = WHITELIST.read().ok().and_then(|wl| wl.get(user).cloned()) {
-        return allowed.contains(&country.to_string());
-    }
-    false
+    WHITELIST
+        .read()
+        .ok()
+        .and_then(|wl| wl.get(user).cloned())
+        .map(|v| v.contains(&country.to_string()))
+        .unwrap_or(false)
 }
 
 fn get_role_multiplier(user: &str) -> f64 {
@@ -79,7 +86,8 @@ fn log_geo_ip_anomaly(user: &str, country: &str) {
     println!("Geo-IP anomaly detected: user={}, country={}", user, country);
 }
 
-
+/// Main detector. Mutates HISTORY and trust_vector, emits telemetry + trust.
+/// Returns Ok(()) always unless lock poisoning occurs.
 pub fn detect_geo_anomaly(
     login: LoginAttempt,
     trust_vector: &mut TrustVector,
@@ -88,13 +96,18 @@ pub fn detect_geo_anomaly(
         return Ok(());
     }
 
-    let mut history = HISTORY.write().map_err(|e| format!("Lock error: {e}"))?;
+    let mut history = HISTORY
+        .write()
+        .map_err(|e| format!("Lock error: {e}"))?;
     let prev_entry = history.get(&login.user).cloned();
     let now = now_ts();
 
     if let Some(previous) = prev_entry {
         let country_changed = previous.country != login.country;
-        let time_diff = login.timestamp.duration_since(previous.timestamp).unwrap_or(Duration::ZERO);
+        let time_diff = login
+            .timestamp
+            .duration_since(previous.timestamp)
+            .unwrap_or(Duration::ZERO);
         let time_short = time_diff < Duration::from_secs(900);
 
         let device_mismatch = match (&login.device_fingerprint, &previous.device_fingerprint) {
@@ -102,7 +115,11 @@ pub fn detect_geo_anomaly(
             _ => false,
         };
 
-        let parsed_ip: IpAddr = login.ip.parse().unwrap_or_else(|_| IpAddr::from([0, 0, 0, 0]));
+        // Robust IP parse fallback to 0.0.0.0
+        let parsed_ip: IpAddr = login
+            .ip
+            .parse()
+            .unwrap_or(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)));
         let from_vpn = is_vpn_or_anonymized(&parsed_ip);
 
         let sso_drift = match (&login.sso_id, &previous.sso_id) {
@@ -113,13 +130,22 @@ pub fn detect_geo_anomaly(
         let anomaly = country_changed && time_short && device_mismatch;
 
         if anomaly || from_vpn || sso_drift {
+            GEO_ANOMALY_FOUND.store(true, Ordering::SeqCst);
+
             let mut risk_score = 88.0;
-            if from_vpn { risk_score += 6.0; }
-            if !login.mfa_success { risk_score += 4.0; }
-            if sso_drift { risk_score += 5.0; }
+            if from_vpn {
+                risk_score += 6.0;
+            }
+            if !login.mfa_success {
+                risk_score += 4.0;
+            }
+            if sso_drift {
+                risk_score += 5.0;
+            }
 
             let multiplier = get_role_multiplier(&login.user);
             risk_score *= multiplier;
+            // Convert to "higher is more trusted" score as your code suggests
             let bounded_score = (100.0 - risk_score).clamp(0.0, 100.0);
 
             let trust_event = TrustEvent {
@@ -156,7 +182,7 @@ pub fn detect_geo_anomaly(
                     "geo_mismatch".into(),
                     login.country.clone(),
                     if from_vpn { "vpn_detected".into() } else { "no_vpn".into() },
-                    if sso_drift { "sso_drift".into() } else { "sso_stable".into() }
+                    if sso_drift { "sso_drift".into() } else { "sso_stable".into() },
                 ]),
                 description: Some(format!(
                     "GeoIP anomaly: user={} from={} (prev={}) device_mismatch={} vpn={} sso_drift={}",
@@ -196,10 +222,12 @@ pub fn detect_geo_anomaly(
 
             write_telemetry_record(data.clone());
             push_to_gnn_vector_log(data.clone());
-            store_replay_event(data.clone())?;
             crate::gnn_hook::push_metadata_to_gnn_vector_log(data.clone());
+            // Don't fail the function on replay I/O hiccups
+            store_replay_event(data.clone()).ok();
             log_geo_ip_anomaly(&login.user, &login.country);
 
+            // Mild decay based on conditions
             let decay_factor = if anomaly && sso_drift && from_vpn {
                 0.85
             } else if anomaly || sso_drift {
@@ -207,9 +235,9 @@ pub fn detect_geo_anomaly(
             } else {
                 0.95
             };
+            let new_trust = (previous.trust_score * decay_factor).clamp(0.0, 100.0);
 
-            let new_trust = previous.trust_score * decay_factor;
-
+            // Update trust vector / audit
             update_trust_vector(trust_vector, "auth_trust", -risk_score);
             log_decay_reason("geo_ip_anomaly", &login.user, -risk_score, "auth");
 
@@ -224,6 +252,7 @@ pub fn detect_geo_anomaly(
                 },
             );
         } else {
+            // Update history but keep trust score the same
             history.insert(
                 login.user.clone(),
                 LoginHistory {
@@ -236,6 +265,7 @@ pub fn detect_geo_anomaly(
             );
         }
     } else {
+        // First observation for this user
         history.insert(
             login.user.clone(),
             LoginHistory {
@@ -251,7 +281,7 @@ pub fn detect_geo_anomaly(
     Ok(())
 }
 
-
+/// Passive heartbeat if nothing suspicious fired recently.
 pub fn scan_geo_ip_activity() -> Vec<TelemetryOutput> {
     if GEO_ANOMALY_FOUND.load(Ordering::SeqCst) {
         GEO_ANOMALY_FOUND.store(false, Ordering::SeqCst);
@@ -299,5 +329,15 @@ pub fn scan_geo_ip_activity() -> Vec<TelemetryOutput> {
         confidence: 0.0,
         data,
     }]
+}
+
+/* -------- Optional helpers for managing the whitelist at runtime -------- */
+#[allow(dead_code)]
+pub fn whitelist_country_for_user(user: &str, country: &str) {
+    if let Ok(mut wl) = WHITELIST.write() {
+        wl.entry(user.to_string())
+            .or_default()
+            .push(country.to_string());
+    }
 }
 

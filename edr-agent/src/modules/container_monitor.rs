@@ -1,6 +1,6 @@
 use std::{
     collections::HashMap,
-    fs, io::Read,
+    fs,
     mem,
     path::Path,
     sync::{
@@ -10,28 +10,24 @@ use std::{
     thread,
     time::{SystemTime, UNIX_EPOCH},
 };
-use std::convert::TryInto;
-use std::panic::{AssertUnwindSafe, catch_unwind};
 
 use aya::{
     include_bytes_aligned,
     maps::perf::AsyncPerfEventArray,
+    programs::{KProbe, KRetProbe, Program, RawTracePoint, TracePoint},
     util::online_cpus,
     Bpf,
 };
 use bytes::BytesMut;
-use chrono::Utc;
 use tokio::{runtime::Runtime, task};
 
 use crate::{
-    forensic::utils::{extract_status_fields, read_cgroup_type},
     telemetry_types::{ContainerExecEvent, TelemetryOutput},
     telemetry_writer::write_telemetry_record,
-    trust_hook::{TrustEvent, submit_trust_event},
+    trust_hook::{submit_trust_event, TrustEvent},
     gnn_hook::push_to_gnn_vector_log,
     logger::log,
 };
-
 use crate::modules::replay_writer::store_replay_event;
 
 static CONTAINER_MONITOR_STARTED: AtomicBool = AtomicBool::new(false);
@@ -48,143 +44,6 @@ pub struct ContainerExecEventRaw {
     pub filename: [u8; 256],
 }
 
-
-pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
-    let mut bpf = Bpf::load(include_bytes_aligned!(
-        "../ebpf/container_exec_monitor.bpf.o"
-    ))?;
-
-    let mut perf_array = AsyncPerfEventArray::try_from(
-        bpf.map_mut("CONTAINER_EXEC_EVENTS")?
-    )?;
-
-    for cpu_id in online_cpus()? {
-        let mut buf = perf_array.open(cpu_id, None)?;
-
-        task::spawn(async move {
-            let mut event_buf = vec![BytesMut::with_capacity(4096); 1];
-
-            let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-                tokio::runtime::Handle::current().block_on(async {
-                    loop {
-                        match buf.read_events(&mut event_buf).await {
-                            Ok(events) => {
-                                for _ in 0..events.read {
-                                    if event_buf[0].len() < mem::size_of::<ContainerExecEventRaw>() {
-                                        continue;
-                                    }
-
-                                    let raw: ContainerExecEventRaw = unsafe {
-                                        std::ptr::read_unaligned(event_buf[0].as_ptr() as *const _)
-                                    };
-
-                                    let comm = String::from_utf8_lossy(&raw.comm)
-                                        .trim_end_matches('\0')
-                                        .to_string();
-
-                                    let filename = String::from_utf8_lossy(&raw.filename)
-                                        .trim_end_matches('\0')
-                                        .to_string();
-
-                                    let container_event = ContainerExecEvent {
-                                        pid: raw.pid,
-                                        ppid: 0,
-                                        uid: raw.uid,
-                                        gid: raw.gid,
-                                        comm,
-                                        cmdline: filename,
-                                        timestamp: raw.timestamp,
-                                        container_type: "unknown".to_string(),
-                                    };
-
-                                    let mut record = HashMap::new();
-                                    record.insert("pid".into(), container_event.pid.to_string());
-                                    record.insert("ppid".into(), container_event.ppid.to_string());
-                                    record.insert("uid".into(), container_event.uid.to_string());
-                                    record.insert("gid".into(), container_event.gid.to_string());
-                                    record.insert("comm".into(), container_event.comm.clone());
-                                    record.insert("cmdline".into(), container_event.cmdline.clone());
-                                    record.insert("timestamp".into(), container_event.timestamp.to_string());
-                                    record.insert("container_type".into(), container_event.container_type.clone());
-                                    record.insert("event_type".into(), "container_exec".into());
-                                    record.insert("signal".into(), "container_exec".into());
-                                    record.insert("category".into(), "container".into());
-                                    record.insert("confidence".into(), "0.9".into());
-                                    record.insert("gnn_escalate".into(), "true".into());
-                                    record.insert("replay_tag".into(), "container_exec_detected".into());
-
-                                    let trust_event = TrustEvent::new_full(
-                                        container_event.timestamp,
-                                        container_event.pid as i32,
-                                        container_event.ppid.try_into().unwrap_or(-1),
-                                        container_event.uid,
-                                        container_event.comm.clone(),
-                                        container_event.cmdline.clone(),
-                                        "/proc".into(),
-                                        "container_exec".into(),
-                                        "container::exec_detect".into(),
-                                        "container_monitor".into(),
-                                        Some("Containerized process execution detected".into()),
-                                        Some("container::exec".into()),
-                                        Some(vec!["container".into(), "exec".into(), container_event.comm.clone()]),
-                                        Some(7.0),
-                                    );
-                                    submit_trust_event(trust_event);
-
-                                    let telemetry_output = TelemetryOutput {
-                                        category: "container".into(),
-                                        signal: "container_exec".into(),
-                                        confidence: 0.9,
-                                        data: record.clone(),
-                                    };
-
-                                    write_telemetry_record(record.clone());
-                                    push_to_gnn_vector_log(record.clone());
-                                    store_replay_event(record);
-                                }
-
-                                if events.lost > 0 {
-                                    log(&format!("⚠️ Lost {} container exec events", events.lost));
-                                }
-                            }
-                            Err(e) => {
-                                log(&format!("❌ Error reading container perf events: {:?}", e));
-                            }
-                        }
-                    }
-                });
-            }));
-
-            if result.is_err() {
-                log("❌ container_exec_monitor crashed on one core but other CPUs may still be active.");
-            }
-        });
-    }
-
-    Ok(())
-}
-
-
-fn extract_comm(pid: u32) -> String {
-    let comm_path = format!("/proc/{}/comm", pid);
-    fs::read_to_string(comm_path)
-        .unwrap_or_default()
-        .trim()
-        .to_string()
-}
-
-fn extract_cmdline(pid: u32) -> String {
-    let cmdline_path = format!("/proc/{}/cmdline", pid);
-    fs::read(cmdline_path)
-        .map(|bytes| {
-            String::from_utf8_lossy(&bytes)
-                .replace('\0', " ")
-                .trim()
-                .to_string()
-        })
-        .unwrap_or_default()
-}
-
 fn now_ts() -> u64 {
     SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -192,24 +51,210 @@ fn now_ts() -> u64 {
         .as_secs()
 }
 
-use std::cell::RefCell;
-use std::rc::Rc;
-use std::{sync::{Arc, Mutex}};
+/// Attach all programs in the object based on their section names.
+/// This covers `tracepoint/<cat>/<name>`, `raw_tracepoint/<name>`,
+/// and kprobes (attach to the symbol with the program name).
+fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
+    for prog in bpf.programs_mut() {
+        let sec = prog.section().unwrap_or_default().to_string();
+        let name = prog.name().to_string();
+
+        match prog {
+            Program::TracePoint(p) => {
+                let tp: &mut TracePoint = p.try_into()?;
+                tp.load()?;
+                // section looks like: "tracepoint/<cat>/<event>"
+                if let Some(rest) = sec.strip_prefix("tracepoint/") {
+                    let mut it = rest.splitn(2, '/');
+                    let cat = it.next().unwrap_or("");
+                    let evt = it.next().unwrap_or("");
+                    tp.attach(cat, evt)?;
+                    log(&format!("✔️ attached tracepoint {}/{}", cat, evt));
+                } else {
+                    // Fallback: common exec TP
+                    tp.attach("sched", "sched_process_exec")?;
+                    log("✔️ attached tracepoint sched/sched_process_exec (fallback)");
+                }
+            }
+            Program::RawTracePoint(p) => {
+                let rtp: &mut RawTracePoint = p.try_into()?;
+                rtp.load()?;
+                // "raw_tracepoint/<event>"
+                let evt = sec.split('/').nth(1).unwrap_or(&name);
+                rtp.attach(evt)?;
+                log(&format!("✔️ attached raw_tracepoint {}", evt));
+            }
+            Program::KProbe(p) => {
+                let kp: &mut KProbe = p.try_into()?;
+                kp.load()?;
+                kp.attach(&name, 0)?;
+                log(&format!("✔️ attached kprobe {}", name));
+            }
+            Program::KRetProbe(p) => {
+                let krp: &mut KRetProbe = p.try_into()?;
+                krp.load()?;
+                krp.attach(&name, 0)?;
+                log(&format!("✔️ attached kretprobe {}", name));
+            }
+            // If your .o contains other program kinds, add them here as needed.
+            other => {
+                // Load unattached kinds to avoid verifier surprises, but skip attach.
+                other.load()?;
+                log(&format!("ℹ️ loaded program (no attach step): {} [{}]", name, sec));
+            }
+        }
+    }
+    Ok(())
+}
+
+pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
+    // Path is relative to this file: src/modules/ -> ../ebpf/...
+    let mut bpf = Bpf::load(include_bytes_aligned!(
+        "../ebpf/container_exec_monitor.bpf.o"
+    ))?;
+
+    // Attach all programs present in the object
+    attach_all_programs(&mut bpf)?;
+
+    // Open perf array used by the eBPF program
+    let mut perf_array = AsyncPerfEventArray::try_from(bpf.map_mut("CONTAINER_EXEC_EVENTS")?)?;
+
+    for cpu_id in online_cpus()? {
+        let mut buf = perf_array.open(cpu_id, None)?;
+
+        task::spawn(async move {
+            // One buffer per task is fine; aya will fill it
+            let mut bufs = vec![BytesMut::with_capacity(4096); 1];
+
+            loop {
+                match buf.read_events(&mut bufs).await {
+                    Ok(events) => {
+                        for i in 0..events.read {
+                            let b = &bufs[i];
+                            if b.len() < mem::size_of::<ContainerExecEventRaw>() {
+                                // Not enough bytes to parse a full record, skip
+                                continue;
+                            }
+
+                            // SAFETY: read_unaligned allows unaligned perf payload
+                            let raw: ContainerExecEventRaw = unsafe {
+                                std::ptr::read_unaligned(b.as_ptr() as *const _)
+                            };
+
+                            let comm = String::from_utf8_lossy(&raw.comm)
+                                .trim_end_matches('\0')
+                                .to_string();
+
+                            let filename = String::from_utf8_lossy(&raw.filename)
+                                .trim_end_matches('\0')
+                                .to_string();
+
+                            let container_event = ContainerExecEvent {
+                                pid: raw.pid,
+                                ppid: 0,
+                                uid: raw.uid,
+                                gid: raw.gid,
+                                comm,
+                                cmdline: filename,
+                                timestamp: raw.timestamp,
+                                container_type: "unknown".to_string(),
+                            };
+
+                            // Build telemetry record map
+                            let mut record = HashMap::new();
+                            record.insert("pid".into(), container_event.pid.to_string());
+                            record.insert("ppid".into(), container_event.ppid.to_string());
+                            record.insert("uid".into(), container_event.uid.to_string());
+                            record.insert("gid".into(), container_event.gid.to_string());
+                            record.insert("comm".into(), container_event.comm.clone());
+                            record.insert("cmdline".into(), container_event.cmdline.clone());
+                            record.insert("timestamp".into(), container_event.timestamp.to_string());
+                            record.insert("container_type".into(), container_event.container_type.clone());
+                            record.insert("event_type".into(), "container_exec".into());
+                            record.insert("signal".into(), "container_exec".into());
+                            record.insert("category".into(), "container".into());
+                            record.insert("confidence".into(), "0.9".into());
+                            record.insert("gnn_escalate".into(), "true".into());
+                            record.insert("replay_tag".into(), "container_exec_detected".into());
+
+                            // Trust + sinks
+                            let trust_event = TrustEvent::new_full(
+                                container_event.timestamp,
+                                container_event.pid as i32,
+                                container_event.ppid as i32,
+                                container_event.uid,
+                                container_event.comm.clone(),
+                                container_event.cmdline.clone(),
+                                "/proc".into(),
+                                "container_exec".into(),
+                                "container::exec_detect".into(),
+                                "container_monitor".into(),
+                                Some("Containerized process execution detected".into()),
+                                Some("container::exec".into()),
+                                Some(vec![
+                                    "container".into(),
+                                    "exec".into(),
+                                    container_event.comm.clone(),
+                                ]),
+                                Some(7.0),
+                            );
+                            submit_trust_event(trust_event);
+
+                            let telemetry_output = TelemetryOutput {
+                                category: "container".into(),
+                                signal: "container_exec".into(),
+                                confidence: 0.9,
+                                data: record.clone(),
+                            };
+
+                            write_telemetry_record(record.clone());
+                            push_to_gnn_vector_log(record.clone());
+                            store_replay_event(record);
+
+                            // Reset buffer length so aya can reuse it
+                            // (BytesMut is reused by AsyncPerfEventArray internally)
+                        }
+
+                        if events.lost > 0 {
+                            log(&format!("⚠️ Lost {} container exec events", events.lost));
+                        }
+                    }
+                    Err(e) => {
+                        log(&format!("❌ Error reading container perf events: {:?}", e));
+                        // small backoff to avoid tight error loops
+                        tokio::time::sleep(std::time::Duration::from_millis(50)).await;
+                    }
+                }
+            }
+        });
+    }
+
+    Ok(())
+}
 
 pub fn scan_container_activity() -> Vec<TelemetryOutput> {
-    let outputs = Arc::new(Mutex::new(Vec::new()));
-    let outputs_clone = Arc::clone(&outputs);
+    let mut outputs = Vec::new();
     let now = now_ts();
 
     CONTAINER_MONITOR_ONCE.call_once(|| {
         if !CONTAINER_MONITOR_STARTED.load(Ordering::Relaxed) {
+            // Spawn a dedicated thread with its own Tokio runtime
             let _ = thread::spawn(move || {
                 let rt = Runtime::new().unwrap();
                 rt.block_on(async {
                     match start_ebpf_container_exec_monitor().await {
                         Ok(_) => {
                             CONTAINER_MONITOR_STARTED.store(true, Ordering::Relaxed);
-                            println!("✅ container_exec_monitor launched.");
+                            log("✅ container_exec_monitor attached.");
+
+                            // Heartbeat — only after successful startup
+                            let mut data = HashMap::new();
+                            data.insert("event_type".into(), "container_monitor_active".into());
+                            data.insert("status".into(), "ebpf_monitor_spawned".into());
+                            data.insert("timestamp".into(), now.to_string());
+                            data.insert("category".into(), "container".into());
+                            data.insert("signal".into(), "container_monitor_active".into());
+                            data.insert("replay_tag".into(), "container_monitor_heartbeat".into());
 
                             let trust_event = TrustEvent {
                                 timestamp: now,
@@ -240,24 +285,9 @@ pub fn scan_container_activity() -> Vec<TelemetryOutput> {
                             };
                             submit_trust_event(trust_event);
 
-                            let mut data = HashMap::new();
-                            data.insert("event_type".into(), "container_monitor_active".into());
-                            data.insert("status".into(), "ebpf_monitor_spawned".into());
-                            data.insert("timestamp".into(), now.to_string());
-                            data.insert("category".into(), "container".into());
-                            data.insert("signal".into(), "container_monitor_active".into());
-                            data.insert("replay_tag".into(), "container_monitor_heartbeat".into());
-
-                            let output = TelemetryOutput {
-                                category: "container".into(),
-                                signal: "container_monitor_active".into(),
-                                confidence: 0.01,
-                                data,
-                            };
-
-                            if let Ok(mut guard) = outputs_clone.lock() {
-                                guard.push(output);
-                            }
+                            write_telemetry_record(data.clone());
+                            push_to_gnn_vector_log(data.clone());
+                            store_replay_event(data);
                         }
                         Err(e) => {
                             eprintln!("❌ Failed to launch container monitor: {:?}", e);
@@ -267,6 +297,29 @@ pub fn scan_container_activity() -> Vec<TelemetryOutput> {
             });
         }
     });
-    let result = outputs.lock().unwrap().clone();
-    result
+
+    // Return empty (or you could emit a lightweight “starting” signal here).
+    outputs
+}
+
+// ---- helpers for future local enrichment (kept from your file) ----
+
+fn extract_comm(pid: u32) -> String {
+    let comm_path = format!("/proc/{}/comm", pid);
+    fs::read_to_string(comm_path)
+        .unwrap_or_default()
+        .trim()
+        .to_string()
+}
+
+fn extract_cmdline(pid: u32) -> String {
+    let cmdline_path = format!("/proc/{}/cmdline", pid);
+    fs::read(cmdline_path)
+        .map(|bytes| {
+            String::from_utf8_lossy(&bytes)
+                .replace('\0', " ")
+                .trim()
+                .to_string()
+        })
+        .unwrap_or_default()
 }

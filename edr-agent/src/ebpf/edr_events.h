@@ -6,10 +6,14 @@
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
 #include <bpf/bpf_core_read.h>
-#include <linux/socket.h>   // AF_*
-#include <linux/in.h>       // sockaddr_in
-#include <linux/in6.h>      // sockaddr_in6
-#include <asm/unistd.h>     // __NR_* (arch-local; OK for raw_syscalls)
+
+/* AF_* fallbacks to avoid pulling UAPI linux headers */
+#ifndef AF_INET
+#define AF_INET 2
+#endif
+#ifndef AF_INET6
+#define AF_INET6 10
+#endif
 
 char LICENSE[] SEC("license") = "Dual BSD/GPL";
 
@@ -26,7 +30,6 @@ enum edr_evt_type {
     EVT_PROC_EXEC_TP    = 101,
     EVT_PROC_FORK       = 102,
     EVT_PROC_EXIT       = 103,
-
 
     /* --- tcp state & retrans ---*/
     EVT_TCP_STATE       = 200,

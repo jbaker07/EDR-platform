@@ -1,155 +1,234 @@
-use aya::{include_bytes_aligned, Bpf};
-use aya::maps::perf::PerfEventArray;
-use aya::programs::TracePoint;
-use aya::util::online_cpus;
-use bytes::BytesMut;
-use std::convert::TryInto;
-use std::{thread, time::Duration};
-use std::sync::{OnceLock, atomic::{AtomicBool, Ordering}};
+//! trust_state_restorer.rs
+//!
+//! Persist and restore per-endpoint TrustVectors with decay and conservative merging.
+//! - Atomic snapshot writes (tmp + rename)
+//! - Backward-compatible load
+//! - Applies decay based on saved_at → now
+//! - Merges into TRUST_VECTOR_GLOBAL using `merge_min`
+//!
+//! Typical usage on startup:
+//!     let _ = restore_trust_state_from("/var/lib/edr/trust_state.json", 6.0 * 3600.0);
+//!
+//! Periodic snapshot (e.g., every few minutes):
+//!     let _ = snapshot_trust_state_to("/var/lib/edr/trust_state.json");
+
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fs::{self, File, OpenOptions};
+use std::io::{Read, Write};
+use std::path::{Path, PathBuf};
 
-use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
-use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
+use crate::services::trust_vector::{TrustVector, TRUST_VECTOR_GLOBAL, TRUST_DIM_CT};
+use crate::utils::time::now_ts;
 
-#[repr(C)]
-#[derive(Clone, Debug)]
-pub struct IPCAbuseEvent {
-    pub pid: u32,
-    pub target_pid: u32,
-    pub syscall_id: u32,
-    pub timestamp: u64,
+/// On-disk snapshot for a single endpoint.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct TrustVectorSnapshot {
+    /// Trust values in [0,1]
+    v: [f32; TRUST_DIM_CT],
+    /// Optional tag echoes for diagnostics
+    #[serde(default)]
+    tags: Vec<String>,
+    /// When this snapshot was written (secs since epoch)
+    saved_at: u64,
 }
 
-pub static SCAN_SUSPICIOUS_IPC: OnceLock<AtomicBool> = OnceLock::new();
-
-fn parse_ipc_event(buf: &[u8]) -> Option<IPCAbuseEvent> {
-    use std::ptr::read_unaligned;
-    let ptr = buf.as_ptr() as *const IPCAbuseEvent;
-    Some(unsafe { read_unaligned(ptr) })
+/// On-disk file format (versioned).
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct TrustStateFile {
+    version: u32,
+    saved_at: u64,
+    endpoints: HashMap<String, TrustVectorSnapshot>,
 }
 
-/// Starts the eBPF-powered suspicious IPC monitor
-pub fn start_ebpf_ipc_abuse_watch() {
-    SCAN_SUSPICIOUS_IPC.get_or_init(|| AtomicBool::new(true));
-
-    thread::spawn(move || {
-        let bpf = Bpf::load(include_bytes_aligned!(
-            "../ebpf/suspicious_ipc.bpf.o"
-        ));
-
-        let mut bpf = match bpf {
-            Ok(b) => b,
-            Err(e) => {
-                eprintln!("❌ Failed to load suspicious_ipc BPF: {:?}", e);
-                return;
-            }
-        };
-
-        let program = match bpf.program_mut("trace_suspicious_ipc") {
-            Some(p) => p,
-            None => {
-                eprintln!("❌ Missing trace_suspicious_ipc program");
-                return;
-            }
-        };
-
-        let tp: &mut TracePoint = match program.try_into() {
-            Ok(tp) => tp,
-            Err(e) => {
-                eprintln!("❌ Could not convert to TracePoint: {:?}", e);
-                return;
-            }
-        };
-
-        if let Err(e) = tp.load() {
-            eprintln!("❌ Failed to load tracepoint: {:?}", e);
-            return;
+impl Default for TrustStateFile {
+    fn default() -> Self {
+        Self {
+            version: 1,
+            saved_at: now_ts(),
+            endpoints: HashMap::new(),
         }
-
-        if let Err(e) = tp.attach("syscalls", "sys_enter_msgsnd") {
-            eprintln!("❌ Failed to attach syscall: {:?}", e);
-            return;
-        }
-
-        println!("💬 [eBPF] Suspicious IPC monitor tracepoint active");
-
-        let map = match bpf.map_mut("EVENTS") {
-            Ok(m) => m,
-            Err(e) => {
-                eprintln!("❌ No perf map found in suspicious_ipc_monitor: {:?}", e);
-                return;
-            }
-        };
-
-        let mut perf_array = match PerfEventArray::try_from(map) {
-            Ok(p) => p,
-            Err(e) => {
-                eprintln!("❌ PerfEventArray error: {:?}", e);
-                return;
-            }
-        };
-
-        for cpu_id in online_cpus().unwrap_or_default() {
-            match perf_array.open(cpu_id, None) {
-                Ok(mut buf) => {
-                    thread::spawn(move || {
-                        let mut buffers = vec![BytesMut::with_capacity(1024)];
-                        loop {
-                            match buf.read_events(&mut buffers) {
-                                Ok(_) => {
-                                    for buffer in &buffers {
-                                        if let Some(evt) = parse_ipc_event(buffer) {
-                                            let _ = push_memory_telemetry(
-                                                evt.pid as i32,
-                                                evt.target_pid as i32,
-                                                0,
-                                                "unknown".into(),
-                                                "unknown".into(),
-                                                "unknown".into(),
-                                                MemoryAnomalyType::IpcAbuse,
-                                                format!(
-                                                    "Suspicious IPC: pid={} → pid={} via syscall_id={}",
-                                                    evt.pid, evt.target_pid, evt.syscall_id
-                                                ),
-                                            )
-                                            .map_err(|e| {
-                                                eprintln!("⚠️ IPC telemetry failed: {:?}", e)
-                                            });
-                                        }
-                                    }
-                                    buffers.clear();
-                                }
-                                Err(e) => {
-                                    eprintln!("⚠️ Read events error: {:?}", e);
-                                }
-                            }
-
-                            thread::sleep(Duration::from_millis(25));
-                        }
-                    });
-                }
-                Err(e) => {
-                    eprintln!("❌ Failed to open perf buffer on CPU {}: {:?}", cpu_id, e);
-                }
-            }
-        }
-    });
+    }
 }
 
-/// Passive fallback function for suspicious IPC scan (placeholder version)
-pub fn scan_ipc_passive() -> Vec<TelemetryOutput> {
-    let mut outputs = Vec::new();
+/// Restore global trust state from `path`.
+/// Applies decay using `half_life_s` (seconds) between `saved_at` and now.
+/// Returns number of endpoints restored on success.
+///
+/// If the file does not exist, returns Ok(0).
+pub fn restore_trust_state_from(path: &str, half_life_s: f32) -> std::io::Result<usize> {
+    let p = Path::new(path);
+    if !p.exists() {
+        return Ok(0);
+    }
 
-    outputs.push(TelemetryOutput {
-        category: "memory_anomaly".into(),
-        signal: "ipc_abuse_simulated".into(),
-        confidence: 0.5,
-        data: HashMap::from([
-            ("note".into(), "Fallback IPC scan not supported without live BPF".into()),
-            ("severity".into(), "info".into()),
-            ("replay_tag".into(), "simulated_ipc_abuse".into())
-        ]),
-    });
+    let mut buf = String::new();
+    File::open(p)?.read_to_string(&mut buf)?;
+    if buf.trim().is_empty() {
+        return Ok(0);
+    }
 
-    outputs
+    // Primary format
+    let parsed: Result<TrustStateFile, _> = serde_json::from_str(&buf);
+
+    // Backward-compat shim: older dumps might just be endpoint -> { v, tags, saved_at }
+    let state = match parsed {
+        Ok(v) => v,
+        Err(_) => {
+            let legacy: HashMap<String, TrustVectorSnapshot> =
+                serde_json::from_str(&buf).map_err(io_err)?;
+            TrustStateFile {
+                version: 1,
+                saved_at: now_ts(),
+                endpoints: legacy,
+            }
+        }
+    };
+
+    let now = now_ts() as f32;
+    let mut restored = 0usize;
+
+    if let Ok(mut global) = TRUST_VECTOR_GLOBAL.lock() {
+        for (endpoint, snap) in state.endpoints.iter() {
+            let mut tv = TrustVector::new();
+            tv.v = sanitize_vec(&snap.v);
+            tv.tags = snap.tags.clone();
+            tv.recompute_cache();
+
+            // Decay deficits toward 1.0 based on wall time since saved_at
+            let dt_s = (now_ts().saturating_sub(snap.saved_at)) as f32;
+            if half_life_s > 0.0 && dt_s > 0.0 {
+                tv.apply_decay(dt_s, half_life_s);
+            }
+
+            // Merge conservatively with any existing value (min per-dimension)
+            if let Some(existing) = global.get_mut(endpoint) {
+                existing.merge_min(&tv);
+                existing.recompute_cache();
+            } else {
+                global.insert(endpoint.clone(), tv);
+            }
+
+            restored += 1;
+        }
+    }
+
+    Ok(restored)
+}
+
+/// Snapshot the current `TRUST_VECTOR_GLOBAL` map to `path` atomically.
+/// Writes to `<path>.tmp` then renames over `<path>`.
+pub fn snapshot_trust_state_to(path: &str) -> std::io::Result<()> {
+    let parent = Path::new(path).parent().map(|p| p.to_path_buf()).unwrap_or_else(|| PathBuf::from("."));
+    fs::create_dir_all(&parent)?;
+
+    let mut file_model = TrustStateFile::default();
+    file_model.version = 1;
+    file_model.saved_at = now_ts();
+
+    if let Ok(global) = TRUST_VECTOR_GLOBAL.lock() {
+        for (endpoint, tv) in global.iter() {
+            // Clamp just in case; we skip per-dimension timestamps in snapshots
+            let v = sanitize_vec(&tv.v);
+            file_model.endpoints.insert(
+                endpoint.clone(),
+                TrustVectorSnapshot {
+                    v,
+                    tags: tv.tags.clone(),
+                    saved_at: file_model.saved_at,
+                },
+            );
+        }
+    }
+
+    let tmp_path = format!("{}.tmp", path);
+    {
+        let mut f = OpenOptions::new()
+            .create(true)
+            .write(true)
+            .truncate(true)
+            .open(&tmp_path)?;
+        let payload = serde_json::to_vec_pretty(&file_model).map_err(io_err)?;
+        f.write_all(&payload)?;
+        f.sync_all()?; // durability before rename
+    }
+
+    // Atomic replace
+    fs::rename(&tmp_path, path)?;
+    Ok(())
+}
+
+/// Convenience helper to get a clone of an endpoint's TrustVector.
+/// Returns a default (fully trusted) vector if missing.
+pub fn get_endpoint_trust(endpoint_id: &str) -> TrustVector {
+    TRUST_VECTOR_GLOBAL
+        .lock()
+        .ok()
+        .and_then(|m| m.get(endpoint_id).cloned())
+        .unwrap_or_default()
+}
+
+/// Convenience helper to mutate an endpoint's TrustVector atomically.
+/// Creates a default vector if not present.
+pub fn with_endpoint_trust<F, T>(endpoint_id: &str, f: F) -> Option<T>
+where
+    F: FnOnce(&mut TrustVector) -> T,
+{
+    if let Ok(mut m) = TRUST_VECTOR_GLOBAL.lock() {
+        let tv = m.entry(endpoint_id.to_string()).or_insert_with(TrustVector::new);
+        let out = f(tv);
+        tv.recompute_cache();
+        Some(out)
+    } else {
+        None
+    }
+}
+
+/// Clamp all values into [0,1] to avoid drift from bad inputs.
+fn sanitize_vec(v: &[f32; TRUST_DIM_CT]) -> [f32; TRUST_DIM_CT] {
+    let mut out = *v;
+    for x in &mut out {
+        *x = x.clamp(0.0, 1.0);
+    }
+    out
+}
+
+fn io_err<E: std::error::Error + Send + Sync + 'static>(e: E) -> std::io::Error {
+    std::io::Error::new(std::io::ErrorKind::InvalidData, e)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs;
+
+    #[test]
+    fn snapshot_and_restore_roundtrip() {
+        let tmp = "/tmp/trust_state_restorer_test.json";
+        {
+            let _ = fs::remove_file(tmp);
+        }
+
+        // Seed global with two endpoints
+        with_endpoint_trust("hostA", |tv| {
+            tv.penalty(crate::services::trust_vector::TrustDim::Memory, 0.2);
+        });
+        with_endpoint_trust("hostB", |tv| {
+            tv.penalty(crate::services::trust_vector::TrustDim::Network, 0.1);
+        });
+
+        snapshot_trust_state_to(tmp).unwrap();
+
+        // Nuke global and reload
+        if let Ok(mut m) = TRUST_VECTOR_GLOBAL.lock() {
+            m.clear();
+        }
+        let restored = restore_trust_state_from(tmp, 0.0).unwrap();
+        assert_eq!(restored, 2);
+
+        let a = get_endpoint_trust("hostA");
+        let b = get_endpoint_trust("hostB");
+        assert!(a.deficit_by(crate::services::trust_vector::TrustDim::Memory) > 0.0);
+        assert!(b.deficit_by(crate::services::trust_vector::TrustDim::Network) > 0.0);
+    }
 }

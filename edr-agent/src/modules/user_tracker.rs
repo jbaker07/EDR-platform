@@ -4,52 +4,62 @@ use std::fs;
 use std::io::{BufRead, BufReader, Read};
 use std::process::Command;
 use std::sync::{OnceLock, atomic::{AtomicBool, Ordering}};
+
 use crate::telemetry_types::TelemetryOutput;
 use crate::utils::time::now_ts;
 use crate::telemetry_writer::write_telemetry_record;
 use crate::trust_hook::{TrustEvent, submit_trust_event, generate_feature_vector};
 use crate::gnn_hook::push_to_gnn_vector_log;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserSession {
     pub username: String,
     pub terminal: String,
     pub host: String,
-    pub login_time: String,
+    pub login_time: String, // epoch seconds as string
 }
-use chrono::TimeZone;
-use std::convert::TryInto;
+
 pub static SCAN_USER_TRACKER: OnceLock<AtomicBool> = OnceLock::new();
 
+/// Normalize a TTY/PTS string for comparison.
+fn normalize_tty(s: &str) -> String {
+    s.trim_start_matches("/dev/")
+        .trim_start_matches("tty")
+        .trim()
+        .to_string()
+}
+
+/// Attempt to extract (pid, ppid, uid) for a user session tied to a terminal.
 pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u32) {
-    // First attempt: use `ps` output for terminal match (for real TTYs)
+    // 1) Prefer `ps` to correlate controlling ttys for interactive sessions.
     if let Ok(output) = Command::new("ps").args(&["-eo", "pid,ppid,uid,tty,user,comm"]).output() {
         if output.status.success() {
             let reader = BufReader::new(&output.stdout[..]);
+            let term_norm = normalize_tty(terminal);
 
             for line in reader.lines().flatten() {
                 let parts: Vec<&str> = line.split_whitespace().collect();
+                if parts.len() < 6 {
+                    continue;
+                }
 
-                if parts.len() >= 6 {
-                    let pid = parts[0].parse::<i32>().unwrap_or(-1);
-                    let ppid = parts[1].parse::<i32>().unwrap_or(-1);
-                    let uid = parts[2].parse::<u32>().unwrap_or(0);
-                    let tty = parts[3];
-                    let user = parts[4];
+                let pid = parts[0].parse::<i32>().unwrap_or(-1);
+                let ppid = parts[1].parse::<i32>().unwrap_or(-1);
+                let uid = parts[2].parse::<u32>().unwrap_or(0);
+                let tty = parts[3];
+                let user = parts[4];
 
-                    if user == username {
-                        let tty_norm = tty.trim_start_matches("/dev/").trim_start_matches("tty").trim();
-                        let term_norm = terminal.trim_start_matches("/dev/").trim_start_matches("tty").trim();
-
-                        if tty_norm == term_norm || tty.contains(term_norm) || term_norm.contains(tty_norm) {
-                            return (pid, ppid, uid);
-                        }
+                if user == username {
+                    let tty_norm = normalize_tty(tty);
+                    if tty_norm == term_norm || tty.contains(&term_norm) || term_norm.contains(&tty_norm) {
+                        return (pid, ppid, uid);
                     }
                 }
             }
         }
     }
 
-    // Fallback: check /proc/* manually for GUI session markers (seat0 etc)
+    // 2) Fallback: scan /proc for GUI/daemon-attached sessions.
     if let Ok(entries) = fs::read_dir("/proc") {
         for entry in entries.flatten() {
             let pid_path = entry.path();
@@ -58,23 +68,24 @@ pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u3
                 continue;
             }
 
+            // Read environ (null-separated). We don’t require valid UTF-8 for every byte.
             let environ_path = pid_path.join("environ");
-            if let Ok(mut file) = fs::File::open(&environ_path) {
-                let mut buf = String::new();
-                let _ = file.read_to_string(&mut buf);
-                if buf.contains(&format!("USER={}", username)) &&
-                   (buf.contains(&format!("XDG_SEAT={}", terminal)) || buf.contains("XDG_SESSION_TYPE=wayland") || buf.contains("XDG_SESSION_TYPE=x11"))
+            if let Ok(bytes) = fs::read(&environ_path) {
+                let env_txt = String::from_utf8_lossy(&bytes);
+                if env_txt.contains(&format!("USER={}", username))
+                    && (env_txt.contains("XDG_SESSION_TYPE=wayland")
+                        || env_txt.contains("XDG_SESSION_TYPE=x11")
+                        || env_txt.contains("XDG_SEAT=seat0"))
                 {
                     let status_path = pid_path.join("status");
                     if let Ok(status) = fs::read_to_string(&status_path) {
-                        let mut uid = 0;
-                        let mut ppid = -1;
+                        let mut uid = 0_u32;
+                        let mut ppid = -1_i32;
                         for line in status.lines() {
-                            if line.starts_with("Uid:") {
-                                uid = line.split_whitespace().nth(1).unwrap_or("0").parse().unwrap_or(0);
-                            }
-                            if line.starts_with("PPid:") {
-                                ppid = line.split_whitespace().nth(1).unwrap_or("-1").parse().unwrap_or(-1);
+                            if let Some(rest) = line.strip_prefix("Uid:") {
+                                uid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(0);
+                            } else if let Some(rest) = line.strip_prefix("PPid:") {
+                                ppid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(-1);
                             }
                         }
                         let pid = pid_str.parse::<i32>().unwrap_or(-1);
@@ -83,26 +94,23 @@ pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u3
                 }
             }
 
-            // Additional fallback: check cmdline for session-related processes
+            // Additional heuristic: look for display/session processes
             let cmdline_path = pid_path.join("cmdline");
-            if let Ok(mut f) = fs::File::open(&cmdline_path) {
-                let mut content = String::new();
-                let _ = f.read_to_string(&mut content);
-                if content.contains("Xorg") || content.contains("gdm-session-worker") || content.contains("loginctl") {
+            if let Ok(bytes) = fs::read(&cmdline_path) {
+                let cmdline = String::from_utf8_lossy(&bytes);
+                if cmdline.contains("Xorg")
+                    || cmdline.contains("gdm-session-worker")
+                    || cmdline.contains("loginctl")
+                {
                     let status_path = pid_path.join("status");
                     if let Ok(status) = fs::read_to_string(&status_path) {
-                        let mut uid = 0;
-                        let mut ppid = -1;
-                        let mut proc_user = String::new();
+                        let mut uid = 0_u32;
+                        let mut ppid = -1_i32;
                         for line in status.lines() {
-                            if line.starts_with("Uid:") {
-                                uid = line.split_whitespace().nth(1).unwrap_or("0").parse().unwrap_or(0);
-                            }
-                            if line.starts_with("PPid:") {
-                                ppid = line.split_whitespace().nth(1).unwrap_or("-1").parse().unwrap_or(-1);
-                            }
-                            if line.starts_with("Name:") {
-                                proc_user = line.split_whitespace().nth(1).unwrap_or("").to_string();
+                            if let Some(rest) = line.strip_prefix("Uid:") {
+                                uid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(0);
+                            } else if let Some(rest) = line.strip_prefix("PPid:") {
+                                ppid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(-1);
                             }
                         }
                         if uid != 0 {
@@ -115,12 +123,67 @@ pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u3
         }
     }
 
-    (-1, -1, 0) // full fallback
+    (-1, -1, 0) // final fallback
 }
 
+/// Try to parse the login timestamp from `who` tokens in several common formats.
+fn parse_who_login_ts(tokens: &[&str]) -> Option<u64> {
+    use chrono::{Datelike, Local, NaiveDate, NaiveDateTime, NaiveTime};
+
+    // Common layouts seen in `who`:
+    // 1) user pts/0 2025-08-19 12:34 (host)
+    // 2) user pts/0 Aug 19 12:34 (host)
+    // 3) user tty1  2025-08-19 12:34
+    // We’ll scan tokens for a date + time pair.
+
+    // Build candidates from index 2 onward
+    let year = Local::now().year();
+
+    // Helper: parse YYYY-MM-DD HH:MM
+    let try_iso_pair = |d: &str, t: &str| -> Option<u64> {
+        NaiveDate::parse_from_str(d, "%Y-%m-%d")
+            .ok()
+            .and_then(|nd| NaiveTime::parse_from_str(t, "%H:%M").ok().map(|nt| (nd, nt)))
+            .and_then(|(nd, nt)| {
+                let ldt = NaiveDateTime::new(nd, nt);
+                Local.from_local_datetime(&ldt).single().map(|dt| dt.timestamp() as u64)
+            })
+    };
+
+    // Helper: parse Mon DD HH:MM with current year
+    let try_mon_pair = |m: &str, d: &str, t: &str| -> Option<u64> {
+        // e.g., "Aug", "19", "12:03"
+        let date_str = format!("{} {} {}", year, m, d);
+        NaiveDate::parse_from_str(&date_str, "%Y %b %d")
+            .ok()
+            .and_then(|nd| NaiveTime::parse_from_str(t, "%H:%M").ok().map(|nt| (nd, nt)))
+            .and_then(|(nd, nt)| {
+                let ldt = NaiveDateTime::new(nd, nt);
+                Local.from_local_datetime(&ldt).single().map(|dt| dt.timestamp() as u64)
+            })
+    };
+
+    let n = tokens.len();
+    for i in 2..n {
+        // ISO date + time
+        if i + 1 < n && tokens[i].len() == 10 && tokens[i + 1].len() >= 4 && tokens[i].contains('-') && tokens[i + 1].contains(':') {
+            if let Some(ts) = try_iso_pair(tokens[i], tokens[i + 1]) {
+                return Some(ts);
+            }
+        }
+        // Mon DD HH:MM
+        if i + 2 < n && tokens[i].len() == 3 && tokens[i + 1].chars().all(|c| c.is_ascii_digit()) && tokens[i + 2].contains(':') {
+            if let Some(ts) = try_mon_pair(tokens[i], tokens[i + 1], tokens[i + 2]) {
+                return Some(ts);
+            }
+        }
+    }
+
+    None
+}
 
 pub fn get_logged_in_users() -> Vec<UserSession> {
-    use chrono::{NaiveTime, NaiveDate, Local, Datelike, Timelike};
+    use chrono::{Datelike, Local};
     use std::collections::hash_map::DefaultHasher;
     use std::hash::{Hash, Hasher};
 
@@ -135,47 +198,33 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
 
             for line in reader.lines().flatten() {
                 let parts: Vec<&str> = line.split_whitespace().collect();
-                if parts.len() < 3 {
+                if parts.len() < 2 {
                     continue;
                 }
 
                 let username = parts[0].to_string();
                 let terminal = parts[1].to_string();
-                let (pid, ppid, uid) = get_session_process_info(&username, &terminal);
-                let login_day = parts.get(2).copied().unwrap_or_default();
-                let login_time = parts.get(3).copied().unwrap_or_default();
+
+                // Host in parentheses if present
                 let host = parts
                     .iter()
                     .find(|p| p.starts_with('(') && p.ends_with(')'))
                     .map(|s| s.trim_matches(&['(', ')'][..]).to_string())
                     .unwrap_or_else(|| "localhost".to_string());
 
-                let now = Local::now();
-                let full_login_time_str = format!("{} {}", login_day, login_time);
-                let mut login_ts = now_ts();
+                // Parse login timestamp (fallback to now)
+                let login_ts = parse_who_login_ts(&parts).unwrap_or_else(now_ts);
 
-                // Try to parse login time if available
-                if let (Ok(day), Ok(time)) = (
-                    NaiveDate::parse_from_str(&format!("{} {}", now.year(), login_day), "%Y-%m-%d"),
-                    NaiveTime::parse_from_str(login_time, "%H:%M"),
-                ) {
-                    login_ts = Local
-                    .from_local_datetime(&day.and_time(time))
-                    .unwrap()
-                    .timestamp()
-                    .try_into()
-                    .unwrap(); // Convert i64 → u64
-
-                }
-
+                // Session ID (stable-ish)
                 let session_id = {
                     let mut hasher = DefaultHasher::new();
                     format!("{}-{}", username, terminal).hash(&mut hasher);
                     hasher.finish().to_string()
                 };
 
+                let (pid, ppid, uid) = get_session_process_info(&username, &terminal);
                 let suspicious_tty = !terminal.starts_with("tty") && !terminal.starts_with("pts");
-                let session_age = now_ts() - login_ts;
+                let session_age = now_ts().saturating_sub(login_ts);
 
                 let mut data = HashMap::new();
                 data.insert("username".into(), username.clone());
@@ -193,9 +242,9 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
                 data.insert("suspicious_tty".into(), suspicious_tty.to_string());
 
                 let features = generate_feature_vector(
-                    if suspicious_tty { 0.3 } else { 0.1 },
-                    session_age,
-                    2.0,
+                    if suspicious_tty { 0.3 } else { 0.1 }, // cpu-ish
+                    session_age,                              // mem placeholder
+                    2.0,                                      // risk-ish
                 );
                 data.insert("features".into(), format!("{:?}", features));
 
@@ -244,12 +293,12 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
         }
         Ok(output) => {
             eprintln!(
-                "[!] `who` exited with non-zero status: {}",
+                "[user_tracker] `who` exited with non-zero status: {}",
                 output.status.code().unwrap_or(-1)
             );
         }
         Err(e) => {
-            eprintln!("[!] Failed to execute `who`: {}", e);
+            eprintln!("[user_tracker] Failed to execute `who`: {}", e);
         }
     }
 
@@ -257,7 +306,6 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
 }
 
 pub fn scan_user_sessions() -> Vec<TelemetryOutput> {
-    use chrono::{Local, NaiveDateTime};
     use std::collections::hash_map::DefaultHasher;
     use std::hash::{Hash, Hasher};
 
@@ -266,14 +314,17 @@ pub fn scan_user_sessions() -> Vec<TelemetryOutput> {
     let now = now_ts();
 
     for session in sessions {
-        // Compute session_id
+        // Session ID
         let mut hasher = DefaultHasher::new();
         format!("{}-{}", session.username, session.terminal).hash(&mut hasher);
         let session_id = hasher.finish().to_string();
 
-        // Parse session age
-        let login_ts = session.login_time.parse::<i64>().unwrap_or(now.try_into().unwrap());
-        let session_age = now.saturating_sub(login_ts.try_into().unwrap());
+        // Session age from stored epoch string
+        let login_ts_u64 = session
+            .login_time
+            .parse::<u64>()
+            .unwrap_or_else(now_ts);
+        let session_age = now.saturating_sub(login_ts_u64);
         let suspicious_tty = !session.terminal.starts_with("tty") && !session.terminal.starts_with("pts");
 
         let mut data = HashMap::new();
@@ -284,10 +335,13 @@ pub fn scan_user_sessions() -> Vec<TelemetryOutput> {
         data.insert("timestamp".into(), now.to_string());
         data.insert("replay_tag".into(), "user_login_session".into());
         data.insert("source".into(), "scan_user_sessions".into());
-        data.insert("soc_note".into(), format!(
-            "User '{}' active on terminal '{}' (host: {})",
-            session.username, session.terminal, session.host
-        ));
+        data.insert(
+            "soc_note".into(),
+            format!(
+                "User '{}' active on terminal '{}' (host: {})",
+                session.username, session.terminal, session.host
+            ),
+        );
         data.insert("session_id".into(), session_id.clone());
         data.insert("session_age_seconds".into(), session_age.to_string());
         data.insert("suspicious_tty".into(), suspicious_tty.to_string());

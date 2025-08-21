@@ -1,8 +1,15 @@
-use aya::{include_bytes_aligned, Bpf, maps::perf::PerfEventArray, programs::TracePoint, util::online_cpus};
+use aya::{
+    include_bytes_aligned,
+    maps::perf::PerfEventArray,
+    programs::{KProbe, KRetProbe, Program, RawTracePoint, TracePoint},
+    util::online_cpus,
+    Bpf,
+};
 use bytes::BytesMut;
 use std::{
     collections::HashMap,
     convert::TryFrom,
+    mem,
     ptr::read_unaligned,
     sync::{
         atomic::{AtomicBool, Ordering},
@@ -11,20 +18,17 @@ use std::{
     thread,
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
-use chrono::Utc;
-use tokio::runtime::Runtime;
 use std::fs;
 use std::path::PathBuf;
 
 use crate::{
-    telemetry_writer::push_memory_telemetry,
-    telemetry_writer::write_telemetry_record,
-    gnn_hook::push_to_gnn_vector_log,
+    gnn_hook::{push_to_gnn_vector_log, push_metadata_to_gnn_vector_log},
     modules::replay_writer::store_replay_event,
-    telemetry_types::{TelemetryOutput, MemoryAnomalyType},
+    telemetry_types::{MemoryAnomalyType, TelemetryOutput},
+    telemetry_writer::{push_memory_telemetry, write_telemetry_record},
+    trust_hook::{submit_trust_event, TrustEvent},
 };
-
-use crate::trust_hook::{TrustEvent, submit_trust_event};
+use crate::logger::log;
 
 static DLL_INJECTION_STARTED: AtomicBool = AtomicBool::new(false);
 static DLL_INJECTION_ONCE: Once = Once::new();
@@ -46,7 +50,7 @@ fn now_ts() -> u64 {
 }
 
 fn parse_event(buf: &[u8]) -> Option<DllInjectionEvent> {
-    if buf.len() < std::mem::size_of::<DllInjectionEvent>() {
+    if buf.len() < mem::size_of::<DllInjectionEvent>() {
         return None;
     }
     let ptr = buf.as_ptr() as *const DllInjectionEvent;
@@ -62,7 +66,12 @@ fn read_proc_value(pid: u32, field: &str) -> Option<String> {
     };
 
     if field == "cmdline" {
-        fs::read_to_string(path).ok().map(|s| s.replace('\0', " "))
+        fs::read(path).ok().map(|bytes| {
+            String::from_utf8_lossy(&bytes)
+                .replace('\0', " ")
+                .trim()
+                .to_string()
+        })
     } else {
         fs::read_link(path).ok().map(|p| p.display().to_string())
     }
@@ -70,17 +79,65 @@ fn read_proc_value(pid: u32, field: &str) -> Option<String> {
 
 fn get_uid_for_pid(pid: u32) -> Option<u32> {
     let status_path = format!("/proc/{}/status", pid);
-    if let Ok(contents) = std::fs::read_to_string(status_path) {
+    if let Ok(contents) = fs::read_to_string(status_path) {
         for line in contents.lines() {
             if line.starts_with("Uid:") {
-                return line
-                    .split_whitespace()
-                    .nth(1)
-                    .and_then(|s| s.parse::<u32>().ok());
+                return line.split_whitespace().nth(1).and_then(|s| s.parse::<u32>().ok());
             }
         }
     }
     None
+}
+
+/// Attach every program in the BPF object based on its section name.
+/// Covers tracepoints, raw tracepoints, and (as a fallback) kprobes.
+fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
+    for prog in bpf.programs_mut() {
+        let sec = prog.section().unwrap_or_default().to_string();
+        let name = prog.name().to_string();
+
+        match prog {
+            Program::TracePoint(p) => {
+                let tp: &mut TracePoint = p.try_into()?;
+                tp.load()?;
+                if let Some(rest) = sec.strip_prefix("tracepoint/") {
+                    let mut it = rest.splitn(2, '/');
+                    let cat = it.next().unwrap_or("");
+                    let evt = it.next().unwrap_or("");
+                    tp.attach(cat, evt)?;
+                    log(&format!("✔️ attached tracepoint {}/{}", cat, evt));
+                } else {
+                    // Fallback to ptrace enter if section is missing/odd
+                    tp.attach("syscalls", "sys_enter_ptrace")?;
+                    log("✔️ attached tracepoint syscalls/sys_enter_ptrace (fallback)");
+                }
+            }
+            Program::RawTracePoint(p) => {
+                let rtp: &mut RawTracePoint = p.try_into()?;
+                rtp.load()?;
+                let evt = sec.split('/').nth(1).unwrap_or(&name);
+                rtp.attach(evt)?;
+                log(&format!("✔️ attached raw_tracepoint {}", evt));
+            }
+            Program::KProbe(p) => {
+                let kp: &mut KProbe = p.try_into()?;
+                kp.load()?;
+                kp.attach(&name, 0)?;
+                log(&format!("✔️ attached kprobe {}", name));
+            }
+            Program::KRetProbe(p) => {
+                let krp: &mut KRetProbe = p.try_into()?;
+                krp.load()?;
+                krp.attach(&name, 0)?;
+                log(&format!("✔️ attached kretprobe {}", name));
+            }
+            other => {
+                other.load()?; // load but don’t attach unhandled kinds
+                log(&format!("ℹ️ loaded program without explicit attach: {} [{}]", name, sec));
+            }
+        }
+    }
+    Ok(())
 }
 
 pub fn start_ebpf_dll_injection_watch() {
@@ -97,27 +154,13 @@ pub fn start_ebpf_dll_injection_watch() {
                 }
             };
 
-            let program = match bpf.program_mut("trace_dll_inject") {
-                Some(p) => p,
-                None => {
-                    eprintln!("❌ trace_dll_inject program not found");
-                    return;
-                }
-            };
-
-            let tracepoint: &mut TracePoint = match program.try_into() {
-                Ok(tp) => tp,
-                Err(e) => {
-                    eprintln!("❌ Cannot convert program to TracePoint: {:?}", e);
-                    return;
-                }
-            };
-
-            if tracepoint.load().is_err() || tracepoint.attach("syscalls", "sys_enter_ptrace").is_err() {
-                eprintln!("❌ Failed to load/attach tracepoint");
+            if let Err(e) = attach_all_programs(&mut bpf) {
+                eprintln!("❌ Failed to attach BPF programs: {:?}", e);
                 return;
             }
 
+            // Mark started once the programs are successfully attached
+            DLL_INJECTION_STARTED.store(true, Ordering::Release);
             println!("💉 [eBPF] DLL injection monitor attached successfully");
 
             let mut perf_array = match PerfEventArray::try_from(
@@ -135,19 +178,24 @@ pub fn start_ebpf_dll_injection_watch() {
                     Ok(mut buf) => {
                         thread::spawn(move || {
                             let mut buffers = vec![BytesMut::with_capacity(1024); 8];
+
                             loop {
                                 match buf.read_events(&mut buffers) {
                                     Ok(events) => {
-                                        for buf in &buffers[..events.read] {
-                                            if let Some(event) = parse_event(buf) {
+                                        for slice in &buffers[..events.read] {
+                                            if let Some(event) = parse_event(slice) {
                                                 let pid = event.pid;
                                                 let ppid = event.target_pid;
                                                 let uid = get_uid_for_pid(pid).unwrap_or(0);
 
-                                                let binary_path = read_proc_value(pid, "exe").unwrap_or("unknown".into());
-                                                let command_line = read_proc_value(pid, "cmdline").unwrap_or("unknown".into());
-                                                let cwd = read_proc_value(pid, "cwd").unwrap_or("unknown".into());
+                                                let binary_path =
+                                                    read_proc_value(pid, "exe").unwrap_or_else(|| "unknown".into());
+                                                let command_line =
+                                                    read_proc_value(pid, "cmdline").unwrap_or_else(|| "unknown".into());
+                                                let cwd =
+                                                    read_proc_value(pid, "cwd").unwrap_or_else(|| "unknown".into());
 
+                                                // Memory telemetry side-effect
                                                 let _ = push_memory_telemetry(
                                                     pid as i32,
                                                     ppid as i32,
@@ -156,17 +204,13 @@ pub fn start_ebpf_dll_injection_watch() {
                                                     &command_line,
                                                     &cwd,
                                                     MemoryAnomalyType::DllInjection,
-                                                    "Detected DLL Injection via thread start in remote process".into(),
+                                                    "Detected DLL Injection via thread start in remote process"
+                                                        .into(),
                                                 );
 
                                                 println!(
                                                     "🧬 [DLL Injection] PID={} -> TGT={} TYPE={}",
                                                     pid, ppid, event.injection_type
-                                                );
-
-                                                println!(
-                                                    "🚨 DLL Injection Detected! InjectionType={}",
-                                                    event.injection_type
                                                 );
 
                                                 let mut data = HashMap::new();
@@ -194,9 +238,32 @@ pub fn start_ebpf_dll_injection_watch() {
 
                                                 write_telemetry_record(data.clone());
                                                 push_to_gnn_vector_log(data.clone());
-                                                crate::gnn_hook::push_metadata_to_gnn_vector_log(data.clone());
+                                                push_metadata_to_gnn_vector_log(data.clone());
                                                 store_replay_event(data);
+
+                                                // Trust event
+                                                let trust_event = TrustEvent::new_full(
+                                                    now_ts(),
+                                                    pid as i32,
+                                                    ppid as i32,
+                                                    uid,
+                                                    binary_path,
+                                                    command_line,
+                                                    cwd,
+                                                    "dll_injection".into(),
+                                                    "memory::dll_injection".into(),
+                                                    "dll_injection_monitor".into(),
+                                                    Some("DLL injection detected".into()),
+                                                    Some("memory::inject".into()),
+                                                    Some(vec!["memory".into(), "dll_injection".into()]),
+                                                    Some(8.5),
+                                                );
+                                                submit_trust_event(trust_event);
                                             }
+                                        }
+
+                                        if events.lost > 0 {
+                                            eprintln!("⚠️ Lost {} dll-injection events", events.lost);
                                         }
                                     }
                                     Err(e) => {
@@ -212,19 +279,18 @@ pub fn start_ebpf_dll_injection_watch() {
                     }
                 }
             }
-        }).unwrap();
+        })
+        .unwrap();
 }
 
 pub fn scan_dll_injection_activity() -> Vec<TelemetryOutput> {
     DLL_INJECTION_ONCE.call_once(|| {
-        if !DLL_INJECTION_STARTED.load(Ordering::Relaxed) {
-            let _ = std::thread::spawn(|| {
-                let rt = Runtime::new().unwrap();
-                rt.block_on(async {
-                    start_ebpf_dll_injection_watch(); // non-async wrapper
-                    DLL_INJECTION_STARTED.store(true, Ordering::Relaxed);
-                    println!("✅ dll_injection_monitor launched.");
-                });
+        if !DLL_INJECTION_STARTED.load(Ordering::Acquire) {
+            let _ = thread::spawn(|| {
+                // Direct call—no Tokio runtime needed
+                start_ebpf_dll_injection_watch();
+                // The thread above will set DLL_INJECTION_STARTED once attach succeeds
+                println!("✅ dll_injection_monitor launch requested.");
             });
         }
     });
@@ -265,7 +331,6 @@ pub fn scan_dll_injection_activity() -> Vec<TelemetryOutput> {
         tags: Some(vec!["monitor_alive".into(), "ebpf_monitor_ready".into()]),
         description: Some("DLL Injection eBPF monitor is alive and sending heartbeat.".into()),
     };
-
     submit_trust_event(trust_event);
 
     let mut data: HashMap<String, String> = HashMap::new();

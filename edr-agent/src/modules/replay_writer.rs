@@ -1,46 +1,100 @@
-use std::fs::{OpenOptions, create_dir_all, File, metadata, rename};
-use std::io::{Write, BufWriter};
-use std::os::unix::io::AsRawFd;
+use std::fs::{OpenOptions, create_dir_all, metadata, rename};
+use std::io::Write;
 use std::path::Path;
+
 use chrono::Utc;
 use serde::Serialize;
-use anyhow::Result;
+
+use fs2::FileExt; // advisory file locks on *nix
+
+use sha2::{Sha256, Digest};
+
 use crate::services::ontology_mapper::SemanticTagInfo;
 use crate::utils::time::now_ts;
-use sha2::{Sha256, Digest};
-use fs2::FileExt;
 
+/// Where we keep the append-only replay chain (rotated at MAX_LOG_SIZE_BYTES).
 const REPLAY_LOG_PATH: &str = "/var/log/edr/replay_archive.jsonl";
+
+/// Per-session richer artifacts (human/debug).
 const REPLAY_DIR: &str = "/var/log/edr/replays";
+
+/// Small scratch queue for bursts or sidecar shipper.
 const TMP_QUEUE_PATH: &str = "/tmp/replay_queue.log";
+
+/// 10 MB per file before we rotate with a timestamp suffix.
 const MAX_LOG_SIZE_BYTES: u64 = 10 * 1024 * 1024; // 10 MB
 
-/// Store any serializable telemetry event for replay with hash chaining and locking.
-pub fn store_replay_event<T: Serialize>(event: T) -> Result<(), std::io::Error> {
-    create_dir_all(Path::new(REPLAY_LOG_PATH).parent().unwrap())?;
-    rotate_if_needed(REPLAY_LOG_PATH)?;
+/// Store any serializable telemetry event for replay with
+/// *exclusive locking*, *bounded rotation*, and *hash chaining*.
+///
+/// Chain format (one JSON line per record):
+/// {
+///   "timestamp": <secs>,
+///   "data": <event>,
+///   "previous_hash": "<prev>",
+///   "hash": "<sha256(timestamp|previous_hash|serialized_data)>"
+/// }
+pub fn store_replay_event<T: Serialize>(event: T) -> std::io::Result<()> {
+    // Ensure log parent exists
+    if let Some(parent) = Path::new(REPLAY_LOG_PATH).parent() {
+        create_dir_all(parent)?;
+    }
 
+    // Open + lock (advisory) the current log file
     let mut file = OpenOptions::new()
         .create(true)
         .append(true)
         .open(REPLAY_LOG_PATH)?;
 
-    file.lock_exclusive()?; // Lock the file
+    file.lock_exclusive()?;
+
+    // ------- Rotation under lock to avoid races -------
+    let size = file.metadata()?.len();
+    if size > MAX_LOG_SIZE_BYTES {
+        // Unlock before renaming the *open* file (some FS balk at renaming open handles)
+        file.unlock()?;
+        rotate_now(REPLAY_LOG_PATH)?;
+        // Reopen and re-lock fresh file
+        file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(REPLAY_LOG_PATH)?;
+        file.lock_exclusive()?;
+    }
+    // --------------------------------------------------
+
+    // Compute previous hash from the current file (safe—still locked)
     let previous_hash = compute_last_hash(REPLAY_LOG_PATH)?;
+
+    // Serialize the event cleanly
     let serialized = serde_json::to_string(&event)?;
+    let ts = now_ts();
+
+    // Hash covers timestamp + previous_hash + raw serialized data
+    let hash_input = format!("{}|{}|{}", ts, previous_hash, serialized);
+    let record_hash = compute_hash(&hash_input);
+
     let chained_payload = serde_json::json!({
-        "timestamp": now_ts(),
+        "timestamp": ts,
         "data": event,
         "previous_hash": previous_hash,
-        "hash": compute_hash(&serialized)
+        "hash": record_hash
     });
 
-    writeln!(file, "{}", serde_json::to_string(&chained_payload)?)?;
+    // Append atomically to the end (we hold the lock)
+    let line = serde_json::to_string(&chained_payload)?;
+    file.write_all(line.as_bytes())?;
+    file.write_all(b"\n")?;
+
+    // Ensure durability (journal/fs dependent; sync_all is stronger than flush)
+    file.sync_all()?;
+
+    // Release lock
     file.unlock()?;
     Ok(())
 }
 
-/// Write structured replay session file
+/// Write structured replay session file (human-readable / append-only).
 pub fn queue_replay(
     session_id: &str,
     process_id: u32,
@@ -49,7 +103,7 @@ pub fn queue_replay(
     enriched_tags: Vec<SemanticTagInfo>,
 ) {
     if let Err(e) = create_dir_all(REPLAY_DIR) {
-        eprintln!("❌ Failed to create replay log dir: {}", e);
+        eprintln!("❌ Failed to create replay dir '{}': {}", REPLAY_DIR, e);
         return;
     }
 
@@ -71,18 +125,22 @@ pub fn queue_replay(
     });
 
     match OpenOptions::new().create(true).append(true).open(&path) {
-        Ok(mut file) => {
-            if let Err(e) = writeln!(file, "{}", payload) {
+        Ok(mut f) => {
+            if let Err(e) = writeln!(f, "{}", payload) {
                 eprintln!("❌ Error writing replay payload: {}", e);
+            } else {
+                let _ = f.sync_all();
             }
         }
-        Err(e) => eprintln!("❌ Error opening replay file: {}", e),
-    };
+        Err(e) => eprintln!("❌ Error opening replay file '{}': {}", path, e),
+    }
 }
 
-/// Queues minimal replay log
-pub fn send_to_replay_queue(data: &str) -> Result<()> {
-    create_dir_all(Path::new(TMP_QUEUE_PATH).parent().unwrap())?;
+/// Queue a minimal replay log line to a temp file (for a sidecar shipper).
+pub fn send_to_replay_queue(data: &str) -> anyhow::Result<()> {
+    if let Some(parent) = Path::new(TMP_QUEUE_PATH).parent() {
+        create_dir_all(parent)?;
+    }
 
     let mut file = OpenOptions::new()
         .create(true)
@@ -91,41 +149,54 @@ pub fn send_to_replay_queue(data: &str) -> Result<()> {
 
     file.lock_exclusive()?;
     writeln!(file, "{}", data)?;
+    file.sync_all()?;
     file.unlock()?;
     Ok(())
 }
 
-/// Rotate the file if too large
+/// Rotate `path` by renaming to `<path>.<YYYYMMDDHHMMSS>`.
+fn rotate_now(path: &str) -> std::io::Result<()> {
+    let ts = Utc::now().format("%Y%m%d%H%M%S");
+    let backup = format!("{}.{}", path, ts);
+    rename(path, backup)?;
+    Ok(())
+}
+
+/// Legacy check: rotate by metadata length (kept for completeness).
+#[allow(dead_code)]
 fn rotate_if_needed(path: &str) -> std::io::Result<()> {
     if metadata(path).map(|m| m.len()).unwrap_or(0) > MAX_LOG_SIZE_BYTES {
-        let timestamp = Utc::now().format("%Y%m%d%H%M%S");
-        let backup = format!("{}.{}", path, timestamp);
-        rename(path, backup)?;
+        rotate_now(path)?;
     }
     Ok(())
 }
 
-/// Compute SHA256 hash of a string
+/// Compute SHA256 hex for an input string (lowercase).
 fn compute_hash(payload: &str) -> String {
     let mut hasher = Sha256::new();
     hasher.update(payload.as_bytes());
     format!("{:x}", hasher.finalize())
 }
 
-/// Get last hash from the replay file for chaining
+/// Fetch the most recent `hash` from the JSONL file, or "GENESIS".
+///
+/// Note: We keep this simple since files are rotated at 10MB.
+/// If you want to optimize further, implement a reverse reader to
+/// scan from the end instead of loading the whole file.
 fn compute_last_hash(path: &str) -> std::io::Result<String> {
-    if !Path::new(path).exists() {
+    let p = Path::new(path);
+    if !p.exists() {
         return Ok("GENESIS".into());
     }
 
-    let content = std::fs::read_to_string(path)?;
-    if let Some(last_line) = content.lines().last() {
-        if let Ok(json) = serde_json::from_str::<serde_json::Value>(last_line) {
-            if let Some(hash) = json.get("hash").and_then(|h| h.as_str()) {
-                return Ok(hash.to_string());
+    let content = std::fs::read_to_string(p)?;
+    if let Some(last_line) = content.lines().rev().find(|l| !l.trim().is_empty()) {
+        if let Ok(v) = serde_json::from_str::<serde_json::Value>(last_line) {
+            if let Some(h) = v.get("hash").and_then(|x| x.as_str()) {
+                return Ok(h.to_string());
             }
         }
     }
 
-    Ok("UNKNOWN".into())
+    Ok("GENESIS".into())
 }

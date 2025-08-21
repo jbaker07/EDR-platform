@@ -1,21 +1,20 @@
 use std::{
     collections::{HashMap, HashSet},
-    io::{BufRead, BufReader},
-    process::Command,
+    env,
+    path::PathBuf,
     sync::atomic::{AtomicBool, Ordering},
     thread,
     time::Duration,
-    
 };
 
 use lazy_static::lazy_static;
 use serde::Serialize;
-use std::env;
-use std::path::PathBuf;
+
 use crate::{
     gnn_hook::{push_to_gnn_vector_log, submit_to_gnn},
     logger::log,
-    modules::{geo_ip_anomaly, mfa_bypass, password_spray},
+    modules::{geo_ip_anomaly, mfa_bypass, password_spray}, // kept for compatibility if referenced elsewhere
+    modules::replay_writer::store_replay_event,
     telemetry::TelemetryRecord,
     telemetry_types::TelemetryOutput,
     telemetry_writer::write_telemetry_record,
@@ -23,7 +22,6 @@ use crate::{
     utils::time::now_ts,
 };
 use libc::{getpid, getppid, getuid};
-use crate::modules::replay_writer::store_replay_event;
 
 static AUTH_MONITOR_STARTED: AtomicBool = AtomicBool::new(false);
 
@@ -36,46 +34,105 @@ pub struct AuthAnomalyAlert {
 }
 
 lazy_static! {
+    // (user, success, ip, geo, ts)
     static ref LOGIN_LOGS: std::sync::Mutex<Vec<(String, bool, String, String, u64)>> =
         std::sync::Mutex::new(Vec::new());
+
+    // (user, alert_type) -> last_emit_ts (cooldown gate to avoid noisy repeats)
+    static ref ALERT_LAST_EMIT: std::sync::Mutex<HashMap<(String, String), u64>> =
+        std::sync::Mutex::new(HashMap::new());
 }
+
+// --------- Config helpers (env-tunable) ---------
+
+fn env_f32(key: &str, default: f32) -> f32 {
+    env::var(key)
+        .ok()
+        .and_then(|s| s.parse::<f32>().ok())
+        .unwrap_or(default)
+}
+
+fn env_u64(key: &str, default: u64) -> u64 {
+    env::var(key)
+        .ok()
+        .and_then(|s| s.parse::<u64>().ok())
+        .unwrap_or(default)
+}
+
+// Default weights & controls (can be overridden via env):
+// EDR_AUTH_W_SPRAY, EDR_AUTH_W_MFA, EDR_AUTH_W_GEO
+// EDR_AUTH_ALERT_COOLDOWN (seconds), EDR_AUTH_LOG_RETENTION (seconds)
+fn weights() -> (f32, f32, f32) {
+    (
+        env_f32("EDR_AUTH_W_SPRAY", 3.5),
+        env_f32("EDR_AUTH_W_MFA", 2.5),
+        env_f32("EDR_AUTH_W_GEO", 3.0),
+    )
+}
+
+fn cooldown_secs() -> u64 {
+    env_u64("EDR_AUTH_ALERT_COOLDOWN", 600) // 10m default
+}
+
+fn log_retention_secs() -> u64 {
+    env_u64("EDR_AUTH_LOG_RETENTION", 6 * 3600) // 6h default
+}
+
+// --------- Public API ---------
 
 pub fn log_auth_attempt(user: &str, success: bool, ip: &str, geo: &str) {
     let mut logs = LOGIN_LOGS.lock().unwrap();
     logs.push((user.to_string(), success, ip.to_string(), geo.to_string(), now_ts()));
 
+    // Trim by size
     if logs.len() > 10_000 {
         let len = logs.len();
-        logs.drain(0..len.saturating_sub(5000));
+        logs.drain(0..len.saturating_sub(5_000));
     }
 }
 
 pub fn start_auth_monitor() {
+    // Idempotent: ensure we only spawn once regardless of call site
+    if AUTH_MONITOR_STARTED.swap(true, Ordering::SeqCst) {
+        return;
+    }
+
     thread::spawn(|| loop {
+        // Periodic pruning (time-based)
+        prune_old_login_logs();
+
+        let (w_spray, w_mfa, w_geo) = weights();
         let mut risk_score = 0.0f32;
         let mut alerts = Vec::new();
 
         if let Some(alert) = check_password_spray() {
-            println!("[Password Spray] {:?}", alert);
-            risk_score += 3.5;
-            alerts.push(alert);
+            if should_emit(&alert.user, &alert.alert_type, alert.timestamp) {
+                println!("[Password Spray] {:?}", alert);
+                risk_score += w_spray;
+                alerts.push(alert);
+            }
         }
 
         if let Some(alert) = check_mfa_bypass() {
-            println!("[MFA Bypass] {:?}", alert);
-            risk_score += 2.5;
-            alerts.push(alert);
+            if should_emit(&alert.user, &alert.alert_type, alert.timestamp) {
+                println!("[MFA Bypass] {:?}", alert);
+                risk_score += w_mfa;
+                alerts.push(alert);
+            }
         }
 
         if let Some(alert) = check_geo_ip_anomaly() {
-            println!("[Geo/IP Anomaly] {:?}", alert);
-            risk_score += 3.0;
-            alerts.push(alert);
+            if should_emit(&alert.user, &alert.alert_type, alert.timestamp) {
+                println!("[Geo/IP Anomaly] {:?}", alert);
+                risk_score += w_geo;
+                alerts.push(alert);
+            }
         }
 
         for alert in alerts {
             let timestamp = alert.timestamp;
             let confidence = (risk_score / 10.0f32).min(1.0f32);
+
             let mut data = HashMap::new();
             data.insert("timestamp".into(), timestamp.to_string());
             data.insert("user".into(), alert.user.clone());
@@ -95,11 +152,13 @@ pub fn start_auth_monitor() {
                 data: data.clone(),
             };
 
+            // sinks
             write_telemetry_record(data.clone());
             push_to_gnn_vector_log(data.clone());
             crate::gnn_hook::push_metadata_to_gnn_vector_log(data.clone());
             store_replay_event(data.clone());
 
+            // trust event
             let trust_event = TrustEvent {
                 timestamp,
                 pid: -1,
@@ -122,9 +181,9 @@ pub fn start_auth_monitor() {
                 tags: Some(vec![alert.alert_type.clone(), "auth".into()]),
                 description: Some(alert.details.clone()),
             };
-
             submit_trust_event(trust_event);
 
+            // telemetry record (for submit_to_gnn)
             let record = TelemetryRecord {
                 timestamp,
                 pid: -1,
@@ -137,21 +196,25 @@ pub fn start_auth_monitor() {
                 tags: vec![alert.alert_type.clone()],
                 risk_score: Some((risk_score * 10.0) as u32),
             };
-
             submit_to_gnn(&record);
+
+            // mark cooldown for (user, alert_type)
+            note_emitted(&alert.user, &alert.alert_type, timestamp);
         }
 
         thread::sleep(Duration::from_secs(60));
     });
 }
 
+// --------- Heuristics ---------
+
 pub fn check_password_spray() -> Option<AuthAnomalyAlert> {
     let logs = LOGIN_LOGS.lock().unwrap();
     let now = now_ts();
-    let mut failure_map = HashMap::new();
+    let mut failure_map: HashMap<String, u32> = HashMap::new();
 
-    for (user, success, _, _, ts) in logs.iter() {
-        if !success && now - *ts < 600 {
+    for (user, success, _ip, _geo, ts) in logs.iter() {
+        if !success && now.saturating_sub(*ts) < 600 {
             *failure_map.entry(user.clone()).or_insert(0) += 1;
         }
     }
@@ -166,7 +229,6 @@ pub fn check_password_spray() -> Option<AuthAnomalyAlert> {
             });
         }
     }
-
     None
 }
 
@@ -174,8 +236,8 @@ pub fn check_mfa_bypass() -> Option<AuthAnomalyAlert> {
     let logs = LOGIN_LOGS.lock().unwrap();
     let now = now_ts();
 
-    for (user, success, _, geo, ts) in logs.iter() {
-        if *success && geo == "unknown" && now - *ts < 300 {
+    for (user, success, _ip, geo, ts) in logs.iter() {
+        if *success && geo.eq_ignore_ascii_case("unknown") && now.saturating_sub(*ts) < 300 {
             return Some(AuthAnomalyAlert {
                 timestamp: now,
                 user: user.clone(),
@@ -184,7 +246,6 @@ pub fn check_mfa_bypass() -> Option<AuthAnomalyAlert> {
             });
         }
     }
-
     None
 }
 
@@ -193,8 +254,8 @@ pub fn check_geo_ip_anomaly() -> Option<AuthAnomalyAlert> {
     let now = now_ts();
     let mut geo_map: HashMap<String, Vec<String>> = HashMap::new();
 
-    for (user, success, _, geo, ts) in logs.iter() {
-        if *success && now - *ts < 3600 {
+    for (user, success, _ip, geo, ts) in logs.iter() {
+        if *success && now.saturating_sub(*ts) < 3600 {
             geo_map.entry(user.clone()).or_default().push(geo.clone());
         }
     }
@@ -210,13 +271,14 @@ pub fn check_geo_ip_anomaly() -> Option<AuthAnomalyAlert> {
             });
         }
     }
-
     None
 }
 
+// --------- Passive scan bridge ---------
+
 pub fn scan_auth_activity() -> Vec<TelemetryOutput> {
-    if !AUTH_MONITOR_STARTED.swap(true, Ordering::SeqCst) {
-        start_auth_monitor();
+    if !AUTH_MONITOR_STARTED.load(Ordering::SeqCst) {
+        start_auth_monitor(); // safe, idempotent
     }
 
     let timestamp = now_ts();
@@ -224,12 +286,12 @@ pub fn scan_auth_activity() -> Vec<TelemetryOutput> {
     let pid = unsafe { getpid() } as i32;
     let ppid = unsafe { getppid() } as i32;
     let uid = unsafe { getuid() } as u32;
-    let cwd = env::current_dir()
+    let cwd = std::env::current_dir()
         .unwrap_or_else(|_| PathBuf::from("/"))
         .display()
         .to_string();
 
-    let binary_path = "/usr/bin/journalctl"; // Update this if your monitor uses something else
+    let binary_path = "/usr/bin/journalctl"; // keep existing value
 
     let trust_event = TrustEvent {
         timestamp,
@@ -274,4 +336,32 @@ pub fn scan_auth_activity() -> Vec<TelemetryOutput> {
         confidence: 0.0,
         data,
     }]
+}
+
+// --------- Internals ---------
+
+fn prune_old_login_logs() {
+    let cutoff = now_ts().saturating_sub(log_retention_secs());
+    let mut logs = LOGIN_LOGS.lock().unwrap();
+    if logs.is_empty() {
+        return;
+    }
+    logs.retain(|(_u, _s, _ip, _g, ts)| *ts >= cutoff);
+    // size guard remains in log_auth_attempt()
+}
+
+fn should_emit(user: &str, alert_type: &str, now: u64) -> bool {
+    let mut map = ALERT_LAST_EMIT.lock().unwrap();
+    let k = (user.to_string(), alert_type.to_string());
+    let last = map.get(&k).copied().unwrap_or(0);
+    if now.saturating_sub(last) >= cooldown_secs() {
+        true
+    } else {
+        false
+    }
+}
+
+fn note_emitted(user: &str, alert_type: &str, now: u64) {
+    let mut map = ALERT_LAST_EMIT.lock().unwrap();
+    map.insert((user.to_string(), alert_type.to_string()), now);
 }
