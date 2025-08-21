@@ -1,18 +1,18 @@
-// syscall_tracer.bpf.c  — CO-RE tracepoint hooks for high-signal syscalls.
+// syscall_tracer.bpf.c — CO-RE tracepoint hooks for high-signal syscalls.
 // Emits compact ringbuf events: { pid, syscall_id }.
 //
-// Build note: compile with clang -target bpf (CO-RE), link with libbpf.
-// The userspace reader should open map "events" (ringbuf) and read SysEvt {u32 pid, u32 syscall_id}.
+// Build: clang -O2 -g -target bpf -D__TARGET_ARCH_arm64 \
+//        -I/usr/include/bpf -I. -I.. -I../include -I../../include \
+//        -c syscall_tracer.bpf.c -o syscall_tracer.bpf.o
 
 #include "vmlinux.h"
-#include "bpf_helpers.h"
-#include "bpf_tracing.h"
-#include "bpf_core_read.h"
+#include <bpf/bpf_helpers.h>
+#include <bpf/bpf_tracing.h>
+#include <bpf/bpf_core_read.h>
 
 char LICENSE[] SEC("license") = "Dual BSD/GPL";
 
 // ----- Ring buffer payload -----
-
 struct syscall_event {
     __u32 pid;
     __u32 syscall_id; // ctx->id as seen by the kernel (arch-specific)
@@ -30,22 +30,18 @@ static __always_inline void emit_from_ctx(struct trace_event_raw_sys_enter *ctx)
     if (!e)
         return;
 
-    // ctx->id is the syscall number for this tracepoint instance
     __u64 tgid_pid = bpf_get_current_pid_tgid();
     e->pid = (__u32)(tgid_pid >> 32);
-    // Use CORE_READ in case layout shifts (CO-RE)
     e->syscall_id = (__u32)BPF_CORE_READ(ctx, id);
 
     bpf_ringbuf_submit(e, 0);
 }
 
-// Macro to define a handler for a specific sys_enter tracepoint.
-// We intentionally DO NOT rely on __NR_* compile-time macros —
-// the kernel tells us the id via ctx->id and we forward it.
+// Define handlers for specific sys_enter tracepoints.
+// NOTE: Do NOT use BPF_PROG() here; it injects its own "ctx" and conflicts.
 #define TP_ENTER_SYSCALL(sysname)                                              \
 SEC("tracepoint/syscalls/sys_enter_" #sysname)                                 \
-int BPF_PROG(tp_enter_##sysname, struct trace_event_raw_sys_enter *ctx)        \
-{                                                                              \
+int tp_enter_##sysname(struct trace_event_raw_sys_enter *ctx) {                \
     emit_from_ctx(ctx);                                                        \
     return 0;                                                                  \
 }

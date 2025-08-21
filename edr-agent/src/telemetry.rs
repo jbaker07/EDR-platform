@@ -148,6 +148,7 @@ fn deduplicate_outputs(outputs: Vec<TelemetryOutput>) -> Vec<TelemetryOutput> {
 // ======================= Realtime Monitors =======================
 
 pub fn start_realtime_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
+    // --- existing user-space monitors (unchanged) ---
     start_file_hash_monitor(writer.clone());
     start_usb_monitor();
     start_script_monitor();
@@ -163,49 +164,64 @@ pub fn start_realtime_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
     start_ebpf_file_tamper_watch();
     start_ebpf_dll_injection_watch();
     start_ebpf_container_exec_monitor();
-    crate::ebpf::syscall_reader::start_syscall_reader(writer.clone());
-    crate::ebpf::net_flow_reader::start_net_flow_reader(writer.clone());
-    crate::ebpf::wx_exec_reader::start_wx_exec_reader(writer.clone());
 
-
-        #[cfg(target_os = "linux")]
-{
-    // 0) Start the episode pipeline so readers can push immediately.
-    crate::ingest::start_ingest_pipeline();
-
-    // 1) Syscall backbone (exec/fork/mmap/mprotect/setuid/capset/connect)
-    tokio::spawn(async {
-        crate::ebpf::syscall_reader::spawn_syscall_reader().await;
-    });
-
-    // 2) Network connect destination capture (IPv4)
-    tokio::spawn(async {
-        crate::ebpf::net_flow_reader::spawn_net_flow_reader().await;
-    });
-
-    // 3) W→X transition detector
-    tokio::spawn(async {
-        crate::ebpf::wx_exec_reader::spawn_wx_exec_reader().await;
-    });
-
-    // ... your existing user-space monitors continue unchanged ...
-}
-
-    #[cfg(target_os = "linux")]
-{
-    // 1) Episodes/feature/graph pipeline must exist before readers push.
-    crate::ingest::start_ingest_pipeline();
-
-    // 2) Start the syscall reader
-    tokio::spawn(async {
-        crate::ebpf::syscall_reader::spawn_syscall_reader().await;
-    });
-
-    // ...the rest of your monitors (net, usb, script, etc)...
-}
-
+    // NOTE: The three direct reader starts were previously unconditional.
+    // Move them under Linux gating to avoid non-Linux build issues and duplication.
     #[cfg(target_os = "linux")]
     {
+        // 0) Bring up the ingest pipeline ONCE before any readers publish.
+        crate::ingest::start_ingest_pipeline();
+
+        // 1) Existing readers that use the TelemetryWriter path
+        //    (retain your current behavior)
+        crate::ebpf::syscall_reader::start_syscall_reader(writer.clone());
+        crate::ebpf::net_flow_reader::start_net_flow_reader(writer.clone());
+        crate::ebpf::wx_exec_reader::start_wx_exec_reader(writer.clone());
+
+        // 2) New CO-RE readers that fan-in via ingest → normalization → Episodes.
+        //    Each is wrapped in its own task; errors are logged but non-fatal.
+        let _ = tokio::spawn(async {
+            if let Err(e) = crate::ebpf::raw_syscalls_reader::spawn().await {
+                eprintln!("raw_syscalls_reader failed: {e:?}");
+            } else {
+                println!("✅ raw_syscalls_reader attached");
+            }
+        });
+
+        let _ = tokio::spawn(async {
+            if let Err(e) = crate::ebpf::proc_lifecycle_reader::spawn().await {
+                eprintln!("proc_lifecycle_reader failed: {e:?}");
+            } else {
+                println!("✅ proc_lifecycle_reader attached");
+            }
+        });
+
+        let _ = tokio::spawn(async {
+            if let Err(e) = crate::ebpf::tcp_state_reader::spawn().await {
+                eprintln!("tcp_state_reader failed: {e:?}");
+            } else {
+                println!("✅ tcp_state_reader attached");
+            }
+        });
+
+        let _ = tokio::spawn(async {
+            if let Err(e) = crate::ebpf::syscall_tracer_reader::spawn().await {
+                eprintln!("syscall_tracer_reader failed: {e:?}");
+            } else {
+                println!("✅ syscall_tracer_reader attached");
+            }
+        });
+
+        // Optional reader for container exec (if you have the .bpf.o & reader)
+        let _ = tokio::spawn(async {
+            if let Err(e) = crate::ebpf::container_exec_reader::spawn_container_exec_reader().await {
+                eprintln!("container_exec_reader failed: {e:?}");
+            } else {
+                println!("✅ container_exec_reader attached");
+            }
+        });
+
+        // 3) Other Linux-only monitors you already had
         let _ = tokio::spawn(async { let _ = start_ebpf_mem_scan().await; });
         let _ = tokio::spawn(async { let _ = start_ebpf_proc_hollow_scan().await; });
         let _ = tokio::spawn(async { let _ = start_privilege_monitor().await; });
@@ -213,6 +229,8 @@ pub fn start_realtime_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
         spawn_cred_dump_monitor();
         start_ipc_abuse_monitor();
         start_ebpf_ipc_abuse_watch();
+        // If you also use: start_ebpf_kernel_fallout_watch();
+        let _ = start_ebpf_kernel_fallout_watch();
     }
 }
 
@@ -334,6 +352,7 @@ pub fn push_feature_as_signal(f: &crate::features::FeatureObservation) {
     write_telemetry_record(mapped.clone());
     push_to_gnn_vector_log(mapped);
 }
+
 // in telemetry.rs
 pub fn push_edr_event_record(rec: TelemetryRecord, writer: &Arc<Mutex<TelemetryWriter>>, out: &crate::telemetry_types::TelemetryOutput) {
     // persist + gnn logging (keeps your current behavior)
@@ -370,3 +389,4 @@ pub fn log_user_sessions() {
         push_to_gnn_vector_log(mapped);
     }
 }
+

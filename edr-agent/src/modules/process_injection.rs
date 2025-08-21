@@ -3,25 +3,27 @@ use aya::programs::TracePoint;
 use aya::{include_bytes_aligned, Bpf};
 use aya::util::online_cpus;
 use bytes::BytesMut;
+use lazy_static::lazy_static;
 use std::collections::HashMap;
-use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
+use std::fs;
+use std::sync::{
+    atomic::{AtomicBool, Ordering},
+    Arc,
+};
 use std::{thread, time::Duration};
 use tokio::{task, time};
 use tokio::sync::Mutex;
 use anyhow::{Result, anyhow};
-use std::fs;
+
 use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
 use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
-use crate::trust_hook::{generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent};
+use crate::trust_hook::{generate_feature_vector, submit_trust_event, TrustEvent};
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::utils::time::now_ts;
-use lazy_static::lazy_static;
 use crate::modules::replay_writer::store_replay_event;
-use sysinfo::Process;
-use sysinfo::{Pid, System, SystemExt, ProcessExt, Uid};
-use sysinfo::PidExt;
-use num_traits::cast::AsPrimitive;
-use crate::modules::privilege_monitor::all_processes;
+
+use sysinfo::{Pid, PidExt, ProcessExt, System, SystemExt};
+
 lazy_static! {
     static ref INJECTION_FOUND: AtomicBool = AtomicBool::new(false);
 }
@@ -35,7 +37,7 @@ pub struct InjectionEvent {
     pub summary: [u8; 256],
 }
 
-
+#[cfg(target_os = "linux")]
 pub async fn start_process_injection_monitor() -> Result<()> {
     let mut bpf = Bpf::load(include_bytes_aligned!(
         "../ebpf/process_injection.bpf.o"
@@ -64,13 +66,14 @@ pub async fn start_process_injection_monitor() -> Result<()> {
                     loop {
                         match buf.read_events(&mut buffers).await {
                             Ok(events) => {
-                                for buf in &mut buffers[..events.read] {
-                                    if !buf.is_empty() {
-                                        if let Some(evt) = parse_injection_event(buf) {
+                                for b in &mut buffers[..events.read] {
+                                    if !b.is_empty() {
+                                        if let Some(evt) = parse_injection_event(&b[..]) {
                                             handle_injection_event(evt).await;
                                         }
                                     }
-                                    buf.clear(); // Important: clear buffer between reads
+                                    // Important: clear buffer between reads
+                                    b.clear();
                                 }
                             }
                             Err(e) => {
@@ -96,11 +99,11 @@ pub async fn start_process_injection_monitor() -> Result<()> {
     Ok(())
 }
 
-
 pub async fn handle_injection_event(evt: InjectionEvent) {
+    INJECTION_FOUND.store(true, Ordering::SeqCst);
+
     let ts = now_ts();
-    let risk_score = 88.0;
-    let confidence = 0.88;
+    let risk_score = 88.0_f32;
 
     // Convert summary from [u8; 256] to String
     let summary = String::from_utf8_lossy(&evt.summary)
@@ -116,9 +119,14 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
 
     let mut sys = System::new_all();
     sys.refresh_processes();
+
     if let Some(proc) = sys.process(Pid::from(evt.pid as usize)) {
         ppid = proc.parent().map(|p| p.as_u32() as i32).unwrap_or(0);
-        uid = proc.user_id().map(|u| u.to_string().parse::<u32>().unwrap_or(0)).unwrap_or(0);
+        // sysinfo's user_id returns Option<UserId/Uid>; convert robustly
+        uid = proc
+            .user_id()
+            .map(|u| u.to_string().parse::<u32>().unwrap_or(0))
+            .unwrap_or(0);
         binary_path = proc.exe().display().to_string();
         let cmd_vec = proc.cmd();
         if !cmd_vec.is_empty() {
@@ -127,6 +135,8 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
         cwd = proc.cwd().display().to_string();
     }
 
+    // Optional feature vector for downstream models
+    let features = generate_feature_vector(0.6_f64, 120_000_u64, risk_score as f64);
 
     let mut metadata = HashMap::new();
     metadata.insert("pid".into(), evt.pid.to_string());
@@ -137,18 +147,20 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
     metadata.insert("cwd".into(), cwd.clone());
     metadata.insert("summary".into(), summary.clone());
     metadata.insert("timestamp".into(), ts.to_string());
+    metadata.insert("features".into(), format!("{:?}", features));
     metadata.insert("replay_tag".into(), "process_injection".into());
     metadata.insert("soc_note".into(), "Process injection via ptrace syscall".into());
     metadata.insert("gnn_escalate".into(), "true".into());
 
+    // Trust Event
     let trust_event = TrustEvent {
         timestamp: ts,
         pid: evt.pid,
         ppid,
         uid,
-        binary_path,
-        command_line,
-        cwd,
+        binary_path: binary_path.clone(),
+        command_line: command_line.clone(),
+        cwd: cwd.clone(),
         anomaly_type: "process_injection".into(),
         component: "injection_monitor".into(),
         metadata: metadata.clone(),
@@ -165,18 +177,41 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
             "memory_forensics".into(),
             "ebpf".into(),
         ]),
-        description: Some(summary),
+        description: Some(summary.clone()),
     };
 
     submit_trust_event(trust_event);
+
+    // Telemetry + GNN + Replay
     write_telemetry_record(metadata.clone());
-    push_to_gnn_vector_log(metadata.clone());
+
+    let mut gnn_data = metadata.clone();
+    gnn_data.insert("category".into(), "memory".into());
+    gnn_data.insert("signal".into(), "ptrace_injection".into());
+    gnn_data.insert("confidence".into(), "0.88".into());
+    push_to_gnn_vector_log(gnn_data.clone());
+    store_replay_event(gnn_data);
+
+    // Memory anomaly (closest existing enum)
+    let _ = push_memory_telemetry(
+        evt.pid,
+        ppid,
+        uid,
+        binary_path,
+        command_line,
+        cwd,
+        MemoryAnomalyType::ProcHollowing,
+        format!("ptrace-based injection suspicion: {}", summary),
+    )
+    .map_err(|e| eprintln!("⚠️ mem telemetry error (injection): {:?}", e));
 
     println!(
-        "[⚠️ InjectionMonitor] Process injection attempt detected on PID {} → Trust Drop: {:.1}",
+        "[⚠️ InjectionMonitor] Process injection attempt detected on PID {} → Risk {:.1}",
         evt.pid, risk_score
     );
-}pub fn scan_injection_fallback() -> Vec<TelemetryOutput> {
+}
+
+pub fn scan_injection_fallback() -> Vec<TelemetryOutput> {
     use std::path::PathBuf;
 
     if INJECTION_FOUND.load(Ordering::SeqCst) {
@@ -201,7 +236,7 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
                 let maps_path = format!("/proc/{}/maps", pid_num);
                 if let Ok(contents) = fs::read_to_string(&maps_path) {
                     for line in contents.lines() {
-                        if line.contains("rwx") || (line.contains("x") && !line.contains("/")) {
+                        if line.contains("rwx") || (line.contains('x') && !line.contains('/')) {
                             suspicious_found = true;
                             pid = pid_num;
 
@@ -296,6 +331,7 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
     submit_trust_event(trust_event);
     write_telemetry_record(data.clone());
     push_to_gnn_vector_log(data.clone());
+    store_replay_event(data.clone());
 
     vec![TelemetryOutput {
         category: "memory".into(),
@@ -304,7 +340,6 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
         data,
     }]
 }
-
 
 #[cfg(target_os = "linux")]
 fn parse_injection_event(buf: &[u8]) -> Option<InjectionEvent> {

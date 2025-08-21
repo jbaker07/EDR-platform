@@ -3,42 +3,57 @@ use aya::programs::TracePoint;
 use aya::{include_bytes_aligned, Bpf};
 use aya::util::online_cpus;
 use bytes::BytesMut;
+use lazy_static::lazy_static;
 use std::collections::HashMap;
-use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
-use std::{thread, time::Duration};
+use std::fs;
+use std::sync::{
+    atomic::{AtomicBool, Ordering},
+    Arc,
+};
+use std::{
+    thread,
+    time::{Duration, Instant},
+};
 use tokio::{task, time};
 use tokio::sync::Mutex;
-use anyhow::{Result, anyhow};
-use crate::logger::log;
-use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
-use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
-use crate::trust_hook::{generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent};
+
+use anyhow::{anyhow, Result};
+use sysinfo::{PidExt, ProcessExt, System, SystemExt};
+
 use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::utils::time::now_ts;
-use lazy_static::lazy_static;
-use bincode::{Decode, Encode};
-use bincode::{config::standard, decode_from_slice};
-use serde::Deserialize;
-use std::fs;
-use sysinfo::Process;
-use sysinfo::{System, SystemExt, ProcessExt, PidExt};
-use crate::services::trust_kernel::{check_frequent_escalation, is_known_legit_escalator};
+use crate::logger::log;
 use crate::services::baseline_uid::get_baseline_uid;
-// or use crate::modules::baseline_uid::get_baseline_uid; if you renamed it
+use crate::services::trust_kernel::{check_frequent_escalation, is_known_legit_escalator};
+use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
+use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
+use crate::trust_hook::{
+    generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
+};
+use crate::utils::time::now_ts;
 
 lazy_static! {
     static ref PRIV_ESCALATION_FOUND: AtomicBool = AtomicBool::new(false);
 }
 
-
-#[repr(C)]
-#[derive(Debug, Clone, Encode, Decode)]
+/// Userland event used after parsing the raw kernel struct.
+#[derive(Debug, Clone)]
 pub struct PrivilegeEvent {
     pub pid: i32,
     pub ppid: i32,
     pub uid: i32,
     pub path: String,
     pub reason: String,
+}
+
+#[cfg(target_os = "linux")]
+#[repr(C)]
+#[derive(Clone, Copy, Debug)]
+pub struct PrivilegeEventRaw {
+    pub pid: i32,
+    pub ppid: i32,
+    pub uid: i32,
+    pub path: [u8; 256],
+    pub reason: [u8; 128],
 }
 
 /// Custom kernel event structure
@@ -51,13 +66,12 @@ pub struct CredDumpEvent {
     pub summary: [u8; 256], // Fixed-size summary buffer
 }
 
-/// Main eBPF privilege monitor
-
+/// Utilities
 
 pub fn get_cmdline(pid: i32) -> Option<String> {
     fs::read_to_string(format!("/proc/{}/cmdline", pid))
         .ok()
-        .and_then(|s| Some(s.replace('\0', " ").trim().to_string()))
+        .map(|s| s.replace('\0', " ").trim().to_string())
 }
 
 pub fn get_cwd(pid: i32) -> Option<String> {
@@ -78,16 +92,18 @@ pub fn all_processes() -> std::io::Result<Vec<i32>> {
         }
     }
     Ok(result)
-
 }
 
+#[cfg(target_os = "linux")]
+const DEDUP_TTL: Duration = Duration::from_secs(30);
+
+/// Main eBPF privilege monitor (Linux)
+#[cfg(target_os = "linux")]
 pub async fn start_privilege_monitor() -> Result<()> {
-    use std::collections::HashSet;
+    use std::collections::HashMap as StdHashMap;
     use tokio::sync::Mutex as TokioMutex;
 
-    let mut bpf = Bpf::load(include_bytes_aligned!(
-        "../ebpf/privilege_monitor_ebpf.o"
-    ))?;
+    let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/privilege_monitor_ebpf.o"))?;
 
     let tracepoints = ["trace_setuid", "trace_setresuid", "trace_execve"];
     for prog_name in &tracepoints {
@@ -96,19 +112,24 @@ pub async fn start_privilege_monitor() -> Result<()> {
             .ok_or(anyhow!("Program not found: {}", prog_name))?
             .try_into()?;
         program.load()?;
-        program.attach("syscalls", match *prog_name {
-            "trace_setuid" => "sys_enter_setuid",
-            "trace_setresuid" => "sys_enter_setresuid",
-            "trace_execve" => "sys_enter_execve",
-            _ => continue,
-        })?;
+        program.attach(
+            "syscalls",
+            match *prog_name {
+                "trace_setuid" => "sys_enter_setuid",
+                "trace_setresuid" => "sys_enter_setresuid",
+                "trace_execve" => "sys_enter_execve",
+                _ => continue,
+            },
+        )?;
     }
 
     let perf = Arc::new(Mutex::new(AsyncPerfEventArray::try_from(
         bpf.map_mut("EVENTS")?,
     )?));
 
-    let recent_seen: Arc<TokioMutex<HashSet<(i32, i32)>>> = Arc::new(TokioMutex::new(HashSet::new()));
+    // TTL-based de-dup map
+    let recent_seen: Arc<TokioMutex<StdHashMap<(i32, i32), Instant>>> =
+        Arc::new(TokioMutex::new(StdHashMap::new()));
 
     for cpu_id in online_cpus()? {
         let perf_clone = Arc::clone(&perf);
@@ -121,92 +142,118 @@ pub async fn start_privilege_monitor() -> Result<()> {
                 Ok(mut buf) => loop {
                     match buf.read_events(&mut buffers).await {
                         Ok(events) => {
-                            for buf in &buffers[..events.read] {
-                                if !buf.is_empty() {
-                                    if let Some(event) = handle_privilege_event(buf).await {
-                                        let key = (event.pid, event.uid);
-
-                                        // Duplicate suppression
-                                        {
-                                            let mut seen = seen_clone.lock().await;
-                                            if seen.contains(&key) {
-                                                continue;
-                                            }
-                                            seen.insert(key);
-                                        }
-
-                                        // Baseline UID gating
-                                        if !should_trigger_uid_shift(event.uid, &event.path) {
-                                            log("[⚠️ PrivilegeMonitor] UID shift is baseline-approved, skipping.");
-                                            continue;
-                                        }
-
-                                        // Escalation suppression if recently handled
-                                        if has_recent_escalation(event.pid) {
-                                            log("[⚠️ PrivilegeMonitor] Recent escalation already handled, skipping.");
-                                            continue;
-                                        }
-
-                                        let timestamp = now_ts();
-                                        let cmdline = get_cmdline(event.pid).unwrap_or_else(|| "n/a".into());
-                                        let cwd = get_cwd(event.pid).unwrap_or_else(|| "n/a".into());
-
-                                        record_privilege_escalation(event.pid, event.uid, &event.path, &event.reason);
-
-                                        let mut metadata = HashMap::new();
-                                        metadata.insert("binary_path".into(), event.path.clone());
-                                        metadata.insert("reason".into(), event.reason.clone());
-                                        metadata.insert("pid".into(), event.pid.to_string());
-                                        metadata.insert("ppid".into(), event.ppid.to_string());
-                                        metadata.insert("uid".into(), event.uid.to_string());
-                                        metadata.insert("timestamp".into(), timestamp.to_string());
-                                        metadata.insert("soc_note".into(), "Detected potential privilege misuse".into());
-                                        metadata.insert("replay_tag".into(), "privilege_escalation".into());
-                                        metadata.insert("gnn_escalate".into(), "true".into());
-
-                                        let trust = TrustEvent {
-                                            timestamp,
-                                            pid: event.pid,
-                                            ppid: event.ppid,
-                                            uid: event.uid as u32,
-                                            binary_path: event.path.clone(),
-                                            command_line: cmdline,
-                                            cwd,
-                                            anomaly_type: "privilege_escalation".into(),
-                                            component: "privilege::ebpf".into(),
-                                            metadata: metadata.clone(),
-                                            risk_score: 85.0,
-                                            source_module: "privilege_monitor".into(),
-                                            decay_context: Some("privilege_behavior".into()),
-                                            module: Some("privilege".into()),
-                                            signal: Some("setuid_abuse".into()),
-                                            signal_type: Some("ebpf_syscall".into()),
-                                            score: Some(85.0),
-                                            raw_score: Some(85.0),
-                                            tags: Some(vec![
-                                                "privilege_escalation".into(),
-                                                "ebpf".into(),
-                                                "setuid".into()
-                                            ]),
-                                            description: Some(format!("Potential privilege misuse: {}", event.reason)),
-                                        };
-
-                                        submit_trust_event(trust);
-                                        push_to_gnn_vector_log(metadata.clone());
-                                        write_telemetry_record(metadata);
-                                        log("[🔐 PrivilegeMonitor] Event processed via eBPF");
-                                    }
+                            for b in &mut buffers[..events.read] {
+                                if b.is_empty() {
+                                    continue;
                                 }
+
+                                if let Some(event) = parse_privilege_event(b).await {
+                                    // TTL de-dup
+                                    {
+                                        let mut seen = seen_clone.lock().await;
+                                        let now = Instant::now();
+                                        seen.retain(|_, t| now.duration_since(*t) < DEDUP_TTL);
+                                        let key = (event.pid, event.uid);
+                                        if seen.contains_key(&key) {
+                                            b.clear();
+                                            continue;
+                                        }
+                                        seen.insert(key, now);
+                                    }
+
+                                    // Baseline UID gating
+                                    if !should_trigger_uid_shift(event.uid, &event.path) {
+                                        log("[⚠️ PrivilegeMonitor] UID shift is baseline-approved, skipping.");
+                                        b.clear();
+                                        continue;
+                                    }
+
+                                    // Escalation suppression if recently handled
+                                    if has_recent_escalation(event.pid) {
+                                        log("[⚠️ PrivilegeMonitor] Recent escalation already handled, skipping.");
+                                        b.clear();
+                                        continue;
+                                    }
+
+                                    let timestamp = now_ts();
+                                    let cmdline = get_cmdline(event.pid).unwrap_or_else(|| "n/a".into());
+                                    let cwd = get_cwd(event.pid).unwrap_or_else(|| "n/a".into());
+
+                                    record_privilege_escalation(
+                                        event.pid,
+                                        event.uid,
+                                        &event.path,
+                                        &event.reason,
+                                    );
+
+                                    let mut metadata = HashMap::new();
+                                    metadata.insert("binary_path".into(), event.path.clone());
+                                    metadata.insert("reason".into(), event.reason.clone());
+                                    metadata.insert("pid".into(), event.pid.to_string());
+                                    metadata.insert("ppid".into(), event.ppid.to_string());
+                                    metadata.insert("uid".into(), event.uid.to_string());
+                                    metadata.insert("timestamp".into(), timestamp.to_string());
+                                    metadata.insert(
+                                        "soc_note".into(),
+                                        "Detected potential privilege misuse".into(),
+                                    );
+                                    metadata.insert("replay_tag".into(), "privilege_escalation".into());
+                                    metadata.insert("gnn_escalate".into(), "true".into());
+
+                                    let trust = TrustEvent {
+                                        timestamp,
+                                        pid: event.pid,
+                                        ppid: event.ppid,
+                                        uid: event.uid as u32,
+                                        binary_path: event.path.clone(),
+                                        command_line: cmdline,
+                                        cwd,
+                                        anomaly_type: "privilege_escalation".into(),
+                                        component: "privilege::ebpf".into(),
+                                        metadata: metadata.clone(),
+                                        risk_score: 85.0,
+                                        source_module: "privilege_monitor".into(),
+                                        decay_context: Some("privilege_behavior".into()),
+                                        module: Some("privilege".into()),
+                                        signal: Some("setuid_abuse".into()),
+                                        signal_type: Some("ebpf_syscall".into()),
+                                        score: Some(85.0),
+                                        raw_score: Some(85.0),
+                                        tags: Some(vec![
+                                            "privilege_escalation".into(),
+                                            "ebpf".into(),
+                                            "setuid".into(),
+                                        ]),
+                                        description: Some(format!(
+                                            "Potential privilege misuse: {}",
+                                            event.reason
+                                        )),
+                                    };
+
+                                    submit_trust_event(trust);
+                                    push_to_gnn_vector_log(metadata.clone());
+                                    write_telemetry_record(metadata);
+                                    log("[🔐 PrivilegeMonitor] Event processed via eBPF");
+                                }
+
+                                // IMPORTANT: clear buffer after processing
+                                b.clear();
                             }
                         }
                         Err(e) => {
-                            eprintln!("[❌ PrivilegeMonitor] Error reading events on CPU {}: {:?}", cpu_id, e);
+                            eprintln!(
+                                "[❌ PrivilegeMonitor] Error reading events on CPU {}: {:?}",
+                                cpu_id, e
+                            );
                             time::sleep(Duration::from_secs(2)).await;
                         }
                     }
                 },
                 Err(e) => {
-                    eprintln!("[❌ PrivilegeMonitor] Failed to open perf buffer on CPU {}: {:?}", cpu_id, e);
+                    eprintln!(
+                        "[❌ PrivilegeMonitor] Failed to open perf buffer on CPU {}: {:?}",
+                        cpu_id, e
+                    );
                 }
             }
         });
@@ -215,51 +262,68 @@ pub async fn start_privilege_monitor() -> Result<()> {
     Ok(())
 }
 
-
-async fn handle_privilege_event(buf: &BytesMut) -> Option<PrivilegeEvent> {
-    let config = standard();
-    match decode_from_slice::<PrivilegeEvent, _>(&buf[..], config) {
-        Ok((mut event, _)) => {
-            // ─── Contextual Enhancement ───────────────────────────────
-            if event.uid == 0 {
-                event.reason = format!("Potential UID 0 escalation from PID {}", event.pid);
-            } else if event.uid < 1000 {
-                event.reason = format!("System-level UID change detected: {}", event.uid);
-            } else {
-                event.reason = format!("User-level UID change: {}", event.uid);
-            }
-
-            // ─── Frequency-Aware Tagging ─────────────────────────────
-            let history_key = format!("uid_change:{}:{}", event.path, event.uid);
-            if crate::services::trust_kernel::check_frequent_escalation(&history_key) {
-                event.reason.push_str(" [frequent]");
-            }
-
-            // ─── Optional Baseline Deviation Check ────────────────────
-            if let Some(baseline_uid) = crate::services::baseline_uid::get_baseline_uid(&event.path) {
-                if baseline_uid != event.uid {
-                    event.reason.push_str(" [deviation from baseline UID]");
-                }
-            }
-
-            // ─── Attach Known Source Suppression Tag ──────────────────
-            if crate::services::trust_kernel::is_known_legit_escalator(&event.path) {
-                event.reason.push_str(" [known escalator]");
-            }
-
-            Some(event)
-        }
-        Err(e) => {
-            log(&format!(
-                "[❌ PrivilegeMonitor] Failed to decode privilege event: {:?}",
-                e
-            ));
-            None
-        }
-    }
+/// No-op stub on non-Linux platforms
+#[cfg(not(target_os = "linux"))]
+pub async fn start_privilege_monitor() -> Result<()> {
+    log("[ℹ️ PrivilegeMonitor] eBPF not supported on this platform; monitor disabled.");
+    Ok(())
 }
 
+#[cfg(target_os = "linux")]
+fn trim_nul(buf: &[u8]) -> String {
+    let s = String::from_utf8_lossy(buf);
+    s.trim_end_matches('\0').to_string()
+}
 
+#[cfg(target_os = "linux")]
+async fn parse_privilege_event(buf: &BytesMut) -> Option<PrivilegeEvent> {
+    use std::ptr::read_unaligned;
+
+    if buf.len() < std::mem::size_of::<PrivilegeEventRaw>() {
+        log("[❌ PrivilegeMonitor] buffer too small for PrivilegeEventRaw");
+        return None;
+    }
+
+    let raw = unsafe { read_unaligned(buf.as_ptr() as *const PrivilegeEventRaw) };
+
+    let mut event = PrivilegeEvent {
+        pid: raw.pid,
+        ppid: raw.ppid,
+        uid: raw.uid,
+        path: trim_nul(&raw.path),
+        reason: trim_nul(&raw.reason),
+    };
+
+    // Contextual enrichment
+    if event.uid == 0 {
+        event.reason = format!("Potential UID 0 escalation from PID {}", event.pid);
+    } else if event.uid < 1000 {
+        event.reason = format!("System-level UID change detected: {}", event.uid);
+    } else {
+        event.reason = format!("User-level UID change: {}", event.uid);
+    }
+
+    // Frequency-aware tagging
+    let history_key = format!("uid_change:{}:{}", event.path, event.uid);
+    if check_frequent_escalation(&history_key) {
+        event.reason.push_str(" [frequent]");
+    }
+
+    // Baseline deviation check
+    if let Some(baseline_uid) = get_baseline_uid(&event.path) {
+        if baseline_uid != event.uid {
+            event.reason
+                .push_str(" [deviation from baseline UID]");
+        }
+    }
+
+    // Known source suppressor marker
+    if is_known_legit_escalator(&event.path) {
+        event.reason.push_str(" [known escalator]");
+    }
+
+    Some(event)
+}
 
 async fn simulate_privilege_event() {
     PRIV_ESCALATION_FOUND.store(true, Ordering::SeqCst);
@@ -357,7 +421,7 @@ pub fn scan_privilege_activity() -> Vec<TelemetryOutput> {
         return vec![];
     }
 
-    // === Stage 3 Smart Gating ===
+    // Smart gating
     if !should_trigger_uid_shift(0, &binary_path) {
         log("[⚠️ PrivilegeMonitor] Passive scan found sudo but baseline-approved. Skipping.");
         return vec![];
@@ -370,7 +434,10 @@ pub fn scan_privilege_activity() -> Vec<TelemetryOutput> {
     data.insert("event_type".into(), "privilege_monitor".into());
     data.insert("timestamp".into(), ts.to_string());
     data.insert("replay_tag".into(), "privilege_escalation".into());
-    data.insert("soc_note".into(), "Privilege escalation detected via passive scan".into());
+    data.insert(
+        "soc_note".into(),
+        "Privilege escalation detected via passive scan".into(),
+    );
     data.insert("gnn_escalate".into(), "true".into());
     data.insert("features".into(), format!("{:?}", features));
 
@@ -398,7 +465,9 @@ pub fn scan_privilege_activity() -> Vec<TelemetryOutput> {
             "fallback_scan".into(),
             "behavioral".into(),
         ]),
-        description: Some("Passive fallback detected privilege escalation (eBPF did not fire)".into()),
+        description: Some(
+            "Passive fallback detected privilege escalation (eBPF did not fire)".into(),
+        ),
     };
 
     submit_trust_event(trust_event);
@@ -408,11 +477,10 @@ pub fn scan_privilege_activity() -> Vec<TelemetryOutput> {
     vec![TelemetryOutput {
         category: "auth".into(),
         signal: "privilege_escalation_scan".into(),
-        confidence: risk_score as f32,
+        confidence: 0.8, // normalized confidence (0..1) instead of using raw risk
         data,
     }]
 }
-
 
 /// Context-aware gating logic for cred dump events
 pub fn cred_dump_context_gater(evt: &CredDumpEvent) -> bool {
@@ -430,12 +498,13 @@ pub fn cred_dump_context_gater(evt: &CredDumpEvent) -> bool {
 
 #[cfg(target_os = "linux")]
 pub fn spawn_cred_dump_monitor() {
-    use std::collections::HashMap;
-    use std::sync::Mutex;
     use lazy_static::lazy_static;
+    use std::collections::HashMap as StdHashMap;
+    use std::sync::Mutex as StdMutex;
 
     lazy_static! {
-        static ref CRED_DUMP_HITS: Mutex<HashMap<i32, u32>> = Mutex::new(HashMap::new());
+        static ref CRED_DUMP_HITS: StdMutex<StdHashMap<i32, u32>> =
+            StdMutex::new(StdHashMap::new());
     }
 
     thread::spawn(move || {
@@ -487,85 +556,97 @@ pub fn spawn_cred_dump_monitor() {
                         loop {
                             match buf.read_events(&mut buffers) {
                                 Ok(events) => {
-                                    for buf in &buffers[..events.read] {
-                                        if !buf.is_empty() {
-                                            if let Some(evt) = crate::modules::privilege_monitor::parse_cred_dump_event(buf) {
-                                                if !cred_dump_context_gater(&evt) {
-                                                    log("[⚠️ CredDumpMonitor] Skipping known benign pattern");
-                                                    continue;
-                                                }
+                                    for b in &mut buffers[..events.read] {
+                                        if b.is_empty() {
+                                            continue;
+                                        }
+                                        if let Some(evt) =
+                                            crate::modules::privilege_monitor::parse_cred_dump_event(b)
+                                        {
+                                            if !cred_dump_context_gater(&evt) {
+                                                log("[⚠️ CredDumpMonitor] Skipping known benign pattern");
+                                                b.clear();
+                                                continue;
+                                            }
 
-                                                let summary = String::from_utf8_lossy(&evt.summary).to_string();
-                                                let ts = now_ts();
-                                                let risk_score = 85.0;
+                                            let summary =
+                                                String::from_utf8_lossy(&evt.summary).to_string();
+                                            let ts = now_ts();
+                                            let risk_score = 85.0;
 
-                                                {
-                                                    let mut hits = CRED_DUMP_HITS.lock().unwrap();
-                                                    let entry = hits.entry(evt.pid).or_insert(0);
-                                                    *entry += 1;
+                                            {
+                                                let mut hits = CRED_DUMP_HITS.lock().unwrap();
+                                                let entry = hits.entry(evt.pid).or_insert(0);
+                                                *entry += 1;
 
-                                                    if *entry >= 3 {
-                                                        log(&format!(
-                                                            "[🔥 CredDumpMonitor] Escalating PID {} due to repeated cred dump hits",
-                                                            evt.pid
-                                                        ));
-                                                        escalate_to_isolation(evt.pid);
-                                                    }
-                                                }
-
-                                                let mut data = HashMap::new();
-                                                data.insert("pid".into(), evt.pid.to_string());
-                                                data.insert("summary".into(), summary.clone());
-                                                data.insert("timestamp".into(), ts.to_string());
-                                                data.insert("replay_tag".into(), "cred_dump_detected".into());
-                                                data.insert("soc_note".into(), "Credential dumping activity detected".into());
-                                                data.insert("gnn_escalate".into(), "true".into());
-
-                                                let trust_event = TrustEvent {
-                                                    timestamp: ts,
-                                                    pid: evt.pid as i32,
-                                                    ppid: 0,
-                                                    uid: 0,
-                                                    binary_path: "/proc/[pid]/exe".into(),
-                                                    command_line: "[unknown]".into(),
-                                                    cwd: "/".into(),
-                                                    anomaly_type: "cred_dump".into(),
-                                                    component: "cred_monitor".into(),
-                                                    metadata: data.clone(),
-                                                    risk_score,
-                                                    source_module: "cred_dump_monitor".into(),
-                                                    decay_context: Some("ebpf_cred".into()),
-                                                    module: Some("memory".into()),
-                                                    signal: Some("cred_dump_evt".into()),
-                                                    signal_type: Some("ebpf".into()),
-                                                    score: Some(risk_score),
-                                                    raw_score: Some(risk_score),
-                                                    tags: Some(vec![
-                                                        "credential_access".into(),
-                                                        "memory_forensics".into(),
-                                                        "ebpf".into(),
-                                                    ]),
-                                                    description: Some("Credential dumping activity detected by eBPF monitor".into()),
-                                                };
-
-                                                submit_trust_event(trust_event);
-                                                push_to_gnn_vector_log(data.clone());
-                                                write_telemetry_record(data.clone());
-
-                                                if let Err(e) = crate::telemetry_writer::push_memory_telemetry(
-                                                    evt.pid,
-                                                    0,
-                                                    0,
-                                                    "unknown".into(),
-                                                    "unknown".into(),
-                                                    "unknown".into(),
-                                                    crate::telemetry_types::MemoryAnomalyType::CredDump,
-                                                    summary,
-                                                ) {
-                                                    eprintln!("⚠️ Cred dump telemetry failed: {:?}", e);
+                                                if *entry >= 3 {
+                                                    log(&format!(
+                                                        "[🔥 CredDumpMonitor] Escalating PID {} due to repeated cred dump hits",
+                                                        evt.pid
+                                                    ));
+                                                    escalate_to_isolation(evt.pid);
                                                 }
                                             }
+
+                                            let mut data = HashMap::new();
+                                            data.insert("pid".into(), evt.pid.to_string());
+                                            data.insert("summary".into(), summary.clone());
+                                            data.insert("timestamp".into(), ts.to_string());
+                                            data.insert("replay_tag".into(), "cred_dump_detected".into());
+                                            data.insert(
+                                                "soc_note".into(),
+                                                "Credential dumping activity detected".into(),
+                                            );
+                                            data.insert("gnn_escalate".into(), "true".into());
+
+                                            let trust_event = TrustEvent {
+                                                timestamp: ts,
+                                                pid: evt.pid as i32,
+                                                ppid: 0,
+                                                uid: 0,
+                                                binary_path: "/proc/[pid]/exe".into(),
+                                                command_line: "[unknown]".into(),
+                                                cwd: "/".into(),
+                                                anomaly_type: "cred_dump".into(),
+                                                component: "cred_monitor".into(),
+                                                metadata: data.clone(),
+                                                risk_score,
+                                                source_module: "cred_dump_monitor".into(),
+                                                decay_context: Some("ebpf_cred".into()),
+                                                module: Some("memory".into()),
+                                                signal: Some("cred_dump_evt".into()),
+                                                signal_type: Some("ebpf".into()),
+                                                score: Some(risk_score),
+                                                raw_score: Some(risk_score),
+                                                tags: Some(vec![
+                                                    "credential_access".into(),
+                                                    "memory_forensics".into(),
+                                                    "ebpf".into(),
+                                                ]),
+                                                description: Some(
+                                                    "Credential dumping activity detected by eBPF monitor".into(),
+                                                ),
+                                            };
+
+                                            submit_trust_event(trust_event);
+                                            push_to_gnn_vector_log(data.clone());
+                                            write_telemetry_record(data.clone());
+
+                                            if let Err(e) = push_memory_telemetry(
+                                                evt.pid,
+                                                0,
+                                                0,
+                                                "unknown".into(),
+                                                "unknown".into(),
+                                                "unknown".into(),
+                                                MemoryAnomalyType::CredDump,
+                                                summary,
+                                            ) {
+                                                eprintln!("⚠️ Cred dump telemetry failed: {:?}", e);
+                                            }
                                         }
+                                        // Clear buffer for reuse
+                                        b.clear();
                                     }
                                 }
                                 Err(e) => {
@@ -583,8 +664,6 @@ pub fn spawn_cred_dump_monitor() {
         }
     });
 }
-
-
 
 pub fn parse_cred_dump_event(buf: &BytesMut) -> Option<CredDumpEvent> {
     if buf.len() < std::mem::size_of::<CredDumpEvent>() {
@@ -607,8 +686,14 @@ pub fn parse_cred_dump_event(buf: &BytesMut) -> Option<CredDumpEvent> {
 /// Determines if the UID shift is suspicious enough to trigger scoring/escalation
 fn should_trigger_uid_shift(uid: i32, path: &str) -> bool {
     // Skip if it's a known legit escalation binary
-    if crate::services::trust_kernel::is_known_legit_escalator(path) {
+    if is_known_legit_escalator(path) {
         return false;
+    }
+    // Respect baseline if present
+    if let Some(base) = get_baseline_uid(path) {
+        if base == uid {
+            return false;
+        }
     }
     // Trigger if UID is root (0) or otherwise suspicious
     uid == 0 || uid < 10
@@ -617,7 +702,7 @@ fn should_trigger_uid_shift(uid: i32, path: &str) -> bool {
 /// Records that this escalation occurred (to suppress repeats)
 fn record_privilege_escalation(pid: i32, uid: i32, path: &str, reason: &str) {
     let key = format!("{}_{}_{}", pid, uid, path);
-    let _ = crate::services::trust_kernel::check_frequent_escalation(&key);
+    let _ = check_frequent_escalation(&key);
     log(&format!(
         "[📌 EscalationMemory] Recorded: PID={}, UID={}, Path={}, Reason={}",
         pid, uid, path, reason
@@ -627,7 +712,7 @@ fn record_privilege_escalation(pid: i32, uid: i32, path: &str, reason: &str) {
 /// Checks if this escalation has been seen recently to avoid repeated scoring
 fn has_recent_escalation(pid: i32) -> bool {
     let key = format!("{}", pid);
-    crate::services::trust_kernel::check_frequent_escalation(&key)
+    check_frequent_escalation(&key)
 }
 
 /// Optional isolation logic hook for confirmed privilege abuse

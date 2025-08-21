@@ -10,7 +10,6 @@ use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
 use crate::trust_hook::{submit_trust_event, TrustEvent};
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::utils::time::now_ts;
-use crate::telemetry::TelemetryRecord;
 
 #[derive(Debug, Clone)]
 pub struct ProcessInfo {
@@ -23,8 +22,9 @@ pub struct ProcessInfo {
     pub status: String,
     pub user: Option<String>,
     pub user_sessions: Option<Vec<UserSession>>,
-    pub command_line: String, // ← ADD THIS FIELD
+    pub command_line: String,
 }
+
 /// Gathers all running processes and returns their metadata.
 pub fn gather_processes() -> Vec<ProcessInfo> {
     let mut system = System::new_all();
@@ -45,6 +45,8 @@ pub fn gather_processes() -> Vec<ProcessInfo> {
             name: process.name().to_string(),
             exe: process.exe().to_string_lossy().to_string(),
             cpu_usage: process.cpu_usage(),
+            // sysinfo has changed units across versions; keep KB naming consistent
+            // by dividing once. If already KB, this will be harmlessly small.
             memory_usage_kb: process.memory() / 1024,
             status: format!("{:?}", process.status()),
             user: user_id,
@@ -71,6 +73,10 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
         data.insert("cpu_usage".into(), proc.cpu_usage.to_string());
         data.insert("memory_usage_kb".into(), proc.memory_usage_kb.to_string());
         data.insert("status".into(), proc.status.clone());
+        data.insert("command_line".into(), proc.command_line.clone());
+        data.insert("replay_tag".into(), "process_snapshot".into());
+        data.insert("gnn_escalate".into(), "false".into()); // snapshots are low-severity by default
+        data.insert("timestamp".into(), now_ts().to_string());
 
         if let Some(user) = &proc.user {
             data.insert("user".into(), user.clone());
@@ -79,13 +85,15 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
             data.insert("user_sessions_count".into(), sessions.len().to_string());
         }
 
+        let uid_num = proc.user.as_ref().and_then(|s| s.parse::<u32>().ok()).unwrap_or(0);
+
         let tags = vec!["snapshot".into(), format!("binary::{}", proc.name)];
 
         let event = TrustEvent {
             timestamp: now_ts(),
             pid: proc.pid,
             ppid: proc.ppid,
-            uid: 0,  // UID not in ProcessInfo, using 0
+            uid: uid_num,
             binary_path: proc.exe.clone(),
             command_line: proc.command_line.clone(),
             cwd: "/proc".into(),
@@ -94,8 +102,6 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
             metadata: data.clone(),
             risk_score: 3.0,
             source_module: "process_monitor".into(),
-
-            // Optional + new fields
             decay_context: Some("process_snapshot".into()),
             module: Some("process_monitor".into()),
             signal: Some("process_snapshot".into()),
@@ -106,15 +112,15 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
             tags: Some(tags),
         };
 
-
         submit_trust_event(event);
         push_to_gnn_vector_log(data.clone());
         write_telemetry_record(data.clone());
+        crate::modules::replay_writer::store_replay_event(data.clone());
 
         outputs.push(TelemetryOutput {
             category: "process".into(),
             signal: "process_snapshot".into(),
-            confidence: 60.0,
+            confidence: 0.60, // normalize to 0..1 range for consistency
             data,
         });
     }
@@ -154,6 +160,7 @@ struct IpcAbuseEvent {
 lazy_static! {
     pub static ref IPC_ABUSE_DETECTED: AtomicBool = AtomicBool::new(false);
 }
+
 #[cfg(target_os = "linux")]
 pub fn start_ipc_abuse_monitor() {
     thread::spawn(move || {
@@ -211,12 +218,12 @@ pub fn start_ipc_abuse_monitor() {
                     loop {
                         match buf.read_events(&mut buffers) {
                             Ok(events) => {
-                                for buf in &buffers[..events.read] {
-                                    if buf.len() < mem::size_of::<IpcAbuseEvent>() {
+                                for b in &buffers[..events.read] {
+                                    if b.len() < mem::size_of::<IpcAbuseEvent>() {
                                         continue;
                                     }
 
-                                    let ptr = buf.as_ptr() as *const IpcAbuseEvent;
+                                    let ptr = b.as_ptr() as *const IpcAbuseEvent;
                                     let evt = unsafe { ptr.read_unaligned() };
 
                                     IPC_ABUSE_DETECTED.store(true, Ordering::Relaxed);
@@ -230,7 +237,7 @@ pub fn start_ipc_abuse_monitor() {
                                     let mut meta = HashMap::new();
                                     meta.insert("timestamp".into(), ts.to_string());
                                     meta.insert("pid".into(), evt.pid.to_string());
-                                    meta.insert("ppid".into(), evt.target_pid.to_string());
+                                    meta.insert("target_pid".into(), evt.target_pid.to_string());
                                     meta.insert("syscall_id".into(), evt.syscall_id.to_string());
                                     meta.insert("channel_type".into(), evt.channel_type.to_string());
                                     meta.insert("anomaly".into(), "ipc_abuse".into());
@@ -254,7 +261,7 @@ pub fn start_ipc_abuse_monitor() {
                                         decay_context: Some("channel_misuse".into()),
                                         module: Some("ipc_abuse_monitor".into()),
                                         signal: Some("ebpf_ipc_anomaly".into()),
-                                        signal_type: Some("memory".into()),
+                                        signal_type: Some("ebpf".into()),
                                         score: Some(22.0),
                                         raw_score: Some(22.0),
                                         tags: Some(vec!["ipc".into(), "anomaly".into(), "ebpf".into()]),
@@ -264,6 +271,7 @@ pub fn start_ipc_abuse_monitor() {
                                     submit_trust_event(trust_event);
                                     push_to_gnn_vector_log(meta.clone());
                                     write_telemetry_record(meta.clone());
+                                    crate::modules::replay_writer::store_replay_event(meta.clone());
 
                                     let _ = push_memory_telemetry(
                                         evt.pid as i32,
@@ -291,7 +299,8 @@ pub fn start_ipc_abuse_monitor() {
 
 #[cfg(target_os = "linux")]
 pub fn scan_ipc_abuse_activity() -> Vec<TelemetryOutput> {
-    if !IPC_ABUSE_DETECTED.load(Ordering::Relaxed) {
+    // Fallback is only emitted if no real-time event was observed.
+    if IPC_ABUSE_DETECTED.load(Ordering::Relaxed) {
         return vec![];
     }
 
@@ -299,7 +308,7 @@ pub fn scan_ipc_abuse_activity() -> Vec<TelemetryOutput> {
     let mut data = HashMap::new();
     data.insert("timestamp".into(), ts.to_string());
     data.insert("replay_tag".into(), "ipc_abuse".into());
-    data.insert("signal".into(), "ipc_abuse_detected".into());
+    data.insert("signal".into(), "ipc_abuse_fallback".into());
     data.insert("fallback".into(), "true".into());
     data.insert("method".into(), "no eBPF event observed".into());
     data.insert("note".into(), "Fallback IPC abuse scan triggered".into());
@@ -321,7 +330,7 @@ pub fn scan_ipc_abuse_activity() -> Vec<TelemetryOutput> {
         source_module: "ipc_abuse_monitor".into(),
         decay_context: Some("fallback_scan".into()),
         module: Some("ipc_abuse_monitor".into()),
-        signal: Some("ipc_abuse_detected".into()),
+        signal: Some("ipc_abuse_fallback".into()),
         signal_type: Some("process".into()),
         score: Some(17.0),
         raw_score: Some(17.0),
@@ -332,12 +341,12 @@ pub fn scan_ipc_abuse_activity() -> Vec<TelemetryOutput> {
     submit_trust_event(trust_event);
     push_to_gnn_vector_log(data.clone());
     write_telemetry_record(data.clone());
+    crate::modules::replay_writer::store_replay_event(data.clone());
 
     vec![TelemetryOutput {
         category: "process".into(),
-        signal: "ipc_abuse_detected".into(),
+        signal: "ipc_abuse_fallback".into(),
         confidence: 0.85,
         data,
     }]
 }
-

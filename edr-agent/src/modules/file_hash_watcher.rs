@@ -5,7 +5,7 @@ use std::{
     path::Path,
     sync::{
         atomic::{AtomicBool, Ordering},
-        Arc, Mutex,
+        Arc, Mutex, Once,
     },
     thread,
     time::{Duration, Instant},
@@ -21,17 +21,26 @@ use aya::{
 use bytes::BytesMut;
 use chrono::Utc;
 use sha2::{Digest, Sha256};
+
 use crate::forensic::utils::read_proc_value;
+use crate::logger::log;
 
 use crate::telemetry::TelemetryRecord;
 use crate::telemetry_types::TelemetryOutput;
-use crate::telemetry_writer::{TelemetryWriter, write_telemetry_record};
+use crate::telemetry_writer::{write_telemetry_record, TelemetryWriter};
 use crate::trust_hook::{submit_trust_event, TrustEvent};
 use crate::utils::time::now_ts;
 use crate::modules::replay_writer::store_replay_event;
-use crate::gnn_hook::{push_to_gnn_vector_log, push_metadata_to_gnn_vector_log};
+use crate::gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log};
 
 static FILE_HASH_FOUND: AtomicBool = AtomicBool::new(false);
+
+/* ---------- eBPF one-time + outbox ----------- */
+static FILE_EBPF_ONCE: Once = Once::new();
+static FILE_EBPF_STARTED: AtomicBool = AtomicBool::new(false);
+lazy_static::lazy_static! {
+    static ref FILE_EBPF_OUTBOX: Mutex<Vec<TelemetryOutput>> = Mutex::new(Vec::new());
+}
 
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -52,6 +61,8 @@ pub struct FileAccessEvent {
     pub timestamp: u64,
 }
 
+/* ------------ threat-hash & hashing utils ------------- */
+
 fn load_hash_list_from_file(path: &str) -> HashSet<String> {
     if let Ok(data) = fs::read_to_string(path) {
         serde_json::from_str::<Vec<String>>(&data)
@@ -65,6 +76,14 @@ fn load_hash_list_from_file(path: &str) -> HashSet<String> {
 }
 
 fn compute_sha256(path: &Path) -> Option<String> {
+    // guardrail: skip huge files (e.g., >100MB)
+    const MAX_SIZE: u64 = 100 * 1024 * 1024;
+    if let Ok(meta) = fs::metadata(path) {
+        if !meta.is_file() || meta.len() > MAX_SIZE {
+            return None;
+        }
+    }
+
     let mut file = fs::File::open(path).ok()?;
     let mut hasher = Sha256::new();
     let mut buffer = [0u8; 4096];
@@ -79,8 +98,86 @@ fn compute_sha256(path: &Path) -> Option<String> {
 
     Some(format!("{:x}", hasher.finalize()))
 }
+
 use std::os::unix::fs::MetadataExt;
 use mime_guess::MimeGuess;
+
+/* ------------- fingerprint fallbacks (safe defaults) --------------
+   If you already have richer helpers, replace these with:
+   use crate::forensic::utils::{load_fingerprints_from_disk, is_known_good};
+   use crate::forensic::utils::{load_fingerprints, is_known_good_fingerprint};
+*/
+#[derive(Default)]
+struct Fingerprints {
+    hashes: HashSet<String>,
+    paths: HashSet<String>,
+}
+
+fn fp_from_file(path: &str) -> Fingerprints {
+    if let Ok(s) = fs::read_to_string(path) {
+        // Allow either: ["hash1", "hash2", ...] OR {"hashes":[...], "paths":[...]}
+        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&s) {
+            let mut fp = Fingerprints::default();
+            match v {
+                serde_json::Value::Array(arr) => {
+                    for x in arr {
+                        if let Some(h) = x.as_str() {
+                            fp.hashes.insert(h.to_string());
+                        }
+                    }
+                }
+                serde_json::Value::Object(obj) => {
+                    if let Some(h) = obj.get("hashes").and_then(|x| x.as_array()) {
+                        for x in h {
+                            if let Some(s) = x.as_str() {
+                                fp.hashes.insert(s.to_string());
+                            }
+                        }
+                    }
+                    if let Some(p) = obj.get("paths").and_then(|x| x.as_array()) {
+                        for x in p {
+                            if let Some(s) = x.as_str() {
+                                fp.paths.insert(s.to_string());
+                            }
+                        }
+                    }
+                }
+                _ => {}
+            }
+            return fp;
+        }
+    }
+    Fingerprints::default()
+}
+fn load_fingerprints_from_disk(path: &str) -> Fingerprints {
+    fp_from_file(path)
+}
+fn is_known_good(meta: &HashMap<String, String>, fp: &Fingerprints) -> bool {
+    if let Some(h) = meta.get("hash") {
+        if fp.hashes.contains(h) {
+            return true;
+        }
+    }
+    if let Some(p) = meta.get("path") {
+        if fp.paths.contains(p) {
+            return true;
+        }
+    }
+    false
+}
+fn load_fingerprints() -> Fingerprints {
+    // try repo path then system path
+    let a = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+    if !a.hashes.is_empty() || !a.paths.is_empty() {
+        return a;
+    }
+    load_fingerprints_from_disk("/etc/edr/telemetry_fingerprint.json")
+}
+fn is_known_good_fingerprint(meta: &HashMap<String, String>, fp: &Fingerprints) -> bool {
+    is_known_good(meta, fp)
+}
+
+/* ---------------- periodic file-system hashing scan ---------------- */
 
 pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
     let writer_clone = Arc::clone(&writer);
@@ -98,7 +195,8 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                             let is_threat = threat_hashes.contains(&hash);
                             let risk = if is_threat { 95.0 } else { 10.0 };
 
-                            let canonical_path = fs::canonicalize(&path).unwrap_or_else(|_| path.clone());
+                            let canonical_path =
+                                fs::canonicalize(&path).unwrap_or_else(|_| path.clone());
                             let binary_path_str = canonical_path.to_string_lossy().into_owned();
 
                             // Extract file metadata
@@ -114,7 +212,7 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                                 .unwrap_or("application/octet-stream")
                                 .to_string();
 
-                            // Load fingerprints and suppress if known-good
+                            // Fingerprint suppression (known-good)
                             let mut fingerprint_data = HashMap::new();
                             fingerprint_data.insert("path".into(), binary_path_str.clone());
                             fingerprint_data.insert("hash".into(), hash.clone());
@@ -122,10 +220,13 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                             fingerprint_data.insert("permissions".into(), permissions.to_string());
                             fingerprint_data.insert("exec_capable".into(), exec_capable.to_string());
                             fingerprint_data.insert("category".into(), category.clone());
-                            fingerprint_data.insert("source_module".into(), "file_hash_watcher".into());
+                            fingerprint_data
+                                .insert("source_module".into(), "file_hash_watcher".into());
                             fingerprint_data.insert("timestamp".into(), timestamp.to_string());
 
-                            let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+                            let fingerprints = load_fingerprints_from_disk(
+                                "src/modules/telemetry_fingerprint.json",
+                            );
                             if is_known_good(&fingerprint_data, &fingerprints) {
                                 log(&format!(
                                     "[FileHashWatcher] Suppressed known-good file: {}",
@@ -152,7 +253,11 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                                 risk_score: Some(risk as u32),
                                 tags: vec![
                                     format!("sha256:{}", hash),
-                                    if is_threat { "malicious:true".into() } else { "malicious:false".into() },
+                                    if is_threat {
+                                        "malicious:true".into()
+                                    } else {
+                                        "malicious:false".into()
+                                    },
                                     "tag:file_integrity".into(),
                                 ],
                             };
@@ -174,10 +279,18 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                             data.insert("category".into(), "file".into());
                             data.insert("cwd".into(), cwd.clone());
                             data.insert("command_line".into(), cmdline.clone());
-                            data.insert("confidence".into(), if is_threat { "0.95" } else { "0.3" }.into());
+                            data.insert(
+                                "confidence".into(),
+                                if is_threat { "0.95" } else { "0.3" }.into(),
+                            );
                             data.insert("replay_tag".into(), "hash_match".into());
-                            data.insert("gnn_escalate".into(), if is_threat { "true" } else { "false" }.into());
+                            data.insert(
+                                "gnn_escalate".into(),
+                                if is_threat { "true" } else { "false" }.into(),
+                            );
 
+                            // persist + gnn + replay
+                            write_telemetry_record(data.clone());
                             store_replay_event(data.clone());
                             push_to_gnn_vector_log(data.clone());
                             push_metadata_to_gnn_vector_log(data.clone());
@@ -201,14 +314,16 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                                     module: Some("file_hash_watcher".into()),
                                     signal: Some("file_hash_check".into()),
                                     signal_type: Some("file_hash_match".into()),
-                                    score: Some(risk),
+                                    score: Some(risk),   // keep your convention
                                     raw_score: Some(risk),
                                     tags: Some(vec![
                                         format!("sha256:{}", hash),
                                         "tag:file_integrity".into(),
                                         "tag:threat_intel_match".into(),
                                     ]),
-                                    description: Some("Known malicious file detected via SHA256 match".into()),
+                                    description: Some(
+                                        "Known malicious file detected via SHA256 match".into(),
+                                    ),
                                 });
                             }
                         }
@@ -221,139 +336,134 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
     });
 }
 
+/* ---------------- eBPF realtime file-access watcher ---------------- */
 
-#[cfg(target_os = "linux")]#
-
+#[cfg(target_os = "linux")]
 pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
-    use std::sync::mpsc::{channel, Sender};
-    use std::os::unix::fs::MetadataExt;
-    use mime_guess::MimeGuess;
+    FILE_EBPF_ONCE.call_once(|| {
+        // best-effort attach only once
+        let data = match std::fs::read("/opt/edr-ebpf/file_access_monitor.bpf.o") {
+            Ok(d) => d,
+            Err(e) => {
+                eprintln!("Missing eBPF object (/opt/edr-ebpf/file_access_monitor.bpf.o): {:?}", e);
+                return;
+            }
+        };
 
-    let mut results = Vec::new();
+        let mut bpf = match Bpf::load(&data) {
+            Ok(b) => b,
+            Err(e) => {
+                eprintln!("Failed to load eBPF: {:?}", e);
+                return;
+            }
+        };
 
-    let data = std::fs::read("/opt/edr-ebpf/file_access_monitor.bpf.o")
-        .expect("Missing eBPF object");
-    let mut bpf = Bpf::load(&data).expect("Failed to load eBPF");
+        let program = match bpf.program_mut("trace_file_access") {
+            Some(p) => p,
+            None => {
+                eprintln!("Missing program trace_file_access");
+                return;
+            }
+        };
 
-    let program = bpf.program_mut("trace_file_access").expect("Missing program");
-    let prog: &mut TracePoint = program.try_into().expect("Program cast failed");
-    prog.load().expect("Program load failed");
-    prog.attach("syscalls", "sys_enter_openat").expect("Attach failed");
+        let prog: &mut TracePoint = match program.try_into() {
+            Ok(tp) => tp,
+            Err(e) => {
+                eprintln!("Program cast failed: {:?}", e);
+                return;
+            }
+        };
 
-    let mut perf = PerfEventArray::try_from(bpf.map_mut("EVENTS").unwrap())
-        .expect("Failed to access EVENTS map");
+        if let Err(e) = prog.load().and_then(|_| prog.attach("syscalls", "sys_enter_openat")) {
+            eprintln!("Attach failed: {:?}", e);
+            return;
+        }
 
-    let (tx, rx) = channel();
+        let mut perf = match PerfEventArray::try_from(bpf.map_mut("EVENTS").unwrap()) {
+            Ok(m) => m,
+            Err(e) => {
+                eprintln!("Failed to access EVENTS map: {:?}", e);
+                return;
+            }
+        };
 
-    for cpu_id in online_cpus().unwrap_or_default() {
-        let mut buf = perf.open(cpu_id, None).expect("Failed to open perf buffer");
-        let tx = tx.clone();
+        for cpu_id in online_cpus().unwrap_or_default() {
+            match perf.open(cpu_id, None) {
+                Ok(mut buf) => {
+                    thread::spawn(move || {
+                        let mut buffers = vec![BytesMut::with_capacity(1024); 32];
+                        loop {
+                            match buf.read_events(&mut buffers) {
+                                Ok(events) => {
+                                    if events.lost > 0 {
+                                        log(&format!("⚠️ Lost {} file-access events", events.lost));
+                                    }
+                                    for buf in &buffers[..events.read] {
+                                        if let Some(parsed) = parse_file_access_event(buf) {
+                                            // persist + gnn + replay immediately
+                                            write_telemetry_record(parsed.data.clone());
+                                            push_to_gnn_vector_log(parsed.data.clone());
+                                            store_replay_event(parsed.data.clone());
+                                            crate::gnn_hook::push_metadata_to_gnn_vector_log(
+                                                parsed.data.clone(),
+                                            );
 
-        thread::spawn(move || {
-            let mut buffers = vec![BytesMut::with_capacity(1024); 32];
-            loop {
-                match buf.read_events(&mut buffers) {
-                    Ok(events) => {
-                        for buf in &buffers[..events.read] {
-                            if let Some(parsed) = parse_file_access_event(buf) {
-                                FILE_HASH_FOUND.store(true, Ordering::SeqCst);
-                                let _ = tx.send(parsed);
+                                            FILE_HASH_FOUND.store(true, Ordering::SeqCst);
+                                            if let Ok(mut q) = FILE_EBPF_OUTBOX.lock() {
+                                                q.push(parsed);
+                                            }
+                                        }
+                                    }
+                                }
+                                Err(e) => {
+                                    eprintln!("perf read error: {:?}", e);
+                                    thread::sleep(Duration::from_millis(100));
+                                }
                             }
                         }
-                    }
-                    Err(e) => {
-                        eprintln!("perf read error: {:?}", e);
-                        thread::sleep(Duration::from_millis(100));
-                    }
+                    });
+                }
+                Err(e) => {
+                    eprintln!("Failed to open perf buffer on CPU {}: {:?}", cpu_id, e);
                 }
             }
-        });
-    }
+        }
 
-    let timeout = Instant::now() + Duration::from_millis(100);
-    while Instant::now() < timeout {
-        if let Ok(parsed) = rx.try_recv() {
-            let mut data = parsed.data.clone();
-            let path_str = data.get("path").cloned().unwrap_or_else(|| "[unknown]".to_string());
+        FILE_EBPF_STARTED.store(true, Ordering::Relaxed);
+        log("✅ eBPF file-access watcher started");
+    });
 
-            // Enrich with metadata for fingerprint suppression
-            if let Ok(meta) = std::fs::metadata(&path_str) {
-                let uid = meta.uid();
-                let permissions = meta.permissions().mode();
-                let exec_capable = permissions & 0o111 != 0;
-                let category = MimeGuess::from_path(&path_str)
-                    .first_raw()
-                    .unwrap_or("application/octet-stream")
-                    .to_string();
-
-                data.insert("trusted_uid".into(), uid.to_string());
-                data.insert("permissions".into(), permissions.to_string());
-                data.insert("exec_capable".into(), exec_capable.to_string());
-                data.insert("category".into(), category.clone());
-            }
-
-            let fingerprints = load_fingerprints();
-            if is_known_good_fingerprint(&data, &fingerprints) {
-                log(&format!(
-                    "[eBPF File Watch] Skipping known-good file access: {}",
-                    path_str
-                ));
-                continue;
-            }
-
-            // Continue with telemetry and trust processing
-            push_to_gnn_vector_log(data.clone());
-            store_replay_event(data.clone());
-            crate::gnn_hook::push_metadata_to_gnn_vector_log(data.clone());
-            results.push(parsed.clone());
-
-            if let Some(pid_str) = data.get("pid") {
-                let pid = pid_str.parse::<u32>().unwrap_or(0);
-
-                submit_trust_event(TrustEvent {
-                    timestamp: now_ts(),
-                    pid: pid as i32,
-                    ppid: 0,
-                    uid: data.get("trusted_uid")
-                        .and_then(|v| v.parse::<u32>().ok())
-                        .unwrap_or(0),
-                    binary_path: path_str.clone(),
-                    command_line: data.get("command_line").cloned().unwrap_or_else(|| "[unknown]".into()),
-                    cwd: data.get("cwd").cloned().unwrap_or_else(|| "/".into()),
-                    anomaly_type: "file_hash_detected".into(),
-                    component: "file_hash_watcher".into(),
-                    metadata: data.clone(),
-                    risk_score: 90.0,
-                    source_module: "file_hash_watcher".into(),
-                    decay_context: Some("known_malware".into()),
-                    module: Some("file".into()),
-                    signal: Some("malicious_file".into()),
-                    signal_type: Some("hash_match".into()),
-                    score: Some(90.0),
-                    raw_score: Some(90.0),
-                    tags: Some(vec![
-                        "malware".into(),
-                        "file".into(),
-                        "hash".into(),
-                        "tag:file_integrity".into(),
-                        "tag:threat_intel_match".into(),
-                    ]),
-                    description: Some("Known malicious file hash detected".into()),
-                });
-            }
-        } else {
-            thread::sleep(Duration::from_millis(10));
+    // Drain outbox (non-blocking) and return those outputs
+    let mut out = Vec::new();
+    if let Ok(mut q) = FILE_EBPF_OUTBOX.lock() {
+        if !q.is_empty() {
+            out.append(&mut *q);
+        } else if FILE_EBPF_STARTED.load(Ordering::Relaxed) {
+            // emit a tiny heartbeat if started but no events this tick
+            let mut data = HashMap::new();
+            data.insert("event_type".into(), "file_access_monitor_active".into());
+            data.insert("timestamp".into(), now_ts().to_string());
+            data.insert("category".into(), "file".into());
+            data.insert("signal".into(), "file_access_monitor_active".into());
+            data.insert("confidence".into(), "0.0".into());
+            out.push(TelemetryOutput {
+                category: "file".into(),
+                signal: "file_access_monitor_active".into(),
+                confidence: 0.0,
+                data,
+            });
         }
     }
-
-    results
+    out
 }
-
 
 #[cfg(target_os = "linux")]
 fn parse_file_access_event(buf: &[u8]) -> Option<TelemetryOutput> {
     use std::ptr::read_unaligned;
-    use std::str;
+
+    if buf.len() < std::mem::size_of::<FileAccessEvent>() {
+        return None;
+    }
 
     let ptr = buf.as_ptr() as *const FileAccessEvent;
     let evt = unsafe { read_unaligned(ptr) };
@@ -375,10 +485,13 @@ fn parse_file_access_event(buf: &[u8]) -> Option<TelemetryOutput> {
     data.insert("access_type".into(), access_str.to_string());
     data.insert("file_path_hash".into(), format!("{:x}", evt.file_path_hash));
     data.insert("file_path".into(), file_path.clone());
-    data.insert("summary".into(), format!(
-        "File {} access by pid {} (hash={})",
-        access_str, evt.pid, evt.file_path_hash
-    ));
+    data.insert(
+        "summary".into(),
+        format!(
+            "File {} access by pid {} (hash={})",
+            access_str, evt.pid, evt.file_path_hash
+        ),
+    );
 
     if let Ok(binary_path) = read_proc_value(evt.pid, "exe") {
         data.insert("binary_path".into(), binary_path);
@@ -398,11 +511,11 @@ fn parse_file_access_event(buf: &[u8]) -> Option<TelemetryOutput> {
     })
 }
 
+/* --------- passive heartbeat for dashboards --------- */
 
-/// Passive fallback scan signal for heartbeat and trust audit
 pub fn scan_file_hash_activity() -> Vec<TelemetryOutput> {
     if FILE_HASH_FOUND.load(Ordering::SeqCst) {
-        return vec![]; // Don't emit heartbeat if detection already occurred
+        return vec![]; // suppress heartbeat once detections occurred recently
     }
 
     let ts = now_ts();

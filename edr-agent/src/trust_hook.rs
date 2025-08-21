@@ -2,7 +2,12 @@ use crate::telemetry::TelemetryRecord;
 use std::collections::HashMap;
 use serde::Serialize;
 
-#[derive(Debug, Clone)]
+/// Max/min bounds for scores
+const MAX_RISK: f32 = 100.0;
+const MIN_RISK: f32 = 0.0;
+
+/// Core event emitted to the trust pipeline / logger.
+#[derive(Debug, Clone, Serialize)]
 pub struct TrustEvent {
     pub timestamp: u64,
     pub pid: i32,
@@ -14,6 +19,7 @@ pub struct TrustEvent {
     pub anomaly_type: String,
     pub component: String,
     pub metadata: HashMap<String, String>,
+    /// Primary risk value in [0, 100]
     pub risk_score: f32,
     pub source_module: String,
     pub decay_context: Option<String>,
@@ -21,8 +27,8 @@ pub struct TrustEvent {
     pub module: Option<String>,
     pub signal: Option<String>,
     pub signal_type: Option<String>,
-    pub score: Option<f32>,
-    pub raw_score: Option<f32>,
+    pub score: Option<f32>,     // mirrors risk_score unless caller overrides
+    pub raw_score: Option<f32>, // mirrors risk_score unless caller overrides
     pub tags: Option<Vec<String>>,
     pub description: Option<String>,
 }
@@ -31,13 +37,13 @@ pub struct TrustEvent {
 pub enum TrustVerdict {
     Normal,
     Monitor,
-    IsolateImmediately {
-        score: f64,
-        reason: String,
-    },
+    IsolateImmediately { score: f64, reason: String },
 }
 
+// ------------------------- Constructors -------------------------
+
 impl TrustEvent {
+    /// Minimal constructor: everything else is defaulted / empty.
     pub fn new_minimal(
         timestamp: u64,
         pid: i32,
@@ -50,7 +56,7 @@ impl TrustEvent {
         component: String,
         source_module: String,
     ) -> Self {
-        Self {
+        let mut ev = Self {
             timestamp,
             pid,
             ppid,
@@ -59,11 +65,11 @@ impl TrustEvent {
             command_line,
             cwd,
             anomaly_type,
-            component,
+            component: component.clone(),
             metadata: HashMap::new(),
             risk_score: 0.0,
             source_module: source_module.clone(),
-            decay_context: None,
+            decay_context: Some(format!("{}_behavior", component)),
             module: Some(source_module),
             signal: None,
             signal_type: None,
@@ -71,11 +77,13 @@ impl TrustEvent {
             raw_score: None,
             tags: None,
             description: None,
-        }
+        };
+        ev.sanitize_scores();
+        ev
     }
-}
 
-impl TrustEvent {
+    /// Rich constructor used widely across modules.
+    /// `score` is interpreted as a risk value in [0, 100].
     pub fn new_full(
         timestamp: u64,
         pid: i32,
@@ -93,9 +101,7 @@ impl TrustEvent {
         score: Option<f32>,
     ) -> Self {
         let component_clone = component.clone();
-        let tags_clone = tags.clone();
-
-        Self {
+        let mut ev = Self {
             timestamp,
             pid,
             ppid,
@@ -109,16 +115,21 @@ impl TrustEvent {
             risk_score: score.unwrap_or(0.0),
             source_module: source_module.clone(),
             decay_context: Some(format!("{}_behavior", component_clone)),
-            module: Some(source_module.clone()),
+            module: Some(source_module),
             raw_score: score,
             score,
-            tags: tags_clone.clone(),
-            signal: tags_clone.as_ref().and_then(|t| t.get(0).cloned()),
+            tags: tags.clone(),
+            // heuristic: first tag becomes signal if present
+            signal: tags.as_ref().and_then(|t| t.get(0).cloned()),
             signal_type,
             description,
-        }
+        };
+        ev.sanitize_scores();
+        ev
     }
-}impl TrustEvent {
+
+    /// Constructor used when assembling from scattered parts.
+    /// `risk_score` is treated as a risk in [0, 100].
     pub fn from_parts(
         timestamp: u64,
         pid: i32,
@@ -138,12 +149,11 @@ impl TrustEvent {
         module: Option<String>,
     ) -> Self {
         let metadata_map = metadata.unwrap_or_default();
-
-        Self {
+        let mut ev = Self {
             timestamp,
             pid,
             ppid,
-            uid, // now uses correct `u32` type
+            uid,
             binary_path,
             command_line: metadata_map
                 .get("command_line")
@@ -166,18 +176,44 @@ impl TrustEvent {
             raw_score: Some(risk_score),
             decay_context,
             module,
+        };
+        ev.sanitize_scores();
+        ev
+    }
+
+    /// Fluent helper to add/overwrite metadata.
+    #[inline]
+    pub fn with_meta(mut self, k: &str, v: impl ToString) -> Self {
+        self.metadata.insert(k.to_string(), v.to_string());
+        self
+    }
+
+    /// Ensure scores are sane and consistent.
+    fn sanitize_scores(&mut self) {
+        // Clamp primary risk to [0, 100]
+        self.risk_score = self.risk_score.clamp(MIN_RISK, MAX_RISK);
+        // Mirror into optional fields if they weren't set
+        if self.score.is_none() {
+            self.score = Some(self.risk_score);
+        }
+        if self.raw_score.is_none() {
+            self.raw_score = Some(self.risk_score);
         }
     }
 }
 
+// ------------------------- Utilities -------------------------
+
+/// Small SHA-256 based short fingerprint.
 pub fn hash_str(input: &str) -> String {
-    use sha2::{Sha256, Digest};
+    use sha2::{Digest, Sha256};
     let mut hasher = Sha256::new();
     hasher.update(input.as_bytes());
     let result = hasher.finalize();
     hex::encode(&result[..6]) // short stable fingerprint
 }
 
+/// Build a compact payload for downstream logs/ML.
 pub fn build_trust_payload(record: &TelemetryRecord) -> HashMap<String, String> {
     let mut payload = HashMap::new();
 
@@ -188,51 +224,94 @@ pub fn build_trust_payload(record: &TelemetryRecord) -> HashMap<String, String> 
     payload.insert("command_line".to_string(), record.command_line.clone());
     payload.insert("start_time".to_string(), record.timestamp.to_string());
 
-    let score: f32 = record.risk_score.unwrap_or(0) as f32;
-    payload.insert("risk_score".to_string(), format!("{:.2}", score)); // consistent f32 formatting
+    // risk is in [0,100]; if missing, assume 0
+    let risk: f32 = record.risk_score.unwrap_or(0) as f32;
+    let risk = risk.clamp(MIN_RISK, MAX_RISK);
+    let trust = trust_from_risk(risk);
+
+    payload.insert("risk_score".to_string(), format!("{:.2}", risk));
+    payload.insert("trust_score".to_string(), format!("{:.2}", trust));
 
     payload
 }
 
-pub fn assign_trust_score(record: &mut TelemetryRecord) {
-    let mut trust_score: f32 = 100.0;
+/// Convert a risk in [0,100] to a trust score in [0,100].
+#[inline]
+pub fn trust_from_risk(risk: f32) -> f32 {
+    (100.0 - risk).clamp(0.0, 100.0)
+}
 
-    if record.binary_path.contains("tmp") || record.command_line.contains("curl") {
-        trust_score -= 40.0;
+/// Assign a **risk** score to a TelemetryRecord (0–100).
+/// Previously this function set a "trust score" into `risk_score` (inverted) — fixed.
+pub fn assign_trust_score(record: &mut TelemetryRecord) {
+    // Heuristic risk builder (start at 0 = safe)
+    let mut risk: f32 = 0.0;
+
+    // Simple indicators — tune as needed
+    if record.binary_path.contains("/tmp") {
+        risk += 40.0;
+    }
+    if record.command_line.contains("curl") || record.command_line.contains("wget") {
+        risk += 25.0;
+    }
+    if record.command_line.contains("base64") || record.command_line.contains("eval") {
+        risk += 20.0;
     }
 
-    record.risk_score = Some(trust_score as u32);
+    // Clamp and set
+    risk = risk.clamp(MIN_RISK, MAX_RISK);
+    record.risk_score = Some(risk as u32);
 }
 
+/// Emit a TrustEvent (stdout here; plug into your bus where needed).
 pub fn submit_trust_event(event: TrustEvent) {
+    // Ensure consistency even if constructed externally
+    let mut ev = event.clone();
+    ev.sanitize_scores();
+
     println!(
-        "[🛡 TrustEvent] Module={:?} | Component={} | SignalType={:?} | Signal={:?} | Score={:?} | Raw={:?} | Tags={:?}",
-        event.module,
-        event.component,
-        event.signal_type,
-        event.signal,
-        event.score,
-        event.raw_score,
-        event.tags
+        "[🛡 TrustEvent] Module={:?} | Component={} | SignalType={:?} | Signal={:?} | Risk={:.2} | Score={:?} | Raw={:?} | Tags={:?}",
+        ev.module,
+        ev.component,
+        ev.signal_type,
+        ev.signal,
+        ev.risk_score,
+        ev.score,
+        ev.raw_score,
+        ev.tags
     );
 
-    println!("  └── Description     : {:?}", event.description);
-    println!("  └── Anomaly Type    : {}", event.anomaly_type);
-    println!("  └── Source Module   : {}", event.source_module);
-    println!("  └── Timestamp       : {}", event.timestamp);
-    println!("  └── PID/PPID/UID    : {}/{}/{}", event.pid, event.ppid, event.uid);
-    println!("  └── Binary          : {}", event.binary_path);
-    println!("  └── Command Line    : {}", event.command_line);
-    println!("  └── CWD             : {}", event.cwd);
-    println!("  └── Metadata        : {:#?}", event.metadata);
+    println!("  └── Description     : {:?}", ev.description);
+    println!("  └── Anomaly Type    : {}", ev.anomaly_type);
+    println!("  └── Source Module   : {}", ev.source_module);
+    println!("  └── Timestamp       : {}", ev.timestamp);
+    println!("  └── PID/PPID/UID    : {}/{}/{}", ev.pid, ev.ppid, ev.uid);
+    println!("  └── Binary          : {}", ev.binary_path);
+    println!("  └── Command Line    : {}", ev.command_line);
+    println!("  └── CWD             : {}", ev.cwd);
+    println!("  └── Metadata        : {:#?}", ev.metadata);
 }
 
+/// Generate a simple feature vector and payload-like map values.
+/// - `cpu`: typically a 0–1 or % value; we keep as given
+/// - `mem`: bytes or KB; we keep as given to avoid breaking callers
+/// - `risk`: risk in [0,100]
 pub fn generate_trust_payload(hostname: &str, cpu: f64, mem: u64, risk: f64) -> HashMap<String, String> {
+    let risk = (risk as f32).clamp(MIN_RISK, MAX_RISK);
+    let trust = trust_from_risk(risk);
+
     let mut map = HashMap::new();
-    map.insert("trust_score".to_string(), format!("{:.2}", 100.0 - risk * 10.0));
+    map.insert("host".to_string(), hostname.to_string());
+    map.insert("cpu".to_string(), format!("{:.4}", cpu));
+    map.insert("mem".to_string(), mem.to_string());
+    map.insert("risk_score".to_string(), format!("{:.2}", risk));
+    map.insert("trust_score".to_string(), format!("{:.2}", trust));
     map
 }
 
+/// Minimal, stable 3-dimensional feature vector used across modules.
+/// Kept backward-compatible: [cpu, mem_as_f64, risk]
 pub fn generate_feature_vector(cpu: f64, mem: u64, risk: f64) -> Vec<f64> {
+    let risk = (risk as f32).clamp(MIN_RISK, MAX_RISK) as f64;
     vec![cpu, mem as f64, risk]
 }

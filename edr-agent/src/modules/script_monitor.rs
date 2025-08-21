@@ -1,24 +1,28 @@
 use std::fs::{self, File};
 use std::io::Read;
-use std::os::unix::fs::MetadataExt;
+use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::path::{Path, PathBuf};
 use std::thread;
-use std::time::{Duration, UNIX_EPOCH};
+use std::time::Duration;
 use std::collections::HashMap;
 
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::logger::log;
-use crate::trust_hook::{generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent};
+use crate::trust_hook::{
+    generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
+};
 use crate::utils::time::now_ts;
-use crate::telemetry_types::{TelemetryOutput, MemoryAnomalyType};
+use crate::telemetry_types::TelemetryOutput;
 use sha2::{Digest, Sha256};
 use entropy::shannon_entropy;
 use users::get_user_by_uid;
 use crate::telemetry_writer::write_telemetry_record;
+use crate::modules::replay_writer::store_replay_event;
+use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprints_from_disk};
 
 /// Whitelisted safe script names (system-owned jobs or known benign scripts)
 const WHITELIST: &[&str] = &[
-    "/tmp/systemd-private-", "/tmp/pip-", "/tmp/ansible-", "/tmp/crontab"
+    "/tmp/systemd-private-", "/tmp/pip-", "/tmp/ansible-", "/tmp/crontab",
 ];
 
 /// Extensions considered suspicious if found in /tmp
@@ -52,7 +56,7 @@ pub fn scan_script_monitor() -> Vec<TelemetryOutput> {
             if let Some(output) = check_and_log_script(&path) {
                 let mut data = output.data.clone();
 
-                // Submit TrustEvent
+                // Submit TrustEvent (batch wrapper)
                 let trust_event = TrustEvent {
                     timestamp: now_ts(),
                     pid: 0,
@@ -79,6 +83,7 @@ pub fn scan_script_monitor() -> Vec<TelemetryOutput> {
                 submit_trust_event(trust_event);
                 write_telemetry_record(data.clone());
                 push_to_gnn_vector_log(data.clone());
+                store_replay_event(data.clone());
 
                 outputs.push(output);
             }
@@ -89,64 +94,66 @@ pub fn scan_script_monitor() -> Vec<TelemetryOutput> {
 }
 
 fn check_and_log_script(path: &PathBuf) -> Option<TelemetryOutput> {
-    if let Some(ext) = path.extension().and_then(|s| s.to_str()) {
-        if SCRIPT_EXTS.contains(&ext) && !is_whitelisted(&path) {
+    let ext_lower = path
+        .extension()
+        .and_then(|s| s.to_str())
+        .map(|s| s.to_ascii_lowercase());
+
+    if let Some(ext) = ext_lower.as_deref() {
+        if SCRIPT_EXTS.contains(&ext) && !is_whitelisted(path) {
             if let Ok(meta) = path.metadata() {
+                // Skip empty or root-owned zero-byte placeholders
                 if meta.len() == 0 || meta.uid() == 0 {
                     return None;
                 }
 
-                let exec_capable = meta.permissions().mode() & 0o111 != 0;
+                let exec_capable = (meta.permissions().mode() & 0o111) != 0;
 
-                // Read entropy
-                let entropy_score = match File::open(&path) {
-                    Ok(mut file) => {
-                        let mut contents = Vec::new();
-                        if file.read_to_end(&mut contents).is_ok() {
-                            shannon_entropy(&contents) as f32
-                        } else {
-                            return None;
-                        }
+                // Read file to compute entropy and (later) hash
+                let mut contents = Vec::new();
+                if let Ok(mut file) = File::open(path) {
+                    if file.read_to_end(&mut contents).is_err() {
+                        return None;
                     }
-                    Err(_) => return None,
-                };
-
-                if entropy_score < 3.0 {
+                } else {
                     return None;
                 }
 
-                // Compute file hash
-                let file_hash = calculate_sha256(&path).unwrap_or_else(|| "unknown".into());
-
-                // Try to extract shebang
-                let shebang_line = std::fs::File::open(&path)
-                    .ok()
-                    .and_then(|mut f| {
-                        let mut buf = [0; 256];
-                        f.read(&mut buf).ok()?;
-                        let text = std::str::from_utf8(&buf).ok()?;
-                        text.lines().next().map(|s| s.trim().to_string())
-                    });
-
-                let cpu = 0.5_f32;
-                let mem = 90_000;
-                let risk = 15.0_f32;
-                let ts = now_ts();
-                let uid = meta.uid();
-                let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
-
-                // Build the comparison HashMap
-                let mut data = HashMap::new();
-                data.insert("file_path".into(), path.display().to_string());
-                data.insert("file_hash".into(), file_hash.clone());
-                data.insert("uid".into(), uid.to_string());
-                data.insert("entropy".into(), entropy_score.to_string());
-                data.insert("exec_capable".into(), exec_capable.to_string());
-                if let Some(shebang) = &shebang_line {
-                    data.insert("shebang".into(), shebang.clone());
+                let entropy_score = shannon_entropy(&contents) as f32;
+                if entropy_score < 3.0 {
+                    // Low-entropy scripts (e.g., plain text) are less suspicious
+                    return None;
                 }
 
-                if is_known_good(&data, &fingerprints) {
+                // Compute file hash from contents
+                let file_hash = sha256_of_bytes(&contents);
+
+                // Try to extract shebang
+                let shebang_line = contents
+                    .get(0..256)
+                    .and_then(|slice| std::str::from_utf8(slice).ok())
+                    .and_then(|text| text.lines().next().map(|s| s.trim().to_string()));
+
+                // Owner information (best-effort)
+                let uid = meta.uid();
+                let owner = get_user_by_uid(uid)
+                    .map(|u| u.name().to_string_lossy().to_string())
+                    .unwrap_or_else(|| format!("uid({})", uid));
+
+                // Fingerprint suppression
+                let fingerprints =
+                    load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+                let mut suppress_probe = HashMap::new();
+                suppress_probe.insert("file_path".into(), path.display().to_string());
+                suppress_probe.insert("file_hash".into(), file_hash.clone());
+                suppress_probe.insert("uid".into(), uid.to_string());
+                suppress_probe.insert("exec_capable".into(), exec_capable.to_string());
+                suppress_probe.insert("entropy".into(), format!("{:.2}", entropy_score));
+                if let Some(sb) = &shebang_line {
+                    suppress_probe.insert("shebang".into(), sb.clone());
+                }
+
+                if is_known_good(&suppress_probe, &fingerprints) {
                     log(&format!(
                         "[ScriptMonitor] Skipping known-good script: {}",
                         path.display()
@@ -154,22 +161,44 @@ fn check_and_log_script(path: &PathBuf) -> Option<TelemetryOutput> {
                     return None;
                 }
 
+                // Build features / trust (logged for SOC)
+                let cpu = 0.5_f32;
+                let mem = 90_000_u64;
+                let risk = 15.0_f32;
+                let ts = now_ts();
+
                 let trust = generate_trust_payload("script_monitor", cpu.into(), mem, risk.into());
                 let features = generate_feature_vector(cpu.into(), mem, risk.into());
 
+                // Telemetry payload
                 let mut map = HashMap::new();
-                map.insert("host".into(), "macos-host".into());
+                map.insert("path".into(), path.to_string_lossy().to_string());
+                map.insert("owner".into(), owner);
+                map.insert("file_hash".into(), file_hash.clone());
+                map.insert("uid".into(), uid.to_string());
+                map.insert("entropy".into(), format!("{:.2}", entropy_score));
+                map.insert("exec_capable".into(), exec_capable.to_string());
+                if let Some(shebang) = shebang_line {
+                    map.insert("shebang".into(), shebang);
+                }
                 map.insert("features".into(), format!("{:?}", features));
                 map.insert("replay_tag".into(), "suspicious_script_drop".into());
-                map.insert("path".into(), path.to_string_lossy().to_string());
+                map.insert("gnn_escalate".into(), "true".into());
+                map.insert("timestamp".into(), ts.to_string());
+                map.insert(
+                    "summary".into(),
+                    format!(
+                        "Suspicious /tmp script (entropy {:.2}, exec={})",
+                        entropy_score, exec_capable
+                    ),
+                );
 
-                let mut hasher = Sha256::new();
-                hasher.update(path.to_string_lossy().as_bytes());
-                map.insert("script_hash".into(), format!("{:x}", hasher.finalize()));
-
+                // Persist & fan-out
                 write_telemetry_record(map.clone());
                 push_to_gnn_vector_log(map.clone());
+                store_replay_event(map.clone());
 
+                // Event (realtime)
                 let trust_event = TrustEvent {
                     timestamp: ts,
                     pid: 0,
@@ -219,9 +248,13 @@ fn check_and_log_script(path: &PathBuf) -> Option<TelemetryOutput> {
     None
 }
 
-
-
 fn is_whitelisted(path: &Path) -> bool {
     let path_str = path.to_string_lossy();
     WHITELIST.iter().any(|prefix| path_str.starts_with(prefix))
+}
+
+fn sha256_of_bytes(bytes: &[u8]) -> String {
+    let mut hasher = Sha256::new();
+    hasher.update(bytes);
+    format!("{:x}", hasher.finalize())
 }
