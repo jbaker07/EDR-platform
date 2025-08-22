@@ -1,0 +1,14 @@
+{
+  "policy": {
+    "collection_interval": 60,
+    "endpoint_role": "server",
+    "mode": "forensic",
+    "trust_threshold": 0.7,
+    "gnn_enabled": true,
+    "logging": {
+      "level": "info"
+    }
+  },
+  "signature": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "pubkey": "cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe"
+}

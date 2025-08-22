@@ -1,0 +1,11 @@
+/home/jermaineb/EDR-platform/edr-agent/target/debug/deps/writeable-c31ae5c6fa80f843.d: /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/lib.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/cmp.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/impls.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/ops.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/parts_write_adapter.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/testing.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/try_writeable.rs
+
+/home/jermaineb/EDR-platform/edr-agent/target/debug/deps/libwriteable-c31ae5c6fa80f843.rmeta: /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/lib.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/cmp.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/impls.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/ops.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/parts_write_adapter.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/testing.rs /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/try_writeable.rs
+
+/home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/lib.rs:
+/home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/cmp.rs:
+/home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/impls.rs:
+/home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/ops.rs:
+/home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/parts_write_adapter.rs:
+/home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/testing.rs:
+/home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/writeable-0.5.5/src/try_writeable.rs:

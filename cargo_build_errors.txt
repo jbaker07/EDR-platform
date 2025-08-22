@@ -1,0 +1,1777 @@
+   Compiling proc-macro2 v1.0.94
+   Compiling unicode-ident v1.0.18
+   Compiling libc v0.2.171
+   Compiling cfg-if v1.0.0
+   Compiling autocfg v1.4.0
+   Compiling once_cell v1.21.3
+   Compiling version_check v0.9.5
+   Compiling smallvec v1.15.0
+   Compiling memchr v2.7.4
+   Compiling typenum v1.18.0
+   Compiling parking_lot_core v0.9.11
+   Compiling target-lexicon v0.12.16
+   Compiling bytes v1.10.1
+   Compiling scopeguard v1.2.0
+   Compiling stable_deref_trait v1.2.0
+   Compiling pin-project-lite v0.2.16
+   Compiling shlex v1.3.0
+   Compiling log v0.4.27
+   Compiling foldhash v0.1.5
+   Compiling pkg-config v0.3.32
+   Compiling allocator-api2 v0.2.21
+   Compiling equivalent v1.0.2
+   Compiling vcpkg v0.2.15
+   Compiling litemap v0.7.5
+   Compiling crossbeam-utils v0.8.21
+   Compiling icu_locid_transform_data v1.5.1
+   Compiling writeable v0.5.5
+   Compiling itoa v1.0.15
+   Compiling bitflags v2.9.0
+   Compiling icu_properties_data v1.5.1
+   Compiling cc v1.2.19
+   Compiling icu_normalizer_data v1.5.1
+   Compiling futures-core v0.3.31
+   Compiling getrandom v0.1.16
+   Compiling zerocopy v0.8.25
+   Compiling thiserror v1.0.69
+   Compiling foreign-types-shared v0.1.1
+   Compiling generic-array v0.14.7
+   Compiling openssl v0.10.72
+   Compiling hashbrown v0.15.2
+   Compiling fnv v1.0.7
+   Compiling subtle v2.6.1
+   Compiling serde v1.0.219
+   Compiling core-error v0.0.0
+   Compiling foreign-types v0.3.2
+   Compiling tracing-core v0.1.33
+   Compiling crc32fast v1.4.2
+   Compiling http v0.2.12
+   Compiling lock_api v0.4.13
+   Compiling slab v0.4.9
+   Compiling write16 v1.0.0
+   Compiling futures-sink v0.3.31
+   Compiling object v0.36.7
+   Compiling httparse v1.10.1
+   Compiling futures-task v0.3.31
+   Compiling utf16_iter v1.0.5
+   Compiling native-tls v0.2.14
+   Compiling pin-utils v0.1.0
+   Compiling utf8_iter v1.0.4
+   Compiling futures-io v0.3.31
+   Compiling try-lock v0.2.5
+   Compiling percent-encoding v2.3.1
+   Compiling openssl-probe v0.1.6
+   Compiling rayon-core v1.12.1
+   Compiling tracing v0.1.41
+   Compiling want v0.3.1
+   Compiling crossbeam-epoch v0.9.18
+   Compiling quote v1.0.40
+   Compiling memoffset v0.9.1
+   Compiling indexmap v2.9.0
+   Compiling form_urlencoded v1.2.1
+   Compiling num-traits v0.2.19
+   Compiling pyo3-build-config v0.20.3
+   Compiling futures-channel v0.3.31
+   Compiling httpdate v1.0.3
+   Compiling serde_json v1.0.140
+   Compiling tower-service v0.3.3
+   Compiling syn v2.0.100
+   Compiling futures-util v0.3.31
+   Compiling portable-atomic v1.11.1
+   Compiling heck v0.4.1
+   Compiling bitflags v1.3.2
+   Compiling ryu v1.0.20
+   Compiling cfg_aliases v0.1.1
+   Compiling crossbeam-deque v0.8.6
+   Compiling aho-corasick v1.1.3
+   Compiling http-body v0.4.6
+   Compiling base64 v0.21.7
+   Compiling same-file v1.0.6
+   Compiling nix v0.28.0
+   Compiling adler2 v2.0.0
+   Compiling regex-syntax v0.8.5
+   Compiling either v1.15.0
+   Compiling byteorder v1.5.0
+   Compiling assert_matches v1.5.0
+   Compiling signature v1.6.4
+   Compiling opaque-debug v0.3.1
+   Compiling anyhow v1.0.98
+   Compiling miniz_oxide v0.8.8
+   Compiling walkdir v2.5.0
+   Compiling crossbeam-channel v0.5.15
+   Compiling ed25519 v1.5.3
+   Compiling rustls-pemfile v1.0.4
+   Compiling object v0.28.4
+   Compiling encoding_rs v0.8.35
+   Compiling sync_wrapper v0.1.2
+   Compiling lazy_static v1.5.0
+   Compiling mime v0.3.17
+   Compiling match_cfg v0.1.0
+   Compiling iana-time-zone v0.1.63
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.6
+   Compiling digest v0.9.0
+   Compiling block-buffer v0.9.0
+   Compiling digest v0.10.7
+   Compiling signal-hook-registry v1.4.5
+   Compiling mio v1.0.3
+   Compiling socket2 v0.5.9
+   Compiling cpufeatures v0.2.17
+   Compiling inotify-sys v0.1.5
+   Compiling parking_lot v0.12.4
+   Compiling sha2 v0.9.9
+   Compiling keccak v0.1.5
+   Compiling rand_core v0.5.1
+   Compiling ppv-lite86 v0.2.21
+   Compiling filetime v0.2.25
+   Compiling inotify v0.9.6
+   Compiling mio v0.8.11
+   Compiling rayon v1.10.0
+   Compiling ipnet v2.11.0
+   Compiling indoc v2.0.6
+   Compiling openssl-sys v0.9.107
+   Compiling unindent v0.2.4
+   Compiling notify v6.1.1
+   Compiling sha3 v0.10.8
+   Compiling rand_chacha v0.2.2
+   Compiling sha2 v0.10.9
+   Compiling flate2 v1.1.2
+   Compiling hmac v0.12.1
+   Compiling chrono v0.4.41
+   Compiling hostname v0.3.1
+   Compiling netlink-sys v0.6.0
+   Compiling rand v0.7.3
+   Compiling hex v0.4.3
+   Compiling pyo3-ffi v0.20.3
+   Compiling pyo3 v0.20.3
+   Compiling regex-automata v0.4.9
+   Compiling synstructure v0.13.1
+   Compiling pyo3-macros-backend v0.20.3
+   Compiling sysinfo v0.30.13
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.7.5
+   Compiling zerovec-derive v0.10.3
+   Compiling displaydoc v0.2.5
+   Compiling tokio-macros v2.5.0
+   Compiling icu_provider_macros v1.5.0
+   Compiling thiserror-impl v1.0.69
+   Compiling openssl-macros v0.1.1
+   Compiling serde_derive v1.0.219
+   Compiling num_enum_derive v0.7.3
+   Compiling zeroize_derive v1.4.2
+   Compiling regex v1.11.1
+   Compiling tokio v1.44.2
+   Compiling zeroize v1.3.0
+   Compiling curve25519-dalek v3.2.1
+   Compiling num_enum v0.7.3
+   Compiling aya-log-common v0.1.15
+   Compiling pyo3-macros v0.20.3
+   Compiling zerofrom v0.1.6
+   Compiling yoke v0.7.5
+   Compiling aya-obj v0.2.1
+   Compiling aya v0.11.0
+   Compiling zerovec v0.10.4
+   Compiling tinystr v0.7.6
+   Compiling icu_collections v1.5.0
+   Compiling icu_locid v1.5.0
+   Compiling icu_provider v1.5.0
+   Compiling icu_locid_transform v1.5.0
+   Compiling icu_properties v1.5.1
+   Compiling tokio-util v0.7.14
+   Compiling tokio-native-tls v0.3.1
+   Compiling aya v0.13.1
+   Compiling serde_urlencoded v0.7.1
+   Compiling ed25519-dalek v1.0.1
+   Compiling h2 v0.3.26
+   Compiling icu_normalizer v1.5.0
+   Compiling idna_adapter v1.2.0
+   Compiling idna v1.0.3
+   Compiling url v2.5.4
+   Compiling aya-log v0.2.1
+   Compiling hyper v0.14.32
+   Compiling hyper-tls v0.5.0
+   Compiling reqwest v0.11.27
+   Compiling forensic_hooks v0.1.0 (/home/jermaineb/EDR-platform/edr-agent)
+error: unexpected closing delimiter: `}`
+   --> src/forensic_engine.rs:269:4
+    |
+260 |        spawn_loop!("Geo/IP Anomaly", {
+    |                                      - this opening brace...
+...
+266 |        }, 90);
+    |        - ...matches this closing brace
+...
+269 |    }
+    |    ^ unexpected closing delimiter
+
+error: could not compile `forensic_hooks` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error[E0252]: the name `SystemTime` is defined multiple times
+ --> src/telemetry.rs:3:5
+  |
+2 | use std::time::{SystemTime, UNIX_EPOCH};
+  |                 ---------- previous import of the type `SystemTime` here
+3 | use std::time::SystemTime;
+  |     ^^^^^^^^^^^^^^^^^^^^^ `SystemTime` reimported here
+  |
+  = note: `SystemTime` must be defined only once in the type namespace of this module
+error[E0252]: the name `HashMap` is defined multiple times
+ --> src/modules/password_spray.rs:6:5
+  |
+3 | use std::collections::HashMap;
+  |     ------------------------- previous import of the type `HashMap` here
+...
+6 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^ `HashMap` reimported here
+  |
+  = note: `HashMap` must be defined only once in the type namespace of this module
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+error[E0252]: the name `Mutex` is defined multiple times
+ --> src/modules/password_spray.rs:7:17
+  |
+4 | use std::sync::Mutex;
+  |     ---------------- previous import of the type `Mutex` here
+...
+7 | use std::sync::{Mutex, LazyLock};
+  |                 ^^^^^--
+  |                 |
+  |                 `Mutex` reimported here
+  |                 help: remove unnecessary import
+  |
+  = note: `Mutex` must be defined only once in the type namespace of this module
+
+error[E0252]: the name `SystemTime` is defined multiple times
+ --> src/modules/password_spray.rs:8:5
+  |
+5 | use std::time::{Duration, SystemTime, UNIX_EPOCH};
+  |                           ---------- previous import of the type `SystemTime` here
+...
+8 | use std::time::SystemTime;
+  |     ^^^^^^^^^^^^^^^^^^^^^ `SystemTime` reimported here
+  |
+  = note: `SystemTime` must be defined only once in the type namespace of this module
+
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::CpuExt`
+ --> src/main.rs:6:23
+  |
+6 | use sysinfo::{System, SystemExt, CpuExt};
+  |                       ^^^^^^^^^  ^^^^^^ no `CpuExt` in the root
+  |                       |
+  |                       no `SystemExt` in the root
+  |                       help: a similar name exists in the module: `System`
+error[E0432]: unresolved import `crate::telemetry_types`
+ --> src/trust_decay_profiler.rs:4:12
+  |
+4 | use crate::telemetry_types::TelemetrySnapshot;
+  |            ^^^^^^^^^^^^^^^ could not find `telemetry_types` in the crate root
+
+error[E0432]: unresolved import `crate::decay_engine`
+ --> src/trust_decay_profiler.rs:6:12
+  |
+6 | use crate::decay_engine::calculate_decay;
+  |            ^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::decay_engine`
+
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/zero_day_exploit_fallout.rs:2:12
+  |
+2 | use crate::forensic::utils::{get_kernel_logs, check_protected_mem_access, detect_syscall_anomalies};
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modes::forensic`
+error[E0432]: unresolved import `crate::session_digest_cache`
+ --> src/trust_decay_profiler.rs:7:12
+  |
+7 | use crate::session_digest_cache::get_recent_session_digest;
+  |            ^^^^^^^^^^^^^^^^^^^^ could not find `session_digest_cache` in the crate root
+error[E0432]: unresolved import `crate::ontology_mapper`
+ --> src/replay_writer.rs:5:12
+  |
+5 | use crate::ontology_mapper::SemanticTagInfo;
+  |            ^^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::ontology_mapper`
+
+
+error[E0432]: unresolved import `crate::modules::password_spray::detect_password_spray`
+  --> src/modes/minimal.rs:10:5
+   |
+10 |     password_spray::detect_password_spray,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `detect_password_spray` in `modules::password_spray`
+
+error[E0432]: unresolved import `crate::relay`
+  --> src/modes/minimal.rs:16:12
+   |
+16 | use crate::relay::transmit_or_buffer;
+   |            ^^^^^ could not find `relay` in the crate root
+error[E0432]: unresolved imports `crate::modules::auth_watch`, `crate::modules::file_watcher`, `crate::modules::network_monitor`, `crate::modules::persistence_watch::scan_persistence_indicators`, `crate::modules::privilege_monitor::scan_privilege_escalations`, `crate::modules::process_monitor::monitor_processes`, `crate::modules::registry_watch`, `crate::modules::user_tracker::track_user_sessions`, `crate::modules::usb_monitor::scan_usb_devices`, `crate::modules::container_engine`, `crate::modules::job_sched_monitors`, `crate::modules::script_monitor::monitor_script_execs`, `crate::modules::mem_scan::scan_memory_anomalies`
+  --> src/modes/forensic.rs:8:5
+   |
+8  |     auth_watch::monitor_auth_events,
+   |     ^^^^^^^^^^ could not find `auth_watch` in `modules`
+9  |     file_watcher::monitor_file_events,
+   |     ^^^^^^^^^^^^ could not find `file_watcher` in `modules`
+10 |     net_watch::log_network_events,
+11 |     network_monitor::collect_network_stats,
+   |     ^^^^^^^^^^^^^^^ could not find `network_monitor` in `modules`
+12 |     persistence_watch::scan_persistence_indicators,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_persistence_indicators` in `modules::persistence_watch`
+13 |     privilege_monitor::scan_privilege_escalations,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_privilege_escalations` in `modules::privilege_monitor`
+14 |     process_monitor::monitor_processes,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `monitor_processes` in `modules::process_monitor`
+15 |     registry_watch::scan_registry_entries,
+   |     ^^^^^^^^^^^^^^ could not find `registry_watch` in `modules`
+16 |     user_tracker::track_user_sessions,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `track_user_sessions` in `modules::user_tracker`
+17 |     usb_monitor::scan_usb_devices,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_usb_devices` in `modules::usb_monitor`
+...
+21 |     container_engine::analyze_container_activity,
+   |     ^^^^^^^^^^^^^^^^ could not find `container_engine` in `modules`
+22 |     job_sched_monitors::track_job_schedulers,
+   |     ^^^^^^^^^^^^^^^^^^
+23 |     script_monitor::monitor_script_execs,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+24 |     mem_scan::scan_memory_anomalies,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+  --> src/modes/forensic.rs:28:23
+   |
+28 | use sysinfo::{System, SystemExt, ProcessExt};
+   |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+   |                       |
+   |                       no `SystemExt` in the root
+   |
+   = help: consider importing this unresolved item through its public re-export instead:
+           crate::SystemExt
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, System, ProcessExt};
+   |
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, SystemExt, Process};
+   |
+error[E0432]: unresolved import `crate::vault_exporter`
+ --> src/services/replay_trigger.rs:6:12
+  |
+6 | use crate::vault_exporter::export_to_vault;
+  |            ^^^^^^^^^^^^^^ could not find `vault_exporter` in the crate root
+error[E0432]: unresolved import `crate::services::replay_writer`
+ --> src/services/session_revalidator.rs:8:22
+  |
+8 | use crate::services::replay_writer::store_replay_event;
+  |                      ^^^^^^^^^^^^^ could not find `replay_writer` in `services`
+error[E0432]: unresolved import `crate::replay_trigger`
+ --> src/services/trust_engine_final.rs:3:12
+  |
+3 | use crate::replay_trigger::trigger_replay_if_needed;
+  |            ^^^^^^^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `services::replay_trigger`
+
+error[E0432]: unresolved import `crate::relay`
+ --> src/modules/cloud_tracker.rs:5:12
+  |
+5 | use crate::relay::transmit_or_buffer;
+  |            ^^^^^ could not find `relay` in the crate ro
+error[E0432]: unresolved import `crate::relay`
+ --> src/modules/container_monitor.rs:7:12
+  |
+7 | use crate::relay::transmit_or_buffer;
+  |            ^^^^^ could not find `relay` in the crate 
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/net_watch.rs:5:12
+  |
+5 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/password_spray.rs:9:12
+  |
+9 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::ru
+
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+  --> src/modules/privilege_monitor.rs:10:5
+   |
+10 | use crate::replay_writer::log_replay_event;
+   |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+   |     |                     |
+   |     |                     help: a similar name exists in the module: `store_replay_event`
+   |     no `log_replay_event` in `replay_writer`
+
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+  --> src/modules/privilege_monitor.rs:10:5
+   |
+10 | use crate::replay_writer::log_replay_event;
+   |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+   |     |                     |
+   |     |                     help: a similar name exists in the module: `store_replay_event`
+   |     no `log_replay_event` in `replay_writer`
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+  --> src/modules/privilege_monitor.rs:10:5
+   |
+10 | use crate::replay_writer::log_replay_event;
+   |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+   |     |                     |
+   |     |                     help: a similar name exists in the module: `store_replay_event`
+   |     no `log_replay_event` in `replay_writ
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+  --> src/modules/privilege_monitor.rs:10:5
+   |
+10 | use crate::replay_writer::log_replay_event;
+   |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+   |     |                     |
+   |     |                     help: a similar name exists in the module: `store_replay_event`
+   |     no `log_replay_event` in `replay
+
+error[E0432]: unresolved import `crate::replay_writer::send_to_replay_queue`
+ --> src/modules/logon_tracker.rs:9:5
+  |
+9 | use crate::replay_writer::send_to_replay_queue;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `send_to_replay_queue` in `replay_writer`
+
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+  --> src/modules/privilege_monitor.rs:10:5
+   |
+10 | use crate::replay_writer::log_replay_event;
+   |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+   |     |                     |
+   |     |                     help: a similar name exists in the module: `store_replay_event`
+   |     no `log_replay_event` in `replay_write
+error[E0432]: unresolved import `sysinfo::ext`
+ --> src/modules/process_monitor.rs:4:14
+  |
+4 | use sysinfo::ext::SystemExt;
+  |              ^^^ could not find `ext` in `sysinfo`
+error[E0432]: unresolved import `sysinfo::ext`
+ --> src/modules/process_monitor.rs:5:14
+  |
+5 | use sysinfo::ext::ProcessExt;
+  |              ^^^ could not find `ext` in `sysinfo`
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/usb_monitor.rs:7:12
+  |
+7 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+
+
+
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modules/user_tracker.rs:8:12
+  |
+8 | use crate::runtime::trust_hook::{submit_trust_event, TrustEvent};
+  |            ^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `tokio::runtime`
+
+
+
+
+
+error[E0432]: unresolved import `crate::replay_writer::log_replay_event`
+ --> src/modules/script_monitor.rs:9:5
+  |
+9 | use crate::replay_writer::log_replay_event;
+  |     ^^^^^^^^^^^^^^^^^^^^^^----------------
+  |     |                     |
+  |     |                     help: a similar name exists in the module: `store_replay_event`
+  |     no `log_replay_event` in `replay_writer`
+
+
+
+error[E0432]: unresolved imports `crate::telemetry::get_current_telemetry_snapshot`, `crate::telemetry::TelemetryEvent`
+ --> src/telemetry_writer.rs:9:24
+  |
+9 | use crate::telemetry::{get_current_telemetry_snapshot, TelemetryEvent};
+  |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+  |                        |                               |
+  |                        |                               no `TelemetryEvent` in `telemetry`
+  |                        |                               help: a similar name exists in the module: `TelemetryError`
+  |                        no `get_current_telemetry_snapshot` in `telemetry`
+
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/trust_decay_profiler.rs:5:5
+  |
+5 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^-----------------
+  |     |                  |
+  |     |                  help: a similar name exists in the module: `submit_trust_signal`
+  |     no `send_trust_signal` in `trust_hook`
+
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/multi_stage_exfil_detector.rs:5:5
+  |
+5 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^-----------------
+  |     |                  |
+  |     |                  help: a similar name exists in the module: `submit_trust_signal`
+  |     no `send_trust_signal` in `trust_hook`
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/encrypted_payload_detector.rs:4:5
+  |
+4 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^-----------------
+  |     |                  |
+  |     |                  help: a similar name exists in the module: `submit_trust_signal`
+  |     no `send_trust_signal` in `trust_hook`
+
+
+
+error[E0432]: unresolved imports `crate::telemetry::calculate_entropy`, `crate::telemetry::is_memory_only`, `crate::telemetry::get_file_metadata`
+ --> src/encrypted_payload_detector.rs:5:24
+  |
+5 | use crate::telemetry::{calculate_entropy, is_memory_only, get_file_metadata};
+  |                        ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^ no `get_file_metadata` in `telemetry`
+  |                        |                  |
+  |                        |                  no `is_memory_only` in `telemetry`
+  |                        no `calculate_entropy` in `telemetry`
+
+
+error[E0432]: unresolved import `crate::trust_hook::send_trust_signal`
+ --> src/file_hash_watcher.rs:6:5
+  |
+6 | use crate::trust_hook::send_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^-----------------
+  |     |                  |
+  |     |                  help: a similar name exists in the module: `submit_trust_signal`
+  |     no `send_trust_signal` in `trust_hook`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `create`
+ --> src/services/trust_engine_final.rs:7:5
+  |
+7 | use create::services::trust_config::TrustConfig;
+  |     ^^^^^^ use of unresolved module or unlinked crate `create`
+  |
+  = help: if you wanted to use a crate named `create`, use `cargo add create` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved imports `crate::modules::auth_monitor::light_auth_monitor`, `crate::modules::mfa_bypass::detect_mfa_bypass`, `crate::modules::geo_ip_anomaly::check_geo_ip_anomaly`, `crate::modules::cloud_tracker::minimal_cloud_tracking`
+  --> src/modes/minimal.rs:9:5
+   |
+9  |     auth_monitor::light_auth_monitor,
+   |     ^^^^^^^^^^^^^^------------------
+   |     |             |
+   |     |             help: a similar name exists in the module: `start_auth_monitor`
+   |     no `light_auth_monitor` in `modules::auth_monitor`
+10 |     password_spray::detect_password_spray,
+11 |     mfa_bypass::detect_mfa_bypass,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `detect_mfa_bypass` in `modules::mfa_bypass`
+12 |     geo_ip_anomaly::check_geo_ip_anomaly,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `check_geo_ip_anomaly` in `modules::geo_ip_anomaly`
+13 |     cloud_tracker::minimal_cloud_tracking,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `minimal_cloud_tracking` in `modules::cloud_tracker`
+
+error[E0432]: unresolved import `crate::services::session_revalidator::SessionData`
+ --> src/services/trust_state_restorer.rs:5:5
+  |
+5 | use crate::services::session_revalidator::SessionData;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `SessionData` in `services::session_revalidator`
+
+error[E0432]: unresolved import `crate::trust_hook::get_trust_payload`
+ --> src/modules/auth_monitor.rs:6:25
+  |
+6 | use crate::trust_hook::{get_trust_payload, generate_feature_vector};
+  |                         ^^^^^^^^^^^^^^^^^
+  |                         |
+  |                         no `get_trust_payload` in `trust_hook`
+  |                         help: a similar name exists in the module: `generate_trust_payload`
+
+
+
+error[E0432]: unresolved import `crate::trust_hook::get_trust_payload`
+ --> src/modules/job_sched_monitor.rs:8:49
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload, generate_feature_vector};
+  |                                                 ^^^^^^^^^^^^^^^^^
+  |                                                 |
+  |                                                 no `get_trust_payload` in `trust_hook`
+  |                                                 help: a similar name exists in the module: `generate_trust_payload`
+
+
+
+
+error[E0432]: unresolved import `crate::trust_hook::get_trust_payload`
+ --> src/modules/privilege_monitor.rs:8:49
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload};
+  |                                                 ^^^^^^^^^^^^^^^^^
+  |                                                 |
+  |                                                 no `get_trust_payload` in `trust_hook`
+  |                                                 help: a similar name exists in the module: `generate_trust_payload`
+
+error[E0432]: unresolved imports `crate::trust_hook::submit_trust_event`, `crate::trust_hook::TrustEvent`
+ --> src/modules/process_monitor.rs:9:25
+  |
+9 | use crate::trust_hook::{submit_trust_event, TrustEvent};
+  |                         ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^ no `TrustEvent` in `trust_hook`
+  |                         |
+  |                         no `submit_trust_event` in `trust_hook`
+  |                         help: a similar name exists in the module: `submit_trust_signal`
+  |
+  = help: consider importing this struct instead:
+          crate::trust_escape_detector::TrustEvent
+error[E0432]: unresolved import `crate::trust_hook::get_trust_payload`
+ --> src/modules/script_monitor.rs:7:50
+  |
+7 | use crate::trust_hook::{generate_feature_vector, get_trust_payload};
+  |                                                  ^^^^^^^^^^^^^^^^^
+  |                                                  |
+  |                                                  no `get_trust_payload` in `trust_hook`
+  |                                                  help: a similar name exists in the module: `generate_trust_payload`
+
+
+error[E0432]: unresolved import `crate::services::session_revalidator::SessionData`
+ --> src/modules/trust_state_restorer.rs:5:5
+  |
+5 | use crate::services::session_revalidator::SessionData;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `SessionData` in `services::session_revalidator`
+
+error[E0432]: unresolved import `services::trust_state_writer::start_trust_state_writer`
+  --> src/main.rs:79:5
+   |
+79 | use services::trust_state_writer::start_trust_state_writer;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `start_trust_state_writer` in `services::trust_state_writer`
+
+error[E0432]: unresolved import `services::session_revalidator::SessionData`
+  --> src/main.rs:81:64
+   |
+81 | use services::session_revalidator::{start_session_revalidator, SessionData};
+   |                                                                ^^^^^^^^^^^ no `SessionData` in `services::session_revalidator`
+
+warning: unused import: `crate::trust_digest_engine::TrustDigestEngine`
+ --> src/gnn_hook.rs:7:5
+  |
+7 | use crate::trust_digest_engine::TrustDigestEngine;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::time::SystemTime`
+ --> src/telemetry.rs:3:5
+  |
+3 | use std::time::SystemTime;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+ --> src/telemetry_writer.rs:8:5
+  |
+8 | use chrono::Utc;
+  |     ^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_explainer.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_trust_curve.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/insider_data_staging.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/trust_decay_profiler.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Duration`
+ --> src/multi_stage_exfil_detector.rs:2:29
+  |
+2 | use std::time::{SystemTime, Duration};
+  |                             ^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/post_exploit_anomaly_flagger.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/encrypted_payload_detector.rs:2:5
+  |
+2 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused imports: `SystemTime` and `UNIX_EPOCH`
+ --> src/encrypted_payload_detector.rs:3:17
+  |
+3 | use std::time::{SystemTime, UNIX_EPOCH};
+  |                 ^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `HashMap`
+ --> src/replay_scheduler.rs:1:24
+  |
+1 | use std::collections::{HashMap, HashSet};
+  |                        ^^^^^^^
+
+warning: unused import: `self`
+ --> src/replay_scheduler.rs:2:15
+  |
+2 | use std::fs::{self, OpenOptions};
+  |               ^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/modes/forensic.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+  --> src/services/trust_engine_final.rs:13:5
+   |
+13 | use chrono::Utc;
+   |     ^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/services/trust_escalation.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `BufRead`
+ --> src/services/trust_state_writer.rs:3:33
+  |
+3 | use std::io::{Write, BufReader, BufRead};
+  |                                 ^^^^^^^
+
+warning: unused doc comment
+  --> src/modules/geo_ip_anomaly.rs:23:1
+   |
+23 | /// Thread-safe history map
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^ rustdoc does not generate documentation for macro invocations
+   |
+   = help: to document an item produced by a macro, the macro must produce the documentation as part of its expansion
+   = note: `#[warn(unused_doc_comments)]` on by default
+
+warning: unused import: `generate_trust_payload`
+ --> src/modules/job_sched_monitor.rs:8:25
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload, generate_feature_vector};
+  |                         ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/modules/password_spray.rs:6:5
+  |
+6 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Mutex`
+ --> src/modules/password_spray.rs:7:17
+  |
+7 | use std::sync::{Mutex, LazyLock};
+  |                 ^^^^^
+
+warning: unused import: `std::time::SystemTime`
+ --> src/modules/password_spray.rs:8:5
+  |
+8 | use std::time::SystemTime;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/modules/persistence_watch.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `generate_trust_payload`
+ --> src/modules/privilege_monitor.rs:8:25
+  |
+8 | use crate::trust_hook::{generate_trust_payload, get_trust_payload};
+  |                         ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Process`
+ --> src/modules/process_monitor.rs:3:23
+  |
+3 | use sysinfo::{System, Process};
+  |                       ^^^^^^^
+error[E0599]: `SystemTime` doesn't implement `std::fmt::Display`
+  --> src/gnn_hook.rs:58:60
+   |
+58 |     metadata.insert("timestamp".to_string(), evt.timestamp.to_string());
+   |                                                            ^^^^^^^^^ `SystemTime` cannot be formatted with the default formatter
+   |
+   = note: the following trait bounds were not satisfied:
+           `SystemTime: std::fmt::Display`
+           which is required by `SystemTime: ToString`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+
+error[E0609]: no field `command` on type `&MemorySnapshot`
+  --> src/gnn_hook.rs:61:28
+   |
+61 |     if let Some(val) = evt.command.clone() {
+   |                            ^^^^^^^ unknown field
+   |
+   = note: available fields are: `id`, `path`, `hash`, `risk_score`, `reason` ... and 5 others
+
+error[E0609]: no field `file_path` on type `&MemorySnapshot`
+  --> src/gnn_hook.rs:68:28
+   |
+68 |     if let Some(val) = evt.file_path.clone() {
+   |                            ^^^^^^^^^ unknown field
+   |
+   = note: available fields are: `id`, `path`, `hash`, `risk_score`, `reason` ... and 5 others
+
+error[E0609]: no field `user` on type `&MemorySnapshot`
+  --> src/gnn_hook.rs:72:28
+   |
+72 |     if let Some(val) = evt.user.clone() {
+   |                            ^^^^ unknown field
+   |
+   = note: available fields are: `id`, `path`, `hash`, `risk_score`, `reason` ... and 5 others
+
+error[E0599]: no method named `unwrap_or` found for type `u32` in the current scope
+  --> src/gnn_hook.rs:80:37
+   |
+80 |     let risk_score = evt.risk_score.unwrap_or(50.0) as f32;
+   |                                     ^^^^^^^^^ method not found in `u32`
+
+error[E0599]: no method named `unwrap_or` found for type `u32` in the current scope
+  --> src/trust_hook.rs:41:31
+   |
+41 |     let risk = evt.risk_score.unwrap_or(50.0);
+   |                               ^^^^^^^^^ method not found in `u
+error[E0308]: mismatched types
+  --> src/trust_hook.rs:51:20
+   |
+51 |         timestamp: evt.timestamp,
+   |                    ^^^^^^^^^^^^^ expected `u64`, found `SystemTime`
+
+error[E0599]: no method named `unwrap_or` found for type `u32` in the current scope
+  --> src/trust_hook.rs:41:31
+   |
+41 |     let risk = evt.risk_score.unwrap_or(50.0);
+   |                               ^^^^^^^^^ method not found in `u
+error[E0308]: mismatched types
+  --> src/trust_hook.rs:51:20
+   |
+51 |         timestamp: evt.timestamp,
+   |                    ^^^^^^^^^^^^^ expected `u64`, found `SystemTime`
+
+
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/insider_data_staging.rs:59:39
+   |
+59 |                         let payload = generate_trust_payload(0.4, file_size as u64, 87.0); // sample values
+   |                                       ^^^^^^^^^^^^^^^^^^^^^^ ---  ----------------  ---- unexpected argument #3 of type `{float}`
+   |                                                              |    |
+   |                                                              |    unexpected argument #2 of type `u64`
+   |                                                              expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+59 -                         let payload = generate_trust_payload(0.4, file_size as u64, 87.0); // sample values
+59 +                         let payload = generate_trust_payload(/* &MemorySnapshot */); // sample values
+   |
+
+error[E0308]: mismatched types
+  --> src/insider_data_staging.rs:61:45
+   |
+61 |                         submit_trust_signal(payload);
+   |                         ------------------- ^^^^^^^ expected `HashMap<String, String>`, found `TrustPayload`
+   |                         |
+   |                         arguments to this function are incorrect
+   |
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+              found struct `TrustPayload`
+note: function defined here
+  --> src/trust_hook.rs:84:8
+   |
+84 | pub fn submit_trust_signal(payload: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^ --------------------------------
+error[E0308]: mismatched types
+   --> src/post_exploit_anomaly_flagger.rs:42:66
+    |
+42  | ...                   trust_hook::submit_trust_payload(trust_payload);
+    |                       -------------------------------- ^^^^^^^^^^^^^ expected `HashMap<String, String>`, found `TrustPayload`
+    |                       |
+    |                       arguments to this function are incorrect
+    |
+    = note: expected struct `HashMap<std::string::String, std::string::String>`
+               found struct `TrustPayload`
+note: function defined here
+   --> src/trust_hook.rs:118:8
+    |
+118 | pub fn submit_trust_payload(payload: HashMap<String, String>) {
+    |        ^^^^^^^^^^^^^^^^^^^^ --------------------------------
+
+error[E0061]: this function takes 1 argument but 0 arguments were supplied
+   --> src/zero_day_fallout_monitor.rs:18:26
+    |
+18  |     if let Ok(modules) = get_loaded_modules() {
+    |                          ^^^^^^^^^^^^^^^^^^-- argument #1 of type `i32` is missing
+    |
+note: function defined here
+   --> src/telemetry.rs:170:8
+    |
+170 | pub fn get_loaded_modules(_pid: i32) -> Option<Vec<String>> {
+    |        ^^^^^^^^^^^^^^^^^^ ---------
+help: provide the argument
+    |
+18  |     if let Ok(modules) = get_loaded_modules(/* i32 */) {
+    |                                             +++++++++
+
+error[E0308]: mismatched types
+  --> src/zero_day_fallout_monitor.rs:18:12
+   |
+18 |     if let Ok(modules) = get_loaded_modules() {
+   |            ^^^^^^^^^^^   -------------------- this expression has type `std::option::Option<Vec<std::string::String>>`
+   |            |
+   |            expected `Option<Vec<String>>`, found `Result<_, _>`
+   |
+   = note: expected enum `std::option::Option<Vec<std::string::String>>`
+              found enum `Result<_, _>`
+
+error[E0308]: mismatched types
+  --> src/modes/minimal.rs:34:41
+   |
+34 |                 let data: Vec<String> = start_process_monitor();
+   |                           -----------   ^^^^^^^^^^^^^^^^^^^^^^^ expected `Vec<String>`, found `()`
+   |                           |
+   |                           expected due to this
+   |
+   = note: expected struct `Vec<std::string::String>`
+           found unit type `()`
+
+error[E0308]: mismatched types
+  --> src/modes/minimal.rs:53:41
+   |
+53 |                 let data: Vec<String> = log_open_connections();
+   |                           -----------   ^^^^^^^^^^^^^^^^^^^^^^ expected `Vec<String>`, found `()`
+   |                           |
+   |                           expected due to this
+   |
+   = note: expected struct `Vec<std::string::String>`
+           found unit type `()`
+error[E0599]: no method named `escalation_triggered` found for mutable reference `&mut SessionTrustCurve` in the current scope
+  --> src/services/replay_trigger.rs:55:14
+   |
+55 |     if curve.escalation_triggered() {
+   |              ^^^^^^^^^^^^^^^^^^^^ method not found in `&mut SessionTrustCurve`
+
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/services/session_revalidator.rs:31:31
+   |
+31 |                 let payload = trust_hook::generate_trust_payload(
+   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+32 |                     decayed_score,
+   |                     ------------- expected `&MemorySnapshot`, found `f64`
+33 |                     60000, // Placeholder timestamp or offset
+   |                     ----- unexpected argument #2 of type `{integer}`
+34 |                     20.0   // Default penalty or weight
+   |                     ---- unexpected argument #3 of type `{float}`
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+32 -                     decayed_score,
+32 +                     /* &MemorySnapshot */   // Default penalty or weight
+   
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/services/session_revalidator.rs:40:37
+   |
+40 |                         session_id, payload
+   |                                     ^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0308]: mismatched types
+  --> src/services/session_revalidator.rs:48:40
+   |
+48 |                         trust_payload: payload.clone(),
+   |                                        ^^^^^^^^^^^^^^^ expected `String`, found `TrustPayload`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `logger`
+  --> src/services/trust_escalation.rs:24:9
+   |
+24 |         logger::log(format!(
+   |         ^^^^^^ use of unresolved module or unlinked crate `logger`
+   |
+   = help: if you wanted to use a crate named `logger`, use `cargo add logger` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `logger`
+  --> src/services/trust_escalation.rs:31:9
+   |
+31 |         logger::log(format!(
+   |         ^^^^^^ use of unresolved module or unlinked crate `logger`
+   |
+   = help: if you wanted to use a crate named `logger`, use `cargo add logger` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `logger`
+  --> src/services/trust_escalation.rs:39:9
+   |
+39 |         logger::log(format!(
+   |         ^^^^^^ use of unresolved module or unlinked crate `logger`
+   |
+   = help: if you wanted to use a crate named `logger`, use `cargo add logger` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `logger`
+  --> src/services/trust_escalation.rs:73:5
+   |
+73 |     logger::log(format!(
+   |     ^^^^^^ use of unresolved module or unlinked crate `logger`
+   |
+   = help: if you wanted to use a crate named `logger`, use `cargo add logger` to add it to your `Cargo.toml`
+error[E0560]: struct `TrustState` has no field named `endpoint_id`
+  --> src/services/trust_state_writer.rs:36:9
+   |
+36 |         endpoint_id: endpoint_id.to_string(),
+   |         ^^^^^^^^^^^ `TrustState` does not have this field
+   |
+   = note: available fields are: `last_observed`, `last_score`, `decay_half_life`
+
+error[E0560]: struct `TrustState` has no field named `score`
+  --> src/services/trust_state_writer.rs:37:9
+   |
+37 |         score,
+   |         ^^^^^ `TrustState` does not have this field
+   |
+   = note: available fields are: `last_observed`, `last_score`, `decay_half_life`
+
+error[E0560]: struct `TrustState` has no field named `timestamp`
+  --> src/services/trust_state_writer.rs:38:9
+   |
+38 |         timestamp: Utc::now().timestamp(),
+   |         ^^^^^^^^^ `TrustState` does not have this field
+   |
+   = note: available fields are: `last_observed`, `last_score`, `decay_half_life`
+error[E0308]: mismatched types
+  --> src/modules/auth_monitor.rs:62:53
+   |
+62 |         let features = generate_feature_vector(cpu, mem, risk_score);
+   |                        -----------------------      ^^^ expected `f64`, found integer
+   |                        |
+   |                        arguments to this function are incorrect
+   |
+note: function defined here
+  --> src/trust_hook.rs:34:8
+   |
+34 | pub fn generate_feature_vector(cpu: f64, mem: f64, risk: f64) -> Vec<f64> {
+   |        ^^^^^^^^^^^^^^^^^^^^^^^           --------
+
+error[E0308]: arguments to this function are incorrect
+  --> src/modules/auth_monitor.rs:63:9
+   |
+63 |         send_to_gnn(&hostname, &features);
+   |         ^^^^^^^^^^^ --------- expected `&TelemetryData`, found `&String`
+   |
+   = note: expected reference `&TelemetryData`
+              found reference `&std::string::String`
+note: expected `f64`, found `&Vec<f64>`
+  --> src/modules/auth_monitor.rs:63:32
+   |
+63 |         send_to_gnn(&hostname, &features);
+   |                                ^^^^^^^^^
+   = note:   expected type `f64`
+           found reference `&Vec<f64>`
+note: function defined here
+  --> src/gnn_hook.rs:46:8
+   |
+46 | pub fn send_to_gnn(_telemetry: &TelemetryData, _score: f64) {
+   |        ^^^^^^^^^^^ --------------------------  -----------
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/cloud_tracker.rs:73:29
+   |
+73 |         let trust_payload = generate_trust_payload(cpu, mem, score);
+   |                             ^^^^^^^^^^^^^^^^^^^^^^ ---  ---  ----- unexpected argument #3 of type `f32`
+   |                                                    |    |
+   |                                                    |    unexpected argument #2 of type `{float}`
+   |                                                    expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+73 -         let trust_payload = generate_trust_payload(cpu, mem, score);
+73 +         let trust_payload = generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0308]: mismatched types
+  --> src/modules/cloud_tracker.rs:74:58
+   |
+74 |         let features = generate_feature_vector(cpu, mem, score);
+   |                        -----------------------           ^^^^^ expected `f64`, found `f32`
+   |                        |
+   |                        arguments to this function are incorrect
+   |
+note: function defined here
+  --> src/trust_hook.rs:34:8
+   |
+34 | pub fn generate_feature_vector(cpu: f64, mem: f64, risk: f64) -> Vec<f64> {
+   |        ^^^^^^^^^^^^^^^^^^^^^^^                     ---------
+help: you can convert an `f32` to an `f64`
+   |
+74 |         let features = generate_feature_vector(cpu, mem, score.into());
+   |                                                               +++++++
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+  --> src/modules/cloud_tracker.rs:75:9
+   |
+75 |         push_to_gnn_vector_log(&hostname, &features).ok();
+   |         ^^^^^^^^^^^^^^^^^^^^^^            --------- unexpected argument #2 of type `&Vec<f64>`
+   |
+note: expected `HashMap<String, String>`, found `&String`
+  --> src/modules/cloud_tracker.rs:75:32
+   |
+75 |         push_to_gnn_vector_log(&hostname, &features).ok();
+   |                                ^^^^^^^^^
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+           found reference `&std::string::String`
+note: function defined here
+  --> src/gnn_hook.rs:92:8
+   |
+92 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+help: remove the extra argument
+   |
+75 -         push_to_gnn_vector_log(&hostname, &features).ok();
+75 +         push_to_gnn_vector_log(/* HashMap<std::string::String, std::string::String> */).ok();
+   |
+
+error[E0599]: no method named `ok` found for unit type `()` in the current scope
+  --> src/modules/cloud_tracker.rs:75:54
+   |
+75 |         push_to_gnn_vector_log(&hostname, &features).ok();
+   |                                                      ^^ method not found in `()`
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/container_monitor.rs:68:29
+   |
+68 |         let trust_payload = generate_trust_payload(cpu_usage, mem_usage, risk_score);
+   |                             ^^^^^^^^^^^^^^^^^^^^^^ ---------  ---------  ---------- unexpected argument #3 of type `f32`
+   |                                                    |          |
+   |                                                    |          unexpected argument #2 of type `{float}`
+   |                                                    expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+68 -         let trust_payload = generate_trust_payload(cpu_usage, mem_usage, risk_score);
+68 +         let trust_payload = generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0308]: mismatched types
+  --> src/modules/container_monitor.rs:69:76
+   |
+69 |         let feature_vector = generate_feature_vector(cpu_usage, mem_usage, risk_score);
+   |                              -----------------------                       ^^^^^^^^^^ expected `f64`, found `f32`
+   |                              |
+   |                              arguments to this function are incorrect
+   |
+note: function defined here
+  --> src/trust_hook.rs:34:8
+   |
+34 | pub fn generate_feature_vector(cpu: f64, mem: f64, risk: f64) -> Vec<f64> {
+   |        ^^^^^^^^^^^^^^^^^^^^^^^                     ---------
+help: you can convert an `f32` to an `f64`
+   |
+69 |         let feature_vector = generate_feature_vector(cpu_usage, mem_usage, risk_score.into());
+   |                                                                                      +++++++
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+  --> src/modules/container_monitor.rs:70:9
+   |
+70 |         push_to_gnn_vector_log(&hostname, &feature_vector).ok();
+   |         ^^^^^^^^^^^^^^^^^^^^^^            --------------- unexpected argument #2 of type `&Vec<f64>`
+   |
+note: expected `HashMap<String, String>`, found `&String`
+  --> src/modules/container_monitor.rs:70:32
+   |
+70 |         push_to_gnn_vector_log(&hostname, &feature_vector).ok();
+   |                                ^^^^^^^^^
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+           found reference `&std::string::String`
+note: function defined here
+  --> src/gnn_hook.rs:92:8
+   |
+92 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+help: remove the extra argument
+   |
+70 -         push_to_gnn_vector_log(&hostname, &feature_vector).ok();
+70 +         push_to_gnn_vector_log(/* HashMap<std::string::String, std::string::String> */).ok();
+   |
+
+error[E0599]: no method named `ok` found for unit type `()` in the current scope
+  --> src/modules/container_monitor.rs:70:60
+   |
+70 |         push_to_gnn_vector_log(&hostname, &feature_vector).ok();
+   |                                                            ^^ method not found in `()`
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/geo_ip_anomaly.rs:45:27
+   |
+45 |             let payload = trust_hook::generate_trust_payload(0.3, 400, 88.0);
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ---  ---  ---- unexpected argument #3 of type `{float}`
+   |                                                              |    |
+   |                                                              |    unexpected argument #2 of type `{integer}`
+   |                                                              expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+45 -             let payload = trust_hook::generate_trust_payload(0.3, 400, 88.0);
+45 +             let payload = trust_hook::generate_trust_payload(/* &MemorySnapshot */);
+   |
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/geo_ip_anomaly.rs:46:45
+   |
+46 |             println!("[🛡️ Trust Alert] {}", payload);
+   |                                            ^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+error[E0308]: mismatched types
+  --> src/modules/job_sched_monitor.rs:39:81
+   |
+39 |                 let features = generate_feature_vector(cpu_usage, memory_usage, risk_score);
+   |                                -----------------------                          ^^^^^^^^^^ expected `f64`, found `f32`
+   |                                |
+   |                                arguments to this function are incorrect
+   |
+note: function defined here
+  --> src/trust_hook.rs:34:8
+   |
+34 | pub fn generate_feature_vector(cpu: f64, mem: f64, risk: f64) -> Vec<f64> {
+   |        ^^^^^^^^^^^^^^^^^^^^^^^                     ---------
+help: you can convert an `f32` to an `f64`
+   |
+39 |                 let features = generate_feature_vector(cpu_usage, memory_usage, risk_score.into());
+   |                                                                                           +++++++
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+  --> src/modules/job_sched_monitor.rs:40:17
+   |
+40 |                 push_to_gnn_vector_log("localhost", &features);
+   |                 ^^^^^^^^^^^^^^^^^^^^^^              --------- unexpected argument #2 of type `&Vec<f64>`
+   |
+note: expected `HashMap<String, String>`, found `&str`
+  --> src/modules/job_sched_monitor.rs:40:40
+   |
+40 |                 push_to_gnn_vector_log("localhost", &features);
+   |                                        ^^^^^^^^^^^
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+           found reference `&'static str`
+note: function defined here
+  --> src/gnn_hook.rs:92:8
+   |
+92 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+help: remove the extra argument
+   |
+40 -                 push_to_gnn_vector_log("localhost", &features);
+40 +                 push_to_gnn_vector_log(/* HashMap<std::string::String, std::string::String> */);
+   |
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/logon_tracker.rs:39:41
+   |
+39 |                     let trust_payload = generate_trust_payload(cpu_usage, memory_usage_kb as f64, risk_score);
+   |                                         ^^^^^^^^^^^^^^^^^^^^^^ ---------  ----------------------  ---------- unexpected argument #3 of type `{float}`
+   |                                                                |          |
+   |                                                                |          unexpected argument #2 of type `f64`
+   |                                                                expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+39 -                     let trust_payload = generate_trust_payload(cpu_usage, memory_usage_kb as f64, risk_score);
+39 +                     let trust_payload = generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:53:35
+   |
+53 |                         env_vars: vec![],
+   |                                   ^^^^^^ expected `Option<Vec<String>>`, found `Vec<_>`
+   |
+   = note: expected enum `std::option::Option<Vec<std::string::String>>`
+            found struct `Vec<_>`
+   = note: this error originates in the macro `vec` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: call `Into::into` on this expression to convert `Vec<_>` into `std::option::Option<Vec<std::string::String>>`
+   |
+53 |                         env_vars: vec![].into(),
+   |                                         +++++++
+
+error[E0560]: struct `TelemetryRecord` has no field named `parent_pid`
+  --> src/modules/logon_tracker.rs:55:25
+   |
+55 |                         parent_pid: 0,
+   |                         ^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `pid`, `ppid`, `network_connections`, `file_accesses`, `registry_modifications` ... and 5 others
+
+error[E0560]: struct `TelemetryRecord` has no field named `process_pid`
+  --> src/modules/logon_tracker.rs:56:25
+   |
+56 |                         process_pid: 0,
+   |                         ^^^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `pid`, `ppid`, `network_connections`, `file_accesses`, `registry_modifications` ... and 5 others
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:57:42
+   |
+57 |                         memory_usage_kb: memory_usage_kb,
+   |                                          ^^^^^^^^^^^^^^^ expected `Option<u64>`, found integer
+   |
+   = note: expected enum `std::option::Option<u64>`
+              found type `{integer}`
+help: try wrapping the expression in `Some`
+   |
+57 |                         memory_usage_kb: Some(memory_usage_kb),
+   |                                          +++++               +
+
+error[E0560]: struct `TelemetryRecord` has no field named `role`
+  --> src/modules/logon_tracker.rs:58:25
+   |
+58 |                         role: if user == "root" { "root".into() } else { "user".into() },
+   |                         ^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `pid`, `ppid`, `network_connections`, `file_accesses`, `registry_modifications` ... and 5 others
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/mem_scan.rs:28:49
+   |
+28 | ...                   let trust_payload = trust_hook::generate_trust_payload(0.6, rss_kb as u64, risk_score);
+   |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ---  -------------  ---------- unexpected argument #3 of type `f32`
+   |                                                                              |    |
+   |                                                                              |    unexpected argument #2 of type `u64`
+   |                                                                              expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+28 -                             let trust_payload = trust_hook::generate_trust_payload(0.6, rss_kb as u64, risk_score);
+28 +                             let trust_payload = trust_hook::generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/mem_scan.rs:31:51
+   |
+31 | ...                   pid, cmd, rss_kb, trust_payload
+   |                                         ^^^^^^^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/mfa_bypass.rs:42:23
+   |
+42 |         let payload = trust_hook::generate_trust_payload(0.2, 400, 90.0);
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ---  ---  ---- unexpected argument #3 of type `{float}`
+   |                                                          |    |
+   |                                                          |    unexpected argument #2 of type `{integer}`
+   |                                                          expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+42 -         let payload = trust_hook::generate_trust_payload(0.2, 400, 90.0);
+42 +         let payload = trust_hook::generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/mfa_bypass.rs:45:39
+   |
+45 |             event.user, event.method, payload
+   |                                       ^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/mfa_bypass.rs:57:23
+   |
+57 |         let payload = trust_hook::generate_trust_payload(0.3, 500, 95.0);
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ---  ---  ---- unexpected argument #3 of type `{float}`
+   |                                                          |    |
+   |                                                          |    unexpected argument #2 of type `{integer}`
+   |                                                          expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+57 -         let payload = trust_hook::generate_trust_payload(0.3, 500, 95.0);
+57 +         let payload = trust_hook::generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/mfa_bypass.rs:60:25
+   |
+60 |             event.user, payload
+   |                         ^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/persistence_watch.rs:29:49
+   |
+29 | ...                   let trust_payload = trust_hook::generate_trust_payload(0.5, 128000, 8.5);
+   |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ---  ------  --- unexpected argument #3 of type `{float}`
+   |                                                                              |    |
+   |                                                                              |    unexpected argument #2 of type `{integer}`
+   |                                                                              expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+29 -                             let trust_payload = trust_hook::generate_trust_payload(0.5, 128000, 8.5);
+29 +                             let trust_payload = trust_hook::generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0277]: `TrustPayload` doesn't implement `std::fmt::Display`
+  --> src/modules/persistence_watch.rs:32:39
+   |
+32 | ...                   path, trust_payload
+   |                             ^^^^^^^^^^^^^ `TrustPayload` cannot be formatted with the default formatter
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `TrustPayload`
+   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+   = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+  --> src/modules/privilege_monitor.rs:32:21
+   |
+32 |                     push_to_gnn_vector_log("macos-host", &features);
+   |                     ^^^^^^^^^^^^^^^^^^^^^^               --------- unexpected argument #2 of type `&Vec<f64>`
+   |
+note: expected `HashMap<String, String>`, found `&str`
+  --> src/modules/privilege_monitor.rs:32:44
+   |
+32 |                     push_to_gnn_vector_log("macos-host", &features);
+   |                                            ^^^^^^^^^^^^
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+           found reference `&'static str`
+note: function defined here
+  --> src/gnn_hook.rs:92:8
+   |
+92 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+help: remove the extra argument
+   |
+32 -                     push_to_gnn_vector_log("macos-host", &features);
+32 +                     push_to_gnn_vector_log(/* HashMap<std::string::String, std::string::String> */);
+   |
+
+error[E0308]: mismatched types
+  --> src/modules/process_monitor.rs:38:40
+   |
+38 |                 push_to_gnn_vector_log(gnn_vector.clone());
+   |                 ---------------------- ^^^^^^^^^^^^^^^^^^ expected `HashMap<String, String>`, found `Vec<f32>`
+   |                 |
+   |                 arguments to this function are incorrect
+   |
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+              found struct `Vec<f32>`
+note: function defined here
+  --> src/gnn_hook.rs:92:8
+   |
+92 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+  --> src/modules/script_monitor.rs:32:25
+   |
+32 |                         push_to_gnn_vector_log("macos-host", &features);
+   |                         ^^^^^^^^^^^^^^^^^^^^^^               --------- unexpected argument #2 of type `&Vec<f64>`
+   |
+note: expected `HashMap<String, String>`, found `&str`
+  --> src/modules/script_monitor.rs:32:48
+   |
+32 |                         push_to_gnn_vector_log("macos-host", &features);
+   |                                                ^^^^^^^^^^^^
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+           found reference `&'static str`
+note: function defined here
+  --> src/gnn_hook.rs:92:8
+   |
+92 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+help: remove the extra argument
+   |
+32 -                         push_to_gnn_vector_log("macos-host", &features);
+32 +                         push_to_gnn_vector_log(/* HashMap<std::string::String, std::string::String> */);
+   |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+error[E0277]: the trait bound `Output: Default` is not satisfied
+  --> src/modules/user_tracker.rs:62:18
+   |
+62 |                 .unwrap_or_default();
+   |                  ^^^^^^^^^^^^^^^^^ the trait `Default` is not implemented for `Output`
+   |
+note: required by a bound in `Result::<T, E>::unwrap_or_default`
+  --> /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/result.rs:1168:5
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+  --> src/modules/user_tracker.rs:96:13
+   |
+96 |             push_to_gnn_vector_log(username, &gnn_vector);
+   |             ^^^^^^^^^^^^^^^^^^^^^^           ----------- unexpected argument #2 of type `&Vec<f32>`
+   |
+note: expected `HashMap<String, String>`, found `&str`
+  --> src/modules/user_tracker.rs:96:36
+   |
+96 |             push_to_gnn_vector_log(username, &gnn_vector);
+   |                                    ^^^^^^^^
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+           found reference `&str`
+note: function defined here
+  --> src/gnn_hook.rs:92:8
+   |
+92 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+help: remove the extra argument
+   |
+96 -             push_to_gnn_vector_log(username, &gnn_vector);
+96 +             push_to_gnn_vector_log(/* HashMap<std::string::String, std::string::String> */);
+   |
+
+error[E0308]: mismatched types
+   --> src/main.rs:107:49
+    |
+107 |     start_session_revalidator(&mut session_map, trust_config.clone());
+    |     -------------------------                   ^^^^^^^^^^^^^^^^^^^^ expected `&str`, found `TrustConfig`
+    |     |
+    |     arguments to this function are incorrect
+    |
+note: function defined here
+   --> src/services/session_revalidator.rs:18:8
+    |
+18  | pub fn start_session_revalidator(mut trust_cache: TrustDecayManager, hostname: &str) {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^                                     --------------
+
+warning: variable does not need to be mutable
+  --> src/time_aware_trust_decay.rs:30:9
+   |
+30 |     let mut map = ACTIVITY_MAP.lock().unwrap();
+   |         ----^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` on by default
+
+warning: unused variable: `pid`
+   --> src/services/trust_engine_final.rs:112:5
+    |
+112 |     pid: u32,
+    |     ^^^ help: if this is intentional, prefix it with an underscore: `_pid`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `device_type`
+   --> src/services/trust_engine_final.rs:115:5
+    |
+115 |     device_type: &str,
+    |     ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_device_type`
+
+warning: variable does not need to be mutable
+  --> src/services/trust_state_writer.rs:75:30
+   |
+75 | pub fn start_periodic_writer(mut manager: TrustDecayManager) {
+   |                              ----^^^^^^^
+   |                              |
+   |                              help: remove this `mut`
+
+Some errors have detailed explanations: E0061, E0252, E0277, E0308, E0432, E0433, E0560, E0599, E0609.
+For more information about an error, try `rustc --explain E0061`.
+warning: `forensic_hooks` (bin "forensic_hooks") generated 29 warnings
+error: could not compile `forensic_hooks` (bin "forensic_hooks") due to 104 previous errors; 29 warnings emitted

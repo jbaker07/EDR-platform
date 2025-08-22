@@ -1,0 +1,1560 @@
+    Checking forensic_hooks v0.1.0 (/home/jermaineb/EDR-platform/edr-agent)
+error: expected one of `!` or `[`, found `#`
+  --> src/modules/privilege_monitor.rs:12:2
+   |
+12 | ##[cfg(target_os = "linux")]
+   |  ^ expected one of `!` or `[`
+
+error[E0428]: the name `MemoryAnomalyType` is defined multiple times
+  --> src/telemetry_types.rs:79:1
+   |
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- previous definition of the type `MemoryAnomalyType` here
+...
+79 | pub enum MemoryAnomalyType {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^ `MemoryAnomalyType` redefined here
+   |
+   = note: `MemoryAnomalyType` must be defined only once in the type namespace of this module
+
+error[E0252]: the name `thread` is defined multiple times
+   --> src/modules/net_watch.rs:164:15
+    |
+2   | use std::thread;
+    |     ----------- previous import of the module `thread` here
+...
+164 | use std::{fs, thread, time::Duration, sync::mpsc};
+    |               ^^^^^^ `thread` reimported here
+    |
+    = note: `thread` must be defined only once in the type namespace of this module
+
+error[E0252]: the name `Duration` is defined multiple times
+   --> src/modules/net_watch.rs:164:23
+    |
+3   | use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    |                 ----------
+    |                 |
+    |                 previous import of the type `Duration` here
+    |                 help: remove unnecessary import
+...
+164 | use std::{fs, thread, time::Duration, sync::mpsc};
+    |                       ^^^^^^^^^^^^^^ `Duration` reimported here
+    |
+    = note: `Duration` must be defined only once in the type namespace of this module
+
+error[E0428]: the name `MemoryAnomalyType` is defined multiple times
+  --> src/telemetry_types.rs:49:1
+   |
+29 | pub enum MemoryAnomalyType {
+   | -------------------------- previous definition of the type `MemoryAnomalyType` here
+...
+49 | pub enum MemoryAnomalyType {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^ `MemoryAnomalyType` redefined here
+   |
+   = note: `MemoryAnomalyType` must be defined only once in the type namespace of this module
+
+error[E0432]: unresolved import `crate::modules::net_watch::scan_unusual_connections`
+  --> src/telemetry.rs:19:55
+   |
+19 | use crate::modules::net_watch::{log_open_connections, scan_unusual_connections, start_ebpf_net_watch, start_network_monitor};
+   |                                                       ^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_unusual_connections` in `modules::net_watch`
+
+error[E0432]: unresolved import `crate::telemetry_types::TelemetryOutput`
+ --> src/modules/signal_integrity_mapper.rs:6:5
+  |
+6 | use crate::telemetry_types::TelemetryOutput;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `TelemetryOutput` in `telemetry_types`
+  |
+help: a similar name exists in the module
+  |
+6 - use crate::telemetry_types::TelemetryOutput;
+6 + use crate::telemetry_types::TelemetryEvent;
+  |
+help: consider importing this struct instead
+  |
+6 - use crate::telemetry_types::TelemetryOutput;
+6 + use crate::telemetry::TelemetryOutput;
+  |
+
+error[E0433]: failed to resolve: could not find `AnomalyType` in `telemetry_types`
+   --> src/modules/net_watch.rs:256:47
+    |
+256 |         anomaly: Some(crate::telemetry_types::AnomalyType::NetworkAnomaly),
+    |                                               ^^^^^^^^^^^ could not find `AnomalyType` in `telemetry_types`
+
+error[E0433]: failed to resolve: could not find `AnomalyType` in `telemetry_types`
+   --> src/modules/net_watch.rs:272:47
+    |
+272 |         anomaly: Some(crate::telemetry_types::AnomalyType::DnsTunnel),
+    |                                               ^^^^^^^^^^^ could not find `AnomalyType` in `telemetry_types`
+
+error[E0433]: failed to resolve: could not find `AnomalyType` in `telemetry_types`
+   --> src/modules/file_hash_watcher.rs:186:47
+    |
+186 |         anomaly: Some(crate::telemetry_types::AnomalyType::FileAccess),
+    |                                               ^^^^^^^^^^^ could not find `AnomalyType` in `telemetry_types`
+
+error[E0425]: cannot find function `push_memory_telemetry` in this scope
+   --> src/modules/job_sched_monitor.rs:367:45
+    |
+367 | ...                   let _ = push_memory_telemetry(
+    |                               ^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+1   + use crate::telemetry_writer::push_memory_telemetry;
+    |
+
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:190:38
+    |
+190 | pub fn start_ebpf_net_watch() -> Vec<TelemetryOutput> {
+    |                                      ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:193:121
+    |
+193 |     let mut handle_perf_array = |path: &str, prog_name: &str, attach_point: (&str, &str), parse_fn: fn(&[u8]) -> Option<TelemetryOutput>| {
+    |                                                                                                                         ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+error[E0425]: cannot find value `map` in this scope
+   --> src/modules/net_watch.rs:204:68
+    |
+204 | ...   if let Ok(mut perf) = PerfEventArray::try_from(map) {                    for cpu_id in online_cpus().unwrap_or_default() {
+    |                                                      ^^^ not found in this scope
+
+error[E0425]: cannot find value `buf` in this scope
+   --> src/modules/net_watch.rs:211:48
+    |
+211 | ...                   if let Ok(_) = buf.read(&mut buffer) {
+    |                                      ^^^
+    |
+help: the binding `buf` is available in a different scope in the same function
+   --> src/modules/net_watch.rs:205:33
+    |
+205 |                         let mut buf = perf.open(cpu_id, None).unwrap();
+    |                                 ^^^
+
+error[E0425]: cannot find value `tx` in this scope
+   --> src/modules/net_watch.rs:213:41
+    |
+213 | ...                   tx.send(out).ok();
+    |                       ^^
+    |
+help: the binding `tx` is available in a different scope in the same function
+   --> src/modules/net_watch.rs:206:30
+    |
+206 |                         let (tx, rx) = mpsc::channel();
+    |                              ^^
+
+error[E0425]: cannot find value `rx` in this scope
+   --> src/modules/net_watch.rs:220:47
+    |
+220 |                         while let Ok(event) = rx.try_recv() {
+    |                                               ^^ not found in this scope
+
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:247:42
+    |
+247 | fn parse_net_event(buf: &[u8]) -> Option<TelemetryOutput> {
+    |                                          ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+error[E0422]: cannot find struct, variant or union type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:252:10
+    |
+252 |     Some(TelemetryOutput {
+    |          ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:263:42
+    |
+263 | fn parse_dns_event(buf: &[u8]) -> Option<TelemetryOutput> {
+    |                                          ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+error[E0422]: cannot find struct, variant or union type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:268:10
+    |
+268 |     Some(TelemetryOutput {
+    |          ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+error[E0412]: cannot find type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:278:43
+    |
+278 | pub fn detect_encrypted_payloads() -> Vec<TelemetryOutput> {
+    |                                           ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `WalkDir`
+   --> src/modules/net_watch.rs:286:22
+    |
+286 |         for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
+    |                      ^^^^^^^ use of undeclared type `WalkDir`
+    |
+help: consider importing this struct
+    |
+1   + use walkdir::WalkDir;
+    |
+
+error[E0425]: cannot find function `calculate_entropy` in this scope
+   --> src/modules/net_watch.rs:290:35
+    |
+290 |                     let entropy = calculate_entropy(&content);
+    |                                   ^^^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+1   + use crate::telemetry::calculate_entropy;
+    |
+
+error[E0425]: cannot find function `is_memory_only` in this scope
+   --> src/modules/net_watch.rs:293:43
+    |
+293 |                         let is_mem_only = is_memory_only(&path);
+    |                                           ^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+1   + use crate::telemetry::is_memory_only;
+    |
+
+error[E0425]: cannot find function `get_file_metadata` in this scope
+   --> src/modules/net_watch.rs:294:40
+    |
+294 |                         let metadata = get_file_metadata(&path);
+    |                                        ^^^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+1   + use crate::telemetry::get_file_metadata;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Local`
+   --> src/modules/net_watch.rs:304:36
+    |
+304 |                         let hour = Local::now().hour();
+    |                                    ^^^^^ use of undeclared type `Local`
+    |
+help: consider importing this struct
+    |
+1   + use chrono::Local;
+    |
+
+error[E0422]: cannot find struct, variant or union type `TrustEvent` in this scope
+   --> src/modules/net_watch.rs:330:37
+    |
+330 |                         let event = TrustEvent {
+    |                                     ^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::trust_hook::TrustEvent;
+    |
+
+error[E0425]: cannot find function `submit_trust_event` in this scope
+   --> src/modules/net_watch.rs:340:25
+    |
+340 |                         submit_trust_event(event);
+    |                         ^^^^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+1   + use crate::trust_hook::submit_trust_event;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `HashMap`
+   --> src/modules/net_watch.rs:342:40
+    |
+342 |                         let mut data = HashMap::new();
+    |                                        ^^^^^^^ use of undeclared type `HashMap`
+    |
+help: consider importing one of these structs
+    |
+1   + use std::collections::HashMap;
+    |
+1   + use aya::maps::HashMap;
+    |
+
+error[E0425]: cannot find function `write_telemetry_record` in this scope
+   --> src/modules/net_watch.rs:356:25
+    |
+356 |                         write_telemetry_record(data.clone());
+    |                         ^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+1   + use crate::telemetry_writer::write_telemetry_record;
+    |
+
+error[E0422]: cannot find struct, variant or union type `TelemetryOutput` in this scope
+   --> src/modules/net_watch.rs:359:38
+    |
+359 |                         let output = TelemetryOutput {
+    |                                      ^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+1   + use crate::telemetry::TelemetryOutput;
+    |
+
+warning: unused imports: `scan_container_execs` and `start_ebpf_container_exec_monitor`
+  --> src/telemetry.rs:10:41
+   |
+10 | use crate::modules::container_monitor::{scan_container_execs, start_ebpf_container_exec_monitor};
+   |                                         ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `monitor_memory_usage` and `push_memory_anomalies`
+  --> src/telemetry.rs:17:32
+   |
+17 | use crate::modules::mem_scan::{monitor_memory_usage, push_memory_anomalies, start_ebpf_mem_scan, start_ebpf_proc_hollow_scan};
+   |                                ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `start_ebpf_net_watch`
+  --> src/telemetry.rs:19:81
+   |
+19 | use crate::modules::net_watch::{log_open_connections, scan_unusual_connections, start_ebpf_net_watch, start_network_monitor};
+   |                                                                                 ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::modules::password_spray::log_login_attempt`
+  --> src/telemetry.rs:20:5
+   |
+20 | use crate::modules::password_spray::log_login_attempt;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `queue_replay`, `send_to_replay_queue`, and `store_replay_event`
+  --> src/telemetry.rs:30:37
+   |
+30 | use crate::modules::replay_writer::{queue_replay, send_to_replay_queue, store_replay_event};
+   |                                     ^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `TelemetryEvent`
+ --> src/telemetry_writer.rs:1:30
+  |
+1 | use crate::telemetry_types::{TelemetryEvent, MemoryAnomalyType};
+  |                              ^^^^^^^^^^^^^^
+
+warning: unused doc comment
+  --> src/modules/auth_monitor.rs:22:1
+   |
+22 | /// 🪵 Thread-safe login attempt log store
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ rustdoc does not generate documentation for macro invocations
+   |
+   = help: to document an item produced by a macro, the macro must produce the documentation as part of its expansion
+   = note: `#[warn(unused_doc_comments)]` on by default
+
+warning: unused imports: `generate_feature_vector` and `generate_trust_payload`
+ --> src/modules/auth_monitor.rs:7:25
+  |
+7 | use crate::trust_hook::{generate_trust_payload, generate_feature_vector};
+  |                         ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `mem` and `thread`
+ --> src/modules/container_monitor.rs:6:33
+  |
+6 | use std::{collections::HashMap, mem, thread};
+  |                                 ^^^  ^^^^^^
+
+warning: unused import: `PerfEventArray`
+ --> src/modules/container_monitor.rs:8:52
+  |
+8 | use aya::{include_bytes_aligned, Bpf, maps::perf::{PerfEventArray, AsyncPerfEventArray}};
+  |                                                    ^^^^^^^^^^^^^^
+
+warning: unused import: `mem`
+ --> src/modules/dll_injection_monitor.rs:6:11
+  |
+6 | use std::{mem, thread, time::Duration};
+  |           ^^^
+
+warning: unused import: `aya::programs::TracePoint`
+ --> src/modules/file_tamper_monitor.rs:2:5
+  |
+2 | use aya::programs::TracePoint;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `mem`
+ --> src/modules/file_tamper_monitor.rs:5:19
+  |
+5 | use std::{thread, mem, time::Duration};
+  |                   ^^^
+
+warning: unused imports: `Deserialize` and `Serialize`
+ --> src/modules/geo_ip_anomaly.rs:8:13
+  |
+8 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/modules/job_sched_monitor.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::ptr`
+ --> src/modules/job_sched_monitor.rs:6:5
+  |
+6 | use std::ptr;
+  |     ^^^^^^^^
+
+warning: unused import: `SystemTime`
+ --> src/modules/job_sched_monitor.rs:9:27
+  |
+9 | use std::time::{Duration, SystemTime};
+  |                           ^^^^^^^^^^
+
+warning: unused import: `tokio::runtime::Runtime`
+  --> src/modules/job_sched_monitor.rs:22:5
+   |
+22 | use tokio::runtime::Runtime;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `mem` and `ptr`
+  --> src/modules/mem_scan.rs:12:11
+   |
+12 | use std::{mem, ptr};
+   |           ^^^  ^^^
+
+warning: unused import: `tokio_stream::wrappers::ReceiverStream`
+  --> src/modules/mem_scan.rs:13:5
+   |
+13 | use tokio_stream::wrappers::ReceiverStream;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `bytes::BytesMut`
+  --> src/modules/mem_scan.rs:14:5
+   |
+14 | use bytes::BytesMut;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio_stream::wrappers::ReceiverStream`
+  --> src/modules/mfa_bypass.rs:12:5
+   |
+12 | use tokio_stream::wrappers::ReceiverStream;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::utils::time::now_ts as utils_now_ts`
+  --> src/modules/net_watch.rs:10:5
+   |
+10 | use crate::utils::time::now_ts as utils_now_ts;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `programs::TracePoint`
+   --> src/modules/net_watch.rs:162:63
+    |
+162 | use aya::{Bpf, util::online_cpus, maps::perf::PerfEventArray, programs::TracePoint};
+    |                                                               ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `thread` and `time::Duration`
+   --> src/modules/net_watch.rs:164:15
+    |
+164 | use std::{fs, thread, time::Duration, sync::mpsc};
+    |               ^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused import: `std::convert::TryInto`
+   --> src/modules/net_watch.rs:166:5
+    |
+166 | use std::convert::TryInto;
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `aya::programs::TracePoint`
+ --> src/modules/process_injection.rs:2:5
+  |
+2 | use aya::programs::TracePoint;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `mem`
+ --> src/modules/process_injection.rs:5:19
+  |
+5 | use std::{thread, mem, time::Duration};
+  |                   ^^^
+
+warning: unused imports: `Pid` and `Process`
+ --> src/modules/process_monitor.rs:1:23
+  |
+1 | use sysinfo::{System, Pid, Process};
+  |                       ^^^  ^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/modules/process_monitor.rs:5:5
+  |
+5 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `File`
+ --> src/modules/replay_writer.rs:1:44
+  |
+1 | use std::fs::{OpenOptions, create_dir_all, File, metadata, rename};
+  |                                            ^^^^
+
+warning: unused import: `BufWriter`
+ --> src/modules/replay_writer.rs:2:22
+  |
+2 | use std::io::{Write, BufWriter};
+  |                      ^^^^^^^^^
+
+warning: unused import: `std::os::unix::io::AsRawFd`
+ --> src/modules/replay_writer.rs:3:5
+  |
+3 | use std::os::unix::io::AsRawFd;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::logger::log`
+   --> src/modules/signal_integrity_mapper.rs:110:5
+    |
+110 | use crate::logger::log;
+    |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `aya::programs::TracePoint`
+ --> src/modules/suspicious_ipc.rs:2:5
+  |
+2 | use aya::programs::TracePoint;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `mem`
+ --> src/modules/suspicious_ipc.rs:5:19
+  |
+5 | use std::{thread, mem, time::Duration};
+  |                   ^^^
+
+warning: unused import: `BufReader`
+ --> src/modules/script_monitor.rs:2:15
+  |
+2 | use std::io::{BufReader, Read};
+  |               ^^^^^^^^^
+
+warning: unused import: `UNIX_EPOCH`
+ --> src/modules/script_monitor.rs:6:27
+  |
+6 | use std::time::{Duration, UNIX_EPOCH};
+  |                           ^^^^^^^^^^
+
+warning: unused import: `get_user_by_uid`
+  --> src/modules/script_monitor.rs:15:13
+   |
+15 | use users::{get_user_by_uid};
+   |             ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/modules/user_tracker.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fs`
+ --> src/modules/user_tracker.rs:3:5
+  |
+3 | use std::fs;
+  |     ^^^^^^^
+
+warning: unused import: `chrono::Utc`
+  --> src/modules/file_hash_watcher.rs:12:5
+   |
+12 | use chrono::Utc;
+   |     ^^^^^^^^^^^
+
+warning: unused import: `include_bytes_aligned`
+  --> src/modules/file_hash_watcher.rs:21:11
+   |
+21 | use aya::{include_bytes_aligned, Bpf, util::online_cpus, maps::perf::PerfEventArray, programs::TracePoint};
+   |           ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::logger::log`
+  --> src/modules/encrypted_payload_detector.rs:15:5
+   |
+15 | use crate::logger::log;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `generate_trust_payload`
+  --> src/modules/encrypted_payload_detector.rs:16:45
+   |
+16 | use crate::trust_hook::{submit_trust_event, generate_trust_payload, TrustEvent};
+   |                                             ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `TelemetryRecord`
+  --> src/modules/encrypted_payload_detector.rs:18:59
+   |
+18 |     calculate_entropy, get_file_metadata, is_memory_only, TelemetryRecord,
+   |                                                           ^^^^^^^^^^^^^^^
+
+warning: unused import: `serde::Serialize`
+ --> src/trust_hook.rs:3:5
+  |
+3 | use serde::Serialize;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+  --> src/modules/container_monitor.rs:29:9
+   |
+29 |     let mut bpf = Bpf::load(include_bytes_aligned!(
+   |         ----^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` on by default
+
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/modules/mem_scan.rs:81:52
+   |
+81 | ...                   MemoryAnomalyType::RWXMapping,
+   |                                          ^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   |
+  ::: src/telemetry_types.rs:49:1
+   |
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `RWXMapping` not found for this enum
+
+warning: unused variable: `timestamp`
+   --> src/modules/mem_scan.rs:243:13
+    |
+243 |             timestamp,
+    |             ^^^^^^^^^-
+    |             |
+    |             help: try removing the field
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+error[E0599]: no variant or associated item named `ProcHollowing` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/mem_scan.rs:306:52
+    |
+306 | ...                   MemoryAnomalyType::ProcHollowing,
+    |                                          ^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `ProcHollowing` not found for this enum
+
+error[E0271]: type mismatch resolving `<Vec<TelemetryOutput> as IntoIterator>::Item == HashMap<String, String>`
+   --> src/telemetry.rs:119:18
+    |
+119 |     batch.extend(scan_signal_integrity());
+    |           ------ ^^^^^^^^^^^^^^^^^^^^^^^ expected `HashMap<String, String>`, found `TelemetryOutput`
+    |           |
+    |           required by a bound introduced by this call
+    |
+    = note: expected struct `std::collections::HashMap<std::string::String, std::string::String>`
+               found struct `TelemetryOutput`
+note: required by a bound in `extend`
+   --> /home/jermaineb/.rustup/toolchains/nightly-aarch64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/collect.rs:413:31
+    |
+413 |     fn extend<T: IntoIterator<Item = A>>(&mut self, iter: T);
+    |                               ^^^^^^^^ required by this bound in `Extend::extend`
+
+error[E0308]: mismatched types
+  --> src/modules/dll_injection_monitor.rs:41:13
+   |
+40 |         let mut prog: TracePoint = match bpf.program_mut("trace_dll_inject") {
+   |                                          ----------------------------------- this expression has type `std::option::Option<&mut Program>`
+41 |             Ok(p) => match p.try_into() {
+   |             ^^^^^ expected `Option<&mut Program>`, found `Result<_, _>`
+   |
+   = note: expected enum `std::option::Option<&mut Program>`
+              found enum `Result<_, _>`
+
+error[E0308]: mismatched types
+  --> src/modules/dll_injection_monitor.rs:48:13
+   |
+40 |         let mut prog: TracePoint = match bpf.program_mut("trace_dll_inject") {
+   |                                          ----------------------------------- this expression has type `std::option::Option<&mut Program>`
+...
+48 |             Err(e) => {
+   |             ^^^^^^ expected `Option<&mut Program>`, found `Result<_, _>`
+   |
+   = note: expected enum `std::option::Option<&mut Program>`
+              found enum `Result<_, _>`
+
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+  --> src/modules/dll_injection_monitor.rs:81:39
+   |
+81 | ...                   match buf.read(&mut buffer) {
+   |                                 ^^^^
+   |
+help: there is a method `readable` with a similar name, but with different arguments
+  --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.11.0/src/maps/perf/perf_event_array.rs:37:5
+   |
+37 |     pub fn readable(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/modules/dll_injection_monitor.rs:85:69
+   |
+85 | ...   1 => MemoryAnomalyType::ReflectiveInjection,  // <-- Replace with `ReflectiveDllInjection` if that's the correct variant
+   |                               ^^^^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   |
+  ::: src/telemetry_types.rs:49:1
+   |
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `ReflectiveInjection` not found for this enum
+
+error[E0599]: no variant or associated item named `SuspiciousActivity` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/modules/dll_injection_monitor.rs:86:69
+   |
+86 | ...                   _ => MemoryAnomalyType::SuspiciousActivity,   // <-- Same here
+   |                                               ^^^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   |
+  ::: src/telemetry_types.rs:49:1
+   |
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `SuspiciousActivity` not found for this enum
+
+error[E0308]: mismatched types
+  --> src/modules/file_tamper_monitor.rs:38:27
+   |
+38 |             .and_then(|p| p.try_into())
+   |                           ^^^^^^^^^^^^ expected `Option<_>`, found `Result<_, _>`
+   |
+   = note: expected enum `std::option::Option<_>`
+              found enum `Result<_, _>`
+help: consider using `Result::expect` to unwrap the `Result<_, _>` value, panicking if the value is a `Result::Err`
+   |
+38 |             .and_then(|p| p.try_into().expect("REASON"))
+   |                                       +++++++++++++++++
+
+error[E0599]: no method named `ok` found for enum `std::option::Option` in the current scope
+    --> src/modules/file_tamper_monitor.rs:39:14
+     |
+37   |           let prog = bpf.program_mut("trace_file_tamper")
+     |  ____________________-
+38   | |             .and_then(|p| p.try_into())
+39   | |             .ok();
+     | |_____________-^^
+     |
+help: there is a method `or` with a similar name, but with different arguments
+    --> /home/jermaineb/.rustup/toolchains/nightly-aarch64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1581:5
+     |
+1581 |     pub fn or(self, optb: Option<T>) -> Option<T> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0277]: the trait bound `PerfEventArray<_>: TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not satisfied
+  --> src/modules/file_tamper_monitor.rs:51:20
+   |
+51 |         let perf = PerfEventArray::try_from(bpf.map_mut("EVENTS")).ok();
+   |                    ^^^^^^^^^^^^^^ the trait `From<Result<MapRefMut, aya::maps::MapError>>` is not implemented for `PerfEventArray<_>`
+   |
+   = help: the trait `TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not implemented for `PerfEventArray<_>`
+           but trait `TryFrom<MapRefMut>` is implemented for `PerfEventArray<MapRefMut>`
+   = help: for that trait implementation, expected `MapRefMut`, found `Result<MapRefMut, aya::maps::MapError>`
+   = note: required for `Result<MapRefMut, aya::maps::MapError>` to implement `Into<PerfEventArray<_>>`
+   = note: required for `PerfEventArray<_>` to implement `TryFrom<Result<MapRefMut, aya::maps::MapError>>`
+
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+  --> src/modules/file_tamper_monitor.rs:63:44
+   |
+63 |                         if let Ok(_) = buf.read(&mut buffer) {
+   |                                            ^^^^
+   |
+help: there is a method `readable` with a similar name, but with different arguments
+  --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.11.0/src/maps/perf/perf_event_array.rs:37:5
+   |
+37 |     pub fn readable(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `FileTampering` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/modules/file_tamper_monitor.rs:72:56
+   |
+72 | ...                   MemoryAnomalyType::FileTampering,
+   |                                          ^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   |
+  ::: src/telemetry_types.rs:49:1
+   |
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `FileTampering` not found for this enum
+
+error[E0599]: no variant or associated item named `KernelExploitFallout` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/job_sched_monitor.rs:374:84
+    |
+374 | ...                   crate::telemetry_types::MemoryAnomalyType::KernelExploitFallout,
+    |                                                                  ^^^^^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `KernelExploitFallout` not found for this enum
+
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/mem_scan.rs:115:37
+    |
+115 |                 (MemoryAnomalyType::RWXMapping, " rwx"),
+    |                                     ^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `RWXMapping` not found for this enum
+
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/mem_scan.rs:116:37
+    |
+116 |                 (MemoryAnomalyType::AnonymousExec, "[anon]"),
+    |                                     ^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `AnonymousExec` not found for this enum
+
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/mem_scan.rs:117:37
+    |
+117 |                 (MemoryAnomalyType::NullBaseExec, "00000000"),
+    |                                     ^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `NullBaseExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/mem_scan.rs:167:46
+    |
+167 |             anomaly_type: MemoryAnomalyType::HighDirtyRSS,
+    |                                              ^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `HighDirtyRSS` not found for this enum
+
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/mem_scan.rs:214:74
+    |
+214 | ...                   anomaly_type: MemoryAnomalyType::HighEntropy,
+    |                                                        ^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `HighEntropy` not found for this enum
+
+error[E0308]: mismatched types
+   --> src/modules/net_watch.rs:196:24
+    |
+196 |                 if let Ok(mut prog) = bpf.program_mut(prog_name) {
+    |                        ^^^^^^^^^^^^   -------------------------- this expression has type `std::option::Option<&mut Program>`
+    |                        |
+    |                        expected `Option<&mut Program>`, found `Result<_, _>`
+    |
+    = note: expected enum `std::option::Option<&mut Program>`
+               found enum `Result<_, _>`
+
+error[E0308]: mismatched types
+   --> src/modules/net_watch.rs:197:28
+    |
+197 |                     if let Ok(p) = bpf.program_mut(prog_name) {
+    |                            ^^^^^   -------------------------- this expression has type `std::option::Option<&mut Program>`
+    |                            |
+    |                            expected `Option<&mut Program>`, found `Result<_, _>`
+    |
+    = note: expected enum `std::option::Option<&mut Program>`
+               found enum `Result<_, _>`
+
+error[E0308]: mismatched types
+  --> src/modules/process_injection.rs:38:27
+   |
+38 |             .and_then(|p| p.try_into())
+   |                           ^^^^^^^^^^^^ expected `Option<_>`, found `Result<_, _>`
+   |
+   = note: expected enum `std::option::Option<_>`
+              found enum `Result<_, _>`
+help: consider using `Result::expect` to unwrap the `Result<_, _>` value, panicking if the value is a `Result::Err`
+   |
+38 |             .and_then(|p| p.try_into().expect("REASON"))
+   |                                       +++++++++++++++++
+
+error[E0599]: no method named `ok` found for enum `std::option::Option` in the current scope
+    --> src/modules/process_injection.rs:39:14
+     |
+37   |           let prog = bpf.program_mut("trace_process_injection")
+     |  ____________________-
+38   | |             .and_then(|p| p.try_into())
+39   | |             .ok();
+     | |_____________-^^
+     |
+help: there is a method `or` with a similar name, but with different arguments
+    --> /home/jermaineb/.rustup/toolchains/nightly-aarch64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1581:5
+     |
+1581 |     pub fn or(self, optb: Option<T>) -> Option<T> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0277]: the trait bound `PerfEventArray<_>: TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not satisfied
+  --> src/modules/process_injection.rs:51:20
+   |
+51 |         let perf = PerfEventArray::try_from(bpf.map_mut("EVENTS")).ok();
+   |                    ^^^^^^^^^^^^^^ the trait `From<Result<MapRefMut, aya::maps::MapError>>` is not implemented for `PerfEventArray<_>`
+   |
+   = help: the trait `TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not implemented for `PerfEventArray<_>`
+           but trait `TryFrom<MapRefMut>` is implemented for `PerfEventArray<MapRefMut>`
+   = help: for that trait implementation, expected `MapRefMut`, found `Result<MapRefMut, aya::maps::MapError>`
+   = note: required for `Result<MapRefMut, aya::maps::MapError>` to implement `Into<PerfEventArray<_>>`
+   = note: required for `PerfEventArray<_>` to implement `TryFrom<Result<MapRefMut, aya::maps::MapError>>`
+
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+  --> src/modules/process_injection.rs:63:44
+   |
+63 |                         if let Ok(_) = buf.read(&mut buffer) {
+   |                                            ^^^^
+   |
+help: there is a method `readable` with a similar name, but with different arguments
+  --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.11.0/src/maps/perf/perf_event_array.rs:37:5
+   |
+37 |     pub fn readable(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `ProcessInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/modules/process_injection.rs:72:56
+   |
+72 | ...                   MemoryAnomalyType::ProcessInjection,
+   |                                          ^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   |
+  ::: src/telemetry_types.rs:49:1
+   |
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `ProcessInjection` not found for this enum
+
+error[E0599]: no variant or associated item named `IPCAbuse` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+   --> src/modules/process_monitor.rs:155:60
+    |
+155 | ...                   MemoryAnomalyType::IPCAbuse,
+    |                                          ^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+    |
+   ::: src/telemetry_types.rs:49:1
+    |
+49  | pub enum MemoryAnomalyType {
+    | -------------------------- variant or associated item `IPCAbuse` not found for this enum
+
+error[E0308]: mismatched types
+  --> src/modules/suspicious_ipc.rs:38:27
+   |
+38 |             .and_then(|p| p.try_into())
+   |                           ^^^^^^^^^^^^ expected `Option<_>`, found `Result<_, _>`
+   |
+   = note: expected enum `std::option::Option<_>`
+              found enum `Result<_, _>`
+help: consider using `Result::expect` to unwrap the `Result<_, _>` value, panicking if the value is a `Result::Err`
+   |
+38 |             .and_then(|p| p.try_into().expect("REASON"))
+   |                                       +++++++++++++++++
+
+error[E0599]: no method named `ok` found for enum `std::option::Option` in the current scope
+    --> src/modules/suspicious_ipc.rs:39:14
+     |
+37   |           let prog = bpf.program_mut("trace_suspicious_ipc")
+     |  ____________________-
+38   | |             .and_then(|p| p.try_into())
+39   | |             .ok();
+     | |_____________-^^
+     |
+help: there is a method `or` with a similar name, but with different arguments
+    --> /home/jermaineb/.rustup/toolchains/nightly-aarch64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1581:5
+     |
+1581 |     pub fn or(self, optb: Option<T>) -> Option<T> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0277]: the trait bound `PerfEventArray<_>: TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not satisfied
+  --> src/modules/suspicious_ipc.rs:51:20
+   |
+51 |         let perf = PerfEventArray::try_from(bpf.map_mut("EVENTS")).ok();
+   |                    ^^^^^^^^^^^^^^ the trait `From<Result<MapRefMut, aya::maps::MapError>>` is not implemented for `PerfEventArray<_>`
+   |
+   = help: the trait `TryFrom<Result<MapRefMut, aya::maps::MapError>>` is not implemented for `PerfEventArray<_>`
+           but trait `TryFrom<MapRefMut>` is implemented for `PerfEventArray<MapRefMut>`
+   = help: for that trait implementation, expected `MapRefMut`, found `Result<MapRefMut, aya::maps::MapError>`
+   = note: required for `Result<MapRefMut, aya::maps::MapError>` to implement `Into<PerfEventArray<_>>`
+   = note: required for `PerfEventArray<_>` to implement `TryFrom<Result<MapRefMut, aya::maps::MapError>>`
+
+error[E0599]: no method named `read` found for struct `PerfEventArrayBuffer` in the current scope
+  --> src/modules/suspicious_ipc.rs:63:44
+   |
+63 |                         if let Ok(_) = buf.read(&mut buffer) {
+   |                                            ^^^^
+   |
+help: there is a method `readable` with a similar name, but with different arguments
+  --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.11.0/src/maps/perf/perf_event_array.rs:37:5
+   |
+37 |     pub fn readable(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `SuspiciousIPC` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/modules/suspicious_ipc.rs:72:56
+   |
+72 | ...                   MemoryAnomalyType::SuspiciousIPC,
+   |                                          ^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   |
+  ::: src/telemetry_types.rs:49:1
+   |
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `SuspiciousIPC` not found for this enum
+
+error[E0560]: struct `TelemetryOutput` has no field named `timestamp`
+   --> src/modules/file_hash_watcher.rs:183:9
+    |
+183 |         timestamp: evt.timestamp,
+    |         ^^^^^^^^^ `TelemetryOutput` does not have this field
+    |
+    = note: available fields are: `category`, `signal`, `confidence`, `data`
+
+error[E0560]: struct `TelemetryOutput` has no field named `pid`
+   --> src/modules/file_hash_watcher.rs:184:9
+    |
+184 |         pid: evt.pid as i32,
+    |         ^^^ `TelemetryOutput` does not have this field
+    |
+    = note: available fields are: `category`, `signal`, `confidence`, `data`
+
+error[E0560]: struct `TelemetryOutput` has no field named `event_type`
+   --> src/modules/file_hash_watcher.rs:185:9
+    |
+185 |         event_type: "file_access".into(),
+    |         ^^^^^^^^^^ `TelemetryOutput` does not have this field
+    |
+    = note: available fields are: `category`, `signal`, `confidence`, `data`
+
+error[E0560]: struct `TelemetryOutput` has no field named `anomaly`
+   --> src/modules/file_hash_watcher.rs:186:9
+    |
+186 |         anomaly: Some(crate::telemetry_types::AnomalyType::FileAccess),
+    |         ^^^^^^^ `TelemetryOutput` does not have this field
+    |
+    = note: available fields are: `category`, `signal`, `confidence`, `data`
+
+error[E0560]: struct `TelemetryOutput` has no field named `summary`
+   --> src/modules/file_hash_watcher.rs:187:9
+    |
+187 |         summary: format!(
+    |         ^^^^^^^ `TelemetryOutput` does not have this field
+    |
+    = note: available fields are: `category`, `signal`, `confidence`, `data`
+
+error[E0599]: no method named `hour` found for struct `DateTime` in the current scope
+   --> src/modules/encrypted_payload_detector.rs:51:49
+    |
+51  |                         let hour = Local::now().hour();
+    |                                                 ^^^^
+    |
+   ::: /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/chrono-0.4.41/src/traits.rs:285:8
+    |
+285 |     fn hour(&self) -> u32;
+    |        ---- the method is available for `DateTime<Local>` here
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: trait `Timelike` which provides `hour` is implemented but not in scope; perhaps you want to import it
+    |
+1   + use chrono::Timelike;
+    |
+help: there is a method `hour12` with a similar name
+    |
+51  |                         let hour = Local::now().hour12();
+    |                                                     ++
+
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `RWXMapping` not found for this enum
+
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `PostWriteExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HollowingDetected` not found for this enum
+
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `ReflectiveInjection` not found for this enum
+
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `AnonymousExec` not found for this enum
+
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `NullBaseExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HighDirtyRSS` not found for this enum
+
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:10
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |          ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HighEntropy` not found for this enum
+
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:30:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+   | |    -^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `RWXMapping` not found for this enum
+
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:31:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+31 | |     PostWriteExec,
+   | |    -^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `PostWriteExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:32:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+31 | |     PostWriteExec,
+32 | |     HollowingDetected,
+   | |    -^^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `HollowingDetected` not found for this enum
+
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:33:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+31 | |     PostWriteExec,
+32 | |     HollowingDetected,
+33 | |     ReflectiveInjection,
+   | |    -^^^^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `ReflectiveInjection` not found for this enum
+
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:34:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+31 | |     PostWriteExec,
+32 | |     HollowingDetected,
+33 | |     ReflectiveInjection,
+34 | |     AnonymousExec,
+   | |    -^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `AnonymousExec` not found for this enum
+
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:35:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+31 | |     PostWriteExec,
+32 | |     HollowingDetected,
+33 | |     ReflectiveInjection,
+34 | |     AnonymousExec,
+35 | |     NullBaseExec,
+   | |    -^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `NullBaseExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:36:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+31 | |     PostWriteExec,
+32 | |     HollowingDetected,
+...  |
+35 | |     NullBaseExec,
+36 | |     HighDirtyRSS,
+   | |    -^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `HighDirtyRSS` not found for this enum
+
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:37:5
+   |
+29 |   pub enum MemoryAnomalyType {
+   |  __________-
+30 | |     RWXMapping,
+31 | |     PostWriteExec,
+32 | |     HollowingDetected,
+...  |
+36 | |     HighDirtyRSS,
+37 | |     HighEntropy,
+   | |    -^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+   | |____|
+   |
+...
+49 |   pub enum MemoryAnomalyType {
+   |   -------------------------- variant or associated item `HighEntropy` not found for this enum
+
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:30:5
+   |
+30 |     RWXMapping,
+   |     ^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `RWXMapping` not found for this enum
+
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:31:5
+   |
+31 |     PostWriteExec,
+   |     ^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `PostWriteExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:32:5
+   |
+32 |     HollowingDetected,
+   |     ^^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HollowingDetected` not found for this enum
+
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:33:5
+   |
+33 |     ReflectiveInjection,
+   |     ^^^^^^^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `ReflectiveInjection` not found for this enum
+
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:34:5
+   |
+34 |     AnonymousExec,
+   |     ^^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `AnonymousExec` not found for this enum
+
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:35:5
+   |
+35 |     NullBaseExec,
+   |     ^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `NullBaseExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:36:5
+   |
+36 |     HighDirtyRSS,
+   |     ^^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HighDirtyRSS` not found for this enum
+
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:37:5
+   |
+37 |     HighEntropy,
+   |     ^^^^^^^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HighEntropy` not found for this enum
+
+error[E0599]: no variant or associated item named `RWXMapping` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `RWXMapping` not found for this enum
+
+error[E0599]: no variant or associated item named `PostWriteExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `PostWriteExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HollowingDetected` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HollowingDetected` not found for this enum
+
+error[E0599]: no variant or associated item named `ReflectiveInjection` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `ReflectiveInjection` not found for this enum
+
+error[E0599]: no variant or associated item named `AnonymousExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `AnonymousExec` not found for this enum
+
+error[E0599]: no variant or associated item named `NullBaseExec` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `NullBaseExec` not found for this enum
+
+error[E0599]: no variant or associated item named `HighDirtyRSS` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HighDirtyRSS` not found for this enum
+
+error[E0599]: no variant or associated item named `HighEntropy` found for enum `telemetry_types::MemoryAnomalyType` in the current scope
+  --> src/telemetry_types.rs:28:41
+   |
+28 | #[derive(Debug, Serialize, Deserialize, Clone)]
+   |                                         ^^^^^ variant or associated item not found in `telemetry_types::MemoryAnomalyType`
+...
+49 | pub enum MemoryAnomalyType {
+   | -------------------------- variant or associated item `HighEntropy` not found for this enum
+
+warning: unused import: `std::io::Read`
+ --> src/modules/container_monitor.rs:2:5
+  |
+2 | use std::io::Read;
+  |     ^^^^^^^^^^^^^
+
+warning: unused import: `futures::StreamExt`
+  --> src/modules/mem_scan.rs:10:5
+   |
+10 | use futures::StreamExt;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `futures::StreamExt`
+  --> src/modules/mfa_bypass.rs:13:5
+   |
+13 | use futures::StreamExt;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `hostname`
+  --> src/modules/auth_monitor.rs:43:17
+   |
+43 |             let hostname = hostname::get().unwrap_or_default().to_string_lossy().to_string();
+   |                 ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_hostname`
+
+warning: variable does not need to be mutable
+   --> src/modules/job_sched_monitor.rs:267:27
+    |
+267 |                 if let Ok(mut locked_writer) = writer.lock() {
+    |                           ----^^^^^^^^^^^^^
+    |                           |
+    |                           help: remove this `mut`
+
+warning: unused variable: `timestamp`
+  --> src/modules/password_spray.rs:42:13
+   |
+42 |         let timestamp = now.duration_since(UNIX_EPOCH).unwrap_or_default().as_secs();
+   |             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_timestamp`
+
+warning: unused variable: `snapshot`
+  --> src/modules/persistence_watch.rs:41:33
+   |
+41 | ...                   let snapshot = MemorySnapshot {
+   |                           ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_snapshot`
+
+warning: variable does not need to be mutable
+   --> src/modules/file_hash_watcher.rs:114:39
+    |
+114 | ...                   if let Ok(mut w) = writer_clone.lock() {
+    |                                 ----^
+    |                                 |
+    |                                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/file_hash_watcher.rs:136:9
+    |
+136 |     let mut prog: &mut TracePoint = program.try_into().expect("Program cast failed");
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+
+error[E0596]: cannot borrow `perf` as mutable, as it is not declared as mutable
+   --> src/modules/file_hash_watcher.rs:144:30
+    |
+144 |         if let Ok(mut buf) = perf.open(cpu_id, None) {
+    |                              ^^^^ cannot borrow as mutable
+    |
+help: consider changing this to be mutable
+    |
+140 |     let mut perf = PerfEventArray::try_from(bpf.map_mut("EVENTS").unwrap())
+    |         +++
+
+error[E0382]: use of moved value: `results`
+   --> src/modules/file_hash_watcher.rs:166:5
+    |
+130 |     let mut results = Vec::new();
+    |         ----------- move occurs because `results` has type `Vec<TelemetryOutput>`, which does not implement the `Copy` trait
+...
+143 |     for cpu_id in online_cpus().unwrap_or_default() {
+    |     ----------------------------------------------- inside of this loop
+144 |         if let Ok(mut buf) = perf.open(cpu_id, None) {
+145 |             thread::spawn(move || {
+    |                           ------- value moved into closure here, in previous iteration of loop
+146 |                 let mut buffers = vec![BytesMut::with_capacity(1024); 32];
+147 |                 loop {
+    |                 ---- inside of this loop
+...
+150 |                             for buf in &buffers[..events.read] {
+    |                             ---------------------------------- inside of this loop
+...
+166 |     results
+    |     ^^^^^^^ value used here after move
+    |
+help: consider moving the expression out of the loop so it is only moved once
+    |
+143 ~     let mut value = results.push(parsed);
+144 ~     for cpu_id in online_cpus().unwrap_or_default() {
+145 |         if let Ok(mut buf) = perf.open(cpu_id, None) {
+...
+152 |                                 if let Some(parsed) = parse_file_access_event(buf) {
+153 ~                                     value;
+    |
+help: consider cloning the value before moving it into the closure
+    |
+145 ~             let value = results.clone();
+146 ~             thread::spawn(move || {
+147 |                 let mut buffers = vec![BytesMut::with_capacity(1024); 32];
+...
+152 |                                 if let Some(parsed) = parse_file_access_event(buf) {
+153 ~                                     value.push(parsed);
+    |
+
+warning: unused variable: `hostname`
+  --> src/trust_hook.rs:46:31
+   |
+46 | pub fn generate_trust_payload(hostname: &str, cpu: f64, mem: u64, risk: f64) -> HashMap<String, String> {
+   |                               ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_hostname`
+
+warning: unused variable: `cpu`
+  --> src/trust_hook.rs:46:47
+   |
+46 | pub fn generate_trust_payload(hostname: &str, cpu: f64, mem: u64, risk: f64) -> HashMap<String, String> {
+   |                                               ^^^ help: if this is intentional, prefix it with an underscore: `_cpu`
+
+warning: unused variable: `mem`
+  --> src/trust_hook.rs:46:57
+   |
+46 | pub fn generate_trust_payload(hostname: &str, cpu: f64, mem: u64, risk: f64) -> HashMap<String, String> {
+   |                                                         ^^^ help: if this is intentional, prefix it with an underscore: `_mem`
+
+Some errors have detailed explanations: E0252, E0271, E0277, E0308, E0382, E0412, E0422, E0425, E0428...
+For more information about an error, try `rustc --explain E0252`.
+warning: `forensic_hooks` (lib) generated 61 warnings
+error: could not compile `forensic_hooks` (lib) due to 112 previous errors; 61 warnings emitted
