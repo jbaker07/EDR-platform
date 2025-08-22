@@ -1,0 +1,8 @@
+{
+  "/lib/systemd/system/systemd-pcrlock-firmware-config.service": {
+    "hash": "b6e1bfa1cc2894b6c8b26e64ae48ee4d172cc09d0e66244d8a3c13b03d60a482"
+  },
+  "/lib/systemd/system/systemd-pcrlock-machine-id.service": {
+    "hash": "6f57a388ec24a3a07a2a9cb434c1defb1d7004adca38742dc1a69ebd589f7fd1"
+  }
+}

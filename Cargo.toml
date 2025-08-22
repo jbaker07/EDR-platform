@@ -1,0 +1,63 @@
+[package]
+name = "forensic_hooks"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "forensic_hooks"
+path = "src/main.rs"
+
+[[bin]]
+name = "fingerprint_gen"
+path = "src/bin/fingerprint_gen.rs"
+
+[dependencies]
+anyhow = "1.0"
+aya = { version = "0.11", features = ["async_tokio"] }
+aya-log = "0.2.1"
+base64 = "0.21"
+bincode = { version = "2.0.1", features = ["derive"] }   # ← needed for #[derive(Encode, Decode)]
+bytes = "1.6"
+chrono = { version = "0.4", features = ["serde"] }
+dirs = "6.0.0"
+ed25519-dalek = "1.0"
+entropy = "0.4"
+flate2 = "1"
+fs2 = "0.4"
+futures = "0.3"
+futures-util = "0.3.31"
+geo = "0.30.0"
+glob = "0.3.2"
+hex = "0.4"
+hmac = "0.12"
+hostname = "0.3"
+lazy_static = "1.4"
+libc = "0.2"
+log = "0.4.27"
+mime_guess = "2.0"
+netlink-sys = "0.6"
+nix = { version = "0.30.1", features = ["uio", "process"] }
+num-traits = "0.2.19"
+once_cell = "1.19.0"                                   # ← 1.21.3 doesn’t exist on crates.io
+openssl = "0.10"
+rand = "0.8"
+regex = "1"
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+sha3 = "0.10"
+simple_logger = "5.0.0"
+sysinfo = "0.29"                                       # ← matches the .user_id()/.cmd() usage in your code
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+users = "0.11"
+walkdir = "2"
+nalgebra = { version = "0.32", default-features = false, features = ["std"] }
+env_logger = "0.11.8"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+

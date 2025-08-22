@@ -1,0 +1,9 @@
+[2025-08-22T05:55:58.055373807+00:00][agent] 📜 [ScriptMonitor] No suspicious scripts found in this cycle.
+[2025-08-22T05:55:58.190699789+00:00][agent] ❌ Failed to load entropy_exec_monitor.bpf.o: RelocationError { function: "syscalls/sys_enter_execve", error: SectionNotFound { section_index: 11, symbol_index: 18, symbol_name: Some("events") } }
+[2025-08-22T05:55:58.501699392+00:00][agent] [⚠️ PrivilegeMonitor] Passive scan found sudo but baseline-approved. Skipping.
+[2025-08-22T05:55:58.814045664+00:00][agent] [⚠️ PrivilegeMonitor] Passive scan found sudo but baseline-approved. Skipping.
+[2025-08-22T05:56:29.461081584+00:00][agent] [⚠️ PrivilegeMonitor] Passive scan found sudo but baseline-approved. Skipping.
+[2025-08-22T05:56:29.735521652+00:00][agent] [⚠️ PrivilegeMonitor] Passive scan found sudo but baseline-approved. Skipping.
+[2025-08-22T05:56:38.055753578+00:00][agent] 📜 [ScriptMonitor] No suspicious scripts found in this cycle.
+[2025-08-22T05:57:00.255101756+00:00][agent] [⚠️ PrivilegeMonitor] Passive scan found sudo but baseline-approved. Skipping.
+[2025-08-22T05:57:00.523006625+00:00][agent] [⚠️ PrivilegeMonitor] Passive scan found sudo but baseline-approved. Skipping.

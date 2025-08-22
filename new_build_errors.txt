@@ -1,0 +1,1659 @@
+   Compiling forensic_hooks v0.1.0 (/home/jermaineb/EDR-platform/edr-agent)
+error: expected one of `!` or `::`, found `(`
+  --> src/forensic_engine.rs:99:21
+   |
+99 |        thread::spawn({
+   |                     ^ expected one of `!` or `::`
+
+error[E0583]: file not found for module `shap_explain`
+  --> src/lib.rs:19:1
+   |
+19 | pub mod shap_explain;
+   | ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `shap_explain`, create file "src/shap_explain.rs" or "src/shap_explain/mod.rs"
+   = note: if there is a `mod shap_explain` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `trust_state_writer`
+  --> src/lib.rs:20:1
+   |
+20 | pub mod trust_state_writer;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `trust_state_writer`, create file "src/trust_state_writer.rs" or "src/trust_state_writer/mod.rs"
+   = note: if there is a `mod trust_state_writer` elsewhere in the crate already, import it with `use crate::...` instead
+
+error: expected item, found keyword `let`
+  --> src/services/trust_state_writer.rs:53:5
+   |
+53 |     let json = serde_json::to_string_pretty(&state)?;
+   |     ^^^
+   |     |
+   |     `let` cannot be used for global variables
+   |     help: consider using `static` or `const` instead of `let`
+   |
+   = note: for a full list of items that can appear in modules, see <https://doc.rust-lang.org/reference/items.html>
+
+error[E0583]: file not found for module `ontology_mapper`
+  --> src/lib.rs:38:1
+   |
+38 | pub mod ontology_mapper;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `ontology_mapper`, create file "src/ontology_mapper.rs" or "src/ontology_mapper/mod.rs"
+   = note: if there is a `mod ontology_mapper` elsewhere in the crate already, import it with `use crate::...` instead
+
+error: expected `;`, found `#`
+  --> src/modules/cloud_tracker.rs:7:37
+   |
+7  | use crate::telemetry::MemorySnapshot
+   |                                     ^ help: add `;` here
+...
+11 | #[derive(Debug, Serialize, Clone)]
+   | - unexpected token
+
+error: expected `;`, found `#`
+ --> src/modules/container_monitor.rs:8:37
+  |
+8 | use crate::telemetry::MemorySnapshot
+  |                                     ^ help: add `;` here
+9 | #[derive(Debug, Serialize, Clone)]
+  | - unexpected token
+
+error[E0583]: file not found for module `container_engine`
+  --> src/modules/mod.rs:11:1
+   |
+11 | pub mod container_engine;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `container_engine`, create file "src/modules/container_engine.rs" or "src/modules/container_engine/mod.rs"
+   = note: if there is a `mod container_engine` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `trust_digest_engine`
+  --> src/services/mod.rs:12:1
+   |
+12 | pub mod trust_digest_engine;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `trust_digest_engine`, create file "src/services/trust_digest_engine.rs" or "src/services/trust_digest_engine/mod.rs"
+   = note: if there is a `mod trust_digest_engine` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `adaptive_threshold_engine`
+  --> src/services/mod.rs:13:1
+   |
+13 | pub mod adaptive_threshold_engine;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `adaptive_threshold_engine`, create file "src/services/adaptive_threshold_engine.rs" or "src/services/adaptive_threshold_engine/mod.rs"
+   = note: if there is a `mod adaptive_threshold_engine` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `gnn_hook`
+  --> src/services/mod.rs:14:1
+   |
+14 | pub mod gnn_hook;
+   | ^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `gnn_hook`, create file "src/services/gnn_hook.rs" or "src/services/gnn_hook/mod.rs"
+   = note: if there is a `mod gnn_hook` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `score_reason`
+  --> src/services/mod.rs:15:1
+   |
+15 | pub mod score_reason;
+   | ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `score_reason`, create file "src/services/score_reason.rs" or "src/services/score_reason/mod.rs"
+   = note: if there is a `mod score_reason` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `vault_exporter`
+  --> src/services/mod.rs:17:1
+   |
+17 | pub mod vault_exporter;
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `vault_exporter`, create file "src/services/vault_exporter.rs" or "src/services/vault_exporter/mod.rs"
+   = note: if there is a `mod vault_exporter` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0428]: the name `services` is defined multiple times
+  --> src/lib.rs:48:1
+   |
+26 | mod services{
+   | ------------ previous definition of the module `services` here
+...
+48 | pub mod services;
+   | ^^^^^^^^^^^^^^^^^ `services` redefined here
+   |
+   = note: `services` must be defined only once in the type namespace of this module
+
+error[E0428]: the name `trust_config` is defined multiple times
+  --> src/services/mod.rs:16:1
+   |
+10 | pub mod trust_config;
+   | --------------------- previous definition of the module `trust_config` here
+...
+16 | pub mod trust_config;
+   | ^^^^^^^^^^^^^^^^^^^^^ `trust_config` redefined here
+   |
+   = note: `trust_config` must be defined only once in the type namespace of this module
+
+error[E0428]: the name `session_revalidator` is defined multiple times
+  --> src/services/mod.rs:18:1
+   |
+7  | pub mod session_revalidator;
+   | ---------------------------- previous definition of the module `session_revalidator` here
+...
+18 | pub mod session_revalidator;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `session_revalidator` redefined here
+   |
+   = note: `session_revalidator` must be defined only once in the type namespace of this module
+
+error: expected one of `,`, `.`, `?`, `}`, or an operator, found `risk_score`
+  --> src/modules/geo_ip_anomaly.rs:47:17
+   |
+44 |             let snapshot = MemorySnapshot {
+   |                            -------------- while parsing this struct
+45 |                 cpu_usage: Some(0.3),
+46 |                 memory_usage: Some(400.0)
+   |                                          -
+   |                                          |
+   |                                          expected one of `,`, `.`, `?`, `}`, or an operator
+   |                                          help: try adding a comma: `,`
+47 |                 risk_score: 88,
+   |                 ^^^^^^^^^^ unexpected token
+
+error[E0255]: the name `start_auth_monitor` is defined multiple times
+  --> src/modules/auth_monitor.rs:34:1
+   |
+9  | use crate::modules::auth_monitor::start_auth_monitor;
+   |     ------------------------------------------------ previous import of the value `start_auth_monitor` here
+...
+34 | pub fn start_auth_monitor() {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^ `start_auth_monitor` redefined here
+   |
+   = note: `start_auth_monitor` must be defined only once in the value namespace of this module
+help: you can use `as` to change the binding name of the import
+   |
+9  | use crate::modules::auth_monitor::start_auth_monitor as other_start_auth_monitor;
+   |                                                      +++++++++++++++++++++++++++
+
+error[E0432]: unresolved import `crate::telemetry_types`
+ --> src/trust_decay_profiler.rs:4:12
+  |
+4 | use crate::telemetry_types::TelemetrySnapshot;
+  |            ^^^^^^^^^^^^^^^ could not find `telemetry_types` in the crate root
+
+error[E0432]: unresolved import `crate::services::decay_engine`
+ --> src/trust_decay_profiler.rs:6:22
+  |
+6 | use crate::services::decay_engine::calculate_decay;
+  |                      ^^^^^^^^^^^^ could not find `decay_engine` in `services`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `edr_agent`
+ --> src/zero_day_exploit_fallout.rs:2:5
+  |
+2 | use edr_agent::forensic::utils::{get_kernel_logs, check_protected_mem_access, detect_syscall_anomalies};
+  |     ^^^^^^^^^ use of unresolved module or unlinked crate `edr_agent`
+  |
+  = help: if you wanted to use a crate named `edr_agent`, use `cargo add edr_agent` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `crate::session_digest_cache`
+ --> src/trust_decay_profiler.rs:7:12
+  |
+7 | use crate::session_digest_cache::get_recent_session_digest;
+  |            ^^^^^^^^^^^^^^^^^^^^ could not find `session_digest_cache` in the crate root
+
+error[E0432]: unresolved import `crate::adaptive_threshold_engine`
+ --> src/services/trust_engine_final.rs:1:12
+  |
+1 | use crate::adaptive_threshold_engine::{AdaptiveThresholdEngine, evaluate_role_thresholds, load_role_profile_map};
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^ could not find `adaptive_threshold_engine` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/services/trust_engine_final.rs:2:12
+  |
+2 | use crate::gnn_hook::send_to_gnn;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::trust_digest_engine`
+ --> src/services/trust_engine_final.rs:4:12
+  |
+4 | use crate::trust_digest_engine::TrustDigestEngine;
+  |            ^^^^^^^^^^^^^^^^^^^ could not find `trust_digest_engine` in the crate root
+
+error[E0432]: unresolved import `crate::services::trust_config`
+  --> src/services/trust_engine_final.rs:14:22
+   |
+14 | use crate::services::trust_config::TrustConfig;
+   |                      ^^^^^^^^^^^^ could not find `trust_config` in `services`
+
+error[E0432]: unresolved import `crate::services::ontology_mapper`
+ --> src/replay_writer.rs:5:22
+  |
+5 | use crate::services::ontology_mapper::SemanticTagInfo;
+  |                      ^^^^^^^^^^^^^^^ could not find `ontology_mapper` in `services`
+
+error[E0432]: unresolved import `crate::gnn_hook`
+  --> src/modules/privilege_monitor.rs:10:12
+   |
+10 | use crate::gnn_hook::push_to_gnn_vector_log;
+   |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+ --> src/modules/process_monitor.rs:3:23
+  |
+3 | use sysinfo::{System, SystemExt, ProcessExt};
+  |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+  |                       |
+  |                       no `SystemExt` in the root
+  |
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, System, ProcessExt};
+  |
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, SystemExt, Process};
+  |
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/process_monitor.rs:9:12
+  |
+9 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/user_tracker.rs:8:12
+  |
+8 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/cloud_tracker.rs:4:12
+  |
+4 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/container_monitor.rs:6:12
+  |
+6 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/job_sched_monitor.rs:9:12
+  |
+9 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0432]: unresolved import `crate::gnn_hook`
+ --> src/modules/script_monitor.rs:9:12
+  |
+9 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |            ^^^^^^^^ could not find `gnn_hook` in the crate root
+
+error[E0433]: failed to resolve: unresolved import
+ --> src/modes/forensic.rs:5:12
+  |
+5 | use crate::forensic::{
+  |            ^^^^^^^^
+  |            |
+  |            unresolved import
+  |            help: a similar path exists: `modes::forensic`
+
+error[E0432]: unresolved imports `crate::modules::auth_monitor`, `crate::modules::password_spray`, `crate::modules::mfa_bypass`, `crate::modules::geo_ip_anomaly`
+  --> src/modes/minimal.rs:9:5
+   |
+9  |     auth_monitor::light_auth_monitor,
+   |     ^^^^^^^^^^^^ could not find `auth_monitor` in `modules`
+10 |     password_spray::detect_password_spray,
+   |     ^^^^^^^^^^^^^^ could not find `password_spray` in `modules`
+11 |     mfa_bypass::detect_mfa_bypass,
+   |     ^^^^^^^^^^ could not find `mfa_bypass` in `modules`
+12 |     geo_ip_anomaly::check_geo_ip_anomaly,
+   |     ^^^^^^^^^^^^^^ could not find `geo_ip_anomaly` in `modules`
+
+error[E0432]: unresolved imports `crate::modules::persistence_watch::scan_persistence_indicators`, `crate::modules::privilege_monitor::scan_privilege_escalations`, `crate::modules::process_monitor::monitor_processes`, `crate::modules::registry_watch::scan_registry_entries`, `crate::modules::user_tracker::track_user_sessions`, `crate::modules::usb_monitor::scan_usb_devices`, `crate::modules::script_monitor::monitor_script_execs`, `crate::modules::mem_scan::scan_memory_anomalies`
+  --> src/modes/forensic.rs:14:5
+   |
+14 |     persistence_watch::scan_persistence_indicators, // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_persistence_indicators` in `modules::persistence_watch`
+15 |     privilege_monitor::scan_privilege_escalations, // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_privilege_escalations` in `modules::privilege_monitor`
+16 |     process_monitor::monitor_processes,     // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `monitor_processes` in `modules::process_monitor`
+17 |     registry_watch::scan_registry_entries,  // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_registry_entries` in `modules::registry_watch`
+18 |     user_tracker::track_user_sessions,      // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `track_user_sessions` in `modules::user_tracker`
+19 |     usb_monitor::scan_usb_devices,          // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_usb_devices` in `modules::usb_monitor`
+...
+23 |     script_monitor::monitor_script_execs,   // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `monitor_script_execs` in `modules::script_monitor`
+24 |     mem_scan::scan_memory_anomalies,        // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_memory_anomalies` in `modules::mem_scan`
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+  --> src/modes/forensic.rs:28:23
+   |
+28 | use sysinfo::{System, SystemExt, ProcessExt};
+   |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+   |                       |
+   |                       no `SystemExt` in the root
+   |
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, System, ProcessExt};
+   |
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, SystemExt, Process};
+   |
+
+error[E0432]: unresolved import `crate::services::trust_config`
+ --> src/services/trust_escalation.rs:2:22
+  |
+2 | use crate::services::trust_config::TrustConfig;
+  |                      ^^^^^^^^^^^^ could not find `trust_config` in `services`
+
+error[E0432]: unresolved import `crate::modules::alert_engine`
+ --> src/services/trust_escalation.rs:4:5
+  |
+4 | use crate::modules::alert_engine;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `alert_engine` in `modules`
+
+error[E0432]: unresolved import `crate::services::ontology_mapper`
+ --> src/services/trust_escalation.rs:5:5
+  |
+5 | use crate::services::ontology_mapper;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `ontology_mapper` in `services`
+  |
+help: consider importing this module instead
+  |
+5 - use crate::services::ontology_mapper;
+5 + use crate::ontology_mapper;
+  |
+
+error[E0432]: unresolved import `crate::services::session_revalidator`
+ --> src/services/trust_state_restorer.rs:5:22
+  |
+5 | use crate::services::session_revalidator::SessionData;
+  |                      ^^^^^^^^^^^^^^^^^^^ could not find `session_revalidator` in `services`
+
+error[E0432]: unresolved import `crate::services::decay_engine`
+ --> src/services/session_revalidator.rs:7:22
+  |
+7 | use crate::services::decay_engine::TrustDecayManager;
+  |                      ^^^^^^^^^^^^ could not find `decay_engine` in `services`
+
+error[E0432]: unresolved import `crate::types`
+  --> src/services/session_revalidator.rs:10:12
+   |
+10 | use crate::types::MemorySnapshot;
+   |            ^^^^^
+   |            |
+   |            unresolved import
+   |            help: a similar path exists: `pyo3::types`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `create`
+ --> src/services/trust_engine_final.rs:7:5
+  |
+7 | use create::services::trust_config::TrustConfig;
+  |     ^^^^^^ use of unresolved module or unlinked crate `create`
+  |
+  = help: if you wanted to use a crate named `create`, use `cargo add create` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `crate::services::replay_trigger::trigger_replay_if_needed`
+ --> src/services/trust_engine_final.rs:3:5
+  |
+3 | use crate::services::replay_trigger::trigger_replay_if_needed;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `trigger_replay_if_needed` in `services::replay_trigger`
+
+error[E0432]: unresolved imports `crate::trust_hook::submit_trust_event`, `crate::trust_hook::TrustEvent`
+ --> src/modules/net_watch.rs:5:25
+  |
+5 | use crate::trust_hook::{submit_trust_event, TrustEvent};
+  |                         ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^ no `TrustEvent` in `trust_hook`
+  |                         |
+  |                         no `submit_trust_event` in `trust_hook`
+  |                         help: a similar name exists in the module: `submit_trust_signal`
+  |
+  = help: consider importing one of these structs instead:
+          crate::modules::process_monitor::TrustEvent
+          crate::trust_escape_detector::TrustEvent
+
+error[E0432]: unresolved import `crate::trust_hook::submit_trust_event`
+ --> src/modules/process_monitor.rs:8:5
+  |
+8 | use crate::trust_hook::submit_trust_event;
+  |     ^^^^^^^^^^^^^^^^^^^------------------
+  |     |                  |
+  |     |                  help: a similar name exists in the module: `submit_trust_signal`
+  |     no `submit_trust_event` in `trust_hook`
+
+error[E0432]: unresolved imports `crate::trust_hook::submit_trust_event`, `crate::trust_hook::TrustEvent`
+ --> src/modules/user_tracker.rs:9:25
+  |
+9 | use crate::trust_hook::{submit_trust_event, TrustEvent};
+  |                         ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^ no `TrustEvent` in `trust_hook`
+  |                         |
+  |                         no `submit_trust_event` in `trust_hook`
+  |                         help: a similar name exists in the module: `submit_trust_signal`
+  |
+  = help: consider importing one of these structs instead:
+          crate::modules::process_monitor::TrustEvent
+          crate::trust_escape_detector::TrustEvent
+
+error[E0432]: unresolved imports `crate::trust_hook::submit_trust_event`, `crate::trust_hook::TrustEvent`
+ --> src/modules/usb_monitor.rs:7:25
+  |
+7 | use crate::trust_hook::{submit_trust_event, TrustEvent};
+  |                         ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^ no `TrustEvent` in `trust_hook`
+  |                         |
+  |                         no `submit_trust_event` in `trust_hook`
+  |                         help: a similar name exists in the module: `submit_trust_signal`
+  |
+  = help: consider importing one of these structs instead:
+          crate::modules::process_monitor::TrustEvent
+          crate::trust_escape_detector::TrustEvent
+
+error[E0432]: unresolved import `crate::modules::cloud_tracker::minimal_cloud_tracking`
+  --> src/modes/minimal.rs:13:5
+   |
+13 |     cloud_tracker::minimal_cloud_tracking,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `minimal_cloud_tracking` in `modules::cloud_tracker`
+
+error[E0432]: unresolved import `crate::modules::job_sched_monitor::track_job_schedulers`
+  --> src/modes/forensic.rs:22:5
+   |
+22 |     job_sched_monitor::track_job_schedulers, // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `track_job_schedulers` in `modules::job_sched_monitor`
+
+error[E0433]: failed to resolve: could not find `trust_config` in `services`
+   --> src/services/trust_engine_final.rs:117:38
+    |
+117 |     _trust_config: &crate::services::trust_config::TrustConfig,
+    |                                      ^^^^^^^^^^^^ could not find `trust_config` in `services`
+
+error[E0433]: failed to resolve: use of undeclared type `HashMap`
+  --> src/modules/job_sched_monitor.rs:40:31
+   |
+40 |                 let mut log = HashMap::new();
+   |                               ^^^^^^^ use of undeclared type `HashMap`
+   |
+help: consider importing one of these structs
+   |
+3  + use std::collections::HashMap;
+   |
+3  + use aya::maps::HashMap;
+   |
+
+error[E0603]: struct import `MemorySnapshot` is private
+  --> src/modules/persistence_watch.rs:8:49
+   |
+8  | use crate::trust_hook::{generate_trust_payload, MemorySnapshot};
+   |                                                 ^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `MemorySnapshot` is defined here...
+  --> src/trust_hook.rs:6:5
+   |
+6  | use crate::telemetry::MemorySnapshot;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `MemorySnapshot` which is defined here
+  --> src/telemetry.rs:73:1
+   |
+73 | pub struct MemorySnapshot {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `MemorySnapshot` directly
+   |
+8  | use crate::trust_hook::{generate_trust_payload, telemetry::MemorySnapshot};
+   |                                                 +++++++++++
+
+error[E0603]: struct import `MemorySnapshot` is private
+  --> src/modules/script_monitor.rs:8:74
+   |
+8  | use crate::trust_hook::{generate_feature_vector, generate_trust_payload, MemorySnapshot};
+   |                                                                          ^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `MemorySnapshot` is defined here...
+  --> src/trust_hook.rs:6:5
+   |
+6  | use crate::telemetry::MemorySnapshot;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `MemorySnapshot` which is defined here
+  --> src/telemetry.rs:73:1
+   |
+73 | pub struct MemorySnapshot {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `MemorySnapshot` directly
+   |
+8  | use crate::trust_hook::{generate_feature_vector, generate_trust_payload, telemetry::MemorySnapshot};
+   |                                                                          +++++++++++
+
+error[E0603]: struct import `MemorySnapshot` is private
+  --> src/modules/mem_scan.rs:6:49
+   |
+6  | use crate::trust_hook::{generate_trust_payload, MemorySnapshot};
+   |                                                 ^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `MemorySnapshot` is defined here...
+  --> src/trust_hook.rs:6:5
+   |
+6  | use crate::telemetry::MemorySnapshot;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `MemorySnapshot` which is defined here
+  --> src/telemetry.rs:73:1
+   |
+73 | pub struct MemorySnapshot {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `MemorySnapshot` directly
+   |
+6  | use crate::trust_hook::{generate_trust_payload, telemetry::MemorySnapshot};
+   |                                                 +++++++++++
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::CpuExt`
+ --> src/main.rs:6:23
+  |
+6 | use sysinfo::{System, SystemExt, CpuExt};
+  |                       ^^^^^^^^^  ^^^^^^ no `CpuExt` in the root
+  |                       |
+  |                       no `SystemExt` in the root
+  |                       help: a similar name exists in the module: `System`
+
+warning: unused import: `std::io::Read`
+   --> src/telemetry.rs:176:5
+    |
+176 | use std::io::Read;
+    |     ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `chrono::Utc`
+ --> src/telemetry_writer.rs:8:5
+  |
+8 | use chrono::Utc;
+  |     ^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/insider_data_staging.rs:5:5
+  |
+5 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/trust_decay_profiler.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::trust_hook::submit_trust_signal`
+ --> src/trust_decay_profiler.rs:5:5
+  |
+5 | use crate::trust_hook::submit_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Duration`
+ --> src/multi_stage_exfil_detector.rs:2:29
+  |
+2 | use std::time::{SystemTime, Duration};
+  |                             ^^^^^^^^
+
+warning: unused import: `crate::trust_hook::submit_trust_signal`
+ --> src/multi_stage_exfil_detector.rs:5:5
+  |
+5 | use crate::trust_hook::submit_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/post_exploit_anomaly_flagger.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/encrypted_payload_detector.rs:2:5
+  |
+2 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused imports: `SystemTime` and `UNIX_EPOCH`
+ --> src/encrypted_payload_detector.rs:3:17
+  |
+3 | use std::time::{SystemTime, UNIX_EPOCH};
+  |                 ^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `crate::trust_hook::submit_trust_signal`
+ --> src/encrypted_payload_detector.rs:4:5
+  |
+4 | use crate::trust_hook::submit_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::trust_hook::submit_trust_signal`
+ --> src/file_hash_watcher.rs:6:5
+  |
+6 | use crate::trust_hook::submit_trust_signal;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+  --> src/services/trust_engine_final.rs:13:5
+   |
+13 | use chrono::Utc;
+   |     ^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_explainer.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_trust_curve.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `HashMap`
+ --> src/replay_scheduler.rs:1:24
+  |
+1 | use std::collections::{HashMap, HashSet};
+  |                        ^^^^^^^
+
+warning: unused import: `self`
+ --> src/replay_scheduler.rs:2:15
+  |
+2 | use std::fs::{self, OpenOptions};
+  |               ^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/modules/persistence_watch.rs:4:5
+  |
+4 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::relay::transmit_or_buffer`
+ --> src/modules/cloud_tracker.rs:5:5
+  |
+5 | use crate::relay::transmit_or_buffer;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `generate_trust_payload`
+ --> src/modules/job_sched_monitor.rs:8:25
+  |
+8 | use crate::trust_hook::{generate_trust_payload, generate_feature_vector};
+  |                         ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `UNIX_EPOCH`
+ --> src/modules/mem_scan.rs:5:39
+  |
+5 | use std::time::{Duration, SystemTime, UNIX_EPOCH};
+  |                                       ^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/modes/forensic.rs:3:5
+  |
+3 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/services/trust_escalation.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0432]: unresolved import `crate::modules::password_spray::detect_password_spray`
+  --> src/modes/minimal.rs:10:5
+   |
+10 |     password_spray::detect_password_spray,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `detect_password_spray` in `modules::password_spray`
+
+error[E0432]: unresolved imports `crate::modules::persistence_watch::scan_persistence_indicators`, `crate::modules::privilege_monitor::scan_privilege_escalations`, `crate::modules::process_monitor::monitor_processes`, `crate::modules::registry_watch`, `crate::modules::user_tracker::track_user_sessions`, `crate::modules::usb_monitor::scan_usb_devices`, `crate::modules::script_monitor::monitor_script_execs`, `crate::modules::mem_scan::scan_memory_anomalies`
+  --> src/modes/forensic.rs:14:5
+   |
+14 |     persistence_watch::scan_persistence_indicators, // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_persistence_indicators` in `modules::persistence_watch`
+15 |     privilege_monitor::scan_privilege_escalations, // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_privilege_escalations` in `modules::privilege_monitor`
+16 |     process_monitor::monitor_processes,     // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `monitor_processes` in `modules::process_monitor`
+17 |     registry_watch::scan_registry_entries,  // Modules-level function
+   |     ^^^^^^^^^^^^^^ could not find `registry_watch` in `modules`
+18 |     user_tracker::track_user_sessions,      // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `track_user_sessions` in `modules::user_tracker`
+19 |     usb_monitor::scan_usb_devices,          // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_usb_devices` in `modules::usb_monitor`
+...
+23 |     script_monitor::monitor_script_execs,   // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `monitor_script_execs` in `modules::script_monitor`
+24 |     mem_scan::scan_memory_anomalies,        // Modules-level function
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `scan_memory_anomalies` in `modules::mem_scan`
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+  --> src/modes/forensic.rs:28:23
+   |
+28 | use sysinfo::{System, SystemExt, ProcessExt};
+   |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+   |                       |
+   |                       no `SystemExt` in the root
+   |
+   = help: consider importing this unresolved item through its public re-export instead:
+           crate::SystemExt
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, System, ProcessExt};
+   |
+help: a similar name exists in the module
+   |
+28 - use sysinfo::{System, SystemExt, ProcessExt};
+28 + use sysinfo::{System, SystemExt, Process};
+   |
+
+error[E0432]: unresolved import `crate::vault_exporter`
+ --> src/services/replay_trigger.rs:6:12
+  |
+6 | use crate::vault_exporter::export_to_vault;
+  |            ^^^^^^^^^^^^^^ could not find `vault_exporter` in the crate root
+
+error[E0432]: unresolved imports `sysinfo::SystemExt`, `sysinfo::ProcessExt`
+ --> src/modules/process_monitor.rs:3:23
+  |
+3 | use sysinfo::{System, SystemExt, ProcessExt};
+  |                       ^^^^^^^^^  ^^^^^^^^^^ no `ProcessExt` in the root
+  |                       |
+  |                       no `SystemExt` in the root
+  |
+  = help: consider importing this unresolved item through its public re-export instead:
+          crate::SystemExt
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, System, ProcessExt};
+  |
+help: a similar name exists in the module
+  |
+3 - use sysinfo::{System, SystemExt, ProcessExt};
+3 + use sysinfo::{System, SystemExt, Process};
+  |
+
+error[E0432]: unresolved import `crate::services::decay_engine::calculate_decay`
+ --> src/trust_decay_profiler.rs:6:5
+  |
+6 | use crate::services::decay_engine::calculate_decay;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `calculate_decay` in `services::decay_engine`
+
+error[E0432]: unresolved imports `crate::modules::auth_monitor::light_auth_monitor`, `crate::modules::mfa_bypass::detect_mfa_bypass`, `crate::modules::geo_ip_anomaly::check_geo_ip_anomaly`, `crate::modules::cloud_tracker::minimal_cloud_tracking`
+  --> src/modes/minimal.rs:9:5
+   |
+9  |     auth_monitor::light_auth_monitor,
+   |     ^^^^^^^^^^^^^^------------------
+   |     |             |
+   |     |             help: a similar name exists in the module: `start_auth_monitor`
+   |     no `light_auth_monitor` in `modules::auth_monitor`
+10 |     password_spray::detect_password_spray,
+11 |     mfa_bypass::detect_mfa_bypass,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `detect_mfa_bypass` in `modules::mfa_bypass`
+12 |     geo_ip_anomaly::check_geo_ip_anomaly,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `check_geo_ip_anomaly` in `modules::geo_ip_anomaly`
+13 |     cloud_tracker::minimal_cloud_tracking,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `minimal_cloud_tracking` in `modules::cloud_tracker`
+
+error[E0432]: unresolved imports `crate::trust_hook::submit_trust_event`, `crate::trust_hook::TrustEvent`
+ --> src/modules/password_spray.rs:6:25
+  |
+6 | use crate::trust_hook::{submit_trust_event, TrustEvent};
+  |                         ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^ no `TrustEvent` in `trust_hook`
+  |                         |
+  |                         no `submit_trust_event` in `trust_hook`
+  |                         help: a similar name exists in the module: `submit_trust_signal`
+  |
+  = help: consider importing one of these structs instead:
+          crate::modules::process_monitor::TrustEvent
+          crate::trust_escape_detector::TrustEvent
+
+error[E0433]: failed to resolve: use of undeclared type `HashMap`
+  --> src/modules/job_sched_monitor.rs:40:31
+   |
+40 |                 let mut log = HashMap::new();
+   |                               ^^^^^^^ use of undeclared type `HashMap`
+   |
+help: consider importing one of these structs
+   |
+3  + use crate::HashMap;
+   |
+3  + use std::collections::HashMap;
+   |
+3  + use aya::maps::HashMap;
+   |
+
+error[E0603]: struct import `TelemetryData` is private
+  --> src/modules/auth_monitor.rs:7:36
+   |
+7  | use crate::gnn_hook::{send_to_gnn, TelemetryData};
+   |                                    ^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `TelemetryData` is defined here...
+  --> src/gnn_hook.rs:8:5
+   |
+8  | use crate::services::trust_engine_final::TelemetryData;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `TelemetryData` which is defined here
+  --> src/services/trust_engine_final.rs:20:1
+   |
+20 | pub struct TelemetryData {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `TelemetryData` through the re-export
+   |
+7  | use crate::gnn_hook::{send_to_gnn, services::trust_engine_final::TelemetryData};
+   |                                    ++++++++++++++++++++++++++++++
+
+error[E0603]: struct import `MemorySnapshot` is private
+  --> src/modules/mem_scan.rs:6:49
+   |
+6  | use crate::trust_hook::{generate_trust_payload, MemorySnapshot};
+   |                                                 ^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `MemorySnapshot` is defined here...
+  --> src/trust_hook.rs:6:5
+   |
+6  | use crate::telemetry::MemorySnapshot;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `MemorySnapshot` which is defined here
+  --> src/telemetry.rs:73:1
+   |
+73 | pub struct MemorySnapshot {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `MemorySnapshot` through the re-export
+   |
+6  | use crate::trust_hook::{generate_trust_payload, telemetry::MemorySnapshot};
+   |                                                 +++++++++++
+
+error[E0603]: struct import `MemorySnapshot` is private
+  --> src/modules/persistence_watch.rs:8:49
+   |
+8  | use crate::trust_hook::{generate_trust_payload, MemorySnapshot};
+   |                                                 ^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `MemorySnapshot` is defined here...
+  --> src/trust_hook.rs:6:5
+   |
+6  | use crate::telemetry::MemorySnapshot;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `MemorySnapshot` which is defined here
+  --> src/telemetry.rs:73:1
+   |
+73 | pub struct MemorySnapshot {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `MemorySnapshot` through the re-export
+   |
+8  | use crate::trust_hook::{generate_trust_payload, telemetry::MemorySnapshot};
+   |                                                 +++++++++++
+
+error[E0603]: struct import `MemorySnapshot` is private
+  --> src/modules/script_monitor.rs:8:74
+   |
+8  | use crate::trust_hook::{generate_feature_vector, generate_trust_payload, MemorySnapshot};
+   |                                                                          ^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `MemorySnapshot` is defined here...
+  --> src/trust_hook.rs:6:5
+   |
+6  | use crate::telemetry::MemorySnapshot;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `MemorySnapshot` which is defined here
+  --> src/telemetry.rs:73:1
+   |
+73 | pub struct MemorySnapshot {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `MemorySnapshot` through the re-export
+   |
+8  | use crate::trust_hook::{generate_feature_vector, generate_trust_payload, telemetry::MemorySnapshot};
+   |                                                                          +++++++++++
+
+warning: unused `#[macro_use]` import
+ --> src/main.rs:8:1
+  |
+8 | #[macro_use]
+  | ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `crate::trust_digest_engine::TrustDigestEngine`
+ --> src/gnn_hook.rs:7:5
+  |
+7 | use crate::trust_digest_engine::TrustDigestEngine;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Read`
+   --> src/telemetry.rs:176:5
+    |
+176 | use std::io::Read;
+    |     ^^^^^^^^^^^^^
+
+warning: unused import: `crate::services::trust_config::TrustConfig`
+  --> src/services/trust_engine_final.rs:14:5
+   |
+14 | use crate::services::trust_config::TrustConfig;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::modules::auth_monitor::start_auth_monitor`
+ --> src/modules/auth_monitor.rs:9:5
+  |
+9 | use crate::modules::auth_monitor::start_auth_monitor;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::gnn_hook::push_to_gnn_vector_log`
+ --> src/modules/container_monitor.rs:6:5
+  |
+6 | use crate::gnn_hook::push_to_gnn_vector_log;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused doc comment
+  --> src/modules/geo_ip_anomaly.rs:23:1
+   |
+23 | /// Thread-safe history map
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^ rustdoc does not generate documentation for macro invocations
+   |
+   = help: to document an item produced by a macro, the macro must produce the documentation as part of its expansion
+   = note: `#[warn(unused_doc_comments)]` on by default
+
+error[E0277]: the trait bound `TelemetryRecord: Serialize` is not satisfied
+    --> src/telemetry_writer.rs:41:57
+     |
+41   |                 if let Ok(json) = serde_json::to_string(&event) {
+     |                                   --------------------- ^^^^^^ the trait `Serialize` is not implemented for `TelemetryRecord`
+     |                                   |
+     |                                   required by a bound introduced by this call
+     |
+     = note: for local types consider adding `#[derive(serde::Serialize)]` to your `TelemetryRecord` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Serialize`:
+               &'a T
+               &'a mut T
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+               (T0, T1, T2, T3)
+               (T0, T1, T2, T3, T4)
+             and 153 others
+note: required by a bound in `serde_json::to_string`
+    --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.140/src/ser.rs:2239:17
+     |
+2237 | pub fn to_string<T>(value: &T) -> Result<String>
+     |        --------- required by a bound in this function
+2238 | where
+2239 |     T: ?Sized + Serialize,
+     |                 ^^^^^^^^^ required by this bound in `to_string`
+
+error[E0277]: the trait bound `TelemetryRecord: Serialize` is not satisfied
+    --> src/telemetry_writer.rs:52:49
+     |
+52   |         if let Ok(json) = serde_json::to_string(&snapshot) {
+     |                           --------------------- ^^^^^^^^^ the trait `Serialize` is not implemented for `TelemetryRecord`
+     |                           |
+     |                           required by a bound introduced by this call
+     |
+     = note: for local types consider adding `#[derive(serde::Serialize)]` to your `TelemetryRecord` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Serialize`:
+               &'a T
+               &'a mut T
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+               (T0, T1, T2, T3)
+               (T0, T1, T2, T3, T4)
+             and 153 others
+     = note: required for `Vec<TelemetryRecord>` to implement `Serialize`
+note: required by a bound in `serde_json::to_string`
+    --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.140/src/ser.rs:2239:17
+     |
+2237 | pub fn to_string<T>(value: &T) -> Result<String>
+     |        --------- required by a bound in this function
+2238 | where
+2239 |     T: ?Sized + Serialize,
+     |                 ^^^^^^^^^ required by this bound in `to_string`
+
+error[E0308]: mismatched types
+  --> src/telemetry_writer.rs:53:31
+   |
+53 |             self.append_event(snapshot);
+   |                  ------------ ^^^^^^^^ expected `TelemetryRecord`, found `Vec<TelemetryRecord>`
+   |                  |
+   |                  arguments to this method are incorrect
+   |
+   = note: expected struct `TelemetryRecord`
+              found struct `Vec<TelemetryRecord>`
+note: method defined here
+  --> src/telemetry_writer.rs:25:12
+   |
+25 |     pub fn append_event(&self, event: TelemetryEvent) {
+   |            ^^^^^^^^^^^^        ---------------------
+
+error[E0308]: mismatched types
+  --> src/insider_data_staging.rs:64:41
+   |
+64 | ...                   risk_score: Some(87.0),
+   |                                   ^^^^^^^^^^ expected `u32`, found `Option<{float}>`
+   |
+   = note: expected type `u32`
+              found enum `std::option::Option<{float}>`
+
+error[E0425]: cannot find function `send_trust_signal` in this scope
+  --> src/trust_decay_profiler.rs:66:17
+   |
+66 |                 send_trust_signal(signal_type, &summary, signal_strength);
+   |                 ^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `submit_trust_signal`
+   |
+  ::: src/trust_hook.rs:96:1
+   |
+96 | pub fn submit_trust_signal(payload: HashMap<String, String>) {
+   | ------------------------------------------------------------ similarly named function `submit_trust_signal` defined here
+
+error[E0425]: cannot find function `send_trust_signal` in this scope
+  --> src/multi_stage_exfil_detector.rs:54:9
+   |
+54 |         send_trust_signal("multi_stage_exfil", &summary, 90);
+   |         ^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `submit_trust_signal`
+   |
+  ::: src/trust_hook.rs:96:1
+   |
+96 | pub fn submit_trust_signal(payload: HashMap<String, String>) {
+   | ------------------------------------------------------------ similarly named function `submit_trust_signal` defined here
+
+error[E0425]: cannot find function `send_trust_signal` in this scope
+  --> src/multi_stage_exfil_detector.rs:60:9
+   |
+60 |         send_trust_signal("staging_detected", &warning, 65);
+   |         ^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `submit_trust_signal`
+   |
+  ::: src/trust_hook.rs:96:1
+   |
+96 | pub fn submit_trust_signal(payload: HashMap<String, String>) {
+   | ------------------------------------------------------------ similarly named function `submit_trust_signal` defined here
+
+error[E0609]: no field `is_unsigned` on type `std::string::String`
+  --> src/zero_day_fallout_monitor.rs:23:23
+   |
+23 |             if module.is_unsigned || module.loaded_duration_secs < 60 {
+   |                       ^^^^^^^^^^^ unknown field
+
+error[E0609]: no field `loaded_duration_secs` on type `std::string::String`
+  --> src/zero_day_fallout_monitor.rs:23:45
+   |
+23 |             if module.is_unsigned || module.loaded_duration_secs < 60 {
+   |                                             ^^^^^^^^^^^^^^^^^^^^ unknown field
+
+error[E0308]: mismatched types
+   --> src/encrypted_payload_detector.rs:21:62
+    |
+21  | ...                   let is_mem_only = is_memory_only(&path);
+    |                                         -------------- ^^^^^ expected `&str`, found `&PathBuf`
+    |                                         |
+    |                                         arguments to this function are incorrect
+    |
+    = note: expected reference `&str`
+               found reference `&PathBuf`
+note: function defined here
+   --> src/telemetry.rs:198:8
+    |
+198 | pub fn is_memory_only(path: &str) -> bool {
+    |        ^^^^^^^^^^^^^^ ----------
+
+error[E0308]: mismatched types
+   --> src/encrypted_payload_detector.rs:22:62
+    |
+22  | ...                   let metadata = get_file_metadata(&path);
+    |                                      ----------------- ^^^^^ expected `&str`, found `&PathBuf`
+    |                                      |
+    |                                      arguments to this function are incorrect
+    |
+    = note: expected reference `&str`
+               found reference `&PathBuf`
+note: function defined here
+   --> src/telemetry.rs:203:8
+    |
+203 | pub fn get_file_metadata(path: &str) -> Option<fs::Metadata> {
+    |        ^^^^^^^^^^^^^^^^^ ----------
+
+error[E0624]: method `len` is private
+  --> src/encrypted_payload_detector.rs:41:42
+   |
+41 | ...                   metadata.len().unwrap_or(0),
+   |                                ^^^ private method
+  --> /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/option.rs:797:5
+   |
+   = note: private method defined here
+
+error[E0425]: cannot find function `send_trust_signal` in this scope
+  --> src/encrypted_payload_detector.rs:45:29
+   |
+45 | ...                   send_trust_signal("encrypted_payload", &signal, trust_score);
+   |                       ^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `submit_trust_signal`
+   |
+  ::: src/trust_hook.rs:96:1
+   |
+96 | pub fn submit_trust_signal(payload: HashMap<String, String>) {
+   | ------------------------------------------------------------ similarly named function `submit_trust_signal` defined here
+
+error[E0425]: cannot find function `send_trust_signal` in this scope
+  --> src/file_hash_watcher.rs:58:28
+   |
+58 | ...                   send_trust_signal("file_hash_match", &signal, 95);
+   |                       ^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `submit_trust_signal`
+   |
+  ::: src/trust_hook.rs:96:1
+   |
+96 | pub fn submit_trust_signal(payload: HashMap<String, String>) {
+   | ------------------------------------------------------------ similarly named function `submit_trust_signal` defined here
+
+error[E0277]: the trait bound `TelemetryRecord: Serialize` is not satisfied
+    --> src/telemetry_writer.rs:41:57
+     |
+41   |                 if let Ok(json) = serde_json::to_string(&event) {
+     |                                   --------------------- ^^^^^^ the trait `Serialize` is not implemented for `TelemetryRecord`
+     |                                   |
+     |                                   required by a bound introduced by this call
+     |
+     = note: for local types consider adding `#[derive(serde::Serialize)]` to your `TelemetryRecord` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Serialize`:
+               &'a T
+               &'a mut T
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+               (T0, T1, T2, T3)
+               (T0, T1, T2, T3, T4)
+             and 152 others
+note: required by a bound in `serde_json::to_string`
+    --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.140/src/ser.rs:2239:17
+     |
+2237 | pub fn to_string<T>(value: &T) -> Result<String>
+     |        --------- required by a bound in this function
+2238 | where
+2239 |     T: ?Sized + Serialize,
+     |                 ^^^^^^^^^ required by this bound in `to_string`
+
+error[E0277]: the trait bound `TelemetryRecord: Serialize` is not satisfied
+    --> src/telemetry_writer.rs:52:49
+     |
+52   |         if let Ok(json) = serde_json::to_string(&snapshot) {
+     |                           --------------------- ^^^^^^^^^ the trait `Serialize` is not implemented for `TelemetryRecord`
+     |                           |
+     |                           required by a bound introduced by this call
+     |
+     = note: for local types consider adding `#[derive(serde::Serialize)]` to your `TelemetryRecord` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Serialize`:
+               &'a T
+               &'a mut T
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+               (T0, T1, T2, T3)
+               (T0, T1, T2, T3, T4)
+             and 152 others
+     = note: required for `Vec<TelemetryRecord>` to implement `Serialize`
+note: required by a bound in `serde_json::to_string`
+    --> /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.140/src/ser.rs:2239:17
+     |
+2237 | pub fn to_string<T>(value: &T) -> Result<String>
+     |        --------- required by a bound in this function
+2238 | where
+2239 |     T: ?Sized + Serialize,
+     |                 ^^^^^^^^^ required by this bound in `to_string`
+
+error[E0599]: no method named `lock` found for struct `services::trust_engine_final::DIGEST_ENGINE` in the current scope
+  --> src/services/trust_engine_final.rs:63:36
+   |
+39 | / lazy_static! {
+40 | |     static ref DIGEST_ENGINE: Mutex<TrustDigestEngine> = Mutex::new(TrustDigestEngine::new());
+41 | |     static ref THRESHOLD_ENGINE: Mutex<AdaptiveThresholdEngine> = Mutex::new(AdaptiveThresholdEngine::new(70.0, 0.15));
+42 | |     static ref ESCALATION_THRESHOLD: f64 = 120.0;
+43 | | }
+   | |_- method `lock` not found for this struct
+...
+63 |       let mut digest = DIGEST_ENGINE.lock().unwrap();
+   |                                      ^^^^ method not found in `DIGEST_ENGINE`
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `lock`, perhaps you need to implement it:
+           candidate #1: `lock_api::mutex::RawMutex`
+
+error[E0599]: no method named `lock` found for struct `services::trust_engine_final::THRESHOLD_ENGINE` in the current scope
+  --> src/services/trust_engine_final.rs:72:42
+   |
+39 | / lazy_static! {
+40 | |     static ref DIGEST_ENGINE: Mutex<TrustDigestEngine> = Mutex::new(TrustDigestEngine::new());
+41 | |     static ref THRESHOLD_ENGINE: Mutex<AdaptiveThresholdEngine> = Mutex::new(AdaptiveThresholdEngine::new(70.0, 0.15));
+42 | |     static ref ESCALATION_THRESHOLD: f64 = 120.0;
+43 | | }
+   | |_- method `lock` not found for this struct
+...
+72 |       let mut threshold = THRESHOLD_ENGINE.lock().unwrap();
+   |                                            ^^^^ method not found in `THRESHOLD_ENGINE`
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `lock`, perhaps you need to implement it:
+           candidate #1: `lock_api::mutex::RawMutex`
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+  --> src/services/replay_trigger.rs:37:25
+   |
+37 |         if let Err(e) = export_to_vault(session_id, session_logs) {
+   |                         ^^^^^^^^^^^^^^^             ------------ unexpected argument #2 of type `&[std::string::String]`
+   |
+note: function defined here
+  --> src/vault_exporter.rs:9:8
+   |
+9  | pub fn export_to_vault(data: &str) {
+   |        ^^^^^^^^^^^^^^^
+help: remove the extra argument
+   |
+37 -         if let Err(e) = export_to_vault(session_id, session_logs) {
+37 +         if let Err(e) = export_to_vault(session_id) {
+   |
+
+error[E0308]: mismatched types
+  --> src/services/replay_trigger.rs:37:16
+   |
+37 |         if let Err(e) = export_to_vault(session_id, session_logs) {
+   |                ^^^^^^   ----------------------------------------- this expression has type `()`
+   |                |
+   |                expected `()`, found `Result<_, _>`
+   |
+   = note: expected unit type `()`
+                   found enum `Result<_, _>`
+
+error[E0599]: no method named `get` found for struct `TrustPayload` in the current scope
+  --> src/modules/privilege_monitor.rs:53:31
+   |
+53 |                         trust.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                               ^^^ method not found in `TrustPayload`
+   |
+  ::: src/trust_hook.rs:9:1
+   |
+9  | pub struct TrustPayload {
+   | ----------------------- method `get` not found for this struct
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following traits define an item `get`, perhaps you need to implement one of them:
+           candidate #1: `SliceIndex`
+           candidate #2: `aya::maps::IterableMap`
+           candidate #3: `aya::maps::IterableMap`
+           candidate #4: `object::read::elf::Relr`
+help: some of the expressions' fields have a method of the same name
+   |
+53 |                         trust.reason.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                               +++++++
+53 |                         trust.source_type.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                               ++++++++++++
+53 |                         trust.tags.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                               +++++
+
+error[E0061]: this function takes 1 argument but 4 arguments were supplied
+  --> src/modules/privilege_monitor.rs:56:21
+   |
+56 |                     store_replay_event("PRIV_ESC", "sudo_command", &line, timestamp);
+   |                     ^^^^^^^^^^^^^^^^^^             --------------  -----  --------- unexpected argument #4 of type `u64`
+   |                                                    |               |
+   |                                                    |               unexpected argument #3 of type `&std::string::String`
+   |                                                    unexpected argument #2 of type `&'static str`
+   |
+note: function defined here
+  --> src/replay_writer.rs:8:8
+   |
+8  | pub fn store_replay_event<T: Serialize>(event: T) -> Result<(), std::io::Error> {
+   |        ^^^^^^^^^^^^^^^^^^
+help: remove the extra arguments
+   |
+56 -                     store_replay_event("PRIV_ESC", "sudo_command", &line, timestamp);
+56 +                     store_replay_event("PRIV_ESC");
+   |
+
+error[E0277]: the trait bound `Output: Default` is not satisfied
+  --> src/modules/user_tracker.rs:67:18
+   |
+67 |                 .unwrap_or_default();
+   |                  ^^^^^^^^^^^^^^^^^ the trait `Default` is not implemented for `Output`
+   |
+note: required by a bound in `Result::<T, E>::unwrap_or_default`
+  --> /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/result.rs:1168:5
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:60:46
+   |
+60 |                         network_connections: vec![],
+   |                                              ^^^^^^ expected `Option<Vec<NetworkConnection>>`, found `Vec<_>`
+   |
+   = note: expected enum `std::option::Option<Vec<telemetry::NetworkConnection>>`
+            found struct `Vec<_>`
+   = note: this error originates in the macro `vec` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: call `Into::into` on this expression to convert `Vec<_>` into `std::option::Option<Vec<telemetry::NetworkConnection>>`
+   |
+60 |                         network_connections: vec![].into(),
+   |                                                    +++++++
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:61:40
+   |
+61 |                         file_accesses: vec![],
+   |                                        ^^^^^^ expected `Option<Vec<FileAccess>>`, found `Vec<_>`
+   |
+   = note: expected enum `std::option::Option<Vec<FileAccess>>`
+            found struct `Vec<_>`
+   = note: this error originates in the macro `vec` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: call `Into::into` on this expression to convert `Vec<_>` into `std::option::Option<Vec<FileAccess>>`
+   |
+61 |                         file_accesses: vec![].into(),
+   |                                              +++++++
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:62:49
+   |
+62 |                         registry_modifications: vec![],
+   |                                                 ^^^^^^ expected `Option<Vec<RegistryChange>>`, found `Vec<_>`
+   |
+   = note: expected enum `std::option::Option<Vec<RegistryChange>>`
+            found struct `Vec<_>`
+   = note: this error originates in the macro `vec` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: call `Into::into` on this expression to convert `Vec<_>` into `std::option::Option<Vec<RegistryChange>>`
+   |
+62 |                         registry_modifications: vec![].into(),
+   |                                                       +++++++
+
+error[E0560]: struct `TelemetryRecord` has no field named `cpu_usage`
+  --> src/modules/logon_tracker.rs:63:25
+   |
+63 |                         cpu_usage: Some(cpu_usage),
+   |                         ^^^^^^^^^ `TelemetryRecord` does not have this field
+   |
+   = note: available fields are: `uid`, `binary_path`, `cwd`, `loaded_modules`, `syscall_summary` ... and 4 others
+
+error[E0599]: no method named `iter` found for unit type `()` in the current scope
+  --> src/modes/minimal.rs:37:25
+   |
+37 |                 if data.iter().any(|s| s.contains("suspicious_process_name")) {
+   |                         ^^^^ method not found in `()`
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:70:42
+   |
+70 |                     send_to_replay_queue(&record);
+   |                     -------------------- ^^^^^^^ expected `&str`, found `&TelemetryRecord`
+   |                     |
+   |                     arguments to this function are incorrect
+   |
+   = note: expected reference `&str`
+              found reference `&TelemetryRecord`
+note: function defined here
+  --> src/replay_writer.rs:73:8
+   |
+73 | pub fn send_to_replay_queue(data: &str) -> Result<()> {
+   |        ^^^^^^^^^^^^^^^^^^^^ ----------
+
+error[E0061]: this function takes 1 argument but 3 arguments were supplied
+  --> src/modules/container_monitor.rs:68:29
+   |
+68 |         let trust_payload = generate_trust_payload(cpu_usage, mem_usage, risk_score);
+   |                             ^^^^^^^^^^^^^^^^^^^^^^ ---------  ---------  ---------- unexpected argument #3 of type `f32`
+   |                                                    |          |
+   |                                                    |          unexpected argument #2 of type `{float}`
+   |                                                    expected `&MemorySnapshot`, found floating-point number
+   |
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+68 -         let trust_payload = generate_trust_payload(cpu_usage, mem_usage, risk_score);
+68 +         let trust_payload = generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0425]: cannot find function `get_trust_payload` in this scope
+  --> src/modules/job_sched_monitor.rs:38:37
+   |
+38 |                 let trust_payload = get_trust_payload("localhost", cpu_usage, memory_usage, risk_score);
+   |                                     ^^^^^^^^^^^^^^^^^ help: a function with a similar name exists: `generate_trust_payload`
+   |
+  ::: src/trust_hook.rs:38:1
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   | ------------------------------------------------------------------- similarly named function `generate_trust_payload` defined here
+
+error[E0308]: mismatched types
+  --> src/modules/job_sched_monitor.rs:39:81
+   |
+39 |                 let features = generate_feature_vector(cpu_usage, memory_usage, risk_score);
+   |                                -----------------------                          ^^^^^^^^^^ expected `f64`, found `f32`
+   |                                |
+   |                                arguments to this function are incorrect
+   |
+note: function defined here
+  --> src/trust_hook.rs:34:8
+   |
+34 | pub fn generate_feature_vector(cpu: f64, mem: f64, risk: f64) -> Vec<f64> {
+   |        ^^^^^^^^^^^^^^^^^^^^^^^                     ---------
+help: you can convert an `f32` to an `f64`
+   |
+39 |                 let features = generate_feature_vector(cpu_usage, memory_usage, risk_score.into());
+   |                                                                                           +++++++
+
+error[E0599]: no method named `iter` found for unit type `()` in the current scope
+  --> src/modes/minimal.rs:56:25
+   |
+56 |                 if data.iter().any(|s| s.contains("suspicious_network_activity")) {
+   |                         ^^^^ method not found in `()`
+
+error[E0599]: no method named `get` found for struct `TrustPayload` in the current scope
+  --> src/modules/script_monitor.rs:54:35
+   |
+54 | ...                   trust.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                             ^^^ method not found in `TrustPayload`
+   |
+  ::: src/trust_hook.rs:9:1
+   |
+9  | pub struct TrustPayload {
+   | ----------------------- method `get` not found for this struct
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following traits define an item `get`, perhaps you need to implement one of them:
+           candidate #1: `SliceIndex`
+           candidate #2: `aya::maps::IterableMap`
+           candidate #3: `aya::maps::IterableMap`
+           candidate #4: `object::read::elf::Relr`
+help: some of the expressions' fields have a method of the same name
+   |
+54 |                             trust.reason.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                                   +++++++
+54 |                             trust.source_type.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                                   ++++++++++++
+54 |                             trust.tags.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                                   +++++
+
+error[E0061]: this function takes 1 argument but 4 arguments were supplied
+  --> src/modules/script_monitor.rs:57:25
+   |
+57 |                         store_replay_event("SCRIPT_MONITOR", "tmp_script", &format!("{:?}", path), timestamp);
+   |                         ^^^^^^^^^^^^^^^^^^                   ------------  ----------------------  --------- unexpected argument #4 of type `u64`
+   |                                                              |             |
+   |                                                              |             unexpected argument #3 of type `&std::string::String`
+   |                                                              unexpected argument #2 of type `&'static str`
+   |
+note: function defined here
+  --> src/replay_writer.rs:8:8
+   |
+8  | pub fn store_replay_event<T: Serialize>(event: T) -> Result<(), std::io::Error> {
+   |        ^^^^^^^^^^^^^^^^^^
+help: remove the extra arguments
+   |
+57 -                         store_replay_event("SCRIPT_MONITOR", "tmp_script", &format!("{:?}", path), timestamp);
+57 +                         store_replay_event("SCRIPT_MONITOR");
+   |
+
+error[E0308]: mismatched types
+  --> src/modules/mem_scan.rs:40:33
+   |
+40 |   ...                   log(&format!(
+   |  _______________________---_^
+   | |                       |
+   | |                       arguments to this function are incorrect
+41 | | ...                       "[🧠 MemScan] High memory usage → PID={} CMD={} RSS={}KB | Trust: {:?}",
+42 | | ...                       pid, cmd, rss_kb, trust_payload
+43 | | ...                   ));
+   | |_______________________^ expected `String`, found `&String`
+   |
+note: function defined here
+  --> src/logger.rs:10:8
+   |
+10 | pub fn log(message: String) {
+   |        ^^^ ---------------
+help: consider removing the borrow
+   |
+40 -                             log(&format!(
+40 +                             log(format!(
+   |
+
+error[E0061]: this function takes 1 argument but 4 arguments were supplied
+  --> src/modules/auth_monitor.rs:61:29
+   |
+61 |         let trust_payload = generate_trust_payload(&hostname, cpu, mem, risk_score);
+   |                             ^^^^^^^^^^^^^^^^^^^^^^ ---------  ---  ---  ---------- unexpected argument #4 of type `{float}`
+   |                                                    |          |    |
+   |                                                    |          |    unexpected argument #3 of type `{integer}`
+   |                                                    |          unexpected argument #2 of type `{float}`
+   |                                                    expected `&MemorySnapshot`, found `&String`
+   |
+   = note: expected reference `&MemorySnapshot`
+              found reference `&std::string::String`
+note: function defined here
+  --> src/trust_hook.rs:38:8
+   |
+38 | pub fn generate_trust_payload(evt: &MemorySnapshot) -> TrustPayload {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ --------------------
+help: remove the extra arguments
+   |
+61 -         let trust_payload = generate_trust_payload(&hostname, cpu, mem, risk_score);
+61 +         let trust_payload = generate_trust_payload(/* &MemorySnapshot */);
+   |
+
+error[E0308]: mismatched types
+  --> src/modules/auth_monitor.rs:62:53
+   |
+62 |         let features = generate_feature_vector(cpu, mem, risk_score);
+   |                        -----------------------      ^^^ expected `f64`, found integer
+   |                        |
+   |                        arguments to this function are incorrect
+   |
+note: function defined here
+  --> src/trust_hook.rs:34:8
+   |
+34 | pub fn generate_feature_vector(cpu: f64, mem: f64, risk: f64) -> Vec<f64> {
+   |        ^^^^^^^^^^^^^^^^^^^^^^^           --------
+
+error[E0599]: no method named `get` found for struct `TrustPayload` in the current scope
+  --> src/modules/auth_monitor.rs:75:27
+   |
+75 |             trust_payload.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                           ^^^ method not found in `TrustPayload`
+   |
+  ::: src/trust_hook.rs:9:1
+   |
+9  | pub struct TrustPayload {
+   | ----------------------- method `get` not found for this struct
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following traits define an item `get`, perhaps you need to implement one of them:
+           candidate #1: `SliceIndex`
+           candidate #2: `aya::maps::IterableMap`
+           candidate #3: `aya::maps::IterableMap`
+           candidate #4: `object::read::elf::Relr`
+help: some of the expressions' fields have a method of the same name
+   |
+75 |             trust_payload.reason.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                           +++++++
+75 |             trust_payload.source_type.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                           ++++++++++++
+75 |             trust_payload.tags.get("trust_score").unwrap_or(&"N/A".to_string())
+   |                           +++++
+
+error[E0308]: mismatched types
+  --> src/modules/cloud_tracker.rs:91:24
+   |
+91 | push_to_gnn_vector_log(features);
+   | ---------------------- ^^^^^^^^ expected `HashMap<String, String>`, found `Vec<f64>`
+   | |
+   | arguments to this function are incorrect
+   |
+   = note: expected struct `HashMap<std::string::String, std::string::String>`
+              found struct `Vec<f64>`
+note: function defined here
+  --> src/gnn_hook.rs:83:8
+   |
+83 | pub fn push_to_gnn_vector_log(vector: HashMap<String, String>) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^ -------------------------------
+
+error[E0308]: mismatched types
+   --> src/main.rs:111:31
+    |
+111 |     start_session_revalidator(&mut session_map, &hostname);
+    |     ------------------------- ^^^^^^^^^^^^^^^^ expected `TrustDecayManager`, found `&mut HashMap<String, SessionData>`
+    |     |
+    |     arguments to this function are incorrect
+    |
+    = note:         expected struct `TrustDecayManager`
+            found mutable reference `&mut HashMap<std::string::String, SessionData>`
+note: function defined here
+   --> src/services/session_revalidator.rs:28:8
+    |
+28  | pub fn start_session_revalidator(mut trust_cache: TrustDecayManager, hostname: &str) {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^ ----------------------------------
+
+warning: variable does not need to be mutable
+  --> src/time_aware_trust_decay.rs:30:9
+   |
+30 |     let mut map = ACTIVITY_MAP.lock().unwrap();
+   |         ----^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` on by default
+
+warning: unused variable: `pid`
+   --> src/services/trust_engine_final.rs:113:5
+    |
+113 |     pid: u32,
+    |     ^^^ help: if this is intentional, prefix it with an underscore: `_pid`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `device_type`
+   --> src/services/trust_engine_final.rs:116:5
+    |
+116 |     device_type: &str,
+    |     ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_device_type`
+
+error[E0308]: mismatched types
+  --> src/modules/logon_tracker.rs:67:36
+   |
+67 |                         timestamp: SystemTime::now(),
+   |                                    ^^^^^^^^^^^^^^^^^ expected `u64`, found `SystemTime`
+
+Some errors have detailed explanations: E0061, E0277, E0308, E0425, E0428, E0432, E0433, E0560, E0583...
+For more information about an error, try `rustc --explain E0061`.
+warning: `forensic_hooks` (lib) generated 24 warnings
+error: could not compile `forensic_hooks` (lib) due to 93 previous errors; 24 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+Some errors have detailed explanations: E0061, E0255, E0277, E0308, E0425, E0432, E0433, E0560, E0599...
+warning: `forensic_hooks` (bin "forensic_hooks") generated 32 warnings (23 duplicates)
+error: could not compile `forensic_hooks` (bin "forensic_hooks") due to 67 previous errors; 32 warnings emitted
