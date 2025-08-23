@@ -1,0 +1,4 @@
+fd 0 -> /dev/null
+fd 1 -> pipe:[184593]
+fd 2 -> /dev/null
+fd 3 -> socket:[201311]

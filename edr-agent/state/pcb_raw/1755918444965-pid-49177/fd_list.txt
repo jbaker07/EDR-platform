@@ -1,0 +1,42 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[274353]
+fd 2 -> socket:[274353]
+fd 3 -> pipe:[287938]
+fd 4 -> pipe:[268871]
+fd 5 -> /dev/null
+fd 6 -> /dev/null
+fd 7 -> /dev/null
+fd 8 -> /snap/firefox/6696/usr/lib/firefox/omni.ja
+fd 9 -> /snap/firefox/6696/usr/lib/firefox/browser/omni.ja
+fd 10 -> pipe:[287938]
+fd 11 -> anon_inode:[eventpoll]
+fd 12 -> pipe:[268871]
+fd 13 -> anon_inode:[eventfd]
+fd 14 -> socket:[262844]
+fd 15 -> socket:[284882]
+fd 16 -> socket:[277214]
+fd 17 -> socket:[287682]
+fd 18 -> socket:[292906]
+fd 19 -> pipe:[268869]
+fd 20 -> pipe:[268869]
+fd 21 -> pipe:[268870]
+fd 22 -> pipe:[268870]
+fd 23 -> /memfd:mozilla-ipc (deleted)
+fd 24 -> pipe:[288994]
+fd 25 -> pipe:[288994]
+fd 26 -> /memfd:mozilla-ipc (deleted)
+fd 28 -> socket:[284880]
+fd 29 -> /memfd:mozilla-ipc (deleted)
+fd 30 -> /memfd:mozilla-ipc (deleted)
+fd 31 -> /memfd:mozilla-ipc (deleted)
+fd 32 -> /memfd:mozilla-ipc (deleted)
+fd 33 -> /memfd:mozilla-ipc (deleted)
+fd 34 -> /memfd:mozilla-ipc (deleted)
+fd 35 -> /memfd:mozilla-ipc (deleted)
+fd 36 -> /memfd:mozilla-ipc (deleted)
+fd 37 -> /memfd:mozilla-ipc (deleted)
+fd 38 -> /memfd:mozilla-ipc (deleted)
+fd 39 -> /memfd:mozilla-ipc (deleted)
+fd 40 -> /memfd:mozilla-ipc (deleted)
+fd 41 -> /memfd:mozilla-ipc (deleted)
+fd 42 -> /memfd:mozilla-ipc (deleted)

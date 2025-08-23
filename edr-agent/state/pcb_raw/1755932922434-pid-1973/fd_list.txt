@@ -1,0 +1,5 @@
+fd 0 -> /dev/null
+fd 1 -> /dev/null
+fd 2 -> /dev/null
+fd 7 -> socket:[36199]
+fd 9 -> /dev/null

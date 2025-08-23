@@ -1,0 +1,21 @@
+23f1ce00000-ffffce685000 ---p 00000000 00:00 0                           [rollup]
+Rss:              151760 kB
+Pss:              132708 kB
+Pss_Anon:         113188 kB
+Pss_File:          14538 kB
+Pss_Shmem:          4982 kB
+Shared_Clean:      23180 kB
+Shared_Dirty:       4156 kB
+Private_Clean:      9388 kB
+Private_Dirty:    115036 kB
+Referenced:       146708 kB
+Anonymous:        113188 kB
+LazyFree:              0 kB
+AnonHugePages:         0 kB
+ShmemPmdMapped:        0 kB
+FilePmdMapped:         0 kB
+Shared_Hugetlb:        0 kB
+Private_Hugetlb:       0 kB
+Swap:              96648 kB
+SwapPss:           76056 kB
+Locked:                0 kB

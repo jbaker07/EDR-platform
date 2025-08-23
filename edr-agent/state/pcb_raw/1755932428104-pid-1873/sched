@@ -1,0 +1,32 @@
+Xwayland (1873, #threads: 2)
+-------------------------------------------------------------------
+se.exec_start                                :     182448264.383412
+se.vruntime                                  :       1053440.809055
+se.sum_exec_runtime                          :        248350.563402
+se.nr_migrations                             :                47882
+nr_switches                                  :              2235366
+nr_voluntary_switches                        :              2225380
+nr_involuntary_switches                      :                 9986
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                 1230
+se.avg.runnable_sum                          :              1260443
+se.avg.util_sum                              :               646410
+se.avg.load_avg                              :                   23
+se.avg.runnable_avg                          :                   23
+se.avg.util_avg                              :                   10
+se.avg.last_update_time                      :      182448264382464
+se.avg.util_est.ewma                         :                   18
+se.avg.util_est.enqueued                     :                   10
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

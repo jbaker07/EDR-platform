@@ -1,0 +1,32 @@
+gnome-shell (1671, #threads: 15)
+-------------------------------------------------------------------
+se.exec_start                                :     182633469.058831
+se.vruntime                                  :        932934.468871
+se.sum_exec_runtime                          :       1240782.679133
+se.nr_migrations                             :                51531
+nr_switches                                  :              3225802
+nr_voluntary_switches                        :              3175619
+nr_involuntary_switches                      :                50183
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                  919
+se.avg.runnable_sum                          :               942290
+se.avg.util_sum                              :               942290
+se.avg.load_avg                              :                   16
+se.avg.runnable_avg                          :                   16
+se.avg.util_avg                              :                   16
+se.avg.last_update_time                      :      182633469058048
+se.avg.util_est.ewma                         :                   40
+se.avg.util_est.enqueued                     :                   16
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                   42
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

@@ -1,0 +1,21 @@
+3b470500000-ffffcdead000 ---p 00000000 00:00 0                           [rollup]
+Rss:              494756 kB
+Pss:              421588 kB
+Pss_Anon:         289996 kB
+Pss_File:         127014 kB
+Pss_Shmem:          4577 kB
+Shared_Clean:      94688 kB
+Shared_Dirty:       3276 kB
+Private_Clean:    123276 kB
+Private_Dirty:    273516 kB
+Referenced:       458036 kB
+Anonymous:        289996 kB
+LazyFree:          19176 kB
+AnonHugePages:         0 kB
+ShmemPmdMapped:        0 kB
+FilePmdMapped:         0 kB
+Shared_Hugetlb:        0 kB
+Private_Hugetlb:       0 kB
+Swap:               2008 kB
+SwapPss:               0 kB
+Locked:                0 kB

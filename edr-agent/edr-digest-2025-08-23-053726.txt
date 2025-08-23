@@ -1,0 +1,354 @@
+## META
+Sat 23 Aug 2025 05:37:26 AM UTC
+Linux bake 5.15.0-152-generic #162-Ubuntu SMP Wed Jul 23 09:56:08 UTC 2025 aarch64 aarch64 aarch64 GNU/Linux
+
+## STATE SIZES
+338M	state
+file_count: 51403
+
+## PCB SNAPSHOTS
+lines: 3113
+-- first --
+{"ts_ms":1755918381338,"pid":890,"uid":0,"exe":null,"state":"S","threads":3,"vmrss_kb":7592,"vmsize_kb":259604,"fds":null,"cap_eff":537212130,"seccomp":0,"cpu_pct":0.0,"read_bps":null,"write_bps":null,"tcp_socks":6,"udp_socks":6,"unix_socks":774,"in_container":false}
+-- last  --
+{"ts_ms":1755927205095,"pid":1,"uid":0,"exe":"/usr/lib/systemd/systemd","state":"S","threads":1,"vmrss_kb":9048,"vmsize_kb":168696,"fds":183,"cap_eff":2199023255551,"seccomp":0,"cpu_pct":0.0,"read_bps":null,"write_bps":null,"tcp_socks":6,"udp_socks":6,"unix_socks":789,"in_container":false}
+
+## PCB RAW (first 30)
+total 12512
+drwxrwxr-x 3095 jermaineb jermaineb 135168 Aug 23 05:33 .
+drwxrwxr-x    3 jermaineb jermaineb   4096 Aug 23 03:06 ..
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-10
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-100
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1008
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1016
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1019
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-102
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1021
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-103
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1030
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1033
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-104
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-105
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-106
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-108
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-109
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-11
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-110
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-111
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-113
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-114
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-12
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-122
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-124
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-1248
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-126
+drwxrwxr-x    2 jermaineb jermaineb   4096 Aug 23 03:06 1755918381648-pid-127
+no pcb_raw dir
+
+## KRIM BASELINE (first line)
+none
+
+## LOG TAIL (200)
+  └── Description     : Some("Bypass via PAM fallback")
+  └── Anomaly Type    : mfa_bypass_execve
+  └── Source Module   : mfa_bypass
+  └── Timestamp       : 1755927324
+  └── PID/PPID/UID    : -1/-1/0
+  └── Binary          : 
+  └── Command Line    : 
+  └── CWD             : 
+  └── Metadata        : {
+    "features": "[0.4, 450.0, 8.5]",
+    "category": "auth",
+    "method": "fallback",
+    "trust_payload": "{\"cpu\": \"0.4000\", \"mem\": \"450\", \"risk_score\": \"8.50\", \"host\": \"unknown\", \"trust_score\": \"91.50\"}",
+    "signal": "mfa_bypass",
+    "reason": "Bypass via PAM fallback",
+    "timestamp": "1755927324",
+    "replay_tag": "mfa_bypass_detected",
+    "user": "unknown",
+    "gnn_escalate": "true",
+}
+[🛡 TrustEvent] Module=Some("job_sched_monitor") | Component=scheduler | SignalType=Some("job_sched_batch") | Signal=Some("cron_line_scan") | Risk=3.00 | Score=Some(97.0) | Raw=Some(3.0) | Tags=Some(["cron_batch", "job_sched"])
+  └── Description     : Some("Detected batch cron job command: `17 *\t* * *\troot    cd / && run-parts --report /etc/cron.hourly` (risk: 3.0)")
+  └── Anomaly Type    : scheduled_cron_job
+  └── Source Module   : job_sched_monitor
+  └── Timestamp       : 1755927324
+  └── PID/PPID/UID    : 54403/54402/0
+  └── Binary          : /usr/bin/cron
+  └── Command Line    : 17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+  └── CWD             : /root
+  └── Metadata        : {
+    "command": "17 *\t* * *\troot    cd / && run-parts --report /etc/cron.hourly",
+    "category": "scheduler",
+    "event_type": "cron_line_scan",
+    "source": "cron_file",
+    "replay_tag": "cron_execution",
+}
+[⏱️ Job Sched Passive] CMD=17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly | Trust=97.00
+📝 Telemetry record: {"features": "[0.4, 450.0, 8.5]", "category": "auth", "method": "fallback", "trust_payload": "{\"cpu\": \"0.4000\", \"mem\": \"450\", \"risk_score\": \"8.50\", \"host\": \"unknown\", \"trust_score\": \"91.50\"}", "signal": "mfa_bypass", "reason": "Bypass via PAM fallback", "timestamp": "1755927324", "replay_tag": "mfa_bypass_detected", "user": "unknown", "gnn_escalate": "true"}
+[🛡 TrustEvent] Module=Some("auth") | Component=auth | SignalType=Some("log_monitor") | Signal=Some("log_mfa_bypass") | Risk=7.00 | Score=Some(7.0) | Raw=Some(7.0) | Tags=Some(["auth", "mfa_bypass"])
+  └── Description     : Some("Bypass via PAM fallback")
+  └── Anomaly Type    : mfa_bypass_log
+  └── Source Module   : mfa_bypass
+  └── Timestamp       : 1755927324
+  └── PID/PPID/UID    : -1/-1/0
+  └── Binary          : 
+  └── Command Line    : 
+  └── CWD             : 
+  └── Metadata        : {
+    "timestamp": "1755927324",
+    "reason": "Bypass via PAM fallback",
+    "user": "unknown",
+    "method": "fallback",
+    "category": "auth",
+    "signal": "log_mfa_bypass",
+}
+[🛡 TrustEvent] Module=Some("job_sched_monitor") | Component=scheduler | SignalType=Some("job_sched_batch") | Signal=Some("cron_line_scan") | Risk=3.00 | Score=Some(97.0) | Raw=Some(3.0) | Tags=Some(["cron_batch", "job_sched"])
+  └── Description     : Some("Detected batch cron job command: `25 6\t* * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )` (risk: 3.0)")
+  └── Anomaly Type    : scheduled_cron_job
+  └── Source Module   : job_sched_monitor
+  └── Timestamp       : 1755927324
+  └── PID/PPID/UID    : 54403/54402/0
+  └── Binary          : /usr/bin/cron
+  └── Command Line    : 25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+  └── CWD             : /root
+  └── Metadata        : {
+    "event_type": "cron_line_scan",
+    "replay_tag": "cron_execution",
+    "source": "cron_file",
+    "command": "25 6\t* * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )",
+    "category": "scheduler",
+}
+[⏱️ Job Sched Passive] CMD=25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ) | Trust=97.00
+[🛡 TrustEvent] Module=Some("job_sched_monitor") | Component=scheduler | SignalType=Some("job_sched_batch") | Signal=Some("cron_line_scan") | Risk=3.00 | Score=Some(97.0) | Raw=Some(3.0) | Tags=Some(["cron_batch", "job_sched"])
+  └── Description     : Some("Detected batch cron job command: `47 6\t* * 7\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )` (risk: 3.0)")
+  └── Anomaly Type    : scheduled_cron_job
+  └── Source Module   : job_sched_monitor
+  └── Timestamp       : 1755927324
+  └── PID/PPID/UID    : 54403/54402/0
+  └── Binary          : /usr/bin/cron
+  └── Command Line    : 47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+  └── CWD             : /root
+  └── Metadata        : {
+    "source": "cron_file",
+    "category": "scheduler",
+    "replay_tag": "cron_execution",
+    "command": "47 6\t* * 7\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )",
+    "event_type": "cron_line_scan",
+}
+[⏱️ Job Sched Passive] CMD=47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly ) | Trust=97.00
+[🛡 TrustEvent] Module=Some("job_sched_monitor") | Component=scheduler | SignalType=Some("job_sched_batch") | Signal=Some("cron_line_scan") | Risk=3.00 | Score=Some(97.0) | Raw=Some(3.0) | Tags=Some(["cron_batch", "job_sched"])
+  └── Description     : Some("Detected batch cron job command: `52 6\t1 * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )` (risk: 3.0)")
+  └── Anomaly Type    : scheduled_cron_job
+  └── Source Module   : job_sched_monitor
+  └── Timestamp       : 1755927324
+  └── PID/PPID/UID    : 54403/54402/0
+  └── Binary          : /usr/bin/cron
+  └── Command Line    : 52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+  └── CWD             : /root
+  └── Metadata        : {
+    "replay_tag": "cron_execution",
+    "command": "52 6\t1 * *\troot\ttest -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )",
+    "event_type": "cron_line_scan",
+    "category": "scheduler",
+    "source": "cron_file",
+}
+[⏱️ Job Sched Passive] CMD=52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly ) | Trust=97.00
+[🛡 TrustEvent] Module=Some("net_watch") | Component=network | SignalType=Some("network::connection_scan") | Signal=Some("network_connection_anomaly") | Risk=0.00 | Score=Some(0.0) | Raw=Some(0.0) | Tags=Some(["network", "connection"])
+  └── Description     : Some("1 suspicious connections detected")
+  └── Anomaly Type    : unusual_connection_pattern
+  └── Source Module   : net_watch
+  └── Timestamp       : 1755927354
+  └── PID/PPID/UID    : -1/-1/4294967295
+  └── Binary          : net_monitor
+  └── Command Line    : 
+  └── CWD             : 
+  └── Metadata        : {
+    "command_line": "",
+    "risk_score": "0.00",
+    "cwd": "",
+    "connection_count": "1",
+}
+[🌐 Connection] ConnectionInfoWithRisk { info: ConnectionInfo { timestamp: 1755927354, pid: -1, ppid: -1, uid: 4294967295, process_name: "unknown", local_address: "0", remote_address: "[fec0::1863:23ff:fe39:a42c]:37340", protocol: "tcp", status: "[2606:50c0:8000::154]:443" }, risk: 0.0 }
+[🛡 TrustEvent] Module=Some("auth") | Component=auth | SignalType=Some("auth::mfa_bypass") | Signal=Some("execve_bypass") | Risk=8.50 | Score=Some(8.5) | Raw=Some(8.5) | Tags=Some(["auth", "mfa_bypass"])
+  └── Description     : Some("Bypass via PAM fallback")
+  └── Anomaly Type    : mfa_bypass_execve
+  └── Source Module   : mfa_bypass
+  └── Timestamp       : 1755927354
+  └── PID/PPID/UID    : -1/-1/0
+  └── Binary          : 
+  └── Command Line    : 
+  └── CWD             : 
+  └── Metadata        : {
+    "trust_payload": "{\"host\": \"unknown\", \"cpu\": \"0.4000\", \"mem\": \"450\", \"risk_score\": \"8.50\", \"trust_score\": \"91.50\"}",
+    "gnn_escalate": "true",
+    "user": "unknown",
+    "timestamp": "1755927354",
+    "features": "[0.4, 450.0, 8.5]",
+    "replay_tag": "mfa_bypass_detected",
+    "reason": "Bypass via PAM fallback",
+    "category": "auth",
+    "method": "fallback",
+    "signal": "mfa_bypass",
+}
+📝 Telemetry record: {"trust_payload": "{\"host\": \"unknown\", \"cpu\": \"0.4000\", \"mem\": \"450\", \"risk_score\": \"8.50\", \"trust_score\": \"91.50\"}", "gnn_escalate": "true", "user": "unknown", "timestamp": "1755927354", "features": "[0.4, 450.0, 8.5]", "replay_tag": "mfa_bypass_detected", "reason": "Bypass via PAM fallback", "category": "auth", "method": "fallback", "signal": "mfa_bypass"}
+[🛡 TrustEvent] Module=Some("auth") | Component=auth | SignalType=Some("log_monitor") | Signal=Some("log_mfa_bypass") | Risk=7.00 | Score=Some(7.0) | Raw=Some(7.0) | Tags=Some(["auth", "mfa_bypass"])
+  └── Description     : Some("Bypass via PAM fallback")
+  └── Anomaly Type    : mfa_bypass_log
+  └── Source Module   : mfa_bypass
+  └── Timestamp       : 1755927354
+  └── PID/PPID/UID    : -1/-1/0
+  └── Binary          : 
+  └── Command Line    : 
+  └── CWD             : 
+  └── Metadata        : {
+    "reason": "Bypass via PAM fallback",
+    "timestamp": "1755927354",
+    "signal": "log_mfa_bypass",
+    "method": "fallback",
+    "user": "unknown",
+    "category": "auth",
+}
+[🛡 TrustEvent] Module=Some("auth") | Component=auth | SignalType=Some("auth::mfa_bypass") | Signal=Some("execve_bypass") | Risk=8.50 | Score=Some(8.5) | Raw=Some(8.5) | Tags=Some(["auth", "mfa_bypass"])
+  └── Description     : Some("Bypass via PAM fallback")
+  └── Anomaly Type    : mfa_bypass_execve
+  └── Source Module   : mfa_bypass
+  └── Timestamp       : 1755927354
+  └── PID/PPID/UID    : -1/-1/0
+  └── Binary          : 
+  └── Command Line    : 
+  └── CWD             : 
+  └── Metadata        : {
+    "user": "unknown",
+    "gnn_escalate": "true",
+    "trust_payload": "{\"mem\": \"450\", \"risk_score\": \"8.50\", \"host\": \"unknown\", \"trust_score\": \"91.50\", \"cpu\": \"0.4000\"}",
+    "features": "[0.4, 450.0, 8.5]",
+    "category": "auth",
+    "signal": "mfa_bypass",
+    "replay_tag": "mfa_bypass_detected",
+    "reason": "Bypass via PAM fallback",
+    "timestamp": "1755927354",
+    "method": "fallback",
+}
+📝 Telemetry record: {"user": "unknown", "gnn_escalate": "true", "trust_payload": "{\"mem\": \"450\", \"risk_score\": \"8.50\", \"host\": \"unknown\", \"trust_score\": \"91.50\", \"cpu\": \"0.4000\"}", "features": "[0.4, 450.0, 8.5]", "category": "auth", "signal": "mfa_bypass", "replay_tag": "mfa_bypass_detected", "reason": "Bypass via PAM fallback", "timestamp": "1755927354", "method": "fallback"}
+[🛡 TrustEvent] Module=Some("auth") | Component=auth | SignalType=Some("log_monitor") | Signal=Some("log_mfa_bypass") | Risk=7.00 | Score=Some(7.0) | Raw=Some(7.0) | Tags=Some(["auth", "mfa_bypass"])
+  └── Description     : Some("Bypass via PAM fallback")
+  └── Anomaly Type    : mfa_bypass_log
+  └── Source Module   : mfa_bypass
+  └── Timestamp       : 1755927354
+  └── PID/PPID/UID    : -1/-1/0
+  └── Binary          : 
+  └── Command Line    : 
+  └── CWD             : 
+  └── Metadata        : {
+    "category": "auth",
+    "signal": "log_mfa_bypass",
+    "method": "fallback",
+    "reason": "Bypass via PAM fallback",
+    "user": "unknown",
+    "timestamp": "1755927354",
+}
+
+## TELEMETRY TAGS (from run.log)
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1965, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gsd-xsettings", command_line: "/usr/libexec/gsd-xsettings", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 37952, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1838, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gsd-sharing", command_line: "/usr/libexec/gsd-sharing", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 124, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 74, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 60, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 333, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 33412, ppid: 1, uid: 0, binary_path: "/usr/libexec/packagekitd", command_line: "/usr/libexec/packagekitd", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 328, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1829, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gsd-print-notifications", command_line: "/usr/libexec/gsd-print-notifications", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 932, ppid: 1, uid: 0, binary_path: "/usr/sbin/wpa_supplicant", command_line: "/sbin/wpa_supplicant -u -s -O /run/wpa_supplicant", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 759, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 39742, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 294, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 186, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 320, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1460, ppid: 1, uid: 0, binary_path: "/usr/libexec/colord", command_line: "/usr/libexec/colord", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 5, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 2, ppid: 0, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 106, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 274, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 24, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 110, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 54402, ppid: 54382, uid: 0, binary_path: "/usr/bin/sudo", command_line: "sudo -E RUST_LOG=info, forensic_hooks=debug ./target/release/forensic_hooks", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 54, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 323, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1, ppid: 0, uid: 0, binary_path: "/usr/lib/systemd/systemd", command_line: "/sbin/init", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 78, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1671, ppid: 1560, uid: 0, binary_path: "/usr/bin/gnome-shell", command_line: "/usr/bin/gnome-shell", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 194, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 996, ppid: 1, uid: 0, binary_path: "/usr/bin/python3.10", command_line: "/usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 100, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 49457, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1884, ppid: 1812, uid: 0, binary_path: "/usr/libexec/ibus-extension-gtk3", command_line: "/usr/libexec/ibus-extension-gtk3", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 196, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 34951, ppid: 1572, uid: 0, binary_path: "/usr/bin/ssh-agent", command_line: "/usr/bin/ssh-agent -D -a /run/user/1000/keyring/.ssh", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 131, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 30, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 37824, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 102, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 538, ppid: 1, uid: 0, binary_path: "/usr/lib/systemd/systemd-journald", command_line: "/lib/systemd/systemd-journald", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 329, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1973, ppid: 1966, uid: 0, binary_path: "/usr/bin/fusermount3", command_line: "fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 325, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1707, ppid: 1560, uid: 0, binary_path: "/usr/libexec/evolution-source-registry", command_line: "/usr/libexec/evolution-source-registry", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 20582, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 72, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1851, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gsd-wacom", command_line: "/usr/libexec/gsd-wacom", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 874, ppid: 1, uid: 0, binary_path: "/usr/lib/systemd/systemd-networkd", command_line: "/lib/systemd/systemd-networkd", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1723, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gvfs-gphoto2-volume-monitor", command_line: "/usr/libexec/gvfs-gphoto2-volume-monitor", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 18, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1560, ppid: 1, uid: 0, binary_path: "/usr/lib/systemd/systemd", command_line: "/lib/systemd/systemd --user", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 75, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 54274, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1966, ppid: 1560, uid: 0, binary_path: "/usr/libexec/xdg-document-portal", command_line: "/usr/libexec/xdg-document-portal", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 189, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 49459, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1033, ppid: 1, uid: 0, binary_path: "/usr/sbin/gdm3", command_line: "/usr/sbin/gdm3", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 213, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 50848, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1698, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gnome-shell-calendar-server", command_line: "/usr/libexec/gnome-shell-calendar-server", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1714, ppid: 1560, uid: 0, binary_path: "/usr/libexec/goa-daemon", command_line: "/usr/libexec/goa-daemon", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 39469, ppid: 39295, uid: 0, binary_path: "/snap/codium/481/usr/share/codium/codium", command_line: "/snap/codium/481/usr/share/codium/codium --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --no-sandbox --dns-result-order=ipv4first --inspect-port=0 --enable-crash-reporter=46d83a4b-095d-4328-b5bd-af1538c5604b,no_channel --user-data-dir=/home/jermaineb/.config/VSCodium --standard-schemes=vscode-webview,vscode-file --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,7301284842788417527,15092150496079756854,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1741, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gvfs-afc-volume-monitor", command_line: "/usr/libexec/gvfs-afc-volume-monitor", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 8830, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 603, ppid: 1, uid: 0, binary_path: "/usr/bin/udevadm", command_line: "/lib/systemd/systemd-udevd", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 85, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 49, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 901, ppid: 1, uid: 0, binary_path: "/usr/sbin/rsyslogd", command_line: "/usr/sbin/rsyslogd -n -iNONE", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 890, ppid: 1, uid: 0, binary_path: "/usr/sbin/NetworkManager", command_line: "/usr/sbin/NetworkManager --no-daemon", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1644, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gvfsd-fuse", command_line: "/usr/libexec/gvfsd-fuse /run/user/1000/gvfs -f", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 39, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1819, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gsd-keyboard", command_line: "/usr/libexec/gsd-keyboard", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 39366, ppid: 39295, uid: 0, binary_path: "/snap/codium/481/usr/share/codium/codium", command_line: "/snap/codium/481/usr/share/codium/codium --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --no-sandbox --enable-crash-reporter=46d83a4b-095d-4328-b5bd-af1538c5604b,no_channel --user-data-dir=/home/jermaineb/.config/VSCodium --standard-schemes=vscode-webview,vscode-file --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,7301284842788417527,15092150496079756854,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 54253, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1677, ppid: 1666, uid: 0, binary_path: "/usr/bin/dbus-daemon", command_line: "/usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 11 --address=unix:path=/run/user/1000/at-spi/bus", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 31651, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 888, ppid: 1, uid: 0, binary_path: "/usr/sbin/avahi-daemon", command_line: "avahi-daemon: running [bake.local]", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 38, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1628, ppid: 1560, uid: 0, binary_path: "/usr/libexec/gnome-session-ctl", command_line: "/usr/libexec/gnome-session-ctl --monitor", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 42, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 20, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 51272, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 128, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 39295, ppid: 1560, uid: 0, binary_path: "/snap/codium/481/usr/share/codium/codium", command_line: "/snap/codium/481/usr/share/codium/codium --no-sandbox --force-user-env", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1761, ppid: 1560, uid: 0, binary_path: "/usr/libexec/dconf-service", command_line: "/usr/libexec/dconf-service", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1572, ppid: 1, uid: 0, binary_path: "/usr/bin/gnome-keyring-daemon", command_line: "/usr/bin/gnome-keyring-daemon --daemonize --login", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 39298, ppid: 39295, uid: 0, binary_path: "/snap/codium/481/usr/share/codium/codium", command_line: "/snap/codium/481/usr/share/codium/codium --type=zygote --no-sandbox", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1567, ppid: 1560, uid: 0, binary_path: "/usr/bin/pipewire", command_line: "/usr/bin/pipewire", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 522, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 50356, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 46, ppid: 2, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 39491, ppid: 39295, uid: 0, binary_path: "/snap/codium/481/usr/share/codium/codium", command_line: "/snap/codium/481/usr/share/codium/codium --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --no-sandbox --enable-crash-reporter=46d83a4b-095d-4328-b5bd-af1538c5604b,no_channel --user-data-dir=/home/jermaineb/.config/VSCodium --standard-schemes=vscode-webview,vscode-file --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,7301284842788417527,15092150496079756854,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EstablishGpuChannelAsync --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version", cwd: "", env_vars: Some(["PATH=/usr/bin"]), tags: [], risk_score: None }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: -1, ppid: -1, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: None, tags: ["auth_monitor_active"], risk_score: Some(0) }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: 1, ppid: 0, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: None, tags: ["dll_injection_monitor_active"], risk_score: Some(1) }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: -1, ppid: -1, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: None, tags: ["encrypted_payload_monitor_active"], risk_score: Some(0) }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: -1, ppid: -1, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: None, tags: ["file_hash_monitor_active"], risk_score: Some(0) }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: -1, ppid: -1, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: None, tags: ["file_tamper_monitor_active"], risk_score: Some(0) }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: -1, ppid: -1, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: None, tags: ["geo_ip_no_anomaly"], risk_score: Some(0) }
+🟡 Raw Telemetry: TelemetryRecord { timestamp: 1755927204, pid: -1, ppid: -1, uid: 0, binary_path: "", command_line: "", cwd: "", env_vars: None, tags: ["no_cron_anomaly_detected"], risk_score: Some(0) }

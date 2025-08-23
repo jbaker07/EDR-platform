@@ -1,0 +1,57 @@
+Name:	packagekitd
+Umask:	0022
+State:	S (sleeping)
+Tgid:	33412
+Ngid:	0
+Pid:	33412
+PPid:	1
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	512
+Groups:	 
+NStgid:	33412
+NSpid:	33412
+NSpgid:	33412
+NSsid:	33412
+VmPeak:	  297168 kB
+VmSize:	  297168 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   18960 kB
+VmRSS:	   11804 kB
+RssAnon:	    2936 kB
+RssFile:	    8868 kB
+RssShmem:	       0 kB
+VmData:	   26664 kB
+VmStk:	     132 kB
+VmExe:	     280 kB
+VmLib:	   65012 kB
+VmPTE:	     168 kB
+VmSwap:	      76 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	3
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000001000
+SigCgt:	0000000100000002
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	38128
+nonvoluntary_ctxt_switches:	11

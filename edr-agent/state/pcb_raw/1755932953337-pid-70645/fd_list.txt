@@ -1,0 +1,4 @@
+fd 0 -> /dev/null
+fd 1 -> /tmp/tmp.CJgGTI8Jo2
+fd 2 -> /tmp/tmp.S3kfSDoPWW
+fd 3 -> socket:[708186]

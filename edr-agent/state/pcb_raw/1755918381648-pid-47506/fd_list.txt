@@ -1,0 +1,17 @@
+fd 0 -> /dev/null
+fd 1 -> pipe:[265776]
+fd 2 -> pipe:[265776]
+fd 3 -> socket:[265775]
+fd 4 -> anon_inode:[eventfd]
+fd 5 -> anon_inode:[eventfd]
+fd 6 -> socket:[264820]
+fd 7 -> anon_inode:[eventfd]
+fd 8 -> anon_inode:[eventfd]
+fd 9 -> /memfd:wayland-cursor (deleted)
+fd 10 -> socket:[276015]
+fd 11 -> socket:[264821]
+fd 12 -> anon_inode:[eventfd]
+fd 13 -> socket:[276016]
+fd 14 -> anon_inode:inotify
+fd 18 -> /home/jermaineb/.local/share/gvfs-metadata/home
+fd 19 -> /home/jermaineb/.local/share/gvfs-metadata/home-01e751e7.log

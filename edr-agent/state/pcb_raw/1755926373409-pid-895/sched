@@ -1,0 +1,32 @@
+irqbalance (895, #threads: 2)
+-------------------------------------------------------------------
+se.exec_start                                :     176385403.140916
+se.vruntime                                  :           489.520878
+se.sum_exec_runtime                          :         18768.572289
+se.nr_migrations                             :                  919
+nr_switches                                  :                17721
+nr_voluntary_switches                        :                17648
+nr_involuntary_switches                      :                   73
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                 1065
+se.avg.runnable_sum                          :              1090560
+se.avg.util_sum                              :              1090560
+se.avg.load_avg                              :                   22
+se.avg.runnable_avg                          :                   22
+se.avg.util_avg                              :                   22
+se.avg.last_update_time                      :      176385403140096
+se.avg.util_est.ewma                         :                   24
+se.avg.util_est.enqueued                     :                   24
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

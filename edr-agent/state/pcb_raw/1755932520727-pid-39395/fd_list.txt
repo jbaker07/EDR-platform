@@ -1,0 +1,168 @@
+fd 0 -> /dev/null
+fd 1 -> /dev/null
+fd 2 -> /dev/null
+fd 3 -> socket:[231521]
+fd 4 -> socket:[229039]
+fd 5 -> /snap/codium/481/usr/share/codium/icudtl.dat
+fd 6 -> /snap/codium/481/usr/share/codium/v8_context_snapshot.bin
+fd 7 -> /snap/codium/481/usr/share/codium/chrome_100_percent.pak
+fd 8 -> /snap/codium/481/usr/share/codium/chrome_200_percent.pak
+fd 9 -> /snap/codium/481/usr/share/codium/locales/en-US.pak
+fd 10 -> /snap/codium/481/usr/share/codium/resources.pak
+fd 11 -> /dev/urandom
+fd 12 -> anon_inode:[eventpoll]
+fd 13 -> socket:[224815]
+fd 14 -> /snap/codium/481/usr/share/codium/v8_context_snapshot.bin
+fd 15 -> anon_inode:[eventpoll]
+fd 16 -> anon_inode:[eventfd]
+fd 17 -> anon_inode:[eventfd]
+fd 18 -> /home/jermaineb/.config/VSCodium/Dictionaries/en-US-10-1.bdic
+fd 19 -> /tmp/.org.chromium.Chromium.FqVbtw (deleted)
+fd 20 -> /proc/39395/statm
+fd 21 -> /proc/39395/status
+fd 22 -> socket:[212817]
+fd 23 -> socket:[229692]
+fd 24 -> /dev/shm/.org.chromium.Chromium.RhMk11 (deleted)
+fd 25 -> /dev/shm/.org.chromium.Chromium.0WyFS1 (deleted)
+fd 26 -> /usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf
+fd 27 -> /dev/shm/.org.chromium.Chromium.XQWfK5 (deleted)
+fd 28 -> /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+fd 29 -> socket:[227116]
+fd 30 -> /usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf
+fd 31 -> /usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf
+fd 32 -> socket:[223591]
+fd 33 -> /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf
+fd 34 -> socket:[210871]
+fd 35 -> /dev/shm/.org.chromium.Chromium.9gMsH3 (deleted)
+fd 36 -> /dev/shm/.org.chromium.Chromium.N8qUy2 (deleted)
+fd 37 -> /usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf
+fd 38 -> /dev/shm/.org.chromium.Chromium.YfFBS4 (deleted)
+fd 39 -> /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf
+fd 40 -> /dev/shm/.org.chromium.Chromium.FnX5V2 (deleted)
+fd 41 -> /dev/shm/.org.chromium.Chromium.RtLWf2 (deleted)
+fd 42 -> /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf
+fd 43 -> /dev/shm/.org.chromium.Chromium.YIwPiv (deleted)
+fd 44 -> /usr/share/fonts/truetype/ubuntu/Ubuntu-RI.ttf
+fd 45 -> /dev/shm/.org.chromium.Chromium.K3L2h3 (deleted)
+fd 46 -> /dev/shm/.org.chromium.Chromium.oT3xkv (deleted)
+fd 47 -> /dev/shm/.org.chromium.Chromium.oT3xkv (deleted)
+fd 48 -> /dev/shm/.org.chromium.Chromium.kEmC4v (deleted)
+fd 49 -> /dev/shm/.org.chromium.Chromium.kEmC4v (deleted)
+fd 50 -> /dev/shm/.org.chromium.Chromium.qZKXct (deleted)
+fd 51 -> /dev/shm/.org.chromium.Chromium.qZKXct (deleted)
+fd 52 -> /dev/shm/.org.chromium.Chromium.iRvF2v (deleted)
+fd 53 -> /dev/shm/.org.chromium.Chromium.iRvF2v (deleted)
+fd 54 -> /dev/shm/.org.chromium.Chromium.yTPisw (deleted)
+fd 55 -> /dev/shm/.org.chromium.Chromium.yTPisw (deleted)
+fd 56 -> /dev/shm/.org.chromium.Chromium.Upk5qv (deleted)
+fd 57 -> /dev/shm/.org.chromium.Chromium.Upk5qv (deleted)
+fd 58 -> /dev/shm/.org.chromium.Chromium.MtpL1t (deleted)
+fd 59 -> /dev/shm/.org.chromium.Chromium.MtpL1t (deleted)
+fd 60 -> /dev/shm/.org.chromium.Chromium.wu9vbt (deleted)
+fd 61 -> /dev/shm/.org.chromium.Chromium.wu9vbt (deleted)
+fd 62 -> /dev/shm/.org.chromium.Chromium.WbQV1u (deleted)
+fd 63 -> /dev/shm/.org.chromium.Chromium.WbQV1u (deleted)
+fd 64 -> /dev/shm/.org.chromium.Chromium.M02pst (deleted)
+fd 65 -> /dev/shm/.org.chromium.Chromium.M02pst (deleted)
+fd 66 -> /dev/shm/.org.chromium.Chromium.KKJ5fv (deleted)
+fd 67 -> /dev/shm/.org.chromium.Chromium.KKJ5fv (deleted)
+fd 68 -> /dev/shm/.org.chromium.Chromium.A9lkbx (deleted)
+fd 69 -> /dev/shm/.org.chromium.Chromium.A9lkbx (deleted)
+fd 70 -> /dev/shm/.org.chromium.Chromium.1elfQu (deleted)
+fd 71 -> /dev/shm/.org.chromium.Chromium.1elfQu (deleted)
+fd 72 -> /dev/shm/.org.chromium.Chromium.sJWqJw (deleted)
+fd 73 -> /dev/shm/.org.chromium.Chromium.sJWqJw (deleted)
+fd 74 -> /dev/shm/.org.chromium.Chromium.ul2xdt (deleted)
+fd 75 -> /dev/shm/.org.chromium.Chromium.ul2xdt (deleted)
+fd 76 -> /dev/shm/.org.chromium.Chromium.8kuO9t (deleted)
+fd 77 -> /dev/shm/.org.chromium.Chromium.8kuO9t (deleted)
+fd 78 -> /dev/shm/.org.chromium.Chromium.gVT2Vv (deleted)
+fd 79 -> /dev/shm/.org.chromium.Chromium.gVT2Vv (deleted)
+fd 80 -> /dev/shm/.org.chromium.Chromium.mUy8tt (deleted)
+fd 81 -> /dev/shm/.org.chromium.Chromium.mUy8tt (deleted)
+fd 82 -> /dev/shm/.org.chromium.Chromium.nKYxPu (deleted)
+fd 83 -> /dev/shm/.org.chromium.Chromium.nKYxPu (deleted)
+fd 84 -> /dev/shm/.org.chromium.Chromium.ua0o7w (deleted)
+fd 85 -> /dev/shm/.org.chromium.Chromium.ua0o7w (deleted)
+fd 86 -> /dev/shm/.org.chromium.Chromium.DFgvgu (deleted)
+fd 87 -> /dev/shm/.org.chromium.Chromium.DFgvgu (deleted)
+fd 88 -> /dev/shm/.org.chromium.Chromium.xu2Sxv (deleted)
+fd 89 -> /dev/shm/.org.chromium.Chromium.xu2Sxv (deleted)
+fd 90 -> /dev/shm/.org.chromium.Chromium.6bYzFu (deleted)
+fd 91 -> /dev/shm/.org.chromium.Chromium.6bYzFu (deleted)
+fd 92 -> /dev/shm/.org.chromium.Chromium.X5li4w (deleted)
+fd 93 -> /dev/shm/.org.chromium.Chromium.X5li4w (deleted)
+fd 94 -> /dev/shm/.org.chromium.Chromium.OKUMxu (deleted)
+fd 95 -> /dev/shm/.org.chromium.Chromium.OKUMxu (deleted)
+fd 96 -> /dev/shm/.org.chromium.Chromium.Ep4RAw (deleted)
+fd 97 -> /dev/shm/.org.chromium.Chromium.Ep4RAw (deleted)
+fd 98 -> /dev/shm/.org.chromium.Chromium.wsHHJv (deleted)
+fd 99 -> /dev/shm/.org.chromium.Chromium.wsHHJv (deleted)
+fd 100 -> /dev/shm/.org.chromium.Chromium.aN6a4v (deleted)
+fd 101 -> /dev/shm/.org.chromium.Chromium.aN6a4v (deleted)
+fd 102 -> /dev/shm/.org.chromium.Chromium.rM5hhv (deleted)
+fd 103 -> /dev/shm/.org.chromium.Chromium.rM5hhv (deleted)
+fd 104 -> /dev/shm/.org.chromium.Chromium.9Yxujx (deleted)
+fd 105 -> /dev/shm/.org.chromium.Chromium.9Yxujx (deleted)
+fd 106 -> /dev/shm/.org.chromium.Chromium.oonWlv (deleted)
+fd 107 -> /dev/shm/.org.chromium.Chromium.oonWlv (deleted)
+fd 108 -> /dev/shm/.org.chromium.Chromium.i0wEUw (deleted)
+fd 109 -> /dev/shm/.org.chromium.Chromium.i0wEUw (deleted)
+fd 110 -> /dev/shm/.org.chromium.Chromium.IX5vVt (deleted)
+fd 111 -> /dev/shm/.org.chromium.Chromium.IX5vVt (deleted)
+fd 112 -> /dev/shm/.org.chromium.Chromium.NTxQbx (deleted)
+fd 113 -> /dev/shm/.org.chromium.Chromium.NTxQbx (deleted)
+fd 114 -> /dev/shm/.org.chromium.Chromium.xlvuIu (deleted)
+fd 115 -> /dev/shm/.org.chromium.Chromium.xlvuIu (deleted)
+fd 116 -> /dev/shm/.org.chromium.Chromium.3Cpgex (deleted)
+fd 117 -> /dev/shm/.org.chromium.Chromium.3Cpgex (deleted)
+fd 118 -> /dev/shm/.org.chromium.Chromium.QIz80s (deleted)
+fd 119 -> /dev/shm/.org.chromium.Chromium.QIz80s (deleted)
+fd 120 -> /dev/shm/.org.chromium.Chromium.RCbdow (deleted)
+fd 121 -> /dev/shm/.org.chromium.Chromium.RCbdow (deleted)
+fd 122 -> /dev/shm/.org.chromium.Chromium.4CcMov (deleted)
+fd 123 -> /dev/shm/.org.chromium.Chromium.4CcMov (deleted)
+fd 124 -> /dev/shm/.org.chromium.Chromium.cYwGQw (deleted)
+fd 125 -> /dev/shm/.org.chromium.Chromium.cYwGQw (deleted)
+fd 126 -> /dev/shm/.org.chromium.Chromium.Be2Onv (deleted)
+fd 127 -> /dev/shm/.org.chromium.Chromium.Be2Onv (deleted)
+fd 128 -> /dev/shm/.org.chromium.Chromium.ZjlIIt (deleted)
+fd 129 -> /dev/shm/.org.chromium.Chromium.ZjlIIt (deleted)
+fd 130 -> /dev/shm/.org.chromium.Chromium.v0mEwu (deleted)
+fd 131 -> /dev/shm/.org.chromium.Chromium.v0mEwu (deleted)
+fd 132 -> /dev/shm/.org.chromium.Chromium.kP6bAx (deleted)
+fd 133 -> /dev/shm/.org.chromium.Chromium.kP6bAx (deleted)
+fd 134 -> /dev/shm/.org.chromium.Chromium.9ctJ3u (deleted)
+fd 135 -> /dev/shm/.org.chromium.Chromium.9ctJ3u (deleted)
+fd 136 -> /dev/shm/.org.chromium.Chromium.tVJ5qu (deleted)
+fd 137 -> /dev/shm/.org.chromium.Chromium.tVJ5qu (deleted)
+fd 138 -> /dev/shm/.org.chromium.Chromium.RA6PFu (deleted)
+fd 139 -> /dev/shm/.org.chromium.Chromium.RA6PFu (deleted)
+fd 140 -> /dev/shm/.org.chromium.Chromium.C3OzUw (deleted)
+fd 141 -> /dev/shm/.org.chromium.Chromium.C3OzUw (deleted)
+fd 142 -> /dev/shm/.org.chromium.Chromium.LjuCxt (deleted)
+fd 143 -> /dev/shm/.org.chromium.Chromium.LjuCxt (deleted)
+fd 144 -> /dev/shm/.org.chromium.Chromium.KPgrBu (deleted)
+fd 145 -> /dev/shm/.org.chromium.Chromium.KPgrBu (deleted)
+fd 146 -> /dev/shm/.org.chromium.Chromium.xgLphx (deleted)
+fd 147 -> /dev/shm/.org.chromium.Chromium.xgLphx (deleted)
+fd 148 -> /dev/shm/.org.chromium.Chromium.q56L8s (deleted)
+fd 149 -> /dev/shm/.org.chromium.Chromium.q56L8s (deleted)
+fd 150 -> /dev/shm/.org.chromium.Chromium.vWsMpt (deleted)
+fd 151 -> /dev/shm/.org.chromium.Chromium.vWsMpt (deleted)
+fd 152 -> /dev/shm/.org.chromium.Chromium.rSug3s (deleted)
+fd 153 -> /dev/shm/.org.chromium.Chromium.rSug3s (deleted)
+fd 154 -> /dev/shm/.org.chromium.Chromium.IPdQew (deleted)
+fd 155 -> /dev/shm/.org.chromium.Chromium.IPdQew (deleted)
+fd 156 -> /dev/shm/.org.chromium.Chromium.wdjkUv (deleted)
+fd 157 -> /dev/shm/.org.chromium.Chromium.wdjkUv (deleted)
+fd 158 -> /dev/shm/.org.chromium.Chromium.Ys6GSu (deleted)
+fd 159 -> /dev/shm/.org.chromium.Chromium.Ys6GSu (deleted)
+fd 160 -> /dev/shm/.org.chromium.Chromium.dbSjPw (deleted)
+fd 161 -> /dev/shm/.org.chromium.Chromium.dbSjPw (deleted)
+fd 162 -> /dev/shm/.org.chromium.Chromium.qw7CVv (deleted)
+fd 163 -> /dev/shm/.org.chromium.Chromium.qw7CVv (deleted)
+fd 164 -> /dev/shm/.org.chromium.Chromium.s0CHZu (deleted)
+fd 165 -> /dev/shm/.org.chromium.Chromium.s0CHZu (deleted)
+fd 166 -> /dev/shm/.org.chromium.Chromium.DAmtTv (deleted)
+fd 167 -> /dev/shm/.org.chromium.Chromium.DAmtTv (deleted)

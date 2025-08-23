@@ -1,0 +1,31 @@
+kworker/10:0 (37866, #threads: 1)
+-------------------------------------------------------------------
+se.exec_start                                :     155541915.239305
+se.vruntime                                  :       1829956.520778
+se.sum_exec_runtime                          :             0.093084
+se.nr_migrations                             :                    1
+nr_switches                                  :                    4
+nr_voluntary_switches                        :                    4
+nr_involuntary_switches                      :                    0
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                36578
+se.avg.runnable_sum                          :             18802189
+se.avg.util_sum                              :             18672917
+se.avg.load_avg                              :                  789
+se.avg.runnable_avg                          :                  395
+se.avg.util_avg                              :                  394
+se.avg.last_update_time                      :      155541915238400
+se.avg.util_est.ewma                         :                  472
+se.avg.util_est.enqueued                     :                  394
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

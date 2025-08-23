@@ -1,0 +1,4 @@
+fd 0 -> pipe:[473920]
+fd 1 -> pipe:[473919]
+fd 2 -> /dev/pts/3
+fd 3 -> socket:[475867]

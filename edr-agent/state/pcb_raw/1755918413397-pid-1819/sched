@@ -1,0 +1,32 @@
+gsd-keyboard (1819, #threads: 4)
+-------------------------------------------------------------------
+se.exec_start                                :     167929702.593299
+se.vruntime                                  :        671227.263365
+se.sum_exec_runtime                          :            48.637040
+se.nr_migrations                             :                   86
+nr_switches                                  :                  147
+nr_voluntary_switches                        :                  145
+nr_involuntary_switches                      :                    2
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                   55
+se.avg.runnable_sum                          :                55296
+se.avg.util_sum                              :                55296
+se.avg.load_avg                              :                    0
+se.avg.runnable_avg                          :                    0
+se.avg.util_avg                              :                    0
+se.avg.last_update_time                      :      167929702592512
+se.avg.util_est.ewma                         :                    9
+se.avg.util_est.enqueued                     :                    0
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                   41
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0
