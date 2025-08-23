@@ -1,0 +1,57 @@
+Name:	rsyslogd
+Umask:	0022
+State:	S (sleeping)
+Tgid:	901
+Ngid:	0
+Pid:	901
+PPid:	1
+TracerPid:	0
+Uid:	107	107	107	107
+Gid:	113	113	113	113
+FDSize:	128
+Groups:	4 113 
+NStgid:	901
+NSpid:	901
+NSpgid:	901
+NSsid:	901
+VmPeak:	  222128 kB
+VmSize:	  222128 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	    4788 kB
+VmRSS:	    3696 kB
+RssAnon:	     876 kB
+RssFile:	    2820 kB
+RssShmem:	       0 kB
+VmData:	   18480 kB
+VmStk:	     132 kB
+VmExe:	     724 kB
+VmLib:	    5580 kB
+VmPTE:	      80 kB
+VmSwap:	     620 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	4
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000001001206
+SigCgt:	0000000100314001
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	327
+nonvoluntary_ctxt_switches:	0

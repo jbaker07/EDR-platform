@@ -1,0 +1,21 @@
+245b3400000-ffffd4884000 ---p 00000000 00:00 0                           [rollup]
+Rss:               57608 kB
+Pss:               35781 kB
+Pss_Anon:          15824 kB
+Pss_File:          17673 kB
+Pss_Shmem:          2284 kB
+Shared_Clean:      28236 kB
+Shared_Dirty:       4076 kB
+Private_Clean:      9224 kB
+Private_Dirty:     16072 kB
+Referenced:        57548 kB
+Anonymous:         15824 kB
+LazyFree:              0 kB
+AnonHugePages:         0 kB
+ShmemPmdMapped:        0 kB
+FilePmdMapped:         0 kB
+Shared_Hugetlb:        0 kB
+Private_Hugetlb:       0 kB
+Swap:                  0 kB
+SwapPss:               0 kB
+Locked:                0 kB

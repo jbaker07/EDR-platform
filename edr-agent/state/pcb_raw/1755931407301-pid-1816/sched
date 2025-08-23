@@ -1,0 +1,32 @@
+gsd-housekeepin (1816, #threads: 4)
+-------------------------------------------------------------------
+se.exec_start                                :     181417341.427012
+se.vruntime                                  :        977232.646743
+se.sum_exec_runtime                          :          4579.894451
+se.nr_migrations                             :                  566
+nr_switches                                  :                 3256
+nr_voluntary_switches                        :                 3145
+nr_involuntary_switches                      :                  111
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                  524
+se.avg.runnable_sum                          :               536576
+se.avg.util_sum                              :               536576
+se.avg.load_avg                              :                   11
+se.avg.runnable_avg                          :                   11
+se.avg.util_avg                              :                   11
+se.avg.last_update_time                      :      181417341426688
+se.avg.util_est.ewma                         :                   25
+se.avg.util_est.enqueued                     :                   11
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                   41
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

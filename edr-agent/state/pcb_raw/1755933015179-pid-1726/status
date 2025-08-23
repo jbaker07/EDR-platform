@@ -1,0 +1,57 @@
+Name:	evolution-calen
+Umask:	0002
+State:	S (sleeping)
+Tgid:	1726
+Ngid:	0
+Pid:	1726
+PPid:	1560
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	64
+Groups:	4 24 27 30 46 110 1000 
+NStgid:	1726
+NSpid:	1726
+NSpgid:	1726
+NSsid:	1726
+VmPeak:	  908560 kB
+VmSize:	  843024 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   28432 kB
+VmRSS:	    6296 kB
+RssAnon:	    1020 kB
+RssFile:	    5276 kB
+RssShmem:	       0 kB
+VmData:	   85784 kB
+VmStk:	     132 kB
+VmExe:	      92 kB
+VmLib:	   89796 kB
+VmPTE:	     264 kB
+VmSwap:	    3280 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	9
+SigQ:	1/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000001000
+SigCgt:	0000000100004001
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	752
+nonvoluntary_ctxt_switches:	42

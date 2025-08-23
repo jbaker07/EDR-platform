@@ -38,3 +38,7 @@ pub mod memory_priv;
 pub mod net_cadence;
 pub mod persist;
 pub mod explain;
+pub mod pcb;
+pub mod pcb_emitter;
+pub mod syscall_emitter;
+pub mod calibration;

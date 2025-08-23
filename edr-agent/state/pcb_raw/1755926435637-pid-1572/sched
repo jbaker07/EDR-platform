@@ -1,0 +1,32 @@
+gnome-keyring-d (1572, #threads: 4)
+-------------------------------------------------------------------
+se.exec_start                                :     176330340.309334
+se.vruntime                                  :        850258.743086
+se.sum_exec_runtime                          :           117.852082
+se.nr_migrations                             :                  886
+nr_switches                                  :                 1879
+nr_voluntary_switches                        :                 1879
+nr_involuntary_switches                      :                    0
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                   99
+se.avg.runnable_sum                          :               100890
+se.avg.util_sum                              :                87744
+se.avg.load_avg                              :                    1
+se.avg.runnable_avg                          :                    1
+se.avg.util_avg                              :                    1
+se.avg.last_update_time                      :      176330340308992
+se.avg.util_est.ewma                         :                    8
+se.avg.util_est.enqueued                     :                    8
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                   42
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

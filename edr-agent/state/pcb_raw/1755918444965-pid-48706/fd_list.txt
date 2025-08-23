@@ -1,0 +1,23 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[274353]
+fd 2 -> socket:[274353]
+fd 3 -> /dev/null
+fd 4 -> /dev/null
+fd 5 -> /dev/null
+fd 6 -> /home/jermaineb/snap/firefox/common/.mozilla/firefox/Crash Reports/crash_helper_server.log
+fd 7 -> pipe:[287778]
+fd 8 -> socket:[287682]
+fd 9 -> socket:[287683]
+fd 10 -> socket:[287684]
+fd 11 -> pipe:[287778]
+fd 12 -> socket:[287686]
+fd 13 -> socket:[283229]
+fd 14 -> socket:[283232]
+fd 15 -> socket:[283236]
+fd 16 -> socket:[283240]
+fd 17 -> socket:[292867]
+fd 18 -> socket:[292888]
+fd 19 -> socket:[292907]
+fd 20 -> socket:[283273]
+fd 47 -> /home/jermaineb/.local/share/gvfs-metadata/root (deleted)
+fd 54 -> /home/jermaineb/.local/share/gvfs-metadata/root-82442546.log (deleted)

@@ -1,0 +1,57 @@
+Name:	avahi-daemon
+Umask:	0022
+State:	S (sleeping)
+Tgid:	944
+Ngid:	0
+Pid:	944
+PPid:	888
+TracerPid:	0
+Uid:	120	120	120	120
+Gid:	126	126	126	126
+FDSize:	64
+Groups:	126 
+NStgid:	944
+NSpid:	944
+NSpgid:	888
+NSsid:	888
+VmPeak:	    7780 kB
+VmSize:	    7780 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	     356 kB
+VmRSS:	     216 kB
+RssAnon:	     216 kB
+RssFile:	       0 kB
+RssShmem:	       0 kB
+VmData:	     316 kB
+VmStk:	     132 kB
+VmExe:	     136 kB
+VmLib:	    6072 kB
+VmPTE:	      56 kB
+VmSwap:	     140 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	1
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	0000000000000000
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	3
+nonvoluntary_ctxt_switches:	0

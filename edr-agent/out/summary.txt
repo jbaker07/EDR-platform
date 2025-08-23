@@ -1,0 +1,50 @@
+## COUNTS
+TrustEvents: 3449
+Escalations: 1139
+Escalations (fallback): 184
+
+## TOP SIGNALS (excl. heartbeats/none)
+    438 user_login_detected
+    292 session_seen
+    197 suspicious_tmp_script
+    197 script_drop
+    185 cron_line_scan
+    144 log_mfa_bypass
+    144 execve_bypass
+    142 simulated_ipc_abuse
+    142 signal_integrity
+    142 no_logon_activity_detected
+    142 geo_ip_no_anomaly
+    142 file_tamper_monitor_active
+    142 file_hash_monitor_active
+    142 encrypted_payload_monitor_active
+    142 dll_injection_monitor_active
+     72 network_connection_anomaly
+     55 tmp_script_drop
+     21 suspicious_persistence_file
+
+## TOP RSS BY PID (KB)
+  1073508 KB	pid=39395	exe=/snap/codium/481/usr/share/codium/codium
+   490448 KB	pid=48554	exe=/snap/firefox/6696/usr/lib/firefox/firefox
+   309012 KB	pid=39469	exe=/snap/codium/481/usr/share/codium/codium
+   182624 KB	pid=1671	exe=/usr/bin/gnome-shell
+   171164 KB	pid=59698	exe=/home/jermaineb/EDR-platform/edr-agent/target/release/forensic_hooks
+   165912 KB	pid=39295	exe=/snap/codium/481/usr/share/codium/codium
+   155860 KB	pid=64601	exe=/home/jermaineb/EDR-platform/edr-agent/target/release/forensic_hooks
+   139548 KB	pid=48912	exe=/snap/firefox/6696/usr/lib/firefox/firefox
+   136436 KB	pid=58306	exe=/home/jermaineb/EDR-platform/edr-agent/target/release/forensic_hooks
+   112160 KB	pid=51274	exe=/home/jermaineb/EDR-platform/edr-agent/target/debug/forensic_hooks
+   107364 KB	pid=47808	exe=/home/jermaineb/EDR-platform/edr-agent/target/debug/forensic_hooks
+   106104 KB	pid=48852	exe=/snap/firefox/6696/usr/lib/firefox/firefox
+   103900 KB	pid=39392	exe=/snap/codium/481/usr/share/codium/codium
+   101252 KB	pid=54403	exe=/home/jermaineb/EDR-platform/edr-agent/target/release/forensic_hooks
+    84280 KB	pid=62841	exe=/usr/bin/apt
+    84256 KB	pid=61935	exe=/usr/bin/apt
+    79932 KB	pid=51912	exe=/home/jermaineb/EDR-platform/edr-agent/target/release/forensic_hooks
+    69240 KB	pid=49160	exe=/snap/firefox/6696/usr/lib/firefox/firefox
+    69220 KB	pid=49261	exe=/snap/firefox/6696/usr/lib/firefox/firefox
+    68244 KB	pid=49177	exe=/snap/firefox/6696/usr/lib/firefox/firefox
+
+## PCB PERCENTILES
+rss_p95_kb: 62832
+fds_p95:    69

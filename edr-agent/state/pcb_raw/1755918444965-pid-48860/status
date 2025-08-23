@@ -1,0 +1,57 @@
+Name:	RDD Process
+Umask:	0002
+State:	S (sleeping)
+Tgid:	48860
+Ngid:	0
+Pid:	48860
+PPid:	48844
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	64
+Groups:	4 24 27 30 46 110 1000 
+NStgid:	48860
+NSpid:	48860
+NSpgid:	1671
+NSsid:	1671
+VmPeak:	  409544 kB
+VmSize:	  409544 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   37624 kB
+VmRSS:	   37624 kB
+RssAnon:	   11140 kB
+RssFile:	   26216 kB
+RssShmem:	     268 kB
+VmData:	   57204 kB
+VmStk:	     136 kB
+VmExe:	     388 kB
+VmLib:	  203492 kB
+VmPTE:	     396 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	5
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000011002
+SigCgt:	0000000f40000ef8
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	1
+Seccomp:	2
+Seccomp_filters:	3
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	360
+nonvoluntary_ctxt_switches:	2

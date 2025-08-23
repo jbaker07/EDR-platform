@@ -1,0 +1,31 @@
+edac-poller (184, #threads: 1)
+-------------------------------------------------------------------
+se.exec_start                                :           107.835748
+se.vruntime                                  :            31.340209
+se.sum_exec_runtime                          :             0.021374
+se.nr_migrations                             :                    0
+nr_switches                                  :                    2
+nr_voluntary_switches                        :                    2
+nr_involuntary_switches                      :                    0
+se.load.weight                               :             90891264
+se.avg.load_sum                              :                47555
+se.avg.runnable_sum                          :             19272774
+se.avg.util_sum                              :             19272774
+se.avg.load_avg                              :                88718
+se.avg.runnable_avg                          :                  405
+se.avg.util_avg                              :                  405
+se.avg.last_update_time                      :            107835392
+se.avg.util_est.ewma                         :                  405
+se.avg.util_est.enqueued                     :                  405
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  100
+clock-delta                                  :                   41
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

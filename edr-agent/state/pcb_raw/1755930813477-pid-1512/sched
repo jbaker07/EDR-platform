@@ -1,0 +1,32 @@
+spice-vdagentd (1512, #threads: 2)
+-------------------------------------------------------------------
+se.exec_start                                :     180830744.096541
+se.vruntime                                  :         14259.768228
+se.sum_exec_runtime                          :         39078.844271
+se.nr_migrations                             :                 9209
+nr_switches                                  :               331725
+nr_voluntary_switches                        :               331479
+nr_involuntary_switches                      :                  246
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                  364
+se.avg.runnable_sum                          :               374034
+se.avg.util_sum                              :               374034
+se.avg.load_avg                              :                    6
+se.avg.runnable_avg                          :                    6
+se.avg.util_avg                              :                    6
+se.avg.last_update_time                      :      180830744095744
+se.avg.util_est.ewma                         :                   10
+se.avg.util_est.enqueued                     :                    1
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0
