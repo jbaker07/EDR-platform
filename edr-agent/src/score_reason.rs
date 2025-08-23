@@ -44,14 +44,39 @@ pub enum ScoreReason {
     MaliciousUSB,
     SuspiciousScriptDrop,
     LOLBinExecution,
+
+    /// A critical semantic tag escalated the score (e.g., "crypto_miner", "mimikatz")
     CriticalTag(String),
-    Tagged(String),           // semantic_tags.json
-    RuleTriggered(String),    // detection_rules.json
-    Custom(String),           // freeform
+
+    /// Generic semantic tag
+    Tagged(String),
+
+    /// A named rule fired (e.g., "detect_suspicious_persistence")
+    RuleTriggered(String),
+
+    /// Freeform custom text
+    Custom(String),
+
+    /// Combine multiple reasons into one
     Composite(Vec<ScoreReason>),
+
+    /// NEW: generic outlier from a statistical method (Mahalanobis, EllipticEnvelope, etc.)
+    Outlier { method: String, detail: String },
+
+    /// NEW: anomaly arose from a suspicious causal subgraph (KRIM/graph analysis)
+    CausalSubgraph,
 }
 
 impl ScoreReason {
+    /// Convenience constructor used by call sites:
+    /// `ScoreReason::outlier("mahalanobis", "χ² gate exceeded".into())`
+    pub fn outlier(method: &str, detail: String) -> Self {
+        ScoreReason::Outlier {
+            method: method.to_string(),
+            detail,
+        }
+    }
+
     pub fn to_string(&self) -> String {
         match self {
             ScoreReason::HighCpuUsage => "High CPU usage".into(),
@@ -63,16 +88,24 @@ impl ScoreReason {
             ScoreReason::PrivilegeEscalation => "Privilege escalation attempt".into(),
             ScoreReason::RootLogon => "Root login observed".into(),
             ScoreReason::MaliciousUSB => "Malicious USB activity detected".into(),
-            ScoreReason::CriticalTag(tag) => format!( "Critical semantic tag triggered: {}", tag),
             ScoreReason::SuspiciousScriptDrop => "Suspicious script drop in temp directory".into(),
             ScoreReason::LOLBinExecution => "Living-off-the-land binary execution".into(),
+            ScoreReason::CriticalTag(tag) => format!("Critical semantic tag triggered: {}", tag),
             ScoreReason::Tagged(tag) => format!("Tagged: {}", tag),
             ScoreReason::RuleTriggered(rule) => format!("Rule triggered: {}", rule),
             ScoreReason::Custom(reason) => format!("Custom reason: {}", reason),
             ScoreReason::Composite(reasons) => {
-                let inner = reasons.iter().map(|r| r.to_string()).collect::<Vec<_>>().join(", ");
+                let inner = reasons
+                    .iter()
+                    .map(|r| r.to_string())
+                    .collect::<Vec<_>>()
+                    .join(", ");
                 format!("Composite reason: [{}]", inner)
             }
+            ScoreReason::Outlier { method, detail } => {
+                format!("Outlier detected by {}: {}", method, detail)
+            }
+            ScoreReason::CausalSubgraph => "Causal subgraph anomaly".into(),
         }
     }
 
@@ -95,6 +128,8 @@ impl ScoreReason {
             ScoreReason::RuleTriggered(_) => 50,
             ScoreReason::Custom(_) => 20,
             ScoreReason::Composite(inner) => inner.iter().map(|r| r.risk_weight()).max().unwrap_or(0),
+            ScoreReason::Outlier { .. } => 70,      // robust statistics flagged an outlier
+            ScoreReason::CausalSubgraph => 65,       // graph/KRIM anomaly
         }
     }
 
@@ -117,6 +152,8 @@ impl ScoreReason {
             ScoreReason::RuleTriggered(_) => TrustDomain::Unknown,
             ScoreReason::Custom(_) => TrustDomain::Unknown,
             ScoreReason::Composite(_) => TrustDomain::Unknown,
+            ScoreReason::Outlier { .. } => TrustDomain::Behavioral,
+            ScoreReason::CausalSubgraph => TrustDomain::Graph,
         }
     }
 
@@ -126,7 +163,9 @@ impl ScoreReason {
             ScoreReason::Tagged(_) => ReasonSource::SemanticTag,
             ScoreReason::RuleTriggered(_) => ReasonSource::RuleEngine,
             ScoreReason::TrustDecayExceeded => ReasonSource::BehaviorProfile,
+            ScoreReason::Outlier { .. } => ReasonSource::BehaviorProfile,
             ScoreReason::Custom(_) => ReasonSource::Custom,
+            ScoreReason::CausalSubgraph => ReasonSource::Heuristic,
             _ => ReasonSource::Heuristic,
         }
     }

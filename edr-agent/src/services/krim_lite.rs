@@ -1,17 +1,18 @@
+// src/services/krim_lite.rs
+// KRIM-lite: build short behavior paths over a process graph, suppress
+// known-good baselines, and emit TrustEvents scored by anchors, risky tags,
+// and trust-score drop along the path.
+
 use std::collections::{HashMap, HashSet, VecDeque};
 
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 
 use crate::graph_builder::{GraphEdge, GraphNode};
-use crate::score_reason::ScoreReason;
-use crate::trust_hook::{TrustCategory, TrustEvent, TrustSource};
-// ⚠️ trust_vector used from services namespace to match your tree
-use crate::services::trust_vector::TrustVector;
-
-// Optional adapters
 use crate::episode::Episode;
+
 use crate::telemetry::TelemetryRecord;
+use crate::trust_hook::TrustEvent;
 
 // ---------- Config / weights ----------
 
@@ -24,7 +25,11 @@ struct Weights {
 impl Default for Weights {
     fn default() -> Self {
         // Calibrated mild bias toward causal anchors; drop is strong
-        Self { w_anchor: 0.6, w_risky: 0.4, w_drop: 1.0 }
+        Self {
+            w_anchor: 0.6,
+            w_risky: 0.4,
+            w_drop: 1.0,
+        }
     }
 }
 
@@ -72,16 +77,24 @@ pub struct SequencePath {
 
 fn sequence_matches_baseline(seq: &SequencePath, baseline: &[BaselineSequence]) -> bool {
     // Exact node sequence OR exact tag trace match → suppress
-    baseline.iter().any(|b| b.node_sequence == seq.path || b.tag_trace == seq.tags)
+    baseline
+        .iter()
+        .any(|b| b.node_sequence == seq.path || b.tag_trace == seq.tags)
 }
 
 fn compact_tag_trace(tags: &[String], max: usize) -> Vec<String> {
-    if tags.len() <= max { return tags.to_vec(); }
+    if tags.len() <= max {
+        return tags.to_vec();
+    }
     let mut uniq = Vec::<String>::with_capacity(max);
     let mut seen = HashSet::<&str>::new();
     for t in tags {
-        if seen.insert(t.as_str()) { uniq.push(t.clone()); }
-        if uniq.len() == max { break; }
+        if seen.insert(t.as_str()) {
+            uniq.push(t.clone());
+        }
+        if uniq.len() == max {
+            break;
+        }
     }
     uniq
 }
@@ -95,50 +108,37 @@ pub fn analyze_graph_and_score(
     max_depth: usize,
     baseline_path: &str,
 ) -> Vec<TrustEvent> {
-    let node_lookup: HashMap<String, &GraphNode> =
-        nodes.iter().map(|n| (n.id.clone(), n)).collect();
+    let node_lookup: HashMap<String, &GraphNode> = nodes.iter().map(|n| (n.id.clone(), n)).collect();
 
     let baseline_sequences = load_baseline_sequences(baseline_path);
     let sequences = extract_behavior_sequences(nodes, edges, max_depth);
-    score_sequences(&sequences, &node_lookup, &baseline_sequences, Weights::default())
+    score_sequences(
+        &sequences,
+        &node_lookup,
+        &baseline_sequences,
+        Weights::default(),
+    )
 }
 
 /// Convenience: build graph from an Episode and score
-pub fn analyze_episode_and_score(ep: &Episode, baseline_path: &str, max_depth: usize) -> Vec<TrustEvent> {
+pub fn analyze_episode_and_score(
+    ep: &Episode,
+    baseline_path: &str,
+    max_depth: usize,
+) -> Vec<TrustEvent> {
     let (nodes, edges) = ep.to_graph();
     analyze_graph_and_score(&nodes, &edges, max_depth, baseline_path)
 }
 
 /// Convenience: build Episode from records, then score
-pub fn analyze_records_and_score(records: &[TelemetryRecord], baseline_path: &str, max_depth: usize) -> Vec<TrustEvent> {
+pub fn analyze_records_and_score(
+    records: &[TelemetryRecord],
+    baseline_path: &str,
+    max_depth: usize,
+) -> Vec<TrustEvent> {
     let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
-    let ep = crate::episode::Episode::from_records(host, &records);
-
-    let krim_events = crate::services::krim_lite::analyze_episode_and_score(
-        &ep,
-        "state/krim_baseline.json", // can be empty/missing
-        4                            // max path depth
-    );
-
-    // tag the batch from KRIM
-    for ev in krim_events {
-        let mut tagged = false;
-        if ev.pid != 0 {
-            for r in &mut records {
-                if r.pid == ev.pid as i32 {
-                    r.tags.push("krim_alert".into());
-                    tagged = true;
-                }
-            }
-        }
-        if !tagged {
-            if let Some(last) = records.last_mut() {
-                last.tags.push("krim_alert".into());
-            }
-        }
-    }
-
-        analyze_episode_and_score(&ep, baseline_path, max_depth)
+    let ep = Episode::from_records(host, records);
+    analyze_episode_and_score(&ep, baseline_path, max_depth)
 }
 
 // ---------- Path extraction ----------
@@ -152,22 +152,28 @@ pub fn extract_behavior_sequences(
     let mut graph: HashMap<String, Vec<&GraphEdge>> = HashMap::new();
     let mut node_lookup: HashMap<String, &GraphNode> = HashMap::new();
 
-    for node in nodes { node_lookup.insert(node.id.clone(), node); }
-    for edge in edges { graph.entry(edge.source.clone()).or_default().push(edge); }
+    for node in nodes {
+        node_lookup.insert(node.id.clone(), node);
+    }
+    for edge in edges {
+        graph.entry(edge.source.clone()).or_default().push(edge);
+    }
 
     let mut sequences: Vec<SequencePath> = Vec::new();
     let mut dedup: HashSet<String> = HashSet::new(); // path signature dedup
 
     for start in nodes {
-        // BFS with per-path visited to avoid cycles, not global visited (keeps alternative paths)
+        // BFS with per-path visited to avoid cycles
         let mut queue: VecDeque<(String, Vec<String>, HashSet<String>)> = VecDeque::new();
-        let mut seen_root: HashSet<String> = HashSet::new(); // prevent starting same root excessively
-        queue.push_back((start.id.clone(), vec![start.id.clone()], {
-            let mut s = HashSet::new();
-            s.insert(start.id.clone());
-            s
-        }));
-        seen_root.insert(start.id.clone());
+        queue.push_back((
+            start.id.clone(),
+            vec![start.id.clone()],
+            {
+                let mut s = HashSet::new();
+                s.insert(start.id.clone());
+                s
+            },
+        ));
 
         while let Some((cur, path, visited)) = queue.pop_front() {
             if path.len() >= max_depth {
@@ -178,7 +184,7 @@ pub fn extract_behavior_sequences(
             if let Some(neigh) = graph.get(&cur) {
                 for edge in neigh {
                     let tgt = edge.target.clone();
-                    if visited.contains(&tgt) { // avoid cycle
+                    if visited.contains(&tgt) {
                         continue;
                     }
                     let mut p2 = path.clone();
@@ -209,7 +215,9 @@ fn consider_path(
     out: &mut Vec<SequencePath>,
     dedup: &mut HashSet<String>,
 ) {
-    if path.len() < 2 { return; }
+    if path.len() < 2 {
+        return;
+    }
 
     // Build signature for dedup (node path + last-node tags reduced)
     let last = path.last().unwrap();
@@ -224,7 +232,9 @@ fn consider_path(
         .unwrap_or_default();
 
     let sig = format!("{}::{}", path.join("->"), tags_tail);
-    if !dedup.insert(sig) { return; }
+    if !dedup.insert(sig) {
+        return;
+    }
 
     // Trust drop: prefer explicit node trust_score, else neutral
     let mut start_trust = 1.0f32;
@@ -242,8 +252,12 @@ fn consider_path(
     let mut anchors: HashSet<String> = HashSet::new();
     for nid in path {
         if let Some(n) = node_lookup.get(nid) {
-            for t in &n.tags { tags.insert(t.clone()); }
-            for a in &n.anchor_ids { anchors.insert(a.clone()); }
+            for t in &n.tags {
+                tags.insert(t.clone());
+            }
+            for a in &n.anchor_ids {
+                anchors.insert(a.clone());
+            }
         }
     }
 
@@ -275,45 +289,64 @@ pub fn score_sequences(
 
         // Quick filters
         let drop = seq.trust_drop.unwrap_or(0.0);
-        if seq.path.len() < 2 { continue; }
+        if seq.path.len() < 2 {
+            continue;
+        }
 
         // Calculate a composite score
         let anchor_score = if seq.anchor_hits.is_empty() { 0.0 } else { 1.0 };
-        let risky_hits = seq.tags.iter().filter(|t| risky.contains(&t.as_str())).count() as f32;
+        let risky_hits = seq
+            .tags
+            .iter()
+            .filter(|t| risky.contains(&t.as_str()))
+            .count() as f32;
         let score = w.w_anchor * anchor_score + w.w_risky * risky_hits + w.w_drop * drop;
 
         // Thresholds (tunable)
         let pass = (anchor_score > 0.0 && drop > 0.25) || (risky_hits >= 2.0) || (score >= 1.2);
-        if !pass { continue; }
+        if !pass {
+            continue;
+        }
 
         // Build a TrustEvent grounded in the last node on the path
         if let Some(last_id) = seq.path.last() {
             if let Some(last_node) = node_lookup.get(last_id) {
-                let reason = if !seq.anchor_hits.is_empty() {
-                    ScoreReason::CausalSubgraph
-                } else {
-                    ScoreReason::Custom(format!("Path anomaly score={:.2}", score))
-                };
+                // Construct metadata explaining *why* this fired
+                let mut meta = HashMap::new();
+                meta.insert("path".into(), format!("{:?}", seq.path));
+                meta.insert("anchors".into(), format!("{:?}", seq.anchor_hits));
+                meta.insert("tags".into(), format!("{:?}", seq.tags));
+                meta.insert("drop".into(), format!("{:.2}", drop));
+                meta.insert("score".into(), format!("{:.2}", score));
 
-                let event = TrustEvent {
-                    timestamp: Utc::now().timestamp(),
-                    source: TrustSource::KrimLite,
-                    category: TrustCategory::Graph,
-                    score: score.max(drop), // keep drop salient
-                    reason,
+                // Assemble event compatible with your TrustEvent struct
+                let ts_u64 = Utc::now().timestamp() as u64;
+                let ev = TrustEvent {
+                    timestamp: ts_u64,
+                    pid: last_node.pid.unwrap_or(0) as i32,
+                    ppid: last_node.ppid.unwrap_or(0) as i32,
                     uid: last_node.uid.unwrap_or(0),
-                    pid: last_node.pid.unwrap_or(0),
-                    ppid: last_node.ppid.unwrap_or(0),
                     binary_path: last_node.binary_path.clone().unwrap_or_default(),
                     command_line: last_node.command_line.clone().unwrap_or_default(),
                     cwd: last_node.cwd.clone().unwrap_or_default(),
-                    metadata: Some(format!(
-                        "KRIM path: {:?}\nanchors: {:?}\ntags: {:?}\ndrop: {:.2}\nscore: {:.2}",
-                        seq.path, seq.anchor_hits, seq.tags, drop, score
+                    anomaly_type: "krim_path_anomaly".into(),
+                    component: "graph".into(),
+                    metadata: meta.clone(),
+                    risk_score: score, // treat the composite as a risk-like score
+                    source_module: "krim_lite".into(),
+                    decay_context: Some("krim_sequence".into()),
+                    module: Some("krim_lite".into()),
+                    signal: Some("krim_alert".into()),
+                    signal_type: Some("graph".into()),
+                    score: Some(score),
+                    raw_score: Some(score),
+                    tags: Some(seq.tags.clone()),
+                    description: Some(format!(
+                        "KRIM path anomaly: anchors={:?}, risky_hits={:.0}, drop={:.2}, score={:.2}",
+                        seq.anchor_hits, risky_hits, drop, score
                     )),
-                    trust_vector: TrustVector::from_tag_list(&seq.tags),
                 };
-                events.push(event);
+                events.push(ev);
             }
         }
     }
@@ -328,7 +361,11 @@ pub fn save_sequence_patterns(sequences: &Vec<SequencePath>, path: &str) {
         if let Err(e) = std::fs::write(path, json) {
             eprintln!("[krim] Failed to write sequence patterns: {}", e);
         } else {
-            println!("[krim] Wrote {} sequence patterns to {}", sequences.len(), path);
+            println!(
+                "[krim] Wrote {} sequence patterns to {}",
+                sequences.len(),
+                path
+            );
         }
     } else {
         eprintln!("[krim] Failed to serialize sequence patterns");

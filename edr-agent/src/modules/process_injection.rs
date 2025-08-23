@@ -1,4 +1,4 @@
-use aya::maps::perf::{AsyncPerfEventArray, PerfEventArray};
+use aya::maps::perf::AsyncPerfEventArray;
 use aya::programs::TracePoint;
 use aya::{include_bytes_aligned, Bpf};
 use aya::util::online_cpus;
@@ -192,14 +192,14 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
     push_to_gnn_vector_log(gnn_data.clone());
     store_replay_event(gnn_data);
 
-    // Memory anomaly (closest existing enum)
+    // Memory anomaly (closest existing enum) — borrow Strings as &str
     let _ = push_memory_telemetry(
         evt.pid,
         ppid,
         uid,
-        binary_path,
-        command_line,
-        cwd,
+        &binary_path,
+        &command_line,
+        &cwd,
         MemoryAnomalyType::ProcHollowing,
         format!("ptrace-based injection suspicion: {}", summary),
     )

@@ -14,7 +14,7 @@ use std::{
 use aya::{
     include_bytes_aligned,
     maps::perf::AsyncPerfEventArray,
-    programs::{KProbe, KRetProbe, Program, RawTracePoint, TracePoint},
+    programs::{KProbe, Program, RawTracePoint, TracePoint}, // No KRetProbe (use KProbe for both)
     util::online_cpus,
     Bpf,
 };
@@ -22,13 +22,13 @@ use bytes::BytesMut;
 use tokio::{runtime::Runtime, task};
 
 use crate::{
+    gnn_hook::push_to_gnn_vector_log,
+    logger::{log_scoped},
+    modules::replay_writer::store_replay_event,
     telemetry_types::{ContainerExecEvent, TelemetryOutput},
     telemetry_writer::write_telemetry_record,
     trust_hook::{submit_trust_event, TrustEvent},
-    gnn_hook::push_to_gnn_vector_log,
-    logger::log,
 };
-use crate::modules::replay_writer::store_replay_event;
 
 static CONTAINER_MONITOR_STARTED: AtomicBool = AtomicBool::new(false);
 static CONTAINER_MONITOR_ONCE: Once = Once::new();
@@ -52,55 +52,67 @@ fn now_ts() -> u64 {
 }
 
 /// Attach all programs in the object based on their section names.
-/// This covers `tracepoint/<cat>/<name>`, `raw_tracepoint/<name>`,
-/// and kprobes (attach to the symbol with the program name).
+/// Covers `tracepoint/<cat>/<name>`, `raw_tracepoint/<name>`,
+/// and kprobes / kretprobes (both via KProbe in Aya).
 fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
-    for prog in bpf.programs_mut() {
-        let sec = prog.section().unwrap_or_default().to_string();
-        let name = prog.name().to_string();
+    for (sec, prog) in bpf.programs_mut() {
+        // Derive a reasonable program symbol/name from section as a fallback
+        // e.g., "tracepoint/syscalls/sys_enter_execve" -> "sys_enter_execve"
+        let fallback_name = sec.rsplit('/').next().unwrap_or("unknown");
 
         match prog {
-            Program::TracePoint(p) => {
-                let tp: &mut TracePoint = p.try_into()?;
+            Program::TracePoint(tp) => {
                 tp.load()?;
-                // section looks like: "tracepoint/<cat>/<event>"
                 if let Some(rest) = sec.strip_prefix("tracepoint/") {
                     let mut it = rest.splitn(2, '/');
                     let cat = it.next().unwrap_or("");
-                    let evt = it.next().unwrap_or("");
+                    let evt = it.next().unwrap_or(fallback_name);
                     tp.attach(cat, evt)?;
-                    log(&format!("✔️ attached tracepoint {}/{}", cat, evt));
+                    log_scoped(
+                        "container_monitor",
+                        &format!("✔️ attached tracepoint {}/{}", cat, evt),
+                    );
                 } else {
                     // Fallback: common exec TP
                     tp.attach("sched", "sched_process_exec")?;
-                    log("✔️ attached tracepoint sched/sched_process_exec (fallback)");
+                    log_scoped(
+                        "container_monitor",
+                        "✔️ attached tracepoint sched/sched_process_exec (fallback)",
+                    );
                 }
             }
-            Program::RawTracePoint(p) => {
-                let rtp: &mut RawTracePoint = p.try_into()?;
+            Program::RawTracePoint(rtp) => {
                 rtp.load()?;
-                // "raw_tracepoint/<event>"
-                let evt = sec.split('/').nth(1).unwrap_or(&name);
+                let evt = sec.split('/').nth(1).unwrap_or(fallback_name);
                 rtp.attach(evt)?;
-                log(&format!("✔️ attached raw_tracepoint {}", evt));
+                log_scoped(
+                    "container_monitor",
+                    &format!("✔️ attached raw_tracepoint {}", evt),
+                );
             }
-            Program::KProbe(p) => {
-                let kp: &mut KProbe = p.try_into()?;
+            Program::KProbe(kp) => {
                 kp.load()?;
-                kp.attach(&name, 0)?;
-                log(&format!("✔️ attached kprobe {}", name));
+                // Sections like "kprobe/<symbol>" or "kretprobe/<symbol>" both handled by KProbe
+                let sym = sec.split('/').nth(1).unwrap_or(fallback_name);
+                if let Err(e) = kp.attach(sym, 0) {
+                    log_scoped(
+                        "container_monitor",
+                        &format!("ℹ️ KProbe load ok but attach({sym}) failed: {:?}", e),
+                    );
+                } else {
+                    log_scoped(
+                        "container_monitor",
+                        &format!("✔️ attached kprobe {}", sym),
+                    );
+                }
             }
-            Program::KRetProbe(p) => {
-                let krp: &mut KRetProbe = p.try_into()?;
-                krp.load()?;
-                krp.attach(&name, 0)?;
-                log(&format!("✔️ attached kretprobe {}", name));
-            }
-            // If your .o contains other program kinds, add them here as needed.
-            other => {
-                // Load unattached kinds to avoid verifier surprises, but skip attach.
-                other.load()?;
-                log(&format!("ℹ️ loaded program (no attach step): {} [{}]", name, sec));
+            // For other program kinds, don't try to call `.load()` on the enum (not available);
+            // just skip explicit attach and move on.
+            _ => {
+                log_scoped(
+                    "container_monitor",
+                    &format!("ℹ️ skipping unsupported program kind for section [{}]", sec),
+                );
             }
         }
     }
@@ -132,14 +144,12 @@ pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
                         for i in 0..events.read {
                             let b = &bufs[i];
                             if b.len() < mem::size_of::<ContainerExecEventRaw>() {
-                                // Not enough bytes to parse a full record, skip
                                 continue;
                             }
 
                             // SAFETY: read_unaligned allows unaligned perf payload
-                            let raw: ContainerExecEventRaw = unsafe {
-                                std::ptr::read_unaligned(b.as_ptr() as *const _)
-                            };
+                            let raw: ContainerExecEventRaw =
+                                unsafe { std::ptr::read_unaligned(b.as_ptr() as *const _) };
 
                             let comm = String::from_utf8_lossy(&raw.comm)
                                 .trim_end_matches('\0')
@@ -169,7 +179,10 @@ pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
                             record.insert("comm".into(), container_event.comm.clone());
                             record.insert("cmdline".into(), container_event.cmdline.clone());
                             record.insert("timestamp".into(), container_event.timestamp.to_string());
-                            record.insert("container_type".into(), container_event.container_type.clone());
+                            record.insert(
+                                "container_type".into(),
+                                container_event.container_type.clone(),
+                            );
                             record.insert("event_type".into(), "container_exec".into());
                             record.insert("signal".into(), "container_exec".into());
                             record.insert("category".into(), "container".into());
@@ -210,17 +223,20 @@ pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
                             write_telemetry_record(record.clone());
                             push_to_gnn_vector_log(record.clone());
                             store_replay_event(record);
-
-                            // Reset buffer length so aya can reuse it
-                            // (BytesMut is reused by AsyncPerfEventArray internally)
                         }
 
                         if events.lost > 0 {
-                            log(&format!("⚠️ Lost {} container exec events", events.lost));
+                            log_scoped(
+                                "container_monitor",
+                                &format!("⚠️ Lost {} container exec events", events.lost),
+                            );
                         }
                     }
                     Err(e) => {
-                        log(&format!("❌ Error reading container perf events: {:?}", e));
+                        log_scoped(
+                            "container_monitor",
+                            &format!("❌ Error reading container perf events: {:?}", e),
+                        );
                         // small backoff to avoid tight error loops
                         tokio::time::sleep(std::time::Duration::from_millis(50)).await;
                     }
@@ -245,7 +261,7 @@ pub fn scan_container_activity() -> Vec<TelemetryOutput> {
                     match start_ebpf_container_exec_monitor().await {
                         Ok(_) => {
                             CONTAINER_MONITOR_STARTED.store(true, Ordering::Relaxed);
-                            log("✅ container_exec_monitor attached.");
+                            log_scoped("container_monitor", "✅ container_exec_monitor attached.");
 
                             // Heartbeat — only after successful startup
                             let mut data = HashMap::new();
@@ -281,7 +297,9 @@ pub fn scan_container_activity() -> Vec<TelemetryOutput> {
                                 score: Some(100.0),
                                 raw_score: Some(0.0),
                                 tags: Some(vec!["monitor_alive".into(), "ebpf_monitor_ready".into()]),
-                                description: Some("Container eBPF monitor heartbeat confirmation".into()),
+                                description: Some(
+                                    "Container eBPF monitor heartbeat confirmation".into(),
+                                ),
                             };
                             submit_trust_event(trust_event);
 

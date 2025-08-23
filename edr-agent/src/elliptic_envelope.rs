@@ -1,5 +1,5 @@
 use nalgebra::{DMatrix, DVector};
-use rand::prelude::*;
+use rand::thread_rng;
 use rand::seq::SliceRandom;
 
 /// Minimal robust covariance via random subsampling + coordinate-wise medians.

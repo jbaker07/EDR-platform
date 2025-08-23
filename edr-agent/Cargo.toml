@@ -40,6 +40,7 @@ nix = { version = "0.30.1", features = ["uio", "process"] }
 num-traits = "0.2.19"
 once_cell = "1.19.0"                                   # ← 1.21.3 doesn’t exist on crates.io
 openssl = "0.10"
+rand = "0.8"
 regex = "1"
 reqwest = { version = "0.11", features = ["blocking", "json"] }
 serde = { version = "1.0", features = ["derive"] }
@@ -52,6 +53,8 @@ tokio = { version = "1", features = ["full"] }
 tokio-stream = "0.1"
 users = "0.11"
 walkdir = "2"
+nalgebra = { version = "0.32", default-features = false, features = ["std"] }
+env_logger = "0.11.8"
 
 [profile.release]
 lto = "thin"

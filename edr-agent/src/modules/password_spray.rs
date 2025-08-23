@@ -62,18 +62,25 @@ pub fn log_login_attempt(raw_username: &str) -> Option<TelemetryOutput> {
 
     let mut log = ATTEMPT_LOG.lock().unwrap();
 
-    // Insert + prune per-user window
-    let entry = log.entry(username.clone()).or_insert_with(VecDeque::new);
-    entry.push_back(now);
-    while let Some(front) = entry.front() {
-        if now.duration_since(*front).unwrap_or(Duration::ZERO) > TIME_WINDOW {
-            entry.pop_front();
-        } else {
-            break;
+    // IMPORTANT: ensure no outstanding entry-borrow when we might need to reborrow `log`
+    evict_if_oversize(&mut log);
+
+    // Insert + prune per-user window (holds a &mut borrow only within this scope)
+    {
+        let entry = log.entry(username.clone()).or_insert_with(VecDeque::new);
+        entry.push_back(now);
+        while let Some(front) = entry.front() {
+            if now.duration_since(*front).unwrap_or(Duration::ZERO) > TIME_WINDOW {
+                entry.pop_front();
+            } else {
+                break;
+            }
         }
+        // entry borrow ends here
     }
 
-    evict_if_oversize(&mut log);
+    // Re-borrow the entry after eviction/prune
+    let entry = log.entry(username.clone()).or_insert_with(VecDeque::new);
 
     // Cooldown check (per user)
     let mut last = USER_LAST_ALERT.lock().unwrap();

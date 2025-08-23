@@ -16,6 +16,7 @@ pub enum EventType {
     Capset,
     NonPrivFlip,
     SeccompRelax,
+    Ptrace,              // ← added to support mahalanobis.rs vectorizer
     KernelCfgFlip,
     PtDiff,
     RetainedFdPostExec,

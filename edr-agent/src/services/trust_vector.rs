@@ -272,7 +272,8 @@ impl TrustVector {
 
         // 3) Try the structured rule table first
         if let Some(rule) = MATCH_TABLE.iter().find(|r| r.matches(&core)) {
-            for &(dim, base) in &rule.dims {
+            // FIX: iterate the slice directly (avoid &&[...])
+            for &(dim, base) in rule.dims {
                 self.penalty(dim, (base * sev_scale).min(1.0));
             }
             self.tags.push(tag.to_string());
@@ -599,6 +600,36 @@ where
     let mut guard = TRUST_VECTOR_GLOBAL.lock().unwrap();
     let tv = guard.entry(endpoint_id.to_string()).or_insert_with(TrustVector::new);
     f(tv)
+}
+
+/// Public helper to update a TrustVector for an endpoint (penalties/heals + tags).
+/// - `dims`: list of (`dimension_name`, `Some(penalty)`), or (`dimension_name`, `None`) to heal a bit.
+/// - `tags`: optional tags to apply via the mapping table.
+/// - `now_s`: if provided, run per-dimension auto-decay to this timestamp first.
+pub fn update_trust_vector(
+    endpoint_id: &str,
+    dims: &[(&str, Option<f32>)],
+    tags: &[String],
+    now_s: Option<u64>,
+) -> TrustVector {
+    with_endpoint_tv(endpoint_id, |tv| {
+        if let Some(ts) = now_s {
+            // default half-life 1 hour; adjust by env in your caller if needed
+            tv.apply_decay_auto(ts, 3600.0);
+        }
+        for (name, maybe_penalty) in dims {
+            if let Some(dim) = dim_from_str(name) {
+                match maybe_penalty {
+                    Some(p) => tv.penalty(dim, *p),
+                    None => tv.heal(dim, 0.05),
+                }
+            }
+        }
+        if !tags.is_empty() {
+            tv.apply_tags(tags);
+        }
+        tv.clone()
+    })
 }
 
 // --------------------- optional tests ---------------------

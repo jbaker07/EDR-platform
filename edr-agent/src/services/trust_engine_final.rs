@@ -11,8 +11,8 @@ use crate::services::graph_snapshot_writer::store_graph_snapshot;
 use crate::services::trust_anchor_logger::{AnchorDropEvent, log_anchor_drop};
 use crate::modules::telemetry_fingerprint::{load_fingerprint_db, is_known_good};
 
-use crate::trust_vector::{TrustVector, TrustDim, TRUST_DIM_CT};
-use crate::trust_vector::TRUST_VECTOR_GLOBAL; // global per-endpoint store
+use crate::services::trust_vector::{TrustVector, TrustDim, TRUST_DIM_CT};
+use crate::services::trust_vector::TRUST_VECTOR_GLOBAL; // global per-endpoint store
 
 use chrono::Utc;
 use lazy_static::lazy_static;
@@ -150,7 +150,7 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
     // Optional bootstrap bypass
     if let Ok(cfg) = std::env::var("EDR_BOOTSTRAP") {
         if cfg == "1" || cfg.eq_ignore_ascii_case("true") {
-            log("trust", "🚧 Bootstrap mode — skipping scoring");
+            log("trust 🚧 Bootstrap mode — skipping scoring");
             return TrustResult {
                 endpoint_id: telemetry.endpoint_id.clone(),
                 score: 100.0,
@@ -164,8 +164,22 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
 
     // Load fingerprint DB and suppress known-good if matched
     let fingerprint_db = load_fingerprint_db("src/modules/telemetry_fingerprint.json");
-    if is_known_good(telemetry, &fingerprint_db) {
-        log("trust_suppress", &format!("🔕 Suppressed known-good telemetry: {:?}", telemetry));
+
+    // Build a simple probe map from TelemetryData so types match is_known_good(&HashMap<..>, ..)
+    let mut probe: HashMap<String, String> = HashMap::new();
+    probe.insert("endpoint_id".into(), telemetry.endpoint_id.clone());
+    probe.insert("endpoint_role".into(), telemetry.endpoint_role.clone());
+    probe.insert("risk_score".into(), format!("{:.2}", telemetry.risk_score));
+    probe.insert("cpu_usage".into(), format!("{:.2}", telemetry.cpu_usage));
+    probe.insert("memory_usage".into(), format!("{:.2}", telemetry.memory_usage));
+    if !telemetry.tags.is_empty() {
+        probe.insert("tags".into(), telemetry.tags.join(","));
+    }
+    if is_known_good(&probe, &fingerprint_db) {
+        log(&format!(
+            "trust_suppress 🔕 Suppressed known-good telemetry: {:?}",
+            telemetry
+        ));
         return TrustResult {
             endpoint_id: telemetry.endpoint_id.clone(),
             score: 100.0,

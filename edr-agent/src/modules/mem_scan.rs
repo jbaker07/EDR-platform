@@ -22,10 +22,10 @@ use crate::modules::replay_writer::store_replay_event;
 use crate::telemetry::mark_memory_anomaly_detected;
 use crate::telemetry_types::{TelemetryEvent, MemoryAnomalyType, TelemetryOutput};
 use crate::trust_hook::{TrustEvent, submit_trust_event};
-use crate::utils::{parse_proc_maps, parse_proc_maps_for_addr};
+use crate::utils::utils::{parse_proc_maps, parse_proc_maps_for_addr};
 use crate::utils::time::now_ts;
 use crate::telemetry_writer::write_telemetry_record;
-use crate::modules::telemetry_fingerprint::{load_fingerprints_from_disk, is_known_good};
+use crate::modules::telemetry_fingerprint::{load_fingerprints_from_disk, is_known_good, FingerprintEntry};
 
 lazy_static::lazy_static! {
     static ref MEMORY_ANOMALY_FOUND: AtomicBool = AtomicBool::new(false);
@@ -105,32 +105,19 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                             let addr = evt.addr;
 
                             // Enrich memory region by address (best effort)
-                            let region = parse_proc_maps_for_addr(pid, addr as usize);
+                            let region = parse_proc_maps_for_addr(pid, addr as u64);
 
-                            // Build a suppression probe map
+                            // Build a suppression probe map using matched fields
                             let mut fp_map = HashMap::new();
-                            fp_map.insert(
-                                "path".into(),
-                                region
-                                    .as_ref()
-                                    .map(|r| r.path.clone())
-                                    .unwrap_or_else(|| "[anon]".into()),
-                            );
-                            fp_map.insert(
-                                "perms".into(),
-                                region
-                                    .as_ref()
-                                    .map(|r| r.perms.clone())
-                                    .unwrap_or_else(|| "---".into()),
-                            );
-                            fp_map.insert(
-                                "pid".into(),
-                                pid.to_string(),
-                            );
-                            fp_map.insert(
-                                "category".into(),
-                                "mem_scan".into(),
-                            );
+                            if let Some(FingerprintEntry::MemoryRegion { path, perms, .. }) = region.as_ref() {
+                                fp_map.insert("path".into(), path.clone());
+                                fp_map.insert("perms".into(), perms.clone());
+                            } else {
+                                fp_map.insert("path".into(), "[anon]".into());
+                                fp_map.insert("perms".into(), "---".into());
+                            }
+                            fp_map.insert("pid".into(), pid.to_string());
+                            fp_map.insert("category".into(), "mem_scan".into());
 
                             if is_known_good(&fp_map, &fingerprints) {
                                 log(&format!(
@@ -149,15 +136,28 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                             data.insert("comm".into(), comm.clone());
                             data.insert("description".into(), details.clone());
 
-                            if let Some(r) = &region {
-                                data.insert("path".into(), r.path.clone());
-                                data.insert("perms".into(), r.perms.clone());
-                                data.insert("offset".into(), r.offset.to_string());
-                                data.insert("size".into(), r.size.to_string());
-                                data.insert("entropy".into(), format!("{:.2}", r.entropy));
-                                data.insert("exec_capable".into(), r.exec_capable.to_string());
-                                data.insert("trusted_uid".into(), r.trusted_uid.to_string());
-                                data.insert("category".into(), r.category.clone());
+                            if let Some(FingerprintEntry::MemoryRegion {
+                                path,
+                                perms,
+                                offset,
+                                size,
+                                entropy,
+                                exec_capable,
+                                trusted_uid,
+                                category,
+                                ..
+                            }) = &region
+                            {
+                                data.insert("path".into(), path.clone());
+                                data.insert("perms".into(), perms.clone());
+                                // NOTE: these are &Option<T>; deref first, then unwrap_or(...)
+                                data.insert("offset".into(), (*offset).unwrap_or(0).to_string());
+                                data.insert("size".into(), (*size).unwrap_or(0).to_string());
+                                data.insert("entropy".into(), format!("{:.2}", (*entropy).unwrap_or(0.0)));
+                                data.insert("exec_capable".into(), (*exec_capable).unwrap_or(false).to_string());
+                                // FIX: trusted_uid is a plain u32, not Option<u32>
+                                data.insert("trusted_uid".into(), (*trusted_uid).to_string());
+                                data.insert("category".into(), category.clone());
                             } else {
                                 data.insert("path".into(), "[unknown]".into());
                                 data.insert("perms".into(), "---".into());
@@ -178,11 +178,11 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                             wtr.insert("event_type".into(), "ebpf_mem_trace".into());
                             write_telemetry_record(wtr);
 
-                            // Trust event
-                            let anomaly = if let Some(r) = &region {
-                                if r.exec_capable && r.perms.contains('w') {
+                            // Choose anomaly based on matched fields
+                            let anomaly = if let Some(FingerprintEntry::MemoryRegion { exec_capable, perms, path, .. }) = region.as_ref() {
+                                if (*exec_capable).unwrap_or(false) && perms.contains('w') {
                                     MemoryAnomalyType::RWXMapping
-                                } else if r.path.contains("[anon]") {
+                                } else if path.contains("[anon]") {
                                     MemoryAnomalyType::AnonymousExec
                                 } else {
                                     MemoryAnomalyType::HighEntropy
@@ -191,15 +191,20 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                                 MemoryAnomalyType::HighEntropy
                             };
 
+                            let binary_for_event = region
+                                .as_ref()
+                                .and_then(|r| match r {
+                                    FingerprintEntry::MemoryRegion { path, .. } => Some(path.clone()),
+                                    _ => None,
+                                })
+                                .unwrap_or_else(|| "[unknown]".into());
+
                             let trust_event = TrustEvent {
                                 timestamp: now_ts(),
                                 pid,
                                 ppid: evt.ppid as i32,
                                 uid: evt.uid,
-                                binary_path: region
-                                    .as_ref()
-                                    .map(|r| r.path.clone())
-                                    .unwrap_or_else(|| "[unknown]".into()),
+                                binary_path: binary_for_event,
                                 command_line: comm.clone(),
                                 cwd: "/".into(),
                                 anomaly_type: format!("{anomaly:?}"),
@@ -263,60 +268,69 @@ pub fn detect_memory_maps(pid: u32) -> Vec<TelemetryEvent> {
     let ts = Utc::now().timestamp();
     let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
 
-    if let Ok(regions) = parse_proc_maps(pid as i32) {
-        for region in regions {
-            let is_rwx = region.perms.contains('r') && region.perms.contains('w') && region.perms.contains('x');
-            let is_anon = region.path.contains("[anon]");
-            let is_null_base = region.path.starts_with("00000000");
+    // parse_proc_maps returns Vec<HashMap<String,String>>
+    let regions = parse_proc_maps(pid as i32);
 
-            let anomaly = if is_rwx {
-                Some(MemoryAnomalyType::RWXMapping)
-            } else if is_anon {
-                Some(MemoryAnomalyType::AnonymousExec)
-            } else if is_null_base {
-                Some(MemoryAnomalyType::NullBaseExec)
-            } else {
-                None
-            };
+    for region in regions {
+        let perms = region.get("perms").cloned().unwrap_or_else(|| "---".into());
+        let path  = region.get("path").cloned().unwrap_or_default();
 
-            if let Some(atype) = anomaly {
-                let mut data = HashMap::new();
-                data.insert("path".into(), region.path.clone());
-                data.insert("perms".into(), region.perms.clone());
-                data.insert("offset".into(), region.offset.to_string());
-                data.insert("size".into(), region.size.to_string());
-                data.insert("entropy".into(), format!("{:.2}", region.entropy));
-                data.insert("exec_capable".into(), region.exec_capable.to_string());
-                data.insert("trusted_uid".into(), region.trusted_uid.to_string());
-                data.insert("category".into(), region.category.clone());
-                data.insert("pid".into(), pid.to_string());
-                data.insert("type".into(), "memory_region".into());
+        let is_rwx = perms.contains('r') && perms.contains('w') && perms.contains('x');
+        let is_anon = path.contains("[anon]");
+        let is_null_base = path.starts_with("00000000");
 
-                if is_known_good(&data, &fingerprints) {
-                    log(&format!(
-                        "[🧠 mem_scan] Suppressed fingerprinted memory anomaly: {} [{}]",
-                        region.path, pid
-                    ));
-                    continue;
-                }
+        let anomaly = if is_rwx {
+            Some(MemoryAnomalyType::RWXMapping)
+        } else if is_anon {
+            Some(MemoryAnomalyType::AnonymousExec)
+        } else if is_null_base {
+            Some(MemoryAnomalyType::NullBaseExec)
+        } else {
+            None
+        };
 
-                events.push(TelemetryEvent::MemoryAnomaly {
-                    pid,
-                    ppid: 0,
-                    uid: region.trusted_uid,
-                    binary_path: region.path.clone(),
-                    command_line: "".into(),
-                    description: format!(
-                        "{} region at {} with perms {} (entropy: {:.2})",
-                        atype.to_string(),
-                        region.path,
-                        region.perms,
-                        region.entropy
-                    ),
-                    anomaly_type: atype,
-                    timestamp: ts,
-                });
+        if let Some(atype) = anomaly {
+            // build data map for suppression + emission
+            let mut data = HashMap::new();
+            data.insert("path".into(), path.clone());
+            data.insert("perms".into(), perms.clone());
+            data.insert("offset".into(), region.get("offset").cloned().unwrap_or_else(|| "0".into()));
+            data.insert("size".into(), region.get("size").cloned().unwrap_or_else(|| "0".into()));
+            data.insert("entropy".into(), region.get("entropy").cloned().unwrap_or_else(|| "0.0".into()));
+            data.insert("exec_capable".into(), (perms.contains('x')).to_string());
+            data.insert("trusted_uid".into(), region.get("trusted_uid").cloned().unwrap_or_else(|| "0".into()));
+            data.insert("category".into(), region.get("category").cloned().unwrap_or_else(|| "memory".into()));
+            data.insert("pid".into(), pid.to_string());
+            data.insert("type".into(), "memory_region".into());
+
+            if is_known_good(&data, &fingerprints) {
+                log(&format!(
+                    "[🧠 mem_scan] Suppressed fingerprinted memory anomaly: {} [{}]",
+                    path, pid
+                ));
+                continue;
             }
+
+            // parse numeric pieces if present
+            let uid_parsed = region.get("trusted_uid").and_then(|s| s.parse::<u32>().ok()).unwrap_or(0);
+            let entropy_parsed = region.get("entropy").and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
+
+            events.push(TelemetryEvent::MemoryAnomaly {
+                pid,
+                ppid: 0,
+                uid: uid_parsed,
+                binary_path: path.clone(),
+                command_line: "".into(),
+                description: format!(
+                    "{} region {} (perms {}) entropy {:.2}",
+                    atype.to_string(),
+                    path,
+                    perms,
+                    entropy_parsed
+                ),
+                anomaly_type: atype,
+                timestamp: ts,
+            });
         }
     }
 
