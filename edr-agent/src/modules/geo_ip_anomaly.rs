@@ -213,13 +213,6 @@ pub fn detect_geo_anomaly(
             data.insert("role_multiplier".into(), multiplier.to_string());
             data.insert("computed_risk".into(), risk_score.to_string());
 
-            let output = TelemetryOutput {
-                category: "auth".into(),
-                signal: "geo_ip_anomaly".into(),
-                confidence: 0.95,
-                data: data.clone(),
-            };
-
             write_telemetry_record(data.clone());
             push_to_gnn_vector_log(data.clone());
             crate::gnn_hook::push_metadata_to_gnn_vector_log(data.clone());
@@ -237,9 +230,29 @@ pub fn detect_geo_anomaly(
             };
             let new_trust = (previous.trust_score * decay_factor).clamp(0.0, 100.0);
 
-            // Update trust vector / audit
-            update_trust_vector(trust_vector, "auth_trust", -risk_score);
-            log_decay_reason("geo_ip_anomaly", &login.user, -risk_score, "auth");
+            // ---- Trust vector update (new API) ----
+            // Map risk (0..100) → absolute trust (0..1) for a real dimension.
+            // "auth_trust" is not a defined dimension; use "privilege" for auth anomalies.
+            let abs_trust: f32 = (bounded_score as f32 / 100.0).clamp(0.0, 1.0);
+            let mut tags_for_tv = vec!["geo_mismatch".into(), login.country.clone()];
+            if from_vpn { tags_for_tv.push("vpn_detected".into()); } else { tags_for_tv.push("no_vpn".into()); }
+            if sso_drift { tags_for_tv.push("sso_drift".into()); } else { tags_for_tv.push("sso_stable".into()); }
+
+            // Use a stable endpoint id for per-user auth trust.
+            let endpoint_id = format!("auth::{}", login.user);
+            let _tv = update_trust_vector(
+                &endpoint_id,
+                &[("privilege", Some(abs_trust))],
+                &tags_for_tv,
+                Some(now),
+            );
+
+            // Also touch the local TrustVector (keeps caller’s reference consistent)
+            trust_vector.penalty_by_name("privilege", (1.0 - abs_trust).min(0.5));
+
+            // Audit trail
+            log_decay_reason("geo_ip_anomaly", &login.user, -risk_score, "privilege");
+
 
             history.insert(
                 login.user.clone(),

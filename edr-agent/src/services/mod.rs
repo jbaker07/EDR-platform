@@ -14,3 +14,4 @@ pub mod graph_snapshot_writer;
 pub mod trust_kernel;
 pub mod baseline_uid;
 pub mod uio;
+pub mod krim_lite;

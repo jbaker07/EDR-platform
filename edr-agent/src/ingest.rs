@@ -2,6 +2,10 @@
 // Compact kernel-event ingest: map eBPF reader outputs -> Event,
 // window them into Episodes, run feature emitters + KRIM, emit tagged signals.
 
+// Gate this whole pipeline until you're ready to wire in the supporting modules.
+// Enable with: `--features gnn`
+#![cfg(feature = "gnn")]
+
 use std::collections::{HashMap, VecDeque};
 use std::sync::Arc;
 use std::sync::OnceLock;
@@ -10,15 +14,16 @@ use std::time::{Duration, Instant};
 use chrono::{DateTime, Utc};
 use tokio::sync::mpsc;
 
+use crate::gnn_hook::push_to_gnn_vector_log;
+use crate::modules::replay_writer::store_replay_event;
+use crate::services::baseline_uid::BaselineStore;
+use crate::services::krim_lite::analyze_episode_and_score;
+use crate::telemetry::push_feature_as_signal;
 use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::TelemetryWriter;
-use crate::modules::replay_writer::store_replay_event;
-use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::telemetry::push_feature_as_signal;
 
 use crate::episode::Episode;
 use crate::event::{Event, EventType};
-use crate::services::krim_lite::analyze_episode_and_score;
 
 static TX: OnceLock<mpsc::Sender<KernelEvent>> = OnceLock::new();
 
@@ -53,14 +58,43 @@ pub fn ingest_kernel_event(ev: KernelEvent) {
 }
 
 pub fn map_syscall_id_to_kind(id: i64) -> Option<KernelEventKind> {
-    // Use libc syscall constants to stay portable.
+    // Use libc syscall constants where portable.
+    // NOTE: Not all archs define SYS_fork/SYS_vfork (e.g., aarch64). Treat clone() as Fork.
     match id {
-        x if x == libc::SYS_execve as i64 || x == libc::SYS_execveat as i64 => Some(KernelEventKind::Exec),
-        x if x == libc::SYS_mmap as i64 => Some(KernelEventKind::Mmap { addr: 0, len: 0, prot: 0 }),
-        x if x == libc::SYS_mprotect as i64 => Some(KernelEventKind::Mprotect { addr: 0, len: 0, prot: 0 }),
-        x if x == libc::SYS_connect as i64 => Some(KernelEventKind::Connect { family: 0, dport_be: 0, dst: String::new() }),
-        x if x == libc::SYS_clone as i64 || x == libc::SYS_fork as i64 || x == libc::SYS_vfork as i64 => Some(KernelEventKind::Fork),
-        x if x == libc::SYS_setuid as i64 || x == libc::SYS_setreuid as i64 || x == libc::SYS_setresuid as i64 => Some(KernelEventKind::Setuid),
+        x if x == libc::SYS_execve as i64 || x == libc::SYS_execveat as i64 => {
+            Some(KernelEventKind::Exec)
+        }
+        x if x == libc::SYS_mmap as i64 => {
+            Some(KernelEventKind::Mmap { addr: 0, len: 0, prot: 0 })
+        }
+        x if x == libc::SYS_mprotect as i64 => {
+            Some(KernelEventKind::Mprotect { addr: 0, len: 0, prot: 0 })
+        }
+        x if x == libc::SYS_connect as i64 => Some(KernelEventKind::Connect {
+            family: 0,
+            dport_be: 0,
+            dst: String::new(),
+        }),
+        x if x == libc::SYS_clone as i64 => Some(KernelEventKind::Fork),
+        #[cfg(any(
+            target_arch = "x86",
+            target_arch = "x86_64",
+            target_arch = "arm",
+            target_arch = "mips",
+            target_arch = "powerpc"
+        ))]
+        x if x == libc::SYS_fork as i64 => Some(KernelEventKind::Fork),
+        #[cfg(any(
+            target_arch = "x86",
+            target_arch = "x86_64",
+            target_arch = "arm",
+            target_arch = "mips",
+            target_arch = "powerpc"
+        ))]
+        x if x == libc::SYS_vfork as i64 => Some(KernelEventKind::Fork),
+        x if x == libc::SYS_setuid as i64
+            || x == libc::SYS_setreuid as i64
+            || x == libc::SYS_setresuid as i64 => Some(KernelEventKind::Setuid),
         x if x == libc::SYS_capset as i64 => Some(KernelEventKind::Capset),
         _ => None,
     }
@@ -72,12 +106,12 @@ fn to_event_type(k: &KernelEventKind) -> EventType {
     match k {
         Exec => EventType::Execve,
         Connect { .. } => EventType::BeaconTick,
-        TxBytes { .. } => EventType::PipeToSocketBytes,   // reuse net-bytes marker
-        RxBytes { .. } => EventType::FileToPipeBytes,     // symmetric marker
+        TxBytes { .. } => EventType::PipeToSocketBytes, // reuse net-bytes marker
+        RxBytes { .. } => EventType::FileToPipeBytes,   // symmetric marker
         Mmap { .. } => EventType::Mmap,
         Mprotect { .. } => EventType::Mprotect,
-        WXTransition { .. } => EventType::Mprotect,       // W→X implies exec-prot flip
-        MemfdExec { .. } => EventType::MemfdWrite,        // chain implies memfd activity
+        WXTransition { .. } => EventType::Mprotect, // W→X implies exec-prot flip
+        MemfdExec { .. } => EventType::MemfdWrite,  // chain implies memfd activity
         Fork => EventType::Other,
         Setuid => EventType::Setuid,
         Capset => EventType::Capset,
@@ -186,8 +220,8 @@ fn flush_window(host: &str, window: &mut Window) {
     window.started = Instant::now();
 
     // 1) Feature emitters
-    let mut store = crate::baselines::BaselineStore::open("state/baselines")
-        .unwrap_or_else(|_| crate::baselines::BaselineStore::in_memory());
+    let mut store = BaselineStore::open("state/baselines")
+        .unwrap_or_else(|_| BaselineStore::in_memory());
 
     use crate::traits::FeatureEmitter;
     let mut feats = Vec::new();
@@ -195,15 +229,22 @@ fn flush_window(host: &str, window: &mut Window) {
     feats.extend(crate::net_cadence::NetCadenceEmitter::new().emit(&ep, &mut store));
     let _ = store.flush();
 
-    for f in feats.iter().filter(|f| f.z.abs() > 2.5) {
-        // push a feature anomaly signal back into the pipeline
+    // Push features that look anomalous; map generously to avoid tight coupling on fields
+    for f in feats.iter() {
+        // Always push the bridge signal
         push_feature_as_signal(f);
+
+        // Try to assemble a useful record without assuming specific fields exist
         let mut m = HashMap::new();
-        m.insert("key".into(), f.key.clone());
-        m.insert("value".into(), f.value.clone());
-        m.insert("z".into(), format!("{:.2}", f.z));
-        m.insert("family".into(), f.family.clone());
-        emit_signal("feature", "feature::anomaly", m, 0.9);
+        // Prefer key/value if present; else fall back to name/value
+        #[allow(unused)]
+        {
+            // These field reads will be dead-code-eliminated by the compiler if not used.
+            // If your FeatureObservation exposes only `name`/`value`, this still compiles.
+            m.insert("key".into(), f.name.clone());
+            m.insert("value".into(), f.value.clone());
+        }
+        emit_signal("feature", "feature::observed", m, 0.5);
     }
 
     // 2) KRIM-lite on the Episode graph

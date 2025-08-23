@@ -1,3 +1,5 @@
+// src/gnn_hook.rs
+
 use crate::telemetry::TelemetryRecord;
 
 use chrono::Utc;
@@ -8,7 +10,6 @@ use std::fs::{create_dir_all, OpenOptions};
 use std::io::Write;
 use std::path::{Path, PathBuf};
 
-/// Optional types used by a few helpers below. If your crate layout differs, adjust these paths.
 use crate::services::trust_vector::TrustVector;
 use crate::graph_builder::{GraphEdge, GraphNode};
 use crate::gnn_models::GnnScoringInput;
@@ -17,10 +18,7 @@ use crate::gnn_models::GnnScoringInput;
 /// Configuration & Utilities
 /// =========================
 
-/// Base directory for all GNN JSONL logs (env override: `EDR_GNN_DIR`)
 const DEFAULT_GNN_DIR: &str = "edr-agent/json_files";
-
-/// FIFO used to stream feature vectors to a daemon (env override: `EDR_GNN_FIFO`)
 const DEFAULT_GNN_FIFO: &str = "/tmp/gnn_input.pipe";
 
 fn gnn_dir() -> PathBuf {
@@ -50,7 +48,6 @@ fn stringify_map_vals(m: &HashMap<String, f64>) -> HashMap<String, String> {
 /// Public Logging / Export APIs
 /// ============================
 
-/// 🧠 Submit full telemetry record to the GNN telemetry stream (JSONL on disk).
 pub fn submit_to_gnn(record: &TelemetryRecord) {
     println!(
         "[GNN HOOK] PID: {}, Risk: {:?}, Binary: {}",
@@ -71,11 +68,13 @@ pub fn submit_to_gnn(record: &TelemetryRecord) {
     .to_string();
 
     if let Err(e) = append_jsonl(&path, &json_line) {
-        eprintln!("[GNN Hook] Failed to write TelemetryRecord: {e} (path: {:?})", path);
+        eprintln!(
+            "[GNN Hook] Failed to write TelemetryRecord: {e} (path: {:?})",
+            path
+        );
     }
 }
 
-/// 🚀 Accept a ready-made feature/metadata map and append to the vector log.
 pub fn push_feature_map_to_gnn_log(feature_map: HashMap<String, String>) {
     let path = gnn_dir().join("gnn_vector_log.jsonl");
     match serde_json::to_string(&feature_map) {
@@ -88,12 +87,10 @@ pub fn push_feature_map_to_gnn_log(feature_map: HashMap<String, String>) {
     }
 }
 
-/// ✅ Primary helper used across modules (kept for backward-compat).
 pub fn push_to_gnn_vector_log(data: HashMap<String, String>) {
     push_feature_map_to_gnn_log(data);
 }
 
-/// 🧭 Simple 3-field event writer (handy for coarse trust status beacons).
 pub fn push_gnn_event(endpoint_id: &str, score: f64, reason: &str) {
     let mut map = HashMap::new();
     map.insert("timestamp".to_string(), Utc::now().timestamp().to_string());
@@ -103,7 +100,6 @@ pub fn push_gnn_event(endpoint_id: &str, score: f64, reason: &str) {
     push_feature_map_to_gnn_log(map);
 }
 
-/// 📊 Export a full trust vector snapshot with endpoint labels/tags.
 pub fn export_trust_vector_to_gnn(
     endpoint_id: &str,
     endpoint_role: &str,
@@ -118,7 +114,6 @@ pub fn export_trust_vector_to_gnn(
     record.insert("trust_score".into(), format!("{:.4}", trust_score));
     record.insert("tags".into(), format!("{:?}", tags));
 
-    // Flatten vector as trust_<dim>=value
     for (dim, val) in trust_vector.iter() {
         record.insert(format!("trust_{}", dim), format!("{:.6}", val));
     }
@@ -126,7 +121,6 @@ pub fn export_trust_vector_to_gnn(
     push_feature_map_to_gnn_log(record);
 }
 
-/// 📡 Attempt to stream a numeric feature map to a FIFO; fallback to JSONL.
 pub fn stream_to_gnn_fifo(feature_map: &HashMap<String, f64>) {
     let fifo_path = env::var("EDR_GNN_FIFO").unwrap_or_else(|_| DEFAULT_GNN_FIFO.to_string());
 
@@ -139,7 +133,10 @@ pub fn stream_to_gnn_fifo(feature_map: &HashMap<String, f64>) {
                 }
             }
             Err(e) => {
-                eprintln!("[GNN Hook] FIFO unavailable ({fifo_path}): {e}; falling back to file.");
+                eprintln!(
+                    "[GNN Hook] FIFO unavailable ({}): {e}; falling back to file.",
+                    fifo_path
+                );
                 push_feature_map_to_gnn_log(stringify_map_vals(feature_map));
             }
         },
@@ -147,7 +144,6 @@ pub fn stream_to_gnn_fifo(feature_map: &HashMap<String, f64>) {
     }
 }
 
-/// Convenience alias (kept for compatibility with older callers).
 pub fn push_metadata_to_gnn_vector_log(metadata: HashMap<String, String>) {
     push_feature_map_to_gnn_log(metadata);
 }
@@ -156,68 +152,48 @@ pub fn push_metadata_to_gnn_vector_log(metadata: HashMap<String, String>) {
 /// Higher-level Builder & Streaming
 /// ===============================
 
-/// Compose a rich scoring input for a GNN daemon from a subgraph selection.
+/// Build a minimal GnnScoringInput from a subgraph + trust vector.
+/// `TrustVector.v` is a fixed array; convert to Vec<f32>.
 pub fn build_gnn_scoring_input(
     subgraph_nodes: &[GraphNode],
     subgraph_edges: &[GraphEdge],
     trust_vector: TrustVector,
     snapshot_path: Option<String>,
 ) -> GnnScoringInput {
-    let timestamp = Utc::now().timestamp();
+    // features come straight from TrustVector.v (array -> Vec)
+    let features: Vec<f32> = trust_vector.v.to_vec();
 
-    let semantic_tags: Vec<String> = subgraph_nodes
+    // nodes = node ids
+    let nodes: Vec<String> = subgraph_nodes.iter().map(|n| n.id.clone()).collect();
+
+    // edges = (source, target)
+    let edges: Vec<(String, String)> = subgraph_edges
         .iter()
-        .flat_map(|n| n.tags.clone())
-        .collect::<std::collections::HashSet<_>>() // dedup
-        .into_iter()
+        .map(|e| (e.source.clone(), e.target.clone()))
         .collect();
 
-    let anchor_hits: Vec<String> = subgraph_nodes
-        .iter()
-        .flat_map(|n| n.anchor_ids.clone())
-        .collect::<std::collections::HashSet<_>>()
-        .into_iter()
-        .collect();
-
-    let suppressed_by_fingerprint: Vec<String> = subgraph_nodes
-        .iter()
-        .filter(|n| n.fingerprint_suppressed.unwrap_or(false))
-        .map(|n| n.id.clone())
-        .collect();
-
-    let decay_score = subgraph_nodes
-        .iter()
-        .map(|n| 1.0 - n.trust_score)
-        .sum::<f32>();
-
-    let session_id = format!("graph_{}", timestamp);
-
+    // Fill required extra fields and default the rest.
     GnnScoringInput {
-        session_id,
-        timestamp,
-        trust_vector,
-        semantic_tags,
-        anchor_hits,
-        suppressed_by_fingerprint,
-        decay_score,
-        graph_snapshot_path: snapshot_path,
-        notes: Some("Auto-generated from causal subgraph".to_string()),
+        nodes,
+        edges,
+        features,
+        anchor_hits: Vec::new(),                 // <- Vec<String>
+        decay_score: 0.0,
+        graph_snapshot_path: snapshot_path,      // <- Option<String>
+        ..Default::default()
     }
 }
 
-/// Send a ready scoring input to the daemon FIFO.
-pub fn send_to_gnn_daemon(trust_vector: TrustVector, tags: Vec<String>) {
-    // Minimal, generic payload; prefer `build_gnn_scoring_input` when you have a subgraph.
+/// Minimal send helper if you don’t have a subgraph handy.
+pub fn send_to_gnn_daemon(trust_vector: TrustVector, _tags: Vec<String>) {
     let input = GnnScoringInput {
-        session_id: format!("session_{}", Utc::now().timestamp()),
-        timestamp: Utc::now().timestamp(),
-        trust_vector,
-        semantic_tags: tags,
-        anchor_hits: Vec::new(),
-        suppressed_by_fingerprint: Vec::new(),
+        nodes: Vec::new(),
+        edges: Vec::new(),
+        features: trust_vector.v.to_vec(), // array -> Vec
+        anchor_hits: Vec::new(),           // <- Vec<String>
         decay_score: 0.0,
-        graph_snapshot_path: None,
-        notes: Some("Direct submit without subgraph".to_string()),
+        graph_snapshot_path: None,         // <- Option<String>
+        ..Default::default()
     };
 
     let fifo_path = env::var("EDR_GNN_FIFO").unwrap_or_else(|_| DEFAULT_GNN_FIFO.to_string());
@@ -236,7 +212,6 @@ pub fn send_to_gnn_daemon(trust_vector: TrustVector, tags: Vec<String>) {
         }
         Err(e) => {
             eprintln!("[GNN Hook] Could not open GNN pipe for writing: {e}");
-            // fall back to persisted log
             let mut map = HashMap::new();
             map.insert("fallback".into(), "gnn_daemon_pipe_open_failed".into());
             map.insert("timestamp".into(), Utc::now().to_rfc3339());

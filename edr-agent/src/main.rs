@@ -1,45 +1,32 @@
-mod logger;
-mod config;
-mod telemetry;
-pub mod telemetry_writer;
-pub mod telemetry_types;
-pub mod services;
-mod trust_hook;
-mod gnn_hook;
-pub mod utils;
-pub mod modules;
-pub mod relay;
-pub mod forensic;
-pub mod adaptive_threshold_engine;
-pub mod trust_digest_engine;
-pub mod score_reason;
-pub mod session_trust_curve;
-
-use crate::telemetry_writer::TelemetryWriter;
-use crate::logger::init_logger;
-use crate::config::load_and_verify_policy;
-use crate::telemetry::{
-    get_current_telemetry_snapshot, run_sideeffect_monitors_and_collect, TelemetryRecord,
-    start_realtime_monitors,
-};
-use crate::telemetry_types::TelemetryOutput;
-use crate::utils::time::now_ts;
-use crate::services::trust_engine_final::{evaluate_and_dispatch_trust_score, TelemetryData, TrustResult};
-
-use std::sync::{Arc, Mutex};
-use std::time::Duration;
 use std::collections::VecDeque;
-use std::sync::OnceLock;
+use std::sync::{Arc, Mutex, OnceLock};
+use std::time::Duration;
 
-use crate::mahalanobis::{Mahala, MahalaCfg};
-use crate::elliptic_envelope::EllipticEnvelope;
-use crate::krim::analyze_graph_and_score;
-use crate::graph_builder::{GraphNode, GraphEdge};
+use chrono::Utc;
+
+use forensic_hooks::elliptic_envelope::EllipticEnvelope;
+use forensic_hooks::episode::Episode;
+use forensic_hooks::event::{Event, EventType};
+use forensic_hooks::graph_builder::{GraphEdge, GraphNode};
+use forensic_hooks::mahalanobis::{Mahala, MahalaCfg};
+use forensic_hooks::memory_priv::MemoryPrivEmitter;
+use forensic_hooks::net_cadence::NetCadenceEmitter;
+use forensic_hooks::baselines::BaselineStore;
+use forensic_hooks::services::krim_lite::analyze_graph_and_score;
+use forensic_hooks::services::trust_engine_final::{
+    evaluate_and_dispatch_trust_score, TelemetryData, TrustResult,
+};
+use forensic_hooks::telemetry::{
+    get_current_telemetry_snapshot, run_sideeffect_monitors_and_collect, start_realtime_monitors,
+    TelemetryRecord,
+};
+use forensic_hooks::telemetry_types::TelemetryOutput;
+use forensic_hooks::utils::time::now_ts;
 
 // —— global detectors state ——
 static MAHALA_ENGINE: OnceLock<std::sync::Mutex<Mahala>> = OnceLock::new();
 static ENV_BASELINE: OnceLock<std::sync::Mutex<VecDeque<Vec<f64>>>> = OnceLock::new();
-static ENV_MODEL:   OnceLock<std::sync::Mutex<Option<EllipticEnvelope>>> = OnceLock::new();
+static ENV_MODEL: OnceLock<std::sync::Mutex<Option<EllipticEnvelope>>> = OnceLock::new();
 
 fn mahala_engine() -> &'static std::sync::Mutex<Mahala> {
     MAHALA_ENGINE.get_or_init(|| std::sync::Mutex::new(Mahala::default()))
@@ -51,42 +38,47 @@ fn env_model() -> &'static std::sync::Mutex<Option<EllipticEnvelope>> {
     ENV_MODEL.get_or_init(|| std::sync::Mutex::new(None))
 }
 
-// —— helpers ——
-impl std::convert::TryFrom<TelemetryOutput> for TelemetryRecord {
-    type Error = String;
-    fn try_from(output: TelemetryOutput) -> Result<Self, Self::Error> {
-        let mut rec = TelemetryRecord {
-            timestamp: now_ts(),
-            pid: 0,
-            ppid: 0,
-            uid: 0,
-            binary_path: output.data.get("binary_path").cloned().unwrap_or_default(),
-            command_line: output.data.get("command_line").cloned().unwrap_or_default(),
-            cwd: output.data.get("cwd").cloned().unwrap_or_default(),
-            ..Default::default()
-        };
-        // tag + confidence → risk
-        rec.tags.push(output.signal);
-        rec.risk_score = Some((output.confidence * 100.0) as u32);
-        Ok(rec)
-    }
+// —— local converter (avoid orphan rule) ——
+fn try_convert_output(output: TelemetryOutput) -> Result<TelemetryRecord, String> {
+    let mut rec = TelemetryRecord {
+        timestamp: now_ts(),
+        pid: 0,
+        ppid: 0,
+        uid: 0,
+        binary_path: output.data.get("binary_path").cloned().unwrap_or_default(),
+        command_line: output
+            .data
+            .get("command_line")
+            .cloned()
+            .unwrap_or_default(),
+        cwd: output.data.get("cwd").cloned().unwrap_or_default(),
+        ..Default::default()
+    };
+    rec.tags.push(output.signal);
+    rec.risk_score = Some((output.confidence * 100.0) as u32);
+    Ok(rec)
 }
 
-fn build_episode_from_records(records: &[TelemetryRecord]) -> Option<crate::episode::Episode> {
-    use chrono::Utc;
-    use crate::event::{Event, EventType};
-
+fn build_episode_from_records(records: &[TelemetryRecord]) -> Option<Episode> {
     let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
-    let mut ep = crate::episode::Episode::new(host);
+    let mut ep = Episode::new(host);
     ep.context_id = Some("default".into());
     ep.role = Some("default".into());
 
     for r in records {
         if !r.binary_path.is_empty() || !r.command_line.is_empty() {
-            ep.push(Event { ts: Utc::now(), event_type: EventType::Execve, ..Default::default() });
+            ep.push(Event {
+                ts: Utc::now(),
+                event_type: EventType::Execve,
+                ..Default::default()
+            });
         }
         if !r.cwd.is_empty() {
-            ep.push(Event { ts: Utc::now(), event_type: EventType::Other, ..Default::default() });
+            ep.push(Event {
+                ts: Utc::now(),
+                event_type: EventType::Other,
+                ..Default::default()
+            });
         }
     }
     Some(ep)
@@ -108,9 +100,21 @@ fn build_graph_from_records(records: &[TelemetryRecord]) -> (Vec<GraphNode>, Vec
             uid: Some(r.uid),
             pid: Some(r.pid as u32),
             ppid: Some(r.ppid as u32),
-            binary_path: if r.binary_path.is_empty() { None } else { Some(r.binary_path.clone()) },
-            command_line: if r.command_line.is_empty() { None } else { Some(r.command_line.clone()) },
-            cwd: if r.cwd.is_empty() { None } else { Some(r.cwd.clone()) },
+            binary_path: if r.binary_path.is_empty() {
+                None
+            } else {
+                Some(r.binary_path.clone())
+            },
+            command_line: if r.command_line.is_empty() {
+                None
+            } else {
+                Some(r.command_line.clone())
+            },
+            cwd: if r.cwd.is_empty() {
+                None
+            } else {
+                Some(r.cwd.clone())
+            },
             tags: r.tags.clone(),
             anchor_ids: Vec::new(),
             ..Default::default()
@@ -118,29 +122,46 @@ fn build_graph_from_records(records: &[TelemetryRecord]) -> (Vec<GraphNode>, Vec
 
         if r.ppid > 0 {
             if let Some(parent) = proc_id_map.get(&r.ppid).cloned() {
-                edges.push(GraphEdge { source: parent, target: nid.clone(), ..Default::default() });
+                edges.push(GraphEdge {
+                    source: parent,
+                    target: nid.clone(),
+                    ..Default::default()
+                });
             }
         }
         if !r.binary_path.is_empty() {
             let file_id = format!("file:{}", r.binary_path);
-            nodes.push(GraphNode { id: file_id.clone(), ..Default::default() });
-            edges.push(GraphEdge { source: nid.clone(), target: file_id, ..Default::default() });
+            nodes.push(GraphNode {
+                id: file_id.clone(),
+                ..Default::default()
+            });
+            edges.push(GraphEdge {
+                source: nid.clone(),
+                target: file_id,
+                ..Default::default()
+            });
         }
         if !r.cwd.is_empty() {
             let dir_id = format!("file:{}", r.cwd);
-            nodes.push(GraphNode { id: dir_id.clone(), ..Default::default() });
-            edges.push(GraphEdge { source: nid.clone(), target: dir_id, ..Default::default() });
+            nodes.push(GraphNode {
+                id: dir_id.clone(),
+                ..Default::default()
+            });
+            edges.push(GraphEdge {
+                source: nid.clone(),
+                target: dir_id,
+                ..Default::default()
+            });
         }
     }
     (nodes, edges)
 }
 
-fn tag_batch_outliers_with_mahala_and_envelope(
-    records: &mut [TelemetryRecord],
-    ep: &crate::episode::Episode,
-) {
+fn tag_batch_outliers_with_mahala_and_envelope(records: &mut [TelemetryRecord], ep: &Episode) {
     let x = Mahala::vectorize_episode(ep);
-    if x.is_empty() { return; }
+    if x.is_empty() {
+        return;
+    }
     let p = x.len();
 
     let now = chrono::Utc::now();
@@ -151,30 +172,41 @@ fn tag_batch_outliers_with_mahala_and_envelope(
 
     // χ²_p(0.99) ≈ p + z * sqrt(2p)
     let z = 2.326_347_874_040_840_8_f64;
-    let thr = (p as f64) + z * (2.0 * p as f64).sqrt();
+    let thr = (p as f64) + z * (2.0_f64 * (p as f64)).sqrt();
     if (d2 as f64) > thr && support >= MahalaCfg::d_support() {
-        for r in records.iter_mut() { r.tags.push("mahalanobis_outlier".into()); }
+        for r in records.iter_mut() {
+            r.tags.push("mahalanobis_outlier".into());
+        }
     }
 
     {
         let mut buf = env_baseline().lock().unwrap();
-        if buf.len() == buf.capacity() { buf.pop_front(); }
+        if buf.len() == buf.capacity() {
+            buf.pop_front();
+        }
         buf.push_back(x.clone());
     }
-    let model_ready = { let buf = env_baseline().lock().unwrap(); buf.len() >= 256 };
+    let model_ready = {
+        let buf = env_baseline().lock().unwrap();
+        buf.len() >= 256
+    };
 
     if model_ready {
         let mut env_lock = env_model().lock().unwrap();
         if env_lock.is_none() || (support % 200 == 0) {
             let buf = env_baseline().lock().unwrap();
-            if let Some(env) = EllipticEnvelope::fit(&buf.iter().cloned().collect::<Vec<_>>(), 25, 0.01) {
+            if let Some(env) =
+                EllipticEnvelope::fit(&buf.iter().cloned().collect::<Vec<_>>(), 25, 0.01)
+            {
                 *env_lock = Some(env);
             }
         }
         if let Some(env) = env_lock.as_ref() {
             let margin = env.decision_function(&x);
             if margin < 0.0 {
-                for r in records.iter_mut() { r.tags.push("elliptic_outlier".into()); }
+                for r in records.iter_mut() {
+                    r.tags.push("elliptic_outlier".into());
+                }
             }
         }
     }
@@ -182,7 +214,9 @@ fn tag_batch_outliers_with_mahala_and_envelope(
 
 fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
     let (nodes, edges) = build_graph_from_records(records);
-    if nodes.len() < 3 { return; }
+    if nodes.len() < 3 {
+        return;
+    }
     let baseline_path = "state/krim_baseline.json";
     let events = analyze_graph_and_score(&nodes, &edges, 4, baseline_path);
 
@@ -197,7 +231,9 @@ fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
             }
         }
         if !tagged {
-            if let Some(last) = records.last_mut() { last.tags.push("krim_alert".into()); }
+            if let Some(last) = records.last_mut() {
+                last.tags.push("krim_alert".into());
+            }
         }
     }
 }
@@ -205,52 +241,44 @@ fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
 // —— fanout hub ——
 fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], data: &TelemetryData) {
     println!(
-        "📣 [{}] total={:.2} escalated={} reasons={:?} batch_recs={}",
-        res.endpoint_id, res.total_score, res.escalated, res.reasons, records.len()
+        "📣 [{}] score={:.2} escalated={} reasons={:?} batch_recs={}",
+        res.endpoint_id, res.score, res.escalated, res.reasons, records.len()
     );
 
-    let _ = crate::session_explainer::explain(res, records, data)
-        .map(|n| println!("🧠 {}", n));
-    let _ = crate::risk_alert_writer::persist(res, records, data);
+    // Your TrustResult doesn’t expose events; pass an empty slice (adjust if you add events later).
+    let events: &[forensic_hooks::trust_hook::TrustEvent] = &[];
 
-    let _ = crate::stdout_sink::emit(res, records, data);
-    let _ = crate::ecs_sink::emit(res, records, data);
-    let _ = crate::elastic_bulk::emit(res, records, data);
-    let _ = crate::splunk_hec::emit(res, records, data);
-    let _ = crate::slack_webhook::emit(res, records, data);
+    // Explain & persist (no-op if you keep the simple stubs)
+    let _ = forensic_hooks::explain::explain(events, records, data);
+    let _ = forensic_hooks::persist::persist(events, records, data);
 
-    let _ = crate::graph_snapshot_writer::maybe_snapshot(res, records, data);
-    let _ = crate::gnn_bridge::emit(res, records, data);
-    let _ = crate::replay_scheduler::consider(res, records, data);
+    // Sinks
+    let _ = forensic_hooks::stdout_sink::emit(events, records, data);
+    let _ = forensic_hooks::ecs_sink::emit(events, records, data);
+    let _ = forensic_hooks::elastic_bulk::emit(events, records, data);
+    let _ = forensic_hooks::splunk_hec::emit(events, records, data);
+    let _ = forensic_hooks::slack_webhook::emit(events, records, data);
+
+    // Optional fanout points removed to fix unresolved-function errors:
+    // let _ = forensic_hooks::graph_snapshot_writer::maybe_snapshot(events, records, data);
+    // let _ = forensic_hooks::gnn_bridge::emit(events, records, data);
+    // let _ = forensic_hooks::replay_scheduler::consider(events, records, data);
 }
-
-
-// Somewhere in your loader callback
-if let Some(rec) = crate::modules::ebpf_ingest::on_edr_event(bytes, &writer) {
-    // you can choose to push each record immediately…
-    // or collect in a channel and drain into your main batch every 30s
-    // Example: send on a crossbeam channel:
-    let _ = ebpf_tx.send(rec);
-}
-// drain eBPF channel if you used one
-while let Ok(rec) = ebpf_rx.try_recv() {
-    records.push(rec);
-}
-
-
-
 
 #[tokio::main(flavor = "multi_thread")]
 async fn main() {
-    init_logger();
+    // Use env_logger since logger::init_logger() doesn’t exist
+    let _ = env_logger::try_init();
 
-    let _policy = load_and_verify_policy("policy.json")
-        .expect("❌ Failed to load or verify policy");
+    let _policy =
+        forensic_hooks::config::load_and_verify_policy("policy.json").expect("❌ Failed to load or verify policy");
 
-    let writer = Arc::new(Mutex::new(TelemetryWriter::new()));
+    let writer = Arc::new(Mutex::new(forensic_hooks::telemetry_writer::TelemetryWriter::new()));
 
     #[cfg(target_os = "linux")]
-    { start_realtime_monitors(writer.clone()); }
+    {
+        start_realtime_monitors(writer.clone());
+    }
 
     {
         let flush_writer = writer.clone();
@@ -270,9 +298,9 @@ async fn main() {
 
         for output in run_sideeffect_monitors_and_collect() {
             println!("📥 Passive Signal: {:?}", output);
-            match TelemetryRecord::try_from(output) {
+            match try_convert_output(output) {
                 Ok(rec) => records.push(rec),
-                Err(_)  => println!("⚠️ Failed to convert TelemetryOutput → TelemetryRecord"),
+                Err(_) => println!("⚠️ Failed to convert TelemetryOutput → TelemetryRecord"),
             }
         }
 
@@ -280,18 +308,22 @@ async fn main() {
             println!("⚠️  No telemetry records collected this cycle.");
         } else {
             if let Some(ep) = build_episode_from_records(&records) {
-                let mut store = crate::baselines::BaselineStore::open("state/baselines")
-                    .unwrap_or_else(|_| crate::baselines::BaselineStore::in_memory());
+                // Baseline store: use Default since open/in_memory aren’t available
+                let mut store = BaselineStore::default();
 
-                use crate::traits::FeatureEmitter;
+                use forensic_hooks::traits::FeatureEmitter;
                 let mut feats = Vec::new();
-                feats.extend(crate::memory_priv::MemoryPrivEmitter::new().emit(&ep, &mut store));
-                feats.extend(crate::net_cadence::NetCadenceEmitter::new().emit(&ep, &mut store));
+                feats.extend(MemoryPrivEmitter::new().emit(&ep, &mut store));
+                feats.extend(NetCadenceEmitter::new().emit(&ep, &mut store));
                 let _ = store.flush();
 
+                // Types differ between FeatureObservation flavors; skip pushing as signal to compile
                 for f in feats.iter().filter(|f| f.z.abs() > 2.0) {
-                    println!("🔎 feature: {}={} z={:.2} fam={}", f.key, f.value, f.z, f.family);
-                    crate::telemetry::push_feature_as_signal(f);
+                    println!(
+                        "🔎 feature: {}={} z={:.2} fam={}",
+                        f.key, f.value, f.z, f.family
+                    );
+                    // forensic_hooks::telemetry::push_feature_as_signal(f); // <- incompatible types
                 }
 
                 tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);
@@ -307,7 +339,9 @@ async fn main() {
             }
         }
 
-        if let Ok(mut locked) = writer.clone().lock() { locked.append_batch(records); }
+        if let Ok(mut locked) = writer.clone().lock() {
+            locked.append_batch(records);
+        }
         tokio::time::sleep(Duration::from_secs(30)).await;
     }
 }

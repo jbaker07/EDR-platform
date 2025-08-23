@@ -121,21 +121,23 @@ fn from_plaintext_lines(s: &str) -> HashMap<String, KnownFingerprint> {
         }
 
         // Support "a,b,c" or "a:b:c". Also accept "a:b" (uid defaults to 0).
-        let (path, hash, uid) = if line.contains(',') && !line.contains(':') {
+        // Normalize so the third element is always a String (uid as text),
+        // then parse once below.
+        let (path, hash, uid_txt): (&str, &str, String) = if line.contains(',') && !line.contains(':') {
             let mut it = line.split(',').map(|x| x.trim());
             let p = it.next().unwrap_or_default();
             let h = it.next().unwrap_or_default();
-            let u = it.next().unwrap_or("0");
+            let u = it.next().unwrap_or("0").to_string();
             (p, h, u)
         } else if let Some((p, h, u)) = parse_triple(line) {
-            (p, h, &u.to_string())
+            (p, h, u.to_string())
         } else if let Some((p, h)) = parse_pair(line) {
-            (p, h, "0")
+            (p, h, "0".to_string())
         } else {
             continue;
         };
 
-        let uid_num = uid.parse::<u32>().unwrap_or(0);
+        let uid_num = uid_txt.parse::<u32>().unwrap_or(0);
         let key = make_key(path, hash, uid_num);
 
         out.insert(

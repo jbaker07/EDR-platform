@@ -2,6 +2,7 @@ use std::{
     collections::HashMap,
     fs,
     mem,
+    path::Path,
     sync::{
         atomic::{AtomicBool, Ordering},
         Once,
@@ -13,19 +14,19 @@ use std::{
 use aya::{
     include_bytes_aligned,
     maps::perf::PerfEventArray,
-    programs::{Program, TracePoint, RawTracePoint, KProbe, KRetProbe},
+    programs::{KProbe, Program, RawTracePoint, TracePoint},
     util::online_cpus,
     Bpf,
 };
 use bytes::BytesMut;
-use chrono::Local;
+use chrono::{Local, Utc};
+use chrono::Timelike; // for .hour()
 use walkdir::WalkDir;
 
 use crate::utils::time::now_ts;
 use crate::{
     gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log},
     modules::replay_writer::store_replay_event,
-    telemetry::{calculate_entropy, get_file_metadata, is_memory_only},
     telemetry_types::TelemetryOutput,
     telemetry_writer::write_telemetry_record,
     trust_hook::{submit_trust_event, TrustEvent},
@@ -75,19 +76,52 @@ fn get_uid(pid: u32) -> u32 {
         .unwrap_or(0)
 }
 
+// --- local shims to replace telemetry::{calculate_entropy, get_file_metadata, is_memory_only} ---
+
+fn calculate_entropy(bytes: &[u8]) -> f64 {
+    // Shannon entropy (bits per byte)
+    let mut freq = [0usize; 256];
+    for b in bytes {
+        freq[*b as usize] += 1;
+    }
+    let len = bytes.len() as f64;
+    if len == 0.0 {
+        return 0.0;
+    }
+    freq.iter()
+        .filter(|&&n| n > 0)
+        .map(|&n| {
+            let p = (n as f64) / len;
+            -p * p.log2()
+        })
+        .sum()
+}
+
+fn get_file_metadata(path: &Path) -> Option<(u64 /*size*/, u64 /*mtime_sec*/)> {
+    use std::time::UNIX_EPOCH;
+    let m = fs::metadata(path).ok()?;
+    let size = m.len();
+    let mtime = m.modified().ok()?.duration_since(UNIX_EPOCH).ok()?.as_secs();
+    Some((size, mtime))
+}
+
+fn is_memory_only(path: &Path) -> bool {
+    // crude indicators of anon / memfd / ephemeral paths
+    let s = path.to_string_lossy();
+    s.starts_with("memfd:") || s.contains(" (deleted)") || s.starts_with("/proc/")
+}
+
 /// Attach every program found in the object by section name where possible.
 /// Falls back to your specific `trace_execve_entropy` → `syscalls/sys_enter_execve`.
 fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
     let mut attached_any = false;
 
-    for prog in bpf.programs_mut() {
-        let sec = prog.section().unwrap_or_default().to_string();
-        let name = prog.name().to_string();
-
+    // NOTE: programs_mut() iterates as (&str, &mut Program)
+    for (sec, prog) in bpf.programs_mut() {
         match prog {
-            Program::TracePoint(p) => {
-                let tp: &mut TracePoint = p.try_into()?;
+            Program::TracePoint(tp) => {
                 tp.load()?;
+                // section usually "tracepoint/<cat>/<event>"
                 if let Some(rest) = sec.strip_prefix("tracepoint/") {
                     let mut it = rest.splitn(2, '/');
                     let cat = it.next().unwrap_or("");
@@ -97,33 +131,37 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
                     attached_any = true;
                 }
             }
-            Program::RawTracePoint(p) => {
-                let rtp: &mut RawTracePoint = p.try_into()?;
+            Program::RawTracePoint(rtp) => {
                 rtp.load()?;
-                // section format: raw_tracepoint/<event>
-                let ev = sec.split('/').nth(1).unwrap_or(&name);
+                // section typically "raw_tracepoint/<event>"
+                let ev = sec.split('/').nth(1).unwrap_or(sec);
                 rtp.attach(ev)?;
                 log(&format!("✔️ attached raw_tracepoint {}", ev));
                 attached_any = true;
             }
-            Program::KProbe(p) => {
-                let kp: &mut KProbe = p.try_into()?;
+            Program::KProbe(kp) => {
+                // Many objects encode the attach point via section (kprobe/<symbol>).
+                // Aya represents both entry/return as KProbe. If you need a kretprobe,
+                // encode it in the BPF section name. Here we try to derive a symbol:
                 kp.load()?;
-                kp.attach(&name, 0)?;
-                log(&format!("✔️ attached kprobe {}", name));
-                attached_any = true;
+                if let Some(sym) = sec.split('/').nth(1) {
+                    // best-effort attach; if it fails we still consider load success
+                    if let Err(e) = kp.attach(sym, 0) {
+                        log(&format!("ℹ️ KProbe loaded but attach({sym}) failed: {:?}", e));
+                    } else {
+                        log(&format!("✔️ attached kprobe {}", sym));
+                        attached_any = true;
+                    }
+                } else {
+                    log("ℹ️ KProbe loaded (no symbol in section; skipping attach)");
+                }
             }
-            Program::KRetProbe(p) => {
-                let krp: &mut KRetProbe = p.try_into()?;
-                krp.load()?;
-                krp.attach(&name, 0)?;
-                log(&format!("✔️ attached kretprobe {}", name));
-                attached_any = true;
-            }
-            other => {
-                // Load-only for unsupported kinds (keeps verifier happy if present)
-                other.load()?;
-                log(&format!("ℹ️ loaded program without explicit attach: {} [{}]", name, sec));
+            // ⬇️ FIX: do not call `other.load()` here; `Program` enum has no unified load().
+            _other => {
+                log(&format!(
+                    "ℹ️ unsupported/unknown program variant; skipping explicit attach [{}]",
+                    sec
+                ));
             }
         }
     }
@@ -131,11 +169,12 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
     // Fallback path for your original program/section if nothing matched above
     if !attached_any {
         if let Some(p) = bpf.program_mut("trace_execve_entropy") {
-            let tp: &mut TracePoint = p.try_into()?;
-            tp.load()?;
-            tp.attach("syscalls", "sys_enter_execve")?;
-            log("✔️ fallback attach: trace_execve_entropy → syscalls/sys_enter_execve");
-            attached_any = true;
+            if let Program::TracePoint(tp) = p {
+                tp.load()?;
+                tp.attach("syscalls", "sys_enter_execve")?;
+                log("✔️ fallback attach: trace_execve_entropy → syscalls/sys_enter_execve");
+                attached_any = true;
+            }
         }
     }
 
@@ -178,16 +217,42 @@ pub fn start_encrypted_payload_monitor() {
             println!("📦 [eBPF] Encrypted Payload Monitor attached.");
 
             // Map name tolerance: try "events" then "EVENTS"
-            let mut perf_array = match bpf.map_mut("events")
-                .ok()
-                .and_then(|m| PerfEventArray::try_from(m).ok())
-                .or_else(|| bpf.map_mut("EVENTS").ok().and_then(|m| PerfEventArray::try_from(m).ok()))
-            {
-                Some(p) => p,
-                None => {
-                    eprintln!("❌ PerfEventArray not found (tried 'events' and 'EVENTS')");
-                    return;
+            let mut perf_array = if let Ok(m) = bpf.map_mut("events") {
+                match PerfEventArray::try_from(m) {
+                    Ok(p) => p,
+                    Err(e) => {
+                        eprintln!("❌ PerfEventArray creation failed for 'events': {:?}", e);
+                        if let Ok(m2) = bpf.map_mut("EVENTS") {
+                            match PerfEventArray::try_from(m2) {
+                                Ok(p2) => p2,
+                                Err(e2) => {
+                                    eprintln!(
+                                        "❌ PerfEventArray creation failed for 'EVENTS' as well: {:?}",
+                                        e2
+                                    );
+                                    return;
+                                }
+                            }
+                        } else {
+                            eprintln!("❌ Map 'EVENTS' not found either.");
+                            return;
+                        }
+                    }
                 }
+            } else if let Ok(m2) = bpf.map_mut("EVENTS") {
+                match PerfEventArray::try_from(m2) {
+                    Ok(p2) => p2,
+                    Err(e2) => {
+                        eprintln!(
+                            "❌ PerfEventArray creation failed for 'EVENTS' (no 'events' map): {:?}",
+                            e2
+                        );
+                        return;
+                    }
+                }
+            } else {
+                eprintln!("❌ PerfEventArray not found (tried 'events' and 'EVENTS')");
+                return;
             };
 
             for cpu_id in online_cpus().unwrap_or_default() {
@@ -325,9 +390,8 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
                     let entropy = calculate_entropy(&content);
                     if entropy > 9.0 {
                         let filename = path.file_name().unwrap_or_default().to_string_lossy();
-                        let is_mem_only = is_memory_only(&path);
-                        let metadata = get_file_metadata(&path);
-                        let size = metadata.len();
+                        let is_mem_only = is_memory_only(path);
+                        let size = get_file_metadata(path).map(|(sz, _)| sz).unwrap_or(0);
                         let hour = Local::now().hour();
 
                         let is_weird_name =

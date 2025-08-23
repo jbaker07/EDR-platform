@@ -1,8 +1,10 @@
+// src/episode.rs
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 
 use crate::event::{Event, EventType};
+use crate::graph_builder::{GraphEdge, GraphNode};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Episode {
@@ -28,9 +30,13 @@ impl Episode {
     }
 
     #[inline]
-    pub fn push(&mut self, mut ev: Event) {
-        if ev.ts < self.start_ts { self.start_ts = ev.ts; }
-        if ev.ts > self.end_ts   { self.end_ts = ev.ts; }
+    pub fn push(&mut self, ev: Event) {
+        if ev.ts < self.start_ts {
+            self.start_ts = ev.ts;
+        }
+        if ev.ts > self.end_ts {
+            self.end_ts = ev.ts;
+        }
         self.events.push(ev);
     }
 
@@ -75,9 +81,7 @@ impl Episode {
 
     /// Convert to a process graph (nodes = processes, edges = causal).
     /// This aligns with crate::graph_builder::{GraphNode, GraphEdge}.
-    pub fn to_graph(&self) -> (Vec<crate::graph_builder::GraphNode>, Vec<crate::graph_builder::GraphEdge>) {
-        use crate::graph_builder::{GraphNode, GraphEdge};
-
+    pub fn to_graph(&self) -> (Vec<GraphNode>, Vec<GraphEdge>) {
         // Collect processes we’ve seen
         let mut nodes_map: HashMap<i32, GraphNode> = HashMap::new();
         let mut edges: Vec<GraphEdge> = Vec::new();
@@ -124,7 +128,6 @@ impl Episode {
                         edges.push(GraphEdge {
                             source: format!("pid:{pp}"),
                             target: format!("pid:{pid}"),
-                            // label, weight, etc. if your type has them
                             ..Default::default()
                         });
                     }
@@ -169,7 +172,7 @@ impl Episode {
                 if let Some(exec_ts) = st.last_exec {
                     if let Some(open_ts) = st.memfd_open {
                         if (exec_ts - open_ts).num_seconds().abs() <= 120 {
-                            edges.push(crate::graph_builder::GraphEdge {
+                            edges.push(GraphEdge {
                                 source: format!("pid:{pid}"),
                                 target: format!("pid:{pid}"),
                                 ..Default::default()

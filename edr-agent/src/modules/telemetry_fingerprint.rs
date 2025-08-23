@@ -9,15 +9,17 @@ use serde::Serialize;
 use serde::Deserialize;
 use std::io::BufReader;
 use std::process::Command;
+use crate::telemetry::estimate_entropy;
 use std::time::{SystemTime, UNIX_EPOCH};
 use crate::telemetry::calculate_entropy;
 use std::{fs::{self, File}, io::Read, path::{Path, PathBuf}, os::unix::fs::PermissionsExt};
-use crate::utils::utils::{sha256_digest, estimate_entropy, get_permissions};
 use std::os::unix::fs::MetadataExt;
 use std::io::BufRead;
 use std::fs::metadata;
 use std::time::Instant;
 use users::os::unix::UserExt;
+use std::collections::HashMap;
+use crate::utils::utils::sha256_digest;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum FingerprintEntry {
@@ -919,7 +921,9 @@ pub fn crawl_scripts() -> Vec<FingerprintEntry> {
             }
 
             let hash = Sha256::digest(&contents);
-            let entropy = calculate_entropy(&contents);
+            let entropy = { let s = String::from_utf8_lossy(&contents);
+                calculate_entropy(s.as_ref())
+            };
 
             let mut tags = vec!["script_file".into()];
             let path_str = path.display().to_string();
@@ -1030,7 +1034,7 @@ pub fn crawl_memory_regions() -> Vec<FingerprintEntry> {
                     if let Ok(mut mem_file) = fs::File::open(&mem_path) {
                         let mut buf = vec![0u8; size_bytes.min(4096)];
                         if let Ok(n) = pread(&mem_file, &mut buf, start as i64) {
-                            Some(calculate_entropy(&buf[..n]))
+                            Some(estimate_entropy(&buf[..n]))
                         } else {
                             None
                         }
@@ -1386,7 +1390,7 @@ pub fn crawl_gpg_ssh_keys() -> Vec<FingerprintEntry> {
                                             owner: metadata.uid(),
                                             trusted_uid: uid,
                                             permissions: Some(metadata.permissions().mode()),
-                                            entropy: Some(calculate_entropy(&file_contents)),
+                                            entropy: Some(estimate_entropy(file_contents.as_slice())),
                                             exec_capable: Some(metadata.permissions().mode() & 0o111 != 0),
                                             category: "key".into(),
                                             tags: vec!["ssh_key".into()],
@@ -1418,7 +1422,7 @@ pub fn crawl_gpg_ssh_keys() -> Vec<FingerprintEntry> {
                                             owner: metadata.uid(),
                                             trusted_uid: uid,
                                             permissions: Some(metadata.permissions().mode()),
-                                            entropy: Some(calculate_entropy(&file_contents)),
+                                            entropy: Some(estimate_entropy(file_contents.as_slice())),
                                             exec_capable: Some(metadata.permissions().mode() & 0o111 != 0),
                                             category: "key".into(),
                                             tags: vec!["gpg_key".into()],
@@ -1583,4 +1587,58 @@ pub fn crawl_all_advanced_and_write(output_path: &str) {
     }
 
     println!("[*] Finished in {:?}", start.elapsed());
+}
+
+
+/// Load fingerprint entries from disk.
+///
+/// Supports either:
+/// - JSON array: `[ { ... }, { ... } ]`
+/// - JSON Lines (NDJSON): one JSON object per line
+///
+/// On any error (file missing, parse failure), returns an empty Vec.
+pub fn load_fingerprints_from_disk<P: AsRef<Path>>(path: P) -> Vec<FingerprintEntry> {
+    let path = path.as_ref();
+
+    let Ok(raw) = fs::read_to_string(path) else {
+        eprintln!("[fingerprints] file not found or unreadable: {}", path.display());
+        return Vec::new();
+    };
+
+    // Try full JSON array first
+    if let Ok(v) = serde_json::from_str::<Vec<FingerprintEntry>>(&raw) {
+        return v;
+    }
+
+    // Fallback: try NDJSON (one JSON object per line)
+    let mut out = Vec::<FingerprintEntry>::new();
+    let mut any_line_ok = false;
+    for line in raw.lines() {
+        let line = line.trim();
+        if line.is_empty() { continue; }
+        match serde_json::from_str::<FingerprintEntry>(line) {
+            Ok(entry) => {
+                out.push(entry);
+                any_line_ok = true;
+            }
+            Err(_) => {
+                // keep going; tolerate bad lines
+            }
+        }
+    }
+
+    if any_line_ok {
+        out
+    } else {
+        eprintln!(
+            "[fingerprints] parse failed for {} (not JSON array or JSONL); returning empty set",
+            path.display()
+        );
+        Vec::new()
+    }
+}
+
+/// Back-compat alias for older callsites that expect `load_fingerprint_db`.
+pub fn load_fingerprint_db<P: AsRef<Path>>(path: P) -> Vec<FingerprintEntry> {
+    load_fingerprints_from_disk(path)
 }

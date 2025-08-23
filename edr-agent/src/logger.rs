@@ -10,6 +10,9 @@ use std::sync::Mutex;
 /// Base directory for logs (can override with env var `EDR_LOG_DIR`)
 const DEFAULT_LOG_DIR: &str = "edr-agent/logs";
 
+/// Default scope used by `log(message)` (single-arg API).
+const DEFAULT_SCOPE: &str = "agent";
+
 /// Cap the number of unique `log_once` entries to avoid unbounded growth.
 const LOG_ONCE_CACHE_CAP: usize = 5000;
 
@@ -37,8 +40,13 @@ fn append_line(path: &Path, line: &str) {
     }
 }
 
-/// Standard log with timestamp and scope (also mirrors to file `agent.log`)
-pub fn log(scope: &str, message: &str) {
+/// New: simple log with a default scope. This matches callsites like `log(&format!(...))`.
+pub fn log(message: &str) {
+    log_scoped(DEFAULT_SCOPE, message);
+}
+
+/// Standard log with timestamp and explicit scope (also mirrors to file `agent.log`)
+pub fn log_scoped(scope: &str, message: &str) {
     let ts = Utc::now().format("%H:%M:%S");
     println!("[{}][{}] {}", ts, scope, message);
 
@@ -85,9 +93,17 @@ mod tests {
 
     #[test]
     fn smoke_log() {
-        log("TestScope", "hello world");
+        // Single-arg API (default scope)
+        log("hello world (default scope)");
+
+        // Explicit scope
+        log_scoped("TestScope", "hello world (scoped)");
+
+        // Log-once behavior
         log_once("TestScope", "print once");
         log_once("TestScope", "print once"); // should dedupe
+
+        // Audit log
         log_suppression_decision("privilege_monitor", "/usr/bin/sudo", "Known-good hash");
     }
 }

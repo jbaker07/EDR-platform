@@ -43,36 +43,18 @@ pub struct MahalaCfg {
 }
 
 impl MahalaCfg {
-    pub fn d_half() -> f64 {
-        6.0 * 3600.0
-    }
-    pub fn d_support() -> u64 {
-        200
-    }
-    pub fn d_ridge() -> f64 {
-        1e-6
-    }
-    pub fn d_shrink() -> f64 {
-        0.15
-    }
-    pub fn d_dmin() -> f32 {
-        0.75
-    }
-    pub fn d_dmax() -> f32 {
-        1.05
-    }
-    pub fn d_center() -> f32 {
-        1.0
-    }
-    pub fn d_k() -> f32 {
-        0.7
-    }
+    pub fn d_half() -> f64 { 6.0 * 3600.0 }
+    pub fn d_support() -> u64 { 200 }
+    pub fn d_ridge() -> f64 { 1e-6 }
+    pub fn d_shrink() -> f64 { 0.15 }
+    pub fn d_dmin() -> f32 { 0.75 }
+    pub fn d_dmax() -> f32 { 1.05 }
+    pub fn d_center() -> f32 { 1.0 }
+    pub fn d_k() -> f32 { 0.7 }
 
     /// Load from a JSON file (returns None if read/parse fails).
     pub fn load<P: AsRef<Path>>(p: P) -> Option<Self> {
-        fs::read_to_string(p)
-            .ok()
-            .and_then(|s| serde_json::from_str(&s).ok())
+        fs::read_to_string(p).ok().and_then(|s| serde_json::from_str(&s).ok())
     }
 
     /// Save to a JSON file (best-effort).
@@ -107,9 +89,7 @@ struct CtxStats {
 }
 
 impl CtxStats {
-    fn dim(&self) -> usize {
-        self.mu.len()
-    }
+    fn dim(&self) -> usize { self.mu.len() }
     fn reset(&mut self, d: usize, now_ns: i64) {
         self.mu = vec![0.0; d];
         self.cov = vec![0.0; d * d];
@@ -125,30 +105,29 @@ pub struct Mahala {
 }
 
 impl Default for Mahala {
-    fn default() -> Self {
-        Self::new(MahalaCfg::default())
-    }
+    fn default() -> Self { Self::new(MahalaCfg::default()) }
 }
 
 impl Mahala {
     pub fn new(cfg: MahalaCfg) -> Self {
-        Self {
-            cfg,
-            map: HashMap::new(),
-        }
+        Self { cfg, map: HashMap::new() }
     }
 
     /// Replace runtime config (keeps current running stats).
-    pub fn set_cfg(&mut self, cfg: MahalaCfg) {
-        self.cfg = cfg;
-    }
+    pub fn set_cfg(&mut self, cfg: MahalaCfg) { self.cfg = cfg; }
 
     /// Exponential decay factor for Δt seconds (half-life in cfg).
     fn exp_decay(&self, dt_s: f64) -> f64 {
-        if self.cfg.half_life_s <= 0.0 {
-            return 1.0;
-        }
+        if self.cfg.half_life_s <= 0.0 { return 1.0; }
         let lambda = std::f64::consts::LN_2 / self.cfg.half_life_s;
+        (-lambda * dt_s).exp()
+    }
+
+    /// Helper that doesn't borrow `self` (avoids borrow conflicts).
+    #[inline]
+    fn exp_decay_for(dt_s: f64, half_life_s: f64) -> f64 {
+        if half_life_s <= 0.0 { return 1.0; }
+        let lambda = std::f64::consts::LN_2 / half_life_s;
         (-lambda * dt_s).exp()
     }
 
@@ -156,25 +135,22 @@ impl Mahala {
     /// Automatically handles dimension changes by reinitializing that context.
     pub fn observe(&mut self, context: &str, x: &[f64], now: DateTime<Utc>) {
         let d = x.len();
-        if d == 0 {
-            return;
-        }
+        if d == 0 { return; }
         let now_ns = now.timestamp_nanos_opt().unwrap_or(0);
 
-        let entry = self
-            .map
-            .entry(context.to_string())
-            .or_insert_with(CtxStats::default);
+        // Copy config scalar to avoid immutably borrowing `self` later.
+        let half_life_s = self.cfg.half_life_s;
 
+        // Get mutable entry
+        let entry = self.map.entry(context.to_string()).or_insert_with(CtxStats::default);
         if entry.dim() != d {
             entry.reset(d, now_ns);
         }
 
-        // Small optimization: copy current stats to local vars
-        let df = {
-            let dt_s = ((now_ns - entry.last_ns) as f64).max(0.0) / 1e9;
-            self.exp_decay(dt_s)
-        };
+        // Compute decay factor using locals only (no borrow of `self` now).
+        let last_ns = entry.last_ns;
+        let dt_s = ((now_ns - last_ns) as f64).max(0.0) / 1e9;
+        let df = Mahala::exp_decay_for(dt_s, half_life_s);
         let alpha = 1.0 - df; // EMA weight for new sample
 
         // Decay historical support/cov, then add the new sample
@@ -211,16 +187,11 @@ impl Mahala {
         now: DateTime<Utc>,
     ) -> (f32, f32, u64) {
         let d = x.len();
-        if d == 0 {
-            return (0.0, 1.0, 0);
-        }
+        if d == 0 { return (0.0, 1.0, 0); }
 
         let st = match self.map.get(context) {
             Some(s) if s.dim() == d => s.clone(),
-            _ => {
-                // No stats or dimension mismatch — return neutral.
-                return (0.0, 1.0, 0);
-            }
+            _ => { return (0.0, 1.0, 0); }
         };
 
         // Decay to "now" for a fair covariance magnitude
@@ -249,24 +220,19 @@ impl Mahala {
         // Safe inverse
         let inv = match cov.try_inverse() {
             Some(m) => m,
-            None => {
-                return (0.0, 1.0, st.support as u64);
-            }
+            None => { return (0.0, 1.0, st.support as u64); }
         };
 
         let xvec = DVector::<f64>::from_column_slice(x);
         let delta = xvec - mu;
-        let d2 = (delta.transpose() * inv * delta)[(0, 0)]
-            .max(0.0)
-            .min(f64::MAX) as f32;
+        let d2 = (delta.transpose() * inv * delta)[(0, 0)].max(0.0).min(f64::MAX) as f32;
 
         // Damping sigmoid: map MD² to [damp_min, damp_max]
         let df_f = d as f32; // degrees of freedom proxy
         let center = self.cfg.center_df_factor * df_f;
         let k = self.cfg.slope_k;
         let sig = 1.0 / (1.0 + (-k * (center - d2)).exp());
-        let damp =
-            self.cfg.damp_min + (self.cfg.damp_max - self.cfg.damp_min) * sig;
+        let damp = self.cfg.damp_min + (self.cfg.damp_max - self.cfg.damp_min) * sig;
 
         (d2, damp, st.support as u64)
     }
@@ -277,9 +243,7 @@ impl Mahala {
     }
 
     /// Clear a context (e.g., if you rotate roles or trust that the baseline drifted).
-    pub fn reset_context(&mut self, context: &str) {
-        self.map.remove(context);
-    }
+    pub fn reset_context(&mut self, context: &str) { self.map.remove(context); }
 
     // -----------------------------------------------------------------------------------------
     // Episode vectorizer: stable, low-dimensional features for MD. Tweak as needed.
@@ -305,7 +269,7 @@ impl Mahala {
     /// Build a compact numeric representation from an Episode.
     /// Keep this small and robust; log-scale large magnitudes.
     pub fn vectorize_episode(ep: &crate::episode::Episode) -> Vec<f64> {
-        use crate::event::EventType::*;
+        use crate::event::EventType;
         let mut total = 0_u32;
         let mut f2p_bytes = 0_u64;
         let mut p2s_bytes = 0_u64;
@@ -328,16 +292,16 @@ impl Mahala {
         for ev in &ep.events {
             total += 1;
 
-            match ev.event_type {
-                FileToPipeBytes => {
+            match &ev.event_type {
+                EventType::FileToPipeBytes => {
                     f2p_bytes += ev.bytes.unwrap_or(0);
                 }
-                PipeToSocketBytes => {
+                EventType::PipeToSocketBytes => {
                     p2s_bytes += ev.bytes.unwrap_or(0);
                 }
 
                 // Memory perms flips can precede exec
-                Mprotect | Mmap => {
+                EventType::Mprotect | EventType::Mmap => {
                     if let Some(p) = &ev.prot {
                         let px = p.contains('X') || p.to_ascii_uppercase().contains("PROT_EXEC");
                         if px {
@@ -346,7 +310,7 @@ impl Mahala {
                     }
                 }
 
-                Execve | Fexecve => {
+                EventType::Execve | EventType::Fexecve => {
                     if let Some(t) = last_wtox_ts {
                         let dt = (ev.ts - t).num_seconds().abs() as f64;
                         let score = (5.0 - dt).max(0.0);
@@ -358,43 +322,36 @@ impl Mahala {
                         let dt = (ev.ts - t0).num_seconds().abs() as f64;
                         if dt <= 120.0 && !memfd_exec_scored {
                             let bytes = memfd_write_acc as f64;
-                            let byte_boost = if bytes > 0.0 {
-                                bytes.ln().max(1.0)
-                            } else {
-                                1.0
-                            };
-                            let score =
-                                ((120.0 - dt).max(0.0) / 120.0) * byte_boost.min(16.0);
+                            let byte_boost = if bytes > 0.0 { bytes.ln().max(1.0) } else { 1.0 };
+                            let score = ((120.0 - dt).max(0.0) / 120.0) * byte_boost.min(16.0);
                             memfd2exec_score = memfd2exec_score.max(score);
                             memfd_exec_scored = true;
                         }
                     }
                 }
 
-                MemfdCreate => {
+                EventType::MemfdCreate => {
                     memfd_open_ts = Some(ev.ts);
                     memfd_write_acc = 0;
                     memfd_exec_scored = false;
                 }
-                MemfdWrite => {
+                EventType::MemfdWrite => {
                     let b = ev.bytes.unwrap_or(0);
                     memfd_write_acc += b;
                     memfd_bytes += b;
                 }
 
-                Setuid => setuid += 1,
-                Capset => capset += 1,
-                SeccompRelax => seccomp += 1,
-                Ptrace => ptrace += 1,
-                KernelCfgFlip => kflip += 1,
+                EventType::Setuid => setuid += 1,
+                EventType::Capset => capset += 1,
+                EventType::SeccompRelax => seccomp += 1,
+                EventType::Ptrace => ptrace += 1,
+                EventType::KernelCfgFlip => kflip += 1,
 
                 _ => {}
             }
         }
 
-        fn log1p_u(v: u64) -> f64 {
-            (v as f64 + 1.0).ln()
-        }
+        fn log1p_u(v: u64) -> f64 { (v as f64 + 1.0).ln() }
 
         vec![
             total as f64,

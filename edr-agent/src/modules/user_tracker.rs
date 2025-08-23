@@ -4,7 +4,7 @@ use std::fs;
 use std::io::{BufRead, BufReader, Read};
 use std::process::Command;
 use std::sync::{OnceLock, atomic::{AtomicBool, Ordering}};
-
+use chrono::TimeZone;
 use crate::telemetry_types::TelemetryOutput;
 use crate::utils::time::now_ts;
 use crate::telemetry_writer::write_telemetry_record;
@@ -323,7 +323,7 @@ pub fn scan_user_sessions() -> Vec<TelemetryOutput> {
         let login_ts_u64 = session
             .login_time
             .parse::<u64>()
-            .unwrap_or_else(now_ts);
+            .unwrap_or_else(|_| now_ts());
         let session_age = now.saturating_sub(login_ts_u64);
         let suspicious_tty = !session.terminal.starts_with("tty") && !session.terminal.starts_with("pts");
 

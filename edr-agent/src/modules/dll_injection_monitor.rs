@@ -1,14 +1,14 @@
 use aya::{
     include_bytes_aligned,
     maps::perf::PerfEventArray,
-    programs::{KProbe, KRetProbe, Program, RawTracePoint, TracePoint},
+    programs::{KProbe, Program, RawTracePoint, TracePoint},
     util::online_cpus,
     Bpf,
 };
 use bytes::BytesMut;
 use std::{
     collections::HashMap,
-    convert::TryFrom,
+    convert::TryInto,
     mem,
     ptr::read_unaligned,
     sync::{
@@ -22,7 +22,7 @@ use std::fs;
 use std::path::PathBuf;
 
 use crate::{
-    gnn_hook::{push_to_gnn_vector_log, push_metadata_to_gnn_vector_log},
+    gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log},
     modules::replay_writer::store_replay_event,
     telemetry_types::{MemoryAnomalyType, TelemetryOutput},
     telemetry_writer::{push_memory_telemetry, write_telemetry_record},
@@ -89,64 +89,115 @@ fn get_uid_for_pid(pid: u32) -> Option<u32> {
     None
 }
 
-/// Attach every program in the BPF object based on its section name.
-/// Covers tracepoints, raw tracepoints, and (as a fallback) kprobes.
+/// Attach programs by variant without relying on `Program::section()`
+/// (which isn't available in your Aya version) or generic `Program::load()`.
 fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
-    for prog in bpf.programs_mut() {
-        let sec = prog.section().unwrap_or_default().to_string();
-        let name = prog.name().to_string();
+    for (prog_name, prog) in bpf.programs_mut() {
+        let name = prog_name.to_string();
 
         match prog {
             Program::TracePoint(p) => {
                 let tp: &mut TracePoint = p.try_into()?;
                 tp.load()?;
-                if let Some(rest) = sec.strip_prefix("tracepoint/") {
-                    let mut it = rest.splitn(2, '/');
-                    let cat = it.next().unwrap_or("");
-                    let evt = it.next().unwrap_or("");
-                    tp.attach(cat, evt)?;
-                    log(&format!("✔️ attached tracepoint {}/{}", cat, evt));
-                } else {
-                    // Fallback to ptrace enter if section is missing/odd
+                // Try common syscalls associated with injection behavior.
+                // We attempt several; first success wins.
+                let candidates = [
+                    ("syscalls", "sys_enter_ptrace"),
+                    ("syscalls", "sys_enter_mprotect"),
+                    ("syscalls", "sys_enter_mmap"),
+                ];
+                let mut attached = false;
+                for (cat, evt) in candidates {
+                    match tp.attach(cat, evt) {
+                        Ok(_link) => {
+                            log(&format!("✔️ attached tracepoint {}/{}", cat, evt));
+                            attached = true;
+                            break;
+                        }
+                        Err(e) => {
+                            log(&format!("ℹ️ attach {}/{} failed: {:?}", cat, evt, e));
+                        }
+                    }
+                }
+                if !attached {
+                    // As a last resort, try ptrace enter again to bubble a hard error if it fails.
                     tp.attach("syscalls", "sys_enter_ptrace")?;
                     log("✔️ attached tracepoint syscalls/sys_enter_ptrace (fallback)");
                 }
             }
+
             Program::RawTracePoint(p) => {
                 let rtp: &mut RawTracePoint = p.try_into()?;
                 rtp.load()?;
-                let evt = sec.split('/').nth(1).unwrap_or(&name);
-                rtp.attach(evt)?;
-                log(&format!("✔️ attached raw_tracepoint {}", evt));
+                // If we don't know the section, attach to a broad syscall entry.
+                // Using name as event is unreliable; default to "sys_enter".
+                match rtp.attach("sys_enter") {
+                    Ok(_link) => log("✔️ attached raw_tracepoint sys_enter"),
+                    Err(e) => log(&format!("ℹ️ raw_tracepoint attach(sys_enter) failed: {:?}", e)),
+                }
             }
+
             Program::KProbe(p) => {
                 let kp: &mut KProbe = p.try_into()?;
                 kp.load()?;
-                kp.attach(&name, 0)?;
-                log(&format!("✔️ attached kprobe {}", name));
+                // Try several symbols that exist on different kernels
+                let candidates = [
+                    "do_mprotect_pkey",
+                    "do_mprotect",
+                    "__x64_sys_mprotect",
+                    "__x64_sys_ptrace",
+                    "ptrace_check_attach",
+                    // Fallback: attach to the program name as a symbol
+                    &name,
+                ];
+                let mut attached = false;
+                for sym in candidates {
+                    match kp.attach(sym, 0) {
+                        Ok(_link) => {
+                            log(&format!("✔️ attached kprobe {}", sym));
+                            attached = true;
+                            break;
+                        }
+                        Err(e) => {
+                            log(&format!("ℹ️ kprobe attach({}) failed: {:?}", sym, e));
+                        }
+                    }
+                }
+                if !attached {
+                    log(&format!("⚠️ no kprobe candidate attached for program '{}'", name));
+                }
             }
-            Program::KRetProbe(p) => {
-                let krp: &mut KRetProbe = p.try_into()?;
-                krp.load()?;
-                krp.attach(&name, 0)?;
-                log(&format!("✔️ attached kretprobe {}", name));
-            }
-            other => {
-                other.load()?; // load but don’t attach unhandled kinds
-                log(&format!("ℹ️ loaded program without explicit attach: {} [{}]", name, sec));
+
+            // Skip unsupported variants cleanly (we can't call generic `load()` here).
+            _other => {
+                log(&format!(
+                    "ℹ️ skipping unsupported program variant for '{}'",
+                    name
+                ));
             }
         }
     }
     Ok(())
 }
 
+#[cfg(all(target_os = "linux", feature = "with-ebpf"))]
+const DLL_INJECTION_BPF: &[u8] =
+    include_bytes_aligned!("../ebpf/dll_injection_monitor.bpf.o");
+
+#[cfg(not(all(target_os = "linux", feature = "with-ebpf")))]
+const DLL_INJECTION_BPF: &[u8] = &[];
+
 pub fn start_ebpf_dll_injection_watch() {
+    // If eBPF bytecode is not compiled in, no-op safely.
+    if DLL_INJECTION_BPF.is_empty() {
+        eprintln!("(stub) with-ebpf disabled or dll_injection_monitor.bpf.o missing; skipping dll-injection monitor");
+        return;
+    }
+
     thread::Builder::new()
         .name("ebpf_dll_injection_monitor".into())
         .spawn(move || {
-            let mut bpf = match Bpf::load(include_bytes_aligned!(
-                "../ebpf/dll_injection_monitor.bpf.o"
-            )) {
+            let mut bpf = match Bpf::load(DLL_INJECTION_BPF) {
                 Ok(bpf) => bpf,
                 Err(e) => {
                     eprintln!("❌ Failed to load DLL injection BPF: {:?}", e);
@@ -229,13 +280,7 @@ pub fn start_ebpf_dll_injection_watch() {
                                                 data.insert("replay_tag".into(), "dll_injection_detected".into());
                                                 data.insert("gnn_escalate".into(), "true".into());
 
-                                                let telemetry_output = TelemetryOutput {
-                                                    category: "memory".into(),
-                                                    signal: "dll_injection".into(),
-                                                    confidence: 0.95,
-                                                    data: data.clone(),
-                                                };
-
+                                                // Fan-out
                                                 write_telemetry_record(data.clone());
                                                 push_to_gnn_vector_log(data.clone());
                                                 push_metadata_to_gnn_vector_log(data.clone());
@@ -351,5 +396,3 @@ pub fn scan_dll_injection_activity() -> Vec<TelemetryOutput> {
         data,
     }]
 }
-
-

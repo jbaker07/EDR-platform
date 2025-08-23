@@ -1,4 +1,4 @@
-use crate::services::trust_vector::TrustVector;
+use crate::services::trust_vector::{TrustVector, TrustDim};
 
 #[derive(Debug)]
 pub enum SuppressionDecision {
@@ -6,22 +6,25 @@ pub enum SuppressionDecision {
     DoNotSuppress(String),
 }
 
-/// Helper to safely extract a trust dimension and convert to f32
+/// Helper to safely extract a named trust dimension and return it on a 0..100 scale.
+/// Falls back to 0.0 if the dimension name isn't recognized.
 fn get_trust_score(trust_vector: &TrustVector, key: &str) -> f32 {
-    trust_vector
-        .dimensions
-        .get(key)
-        .cloned()
-        .unwrap_or(0.0f64) as f32
+    for dim in TrustDim::all() {
+        if dim.to_string() == key {
+            // TrustVector.v is [0.0..1.0]; scale to 0..100 for the caller's thresholds.
+            return trust_vector.v[dim.idx()] * 100.0;
+        }
+    }
+    0.0
 }
 
-/// Determines whether a signal should be suppressed based on trust, tags, path, and user
+/// Determines whether a signal should be suppressed based on trust, tags, path, and user.
 pub fn should_suppress(
     path: &str,
-    hash: Option<&String>,
+    _hash: Option<&String>,
     uid: u32,
     tags: &[String],
-    cmdline: &str,
+    _cmdline: &str,
     trust_vector: &TrustVector,
 ) -> SuppressionDecision {
     // Strong override: never suppress if any critical tag is present
@@ -36,7 +39,7 @@ pub fn should_suppress(
         return SuppressionDecision::DoNotSuppress("Critical tag present".to_string());
     }
 
-    // Extract relevant trust dimensions
+    // Extract relevant trust dimensions (on 0..100 scale)
     let trust_ok = get_trust_score(trust_vector, "process") >= 80.0
         && get_trust_score(trust_vector, "memory") >= 80.0
         && get_trust_score(trust_vector, "file") >= 80.0;

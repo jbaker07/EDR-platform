@@ -10,7 +10,7 @@ use std::{
     thread,
     time::{Duration, Instant},
 };
-
+use std::os::unix::fs::PermissionsExt;
 use aya::{
     include_bytes_aligned,
     maps::perf::PerfEventArray,
