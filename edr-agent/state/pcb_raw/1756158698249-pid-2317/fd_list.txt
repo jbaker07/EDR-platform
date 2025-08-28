@@ -1,0 +1,23 @@
+fd 0 -> /dev/null
+fd 1 -> /dev/null
+fd 2 -> /dev/null
+fd 3 -> /snap/codium/481/usr/share/codium/icudtl.dat
+fd 4 -> /snap/codium/481/usr/share/codium/chrome_100_percent.pak
+fd 5 -> socket:[29383]
+fd 6 -> anon_inode:[eventpoll]
+fd 7 -> /snap/codium/481/usr/share/codium/chrome_200_percent.pak
+fd 8 -> /snap/codium/481/usr/share/codium/locales/en-US.pak
+fd 9 -> /snap/codium/481/usr/share/codium/resources.pak
+fd 10 -> anon_inode:[eventfd]
+fd 11 -> anon_inode:[eventpoll]
+fd 12 -> anon_inode:[eventfd]
+fd 13 -> socket:[30335]
+fd 14 -> anon_inode:inotify
+fd 15 -> /home/jermaineb/.config/VSCodium/Trust Tokens
+fd 16 -> /home/jermaineb/.config/VSCodium/Shared Dictionary/db
+fd 17 -> socket:[29439]
+fd 18 -> socket:[38921]
+fd 19 -> socket:[38923]
+fd 20 -> socket:[23199]
+fd 21 -> socket:[23214]
+fd 103 -> /snap/codium/481/usr/share/codium/v8_context_snapshot.bin

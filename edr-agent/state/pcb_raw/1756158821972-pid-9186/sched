@@ -1,0 +1,32 @@
+bash (9186, #threads: 1)
+-------------------------------------------------------------------
+se.exec_start                                :       2891931.810133
+se.vruntime                                  :        104011.821787
+se.sum_exec_runtime                          :            45.747952
+se.nr_migrations                             :                   88
+nr_switches                                  :                  248
+nr_voluntary_switches                        :                  239
+nr_involuntary_switches                      :                    9
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                 1028
+se.avg.runnable_sum                          :              1056146
+se.avg.util_sum                              :              1056146
+se.avg.load_avg                              :                   20
+se.avg.runnable_avg                          :                   20
+se.avg.util_avg                              :                   20
+se.avg.last_update_time                      :        2891931809792
+se.avg.util_est.ewma                         :                   22
+se.avg.util_est.enqueued                     :                   13
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

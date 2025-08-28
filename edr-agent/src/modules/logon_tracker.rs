@@ -13,7 +13,9 @@ use crate::modules::replay_writer::store_replay_event;
 use crate::telemetry::TelemetryRecord;
 use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::TelemetryWriter;
-use crate::trust_hook::{generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent};
+use crate::trust_hook::{
+    generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
+};
 use crate::utils::time::now_ts;
 
 lazy_static! {
@@ -47,13 +49,16 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
 
     START_EBPF.call_once(|| {
         thread::spawn(move || {
-            let mut bpf = match Bpf::load(include_bytes_aligned!("../ebpf/logon_tracker.bpf.o")) {
-                Ok(b) => b,
-                Err(e) => {
-                    eprintln!("❌ Failed to load logon BPF program: {:?}", e);
-                    return;
-                }
-            };
+            // Leak BPF so perf buffers and spawned threads can outlive this scope ('static)
+            let mut tmp =
+                match Bpf::load(include_bytes_aligned!("../ebpf/logon_tracker.bpf.o")) {
+                    Ok(b) => b,
+                    Err(e) => {
+                        eprintln!("❌ Failed to load logon BPF program: {:?}", e);
+                        return;
+                    }
+                };
+            let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
             let program: &mut TracePoint = match bpf.program_mut("trace_execve") {
                 Some(p) => match p.try_into() {
@@ -81,15 +86,15 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
             println!("🔓 [eBPF] Logon tracker tracepoint attached.");
 
             let mut perf_array: PerfEventArray<_> = match bpf.map_mut("events") {
-                Ok(map) => match PerfEventArray::try_from(map) {
+                Some(map) => match PerfEventArray::try_from(map) {
                     Ok(arr) => arr,
                     Err(e) => {
                         eprintln!("❌ Failed to create PerfEventArray: {:?}", e);
                         return;
                     }
                 },
-                Err(e) => {
-                    eprintln!("❌ Failed to access 'events' map: {:?}", e);
+                None => {
+                    eprintln!("❌ 'events' perf map not found in BPF object");
                     return;
                 }
             };
@@ -99,20 +104,25 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                     Ok(mut buf) => {
                         let writer = Arc::clone(&writer);
                         thread::spawn(move || loop {
-                            let mut buffers = vec![BytesMut::with_capacity(PERF_BUF_CAP); PERF_BUFS_PER_CPU];
+                            let mut buffers =
+                                vec![BytesMut::with_capacity(PERF_BUF_CAP); PERF_BUFS_PER_CPU];
                             match buf.read_events(&mut buffers) {
                                 Ok(stats) => {
                                     if stats.lost > 0 {
-                                        eprintln!("⚠️ Lost {} logon events on CPU {}", stats.lost, cpu_id);
+                                        eprintln!(
+                                            "⚠️ Lost {} logon events on CPU {}",
+                                            stats.lost, cpu_id
+                                        );
                                     }
                                     for slot in buffers.iter().take(stats.read) {
                                         if slot.len() < mem::size_of::<LogonEvent>() {
-                                            // short buffer; skip to avoid UB
                                             continue;
                                         }
                                         // Safe due to size check; event is packed in perf buffer
                                         let evt: LogonEvent = unsafe {
-                                            std::ptr::read_unaligned(slot.as_ptr() as *const LogonEvent)
+                                            std::ptr::read_unaligned(
+                                                slot.as_ptr() as *const LogonEvent
+                                            )
                                         };
 
                                         let comm = String::from_utf8_lossy(&evt.comm)
@@ -126,7 +136,6 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                                 continue;
                                             }
                                             if seen.len() >= SEEN_PIDS_MAX {
-                                                // simple bound: clear when over limit
                                                 seen.clear();
                                             }
                                             seen.insert(evt.pid);
@@ -135,24 +144,29 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                         REAL_LOGON_FOUND.store(true, Ordering::SeqCst);
 
                                         // Heuristic risk
-                                        let risk_score = if comm.contains("login") || comm.contains("sshd") {
-                                            7.0
-                                        } else {
-                                            3.0
-                                        };
+                                        let risk_score: f64 =
+                                            if comm.contains("login") || comm.contains("sshd") {
+                                                7.0
+                                            } else {
+                                                3.0
+                                            };
 
-                                        let trust = generate_trust_payload("logon_tracker", 0.3, 85_000, risk_score);
-                                        let features = generate_feature_vector(0.3, 85_000, risk_score);
+                                        let trust =
+                                            generate_trust_payload("logon_tracker", 0.3, 85_000, risk_score);
+                                        let features =
+                                            generate_feature_vector(0.3, 85_000, risk_score);
 
                                         let mut gnn_data = HashMap::new();
                                         gnn_data.insert("vector".into(), format!("{:?}", features));
                                         gnn_data.insert("category".into(), "logon".into());
                                         gnn_data.insert("signal".into(), "execve_logon".into());
-                                        // clamp to [0,1]; previous formula could go negative
                                         let conf = (1.0 - (risk_score / 10.0)).clamp(0.0, 1.0);
                                         gnn_data.insert("confidence".into(), format!("{:.2}", conf));
                                         gnn_data.insert("gnn_escalate".into(), "true".into());
-                                        gnn_data.insert("summary".into(), format!("eBPF execve login: {}", comm));
+                                        gnn_data.insert(
+                                            "summary".into(),
+                                            format!("eBPF execve login: {}", comm),
+                                        );
                                         gnn_data.insert("replay_tag".into(), "logon_event".into());
 
                                         push_to_gnn_vector_log(gnn_data.clone());
@@ -161,12 +175,8 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                         let timestamp = now_ts();
 
                                         println!(
-                                            "[🔓 Logon Event] PID={} PPID={} COMM='{}' | Trust={} Risk={}",
-                                            evt.pid,
-                                            evt.ppid,
-                                            comm,
-                                            trust.get("trust_score").unwrap_or(&"?".to_string()),
-                                            risk_score
+                                            "[🔓 Logon Event] PID={} PPID={} COMM='{}' | Risk={}",
+                                            evt.pid, evt.ppid, comm, risk_score
                                         );
 
                                         let record = TelemetryRecord {
@@ -197,7 +207,7 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                             cwd: "/".into(),
                                             anomaly_type: "logon_activity".into(),
                                             component: "logon_tracker".into(),
-                                            metadata: trust.clone(),
+                                            metadata: HashMap::new(), // keep small; vector already sent
                                             risk_score: risk_score as f32,
                                             source_module: "logon_tracker".into(),
                                             decay_context: Some("ebpf_logon".into()),
@@ -207,7 +217,10 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                             score: Some(risk_score as f32),
                                             raw_score: Some(risk_score as f32),
                                             tags: Some(vec!["logon_event".into()]),
-                                            description: Some(format!("New logon observed via execve: {}", comm)),
+                                            description: Some(format!(
+                                                "New logon observed via execve: {}",
+                                                comm
+                                            )),
                                         });
                                     }
                                 }
@@ -215,7 +228,10 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                             }
                         });
                     }
-                    Err(e) => eprintln!("❌ Failed to open logon perf buffer on CPU {}: {:?}", cpu_id, e),
+                    Err(e) => eprintln!(
+                        "❌ Failed to open logon perf buffer on CPU {}: {:?}",
+                        cpu_id, e
+                    ),
                 }
             }
         });
@@ -256,7 +272,11 @@ pub fn scan_logon_activity() -> Vec<TelemetryOutput> {
         signal: Some("no_logon_activity_detected".into()),
         signal_type: Some("logon_event_fallback".into()),
         description: Some("No logon activity detected; passive fallback signal".to_string()),
-        tags: Some(vec!["logon_event_fallback".into(), "auth".into(), "passive".into()]),
+        tags: Some(vec![
+            "logon_event_fallback".into(),
+            "auth".into(),
+            "passive".into(),
+        ]),
         score: Some(0.0),
         raw_score: Some(0.0),
     });

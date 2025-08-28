@@ -1,0 +1,32 @@
+dbus-daemon (1593, #threads: 1)
+-------------------------------------------------------------------
+se.exec_start                                :       2943503.273603
+se.vruntime                                  :        117061.560108
+se.sum_exec_runtime                          :           580.869659
+se.nr_migrations                             :                  377
+nr_switches                                  :                 6397
+nr_voluntary_switches                        :                 6165
+nr_involuntary_switches                      :                  232
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                 1277
+se.avg.runnable_sum                          :              1308404
+se.avg.util_sum                              :              1263311
+se.avg.load_avg                              :                   17
+se.avg.runnable_avg                          :                   17
+se.avg.util_avg                              :                   16
+se.avg.last_update_time                      :        2943503272960
+se.avg.util_est.ewma                         :                   16
+se.avg.util_est.enqueued                     :                   16
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

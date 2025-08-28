@@ -1,0 +1,10 @@
+/usr/bin/col1                                                20
+/usr/bin/vim.basic                                           16
+/usr/lib/llvm-14/bin/llvm-ar                                 16
+/usr/bin/pw-cat                                              12
+/usr/bin/run-one                                             12
+/usr/bin/xz                                                  12
+/usr/bin/xzgrep                                              12
+/usr/lib/llvm-14/bin/llvm-objcopy                            12
+/usr/bin/aarch64-linux-gnu-g++-11                            10
+/usr/bin/aarch64-linux-gnu-gcc-11                            10

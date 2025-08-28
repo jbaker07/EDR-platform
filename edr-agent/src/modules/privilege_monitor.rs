@@ -1,6 +1,7 @@
+// src/modules/privilege_monitor.rs
 use aya::maps::perf::{AsyncPerfEventArray, PerfEventArray};
 use aya::programs::TracePoint;
-use aya::{include_bytes_aligned, Bpf};
+use aya::{include_bytes_aligned, Ebpf};
 use aya::util::online_cpus;
 use bytes::BytesMut;
 use lazy_static::lazy_static;
@@ -17,7 +18,7 @@ use std::{
 use tokio::{task, time};
 use tokio::sync::Mutex;
 
-use anyhow::{anyhow, Result};
+use anyhow::{anyhow, Context, Result};
 use sysinfo::{PidExt, ProcessExt, System, SystemExt};
 
 use crate::gnn_hook::push_to_gnn_vector_log;
@@ -103,13 +104,15 @@ pub async fn start_privilege_monitor() -> Result<()> {
     use std::collections::HashMap as StdHashMap;
     use tokio::sync::Mutex as TokioMutex;
 
-    let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/privilege_monitor_ebpf.o"))?;
+    // Load and leak the eBPF obj so perf readers (borrowing maps) can live in spawned tasks
+    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/privilege_monitor_ebpf.o"))?;
+    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
     let tracepoints = ["trace_setuid", "trace_setresuid", "trace_execve"];
     for prog_name in &tracepoints {
         let program: &mut TracePoint = bpf
             .program_mut(prog_name)
-            .ok_or(anyhow!("Program not found: {}", prog_name))?
+            .ok_or_else(|| anyhow!("Program not found: {}", prog_name))?
             .try_into()?;
         program.load()?;
         program.attach(
@@ -123,15 +126,20 @@ pub async fn start_privilege_monitor() -> Result<()> {
         )?;
     }
 
-    let perf = Arc::new(Mutex::new(AsyncPerfEventArray::try_from(
-        bpf.map_mut("EVENTS")?,
-    )?));
+    let map = bpf
+        .map_mut("EVENTS")
+        .ok_or_else(|| anyhow!("map 'EVENTS' not found"))?;
+    let perf = Arc::new(Mutex::new(
+        AsyncPerfEventArray::try_from(map).context("AsyncPerfEventArray init for 'EVENTS'")?,
+    ));
 
     // TTL-based de-dup map
     let recent_seen: Arc<TokioMutex<StdHashMap<(i32, i32), Instant>>> =
         Arc::new(TokioMutex::new(StdHashMap::new()));
 
-    for cpu_id in online_cpus()? {
+    let cpus = online_cpus()
+        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    for cpu_id in cpus {
         let perf_clone = Arc::clone(&perf);
         let seen_clone = Arc::clone(&recent_seen);
 
@@ -508,15 +516,17 @@ pub fn spawn_cred_dump_monitor() {
     }
 
     thread::spawn(move || {
-        let mut bpf = match Bpf::load(include_bytes_aligned!(
+        // Load and leak so child reader threads can safely borrow maps
+        let mut tmp = match Ebpf::load(include_bytes_aligned!(
             "../ebpf/cred_dump_monitor.bpf.o"
         )) {
-            Ok(bpf) => bpf,
+            Ok(b) => b,
             Err(e) => {
                 eprintln!("❌ Failed to load cred_dump BPF: {:?}", e);
                 return;
             }
         };
+        let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
         let program: &mut TracePoint = match bpf.program_mut("trace_cred_evt") {
             Some(p) => match p.try_into() {
@@ -539,15 +549,23 @@ pub fn spawn_cred_dump_monitor() {
 
         println!("🔐 [eBPF] Cred dump monitor tracepoint active");
 
-        let mut perf = match bpf.map_mut("EVENTS").and_then(PerfEventArray::try_from) {
+        let map = match bpf.map_mut("EVENTS") {
+            Some(m) => m,
+            None => {
+                eprintln!("❌ Failed to get perf map 'EVENTS'");
+                return;
+            }
+        };
+        let mut perf = match PerfEventArray::try_from(map) {
             Ok(perf) => perf,
             Err(e) => {
-                eprintln!("❌ Failed to get perf array: {:?}", e);
+                eprintln!("❌ Failed to create PerfEventArray: {:?}", e);
                 return;
             }
         };
 
-        for cpu_id in online_cpus().unwrap_or_default() {
+        let cpus = online_cpus().unwrap_or_default();
+        for cpu_id in cpus {
             match perf.open(cpu_id, None) {
                 Ok(mut buf) => {
                     thread::spawn(move || {

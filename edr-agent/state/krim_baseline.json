@@ -1,1 +1,6 @@
-{}
+{
+  "whitelist_paths": [
+    "/tmp/my_dev_script.sh",
+    "/var/tmp/legit_*"
+  ]
+}

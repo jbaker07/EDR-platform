@@ -1,0 +1,5 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[28974]
+fd 2 -> socket:[28974]
+fd 3 -> socket:[28983]
+fd 4 -> socket:[28985]

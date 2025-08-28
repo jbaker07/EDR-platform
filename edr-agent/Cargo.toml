@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [[bin]]
+name = "entmon_attach"
+path = "src/bin/entmon_attach.rs"
+
+[[bin]]
 name = "forensic_hooks"
 path = "src/main.rs"
 
@@ -13,7 +17,7 @@ path = "src/bin/fingerprint_gen.rs"
 
 [dependencies]
 anyhow = "1.0"
-aya = { version = "0.11", features = ["async_tokio"] }
+aya = { version = "0.13.1", features = ["async_tokio"] }
 aya-log = "0.2.1"
 base64 = "0.21"
 bincode = { version = "2.0.1", features = ["derive"] }   # ← needed for #[derive(Encode, Decode)]

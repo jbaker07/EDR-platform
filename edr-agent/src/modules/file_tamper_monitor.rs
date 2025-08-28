@@ -1,4 +1,4 @@
-use aya::{include_bytes_aligned, Bpf};
+use aya::{include_bytes_aligned, Ebpf};
 use aya::maps::perf::PerfEventArray;
 use aya::programs::TracePoint;
 use aya::util::online_cpus;
@@ -20,7 +20,7 @@ use std::{
 
 use crate::forensic::utils::{get_ppid_and_uid, read_proc_value};
 use crate::{
-    gnn_hook::{push_to_gnn_vector_log, push_metadata_to_gnn_vector_log},
+    gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log},
     logger::log,
     modules::replay_writer::store_replay_event,
     telemetry_types::TelemetryOutput,
@@ -161,7 +161,8 @@ fn is_known_good(meta: &HashMap<String, String>, fp: &Fingerprints) -> bool {
 pub fn start_ebpf_file_tamper_watch() {
     TAMPER_ONCE.call_once(|| {
         thread::spawn(move || {
-            let mut bpf = match Bpf::load(include_bytes_aligned!(
+            // Leak the eBPF object so perf buffers used in spawned threads remain valid.
+            let tmp = match Ebpf::load(include_bytes_aligned!(
                 "../ebpf/file_tamper_monitor.bpf.o"
             )) {
                 Ok(b) => b,
@@ -170,7 +171,9 @@ pub fn start_ebpf_file_tamper_watch() {
                     return;
                 }
             };
+            let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
+            // Program: tracepoint
             let tp: &mut TracePoint = match bpf
                 .program_mut("trace_file_tamper")
                 .and_then(|p| p.try_into().ok())
@@ -186,11 +189,19 @@ pub fn start_ebpf_file_tamper_watch() {
                 eprintln!("❌ TracePoint attach/load error: {:?}", e);
                 return;
             }
-            // Optionally, also monitor unlinkat/rename if your BPF supports it:
+            // Optionally:
             // tp.attach("syscalls", "sys_enter_unlinkat").ok();
             // tp.attach("syscalls", "sys_enter_rename").ok();
 
-            let mut perf_array = match bpf.map_mut("EVENTS").and_then(PerfEventArray::try_from) {
+            // Open perf array cleanly (avoid Option/Result mixup)
+            let map = match bpf.map_mut("EVENTS") {
+                Some(m) => m,
+                None => {
+                    eprintln!("❌ EVENTS map not found");
+                    return;
+                }
+            };
+            let mut perf_array = match PerfEventArray::try_from(map) {
                 Ok(p) => p,
                 Err(e) => {
                     eprintln!("❌ Could not get perf array from EVENTS map: {:?}", e);
@@ -198,7 +209,9 @@ pub fn start_ebpf_file_tamper_watch() {
                 }
             };
 
-            for cpu_id in online_cpus().unwrap_or_default() {
+            // Fan out per-CPU readers
+            let cpus = online_cpus().unwrap_or_default();
+            for cpu_id in cpus {
                 match perf_array.open(cpu_id, None) {
                     Ok(mut buf) => {
                         thread::spawn(move || {

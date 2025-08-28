@@ -27,13 +27,21 @@ use aya::maps::perf::PerfEventArray;
 use aya::programs::TracePoint;
 
 #[cfg(target_os = "linux")]
-use bytes::Buf;
-
-#[cfg(target_os = "linux")]
 use std::convert::TryInto;
 
+// ---- small cross-platform shims for pid/ppid/euid ----
 #[cfg(target_os = "linux")]
-use nix::libc;
+mod pids {
+    pub fn pid() -> i32 { unsafe { nix::libc::getpid() } }
+    pub fn ppid() -> i32 { unsafe { nix::libc::getppid() } }
+    pub fn euid() -> u32 { unsafe { nix::libc::geteuid() as u32 } }
+}
+#[cfg(not(target_os = "linux"))]
+mod pids {
+    pub fn pid() -> i32 { std::process::id() as i32 }
+    pub fn ppid() -> i32 { 0 }
+    pub fn euid() -> u32 { 0 }
+}
 
 static JOB_SCHED_REAL_FOUND: AtomicBool = AtomicBool::new(false);
 static START_EBPF: Once = Once::new();
@@ -158,7 +166,8 @@ fn trigger_automated_response(command: &str) {
 pub fn start_cron_ebpf_watch(writer: Arc<Mutex<TelemetryWriter>>) {
     START_EBPF.call_once(|| {
         thread::spawn(move || {
-            let mut bpf = match Bpf::load(include_bytes_aligned!(
+            // ---- Load & leak BPF so perf buffers outlive this thread ----
+            let mut tmp = match Bpf::load(include_bytes_aligned!(
                 "../ebpf/job_sched_monitor.bpf.o"
             )) {
                 Ok(b) => b,
@@ -167,7 +176,9 @@ pub fn start_cron_ebpf_watch(writer: Arc<Mutex<TelemetryWriter>>) {
                     return;
                 }
             };
+            let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
+            // Program attach
             let program = match bpf.program_mut("trace_openat") {
                 Some(p) => p,
                 None => {
@@ -196,16 +207,18 @@ pub fn start_cron_ebpf_watch(writer: Arc<Mutex<TelemetryWriter>>) {
 
             println!("🧠 [eBPF] Cron job scheduler tracepoint active.");
 
-            let mut perf_array: PerfEventArray<_> = match bpf.map_mut("events") {
-                Ok(map) => match PerfEventArray::try_from(map) {
-                    Ok(array) => array,
-                    Err(e) => {
-                        eprintln!("❌ Failed to convert to PerfEventArray: {:?}", e);
-                        return;
-                    }
-                },
+            // Perf array from leaked BPF (map_mut returns Option<&mut Map>)
+            let map = match bpf.map_mut("events") {
+                Some(m) => m,
+                None => {
+                    eprintln!("❌ Failed to access perf buffer map 'events'");
+                    return;
+                }
+            };
+            let mut perf_array: PerfEventArray<_> = match PerfEventArray::try_from(map) {
+                Ok(array) => array,
                 Err(e) => {
-                    eprintln!("❌ Failed to access perf buffer: {:?}", e);
+                    eprintln!("❌ Failed to convert to PerfEventArray: {:?}", e);
                     return;
                 }
             };
@@ -253,7 +266,7 @@ pub fn start_cron_ebpf_watch(writer: Arc<Mutex<TelemetryWriter>>) {
                                         gnn_data.insert("summary".into(), format!("cron job detected: {}", cmd));
                                         gnn_data.insert("replay_tag".into(), "cron_execution".into());
                                         crate::gnn_hook::push_to_gnn_vector_log(gnn_data.clone());
-                                        store_replay_event(gnn_data).ok();
+                                        let _ = store_replay_event(gnn_data);
 
                                         let record = TelemetryRecord {
                                             pid: event.pid as i32,
@@ -355,12 +368,12 @@ pub fn start_job_sched_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
                 gnn_data.insert("summary".into(), format!("cron job detected: {}", command));
                 gnn_data.insert("replay_tag".into(), "cron_execution".into());
                 crate::gnn_hook::push_to_gnn_vector_log(gnn_data.clone());
-                store_replay_event(gnn_data).ok();
+                let _ = store_replay_event(gnn_data);
 
                 let record = TelemetryRecord {
-                    pid: unsafe { libc::getpid() },
-                    ppid: unsafe { libc::getppid() },
-                    uid: unsafe { libc::geteuid() as u32 },
+                    pid: pids::pid(),
+                    ppid: pids::ppid(),
+                    uid: pids::euid(),
                     binary_path: "/usr/bin/cron".into(),
                     command_line: command.clone(),
                     cwd: "/root".into(),
@@ -442,17 +455,17 @@ struct KernelFalloutEvent {
 #[cfg(target_os = "linux")]
 pub fn start_ebpf_kernel_fallout_watch() {
     thread::spawn(move || {
-        let bpf = Bpf::load(include_bytes_aligned!(
+        // ---- Load & leak BPF so per-CPU readers are 'static-safe ----
+        let mut tmp = match Bpf::load(include_bytes_aligned!(
             "../ebpf/kernel_exploit_fallout.bpf.o"
-        ));
-
-        let mut bpf = match bpf {
+        )) {
             Ok(b) => b,
             Err(e) => {
                 eprintln!("❌ Failed to load kernel fallout bpf: {:?}", e);
                 return;
             }
         };
+        let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
         let program = match bpf.program_mut("trace_kernel_fallout") {
             Some(p) => p,
@@ -482,16 +495,18 @@ pub fn start_ebpf_kernel_fallout_watch() {
 
         println!("🧠 [eBPF] Kernel exploit fallout tracepoint active.");
 
-        let mut perf_array: PerfEventArray<_> = match bpf.map_mut("EVENTS") {
-            Ok(map) => match PerfEventArray::try_from(map) {
-                Ok(arr) => arr,
-                Err(e) => {
-                    eprintln!("❌ Could not convert perf map: {:?}", e);
-                    return;
-                }
-            },
+        // map_mut returns Option<&mut Map>
+        let map = match bpf.map_mut("EVENTS") {
+            Some(m) => m,
+            None => {
+                eprintln!("❌ Could not locate perf map 'EVENTS'");
+                return;
+            }
+        };
+        let mut perf_array: PerfEventArray<_> = match PerfEventArray::try_from(map) {
+            Ok(arr) => arr,
             Err(e) => {
-                eprintln!("❌ Could not locate perf map: {:?}", e);
+                eprintln!("❌ Could not convert perf map: {:?}", e);
                 return;
             }
         };
@@ -545,7 +560,7 @@ pub fn start_ebpf_kernel_fallout_watch() {
                                     gnn_data.insert("summary".into(), desc.clone());
                                     gnn_data.insert("replay_tag".into(), "kernel_exploit_fallout".into());
                                     crate::gnn_hook::push_to_gnn_vector_log(gnn_data.clone());
-                                    store_replay_event(gnn_data).ok();
+                                    let _ = store_replay_event(gnn_data);
 
                                     let mut metadata = HashMap::new();
                                     metadata.insert("signal".into(), evt.signal.to_string());

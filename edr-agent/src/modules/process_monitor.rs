@@ -1,10 +1,8 @@
-use sysinfo::{System, Pid, Process};
-use sysinfo::SystemExt;
-use sysinfo::ProcessExt;
-use sysinfo::PidExt;
 use std::collections::HashMap;
-use crate::modules::user_tracker::{get_logged_in_users, UserSession};
 
+use sysinfo::{System, SystemExt, ProcessExt, PidExt};
+
+use crate::modules::user_tracker::{get_logged_in_users, UserSession};
 use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
 use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
 use crate::trust_hook::{submit_trust_event, TrustEvent};
@@ -45,8 +43,7 @@ pub fn gather_processes() -> Vec<ProcessInfo> {
             name: process.name().to_string(),
             exe: process.exe().to_string_lossy().to_string(),
             cpu_usage: process.cpu_usage(),
-            // sysinfo has changed units across versions; keep KB naming consistent
-            // by dividing once. If already KB, this will be harmlessly small.
+            // Keep naming consistent (KB). If sysinfo already returns KB, the /1024 is harmlessly small.
             memory_usage_kb: process.memory() / 1024,
             status: format!("{:?}", process.status()),
             user: user_id,
@@ -85,7 +82,11 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
             data.insert("user_sessions_count".into(), sessions.len().to_string());
         }
 
-        let uid_num = proc.user.as_ref().and_then(|s| s.parse::<u32>().ok()).unwrap_or(0);
+        let uid_num = proc
+            .user
+            .as_ref()
+            .and_then(|s| s.parse::<u32>().ok())
+            .unwrap_or(0);
 
         let tags = vec!["snapshot".into(), format!("binary::{}", proc.name)];
 
@@ -164,18 +165,25 @@ lazy_static! {
 #[cfg(target_os = "linux")]
 pub fn start_ipc_abuse_monitor() {
     thread::spawn(move || {
-        let bpf = Bpf::load(include_bytes_aligned!(
+        // Load then leak the BPF so perf buffers can live 'static inside spawned threads
+        let mut tmp = match Bpf::load(include_bytes_aligned!(
             "../ebpf/ipc_abuse_monitor.bpf.o"
-        ));
+        )) {
+            Ok(b) => b,
+            Err(e) => {
+                eprintln!("❌ Failed to load ipc_abuse bpf: {:?}", e);
+                return;
+            }
+        };
+        let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
-        if let Err(e) = bpf {
-            eprintln!("❌ Failed to load ipc_abuse bpf: {:?}", e);
-            return;
-        }
-        let mut bpf = bpf.unwrap();
-
-        let program = bpf.program_mut("trace_ipc_abuse")
-            .expect("Missing program: trace_ipc_abuse");
+        let program = match bpf.program_mut("trace_ipc_abuse") {
+            Some(p) => p,
+            None => {
+                eprintln!("❌ Missing program: trace_ipc_abuse");
+                return;
+            }
+        };
 
         let tp: &mut TracePoint = match program.try_into() {
             Ok(p) => p,
@@ -197,101 +205,116 @@ pub fn start_ipc_abuse_monitor() {
 
         println!("🧠 [eBPF] IPC abuse monitor tracepoint active.");
 
-        let mut perf_array: PerfEventArray<_> = match bpf.map_mut("EVENTS") {
-            Ok(map) => match PerfEventArray::try_from(map) {
-                Ok(arr) => arr,
-                Err(e) => {
-                    eprintln!("❌ Could not convert perf map: {:?}", e);
-                    return;
-                }
-            },
-            Err(e) => {
-                eprintln!("❌ Could not locate perf map: {:?}", e);
+        // map_mut returns Option; handle missing map cleanly
+        let map = match bpf.map_mut("EVENTS") {
+            Some(m) => m,
+            None => {
+                eprintln!("❌ Could not locate perf map: EVENTS");
                 return;
             }
         };
 
-        for cpu_id in online_cpus().unwrap_or_default() {
-            if let Ok(mut buf) = perf_array.open(cpu_id, None) {
-                thread::spawn(move || {
-                    let mut buffers = vec![BytesMut::with_capacity(1024); 32];
-                    loop {
-                        match buf.read_events(&mut buffers) {
-                            Ok(events) => {
-                                for b in &buffers[..events.read] {
-                                    if b.len() < mem::size_of::<IpcAbuseEvent>() {
-                                        continue;
+        // Convert to a PerfEventArray
+        let mut perf_array: PerfEventArray<_> = match PerfEventArray::try_from(map) {
+            Ok(arr) => arr,
+            Err(e) => {
+                eprintln!("❌ Could not convert perf map: {:?}", e);
+                return;
+            }
+        };
+
+        // CPU list (handle kernel fetch errors)
+        let cpus = online_cpus().unwrap_or_else(|(m, e)| {
+            eprintln!("⚠️ online_cpus failed: {}: {:?}", m, e);
+            Vec::new()
+        });
+
+        for cpu_id in cpus {
+            match perf_array.open(cpu_id, None) {
+                Ok(mut buf) => {
+                    thread::spawn(move || {
+                        let mut buffers = vec![BytesMut::with_capacity(1024); 32];
+                        loop {
+                            match buf.read_events(&mut buffers) {
+                                Ok(events) => {
+                                    for b in &buffers[..events.read] {
+                                        if b.len() < mem::size_of::<IpcAbuseEvent>() {
+                                            continue;
+                                        }
+
+                                        let ptr = b.as_ptr() as *const IpcAbuseEvent;
+                                        let evt = unsafe { ptr.read_unaligned() };
+
+                                        IPC_ABUSE_DETECTED.store(true, Ordering::Relaxed);
+
+                                        let ts = now_ts();
+                                        let desc = format!(
+                                            "IPC abuse: pid={} → target_pid={} (syscall={} chan_type={})",
+                                            evt.pid, evt.target_pid, evt.syscall_id, evt.channel_type
+                                        );
+
+                                        let mut meta = HashMap::new();
+                                        meta.insert("timestamp".into(), ts.to_string());
+                                        meta.insert("pid".into(), evt.pid.to_string());
+                                        meta.insert("target_pid".into(), evt.target_pid.to_string());
+                                        meta.insert("syscall_id".into(), evt.syscall_id.to_string());
+                                        meta.insert("channel_type".into(), evt.channel_type.to_string());
+                                        meta.insert("anomaly".into(), "ipc_abuse".into());
+                                        meta.insert("replay_tag".into(), "ipc_abuse".into());
+                                        meta.insert("gnn_escalate".into(), "true".into());
+                                        meta.insert("soc_note".into(), "eBPF IPC abuse anomaly".into());
+
+                                        let trust_event = TrustEvent {
+                                            timestamp: ts,
+                                            pid: evt.pid as i32,
+                                            ppid: evt.target_pid as i32,
+                                            uid: 0,
+                                            binary_path: "unknown".into(),
+                                            command_line: "unknown".into(),
+                                            cwd: "unknown".into(),
+                                            anomaly_type: "ipc_abuse".into(),
+                                            component: "ipc_abuse_monitor".into(),
+                                            metadata: meta.clone(),
+                                            risk_score: 22.0,
+                                            source_module: "ipc_abuse_monitor".into(),
+                                            decay_context: Some("channel_misuse".into()),
+                                            module: Some("ipc_abuse_monitor".into()),
+                                            signal: Some("ebpf_ipc_anomaly".into()),
+                                            signal_type: Some("ebpf".into()),
+                                            score: Some(22.0),
+                                            raw_score: Some(22.0),
+                                            tags: Some(vec!["ipc".into(), "anomaly".into(), "ebpf".into()]),
+                                            description: Some(desc.clone()),
+                                        };
+
+                                        submit_trust_event(trust_event);
+                                        push_to_gnn_vector_log(meta.clone());
+                                        write_telemetry_record(meta.clone());
+                                        crate::modules::replay_writer::store_replay_event(meta.clone());
+
+                                        let _ = push_memory_telemetry(
+                                            evt.pid as i32,
+                                            evt.target_pid as i32,
+                                            0,
+                                            "unknown".into(),
+                                            "unknown".into(),
+                                            "unknown".into(),
+                                            MemoryAnomalyType::IPCAbuse,
+                                            desc,
+                                        ).map_err(|e| eprintln!("⚠️ IPC telemetry failed: {:?}", e));
                                     }
-
-                                    let ptr = b.as_ptr() as *const IpcAbuseEvent;
-                                    let evt = unsafe { ptr.read_unaligned() };
-
-                                    IPC_ABUSE_DETECTED.store(true, Ordering::Relaxed);
-
-                                    let ts = now_ts();
-                                    let desc = format!(
-                                        "IPC abuse: pid={} → target_pid={} (syscall={} chan_type={})",
-                                        evt.pid, evt.target_pid, evt.syscall_id, evt.channel_type
-                                    );
-
-                                    let mut meta = HashMap::new();
-                                    meta.insert("timestamp".into(), ts.to_string());
-                                    meta.insert("pid".into(), evt.pid.to_string());
-                                    meta.insert("target_pid".into(), evt.target_pid.to_string());
-                                    meta.insert("syscall_id".into(), evt.syscall_id.to_string());
-                                    meta.insert("channel_type".into(), evt.channel_type.to_string());
-                                    meta.insert("anomaly".into(), "ipc_abuse".into());
-                                    meta.insert("replay_tag".into(), "ipc_abuse".into());
-                                    meta.insert("gnn_escalate".into(), "true".into());
-                                    meta.insert("soc_note".into(), "eBPF IPC abuse anomaly".into());
-
-                                    let trust_event = TrustEvent {
-                                        timestamp: ts,
-                                        pid: evt.pid as i32,
-                                        ppid: evt.target_pid as i32,
-                                        uid: 0,
-                                        binary_path: "unknown".into(),
-                                        command_line: "unknown".into(),
-                                        cwd: "unknown".into(),
-                                        anomaly_type: "ipc_abuse".into(),
-                                        component: "ipc_abuse_monitor".into(),
-                                        metadata: meta.clone(),
-                                        risk_score: 22.0,
-                                        source_module: "ipc_abuse_monitor".into(),
-                                        decay_context: Some("channel_misuse".into()),
-                                        module: Some("ipc_abuse_monitor".into()),
-                                        signal: Some("ebpf_ipc_anomaly".into()),
-                                        signal_type: Some("ebpf".into()),
-                                        score: Some(22.0),
-                                        raw_score: Some(22.0),
-                                        tags: Some(vec!["ipc".into(), "anomaly".into(), "ebpf".into()]),
-                                        description: Some(desc.clone()),
-                                    };
-
-                                    submit_trust_event(trust_event);
-                                    push_to_gnn_vector_log(meta.clone());
-                                    write_telemetry_record(meta.clone());
-                                    crate::modules::replay_writer::store_replay_event(meta.clone());
-
-                                    let _ = push_memory_telemetry(
-                                        evt.pid as i32,
-                                        evt.target_pid as i32,
-                                        0,
-                                        "unknown".into(),
-                                        "unknown".into(),
-                                        "unknown".into(),
-                                        MemoryAnomalyType::IPCAbuse,
-                                        desc,
-                                    ).map_err(|e| eprintln!("⚠️ IPC telemetry failed: {:?}", e));
+                                }
+                                Err(e) => {
+                                    eprintln!("Failed reading IPC event: {:?}", e);
+                                    thread::sleep(Duration::from_millis(100));
                                 }
                             }
-                            Err(e) => {
-                                eprintln!("Failed reading IPC event: {:?}", e);
-                                thread::sleep(Duration::from_millis(100));
-                            }
                         }
-                    }
-                });
+                    });
+                }
+                Err(e) => {
+                    eprintln!("❌ Could not open perf buffer on CPU {}: {:?}", cpu_id, e);
+                }
             }
         }
     });

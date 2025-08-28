@@ -1,0 +1,57 @@
+Name:	gdm-session-wor
+Umask:	0002
+State:	S (sleeping)
+Tgid:	1568
+Ngid:	0
+Pid:	1568
+PPid:	1059
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	1000	1000	1000	1000
+FDSize:	64
+Groups:	4 24 27 30 46 110 1000 
+NStgid:	1568
+NSpid:	1568
+NSpgid:	1059
+NSsid:	1059
+VmPeak:	  382968 kB
+VmSize:	  317432 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   10200 kB
+VmRSS:	    9648 kB
+RssAnon:	    1544 kB
+RssFile:	    8104 kB
+RssShmem:	       0 kB
+VmData:	   34744 kB
+VmStk:	     272 kB
+VmExe:	     200 kB
+VmLib:	   13392 kB
+VmPTE:	     112 kB
+VmSwap:	     140 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	3
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000001000
+SigCgt:	c000000100014200
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	127
+nonvoluntary_ctxt_switches:	1

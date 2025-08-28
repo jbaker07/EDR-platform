@@ -1,0 +1,32 @@
+kerneloops (1038, #threads: 1)
+-------------------------------------------------------------------
+se.exec_start                                :       2931523.955441
+se.vruntime                                  :             0.133007
+se.sum_exec_runtime                          :             5.068583
+se.nr_migrations                             :                   28
+nr_switches                                  :                   55
+nr_voluntary_switches                        :                   55
+nr_involuntary_switches                      :                    0
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                  105
+se.avg.runnable_sum                          :               106496
+se.avg.util_sum                              :               106496
+se.avg.load_avg                              :                    0
+se.avg.runnable_avg                          :                    0
+se.avg.util_avg                              :                    0
+se.avg.last_update_time                      :        2931523954688
+se.avg.util_est.ewma                         :                    8
+se.avg.util_est.enqueued                     :                    0
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

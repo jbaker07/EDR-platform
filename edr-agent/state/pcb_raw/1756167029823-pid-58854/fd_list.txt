@@ -1,0 +1,6 @@
+fd 0 -> pipe:[498652]
+fd 1 -> /dev/pts/0
+fd 2 -> /dev/pts/0
+fd 3 -> /home/jermaineb/EDR-platform/edr-agent/logs/run.log
+fd 36 -> /home/jermaineb/.config/VSCodium/logs/20250825T210623/ptyhost.log
+fd 103 -> /snap/codium/481/usr/share/codium/v8_context_snapshot.bin

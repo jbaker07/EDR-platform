@@ -1,0 +1,15 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[35695]
+fd 2 -> socket:[35695]
+fd 3 -> socket:[35734]
+fd 4 -> anon_inode:[eventfd]
+fd 5 -> anon_inode:[eventfd]
+fd 6 -> socket:[24516]
+fd 7 -> anon_inode:[eventfd]
+fd 8 -> anon_inode:[eventfd]
+fd 9 -> /memfd:wayland-cursor (deleted)
+fd 10 -> socket:[35789]
+fd 11 -> socket:[35790]
+fd 12 -> anon_inode:[eventfd]
+fd 13 -> socket:[35791]
+fd 14 -> /run/systemd/inhibit/13.ref

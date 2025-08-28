@@ -1,5 +1,5 @@
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{HashMap, HashSet, VecDeque},
     fs,
     io::Read,
     path::Path,
@@ -10,7 +10,8 @@ use std::{
     thread,
     time::{Duration, Instant},
 };
-use std::os::unix::fs::PermissionsExt;
+use std::os::unix::fs::{MetadataExt, PermissionsExt};
+
 use aya::{
     include_bytes_aligned,
     maps::perf::PerfEventArray,
@@ -40,6 +41,9 @@ static FILE_EBPF_ONCE: Once = Once::new();
 static FILE_EBPF_STARTED: AtomicBool = AtomicBool::new(false);
 lazy_static::lazy_static! {
     static ref FILE_EBPF_OUTBOX: Mutex<Vec<TelemetryOutput>> = Mutex::new(Vec::new());
+    // De-dupe and rate-limit state for file_hash_check
+    static ref FH_DEDUPE: Mutex<HashMap<String, Instant>> = Mutex::new(HashMap::new());
+    static ref FH_RATE: Mutex<VecDeque<Instant>> = Mutex::new(VecDeque::new());
 }
 
 #[repr(C)]
@@ -99,7 +103,6 @@ fn compute_sha256(path: &Path) -> Option<String> {
     Some(format!("{:x}", hasher.finalize()))
 }
 
-use std::os::unix::fs::MetadataExt;
 use mime_guess::MimeGuess;
 
 /* ------------- fingerprint fallbacks (safe defaults) --------------
@@ -177,6 +180,59 @@ fn is_known_good_fingerprint(meta: &HashMap<String, String>, fp: &Fingerprints) 
     is_known_good(meta, fp)
 }
 
+/* ---------------- gating helpers: de-dupe, rate, heuristics ---------------- */
+
+const FH_DEDUPE_TTL_SECS: u64 = 120;
+const FH_RATE_WINDOW_SECS: u64 = 60;
+const FH_RATE_LIMIT_PER_MIN: usize = 200;
+
+fn fh_should_emit_now(key: &str) -> bool {
+    let now = Instant::now();
+    // de-dupe window
+    {
+        let mut m = FH_DEDUPE.lock().unwrap();
+        if let Some(last) = m.get(key) {
+            if now.duration_since(*last) < Duration::from_secs(FH_DEDUPE_TTL_SECS) {
+                return false;
+            }
+        }
+        m.insert(key.to_string(), now);
+    }
+    // rate cap
+    {
+        let mut q = FH_RATE.lock().unwrap();
+        let cutoff = now - Duration::from_secs(FH_RATE_WINDOW_SECS);
+        while matches!(q.front(), Some(t) if *t < cutoff) {
+            q.pop_front();
+        }
+        if q.len() >= FH_RATE_LIMIT_PER_MIN {
+            return false;
+        }
+        q.push_back(now);
+    }
+    true
+}
+
+fn path_is_risky(p: &str) -> bool {
+    p.starts_with("/tmp/") || p.starts_with("/dev/shm/") || p.contains("(deleted)")
+}
+
+fn owned_by_root_and_exec(meta: &fs::Metadata) -> bool {
+    let exec_capable = meta.permissions().mode() & 0o111 != 0;
+    let uid = meta.uid();
+    exec_capable && uid == 0
+}
+
+fn should_stream(signal: &str, confidence: f32, gnn_escalate: bool) -> bool {
+    if signal.ends_with("_monitor_active") || signal.ends_with("_no_anomaly") {
+        return false;
+    }
+    if signal == "file_hash_check" && confidence < 0.5 && !gnn_escalate {
+        return false;
+    }
+    true
+}
+
 /* ---------------- periodic file-system hashing scan ---------------- */
 
 pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
@@ -185,6 +241,8 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
         let scan_dirs = vec!["/bin", "/usr/bin", "/usr/local/bin", "/opt", "/tmp", "/etc"];
         let threat_hashes = load_hash_list_from_file("/etc/edr/threat_hashes.json");
         let timestamp = now_ts();
+        // Load fingerprints once per scan iteration
+        let fingerprints = load_fingerprints();
 
         for dir in &scan_dirs {
             if let Ok(entries) = fs::read_dir(dir) {
@@ -193,7 +251,7 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                     if path.is_file() {
                         if let Some(hash) = compute_sha256(&path) {
                             let is_threat = threat_hashes.contains(&hash);
-                            let risk = if is_threat { 95.0 } else { 10.0 };
+                            let mut risk: f32 = if is_threat { 95.0 } else { 10.0 };
 
                             let canonical_path =
                                 fs::canonicalize(&path).unwrap_or_else(|_| path.clone());
@@ -224,15 +282,32 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                                 .insert("source_module".into(), "file_hash_watcher".into());
                             fingerprint_data.insert("timestamp".into(), timestamp.to_string());
 
-                            let fingerprints = load_fingerprints_from_disk(
-                                "src/modules/telemetry_fingerprint.json",
-                            );
-                            if is_known_good(&fingerprint_data, &fingerprints) {
+                            if is_known_good(&fingerprint_data, &fingerprints) && !is_threat {
                                 log(&format!(
                                     "[FileHashWatcher] Suppressed known-good file: {}",
                                     binary_path_str
                                 ));
                                 continue;
+                            }
+
+                            // De-dupe & rate-cap per (path|sha256)
+                            let key = format!("{}|{}", binary_path_str, hash);
+                            if !fh_should_emit_now(&key) {
+                                continue;
+                            }
+
+                            // Confidence/risk gating
+                            let mut confidence: f32 = if is_threat { 0.95 } else { 0.30 };
+                            let mut gnn_escalate = is_threat;
+                            if !is_threat {
+                                if path_is_risky(&binary_path_str) {
+                                    confidence = confidence.max(0.60);
+                                    risk = risk.max(40.0_f32);
+                                }
+                                if owned_by_root_and_exec(&metadata) {
+                                    confidence = confidence.max(0.70);
+                                    risk = risk.max(55.0_f32);
+                                }
                             }
 
                             // Default enrichment
@@ -273,27 +348,26 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                             data.insert("uid".into(), uid.to_string());
                             data.insert("binary_path".into(), binary_path_str.clone());
                             data.insert("sha256".into(), hash.clone());
-                            data.insert("risk_score".into(), risk.to_string());
+                            data.insert("risk_score".into(), format!("{:.0}", risk));
                             data.insert("event_type".into(), "file_hash".into());
                             data.insert("signal".into(), "file_hash_check".into());
                             data.insert("category".into(), "file".into());
                             data.insert("cwd".into(), cwd.clone());
                             data.insert("command_line".into(), cmdline.clone());
-                            data.insert(
-                                "confidence".into(),
-                                if is_threat { "0.95" } else { "0.3" }.into(),
-                            );
+                            data.insert("confidence".into(), format!("{:.2}", confidence));
                             data.insert("replay_tag".into(), "hash_match".into());
                             data.insert(
                                 "gnn_escalate".into(),
-                                if is_threat { "true" } else { "false" }.into(),
+                                if gnn_escalate { "true" } else { "false" }.into(),
                             );
 
                             // persist + gnn + replay
                             write_telemetry_record(data.clone());
                             store_replay_event(data.clone());
-                            push_to_gnn_vector_log(data.clone());
-                            push_metadata_to_gnn_vector_log(data.clone());
+                            if should_stream("file_hash_check", confidence, gnn_escalate) {
+                                push_to_gnn_vector_log(data.clone());
+                                push_metadata_to_gnn_vector_log(data.clone());
+                            }
 
                             if is_threat {
                                 FILE_HASH_FOUND.store(true, Ordering::SeqCst);
@@ -314,7 +388,7 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                                     module: Some("file_hash_watcher".into()),
                                     signal: Some("file_hash_check".into()),
                                     signal_type: Some("file_hash_match".into()),
-                                    score: Some(risk),   // keep your convention
+                                    score: Some(risk),
                                     raw_score: Some(risk),
                                     tags: Some(vec![
                                         format!("sha256:{}", hash),
@@ -350,13 +424,15 @@ pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
             }
         };
 
-        let mut bpf = match Bpf::load(&data) {
+        // Leak BPF so perf readers can run on 'static threads without lifetime issues
+        let mut tmp = match Bpf::load(&data) {
             Ok(b) => b,
             Err(e) => {
                 eprintln!("Failed to load eBPF: {:?}", e);
                 return;
             }
         };
+        let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
         let program = match bpf.program_mut("trace_file_access") {
             Some(p) => p,
@@ -379,10 +455,14 @@ pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
             return;
         }
 
-        let mut perf = match PerfEventArray::try_from(bpf.map_mut("EVENTS").unwrap()) {
-            Ok(m) => m,
-            Err(e) => {
-                eprintln!("Failed to access EVENTS map: {:?}", e);
+        // Open the PerfEventArray without overlapping borrows of `bpf`
+        let mut perf = match bpf
+            .map_mut("EVENTS")
+            .and_then(|m| PerfEventArray::try_from(m).ok())
+        {
+            Some(arr) => arr,
+            None => {
+                eprintln!("Failed to access EVENTS map (PerfEventArray)");
                 return;
             }
         };

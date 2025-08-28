@@ -1,0 +1,34 @@
+fd 0 -> /dev/null
+fd 1 -> /dev/null
+fd 2 -> /dev/null
+fd 3 -> /snap/codium/481/usr/share/codium/icudtl.dat
+fd 4 -> anon_inode:[eventfd]
+fd 5 -> socket:[29434]
+fd 6 -> pipe:[36275]
+fd 7 -> pipe:[36275]
+fd 8 -> /sys/devices/virtual/tty/tty0/active
+fd 9 -> socket:[36276]
+fd 10 -> socket:[36277]
+fd 11 -> socket:[36278]
+fd 12 -> socket:[36279]
+fd 13 -> anon_inode:[eventpoll]
+fd 14 -> /dev/dri/renderD128
+fd 15 -> anon_inode:[eventfd]
+fd 16 -> anon_inode:[eventpoll]
+fd 17 -> anon_inode:[eventfd]
+fd 18 -> socket:[29436]
+fd 19 -> /dev/shm/.org.chromium.Chromium.sFYoZw (deleted)
+fd 20 -> anon_inode:[eventfd]
+fd 21 -> pipe:[23188]
+fd 22 -> pipe:[23188]
+fd 23 -> socket:[27648]
+fd 24 -> /dev/shm/.org.chromium.Chromium.oqXJbc (deleted)
+fd 25 -> /dev/shm/.org.chromium.Chromium.ThwESe (deleted)
+fd 26 -> /dev/shm/.org.chromium.Chromium.oMBoFf (deleted)
+fd 27 -> /dev/shm/.org.chromium.Chromium.ElgqWe (deleted)
+fd 28 -> /dev/shm/.org.chromium.Chromium.NIg2Ye (deleted)
+fd 29 -> /dev/shm/.org.chromium.Chromium.Q0wGXe (deleted)
+fd 30 -> /memfd:swiftshader_jit (deleted)
+fd 31 -> /dev/shm/.org.chromium.Chromium.1Wz6Hf (deleted)
+fd 32 -> /dev/shm/.org.chromium.Chromium.dMB2le (deleted)
+fd 33 -> /dev/shm/.org.chromium.Chromium.3ZkbWc (deleted)

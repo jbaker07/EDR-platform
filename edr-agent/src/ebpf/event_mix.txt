@@ -1,0 +1,10 @@
+   3830 file_hash_check
+      3 mfa_bypass
+      2 process_injection_fallback
+      1 simulated_ipc_abuse
+      1 session_seen
+      1 no_logon_activity_detected
+      1 no_cron_anomaly_detected
+      1 memory_health
+      1 injection_scan_fallback
+      1 geo_ip_no_anomaly
