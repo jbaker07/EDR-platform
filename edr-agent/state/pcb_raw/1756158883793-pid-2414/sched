@@ -1,0 +1,32 @@
+codium (2414, #threads: 16)
+-------------------------------------------------------------------
+se.exec_start                                :       2954186.324938
+se.vruntime                                  :        286071.437535
+se.sum_exec_runtime                          :         15449.255015
+se.nr_migrations                             :                  549
+nr_switches                                  :                14673
+nr_voluntary_switches                        :                14032
+nr_involuntary_switches                      :                  641
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                 9930
+se.avg.runnable_sum                          :             10171919
+se.avg.util_sum                              :             10171919
+se.avg.load_avg                              :                  214
+se.avg.runnable_avg                          :                  214
+se.avg.util_avg                              :                  214
+se.avg.last_update_time                      :        2954186323968
+se.avg.util_est.ewma                         :                  227
+se.avg.util_est.enqueued                     :                  173
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

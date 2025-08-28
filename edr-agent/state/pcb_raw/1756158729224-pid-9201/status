@@ -1,0 +1,57 @@
+Name:	forensic_hooks
+Umask:	0022
+State:	R (running)
+Tgid:	9201
+Ngid:	0
+Pid:	9201
+PPid:	9200
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	1024
+Groups:	0 
+NStgid:	9201
+NSpid:	9201
+NSpgid:	9201
+NSsid:	9200
+VmPeak:	 4018760 kB
+VmSize:	 4018400 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	  124892 kB
+VmRSS:	  117012 kB
+RssAnon:	  110620 kB
+RssFile:	    6392 kB
+RssShmem:	       0 kB
+VmData:	  339428 kB
+VmStk:	     132 kB
+VmExe:	    7024 kB
+VmLib:	    2688 kB
+VmPTE:	     900 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	42
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000001000
+SigCgt:	0000000100000440
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	796
+nonvoluntary_ctxt_switches:	180

@@ -10,7 +10,7 @@ use std::{
 };
 
 use aya::{
-    Bpf, include_bytes_aligned,
+    Ebpf, include_bytes_aligned,
     maps::perf::AsyncPerfEventArray,
     programs::TracePoint,
     util::online_cpus,
@@ -20,7 +20,7 @@ use bytes::BytesMut;
 use lazy_static::lazy_static;
 use tokio::task;
 
-use anyhow::{Result, anyhow};
+use anyhow::{Result, anyhow, Context};
 
 use crate::modules::replay_writer::store_replay_event;
 use crate::{
@@ -246,8 +246,10 @@ pub fn start_mfa_bypass_monitor() {
 
 #[cfg(target_os = "linux")]
 pub async fn start_ebpf_mfa_trace() -> Result<()> {
-    let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/mfa_bypass_monitor.bpf.o"))
+    // Load and leak the BPF object so spawned tasks can hold references safely
+    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mfa_bypass_monitor.bpf.o"))
         .map_err(|e| anyhow!("load mfa_bypass_monitor.bpf.o: {e:?}"))?;
+    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
     let program: &mut TracePoint = bpf
         .program_mut("trace_mfa_anomaly")
@@ -256,10 +258,16 @@ pub async fn start_ebpf_mfa_trace() -> Result<()> {
     program.load()?;
     program.attach("syscalls", "sys_enter_execve")?;
 
-    let mut perf_array = AsyncPerfEventArray::try_from(bpf.map_mut("events")?)
-        .map_err(|e| anyhow!("AsyncPerfEventArray init failed: {e:?}"))?;
+    // Open perf array used by the eBPF program
+    let map = bpf
+        .map_mut("events")
+        .ok_or_else(|| anyhow!("map 'events' not found"))?;
+    let mut perf_array = AsyncPerfEventArray::try_from(map)
+        .context("AsyncPerfEventArray init failed for 'events'")?;
 
-    for cpu_id in online_cpus()? {
+    let cpus = online_cpus()
+        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    for cpu_id in cpus {
         let mut buf = perf_array.open(cpu_id, None)?;
         task::spawn(async move {
             let mut buffers: Vec<BytesMut> = vec![BytesMut::with_capacity(1024); 16];
@@ -416,5 +424,4 @@ pub fn scan_mfa_bypass_activity() -> Vec<TelemetryOutput> {
         data,
     }]
 }
-
 

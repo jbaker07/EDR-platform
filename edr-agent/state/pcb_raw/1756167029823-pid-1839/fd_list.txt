@@ -1,0 +1,14 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[28483]
+fd 2 -> socket:[28483]
+fd 3 -> socket:[28487]
+fd 4 -> anon_inode:[eventfd]
+fd 5 -> anon_inode:[eventfd]
+fd 6 -> anon_inode:[eventfd]
+fd 7 -> socket:[26009]
+fd 8 -> anon_inode:[eventfd]
+fd 9 -> /memfd:wayland-cursor (deleted)
+fd 10 -> socket:[28492]
+fd 11 -> socket:[26011]
+fd 12 -> anon_inode:[eventfd]
+fd 13 -> socket:[30211]

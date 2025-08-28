@@ -1,0 +1,32 @@
+forensic_hooks (11085, #threads: 42)
+-------------------------------------------------------------------
+se.exec_start                                :       3917822.724012
+se.vruntime                                  :        131636.073245
+se.sum_exec_runtime                          :           785.502904
+se.nr_migrations                             :                  141
+nr_switches                                  :                  971
+nr_voluntary_switches                        :                  740
+nr_involuntary_switches                      :                  231
+se.load.weight                               :              1048576
+se.avg.load_sum                              :                46361
+se.avg.runnable_sum                          :             47480762
+se.avg.util_sum                              :             47243420
+se.avg.load_avg                              :                 1006
+se.avg.runnable_avg                          :                 1006
+se.avg.util_avg                              :                 1001
+se.avg.last_update_time                      :        3917822597120
+se.avg.util_est.ewma                         :                 1008
+se.avg.util_est.enqueued                     :                 1001
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    0
+prio                                         :                  120
+clock-delta                                  :                    0
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

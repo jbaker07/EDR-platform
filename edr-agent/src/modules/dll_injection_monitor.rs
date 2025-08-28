@@ -90,17 +90,16 @@ fn get_uid_for_pid(pid: u32) -> Option<u32> {
 }
 
 /// Attach programs by variant without relying on `Program::section()`
-/// (which isn't available in your Aya version) or generic `Program::load()`.
+/// or a generic `Program::load()`.
 fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
     for (prog_name, prog) in bpf.programs_mut() {
         let name = prog_name.to_string();
 
         match prog {
-            Program::TracePoint(p) => {
-                let tp: &mut TracePoint = p.try_into()?;
+            Program::TracePoint(tp) => {
+                // `tp` is already &mut TracePoint here – no try_into needed.
                 tp.load()?;
                 // Try common syscalls associated with injection behavior.
-                // We attempt several; first success wins.
                 let candidates = [
                     ("syscalls", "sys_enter_ptrace"),
                     ("syscalls", "sys_enter_mprotect"),
@@ -120,25 +119,22 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
                     }
                 }
                 if !attached {
-                    // As a last resort, try ptrace enter again to bubble a hard error if it fails.
+                    // As a last resort, try ptrace
                     tp.attach("syscalls", "sys_enter_ptrace")?;
                     log("✔️ attached tracepoint syscalls/sys_enter_ptrace (fallback)");
                 }
             }
 
-            Program::RawTracePoint(p) => {
-                let rtp: &mut RawTracePoint = p.try_into()?;
+            Program::RawTracePoint(rtp) => {
                 rtp.load()?;
-                // If we don't know the section, attach to a broad syscall entry.
-                // Using name as event is unreliable; default to "sys_enter".
+                // Broad entry point
                 match rtp.attach("sys_enter") {
                     Ok(_link) => log("✔️ attached raw_tracepoint sys_enter"),
                     Err(e) => log(&format!("ℹ️ raw_tracepoint attach(sys_enter) failed: {:?}", e)),
                 }
             }
 
-            Program::KProbe(p) => {
-                let kp: &mut KProbe = p.try_into()?;
+            Program::KProbe(kp) => {
                 kp.load()?;
                 // Try several symbols that exist on different kernels
                 let candidates = [
@@ -147,7 +143,7 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
                     "__x64_sys_mprotect",
                     "__x64_sys_ptrace",
                     "ptrace_check_attach",
-                    // Fallback: attach to the program name as a symbol
+                    // Fallback: attempt to attach to the program name as a symbol
                     &name,
                 ];
                 let mut attached = false;
@@ -158,9 +154,7 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
                             attached = true;
                             break;
                         }
-                        Err(e) => {
-                            log(&format!("ℹ️ kprobe attach({}) failed: {:?}", sym, e));
-                        }
+                        Err(e) => log(&format!("ℹ️ kprobe attach({}) failed: {:?}", sym, e)),
                     }
                 }
                 if !attached {
@@ -168,7 +162,7 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
                 }
             }
 
-            // Skip unsupported variants cleanly (we can't call generic `load()` here).
+            // Skip other variants cleanly.
             _other => {
                 log(&format!(
                     "ℹ️ skipping unsupported program variant for '{}'",
@@ -197,15 +191,17 @@ pub fn start_ebpf_dll_injection_watch() {
     thread::Builder::new()
         .name("ebpf_dll_injection_monitor".into())
         .spawn(move || {
-            let mut bpf = match Bpf::load(DLL_INJECTION_BPF) {
+            // Leak BPF so perf readers can run on 'static threads without lifetime issues
+            let mut tmp = match Bpf::load(DLL_INJECTION_BPF) {
                 Ok(bpf) => bpf,
                 Err(e) => {
                     eprintln!("❌ Failed to load DLL injection BPF: {:?}", e);
                     return;
                 }
             };
+            let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
-            if let Err(e) = attach_all_programs(&mut bpf) {
+            if let Err(e) = attach_all_programs(bpf) {
                 eprintln!("❌ Failed to attach BPF programs: {:?}", e);
                 return;
             }
@@ -214,12 +210,14 @@ pub fn start_ebpf_dll_injection_watch() {
             DLL_INJECTION_STARTED.store(true, Ordering::Release);
             println!("💉 [eBPF] DLL injection monitor attached successfully");
 
-            let mut perf_array = match PerfEventArray::try_from(
-                bpf.map_mut("EVENTS").expect("❌ EVENTS map not found"),
-            ) {
-                Ok(p) => p,
-                Err(e) => {
-                    eprintln!("❌ PerfEventArray creation failed: {:?}", e);
+            // Open perf array with short, non-overlapping borrows
+            let mut perf_array: PerfEventArray<_> = match bpf
+                .map_mut("EVENTS")
+                .and_then(|m| PerfEventArray::try_from(m).ok())
+            {
+                Some(p) => p,
+                None => {
+                    eprintln!("❌ EVENTS map not found or PerfEventArray::try_from failed");
                     return;
                 }
             };

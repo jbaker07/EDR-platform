@@ -1,0 +1,32 @@
+tracker-miner-f (1981, #threads: 6)
+-------------------------------------------------------------------
+se.exec_start                                :       3992658.364393
+se.vruntime                                  :        135030.608365
+se.sum_exec_runtime                          :           192.185551
+se.nr_migrations                             :                   99
+nr_switches                                  :                  684
+nr_voluntary_switches                        :                  516
+nr_involuntary_switches                      :                  168
+se.load.weight                               :                 3072
+se.avg.load_sum                              :                   72
+se.avg.runnable_sum                          :                72704
+se.avg.util_sum                              :                72704
+se.avg.load_avg                              :                    0
+se.avg.runnable_avg                          :                    0
+se.avg.util_avg                              :                    0
+se.avg.last_update_time                      :        3992658363392
+se.avg.util_est.ewma                         :                    9
+se.avg.util_est.enqueued                     :                    0
+uclamp.min                                   :                    0
+uclamp.max                                   :                 1024
+effective uclamp.min                         :                    0
+effective uclamp.max                         :                 1024
+policy                                       :                    5
+prio                                         :                  139
+clock-delta                                  :                   42
+mm->numa_scan_seq                            :                    0
+numa_pages_migrated                          :                    0
+numa_preferred_nid                           :                   -1
+total_numa_faults                            :                    0
+current_node=0, numa_group_id=0
+numa_faults node=0 task_private=0 task_shared=0 group_private=0 group_shared=0

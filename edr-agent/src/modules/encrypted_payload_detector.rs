@@ -140,12 +140,8 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
                 attached_any = true;
             }
             Program::KProbe(kp) => {
-                // Many objects encode the attach point via section (kprobe/<symbol>).
-                // Aya represents both entry/return as KProbe. If you need a kretprobe,
-                // encode it in the BPF section name. Here we try to derive a symbol:
                 kp.load()?;
                 if let Some(sym) = sec.split('/').nth(1) {
-                    // best-effort attach; if it fails we still consider load success
                     if let Err(e) = kp.attach(sym, 0) {
                         log(&format!("ℹ️ KProbe loaded but attach({sym}) failed: {:?}", e));
                     } else {
@@ -156,7 +152,6 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
                     log("ℹ️ KProbe loaded (no symbol in section; skipping attach)");
                 }
             }
-            // ⬇️ FIX: do not call `other.load()` here; `Program` enum has no unified load().
             _other => {
                 log(&format!(
                     "ℹ️ unsupported/unknown program variant; skipping explicit attach [{}]",
@@ -188,8 +183,8 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
 pub fn start_encrypted_payload_monitor() {
     ENCRYPTED_MONITOR_ONCE.call_once(|| {
         thread::spawn(move || {
-            // Prefer same layout as other modules: "../ebpf/..."
-            let mut bpf = match Bpf::load(include_bytes_aligned!(
+            // Load & leak the BPF so any borrowed handles are 'static-safe in reader threads
+            let mut tmp = match Bpf::load(include_bytes_aligned!(
                 "../ebpf/encrypted_payload_monitor.bpf.o"
             )) {
                 Ok(b) => b,
@@ -206,8 +201,9 @@ pub fn start_encrypted_payload_monitor() {
                     }
                 }
             };
+            let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
-            if let Err(e) = attach_programs_or_fallback(&mut bpf) {
+            if let Err(e) = attach_programs_or_fallback(bpf) {
                 eprintln!("❌ Failed to attach encrypted payload programs: {:?}", e);
                 return;
             }
@@ -216,44 +212,44 @@ pub fn start_encrypted_payload_monitor() {
             ENCRYPTED_MONITOR_STARTED.store(true, Ordering::Release);
             println!("📦 [eBPF] Encrypted Payload Monitor attached.");
 
-            // Map name tolerance: try "events" then "EVENTS"
-            let mut perf_array = if let Ok(m) = bpf.map_mut("events") {
-                match PerfEventArray::try_from(m) {
-                    Ok(p) => p,
-                    Err(e) => {
-                        eprintln!("❌ PerfEventArray creation failed for 'events': {:?}", e);
-                        if let Ok(m2) = bpf.map_mut("EVENTS") {
-                            match PerfEventArray::try_from(m2) {
-                                Ok(p2) => p2,
-                                Err(e2) => {
-                                    eprintln!(
-                                        "❌ PerfEventArray creation failed for 'EVENTS' as well: {:?}",
-                                        e2
-                                    );
-                                    return;
-                                }
-                            }
-                        } else {
-                            eprintln!("❌ Map 'EVENTS' not found either.");
-                            return;
-                        }
+            // ===================== FIX FOR E0499 START =====================
+            // Choose the perf map name without any mutable borrow, then borrow mutably once.
+            let map_name: String = {
+                let mut found: Option<String> = None;
+                for (n, _) in bpf.maps() {
+                    if n == "events" {
+                        found = Some("events".to_string());
+                        break;
+                    }
+                    if n == "EVENTS" {
+                        found = Some("EVENTS".to_string());
+                        // don't break immediately; prefer "events" if it appears later,
+                        // but in practice this is fine either way.
                     }
                 }
-            } else if let Ok(m2) = bpf.map_mut("EVENTS") {
-                match PerfEventArray::try_from(m2) {
-                    Ok(p2) => p2,
-                    Err(e2) => {
-                        eprintln!(
-                            "❌ PerfEventArray creation failed for 'EVENTS' (no 'events' map): {:?}",
-                            e2
-                        );
+                match found {
+                    Some(s) => s,
+                    None => {
+                        eprintln!("❌ PerfEventArray not found (tried 'events' and 'EVENTS')");
                         return;
                     }
                 }
-            } else {
-                eprintln!("❌ PerfEventArray not found (tried 'events' and 'EVENTS')");
-                return;
             };
+
+            let mut perf_array: PerfEventArray<_> = match bpf.map_mut(&map_name) {
+                Some(m) => match PerfEventArray::try_from(m) {
+                    Ok(arr) => arr,
+                    Err(e) => {
+                        eprintln!("❌ PerfEventArray creation failed for '{}': {:?}", map_name, e);
+                        return;
+                    }
+                },
+                None => {
+                    eprintln!("❌ Map '{}' disappeared after selection", map_name);
+                    return;
+                }
+            };
+            // ====================== FIX FOR E0499 END ======================
 
             for cpu_id in online_cpus().unwrap_or_default() {
                 match perf_array.open(cpu_id, None) {

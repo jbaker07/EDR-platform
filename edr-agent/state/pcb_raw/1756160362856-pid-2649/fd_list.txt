@@ -1,0 +1,16 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[24576]
+fd 2 -> socket:[43009]
+fd 3 -> socket:[43010]
+fd 4 -> anon_inode:[eventfd]
+fd 5 -> anon_inode:[eventfd]
+fd 6 -> anon_inode:[eventfd]
+fd 7 -> socket:[40077]
+fd 8 -> anon_inode:[eventfd]
+fd 9 -> socket:[43011]
+fd 10 -> /memfd:wayland-cursor (deleted)
+fd 11 -> socket:[43012]
+fd 12 -> anon_inode:[eventfd]
+fd 13 -> /run/user/1000/update-notifier.pid
+fd 14 -> anon_inode:inotify
+fd 15 -> socket:[45452]

@@ -1,19 +1,15 @@
 use aya::maps::perf::AsyncPerfEventArray;
 use aya::programs::TracePoint;
-use aya::{include_bytes_aligned, Bpf};
+use aya::{include_bytes_aligned, Ebpf};
 use aya::util::online_cpus;
 use bytes::BytesMut;
 use lazy_static::lazy_static;
 use std::collections::HashMap;
 use std::fs;
-use std::sync::{
-    atomic::{AtomicBool, Ordering},
-    Arc,
-};
-use std::{thread, time::Duration};
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::time::Duration;
 use tokio::{task, time};
-use tokio::sync::Mutex;
-use anyhow::{Result, anyhow};
+use anyhow::{Result, anyhow, Context};
 
 use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
 use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
@@ -39,58 +35,66 @@ pub struct InjectionEvent {
 
 #[cfg(target_os = "linux")]
 pub async fn start_process_injection_monitor() -> Result<()> {
-    let mut bpf = Bpf::load(include_bytes_aligned!(
+    // Load and leak BPF so perf buffers (spawned tasks) can outlive this function.
+    let tmp = Ebpf::load(include_bytes_aligned!(
         "../ebpf/process_injection.bpf.o"
     ))?;
+    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
+    // Attach tracepoint program
     let program: &mut TracePoint = bpf
         .program_mut("trace_inject_evt")
-        .ok_or(anyhow!("Missing tracepoint program: trace_inject_evt"))?
+        .ok_or_else(|| anyhow!("Missing tracepoint program: trace_inject_evt"))?
         .try_into()?;
 
     program.load()?;
     program.attach("syscalls", "sys_enter_ptrace")?;
 
-    let perf = Arc::new(Mutex::new(AsyncPerfEventArray::try_from(
-        bpf.map_mut("EVENTS")?,
-    )?));
+    // Open perf array map
+    let mut events = AsyncPerfEventArray::try_from(
+        bpf.map_mut("EVENTS")
+            .ok_or_else(|| anyhow!("EVENTS map not found"))?,
+    )?;
 
-    for cpu_id in online_cpus()? {
-        let perf_clone = Arc::clone(&perf);
+    // Iterate online CPUs and spawn readers
+    let cpus = online_cpus()
+        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    for cpu_id in cpus {
+        let mut buf = events
+            .open(cpu_id, None)
+            .with_context(|| format!("open perf buffer on CPU {}", cpu_id))?;
+
         task::spawn(async move {
             let mut buffers = vec![BytesMut::with_capacity(4096); 16];
+            println!("[🧠 InjectionMonitor] Listening on CPU {}", cpu_id);
 
-            match perf_clone.lock().await.open(cpu_id, None) {
-                Ok(mut buf) => {
-                    println!("[🧠 InjectionMonitor] Listening on CPU {}", cpu_id);
-                    loop {
-                        match buf.read_events(&mut buffers).await {
-                            Ok(events) => {
-                                for b in &mut buffers[..events.read] {
-                                    if !b.is_empty() {
-                                        if let Some(evt) = parse_injection_event(&b[..]) {
-                                            handle_injection_event(evt).await;
-                                        }
+            loop {
+                match buf.read_events(&mut buffers).await {
+                    Ok(ev) => {
+                        for b in &mut buffers[..ev.read] {
+                            if !b.is_empty() {
+                                if let Some(evt) = parse_injection_event(&b[..]) {
+                                    if let Err(e) = handle_injection_event(evt).await {
+                                        eprintln!("[❌ InjectionMonitor] handler error: {e:?}");
                                     }
-                                    // Important: clear buffer between reads
-                                    b.clear();
                                 }
                             }
-                            Err(e) => {
-                                eprintln!(
-                                    "[❌ InjectionMonitor] Error reading CPU {}: {:?}",
-                                    cpu_id, e
-                                );
-                                time::sleep(Duration::from_secs(2)).await;
-                            }
+                            b.clear();
+                        }
+                        if ev.lost > 0 {
+                            eprintln!(
+                                "[⚠️ InjectionMonitor] Lost {} events on CPU {}",
+                                ev.lost, cpu_id
+                            );
                         }
                     }
-                }
-                Err(e) => {
-                    eprintln!(
-                        "[❌ InjectionMonitor] Failed to open perf buffer on CPU {}: {:?}",
-                        cpu_id, e
-                    );
+                    Err(e) => {
+                        eprintln!(
+                            "[❌ InjectionMonitor] Error reading CPU {}: {:?}",
+                            cpu_id, e
+                        );
+                        time::sleep(Duration::from_secs(2)).await;
+                    }
                 }
             }
         });
@@ -99,7 +103,7 @@ pub async fn start_process_injection_monitor() -> Result<()> {
     Ok(())
 }
 
-pub async fn handle_injection_event(evt: InjectionEvent) {
+pub async fn handle_injection_event(evt: InjectionEvent) -> Result<()> {
     INJECTION_FOUND.store(true, Ordering::SeqCst);
 
     let ts = now_ts();
@@ -122,7 +126,6 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
 
     if let Some(proc) = sys.process(Pid::from(evt.pid as usize)) {
         ppid = proc.parent().map(|p| p.as_u32() as i32).unwrap_or(0);
-        // sysinfo's user_id returns Option<UserId/Uid>; convert robustly
         uid = proc
             .user_id()
             .map(|u| u.to_string().parse::<u32>().unwrap_or(0))
@@ -192,7 +195,7 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
     push_to_gnn_vector_log(gnn_data.clone());
     store_replay_event(gnn_data);
 
-    // Memory anomaly (closest existing enum) — borrow Strings as &str
+    // Memory anomaly (closest existing enum)
     let _ = push_memory_telemetry(
         evt.pid,
         ppid,
@@ -209,6 +212,8 @@ pub async fn handle_injection_event(evt: InjectionEvent) {
         "[⚠️ InjectionMonitor] Process injection attempt detected on PID {} → Risk {:.1}",
         evt.pid, risk_score
     );
+
+    Ok(())
 }
 
 pub fn scan_injection_fallback() -> Vec<TelemetryOutput> {

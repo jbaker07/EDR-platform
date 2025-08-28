@@ -1,10 +1,11 @@
 use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
 use std::fs;
-use std::io::{BufRead, BufReader, Read};
+use std::io::{BufRead, BufReader};
 use std::process::Command;
-use std::sync::{OnceLock, atomic::{AtomicBool, Ordering}};
+use std::sync::{OnceLock, atomic::AtomicBool};
 use chrono::TimeZone;
+
 use crate::telemetry_types::TelemetryOutput;
 use crate::utils::time::now_ts;
 use crate::telemetry_writer::write_telemetry_record;
@@ -136,7 +137,6 @@ fn parse_who_login_ts(tokens: &[&str]) -> Option<u64> {
     // 3) user tty1  2025-08-19 12:34
     // We’ll scan tokens for a date + time pair.
 
-    // Build candidates from index 2 onward
     let year = Local::now().year();
 
     // Helper: parse YYYY-MM-DD HH:MM
@@ -183,10 +183,6 @@ fn parse_who_login_ts(tokens: &[&str]) -> Option<u64> {
 }
 
 pub fn get_logged_in_users() -> Vec<UserSession> {
-    use chrono::{Datelike, Local};
-    use std::collections::hash_map::DefaultHasher;
-    use std::hash::{Hash, Hasher};
-
     SCAN_USER_TRACKER.get_or_init(|| AtomicBool::new(true));
     let mut sessions = Vec::new();
 
@@ -216,6 +212,8 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
                 let login_ts = parse_who_login_ts(&parts).unwrap_or_else(now_ts);
 
                 // Session ID (stable-ish)
+                use std::collections::hash_map::DefaultHasher;
+                use std::hash::{Hash, Hasher};
                 let session_id = {
                     let mut hasher = DefaultHasher::new();
                     format!("{}-{}", username, terminal).hash(&mut hasher);

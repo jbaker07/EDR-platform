@@ -1,0 +1,7 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[28306]
+fd 2 -> socket:[28306]
+fd 3 -> anon_inode:[eventfd]
+fd 4 -> anon_inode:[eventfd]
+fd 6 -> pipe:[28309]
+fd 7 -> socket:[28317]

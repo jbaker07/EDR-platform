@@ -1,0 +1,21 @@
+1800000000-ffffd43e0000 ---p 00000000 00:00 0                            [rollup]
+Rss:                8820 kB
+Pss:                2021 kB
+Pss_Anon:           1442 kB
+Pss_File:            579 kB
+Pss_Shmem:             0 kB
+Shared_Clean:       5940 kB
+Shared_Dirty:       2852 kB
+Private_Clean:        12 kB
+Private_Dirty:        16 kB
+Referenced:         8804 kB
+Anonymous:          2868 kB
+LazyFree:              0 kB
+AnonHugePages:         0 kB
+ShmemPmdMapped:        0 kB
+FilePmdMapped:         0 kB
+Shared_Hugetlb:        0 kB
+Private_Hugetlb:       0 kB
+Swap:               6592 kB
+SwapPss:            3628 kB
+Locked:                0 kB

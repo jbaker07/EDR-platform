@@ -1,3 +1,4 @@
+// src/modules/container_monitor.rs
 use std::{
     collections::HashMap,
     fs,
@@ -16,14 +17,15 @@ use aya::{
     maps::perf::AsyncPerfEventArray,
     programs::{KProbe, Program, RawTracePoint, TracePoint}, // No KRetProbe (use KProbe for both)
     util::online_cpus,
-    Bpf,
+    Ebpf,
 };
 use bytes::BytesMut;
 use tokio::{runtime::Runtime, task};
+use anyhow::{anyhow, Context};
 
 use crate::{
     gnn_hook::push_to_gnn_vector_log,
-    logger::{log_scoped},
+    logger::log_scoped,
     modules::replay_writer::store_replay_event,
     telemetry_types::{ContainerExecEvent, TelemetryOutput},
     telemetry_writer::write_telemetry_record,
@@ -54,7 +56,7 @@ fn now_ts() -> u64 {
 /// Attach all programs in the object based on their section names.
 /// Covers `tracepoint/<cat>/<name>`, `raw_tracepoint/<name>`,
 /// and kprobes / kretprobes (both via KProbe in Aya).
-fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
+fn attach_all_programs(bpf: &mut Ebpf) -> anyhow::Result<()> {
     for (sec, prog) in bpf.programs_mut() {
         // Derive a reasonable program symbol/name from section as a fallback
         // e.g., "tracepoint/syscalls/sys_enter_execve" -> "sys_enter_execve"
@@ -121,17 +123,25 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
 
 pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
     // Path is relative to this file: src/modules/ -> ../ebpf/...
-    let mut bpf = Bpf::load(include_bytes_aligned!(
+    let mut tmp = Ebpf::load(include_bytes_aligned!(
         "../ebpf/container_exec_monitor.bpf.o"
     ))?;
+    // Leak to satisfy 'static in spawned tasks (perf readers borrow from maps/bpf)
+    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
     // Attach all programs present in the object
-    attach_all_programs(&mut bpf)?;
+    attach_all_programs(bpf)?;
 
     // Open perf array used by the eBPF program
-    let mut perf_array = AsyncPerfEventArray::try_from(bpf.map_mut("CONTAINER_EXEC_EVENTS")?)?;
+    let map = bpf
+        .map_mut("CONTAINER_EXEC_EVENTS")
+        .ok_or_else(|| anyhow!("map 'CONTAINER_EXEC_EVENTS' not found"))?;
+    let mut perf_array = AsyncPerfEventArray::try_from(map)
+        .context("open perf map 'CONTAINER_EXEC_EVENTS'")?;
 
-    for cpu_id in online_cpus()? {
+    let cpus = online_cpus()
+        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    for cpu_id in cpus {
         let mut buf = perf_array.open(cpu_id, None)?;
 
         task::spawn(async move {

@@ -1,0 +1,3 @@
+3 |     maps::perf::PerfEventArray,
+312 | use aya::{Bpf, util::online_cpus, maps::perf::PerfEventArray, programs::TracePo...
+[08:21:20][agent] ❌ No tracepoints attached (no matching program names found)

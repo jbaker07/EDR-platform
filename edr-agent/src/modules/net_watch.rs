@@ -322,7 +322,10 @@ pub fn start_ebpf_net_watch() -> Vec<TelemetryOutput> {
                              attach_point: (&str, &str),
                              parse_fn: fn(&[u8]) -> Option<TelemetryOutput>| {
         if let Ok(data) = fs::read(path) {
-            if let Ok(mut bpf) = Bpf::load(&data) {
+            if let Ok(mut tmp) = Bpf::load(&data) {
+                // Leak BPF so programs stay attached while background threads run
+                let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+
                 if let Some(prog) = bpf.program_mut(prog_name) {
                     if let Ok(tp) = <&mut TracePoint>::try_from(prog) {
                         if tp.load().is_ok() {
@@ -331,7 +334,7 @@ pub fn start_ebpf_net_watch() -> Vec<TelemetryOutput> {
                     }
                 }
 
-                if let Ok(map) = bpf.map_mut("EVENTS") {
+                if let Some(map) = bpf.map_mut("EVENTS") {
                     if let Ok(mut perf_array) = PerfEventArray::try_from(map) {
                         for cpu_id in online_cpus().unwrap_or_default() {
                             if let Ok(mut buf) = perf_array.open(cpu_id, None) {

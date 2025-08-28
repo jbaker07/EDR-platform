@@ -1,0 +1,57 @@
+Name:	systemd-logind
+Umask:	0022
+State:	S (sleeping)
+Tgid:	938
+Ngid:	0
+Pid:	938
+PPid:	1
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	128
+Groups:	 
+NStgid:	938
+NSpid:	938
+NSpgid:	938
+NSsid:	938
+VmPeak:	   16664 kB
+VmSize:	   15620 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	    8192 kB
+VmRSS:	    6308 kB
+RssAnon:	    1120 kB
+RssFile:	    5188 kB
+RssShmem:	       0 kB
+VmData:	     660 kB
+VmStk:	     132 kB
+VmExe:	     232 kB
+VmLib:	   12592 kB
+VmPTE:	      72 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	1
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000200014003
+SigIgn:	0000000400001000
+SigCgt:	0000000000000000
+CapInh:	0000000000000000
+CapPrm:	000000024420020f
+CapEff:	000000024420020f
+CapBnd:	000000024420020f
+CapAmb:	0000000000000000
+NoNewPrivs:	1
+Seccomp:	2
+Seccomp_filters:	21
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	927
+nonvoluntary_ctxt_switches:	29

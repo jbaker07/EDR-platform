@@ -1,0 +1,5 @@
+fd 0 -> /dev/null
+fd 1 -> /dev/null
+fd 2 -> /dev/null
+fd 3 -> anon_inode:[eventfd]
+fd 4 -> socket:[22750]

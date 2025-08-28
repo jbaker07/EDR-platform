@@ -1,0 +1,119 @@
+fd 0 -> /dev/null
+fd 1 -> socket:[28439]
+fd 2 -> socket:[28439]
+fd 3 -> anon_inode:[eventfd]
+fd 4 -> anon_inode:[eventfd]
+fd 5 -> socket:[28444]
+fd 6 -> socket:[28445]
+fd 7 -> anon_inode:[eventfd]
+fd 8 -> socket:[28446]
+fd 9 -> /dev/dri/card0
+fd 10 -> anon_inode:[eventfd]
+fd 11 -> /dev/dri/card0
+fd 12 -> socket:[24485]
+fd 13 -> /dev/dri/card0
+fd 14 -> /dev/dri/card0
+fd 15 -> anon_inode:[eventfd]
+fd 16 -> anon_inode:[eventpoll]
+fd 17 -> anon_inode:[timerfd]
+fd 18 -> socket:[29195]
+fd 19 -> /dev/input/event0
+fd 20 -> /dev/input/event1
+fd 21 -> /dev/input/event2
+fd 22 -> /dev/input/event3
+fd 23 -> /usr/lib/udev/hwdb.bin
+fd 24 -> socket:[28449]
+fd 25 -> socket:[28451]
+fd 26 -> socket:[28452]
+fd 27 -> anon_inode:[eventfd]
+fd 28 -> anon_inode:[eventpoll]
+fd 29 -> anon_inode:[eventfd]
+fd 30 -> anon_inode:[eventfd]
+fd 31 -> /memfd:mutter-shared (deleted)
+fd 32 -> socket:[36119]
+fd 33 -> anon_inode:[eventfd]
+fd 34 -> anon_inode:[eventfd]
+fd 35 -> socket:[28456]
+fd 36 -> /run/user/1000/wayland-0.lock
+fd 37 -> socket:[28457]
+fd 38 -> socket:[28457]
+fd 39 -> /memfd:xwayland-shared (deleted)
+fd 40 -> anon_inode:inotify
+fd 41 -> /memfd:xwayland-shared (deleted)
+fd 42 -> socket:[144637]
+fd 43 -> /memfd:xwayland-shared (deleted)
+fd 44 -> /run/systemd/inhibit/21.ref
+fd 45 -> socket:[28459]
+fd 46 -> /dmabuf:
+fd 47 -> /home/jermaineb/.local/share/gvfs-metadata/root (deleted)
+fd 48 -> /memfd:xwayland-shared (deleted)
+fd 49 -> /memfd:xwayland-shared (deleted)
+fd 50 -> socket:[28475]
+fd 51 -> /memfd:mutter-shared (deleted)
+fd 52 -> socket:[25986]
+fd 53 -> anon_inode:[timerfd]
+fd 54 -> socket:[33676]
+fd 55 -> socket:[33667]
+fd 56 -> /dmabuf:
+fd 57 -> socket:[33669]
+fd 58 -> socket:[33673]
+fd 59 -> socket:[33667]
+fd 60 -> socket:[33673]
+fd 61 -> socket:[33674]
+fd 62 -> socket:[33674]
+fd 63 -> socket:[33675]
+fd 64 -> socket:[33675]
+fd 65 -> socket:[33676]
+fd 66 -> /memfd:wayland-cursor (deleted)
+fd 67 -> anon_inode:[timerfd]
+fd 68 -> socket:[33677]
+fd 69 -> socket:[33677]
+fd 70 -> socket:[33678]
+fd 71 -> socket:[33678]
+fd 72 -> /memfd:wayland-cursor (deleted)
+fd 73 -> /home/jermaineb/.local/share/gvfs-metadata/root-78f55dd2.log (deleted)
+fd 74 -> socket:[33679]
+fd 75 -> /memfd:wayland-cursor (deleted)
+fd 76 -> /memfd:wayland-cursor (deleted)
+fd 77 -> /memfd:wayland-cursor (deleted)
+fd 78 -> /memfd:wayland-cursor (deleted)
+fd 79 -> socket:[28507]
+fd 80 -> socket:[25202]
+fd 81 -> /memfd:wayland-cursor (deleted)
+fd 82 -> socket:[25202]
+fd 83 -> /memfd:xwayland-shared (deleted)
+fd 84 -> /memfd:wayland-cursor (deleted)
+fd 85 -> socket:[28507]
+fd 86 -> /memfd:wayland-cursor (deleted)
+fd 87 -> socket:[34350]
+fd 88 -> /memfd:xwayland-shared (deleted)
+fd 89 -> pipe:[34352]
+fd 90 -> pipe:[34352]
+fd 91 -> anon_inode:[eventfd]
+fd 92 -> socket:[34353]
+fd 93 -> anon_inode:[eventfd]
+fd 94 -> /home/jermaineb/.cache/event-sound-cache.tdb.4fb1781ac9f64d5cad47e77f1ed4f268.aarch64-unknown-linux-gnu
+fd 95 -> socket:[28536]
+fd 96 -> socket:[28536]
+fd 97 -> /memfd:xwayland-shared (deleted)
+fd 98 -> /dev/input/event4
+fd 99 -> anon_inode:sync_file
+fd 100 -> anon_inode:[timerfd]
+fd 101 -> anon_inode:[timerfd]
+fd 102 -> /memfd:wayland-cursor (deleted)
+fd 103 -> socket:[144637]
+fd 104 -> socket:[41105]
+fd 105 -> pipe:[144639]
+fd 106 -> socket:[41105]
+fd 107 -> anon_inode:[timerfd]
+fd 108 -> /memfd:wayland-cursor (deleted)
+fd 109 -> anon_inode:[timerfd]
+fd 110 -> /memfd:xwayland-shared (deleted)
+fd 111 -> /memfd:xwayland-shared (deleted)
+fd 112 -> /memfd:xwayland-shared (deleted)
+fd 113 -> /memfd:xwayland-shared (deleted)
+fd 114 -> /memfd:xwayland-shared (deleted)
+fd 115 -> /memfd:xwayland-shared (deleted)
+fd 116 -> /memfd:xwayland-shared (deleted)
+fd 117 -> /memfd:gdk-wayland (deleted)
+fd 118 -> /memfd:xwayland-shared (deleted)

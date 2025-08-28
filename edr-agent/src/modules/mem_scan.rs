@@ -1,15 +1,15 @@
+// src/modules/mem_scan.rs
 use std::fs::{File, OpenOptions};
 use std::io::{BufRead, BufReader, Read, Seek};
 use std::path::Path;
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use anyhow::{Result, anyhow};
+use anyhow::{Result, anyhow, Context};
 use bytes::BytesMut;
 use chrono::Utc;
-use futures::StreamExt;
 
-use aya::{Bpf, include_bytes_aligned};
+use aya::{Ebpf, include_bytes_aligned};
 use aya::programs::TracePoint;
 use aya::util::online_cpus;
 use aya::maps::perf::AsyncPerfEventArray;
@@ -44,8 +44,10 @@ pub struct MemEvent {
 
 #[cfg(target_os = "linux")]
 pub async fn start_ebpf_mem_scan() -> Result<()> {
-    let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/mem_scan.bpf.o"))
+    // Load and leak to satisfy 'static in spawned tasks (perf readers borrow from map/bpf)
+    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mem_scan.bpf.o"))
         .map_err(|e| anyhow!("load mem_scan.bpf.o: {e:?}"))?;
+    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
     // mmap
     {
@@ -67,13 +69,19 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
         prog.attach("syscalls", "sys_enter_execve")?;
     }
 
-    let mut perf_array = AsyncPerfEventArray::try_from(bpf.map_mut("events")?)
-        .map_err(|e| anyhow!("AsyncPerfEventArray init failed: {e:?}"))?;
+    // Open perf array used by the eBPF program
+    let map = bpf
+        .map_mut("events")
+        .ok_or_else(|| anyhow!("map 'events' not found"))?;
+    let mut perf_array = AsyncPerfEventArray::try_from(map)
+        .context("AsyncPerfEventArray init for 'events'")?;
 
-    // Preload fingerprints once
+    // Preload fingerprints once (shared by tasks)
     let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
 
-    for cpu_id in online_cpus()? {
+    let cpus = online_cpus()
+        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    for cpu_id in cpus {
         let mut buf = perf_array.open(cpu_id, None)?;
         let fingerprints = fingerprints.clone();
 
@@ -155,7 +163,7 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                                 data.insert("size".into(), (*size).unwrap_or(0).to_string());
                                 data.insert("entropy".into(), format!("{:.2}", (*entropy).unwrap_or(0.0)));
                                 data.insert("exec_capable".into(), (*exec_capable).unwrap_or(false).to_string());
-                                // FIX: trusted_uid is a plain u32, not Option<u32>
+                                // trusted_uid is a plain u32 in your fingerprint struct
                                 data.insert("trusted_uid".into(), (*trusted_uid).to_string());
                                 data.insert("category".into(), category.clone());
                             } else {
@@ -513,8 +521,10 @@ struct HollowEvent {
 
 #[cfg(target_os = "linux")]
 pub async fn start_ebpf_proc_hollow_scan() -> Result<()> {
-    let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/proc_hollow_monitor.bpf.o"))
+    // Load and leak as above to satisfy spawned task lifetimes
+    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/proc_hollow_monitor.bpf.o"))
         .map_err(|e| anyhow!("load proc_hollow_monitor.bpf.o: {e:?}"))?;
+    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
     let prog: &mut TracePoint = bpf
         .program_mut("trace_proc_hollow")
@@ -523,9 +533,15 @@ pub async fn start_ebpf_proc_hollow_scan() -> Result<()> {
     prog.load()?;
     prog.attach("syscalls", "sys_enter_mmap")?;
 
-    let mut perf_array = AsyncPerfEventArray::try_from(bpf.map_mut("EVENTS")?)?;
+    let map = bpf
+        .map_mut("EVENTS")
+        .ok_or_else(|| anyhow!("map 'EVENTS' not found"))?;
+    let mut perf_array = AsyncPerfEventArray::try_from(map)
+        .context("AsyncPerfEventArray init for 'EVENTS'")?;
 
-    for cpu_id in online_cpus()? {
+    let cpus = online_cpus()
+        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    for cpu_id in cpus {
         let mut buf = perf_array.open(cpu_id, None)?;
         task::spawn(async move {
             let mut event_buf = vec![BytesMut::with_capacity(1024); 8];

@@ -1,0 +1,57 @@
+Name:	dbus-daemon
+Umask:	0022
+State:	S (sleeping)
+Tgid:	901
+Ngid:	0
+Pid:	901
+PPid:	1
+TracerPid:	0
+Uid:	103	103	103	103
+Gid:	104	104	104	104
+FDSize:	128
+Groups:	 
+NStgid:	901
+NSpid:	901
+NSpgid:	901
+NSsid:	901
+VmPeak:	   11584 kB
+VmSize:	   11456 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	    6332 kB
+VmRSS:	    5748 kB
+RssAnon:	    2368 kB
+RssFile:	    3380 kB
+RssShmem:	       0 kB
+VmData:	    3192 kB
+VmStk:	     132 kB
+VmExe:	     200 kB
+VmLib:	    6664 kB
+VmPTE:	      60 kB
+VmSwap:	     256 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	1
+SigQ:	0/15077
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000001000
+SigCgt:	0000000000004001
+CapInh:	0000000000000000
+CapPrm:	0000000020000000
+CapEff:	0000000020000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	vulnerable
+SpeculationIndirectBranch:	unknown
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	3970
+nonvoluntary_ctxt_switches:	66
