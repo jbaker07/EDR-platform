@@ -1,0 +1,24 @@
+graph:
+  node_types: [process, file, socket, ipv4, ipv6, host]
+  edge_types:
+    - [process, opened, file]
+    - [process, connected, socket]
+    - [process, forked, process]
+    - [process, executed, file]
+    - [socket, dst, ipv4]
+    - [socket, dst, ipv6]
+features:
+  process: [exec_rate_1m, uniq_remote_5m, has_memfd_exec, uid, argv_len]
+  file:    [path_hash, is_cron_path, is_tmp, ext_id]
+  socket:  [l4, port_cat, bytes_1m]
+training:
+  method: R-GCN
+  loss: cross_entropy
+  negative_sampling: true
+  unsup: true           # use context prediction + few labeled seeds
+inference:
+  batch_ms: 1000
+  max_graph_edges: 5_000_000
+  risk_threshold: 0.8
+serve:
+  endpoint: unix:///tmp/edr-gnn.sock

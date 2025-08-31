@@ -1,0 +1,44 @@
+1131: tracepoint  name tp_enter_connec  tag 6ea8ee407c1c9fa7  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 1192B  jited 1088B  memlock 4096B  map_ids 284
+	btf_id 884
+1130: tracepoint  name tp_enter_read  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 283
+	btf_id 884
+1127: tracepoint  name tp_enter_recvfr  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 283
+	btf_id 884
+1128: tracepoint  name tp_enter_recvms  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 283
+	btf_id 884
+1126: tracepoint  name tp_enter_sendms  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 283
+	btf_id 884
+1125: tracepoint  name tp_enter_sendto  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 283
+	btf_id 884
+1129: tracepoint  name tp_enter_write  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 283
+	btf_id 884
+1134: tracepoint  name tp_exit_recvfro  tag 204e65a152d9a2ed  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 284
+	btf_id 884
+1135: tracepoint  name tp_exit_recvmsg  tag 204e65a152d9a2ed  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 284
+	btf_id 884
+1133: tracepoint  name tp_exit_sendmsg  tag 0218a901946da8c1  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 284
+	btf_id 884
+1132: tracepoint  name tp_exit_sendto  tag 0218a901946da8c1  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 284
+	btf_id 884

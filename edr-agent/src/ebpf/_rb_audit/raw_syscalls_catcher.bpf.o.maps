@@ -1,0 +1,39 @@
+---- map id 286 ----
+286: lru_hash  name edr_pending_ope  flags 0x0
+	key 8B  value 132B  max_entries 8192  memlock 1179648B
+	btf_id 920
+
+---- map id 287 ----
+287: lru_hash  name edr_fd_table  flags 0x0
+	key 8B  value 116B  max_entries 16384  memlock 2097152B
+	btf_id 920
+
+---- map id 288 ----
+288: lru_hash  name edr_pending_dup  flags 0x0
+	key 8B  value 4B  max_entries 8192  memlock 131072B
+	btf_id 920
+
+---- map id 289 ----
+289: lru_hash  name edr_pending_soc  flags 0x0
+	key 8B  value 12B  max_entries 8192  memlock 196608B
+	btf_id 920
+
+---- map id 290 ----
+290: lru_hash  name edr_pending_acc  flags 0x0
+	key 8B  value 24B  max_entries 8192  memlock 262144B
+	btf_id 920
+
+---- map id 291 ----
+291: lru_hash  name edr_pending_clo  flags 0x0
+	key 8B  value 8B  max_entries 8192  memlock 131072B
+	btf_id 920
+
+---- map id 292 ----
+292: ringbuf  name edr_events_rb  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+
+---- map id 293 ----
+293: hash  name edr_allow_sysca  flags 0x0
+	key 4B  value 1B  max_entries 256  memlock 4096B
+	btf_id 920
+

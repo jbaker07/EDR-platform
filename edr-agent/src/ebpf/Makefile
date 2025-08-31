@@ -1,32 +1,36 @@
-# ebpf/Makefile — build CO-RE .o files
-
-ARCH := $(shell uname -m)
-TARGET := bpf
-
-# Map uname -m to __TARGET_ARCH_* for clang
-ifeq ($(ARCH),x86_64)
-BPF_ARCH := x86
-else ifeq ($(ARCH),aarch64)
-BPF_ARCH := arm64
-else ifeq ($(ARCH),arm64)
-BPF_ARCH := arm64
+# Simple eBPF build for this folder
+UNAME_M := $(shell uname -m)
+ifeq ($(UNAME_M),x86_64)
+  TARGET_ARCH := x86
+else ifeq ($(UNAME_M),aarch64)
+  TARGET_ARCH := arm64
 else
-BPF_ARCH := x86
+  $(error Unsupported arch $(UNAME_M))
 endif
 
-CFLAGS = -O2 -g -target $(TARGET) -D__TARGET_ARCH_$(BPF_ARCH) -Wall -Wno-unused-value -Wno-pointer-sign -Wno-compare-distinct-pointer-types -Wno-unknown-warning-option
+CLANG ?= clang
+CFLAGS := -O2 -g -Wall -Werror -target bpf -D__TARGET_ARCH_$(TARGET_ARCH) \
+          -I. -I/usr/include -I/usr/include/bpf
 
-INCS = -I.   # vmlinux.h lives here
+SOURCES := $(filter %.c %.bpf.c,$(wildcard *.c *.bpf.c))
+SOURCES := $(filter-out lkm.c lkm.mod.c module-common.c Module.symvers,$(SOURCES))
 
-SRC = syscall_tracer.bpf.c net_flow.bpf.c wx_exec.bpf.c
-OBJ = $(SRC:.c=.o)
+OBJECTS := $(SOURCES:.c=.bpf.o)
+OBJECTS := $(OBJECTS:.bpf.bpf.o=.bpf.o)
 
-all: $(OBJ)
+.PHONY: all clean list
 
-%.o: %.c vmlinux.h
-	clang $(CFLAGS) $(INCS) -c $< -o $@
+all: $(OBJECTS)
+
+list:
+	@echo "Sources: $(SOURCES)"
+	@echo "Objects: $(OBJECTS)"
+
+%.bpf.o: %.bpf.c
+	$(CLANG) $(CFLAGS) -c $< -o $@
+
+%.bpf.o: %.c
+	$(CLANG) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
-
-.PHONY: all clean
+	rm -f *.bpf.o

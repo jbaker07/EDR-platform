@@ -1,0 +1,106 @@
+== Host & Toolchain ==
+Linux 5.15.0-152-generic aarch64 GNU/Linux
+OS: PRETTY_NAME="Ubuntu 22.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+clang: Ubuntu clang version 14.0.0-1ubuntu1.1
+llc:   Ubuntu LLVM version 14.0.0
+llvm-objdump: Ubuntu LLVM version 14.0.0
+bpftool: /usr/lib/linux-tools/5.15.0-152-generic/bpftool v5.15.185
+features:
+pahole: missing
+
+== Kernel & BTF ==
+Running kernel: 5.15.0-152-generic
+-r--r--r-- 1 root root 5964090 Aug 31 05:05 /sys/kernel/btf/vmlinux
+/sys/kernel/btf/vmlinux: data
+a2ea743de92ead04122729bcf505b32f12191a4cd3e93b725886295e2eeaadf6  /sys/kernel/btf/vmlinux
+no /proc/config.gz
+
+== BPF Feature Probe (abridged) ==
+bpftool feature probe failed
+
+== Repo Layout ==
+ROOT=/home/jermaineb/EDR-platform
+EBPF_DIR=/home/jermaineb/EDR-platform/edr-agent/src/ebpf
+INC_DIR=/home/jermaineb/EDR-platform/edr-agent/src/ebpf/include
+BUILD_DIR=/home/jermaineb/EDR-platform/edr-agent/src/ebpf/_bpf_build
+no include dir
+vmlinux.h missing
+
+== Objects in _bpf_build (BTF sections present?) ==
+-- dll_injection_monitor.bpf.o
+ 16 .BTF                                     000004df 0000000000000000 
+ 17 .rel.BTF                                 00000020 0000000000000000 
+ 18 .BTF.ext                                 0000011c 0000000000000000 
+ 19 .rel.BTF.ext                             000000e0 0000000000000000 
+-- dns_tunnel_monitor.bpf.o
+ 17 .BTF                                     00000555 0000000000000000 
+ 18 .rel.BTF                                 00000020 0000000000000000 
+ 19 .BTF.ext                                 00000130 0000000000000000 
+ 20 .rel.BTF.ext                             00000100 0000000000000000 
+-- encrypted_payload_monitor.bpf.o
+ 19 .BTF                                       0000067f 0000000000000000 
+ 20 .rel.BTF                                   00000020 0000000000000000 
+ 21 .BTF.ext                                   0000030c 0000000000000000 
+ 22 .rel.BTF.ext                               000002c0 0000000000000000 
+-- file_tamper_monitor.bpf.o
+ 16 .BTF                                       0000044c 0000000000000000 
+ 17 .rel.BTF                                   00000020 0000000000000000 
+ 18 .BTF.ext                                   000000d0 0000000000000000 
+ 19 .rel.BTF.ext                               000000a0 0000000000000000 
+-- ipc_abuse_monitor.bpf.o
+ 20 .BTF                                     000005b9 0000000000000000 
+ 21 .rel.BTF                                 00000030 0000000000000000 
+ 22 .BTF.ext                                 000001e8 0000000000000000 
+ 23 .rel.BTF.ext                             000001b0 0000000000000000 
+-- kernel_exploit_fallout.bpf.o
+ 16 .BTF                   00000631 0000000000000000 
+ 17 .rel.BTF               00000020 0000000000000000 
+ 18 .BTF.ext               000001e8 0000000000000000 
+ 19 .rel.BTF.ext           000001c0 0000000000000000 
+-- logon_tracker.bpf.o
+ 17 .BTF                                     000069ce 0000000000000000 
+ 18 .rel.BTF                                 00000020 0000000000000000 
+ 19 .BTF.ext                                 0000027c 0000000000000000 
+ 20 .rel.BTF.ext                             00000240 0000000000000000 
+-- mem_scan.bpf.o
+ 20 .BTF                                     00006af3 0000000000000000 
+ 21 .rel.BTF                                 00000020 0000000000000000 
+ 22 .BTF.ext                                 000003cc 0000000000000000 
+ 23 .rel.BTF.ext                             00000380 0000000000000000 
+-- mfa_bypass_monitor.bpf.o
+ 17 .BTF                                     00000535 0000000000000000 
+ 18 .rel.BTF                                 00000020 0000000000000000 
+ 19 .BTF.ext                                 00000110 0000000000000000 
+ 20 .rel.BTF.ext                             000000e0 0000000000000000 
+-- network_anomaly_monitor.bpf.o
+ 17 .BTF                                      000004f5 0000000000000000 
+ 18 .rel.BTF                                  00000020 0000000000000000 
+ 19 .BTF.ext                                  00000110 0000000000000000 
+ 20 .rel.BTF.ext                              000000e0 0000000000000000 
+-- process_injection.bpf.o
+ 16 .BTF                                                000004da 0000000000000000 
+ 17 .rel.BTF                                            00000020 0000000000000000 
+ 18 .BTF.ext                                            0000011c 0000000000000000 
+ 19 .rel.BTF.ext                                        000000e0 0000000000000000 
+-- process_injection_monitor.bpf.o
+ 22 .BTF                                                00000627 0000000000000000 
+ 23 .rel.BTF                                            00000020 0000000000000000 
+ 24 .BTF.ext                                            000002fc 0000000000000000 
+ 25 .rel.BTF.ext                                        000002b0 0000000000000000 
+-- proc_hollow_monitor.bpf.o
+ 17 .BTF                                     00006885 0000000000000000 
+ 18 .rel.BTF                                 00000020 0000000000000000 
+ 19 .BTF.ext                                 000001bc 0000000000000000 
+ 20 .rel.BTF.ext                             00000180 0000000000000000 
+-- suspicious_ipc.bpf.o
+ 16 .BTF                                     00000507 0000000000000000 
+ 17 .rel.BTF                                 00000020 0000000000000000 
+ 18 .BTF.ext                                 0000012c 0000000000000000 
+ 19 .rel.BTF.ext                             000000f0 0000000000000000 
+
+== BPFFS & memlock ==
+/sys/fs/bpf mounted
+500424
+caps(forensic_hooks): /home/jermaineb/EDR-platform/edr-agent/target/debug/forensic_hooks cap_net_admin,cap_sys_admin,cap_perfmon,cap_bpf=ep

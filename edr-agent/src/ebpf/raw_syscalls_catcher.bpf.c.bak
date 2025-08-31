@@ -1,0 +1,881 @@
+[2][1]// ebpf/raw_syscalls_catcher.bpf.c
+[2][1]#if __has_include("include/edr_events.h")
+[2][1]#  include "include/edr_events.h"
+[2][1]#elif __has_include("../include/edr_events.h")
+[2][1]#  include "../include/edr_events.h"
+[2][1]#else
+[2][1]#  include "edr_events.h"
+[2][1]#endif
+[2][1]
+[2][1]/* ---- Minimal fallbacks to avoid UAPI headers ---- */
+[2][1]#ifndef AF_INET
+[2][1]#define AF_INET 2
+[2][1]#endif
+[2][1]#ifndef AF_INET6
+[2][1]#define AF_INET6 10
+[2][1]#endif
+[2][1]#ifndef IPPROTO_TCP
+[2][1]#define IPPROTO_TCP 6
+[2][1]#endif
+[2][1]
+[2][1]/* ---- arm64 syscall numbers used in this file (no <asm/unistd.h>) ---- */
+[2][1]/* file/io */
+[2][1]#ifndef __NR_openat
+[2][1]#define __NR_openat 56
+[2][1]#endif
+[2][1]#ifndef __NR_openat2
+[2][1]#define __NR_openat2 437
+[2][1]#endif
+[2][1]#ifndef __NR_close
+[2][1]#define __NR_close 57
+[2][1]#endif
+[2][1]#ifndef __NR_read
+[2][1]#define __NR_read 63
+[2][1]#endif
+[2][1]#ifndef __NR_write
+[2][1]#define __NR_write 64
+[2][1]#endif
+[2][1]#ifndef __NR_renameat2
+[2][1]#define __NR_renameat2 276
+[2][1]#endif
+[2][1]#ifndef __NR_unlinkat
+[2][1]#define __NR_unlinkat 35
+[2][1]#endif
+[2][1]#ifndef __NR_fchmodat
+[2][1]#define __NR_fchmodat 53
+[2][1]#endif
+[2][1]#ifndef __NR_fchmodat2
+[2][1]#define __NR_fchmodat2 452
+[2][1]#endif
+[2][1]#ifndef __NR_fchownat
+[2][1]#define __NR_fchownat 54
+[2][1]#endif
+[2][1]#ifndef __NR_dup
+[2][1]#define __NR_dup 23
+[2][1]#endif
+[2][1]/* dup2 is not native on arm64; intentionally not defined */
+[2][1]#ifndef __NR_dup3
+[2][1]#define __NR_dup3 24
+[2][1]#endif
+[2][1]
+[2][1]/* xattr */
+[2][1]#ifndef __NR_setxattr
+[2][1]#define __NR_setxattr 5
+[2][1]#endif
+[2][1]#ifndef __NR_lsetxattr
+[2][1]#define __NR_lsetxattr 6
+[2][1]#endif
+[2][1]#ifndef __NR_fsetxattr
+[2][1]#define __NR_fsetxattr 7
+[2][1]#endif
+[2][1]
+[2][1]/* net */
+[2][1]#ifndef __NR_socket
+[2][1]#define __NR_socket 198
+[2][1]#endif
+[2][1]#ifndef __NR_bind
+[2][1]#define __NR_bind 200
+[2][1]#endif
+[2][1]#ifndef __NR_listen
+[2][1]#define __NR_listen 201
+[2][1]#endif
+[2][1]#ifndef __NR_accept
+[2][1]#define __NR_accept 202
+[2][1]#endif
+[2][1]#ifndef __NR_accept4
+[2][1]#define __NR_accept4 242
+[2][1]#endif
+[2][1]#ifndef __NR_connect
+[2][1]#define __NR_connect 203
+[2][1]#endif
+[2][1]#ifndef __NR_sendto
+[2][1]#define __NR_sendto 206
+[2][1]#endif
+[2][1]#ifndef __NR_recvfrom
+[2][1]#define __NR_recvfrom 207
+[2][1]#endif
+[2][1]#ifndef __NR_sendmsg
+[2][1]#define __NR_sendmsg 211
+[2][1]#endif
+[2][1]#ifndef __NR_recvmsg
+[2][1]#define __NR_recvmsg 212
+[2][1]#endif
+[2][1]
+[2][1]/* proc/mem/priv */
+[2][1]#ifndef __NR_execve
+[2][1]#define __NR_execve 221
+[2][1]#endif
+[2][1]#ifndef __NR_execveat
+[2][1]#define __NR_execveat 281
+[2][1]#endif
+[2][1]#ifndef __NR_mprotect
+[2][1]#define __NR_mprotect 226
+[2][1]#endif
+[2][1]#ifndef __NR_ptrace
+[2][1]#define __NR_ptrace 117
+[2][1]#endif
+[2][1]#ifndef __NR_prctl
+[2][1]#define __NR_prctl 167
+[2][1]#endif
+[2][1]#ifndef __NR_seccomp
+[2][1]#define __NR_seccomp 277
+[2][1]#endif
+[2][1]#ifndef __NR_clone
+[2][1]#define __NR_clone 220
+[2][1]#endif
+[2][1]#ifndef __NR_clone3
+[2][1]#define __NR_clone3 435
+[2][1]#endif
+[2][1]
+[2][1]/* ns/mount/bpf/modules */
+[2][1]#ifndef __NR_setns
+[2][1]#define __NR_setns 268
+[2][1]#endif
+[2][1]#ifndef __NR_unshare
+[2][1]#define __NR_unshare 97
+[2][1]#endif
+[2][1]#ifndef __NR_mount
+[2][1]#define __NR_mount 40
+[2][1]#endif
+[2][1]#ifndef __NR_umount2
+[2][1]#define __NR_umount2 39
+[2][1]#endif
+[2][1]#ifndef __NR_pivot_root
+[2][1]#define __NR_pivot_root 41
+[2][1]#endif
+[2][1]#ifndef __NR_bpf
+[2][1]#define __NR_bpf 280
+[2][1]#endif
+[2][1]#ifndef __NR_init_module
+[2][1]#define __NR_init_module 105
+[2][1]#endif
+[2][1]#ifndef __NR_finit_module
+[2][1]#define __NR_finit_module 273
+[2][1]#endif
+[2][1]#ifndef __NR_delete_module
+[2][1]#define __NR_delete_module 106
+[2][1]#endif
+[2][1]
+[2][1]/* uid/caps — leave undefined if unsure; guards below will skip blocks if absent */
+[2][1]/* #ifndef __NR_capset
+[2][1]#define __NR_capset 90
+[2][1]#endif */
+[2][1]#ifndef __NR_setuid
+[2][1]#define __NR_setuid 146
+[2][1]#endif
+[2][1]
+[2][1]/* -------- pending stash for dup* (oldfd across enter→exit) -------- */
+[2][1]struct {
+[2][1]__uint(type, BPF_MAP_TYPE_LRU_HASH);
+[2][1]__uint(max_entries, 8192);
+[2][1]__type(key, __u64);   // pid_tgid
+[2][1]__type(value, __s32); // oldfd
+[2][1]} edr_pending_dup SEC(".maps");
+[2][1]
+[2][1]/* -------- ringbuf helpers to avoid large stack objects -------- */
+[2][1]static __always_inline struct edr_event *ev_reserve_zero(void)
+[2][1]{
+[2][1]struct edr_event *e = bpf_ringbuf_reserve(&edr_events_rb, sizeof(*e), 0);
+[2][1]if (!e) return 0;
+[2][1]__builtin_memset(e, 0, sizeof(*e));
+[2][1]return e;
+[2][1]}
+[2][1]
+[2][1]static __always_inline void ev_fill_common(struct edr_event *e, __u32 type, __u32 id, __u32 tgid)
+[2][1]{
+[2][1]e->type = type;
+[2][1]e->syscall_id = id;
+[2][1]e->tgid = tgid;
+[2][1]e->ts = bpf_ktime_get_ns();
+[2][1]e->uid = edr_uid();
+[2][1]edr_ppid_uid_comm(&e->ppid, e->comm);
+[2][1]}
+[2][1]
+[2][1]/* -------- sys_enter -------- */
+[2][1]SEC("tracepoint/raw_syscalls/sys_enter")
+[2][1]int tp_sys_enter(struct trace_event_raw_sys_enter *ctx)
+[2][1]{
+[2][1]__u32 id = (__u32)ctx->id;
+[2][1]if (!edr_allowed(id)) return 0;
+[2][1]
+[2][1]__u64 pid_tgid = bpf_get_current_pid_tgid();
+[2][1]__u32 tgid = (__u32)(pid_tgid >> 32);
+[2][1]
+[2][1]switch (id) {
+[2][1]/* ---- PROCESS / MEMORY ---- */
+[2][1]case __NR_execve:
+[2][1]case __NR_execveat: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_EXEC, id, tgid);
+[2][1]e->fd = -1;
+[2][1]const char *filename = (const char *)ctx->args[0];
+[2][1]edr_copy_user_str(e->path, filename, sizeof(e->path));
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_mprotect: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_MPROTECT, id, tgid);
+[2][1]e->fd = -1;
+[2][1]e->flags = (__u32)ctx->args[2];   // prot
+[2][1]e->aux_u64 = (__u64)ctx->args[1]; // len
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_memfd_create)
+[2][1]case __NR_memfd_create: {
+[2][1]struct pending_open po = {};
+[2][1]const char *name = (const char *)ctx->args[0];
+[2][1]po.flags = (__u32)ctx->args[1];
+[2][1]edr_copy_user_str(po.path, name, sizeof(po.path));
+[2][1]bpf_map_update_elem(&edr_pending_open, &pid_tgid, &po, BPF_ANY);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]case __NR_ptrace: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_PTRACE, id, tgid);
+[2][1]e->fd = -1;
+[2][1]e->flags = (__u32)ctx->args[0];   // request
+[2][1]e->aux_u32 = (__u32)ctx->args[1]; // pid
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_prctl)
+[2][1]case __NR_prctl: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_PRCTL, id, tgid);
+[2][1]e->fd = -1;
+[2][1]e->flags = (__u32)ctx->args[0]; // option
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]#if defined(__NR_seccomp)
+[2][1]case __NR_seccomp: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_SECCOMP, id, tgid);
+[2][1]e->fd = -1;
+[2][1]e->flags = (__u32)ctx->args[0]; // op
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]
+[2][1]/* ---- FILESYSTEM ---- */
+[2][1]case __NR_openat:
+[2][1]#if defined(__NR_openat2)
+[2][1]case __NR_openat2:
+[2][1]#endif
+[2][1]{
+[2][1]struct pending_open po = {};
+[2][1]const char *pathname = (const char *)ctx->args[1];
+[2][1]po.flags = (__u32)ctx->args[2];
+[2][1]edr_copy_user_str(po.path, pathname, sizeof(po.path));
+[2][1]bpf_map_update_elem(&edr_pending_open, &pid_tgid, &po, BPF_ANY);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_renameat2)
+[2][1]case __NR_renameat2: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_RENAME, id, tgid);
+[2][1]e->fd = -1;
+[2][1]const char *oldp = (const char *)ctx->args[1];
+[2][1]const char *newp = (const char *)ctx->args[3];
+[2][1]edr_copy_user_str(e->path,  oldp, sizeof(e->path));
+[2][1]edr_copy_user_str(e->path2, newp, sizeof(e->path2));
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]case __NR_unlinkat: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_UNLINK, id, tgid);
+[2][1]e->fd = -1;
+[2][1]const char *pathname = (const char *)ctx->args[1];
+[2][1]edr_copy_user_str(e->path, pathname, sizeof(e->path));
+[2][1]e->flags = (__u32)ctx->args[2]; // flags (e.g., AT_REMOVEDIR)
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_chmod)
+[2][1]case __NR_chmod:
+[2][1]#endif
+[2][1]#if defined(__NR_fchmodat)
+[2][1]case __NR_fchmodat:
+[2][1]#endif
+[2][1]#if defined(__NR_fchmodat2)
+[2][1]case __NR_fchmodat2:
+[2][1]#endif
+[2][1]{
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_CHMOD_CHOWN, id, tgid);
+[2][1]e->fd = -1;
+[2][1]const char *pathname = (const char *)ctx->args[0 + (id==__NR_fchmodat || id==__NR_fchmodat2)];
+[2][1]edr_copy_user_str(e->path, pathname, sizeof(e->path));
+[2][1]e->flags = (__u32)ctx->args[1 + (id==__NR_fchmodat || id==__NR_fchmodat2)];
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_chown)
+[2][1]case __NR_chown:
+[2][1]#endif
+[2][1]#if defined(__NR_fchownat)
+[2][1]case __NR_fchownat:
+[2][1]#endif
+[2][1]{
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_CHMOD_CHOWN, id, tgid);
+[2][1]e->fd = -1;
+[2][1]const char *pathname = (const char *)ctx->args[0 + (id==__NR_fchownat)];
+[2][1]edr_copy_user_str(e->path, pathname, sizeof(e->path));
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_setxattr)
+[2][1]case __NR_setxattr:
+[2][1]#endif
+[2][1]#if defined(__NR_lsetxattr)
+[2][1]case __NR_lsetxattr:
+[2][1]#endif
+[2][1]#if defined(__NR_fsetxattr)
+[2][1]case __NR_fsetxattr:
+[2][1]#endif
+[2][1]{
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_SETXATTR, id, tgid);
+[2][1]e->fd = -1;
+[2][1]const char *path = (const char *)ctx->args[0];
+[2][1]edr_copy_user_str(e->path, path, sizeof(e->path));
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_close: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_CLOSE, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]struct fd_key fk = { .tgid = tgid, .fd = e->fd };
+[2][1]bpf_map_delete_elem(&edr_fd_table, &fk);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_dup)
+[2][1]case __NR_dup:
+[2][1]#endif
+[2][1]#if defined(__NR_dup2)
+[2][1]case __NR_dup2:
+[2][1]#endif
+[2][1]#if defined(__NR_dup3)
+[2][1]case __NR_dup3:
+[2][1]#endif
+[2][1]{
+[2][1]__s32 oldfd = (__s32)ctx->args[0];
+[2][1]bpf_map_update_elem(&edr_pending_dup, &pid_tgid, &oldfd, BPF_ANY);
+[2][1]
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (e) {
+[2][1]ev_fill_common(e, EVT_DUP, id, tgid);
+[2][1]/* finalize on exit when we know newfd */
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]}
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]/* ---- NETWORKING ---- */
+[2][1]case __NR_socket: {
+[2][1]struct pending_socket ps = {};
+[2][1]ps.domain = (__s32)ctx->args[0];
+[2][1]ps.type   = (__s32)ctx->args[1];
+[2][1]ps.proto  = (__s32)ctx->args[2];
+[2][1]bpf_map_update_elem(&edr_pending_socket, &pid_tgid, &ps, BPF_ANY);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_bind: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_BIND, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]const void *uaddr = (const void *)ctx->args[1];
+[2][1]__s32 addrlen = (__s32)ctx->args[2];
+[2][1]struct sockaddr sa = {};
+[2][1]if (addrlen >= (int)sizeof(sa)) {
+[2][1]bpf_probe_read_user(&sa, sizeof(sa), uaddr);
+[2][1]e->fam = sa.sa_family;
+[2][1]if (sa.sa_family == AF_INET && addrlen >= (int)sizeof(struct sockaddr_in)) {
+[2][1]struct sockaddr_in sin = {};
+[2][1]bpf_probe_read_user(&sin, sizeof(sin), uaddr);
+[2][1]e->laddr4 = sin.sin_addr.s_addr; // BE
+[2][1]e->lport  = sin.sin_port;        // BE
+[2][1]} else if (sa.sa_family == AF_INET6 && addrlen >= (int)sizeof(struct sockaddr_in6)) {
+[2][1]struct sockaddr_in6 sin6 = {};
+[2][1]bpf_probe_read_user(&sin6, sizeof(sin6), uaddr);
+[2][1]__builtin_memcpy(e->laddr6, &sin6.sin6_addr, 16);
+[2][1]e->lport = sin6.sin6_port;
+[2][1]}
+[2][1]}
+[2][1]/* update meta if present */
+[2][1]struct fd_key fk = { .tgid = tgid, .fd = e->fd };
+[2][1]struct fd_meta *fm = bpf_map_lookup_elem(&edr_fd_table, &fk);
+[2][1]if (fm && fm->kind == 2) {
+[2][1]fm->family = e->fam;
+[2][1]fm->lport  = e->lport;
+[2][1]fm->laddr4 = e->laddr4;
+[2][1]__builtin_memcpy(fm->laddr6, e->laddr6, 16);
+[2][1]}
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_listen: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_LISTEN, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_connect: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_CONNECT, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]const void *uaddr = (const void *)ctx->args[1];
+[2][1]__s32 addrlen = (__s32)ctx->args[2];
+[2][1]struct sockaddr sa = {};
+[2][1]if (addrlen >= (int)sizeof(sa)) {
+[2][1]bpf_probe_read_user(&sa, sizeof(sa), uaddr);
+[2][1]e->fam = sa.sa_family;
+[2][1]if (sa.sa_family == AF_INET && addrlen >= (int)sizeof(struct sockaddr_in)) {
+[2][1]struct sockaddr_in sin = {};
+[2][1]bpf_probe_read_user(&sin, sizeof(sin), uaddr);
+[2][1]e->raddr4 = sin.sin_addr.s_addr; e->rport = sin.sin_port; e->proto = IPPROTO_TCP;
+[2][1]} else if (sa.sa_family == AF_INET6 && addrlen >= (int)sizeof(struct sockaddr_in6)) {
+[2][1]struct sockaddr_in6 sin6 = {};
+[2][1]bpf_probe_read_user(&sin6, sizeof(sin6), uaddr);
+[2][1]__builtin_memcpy(e->raddr6, &sin6.sin6_addr, 16);
+[2][1]e->rport = sin6.sin6_port; e->proto = IPPROTO_TCP;
+[2][1]}
+[2][1]}
+[2][1]/* update fd meta if exists */
+[2][1]struct fd_key fk = { .tgid = tgid, .fd = e->fd };
+[2][1]struct fd_meta *fm = bpf_map_lookup_elem(&edr_fd_table, &fk);
+[2][1]if (fm && fm->kind == 2) {
+[2][1]fm->family = e->fam; fm->proto = e->proto; fm->rport = e->rport; fm->raddr4 = e->raddr4;
+[2][1]__builtin_memcpy(fm->raddr6, e->raddr6, 16);
+[2][1]}
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_accept:
+[2][1]#if defined(__NR_accept4)
+[2][1]case __NR_accept4:
+[2][1]#endif
+[2][1]{
+[2][1]/* Save peer sock from user pointer at enter (if any) */
+[2][1]const void *upeer = (const void *)ctx->args[1];
+[2][1]if (upeer) {
+[2][1]struct pending_accept pa = {};
+[2][1]struct sockaddr sa = {};
+[2][1]bpf_probe_read_user(&sa, sizeof(sa), upeer);
+[2][1]pa.fam = sa.sa_family;
+[2][1]if (sa.sa_family == AF_INET) {
+[2][1]struct sockaddr_in sin = {};
+[2][1]bpf_probe_read_user(&sin, sizeof(sin), upeer);
+[2][1]pa.raddr4 = sin.sin_addr.s_addr; pa.rport = sin.sin_port;
+[2][1]} else if (sa.sa_family == AF_INET6) {
+[2][1]struct sockaddr_in6 sin6 = {};
+[2][1]bpf_probe_read_user(&sin6, sizeof(sin6), upeer);
+[2][1]__builtin_memcpy(pa.raddr6, &sin6.sin6_addr, 16); pa.rport = sin6.sin6_port;
+[2][1]}
+[2][1]bpf_map_update_elem(&edr_pending_accept, &pid_tgid, &pa, BPF_ANY);
+[2][1]}
+[2][1]break;
+[2][1]}
+[2][1]case __NR_sendto: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_SENDTO, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]const void *uaddr = (const void *)ctx->args[4];
+[2][1]__s32 addrlen = (__s32)ctx->args[5];
+[2][1]if (uaddr && addrlen > 0) {
+[2][1]struct sockaddr sa = {};
+[2][1]bpf_probe_read_user(&sa, sizeof(sa), uaddr);
+[2][1]e->fam = sa.sa_family;
+[2][1]if (sa.sa_family == AF_INET) {
+[2][1]struct sockaddr_in sin = {};
+[2][1]bpf_probe_read_user(&sin, sizeof(sin), uaddr);
+[2][1]e->raddr4 = sin.sin_addr.s_addr; e->rport = sin.sin_port;
+[2][1]} else if (sa.sa_family == AF_INET6) {
+[2][1]struct sockaddr_in6 sin6 = {};
+[2][1]bpf_probe_read_user(&sin6, sizeof(sin6), uaddr);
+[2][1]__builtin_memcpy(e->raddr6, &sin6.sin6_addr, 16); e->rport = sin6.sin6_port;
+[2][1]}
+[2][1]}
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_sendmsg: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_SENDMSG, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]struct user_msghdr {
+[2][1]void *msg_name;
+[2][1]int   msg_namelen;
+[2][1]} msgh = {};
+[2][1]bpf_probe_read_user(&msgh, sizeof(msgh), (void*)ctx->args[1]);
+[2][1]if (msgh.msg_name && msgh.msg_namelen > 0) {
+[2][1]struct sockaddr sa = {};
+[2][1]bpf_probe_read_user(&sa, sizeof(sa), msgh.msg_name);
+[2][1]e->fam = sa.sa_family;
+[2][1]if (sa.sa_family == AF_INET) {
+[2][1]struct sockaddr_in sin = {};
+[2][1]bpf_probe_read_user(&sin, sizeof(sin), msgh.msg_name);
+[2][1]e->raddr4 = sin.sin_addr.s_addr; e->rport = sin.sin_port;
+[2][1]} else if (sa.sa_family == AF_INET6) {
+[2][1]struct sockaddr_in6 sin6 = {};
+[2][1]bpf_probe_read_user(&sin6, sizeof(sin6), msgh.msg_name);
+[2][1]__builtin_memcpy(e->raddr6, &sin6.sin6_addr, 16); e->rport = sin6.sin6_port;
+[2][1]}
+[2][1]}
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_recvfrom: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_RECVFROM, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_recvmsg: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_RECVMSG, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]/* ---- NAMESPACE / MOUNT / MODULE / BPF ---- */
+[2][1]#if defined(__NR_setns)
+[2][1]case __NR_setns: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_SETNS, id, tgid);
+[2][1]e->fd = -1;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]#if defined(__NR_unshare)
+[2][1]case __NR_unshare: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_UNSHARE, id, tgid);
+[2][1]e->fd = -1;
+[2][1]e->flags = (__u32)ctx->args[0];
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]case __NR_mount: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_MOUNT, id, tgid);
+[2][1]e->fd = -1;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]case __NR_umount2: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_UMOUNT2, id, tgid);
+[2][1]e->fd = -1;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_pivot_root)
+[2][1]case __NR_pivot_root: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_PIVOT_ROOT, id, tgid);
+[2][1]e->fd = -1;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]#if defined(__NR_bpf)
+[2][1]case __NR_bpf: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_BPF, id, tgid);
+[2][1]e->fd = -1;
+[2][1]e->aux_u32 = (__u32)ctx->args[0]; // cmd
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]#if defined(__NR_init_module)
+[2][1]case __NR_init_module:
+[2][1]#endif
+[2][1]#if defined(__NR_finit_module)
+[2][1]case __NR_finit_module:
+[2][1]#endif
+[2][1]{
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_MOD_LOAD, id, tgid);
+[2][1]e->fd = -1;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#if defined(__NR_delete_module)
+[2][1]case __NR_delete_module: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_MOD_DEL, id, tgid);
+[2][1]e->fd = -1;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]
+[2][1]/* ---- PRIVILEGE ---- */
+[2][1]#if defined(__NR_setuid)
+[2][1]case __NR_setuid: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_SETUID, id, tgid);
+[2][1]e->fd = -1;
+[2][1]e->aux_u32 = (__u32)ctx->args[0]; // new uid
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]#if defined(__NR_capset)
+[2][1]case __NR_capset: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, EVT_CAPSET, id, tgid);
+[2][1]e->fd = -1;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]
+[2][1]/* ---- R/W sizes ---- */
+[2][1]case __NR_read:
+[2][1]case __NR_write: {
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (!e) break;
+[2][1]ev_fill_common(e, (id == __NR_read) ? EVT_READ : EVT_WRITE, id, tgid);
+[2][1]e->fd = (__s32)ctx->args[0];
+[2][1]e->aux_u64 = (__u64)ctx->args[2]; // count
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]default:
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]return 0;
+[2][1]}
+[2][1]
+[2][1]/* -------- sys_exit -------- */
+[2][1]SEC("tracepoint/raw_syscalls/sys_exit")
+[2][1]int tp_sys_exit(struct trace_event_raw_sys_exit *ctx)
+[2][1]{
+[2][1]__u32 id = (__u32)ctx->id;
+[2][1]if (!edr_allowed(id)) return 0;
+[2][1]
+[2][1]__u64 pid_tgid = bpf_get_current_pid_tgid();
+[2][1]__u32 tgid = (__u32)(pid_tgid >> 32);
+[2][1]__s64 ret = ctx->ret;
+[2][1]
+[2][1]switch (id) {
+[2][1]/* open family → fd table */
+[2][1]case __NR_openat:
+[2][1]#if defined(__NR_openat2)
+[2][1]case __NR_openat2:
+[2][1]#endif
+[2][1]{
+[2][1]struct pending_open *po = bpf_map_lookup_elem(&edr_pending_open, &pid_tgid);
+[2][1]if (!po) break;
+[2][1]
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (e) {
+[2][1]ev_fill_common(e, EVT_OPEN, id, tgid);
+[2][1]e->ret = ret; e->fd = (ret >= 0) ? (__s32)ret : -1;
+[2][1]e->flags = po->flags;
+[2][1]__builtin_memcpy(e->path, po->path, sizeof(e->path));
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]}
+[2][1]
+[2][1]if (ret >= 0) {
+[2][1]struct fd_key fk = { .tgid = tgid, .fd = (__s32)ret };
+[2][1]struct fd_meta fm = {};
+[2][1]fm.kind = 1; // file
+[2][1]__builtin_memcpy(fm.path, po->path, sizeof(fm.path));
+[2][1]bpf_map_update_elem(&edr_fd_table, &fk, &fm, BPF_ANY);
+[2][1]}
+[2][1]bpf_map_delete_elem(&edr_pending_open, &pid_tgid);
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]/* socket → fd table */
+[2][1]case __NR_socket: {
+[2][1]struct pending_socket *ps = bpf_map_lookup_elem(&edr_pending_socket, &pid_tgid);
+[2][1]if (!ps) break;
+[2][1]
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (e) {
+[2][1]ev_fill_common(e, EVT_SOCKET, id, tgid);
+[2][1]e->ret = ret; e->fd = (ret >= 0) ? (__s32)ret : -1;
+[2][1]e->fam = (ps->domain >= 0 && ps->domain <= 255) ? (__u8)ps->domain : 0;
+[2][1]e->proto = (ps->proto  >= 0 && ps->proto  <= 255) ? (__u8)ps->proto  : 0;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]}
+[2][1]
+[2][1]if (ret >= 0) {
+[2][1]struct fd_key fk = { .tgid = tgid, .fd = (__s32)ret };
+[2][1]struct fd_meta fm = {};
+[2][1]fm.kind   = 2; // socket
+[2][1]fm.family = (ps->domain >= 0 && ps->domain <= 255) ? (__u8)ps->domain : 0;
+[2][1]fm.proto  = (ps->proto  >= 0 && ps->proto  <= 255) ? (__u8)ps->proto  : 0;
+[2][1]bpf_map_update_elem(&edr_fd_table, &fk, &fm, BPF_ANY);
+[2][1]}
+[2][1]bpf_map_delete_elem(&edr_pending_socket, &pid_tgid);
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]#if defined(__NR_memfd_create)
+[2][1]case __NR_memfd_create: {
+[2][1]struct pending_open *po = bpf_map_lookup_elem(&edr_pending_open, &pid_tgid);
+[2][1]if (!po) break;
+[2][1]
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (e) {
+[2][1]ev_fill_common(e, EVT_MEMFD_CREATE, id, tgid);
+[2][1]e->ret = ret; e->fd = (ret >= 0) ? (__s32)ret : -1;
+[2][1]__builtin_memcpy(e->path, po->path, sizeof(e->path));
+[2][1]e->flags = po->flags;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]}
+[2][1]
+[2][1]if (ret >= 0) {
+[2][1]struct fd_key fk = { .tgid = tgid, .fd = (__s32)ret };
+[2][1]struct fd_meta fm = {};
+[2][1]fm.kind = 1; // treat as file-ish
+[2][1]__builtin_memcpy(fm.path, po->path, sizeof(fm.path));
+[2][1]bpf_map_update_elem(&edr_fd_table, &fk, &fm, BPF_ANY);
+[2][1]}
+[2][1]bpf_map_delete_elem(&edr_pending_open, &pid_tgid);
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]
+[2][1]/* accept → new fd + peer tuple */
+[2][1]case __NR_accept:
+[2][1]#if defined(__NR_accept4)
+[2][1]case __NR_accept4:
+[2][1]#endif
+[2][1]{
+[2][1]struct pending_accept *pa = bpf_map_lookup_elem(&edr_pending_accept, &pid_tgid);
+[2][1]
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (e) {
+[2][1]ev_fill_common(e, EVT_ACCEPT, id, tgid);
+[2][1]e->ret = ret; e->fd = (ret >= 0) ? (__s32)ret : -1;
+[2][1]if (pa) {
+[2][1]e->fam = pa->fam; e->proto = IPPROTO_TCP; // heuristic
+[2][1]e->rport  = pa->rport; e->raddr4 = pa->raddr4;
+[2][1]__builtin_memcpy(e->raddr6, pa->raddr6, 16);
+[2][1]}
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]}
+[2][1]
+[2][1]if (ret >= 0) {
+[2][1]struct fd_key fk = { .tgid = tgid, .fd = (__s32)ret };
+[2][1]struct fd_meta fm = {};
+[2][1]fm.kind = 2; fm.family = pa ? pa->fam : 0; fm.proto = IPPROTO_TCP;
+[2][1]fm.rport = pa ? pa->rport : 0; fm.raddr4 = pa ? pa->raddr4 : 0;
+[2][1]if (pa) __builtin_memcpy(fm.raddr6, pa->raddr6, 16);
+[2][1]bpf_map_update_elem(&edr_fd_table, &fk, &fm, BPF_ANY);
+[2][1]}
+[2][1]if (pa) bpf_map_delete_elem(&edr_pending_accept, &pid_tgid);
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]#if defined(__NR_dup) || defined(__NR_dup2) || defined(__NR_dup3)
+[2][1]case __NR_dup:
+[2][1]#  if defined(__NR_dup2)
+[2][1]case __NR_dup2:
+[2][1]#  endif
+[2][1]#  if defined(__NR_dup3)
+[2][1]case __NR_dup3:
+[2][1]#  endif
+[2][1]{
+[2][1]if (ret >= 0) {
+[2][1]__s32 *oldfdp = bpf_map_lookup_elem(&edr_pending_dup, &pid_tgid);
+[2][1]__s32 oldfd = oldfdp ? *oldfdp : -1;
+[2][1]__s32 newfd = (__s32)ret;
+[2][1]
+[2][1]if (oldfd >= 0) {
+[2][1]struct fd_key src = { .tgid = tgid, .fd = oldfd };
+[2][1]struct fd_key dst = { .tgid = tgid, .fd = newfd };
+[2][1]struct fd_meta *fm = bpf_map_lookup_elem(&edr_fd_table, &src);
+[2][1]if (fm) {
+[2][1]bpf_map_update_elem(&edr_fd_table, &dst, fm, BPF_ANY);
+[2][1]}
+[2][1]}
+[2][1]
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (e) {
+[2][1]ev_fill_common(e, EVT_DUP, id, tgid);
+[2][1]e->fd = newfd; e->aux_u32 = (unsigned)(oldfd >= 0 ? oldfd : 0);
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]}
+[2][1]
+[2][1]if (oldfdp) bpf_map_delete_elem(&edr_pending_dup, &pid_tgid);
+[2][1]}
+[2][1]break;
+[2][1]}
+[2][1]#endif
+[2][1]
+[2][1]case __NR_clone:
+[2][1]#if defined(__NR_clone3)
+[2][1]case __NR_clone3:
+[2][1]#endif
+[2][1]{
+[2][1]struct pending_clone *pc = bpf_map_lookup_elem(&edr_pending_clone, &pid_tgid);
+[2][1]struct edr_event *e = ev_reserve_zero();
+[2][1]if (e) {
+[2][1]ev_fill_common(e, EVT_CLONE, id, tgid);
+[2][1]e->ret  = ret;  // child pid (>0) in parent
+[2][1]if (pc) e->aux_u64 = pc->flags;
+[2][1]bpf_ringbuf_submit(e, 0);
+[2][1]}
+[2][1]if (pc) bpf_map_delete_elem(&edr_pending_clone, &pid_tgid);
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]default:
+[2][1]break;
+[2][1]}
+[2][1]
+[2][1]return 0;
+[2][1]}

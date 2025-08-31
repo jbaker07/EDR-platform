@@ -1,0 +1,28 @@
+1184: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 305,306
+	btf_id 944
+1185: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 305,306
+	btf_id 944
+1179: tracepoint  name tp_enter_mmap  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 302,306
+	btf_id 944
+1180: tracepoint  name tp_enter_mprote  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 302,306
+	btf_id 944
+1182: tracepoint  name tp_enter_write  tag 77f2496e2f88e13e  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 120B  jited 164B  memlock 4096B  map_ids 304
+	btf_id 944
+1181: tracepoint  name tp_exit_memfd_c  tag ceff8d3f20fcb14c  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 152B  jited 188B  memlock 4096B  map_ids 303
+	btf_id 944
+1183: tracepoint  name tp_exit_write  tag e54e87746ef60816  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 504B  jited 556B  memlock 4096B  map_ids 304,303,305
+	btf_id 944

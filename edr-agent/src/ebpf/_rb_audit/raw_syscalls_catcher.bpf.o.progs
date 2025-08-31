@@ -1,0 +1,8 @@
+1150: tracepoint  name tp_sys_enter  tag cbb68f76c7a21b7c  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 24448B  jited 23768B  memlock 24576B  map_ids 293,288,292,289,287,286,290
+	btf_id 920
+1151: tracepoint  name tp_sys_exit  tag a84d5ca66869530b  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 6968B  jited 6808B  memlock 8192B  map_ids 293,290,292,286,288,291,289,287
+	btf_id 920

@@ -1,0 +1,4 @@
+---- map id 282 ----
+282: ringbuf  name file_events  flags 0x0
+	key 0B  value 0B  max_entries 1048576  memlock 0B
+

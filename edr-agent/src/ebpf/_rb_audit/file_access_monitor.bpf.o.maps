@@ -1,0 +1,4 @@
+---- map id 281 ----
+281: perf_event_array  name events  flags 0x0
+	key 4B  value 4B  max_entries 1024  memlock 8192B
+

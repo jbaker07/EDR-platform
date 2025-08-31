@@ -1,3 +1,5 @@
+// proc_hollow_monitor.c (ringbuf)
+
 #include "vmlinux.h"
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_core_read.h>
@@ -13,28 +15,37 @@ struct hollow_event_t {
     char details[128];
 };
 
+/* Ring buffer for events.
+ * edr_attach_any will reuse a shared ringbuf named "edr_events_rb" if present.
+ */
 struct {
-    __uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
+    __uint(type, BPF_MAP_TYPE_RINGBUF);
+    __uint(max_entries, 1 << 20);   // 1 MiB
 } events SEC(".maps");
 
 // Tracepoint for execve — monitor for process hollowing patterns
 SEC("tracepoint/syscalls/sys_enter_execve")
-int trace_execve_hollowing(struct trace_event_raw_sys_enter *ctx) {
-    struct hollow_event_t event = {};
+int trace_execve_hollowing(struct trace_event_raw_sys_enter *ctx)
+{
+    struct hollow_event_t evt = {};
     struct task_struct *task;
 
     // Basic context
-    event.pid = bpf_get_current_pid_tgid() >> 32;
-    event.uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
-    bpf_get_current_comm(&event.comm, sizeof(event.comm));
+    evt.pid = bpf_get_current_pid_tgid() >> 32;
+    evt.uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
+    bpf_get_current_comm(&evt.comm, sizeof(evt.comm));
 
-    // Get parent PID (ppid)
+    // Parent TGID as PPID
     task = (struct task_struct *)bpf_get_current_task_btf();
-    struct task_struct *real_parent = BPF_CORE_READ(task, real_parent);
-    event.ppid = BPF_CORE_READ(real_parent, pid);
+    if (task) {
+        struct task_struct *real_parent = BPF_CORE_READ(task, real_parent);
+        evt.ppid = BPF_CORE_READ(real_parent, tgid);
+    }
 
-    // Emit metadata
-    __builtin_memcpy(event.details, "execve event (check for hollowing)", 35);
-    bpf_perf_event_output(ctx, &events, BPF_F_CURRENT_CPU, &event, sizeof(event));
+    __builtin_memcpy(evt.details, "execve event (check for hollowing)", 35);
+
+    // Emit via ring buffer
+    bpf_ringbuf_output(&events, &evt, sizeof(evt), 0);
     return 0;
 }
+

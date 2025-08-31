@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CommonEvent",
+  "type": "object",
+  "required": ["ts_ns","sensor","pid","uid","comm"],
+  "properties": {
+    "ts_ns": {"type":"integer"},
+    "sensor": {"type":"string","enum":["proc","file","net","wx","exploit","external"]},
+    "pid": {"type":"integer"}, "ppid": {"type":"integer"}, "uid": {"type":"integer"},
+    "comm": {"type":"string"}, "exe": {"type":"string"},
+    "argv": {"type":"array","items":{"type":"string"}},
+    "file": {"type":"object","properties":{"path":{"type":"string"},"op":{"type":"string"}}},
+    "net":  {"type":"object","properties":{
+      "l4":{"type":"string","enum":["tcp","udp"]},
+      "src_ip":{"type":"string"},"src_port":{"type":"integer"},
+      "dst_ip":{"type":"string"},"dst_port":{"type":"integer"},
+      "bytes":{"type":"integer"},"dir":{"type":"string","enum":["egress","ingress"]}
+    }},
+    "evidence":{"type":"array","items":{"type":"string"}},
+    "srcs":{"type":"array","items":{"type":"object","properties":{
+      "kind":{"type":"string","enum":["ringbuf","perf","external"]},
+      "name":{"type":"string"}
+    }}}
+  }
+}

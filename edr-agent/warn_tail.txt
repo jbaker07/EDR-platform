@@ -1,60 +1,8 @@
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-[GNN Hook] FIFO unavailable (/tmp/gnn_input.pipe): No such file or directory (os error 2); falling back to file.
-📝 Telemetry record: {"timestamp": "1756370261", "binary_path": "/usr/bin/inputattach", "event_type": "file_hash", "command_line": "hash_check", "category": "file", "risk_score": "10", "confidence": "0.3", "signal": "file_hash_check", "cwd": "/bin", "gnn_escalate": "false", "uid": "0", "ppid": "0", "pid": "0", "replay_tag": "hash_match", "sha256": "0e28f1e4a47e3a33f1197f8e160c9f91e8caffdf4ea30807d805945af2ecb2c6"}
-📝 Telemetry record: {"category": "file", "command_line": "hash_check", "timestamp": "1756370261", "signal": "file_hash_check", "ppid": "0", "binary_path": "/usr/bin/pdfattach", "replay_tag": "hash_match", "gnn_escalate": "false", "risk_score": "10", "event_type": "file_hash", "cwd": "/bin", "uid": "0", "sha256": "2b636595d9e8387d80e64cab0e4e18bdd44fdfdb71a3db946339509bbb76c1ae", "pid": "0", "confidence": "0.3"}
-📝 Telemetry record: {"cwd": "/bin", "event_type": "file_hash", "risk_score": "10", "sha256": "da6e63c8ef5a3ea2a5fba61f9a69f11f711e89c467bccbda311c03567536ea4d", "pid": "0", "confidence": "0.3", "uid": "0", "ppid": "0", "replay_tag": "hash_match", "gnn_escalate": "false", "signal": "file_hash_check", "category": "file", "command_line": "hash_check", "binary_path": "/usr/bin/btattach", "timestamp": "1756370261"}
-📝 Telemetry record: {"pid": "0", "sha256": "002461bcd02692a380c8eea3dcd98e7893748c736b1ccfe7645a0830d0dc61c3", "category": "file", "replay_tag": "hash_match", "binary_path": "/usr/bin/isdv4-serial-inputattach", "risk_score": "10", "uid": "0", "signal": "file_hash_check", "command_line": "hash_check", "confidence": "0.3", "event_type": "file_hash", "ppid": "0", "gnn_escalate": "false", "cwd": "/bin", "timestamp": "1756370261"}
-📝 Telemetry record: {"gnn_escalate": "false", "binary_path": "/usr/bin/sbattach", "ppid": "0", "risk_score": "10", "uid": "0", "replay_tag": "hash_match", "signal": "file_hash_check", "event_type": "file_hash", "cwd": "/bin", "confidence": "0.3", "command_line": "hash_check", "timestamp": "1756370261", "pid": "0", "category": "file", "sha256": "9cc0fffe5cafef18fe60a5318379a6ca6af2037479f555fa293303a4a50c9f77"}
-📝 Telemetry record: {"signal": "file_hash_check", "category": "file", "command_line": "hash_check", "confidence": "0.3", "binary_path": "/usr/bin/hciattach", "pid": "0", "gnn_escalate": "false", "timestamp": "1756370261", "sha256": "5749390b9232062ad9f684c1cdb4fbc9f6fb04bb4cf1f381c67ccae22e807ec2", "risk_score": "10", "ppid": "0", "uid": "0", "cwd": "/usr/bin", "replay_tag": "hash_match", "event_type": "file_hash"}
-📝 Telemetry record: {"command_line": "hash_check", "replay_tag": "hash_match", "gnn_escalate": "false", "cwd": "/usr/bin", "risk_score": "10", "timestamp": "1756370261", "uid": "0", "binary_path": "/usr/bin/inputattach", "event_type": "file_hash", "confidence": "0.3", "sha256": "0e28f1e4a47e3a33f1197f8e160c9f91e8caffdf4ea30807d805945af2ecb2c6", "ppid": "0", "signal": "file_hash_check", "category": "file", "pid": "0"}
-📝 Telemetry record: {"cwd": "/usr/bin", "event_type": "file_hash", "ppid": "0", "confidence": "0.3", "category": "file", "command_line": "hash_check", "sha256": "2b636595d9e8387d80e64cab0e4e18bdd44fdfdb71a3db946339509bbb76c1ae", "risk_score": "10", "gnn_escalate": "false", "replay_tag": "hash_match", "timestamp": "1756370261", "signal": "file_hash_check", "uid": "0", "binary_path": "/usr/bin/pdfattach", "pid": "0"}
-📝 Telemetry record: {"sha256": "da6e63c8ef5a3ea2a5fba61f9a69f11f711e89c467bccbda311c03567536ea4d", "confidence": "0.3", "event_type": "file_hash", "gnn_escalate": "false", "replay_tag": "hash_match", "pid": "0", "category": "file", "ppid": "0", "uid": "0", "risk_score": "10", "command_line": "hash_check", "timestamp": "1756370261", "cwd": "/usr/bin", "binary_path": "/usr/bin/btattach", "signal": "file_hash_check"}
-📝 Telemetry record: {"pid": "0", "cwd": "/usr/bin", "timestamp": "1756370261", "uid": "0", "signal": "file_hash_check", "event_type": "file_hash", "gnn_escalate": "false", "command_line": "hash_check", "confidence": "0.3", "ppid": "0", "binary_path": "/usr/bin/isdv4-serial-inputattach", "risk_score": "10", "category": "file", "replay_tag": "hash_match", "sha256": "002461bcd02692a380c8eea3dcd98e7893748c736b1ccfe7645a0830d0dc61c3"}
-📝 Telemetry record: {"ppid": "0", "confidence": "0.3", "risk_score": "10", "uid": "0", "event_type": "file_hash", "pid": "0", "binary_path": "/usr/bin/sbattach", "command_line": "hash_check", "timestamp": "1756370261", "replay_tag": "hash_match", "signal": "file_hash_check", "cwd": "/usr/bin", "gnn_escalate": "false", "sha256": "9cc0fffe5cafef18fe60a5318379a6ca6af2037479f555fa293303a4a50c9f77", "category": "file"}
+   Compiling thiserror v1.0.69
+   Compiling core-error v0.0.0
+   Compiling thiserror-impl v1.0.69
+3 |     maps::perf::PerfEventArray,
+94 | fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
+312 | use aya::{Bpf, util::online_cpus, maps::perf::PerfEventArray, programs::TracePoint};
+116 | fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
+61 | fn attach_tracepoint(bpf: &mut Bpf, prog_key: &str, cat: &str, ev: &str) -> Result<(), String> {

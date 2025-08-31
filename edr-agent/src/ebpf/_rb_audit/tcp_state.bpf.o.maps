@@ -1,0 +1,4 @@
+---- map id 295 ----
+295: ringbuf  name edr_events_rb  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+
