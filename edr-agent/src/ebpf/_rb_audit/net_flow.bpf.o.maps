@@ -1,0 +1,9 @@
+---- map id 283 ----
+283: lru_hash  name last_fd_map  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 884
+
+---- map id 284 ----
+284: ringbuf  name net_events  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+

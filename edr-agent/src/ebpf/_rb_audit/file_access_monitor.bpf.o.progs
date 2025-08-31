@@ -1,0 +1,4 @@
+1103: tracepoint  name trace_file_acce  tag 6285930283f421f9  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 536B  jited 576B  memlock 4096B  map_ids 281
+	btf_id 836

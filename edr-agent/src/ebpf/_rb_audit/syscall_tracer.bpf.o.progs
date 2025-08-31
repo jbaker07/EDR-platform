@@ -1,0 +1,48 @@
+1168: tracepoint  name tp_enter_capset  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1162: tracepoint  name tp_enter_clone  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1169: tracepoint  name tp_enter_connec  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1158: tracepoint  name tp_enter_execve  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1159: tracepoint  name tp_enter_execve  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1160: tracepoint  name tp_enter_fork  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1163: tracepoint  name tp_enter_mmap  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1164: tracepoint  name tp_enter_mprote  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1167: tracepoint  name tp_enter_setres  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1166: tracepoint  name tp_enter_setreu  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1165: tracepoint  name tp_enter_setuid  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932
+1161: tracepoint  name tp_enter_vfork  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 294
+	btf_id 932

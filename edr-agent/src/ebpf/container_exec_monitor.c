@@ -6,6 +6,9 @@
 #include "bpf_helpers.h"
 #include "bpf_tracing.h"
 #include "bpf_core_read.h"
+#ifndef TASK_COMM_LEN
+#define TASK_COMM_LEN 16
+#endif
 
 char LICENSE[] SEC("license") = "Dual BSD/GPL";
 

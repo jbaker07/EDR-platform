@@ -25,6 +25,16 @@ use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::utils::time::now_ts;
 use forensic_hooks::calibration::RollingCalibrator;
 
+// === add the reader modules directly ===
+#[path = "ebpf/events_reader.rs"]
+mod events_reader;
+
+#[path = "ebpf/file_access_reader.rs"]
+mod file_access_reader;
+
+#[path = "ebpf/net_flow_reader.rs"]
+mod net_flow_reader;
+
 // —— global calibrator ——
 static CALIBRATOR: OnceLock<std::sync::Mutex<RollingCalibrator>> = OnceLock::new();
 fn calibrator() -> &'static std::sync::Mutex<RollingCalibrator> {
@@ -96,7 +106,6 @@ fn dedup_records(records: &mut Vec<TelemetryRecord>) {
     // One-minute bucket dedup for MFA-bypass signals
     let mut seen: HashSet<(i64, String)> = HashSet::new();
     records.retain(|r| {
-        // find any tag that contains "mfa_bypass"
         if let Some(tag) = r.tags.iter().find(|t| t.contains("mfa_bypass")) {
             let bucket = (r.timestamp as i64) / 60;
             let key = (bucket, tag.clone());
@@ -277,9 +286,27 @@ async fn main() {
 
     let writer = Arc::new(Mutex::new(forensic_hooks::telemetry_writer::TelemetryWriter::new()));
 
+    // ==== startup of eBPF readers ====
+    // By default we **do not** call the legacy start_realtime_monitors to avoid double attaches.
+    // If you need legacy startup, set EDR_USE_LEGACY_REALTIME=1
+    let use_legacy = std::env::var("EDR_USE_LEGACY_REALTIME")
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false);
+
     #[cfg(target_os = "linux")]
     {
-        start_realtime_monitors(writer.clone());
+        if use_legacy {
+            start_realtime_monitors(writer.clone());
+        } else {
+            // Network flow (ringbuf)
+            net_flow_reader::start_net_flow_reader(writer.clone());
+            // File access (perf) — this is the correct exported function
+            if let Err(e) = file_access_reader::start() {
+                eprintln!("⛔ file_access_reader disabled: {e}");
+            } else {
+                eprintln!("✅ file_access_reader started");
+            }
+        }
     }
 
     if let Ok(mut cal) = calibrator().lock() {
@@ -341,7 +368,6 @@ async fn main() {
 
                 for f in feats.iter().filter(|f| f.z.abs() > 2.0) {
                     println!("🔎 feature: {}={} z={:.2} fam={}", f.key, f.value, f.z, f.family);
-                    // If/when type aligns: forensic_hooks::telemetry::push_feature_as_signal(f);
                 }
 
                 tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);

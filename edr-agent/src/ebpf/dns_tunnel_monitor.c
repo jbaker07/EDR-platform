@@ -1,4 +1,4 @@
-// edr-agent/src/ebpf/dns_tunnel_monitor.c
+// edr-agent/src/ebpf/dns_tunnel_monitor.c (ringbuf version)
 
 #include "vmlinux.h"
 #include <bpf/bpf_helpers.h>
@@ -8,35 +8,43 @@
 char LICENSE[] SEC("license") = "Dual BSD/GPL";
 
 struct dns_tunnel_event_t {
-    u32 pid;
-    u32 uid;
-    char comm[64];
-    char domain[256];
-    u32 query_type;
+    __u32 pid;
+    __u32 uid;
+    char  comm[64];
+    char  domain[256];
+    __u32 query_type;
 };
 
+/* Ring buffer named "events" so edr_attach_any can reuse the shared
+ * /sys/fs/bpf/edr/edr_events_rb if it’s already pinned.
+ */
 struct {
-    __uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
+    __uint(type, BPF_MAP_TYPE_RINGBUF);
+    __uint(max_entries, 1 << 20); // 1 MiB fallback if not reusing shared rb
 } events SEC(".maps");
 
-// DNS port
+// DNS port (placeholder for future parsing)
 #define DNS_PORT 53
 
 SEC("tracepoint/syscalls/sys_enter_sendto")
-int trace_dns_send(struct trace_event_raw_sys_enter *ctx) {
-    struct dns_tunnel_event_t event = {};
-    event.pid = bpf_get_current_pid_tgid() >> 32;
-    event.uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
-    bpf_get_current_comm(&event.comm, sizeof(event.comm));
+int trace_dns_send(struct trace_event_raw_sys_enter *ctx)
+{
+    struct dns_tunnel_event_t *event;
 
-    // DNS payload detection logic (heuristic)
-    // In reality, this would analyze the buffer being sent
-    // but we can't access full buffer contents in a portable way in this tracepoint
+    event = bpf_ringbuf_reserve(&events, sizeof(*event), 0);
+    if (!event)
+        return 0;
 
-    // Fake marker for suspicious DNS query
-    __builtin_memcpy(event.domain, "suspect.longsubdomain.example.com", 35);
-    event.query_type = 1; // A record
+    event->pid = (__u32)(bpf_get_current_pid_tgid() >> 32);
+    event->uid = (__u32)(bpf_get_current_uid_gid() & 0xFFFFFFFF);
+    bpf_get_current_comm(&event->comm, sizeof(event->comm));
 
-    bpf_perf_event_output(ctx, &events, BPF_F_CURRENT_CPU, &event, sizeof(event));
+    /* Heuristic placeholder — real DNS payload inspection would need kprobes/
+     * LSM or socket-level hooks to safely peek buffers cross-arch.
+     */
+    __builtin_memcpy(event->domain, "suspect.longsubdomain.example.com", 35);
+    event->query_type = 1; // A record
+
+    bpf_ringbuf_submit(event, 0);
     return 0;
 }

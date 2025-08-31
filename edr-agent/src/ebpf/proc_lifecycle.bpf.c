@@ -1,3 +1,6 @@
+#ifndef __maybe_unused
+#define __maybe_unused __attribute__((unused))
+#endif
 // include/edr_events.h  (BPF-safe, no /usr/include/linux/*)
 
 #ifndef EDR_EVENTS_H
@@ -50,14 +53,72 @@ struct {
 } edr_events_rb SEC(".maps");
 
 /* Tiny helpers */
-static __always_inline __u32 edr_tgid(void) {
+static __always_inline __maybe_unused __u32 edr_tgid(void) {
     return (__u32)(bpf_get_current_pid_tgid() >> 32);
 }
-static __always_inline __u32 edr_uid(void) {
+static __always_inline __maybe_unused __u32 edr_uid(void) {
     return (__u32)(bpf_get_current_uid_gid() & 0xffffffff);
 }
-static __always_inline int edr_emit(const struct edr_event *ev) {
+static __always_inline __maybe_unused int edr_emit(struct edr_event *ev) {
     return bpf_ringbuf_output(&edr_events_rb, ev, sizeof(*ev), 0);
 }
 
 #endif /* EDR_EVENTS_H */
+
+/* ===================== proc_lifecycle programs ===================== */
+
+static __always_inline void fill_common(struct edr_event *ev, __u32 type)
+{
+    ev->ts         = bpf_ktime_get_ns();
+    ev->type       = type;
+    ev->syscall_id = 0;
+    ev->tgid       = edr_tgid();
+    ev->uid        = edr_uid();
+    ev->fd         = -1;
+    ev->ret        = 0;
+    ev->aux_u32    = 0;
+
+    struct task_struct *t = (void *)bpf_get_current_task();
+    ev->ppid = BPF_CORE_READ(t, real_parent, tgid);
+
+    __builtin_memset(ev->path, 0, sizeof(ev->path));
+    bpf_get_current_comm(&ev->comm, sizeof(ev->comm));
+}
+
+/* sched_process_fork */
+SEC("tracepoint/sched/sched_process_fork")
+int tp_sched_process_fork(void *ctx)
+{
+    struct edr_event ev = {};
+    fill_common(&ev, EVT_PROC_FORK);
+    return edr_emit(&ev);
+}
+
+/* sched_process_exec */
+SEC("tracepoint/sched/sched_process_exec")
+int tp_sched_process_exec(void *ctx)
+{
+    struct edr_event ev = {};
+    fill_common(&ev, EVT_PROC_EXEC_TP);
+
+    /* Mirror comm into path for readability */
+    __builtin_memcpy(ev.path, ev.comm, sizeof(ev.comm));
+
+    return edr_emit(&ev);
+}
+
+/* sched_process_exit */
+SEC("tracepoint/sched/sched_process_exit")
+int tp_sched_process_exit(void *ctx)
+{
+    struct edr_event ev = {};
+    fill_common(&ev, EVT_PROC_EXIT);
+
+    struct task_struct *t = (void *)bpf_get_current_task();
+    int exit_code = BPF_CORE_READ(t, exit_code);
+    ev.aux_u32 = (__u32)exit_code;
+
+    return edr_emit(&ev);
+}
+
+char LICENSE[] SEC("license") = "Dual BSD/GPL";

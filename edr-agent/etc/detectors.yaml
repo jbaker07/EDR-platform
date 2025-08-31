@@ -1,0 +1,37 @@
+detectors:
+  - id: rules_guardrails
+    type: rules
+    files: ["edr-agent/etc/rules/*.yaml"]
+    weight: 1.0
+    gate: hard     # if rule hits critical, short-circuit to alert
+
+  - id: ee_proc_5m
+    type: elliptic_envelope
+    entity: process
+    feature_view: analytics/features/views/process_5m.yaml
+    baseline_store: data/sqlite/edr.db
+    weight: 0.25
+    calibrator: isotonic
+
+  - id: maha_socket_5m
+    type: mahalanobis
+    entity: socket
+    feature_view: analytics/features/views/socket_5m.yaml
+    baseline_store: data/sqlite/edr.db
+    weight: 0.25
+    calibrator: platt
+
+  - id: krimlite_file
+    type: krim_lite         # your streaming/outlier scorer
+    entity: file
+    feature_view: analytics/features/views/file_stream.yaml
+    state_store: data/sqlite/edr.db
+    weight: 0.15
+    calibrator: none
+
+  - id: rgcn_relnet
+    type: rgcn
+    endpoint: unix:///tmp/edr-gnn.sock
+    node_types: [process, file, socket, ipv4, ipv6, host]
+    weight: 0.35
+    explain: true

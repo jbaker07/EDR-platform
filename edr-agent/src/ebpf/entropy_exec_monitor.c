@@ -1,102 +1,61 @@
-// src/ebpf/entropy_exec_monitor.c
+// entropy_exec_monitor.c  (ringbuf; execve/execveat tracepoints)
+
 #include "vmlinux.h"
 #include <bpf/bpf_helpers.h>
+#include <bpf/bpf_tracing.h>
 #include <bpf/bpf_core_read.h>
 
-#define MAX_FILENAME_LEN 256
-#define MAX_SYSCALL_LEN  16
-
-struct EntropyEvent {
+struct exec_event_t {
+    __u64 ts;
     __u32 pid;
-    __u32 ppid;
-    char  filename[MAX_FILENAME_LEN];
-    char  syscall[MAX_SYSCALL_LEN];
+    __u32 uid;
+    char  comm[16];
+    char  filename[256];
 };
 
-/* PERF buffer (legacy map def to dodge BTF quirks on older toolchains) */
-struct bpf_map_def SEC("maps") events = {
-    .type        = BPF_MAP_TYPE_PERF_EVENT_ARRAY,
-    .key_size    = sizeof(__u32),
-    .value_size  = sizeof(__u32),
-    .max_entries = 256,
-};
+/* Reuse the shared ringbuf pinned at /sys/fs/bpf/edr/events */
+struct {
+    __uint(type, BPF_MAP_TYPE_RINGBUF);
+    __uint(max_entries, 1 << 20);
+} events SEC(".maps");
 
-/* Syscall-nr map (index 0=execve, 1=openat, 2=mmap); filled by userspace at startup */
-struct bpf_map_def SEC("maps") sysnrs = {
-    .type        = BPF_MAP_TYPE_ARRAY,
-    .key_size    = sizeof(__u32),
-    .value_size  = sizeof(__u64),
-    .max_entries = 3,
-};
+/* Optional control map you already had */
+struct {
+    __uint(type, BPF_MAP_TYPE_ARRAY);
+    __uint(max_entries, 1);
+    __type(key, __u32);
+    __type(value, __u64);
+} entropy_threshold SEC(".maps");
 
-static __always_inline void fill_syscall_name(char dst[MAX_SYSCALL_LEN], int scid)
+static __always_inline void emit_exec(struct trace_event_raw_sys_enter *ctx, __u64 filename_arg)
 {
-    /* constant-size clear so the verifier can see exact bounds */
-    __builtin_memset(dst, 0, MAX_SYSCALL_LEN);
+    struct exec_event_t *e = bpf_ringbuf_reserve(&events, sizeof(*e), 0);
+    if (!e)
+        return;
 
-    /* write fixed strings with constant lengths (no pointer bitwise ops) */
-    if (scid == 0) {              /* execve */
-        __builtin_memcpy(dst, "execve", 6);
-    } else if (scid == 1) {       /* openat */
-        __builtin_memcpy(dst, "openat", 6);
-    } else if (scid == 2) {       /* mmap   */
-        __builtin_memcpy(dst, "mmap", 4);
-    }
+    e->ts  = bpf_ktime_get_ns();
+    e->pid = (__u32)(bpf_get_current_pid_tgid() >> 32);
+    e->uid = (__u32)(bpf_get_current_uid_gid());
+    bpf_get_current_comm(&e->comm, sizeof(e->comm));
+    bpf_probe_read_user_str(e->filename, sizeof(e->filename), (const void *)filename_arg);
+
+    bpf_ringbuf_submit(e, 0);
 }
 
-/* ctx is the raw_syscalls:sys_enter tracepoint context */
-SEC("tracepoint/raw_syscalls/sys_enter")
-int on_sys_enter(struct trace_event_raw_sys_enter *ctx)
+SEC("tracepoint/syscalls/sys_enter_execve")
+int trace_execve(struct trace_event_raw_sys_enter *ctx)
 {
-    __u64 id = ctx->id;
-    __u32 k;
-    __u64 *nr;
-
-    int scid = -1;
-    const char *filename = NULL;
-
-    /* execve */
-    k = 0; nr = bpf_map_lookup_elem(&sysnrs, &k);
-    if (nr && id == *nr) {
-        scid = 0;
-        filename = (const char *)ctx->args[0];
-    }
-
-    /* openat */
-    k = 1; nr = bpf_map_lookup_elem(&sysnrs, &k);
-    if (nr && id == *nr) {
-        scid = 1;
-        filename = (const char *)ctx->args[1];
-    }
-
-    /* mmap (no filename) */
-    k = 2; nr = bpf_map_lookup_elem(&sysnrs, &k);
-    if (nr && id == *nr) {
-        scid = 2;
-        filename = NULL;
-    }
-
-    if (scid < 0)
-        return 0;
-
-    struct EntropyEvent e = {};
-    __u64 pid_tgid = bpf_get_current_pid_tgid();
-    e.pid  = pid_tgid >> 32;
-
-    /* task->real_parent->tgid via CO-RE */
-    struct task_struct *task = (void *)bpf_get_current_task();
-    e.ppid = BPF_CORE_READ(task, real_parent, tgid);
-
-    if (filename) {
-        /* safe user copy; returns length or -EFAULT, both fine to ignore */
-        bpf_probe_read_user_str(e.filename, sizeof(e.filename), filename);
-    }
-
-    fill_syscall_name(e.syscall, scid);
-
-    /* emit */
-    bpf_perf_event_output(ctx, &events, BPF_F_CURRENT_CPU, &e, sizeof(e));
+    /* execve(filename, argv, envp) -> filename is args[0] */
+    emit_exec(ctx, ctx->args[0]);
     return 0;
 }
 
-char _license[] SEC("license") = "GPL";
+SEC("tracepoint/syscalls/sys_enter_execveat")
+int trace_execveat(struct trace_event_raw_sys_enter *ctx)
+{
+    /* execveat(dirfd, pathname, argv, envp, flags) -> pathname is args[1] */
+    emit_exec(ctx, ctx->args[1]);
+    return 0;
+}
+
+char LICENSE[] SEC("license") = "Dual BSD/GPL";

@@ -1,0 +1,8 @@
+1175: kprobe  name k_tcp_retransmi  tag 9eec1e56328da2b3  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 1512B  jited 1408B  memlock 4096B  map_ids 295
+	btf_id 938
+1174: kprobe  name k_tcp_set_state  tag 41b6ec5b44ab1401  gpl
+	loaded_at 2025-08-31T02:43:38+0000  uid 0
+	xlated 1528B  jited 1412B  memlock 4096B  map_ids 295
+	btf_id 938

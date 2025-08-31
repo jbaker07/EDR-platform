@@ -1,47 +1,62 @@
+// edr-agent/src/ebpf/job_sched_monitor.bpf.c
+
 #include "vmlinux.h"
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
 #include <bpf/bpf_core_read.h>
 
+#ifndef __user
+#define __user
+#endif
+
 char LICENSE[] SEC("license") = "Dual MIT/GPL";
 
-// Maximum length for cron command string
 #define MAX_CMD_LEN 256
 
-// Event structure to send to userspace
 struct cron_event_t {
-    u64 timestamp;
-    u32 pid;
-    u32 ppid;
-    char filename[MAX_CMD_LEN];
+    __u64 timestamp;
+    __u32 pid;
+    __u32 ppid;
+    char  filename[MAX_CMD_LEN];
 };
 
+/* use the shared ringbuf named "events" */
 struct {
-    __uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
+    __uint(type, BPF_MAP_TYPE_RINGBUF);
+    __uint(max_entries, 1 << 20);
 } events SEC(".maps");
 
-SEC("tracepoint/syscalls/sys_enter_openat")
-int trace_openat(struct trace_event_raw_sys_enter *ctx) {
-    struct cron_event_t event = {};
-    u64 ts = bpf_ktime_get_ns();
-    event.timestamp = ts;
+static __always_inline bool startswith_etc_cron(const char *s)
+{
+    return s[0]=='/'&&s[1]=='e'&&s[2]=='t'&&s[3]=='c'&&s[4]=='/'&&
+           s[5]=='c'&&s[6]=='r'&&s[7]=='o'&&s[8]=='n';
+}
 
-    // Extract PID and PPID
-    event.pid = bpf_get_current_pid_tgid() >> 32;
+static __always_inline bool startswith_var_spool_cron(const char *s)
+{
+    return s[0]=='/'&&s[1]=='v'&&s[2]=='a'&&s[3]=='r'&&s[4]=='/'&&
+           s[5]=='s'&&s[6]=='p'&&s[7]=='o'&&s[8]=='o'&&s[9]=='l'&&
+           s[10]=='/'&&s[11]=='c'&&s[12]=='r'&&s[13]=='o'&&s[14]=='n';
+}
+
+SEC("tracepoint/syscalls/sys_enter_openat")
+int trace_openat(struct trace_event_raw_sys_enter *ctx)
+{
+    struct cron_event_t ev = {};
+    ev.timestamp = bpf_ktime_get_ns();
+    ev.pid = (__u32)(bpf_get_current_pid_tgid() >> 32);
 
     struct task_struct *task = (struct task_struct *)bpf_get_current_task();
     struct task_struct *real_parent = BPF_CORE_READ(task, real_parent);
-    event.ppid = BPF_CORE_READ(real_parent, tgid);
+    ev.ppid = BPF_CORE_READ(real_parent, tgid);
 
-    // Extract filename
-    const char *filename = (const char *)ctx->args[1];
-    bpf_probe_read_user_str(event.filename, sizeof(event.filename), filename);
+    unsigned long filename_ptr = 0;
+    BPF_CORE_READ_INTO(&filename_ptr, ctx, args[1]);
+    const char __user *filename = (const char __user *)filename_ptr;
+    bpf_probe_read_user_str(ev.filename, sizeof(ev.filename), filename);
 
-    // Check if it's likely cron or suspicious
-    if (__builtin_memcmp(event.filename, "/etc/cron", 10) == 0 ||
-        __builtin_memcmp(event.filename, "/var/spool/cron", 16) == 0) {
-        bpf_perf_event_output(ctx, &events, BPF_F_CURRENT_CPU, &event, sizeof(event));
+    if (startswith_etc_cron(ev.filename) || startswith_var_spool_cron(ev.filename)) {
+        bpf_ringbuf_output(&events, &ev, sizeof(ev), 0);
     }
-
     return 0;
 }

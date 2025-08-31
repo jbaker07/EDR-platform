@@ -1,0 +1,18 @@
+# deterministic guardrails (first layer)
+- id: file_cron_write
+  when:
+    sensor: file
+    file.op: open|write|rename
+    file.path: ^(/etc/cron|/var/spool/cron)
+  action:
+    severity: high
+    tags: [persistence,cron]
+    explain: "Write into cron path"
+- id: wx_memfd_exec
+  when:
+    sensor: wx
+    evidence: contains: [memfd, exec]
+  action:
+    severity: critical
+    tags: [evasion,memfd]
+    explain: "Executable from memfd with W⊕X"

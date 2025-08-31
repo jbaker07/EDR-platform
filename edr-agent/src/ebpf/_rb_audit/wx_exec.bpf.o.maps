@@ -1,0 +1,24 @@
+---- map id 307 ----
+307: lru_hash  name last_w_map_ts  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 950
+
+---- map id 308 ----
+308: lru_hash  name memfd_set  flags 0x0
+	key 8B  value 1B  max_entries 32768  memlock 524288B
+	btf_id 950
+
+---- map id 309 ----
+309: lru_hash  name last_fd  flags 0x0
+	key 4B  value 4B  max_entries 16384  memlock 131072B
+	btf_id 950
+
+---- map id 310 ----
+310: lru_hash  name memfd_bytes  flags 0x0
+	key 4B  value 16B  max_entries 16384  memlock 393216B
+	btf_id 950
+
+---- map id 311 ----
+311: ringbuf  name wx_events  flags 0x0
+	key 0B  value 0B  max_entries 4194304  memlock 0B
+
