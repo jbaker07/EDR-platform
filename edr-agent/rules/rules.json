@@ -1,0 +1,1 @@
+{"version":1,"rules":[{"id":"okta-suspicious-geo","name":"Okta suspicious geo","when":[{"Regex":{"field":"attributes.client.ip","pattern":"^(?!10\\.|192\\.168\\.|172\\.(1[6-9]|2\\d|3[01])\\.).+"}}],"then":{"severity":"medium","tags":["okta","geo","T1078.004"]}}]}

@@ -1,0 +1,1600 @@
+   Compiling tokio-stream v0.1.17
+   Compiling forensic_hooks v0.1.0 (/home/jermaineb/EDR-platform/edr-agent)
+warning: unexpected `cfg` condition value: `gnn`
+ --> src/ingest.rs:7:8
+  |
+7 | #![cfg(feature = "gnn")]
+  |        ^^^^^^^^^^^^^^^ help: remove the condition
+  |
+  = note: no expected values for `feature`
+  = help: consider adding `gnn` as a feature in `Cargo.toml`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:18:32
+   |
+18 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:22:32
+   |
+22 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:26:32
+   |
+26 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:34:32
+   |
+34 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:40:32
+   |
+40 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:46:32
+   |
+46 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:58:32
+   |
+58 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:64:32
+   |
+64 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/telemetry.rs:72:32
+   |
+72 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unused import: `std::fs::Metadata`
+ --> src/telemetry.rs:2:5
+  |
+2 | use std::fs::Metadata;
+  |     ^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::path::Path`
+ --> src/telemetry.rs:3:5
+  |
+3 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `scan_mfa_bypass_activity`
+  --> src/telemetry.rs:49:34
+   |
+49 | use crate::modules::mfa_bypass::{scan_mfa_bypass_activity, start_mfa_bypass_monitor};
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `start_privilege_monitor`
+  --> src/telemetry.rs:57:66
+   |
+57 | use crate::modules::privilege_monitor::{scan_privilege_activity, start_privilege_monitor};
+   |                                                                  ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `start_process_injection_monitor`
+  --> src/telemetry.rs:61:66
+   |
+61 | use crate::modules::process_injection::{scan_injection_fallback, start_process_injection_monitor};
+   |                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `scan_processes`
+  --> src/telemetry.rs:63:57
+   |
+63 | use crate::modules::process_monitor::{gather_processes, scan_processes};
+   |                                                         ^^^^^^^^^^^^^^
+
+warning: unexpected `cfg` condition value: `ebpf`
+   --> src/telemetry.rs:219:36
+    |
+219 |     #[cfg(all(target_os = "linux", feature = "ebpf"))]
+    |                                    ^^^^^^^^^^^^^^^^ help: remove the condition
+    |
+    = note: no expected values for `feature`
+    = help: consider adding `ebpf` as a feature in `Cargo.toml`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unused import: `TelemetryEvent`
+ --> src/telemetry_writer.rs:1:30
+  |
+1 | use crate::telemetry_types::{TelemetryEvent, MemoryAnomalyType};
+  |                              ^^^^^^^^^^^^^^
+
+warning: unused import: `File`
+ --> src/telemetry_writer.rs:7:31
+  |
+7 | use std::fs::{create_dir_all, File, OpenOptions};
+  |                               ^^^^
+
+warning: unused imports: `geo_ip_anomaly`, `logger::log`, `mfa_bypass`, and `password_spray`
+  --> src/modules/auth_monitor.rs:15:5
+   |
+15 |     logger::log,
+   |     ^^^^^^^^^^^
+16 |     modules::{geo_ip_anomaly, mfa_bypass, password_spray}, // kept for compatibility if referenced elsewhere
+   |               ^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused imports: `KProbe`, `RawTracePoint`, and `TracePoint`
+  --> src/modules/container_monitor.rs:22:16
+   |
+22 |     programs::{KProbe, Program, RawTracePoint, TracePoint},
+   |                ^^^^^^           ^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unexpected `cfg` condition value: `with-ebpf`
+   --> src/modules/dll_injection_monitor.rs:177:32
+    |
+177 | #[cfg(all(target_os = "linux", feature = "with-ebpf"))]
+    |                                ^^^^^^^^^^^^^^^^^^^^^ help: remove the condition
+    |
+    = note: no expected values for `feature`
+    = help: consider adding `with-ebpf` as a feature in `Cargo.toml`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `with-ebpf`
+   --> src/modules/dll_injection_monitor.rs:181:36
+    |
+181 | #[cfg(not(all(target_os = "linux", feature = "with-ebpf")))]
+    |                                    ^^^^^^^^^^^^^^^^^^^^^ help: remove the condition
+    |
+    = note: no expected values for `feature`
+    = help: consider adding `with-ebpf` as a feature in `Cargo.toml`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unused imports: `KProbe`, `RawTracePoint`, `TracePoint`, and `include_bytes_aligned`
+ --> src/modules/dll_injection_monitor.rs:2:5
+  |
+2 |     include_bytes_aligned,
+  |     ^^^^^^^^^^^^^^^^^^^^^
+3 |     maps::perf::PerfEventArray,
+4 |     programs::{KProbe, Program, RawTracePoint, TracePoint},
+  |                ^^^^^^           ^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `convert::TryInto`
+  --> src/modules/dll_injection_monitor.rs:11:5
+   |
+11 |     convert::TryInto,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unexpected `cfg` condition value: `net_lookup`
+  --> src/modules/job_sched_monitor.rs:74:7
+   |
+74 | #[cfg(feature = "net_lookup")]
+   |       ^^^^^^^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `net_lookup` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `sign_logs`
+  --> src/modules/job_sched_monitor.rs:90:7
+   |
+90 | #[cfg(feature = "sign_logs")]
+   |       ^^^^^^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `sign_logs` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unused import: `Write`
+ --> src/modules/job_sched_monitor.rs:3:27
+  |
+3 | use std::io::{self, Read, Write, BufRead, BufReader};
+  |                           ^^^^^
+
+warning: unused import: `std::convert::TryInto`
+ --> src/modules/net_watch.rs:7:5
+  |
+7 | use std::convert::TryInto;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::logger::log`
+  --> src/modules/net_watch.rs:19:5
+   |
+19 | use crate::logger::log;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `BufReader`
+   --> src/modules/net_watch.rs:506:28
+    |
+506 |     use std::io::{BufRead, BufReader};
+    |                            ^^^^^^^^^
+
+warning: unused imports: `BufRead` and `BufReader`
+ --> src/modules/persistence_watch.rs:2:21
+  |
+2 | use std::io::{Read, BufRead, BufReader};
+  |                     ^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `RwLock`
+  --> src/modules/persistence_watch.rs:10:24
+   |
+10 | use std::sync::{Mutex, RwLock};
+   |                        ^^^^^^
+
+warning: unused import: `serde_json::json`
+  --> src/modules/persistence_watch.rs:17:5
+   |
+17 | use serde_json::json;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `Ordering`
+ --> src/modules/signal_integrity_mapper.rs:8:48
+  |
+8 | use std::sync::{OnceLock, atomic::{AtomicBool, Ordering}};
+  |                                                ^^^^^^^^
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/modules/suspicious_ipc.rs:11:32
+   |
+11 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/modules/suspicious_ipc.rs:13:32
+   |
+13 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/modules/suspicious_ipc.rs:15:32
+   |
+15 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/modules/suspicious_ipc.rs:17:32
+   |
+17 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `ebpf`
+  --> src/modules/suspicious_ipc.rs:52:32
+   |
+52 | #[cfg(all(target_os = "linux", feature = "ebpf"))]
+   |                                ^^^^^^^^^^^^^^^^ help: remove the condition
+   |
+   = note: no expected values for `feature`
+   = help: consider adding `ebpf` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unused import: `std::convert::TryInto`
+ --> src/modules/suspicious_ipc.rs:4:5
+  |
+4 | use std::convert::TryInto;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Ordering`
+ --> src/modules/suspicious_ipc.rs:6:26
+  |
+6 |     atomic::{AtomicBool, Ordering},
+  |                          ^^^^^^^^
+
+warning: unused imports: `thread` and `time::Duration`
+ --> src/modules/suspicious_ipc.rs:9:11
+  |
+9 | use std::{thread, time::Duration};
+  |           ^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused import: `bytes::BytesMut`
+  --> src/modules/suspicious_ipc.rs:20:5
+   |
+20 | use bytes::BytesMut;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `include_bytes_aligned`
+  --> src/modules/file_hash_watcher.rs:16:5
+   |
+16 |     include_bytes_aligned,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+  --> src/modules/file_hash_watcher.rs:23:5
+   |
+23 | use chrono::Utc;
+   |     ^^^^^^^^^^^
+
+warning: unused imports: `KProbe`, `RawTracePoint`, and `TracePoint`
+  --> src/modules/encrypted_payload_detector.rs:17:16
+   |
+17 |     programs::{KProbe, Program, RawTracePoint, TracePoint},
+   |                ^^^^^^           ^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `Utc`
+  --> src/modules/encrypted_payload_detector.rs:22:21
+   |
+22 | use chrono::{Local, Utc};
+   |                     ^^^
+
+warning: unused import: `mime_guess::from_path`
+ --> src/modules/telemetry_fingerprint.rs:3:5
+  |
+3 | use mime_guess::from_path;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `users::get_user_by_uid`
+ --> src/modules/telemetry_fingerprint.rs:4:5
+  |
+4 | use users::get_user_by_uid;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::os::fd::AsRawFd`
+ --> src/modules/telemetry_fingerprint.rs:5:5
+  |
+5 | use std::os::fd::AsRawFd;
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `libc::iovec`
+ --> src/modules/telemetry_fingerprint.rs:7:5
+  |
+7 | use libc::iovec; // replaces `IoVec`
+  |     ^^^^^^^^^^^
+
+warning: unused import: `std::fs::metadata`
+  --> src/modules/telemetry_fingerprint.rs:18:5
+   |
+18 | use std::fs::metadata;
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::services::trust_config::TrustConfig`
+ --> src/services/trust_engine_final.rs:6:5
+  |
+6 | use crate::services::trust_config::TrustConfig;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `TRUST_DIM_CT`
+  --> src/services/trust_engine_final.rs:14:60
+   |
+14 | use crate::services::trust_vector::{TrustVector, TrustDim, TRUST_DIM_CT};
+   |                                                            ^^^^^^^^^^^^
+
+warning: unused import: `BufRead`
+ --> src/services/trust_state_writer.rs:5:33
+  |
+5 | use std::io::{Write, BufReader, BufRead};
+  |                                 ^^^^^^^
+
+warning: unused import: `lazy_static::lazy_static`
+ --> src/services/replay_trigger.rs:9:5
+  |
+9 | use lazy_static::lazy_static;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+ --> src/services/trust_anchor_logger.rs:3:5
+  |
+3 | use chrono::Utc;
+  |     ^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/services/graph_snapshot_writer.rs:5:5
+  |
+5 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `PathBuf`
+ --> src/services/baseline_uid.rs:7:23
+  |
+7 | use std::path::{Path, PathBuf};
+  |                       ^^^^^^^
+
+warning: unused import: `nix::unistd::Pid`
+ --> src/services/uio.rs:1:5
+  |
+1 | use nix::unistd::Pid;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `c_void`, `iovec`, and `pid_t`
+ --> src/services/uio.rs:2:17
+  |
+2 | use nix::libc::{c_void, iovec, pid_t};
+  |                 ^^^^^^  ^^^^^  ^^^^^
+
+warning: unused import: `Read`
+ --> src/services/uio.rs:5:21
+  |
+5 | use std::io::{self, Read};
+  |                     ^^^^
+
+warning: unused import: `std::os::unix::io::AsRawFd`
+ --> src/services/uio.rs:6:5
+  |
+6 | use std::os::unix::io::AsRawFd;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_trust_curve.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src/session_explainer.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::io as tokio_io`
+ --> src/forensic/utils.rs:3:5
+  |
+3 | use tokio::io as tokio_io;                      // Alias `tokio::io` if needed
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `futures_util::io as futures_util_io`
+ --> src/forensic/utils.rs:4:5
+  |
+4 | use futures_util::io as futures_util_io;        // Alias this too
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `futures::io as futures_io`
+ --> src/forensic/utils.rs:5:5
+  |
+5 | use futures::io as futures_io;                  // Also alias this to avoid collision
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::path::Path`
+ --> src/graph_snapshot_writer.rs:5:5
+  |
+5 | use std::path::Path;
+  |     ^^^^^^^^^^^^^^^
+
+warning: unused import: `HashSet`
+ --> src/episode.rs:4:33
+  |
+4 | use std::collections::{HashMap, HashSet};
+  |                                 ^^^^^^^
+
+warning: unused import: `HashMap`
+ --> src/replay_scheduler.rs:1:24
+  |
+1 | use std::collections::{HashMap, HashSet};
+  |                        ^^^^^^^
+
+warning: unused import: `self`
+ --> src/replay_scheduler.rs:2:15
+  |
+2 | use std::fs::{self, OpenOptions};
+  |               ^^^^
+
+warning: unused import: `Path`
+  --> src/calibration.rs:12:17
+   |
+12 | use std::path::{Path, PathBuf};
+   |                 ^^^^
+
+warning: unused import: `post`
+ --> src/detect/controller.rs:4:28
+  |
+4 |     routing::{delete, get, post},
+  |                            ^^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+ --> src/modules/dll_injection_monitor.rs:6:5
+  |
+6 |     Bpf,
+  |     ^^^
+  |
+  = note: `#[warn(deprecated)]` on by default
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/dll_injection_monitor.rs:94:34
+   |
+94 | fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
+   |                                  ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/dll_injection_monitor.rs:195:33
+    |
+195 |             let mut tmp = match Bpf::load(DLL_INJECTION_BPF) {
+    |                                 ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/dll_injection_monitor.rs:202:35
+    |
+202 |             let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                                   ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/job_sched_monitor.rs:23:11
+   |
+23 | use aya::{Bpf, include_bytes_aligned, util::online_cpus};
+   |           ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/job_sched_monitor.rs:170:33
+    |
+170 |             let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |                                 ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/job_sched_monitor.rs:179:35
+    |
+179 |             let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                                   ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/job_sched_monitor.rs:459:29
+    |
+459 |         let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |                             ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/job_sched_monitor.rs:468:31
+    |
+468 |         let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                               ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/logon_tracker.rs:54:23
+   |
+54 |                 match Bpf::load(include_bytes_aligned!("../ebpf/logon_tracker.bpf.o")) {
+   |                       ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/logon_tracker.rs:61:35
+   |
+61 |             let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+   |                                   ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/logon_tracker.rs:47:38
+   |
+47 |     use aya::{include_bytes_aligned, Bpf};
+   |                                      ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/net_watch.rs:312:11
+    |
+312 | use aya::{Bpf, util::online_cpus, maps::perf::PerfEventArray, programs::TracePoint};
+    |           ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/net_watch.rs:325:34
+    |
+325 |             if let Ok(mut tmp) = Bpf::load(&data) {
+    |                                  ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/net_watch.rs:327:39
+    |
+327 |                 let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                                       ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/persistence_watch.rs:21:11
+   |
+21 | use aya::{Bpf, include_bytes_aligned};
+   |           ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/persistence_watch.rs:148:19
+    |
+148 |     let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/persistence_watch_ebpf.o"))
+    |                   ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/process_monitor.rs:133:11
+    |
+133 | use aya::{Bpf, include_bytes_aligned};
+    |           ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/process_monitor.rs:169:29
+    |
+169 |         let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |                             ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/process_monitor.rs:178:31
+    |
+178 |         let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                               ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+ --> src/modules/usb_monitor.rs:2:11
+  |
+2 | use aya::{Bpf, include_bytes_aligned};
+  |           ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/usb_monitor.rs:160:19
+    |
+160 |     let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/usb_monitor_ebpf.o"))
+    |                   ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/file_hash_watcher.rs:20:5
+   |
+20 |     Bpf,
+   |     ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/file_hash_watcher.rs:428:29
+    |
+428 |         let mut tmp = match Bpf::load(&data) {
+    |                             ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/file_hash_watcher.rs:435:31
+    |
+435 |         let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                               ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/encrypted_payload_detector.rs:19:5
+   |
+19 |     Bpf,
+   |     ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/encrypted_payload_detector.rs:116:42
+    |
+116 | fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
+    |                                          ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/encrypted_payload_detector.rs:187:33
+    |
+187 |             let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |                                 ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/encrypted_payload_detector.rs:193:27
+    |
+193 |                     match Bpf::load(include_bytes_aligned!(
+    |                           ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/modules/encrypted_payload_detector.rs:204:35
+    |
+204 |             let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                                   ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+ --> src/modules/entropy_exec_monitor.rs:6:5
+  |
+6 |     Bpf,
+  |     ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/entropy_exec_monitor.rs:61:32
+   |
+61 | fn attach_tracepoint(bpf: &mut Bpf, prog_key: &str, cat: &str, ev: &str) -> Result<(), String> {
+   |                                ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/entropy_exec_monitor.rs:82:29
+   |
+82 |         let mut tmp = match Bpf::load(include_bytes_aligned!(concat!(
+   |                             ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/modules/entropy_exec_monitor.rs:92:31
+   |
+92 |         let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+   |                               ^^^
+
+warning: variable does not need to be mutable
+   --> src/modules/container_monitor.rs:118:9
+    |
+118 |     let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/container_exec_monitor.bpf.o"))?;
+    |         ----^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: variable does not need to be mutable
+  --> src/modules/mem_scan.rs:48:9
+   |
+48 |     let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mem_scan.bpf.o"))
+   |         ----^^^
+   |         |
+   |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/mem_scan.rs:525:9
+    |
+525 |     let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/proc_hollow_monitor.bpf.o"))
+    |         ----^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/mfa_bypass.rs:250:9
+    |
+250 |     let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mfa_bypass_monitor.bpf.o"))
+    |         ----^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/privilege_monitor.rs:108:9
+    |
+108 |     let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/privilege_monitor_ebpf.o"))?;
+    |         ----^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: value assigned to `backoff_secs` is never read
+   --> src/detect/okta.rs:268:21
+    |
+268 |                     backoff_secs = (backoff_secs * 2).min(120);
+    |                     ^^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+    = note: `#[warn(unused_assignments)]` on by default
+
+warning: variable does not need to be mutable
+   --> src/detect/okta.rs:180:13
+    |
+180 |         let mut tick = sleep(Duration::from_secs(poll_every));
+    |             ----^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: unused import: `BufRead`
+   --> src/modules/net_watch.rs:506:19
+    |
+506 |     use std::io::{BufRead, BufReader};
+    |                   ^^^^^^^
+
+warning: unused variable: `telemetry_output`
+   --> src/modules/auth_monitor.rs:148:17
+    |
+148 |             let telemetry_output = TelemetryOutput {
+    |                 ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_telemetry_output`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: variable does not need to be mutable
+   --> src/modules/auth_monitor.rs:354:9
+    |
+354 |     let mut map = ALERT_LAST_EMIT.lock().unwrap();
+    |         ----^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/container_monitor.rs:335:9
+    |
+335 |     let mut outputs = Vec::new();
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/dll_injection_monitor.rs:195:17
+    |
+195 |             let mut tmp = match Bpf::load(DLL_INJECTION_BPF) {
+    |                 ----^^^
+    |                 |
+    |                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/job_sched_monitor.rs:285:51
+    |
+285 | ...                   if let Ok(mut w) = writer.lock() {
+    |                                 ----^
+    |                                 |
+    |                                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/job_sched_monitor.rs:170:17
+    |
+170 |             let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |                 ----^^^
+    |                 |
+    |                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/job_sched_monitor.rs:387:27
+    |
+387 |                 if let Ok(mut locked_writer) = writer.lock() {
+    |                           ----^^^^^^^^^^^^^
+    |                           |
+    |                           help: remove this `mut`
+
+warning: unused variable: `trust_payload`
+   --> src/modules/job_sched_monitor.rs:549:41
+    |
+549 | ...                   let trust_payload = generate_trust_payload(
+    |                           ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_trust_payload`
+
+warning: variable does not need to be mutable
+   --> src/modules/job_sched_monitor.rs:459:13
+    |
+459 |         let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |             ----^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: unused variable: `trust`
+   --> src/modules/logon_tracker.rs:154:45
+    |
+154 | ...                   let trust =
+    |                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_trust`
+
+warning: variable does not need to be mutable
+   --> src/modules/logon_tracker.rs:196:51
+    |
+196 | ...                   if let Ok(mut w) = writer.lock() {
+    |                                 ----^
+    |                                 |
+    |                                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+  --> src/modules/logon_tracker.rs:53:17
+   |
+53 |             let mut tmp =
+   |                 ----^^^
+   |                 |
+   |                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/net_watch.rs:325:23
+    |
+325 |             if let Ok(mut tmp) = Bpf::load(&data) {
+    |                       ----^^^
+    |                       |
+    |                       help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/privilege_monitor.rs:406:9
+    |
+406 |     let mut uid = 0;
+    |         ----^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/privilege_monitor.rs:520:13
+    |
+520 |         let mut tmp = match Ebpf::load(include_bytes_aligned!(
+    |             ----^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/process_monitor.rs:169:13
+    |
+169 |         let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |             ----^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: unused variable: `ts`
+   --> src/modules/signal_integrity_mapper.rs:207:9
+    |
+207 |     let ts = now_ts();
+    |         ^^ help: if this is intentional, prefix it with an underscore: `_ts`
+
+warning: variable does not need to be mutable
+  --> src/modules/script_monitor.rs:57:21
+   |
+57 |                 let mut data = output.data.clone();
+   |                     ----^^^^
+   |                     |
+   |                     help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/file_hash_watcher.rs:301:33
+    |
+301 | ...                   let mut gnn_escalate = is_threat;
+    |                           ----^^^^^^^^^^^^
+    |                           |
+    |                           help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/file_hash_watcher.rs:340:39
+    |
+340 | ...                   if let Ok(mut w) = writer_clone.lock() {
+    |                                 ----^
+    |                                 |
+    |                                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/file_hash_watcher.rs:428:13
+    |
+428 |         let mut tmp = match Bpf::load(&data) {
+    |             ----^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/modules/encrypted_payload_detector.rs:187:17
+    |
+187 |             let mut tmp = match Bpf::load(include_bytes_aligned!(
+    |                 ----^^^
+    |                 |
+    |                 help: remove this `mut`
+
+warning: variable does not need to be mutable
+  --> src/modules/entropy_exec_monitor.rs:82:13
+   |
+82 |         let mut tmp = match Bpf::load(include_bytes_aligned!(concat!(
+   |             ----^^^
+   |             |
+   |             help: remove this `mut`
+
+warning: unused variable: `gid`
+   --> src/modules/telemetry_fingerprint.rs:403:13
+    |
+403 |         let gid = parts[3].parse::<u32>().unwrap_or(0);
+    |             ^^^ help: if this is intentional, prefix it with an underscore: `_gid`
+
+warning: unused variable: `serial_number`
+   --> src/modules/telemetry_fingerprint.rs:591:17
+    |
+591 |             let serial_number = Some("ABCDEF123456".to_string());
+    |                 ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_serial_number`
+
+warning: unused variable: `trusted_uid`
+   --> src/modules/telemetry_fingerprint.rs:600:17
+    |
+600 |             let trusted_uid = match &mount_path {
+    |                 ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_trusted_uid`
+
+warning: unused variable: `hash`
+    --> src/modules/telemetry_fingerprint.rs:1053:21
+     |
+1053 |                 let hash = format!("{:x}", Sha256::digest(region_id.as_bytes()));
+     |                     ^^^^ help: if this is intentional, prefix it with an underscore: `_hash`
+
+warning: variable does not need to be mutable
+    --> src/modules/telemetry_fingerprint.rs:1034:31
+     |
+1034 |                     if let Ok(mut mem_file) = fs::File::open(&mem_path) {
+     |                               ----^^^^^^^^
+     |                               |
+     |                               help: remove this `mut`
+
+warning: unused variable: `tags`
+  --> src/services/trust_state_writer.rs:65:5
+   |
+65 |     tags: &[String],
+   |     ^^^^ help: if this is intentional, prefix it with an underscore: `_tags`
+
+warning: variable does not need to be mutable
+   --> src/services/trust_state_writer.rs:124:30
+    |
+124 | pub fn start_periodic_writer(mut manager: TrustDecayManager) {
+    |                              ----^^^^^^^
+    |                              |
+    |                              help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/pcb.rs:208:9
+    |
+208 |     let mut copy = |rel: &str, cap: usize| -> std::io::Result<()> {
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> src/pcb.rs:292:9
+    |
+292 |     let mut f = fs::File::open(path).ok()?;
+    |         ----^
+    |         |
+    |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+  --> src/detect/rules.rs:80:9
+   |
+80 |     let mut lookup = |f: &str| -> Option<String> {
+   |         ----^^^^^^
+   |         |
+   |         help: remove this `mut`
+
+warning: type `Weights` is more private than the item `score_sequences`
+   --> src/services/krim_lite.rs:275:1
+    |
+275 | / pub fn score_sequences(
+276 | |     sequences: &[SequencePath],
+277 | |     node_lookup: &HashMap<String, &GraphNode>,
+278 | |     baseline: &[BaselineSequence],
+279 | |     w: Weights,
+280 | | ) -> Vec<TrustEvent> {
+    | |____________________^ function `score_sequences` is reachable at visibility `pub`
+    |
+note: but type `Weights` is only usable at visibility `pub(self)`
+   --> src/services/krim_lite.rs:20:1
+    |
+20  | struct Weights {
+    | ^^^^^^^^^^^^^^
+    = note: `#[warn(private_interfaces)]` on by default
+
+warning: function `extract_comm` is never used
+   --> src/modules/container_monitor.rs:403:4
+    |
+403 | fn extract_comm(pid: u32) -> String {
+    |    ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: function `extract_cmdline` is never used
+   --> src/modules/container_monitor.rs:411:4
+    |
+411 | fn extract_cmdline(pid: u32) -> String {
+    |    ^^^^^^^^^^^^^^^
+
+warning: function `check_file_integrity` is never used
+  --> src/modules/job_sched_monitor.rs:82:4
+   |
+82 | fn check_file_integrity(file_path: &str) -> io::Result<String> {
+   |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_uid_from_proc` is never used
+   --> src/modules/mem_scan.rs:262:4
+    |
+262 | fn get_uid_from_proc(pid: i32) -> Option<u32> {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `simulate_privilege_event` is never used
+   --> src/modules/privilege_monitor.rs:336:10
+    |
+336 | async fn simulate_privilege_event() {
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `parse_ipc_event` is never used
+  --> src/modules/suspicious_ipc.rs:43:4
+   |
+43 | fn parse_ipc_event(buf: &[u8]) -> Option<IPCAbuseEvent> {
+   |    ^^^^^^^^^^^^^^^
+
+warning: function `handle_ipc_event` is never used
+   --> src/modules/suspicious_ipc.rs:150:4
+    |
+150 | fn handle_ipc_event(evt: IPCAbuseEvent) {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: struct `FileEvent` is never constructed
+  --> src/modules/file_hash_watcher.rs:51:8
+   |
+51 | struct FileEvent {
+   |        ^^^^^^^^^
+
+warning: function `is_known_good_fingerprint` is never used
+   --> src/modules/file_hash_watcher.rs:179:4
+    |
+179 | fn is_known_good_fingerprint(meta: &HashMap<String, String>, fp: &Fingerprints) -> bool {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_syscalls_used` is never used
+    --> src/modules/telemetry_fingerprint.rs:1331:4
+     |
+1331 | fn get_syscalls_used(binary_path: &str) -> Option<Vec<String>> {
+     |    ^^^^^^^^^^^^^^^^^
+
+warning: multiple fields are never read
+   --> src/pcb_emitter.rs:88:5
+    |
+87  | struct PcbStats {
+    |        -------- fields in this struct
+88  |     total_pids: usize,
+    |     ^^^^^^^^^^
+89  |     alive_sampled: usize,
+    |     ^^^^^^^^^^^^^
+90  |
+91  |     max_threads: u64,
+    |     ^^^^^^^^^^^
+92  |     p95_threads: u64,
+    |     ^^^^^^^^^^^
+93  |
+94  |     max_fd: u64,
+    |     ^^^^^^
+95  |     p95_fd: u64,
+    |     ^^^^^^
+96  |
+97  |     max_rss_kb: u64,
+    |     ^^^^^^^^^^
+98  |     p95_rss_kb: u64,
+    |     ^^^^^^^^^^
+99  |
+100 |     max_ctx_switches: u64,   // voluntary + nonvoluntary (approx)
+    |     ^^^^^^^^^^^^^^^^
+101 |     p95_ctx_switches: u64,
+    |     ^^^^^^^^^^^^^^^^
+    |
+    = note: `PcbStats` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `join` is never read
+  --> src/detect/registry.rs:24:5
+   |
+23 | struct TaskCtl {
+   |        ------- field in this struct
+24 |     join: JoinHandle<()>,
+   |     ^^^^
+
+warning: unused `Result` that must be used
+   --> src/telemetry.rs:305:9
+    |
+305 |         store_replay_event(mapped.clone());
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+    = note: `#[warn(unused_must_use)]` on by default
+help: use `let _ = ...` to ignore the resulting value
+    |
+305 |         let _ = store_replay_event(mapped.clone());
+    |         +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/auth_monitor.rs:159:13
+    |
+159 |             store_replay_event(data.clone());
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+159 |             let _ = store_replay_event(data.clone());
+    |             +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/container_monitor.rs:226:29
+    |
+226 | ...                   store_replay_event(record);
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+226 |                             let _ = store_replay_event(record);
+    |                             +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/container_monitor.rs:324:13
+    |
+324 |             store_replay_event(record);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+324 |             let _ = store_replay_event(record);
+    |             +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/container_monitor.rs:387:29
+    |
+387 | ...                   store_replay_event(data);
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+387 |                             let _ = store_replay_event(data);
+    |                             +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/dll_injection_monitor.rs:285:49
+    |
+285 | ...                   store_replay_event(data);
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+285 |                                                 let _ = store_replay_event(data);
+    |                                                 +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/file_tamper_monitor.rs:307:5
+    |
+307 |     store_replay_event(data.clone());
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+307 |     let _ = store_replay_event(data.clone());
+    |     +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/file_tamper_monitor.rs:386:5
+    |
+386 |     store_replay_event(data.clone());
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+386 |     let _ = store_replay_event(data.clone());
+    |     +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/net_watch.rs:743:9
+    |
+743 |         store_replay_event(gnn_data);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+743 |         let _ = store_replay_event(gnn_data);
+    |         +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/persistence_watch.rs:133:29
+    |
+133 | ...                   store_replay_event(snapshot.into_hashmap());
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+133 |                             let _ = store_replay_event(snapshot.into_hashmap());
+    |                             +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/process_injection.rs:196:5
+    |
+196 |     store_replay_event(gnn_data);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+196 |     let _ = store_replay_event(gnn_data);
+    |     +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/process_injection.rs:339:5
+    |
+339 |     store_replay_event(data.clone());
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+339 |     let _ = store_replay_event(data.clone());
+    |     +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/process_monitor.rs:119:9
+    |
+119 |         crate::modules::replay_writer::store_replay_event(data.clone());
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+119 |         let _ = crate::modules::replay_writer::store_replay_event(data.clone());
+    |         +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/process_monitor.rs:293:41
+    |
+293 | ...                   crate::modules::replay_writer::store_replay_event(meta.clone());
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+293 |                                         let _ = crate::modules::replay_writer::store_replay_event(meta.clone());
+    |                                         +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/process_monitor.rs:367:5
+    |
+367 |     crate::modules::replay_writer::store_replay_event(data.clone());
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+367 |     let _ = crate::modules::replay_writer::store_replay_event(data.clone());
+    |     +++++++
+
+warning: unused `Result` that must be used
+  --> src/modules/signal_integrity_mapper.rs:58:21
+   |
+58 |                     store_replay_event(meta_map.clone());
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+   |
+58 |                     let _ = store_replay_event(meta_map.clone());
+   |                     +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/signal_integrity_mapper.rs:114:17
+    |
+114 |                 store_replay_event(meta_map.clone());
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+114 |                 let _ = store_replay_event(meta_map.clone());
+    |                 +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/suspicious_ipc.rs:193:5
+    |
+193 |     store_replay_event(data.clone());
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+193 |     let _ = store_replay_event(data.clone());
+    |     +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/suspicious_ipc.rs:256:5
+    |
+256 |     store_replay_event(data.clone());
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+256 |     let _ = store_replay_event(data.clone());
+    |     +++++++
+
+warning: unused `Result` that must be used
+  --> src/modules/script_monitor.rs:86:17
+   |
+86 |                 store_replay_event(data.clone());
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+   |
+86 |                 let _ = store_replay_event(data.clone());
+   |                 +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/script_monitor.rs:199:17
+    |
+199 |                 store_replay_event(map.clone());
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+199 |                 let _ = store_replay_event(map.clone());
+    |                 +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/file_hash_watcher.rs:366:29
+    |
+366 | ...                   store_replay_event(data.clone());
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+366 |                             let _ = store_replay_event(data.clone());
+    |                             +++++++
+
+warning: unused `Result` that must be used
+   --> src/modules/file_hash_watcher.rs:486:45
+    |
+486 | ...                   store_replay_event(parsed.data.clone());
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+486 |                                             let _ = store_replay_event(parsed.data.clone());
+    |                                             +++++++
+
+warning: unused `Result` that must be used
+   --> src/services/trust_engine_final.rs:277:5
+    |
+277 |     persist_trust_state(&telemetry.endpoint_id, adjusted_trust);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+277 |     let _ = persist_trust_state(&telemetry.endpoint_id, adjusted_trust);
+    |     +++++++
+
+warning: using `.clone()` on a double reference, which returns `&[f64]` instead of cloning the inner type
+  --> src/elliptic_envelope.rs:85:38
+   |
+85 |         let v = DVector::from_vec(row.clone().to_vec());
+   |                                      ^^^^^^^^
+   |
+   = note: `#[warn(suspicious_double_ref_op)]` on by default
+
+warning: structure field `eventType` should have a snake case name
+  --> src/detect/okta.rs:17:23
+   |
+17 |     #[serde(default)] eventType: String,
+   |                       ^^^^^^^^^ help: convert the identifier to snake case: `event_type`
+   |
+   = note: `#[warn(non_snake_case)]` on by default
+
+warning: structure field `displayMessage` should have a snake case name
+  --> src/detect/okta.rs:18:23
+   |
+18 |     #[serde(default)] displayMessage: String,
+   |                       ^^^^^^^^^^^^^^ help: convert the identifier to snake case: `display_message`
+
+warning: `forensic_hooks` (lib) generated 190 warnings (run `cargo fix --lib -p forensic_hooks` to apply 85 suggestions)
+error: expected item, found keyword `let`
+  --> src/bin/entmon_attach.rs:11:1
+   |
+11 | let mut bpf = Ebpf::load_file("src/ebpf/entropy_exec_monitor.bpf.o")
+   | ^^^ `let` cannot be used for global variables
+   |
+   = help: consider using `static` and a `Mutex` instead of `let mut`
+   = note: for a full list of items that can appear in modules, see <https://doc.rust-lang.org/reference/items.html>
+
+error: could not compile `forensic_hooks` (bin "entmon_attach") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error[E0433]: failed to resolve: could not find `detectors` in `forensic_hooks`
+   --> src/main.rs:788:38
+    |
+788 |     if let Ok(hot) = forensic_hooks::detectors::rules_hot::HotRulesDetector::new(
+    |                                      ^^^^^^^^^ could not find `detectors` in `forensic_hooks`
+
+error[E0433]: failed to resolve: could not find `detectors` in `forensic_hooks`
+   --> src/main.rs:802:39
+    |
+802 |         .add(Box::new(forensic_hooks::detectors::tag_flags::TagFlagsDetector));
+    |                                       ^^^^^^^^^ could not find `detectors` in `forensic_hooks`
+
+error[E0433]: failed to resolve: could not find `Server` in `axum`
+   --> src/main.rs:845:15
+    |
+845 |         axum::Server::bind(&addr)
+    |               ^^^^^^ could not find `Server` in `axum`
+
+warning: unused import: `post`
+  --> src/main.rs:18:28
+   |
+18 |     routing::{delete, get, post},
+   |                            ^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unnecessary parentheses around assigned value
+   --> src/main.rs:319:16
+    |
+319 |         sum += (1.0 - trust);
+    |                ^           ^
+    |
+    = note: `#[warn(unused_parens)]` on by default
+help: remove these parentheses
+    |
+319 -         sum += (1.0 - trust);
+319 +         sum += 1.0 - trust;
+    |
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/ebpf/events_reader.rs:13:11
+   |
+13 | use aya::{Bpf, maps::perf::PerfEventArray, util::online_cpus};
+   |           ^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/ebpf/events_reader.rs:128:26
+    |
+128 |     attach: impl Fn(&mut Bpf) -> Result<(), String>,
+    |                          ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/ebpf/events_reader.rs:132:19
+    |
+132 |     let mut tmp = Bpf::load(obj_bytes).map_err(|e| format!("Bpf::load: {e:?}"))?;
+    |                   ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+   --> src/ebpf/events_reader.rs:136:27
+    |
+136 |     let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    |                           ^^^
+
+warning: use of deprecated type alias `aya::Bpf`: use `Ebpf` instead
+  --> src/ebpf/file_access_reader.rs:68:26
+   |
+68 | fn attach(bpf: &mut aya::Bpf) -> Result<(), String> {
+   |                          ^^^
+
+error[E0308]: mismatched types
+   --> src/main.rs:99:60
+    |
+99  |       let stream = BroadcastStream::new(rx).filter_map(|msg| async move {
+    |  ____________________________________________________________^
+100 | |         match msg {
+101 | |             Ok(line) => Some(Ok(Event::default().data(line))),
+102 | |             Err(_) => None,
+103 | |         }
+104 | |     });
+    | |_____^ expected `Option<_>`, found `async` block
+    |
+    = note:       expected enum `std::option::Option<_>`
+            found `async` block `{async block@src/main.rs:99:60: 99:70}`
+help: try wrapping the expression in `Some`
+    |
+99  ~     let stream = BroadcastStream::new(rx).filter_map(|msg| Some(async move {
+100 |         match msg {
+...
+103 |         }
+104 ~     }));
+    |
+
+Some errors have detailed explanations: E0308, E0433.
+For more information about an error, try `rustc --explain E0308`.
+warning: `forensic_hooks` (bin "forensic_hooks") generated 7 warnings
+error: could not compile `forensic_hooks` (bin "forensic_hooks") due to 4 previous errors; 7 warnings emitted

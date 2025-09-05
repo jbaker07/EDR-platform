@@ -294,3 +294,110 @@
       }
     ]
 }
+{
+  "rules": [
+    {
+      "id": "R-PERSIST-CRON",
+      "name": "Write into /etc/cron*",
+      "severity": 0.9,
+      "any": [
+        {"field": "attrs.path", "op": "startswith", "value": "/etc/cron"}
+      ]
+    },
+    {
+      "id": "R-LOLBIN-RUNDLL32",
+      "name": "rundll32.exe execution",
+      "severity": 0.8,
+      "any": [
+        {"field": "exe", "op": "endswith", "value": "rundll32.exe"}
+      ]
+    },
+    {
+      "id": "R-MEM-INJECT-SIGNED",
+      "name": "Process injection into signed binary",
+      "severity": 1.0,
+      "all": [
+        {"field": "category", "op": "eq", "value": "memory"},
+        {"field": "event", "op": "eq", "value": "inject"}
+      ],
+      "any": [
+        {"field": "attrs.target_signed", "op": "eq", "value": "true"},
+        {"field": "tags.anchor", "op": "eq", "value": "proc_injection_signed"}
+      ]
+    },
+    {
+      "id": "R-TOR-CONNECT",
+      "name": "Connection to TOR",
+      "severity": 0.9,
+      "any": [
+        {"field": "tags.threat", "op": "eq", "value": "network.tor"},
+        {"field": "attrs.domain", "op": "endswith", "value": ".onion"}
+      ]
+    },
+    {
+      "id": "R-ROLE-SWITCH-PRIV",
+      "name": "Role switch to privileged/root",
+      "severity": 1.0,
+      "any": [
+        {"field": "tags.role_change", "op": "eq", "value": "privileged"},
+        {"field": "attrs.new_role", "op": "eq", "value": "root"},
+        {"field": "attrs.new_role", "op": "eq", "value": "admin"}
+      ]
+    },
+    {
+      "id": "R-FILE-ENTROPY-HIGH",
+      "name": "High-entropy file artifact",
+      "severity": 0.7,
+      "all": [
+        {"field": "attrs.entropy", "op": "gt", "value": 0.95}
+      ]
+    },
+    {
+      "id": "R-DNS-SUSPICIOUS-TLD",
+      "name": "Suspicious TLD in DNS",
+      "severity": 0.6,
+      "all": [
+        {"field": "category", "op": "eq", "value": "network"},
+        {"field": "attrs.domain", "op": "regex", "value": ".*\\.(cn|ru|xyz|top)$"}
+      ]
+    },
+    {
+      "id": "R-PS-ENC",
+      "name": "Powershell encoded command",
+      "severity": 0.85,
+      "all": [
+        {"field": "exe", "op": "contains", "value": "powershell"},
+        {"field": "cmdline", "op": "regex", "value": "(?i)(-enc|Base64String)"}
+      ]
+    },
+    {
+      "id": "R-SIGNED-PROXY-INSTALLUTIL",
+      "name": "Signed binary proxy (installutil.exe)",
+      "severity": 0.8,
+      "any": [
+        {"field": "exe", "op": "endswith", "value": "installutil.exe"}
+      ]
+    },
+    {
+      "id": "R-PRIV-SETUID",
+      "name": "Setuid/privilege change",
+      "severity": 0.9,
+      "all": [
+        {"field": "category", "op": "eq", "value": "auth"},
+        {"field": "event", "op": "eq", "value": "setuid"}
+      ]
+    },
+    {
+      "id": "R-USB-EXFIL-HEUR",
+      "name": "Likely USB exfil (heuristic)",
+      "severity": 0.75,
+      "all": [
+        {"field": "tags.medium", "op": "eq", "value": "usb"},
+        {"field": "attrs.bytes", "op": "gt", "value": 1048576}
+      ],
+      "any": [
+        {"field": "tags.off_hours", "op": "eq", "value": "true"}
+      ]
+    }
+  ]
+}

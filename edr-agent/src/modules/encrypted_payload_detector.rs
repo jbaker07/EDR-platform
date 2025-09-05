@@ -19,8 +19,7 @@ use aya::{
     Bpf,
 };
 use bytes::BytesMut;
-use chrono::{Local, Utc};
-use chrono::Timelike; // for .hour()
+use chrono::{Local, Timelike}; // for .hour()
 use walkdir::WalkDir;
 
 use crate::utils::time::now_ts;
@@ -116,12 +115,10 @@ fn is_memory_only(path: &Path) -> bool {
 fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
     let mut attached_any = false;
 
-    // NOTE: programs_mut() iterates as (&str, &mut Program)
     for (sec, prog) in bpf.programs_mut() {
         match prog {
             Program::TracePoint(tp) => {
                 tp.load()?;
-                // section usually "tracepoint/<cat>/<event>"
                 if let Some(rest) = sec.strip_prefix("tracepoint/") {
                     let mut it = rest.splitn(2, '/');
                     let cat = it.next().unwrap_or("");
@@ -133,7 +130,6 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
             }
             Program::RawTracePoint(rtp) => {
                 rtp.load()?;
-                // section typically "raw_tracepoint/<event>"
                 let ev = sec.split('/').nth(1).unwrap_or(sec);
                 rtp.attach(ev)?;
                 log(&format!("✔️ attached raw_tracepoint {}", ev));
@@ -161,7 +157,6 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
         }
     }
 
-    // Fallback path for your original program/section if nothing matched above
     if !attached_any {
         if let Some(p) = bpf.program_mut("trace_execve_entropy") {
             if let Program::TracePoint(tp) = p {
@@ -212,8 +207,7 @@ pub fn start_encrypted_payload_monitor() {
             ENCRYPTED_MONITOR_STARTED.store(true, Ordering::Release);
             println!("📦 [eBPF] Encrypted Payload Monitor attached.");
 
-            // ===================== FIX FOR E0499 START =====================
-            // Choose the perf map name without any mutable borrow, then borrow mutably once.
+            // ---- choose map name first (avoid aliasing mutable borrows) ----
             let map_name: String = {
                 let mut found: Option<String> = None;
                 for (n, _) in bpf.maps() {
@@ -223,8 +217,6 @@ pub fn start_encrypted_payload_monitor() {
                     }
                     if n == "EVENTS" {
                         found = Some("EVENTS".to_string());
-                        // don't break immediately; prefer "events" if it appears later,
-                        // but in practice this is fine either way.
                     }
                 }
                 match found {
@@ -249,18 +241,19 @@ pub fn start_encrypted_payload_monitor() {
                     return;
                 }
             };
-            // ====================== FIX FOR E0499 END ======================
 
             for cpu_id in online_cpus().unwrap_or_default() {
                 match perf_array.open(cpu_id, None) {
                     Ok(mut buf) => {
                         thread::spawn(move || {
-                            let mut buffers = vec![BytesMut::with_capacity(1024); 32];
+                            // Allocate distinct buffers (BytesMut, not Vec<u8>)
+                            let mut buffers: Vec<BytesMut> =
+                                (0..32).map(|_| BytesMut::with_capacity(1024)).collect();
 
                             loop {
                                 match buf.read_events(&mut buffers) {
                                     Ok(events) => {
-                                        for slice in &buffers[..events.read] {
+                                        for slice in buffers.iter().take(events.read) {
                                             if slice.len() < mem::size_of::<EncryptedPayloadEvent>() {
                                                 continue;
                                             }
@@ -284,9 +277,10 @@ pub fn start_encrypted_payload_monitor() {
                                             metadata.insert("entropy".into(), format!("{:.2}", evt.entropy));
                                             metadata.insert("detected_by".into(), "ebpf_entropy_monitor".into());
 
-                                            let trust_score = if evt.entropy > 7.9 {
+                                            // thresholds as f32 to match evt.entropy type
+                                            let trust_score_f32: f32 = if evt.entropy > 7.9_f32 {
                                                 14.0
-                                            } else if evt.entropy > 7.7 {
+                                            } else if evt.entropy > 7.7_f32 {
                                                 9.5
                                             } else {
                                                 5.0
@@ -304,14 +298,14 @@ pub fn start_encrypted_payload_monitor() {
                                                 anomaly_type: "EncryptedPayloadRealtime".into(),
                                                 component: "memory".into(),
                                                 metadata: metadata.clone(),
-                                                risk_score: trust_score,
+                                                risk_score: trust_score_f32,
                                                 source_module: "encrypted_payload_monitor".into(),
                                                 decay_context: Some("ebpf_exec_entropy".into()),
                                                 module: Some("encrypted_payload_monitor".into()),
                                                 signal: Some("encrypted_payload".into()),
                                                 signal_type: Some("execve_entropy".into()),
-                                                score: Some(100.0 - trust_score),
-                                                raw_score: Some(trust_score),
+                                                score: Some(100.0_f32 - trust_score_f32),
+                                                raw_score: Some(trust_score_f32),
                                                 tags: Some(vec!["encrypted_exec".into(), "high_entropy".into()]),
                                                 description: Some(format!(
                                                     "High-entropy payload exec: {} (entropy {:.2})",
@@ -375,7 +369,6 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
         for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
             let path = entry.path();
             if path.is_file() {
-                // Guardrail: skip giant files to avoid RAM spikes
                 if let Ok(meta) = fs::metadata(path) {
                     if meta.len() > MAX_SCAN_BYTES {
                         continue;
@@ -409,7 +402,7 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
                             trust_score += 2.5;
                         }
 
-                        let score_f32 = (100.0_f32 - trust_score).max(0.0_f32);
+                        let score_f32 = (100.0_f32 - trust_score as f32).max(0.0_f32);
                         let now = now_secs();
 
                         // dynamic PID/PPID/UID of THIS process (scanner)
@@ -497,7 +490,7 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
 pub fn scan_encrypted_payload_activity() -> Vec<TelemetryOutput> {
     if !ENCRYPTED_MONITOR_STARTED.load(Ordering::Acquire) {
         start_encrypted_payload_monitor();
-        // Note: ENCRYPTED_MONITOR_STARTED is flipped to true only after successful attach
+        // flipped to true only after successful attach
     }
 
     let ts = now_ts();

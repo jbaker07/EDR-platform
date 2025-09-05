@@ -1,0 +1,195 @@
+66: hash  flags 0x0
+	key 9B  value 1B  max_entries 500  memlock 8192B
+101: lru_hash  name edr_pending_ope  flags 0x0
+	key 8B  value 132B  max_entries 8192  memlock 1179648B
+	btf_id 296
+102: lru_hash  name edr_fd_table  flags 0x0
+	key 8B  value 116B  max_entries 16384  memlock 2097152B
+	btf_id 296
+103: lru_hash  name edr_pending_dup  flags 0x0
+	key 8B  value 4B  max_entries 8192  memlock 131072B
+	btf_id 296
+104: lru_hash  name edr_pending_soc  flags 0x0
+	key 8B  value 12B  max_entries 8192  memlock 196608B
+	btf_id 296
+105: lru_hash  name edr_pending_acc  flags 0x0
+	key 8B  value 24B  max_entries 8192  memlock 262144B
+	btf_id 296
+106: lru_hash  name edr_pending_clo  flags 0x0
+	key 8B  value 8B  max_entries 8192  memlock 131072B
+	btf_id 296
+107: ringbuf  name edr_events_rb  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+108: hash  name edr_allow_sysca  flags 0x0
+	key 4B  value 1B  max_entries 256  memlock 4096B
+	btf_id 296
+109: lru_hash  name edr_pending_ope  flags 0x0
+	key 8B  value 132B  max_entries 8192  memlock 1179648B
+	btf_id 302
+110: lru_hash  name edr_fd_table  flags 0x0
+	key 8B  value 116B  max_entries 16384  memlock 2097152B
+	btf_id 302
+111: lru_hash  name edr_pending_dup  flags 0x0
+	key 8B  value 4B  max_entries 8192  memlock 131072B
+	btf_id 302
+112: lru_hash  name edr_pending_soc  flags 0x0
+	key 8B  value 12B  max_entries 8192  memlock 196608B
+	btf_id 302
+113: lru_hash  name edr_pending_acc  flags 0x0
+	key 8B  value 24B  max_entries 8192  memlock 262144B
+	btf_id 302
+115: ringbuf  name edr_events_rb  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+116: hash  name edr_allow_sysca  flags 0x0
+	key 4B  value 1B  max_entries 256  memlock 4096B
+	btf_id 302
+181: lru_hash  name edr_pending_ope  flags 0x0
+	key 8B  value 132B  max_entries 8192  memlock 1179648B
+	btf_id 356
+182: lru_hash  name edr_fd_table  flags 0x0
+	key 8B  value 116B  max_entries 16384  memlock 2097152B
+	btf_id 356
+183: lru_hash  name edr_pending_dup  flags 0x0
+	key 8B  value 4B  max_entries 8192  memlock 131072B
+	btf_id 356
+184: lru_hash  name edr_pending_soc  flags 0x0
+	key 8B  value 12B  max_entries 8192  memlock 196608B
+	btf_id 356
+185: lru_hash  name edr_pending_acc  flags 0x0
+	key 8B  value 24B  max_entries 8192  memlock 262144B
+	btf_id 356
+186: lru_hash  name edr_pending_clo  flags 0x0
+	key 8B  value 8B  max_entries 8192  memlock 131072B
+	btf_id 356
+187: ringbuf  name edr_events_rb  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+188: hash  name edr_allow_sysca  flags 0x0
+	key 4B  value 1B  max_entries 256  memlock 4096B
+	btf_id 356
+189: lru_hash  name last_w_map_ts  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 362
+190: lru_hash  name memfd_set  flags 0x0
+	key 8B  value 1B  max_entries 32768  memlock 524288B
+	btf_id 362
+191: lru_hash  name last_fd  flags 0x0
+	key 4B  value 4B  max_entries 16384  memlock 131072B
+	btf_id 362
+192: lru_hash  name memfd_bytes  flags 0x0
+	key 4B  value 16B  max_entries 16384  memlock 393216B
+	btf_id 362
+193: ringbuf  name wx_events  flags 0x0
+	key 0B  value 0B  max_entries 4194304  memlock 0B
+198: ringbuf  name wx_events  flags 0x0
+	key 0B  value 0B  max_entries 4194304  memlock 0B
+199: perf_event_array  name events  flags 0x0
+	key 4B  value 4B  max_entries 1024  memlock 8192B
+200: ringbuf  name file_events  flags 0x0
+	key 0B  value 0B  max_entries 1048576  memlock 0B
+201: lru_hash  name last_fd_map  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 446
+202: ringbuf  name net_events  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+203: ringbuf  name edr_events_rb  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+204: lru_hash  name edr_pending_ope  flags 0x0
+	key 8B  value 132B  max_entries 8192  memlock 1179648B
+	btf_id 482
+205: lru_hash  name edr_fd_table  flags 0x0
+	key 8B  value 116B  max_entries 16384  memlock 2097152B
+	btf_id 482
+206: lru_hash  name edr_pending_dup  flags 0x0
+	key 8B  value 4B  max_entries 8192  memlock 131072B
+	btf_id 482
+207: lru_hash  name edr_pending_soc  flags 0x0
+	key 8B  value 12B  max_entries 8192  memlock 196608B
+	btf_id 482
+208: lru_hash  name edr_pending_acc  flags 0x0
+	key 8B  value 24B  max_entries 8192  memlock 262144B
+	btf_id 482
+209: lru_hash  name edr_pending_clo  flags 0x0
+	key 8B  value 8B  max_entries 8192  memlock 131072B
+	btf_id 482
+210: hash  name edr_allow_sysca  flags 0x0
+	key 4B  value 1B  max_entries 256  memlock 4096B
+	btf_id 482
+217: lru_hash  name last_w_map_ts  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 506
+218: lru_hash  name memfd_set  flags 0x0
+	key 8B  value 1B  max_entries 32768  memlock 524288B
+	btf_id 506
+219: lru_hash  name last_fd  flags 0x0
+	key 4B  value 4B  max_entries 16384  memlock 131072B
+	btf_id 506
+220: lru_hash  name memfd_bytes  flags 0x0
+	key 4B  value 16B  max_entries 16384  memlock 393216B
+	btf_id 506
+221: ringbuf  name wx_events  flags 0x0
+	key 0B  value 0B  max_entries 4194304  memlock 0B
+227: lru_hash  name last_fd_map  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 572
+228: ringbuf  name net_events  flags 0x0
+	key 0B  value 0B  max_entries 16777216  memlock 0B
+229: lru_hash  name edr_pending_ope  flags 0x0
+	key 8B  value 132B  max_entries 8192  memlock 1179648B
+	btf_id 584
+230: lru_hash  name edr_fd_table  flags 0x0
+	key 8B  value 116B  max_entries 16384  memlock 2097152B
+	btf_id 584
+231: lru_hash  name edr_pending_dup  flags 0x0
+	key 8B  value 4B  max_entries 8192  memlock 131072B
+	btf_id 584
+232: lru_hash  name edr_pending_soc  flags 0x0
+	key 8B  value 12B  max_entries 8192  memlock 196608B
+	btf_id 584
+233: lru_hash  name edr_pending_acc  flags 0x0
+	key 8B  value 24B  max_entries 8192  memlock 262144B
+	btf_id 584
+235: lru_hash  name edr_pending_clo  flags 0x0
+	key 8B  value 8B  max_entries 8192  memlock 131072B
+	btf_id 584
+236: hash  name edr_allow_sysca  flags 0x0
+	key 4B  value 1B  max_entries 256  memlock 4096B
+	btf_id 584
+242: perf_event_array  name events  flags 0x0
+	key 4B  value 4B  max_entries 1024  memlock 8192B
+243: ringbuf  name file_events  flags 0x0
+	key 0B  value 0B  max_entries 1048576  memlock 0B
+244: lru_hash  name last_w_map_ts  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 632
+245: lru_hash  name memfd_set  flags 0x0
+	key 8B  value 1B  max_entries 32768  memlock 524288B
+	btf_id 632
+246: lru_hash  name last_fd  flags 0x0
+	key 4B  value 4B  max_entries 16384  memlock 131072B
+	btf_id 632
+247: lru_hash  name memfd_bytes  flags 0x0
+	key 4B  value 16B  max_entries 16384  memlock 393216B
+	btf_id 632
+248: ringbuf  name wx_events  flags 0x0
+	key 0B  value 0B  max_entries 4194304  memlock 0B
+249: lru_hash  name last_w_map_ts  flags 0x0
+	key 4B  value 8B  max_entries 16384  memlock 262144B
+	btf_id 650
+250: lru_hash  name memfd_set  flags 0x0
+	key 8B  value 1B  max_entries 32768  memlock 524288B
+	btf_id 650
+251: lru_hash  name last_fd  flags 0x0
+	key 4B  value 4B  max_entries 16384  memlock 131072B
+	btf_id 650
+252: lru_hash  name memfd_bytes  flags 0x0
+	key 4B  value 16B  max_entries 16384  memlock 393216B
+	btf_id 650
+253: ringbuf  name wx_events  flags 0x0
+	key 0B  value 0B  max_entries 4194304  memlock 0B
+403: ringbuf  name events  flags 0x0
+	key 0B  value 0B  max_entries 1048576  memlock 0B
+404: ringbuf  name events  flags 0x0
+	key 0B  value 0B  max_entries 1048576  memlock 0B
+513: array  name entropy_thresho  flags 0x0
+	key 4B  value 8B  max_entries 1  memlock 4096B
+	btf_id 2168

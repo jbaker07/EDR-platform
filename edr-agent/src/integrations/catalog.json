@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "vendors": [
+    { "id": "okta_system_log", "name": "Okta System Log", "auth": { "fields": ["org_url", "api_token"] } },
+    { "id": "github_audit",     "name": "GitHub Org Audit", "auth": { "fields": ["org", "token"] } }
+  ]
+}

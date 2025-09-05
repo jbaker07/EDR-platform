@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "vendors": [
+    {
+      "id": "okta_system_log",
+      "name": "Okta System Log",
+      "category": "IAM/MFA",
+      "auth": { "type": "api_token", "header": "Authorization", "prefix": "SSWS ", "fields": ["okta_domain","api_token"] },
+      "endpoints": [
+        { "id": "events", "base_url": "https://{okta_domain}", "path": "/api/v1/logs", "method": "GET",
+          "poll": { "interval_sec": 60, "since_param": "since" }, "paginate": { "type": "link" } }
+      ],
+      "mapping": {
+        "ts": "published",
+        "user": "actor.alternateId",
+        "src_ip": "client.ipAddress",
+        "label": "eventType",
+        "severity": "severity",
+        "tags": ["securityContext.isProxy","client.userAgent.os"]
+      }
+    },
+    {
+      "id": "aws_guardduty",
+      "name": "AWS GuardDuty",
+      "category": "Cloud/XDR",
+      "auth": { "type": "aws_role", "fields": ["role_arn","external_id","region"] },
+      "endpoints": [
+        { "id": "findings", "service": "guardduty", "method": "ListFindings",
+          "poll": { "interval_sec": 60 }, "follow": { "service": "guardduty", "method": "GetFindings" } }
+      ],
+      "mapping": {
+        "ts": "Service.EventFirstSeen",
+        "host": "Resource.InstanceDetails.InstanceId",
+        "user": "Resource.AccessKeyDetails.UserName",
+        "src_ip": "Service.Action.NetworkConnectionAction.RemoteIpDetails.IpAddressV4",
+        "label": "Title",
+        "severity": "Severity",
+        "tags": ["Type"]
+      }
+    },
+    {
+      "id": "servicenow_incidents",
+      "name": "ServiceNow Incidents",
+      "category": "ITSM",
+      "auth": { "type": "basic", "fields": ["instance","user","password"] },
+      "endpoints": [
+        { "id": "incidents", "base_url": "https://{instance}.service-now.com",
+          "path": "/api/now/table/incident", "method": "GET",
+          "poll": { "interval_sec": 120, "since_param": "sys_updated_on" } }
+      ],
+      "mapping": {
+        "ts": "sys_created_on",
+        "label": "short_description",
+        "severity": "severity",
+        "tags": ["category","subcategory","assignment_group"]
+      }
+    },
+    {
+      "id": "github_security",
+      "name": "GitHub Security Alerts",
+      "category": "DevSec",
+      "auth": { "type": "bearer", "header": "Authorization", "prefix": "Bearer ", "fields": ["token","owner","repo"] },
+      "endpoints": [
+        { "id": "dependabot", "base_url": "https://api.github.com",
+          "path": "/repos/{owner}/{repo}/dependabot/alerts", "method": "GET",
+          "poll": { "interval_sec": 120 } },
+        { "id": "codescan", "base_url": "https://api.github.com",
+          "path": "/repos/{owner}/{repo}/code-scanning/alerts", "method": "GET",
+          "poll": { "interval_sec": 180 } }
+      ],
+      "mapping": {
+        "ts": "created_at",
+        "label": "rule.id",
+        "severity": "rule.severity",
+        "tags": ["package.name","tool.name"]
+      }
+    },
+    {
+      "id": "wazuh",
+      "name": "Wazuh",
+      "category": "SIEM/XDR (OSS)",
+      "auth": { "type": "basic", "fields": ["host","user","password"] },
+      "endpoints": [
+        { "id": "alerts", "base_url": "https://{host}", "path": "/security/user/authenticate", "method": "POST", "bootstrap": true },
+        { "id": "events", "base_url": "https://{host}", "path": "/events", "method": "GET", "poll": { "interval_sec": 30 } }
+      ],
+      "mapping": {
+        "ts": "timestamp",
+        "host": "agent.name",
+        "user": "data.aws.userName",
+        "label": "rule.description",
+        "severity": "rule.level",
+        "tags": ["rule.groups[]"]
+      }
+    },
+    {
+      "id": "virustotal",
+      "name": "VirusTotal (enrichment)",
+      "category": "Threat Intel",
+      "auth": { "type": "api_token", "header": "x-apikey", "fields": ["api_key"] },
+      "endpoints": [
+        { "id": "file", "base_url": "https://www.virustotal.com/api/v3", "path": "/files/{sha256}", "method": "GET", "rate": {"rpm": 4} }
+      ],
+      "enrichment": { "on": ["sha256"] }
+    },
+    {
+      "id": "abuseipdb",
+      "name": "AbuseIPDB (enrichment)",
+      "category": "Threat Intel",
+      "auth": { "type": "api_token", "header": "Key", "fields": ["api_key"] },
+      "endpoints": [
+        { "id": "check", "base_url": "https://api.abuseipdb.com/api/v2", "path": "/check", "method": "GET", "params": ["ipAddress"], "rate": {"dpm": 1000} }
+      ],
+      "enrichment": { "on": ["src_ip","dst_ip"] }
+    },
+    {
+      "id": "greynoise",
+      "name": "GreyNoise Community (enrichment)",
+      "category": "Threat Intel",
+      "auth": { "type": "api_token_optional", "header": "key", "fields": ["api_key"] },
+      "endpoints": [
+        { "id": "ip", "base_url": "https://api.greynoise.io/v3/community", "path": "/{ip}", "method": "GET" }
+      ],
+      "enrichment": { "on": ["src_ip","dst_ip"] }
+    }
+  ]
+}
