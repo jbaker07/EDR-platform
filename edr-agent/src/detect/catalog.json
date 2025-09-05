@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "vendors": [
+    { "id": "okta", "name": "Okta System Log", "auth": { "fields": ["domain", "api_token"] } },
+    { "id": "github_audit", "name": "GitHub Org Audit", "auth": { "fields": ["org", "token"] } },
+    { "id": "duo", "name": "Duo Security", "auth": { "fields": ["ikey", "skey", "host"] } },
+    { "id": "auth0", "name": "Auth0 Logs", "auth": { "fields": ["domain", "client_id", "client_secret"] } },
+    { "id": "aws_cloudtrail", "name": "AWS CloudTrail/GuardDuty", "auth": { "fields": ["access_key_id", "secret_access_key", "region"] } },
+    { "id": "zeek", "name": "Zeek/Suricata (local)", "auth": { "fields": ["log_dir"] } },
+    { "id": "windows_eventlog", "name": "Windows Event Log (local)", "auth": { "fields": ["channels"] } },
+    { "id": "pfsense", "name": "pfSense/OPNsense syslog", "auth": { "fields": ["log_path"] } }
+  ]
+}

@@ -50,22 +50,24 @@ fn parse_ipc_event(buf: &[u8]) -> Option<IPCAbuseEvent> {
 }
 
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
-/// Starts the eBPF-powered suspicious IPC monitor
+/// Starts the eBPF-powered suspicious IPC monitor (perf buffer path)
 pub fn start_ebpf_ipc_abuse_watch() {
     SCAN_SUSPICIOUS_IPC.get_or_init(|| AtomicBool::new(true));
 
     thread::spawn(move || {
-        // Load BPF object
-        let mut bpf = match Bpf::load(include_bytes_aligned!("../ebpf/suspicious_ipc.bpf.o")) {
+        // Load BPF object and give it a 'static lifetime (daemon-style).
+        let bpf_box = match Bpf::load(include_bytes_aligned!("../ebpf/suspicious_ipc.bpf.o")) {
             Ok(b) => b,
             Err(e) => {
                 eprintln!("❌ Failed to load suspicious_ipc BPF: {:?}", e);
                 return;
             }
         };
+        // Leak once; acceptable for a long-running agent. Avoids E0597.
+        let mut_bpf: &'static mut Bpf = Box::leak(Box::new(bpf_box));
 
         // Program lookup / attach
-        let program = match bpf.program_mut("trace_suspicious_ipc") {
+        let program = match mut_bpf.program_mut("trace_suspicious_ipc") {
             Some(p) => p,
             None => {
                 eprintln!("❌ Missing trace_suspicious_ipc program");
@@ -93,11 +95,11 @@ pub fn start_ebpf_ipc_abuse_watch() {
 
         println!("💬 [eBPF] Suspicious IPC monitor tracepoint active");
 
-        // Open perf array
-        let perf_map = match bpf.map_mut("EVENTS") {
-            Ok(m) => m,
-            Err(e) => {
-                eprintln!("❌ No perf map found in suspicious_ipc_monitor: {:?}", e);
+        // Perf event array named "EVENTS"
+        let perf_map = match mut_bpf.map_mut("EVENTS") {
+            Some(m) => m,
+            None => {
+                eprintln!("❌ No perf map 'EVENTS' found in suspicious_ipc_monitor");
                 return;
             }
         };
@@ -114,7 +116,7 @@ pub fn start_ebpf_ipc_abuse_watch() {
             match perf_array.open(cpu_id, None) {
                 Ok(mut buf) => {
                     thread::spawn(move || {
-                        // Pre-allocate a handful of buffers and reuse them
+                        // Reuse a small set of BytesMut buffers (as expected by read_events)
                         let mut buffers: Vec<BytesMut> =
                             (0..16).map(|_| BytesMut::with_capacity(1024)).collect();
 
@@ -125,7 +127,7 @@ pub fn start_ebpf_ipc_abuse_watch() {
                                         if let Some(evt) = parse_ipc_event(&b[..]) {
                                             handle_ipc_event(evt);
                                         }
-                                        b.clear(); // ready buffer for next read
+                                        b.clear();
                                     }
                                 }
                                 Err(e) => {
@@ -137,10 +139,7 @@ pub fn start_ebpf_ipc_abuse_watch() {
                     });
                 }
                 Err(e) => {
-                    eprintln!(
-                        "❌ Failed to open perf buffer on CPU {}: {:?}",
-                        cpu_id, e
-                    );
+                    eprintln!("❌ Failed to open perf buffer on CPU {}: {:?}", cpu_id, e);
                 }
             }
         }
@@ -244,10 +243,7 @@ pub fn scan_ipc_passive() -> Vec<TelemetryOutput> {
     data.insert("features".into(), format!("{:?}", features));
     data.insert("cpu".into(), format!("{:.2}", cpu));
     data.insert("mem_kb".into(), format!("{}", mem));
-    data.insert(
-        "soc_note".into(),
-        "Simulated fallback IPC abuse".into(),
-    );
+    data.insert("soc_note".into(), "Simulated fallback IPC abuse".into());
     data.insert("gnn_escalate".into(), "false".into());
 
     // Keep passive path consistent with other modules

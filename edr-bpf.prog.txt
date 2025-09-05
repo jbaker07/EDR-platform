@@ -1,0 +1,490 @@
+497: tracepoint  name tp_sys_enter  tag cbb68f76c7a21b7c  gpl
+	loaded_at 2025-08-29T23:11:56+0000  uid 0
+	xlated 24448B  jited 23768B  memlock 24576B  map_ids 116,111,115,112,110,109,113
+	btf_id 302
+677: cgroup_device  tag 134b8a301991f6b7  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 504B  jited 464B  memlock 4096B
+678: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+679: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+680: cgroup_device  tag ee0e253c78993a24  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 416B  jited 400B  memlock 4096B
+681: cgroup_device  tag 134b8a301991f6b7  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 504B  jited 464B  memlock 4096B
+682: cgroup_device  tag 654d7024997e7811  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 464B  jited 436B  memlock 4096B
+683: cgroup_device  tag 654d7024997e7811  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 464B  jited 436B  memlock 4096B
+684: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+685: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+686: cgroup_device  tag 4b9ba398cc75f876  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 496B  jited 460B  memlock 4096B
+687: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+688: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+689: cgroup_device  tag ee0e253c78993a24  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 416B  jited 400B  memlock 4096B
+690: cgroup_device  tag 384856681694f215  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 744B  jited 644B  memlock 4096B
+691: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+692: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+693: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+694: cgroup_skb  tag 6deef7357e7b4530  gpl
+	loaded_at 2025-08-30T00:23:51+0000  uid 0
+	xlated 64B  jited 96B  memlock 4096B
+706: tracepoint  name tp_sys_enter  tag cbb68f76c7a21b7c  gpl
+	loaded_at 2025-08-30T00:47:39+0000  uid 0
+	xlated 24448B  jited 23768B  memlock 24576B  map_ids 188,183,187,184,182,181,185
+	btf_id 356
+707: tracepoint  name tp_sys_exit  tag a84d5ca66869530b  gpl
+	loaded_at 2025-08-30T00:47:39+0000  uid 0
+	xlated 6968B  jited 6808B  memlock 8192B  map_ids 188,185,187,181,183,186,184,182
+	btf_id 356
+714: tracepoint  name tp_enter_mmap  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-30T02:15:35+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 189,193
+	btf_id 362
+715: tracepoint  name tp_enter_mprote  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-30T02:15:35+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 189,193
+	btf_id 362
+716: tracepoint  name tp_exit_memfd_c  tag ceff8d3f20fcb14c  gpl
+	loaded_at 2025-08-30T02:15:35+0000  uid 0
+	xlated 152B  jited 188B  memlock 4096B  map_ids 190
+	btf_id 362
+717: tracepoint  name tp_enter_write  tag 77f2496e2f88e13e  gpl
+	loaded_at 2025-08-30T02:15:35+0000  uid 0
+	xlated 120B  jited 164B  memlock 4096B  map_ids 191
+	btf_id 362
+718: tracepoint  name tp_exit_write  tag e54e87746ef60816  gpl
+	loaded_at 2025-08-30T02:15:35+0000  uid 0
+	xlated 504B  jited 556B  memlock 4096B  map_ids 191,190,192
+	btf_id 362
+719: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-30T02:15:35+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 192,193
+	btf_id 362
+720: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-30T02:15:35+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 192,193
+	btf_id 362
+902: tracepoint  name tp_enter_execve  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+904: tracepoint  name tp_enter_execve  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+907: tracepoint  name tp_enter_clone  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+908: tracepoint  name tp_enter_mmap  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+910: tracepoint  name tp_enter_mprote  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+911: tracepoint  name tp_enter_setuid  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+913: tracepoint  name tp_enter_sendto  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 227
+	btf_id 572
+914: tracepoint  name tp_enter_setreu  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+915: tracepoint  name tp_enter_sendms  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 227
+	btf_id 572
+916: tracepoint  name tp_enter_setres  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+918: tracepoint  name tp_enter_recvfr  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 227
+	btf_id 572
+920: tracepoint  name tp_enter_capset  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+921: tracepoint  name tp_enter_recvms  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 227
+	btf_id 572
+923: tracepoint  name tp_enter_write  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 227
+	btf_id 572
+924: tracepoint  name tp_enter_connec  tag 4e8a6156fdafb458  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 200B  jited 240B  memlock 4096B  map_ids 203
+	btf_id 595
+925: tracepoint  name tp_enter_read  tag 525307c0b8dc2d7e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 128B  jited 168B  memlock 4096B  map_ids 227
+	btf_id 572
+926: tracepoint  name tp_enter_connec  tag 6ea8ee407c1c9fa7  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 1192B  jited 1088B  memlock 4096B  map_ids 228
+	btf_id 572
+927: tracepoint  name tp_exit_sendto  tag 0218a901946da8c1  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 228
+	btf_id 572
+929: tracepoint  name tp_exit_sendmsg  tag 0218a901946da8c1  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 228
+	btf_id 572
+931: tracepoint  name tp_exit_recvfro  tag 204e65a152d9a2ed  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 228
+	btf_id 572
+934: tracepoint  name trace_file_acce  tag 6285930283f421f9  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 536B  jited 576B  memlock 4096B  map_ids 242
+	btf_id 620
+935: tracepoint  name tp_exit_recvmsg  tag 204e65a152d9a2ed  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 216B  jited 260B  memlock 4096B  map_ids 228
+	btf_id 572
+944: tracepoint  name trace_openat  tag d4756489f741f00e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 184B  jited 248B  memlock 4096B  map_ids 243
+	btf_id 626
+945: tracepoint  name tp_sys_enter  tag cbb68f76c7a21b7c  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 24448B  jited 23768B  memlock 24576B  map_ids 236,231,203,232,230,229,233
+	btf_id 584
+950: tracepoint  name tp_sys_exit  tag a84d5ca66869530b  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 6968B  jited 6808B  memlock 8192B  map_ids 236,233,203,229,231,235,232,230
+	btf_id 584
+951: tracepoint  name tp_enter_mmap  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 244,248
+	btf_id 632
+952: tracepoint  name tp_enter_mprote  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 244,248
+	btf_id 632
+953: tracepoint  name tp_exit_memfd_c  tag ceff8d3f20fcb14c  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 152B  jited 188B  memlock 4096B  map_ids 245
+	btf_id 632
+954: tracepoint  name tp_enter_write  tag 77f2496e2f88e13e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 120B  jited 164B  memlock 4096B  map_ids 246
+	btf_id 632
+955: tracepoint  name tp_exit_write  tag e54e87746ef60816  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 504B  jited 556B  memlock 4096B  map_ids 246,245,247
+	btf_id 632
+957: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 247,248
+	btf_id 632
+958: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 247,248
+	btf_id 632
+962: tracepoint  name tp_enter_mmap  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 249,253
+	btf_id 650
+964: tracepoint  name tp_enter_mprote  tag 1be09238b6c40a48  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 520B  jited 572B  memlock 4096B  map_ids 249,253
+	btf_id 650
+966: tracepoint  name tp_exit_memfd_c  tag ceff8d3f20fcb14c  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 152B  jited 188B  memlock 4096B  map_ids 250
+	btf_id 650
+967: tracepoint  name tp_enter_write  tag 77f2496e2f88e13e  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 120B  jited 164B  memlock 4096B  map_ids 251
+	btf_id 650
+968: kprobe  name k_tcp_set_state  tag 41b6ec5b44ab1401  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 1528B  jited 1412B  memlock 4096B  map_ids 203
+	btf_id 602
+969: tracepoint  name tp_exit_write  tag e54e87746ef60816  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 504B  jited 556B  memlock 4096B  map_ids 251,250,252
+	btf_id 650
+970: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 252,253
+	btf_id 650
+971: kprobe  name k_tcp_retransmi  tag 9eec1e56328da2b3  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 1512B  jited 1408B  memlock 4096B  map_ids 203
+	btf_id 602
+972: tracepoint  name tp_enter_execve  tag aa946eff732fd905  gpl
+	loaded_at 2025-08-31T01:46:05+0000  uid 0
+	xlated 464B  jited 516B  memlock 4096B  map_ids 252,253
+	btf_id 650
+1323: tracepoint  name trace_dns_send  tag cdef2a41db74d8e3  gpl
+	loaded_at 2025-08-31T03:58:05+0000  uid 0
+	xlated 608B  jited 600B  memlock 4096B  map_ids 203
+	btf_id 1106
+1329: tracepoint  name trace_read  tag 22ea70717f682e72  gpl
+	loaded_at 2025-08-31T04:01:57+0000  uid 0
+	xlated 256B  jited 316B  memlock 4096B  map_ids 203
+	btf_id 1112
+1330: tracepoint  name trace_recvfrom  tag 22ea70717f682e72  gpl
+	loaded_at 2025-08-31T04:01:57+0000  uid 0
+	xlated 256B  jited 316B  memlock 4096B  map_ids 203
+	btf_id 1112
+1335: tracepoint  name trace_file_tamp  tag 4dfd9769f32a9cb0  gpl
+	loaded_at 2025-08-31T04:03:26+0000  uid 0
+	xlated 136B  jited 204B  memlock 4096B  map_ids 203
+	btf_id 1118
+1340: tracepoint  name trace_ipc_shmge  tag ae21596949f38a92  gpl
+	loaded_at 2025-08-31T04:04:58+0000  uid 0
+	xlated 264B  jited 308B  memlock 4096B  map_ids 203
+	btf_id 1124
+1341: tracepoint  name trace_ipc_msgsn  tag 6be924596f80eca3  gpl
+	loaded_at 2025-08-31T04:04:58+0000  uid 0
+	xlated 256B  jited 304B  memlock 4096B  map_ids 203
+	btf_id 1124
+1352: tracepoint  name trace_dll_injec  tag 359dcb1f67ce1b66  gpl
+	loaded_at 2025-08-31T04:13:38+0000  uid 0
+	xlated 160B  jited 224B  memlock 4096B  map_ids 203
+	btf_id 1142
+1361: tracepoint  name trace_execve  tag 5b8b3293001b1611  gpl
+	loaded_at 2025-08-31T04:17:26+0000  uid 0
+	xlated 2096B  jited 1668B  memlock 4096B  map_ids 203
+	btf_id 1160
+1367: tracepoint  name trace_mmap  tag a7e2256e5ac744ab  gpl
+	loaded_at 2025-08-31T04:20:16+0000  uid 0
+	xlated 2184B  jited 1740B  memlock 4096B  map_ids 203
+	btf_id 1166
+1368: tracepoint  name trace_execve_me  tag 717f50b50b1e0783  gpl
+	loaded_at 2025-08-31T04:20:16+0000  uid 0
+	xlated 2200B  jited 1764B  memlock 4096B  map_ids 203
+	btf_id 1166
+1373: tracepoint  name trace_mfa_anoma  tag 0cd2dc7c5c3ed743  gpl
+	loaded_at 2025-08-31T04:24:00+0000  uid 0
+	xlated 648B  jited 628B  memlock 4096B  map_ids 203
+	btf_id 1172
+1378: tracepoint  name trace_network_c  tag d080a26c70229760  gpl
+	loaded_at 2025-08-31T04:29:12+0000  uid 0
+	xlated 600B  jited 596B  memlock 4096B  map_ids 203
+	btf_id 1178
+1383: tracepoint  name trace_proc_inje  tag 4ae4e1049d6fcceb  gpl
+	loaded_at 2025-08-31T04:33:27+0000  uid 0
+	xlated 160B  jited 224B  memlock 4096B  map_ids 203
+	btf_id 1184
+1388: tracepoint  name trace_mmap_exec  tag 1a29c9c9e4edbb15  gpl
+	loaded_at 2025-08-31T04:38:23+0000  uid 0
+	xlated 416B  jited 428B  memlock 4096B  map_ids 203
+	btf_id 1190
+1389: tracepoint  name trace_ptrace  tag 2f82cb569ffd4fde  gpl
+	loaded_at 2025-08-31T04:38:23+0000  uid 0
+	xlated 264B  jited 308B  memlock 4096B  map_ids 203
+	btf_id 1190
+1390: tracepoint  name trace_vm_write  tag 62a4b984487d0ba2  gpl
+	loaded_at 2025-08-31T04:38:23+0000  uid 0
+	xlated 400B  jited 420B  memlock 4096B  map_ids 203
+	btf_id 1190
+1396: tracepoint  name trace_execve_ho  tag 19f33e896d63e001  gpl
+	loaded_at 2025-08-31T04:41:30+0000  uid 0
+	xlated 848B  jited 892B  memlock 4096B  map_ids 203
+	btf_id 1196
+1401: tracepoint  name trace_suspiciou  tag 347e879676d03b93  gpl
+	loaded_at 2025-08-31T04:44:18+0000  uid 0
+	xlated 168B  jited 216B  memlock 4096B  map_ids 203
+	btf_id 1202
+1464: tracepoint  name trace_execve  tag 5b8b3293001b1611  gpl
+	loaded_at 2025-08-31T05:05:45+0000  uid 0
+	xlated 2096B  jited 1668B  memlock 4096B  map_ids 203
+	btf_id 1280
+1468: tracepoint  name trace_mmap  tag a7e2256e5ac744ab  gpl
+	loaded_at 2025-08-31T05:05:45+0000  uid 0
+	xlated 2184B  jited 1740B  memlock 4096B  map_ids 203
+	btf_id 1268
+1473: tracepoint  name trace_execve_me  tag 717f50b50b1e0783  gpl
+	loaded_at 2025-08-31T05:05:45+0000  uid 0
+	xlated 2200B  jited 1764B  memlock 4096B  map_ids 203
+	btf_id 1268
+1474: tracepoint  name trace_read  tag 22ea70717f682e72  gpl
+	loaded_at 2025-08-31T05:05:45+0000  uid 0
+	xlated 256B  jited 316B  memlock 4096B  map_ids 203
+	btf_id 1286
+1475: tracepoint  name trace_recvfrom  tag 22ea70717f682e72  gpl
+	loaded_at 2025-08-31T05:05:45+0000  uid 0
+	xlated 256B  jited 316B  memlock 4096B  map_ids 203
+	btf_id 1286
+1483: tracepoint  name trace_dns_send  tag cdef2a41db74d8e3  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 608B  jited 600B  memlock 4096B  map_ids 203
+	btf_id 1292
+1488: tracepoint  name trace_dll_injec  tag 359dcb1f67ce1b66  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 160B  jited 224B  memlock 4096B  map_ids 203
+	btf_id 1298
+1493: tracepoint  name trace_file_tamp  tag 4dfd9769f32a9cb0  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 136B  jited 204B  memlock 4096B  map_ids 203
+	btf_id 1304
+1501: tracepoint  name trace_read  tag 22ea70717f682e72  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 256B  jited 316B  memlock 4096B  map_ids 203
+	btf_id 1310
+1502: tracepoint  name trace_ipc_shmge  tag ae21596949f38a92  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 264B  jited 308B  memlock 4096B  map_ids 203
+	btf_id 1316
+1503: tracepoint  name trace_recvfrom  tag 22ea70717f682e72  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 256B  jited 316B  memlock 4096B  map_ids 203
+	btf_id 1310
+1504: tracepoint  name trace_ipc_msgsn  tag 6be924596f80eca3  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 256B  jited 304B  memlock 4096B  map_ids 203
+	btf_id 1316
+1516: tracepoint  name trace_execve  tag 5b8b3293001b1611  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 2096B  jited 1668B  memlock 4096B  map_ids 203
+	btf_id 1328
+1517: tracepoint  name trace_mfa_anoma  tag 0cd2dc7c5c3ed743  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 648B  jited 628B  memlock 4096B  map_ids 203
+	btf_id 1334
+1523: tracepoint  name trace_mmap  tag a7e2256e5ac744ab  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 2184B  jited 1740B  memlock 4096B  map_ids 203
+	btf_id 1340
+1524: tracepoint  name trace_execve_me  tag 717f50b50b1e0783  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 2200B  jited 1764B  memlock 4096B  map_ids 203
+	btf_id 1340
+1529: tracepoint  name trace_network_c  tag d080a26c70229760  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 600B  jited 596B  memlock 4096B  map_ids 203
+	btf_id 1346
+1536: tracepoint  name trace_proc_inje  tag 4ae4e1049d6fcceb  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 160B  jited 224B  memlock 4096B  map_ids 203
+	btf_id 1352
+1540: tracepoint  name trace_mmap_exec  tag 1a29c9c9e4edbb15  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 416B  jited 428B  memlock 4096B  map_ids 203
+	btf_id 1358
+1541: tracepoint  name trace_ptrace  tag 2f82cb569ffd4fde  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 264B  jited 308B  memlock 4096B  map_ids 203
+	btf_id 1358
+1542: tracepoint  name trace_vm_write  tag 62a4b984487d0ba2  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 400B  jited 420B  memlock 4096B  map_ids 203
+	btf_id 1358
+1548: tracepoint  name trace_execve_ho  tag 19f33e896d63e001  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 848B  jited 892B  memlock 4096B  map_ids 203
+	btf_id 1364
+1552: tracepoint  name trace_suspiciou  tag 347e879676d03b93  gpl
+	loaded_at 2025-08-31T05:15:12+0000  uid 0
+	xlated 168B  jited 216B  memlock 4096B  map_ids 203
+	btf_id 1370
+2081: tracepoint  name trace_mmap  tag a7e2256e5ac744ab  gpl
+	loaded_at 2025-08-31T05:45:00+0000  uid 0
+	xlated 2184B  jited 1740B  memlock 4096B  map_ids 403
+	btf_id 1406
+2082: tracepoint  name trace_execve_me  tag 717f50b50b1e0783  gpl
+	loaded_at 2025-08-31T05:45:00+0000  uid 0
+	xlated 2200B  jited 1764B  memlock 4096B  map_ids 403
+	btf_id 1406
+2086: tracepoint  name trace_proc_inje  tag 4ae4e1049d6fcceb  gpl
+	loaded_at 2025-08-31T05:45:00+0000  uid 0
+	xlated 160B  jited 224B  memlock 4096B  map_ids 404
+	btf_id 1412
+2090: tracepoint  name on_exec  tag a04f5eef06a7f555  gpl
+	loaded_at 2025-08-31T05:45:46+0000  uid 0
+	xlated 16B  jited 64B  memlock 4096B
+	btf_id 1418
+2117: tracepoint  name on_exec  tag a04f5eef06a7f555  gpl
+	loaded_at 2025-08-31T06:22:02+0000  uid 0
+	xlated 16B  jited 64B  memlock 4096B
+	btf_id 1448
+2836: kprobe  name kprobe_commit_c  tag 61212a26252a03b3  gpl
+	loaded_at 2025-08-31T07:01:24+0000  uid 0
+	xlated 728B  jited 708B  memlock 4096B  map_ids 203
+	btf_id 2084
+2837: kprobe  name kprobe_prepare_  tag 224161962c437d8b  gpl
+	loaded_at 2025-08-31T07:01:24+0000  uid 0
+	xlated 808B  jited 788B  memlock 4096B  map_ids 203
+	btf_id 2084
+2856: tracepoint  name tp_sched_proces  tag 50ec06b98ef5638f  gpl
+	loaded_at 2025-08-31T07:01:26+0000  uid 0
+	xlated 880B  jited 928B  memlock 4096B  map_ids 203
+	btf_id 2102
+2857: tracepoint  name tp_sched_proces  tag ac6acc344624ceca  gpl
+	loaded_at 2025-08-31T07:01:26+0000  uid 0
+	xlated 912B  jited 960B  memlock 4096B  map_ids 203
+	btf_id 2102
+2858: tracepoint  name tp_sched_proces  tag 23ec19b4c2792dd2  gpl
+	loaded_at 2025-08-31T07:01:26+0000  uid 0
+	xlated 960B  jited 1008B  memlock 4096B  map_ids 203
+	btf_id 2102
+2896: tracepoint  name trace_cred_dump  tag b8dfb79becfe01cf  gpl
+	loaded_at 2025-08-31T08:20:05+0000  uid 0
+	xlated 504B  jited 560B  memlock 4096B  map_ids 203
+	btf_id 2156
+2897: tracepoint  name trace_open_shad  tag d2ac1a816354e7a6  gpl
+	loaded_at 2025-08-31T08:20:05+0000  uid 0
+	xlated 1008B  jited 1048B  memlock 4096B  map_ids 203
+	btf_id 2156
+2903: tracepoint  name trace_openat  tag 86c7bdabaaa8a701  gpl
+	loaded_at 2025-08-31T08:20:06+0000  uid 0
+	xlated 976B  jited 980B  memlock 4096B  map_ids 203
+	btf_id 2162
+2910: tracepoint  name trace_execve  tag 7a13696f6696a0f4  gpl
+	loaded_at 2025-08-31T08:35:11+0000  uid 0
+	xlated 232B  jited 308B  memlock 4096B  map_ids 203
+	btf_id 2168
+2911: tracepoint  name trace_execveat  tag e64ebc5ad48d4ce6  gpl
+	loaded_at 2025-08-31T08:35:11+0000  uid 0
+	xlated 232B  jited 308B  memlock 4096B  map_ids 203
+	btf_id 2168
+2995: xdp  name xdp_pass_main  tag 3b185187f1855c4c  gpl
+	loaded_at 2025-09-02T09:43:55+0000  uid 0
+	xlated 16B  jited 64B  memlock 4096B
+	btf_id 2195
+3250: xdp  name xdp_pass_main  tag 3b185187f1855c4c  gpl
+	loaded_at 2025-09-02T09:46:06+0000  uid 0
+	xlated 16B  jited 64B  memlock 4096B
+	btf_id 2204

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>EDR Live Graph</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { margin:0; padding:0; height:100%; background:#0b1020; color:#e6e8ef; font:14px system-ui, sans-serif; }
+    #hud { position:fixed; top:10px; left:10px; z-index:10; background:#151b2f; padding:8px 10px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,.35); }
+    #hud b { color:#9fdcff }
+    svg { width:100%; height:100vh; display:block; }
+    .node { stroke:#e6e8ef; stroke-width:.5px; }
+    .link { stroke:#6b7280; stroke-opacity:.6; }
+    .label { fill:#cbd5e1; font-size:11px; paint-order:stroke; stroke:#0b1020; stroke-width:3px; }
+  </style>
+  <!-- Load D3 first -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+  <div id="hud">ts: <b id="ts">—</b> &nbsp; nodes: <b id="n">0</b> &nbsp; links: <b id="m">0</b></div>
+  <svg id="g"></svg>
+
+  <script>
+  // ----- setup -----
+  const svg = document.getElementById('g');
+  const rootSel = d3.select(svg);
+  const linkG = rootSel.append("g").attr("stroke-width", 1.0);
+  const nodeG = rootSel.append("g");
+  const labelG = rootSel.append("g");
+
+  let nodes = [], links = [], nodeById = new Map();
+
+  function colorByConfidence(c){
+    const t = Math.max(0, Math.min(1, c || 0));
+    const r = Math.round(255 * t);
+    const g = Math.round(200 * (1-t));
+    const b = Math.round(255 * (1-t));
+    return `rgb(${r},${g},${b})`;
+  }
+  const key = d => d.id;
+
+  const sim = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(d => d.id).distance(60).strength(0.6))
+    .force("charge", d3.forceManyBody().strength(-140))
+    .force("center", d3.forceCenter(window.innerWidth/2, window.innerHeight/2))
+    .alphaDecay(0.05)
+    .on("tick", ticked);
+
+  let linkSel = linkG.selectAll("line");
+  let nodeSel = nodeG.selectAll("circle");
+  let labelSel = labelG.selectAll("text");
+
+  function ticked(){
+    linkSel.attr("x1", d => d.source.x)
+           .attr("y1", d => d.source.y)
+           .attr("x2", d => d.target.x)
+           .attr("y2", d => d.target.y);
+    nodeSel.attr("cx", d => d.x).attr("cy", d => d.y);
+    labelSel.attr("x", d => d.x + 8).attr("y", d => d.y + 4);
+  }
+
+  function updateGraph(snap){
+    // merge nodes
+    const seen = new Set();
+    for (const n of snap.nodes) {
+      let cur = nodeById.get(n.id);
+      if (!cur) {
+        cur = {id:n.id, label:n.label, kind:n.kind, score:n.score, confidence:n.confidence};
+        nodeById.set(n.id, cur);
+        nodes.push(cur);
+      } else {
+        cur.label = n.label;
+        cur.kind = n.kind;
+        cur.score = Math.max(cur.score ?? 0, n.score ?? 0);
+        cur.confidence = Math.max(cur.confidence ?? 0, n.confidence ?? 0);
+      }
+      seen.add(n.id);
+    }
+
+    // rebuild links fresh (backend is already timeboxed)
+    links.length = 0;
+    for (const e of snap.links) {
+      const s = nodeById.get(e.source), t = nodeById.get(e.target);
+      if (s && t) links.push({source:s, target:t, kind:e.kind, weight:e.weight});
+    }
+
+    // (re)bind selections
+    linkSel = linkG.selectAll("line")
+      .data(links, d => d.source.id + "|" + d.target.id + "|" + d.kind);
+    linkSel.exit().remove();
+    linkSel = linkSel.enter().append("line")
+        .attr("class","link")
+      .merge(linkSel)
+        .attr("stroke-width", d => 0.5 + Math.min(4, d.weight ?? 1));
+
+    const enteredNodes = nodeG.selectAll("circle").data(nodes, key)
+      .join(
+        enter => enter.append("circle")
+          .attr("class","node")
+          .attr("r", d => d.kind === "proc" ? 6 : 5)
+          .call(d3.drag()
+            .on("start", (ev,d)=>{ if(!ev.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+            .on("drag", (ev,d)=>{ d.fx = ev.x; d.fy = ev.y; })
+            .on("end",   (ev,d)=>{ if(!ev.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+          )
+          .each(function(d){
+            // ensure exactly one title per node
+            const sel = d3.select(this);
+            if (sel.select("title").empty()) sel.append("title");
+          }),
+        update => update,
+        exit => exit.remove()
+      );
+    nodeSel = enteredNodes
+      .attr("fill", d => colorByConfidence(d.confidence));
+    nodeSel.select("title")
+      .text(d => `${d.label}\nconf=${(d.confidence||0).toFixed(2)} score=${(d.score||0).toFixed(2)}`);
+
+    labelSel = labelG.selectAll("text").data(nodes, key);
+    labelSel.exit().remove();
+    labelSel = labelSel.enter().append("text")
+        .attr("class","label").text(d => d.label)
+      .merge(labelSel);
+
+    sim.force("link").links(links);
+    sim.alpha(0.5).restart();
+
+    // HUD
+    document.getElementById("ts").textContent = new Date((snap.ts||Date.now()/1000)*1000).toLocaleTimeString();
+    document.getElementById("n").textContent = nodes.length;
+    document.getElementById("m").textContent = links.length;
+  }
+
+  async function poll(){
+    try{
+      const r = await fetch("/json_files/graph_live.json", { cache: "no-store" });
+      if (r.ok) {
+        const snap = await r.json();
+        if (snap && snap.nodes && snap.links) updateGraph(snap);
+      }
+    } catch (_) { /* ignore */ }
+  }
+
+  // poll every second
+  setInterval(poll, 1000);
+  poll();
+
+  // responsive center
+  addEventListener("resize", () => {
+    sim.force("center", d3.forceCenter(innerWidth/2, innerHeight/2));
+    sim.alpha(0.2).restart();
+  });
+  </script>
+</body>
+</html>

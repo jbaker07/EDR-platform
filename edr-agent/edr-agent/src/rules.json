@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "R001",
+      "name": "Exec/modify under /etc/init.d (persistence candidate)",
+      "description": "Potential SysV-style persistence via init.d",
+      "severity": 0.9,
+      "enabled": true,
+      "match": {
+        "category": "file",
+        "signal": "file_access",
+        "file_path_regex": "^/etc/init\\.d/.*"
+      }
+    },
+    {
+      "id": "R002",
+      "name": "Shell scripts in /tmp",
+      "description": "Shell script activity in /tmp may indicate staging",
+      "severity": 0.6,
+      "enabled": true,
+      "match": {
+        "category": "file",
+        "signal": "file_access",
+        "file_path_regex": "^/tmp/.*\\.sh$"
+      }
+    },
+    {
+      "id": "R003",
+      "name": "Read /proc/<pid>/environ",
+      "description": "Reading another process environment can leak secrets/keys",
+      "severity": 0.6,
+      "enabled": true,
+      "match": {
+        "category": "file",
+        "signal": "file_access",
+        "file_path_regex": "^/proc/[0-9]+/environ$"
+      }
+    },
+    {
+      "id": "R004",
+      "name": "Calibration file touched",
+      "description": "Access to rolling calibration file (informational)",
+      "severity": 0.2,
+      "enabled": true,
+      "match": {
+        "category": "file",
+        "signal": "file_access",
+        "file_path": "state/calibration/rolling_calibration.json"
+      }
+    }
+  ]
+}

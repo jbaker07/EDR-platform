@@ -1,0 +1,991 @@
+{
+  "version": 1,
+  "engine": "simple_rules_v1",
+  "defaults": {
+    "source": "rules",
+    "case_insensitive": true
+  },
+  "rules": [
+    {
+      "id": "proc_powershell_encoded",
+      "name": "PowerShell with EncodedCommand",
+      "enabled": true,
+      "score": 0.9,
+      "mitre": [
+        "T1059.001"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "any": [
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "powershell"
+            },
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "powershell.exe"
+            },
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "pwsh"
+            },
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "pwsh.exe"
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "field": "event.cmdline",
+              "op": "contains",
+              "value": "-enc"
+            },
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "(?i)-EncodedCommand"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "powershell",
+        "encoded"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "proc_shell_curlpipe",
+      "name": "Shell download & pipe to interpreter",
+      "enabled": true,
+      "score": 0.85,
+      "mitre": [
+        "T1059",
+        "T1105"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "any": [
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "bash"
+            },
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "sh"
+            },
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "zsh"
+            },
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "fish"
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "curl\\s+[^|]+\\|\\s*(sh|bash)"
+            },
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "wget\\s+[^|]+\\|\\s*(sh|bash)"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "download-exec",
+        "curlpipe"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "proc_exec_from_tmp",
+      "name": "Execution from temp or memory FS",
+      "enabled": true,
+      "score": 0.7,
+      "mitre": [
+        "T1204",
+        "T1036"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "any": [
+            {
+              "field": "event.binary_path",
+              "op": "startswith",
+              "value": "/tmp/"
+            },
+            {
+              "field": "event.binary_path",
+              "op": "startswith",
+              "value": "/var/tmp/"
+            },
+            {
+              "field": "event.binary_path",
+              "op": "startswith",
+              "value": "/dev/shm/"
+            },
+            {
+              "field": "event.binary_path",
+              "op": "startswith",
+              "value": "/private/tmp/"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "field": "event.binary_path",
+          "op": "contains",
+          "value": "/snap/"
+        },
+        {
+          "field": "event.binary_path",
+          "op": "contains",
+          "value": "/conda/"
+        }
+      ],
+      "tags": [
+        "tmp-exec"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "linux_cron_persist_write",
+      "name": "Write to cron directories",
+      "enabled": true,
+      "score": 0.65,
+      "mitre": [
+        "T1053.003",
+        "T1547.001"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "file"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "write"
+        },
+        {
+          "any": [
+            {
+              "field": "event.path",
+              "op": "startswith",
+              "value": "/etc/cron"
+            },
+            {
+              "field": "event.path",
+              "op": "contains",
+              "value": "/cron.d/"
+            },
+            {
+              "field": "event.path",
+              "op": "contains",
+              "value": "crontab"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "persistence",
+        "cron"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "linux_systemd_user_persist",
+      "name": "systemd user service persistence",
+      "enabled": true,
+      "score": 0.7,
+      "mitre": [
+        "T1543.002",
+        "T1547"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "file"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "write"
+        },
+        {
+          "any": [
+            {
+              "field": "event.path",
+              "op": "contains",
+              "value": "/.config/systemd/user/"
+            },
+            {
+              "field": "event.path",
+              "op": "startswith",
+              "value": "/etc/systemd/system/"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "persistence",
+        "systemd"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "credential_artifacts_sshkeys",
+      "name": "SSH keys modified",
+      "enabled": true,
+      "score": 0.6,
+      "mitre": [
+        "T1098",
+        "T1552.004"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "file"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "write"
+        },
+        {
+          "any": [
+            {
+              "field": "event.path",
+              "op": "endswith",
+              "value": "authorized_keys"
+            },
+            {
+              "field": "event.path",
+              "op": "endswith",
+              "value": "id_rsa"
+            },
+            {
+              "field": "event.path",
+              "op": "endswith",
+              "value": "id_ed25519"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "ssh",
+        "cred-files"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "susp_python_inline_b64",
+      "name": "Python inline base64 exec",
+      "enabled": true,
+      "score": 0.75,
+      "mitre": [
+        "T1059.006",
+        "T1027"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "any": [
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "python"
+            },
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "python3"
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "base64\\.(b64decode|standard_b64decode)\\("
+            },
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "exec\\([^)]+\\)"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "python",
+        "b64",
+        "execution"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "sudo_noninteractive_pass",
+      "name": "sudo with -S (password on stdin)",
+      "enabled": true,
+      "score": 0.55,
+      "mitre": [
+        "T1548.003"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "field": "event.exe",
+          "op": "endswith",
+          "value": "sudo"
+        },
+        {
+          "field": "event.cmdline",
+          "op": "contains",
+          "value": " -S "
+        }
+      ],
+      "tags": [
+        "priv-esc",
+        "sudo"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "pkexec_spawn",
+      "name": "pkexec execution",
+      "enabled": true,
+      "score": 0.65,
+      "mitre": [
+        "T1548.003"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "any": [
+            {
+              "field": "event.exe",
+              "op": "endswith",
+              "value": "pkexec"
+            },
+            {
+              "field": "event.binary_path",
+              "op": "endswith",
+              "value": "/usr/bin/pkexec"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "priv-esc",
+        "pkexec"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "net_beacon_tag_escalation",
+      "name": "Beacon cadence anomaly (tag)",
+      "enabled": true,
+      "score": 0.6,
+      "mitre": [
+        "T1071",
+        "T1105"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "network"
+        },
+        {
+          "field": "tags",
+          "op": "contains",
+          "value": "cadence"
+        },
+        {
+          "field": "tags",
+          "op": "contains",
+          "value": "anomaly"
+        }
+      ],
+      "tags": [
+        "net-cadence",
+        "anomaly"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "entropy_blob_write",
+      "name": "High-entropy blob written",
+      "enabled": true,
+      "score": 0.7,
+      "mitre": [
+        "T1027"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "file"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "write"
+        },
+        {
+          "any": [
+            {
+              "field": "tags",
+              "op": "contains",
+              "value": "high_entropy_blob"
+            },
+            {
+              "field": "tags",
+              "op": "contains",
+              "value": "packed_payload"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "obfuscation",
+        "payload"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "mahala_outlier_escalation",
+      "name": "Mahalanobis outlier (batch)",
+      "enabled": true,
+      "score": 0.5,
+      "mitre": [
+        "T1036"
+      ],
+      "where_all": [
+        {
+          "field": "tags",
+          "op": "contains",
+          "value": "mahalanobis_outlier"
+        }
+      ],
+      "tags": [
+        "anomaly",
+        "mahalanobis"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "elliptic_outlier_escalation",
+      "name": "EllipticEnvelope outlier (env)",
+      "enabled": true,
+      "score": 0.5,
+      "mitre": [
+        "T1036"
+      ],
+      "where_all": [
+        {
+          "field": "tags",
+          "op": "contains",
+          "value": "elliptic_outlier"
+        }
+      ],
+      "tags": [
+        "anomaly",
+        "elliptic"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "krim_graph_alert_escalation",
+      "name": "KRIM-lite graph alert",
+      "enabled": true,
+      "score": 0.65,
+      "mitre": [
+        "T1482",
+        "T1087"
+      ],
+      "where_all": [
+        {
+          "field": "tags",
+          "op": "contains",
+          "value": "krim_alert"
+        }
+      ],
+      "tags": [
+        "graph",
+        "krim"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "office_spawns_shell",
+      "name": "Office/Document app spawns shell",
+      "enabled": true,
+      "score": 0.8,
+      "mitre": [
+        "T1204",
+        "T1059"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "any": [
+            {
+              "field": "event.binary_path",
+              "op": "regex",
+              "value": "(?i)(winword|excel|powerpnt|acrord32)"
+            },
+            {
+              "field": "event.binary_path",
+              "op": "contains",
+              "value": "libreoffice"
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "(?i)(cmd\\.exe|powershell|pwsh|wscript|cscript|bash|sh)"
+            },
+            {
+              "field": "event.binary_path",
+              "op": "regex",
+              "value": "(?i)(cmd\\.exe|powershell|pwsh|wscript|cscript|bash|sh)$"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "office",
+        "lolbin"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "new_file_then_exec_seq",
+      "name": "New file written then executed (short window)",
+      "enabled": true,
+      "score": 0.75,
+      "mitre": [
+        "T1204",
+        "T1105"
+      ],
+      "sequence": {
+        "window_sec": 120,
+        "steps": [
+          {
+            "where_all": [
+              {
+                "field": "category",
+                "op": "==",
+                "value": "file"
+              },
+              {
+                "field": "event",
+                "op": "==",
+                "value": "write"
+              },
+              {
+                "field": "event.path",
+                "op": "regex",
+                "value": "(/tmp/|/var/tmp/|/dev/shm/).+"
+              }
+            ],
+            "as": "written_path"
+          },
+          {
+            "where_all": [
+              {
+                "field": "category",
+                "op": "==",
+                "value": "process"
+              },
+              {
+                "field": "event",
+                "op": "==",
+                "value": "exec"
+              },
+              {
+                "field": "event.binary_path",
+                "op": "equals",
+                "value_from": "written_path"
+              }
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "write-then-exec"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "cron_and_beacon_combo",
+      "name": "Cron write followed by beacon cadence",
+      "enabled": true,
+      "score": 0.8,
+      "mitre": [
+        "T1053.003",
+        "T1105"
+      ],
+      "sequence": {
+        "window_sec": 600,
+        "steps": [
+          {
+            "where_all": [
+              {
+                "field": "category",
+                "op": "==",
+                "value": "file"
+              },
+              {
+                "field": "event",
+                "op": "==",
+                "value": "write"
+              },
+              {
+                "any": [
+                  {
+                    "field": "event.path",
+                    "op": "startswith",
+                    "value": "/etc/cron"
+                  },
+                  {
+                    "field": "event.path",
+                    "op": "contains",
+                    "value": "/cron.d/"
+                  },
+                  {
+                    "field": "event.path",
+                    "op": "contains",
+                    "value": "crontab"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "where_all": [
+              {
+                "field": "category",
+                "op": "==",
+                "value": "network"
+              },
+              {
+                "any": [
+                  {
+                    "field": "tags",
+                    "op": "contains",
+                    "value": "cadence"
+                  },
+                  {
+                    "field": "tags",
+                    "op": "contains",
+                    "value": "beacon"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "persistence",
+        "beacon"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "bash_devshm_dropper",
+      "name": "Bash writes to /dev/shm and executes",
+      "enabled": true,
+      "score": 0.8,
+      "mitre": [
+        "T1105",
+        "T1204"
+      ],
+      "sequence": {
+        "window_sec": 180,
+        "steps": [
+          {
+            "where_all": [
+              {
+                "field": "category",
+                "op": "==",
+                "value": "file"
+              },
+              {
+                "field": "event",
+                "op": "==",
+                "value": "write"
+              },
+              {
+                "field": "event.path",
+                "op": "startswith",
+                "value": "/dev/shm/"
+              }
+            ],
+            "as": "drop_path"
+          },
+          {
+            "where_all": [
+              {
+                "field": "category",
+                "op": "==",
+                "value": "process"
+              },
+              {
+                "field": "event",
+                "op": "==",
+                "value": "exec"
+              },
+              {
+                "any": [
+                  {
+                    "field": "event.exe",
+                    "op": "endswith",
+                    "value": "bash"
+                  },
+                  {
+                    "field": "event.exe",
+                    "op": "endswith",
+                    "value": "sh"
+                  }
+                ]
+              },
+              {
+                "field": "event.cmdline",
+                "op": "contains",
+                "value_from": "drop_path"
+              }
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "memfs",
+        "dropper"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "suspicious_tools_collection",
+      "name": "Suspicious tools invoked",
+      "enabled": true,
+      "score": 0.6,
+      "mitre": [
+        "T1036",
+        "T1059"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "any": [
+            {
+              "field": "event.binary_path",
+              "op": "regex",
+              "value": "(?i)(ncat|nc\\s|socat|chisel|iodine|rclone|pspy|linpeas|winpeas)"
+            },
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "(?i)(ncat|socat|rclone|chisel|linpeas|pspy)"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "field": "event.cmdline",
+          "op": "contains",
+          "value": "--help"
+        }
+      ],
+      "tags": [
+        "tooling"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "script_interpreter_from_user_dir",
+      "name": "Interpreter launched from user home",
+      "enabled": true,
+      "score": 0.55,
+      "mitre": [
+        "T1059"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "process"
+        },
+        {
+          "field": "event",
+          "op": "==",
+          "value": "exec"
+        },
+        {
+          "field": "event.binary_path",
+          "op": "startswith",
+          "value": "/home/"
+        },
+        {
+          "any": [
+            {
+              "field": "event.binary_path",
+              "op": "regex",
+              "value": "(/python(3)?$|/perl$|/node$|/ruby$|/php$)"
+            },
+            {
+              "field": "event.cmdline",
+              "op": "regex",
+              "value": "\\b(-e|--eval|--execute)\\b"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "userland",
+        "interpreter"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "windows_run_keys_modify",
+      "name": "Windows Run key modification (if present)",
+      "enabled": true,
+      "score": 0.7,
+      "mitre": [
+        "T1547.001"
+      ],
+      "where_all": [
+        {
+          "field": "category",
+          "op": "==",
+          "value": "file"
+        },
+        {
+          "any": [
+            {
+              "field": "event.path",
+              "op": "regex",
+              "value": "(?i)\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run"
+            },
+            {
+              "field": "event.path",
+              "op": "regex",
+              "value": "(?i)\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\RunOnce"
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "windows",
+        "persistence"
+      ],
+      "severity": "medium"
+    }
+  ]
+}
