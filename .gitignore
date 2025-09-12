@@ -19,3 +19,11 @@ edr-agent/src/asahi-kernel-exact/
 edr-agent/src/ebpf/asahi-linux/
 edr-agent/target/
 target/
+
+# runtime / generated
+edr-agent/json_files/graph_live.json
+edr-agent/telemetry_output/kv_telemetry.jsonl
+state/pcb_snaps.ndjson
+logs/
+edr-agent/logs/
+target/
