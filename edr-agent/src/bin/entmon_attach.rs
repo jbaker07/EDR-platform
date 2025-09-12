@@ -8,6 +8,7 @@ use aya::{
 };
 
 // where you loaded the object file
+fn main() -> Result<(), Box<dyn std::error::Error>> {
 let mut bpf = Ebpf::load_file("src/ebpf/entropy_exec_monitor.bpf.o")
     .context("load ebpf obj")?;
 
@@ -31,3 +32,5 @@ let mut events = AsyncPerfEventArray::try_from(
 
 // online_cpus doesn't implement anyhow::Context because of its error type; map it
 let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    Ok(())
+}

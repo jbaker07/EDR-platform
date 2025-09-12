@@ -74,7 +74,7 @@ pub fn start_ringbuf_reader_simple(
     let rb = rb.build().map_err(|e| e.to_string())?;
 
     thread::spawn(move || loop {
-        let _ = rb.poll(Duration::from_millis(100));
+        let _ = rb.poll(Duration::from_millis(1));
         thread::sleep(Duration::from_millis(1));
     });
     Ok(())
@@ -112,7 +112,7 @@ pub fn start_ringbuf_reader_with_attach(
     let rb = rb.build().map_err(|e| e.to_string())?;
 
     thread::spawn(move || loop {
-        let _ = rb.poll(Duration::from_millis(100));
+        let _ = rb.poll(Duration::from_millis(1));
         thread::sleep(Duration::from_millis(1));
     });
     Ok(())
@@ -171,7 +171,7 @@ pub fn start_perf_reader_with_attach(
                             }
                             Err(e) => {
                                 eprintln!("perf read error (cpu {}): {:?}", cpu, e);
-                                std::thread::sleep(Duration::from_millis(100));
+                                std::thread::sleep(Duration::from_millis(1));
                             }
                         }
                     }

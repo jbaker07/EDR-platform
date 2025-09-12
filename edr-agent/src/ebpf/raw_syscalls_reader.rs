@@ -103,7 +103,7 @@ mod linux {
             let _keep_bpf_alive = bpf;
 
             loop {
-                let _ = rb.poll(Duration::from_millis(100), |data| {
+                let _ = rb.poll(Duration::from_millis(1), |data| {
                     // SAFETY: event comes from BPF with this fixed layout.
                     if data.len() < mem::size_of::<SysEnterEvent>() { return; }
                     let ev = unsafe { ptr::read_unaligned(data.as_ptr() as *const SysEnterEvent) };

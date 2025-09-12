@@ -6,37 +6,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body { margin:0; padding:0; height:100%; background:#0b1020; color:#e6e8ef; font:14px system-ui, sans-serif; }
-    #hud { position:fixed; top:10px; left:10px; z-index:10; background:#151b2f; padding:8px 10px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,.35); }
+    #hud { position:fixed; top:10px; left:10px; z-index:10; background:#151b2f; padding:8px 10px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,.35); display:flex; gap:.75rem; align-items:center; }
     #hud b { color:#9fdcff }
+    #hud button { background:#223055; color:#e6e8ef; border:1px solid #2a3a66; padding:4px 8px; border-radius:8px; cursor:pointer; }
+    #hud button:hover { background:#2a3a66; }
     svg { width:100%; height:100vh; display:block; }
     .node { stroke:#e6e8ef; stroke-width:.5px; }
     .link { stroke:#6b7280; stroke-opacity:.6; }
     .label { fill:#cbd5e1; font-size:11px; paint-order:stroke; stroke:#0b1020; stroke-width:3px; }
   </style>
-  <!-- Load D3 first -->
+  <!-- D3 -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 </head>
 <body>
-  <div id="hud">ts: <b id="ts">—</b> &nbsp; nodes: <b id="n">0</b> &nbsp; links: <b id="m">0</b></div>
+  <div id="hud">
+    <span>ts: <b id="ts">—</b></span>
+    <span>nodes: <b id="n">0</b></span>
+    <span>edges: <b id="m">0</b></span>
+    <button id="pauseBtn" type="button">Pause Stream</button>
+    <a href="/" style="margin-left:.5rem; color:#9fdcff; text-decoration:none;">← Back</a>
+  </div>
   <svg id="g"></svg>
 
   <script>
-  // ----- setup -----
+  // ====== Setup ======
   const svg = document.getElementById('g');
   const rootSel = d3.select(svg);
   const linkG = rootSel.append("g").attr("stroke-width", 1.0);
   const nodeG = rootSel.append("g");
   const labelG = rootSel.append("g");
 
-  let nodes = [], links = [], nodeById = new Map();
+  // IMPORTANT: keep these arrays stable (don’t reassign) so the simulation stays wired.
+  const nodes = [];
+  const links = [];
+  let nodeById = new Map();
+  let paused = false;
+  let es = null;
 
-  function colorByConfidence(c){
-    const t = Math.max(0, Math.min(1, c || 0));
-    const r = Math.round(255 * t);
-    const g = Math.round(200 * (1-t));
-    const b = Math.round(255 * (1-t));
-    return `rgb(${r},${g},${b})`;
+  // Color by *risk* (invert trust_score). Higher risk → redder.
+  function colorByRisk(risk){
+    const r = Math.max(0, Math.min(1, Number(risk) || 0));
+    const R = Math.round(220 * r + 0 * (1-r));
+    const G = Math.round(60  * r + 200 * (1-r));
+    const B = Math.round(60  * r + 0   * (1-r));
+    return `rgb(${R},${G},${B})`;
   }
+
+  // Normalize a backend snapshot into { ts, nodes: [{id,label,risk,kind}], links: [...] }
+  function normalizeSnapshot(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+
+    const ts = raw.ts ?? raw.time ?? raw.timestamp ?? Math.floor(Date.now()/1000);
+    const rawNodes = Array.isArray(raw.nodes) ? raw.nodes : [];
+    const rawEdges = Array.isArray(raw.edges) ? raw.edges : (Array.isArray(raw.links) ? raw.links : []);
+
+    const normNodes = rawNodes
+      .filter(n => n && typeof n.id === 'string' && n.id.length)
+      .map(n => {
+        const label = n.binary_path || n.exe || n.command_line || n.id;
+        const trust = (typeof n.trust_score === 'number') ? n.trust_score : 1.0;
+        const risk  = Math.max(0, Math.min(1, 1 - trust));
+        const kind  = (n.id.startsWith('proc:')) ? 'proc' : 'file';
+        return { id: n.id, label, risk, kind };
+      });
+
+    const normLinks = rawEdges
+      .filter(e => e && e.source && e.target)
+      .map(e => ({ source: e.source, target: e.target, kind: e.kind ?? 'edge', weight: e.weight ?? 1 }));
+
+    return { ts, nodes: normNodes, links: normLinks };
+  }
+
   const key = d => d.id;
 
   const sim = d3.forceSimulation(nodes)
@@ -60,24 +100,31 @@
   }
 
   function updateGraph(snap){
-    // merge nodes
+    // merge/update nodes (keep positions where possible)
     const seen = new Set();
     for (const n of snap.nodes) {
       let cur = nodeById.get(n.id);
       if (!cur) {
-        cur = {id:n.id, label:n.label, kind:n.kind, score:n.score, confidence:n.confidence};
+        cur = { id:n.id, label:n.label, kind:n.kind, risk:n.risk, x: undefined, y: undefined };
         nodeById.set(n.id, cur);
         nodes.push(cur);
       } else {
         cur.label = n.label;
-        cur.kind = n.kind;
-        cur.score = Math.max(cur.score ?? 0, n.score ?? 0);
-        cur.confidence = Math.max(cur.confidence ?? 0, n.confidence ?? 0);
+        cur.kind  = n.kind;
+        cur.risk  = Math.max(cur.risk ?? 0, n.risk ?? 0); // keep highest seen
       }
       seen.add(n.id);
     }
 
-    // rebuild links fresh (backend is already timeboxed)
+    // prune nodes that disappeared (mutate array in-place to preserve sim binding)
+    if (seen.size) {
+      for (let i = nodes.length - 1; i >= 0; i--) {
+        if (!seen.has(nodes[i].id)) nodes.splice(i, 1);
+      }
+      nodeById = new Map(nodes.map(n => [n.id, n]));
+    }
+
+    // rebuild links fresh
     links.length = 0;
     for (const e of snap.links) {
       const s = nodeById.get(e.source), t = nodeById.get(e.target);
@@ -100,27 +147,27 @@
           .attr("r", d => d.kind === "proc" ? 6 : 5)
           .call(d3.drag()
             .on("start", (ev,d)=>{ if(!ev.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-            .on("drag", (ev,d)=>{ d.fx = ev.x; d.fy = ev.y; })
+            .on("drag",  (ev,d)=>{ d.fx = ev.x; d.fy = ev.y; })
             .on("end",   (ev,d)=>{ if(!ev.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
           )
-          .each(function(d){
-            // ensure exactly one title per node
+          .each(function(){
             const sel = d3.select(this);
             if (sel.select("title").empty()) sel.append("title");
           }),
         update => update,
         exit => exit.remove()
       );
-    nodeSel = enteredNodes
-      .attr("fill", d => colorByConfidence(d.confidence));
-    nodeSel.select("title")
-      .text(d => `${d.label}\nconf=${(d.confidence||0).toFixed(2)} score=${(d.score||0).toFixed(2)}`);
+    nodeSel = enteredNodes.attr("fill", d => colorByRisk(d.risk));
+    nodeSel.select("title").text(d => `${d.label}\nrisk=${(d.risk||0).toFixed(2)}`);
 
+    // update labels on enter + update (was enter-only before)
     labelSel = labelG.selectAll("text").data(nodes, key);
     labelSel.exit().remove();
-    labelSel = labelSel.enter().append("text")
-        .attr("class","label").text(d => d.label)
-      .merge(labelSel);
+    labelSel = labelSel.enter()
+        .append("text")
+        .attr("class","label")
+      .merge(labelSel)
+        .text(d => d.label);
 
     sim.force("link").links(links);
     sim.alpha(0.5).restart();
@@ -131,25 +178,57 @@
     document.getElementById("m").textContent = links.length;
   }
 
-  async function poll(){
-    try{
-      const r = await fetch("/json_files/graph_live.json", { cache: "no-store" });
+  // ====== Data flow: SSE + initial fetch (with safe fallbacks) ======
+  async function initialFetch() {
+    try {
+      const r = await fetch("/graph/live", { cache: "no-store" });
       if (r.ok) {
-        const snap = await r.json();
-        if (snap && snap.nodes && snap.links) updateGraph(snap);
+        const raw = await r.json();
+        const snap = normalizeSnapshot(raw);
+        if (snap) updateGraph(snap);
+        return;
       }
-    } catch (_) { /* ignore */ }
+    } catch (_) {}
+    // fallback to static file if someone opens this directly
+    try {
+      const r2 = await fetch("/json_files/graph_live.json", { cache: "no-store" });
+      if (r2.ok) {
+        const raw2 = await r2.json();
+        const snap2 = normalizeSnapshot(raw2);
+        if (snap2) updateGraph(snap2);
+      }
+    } catch (_) {}
   }
 
-  // poll every second
-  setInterval(poll, 1000);
-  poll();
+  function startSSE() {
+    if (es) { try { es.close(); } catch {} }
+    es = new EventSource("/graph/stream");
+    es.onmessage = (ev) => {
+      if (paused) return;
+      try {
+        const raw = JSON.parse(ev.data);
+        if (!(raw && (raw.nodes || raw.edges || raw.links))) return; // ignore keepalives
+        const snap = normalizeSnapshot(raw);
+        if (snap) updateGraph(snap);
+      } catch (_) {}
+    };
+    es.onerror = () => { /* browser will auto-retry */ };
+  }
 
-  // responsive center
+  // ====== Controls ======
+  document.getElementById('pauseBtn').onclick = () => {
+    paused = !paused;
+    document.getElementById('pauseBtn').textContent = paused ? 'Resume Stream' : 'Pause Stream';
+  };
+
   addEventListener("resize", () => {
     sim.force("center", d3.forceCenter(innerWidth/2, innerHeight/2));
     sim.alpha(0.2).restart();
   });
+
+  // Kickoff
+  initialFetch();
+  startSSE();
   </script>
 </body>
 </html>

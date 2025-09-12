@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>EDR Demo Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="color-scheme" content="dark light" />
+  <!-- Tailwind CSS (CDN for demo) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js + date adapter (time scale for timeline & sparklines) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
+  <style>
+    /* Small tweaks to prevent layout shift on table cells */
+    #alertsScroll table { table-layout: fixed; }
+    #detail { white-space: pre; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <noscript>
+    <div class="max-w-7xl mx-auto p-4">
+      <div class="rounded border border-amber-600 text-amber-200 p-3">
+        This dashboard requires JavaScript to run.
+      </div>
+    </div>
+  </noscript>
+
+  <div class="max-w-7xl mx-auto p-4">
+    <!-- Header -->
+    <header class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4">
+      <div class="flex items-center gap-3">
+        <h1 class="text-xl font-semibold">EDR Demo</h1>
+        <span id="sseDot" class="inline-block w-2.5 h-2.5 rounded-full bg-slate-600" title="transport"></span>
+        <span id="statusPill" class="text-xs px-2 py-0.5 rounded border border-slate-700 text-slate-300">idle</span>
+      </div>
+      <div class="text-sm text-slate-400 flex flex-wrap items-center gap-x-3 gap-y-1" aria-live="polite">
+        <span id="statEvents">events: 0</span>
+        <span class="hidden sm:inline">•</span>
+        <span id="statAlerts">alerts: 0</span>
+        <span class="hidden sm:inline">•</span>
+        <span id="statAccepted" class="text-slate-300">accepted: 0</span>
+        <span class="hidden sm:inline">•</span>
+        <span id="lastUpdate" class="text-slate-500">updated: —</span>
+        <a href="/ui/graph.html" class="ml-3 text-sky-400 hover:text-sky-300 underline decoration-dotted">Open Live Graph</a>
+      </div>
+    </header>
+
+    <!-- Top metrics -->
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4" aria-label="top metrics">
+      <div class="rounded border border-slate-800 p-3">
+        <div class="text-xs text-slate-400">Events (in)</div>
+        <div class="text-2xl font-semibold leading-tight"><span id="m_eventsIn">0</span></div>
+        <canvas id="spark_in" height="28" class="mt-2"></canvas>
+      </div>
+      <div class="rounded border border-slate-800 p-3">
+        <div class="text-xs text-slate-400">Events (accepted)</div>
+        <div class="text-2xl font-semibold leading-tight"><span id="m_eventsAcc">0</span></div>
+        <canvas id="spark_acc" height="28" class="mt-2"></canvas>
+      </div>
+      <div class="rounded border border-slate-800 p-3">
+        <div class="text-xs text-slate-400">Alerts (out)</div>
+        <div class="text-2xl font-semibold leading-tight"><span id="m_alertsOut">0</span></div>
+        <canvas id="spark_alerts" height="28" class="mt-2"></canvas>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <nav class="flex gap-2 text-sm mb-4" role="tablist" aria-label="main">
+      <button id="tabDash" type="button" role="tab" aria-selected="true" class="px-3 py-1 rounded bg-sky-600 text-white">Dashboard</button>
+      <button id="tabIntegrations" type="button" role="tab" aria-selected="false" class="px-3 py-1 rounded bg-slate-800 text-slate-200">Integrations</button>
+    </nav>
+
+    <!-- DASHBOARD -->
+    <section id="screenDash" aria-labelledby="tabDash">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Alerts table -->
+        <div class="lg:col-span-2 rounded border border-slate-800">
+          <div class="p-3 border-b border-slate-800 flex items-center justify-between">
+            <div class="text-sm font-medium">Alerts (live)</div>
+            <div class="flex items-center gap-2 text-xs">
+              <label class="flex items-center gap-1">
+                <input id="autoScroll" type="checkbox" class="accent-sky-500" checked />
+                <span class="text-slate-300">autoscroll</span>
+              </label>
+              <input id="search" placeholder="filter…" class="bg-slate-900 border border-slate-700 rounded px-2 py-1" />
+              <select id="sevFilter" class="bg-slate-900 border border-slate-700 rounded px-2 py-1">
+                <option value="">all severities</option>
+                <option value="low">low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="alertsScroll" class="overflow-auto max-h-[420px]">
+            <table class="w-full text-sm table-fixed">
+              <!-- fixed column widths for consistent layout -->
+              <colgroup>
+                <col class="w-36 sm:w-44" />   <!-- time -->
+                <col class="w-20" />           <!-- sev -->
+                <col class="w-20" />           <!-- risk -->
+                <col />                         <!-- event -->
+                <col class="sm:w-80" />        <!-- findings -->
+              </colgroup>
+              <thead class="text-slate-400 sticky top-0 bg-slate-950 z-10">
+                <tr>
+                  <th class="text-left px-3 py-2">time</th>
+                  <th class="text-left px-3 py-2">sev</th>
+                  <th class="text-left px-3 py-2">risk</th>
+                  <th class="text-left px-3 py-2">event</th>
+                  <th class="text-left px-3 py-2">findings</th>
+                </tr>
+              </thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="rounded border border-slate-800 p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-sm font-medium">Timeline</div>
+            <div class="text-xs text-slate-400">last 60 min</div>
+          </div>
+          <canvas id="timeline" height="200" aria-label="alerts timeline"></canvas>
+        </div>
+
+        <!-- Selected alert JSON -->
+        <div class="rounded border border-slate-800 lg:col-span-3">
+          <div class="p-3 border-b border-slate-800 text-sm font-medium">Selected alert (JSON)</div>
+          <pre id="detail" class="text-xs p-3 overflow-auto max-h-[300px] bg-slate-950 border-t border-slate-800 font-mono leading-5 rounded-b"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section id="screenIntegrations" class="hidden" aria-labelledby="tabIntegrations">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-lg font-medium">Integrations</h2>
+        <div class="flex items-center gap-2">
+          <button id="btnRefreshVendors" type="button" class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200">Refresh</button>
+          <button id="btnAdd" type="button" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500">+ Add Integration</button>
+        </div>
+      </div>
+      <div id="tiles" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+
+      <!-- Add modal -->
+      <dialog id="addDlg" class="bg-slate-950 text-slate-100 p-4 rounded max-w-xl w-full">
+        <form method="dialog" class="space-y-2">
+          <h3 class="text-base font-semibold">Add Integration</h3>
+          <div>
+            <label class="block text-sm mb-1">Vendor</label>
+            <select id="vendorSel" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1"></select>
+          </div>
+          <div id="credFields" class="space-y-2"></div>
+          <menu class="flex gap-2 justify-end pt-2">
+            <button value="cancel" class="px-3 py-1 rounded bg-slate-800">Cancel</button>
+            <button id="saveIntegration" value="default" class="px-3 py-1 rounded bg-sky-600">Save</button>
+          </menu>
+        </form>
+      </dialog>
+    </section>
+  </div>
+
+  <!-- Explain Drawer -->
+  <div id="drawer" class="fixed inset-y-0 right-0 w-full max-w-xl bg-slate-950 border-l border-slate-800 shadow-xl hidden" role="dialog" aria-modal="true" aria-labelledby="ex_head">
+    <div class="h-full flex flex-col">
+      <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+        <div class="text-lg font-semibold" id="ex_head">Explain</div>
+        <button id="ex_close" type="button" class="text-slate-300 hover:text-white" aria-label="Close">✕</button>
+      </div>
+      <div class="p-4 space-y-4 overflow-auto">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded border border-slate-800 p-3">
+            <div class="text-xs text-slate-400">Risk</div>
+            <div class="text-2xl font-semibold" id="ex_risk">0.00</div>
+          </div>
+          <div class="rounded border border-slate-800 p-3">
+            <div class="text-xs text-slate-400">R-GCN</div>
+            <div class="text-2xl font-semibold" id="ex_rgcn">0.00</div>
+          </div>
+        </div>
+
+        <div class="rounded border border-slate-800 p-3">
+          <div class="text-sm font-medium mb-2">Entities</div>
+          <pre id="ex_entities" class="text-xs bg-slate-900 p-2 rounded"></pre>
+        </div>
+
+        <div class="rounded border border-slate-800 p-3">
+          <div class="text-sm font-medium mb-2">Evidence (findings)</div>
+          <ul id="ex_why" class="text-xs space-y-1"></ul>
+          <div class="text-xs mt-2 text-slate-400">Anomalies: <span id="ex_anoms">—</span></div>
+        </div>
+
+        <div class="rounded border border-slate-800 p-3">
+          <div class="text-sm font-medium mb-2">Process Graph</div>
+          <div id="ex_graph" class="h-[220px]"></div>
+        </div>
+
+        <div class="rounded border border-slate-800 p-3">
+          <div class="text-sm font-medium mb-2">Timeline (±5m)</div>
+          <div id="ex_timeline" class="text-xs text-slate-300"></div>
+        </div>
+
+        <div class="rounded border border-slate-800 p-3">
+          <div class="text-sm font-medium mb-2">Enrichment</div>
+          <pre id="ex_enrich" class="text-xs bg-slate-900 p-2 rounded">—</pre>
+        </div>
+
+        <div class="rounded border border-slate-800 p-3">
+          <div class="text-sm font-medium mb-2">Recommended actions</div>
+          <ul id="ex_actions" class="text-xs list-disc pl-4"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row template -->
+  <template id="rowTpl">
+    <tr class="hover:bg-slate-900 cursor-pointer align-top">
+      <td class="px-3 py-2 font-mono text-xs text-slate-300 whitespace-nowrap"></td>
+      <td class="px-3 py-2"></td>
+      <td class="px-3 py-2"></td>
+      <td class="px-3 py-2"></td>
+      <td class="px-3 py-2"></td>
+    </tr>
+  </template>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed left-1/2 -translate-x-1/2 bottom-5 hidden bg-slate-900 border border-slate-700 text-sm px-3 py-2 rounded shadow-lg"></div>
+
+  <!-- App script -->
+  <script src="/app.js"></script>
+</body>
+</html>

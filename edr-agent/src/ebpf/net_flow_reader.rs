@@ -214,7 +214,7 @@ pub fn start_net_flow_reader(_writer: Arc<Mutex<TelemetryWriter>>) {
     let rb = rb.build().expect("ringbuf build");
 
     thread::spawn(move || loop {
-        let _ = rb.poll(Duration::from_millis(100));
+        let _ = rb.poll(Duration::from_millis(1));
         std::thread::sleep(Duration::from_millis(1));
     });
 

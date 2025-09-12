@@ -111,7 +111,7 @@ pub fn start_wx_exec_reader(writer: Arc<Mutex<TelemetryWriter>>) {
     let _fd = rb.as_raw_fd();
 
     thread::spawn(move || loop {
-        let _ = rb.poll(100);
+        let _ = rb.poll(1);
         std::thread::sleep(Duration::from_millis(1));
     });
 

@@ -1,4 +1,4 @@
-/* app.js - dashboard wiring (live SSE, metrics, sparklines-as-rates, explain, integrations) */
+/* app.js — hardened + with health + incidents + playbooks (safe if elements missing) */
 
 (() => {
   "use strict";
@@ -8,64 +8,55 @@
   const detailEl    = document.getElementById('detail');
   const sevEl       = document.getElementById('sevFilter');
   const searchEl    = document.getElementById('search');
-  const statEvents  = document.getElementById('statEvents');      // legacy: "events: N"
-  const statAlerts  = document.getElementById('statAlerts');      // legacy: "alerts: N"
-  const statAccepted= document.getElementById('statAccepted');    // new: "accepted: N"
-  const lastUpdate  = document.getElementById('lastUpdate');      // "updated: hh:mm:ss"
-  const mEventsIn   = document.getElementById('m_eventsIn');
-  const mEventsAcc  = document.getElementById('m_eventsAcc');
-  const mAlertsOut  = document.getElementById('m_alertsOut');
-  const autoScroll  = document.getElementById('autoScroll');
 
-  const sseDot      = document.getElementById('sseDot');
-  const statusPill  = document.getElementById('statusPill');
+  // Header stats (all optional)
+  const statEvents  = document.getElementById('statEvents');
+  const statAlerts  = document.getElementById('statAlerts');
+  const statNodes   = document.getElementById('statNodes');
+  const statEdges   = document.getElementById('statEdges');
+  const statDrops   = document.getElementById('statDrops');
 
-  // Tabs
+  // Tabs / screens (optional)
   const screenDash  = document.getElementById('screenDash');
   const screenInt   = document.getElementById('screenIntegrations');
   const tabDash     = document.getElementById('tabDash');
   const tabInt      = document.getElementById('tabIntegrations');
 
-  // Integrations pane
+  // Integrations pane (optional)
   const addDlg      = document.getElementById('addDlg');
   const vendorSel   = document.getElementById('vendorSel');
   const credFields  = document.getElementById('credFields');
   const tilesGrid   = document.getElementById('tiles');
-  const btnRefreshVendors = document.getElementById('btnRefreshVendors');
+  const btnAdd      = document.getElementById('btnAdd');
+  const saveIntegrationBtn = document.getElementById('saveIntegration');
 
-  // Explain drawer
+  // Explain drawer (optional)
   const drawer      = document.getElementById('drawer');
   const exCloseBtn  = document.getElementById('ex_close');
 
-  // Timeline canvas
+  // Timeline canvas (optional)
   const timelineCanvas = document.getElementById('timeline');
+
+  // Playbooks UI (optional; renders only if present)
+  const pbFeedEl    = document.getElementById('pb-feed');
+  const pbHitsEl    = document.getElementById('pb-hits');
+  const pbPendingEl = document.getElementById('pb-pending');
+
+  // Incidents (DecisionEngine rollups) — optional UI
+  const incWrap     = document.getElementById('incidents');
+  const incListEl   = document.getElementById('incList');
 
   // ---------- State ----------
   const MAX_ALERTS = 2000;
   let alerts   = [];
+  let eventsIn = 0;
   let catalog  = { vendors: [] };
-
-  // ---------- Tabs ----------
-  function activateTab(which) {
-    const onDash = which === 'dash';
-    screenDash.classList.toggle('hidden', !onDash);
-    screenInt.classList.toggle('hidden', onDash);
-    tabDash.className = onDash
-      ? 'px-3 py-1 rounded bg-sky-600 text-white'
-      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
-    tabInt.className = !onDash
-      ? 'px-3 py-1 rounded bg-sky-600 text-white'
-      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
-    if (!onDash) loadIntegrations();
-  }
-  tabDash?.addEventListener('click', () => activateTab('dash'));
-  tabInt?.addEventListener('click',  () => activateTab('int'));
-  activateTab('dash');
+  const incidents = new Map(); // id -> incident json
 
   // ---------- Helpers ----------
   const nowSec = () => Math.floor(Date.now() / 1000);
-  const fmtTime = (ts) => new Date(Number(ts) * 1000).toLocaleTimeString();
-  const fmtFull = (ts) => new Date(Number(ts) * 1000).toLocaleString();
+  const setText = (el, s) => { if (el) el.textContent = s; };
+  const safeAdd = (el, child) => { if (el && child) el.appendChild(child); };
 
   function parseTs(x) {
     if (x == null) return nowSec();
@@ -78,7 +69,8 @@
     return nowSec();
   }
 
-  const tsOf = (a) => parseTs(a.ts ?? a.time ?? a.timestamp);
+  const tsOf = (a) => parseTs(a?.ts ?? a?.time ?? a?.timestamp);
+  const fmt  = (ts) => new Date(Number(ts) * 1000).toLocaleString();
 
   function severityCategory(a) {
     const s = a?.severity;
@@ -90,13 +82,13 @@
     }
     return (String(s || '').toLowerCase());
   }
-  function sevOf(a) { return severityCategory(a); }
-  function riskOf(a) { return Number(a.risk ?? a.score ?? 0); }
+  const sevOf  = (a) => severityCategory(a);
+  const riskOf = (a) => Number(a?.risk ?? a?.score ?? 0);
 
   function extractText(a) {
-    const exe  = a.event?.exe ?? a.event?.binary_path ?? a.event?.category ?? '';
-    const cmd  = a.event?.cmdline ?? a.event?.command_line ?? '';
-    const tags = (Array.isArray(a.findings) ? a.findings : [])
+    const exe  = a?.event?.exe ?? a?.event?.binary_path ?? a?.event?.category ?? '';
+    const cmd  = a?.event?.cmdline ?? a?.event?.command_line ?? '';
+    const tags = (Array.isArray(a?.findings) ? a.findings : [])
       .map(f => (f && (f.label || f.rule || f.source)) || '')
       .join(' ');
     return { exe, cmd, tags };
@@ -124,8 +116,8 @@
       (top.label && /^T\d{4}(\.\d{3})?$/.test(top.label) ? top.label : null);
     const who = (top.source ? `${top.source}${top.rule ? ':'+top.rule : ''}` :
                 (top.rule || top.id || top.label || null));
-    const exe = a.event?.exe || a.event?.binary_path || a.event?.category || '';
-    const cmd = a.event?.cmdline || a.event?.command_line || '';
+    const exe = a?.event?.exe || a?.event?.binary_path || a?.event?.category || '';
+    const cmd = a?.event?.cmdline || a?.event?.command_line || '';
     const parts = [
       sev + (technique ? ` · ${technique}` : ''),
       who ? `by ${who}` : '',
@@ -137,7 +129,7 @@
   }
 
   function synthIdFor(a) {
-    const key = `${tsOf(a)}${a.event?.exe || a.event?.binary_path || '-'}${a.event?.cmdline || a.event?.command_line || '-'}`;
+    const key = `${tsOf(a)}${a?.event?.exe || a?.event?.binary_path || '-'}${a?.event?.cmdline || a?.event?.command_line || '-'}`;
     let h = 0; for (let i = 0; i < key.length; i++) h = ((h << 5) - h) + key.charCodeAt(i) | 0;
     return String(h >>> 0);
   }
@@ -149,125 +141,113 @@
     return e;
   }
 
-  // ---------- SSE Alerts ----------
-  function setSSEState(state) {
-    // state: connecting | open | error
-    if (!sseDot || !statusPill) return;
-    let dot = 'bg-slate-600', pillText = 'idle', pillCls = 'border-slate-700 text-slate-300';
-    if (state === 'connecting') { dot = 'bg-amber-500'; pillText = 'connecting'; pillCls = 'border-amber-600 text-amber-300'; }
-    if (state === 'open')       { dot = 'bg-emerald-500'; pillText = 'live';      pillCls = 'border-emerald-600 text-emerald-300'; }
-    if (state === 'error')      { dot = 'bg-rose-500';    pillText = 'retrying';  pillCls = 'border-rose-600 text-rose-300'; }
-    sseDot.className = `inline-block w-2.5 h-2.5 rounded-full ${dot}`;
-    statusPill.className = `text-xs px-2 py-0.5 rounded border ${pillCls}`;
-    statusPill.textContent = pillText;
+  // ---------- Tabs ----------
+  function activateTab(which) {
+    if (!screenDash || !screenInt || !tabDash || !tabInt) return;
+    const onDash = which === 'dash';
+    screenDash.classList.toggle('hidden', !onDash);
+    screenInt.classList.toggle('hidden', onDash);
+    tabDash.className = onDash
+      ? 'px-3 py-1 rounded bg-sky-600 text-white'
+      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
+    tabInt.className = !onDash
+      ? 'px-3 py-1 rounded bg-sky-600 text-white'
+      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
+    if (!onDash) loadIntegrations();
   }
+  if (tabDash) tabDash.onclick = () => activateTab('dash');
+  if (tabInt)  tabInt.onclick  = () => activateTab('int');
+  activateTab('dash');
 
-  setSSEState('connecting');
+  // ---------- SSE Alerts ----------
   const es = new EventSource('/alerts');
-  es.onopen = () => setSSEState('open');
-  es.onerror = () => setSSEState('error');
   es.onmessage = (ev) => {
     try {
       const a = JSON.parse(ev.data);
       alerts.push(a);
       if (alerts.length > MAX_ALERTS) alerts.splice(0, alerts.length - MAX_ALERTS);
-      statAlerts.textContent = `alerts: ${alerts.length}`;
-      if (lastUpdate) lastUpdate.textContent = `updated: ${fmtTime(nowSec())}`;
-      renderTable(true);
+      setText(statAlerts, `alerts: ${alerts.length}`);
+      renderTable();
       pushTimelinePoint(a);
     } catch { /* ignore */ }
   };
+  es.onerror = () => { /* browser auto-retries SSE */ };
 
-  // ---------- Metrics poll + sparklines (show rates, not cumulative) ----------
-  // keep last 60 points (~5 minutes @5s)
-  const SPARK_LEN = 60;
-  const spark = {
-    in:    { data: [], chart: null, canvasId: 'spark_in' },
-    acc:   { data: [], chart: null, canvasId: 'spark_acc' },
-    alert: { data: [], chart: null, canvasId: 'spark_alerts' }
-  };
-  // track previous totals to compute deltas per poll interval
-  const prevTotals = { in: null, acc: null, alert: null };
-
-  function initSparkline(key) {
-    const cfg = spark[key];
-    const canvas = document.getElementById(cfg.canvasId);
-    if (!canvas || !window.Chart) return;
-    const ctx = canvas.getContext('2d');
-    cfg.chart = new Chart(ctx, {
-      type: 'line',
-      data: { labels: [], datasets: [{ data: [], tension: 0.25, pointRadius: 0, borderWidth: 2 }] },
-      options: {
-        responsive: true,
-        animation: false,
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: {
-          x: { display: false },
-          y: { display: false }
+  // ---------- Incidents SSE (DecisionEngine rollups) ----------
+  if (incListEl) {
+    const esInc = new EventSource('/incidents/stream');
+    esInc.onmessage = (ev) => {
+      try {
+        const it = JSON.parse(ev.data);
+        if (it && it.id) {
+          incidents.set(it.id, it);
+          renderIncidents();
         }
-      }
-    });
+      } catch {}
+    };
   }
 
-  ['in','acc','alert'].forEach(initSparkline);
-
-  function pushSpark(cfg, value) {
-    const t = Date.now();
-    cfg.data.push({ t, v: Number(value) || 0 });
-    if (cfg.data.length > SPARK_LEN) cfg.data.shift();
-    if (cfg.chart) {
-      cfg.chart.data.labels = cfg.data.map(d => d.t);
-      cfg.chart.data.datasets[0].data = cfg.data.map(d => d.v);
-      cfg.chart.update('none');
+  function renderIncidents() {
+    if (!incListEl) return;
+    const items = Array.from(incidents.values())
+      .sort((a,b) => (b.last_ts||0) - (a.last_ts||0))
+      .slice(0, 40);
+    incListEl.textContent = '';
+    if (!items.length) {
+      const p = incWrap?.querySelector('.text-slate-400');
+      if (p) p.classList.remove('hidden');
+      return;
+    } else {
+      const p = incWrap?.querySelector('.text-slate-400');
+      if (p) p.classList.add('hidden');
+    }
+    for (const x of items) {
+      const li = el('li','py-2 flex items-start justify-between gap-2');
+      const left = el('div','min-w-0');
+      const sevColor =
+        x.severity_max === 'high' ? 'bg-rose-700/80' :
+        x.severity_max === 'medium' ? 'bg-amber-600/80' :
+        x.severity_max === 'low' ? 'bg-emerald-700/80' : 'bg-slate-700/80';
+      const sev = el('span',`inline-block px-2 py-0.5 rounded text-xs mr-2 ${sevColor}`, (x.severity_max || 'none'));
+      const head = el('div','font-medium truncate');
+      head.appendChild(sev);
+      head.appendChild(document.createTextNode(`${x.exe || '-'} · ${x.primary_technique || '-'}`));
+      const sub = el('div','text-xs text-slate-400 mt-0.5',
+        `alerts: ${x.alerts_count ?? 0} · risk_max: ${(x.risk_max ?? 0).toFixed(2)} · rgcn: ${(x.rgcn_score ?? 0).toFixed(2)} · ${new Date((x.last_ts||0)*1000).toLocaleString()}`);
+      left.appendChild(head); left.appendChild(sub);
+      const techs = Array.isArray(x.techniques) ? x.techniques.slice(0,6) : [];
+      const chips = el('div','mt-1 flex flex-wrap gap-1 text-[11px]');
+      for (const t of techs) chips.appendChild(el('span','px-1.5 py-0.5 rounded bg-slate-800', t));
+      left.appendChild(chips);
+      li.appendChild(left);
+      incListEl.appendChild(li);
     }
   }
 
+  // ---------- Metrics poll ----------
   async function pollMetrics() {
     try {
-      const r = await fetch('/metrics', { cache: 'no-store' });
+      const r = await fetch('/metrics');
       if (!r.ok) return;
       const m = await r.json();
-
-      const eventsIn   = m.events_in ?? m.events ?? 0;
-      const eventsAcc  = m.events_accepted ?? m.events_accepted_total ?? 0;
-      const alertsOut  = m.alerts_out ?? m.alerts_out_total ?? 0;
-
-      // header totals
-      statEvents.textContent = `events: ${eventsIn}`;
-      if (statAccepted) statAccepted.textContent = `accepted: ${eventsAcc}`;
-      if (mEventsIn)  mEventsIn.textContent  = eventsIn;
-      if (mEventsAcc) mEventsAcc.textContent = eventsAcc;
-      if (mAlertsOut) mAlertsOut.textContent = alertsOut;
-
-      if (lastUpdate) lastUpdate.textContent = `updated: ${fmtTime(nowSec())}`;
-
-      // compute deltas for sparklines (rate since last poll)
-      const di = prevTotals.in    == null ? 0 : Math.max(0, eventsIn  - prevTotals.in);
-      const da = prevTotals.acc   == null ? 0 : Math.max(0, eventsAcc - prevTotals.acc);
-      const dl = prevTotals.alert == null ? 0 : Math.max(0, alertsOut - prevTotals.alert);
-
-      prevTotals.in = eventsIn;
-      prevTotals.acc = eventsAcc;
-      prevTotals.alert = alertsOut;
-
-      pushSpark(spark.in, di);
-      pushSpark(spark.acc, da);
-      pushSpark(spark.alert, dl);
+      eventsIn = m.events_in || 0;
+      setText(statEvents, `events: ${eventsIn}`);
+      setText(statNodes,  `nodes: ${m.nodes_count ?? 0}`);
+      setText(statEdges,  `edges: ${m.edges_count ?? 0}`);
+      setText(statDrops,  `bpf_drops: ${m.bpf_drops_total ?? 0}`);
     } catch { /* ignore */ }
   }
-  setInterval(pollMetrics, 5000);
-  pollMetrics();
+  setInterval(pollMetrics, 5000); pollMetrics();
 
   // ---------- Alerts table ----------
-  sevEl?.addEventListener('change', renderTable);
-  searchEl?.addEventListener('input', renderTable);
+  if (sevEl)   sevEl.onchange   = renderTable;
+  if (searchEl) searchEl.oninput = renderTable;
 
-  function renderTable(autoscrollHint = false) {
-    const sevFilter = (sevEl?.value || '').toLowerCase();
-    const q = (searchEl?.value || '').toLowerCase();
+  function renderTable() {
+    if (!rowsEl) return;
+    const sevFilter = (sevEl && sevEl.value || '').toLowerCase();
+    const q = (searchEl && searchEl.value || '').toLowerCase();
     rowsEl.textContent = ''; // clear safely
-
-    const container = rowsEl.closest('.overflow-auto');
 
     // newest first
     for (let i = alerts.length - 1; i >= 0; i--) {
@@ -288,7 +268,7 @@
       const risk = riskOf(a).toFixed(2);
       const ts = tsOf(a);
 
-      const tdTime = el('td', 'px-3 py-2 font-mono text-xs text-slate-300 whitespace-nowrap', fmtFull(ts));
+      const tdTime = el('td', 'px-3 py-2', fmt(ts));
 
       const tdSev = el('td', 'px-3 py-2');
       const sevBadge = el('span', `px-2 py-1 rounded text-xs ${badgeClass(a)}`, severityCategory(a) || 'none');
@@ -309,11 +289,6 @@
       tr.appendChild(tdEvent);
       tr.appendChild(tdFind);
       rowsEl.appendChild(tr);
-    }
-
-    if (autoscrollHint && autoScroll?.checked && container) {
-      // newest rows are at the top; keep the top visible
-      container.scrollTop = 0;
     }
   }
 
@@ -361,7 +336,7 @@
   }
 
   // ---------- Explain drawer ----------
-  exCloseBtn?.addEventListener('click', () => drawer.classList.add('hidden'));
+  if (exCloseBtn) exCloseBtn.onclick = () => drawer && drawer.classList.add('hidden');
 
   async function openExplain(id) {
     try {
@@ -369,77 +344,88 @@
       if (!r.ok) return;
       const ex = await r.json();
       renderExplain(ex);
-      drawer.classList.remove('hidden');
+      if (drawer) drawer.classList.remove('hidden');
     } catch { /* ignore */ }
   }
 
   function renderExplain(ex) {
+    if (!ex) return;
+    const H = (id, v) => { const n = document.getElementById(id); if (n) n.textContent = v; };
+
     // headline + scores
-    (document.getElementById('ex_head').textContent = ex.headline || 'Explain');
-    (document.getElementById('ex_risk').textContent = Number(ex.risk || 0).toFixed(2));
-    (document.getElementById('ex_rgcn').textContent = Number(ex.rgcn_score || 0).toFixed(2));
+    H('ex_head', ex.headline || 'Explain');
+    H('ex_risk', Number(ex.risk || 0).toFixed(2));
+    H('ex_rgcn', Number(ex.rgcn_score || 0).toFixed(2));
 
     // entities
-    document.getElementById('ex_entities').textContent = JSON.stringify(ex.entities || {}, null, 2);
+    H('ex_entities', JSON.stringify(ex.entities || {}, null, 2));
 
     // findings
     const whyUl = document.getElementById('ex_why');
-    whyUl.textContent = '';
-    (ex.why || []).forEach(w => {
-      const li  = el('li', null,
-        `${w?.source || 'detector'} · ${Number(w?.score || 0).toFixed(2)}${w?.label ? ` · ${w.label}` : ''}`
-      );
-      whyUl.appendChild(li);
-    });
-    document.getElementById('ex_anoms').textContent = (ex.anomalies || []).join(', ') || '—';
+    if (whyUl) {
+      whyUl.textContent = '';
+      (ex.why || []).forEach(w => {
+        const li  = el('li', null,
+          `${w?.source || 'detector'} · ${Number(w?.score || 0).toFixed(2)}${w?.label ? ` · ${w.label}` : ''}`
+        );
+        whyUl.appendChild(li);
+      });
+    }
+    H('ex_anoms', (ex.anomalies || []).join(', ') || '—');
 
     // graph
     const g = ex.graph || { nodes: [], edges: [], links: [] };
     const edges = Array.isArray(g.edges) && g.edges.length ? g.edges : (g.links || []);
     const graphDiv = document.getElementById('ex_graph');
-    graphDiv.innerHTML = '';
-    if ((g.nodes || []).length) {
-      ensureCytoscape().then(() => {
-        graphDiv.innerHTML = '';
-        cytoscape({
-          container: graphDiv,
-          elements: {
-            nodes: (g.nodes || []).map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
-            edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
-          },
-          style: [
-            { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
-            { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
-          ],
-          layout: { name: 'breadthfirst', directed: true, padding: 8 }
+    if (graphDiv) {
+      graphDiv.innerHTML = '';
+      if ((g.nodes || []).length) {
+        ensureCytoscape().then(() => {
+          graphDiv.innerHTML = '';
+          cytoscape({
+            container: graphDiv,
+            elements: {
+              nodes: g.nodes.map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
+              edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
+            },
+            style: [
+              { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
+              { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
+            ],
+            layout: { name: 'breadthfirst', directed: true, padding: 8 }
+          });
         });
-      });
+      }
     }
 
     // timeline (explain window)
     const tlWrap = document.getElementById('ex_timeline');
-    tlWrap.textContent = '';
-    const frag = document.createDocumentFragment();
-    (ex.timeline || []).slice(0, 120).forEach(e => {
-      const line = el('div', null, `${fmtTime(parseTs(e.ts ?? e.time ?? e.timestamp))} — pid ${e.pid ?? '—'} → ${e.exe || ''} `);
-      const span = el('span', 'text-slate-500', e.cmd || '');
-      line.appendChild(span);
-      frag.appendChild(line);
-    });
-    tlWrap.appendChild(frag);
-    if (!(ex.timeline || []).length) tlWrap.textContent = '—';
+    if (tlWrap) {
+      tlWrap.textContent = '';
+      const frag = document.createDocumentFragment();
+      (ex.timeline || []).slice(0, 120).forEach(e => {
+        const line = el('div', null, `${new Date(parseTs(e.ts ?? e.time ?? e.timestamp) * 1000).toLocaleTimeString()} — pid ${e.pid ?? '—'} → ${e.exe || ''} `);
+        const span = el('span', 'text-slate-500', e.cmd || '');
+        line.appendChild(span);
+        frag.appendChild(line);
+      });
+      tlWrap.appendChild(frag);
+      if (!(ex.timeline || []).length) tlWrap.textContent = '—';
+    }
 
     // enrichment
-    document.getElementById('ex_enrich').textContent = JSON.stringify(ex.enrichment || {}, null, 2);
+    H('ex_enrich', JSON.stringify(ex.enrichment || {}, null, 2));
 
     // actions
     const actionsUl = document.getElementById('ex_actions');
-    actionsUl.textContent = '';
-    (ex.recommendations || []).forEach(a => actionsUl.appendChild(el('li', null, a)));
+    if (actionsUl) {
+      actionsUl.textContent = '';
+      (ex.recommendations || []).forEach(a => actionsUl.appendChild(el('li', null, a)));
+    }
   }
 
   function selectAlert(a) {
-    detailEl.textContent = JSON.stringify(a, null, 2);
+    if (detailEl) detailEl.textContent = JSON.stringify(a, null, 2);
     const id = a.id || synthIdFor(a);
     openExplain(id);
   }
@@ -451,13 +437,16 @@
       if (!r.ok) return;
       const cat = await r.json();
       catalog.vendors = Array.isArray(cat?.vendors) ? cat.vendors : (Array.isArray(cat?.items) ? cat.items : []);
-      vendorSel.innerHTML = (catalog.vendors || []).map(v => `<option value="${String(v.id)}">${String(v.name || v.id)}</option>`).join('');
-      vendorSel.onchange = renderCredFields;
+      if (vendorSel) {
+        vendorSel.innerHTML = (catalog.vendors || []).map(v => `<option value="${String(v.id)}">${String(v.name || v.id)}</option>`).join('');
+        vendorSel.onchange = renderCredFields;
+      }
       renderCredFields();
     } catch { /* ignore */ }
   }
 
   function renderCredFields() {
+    if (!credFields || !vendorSel) return;
     const v = (catalog.vendors || []).find(x => String(x.id) === String(vendorSel.value));
     const fields = (v?.auth?.fields || v?.required_fields || []);
     credFields.textContent = '';
@@ -473,11 +462,11 @@
     credFields.appendChild(frag);
   }
 
-  document.getElementById('btnAdd')?.addEventListener('click', async () => { await loadCatalog(); addDlg.showModal(); });
-  btnRefreshVendors?.addEventListener('click', () => loadIntegrations());
+  if (btnAdd) btnAdd.onclick = async () => { await loadCatalog(); addDlg?.showModal?.(); };
 
-  document.getElementById('saveIntegration')?.addEventListener('click', async (e) => {
+  if (saveIntegrationBtn) saveIntegrationBtn.onclick = async (e) => {
     e.preventDefault();
+    if (!vendorSel) return;
     const id = vendorSel.value;
     const v  = (catalog.vendors || []).find(x => String(x.id) === String(id));
     const fields = (v?.auth?.fields || v?.required_fields || []);
@@ -490,17 +479,16 @@
       await fetch('/integrations', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        // backend expects { id, name, creds }
-        body: JSON.stringify({ id, name: v?.name || id, creds })
+        body: JSON.stringify({ id, kind: id, name: v?.name || id, creds })
       });
     } catch {}
-    addDlg.close();
+    addDlg?.close?.();
     loadIntegrations();
-  });
+  };
 
   async function loadIntegrations() {
     try {
-      const r = await fetch('/integrations', { cache: 'no-store' });
+      const r = await fetch('/integrations');
       if (!r.ok) return;
       const data = await r.json();
 
@@ -521,6 +509,7 @@
         items = data.items || [];
       }
 
+      if (!tilesGrid) return;
       tilesGrid.textContent = '';
       const frag = document.createDocumentFragment();
 
@@ -567,25 +556,27 @@
             if (!r.ok) return;
             const g = await r.json();
             const rgEl = document.getElementById(`rg_${id}`);
-            rgEl.textContent = Number(g.rgcn_score || 0).toFixed(2);
-            const wrap = document.getElementById(`graph_${id}`); wrap.classList.remove('hidden');
+            if (rgEl) rgEl.textContent = Number(g.rgcn_score || 0).toFixed(2);
+            const wrap = document.getElementById(`graph_${id}`); if (wrap) wrap.classList.remove('hidden');
 
             await ensureCytoscape();
             const container = document.getElementById(`cy_${id}`);
-            container.innerHTML = ''; // idempotent
-            const edges = Array.isArray(g.edges) && g.edges.length ? g.edges : (g.links || []);
-            cytoscape({
-              container,
-              elements: {
-                nodes: (g.nodes || []).map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
-                edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
-              },
-              style: [
-                { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
-                { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
-              ],
-              layout: { name: 'breadthfirst', directed: true, padding: 8 }
-            });
+            if (container) {
+              container.innerHTML = ''; // idempotent
+              const edges = Array.isArray(g.edges) && g.edges.length ? g.edges : (g.links || []);
+              cytoscape({
+                container,
+                elements: {
+                  nodes: (g.nodes || []).map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
+                  edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
+                },
+                style: [
+                  { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
+                  { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
+                ],
+                layout: { name: 'breadthfirst', directed: true, padding: 8 }
+              });
+            }
           } catch { /* ignore */ }
         };
       }
@@ -593,15 +584,157 @@
   }
   loadIntegrations();
 
+  // ---------- Playbooks wiring (SSE + snapshots; optional) ----------
+  function renderPbItem(item) {
+    const ts = (item?.ts || item?.time || 0) * 1000;
+    const when = ts ? new Date(ts).toLocaleString() : '';
+    const title = item?.playbook_name || item?.playbook_id || 'playbook';
+    const sev = (item?.severity || '').toString().toUpperCase();
+    const rationale = Array.isArray(item?.rationale) ? item.rationale.join(' | ') : '';
+    const tags = Array.isArray(item?.tags) ? item.tags.join(', ') : '';
+
+    const li = el('li', 'text-sm');
+    if (when) li.appendChild(el('span', 'text-slate-400 mr-2', `[${when}]`));
+    li.appendChild(el('span', 'font-medium mr-2', title));
+    if (sev) li.appendChild(el('span', 'px-1 py-0.5 rounded bg-slate-700/70 text-xs mr-2', sev));
+    if (tags) li.appendChild(el('span', 'text-slate-400 mr-2', tags));
+    if (rationale) li.appendChild(el('span', 'text-slate-300', rationale));
+    return li;
+  }
+
+  function appendPbFeed(item) {
+    if (!pbFeedEl) return;
+    const li = renderPbItem(item);
+    pbFeedEl.prepend(li);
+    while (pbFeedEl.children.length > 200) pbFeedEl.removeChild(pbFeedEl.lastChild);
+  }
+
+  async function loadPlaybooksSnapshots() {
+    try {
+      const [hitsR, pendR] = await Promise.all([
+        fetch('/playbooks/hits'),
+        fetch('/playbooks/pending')
+      ]);
+      if (hitsR.ok) {
+        const hits = await hitsR.json();
+        if (pbHitsEl) {
+          pbHitsEl.textContent = '';
+          (Array.isArray(hits) ? hits : []).slice(-200).forEach(h => safeAdd(pbHitsEl, renderPbItem(h)));
+        }
+      }
+      if (pendR.ok) {
+        const pending = await pendR.json();
+        if (pbPendingEl) {
+          pbPendingEl.textContent = '';
+          (Array.isArray(pending) ? pending : []).slice(-200).forEach(p => safeAdd(pbPendingEl, renderPbItem(p)));
+        }
+      }
+    } catch { /* ignore */ }
+  }
+
+  (function mountPlaybooksSSE() {
+    if (!pbFeedEl && !pbHitsEl && !pbPendingEl) return; // nothing to render
+    try {
+      const esPB = new EventSource('/playbooks/stream');
+      esPB.onmessage = (evt) => {
+        try {
+          const msg = JSON.parse(evt.data);
+          const item = msg.item || msg; // tolerate either {kind,item} or direct item
+          appendPbFeed(item);
+        } catch (e) {
+          console.warn('PB stream parse error', e);
+        }
+      };
+      esPB.onerror = (e) => console.warn('PB stream error', e);
+      loadPlaybooksSnapshots();
+      setInterval(loadPlaybooksSnapshots, 30000);
+    } catch (e) {
+      console.warn('PB SSE init failed', e);
+    }
+  })();
+
   // ---------- Lazy loader for Cytoscape ----------
   function ensureCytoscape() {
     if (window.cytoscape) return Promise.resolve();
     return new Promise((resolve, reject) => {
       const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/cytoscape@3.27.0/dist/cytoscape.min.js';
+      s.src = 'https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js';
       s.onload = () => resolve();
       s.onerror = reject;
       document.head.appendChild(s);
     });
   }
+  /* ===================== Explain verdict + KPI row (additive) ===================== */
+
+/** Renders verdict badge + confidence + reasons inside an element with id="explainHeader".
+ *  Call this after you open the Explain drawer. Safe if header is missing.
+ */
+async function attachExplainSummary(alertId) {
+  try {
+    const res = await fetch(`/alerts/${encodeURIComponent(alertId)}/explain`, { cache: "no-store" });
+    const data = await res.json();
+    const hdr = document.querySelector("#explainHeader");
+    if (!hdr || !data || !data.summary) return;
+
+    const verdict = (data.summary.verdict || "unknown").toString().toLowerCase();
+    const conf = typeof data.summary.confidence === "number" ? Math.round(data.summary.confidence * 100) : null;
+    const reasons = Array.isArray(data.summary.reason_codes) ? data.summary.reason_codes.join(", ") : "";
+
+    hdr.innerHTML = `
+      <span class="badge verdict-${verdict}">${verdict.toUpperCase()}</span>
+      ${conf !== null ? `<span class="pill">${conf}%</span>` : ""}
+      ${reasons ? `<span class="muted">${reasons}</span>` : ""}
+    `;
+  } catch (e) {
+    console.warn("attachExplainSummary failed", e);
+  }
+}
+
+/** Lightweight KPI row pulling /hosts/self/health every 2s.
+ *  Put a <div id="kpis"></div> somewhere in index.html (see section 3).
+ */
+async function refreshKPIs() {
+  try {
+    const res = await fetch("/hosts/self/health", { cache: "no-store" });
+    const h = await res.json();
+    const el = document.querySelector("#kpis");
+    if (!el) return;
+    const safe = (v) => (v === null || v === undefined ? "-" : v);
+    el.innerHTML = `
+      <div class="kpi">Nodes: <b>${safe(h.nodes_count)}</b></div>
+      <div class="kpi">Edges: <b>${safe(h.edges_count)}</b></div>
+      <div class="kpi">Events/s: <b>${safe(h.event_rate_per_s)}</b></div>
+      <div class="kpi">Alerts: <b>${safe(h.alerts_out)}</b></div>
+      <div class="kpi">bpf_drops: <b>${safe(h.bpf_drops ?? 0)}</b></div>
+    `;
+  } catch (_) {}
+}
+
+if (!window.__kpiPoll) {
+  window.__kpiPoll = setInterval(refreshKPIs, 2000);
+  refreshKPIs();
+}
+
+/* Optional helper to use from elsewhere */
+window.attachExplainSummary = attachExplainSummary;
+
+/* Minimal styles if you don’t already have them */
+(function injectExplainStyles(){
+  if (document.getElementById("verdict-style")) return;
+  const css = `
+    .badge{display:inline-block;padding:2px 6px;border-radius:6px;font-weight:600;font-size:12px}
+    .pill{display:inline-block;margin-left:6px;padding:2px 6px;border:1px solid #ccc;border-radius:999px;font-size:12px}
+    .muted{margin-left:6px;color:#888;font-size:12px}
+    .verdict-benign{background:#e8f7ee;color:#107b3e;border:1px solid #bce3cd}
+    .verdict-leaning{background:#fff4e5;color:#9a6d00;border:1px solid #f3d1a6}
+    .verdict-malicious{background:#fde8e8;color:#a31d1d;border:1px solid #f2b8b8}
+    .kpi-row{display:flex;gap:14px;align-items:center;margin:6px 0 10px 0;flex-wrap:wrap}
+    .kpi{font-size:13px;color:#444}
+  `;
+  const style = document.createElement("style");
+  style.id = "verdict-style";
+  style.textContent = css;
+  document.head.appendChild(style);
+})();
+
 })();

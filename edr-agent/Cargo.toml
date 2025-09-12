@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2021"
 resolver = "2"
 
+# make the library target explicit so the bin can import it as `forensic_hooks::...`
+[lib]
+name = "forensic_hooks"
+path = "src/lib.rs"
+
 [[bin]]
 name = "entmon_attach"
 path = "src/bin/entmon_attach.rs"
@@ -19,16 +24,18 @@ path = "src/bin/fingerprint_gen.rs"
 [features]
 default = []
 ebpf = []
-# (optional) if some files use "with-ebpf", either add it or rename those cfgs to "ebpf"
 with-ebpf = []
 
 [dependencies]
 # --- web / http ---
 axum = { version = "0.7", features = ["macros", "json", "http2"] }
-tower-http = { version = "0.5", features = ["cors", "fs"] }
+tower-http = { version = "0.5", features = ["cors", "fs", "set-header"] }
 tokio = { version = "1", features = ["rt-multi-thread","macros","time","fs"] }
 futures = "0.3"
 futures-util = "0.3.31"
+
+# ❗️REMOVED the bad self-dependency:
+# forensic_hooks = { path = "../forensic_hooks" }
 
 # --- serde / json ---
 serde = { version = "1.0", features = ["derive"] }
@@ -40,6 +47,7 @@ log = "0.4.27"
 env_logger = "0.11"
 parking_lot = "0.12"
 tokio-stream = { version = "0.1", features = ["sync"] }
+serde_yaml = "0.9"
 
 # --- time / utils ---
 chrono = { version = "0.4", features = ["serde"] }
@@ -49,7 +57,7 @@ bytes = "1.6"
 rand = "0.8"
 walkdir = "2"
 lazy_static = "1.4"
-
+flume = "0.11"
 # --- crypto / hashing ---
 ed25519-dalek = "1.0"
 hmac = "0.12"
@@ -57,7 +65,7 @@ sha1 = "0.10"
 sha2 = "0.10"
 sha3 = "0.10"
 base64 = "0.21"
-openssl = "0.10" # keep if other code needs it (reqwest can use native-tls)
+openssl = "0.10"
 
 # --- file/sys/comp ---
 flate2 = "1"
@@ -80,7 +88,7 @@ anyhow = "1.0"
 hex = "0.4"
 glob = "0.3.2"
 entropy = "0.4"
-reqwest = { version = "0.11", features = ["blocking", "json"] }
+reqwest = { version = "0.11", features = ["blocking", "json", "rustls-tls"] }
 bincode = { version = "2.0.1", features = ["derive"] }
 tracing = "0.1.41"
 tdigest = "0.2.3"
@@ -96,4 +104,4 @@ netlink-sys = "0.6"
 lto = "thin"
 codegen-units = 1
 panic = "abort"
-statrs = "0.16"
+# ❗️REMOVED invalid key `statrs = "0.16"` from [profile.release]
