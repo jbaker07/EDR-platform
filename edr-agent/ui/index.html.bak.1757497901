@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>EDR Demo Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <div class="max-w-7xl mx-auto p-4">
+    <header class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+        <h1 class="text-xl font-semibold">EDR Demo</h1>
+        <span class="ml-2 text-xs px-1.5 py-0.5 rounded bg-emerald-700/70">live</span>
+      </div>
+      <div class="flex items-center gap-4 text-sm text-slate-400">
+        <span id="statEvents">events: 0</span>
+        <span id="statAlerts">alerts: 0</span>
+        <span id="statNodes">nodes: 0</span>
+        <span id="statEdges">edges: 0</span>
+        <span id="statDrops">bpf_drops: 0</span>
+        <a class="underline decoration-sky-500/60 hover:decoration-sky-400" href="/ui/graph.html">Open Live Graph</a>
+      </div>
+    </header>
+
+    <nav class="flex gap-2 text-sm mb-4">
+      <button id="tabDash" type="button" class="px-3 py-1 rounded bg-sky-600 text-white">Dashboard</button>
+      <button id="tabIntegrations" type="button" class="px-3 py-1 rounded bg-slate-800 text-slate-200">Integrations</button>
+    </nav>
+
+    <section id="screenDash">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 rounded border border-slate-800">
+          <div class="p-3 border-b border-slate-800 flex items-center justify-between">
+            <div class="text-sm font-medium">Alerts (live)</div>
+            <div class="flex items-center gap-2 text-xs">
+              <input id="search" placeholder="filter…" class="bg-slate-900 border border-slate-700 rounded px-2 py-1" />
+              <select id="sevFilter" class="bg-slate-900 border border-slate-700 rounded px-2 py-1">
+                <option value="">all severities</option>
+                <option value="low">low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+              </select>
+            </div>
+          </div>
+          <div class="overflow-auto max-h-[420px]">
+            <table class="w-full text-sm">
+              <thead class="text-slate-400 sticky top-0 bg-slate-950">
+                <tr>
+                  <th class="text-left px-3 py-2">time</th>
+                  <th class="text-left px-3 py-2">sev</th>
+                  <th class="text-left px-3 py-2">risk</th>
+                  <th class="text-left px-3 py-2">event</th>
+                  <th class="text-left px-3 py-2">findings</th>
+                </tr>
+              </thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="rounded border border-slate-800 p-3">
+          <div class="text-sm font-medium mb-2">Timeline</div>
+          <canvas id="timeline" height="200"></canvas>
+        </div>
+
+        <div id="incidents" class="rounded border border-slate-800 p-3 lg:col-span-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-sm font-medium">Incidents (rollups)</div>
+          </div>
+          <p class="text-xs text-slate-400 mb-2">No incidents yet.</p>
+          <ul id="incList" class="divide-y divide-slate-800"></ul>
+        </div>
+
+        <!-- >>> THIS BLOCK IS THE MARKER YOU'LL TEST FOR <<< -->
+        <div class="rounded border border-slate-800 p-3 lg:col-span-3">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div>
+              <div class="text-sm font-medium mb-2">Playbooks (live stream)</div>
+              <ul id="pb-feed" class="text-xs space-y-1 max-h-64 overflow-auto pr-1"></ul>
+            </div>
+            <div>
+              <div class="text-sm font-medium mb-2">Recent hits</div>
+              <ul id="pb-hits" class="text-xs space-y-1 max-h-64 overflow-auto pr-1"></ul>
+            </div>
+            <div>
+              <div class="text-sm font-medium mb-2">Pending matches</div>
+              <ul id="pb-pending" class="text-xs space-y-1 max-h-64 overflow-auto pr-1"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded border border-slate-800 lg:col-span-3">
+          <div class="p-3 border-b border-slate-800 text-sm font-medium">Selected alert (JSON)</div>
+          <pre id="detail" class="text-xs p-3 overflow-auto max-h-[300px]"></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenIntegrations" class="hidden">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-lg font-medium">Integrations</h2>
+        <button id="btnAdd" type="button" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500">+ Add Integration</button>
+      </div>
+      <div id="tiles" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+
+      <dialog id="addDlg" class="bg-slate-950 text-slate-100 p-4 rounded max-w-xl w-full">
+        <form method="dialog">
+          <h3 class="text-base font-semibold mb-2">Add Integration</h3>
+          <div class="mb-2">
+            <label class="block text-sm">Vendor</label>
+            <select id="vendorSel" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1"></select>
+          </div>
+          <div id="credFields" class="space-y-2"></div>
+          <menu class="flex gap-2 justify-end mt-4">
+            <button value="cancel" class="px-3 py-1 rounded bg-slate-800">Cancel</button>
+            <button id="saveIntegration" value="default" class="px-3 py-1 rounded bg-sky-600">Save</button>
+          </menu>
+        </form>
+      </dialog>
+    </section>
+  </div>
+
+  <!-- IMPORTANT: point to /ui/app.js so you load the served file -->
+  <script src="/ui/app.js"></script>
+</body>
+</html>

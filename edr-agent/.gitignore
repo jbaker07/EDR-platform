@@ -1,0 +1,10 @@
+# build + runtime
+target/
+logs/
+state/
+json_files/
+*.log
+*.out
+# editor junk
+.DS_Store
+*.swp

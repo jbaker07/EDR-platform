@@ -29,7 +29,7 @@ int main(void) {
 
     puts("Waiting for events... (run `ls`, `cat`, `curl` etc in another shell)");
     while (1) {
-        int r = ring_buffer__poll(rb, 1000);
+        int r = ring_buffer__poll(rb, 1);
         if (r == -EINTR) break;
         if (r < 0) { fprintf(stderr, "poll err: %d\n", r); break; }
     }

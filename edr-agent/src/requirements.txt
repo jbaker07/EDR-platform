@@ -1,0 +1,18 @@
+# --- runtime ---
+fastapi==0.112.2
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+numpy==1.26.4
+networkx==3.3
+
+# --- OPTIONAL full R-GCN (Torch) ---
+# If you have working wheels for your platform, uncomment Torch.
+# On aarch64 you typically want plain PyPI torch (no "+cpu" suffix).
+# torch==2.4.1
+# torch-geometric==2.5.3
+# pyg-lib==0.4.0
+# torch-scatter==2.1.2
+# torch-sparse==0.6.18
+
+# --- DO NOT include any "--find-links https://download.pytorch.org/whl/cpu"
+# on ARM; that index doesn’t host aarch64 wheels and causes the earlier error.

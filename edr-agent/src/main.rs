@@ -1,3 +1,4 @@
+mod ebpf;
 // main.rs (Phase 2 + Phase 3 Decision Engine integration)
 // - Safer TS parsing (secs/ms)
 // - Two-pass graph builder (no missing PPID edges)
@@ -11,6 +12,7 @@
 // - /graph/live + /graph/stream (SSE) + metrics/healthz include graph counts
 // - Incidents manager + SSE + REST, action endpoints, BPF drops metric, EDR_PORT, Explain++
 // - NEW (Phase 3): DecisionEngine (consensus + correlation + cooldown + allow/suppress) wired in
+// - NEW (Phase PB): Playbook Engine + IOC/YARA wired (pending/hits, metrics, endpoints)
 
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::convert::Infallible;
@@ -20,10 +22,9 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex, OnceLock};
 use std::time::Duration;
 use std::env;
-
 use axum::{
     extract::{Path as AxPath, Query, State},
-    http::StatusCode,
+    http::{StatusCode, header::CACHE_CONTROL, HeaderValue},
     response::{
         sse::{Event, Sse},
         IntoResponse,
@@ -40,14 +41,18 @@ use tokio::{net::TcpListener, sync::broadcast};
 use tower_http::{
     cors::CorsLayer,
     services::{ServeDir, ServeFile},
+    set_header::SetResponseHeaderLayer,
 };
+use forensic_hooks::{ioc, pb_api, pb_introspect, pb_wiring, pending, tamper, yara_sidecar};
+use forensic_hooks::pb_engine::PlaybookEngine;
+
 
 // ---------- metrics counters ----------
 static EVENTS_IN: AtomicU64 = AtomicU64::new(0);          // received (pre-filter)
 static EVENTS_ACCEPTED: AtomicU64 = AtomicU64::new(0);     // accepted (post-filter, after persist)
 static ALERTS_OUT: AtomicU64 = AtomicU64::new(0);
 // NEW: BPF ringbuffer/loss metric hook
-static BPF_DROPS: AtomicU64 = AtomicU64::new(0);
+pub static BPF_DROPS: AtomicU64 = AtomicU64::new(0);
 pub fn bpf_drops_add(n: u64) { BPF_DROPS.fetch_add(n, Ordering::Relaxed); }
 
 // ---------- your pipeline / telemetry ----------
@@ -73,6 +78,7 @@ use forensic_hooks::telemetry::{
 use forensic_hooks::telemetry::Telemetry as NormTelemetry;
 use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::utils::time::now_ts;
+
 
 // === expose your local detectors (src/detectors/...) ===
 mod detectors {
@@ -100,6 +106,10 @@ mod decision;
 use crate::decision::{
     AllowSuppressList, DecisionEngine, DecisionPolicy, DetectorKind, FinalAlert, Signal, Severity,
 };
+
+mod rgcn_bridge;
+use crate::rgcn_bridge::{start_rgcn_bridge, annotate_graph, rgcn_metrics};
+
 
 // A globally shared live-graph state (optional, does not block UI graph endpoint).
 static GRAPH_STATE: OnceLock<Arc<RwLock<GraphState>>> = OnceLock::new();
@@ -130,9 +140,449 @@ fn env_model() -> &'static Mutex<Option<EllipticEnvelope>> {
     ENV_MODEL.get_or_init(|| Mutex::new(None))
 }
 
+// —— Playbook Engine singleton ——
+// —— Playbook Engine singleton ——
+// —— Playbook Engine singleton ——
+static PB_ENGINE: OnceLock<Mutex<PlaybookEngine>> = OnceLock::new();
+fn pb_engine() -> &'static Mutex<PlaybookEngine> {
+    // Use the constructor that actually exists
+    PB_ENGINE.get_or_init(|| Mutex::new(PlaybookEngine::empty()))
+}
+
+// ======================= Ontology: loader + enrichment =======================
+#[derive(Clone, Default)]
+struct OntologySet {
+    core_ontology: serde_json::Value,                        // core_ontology.json
+    inverse_edges: std::collections::HashMap<String, String>,// inverse_edges.json
+    semantic_tags: serde_json::Value,                        // semantic_tags.json (optional)
+    unknown_risk_profile: serde_json::Value,                 // unknown_risk_profile.json (optional)
+    anchor_definitions: std::collections::HashMap<String, serde_json::Value>, // anchor_definitions.json (optional)
+    dir: String,
+}
+
+#[derive(Serialize)]
+struct HostHealth {
+    cpu_pct: Option<f32>,
+    mem_pct: Option<f32>,
+    agent_lag_ms: Option<u64>,
+    event_rate_per_s: Option<f32>,
+    events_in: Option<u64>,
+    alerts_out: Option<u64>,
+    bpf_drops: Option<u64>,
+    nodes_count: Option<u64>,
+    edges_count: Option<u64>,
+    rgcn_p95: Option<f32>,
+}
+
+async fn host_self_health() -> impl IntoResponse {
+    let (nodes_count, edges_count) = read_graph_counts_from_file();
+    Json(HostHealth {
+        cpu_pct: None,
+        mem_pct: None,
+        agent_lag_ms: None,
+        event_rate_per_s: None,
+        events_in: Some(EVENTS_IN.load(Ordering::Relaxed)),
+        alerts_out: Some(ALERTS_OUT.load(Ordering::Relaxed)),
+        bpf_drops: Some(BPF_DROPS.load(Ordering::Relaxed)),
+        nodes_count: Some(nodes_count),
+        edges_count: Some(edges_count),
+        rgcn_p95: None,
+    })
+}
+
+
+static ONTOLOGY: OnceLock<Arc<Mutex<OntologySet>>> = OnceLock::new();
+fn ontology() -> Arc<Mutex<OntologySet>> {
+    ONTOLOGY
+        .get_or_init(|| Arc::new(Mutex::new(load_ontology_default())))
+        .clone()
+}
+
+fn normalize_and_annotate_graph(mut v: serde_json::Value) -> serde_json::Value {
+    // Ensure "edges" exists (prefer edges; fall back to links)
+    let has_edges = v.get("edges").map(|e| !e.is_null()).unwrap_or(false);
+    if !has_edges {
+        if let Some(links) = v.get("links").cloned() {
+            if let Some(obj) = v.as_object_mut() {
+                obj.insert("edges".to_string(), links);
+            }
+        } else if let Some(obj) = v.as_object_mut() {
+            obj.insert("edges".to_string(), serde_json::Value::Array(vec![]));
+        }
+    }
+
+    // Fill rel from kind when missing, so the UI can label edges nicely
+    if let Some(edges) = v.get_mut("edges").and_then(|x| x.as_array_mut()) {
+        for e in edges.iter_mut() {
+            let has_rel = e.get("rel").is_some();
+            if !has_rel {
+                if let Some(kind) = e.get("kind").and_then(|x| x.as_str()) {
+                    let rel = match kind {
+                        "EXEC" => "spawned",
+                        "CONNECT" => "connected-to",
+                        "READ" | "WRITE" => "accessed",
+                        _ => "linked-to",
+                    };
+                    if let Some(obj) = e.as_object_mut() {
+                        obj.insert("rel".into(), serde_json::Value::String(rel.to_string()));
+                    }
+                }
+            }
+        }
+    }
+
+    // Add node kind if absent (helps the UI shapes/colors + R-GCN features)
+    if let Some(nodes) = v.get_mut("nodes").and_then(|x| x.as_array_mut()) {
+        for n in nodes.iter_mut() {
+            let id = n.get("id").and_then(|x| x.as_str()).unwrap_or("");
+            let has_kind = n.get("kind").is_some();
+            if !has_kind {
+                let inferred = if id.starts_with("proc:") {
+                    "Process"
+                } else if id.starts_with("file:") {
+                    "File"
+                } else if id.starts_with("ip:") {
+                    "IP"
+                } else if id.starts_with("user:") {
+                    "User"
+                } else if id.starts_with("domain:") {
+                    "Domain"
+                } else {
+                    "Other"
+                };
+                if let Some(obj) = n.as_object_mut() {
+                    obj.insert("kind".into(), serde_json::Value::String(inferred.to_string()));
+                }
+            }
+        }
+    }
+
+    // Overlay R-GCN scores (no-op if bridge hasn’t scored yet)
+    rgcn_bridge::annotate_graph(&mut v);
+
+    v
+}
+
+fn load_json_if(path: &std::path::Path) -> Option<serde_json::Value> {
+    std::fs::read_to_string(path).ok().and_then(|s| serde_json::from_str::<serde_json::Value>(&s).ok())
+}
+
+fn map_from_obj(v: &serde_json::Value) -> std::collections::HashMap<String, String> {
+    let mut out = std::collections::HashMap::new();
+    if let Some(obj) = v.as_object() {
+        for (k, vv) in obj {
+            if let Some(s) = vv.as_str() {
+                out.insert(k.clone(), s.to_string());
+            }
+        }
+    }
+    out
+}
+
+fn load_ontology_from_dir(dir: &str) -> OntologySet {
+    let p = |name: &str| std::path::Path::new(dir).join(name);
+    let core = load_json_if(&p("core_ontology.json")).unwrap_or_else(|| json!({}));
+    let inv  = load_json_if(&p("inverse_edges.json")).unwrap_or_else(|| json!({}));
+    let sem  = load_json_if(&p("semantic_tags.json")).unwrap_or_else(|| json!({}));
+    let unk  = load_json_if(&p("unknown_risk_profile.json")).unwrap_or_else(|| json!({}));
+    let anchors_v = load_json_if(&p("anchor_definitions.json")).unwrap_or_else(|| json!([]));
+    let mut anchors = std::collections::HashMap::new();
+    if let Some(arr) = anchors_v.as_array() {
+        for it in arr {
+            if let Some(id) = it.get("id").and_then(|x| x.as_str()) {
+                anchors.insert(id.to_string(), it.clone());
+            }
+        }
+    }
+    OntologySet {
+        core_ontology: core,
+        inverse_edges: map_from_obj(&inv),
+        semantic_tags: sem,
+        unknown_risk_profile: unk,
+        anchor_definitions: anchors,
+        dir: dir.to_string(),
+    }
+}
+
+fn candidates_ontology_dirs() -> Vec<String> {
+    // Priority: explicit env var, then common workspace layouts
+    let mut c = Vec::new();
+    if let Ok(s) = std::env::var("ONTOLOGY_DIR") {
+        if !s.trim().is_empty() { c.push(s); }
+    }
+    c.push("edr-platform/ontology".to_string());
+    c.push("../edr-platform/ontology".to_string());
+    c.push("../../edr-platform/ontology".to_string());
+    c.push("ontology".to_string());
+    c.push("../ontology".to_string());
+    c.push("../../ontology".to_string());
+    c.dedup();
+    c
+}
+
+fn dir_has_core_files(dir: &str) -> bool {
+    let p = |name: &str| std::path::Path::new(dir).join(name);
+    p("core_ontology.json").exists() && p("inverse_edges.json").exists()
+}
+
+fn resolve_ontology_dir_auto() -> String {
+    for d in candidates_ontology_dirs() {
+        if dir_has_core_files(&d) {
+            return d;
+        }
+    }
+    // Fallback: env var if set, else "ontology" (even if missing, so API still answers)
+    std::env::var("ONTOLOGY_DIR").unwrap_or_else(|_| "ontology".to_string())
+}
+
+fn load_ontology_default() -> OntologySet {
+    load_ontology_from_dir(&resolve_ontology_dir_auto())
+}
+
+
+// --- minimal helpers (no extra crates) ---
+fn looks_like_ipv4(s: &str) -> bool {
+    // "1.2.3.4" or "1.2.3.4:443"
+    let ip = s.split_once(':').map(|(a, _)| a).unwrap_or(s);
+    let parts: Vec<&str> = ip.split('.').collect();
+    if parts.len() != 4 { return false; }
+    parts.iter().all(|p| p.parse::<u8>().is_ok())
+}
+
+fn infer_otype_from_node(n: &serde_json::Value) -> String {
+    // Prefer explicit info in node fields
+    if n.get("binary_path").and_then(|v| v.as_str()).is_some() { return "Process".into(); }
+    if n.get("pid").and_then(|v| v.as_u64()).is_some()       { return "Process".into(); }
+    if n.get("command_line").and_then(|v| v.as_str()).is_some(){ return "Process".into(); }
+    if let Some(id) = n.get("id").and_then(|v| v.as_str()) {
+        if id.starts_with("proc:") { return "Process".into(); }
+        if id.starts_with("file:") { return "File".into(); }
+        if id.starts_with("user:") { return "User".into(); }
+        if looks_like_ipv4(id)     { return "IP".into(); }
+        if id.contains('/') || id.contains('\\') { return "File".into(); }
+    }
+    if let Some(k) = n.get("kind").and_then(|v| v.as_str()) {
+        let k = k.to_ascii_lowercase();
+        if k.contains("proc")  { return "Process".into(); }
+        if k.contains("file")  { return "File".into(); }
+        if k == "ip" || k == "net" { return "IP".into(); }
+        if k.contains("dns")   { return "Domain".into(); }
+        if k.contains("user")  { return "User".into(); }
+    }
+    "Unknown".into()
+}
+
+fn default_rel_for(st: &str, tt: &str) -> String {
+    match (st, tt) {
+        ("Process", "Process") => "spawned",
+        ("Process", "IP")      => "connected-to",
+        ("Process", "File")    => "accessed",
+        ("User",    "Process") => "launched",
+        ("File",    "Process") => "executed-by",
+        _ => "linked-to",
+    }.to_string()
+}
+
+fn enrich_graph_json(raw: &serde_json::Value) -> serde_json::Value {
+    let ont = ontology();
+    let ont = ont.lock().unwrap().clone();
+
+    let mut out = raw.clone();
+
+    // Get mutable node/edge arrays (copy-on-write from raw)
+    let nodes_in = raw.get("nodes").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+    let edges_in = raw.get("edges")
+        .or_else(|| raw.get("links"))
+        .and_then(|v| v.as_array())
+        .cloned()
+        .unwrap_or_default();
+
+    // 1) Enrich nodes: add otype and details
+    let mut node_type_map: std::collections::HashMap<String, String> = std::collections::HashMap::new();
+    let mut nodes_out: Vec<serde_json::Value> = Vec::with_capacity(nodes_in.len());
+
+    for n in nodes_in {
+        let mut nn = n.clone();
+        let otype = nn.get("otype")
+            .and_then(|v| v.as_str().map(|s| s.to_string()))
+            .unwrap_or_else(|| infer_otype_from_node(&nn));
+        if let Some(id) = nn.get("id").and_then(|v| v.as_str()) {
+            node_type_map.insert(id.to_string(), otype.clone());
+        }
+        // attach otype
+        nn.as_object_mut().unwrap().insert("otype".into(), json!(otype));
+
+        // attach details (best-effort)
+        let mut det = serde_json::Map::new();
+        if let Some(v) = nn.get("pid").and_then(|x| x.as_i64())      { det.insert("pid".into(), json!(v)); }
+        if let Some(v) = nn.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32)    { det.insert("ppid".into(), json!(v)); }
+        if let Some(v) = nn.get("binary_path").and_then(|x| x.as_str()){ det.insert("exe".into(), json!(v)); }
+        if let Some(v) = nn.get("command_line").and_then(|x| x.as_str()){ det.insert("cmdline".into(), json!(v)); }
+        if let Some(v) = nn.get("uid").and_then(|x| x.as_i64())      { det.insert("uid".into(), json!(v)); }
+        if !det.is_empty() {
+            nn.as_object_mut().unwrap().insert("details".into(), serde_json::Value::Object(det));
+        }
+
+        nodes_out.push(nn);
+    }
+
+    // 2) Enrich edges: normalize, infer rel, attach inverse + validity
+    let mut edges_out: Vec<serde_json::Value> = Vec::with_capacity(edges_in.len());
+    for e in edges_in {
+        let mut ee = e.clone();
+        if ee.get("source").is_none() {
+            if let Some(v) = ee.get("from").cloned() {
+                ee.as_object_mut().unwrap().insert("source".into(), v);
+            }
+        }
+        if ee.get("target").is_none() {
+            if let Some(v) = ee.get("to").cloned() {
+                ee.as_object_mut().unwrap().insert("target".into(), v);
+            }
+        }
+        let sid = ee.get("source").and_then(|v| v.as_str()).unwrap_or("");
+        let tid = ee.get("target").and_then(|v| v.as_str()).unwrap_or("");
+        let st  = node_type_map.get(sid).cloned().unwrap_or_else(|| "Unknown".into());
+        let tt  = node_type_map.get(tid).cloned().unwrap_or_else(|| "Unknown".into());
+
+        // relation (keep provided, else infer)
+        let rel = ee.get("rel")
+            .and_then(|v| v.as_str().map(|s| s.to_string()))
+            .unwrap_or_else(|| default_rel_for(&st, &tt));
+        ee.as_object_mut().unwrap().insert("rel".into(), json!(rel.clone()));
+
+        // inverse (if known)
+        if let Some(inv) = ont.inverse_edges.get(&rel) {
+            ee.as_object_mut().unwrap().insert("rel_inverse".into(), json!(inv));
+        }
+
+        // ontology validation (if relation exists under source type)
+        if let Some(allowed) = ont.core_ontology
+            .get(&st).and_then(|t| t.get("edges"))
+            .and_then(|m| m.get(&rel)).and_then(|arr| arr.as_array())
+        {
+            let allowed: Vec<String> = allowed.iter().filter_map(|v| v.as_str().map(|s| s.to_string())).collect();
+            let ok = allowed.iter().any(|t| t == &tt);
+            ee.as_object_mut().unwrap().insert("rel_valid".into(), json!(ok));
+            if !ok {
+                ee.as_object_mut().unwrap().insert("expected_targets".into(), json!(allowed));
+                ee.as_object_mut().unwrap().insert("violation".into(),
+                    json!(format!("edge '{}' not allowed: {} -> {}", rel, st, tt)));
+            }
+        }
+
+        edges_out.push(ee);
+    }
+
+    // 3) Recompose; also mirror edges to links for UI compatibility if needed
+    out.as_object_mut().unwrap().insert("nodes".into(), json!(nodes_out));
+    out.as_object_mut().unwrap().insert("edges".into(), json!(edges_out.clone()));
+    if out.get("links").is_some() {
+        out.as_object_mut().unwrap().insert("links".into(), json!(edges_out));
+    }
+
+    // lightweight counts for jq/health
+    let n_cnt = out.get("nodes").and_then(|x| x.as_array()).map(|a| a.len()).unwrap_or(0);
+    let e_cnt = out.get("edges").and_then(|x| x.as_array()).map(|a| a.len()).unwrap_or(0);
+    out.as_object_mut().unwrap().insert("nodes_count".into(), json!(n_cnt));
+    out.as_object_mut().unwrap().insert("edges_count".into(), json!(e_cnt));
+
+    out
+}
+
+// ======================= Ontology endpoints =======================
+async fn ontology_status() -> impl IntoResponse {
+    let ont_arc = ontology();
+    let guard = ont_arc.lock().unwrap();
+    let dir = guard.dir.clone();
+    let candidates = candidates_ontology_dirs();
+
+    let exists = |base: &str, name: &str| std::path::Path::new(base).join(name).exists();
+
+    Json(json!({
+        "dir": dir,
+        "candidates_tried": candidates,
+        "present": {
+            "core_ontology.json": exists(&guard.dir, "core_ontology.json"),
+            "inverse_edges.json": exists(&guard.dir, "inverse_edges.json"),
+            "semantic_tags.json": exists(&guard.dir, "semantic_tags.json"),
+            "unknown_risk_profile.json": exists(&guard.dir, "unknown_risk_profile.json"),
+            "anchor_definitions.json": exists(&guard.dir, "anchor_definitions.json")
+        }
+    }))
+}
+
+
+async fn ontology_reload(
+    Query(q): Query<std::collections::HashMap<String, String>>
+) -> impl IntoResponse {
+    // Decide target dir without holding a lock
+    let target_dir = match q.get("dir").map(|s| s.as_str()) {
+        Some("auto") | None => resolve_ontology_dir_auto(),
+        Some(other) => other.to_string(),
+    };
+
+    // Reload
+    let ont_arc = ontology();
+    {
+        let mut guard = ont_arc.lock().unwrap();
+        *guard = load_ontology_from_dir(&target_dir);
+    }
+
+    Json(json!({"ok": true, "dir": target_dir}))
+}
+
+
+
+async fn ontology_validate() -> impl IntoResponse {
+    let raw = if let Ok(s) = fs::read_to_string("json_files/graph_live.json") {
+        serde_json::from_str::<serde_json::Value>(&s).unwrap_or_else(|_| json!({"nodes":[],"edges":[]}))
+    } else { json!({"nodes":[],"edges":[]}) };
+    let enriched = enrich_graph_json(&raw);
+
+    let nodes = enriched.get("nodes").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+    let edges = enriched.get("edges").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+
+    let mut nodes_by_type: std::collections::BTreeMap<String, usize> = std::collections::BTreeMap::new();
+    for n in &nodes {
+        let t = n.get("otype").and_then(|v| v.as_str()).unwrap_or("Unknown").to_string();
+        *nodes_by_type.entry(t).or_insert(0) += 1;
+    }
+
+    let mut edges_with_rel = 0usize;
+    let mut edges_valid = 0usize;
+    let mut edges_invalid = 0usize;
+    let mut samples_invalid: Vec<serde_json::Value> = vec![];
+
+    for e in &edges {
+        if e.get("rel").is_some() { edges_with_rel += 1; }
+        if let Some(v) = e.get("rel_valid").and_then(|v| v.as_bool()) {
+            if v { edges_valid += 1; } else {
+                edges_invalid += 1;
+                if samples_invalid.len() < 10 {
+                    let mut slim = serde_json::Map::new();
+                    for k in ["source","target","rel","rel_inverse","violation"].iter() {
+                        if let Some(val) = e.get(*k) { slim.insert((*k).to_string(), val.clone()); }
+                    }
+                    samples_invalid.push(serde_json::Value::Object(slim));
+                }
+            }
+        }
+    }
+
+    Json(json!({
+        "nodes_by_type": nodes_by_type,
+        "edges_total": edges.len(),
+        "edges_with_rel": edges_with_rel,
+        "edges_valid": edges_valid,
+        "edges_invalid": edges_invalid,
+        "samples_invalid": samples_invalid
+    }))
+}
+
+
 // —— DecisionEngine singleton ——
 static DECISION_ENGINE: OnceLock<Mutex<DecisionEngine>> = OnceLock::new();
-
 fn decision_engine() -> &'static Mutex<DecisionEngine> {
     DECISION_ENGINE.get_or_init(|| {
         // Start conservative; we can hot-load JSON later
@@ -225,9 +675,12 @@ impl IncidentsMgr {
         let (nodes, edges) = build_graph_from_records(&recs);
         let rgcn = rgcn_proxy_score(&nodes);
 
-        let mut item = self.items.remove(&id).unwrap_or_else(|| {
+        // Avoid moving `id` into the JSON so we can use it below
+        let mut item = if let Some(existing) = self.items.remove(&id) {
+            existing
+        } else {
             json!({
-                "id": id,
+                "id": id.clone(),
                 "exe": exe,
                 "primary_technique": primary_t,
                 "techniques": techniques,
@@ -241,7 +694,7 @@ impl IncidentsMgr {
                 "rgcn_score": rgcn,
                 "graph": { "nodes": nodes, "edges": edges },
             })
-        });
+        };
 
         // update fields
         {
@@ -316,6 +769,79 @@ fn incidents() -> Arc<Mutex<IncidentsMgr>> {
 }
 
 // ======================= API state & handlers =======================
+fn synth_ppid_edges_if_missing(v: &mut serde_json::Value) {
+    // Only synthesize if we have nodes and edges are missing/empty.
+    let nodes_arr = match v.get("nodes").and_then(|x| x.as_array()) {
+        Some(n) if !n.is_empty() => n,
+        _ => return,
+    };
+    let edges_empty = v
+        .get("edges")
+        .and_then(|x| x.as_array())
+        .map(|a| a.is_empty())
+        .unwrap_or(true);
+    if !edges_empty {
+        return;
+    }
+
+    // Track which ids exist and map pid -> node id for proc nodes.
+    let mut have_id: std::collections::HashSet<String> = std::collections::HashSet::new();
+    let mut pid_to_id: std::collections::HashMap<u32, String> = std::collections::HashMap::new();
+
+    for n in nodes_arr {
+        if let Some(id) = n.get("id").and_then(|x| x.as_str()) {
+            have_id.insert(id.to_string());
+            if id.starts_with("proc:") {
+                if let Ok(pid) = id.trim_start_matches("proc:").parse::<u32>() {
+                    pid_to_id.insert(pid, id.to_string());
+                }
+            }
+        }
+        // Also consider explicit pid/ppid fields.
+        if let (Some(pid), Some(id)) = (
+            n.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32),
+            n.get("id").and_then(|x| x.as_str()),
+        ) {
+            pid_to_id.entry(pid).or_insert_with(|| id.to_string());
+            have_id.insert(id.to_string());
+        }
+    }
+
+    // Synthesize EXEC edges: parent(ppid) -> child(pid)
+    let mut out_edges: Vec<serde_json::Value> = Vec::new();
+    for n in nodes_arr {
+        let pid  = n.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32);
+        let ppid = n.get("ppid").and_then(|x| x.as_u64()).map(|x| x as u32);
+        if let (Some(pid), Some(ppid)) = (pid, ppid) {
+            if pid == 0 || ppid == 0 || pid == ppid { continue; }
+            let src = pid_to_id
+                .get(&ppid)
+                .cloned()
+                .unwrap_or_else(|| format!("proc:{ppid}"));
+            let dst = pid_to_id
+                .get(&pid)
+                .cloned()
+                .unwrap_or_else(|| format!("proc:{pid}"));
+
+            if have_id.contains(&src) && have_id.contains(&dst) {
+                out_edges.push(serde_json::json!({
+                    "kind": "EXEC",
+                    "rel": "spawned",
+                    "rel_inverse": "spawned-by",
+                    "rel_valid": true,
+                    "source": src,
+                    "target": dst,
+                    "last_seen": now_ts() as i64,
+                    "weight": 1.0
+                }));
+            }
+        }
+    }
+
+    v.as_object_mut()
+        .unwrap()
+        .insert("edges".into(), serde_json::Value::Array(out_edges));
+}
 
 #[derive(Clone)]
 struct ApiState {
@@ -360,14 +886,22 @@ async fn incidents_sse(
 }
 
 // current graph JSON (from file)
-async fn graph_live() -> impl IntoResponse {
-    if let Ok(s) = fs::read_to_string("json_files/graph_live.json") {
-        if let Ok(v) = serde_json::from_str::<Value>(&s) {
-            return Json(v).into_response();
-        }
-    }
-    Json(json!({"ts": now_ts(), "nodes": [], "edges": []})).into_response()
+// current graph JSON (from file) — enriched with ontology fields
+// current graph JSON (from file) — synthesize edges if missing, then annotate with R-GCN
+async fn graph_live() -> impl axum::response::IntoResponse {
+    use axum::Json;
+    use serde_json::Value;
+    use std::fs;
+
+    let body = fs::read_to_string("json_files/graph_live.json").unwrap_or_else(|_| "{}".into());
+    let v: Value = serde_json::from_str(&body).unwrap_or(serde_json::json!({}));
+    let v = normalize_and_annotate_graph(v);
+    Json(v)
 }
+
+
+
+
 
 // helper: read counts so metrics/health can show graph size
 fn read_graph_counts_from_file() -> (u64, u64) {
@@ -381,7 +915,6 @@ fn read_graph_counts_from_file() -> (u64, u64) {
     }
     (0, 0)
 }
-
 async fn metrics_json() -> Json<Value> {
     // fast-path: use atomics
     let mut ev_in = EVENTS_IN.load(Ordering::Relaxed);
@@ -414,8 +947,11 @@ async fn metrics_json() -> Json<Value> {
     }
 
     let (nodes_count, edges_count) = read_graph_counts_from_file();
+    let pbm = pb_introspect::metrics();
+    let iocm = ioc::metrics();
 
-    Json(json!({
+    // Build the existing metrics payload first
+    let base = json!({
         // canonical keys
         "events_in": ev_in,                 // received (pre-filter)
         "events_accepted": ev_acc,          // accepted (post-filter, persisted)
@@ -423,68 +959,62 @@ async fn metrics_json() -> Json<Value> {
         "nodes_count": nodes_count,
         "edges_count": edges_count,
         "bpf_drops_total": BPF_DROPS.load(Ordering::Relaxed),
+
         // compatibility aliases
         "events": ev_in,
         "events_accepted_total": ev_acc,
-        "alerts_out_total": al
+        "alerts_out_total": al,
+
+        // PB/IOC gauges
+        "pb_hits_total": pbm.pb_hits_total,
+        "pb_pending_current": pbm.pb_pending_current,
+        "ioc_matches_total": iocm.matches_total,
+        "yara_matches_total": iocm.yara_total
+    });
+
+    // Merge in R-GCN overlay metrics (no-op if bridge is disabled/empty)
+    let mut obj = base.as_object().unwrap().clone();
+    let rg = rgcn_metrics();
+    if let Some(m) = rg.as_object() {
+        for (k, v) in m {
+            obj.insert(k.clone(), v.clone());
+        }
+    }
+
+    Json(Value::Object(obj))
+}
+
+
+// /healthz -> JSON with counters + graph counts + bpf drops
+async fn healthz() -> impl IntoResponse {
+    let ev_in = EVENTS_IN.load(Ordering::Relaxed);
+    let ev_acc = EVENTS_ACCEPTED.load(Ordering::Relaxed);
+    let al = ALERTS_OUT.load(Ordering::Relaxed);
+    let (n, e) = read_graph_counts_from_file();
+    Json(json!({
+        "ok": true,
+        "events_in": ev_in,
+        "events_accepted": ev_acc,
+        "alerts_out": al,
+        "nodes_count": n,
+        "edges_count": e,
+        "bpf_drops_total": BPF_DROPS.load(Ordering::Relaxed)
     }))
 }
 
-// --- Integrations minimal controller (catalog/list/add/delete) ---
-
-#[derive(Serialize, Deserialize, Default)]
-struct IntegrationCreate {
-    id: String,
-    name: String,
-    creds: Value,
+// --- IOC endpoints (simple, stateless handlers) ---
+async fn ioc_reload_handler() -> impl IntoResponse {
+    match ioc::reload() {
+        Ok(_) => (StatusCode::OK, Json(json!({"ok": true}))),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"ok": false, "error": e.to_string()}))),
+    }
 }
-
-async fn integrations_catalog() -> impl IntoResponse {
-    let path = Path::new("integrations/catalog.json");
-    let body = fs::read_to_string(path).unwrap_or_else(|_| "{\"version\":1,\"vendors\":[]}".into());
-    (StatusCode::OK, body)
-}
-
-async fn integrations_list(State(st): State<ApiState>) -> impl IntoResponse {
-    let m = st.integrations.lock().unwrap();
-    let items: Vec<Value> = m.values().cloned().collect();
-    Json(json!({ "items": items }))
-}
-
-async fn integrations_add(
-    State(st): State<ApiState>,
-    Json(req): Json<IntegrationCreate>,
-) -> impl IntoResponse {
-    let mut m = st.integrations.lock().unwrap();
-    m.insert(
-        req.id.clone(),
-        json!({
-            "id": req.id,
-            "name": req.name,
-            "creds": req.creds,
-            "status": "syncing",
-            "last_ok": Value::Null
-        }),
-    );
-    let _ = fs::create_dir_all("state");
-    let _ = fs::write(
-        "state/integrations.json",
-        serde_json::to_vec_pretty(&*m).unwrap(),
-    );
-    StatusCode::ACCEPTED
-}
-
-async fn integrations_delete(
-    State(st): State<ApiState>,
-    AxPath(id): AxPath<String>,
-) -> impl IntoResponse {
-    let mut m = st.integrations.lock().unwrap();
-    m.remove(&id);
-    let _ = fs::write(
-        "state/integrations.json",
-        serde_json::to_vec_pretty(&*m).unwrap(),
-    );
-    StatusCode::NO_CONTENT
+async fn ioc_stats_handler() -> Json<Value> {
+    let m = ioc::metrics();
+    Json(json!({
+        "ioc_matches_total": m.matches_total,
+        "yara_matches_total": m.yara_total
+    }))
 }
 
 // quick diag: where am I serving from + file presence
@@ -756,6 +1286,41 @@ fn load_enrichment(ip: Option<&str>, sha256: Option<&str>) -> Value {
     json!({})
 }
 
+impl Default for Verdict {
+    fn default() -> Self { Verdict::Benign }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+enum Verdict { Benign, Leaning, Malicious }
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+struct ExplainSummary {
+    verdict: Verdict,
+    confidence: f32,           // 0.0 .. 1.0
+    reason_codes: Vec<String>, // short machine-readable reasons
+}
+
+fn pick_verdict_from_stats(avg_trust: f64, sev: &str, rgcn_avg_risk: f64) -> ExplainSummary {
+    let mut reasons = vec![];
+    let sev_l = sev.to_ascii_lowercase();
+    if avg_trust < 0.6 { reasons.push("trust_low".into()); }
+    else if avg_trust < 0.85 { reasons.push("trust_medium".into()); }
+    if rgcn_avg_risk >= 0.8 { reasons.push("rgcn_high".into()); }
+    if sev_l == "high" { reasons.push("sev_high".into()); }
+    if sev_l == "medium" { reasons.push("sev_medium".into()); }
+
+    let (verdict, confidence) = if avg_trust < 0.6 || sev_l == "high" || rgcn_avg_risk >= 0.9 {
+        (Verdict::Malicious, 0.9)
+    } else if avg_trust < 0.85 || sev_l == "medium" || rgcn_avg_risk >= 0.75 {
+        (Verdict::Leaning, 0.7)
+    } else {
+        (Verdict::Benign, 0.85)
+    };
+
+    ExplainSummary { verdict, confidence, reason_codes: reasons }
+}
+
 async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
     let mut alert = if let Some(v) = load_alert_by_id(&alert_id) {
         v
@@ -764,28 +1329,13 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
     };
     if alert.get("id").is_none() {
         let sid = synth_id(&alert);
-        alert
-            .as_object_mut()
-            .unwrap()
-            .insert("id".into(), Value::String(sid));
+        alert.as_object_mut().unwrap().insert("id".into(), Value::String(sid));
     }
 
-    let sev = alert
-        .get("severity")
-        .and_then(|x| x.as_str())
-        .unwrap_or("none")
-        .to_string();
-    let risk = alert
-        .get("risk")
-        .or_else(|| alert.get("score"))
-        .and_then(|x| x.as_f64())
-        .unwrap_or(0.0);
-    let ts = alert
-        .get("ts")
-        .or_else(|| alert.get("time"))
-        .or_else(|| alert.get("timestamp"))
-        .and_then(|x| x.as_i64())
-        .unwrap_or(now_ts() as i64);
+    let sev = alert.get("severity").and_then(|x| x.as_str()).unwrap_or("none").to_string();
+    let risk = alert.get("risk").or_else(|| alert.get("score")).and_then(|x| x.as_f64()).unwrap_or(0.0);
+    let ts = alert.get("ts").or_else(|| alert.get("time")).or_else(|| alert.get("timestamp"))
+        .and_then(|x| x.as_i64()).unwrap_or(now_ts() as i64);
 
     // neighborhood & graph
     let recs = window_records(ts, 300);
@@ -809,9 +1359,7 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
     let mitre = extract_mitre(&alert);
 
     let ip = alert.get("src_ip").and_then(|x| x.as_str());
-    let sha = alert
-        .get("sha256")
-        .and_then(|x| x.as_str())
+    let sha = alert.get("sha256").and_then(|x| x.as_str())
         .or_else(|| alert.pointer("/event/sha256").and_then(|x| x.as_str()));
     let enrichment = load_enrichment(ip, sha);
 
@@ -827,63 +1375,66 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
         json!(rs)
     });
 
-    let exe = alert
-        .pointer("/event/exe")
-        .or_else(|| alert.pointer("/event/binary_path"))
-        .and_then(|x| x.as_str())
-        .unwrap_or("-");
-    let technique = alert
-        .get("technique")
-        .and_then(|x| x.as_str())
-        .unwrap_or(mitre.get(0).map(|s| s.as_str()).unwrap_or("-"));
-    let headline = format!("{} · {} · {}", sev.to_uppercase(), technique, exe);
+    let technique_names: Vec<String> = mitre.clone().into_iter().map(|t| match t.as_str() {
+        "T1055" => "Process Injection".into(),
+        "T1059.001" => "Command & Scripting: PowerShell".into(),
+        "T1547.001" => "Boot/Logon Autostart: Run Keys".into(),
+        _ => t,
+    }).collect();
 
-    // Explain++ extras (Phase 2)
-    // FIX: compute and return defaults properly from local Option vars
-    let (mahalanobis_d2, elliptic_margin) = {
+    let confidence = alert.get("confidence").and_then(|x| x.as_f64()).unwrap_or_else(|| rgcn.max(0.0).min(1.0));
+
+    // ----- compute these BEFORE json! -----
+    let mahala_d2: f64 = {
         let ep = build_episode_from_records(&recs);
-        let mut d2: Option<f64> = None;
-        let mut margin: Option<f64> = None;
+        let mut d2: f64 = 0.0;
         if let Some(ep) = ep {
             let x = Mahala::vectorize_episode(&ep);
             if !x.is_empty() {
                 let now = chrono::Utc::now();
                 if let Ok(mut eng) = mahala_engine().lock() {
                     let (dist2, _damp, _sup) = eng.distance_and_damp("default", &x, now);
-                    d2 = Some(dist2 as f64);
+                    d2 = dist2 as f64;
                 }
+            }
+        }
+        d2
+    };
+
+    let elliptic_margin: f64 = {
+        let ep = build_episode_from_records(&recs);
+        let mut margin: f64 = 0.0;
+        if let Some(ep) = ep {
+            let x = Mahala::vectorize_episode(&ep);
+            if !x.is_empty() {
                 if let Ok(env_lock) = env_model().lock() {
                     if let Some(env) = env_lock.as_ref() {
-                        margin = Some(env.decision_function(&x));
+                        margin = env.decision_function(&x);
                     }
                 }
             }
         }
-        (d2.unwrap_or(0.0), margin.unwrap_or(0.0))
+        margin
     };
+    // --------------------------------------
 
-    let technique_names: Vec<String> = extract_mitre(&alert).into_iter().map(|t| match t.as_str() {
-        "T1055" => "Process Injection".into(),
-        "T1059.001" => "Command & Scripting: PowerShell".into(),
-        "T1547.001" => "Boot/Logon Autostart: Run Keys".into(),
-        _ => t
-    }).collect();
-
-    let confidence = alert.get("confidence").and_then(|x| x.as_f64()).unwrap_or_else(|| {
-        rgcn.max(0.0).min(1.0)
-    });
-
-    let model_version = "phase-2.0";
-    let detector_versions = json!({
-        "rules_hot": ">=1",
-        "mahala": "1.0",
-        "elliptic": "1.0",
-        "krim_lite": "1.0"
-    });
+    // Verdict summary
+    let avg_trust = if nodes.is_empty() {
+        0.75
+    } else {
+        let s: f64 = nodes.iter().map(|n| n.trust_score as f64).sum();
+        (s / nodes.len() as f64).clamp(0.0, 1.0)
+    };
+    let summary = pick_verdict_from_stats(avg_trust, &sev, rgcn);
 
     let resp = json!({
         "id": alert.get("id"),
-        "headline": headline,
+        "headline": format!(
+            "{} · {} · {}",
+            sev.to_uppercase(),
+            technique_names.get(0).map(|s| s.as_str()).unwrap_or("-"),
+            alert.pointer("/event/exe").and_then(|x| x.as_str()).unwrap_or("-")
+        ),
         "severity": sev,
         "risk": risk,
         "techniques": mitre,
@@ -892,19 +1443,30 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
         "entities": entities,
         "rgcn_score": rgcn,
         "confidence": confidence,
-        "model_version": model_version,
-        "detector_versions": detector_versions,
-        "why_now": { "mahalanobis_d2": mahalanobis_d2, "elliptic_margin": elliptic_margin },
+        "model_version": "phase-2.0",
+        "detector_versions": {
+            "rules_hot": ">=1",
+            "mahala": "1.0",
+            "elliptic": "1.0",
+            "krim_lite": "1.0"
+        },
+        "why_now": { "mahalanobis_d2": mahala_d2, "elliptic_margin": elliptic_margin },
         "why": findings,
         "anomalies": anomalies,
         "graph": { "nodes": nodes, "edges": edges },
-        "timeline": recs.iter().map(|r| json!({"ts": r.timestamp, "pid": r.pid, "ppid": r.ppid, "exe": r.binary_path, "cmd": r.command_line})).collect::<Vec<_>>(),
+        "timeline": recs.iter().map(|r| json!({
+            "ts": r.timestamp, "pid": r.pid, "ppid": r.ppid, "exe": r.binary_path, "cmd": r.command_line
+        })).collect::<Vec<_>>(),
         "enrichment": enrichment,
         "risk_breakdown": reasons,
         "recommendations": recommend_from_mitre(&extract_mitre(&alert)),
+        "summary": summary
     });
+
     Json(resp).into_response()
 }
+
+
 
 fn recommend_from_mitre(mitre: &[String]) -> Vec<String> {
     let mut actions: Vec<String> = Vec::new();
@@ -1043,29 +1605,34 @@ fn build_episode_from_records(records: &[TelemetryRecord]) -> Option<Episode> {
 }
 
 fn build_graph_from_records(records: &[TelemetryRecord]) -> (Vec<GraphNode>, Vec<GraphEdge>) {
-    use std::collections::HashMap as Map;
+    use std::collections::{HashMap as Map, HashSet as Set};
+
     let mut nodes: Vec<GraphNode> = Vec::new();
     let mut edges: Vec<GraphEdge> = Vec::new();
+
     let mut proc_id_map: Map<i32, String> = Map::new();
+    let mut seen_nodes: Set<String> = Set::new();
+    let mut seen_edges: Set<(String, String)> = Set::new();
 
     // pass 1: create all proc nodes (so PPID lookups always work)
     for r in records {
         let nid = format!("proc:{}", r.pid);
-        proc_id_map.insert(r.pid, nid.clone());
-
-        nodes.push(GraphNode {
-            id: nid,
-            trust_score: 1.0f32 - ((r.risk_score.unwrap_or(0).min(100) as f32) / 100.0),
-            uid: Some(r.uid),
-            pid: Some(r.pid as u32),
-            ppid: Some(r.ppid as u32),
-            binary_path: if r.binary_path.is_empty() { None } else { Some(r.binary_path.clone()) },
-            command_line: if r.command_line.is_empty() { None } else { Some(r.command_line.clone()) },
-            cwd: if r.cwd.is_empty() { None } else { Some(r.cwd.clone()) },
-            tags: r.tags.clone(),
-            anchor_ids: Vec::new(),
-            ..Default::default()
-        });
+        if seen_nodes.insert(nid.clone()) {
+            proc_id_map.insert(r.pid, nid.clone());
+            nodes.push(GraphNode {
+                id: nid,
+                trust_score: 1.0f32 - ((r.risk_score.unwrap_or(0).min(100) as f32) / 100.0),
+                uid: Some(r.uid),
+                pid: Some(r.pid as u32),
+                ppid: Some(r.ppid as u32),
+                binary_path: if r.binary_path.is_empty() { None } else { Some(r.binary_path.clone()) },
+                command_line: if r.command_line.is_empty() { None } else { Some(r.command_line.clone()) },
+                cwd: if r.cwd.is_empty() { None } else { Some(r.cwd.clone()) },
+                tags: r.tags.clone(),
+                anchor_ids: Vec::new(),
+                ..Default::default()
+            });
+        }
     }
 
     // pass 2: connect proc->proc and proc->file/dir
@@ -1074,22 +1641,32 @@ fn build_graph_from_records(records: &[TelemetryRecord]) -> (Vec<GraphNode>, Vec
 
         if r.ppid > 0 {
             if let Some(parent) = proc_id_map.get(&r.ppid).cloned() {
-                edges.push(GraphEdge {
-                    source: parent,
-                    target: nid.clone(),
-                    ..Default::default()
-                });
+                if seen_edges.insert((parent.clone(), nid.clone())) {
+                    edges.push(GraphEdge {
+                        source: parent,
+                        target: nid.clone(),
+                        ..Default::default()
+                    });
+                }
             }
         }
         if !r.binary_path.is_empty() {
             let file_id = format!("file:{}", r.binary_path);
-            nodes.push(GraphNode { id: file_id.clone(), ..Default::default() });
-            edges.push(GraphEdge { source: nid.clone(), target: file_id, ..Default::default() });
+            if seen_nodes.insert(file_id.clone()) {
+                nodes.push(GraphNode { id: file_id.clone(), ..Default::default() });
+            }
+            if seen_edges.insert((nid.clone(), file_id.clone())) {
+                edges.push(GraphEdge { source: nid.clone(), target: file_id, ..Default::default() });
+            }
         }
         if !r.cwd.is_empty() {
             let dir_id = format!("file:{}", r.cwd);
-            nodes.push(GraphNode { id: dir_id.clone(), ..Default::default() });
-            edges.push(GraphEdge { source: nid.clone(), target: dir_id, ..Default::default() });
+            if seen_nodes.insert(dir_id.clone()) {
+                nodes.push(GraphNode { id: dir_id.clone(), ..Default::default() });
+            }
+            if seen_edges.insert((nid.clone(), dir_id.clone())) {
+                edges.push(GraphEdge { source: nid.clone(), target: dir_id, ..Default::default() });
+            }
         }
     }
     (nodes, edges)
@@ -1173,7 +1750,7 @@ fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
 
     for ev in events {
         let mut tagged = false;
-               if ev.pid != 0 {
+        if ev.pid != 0 {
             for r in records.iter_mut() {
                 if r.pid == ev.pid as i32 {
                     r.tags.push("krim_alert".into());
@@ -1286,6 +1863,25 @@ fn emit_final_incident(
             writeln!(f, "{line}")
         });
 
+    // Mirror DecisionEngine incident as a Playbooks “hit” for operator visibility
+    pb_introspect::push_hit(pb_introspect::PlaybookHit {
+        id: format!("de:{}", v.get("id").and_then(|x| x.as_str()).unwrap_or("")),
+        playbook_id: "decision_engine".to_string(),
+        ts: v.get("ts").and_then(|x| x.as_i64()).unwrap_or(0).max(0) as u64,
+        filled_slots: vec!["consensus".to_string()],   // minimal shim until PB engine feeds real slots
+        missing_slots: vec![],
+        tags: v.get("tags")
+            .and_then(|t| t.as_array())
+            .map(|a| a.iter().filter_map(|x| x.as_str().map(|s| s.to_string())).collect())
+            .unwrap_or_default(),
+        rationale: vec![format!(
+            "DE {} risk={:.2} tech={}",
+            v.get("severity").and_then(|x| x.as_str()).unwrap_or("low"),
+            v.get("risk").and_then(|x| x.as_f64()).unwrap_or(0.0),
+            v.get("technique").and_then(|x| x.as_str()).unwrap_or("-")
+        )],
+    });
+
     // Broadcast to existing streams
     let _ = alert_tx.send(line);
     if let Some(out) = incidents().lock().unwrap().ingest_alert_json(&v) {
@@ -1360,6 +1956,15 @@ fn feed_decider_from_record_tags(
 #[tokio::main(flavor = "multi_thread")]
 async fn main() {
     let _ = env_logger::try_init();
+    {
+    let cwd = std::env::current_dir().unwrap();
+    eprintln!("🗂️  cwd        : {}", cwd.display());
+    eprintln!("🗂️  ui         : {}", std::fs::canonicalize("ui").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
+    eprintln!("🗂️  json_files : {}", std::fs::canonicalize("json_files").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
+    eprintln!("🗎   ui/index.html present? {}", std::path::Path::new("ui/index.html").exists());
+    eprintln!("🗎   ui/app.js     present? {}", std::path::Path::new("ui/app.js").exists());
+    eprintln!("🗎   ui/graph.html present? {}", std::path::Path::new("ui/graph.html").exists());
+    }
 
     let _policy = forensic_hooks::config::load_and_verify_policy("policy.json")
         .expect("❌ Failed to load or verify policy");
@@ -1367,6 +1972,40 @@ async fn main() {
     let writer = Arc::new(Mutex::new(
         forensic_hooks::telemetry_writer::TelemetryWriter::new(),
     ));
+
+    // === IOC lists & YARA ===
+    if let Err(e) = ioc::init() {
+        eprintln!("⚠️ ioc::init failed: {e}");
+    }
+
+    // === Playbook engine: load all YAMLs from ./playbooks ===
+    // === Playbook engine: load all YAMLs from ./playbooks ===
+    {
+        let pb_dir = std::env::var("PB_DIR").unwrap_or_else(|_| "playbooks".to_string());
+        match pb_engine().lock() {
+            Ok(mut eng) => {
+                match PlaybookEngine::load_dir(&pb_dir) {
+                    Ok(new_eng) => {
+                        *eng = new_eng;
+                        eprintln!("✅ playbook_engine loaded from {pb_dir}");
+                    }
+                    Err(e) => eprintln!("⚠️ playbook_engine load_dir({pb_dir}) failed: {e}"),
+                }
+            }
+            Err(_) => eprintln!("⚠️ playbook_engine lock poisoned"),
+        }
+    }
+
+
+    // alerts / graph / incidents channels
+    let (alert_tx, _alert_rx) = broadcast::channel::<String>(1024);
+    let (graph_tx, _graph_rx) = broadcast::channel::<String>(128);
+    let (inc_tx, _inc_rx)     = broadcast::channel::<String>(256);
+
+    // Optional PB SSE bus (for pb_api)
+    let (pb_tx, _pb_rx) = tokio::sync::broadcast::channel::<String>(256);
+    pb_introspect::set_sse_sender(pb_tx.clone());
+    let pb_state = pb_api::PbApiState { tx: pb_tx.clone() };
 
     // ensure layout exists
     let _ = std::fs::create_dir_all("logs");
@@ -1384,7 +2023,40 @@ async fn main() {
 
     // ---- initialize live graph writer using your graph.rs ----
     let gs = graph_state();
-    let _graph_task = spawn_writer(gs.clone(), PathBuf::from("json_files/graph_live.json"));
+let _graph_task = spawn_writer(gs.clone(), PathBuf::from("json_files/graph_live.json"));
+
+{
+    let rgcn_enabled = std::env::var("RGCN_ENABLED")
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false);
+
+    if rgcn_enabled {
+        use crate::rgcn_bridge::{start_rgcn_bridge, Config as RgcnCfg};
+
+        let url        = std::env::var("RGCN_URL")
+            .unwrap_or_else(|_| "http://127.0.0.1:9000/infer".into());
+        let poll_ms    = std::env::var("RGCN_POLL_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(1500);
+        let timeout_ms = std::env::var("RGCN_TIMEOUT_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(2000);
+        let max_nodes  = std::env::var("RGCN_MAX_NODES").ok().and_then(|s| s.parse().ok()).unwrap_or(3000);
+        let max_edges  = std::env::var("RGCN_MAX_EDGES").ok().and_then(|s| s.parse().ok()).unwrap_or(6000);
+
+        let cfg = rgcn_bridge::Config {
+        url,
+        poll_ms: 2000,
+        timeout_ms: 3000,
+        max_nodes: 3000,
+        max_edges: 6000,
+        graph_path: "json_files/graph_live.annotated.json".into(), // 👈 annotated
+    };
+    start_rgcn_bridge(cfg);
+
+        eprintln!("✅ R-GCN bridge started");
+    } else {
+        eprintln!("ℹ️ R-GCN bridge disabled (set RGCN_ENABLED=1 to enable)");
+    }
+}
+
+
 
     // ==== MVP event-level detection wiring (rules -> JSONL alerts) ====
     let mut evaluator = Evaluator::new(Thresholds {
@@ -1424,11 +2096,6 @@ async fn main() {
         out
     };
 
-    // --- start SSE/http server (UI + static mounts) ---
-    let (alert_tx, _alert_rx) = broadcast::channel::<String>(1024);
-    let (graph_tx, _graph_rx) = broadcast::channel::<String>(128);
-    let (inc_tx, _inc_rx)     = broadcast::channel::<String>(256);
-
     let api_state = ApiState {
         tx: alert_tx.clone(),
         graph_tx: graph_tx.clone(),
@@ -1437,173 +2104,139 @@ async fn main() {
     };
 
     // publisher: push graph JSON to SSE channel when file changes
-    {
-        let graph_tx = graph_tx.clone();
-        tokio::spawn(async move {
-            let mut tick = tokio::time::interval(Duration::from_millis(900));
-            let mut last = String::new();
-            loop {
-                tick.tick().await;
-                if let Ok(s) = fs::read_to_string("json_files/graph_live.json") {
-                    if !s.is_empty() && s != last {
-                        last = s.clone();
-                        let _ = graph_tx.send(s);
+    // publisher: push graph JSON to SSE channel when file changes (enriched)
+    // publisher: push graph JSON to SSE channel when file changes (annotated with R-GCN overlay)
+{
+    let graph_tx = graph_tx.clone();
+    tokio::spawn(async move {
+        use std::fs;
+        let mut tick = tokio::time::interval(std::time::Duration::from_millis(900));
+        let mut last = String::new();
+        loop {
+            tick.tick().await;
+            match fs::read_to_string("json_files/graph_live.json") {
+                Ok(raw) if !raw.is_empty() => {
+                    // Parse, normalize, annotate, re-emit
+                    if let Ok(v) = serde_json::from_str::<serde_json::Value>(&raw) {
+                        let v = normalize_and_annotate_graph(v);
+                        if let Ok(out) = serde_json::to_string(&v) {
+                            if out != last {
+                                last = out.clone();
+                                let _ = graph_tx.send(out);
+                            }
+                        }
                     }
                 }
+                _ => {}
             }
-        });
-    }
+        }
+    });
+}
 
-    // /healthz -> JSON with counters + graph counts + bpf drops
-    async fn healthz() -> impl IntoResponse {
-        let ev_in = EVENTS_IN.load(Ordering::Relaxed);
-        let ev_acc = EVENTS_ACCEPTED.load(Ordering::Relaxed);
-        let al = ALERTS_OUT.load(Ordering::Relaxed);
-        let (n, e) = read_graph_counts_from_file();
-        Json(json!({
-            "ok": true,
-            "events_in": ev_in,
-            "events_accepted": ev_acc,
-            "alerts_out": al,
-            "nodes_count": n,
-            "edges_count": e,
-            "bpf_drops_total": BPF_DROPS.load(Ordering::Relaxed)
-        }))
-    }
 
-    let app = Router::new()
-        // APIs
-        .route("/alerts", get(alerts_sse))
-        .route("/metrics", get(metrics_json))
-        .route("/alerts/:id/explain", get(explain_alert))
-        .route("/graph/:id", get(graph_for_endpoint))
-        .route("/graph/live", get(graph_live))
-        .route("/graph/stream", get(graph_sse))
-        // Incidents (Phase 2)
-        .route("/incidents/stream", get(incidents_sse))
-        .route("/incidents", get(|| async {
-            let list = incidents().lock().unwrap().list();
-            Json(list)
-        }))
-        .route("/incidents/:id", get(|AxPath(id): AxPath<String>| async move {
-            if let Some(it) = incidents().lock().unwrap().get(&id) {
-                Json(it).into_response()
-            } else {
-                (StatusCode::NOT_FOUND, "not found").into_response()
-            }
-        }))
-        // Safe action stubs (Phase 2)
-        .route("/actions/isolate_host", post(|Json(v): Json<Value>| async move {
-            eprintln!("✳️ action:isolate_host {}", v);
-            (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"isolate_host","echo":v})))
-        }))
-        .route("/actions/kill_proc", post(|Json(v): Json<Value>| async move {
-            eprintln!("✳️ action:kill_proc {}", v);
-            (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"kill_proc","echo":v})))
-        }))
-        .route("/actions/block_egress", post(|Json(v): Json<Value>| async move {
-            eprintln!("✳️ action:block_egress {}", v);
-            (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"block_egress","echo":v})))
-        }))
-        // Integrations
-        .route("/integrations/catalog", get(integrations_catalog))
-        .route("/integrations", get(integrations_list).post(integrations_add))
-        .route("/integrations/:id", delete(integrations_delete))
-        .route("/where", get(diag_where))      // diag
-        .route("/__where", get(diag_where))    // alias
-        .route("/healthz", get(healthz))       // health
-        // Static
-        .nest_service("/ui",
-            get_service(ServeDir::new("ui").append_index_html_on_directories(true)))
-        .nest_service("/json_files", get_service(ServeDir::new("json_files")))
-        // root aliases
-        .route("/",           get_service(ServeFile::new("ui/index.html")))
-        .route("/index.html", get_service(ServeFile::new("ui/index.html")))
-        .route("/app.js",     get_service(ServeFile::new("ui/app.js")))
-        .with_state(api_state.clone())
-        .layer(CorsLayer::permissive());
 
-    // Allow port override (EDR_PORT), default 8080
-    {
-        let port: u16 = std::env::var("EDR_PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(8080);
-        tokio::spawn(async move {
-            let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
-            eprintln!("🌐 UI available at http://{}/  (dashboard) | http://{}/ui/graph.html (live graph)", addr, addr);
-            let listener = TcpListener::bind(addr).await.unwrap();
-            axum::serve(listener, app).await.unwrap();
-        });
-    }
 
-    // Periodically finalize DecisionEngine windows → emit one incident per bucket
-    {
-        let a_tx = alert_tx.clone();
-        let i_tx = inc_tx.clone();
-        tokio::spawn(async move {
-            let mut tick = tokio::time::interval(Duration::from_secs(15));
-            loop {
-                tick.tick().await;
-                let outs = decision_engine().lock().unwrap().flush();
-                for a in outs {
-                    emit_final_incident(a, &a_tx, &i_tx);
-                }
-            }
-        });
-    }
 
-    // ---- DEMO MODE: generate synthetic graph + alerts so UI shows activity ----
-    if std::env::var("EDR_DEMO").map(|v| v == "1" || v.eq_ignore_ascii_case("true")).unwrap_or(false) {
-        let gs_arc = graph_state();
-        let tx_demo = alert_tx.clone();
-        let inc_tx_demo = inc_tx.clone();
+   // --- Build the PB router (separate state) and main app router ---
+// --- Build the PB router (separate state) and main app router ---
+let pb_router = Router::new()
+    .route("/pending", get(pb_api::pending))
+    .route("/hits", get(pb_api::hits))
+    .route("/reload", post(pb_api::reload))
+    .route("/stream", get(pb_api::stream))
+    .with_state(pb_state.clone());
 
-        tokio::spawn(async move {
-            let mut i: u32 = 1000;
-            loop {
-                i = i.wrapping_add(1);
+// ---------- Static UI (no-cache) ----------
+let no_cache = SetResponseHeaderLayer::overriding(
+    CACHE_CONTROL,
+    HeaderValue::from_static("no-store, max-age=0, must-revalidate"),
+);
 
-                let score = ((i % 10) as f64) / 10.0;           // 0.0 .. 0.9
-                let conf  = (0.3 + score * 0.5).min(0.95);      // 0.3 .. 0.95
+// Serve UI explicitly for the main files, plus a directory fallback.
+// Using a child Router lets us apply the no-cache layer cleanly.
+let ui_router = Router::new()
+    .route("/index.html", get_service(ServeFile::new("ui/index.html")))
+    .route("/graph.html", get_service(ServeFile::new("ui/graph.html")))
+    .route("/app.js",     get_service(ServeFile::new("ui/app.js")))
+    .fallback_service(get_service(ServeDir::new("ui")))
+    .layer(no_cache.clone());
 
-                {
-                    let mut gs = gs_arc.write();
-                    let pid   = i;
-                    let ppid  = 1u32;
+// ---------- Main app ----------
+// ---------- Main app ----------
+let app = Router::new()
+    // APIs
+    .route("/alerts", get(alerts_sse))
+    .route("/metrics", get(metrics_json))
+    .route("/alerts/:id/explain", get(explain_alert))
+    .route("/graph/:id", get(graph_for_endpoint))
+    .route("/graph/live", get(graph_live))
+    .route("/graph/stream", get(graph_sse))
+    // Ontology
+    .route("/ontology/status", get(ontology_status))
+    .route("/ontology/reload", post(ontology_reload))
+    .route("/ontology/validate", get(ontology_validate))
+    // Health row
+    .route("/hosts/self/health", get(host_self_health))
+    // Incidents (Phase 2)
+    .route("/incidents/stream", get(incidents_sse))
+    .route("/incidents", get(|| async {
+        let list = incidents().lock().unwrap().list();
+        Json(list)
+    }))
+    .route("/incidents/:id", get(|AxPath(id): AxPath<String>| async move {
+        if let Some(it) = incidents().lock().unwrap().get(&id) {
+            Json(it).into_response()
+        } else {
+            (StatusCode::NOT_FOUND, "not found").into_response()
+        }
+    }))
+    // Safe action stubs (Phase 2)
+    .route("/actions/isolate_host", post(|Json(v): Json<Value>| async move {
+        eprintln!("✳️ action:isolate_host {}", v);
+        (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"isolate_host","echo":v})))
+    }))
+    .route("/actions/kill_proc", post(|Json(v): Json<Value>| async move {
+        eprintln!("✳️ action:kill_proc {}", v);
+        (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"kill_proc","echo":v})))
+    }))
+    .route("/actions/block_egress", post(|Json(v): Json<Value>| async move {
+        eprintln!("✳️ action:block_egress {}", v);
+        (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"block_egress","echo":v})))
+    }))
+    // Integrations
+    .route("/integrations/catalog", get(integrations_catalog))
+    .route("/integrations", get(integrations_list).post(integrations_add))
+    .route("/integrations/:id", delete(integrations_delete))
+    // IOC endpoints
+    .route("/ioc/reload", post(ioc_reload_handler))
+    .route("/ioc/stats", get(ioc_stats_handler))
+    // PB endpoints (nested with separate state)
+    .nest("/playbooks", pb_router)
+    // Diag/health
+    .route("/where", get(diag_where))
+    .route("/__where", get(diag_where))
+    .route("/healthz", get(healthz))
+    // Static
+    .route("/", get_service(ServeFile::new("ui/index.html")))
+    .nest("/ui", ui_router)
+    .nest_service("/json_files", get_service(ServeDir::new("json_files")))
+    // Layers/state
+    .with_state(api_state.clone())
+    .layer(CorsLayer::permissive());
 
-                    gs.ingest_exec(ppid, "-", pid, "/usr/bin/bash", score, conf);
-                    gs.ingest_connect(pid, "/usr/bin/bash", "1.1.1.1:443", score * 0.6, conf);
-                    gs.ingest_file_access(pid, "/usr/bin/bash", "/tmp/demo.txt", i % 2 == 0, score * 0.8, conf);
 
-                    let child = pid + 1;
-                    gs.ingest_exec(pid, "/usr/bin/bash", child, "/usr/bin/curl", (score * 0.9).min(1.0), conf);
-                    gs.ingest_connect(child, "/usr/bin/curl", "93.184.216.34:443", score * 0.7, conf);
-                }
+// Allow port override (EDR_PORT), default 8080
+{
+    let port: u16 = std::env::var("EDR_PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(8080);
+    tokio::spawn(async move {
+        let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
+        eprintln!("🌐 UI available at http://{}/  (dashboard) | http://{}/ui/graph.html (live graph)", addr, addr);
+        let listener = TcpListener::bind(addr).await.unwrap();
+        axum::serve(listener, app).await.unwrap();
+    });
+}
 
-                let sev = if score > 0.7 { "high" } else if score > 0.4 { "medium" } else { "low" };
-                let alert = serde_json::json!({
-                    "id": format!("demo-{i}"),
-                    "ts": now_ts() as i64,
-                    "severity": sev,
-                    "risk": (score * 100.0).round() / 100.0,
-                    "event": { "exe": "/usr/bin/bash", "cmdline": "bash -c curl https://example.com" },
-                    "findings": [
-                        { "source": "demo", "score": score, "label": "T1059.004" }
-                    ]
-                });
-                let line = alert.to_string();
-                let _ = tx_demo.send(line.clone());
-                ALERTS_OUT.fetch_add(1, Ordering::Relaxed); // reflect demo alerts in /metrics
 
-                // also feed incidents
-                if let Ok(v) = serde_json::from_str::<Value>(&line) {
-                    if let Some(out) = incidents().lock().unwrap().ingest_alert_json(&v) {
-                        let _ = inc_tx_demo.send(out.to_string());
-                    }
-                }
-
-                tokio::time::sleep(std::time::Duration::from_secs(2)).await;
-            }
-        });
-    }
 
     // ==== startup of eBPF readers ====
     let use_legacy = std::env::var("EDR_USE_LEGACY_REALTIME")
@@ -1617,6 +2250,8 @@ async fn main() {
         } else {
             // Local readers (binary-side)
             net_flow_reader::start_net_flow_reader(writer.clone());
+            crate::ebpf::wx_exec_reader::start_wx_exec_reader(writer.clone());
+            crate::ebpf::syscall_reader::start_syscall_reader(writer.clone());
 
             if let Err(e) = file_access_reader::start() {
                 eprintln!("⛔ file_access_reader disabled: {e}");
@@ -1716,13 +2351,46 @@ async fn main() {
                 for f in feats.iter().filter(|f| f.z.abs() > 2.0) {
                     println!("🔎 feature: {}={} z={:.2} fam={}", f.key, f.value, f.z, f.family);
                 }
-                // FIX: comma (not dot) and ignore unused values
                 let (_mahalanobis_d2, _elliptic_margin) =
                     tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);
                 tag_records_from_krim(&mut records);
             }
 
-            // ⬇️ NEW: Feed anomalies & structural tags to DecisionEngine before rules
+            // 6a) IOC enrichment: tags records + reflect hits into PB pending
+            match ioc::tag_records(&mut records) {
+                Ok(hits) => {
+                    for h in hits {
+                        pb_introspect::add_or_update_pending(pb_introspect::PendingEvidence {
+                            id: h.id,                // stable id from ioc::Hit
+                            playbook_id: "ioc_layer".to_string(),
+                            ts: h.ts,
+                            slot_id: h.slot,         // e.g., "artifact_ioc" / "binary_ioc"
+                            fact: h.fact,            // e.g., "Net", "FileIO", "Exec"
+                            summary: h.summary,      // short human string
+                            tags: h.tags,            // ["IOC", "YARA", ...]
+                            ttl_sec: 900,
+                        });
+                    }
+                }
+                Err(e) => eprintln!("⚠️ ioc::tag_records error: {e}"),
+            }
+
+            // 6b) PlaybookEngine: ingest this batch and emit pending/hits
+            {
+                let now = now_ts();
+            if let Ok(mut eng) = pb_engine().lock() {
+                // Delegate conversion of TelemetryRecord -> Facts and ingest+collect to pb_wiring
+                let out = pb_wiring::ingest_batch(&mut *eng, &records, now);
+                for p in out.pending {
+                    pb_introspect::add_or_update_pending(p);
+                }
+                for h in out.hits {
+                    pb_introspect::push_hit(h);
+                }
+            }}
+
+
+            // ⬇️ Feed anomalies & structural tags to DecisionEngine before rules
             feed_decider_from_record_tags(&records, &alert_tx, &inc_tx);
 
             // === Run event-level rules on each record and emit JSONL alerts + SSE ===
@@ -1788,7 +2456,7 @@ async fn main() {
                                     let _ = inc_tx.send(out.to_string());
                                 }
 
-                                // ⬇️ NEW: also feed this as a Rules signal into DecisionEngine
+                                // ⬇️ also feed this as a Rules signal into DecisionEngine
                                 let exe = v
                                     .pointer("/event/exe")
                                     .or_else(|| v.pointer("/event/binary_path"))
@@ -1870,4 +2538,61 @@ async fn main() {
         }
         tokio::time::sleep(Duration::from_secs(30)).await;
     }
+}
+
+// --- Integrations minimal controller (catalog/list/add/delete) ---
+
+#[derive(Serialize, Deserialize, Default)]
+struct IntegrationCreate {
+    id: String,
+    name: String,
+    creds: Value,
+}
+
+async fn integrations_catalog() -> impl IntoResponse {
+    let path = Path::new("integrations/catalog.json");
+    let body = fs::read_to_string(path).unwrap_or_else(|_| "{\"version\":1,\"vendors\":[]}".into());
+    (StatusCode::OK, body)
+}
+
+async fn integrations_list(State(st): State<ApiState>) -> impl IntoResponse {
+    let m = st.integrations.lock().unwrap();
+    let items: Vec<Value> = m.values().cloned().collect();
+    Json(json!({ "items": items }))
+}
+
+async fn integrations_add(
+    State(st): State<ApiState>,
+    Json(req): Json<IntegrationCreate>,
+) -> impl IntoResponse {
+    let mut m = st.integrations.lock().unwrap();
+    m.insert(
+        req.id.clone(),
+        json!({
+            "id": req.id,
+            "name": req.name,
+            "creds": req.creds,
+            "status": "syncing",
+            "last_ok": Value::Null
+        }),
+    );
+    let _ = fs::create_dir_all("state");
+    let _ = fs::write(
+        "state/integrations.json",
+        serde_json::to_vec_pretty(&*m).unwrap(),
+    );
+    StatusCode::ACCEPTED
+}
+
+async fn integrations_delete(
+    State(st): State<ApiState>,
+    AxPath(id): AxPath<String>,
+) -> impl IntoResponse {
+    let mut m = st.integrations.lock().unwrap();
+    m.remove(&id);
+    let _ = fs::write(
+        "state/integrations.json",
+        serde_json::to_vec_pretty(&*m).unwrap(),
+    );
+    StatusCode::NO_CONTENT
 }

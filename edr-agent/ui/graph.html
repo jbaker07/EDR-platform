@@ -1,413 +1,275 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8" />
-  <title>EDR Live Graph</title>
+  <title>Live Graph</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
+  <script src="https://unpkg.com/d3@7"></script>
   <style>
-    :root { --bg:#0b1020; --panel:#151b2f; --ink:#e6e8ef; --muted:#93a2b8; --line:#334155; }
-    html, body { margin:0; padding:0; height:100%; background:var(--bg); color:var(--ink); font:14px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; }
-    #toolbar {
-      position: fixed; z-index: 20; top: 10px; left: 10px;
-      display: grid; grid-template-columns: auto auto; gap: 8px 10px;
-      background: var(--panel); border: 1px solid #23344b; border-radius: 12px;
-      padding: 10px 12px; box-shadow: 0 8px 28px rgba(0,0,0,.35);
-    }
-    #hud {
-      grid-column: 1 / -1; font-size: 12px; color: var(--muted);
-    }
-    #hud b { color: #9fdcff; font-weight: 600; }
-    #controls { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
-    #controls label { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#cbd5e1; }
-    #controls select, #controls input[type="checkbox"], #controls input[type="range"], #controls button {
-      background:#101827; color:#e6e8ef; border:1px solid #23344b; border-radius:8px; padding:6px 8px; font-size:12px;
-    }
-    #controls input[type="checkbox"] { transform: translateY(1px); }
-    #controls input[type="range"] { padding: 0; height: 22px; }
-    #controls button { cursor: pointer; }
-    #controls .pill { padding: 4px 8px; border-radius: 999px; }
-    #controls .linkish { color:#9fdcff; text-decoration: none; border:1px dashed #294b63; }
-    #cy { position: absolute; inset: 0; }
-    #toast { position:fixed; left:50%; transform:translateX(-50%); bottom:16px; background:#101827; border:1px solid #23344b; padding:8px 12px; border-radius:10px; display:none; z-index:30; }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;background:#0b0f14;color:#e6f0ff}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #13202f;background:#0e141b;position:sticky;top:0;z-index:10}
+    .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .hud{font-size:12px;color:#9bb1c9}
+    .btn{background:#172536;border:1px solid #294056;color:#e6f0ff;padding:6px 10px;border-radius:8px;cursor:pointer}
+    .btn:active{transform:translateY(1px)}
+    .field{background:#0b0f14;border:1px solid #294056;color:#e6f0ff;border-radius:8px;padding:6px 10px}
+    .slider{width:160px}
+    #graph{width:100vw;height:calc(100vh - 58px)}
+    .tooltip{position:absolute;pointer-events:none;background:#0e141b;border:1px solid #294056;padding:8px 10px;border-radius:8px;font-size:12px;color:#cfe3ff;max-width:420px}
+    .legend{display:flex;gap:10px;align-items:center}
+    .legend .item{display:flex;align-items:center;gap:6px;font-size:12px;color:#9bb1c9}
+    .legend svg{vertical-align:middle}
+    .dim{opacity:0.15}
+    .edge-invalid{stroke:#ff6b6b;stroke-dasharray:4 3}
+    .edge-valid{stroke:#4f6b8a;opacity:0.6}
+    .edge-label{font-size:10px;fill:#9bb1c9}
+    .selected{stroke:#ffe08a;stroke-width:2.5px}
   </style>
-  <!-- Cytoscape + fcose layout -->
-  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.27.0/dist/cytoscape.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cytoscape-fcose@2.2.0/cytoscape-fcose.min.js"></script>
 </head>
 <body>
-  <!-- Controls / HUD -->
-  <div id="toolbar">
-    <div id="hud">
-      ts: <b id="ts">—</b>
-      &nbsp; nodes: <b id="n">0</b>
-      &nbsp; edges: <b id="m">0</b>
-      &nbsp; mode: <b id="mode">polling</b>
-      &nbsp; source: <code id="src">/json_files/graph_live.json</code>
-    </div>
-    <div id="controls">
-      <label>Layout
-        <select id="layoutSel">
-          <option value="breadthfirst">Tree (breadthfirst)</option>
-          <option value="fcose">Force (fcose)</option>
-        </select>
+  <header>
+    <div class="controls">
+      <button class="btn" id="pauseBtn">Pause</button>
+      <button class="btn" id="relayoutBtn">Relayout</button>
+      <label style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:12px;color:#9bb1c9">Risk lens</span>
+        <input type="range" min="0" max="100" value="30" id="riskSlider" class="slider">
+        <span id="riskVal" style="font-size:12px;color:#cfe3ff">0.30</span>
       </label>
-      <label><input type="checkbox" id="chkProc" checked /> Processes</label>
-      <label><input type="checkbox" id="chkFile" checked /> Files</label>
-      <label><input type="checkbox" id="chkNet"  checked /> Network</label>
-      <label>k-hop
-        <input type="range" id="khop" min="0" max="3" value="0" />
-        <span id="khopVal" style="min-width:1.5em; display:inline-block; text-align:center;">0</span>
+      <label class="btn" style="display:flex;gap:6px;align-items:center">
+        <input type="checkbox" id="rgcnToggle">
+        <span>Use R-GCN scores</span>
       </label>
-      <label><input type="checkbox" id="riskLens" /> Risk lens</label>
-      <button id="btnRelayout">Relayout</button>
-      <a class="pill linkish" href="/" title="Open dashboard">Dashboard</a>
+      <input id="search" class="field" placeholder="Find node id… (Enter)">
+      <button class="btn" id="downloadBtn">Download JSON</button>
     </div>
-  </div>
+    <div class="legend">
+      <span class="item"><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="#5aa9e6"/></svg>Process</span>
+      <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="10" height="10" fill="#95d5b2"/></svg>File/Dir</span>
+      <span class="item"><svg width="14" height="14"><polygon points="7,1 13,7 7,13 1,7" fill="#ffd166"/></svg>IP</span>
+      <span class="item"><svg width="14" height="14"><polygon points="7,1 13,13 1,13" fill="#f4978e"/></svg>User</span>
+      <span class="item"><svg width="14" height="14"><polygon points="7,1 13,5 13,11 7,13 1,11 1,5" fill="#cdb4db"/></svg>Domain</span>
+      <span class="item"><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="#8892b0"/></svg>Other</span>
+    </div>
+    <div class="hud" id="hud">ts: — | nodes: — | edges: —</div>
+  </header>
 
-  <!-- Canvas -->
-  <div id="cy"></div>
-  <div id="toast"></div>
+  <div id="graph"></div>
+  <div id="tip" class="tooltip" style="display:none"></div>
 
   <script>
-  // ---------- bootstrap ----------
-  cytoscape.use(cytoscapeFcose);
+    const svg = d3.select("#graph").append("svg")
+      .attr("width", "100%").attr("height", "100%");
+    const g = svg.append("g");
+    const linkGroup = g.append("g").attr("stroke-width", 1.2);
+    const nodeGroup = g.append("g");
+    const labelGroup = g.append("g");
+    const tip = d3.select("#tip");
 
-  const cy = cytoscape({
-    container: document.getElementById('cy'),
-    wheelSensitivity: 0.2,
-    pixelRatio: 1,
-    minZoom: 0.05, maxZoom: 4,
-    style: [
-      // base
-      { selector: 'core', style: { 'selection-box-color':'#93c5fd', 'selection-box-opacity':0.15 } },
-      { selector: 'node',
-        style: {
-          'background-color': '#94a3b8',
-          'width': 20, 'height': 20,
-          'shape': 'ellipse',
-          'border-width': 0.5,
-          'border-color': '#cbd5e1',
-          'label': 'data(label)',
-          'font-size': 10,
-          'color': '#cbd5e1',
-          'text-background-color': '#0b1020',
-          'text-background-opacity': 0.8,
-          'text-background-shape': 'round-rectangle',
-          'text-background-padding': 2,
-          'text-margin-y': -12,
-          'min-zoomed-font-size': 8
-        }
-      },
-      { selector: 'edge',
-        style: {
-          'line-color': '#64748b',
-          'width': 1.2,
-          'curve-style': 'bezier',
-          'target-arrow-shape': 'triangle',
-          'target-arrow-color': '#64748b',
-          'arrow-scale': 0.8,
-          'opacity': 0.9
-        }
-      },
+    const zoom = d3.zoom().scaleExtent([0.1, 4]).on("zoom", (ev)=> g.attr("transform", ev.transform));
+    svg.call(zoom);
 
-      // kind-specific shapes
-      { selector: 'node[kind = "proc"]', style: { 'shape':'round-rectangle' } },
-      { selector: 'node[kind = "file"]', style: { 'shape':'diamond' } },
-      { selector: 'node[kind = "net"]' , style: { 'shape':'ellipse' } },
+    let paused = false;
+    let useRgcn = false;
+    let riskThreshold = 0.30;
+    let lastGraph = { nodes: [], edges: [] };
 
-      // color & size by risk (0..1 where 1 = most risky)
-      { selector: 'node',
-        style: {
-          'background-color': 'mapData(risk, 0, 1, #22c55e, #ef4444)',
-          'width' : 'mapData(sizeHint, 10, 40, 12, 28)',
-          'height': 'mapData(sizeHint, 10, 40, 12, 28)'
-        }
-      },
-
-      // visibility toggles
-      { selector: '.hide',  style: { 'display': 'none' } },
-      { selector: '.faded', style: { 'opacity': 0.15, 'text-opacity': 0.05 } },
-
-      // risk lens (mute all; we unmute risky via .hot)
-      { selector: '.muted', style: { 'opacity': 0.18, 'text-opacity': 0.05 } },
-      { selector: '.hot',   style: { 'opacity': 1, 'text-opacity': 1, 'border-width': 1.2, 'border-color':'#ffd27a' } }
-    ],
-    elements: []
-  });
-
-  // ---------- UI refs ----------
-  const elTs = document.getElementById('ts');
-  const elN  = document.getElementById('n');
-  const elM  = document.getElementById('m');
-  const elMode = document.getElementById('mode');
-  const elSrc  = document.getElementById('src');
-  const layoutSel = document.getElementById('layoutSel');
-  const chkProc = document.getElementById('chkProc');
-  const chkFile = document.getElementById('chkFile');
-  const chkNet  = document.getElementById('chkNet');
-  const khop    = document.getElementById('khop');
-  const khopVal = document.getElementById('khopVal');
-  const riskLens = document.getElementById('riskLens');
-  const btnRelayout = document.getElementById('btnRelayout');
-
-  function toast(msg){
-    const el = document.getElementById('toast');
-    el.textContent = msg;
-    el.style.display = 'block';
-    clearTimeout(el._t);
-    el._t = setTimeout(()=> el.style.display = 'none', 2400);
-  }
-
-  // ---------- normalization ----------
-  function basename(p){ if(!p) return ''; const i = Math.max(p.lastIndexOf('/'), p.lastIndexOf('\\')); return i>=0 ? p.slice(i+1) : p; }
-
-  function normalizeSnapshot(raw){
-    const rawNodes = Array.isArray(raw.nodes) ? raw.nodes : [];
-    const rawEdges = Array.isArray(raw.edges) ? raw.edges
-                    : Array.isArray(raw.links) ? raw.links : [];
-
-    const nodes = rawNodes.map(n => {
-      const id   = String(n.id ?? n.node_id ?? n.uuid ?? crypto.randomUUID());
-      const kind = n.kind ?? n.type ?? (n.pid ? "proc" : (n.cwd || n.binary_path) ? "file" : "unknown");
-      const trust = (typeof n.trust_score === 'number') ? Math.max(0, Math.min(1, n.trust_score)) : 0.5;
-      const risk  = (typeof n.risk_score === 'number') ? Math.max(0, Math.min(1, n.risk_score/100)) : (1 - trust);
-      const label = n.label
-        ?? basename(n.binary_path)
-        ?? (n.command_line ? n.command_line.split(/\s+/)[0] : '')
-        ?? (n.pid != null ? `proc:${n.pid}` : id);
-      const degree = (n.degree ?? 0);
-      const sizeHint = Math.max(10, Math.min(40, Math.round(10 + (risk*20) + (degree*0.5))));
-      return {
-        data: {
-          id, kind, risk, label,
-          sizeHint,
-          pid: n.pid ?? null, ppid: n.ppid ?? null,
-          fullpath: n.binary_path ?? null,
-          cmd: n.command_line ?? null
-        }
-      };
+    // Controls
+    document.getElementById("pauseBtn").onclick = ()=> {
+      paused = !paused;
+      document.getElementById("pauseBtn").textContent = paused ? "Resume" : "Pause";
+    };
+    document.getElementById("relayoutBtn").onclick = ()=> { if (!simulation) return; simulation.alpha(1).restart(); };
+    document.getElementById("riskSlider").oninput = (e)=> {
+      riskThreshold = (+e.target.value)/100;
+      document.getElementById("riskVal").textContent = riskThreshold.toFixed(2);
+      applyRiskLens();
+    };
+    document.getElementById("rgcnToggle").onchange = (e)=> {
+      useRgcn = e.target.checked;
+      applyRiskLens();
+    };
+    document.getElementById("downloadBtn").onclick = ()=> {
+      const blob = new Blob([JSON.stringify(lastGraph, null, 2)], {type: "application/json"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "graph_live_enriched.json";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    };
+    document.getElementById("search").addEventListener("keydown", (e)=>{
+      if (e.key === "Enter") {
+        focusNodeById(e.target.value.trim());
+      }
     });
 
-    const edges = rawEdges.map(e => {
-      const s = (typeof e.source === "object" ? e.source.id : e.source);
-      const t = (typeof e.target === "object" ? e.target.id : e.target);
-      if (!s || !t) return null;
-      const kind = e.kind ?? e.type ?? 'rel';
-      const weight = Number(e.weight ?? e.score ?? 1);
-      const id = `${s}|${t}|${kind}`;
-      return { data: { id, source: String(s), target: String(t), kind, weight } };
-    }).filter(Boolean);
-
-    // counts / ts
-    const rawTs = raw.ts ?? raw.time ?? raw.timestamp ?? raw.ts_ms ?? (Date.now()/1000);
-    const secTs = rawTs > 2e10 ? rawTs/1000 : rawTs;
-
-    return { nodes, edges, ts: secTs };
-  }
-
-  // ---------- diffing & updates ----------
-  let firstRender = true;
-  let lastTopoSig = '';
-
-  function topologySig(n, m){ return `${n}:${m}`; }
-
-  function applyElements(norm){
-    const wantedIds = new Set(norm.nodes.map(n=>n.data.id).concat(norm.edges.map(e=>e.data.id)));
-    const existing = cy.elements();
-
-    cy.startBatch();
-
-    // remove missing
-    existing.forEach(el => { if (!wantedIds.has(el.id())) el.remove(); });
-
-    // add / update nodes
-    for (const n of norm.nodes){
-      const el = cy.getElementById(n.data.id);
-      if (el.nonempty()){
-        el.data(n.data); // update data (keeps position)
-      } else {
-        cy.add(n);
+    function otypeColor(otype){
+      switch((otype||"").toLowerCase()){
+        case "process": return "#5aa9e6";
+        case "file": return "#95d5b2";
+        case "ip": return "#ffd166";
+        case "user": return "#f4978e";
+        case "domain": return "#cdb4db";
+        default: return "#8892b0";
       }
     }
-
-    // add / update edges
-    for (const e of norm.edges){
-      const el = cy.getElementById(e.data.id);
-      if (el.nonempty()){
-        el.data(e.data);
-      } else {
-        cy.add(e);
+    function otypeSymbol(otype){
+      switch((otype||"").toLowerCase()){
+        case "process": return d3.symbolCircle;
+        case "file": return d3.symbolSquare;
+        case "ip": return d3.symbolDiamond;
+        case "user": return d3.symbolTriangle;
+        case "domain": return d3.symbolHexagon || d3.symbolSquare; // fallback
+        default: return d3.symbolCircle;
       }
     }
-
-    cy.endBatch();
-
-    // HUD
-    elTs.textContent = new Date(norm.ts*1000).toLocaleTimeString();
-    elN.textContent = cy.nodes().length;
-    elM.textContent = cy.edges().length;
-
-    // soft caps (auto-hide files if too big)
-    const tooMany = cy.nodes().length > 3000 || cy.edges().length > 4500;
-    if (tooMany){
-      toggleKindVisibility('file', false);
-      toast('Large graph: hiding file nodes for performance (toggle back on if needed).');
+    function nodeRisk(n){
+      // prefer explicit rgcn_score (0..1), else 1 - trust_score
+      if (useRgcn && typeof n.rgcn_score === "number") return Math.max(0, Math.min(1, n.rgcn_score));
+      const t = typeof n.trust_score === "number" ? n.trust_score : 0.75;
+      return Math.max(0, Math.min(1, 1 - t));
     }
 
-    // relayout policy
-    const sig = topologySig(cy.nodes().length, cy.edges().length);
-    const changedLots = (sig !== lastTopoSig);
-    if (firstRender || changedLots){
-      runLayout(layoutSel.value);
-      lastTopoSig = sig;
-      firstRender = false;
+    function fmtDetails(n){
+      const d = n.details || {};
+      const bits = [];
+      if (d.pid !== undefined) bits.push(`pid=${d.pid}`);
+      if (d.ppid !== undefined) bits.push(`ppid=${d.ppid}`);
+      if (d.exe) bits.push(d.exe);
+      if (d.cmdline) bits.push(d.cmdline);
+      return bits.join(" · ");
     }
-  }
 
-  // ---------- layouts ----------
-  function runLayout(name){
-    let opts;
-    if (name === 'fcose'){
-      opts = {
-        name: 'fcose',
-        quality: (cy.elements().length > 1500 ? 'draft' : 'proof'),
-        randomize: true,
-        idealEdgeLength: 70,
-        nodeRepulsion: 4500,
-        gravity: 0.8,
-        gravityRange: 3.2,
-        fit: true,
-        animate: 'end',
-        animationDuration: 400
-      };
-    } else {
-      // breadthfirst (tree)
-      const roots = cy.nodes('[ppid = 0], [pid = 1], [kind = "proc"]').roots();
-      opts = {
-        name: 'breadthfirst',
-        directed: true,
-        spacingFactor: 1.05,
-        avoidOverlap: true,
-        padding: 20,
-        fit: true,
-        animate: 'end',
-        animationDuration: 300,
-        roots: roots.nonempty() ? roots : undefined
-      };
+    let simulation;
+
+    function render(graph){
+      lastGraph = graph;
+      document.getElementById("hud").textContent =
+        `ts: ${graph.ts || "—"} | nodes: ${graph.nodes_count ?? graph.nodes?.length ?? 0} | edges: ${graph.edges_count ?? graph.edges?.length ?? 0}`;
+
+      // Data join
+      const links = linkGroup.selectAll("line").data(graph.edges, d => `${d.source}->${d.target}:${d.rel||""}`);
+      links.exit().remove();
+      const linksEnter = links.enter().append("line")
+        .attr("class", d => (d.rel_valid === false ? "edge-invalid" : "edge-valid"))
+        .attr("stroke", d => d.rel_valid === false ? "#ff6b6b" : "#4f6b8a");
+      const linkSel = linksEnter.merge(links);
+
+      const nodes = nodeGroup.selectAll("path").data(graph.nodes, d => d.id);
+      nodes.exit().remove();
+      const nodesEnter = nodes.enter().append("path")
+        .attr("d", d3.symbol().type(d=>otypeSymbol(d.otype)).size(150))
+        .attr("fill", d=> otypeColor(d.otype))
+        .attr("stroke", "#081421")
+        .attr("stroke-width", 1.2)
+        .on("mouseover", (ev,d)=> {
+          const risk = nodeRisk(d);
+          tip.style("display","block")
+            .style("left", (ev.pageX+12)+"px")
+            .style("top", (ev.pageY+12)+"px")
+            .html(`
+              <div style="font-weight:700;margin-bottom:4px">${d.otype || "Unknown"} · ${d.id}</div>
+              <div>${fmtDetails(d)}</div>
+              <div style="margin-top:6px;font-size:12px">risk=${risk.toFixed(2)} ${useRgcn?"(rgcn)":"(1-trust)"}${typeof d.rgcn_score==="number"?" | rgcn_score="+d.rgcn_score.toFixed(2):""}</div>
+            `);
+        })
+        .on("mouseout", ()=> tip.style("display","none"))
+        .on("click", (_,d)=> selectNeighborhood(d.id));
+      const nodeSel = nodesEnter.merge(nodes);
+
+      // Optional edge labels (relation)
+      const labels = labelGroup.selectAll("text").data(graph.edges, d => `${d.source}->${d.target}:${d.rel||""}`);
+      labels.exit().remove();
+      const labelsEnter = labels.enter().append("text")
+        .attr("class","edge-label")
+        .attr("pointer-events","none")
+        .text(d => d.rel || "");
+      const labelSel = labelsEnter.merge(labels);
+
+      // Force layout
+      if (simulation) simulation.stop();
+      simulation = d3.forceSimulation(graph.nodes)
+        .force("link", d3.forceLink(graph.edges).id(d=>d.id).distance(40).strength(0.4))
+        .force("charge", d3.forceManyBody().strength(-140))
+        .force("center", d3.forceCenter(window.innerWidth/2, (window.innerHeight-58)/2))
+        .force("collide", d3.forceCollide().radius(18));
+
+      simulation.on("tick", ()=>{
+        linkSel
+          .attr("x1", d=> d.source.x).attr("y1", d=> d.source.y)
+          .attr("x2", d=> d.target.x).attr("y2", d=> d.target.y);
+
+        nodeSel
+          .attr("transform", d=> `translate(${d.x},${d.y})`);
+
+        labelSel
+          .attr("x", d=> (d.source.x + d.target.x)/2)
+          .attr("y", d=> (d.source.y + d.target.y)/2);
+      });
+
+      applyRiskLens();
     }
-    cy.layout(opts).run();
-  }
 
-  layoutSel.addEventListener('change', () => runLayout(layoutSel.value));
-  btnRelayout.addEventListener('click', () => runLayout(layoutSel.value));
+    function applyRiskLens(){
+      // dim nodes & connected edges below threshold
+      const low = new Set();
+      (lastGraph.nodes||[]).forEach(n => { if (nodeRisk(n) < riskThreshold) low.add(n.id); });
 
-  // ---------- filters ----------
-  function toggleKindVisibility(kind, show){
-    const coll = cy.nodes(`[kind = "${kind}"]`);
-    show ? coll.removeClass('hide') : coll.addClass('hide');
-  }
-  chkProc.addEventListener('change', ()=> toggleKindVisibility('proc', chkProc.checked));
-  chkFile.addEventListener('change', ()=> toggleKindVisibility('file', chkFile.checked));
-  chkNet .addEventListener('change', ()=> toggleKindVisibility('net',  chkNet.checked));
+      nodeGroup.selectAll("path")
+        .classed("dim", d=> low.has(d.id));
 
-  // ---------- k-hop focus ----------
-  khop.addEventListener('input', () => { khopVal.textContent = khop.value; if (cy.$(':selected').length) focusAround(cy.$(':selected').first()); });
-  khopVal.textContent = khop.value;
+      linkGroup.selectAll("line")
+        .classed("dim", d=> low.has(d.source.id||d.source) && low.has(d.target.id||d.target));
+    }
 
-  function clearFocus(){ cy.elements().removeClass('faded'); }
-  function focusAround(node){
-    const k = Number(khop.value);
-    cy.elements().addClass('faded');
-    let hood = node.closedNeighborhood();
-    for (let i=1; i<k; i++) hood = hood.closedNeighborhood();
-    hood.removeClass('faded');
-  }
+    function selectNeighborhood(nodeId){
+      const neigh = new Set([nodeId]);
+      (lastGraph.edges||[]).forEach(e=>{
+        if (e.source.id === nodeId || e.source === nodeId) neigh.add(e.target.id||e.target);
+        if (e.target.id === nodeId || e.target === nodeId) neigh.add(e.source.id||e.source);
+      });
+      nodeGroup.selectAll("path")
+        .classed("selected", d=> neigh.has(d.id))
+        .classed("dim", d=> !neigh.has(d.id));
+      linkGroup.selectAll("line")
+        .classed("dim", d=> !(neigh.has(d.source.id||d.source) && neigh.has(d.target.id||d.target)));
+    }
 
-  cy.on('tap', 'node', (ev)=>{
-    const n = ev.target;
-    cy.nodes().unselect();
-    n.select();
-    if (Number(khop.value) > 0) focusAround(n); else clearFocus();
-  });
-  cy.on('tap', (ev)=> { if (ev.target === cy){ cy.nodes().unselect(); clearFocus(); } });
+    function focusNodeById(id){
+      if (!id) return;
+      const node = (lastGraph.nodes||[]).find(n=> n.id===id);
+      if (!node) return;
+      selectNeighborhood(id);
+      const t = d3.zoomIdentity.translate(window.innerWidth/2 - node.x*1.2, (window.innerHeight-58)/2 - node.y*1.2).scale(1.2);
+      svg.transition().duration(350).call(zoom.transform, t);
+    }
 
-  // ---------- risk lens ----------
-  function applyRiskLens(on){
-    const all = cy.elements();
-    all.removeClass('muted hot');
-    if (!on) return;
-
-    // mute all, highlight risky >= 0.6
-    all.addClass('muted');
-    const hot = cy.nodes().filter(n => (Number(n.data('risk')) || 0) >= 0.6);
-    hot.removeClass('muted').addClass('hot');
-  }
-  riskLens.addEventListener('change', ()=> applyRiskLens(riskLens.checked));
-
-  // ---------- transport (SSE + polling) ----------
-  let sseActive = false;
-  let pollTimer = null;
-
-  function setMode(mode, src){
-    elMode.textContent = mode;
-    if (src) elSrc.textContent = src;
-  }
-
-  async function pollOnce(){
-    try{
-      const r = await fetch('/json_files/graph_live.json', { cache:'no-store' });
-      if (!r.ok) return;
-      const raw = await r.json();
-      if (!raw) return;
-      const norm = normalizeSnapshot(raw);
-      applyElements(norm);
-    } catch {}
-  }
-
-  function startPolling(){
-    if (pollTimer) return;
-    setMode('polling', '/json_files/graph_live.json');
-    pollTimer = setInterval(pollOnce, 1000);
-    pollOnce();
-  }
-  function stopPolling(){ if (pollTimer){ clearInterval(pollTimer); pollTimer = null; } }
-
-  function startSSE(){
-    try{
-      const es = new EventSource('/graph/stream');
-      es.onopen = () => {
-        sseActive = true; stopPolling();
-        setMode('sse', '/graph/stream');
-      };
-      es.onmessage = (ev) => {
+    // Stream (SSE) with fallback
+    let es;
+    function connectSSE(){
+      if (es) es.close();
+      es = new EventSource("/graph/stream");
+      es.onmessage = (ev)=>{
+        if (paused) return;
         try {
-          const raw = JSON.parse(ev.data);
-          const norm = normalizeSnapshot(raw);
-          applyElements(norm);
-        } catch {}
+          const v = JSON.parse(ev.data);
+          render(v);
+        } catch(e){ console.warn("bad graph chunk", e); }
       };
-      es.onerror = () => {
-        if (sseActive) toast('SSE disconnected — falling back to polling');
-        sseActive = false; es.close();
-        startPolling();
-        setTimeout(startSSE, 3000);
+      es.onerror = async ()=>{
+        try {
+          const res = await fetch("/graph/live", { cache: "no-store" });
+          const v = await res.json();
+          render(v);
+        } catch(_) {}
       };
-    } catch {
-      startPolling();
-      setTimeout(startSSE, 4000);
     }
-  }
+    connectSSE();
 
-  // seed quickly
-  startPolling();
-  startSSE();
-
-  // responsive center adjust
-  addEventListener('resize', () => {
-    // no-op: layouts fit on run; keep current viewbox
-  });
-
+    // Resize handling
+    window.addEventListener("resize", ()=>{
+      if (simulation) simulation.alpha(0.3).restart();
+    });
   </script>
 </body>
 </html>

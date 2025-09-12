@@ -12,12 +12,19 @@
 </head>
 <body class="bg-slate-950 text-slate-100">
   <div class="max-w-7xl mx-auto p-4">
+    <!-- Header -->
     <header class="flex items-center justify-between mb-4">
-      <h1 class="text-xl font-semibold">EDR Demo</h1>
-      <div class="text-sm text-slate-400">
+      <div class="flex items-center gap-2">
+        <h1 class="text-xl font-semibold">EDR Demo</h1>
+        <span class="ml-2 text-xs px-1.5 py-0.5 rounded bg-emerald-700/70">live</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 text-sm text-slate-400">
         <span id="statEvents">events: 0</span>
-        <span class="mx-2">•</span>
         <span id="statAlerts">alerts: 0</span>
+        <span id="statNodes">nodes: 0</span>
+        <span id="statEdges">edges: 0</span>
+        <span id="statDrops">bpf_drops: 0</span>
+        <a class="underline decoration-sky-500/60 hover:decoration-sky-400" href="/ui/graph.html">Open Live Graph</a>
       </div>
     </header>
 
@@ -64,6 +71,33 @@
         <div class="rounded border border-slate-800 p-3">
           <div class="text-sm font-medium mb-2">Timeline</div>
           <canvas id="timeline" height="200"></canvas>
+        </div>
+
+        <!-- Incidents (rollups) -->
+        <div id="incidents" class="rounded border border-slate-800 p-3 lg:col-span-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-sm font-medium">Incidents (rollups)</div>
+          </div>
+          <p class="text-xs text-slate-400 mb-2">No incidents yet.</p>
+          <ul id="incList" class="divide-y divide-slate-800"></ul>
+        </div>
+
+        <!-- Playbooks activity -->
+        <div class="rounded border border-slate-800 p-3 lg:col-span-3">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div>
+              <div class="text-sm font-medium mb-2">Playbooks (live stream)</div>
+              <ul id="pb-feed" class="text-xs space-y-1 max-h-64 overflow-auto pr-1"></ul>
+            </div>
+            <div>
+              <div class="text-sm font-medium mb-2">Recent hits</div>
+              <ul id="pb-hits" class="text-xs space-y-1 max-h-64 overflow-auto pr-1"></ul>
+            </div>
+            <div>
+              <div class="text-sm font-medium mb-2">Pending matches</div>
+              <ul id="pb-pending" class="text-xs space-y-1 max-h-64 overflow-auto pr-1"></ul>
+            </div>
+          </div>
         </div>
 
         <!-- Selected alert JSON -->
@@ -153,7 +187,7 @@
     </div>
   </div>
 
-  <!-- App bootstrap (your logic lives here) -->
+  <!-- App bootstrap -->
   <script src="/ui/app.js"></script>
 </body>
 </html>

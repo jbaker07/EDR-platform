@@ -1,4 +1,4 @@
-/* app.js - cleaned + focused (hardened) */
+/* app.js — hardened + with health + incidents + playbooks (safe if elements missing) */
 
 (() => {
   "use strict";
@@ -8,57 +8,60 @@
   const detailEl    = document.getElementById('detail');
   const sevEl       = document.getElementById('sevFilter');
   const searchEl    = document.getElementById('search');
+
+  // Header stats (all optional)
   const statEvents  = document.getElementById('statEvents');
   const statAlerts  = document.getElementById('statAlerts');
+  const statNodes   = document.getElementById('statNodes');
+  const statEdges   = document.getElementById('statEdges');
+  const statDrops   = document.getElementById('statDrops');
+
+  // Tabs / screens (optional)
   const screenDash  = document.getElementById('screenDash');
   const screenInt   = document.getElementById('screenIntegrations');
   const tabDash     = document.getElementById('tabDash');
   const tabInt      = document.getElementById('tabIntegrations');
 
-  // Integrations pane
+  // Integrations pane (optional)
   const addDlg      = document.getElementById('addDlg');
   const vendorSel   = document.getElementById('vendorSel');
   const credFields  = document.getElementById('credFields');
   const tilesGrid   = document.getElementById('tiles');
+  const btnAdd      = document.getElementById('btnAdd');
+  const saveIntegrationBtn = document.getElementById('saveIntegration');
 
-  // Explain drawer
+  // Explain drawer (optional)
   const drawer      = document.getElementById('drawer');
   const exCloseBtn  = document.getElementById('ex_close');
 
-  // Timeline canvas
+  // Timeline canvas (optional)
   const timelineCanvas = document.getElementById('timeline');
+
+  // Playbooks UI (optional; renders only if present)
+  const pbFeedEl    = document.getElementById('pb-feed');
+  const pbHitsEl    = document.getElementById('pb-hits');
+  const pbPendingEl = document.getElementById('pb-pending');
+
+  // Incidents (DecisionEngine rollups) — optional UI
+  const incWrap     = document.getElementById('incidents');
+  const incListEl   = document.getElementById('incList');
 
   // ---------- State ----------
   const MAX_ALERTS = 2000;
   let alerts   = [];
   let eventsIn = 0;
   let catalog  = { vendors: [] };
-
-  // ---------- Tabs ----------
-  function activateTab(which) {
-    const onDash = which === 'dash';
-    screenDash.classList.toggle('hidden', !onDash);
-    screenInt.classList.toggle('hidden', onDash);
-    tabDash.className = onDash
-      ? 'px-3 py-1 rounded bg-sky-600 text-white'
-      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
-    tabInt.className = !onDash
-      ? 'px-3 py-1 rounded bg-sky-600 text-white'
-      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
-    if (!onDash) loadIntegrations();
-  }
-  tabDash.onclick = () => activateTab('dash');
-  tabInt.onclick  = () => activateTab('int');
-  activateTab('dash');
+  const incidents = new Map(); // id -> incident json
 
   // ---------- Helpers ----------
   const nowSec = () => Math.floor(Date.now() / 1000);
+  const setText = (el, s) => { if (el) el.textContent = s; };
+  const safeAdd = (el, child) => { if (el && child) el.appendChild(child); };
 
   function parseTs(x) {
     if (x == null) return nowSec();
     if (typeof x === 'number') return x > 2_000_000_000 ? Math.floor(x/1000) : x; // ms→s
     const s = String(x);
-    // ISO or anything Date.parse understands
     const t = Date.parse(s);
     if (!Number.isNaN(t)) return Math.floor(t/1000);
     const n = Number(s);
@@ -66,7 +69,7 @@
     return nowSec();
   }
 
-  const tsOf = (a) => parseTs(a.ts ?? a.time ?? a.timestamp);
+  const tsOf = (a) => parseTs(a?.ts ?? a?.time ?? a?.timestamp);
   const fmt  = (ts) => new Date(Number(ts) * 1000).toLocaleString();
 
   function severityCategory(a) {
@@ -79,13 +82,13 @@
     }
     return (String(s || '').toLowerCase());
   }
-  function sevOf(a) { return severityCategory(a); }
-  function riskOf(a) { return Number(a.risk ?? a.score ?? 0); }
+  const sevOf  = (a) => severityCategory(a);
+  const riskOf = (a) => Number(a?.risk ?? a?.score ?? 0);
 
   function extractText(a) {
-    const exe  = a.event?.exe ?? a.event?.binary_path ?? a.event?.category ?? '';
-    const cmd  = a.event?.cmdline ?? a.event?.command_line ?? '';
-    const tags = (Array.isArray(a.findings) ? a.findings : [])
+    const exe  = a?.event?.exe ?? a?.event?.binary_path ?? a?.event?.category ?? '';
+    const cmd  = a?.event?.cmdline ?? a?.event?.command_line ?? '';
+    const tags = (Array.isArray(a?.findings) ? a.findings : [])
       .map(f => (f && (f.label || f.rule || f.source)) || '')
       .join(' ');
     return { exe, cmd, tags };
@@ -113,8 +116,8 @@
       (top.label && /^T\d{4}(\.\d{3})?$/.test(top.label) ? top.label : null);
     const who = (top.source ? `${top.source}${top.rule ? ':'+top.rule : ''}` :
                 (top.rule || top.id || top.label || null));
-    const exe = a.event?.exe || a.event?.binary_path || a.event?.category || '';
-    const cmd = a.event?.cmdline || a.event?.command_line || '';
+    const exe = a?.event?.exe || a?.event?.binary_path || a?.event?.category || '';
+    const cmd = a?.event?.cmdline || a?.event?.command_line || '';
     const parts = [
       sev + (technique ? ` · ${technique}` : ''),
       who ? `by ${who}` : '',
@@ -126,7 +129,7 @@
   }
 
   function synthIdFor(a) {
-    const key = `${tsOf(a)}${a.event?.exe || a.event?.binary_path || '-'}${a.event?.cmdline || a.event?.command_line || '-'}`;
+    const key = `${tsOf(a)}${a?.event?.exe || a?.event?.binary_path || '-'}${a?.event?.cmdline || a?.event?.command_line || '-'}`;
     let h = 0; for (let i = 0; i < key.length; i++) h = ((h << 5) - h) + key.charCodeAt(i) | 0;
     return String(h >>> 0);
   }
@@ -138,6 +141,24 @@
     return e;
   }
 
+  // ---------- Tabs ----------
+  function activateTab(which) {
+    if (!screenDash || !screenInt || !tabDash || !tabInt) return;
+    const onDash = which === 'dash';
+    screenDash.classList.toggle('hidden', !onDash);
+    screenInt.classList.toggle('hidden', onDash);
+    tabDash.className = onDash
+      ? 'px-3 py-1 rounded bg-sky-600 text-white'
+      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
+    tabInt.className = !onDash
+      ? 'px-3 py-1 rounded bg-sky-600 text-white'
+      : 'px-3 py-1 rounded bg-slate-800 text-slate-200';
+    if (!onDash) loadIntegrations();
+  }
+  if (tabDash) tabDash.onclick = () => activateTab('dash');
+  if (tabInt)  tabInt.onclick  = () => activateTab('int');
+  activateTab('dash');
+
   // ---------- SSE Alerts ----------
   const es = new EventSource('/alerts');
   es.onmessage = (ev) => {
@@ -145,12 +166,63 @@
       const a = JSON.parse(ev.data);
       alerts.push(a);
       if (alerts.length > MAX_ALERTS) alerts.splice(0, alerts.length - MAX_ALERTS);
-      statAlerts.textContent = `alerts: ${alerts.length}`;
+      setText(statAlerts, `alerts: ${alerts.length}`);
       renderTable();
       pushTimelinePoint(a);
     } catch { /* ignore */ }
   };
   es.onerror = () => { /* browser auto-retries SSE */ };
+
+  // ---------- Incidents SSE (DecisionEngine rollups) ----------
+  if (incListEl) {
+    const esInc = new EventSource('/incidents/stream');
+    esInc.onmessage = (ev) => {
+      try {
+        const it = JSON.parse(ev.data);
+        if (it && it.id) {
+          incidents.set(it.id, it);
+          renderIncidents();
+        }
+      } catch {}
+    };
+  }
+
+  function renderIncidents() {
+    if (!incListEl) return;
+    const items = Array.from(incidents.values())
+      .sort((a,b) => (b.last_ts||0) - (a.last_ts||0))
+      .slice(0, 40);
+    incListEl.textContent = '';
+    if (!items.length) {
+      const p = incWrap?.querySelector('.text-slate-400');
+      if (p) p.classList.remove('hidden');
+      return;
+    } else {
+      const p = incWrap?.querySelector('.text-slate-400');
+      if (p) p.classList.add('hidden');
+    }
+    for (const x of items) {
+      const li = el('li','py-2 flex items-start justify-between gap-2');
+      const left = el('div','min-w-0');
+      const sevColor =
+        x.severity_max === 'high' ? 'bg-rose-700/80' :
+        x.severity_max === 'medium' ? 'bg-amber-600/80' :
+        x.severity_max === 'low' ? 'bg-emerald-700/80' : 'bg-slate-700/80';
+      const sev = el('span',`inline-block px-2 py-0.5 rounded text-xs mr-2 ${sevColor}`, (x.severity_max || 'none'));
+      const head = el('div','font-medium truncate');
+      head.appendChild(sev);
+      head.appendChild(document.createTextNode(`${x.exe || '-'} · ${x.primary_technique || '-'}`));
+      const sub = el('div','text-xs text-slate-400 mt-0.5',
+        `alerts: ${x.alerts_count ?? 0} · risk_max: ${(x.risk_max ?? 0).toFixed(2)} · rgcn: ${(x.rgcn_score ?? 0).toFixed(2)} · ${new Date((x.last_ts||0)*1000).toLocaleString()}`);
+      left.appendChild(head); left.appendChild(sub);
+      const techs = Array.isArray(x.techniques) ? x.techniques.slice(0,6) : [];
+      const chips = el('div','mt-1 flex flex-wrap gap-1 text-[11px]');
+      for (const t of techs) chips.appendChild(el('span','px-1.5 py-0.5 rounded bg-slate-800', t));
+      left.appendChild(chips);
+      li.appendChild(left);
+      incListEl.appendChild(li);
+    }
+  }
 
   // ---------- Metrics poll ----------
   async function pollMetrics() {
@@ -159,18 +231,22 @@
       if (!r.ok) return;
       const m = await r.json();
       eventsIn = m.events_in || 0;
-      statEvents.textContent = `events: ${eventsIn}`;
+      setText(statEvents, `events: ${eventsIn}`);
+      setText(statNodes,  `nodes: ${m.nodes_count ?? 0}`);
+      setText(statEdges,  `edges: ${m.edges_count ?? 0}`);
+      setText(statDrops,  `bpf_drops: ${m.bpf_drops_total ?? 0}`);
     } catch { /* ignore */ }
   }
   setInterval(pollMetrics, 5000); pollMetrics();
 
   // ---------- Alerts table ----------
-  sevEl.onchange   = renderTable;
-  searchEl.oninput = renderTable;
+  if (sevEl)   sevEl.onchange   = renderTable;
+  if (searchEl) searchEl.oninput = renderTable;
 
   function renderTable() {
-    const sevFilter = (sevEl.value || '').toLowerCase();
-    const q = (searchEl.value || '').toLowerCase();
+    if (!rowsEl) return;
+    const sevFilter = (sevEl && sevEl.value || '').toLowerCase();
+    const q = (searchEl && searchEl.value || '').toLowerCase();
     rowsEl.textContent = ''; // clear safely
 
     // newest first
@@ -260,7 +336,7 @@
   }
 
   // ---------- Explain drawer ----------
-  exCloseBtn.onclick = () => drawer.classList.add('hidden');
+  if (exCloseBtn) exCloseBtn.onclick = () => drawer && drawer.classList.add('hidden');
 
   async function openExplain(id) {
     try {
@@ -268,78 +344,88 @@
       if (!r.ok) return;
       const ex = await r.json();
       renderExplain(ex);
-      drawer.classList.remove('hidden');
+      if (drawer) drawer.classList.remove('hidden');
     } catch { /* ignore */ }
   }
 
   function renderExplain(ex) {
+    if (!ex) return;
+    const H = (id, v) => { const n = document.getElementById(id); if (n) n.textContent = v; };
+
     // headline + scores
-    (document.getElementById('ex_head').textContent = ex.headline || 'Explain');
-    (document.getElementById('ex_risk').textContent = Number(ex.risk || 0).toFixed(2));
-    (document.getElementById('ex_rgcn').textContent = Number(ex.rgcn_score || 0).toFixed(2));
+    H('ex_head', ex.headline || 'Explain');
+    H('ex_risk', Number(ex.risk || 0).toFixed(2));
+    H('ex_rgcn', Number(ex.rgcn_score || 0).toFixed(2));
 
     // entities
-    document.getElementById('ex_entities').textContent = JSON.stringify(ex.entities || {}, null, 2);
+    H('ex_entities', JSON.stringify(ex.entities || {}, null, 2));
 
     // findings
     const whyUl = document.getElementById('ex_why');
-    whyUl.textContent = '';
-    (ex.why || []).forEach(w => {
-      const li  = el('li', null,
-        `${w?.source || 'detector'} · ${Number(w?.score || 0).toFixed(2)}${w?.label ? ` · ${w.label}` : ''}`
-      );
-      whyUl.appendChild(li);
-    });
-    document.getElementById('ex_anoms').textContent = (ex.anomalies || []).join(', ') || '—';
+    if (whyUl) {
+      whyUl.textContent = '';
+      (ex.why || []).forEach(w => {
+        const li  = el('li', null,
+          `${w?.source || 'detector'} · ${Number(w?.score || 0).toFixed(2)}${w?.label ? ` · ${w.label}` : ''}`
+        );
+        whyUl.appendChild(li);
+      });
+    }
+    H('ex_anoms', (ex.anomalies || []).join(', ') || '—');
 
     // graph
     const g = ex.graph || { nodes: [], edges: [], links: [] };
     const edges = Array.isArray(g.edges) && g.edges.length ? g.edges : (g.links || []);
     const graphDiv = document.getElementById('ex_graph');
-    graphDiv.innerHTML = '';
-    if ((g.nodes || []).length) {
-      ensureCytoscape().then(() => {
-        // idempotent: reuse container by nuking previous instance content
-        graphDiv.innerHTML = '';
-        cytoscape({
-          container: graphDiv,
-          elements: {
-            nodes: g.nodes.map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
-            edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
-          },
-          style: [
-            { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
-            { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
-          ],
-          layout: { name: 'breadthfirst', directed: true, padding: 8 }
+    if (graphDiv) {
+      graphDiv.innerHTML = '';
+      if ((g.nodes || []).length) {
+        ensureCytoscape().then(() => {
+          graphDiv.innerHTML = '';
+          cytoscape({
+            container: graphDiv,
+            elements: {
+              nodes: g.nodes.map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
+              edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
+            },
+            style: [
+              { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
+              { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
+            ],
+            layout: { name: 'breadthfirst', directed: true, padding: 8 }
+          });
         });
-      });
+      }
     }
 
     // timeline (explain window)
     const tlWrap = document.getElementById('ex_timeline');
-    tlWrap.textContent = '';
-    const frag = document.createDocumentFragment();
-    (ex.timeline || []).slice(0, 120).forEach(e => {
-      const line = el('div', null, `${new Date(parseTs(e.ts ?? e.time ?? e.timestamp) * 1000).toLocaleTimeString()} — pid ${e.pid ?? '—'} → ${e.exe || ''} `);
-      const span = el('span', 'text-slate-500', e.cmd || '');
-      line.appendChild(span);
-      frag.appendChild(line);
-    });
-    tlWrap.appendChild(frag);
-    if (!(ex.timeline || []).length) tlWrap.textContent = '—';
+    if (tlWrap) {
+      tlWrap.textContent = '';
+      const frag = document.createDocumentFragment();
+      (ex.timeline || []).slice(0, 120).forEach(e => {
+        const line = el('div', null, `${new Date(parseTs(e.ts ?? e.time ?? e.timestamp) * 1000).toLocaleTimeString()} — pid ${e.pid ?? '—'} → ${e.exe || ''} `);
+        const span = el('span', 'text-slate-500', e.cmd || '');
+        line.appendChild(span);
+        frag.appendChild(line);
+      });
+      tlWrap.appendChild(frag);
+      if (!(ex.timeline || []).length) tlWrap.textContent = '—';
+    }
 
     // enrichment
-    document.getElementById('ex_enrich').textContent = JSON.stringify(ex.enrichment || {}, null, 2);
+    H('ex_enrich', JSON.stringify(ex.enrichment || {}, null, 2));
 
     // actions
     const actionsUl = document.getElementById('ex_actions');
-    actionsUl.textContent = '';
-    (ex.recommendations || []).forEach(a => actionsUl.appendChild(el('li', null, a)));
+    if (actionsUl) {
+      actionsUl.textContent = '';
+      (ex.recommendations || []).forEach(a => actionsUl.appendChild(el('li', null, a)));
+    }
   }
 
   function selectAlert(a) {
-    detailEl.textContent = JSON.stringify(a, null, 2);
+    if (detailEl) detailEl.textContent = JSON.stringify(a, null, 2);
     const id = a.id || synthIdFor(a);
     openExplain(id);
   }
@@ -351,13 +437,16 @@
       if (!r.ok) return;
       const cat = await r.json();
       catalog.vendors = Array.isArray(cat?.vendors) ? cat.vendors : (Array.isArray(cat?.items) ? cat.items : []);
-      vendorSel.innerHTML = (catalog.vendors || []).map(v => `<option value="${String(v.id)}">${String(v.name || v.id)}</option>`).join('');
-      vendorSel.onchange = renderCredFields;
+      if (vendorSel) {
+        vendorSel.innerHTML = (catalog.vendors || []).map(v => `<option value="${String(v.id)}">${String(v.name || v.id)}</option>`).join('');
+        vendorSel.onchange = renderCredFields;
+      }
       renderCredFields();
     } catch { /* ignore */ }
   }
 
   function renderCredFields() {
+    if (!credFields || !vendorSel) return;
     const v = (catalog.vendors || []).find(x => String(x.id) === String(vendorSel.value));
     const fields = (v?.auth?.fields || v?.required_fields || []);
     credFields.textContent = '';
@@ -373,10 +462,11 @@
     credFields.appendChild(frag);
   }
 
-  document.getElementById('btnAdd').onclick = async () => { await loadCatalog(); addDlg.showModal(); };
+  if (btnAdd) btnAdd.onclick = async () => { await loadCatalog(); addDlg?.showModal?.(); };
 
-  document.getElementById('saveIntegration').onclick = async (e) => {
+  if (saveIntegrationBtn) saveIntegrationBtn.onclick = async (e) => {
     e.preventDefault();
+    if (!vendorSel) return;
     const id = vendorSel.value;
     const v  = (catalog.vendors || []).find(x => String(x.id) === String(id));
     const fields = (v?.auth?.fields || v?.required_fields || []);
@@ -392,7 +482,7 @@
         body: JSON.stringify({ id, kind: id, name: v?.name || id, creds })
       });
     } catch {}
-    addDlg.close();
+    addDlg?.close?.();
     loadIntegrations();
   };
 
@@ -419,6 +509,7 @@
         items = data.items || [];
       }
 
+      if (!tilesGrid) return;
       tilesGrid.textContent = '';
       const frag = document.createDocumentFragment();
 
@@ -465,31 +556,102 @@
             if (!r.ok) return;
             const g = await r.json();
             const rgEl = document.getElementById(`rg_${id}`);
-            rgEl.textContent = Number(g.rgcn_score || 0).toFixed(2);
-            const wrap = document.getElementById(`graph_${id}`); wrap.classList.remove('hidden');
+            if (rgEl) rgEl.textContent = Number(g.rgcn_score || 0).toFixed(2);
+            const wrap = document.getElementById(`graph_${id}`); if (wrap) wrap.classList.remove('hidden');
 
             await ensureCytoscape();
             const container = document.getElementById(`cy_${id}`);
-            container.innerHTML = ''; // idempotent
-            const edges = Array.isArray(g.edges) && g.edges.length ? g.edges : (g.links || []);
-            cytoscape({
-              container,
-              elements: {
-                nodes: (g.nodes || []).map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
-                edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
-              },
-              style: [
-                { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
-                { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
-              ],
-              layout: { name: 'breadthfirst', directed: true, padding: 8 }
-            });
+            if (container) {
+              container.innerHTML = ''; // idempotent
+              const edges = Array.isArray(g.edges) && g.edges.length ? g.edges : (g.links || []);
+              cytoscape({
+                container,
+                elements: {
+                  nodes: (g.nodes || []).map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
+                  edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
+                },
+                style: [
+                  { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
+                  { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
+                ],
+                layout: { name: 'breadthfirst', directed: true, padding: 8 }
+              });
+            }
           } catch { /* ignore */ }
         };
       }
     } catch { /* ignore */ }
   }
   loadIntegrations();
+
+  // ---------- Playbooks wiring (SSE + snapshots; optional) ----------
+  function renderPbItem(item) {
+    const ts = (item?.ts || item?.time || 0) * 1000;
+    const when = ts ? new Date(ts).toLocaleString() : '';
+    const title = item?.playbook_name || item?.playbook_id || 'playbook';
+    const sev = (item?.severity || '').toString().toUpperCase();
+    const rationale = Array.isArray(item?.rationale) ? item.rationale.join(' | ') : '';
+    const tags = Array.isArray(item?.tags) ? item.tags.join(', ') : '';
+
+    const li = el('li', 'text-sm');
+    if (when) li.appendChild(el('span', 'text-slate-400 mr-2', `[${when}]`));
+    li.appendChild(el('span', 'font-medium mr-2', title));
+    if (sev) li.appendChild(el('span', 'px-1 py-0.5 rounded bg-slate-700/70 text-xs mr-2', sev));
+    if (tags) li.appendChild(el('span', 'text-slate-400 mr-2', tags));
+    if (rationale) li.appendChild(el('span', 'text-slate-300', rationale));
+    return li;
+  }
+
+  function appendPbFeed(item) {
+    if (!pbFeedEl) return;
+    const li = renderPbItem(item);
+    pbFeedEl.prepend(li);
+    while (pbFeedEl.children.length > 200) pbFeedEl.removeChild(pbFeedEl.lastChild);
+  }
+
+  async function loadPlaybooksSnapshots() {
+    try {
+      const [hitsR, pendR] = await Promise.all([
+        fetch('/playbooks/hits'),
+        fetch('/playbooks/pending')
+      ]);
+      if (hitsR.ok) {
+        const hits = await hitsR.json();
+        if (pbHitsEl) {
+          pbHitsEl.textContent = '';
+          (Array.isArray(hits) ? hits : []).slice(-200).forEach(h => safeAdd(pbHitsEl, renderPbItem(h)));
+        }
+      }
+      if (pendR.ok) {
+        const pending = await pendR.json();
+        if (pbPendingEl) {
+          pbPendingEl.textContent = '';
+          (Array.isArray(pending) ? pending : []).slice(-200).forEach(p => safeAdd(pbPendingEl, renderPbItem(p)));
+        }
+      }
+    } catch { /* ignore */ }
+  }
+
+  (function mountPlaybooksSSE() {
+    if (!pbFeedEl && !pbHitsEl && !pbPendingEl) return; // nothing to render
+    try {
+      const esPB = new EventSource('/playbooks/stream');
+      esPB.onmessage = (evt) => {
+        try {
+          const msg = JSON.parse(evt.data);
+          const item = msg.item || msg; // tolerate either {kind,item} or direct item
+          appendPbFeed(item);
+        } catch (e) {
+          console.warn('PB stream parse error', e);
+        }
+      };
+      esPB.onerror = (e) => console.warn('PB stream error', e);
+      loadPlaybooksSnapshots();
+      setInterval(loadPlaybooksSnapshots, 30000);
+    } catch (e) {
+      console.warn('PB SSE init failed', e);
+    }
+  })();
 
   // ---------- Lazy loader for Cytoscape ----------
   function ensureCytoscape() {

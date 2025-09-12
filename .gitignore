@@ -1,28 +1,16 @@
-# Example additions:
-*.safetensors
-*.pt
-*.log
-*.db
-*.jsonl
-*.csv
-*.rev
-*.pack
-*.idx
-*.pickle
-*.joblib
-node_modules/
-logs/
-telemetry.db*
-*.gpickle
-edr-agent/src/asahi-kernel-exact/
-edr-agent/src/asahi-kernel-exact/
-edr-agent/src/ebpf/asahi-linux/
-edr-agent/target/
 target/
+**/target/
+_bpf_build/
+ebpf/_bpf_build/
+*.bpf.o
+logs/
+json_files/
+state/
+*.ndjson
 
-# runtime / generated
-edr-agent/json_files/graph_live.json
-edr-agent/telemetry_output/kv_telemetry.jsonl
+# runtime/generated
+edr-agent/json_files/
+edr-agent/telemetry_output/
 state/pcb_snaps.ndjson
 logs/
 edr-agent/logs/

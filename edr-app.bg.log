@@ -1,0 +1,896 @@
+libbpf: elf: failed to open src/ebpf/net_flow.bpf.o: -ENOENT
+[ebpf/net] open failed for src/ebpf/net_flow.bpf.o: Internal error: bpf call "libbpf_rs::object::ObjectBuilder::open_file<&alloc::string::String>::{{closure}}" returned NULL
+libbpf: elf: failed to open src/ebpf/file_access_monitor.bpf.o: -ENOENT
+⛔ file_access_reader disabled: Internal error: bpf call "libbpf_rs::object::ObjectBuilder::open_file<&str>::{{closure}}" returned NULL
+🌐 UI available at http://127.0.0.1:8080/
+📊 metrics: events_in=0 alerts_out=0
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "tty2", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'tty2' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "source": "get_logged_in_users",
+    "host": "tty2",
+    "pid": "1610",
+    "uid": "1000",
+    "timestamp": "1756839637",
+    "session_id": "497738975372251578",
+    "suspicious_tty": "false",
+    "ppid": "1",
+    "login_time": "1756388520",
+    "features": "[0.1, 451117.0, 2.0]",
+    "terminal": "tty2",
+    "username": "jermaineb",
+    "session_age_seconds": "451117",
+    "replay_tag": "user_login",
+}
+📝 Telemetry record: {"source": "get_logged_in_users", "host": "tty2", "pid": "1610", "uid": "1000", "timestamp": "1756839637", "session_id": "497738975372251578", "suspicious_tty": "false", "ppid": "1", "login_time": "1756388520", "features": "[0.1, 451117.0, 2.0]", "terminal": "tty2", "username": "jermaineb", "session_age_seconds": "451117", "replay_tag": "user_login"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/4", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/4' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "source": "get_logged_in_users",
+    "session_age_seconds": "319537",
+    "host": "localhost",
+    "suspicious_tty": "false",
+    "replay_tag": "user_login",
+    "features": "[0.1, 319537.0, 2.0]",
+    "pid": "1610",
+    "username": "jermaineb",
+    "terminal": "pts/4",
+    "ppid": "1",
+    "login_time": "1756520100",
+    "timestamp": "1756839637",
+    "session_id": "16839674196718505120",
+    "uid": "1000",
+}
+📝 Telemetry record: {"source": "get_logged_in_users", "session_age_seconds": "319537", "host": "localhost", "suspicious_tty": "false", "replay_tag": "user_login", "features": "[0.1, 319537.0, 2.0]", "pid": "1610", "username": "jermaineb", "terminal": "pts/4", "ppid": "1", "login_time": "1756520100", "timestamp": "1756839637", "session_id": "16839674196718505120", "uid": "1000"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/6", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/6' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "source": "get_logged_in_users",
+    "host": "localhost",
+    "ppid": "1",
+    "login_time": "1756839600",
+    "replay_tag": "user_login",
+    "session_id": "7871420263988052424",
+    "username": "jermaineb",
+    "uid": "1000",
+    "session_age_seconds": "37",
+    "terminal": "pts/6",
+    "timestamp": "1756839637",
+    "suspicious_tty": "false",
+    "features": "[0.1, 37.0, 2.0]",
+    "pid": "1610",
+}
+📝 Telemetry record: {"source": "get_logged_in_users", "host": "localhost", "ppid": "1", "login_time": "1756839600", "replay_tag": "user_login", "session_id": "7871420263988052424", "username": "jermaineb", "uid": "1000", "session_age_seconds": "37", "terminal": "pts/6", "timestamp": "1756839637", "suspicious_tty": "false", "features": "[0.1, 37.0, 2.0]", "pid": "1610"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/8", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/8' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "host": "localhost",
+    "source": "get_logged_in_users",
+    "ppid": "1",
+    "session_age_seconds": "222337",
+    "uid": "1000",
+    "login_time": "1756617300",
+    "username": "jermaineb",
+    "terminal": "pts/8",
+    "timestamp": "1756839637",
+    "session_id": "4402201511732808120",
+    "suspicious_tty": "false",
+    "pid": "1610",
+    "replay_tag": "user_login",
+    "features": "[0.1, 222337.0, 2.0]",
+}
+📝 Telemetry record: {"host": "localhost", "source": "get_logged_in_users", "ppid": "1", "session_age_seconds": "222337", "uid": "1000", "login_time": "1756617300", "username": "jermaineb", "terminal": "pts/8", "timestamp": "1756839637", "session_id": "4402201511732808120", "suspicious_tty": "false", "pid": "1610", "replay_tag": "user_login", "features": "[0.1, 222337.0, 2.0]"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/9", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/9' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "host": "localhost",
+    "pid": "1610",
+    "timestamp": "1756839637",
+    "terminal": "pts/9",
+    "replay_tag": "user_login",
+    "ppid": "1",
+    "uid": "1000",
+    "source": "get_logged_in_users",
+    "session_id": "688546929687474038",
+    "suspicious_tty": "false",
+    "features": "[0.1, 222337.0, 2.0]",
+    "login_time": "1756617300",
+    "session_age_seconds": "222337",
+    "username": "jermaineb",
+}
+📝 Telemetry record: {"host": "localhost", "pid": "1610", "timestamp": "1756839637", "terminal": "pts/9", "replay_tag": "user_login", "ppid": "1", "uid": "1000", "source": "get_logged_in_users", "session_id": "688546929687474038", "suspicious_tty": "false", "features": "[0.1, 222337.0, 2.0]", "login_time": "1756617300", "session_age_seconds": "222337", "username": "jermaineb"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/10", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/10' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "replay_tag": "user_login",
+    "suspicious_tty": "false",
+    "terminal": "pts/10",
+    "uid": "1000",
+    "session_id": "1456051265324265845",
+    "pid": "1610",
+    "login_time": "1756617300",
+    "ppid": "1",
+    "username": "jermaineb",
+    "timestamp": "1756839637",
+    "source": "get_logged_in_users",
+    "session_age_seconds": "222337",
+    "features": "[0.1, 222337.0, 2.0]",
+    "host": "localhost",
+}
+📝 Telemetry record: {"replay_tag": "user_login", "suspicious_tty": "false", "terminal": "pts/10", "uid": "1000", "session_id": "1456051265324265845", "pid": "1610", "login_time": "1756617300", "ppid": "1", "username": "jermaineb", "timestamp": "1756839637", "source": "get_logged_in_users", "session_age_seconds": "222337", "features": "[0.1, 222337.0, 2.0]", "host": "localhost"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/11", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/11' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "terminal": "pts/11",
+    "session_age_seconds": "222337",
+    "source": "get_logged_in_users",
+    "suspicious_tty": "false",
+    "pid": "1610",
+    "features": "[0.1, 222337.0, 2.0]",
+    "username": "jermaineb",
+    "host": "localhost",
+    "replay_tag": "user_login",
+    "login_time": "1756617300",
+    "timestamp": "1756839637",
+    "ppid": "1",
+    "uid": "1000",
+    "session_id": "12284490404381675785",
+}
+📝 Telemetry record: {"terminal": "pts/11", "session_age_seconds": "222337", "source": "get_logged_in_users", "suspicious_tty": "false", "pid": "1610", "features": "[0.1, 222337.0, 2.0]", "username": "jermaineb", "host": "localhost", "replay_tag": "user_login", "login_time": "1756617300", "timestamp": "1756839637", "ppid": "1", "uid": "1000", "session_id": "12284490404381675785"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/12", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/12' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "features": "[0.1, 222337.0, 2.0]",
+    "username": "jermaineb",
+    "pid": "1610",
+    "ppid": "1",
+    "uid": "1000",
+    "session_age_seconds": "222337",
+    "host": "localhost",
+    "terminal": "pts/12",
+    "replay_tag": "user_login",
+    "login_time": "1756617300",
+    "timestamp": "1756839637",
+    "session_id": "5208222406019331321",
+    "suspicious_tty": "false",
+    "source": "get_logged_in_users",
+}
+📝 Telemetry record: {"features": "[0.1, 222337.0, 2.0]", "username": "jermaineb", "pid": "1610", "ppid": "1", "uid": "1000", "session_age_seconds": "222337", "host": "localhost", "terminal": "pts/12", "replay_tag": "user_login", "login_time": "1756617300", "timestamp": "1756839637", "session_id": "5208222406019331321", "suspicious_tty": "false", "source": "get_logged_in_users"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/13", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/13' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "source": "get_logged_in_users",
+    "session_id": "15430550526116631327",
+    "login_time": "1756617300",
+    "terminal": "pts/13",
+    "ppid": "1",
+    "host": "localhost",
+    "pid": "1610",
+    "timestamp": "1756839637",
+    "replay_tag": "user_login",
+    "session_age_seconds": "222337",
+    "username": "jermaineb",
+    "uid": "1000",
+    "suspicious_tty": "false",
+    "features": "[0.1, 222337.0, 2.0]",
+}
+📝 Telemetry record: {"source": "get_logged_in_users", "session_id": "15430550526116631327", "login_time": "1756617300", "terminal": "pts/13", "ppid": "1", "host": "localhost", "pid": "1610", "timestamp": "1756839637", "replay_tag": "user_login", "session_age_seconds": "222337", "username": "jermaineb", "uid": "1000", "suspicious_tty": "false", "features": "[0.1, 222337.0, 2.0]"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/14", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/14' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "source": "get_logged_in_users",
+    "terminal": "pts/14",
+    "uid": "1000",
+    "login_time": "1756617300",
+    "session_id": "7342681619502421933",
+    "replay_tag": "user_login",
+    "features": "[0.1, 222337.0, 2.0]",
+    "username": "jermaineb",
+    "ppid": "1",
+    "pid": "1610",
+    "host": "localhost",
+    "timestamp": "1756839637",
+    "suspicious_tty": "false",
+    "session_age_seconds": "222337",
+}
+📝 Telemetry record: {"source": "get_logged_in_users", "terminal": "pts/14", "uid": "1000", "login_time": "1756617300", "session_id": "7342681619502421933", "replay_tag": "user_login", "features": "[0.1, 222337.0, 2.0]", "username": "jermaineb", "ppid": "1", "pid": "1610", "host": "localhost", "timestamp": "1756839637", "suspicious_tty": "false", "session_age_seconds": "222337"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/15", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/15' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "login_time": "1756617300",
+    "timestamp": "1756839637",
+    "session_age_seconds": "222337",
+    "host": "localhost",
+    "uid": "1000",
+    "ppid": "1",
+    "session_id": "274537478316978624",
+    "replay_tag": "user_login",
+    "source": "get_logged_in_users",
+    "features": "[0.1, 222337.0, 2.0]",
+    "suspicious_tty": "false",
+    "terminal": "pts/15",
+    "username": "jermaineb",
+    "pid": "1610",
+}
+📝 Telemetry record: {"login_time": "1756617300", "timestamp": "1756839637", "session_age_seconds": "222337", "host": "localhost", "uid": "1000", "ppid": "1", "session_id": "274537478316978624", "replay_tag": "user_login", "source": "get_logged_in_users", "features": "[0.1, 222337.0, 2.0]", "suspicious_tty": "false", "terminal": "pts/15", "username": "jermaineb", "pid": "1610"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/16", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/16' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "features": "[0.1, 222337.0, 2.0]",
+    "session_id": "1440183191748031157",
+    "source": "get_logged_in_users",
+    "terminal": "pts/16",
+    "login_time": "1756617300",
+    "username": "jermaineb",
+    "timestamp": "1756839637",
+    "replay_tag": "user_login",
+    "uid": "1000",
+    "suspicious_tty": "false",
+    "host": "localhost",
+    "pid": "1610",
+    "session_age_seconds": "222337",
+    "ppid": "1",
+}
+📝 Telemetry record: {"features": "[0.1, 222337.0, 2.0]", "session_id": "1440183191748031157", "source": "get_logged_in_users", "terminal": "pts/16", "login_time": "1756617300", "username": "jermaineb", "timestamp": "1756839637", "replay_tag": "user_login", "uid": "1000", "suspicious_tty": "false", "host": "localhost", "pid": "1610", "session_age_seconds": "222337", "ppid": "1"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/17", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/17' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "replay_tag": "user_login",
+    "timestamp": "1756839637",
+    "suspicious_tty": "false",
+    "ppid": "1",
+    "uid": "1000",
+    "host": "localhost",
+    "username": "jermaineb",
+    "pid": "1610",
+    "login_time": "1756617300",
+    "terminal": "pts/17",
+    "source": "get_logged_in_users",
+    "session_id": "9874841843406958547",
+    "features": "[0.1, 222337.0, 2.0]",
+    "session_age_seconds": "222337",
+}
+📝 Telemetry record: {"replay_tag": "user_login", "timestamp": "1756839637", "suspicious_tty": "false", "ppid": "1", "uid": "1000", "host": "localhost", "username": "jermaineb", "pid": "1610", "login_time": "1756617300", "terminal": "pts/17", "source": "get_logged_in_users", "session_id": "9874841843406958547", "features": "[0.1, 222337.0, 2.0]", "session_age_seconds": "222337"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/18", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/18' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "ppid": "1",
+    "host": "localhost",
+    "terminal": "pts/18",
+    "timestamp": "1756839637",
+    "replay_tag": "user_login",
+    "login_time": "1756617300",
+    "source": "get_logged_in_users",
+    "session_id": "8368485130113730750",
+    "session_age_seconds": "222337",
+    "pid": "1610",
+    "suspicious_tty": "false",
+    "uid": "1000",
+    "features": "[0.1, 222337.0, 2.0]",
+    "username": "jermaineb",
+}
+📝 Telemetry record: {"ppid": "1", "host": "localhost", "terminal": "pts/18", "timestamp": "1756839637", "replay_tag": "user_login", "login_time": "1756617300", "source": "get_logged_in_users", "session_id": "8368485130113730750", "session_age_seconds": "222337", "pid": "1610", "suspicious_tty": "false", "uid": "1000", "features": "[0.1, 222337.0, 2.0]", "username": "jermaineb"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/19", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/19' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "session_id": "3528967714999047272",
+    "session_age_seconds": "222337",
+    "terminal": "pts/19",
+    "ppid": "1",
+    "login_time": "1756617300",
+    "username": "jermaineb",
+    "uid": "1000",
+    "host": "localhost",
+    "features": "[0.1, 222337.0, 2.0]",
+    "suspicious_tty": "false",
+    "timestamp": "1756839637",
+    "pid": "1610",
+    "replay_tag": "user_login",
+    "source": "get_logged_in_users",
+}
+📝 Telemetry record: {"session_id": "3528967714999047272", "session_age_seconds": "222337", "terminal": "pts/19", "ppid": "1", "login_time": "1756617300", "username": "jermaineb", "uid": "1000", "host": "localhost", "features": "[0.1, 222337.0, 2.0]", "suspicious_tty": "false", "timestamp": "1756839637", "pid": "1610", "replay_tag": "user_login", "source": "get_logged_in_users"}
+[🛡 TrustEvent] Module=Some("user_tracker") | Component=user_tracker | SignalType=Some("auth") | Signal=Some("user_login_detected") | Risk=2.00 | Score=Some(2.0) | Raw=Some(2.0) | Tags=Some(["user", "login", "pts/20", "tty"])
+  └── Description     : Some("User 'jermaineb' logged in via terminal 'pts/20' (suspicious: false)")
+  └── Anomaly Type    : user_logged_in
+  └── Source Module   : user_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1610/1/1000
+  └── Binary          : /usr/bin/who
+  └── Command Line    : who → jermaineb
+  └── CWD             : /
+  └── Metadata        : {
+    "session_id": "628791458391910422",
+    "suspicious_tty": "false",
+    "features": "[0.1, 222337.0, 2.0]",
+    "ppid": "1",
+    "uid": "1000",
+    "login_time": "1756617300",
+    "username": "jermaineb",
+    "pid": "1610",
+    "session_age_seconds": "222337",
+    "host": "localhost",
+    "terminal": "pts/20",
+    "replay_tag": "user_login",
+    "timestamp": "1756839637",
+    "source": "get_logged_in_users",
+}
+📝 Telemetry record: {"session_id": "628791458391910422", "suspicious_tty": "false", "features": "[0.1, 222337.0, 2.0]", "ppid": "1", "uid": "1000", "login_time": "1756617300", "username": "jermaineb", "pid": "1610", "session_age_seconds": "222337", "host": "localhost", "terminal": "pts/20", "replay_tag": "user_login", "timestamp": "1756839637", "source": "get_logged_in_users"}
+[🛡 TrustEvent] Module=Some("auth_monitor") | Component=auth_monitor | SignalType=Some("auth_behavioral") | Signal=Some("auth_idle") | Risk=0.00 | Score=Some(100.0) | Raw=Some(0.0) | Tags=Some(["heartbeat", "auth"])
+  └── Description     : Some("Auth module heartbeat – no anomalies detected")
+  └── Anomaly Type    : NoAuthAnomaly
+  └── Source Module   : auth_monitor
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 208577/208576/0
+  └── Binary          : /usr/bin/journalctl
+  └── Command Line    : heartbeat
+  └── CWD             : /home/jermaineb/EDR-platform
+  └── Metadata        : {
+    "timestamp": "1756839637",
+    "event_type": "auth_heartbeat",
+    "status": "no_anomalies",
+    "source": "auth_monitor",
+}
+[🛡 TrustEvent] Module=Some("dll_injection_monitor") | Component=memory | SignalType=Some("monitor_heartbeat") | Signal=Some("dll_injection_monitor_active") | Risk=0.00 | Score=Some(100.0) | Raw=Some(0.0) | Tags=Some(["monitor_alive", "ebpf_monitor_ready"])
+  └── Description     : Some("DLL Injection eBPF monitor is alive and sending heartbeat.")
+  └── Anomaly Type    : Status
+  └── Source Module   : dll_injection_monitor
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1/0/0
+  └── Binary          : kernel
+  └── Command Line    : start_ebpf_dll_injection_watch
+  └── CWD             : /
+  └── Metadata        : {
+    "category": "memory",
+    "event": "dll_injection_monitor_heartbeat",
+    "features": "[0.0]",
+    "signal": "dll_injection_monitor_active",
+    "timestamp": "1756839637",
+    "status": "active",
+    "source": "dll_injection_monitor",
+    "replay_tag": "dll_injection_monitor_heartbeat",
+}
+[🛡 TrustEvent] Module=Some("encrypted_payload_monitor") | Component=memory | SignalType=Some("monitor_heartbeat") | Signal=Some("encrypted_payload_monitor_active") | Risk=0.00 | Score=Some(100.0) | Raw=Some(0.0) | Tags=Some(["heartbeat", "monitor_check"])
+  └── Description     : Some("Encrypted payload monitor heartbeat signal")
+  └── Anomaly Type    : Status
+  └── Source Module   : encrypted_payload_monitor
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1/0/0
+  └── Binary          : kernel
+  └── Command Line    : start_encrypted_payload_monitor
+  └── CWD             : /
+  └── Metadata        : {
+    "signal": "encrypted_payload_monitor_active",
+    "event_type": "encrypted_payload_monitor_active",
+    "confidence": "0.0",
+    "replay_tag": "monitor_heartbeat",
+    "timestamp": "1756839637",
+    "soc_note": "Heartbeat: Encrypted payload monitor active",
+    "gnn_escalate": "false",
+    "category": "memory",
+}
+[🛡 TrustEvent] Module=Some("file_hash_watcher") | Component=file | SignalType=Some("monitor_heartbeat") | Signal=Some("file_hash_monitor_active") | Risk=0.00 | Score=Some(100.0) | Raw=Some(0.0) | Tags=Some(["heartbeat", "monitor_check"])
+  └── Description     : Some("File hash monitor heartbeat signal")
+✅ dll_injection_monitor launch requested.
+  └── Anomaly Type    : Status
+  └── Source Module   : file_hash_watcher
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1/0/0
+  └── Binary          : kernel
+  └── Command Line    : start_file_hash_monitor
+  └── CWD             : /
+  └── Metadata        : {
+    "confidence": "0.0",
+    "signal": "file_hash_monitor_active",
+    "replay_tag": "monitor_heartbeat",
+    "event_type": "file_hash_monitor_active",
+    "category": "file",
+    "gnn_escalate": "false",
+    "timestamp": "1756839637",
+    "soc_note": "Heartbeat: file hash monitor active",
+}
+[🛡 TrustEvent] Module=Some("file_tamper_monitor") | Component=file | SignalType=Some("heartbeat") | Signal=Some("file_tamper_monitor_active") | Risk=0.00 | Score=Some(100.0) | Raw=Some(0.0) | Tags=Some(["heartbeat", "tag:file_integrity"])
+  └── Description     : Some("File tamper monitor heartbeat signal")
+  └── Anomaly Type    : MonitorHeartbeat
+  └── Source Module   : file_tamper_monitor
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : monitor:passive_scan
+  └── Command Line    : monitor_heartbeat
+  └── CWD             : /etc/edr/
+  └── Metadata        : {
+    "event_type": "file_tamper_monitor_active",
+    "replay_tag": "monitor_heartbeat",
+    "confidence": "0.0",
+    "gnn_escalate": "false",
+    "signal": "file_tamper_monitor_active",
+    "soc_note": "Heartbeat: File tamper monitor active",
+    "category": "file",
+    "summary": "Passive file tamper scan active",
+    "timestamp": "1756839637",
+}
+[🛡 TrustEvent] Module=Some("geo_ip_anomaly") | Component=auth | SignalType=Some("auth_behavioral") | Signal=Some("geo_ip_no_anomaly") | Risk=0.00 | Score=Some(1.0) | Raw=Some(0.0) | Tags=Some(["geo_stable"])
+  └── Description     : Some("No geo-IP anomaly detected during passive scan")
+  └── Anomaly Type    : GeoIPStable
+  └── Source Module   : geo_ip_anomaly
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : unknown
+  └── Command Line    : no_anomalous_login
+  └── CWD             : /
+  └── Metadata        : {
+    "timestamp": "1756839637",
+    "status": "no_geo_anomaly",
+}
+[🛡 TrustEvent] Module=Some("job_sched_monitor") | Component=job_sched_monitor | SignalType=Some("scheduler") | Signal=Some("no_cron_anomaly_detected") | Risk=0.10 | Score=Some(99.9) | Raw=Some(0.1) | Tags=Some(["scheduler", "passive_scan"])
+  └── Description     : Some("Passive cron scan completed. No anomaly detected.")
+  └── Anomaly Type    : cron_passive_scan
+  └── Source Module   : job_sched_monitor
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 1/0/0
+  └── Binary          : /usr/bin/cron
+  └── Command Line    : none
+  └── CWD             : /etc
+  └── Metadata        : {
+    "replay_tag": "cron_passive_scan",
+    "cron_file": "/etc/crontab",
+    "status": "no anomalies",
+    "scan_time": "1756839637",
+    "source": "passive_scan",
+    "category": "scheduler",
+    "event_type": "passive_cron_scan",
+}
+[🛡 TrustEvent] Module=Some("logon") | Component=logon_tracker | SignalType=Some("logon_event_fallback") | Signal=Some("no_logon_activity_detected") | Risk=0.00 | Score=Some(0.0) | Raw=Some(0.0) | Tags=Some(["logon_event_fallback", "auth", "passive"])
+  └── Description     : Some("No logon activity detected; passive fallback signal")
+  └── Anomaly Type    : logon_activity
+  └── Source Module   : logon_tracker
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : -1/-1/0
+  └── Binary          : /usr/bin/login
+  └── Command Line    : no_logon_activity_detected
+  └── CWD             : /
+  └── Metadata        : {
+    "fallback": "true",
+    "reason": "No logon events seen in this session",
+}
+[🛡 TrustEvent] Module=Some("mem_scan") | Component=memory | SignalType=Some("memory::health_check") | Signal=Some("memory_health") | Risk=0.00 | Score=Some(0.0) | Raw=Some(0.0) | Tags=Some(["memory", "healthy"])
+  └── Description     : Some("Memory scan heartbeat: no anomalies reported.")
+  └── Anomaly Type    : None
+  └── Source Module   : mem_scan
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : kernel
+  └── Command Line    : memory_health_scan
+  └── CWD             : /proc
+  └── Metadata        : {
+    "timestamp": "1756839637",
+    "event_type": "memory_health",
+    "status": "healthy",
+}
+[2025-09-02T19:00:37Z DEBUG aya::bpf] BPF Feature Detection: Features {
+        bpf_name: true,
+        bpf_probe_read_kernel: true,
+        bpf_perf_link: true,
+        bpf_global_data: true,
+        bpf_cookie: true,
+        cpumap_prog_id: true,
+        devmap_prog_id: true,
+        prog_info_map_ids: true,
+        prog_info_gpl_compatible: true,
+        btf: Some(
+            BtfFeatures {
+                btf_func: true,
+                btf_func_global: true,
+                btf_datasec: true,
+                btf_float: true,
+                btf_decl_tag: false,
+                btf_type_tag: false,
+                btf_enum64: false,
+            },
+        ),
+    }
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] .maps: fixup size to 16
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] .maps: VAR events: fixup offset 0
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] license: fixup size to 13
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] license: VAR LICENSE: fixup offset 0
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] .maps: fixup size to 16
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] .maps: VAR events: fixup offset 0
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] license: fixup size to 13
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] license: VAR LICENSE: fixup offset 0
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] .maps: fixup size to 16
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] .maps: VAR container_exec_events: fixup offset 0
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] license: fixup size to 13
+[2025-09-02T19:00:37Z DEBUG aya_obj::btf::btf] [DATASEC] license: VAR LICENSE: fixup offset 0
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating map by symbol index Some(16), kind BtfMaps at insn 2 in section 3
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating map by symbol index Some(16), kind BtfMaps at insn 2 in section 5
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating program `trace_read` function `trace_read` size 32
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] finished relocating program `trace_read` function `trace_read`
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating program `trace_recvfrom` function `trace_recvfrom` size 32
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] finished relocating program `trace_recvfrom` function `trace_recvfrom`
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating map by symbol index Some(13), kind BtfMaps at insn 1 in section 3
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating program `trace_dll_injection` function `trace_dll_injection` size 20
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] finished relocating program `trace_dll_injection` function `trace_dll_injection`
+❌ Failed to attach encrypted payload programs: no programs attached (neither generic sections nor fallback)[19:00:37][agent] ✔️ attached tracepoint syscalls/sys_enter_ptrace
+💉 [eBPF] DLL injection monitor attached successfully
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=60.00 | Score=Some(60.0) | Raw=Some(60.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /etc/init.d/console-setup.sh | Suspicious persistence candidate (owner 'root', exec=true, tokens=0)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)",
+    "replay_tag": "suspicious_persistence",
+    "timestamp": "1756839637",
+    "soc_note": "Detected suspicious persistence mechanism",
+    "gnn_escalate": "true",
+    "score": "60",
+    "hash": "a4fecda40d06d41cab9892b8c2832d3f41d333d944a91a9bc7334540d1cada26",
+    "path": "/etc/init.d/console-setup.sh",
+}
+📝 Telemetry record: {"reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)", "replay_tag": "suspicious_persistence", "timestamp": "1756839637", "soc_note": "Detected suspicious persistence mechanism", "gnn_escalate": "true", "score": "60", "hash": "a4fecda40d06d41cab9892b8c2832d3f41d333d944a91a9bc7334540d1cada26", "path": "/etc/init.d/console-setup.sh"}
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=60.00 | Score=Some(60.0) | Raw=Some(60.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /etc/init.d/hwclock.sh | Suspicious persistence candidate (owner 'root', exec=true, tokens=0)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "timestamp": "1756839637",
+    "soc_note": "Detected suspicious persistence mechanism",
+    "score": "60",
+    "path": "/etc/init.d/hwclock.sh",
+    "hash": "6154f14d18f1c6b5a296412d9830c04648e787a70ae01761093523ef2c1dba6e",
+    "gnn_escalate": "true",
+    "replay_tag": "suspicious_persistence",
+    "reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)",
+}
+📝 Telemetry record: {"timestamp": "1756839637", "soc_note": "Detected suspicious persistence mechanism", "score": "60", "path": "/etc/init.d/hwclock.sh", "hash": "6154f14d18f1c6b5a296412d9830c04648e787a70ae01761093523ef2c1dba6e", "gnn_escalate": "true", "replay_tag": "suspicious_persistence", "reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)"}
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=60.00 | Score=Some(60.0) | Raw=Some(60.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /etc/init.d/keyboard-setup.sh | Suspicious persistence candidate (owner 'root', exec=true, tokens=0)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "timestamp": "1756839637",
+    "soc_note": "Detected suspicious persistence mechanism",
+    "reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)",
+    "score": "60",
+    "replay_tag": "suspicious_persistence",
+    "path": "/etc/init.d/keyboard-setup.sh",
+    "gnn_escalate": "true",
+    "hash": "5895801d6256ce6c2a65760e01db8ffd8b90a9bf80294e9a358423b3d4ce59d1",
+}
+📝 Telemetry record: {"timestamp": "1756839637", "soc_note": "Detected suspicious persistence mechanism", "reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)", "score": "60", "replay_tag": "suspicious_persistence", "path": "/etc/init.d/keyboard-setup.sh", "gnn_escalate": "true", "hash": "5895801d6256ce6c2a65760e01db8ffd8b90a9bf80294e9a358423b3d4ce59d1"}
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=60.00 | Score=Some(60.0) | Raw=Some(60.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /etc/init.d/spice-vdagent | Suspicious persistence candidate (owner 'root', exec=true, tokens=0)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "gnn_escalate": "true",
+    "replay_tag": "suspicious_persistence",
+    "soc_note": "Detected suspicious persistence mechanism",
+    "hash": "f123397655c0e07f05204406a387b15213cdc1fd5369b7313f5f79ea564c010a",
+    "timestamp": "1756839637",
+    "path": "/etc/init.d/spice-vdagent",
+    "score": "60",
+    "reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)",
+}
+📝 Telemetry record: {"gnn_escalate": "true", "replay_tag": "suspicious_persistence", "soc_note": "Detected suspicious persistence mechanism", "hash": "f123397655c0e07f05204406a387b15213cdc1fd5369b7313f5f79ea564c010a", "timestamp": "1756839637", "path": "/etc/init.d/spice-vdagent", "score": "60", "reason": "Suspicious persistence candidate (owner 'root', exec=true, tokens=0)"}
+
+
+Stack backtrace:
+   0: std::backtrace_rs::backtrace::libunwind::trace
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/../../backtrace/src/backtrace/libunwind.rs:117:9
+   1: std::backtrace_rs::backtrace::trace_unsynchronized
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/../../backtrace/src/backtrace/mod.rs:66:14
+   2: std::backtrace::Backtrace::create
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/backtrace.rs:331:13
+   3: anyhow::error::<impl anyhow::Error>::msg
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.99/src/backtrace.rs:27:14
+   4: anyhow::__private::format_err
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.99/src/lib.rs:695:13
+   5: forensic_hooks::modules::encrypted_payload_detector::attach_programs_or_fallback
+             at ./edr-agent/src/modules/encrypted_payload_detector.rs:172:9
+   6: forensic_hooks::modules::encrypted_payload_detector::start_encrypted_payload_monitor::{{closure}}::{{closure}}
+             at ./edr-agent/src/modules/encrypted_payload_detector.rs:201:29
+   7: std::sys::backtrace::__rust_begin_short_backtrace
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/sys/backtrace.rs:152:18
+   8: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}}
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/thread/mod.rs:559:17
+   9: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/core/src/panic/unwind_safe.rs:272:9
+  10: std::panicking::catch_unwind::do_call
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/panicking.rs:589:40
+  11: __rust_try
+  12: std::panicking::catch_unwind
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/panicking.rs:552:19
+  13: std::panic::catch_unwind
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/panic.rs:359:14
+  14: std::thread::Builder::spawn_unchecked_::{{closure}}
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/thread/mod.rs:557:30
+  15: core::ops::function::FnOnce::call_once{{vtable.shim}}
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/core/src/ops/function.rs:250:5
+  16: <alloc::boxed::Box<F,A> as core::ops::function::FnOnce<Args>>::call_once
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/alloc/src/boxed.rs:1966:9
+  17: std::sys::pal::unix::thread::Thread::new::thread_start
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/sys/pal/unix/thread.rs:107:17
+  18: start_thread
+             at ./nptl/pthread_create.c:442:8
+  19: thread_start
+             at ./misc/../sysdeps/unix/sysv/linux/aarch64/clone.S:79:0
+❌ EVENTS map not found or PerfEventArray::try_from failed
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating map by symbol index Some(24), kind BtfMaps at insn 2 in section 3
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating map by symbol index Some(24), kind BtfMaps at insn 2 in section 5
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating program `handle_sys_enter_execveat` function `handle_sys_enter_execveat` size 158
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] finished relocating program `handle_sys_enter_execveat` function `handle_sys_enter_execveat`
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] relocating program `handle_sys_enter_execve` function `handle_sys_enter_execve` size 159
+[2025-09-02T19:00:37Z DEBUG aya_obj::relocation] finished relocating program `handle_sys_enter_execve` function `handle_sys_enter_execve`
+❌ Failed to launch container monitor: `bpf_link_create` failed
+
+Caused by:
+    Permission denied (os error 13)
+
+Stack backtrace:
+   0: std::backtrace_rs::backtrace::libunwind::trace
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/../../backtrace/src/backtrace/libunwind.rs:117:9
+   1: std::backtrace_rs::backtrace::trace_unsynchronized
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/../../backtrace/src/backtrace/mod.rs:66:14
+   2: std::backtrace::Backtrace::create
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/backtrace.rs:331:13
+   3: anyhow::error::<impl core::convert::From<E> for anyhow::Error>::from
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.99/src/backtrace.rs:27:14
+   4: <core::result::Result<T,F> as core::ops::try_trait::FromResidual<core::result::Result<core::convert::Infallible,E>>>::from_residual
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/core/src/result.rs:2079:27
+   5: forensic_hooks::modules::container_monitor::attach_all_programs
+             at ./edr-agent/src/modules/container_monitor.rs:85:21
+   6: forensic_hooks::modules::container_monitor::start_ebpf_container_exec_monitor::{{closure}}
+             at ./edr-agent/src/modules/container_monitor.rs:116:5
+   7: forensic_hooks::modules::container_monitor::scan_container_activity::{{closure}}::{{closure}}::{{closure}}
+             at ./edr-agent/src/modules/container_monitor.rs:339:63
+   8: tokio::runtime::park::CachedParkThread::block_on::{{closure}}
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/park.rs:285:71
+   9: tokio::task::coop::with_budget
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/task/coop/mod.rs:167:5
+  10: tokio::task::coop::budget
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/task/coop/mod.rs:133:5
+  11: tokio::runtime::park::CachedParkThread::block_on
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/park.rs:285:31
+  12: tokio::runtime::context::blocking::BlockingRegionGuard::block_on
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/context/blocking.rs:66:14
+  13: tokio::runtime::scheduler::multi_thread::MultiThread::block_on::{{closure}}
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/scheduler/multi_thread/mod.rs:87:22
+  14: tokio::runtime::context::runtime::enter_runtime
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/context/runtime.rs:65:16
+  15: tokio::runtime::scheduler::multi_thread::MultiThread::block_on
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/scheduler/multi_thread/mod.rs:86:9
+  16: tokio::runtime::runtime::Runtime::block_on_inner
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/runtime.rs:358:50
+  17: tokio::runtime::runtime::Runtime::block_on
+             at /home/jermaineb/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.47.1/src/runtime/runtime.rs:330:18
+  18: forensic_hooks::modules::container_monitor::scan_container_activity::{{closure}}::{{closure}}
+             at ./edr-agent/src/modules/container_monitor.rs:338:20
+  19: std::sys::backtrace::__rust_begin_short_backtrace
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/sys/backtrace.rs:152:18
+  20: std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}}
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/thread/mod.rs:559:17
+  21: <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/core/src/panic/unwind_safe.rs:272:9
+  22: std::panicking::catch_unwind::do_call
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/panicking.rs:589:40
+  23: __rust_try
+  24: std::panicking::catch_unwind
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/panicking.rs:552:19
+  25: std::panic::catch_unwind
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/panic.rs:359:14
+  26: std::thread::Builder::spawn_unchecked_::{{closure}}
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/thread/mod.rs:557:30
+  27: core::ops::function::FnOnce::call_once{{vtable.shim}}
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/core/src/ops/function.rs:250:5
+  28: <alloc::boxed::Box<F,A> as core::ops::function::FnOnce<Args>>::call_once
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/alloc/src/boxed.rs:1966:9
+  29: std::sys::pal::unix::thread::Thread::new::thread_start
+             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/sys/pal/unix/thread.rs:107:17
+  30: start_thread
+             at ./nptl/pthread_create.c:442:8
+  31: thread_start
+             at ./misc/../sysdeps/unix/sysv/linux/aarch64/clone.S:79:0
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=65.00 | Score=Some(65.0) | Raw=Some(65.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /tmp/attach_all.sh | Suspicious persistence candidate (owner 'root', exec=false, tokens=0)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "timestamp": "1756839637",
+    "replay_tag": "suspicious_persistence",
+    "gnn_escalate": "true",
+    "score": "65",
+    "soc_note": "Detected suspicious persistence mechanism",
+    "path": "/tmp/attach_all.sh",
+    "hash": "5dea4f9a02c689c8ce1abd67325ddcd5f29828052c0bfcd6c91b39b33cef2d58",
+    "reason": "Suspicious persistence candidate (owner 'root', exec=false, tokens=0)",
+}
+📝 Telemetry record: {"timestamp": "1756839637", "replay_tag": "suspicious_persistence", "gnn_escalate": "true", "score": "65", "soc_note": "Detected suspicious persistence mechanism", "path": "/tmp/attach_all.sh", "hash": "5dea4f9a02c689c8ce1abd67325ddcd5f29828052c0bfcd6c91b39b33cef2d58", "reason": "Suspicious persistence candidate (owner 'root', exec=false, tokens=0)"}
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=70.00 | Score=Some(70.0) | Raw=Some(70.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /tmp/audit_ebpf.sh | Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=0)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "soc_note": "Detected suspicious persistence mechanism",
+    "gnn_escalate": "true",
+    "score": "70",
+    "path": "/tmp/audit_ebpf.sh",
+    "timestamp": "1756839637",
+    "hash": "1d8bfdd27a8c891bf8e1ba73f19eabf803b9c6879572aaa8f126b8e95c9a9f6c",
+    "replay_tag": "suspicious_persistence",
+    "reason": "Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=0)",
+}
+📝 Telemetry record: {"soc_note": "Detected suspicious persistence mechanism", "gnn_escalate": "true", "score": "70", "path": "/tmp/audit_ebpf.sh", "timestamp": "1756839637", "hash": "1d8bfdd27a8c891bf8e1ba73f19eabf803b9c6879572aaa8f126b8e95c9a9f6c", "replay_tag": "suspicious_persistence", "reason": "Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=0)"}
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=70.00 | Score=Some(70.0) | Raw=Some(70.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /tmp/edr_env_probe.sh | Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=0)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "timestamp": "1756839637",
+    "soc_note": "Detected suspicious persistence mechanism",
+    "reason": "Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=0)",
+    "path": "/tmp/edr_env_probe.sh",
+    "replay_tag": "suspicious_persistence",
+    "score": "70",
+    "gnn_escalate": "true",
+    "hash": "966fc4ec61cf217fa52786caa2528d6fc675f2e8c46bb52e9bc691ee826e6371",
+}
+📝 Telemetry record: {"timestamp": "1756839637", "soc_note": "Detected suspicious persistence mechanism", "reason": "Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=0)", "path": "/tmp/edr_env_probe.sh", "replay_tag": "suspicious_persistence", "score": "70", "gnn_escalate": "true", "hash": "966fc4ec61cf217fa52786caa2528d6fc675f2e8c46bb52e9bc691ee826e6371"}
+[🛡 TrustEvent] Module=Some("persistence") | Component=persistence::watch | SignalType=Some("static_persistence_artifact") | Signal=Some("scan_persistence_activity") | Risk=82.00 | Score=Some(82.0) | Raw=Some(82.0) | Tags=Some(["persistence", "artifact", "risky_file"])
+  └── Description     : Some("Suspicious persistence file: /tmp/finish_edr.sh | Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=2)")
+  └── Anomaly Type    : persistence_mechanism
+  └── Source Module   : scan_persistence_activity
+  └── Timestamp       : 1756839637
+  └── PID/PPID/UID    : 0/0/0
+  └── Binary          : n/a
+  └── Command Line    : n/a
+  └── CWD             : n/a
+  └── Metadata        : {
+    "gnn_escalate": "true",
+    "score": "82",
+    "path": "/tmp/finish_edr.sh",
+    "soc_note": "Detected suspicious persistence mechanism",
+    "reason": "Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=2)",
+    "hash": "d8c6bcd36e3d9af09c974d6657fb088aad4a7f3f293f9aa5ed098fb4ba14250d",
+    "replay_tag": "suspicious_persistence",
+    "timestamp": "1756839637",
+}
+📝 Telemetry record: {"gnn_escalate": "true", "score": "82", "path": "/tmp/finish_edr.sh", "soc_note": "Detected suspicious persistence mechanism", "reason": "Suspicious persistence candidate (owner 'jermaineb', exec=false, tokens=2)", "hash": "d8c6bcd36e3d9af09c974d6657fb088aad4a7f3f293f9aa5ed098fb4ba14250d", "replay_tag": "suspicious_persistence", "timestamp": "1756839637"}

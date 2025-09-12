@@ -153,7 +153,7 @@ mod linux_impl {
         thread::spawn(move || {
             loop {
                 // 100 ms poll; libbpf returns number of records consumed
-                let _ = rb.poll(100);
+                let _ = rb.poll(1);
             }
         });
 

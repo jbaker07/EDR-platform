@@ -1,6 +1,7 @@
 use std::time::Duration;
 use anyhow::Result;
 use libbpf_rs::{ObjectBuilder, RingBufferBuilder};
+use crate::ebpf::drop_agg::work_tx;
 
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -37,6 +38,7 @@ pub async fn spawn_container_exec_reader() -> Result<()> {
         .attach_tracepoint("syscalls", "sys_enter_execveat")?;
 
     // Ringbuf
+    let tx = work_tx();
     let mut rb = RingBufferBuilder::new();
     let events_map = obj.map_mut("events").expect("events map not found");
     rb.add(events_map, |data: &[u8]| {
@@ -74,7 +76,7 @@ pub async fn spawn_container_exec_reader() -> Result<()> {
 
     // Poll forever (you already spawn in telemetry::start_realtime_monitors)
     loop {
-        ring.poll(Duration::from_millis(100))?;
+        ring.poll(Duration::from_millis(1))?;
         tokio::task::yield_now().await;
     }
 }
