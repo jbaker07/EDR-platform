@@ -1,0 +1,5597 @@
+{
+  "edges": [],
+  "links": [
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617527,
+      "source": "proc:1",
+      "target": "proc:3485",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617623,
+      "source": "proc:3525",
+      "target": "proc:3526",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617630,
+      "source": "proc:3528",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617443,
+      "source": "proc:3450",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617529,
+      "source": "proc:3486",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617673,
+      "source": "proc:3546",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617611,
+      "source": "proc:3521",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617515,
+      "source": "proc:3480",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617725,
+      "source": "proc:3568",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617462,
+      "source": "proc:3459",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617477,
+      "source": "proc:3465",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617611,
+      "source": "proc:3520",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617484,
+      "source": "proc:3468",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617735,
+      "source": "proc:1",
+      "target": "proc:3572",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617491,
+      "source": "proc:3470",
+      "target": "proc:3471",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617584,
+      "source": "proc:3509",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617503,
+      "source": "proc:3476",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617716,
+      "source": "proc:3565",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617642,
+      "source": "proc:3533",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617692,
+      "source": "proc:3554",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617687,
+      "source": "proc:3552",
+      "target": "proc:3553",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617666,
+      "source": "proc:3543",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617701,
+      "source": "proc:3559",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617675,
+      "source": "proc:3547",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617713,
+      "source": "proc:3563",
+      "target": "proc:3564",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617484,
+      "source": "proc:3467",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617659,
+      "source": "proc:3541",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617649,
+      "source": "proc:3536",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617462,
+      "source": "proc:3458",
+      "target": "proc:3459",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617668,
+      "source": "proc:1",
+      "target": "proc:3544",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617570,
+      "source": "proc:3503",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617627,
+      "source": "proc:3528",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617537,
+      "source": "proc:3490",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617549,
+      "source": "proc:3494",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617694,
+      "source": "proc:3556",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617457,
+      "source": "proc:1",
+      "target": "proc:3456",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617477,
+      "source": "proc:3464",
+      "target": "proc:3465",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617606,
+      "source": "proc:1",
+      "target": "proc:3518",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617639,
+      "source": "proc:3532",
+      "target": "proc:3533",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617453,
+      "source": "proc:3455",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617704,
+      "source": "proc:3560",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617501,
+      "source": "proc:3474",
+      "target": "proc:3475",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617465,
+      "source": "proc:3459",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617604,
+      "source": "proc:1",
+      "target": "proc:3517",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617651,
+      "source": "proc:3537",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617486,
+      "source": "proc:3468",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617730,
+      "source": "proc:3570",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617572,
+      "source": "proc:3504",
+      "target": "proc:3505",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617647,
+      "source": "proc:3536",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617704,
+      "source": "proc:3559",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617599,
+      "source": "proc:3515",
+      "target": "proc:3516",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617529,
+      "source": "proc:3486",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617525,
+      "source": "proc:3484",
+      "target": "proc:3485",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617592,
+      "source": "proc:3512",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617620,
+      "source": "proc:1",
+      "target": "proc:3524",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617713,
+      "source": "proc:1",
+      "target": "proc:3563",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617701,
+      "source": "proc:1",
+      "target": "proc:3558",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617735,
+      "source": "proc:3572",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617704,
+      "source": "proc:3559",
+      "target": "proc:3560",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617453,
+      "source": "proc:3454",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617481,
+      "source": "proc:3466",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617718,
+      "source": "proc:3565",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617589,
+      "source": "proc:3511",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617613,
+      "source": "proc:3521",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617625,
+      "source": "proc:1",
+      "target": "proc:3526",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617678,
+      "source": "proc:3548",
+      "target": "proc:3549",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617493,
+      "source": "proc:3471",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617709,
+      "source": "proc:3561",
+      "target": "proc:3562",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617450,
+      "source": "proc:3454",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617467,
+      "source": "proc:3460",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617486,
+      "source": "proc:3469",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617613,
+      "source": "proc:1",
+      "target": "proc:3521",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617694,
+      "source": "proc:3555",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617517,
+      "source": "proc:3482",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617613,
+      "source": "proc:3522",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617661,
+      "source": "proc:3542",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617493,
+      "source": "proc:3471",
+      "target": "proc:3472",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617455,
+      "source": "proc:1",
+      "target": "proc:3455",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617670,
+      "source": "proc:1",
+      "target": "proc:3545",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617465,
+      "source": "proc:3459",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617460,
+      "source": "proc:3457",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617467,
+      "source": "proc:3460",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617589,
+      "source": "proc:3511",
+      "target": "proc:3512",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617458,
+      "source": "proc:3456",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617534,
+      "source": "proc:1",
+      "target": "proc:3488",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617632,
+      "source": "proc:1",
+      "target": "proc:3529",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617654,
+      "source": "proc:3538",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617627,
+      "source": "proc:3527",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617656,
+      "source": "proc:3540",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617615,
+      "source": "proc:3522",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617618,
+      "source": "proc:3523",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617558,
+      "source": "proc:3498",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617448,
+      "source": "proc:3452",
+      "target": "proc:3453",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617687,
+      "source": "proc:1",
+      "target": "proc:3552",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617527,
+      "source": "proc:3485",
+      "target": "proc:3486",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617534,
+      "source": "proc:3488",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617441,
+      "source": "proc:3449",
+      "target": "proc:3450",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617481,
+      "source": "proc:1",
+      "target": "proc:3466",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617704,
+      "source": "proc:3559",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617508,
+      "source": "proc:3478",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617732,
+      "source": "proc:3571",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617505,
+      "source": "proc:3477",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617615,
+      "source": "proc:3522",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617525,
+      "source": "proc:3485",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617441,
+      "source": "proc:1",
+      "target": "proc:3449",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617651,
+      "source": "proc:3538",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617515,
+      "source": "proc:3480",
+      "target": "proc:3481",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617611,
+      "source": "proc:1",
+      "target": "proc:3520",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617496,
+      "source": "proc:1",
+      "target": "proc:3472",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617713,
+      "source": "proc:3563",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617685,
+      "source": "proc:3551",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617443,
+      "source": "proc:3450",
+      "target": "proc:3451",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617491,
+      "source": "proc:3470",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617572,
+      "source": "proc:3504",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617730,
+      "source": "proc:1",
+      "target": "proc:3570",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617553,
+      "source": "proc:1",
+      "target": "proc:3496",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617625,
+      "source": "proc:3526",
+      "target": "proc:3527",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617458,
+      "source": "proc:3457",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617647,
+      "source": "proc:3535",
+      "target": "proc:3536",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617701,
+      "source": "proc:3558",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617606,
+      "source": "proc:3518",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617477,
+      "source": "proc:1",
+      "target": "proc:3464",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617639,
+      "source": "proc:3532",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617517,
+      "source": "proc:3481",
+      "target": "proc:3482",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617577,
+      "source": "proc:3506",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617438,
+      "source": "proc:3449",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617663,
+      "source": "proc:3542",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617716,
+      "source": "proc:3564",
+      "target": "proc:3565",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617525,
+      "source": "proc:3484",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617604,
+      "source": "proc:3518",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617484,
+      "source": "proc:3467",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617489,
+      "source": "proc:3469",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617544,
+      "source": "proc:1",
+      "target": "proc:3492",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617615,
+      "source": "proc:3523",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617709,
+      "source": "proc:3562",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617721,
+      "source": "proc:3566",
+      "target": "proc:3567",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617694,
+      "source": "proc:1",
+      "target": "proc:3555",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617690,
+      "source": "proc:3554",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617582,
+      "source": "proc:3508",
+      "target": "proc:3509",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617678,
+      "source": "proc:3549",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617659,
+      "source": "proc:3540",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617577,
+      "source": "proc:1",
+      "target": "proc:3506",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617663,
+      "source": "proc:3542",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617651,
+      "source": "proc:3537",
+      "target": "proc:3538",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617635,
+      "source": "proc:3531",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617654,
+      "source": "proc:1",
+      "target": "proc:3538",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617661,
+      "source": "proc:3541",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617558,
+      "source": "proc:3499",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617513,
+      "source": "proc:3479",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617620,
+      "source": "proc:3524",
+      "target": "proc:3525",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617561,
+      "source": "proc:1",
+      "target": "proc:3499",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617489,
+      "source": "proc:3469",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617546,
+      "source": "proc:1",
+      "target": "proc:3493",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617635,
+      "source": "proc:3530",
+      "target": "proc:3531",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617697,
+      "source": "proc:3556",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617508,
+      "source": "proc:1",
+      "target": "proc:3477",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617699,
+      "source": "proc:1",
+      "target": "proc:3557",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617670,
+      "source": "proc:3545",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617721,
+      "source": "proc:1",
+      "target": "proc:3566",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617699,
+      "source": "proc:3557",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617668,
+      "source": "proc:3544",
+      "target": "proc:3545",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617699,
+      "source": "proc:3558",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617673,
+      "source": "proc:1",
+      "target": "proc:3546",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617445,
+      "source": "proc:3451",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617582,
+      "source": "proc:3508",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617460,
+      "source": "proc:1",
+      "target": "proc:3457",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617613,
+      "source": "proc:3521",
+      "target": "proc:3522",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617532,
+      "source": "proc:3487",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617445,
+      "source": "proc:3452",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617510,
+      "source": "proc:3478",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617561,
+      "source": "proc:3499",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617465,
+      "source": "proc:3459",
+      "target": "proc:3460",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617505,
+      "source": "proc:3476",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617666,
+      "source": "proc:1",
+      "target": "proc:3543",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617620,
+      "source": "proc:3524",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617730,
+      "source": "proc:3570",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617556,
+      "source": "proc:3497",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617474,
+      "source": "proc:3463",
+      "target": "proc:3464",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617625,
+      "source": "proc:3526",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617723,
+      "source": "proc:3567",
+      "target": "proc:3568",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617697,
+      "source": "proc:3556",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617680,
+      "source": "proc:3550",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617618,
+      "source": "proc:1",
+      "target": "proc:3523",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617486,
+      "source": "proc:3468",
+      "target": "proc:3469",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617546,
+      "source": "proc:3493",
+      "target": "proc:3494",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617438,
+      "source": "proc:3448",
+      "target": "proc:3449",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617627,
+      "source": "proc:3527",
+      "target": "proc:3528",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617682,
+      "source": "proc:3551",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617721,
+      "source": "proc:3566",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617735,
+      "source": "proc:3573",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617675,
+      "source": "proc:3547",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617701,
+      "source": "proc:3558",
+      "target": "proc:3559",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617556,
+      "source": "proc:3498",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617694,
+      "source": "proc:3555",
+      "target": "proc:3556",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617448,
+      "source": "proc:1",
+      "target": "proc:3452",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617630,
+      "source": "proc:3529",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617455,
+      "source": "proc:3455",
+      "target": "proc:3456",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617732,
+      "source": "proc:3571",
+      "target": "proc:3572",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617601,
+      "source": "proc:3516",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617481,
+      "source": "proc:3466",
+      "target": "proc:3467",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617604,
+      "source": "proc:3517",
+      "target": "proc:3518",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617732,
+      "source": "proc:3571",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617737,
+      "source": "proc:3574",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617462,
+      "source": "proc:3458",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617654,
+      "source": "proc:3539",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617474,
+      "source": "proc:3464",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617522,
+      "source": "proc:3484",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617551,
+      "source": "proc:3495",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617639,
+      "source": "proc:1",
+      "target": "proc:3532",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617711,
+      "source": "proc:3562",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617673,
+      "source": "proc:3546",
+      "target": "proc:3547",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617515,
+      "source": "proc:1",
+      "target": "proc:3480",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617587,
+      "source": "proc:3510",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617501,
+      "source": "proc:1",
+      "target": "proc:3474",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617632,
+      "source": "proc:3529",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617706,
+      "source": "proc:3560",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617663,
+      "source": "proc:3542",
+      "target": "proc:3543",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617599,
+      "source": "proc:3515",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617479,
+      "source": "proc:3466",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617608,
+      "source": "proc:3519",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617637,
+      "source": "proc:3532",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617561,
+      "source": "proc:3499",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617697,
+      "source": "proc:1",
+      "target": "proc:3556",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617532,
+      "source": "proc:3487",
+      "target": "proc:3488",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617661,
+      "source": "proc:3541",
+      "target": "proc:3542",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617563,
+      "source": "proc:3500",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617594,
+      "source": "proc:3513",
+      "target": "proc:3514",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617493,
+      "source": "proc:3471",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617577,
+      "source": "proc:3507",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617644,
+      "source": "proc:3534",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617462,
+      "source": "proc:3458",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617508,
+      "source": "proc:3477",
+      "target": "proc:3478",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617656,
+      "source": "proc:3539",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617565,
+      "source": "proc:3501",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617587,
+      "source": "proc:3511",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617642,
+      "source": "proc:3534",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617661,
+      "source": "proc:1",
+      "target": "proc:3541",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617503,
+      "source": "proc:1",
+      "target": "proc:3475",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617510,
+      "source": "proc:3478",
+      "target": "proc:3479",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617515,
+      "source": "proc:3480",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617527,
+      "source": "proc:3485",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617522,
+      "source": "proc:3483",
+      "target": "proc:3484",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617637,
+      "source": "proc:3531",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617675,
+      "source": "proc:1",
+      "target": "proc:3547",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617737,
+      "source": "proc:1",
+      "target": "proc:3573",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617455,
+      "source": "proc:3455",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617608,
+      "source": "proc:3519",
+      "target": "proc:3520",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617649,
+      "source": "proc:3536",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617644,
+      "source": "proc:3535",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617472,
+      "source": "proc:3462",
+      "target": "proc:3463",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617625,
+      "source": "proc:3527",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617682,
+      "source": "proc:3550",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617469,
+      "source": "proc:3462",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617491,
+      "source": "proc:3471",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617522,
+      "source": "proc:3483",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617544,
+      "source": "proc:3493",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617680,
+      "source": "proc:3549",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617611,
+      "source": "proc:3520",
+      "target": "proc:3521",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617620,
+      "source": "proc:3525",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617517,
+      "source": "proc:3481",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617575,
+      "source": "proc:3505",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617601,
+      "source": "proc:3516",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617520,
+      "source": "proc:1",
+      "target": "proc:3482",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617718,
+      "source": "proc:3566",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617716,
+      "source": "proc:3564",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617460,
+      "source": "proc:3457",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617474,
+      "source": "proc:1",
+      "target": "proc:3463",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617551,
+      "source": "proc:3496",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617443,
+      "source": "proc:3451",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617716,
+      "source": "proc:3564",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617484,
+      "source": "proc:3467",
+      "target": "proc:3468",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617709,
+      "source": "proc:3561",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617551,
+      "source": "proc:1",
+      "target": "proc:3495",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617651,
+      "source": "proc:3537",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617556,
+      "source": "proc:1",
+      "target": "proc:3497",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617594,
+      "source": "proc:3513",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617462,
+      "source": "proc:1",
+      "target": "proc:3458",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617732,
+      "source": "proc:3572",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617644,
+      "source": "proc:3534",
+      "target": "proc:3535",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617690,
+      "source": "proc:1",
+      "target": "proc:3553",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617599,
+      "source": "proc:3516",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617445,
+      "source": "proc:3451",
+      "target": "proc:3452",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617606,
+      "source": "proc:3518",
+      "target": "proc:3519",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617448,
+      "source": "proc:3452",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617654,
+      "source": "proc:3538",
+      "target": "proc:3539",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617709,
+      "source": "proc:3561",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617481,
+      "source": "proc:3467",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617525,
+      "source": "proc:1",
+      "target": "proc:3484",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617551,
+      "source": "proc:3495",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617690,
+      "source": "proc:3553",
+      "target": "proc:3554",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617498,
+      "source": "proc:1",
+      "target": "proc:3473",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617682,
+      "source": "proc:1",
+      "target": "proc:3550",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617642,
+      "source": "proc:1",
+      "target": "proc:3533",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617568,
+      "source": "proc:3502",
+      "target": "proc:3503",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617685,
+      "source": "proc:3551",
+      "target": "proc:3552",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617601,
+      "source": "proc:3517",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617699,
+      "source": "proc:3557",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617728,
+      "source": "proc:3570",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617558,
+      "source": "proc:1",
+      "target": "proc:3498",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617685,
+      "source": "proc:3552",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617685,
+      "source": "proc:3551",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617498,
+      "source": "proc:3473",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617510,
+      "source": "proc:3478",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617541,
+      "source": "proc:3491",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617541,
+      "source": "proc:3491",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617553,
+      "source": "proc:3496",
+      "target": "proc:3497",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617534,
+      "source": "proc:3488",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617575,
+      "source": "proc:3505",
+      "target": "proc:3506",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617453,
+      "source": "proc:1",
+      "target": "proc:3454",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617692,
+      "source": "proc:3554",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617608,
+      "source": "proc:3520",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617443,
+      "source": "proc:3450",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617537,
+      "source": "proc:1",
+      "target": "proc:3489",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617721,
+      "source": "proc:3566",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617441,
+      "source": "proc:3449",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617448,
+      "source": "proc:3452",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617515,
+      "source": "proc:3481",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617529,
+      "source": "proc:1",
+      "target": "proc:3486",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617599,
+      "source": "proc:1",
+      "target": "proc:3515",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617632,
+      "source": "proc:3529",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617666,
+      "source": "proc:3544",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617611,
+      "source": "proc:3520",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617615,
+      "source": "proc:3522",
+      "target": "proc:3523",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617728,
+      "source": "proc:3569",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617613,
+      "source": "proc:3521",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617644,
+      "source": "proc:3534",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617469,
+      "source": "proc:3461",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617580,
+      "source": "proc:3507",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617539,
+      "source": "proc:1",
+      "target": "proc:3490",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617568,
+      "source": "proc:3502",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617486,
+      "source": "proc:3468",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617472,
+      "source": "proc:1",
+      "target": "proc:3462",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617647,
+      "source": "proc:3535",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617453,
+      "source": "proc:3454",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617457,
+      "source": "proc:3456",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617592,
+      "source": "proc:3512",
+      "target": "proc:3513",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617678,
+      "source": "proc:3548",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617725,
+      "source": "proc:3568",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617570,
+      "source": "proc:3503",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617522,
+      "source": "proc:3483",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617637,
+      "source": "proc:3531",
+      "target": "proc:3532",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617706,
+      "source": "proc:3560",
+      "target": "proc:3561",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617556,
+      "source": "proc:3497",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617668,
+      "source": "proc:3545",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617565,
+      "source": "proc:3501",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617493,
+      "source": "proc:3472",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617561,
+      "source": "proc:3500",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617728,
+      "source": "proc:3569",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617706,
+      "source": "proc:3560",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617649,
+      "source": "proc:3537",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617539,
+      "source": "proc:3490",
+      "target": "proc:3491",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617723,
+      "source": "proc:1",
+      "target": "proc:3567",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617450,
+      "source": "proc:3453",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617553,
+      "source": "proc:3496",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617489,
+      "source": "proc:3469",
+      "target": "proc:3470",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617692,
+      "source": "proc:3555",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617565,
+      "source": "proc:1",
+      "target": "proc:3501",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617541,
+      "source": "proc:1",
+      "target": "proc:3491",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617577,
+      "source": "proc:3506",
+      "target": "proc:3507",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617563,
+      "source": "proc:3500",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617565,
+      "source": "proc:3502",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617721,
+      "source": "proc:3567",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617630,
+      "source": "proc:3528",
+      "target": "proc:3529",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617711,
+      "source": "proc:3562",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617647,
+      "source": "proc:1",
+      "target": "proc:3535",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617513,
+      "source": "proc:3479",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617589,
+      "source": "proc:3511",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617725,
+      "source": "proc:3568",
+      "target": "proc:3569",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617704,
+      "source": "proc:1",
+      "target": "proc:3559",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617666,
+      "source": "proc:3543",
+      "target": "proc:3544",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617445,
+      "source": "proc:3451",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617450,
+      "source": "proc:3453",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617460,
+      "source": "proc:3457",
+      "target": "proc:3458",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617527,
+      "source": "proc:3485",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617596,
+      "source": "proc:3514",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617697,
+      "source": "proc:3557",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617517,
+      "source": "proc:1",
+      "target": "proc:3481",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617501,
+      "source": "proc:3474",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617584,
+      "source": "proc:1",
+      "target": "proc:3509",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617659,
+      "source": "proc:1",
+      "target": "proc:3540",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617568,
+      "source": "proc:3502",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617596,
+      "source": "proc:3515",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617737,
+      "source": "proc:3573",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617570,
+      "source": "proc:3503",
+      "target": "proc:3504",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617455,
+      "source": "proc:3455",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617496,
+      "source": "proc:3473",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617580,
+      "source": "proc:3508",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617587,
+      "source": "proc:3510",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617682,
+      "source": "proc:3550",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617556,
+      "source": "proc:3497",
+      "target": "proc:3498",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617592,
+      "source": "proc:3512",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617549,
+      "source": "proc:3494",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617656,
+      "source": "proc:3539",
+      "target": "proc:3540",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617685,
+      "source": "proc:1",
+      "target": "proc:3551",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617520,
+      "source": "proc:3482",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617467,
+      "source": "proc:3460",
+      "target": "proc:3461",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617544,
+      "source": "proc:3492",
+      "target": "proc:3493",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617699,
+      "source": "proc:3557",
+      "target": "proc:3558",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617477,
+      "source": "proc:3464",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617608,
+      "source": "proc:3519",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617580,
+      "source": "proc:3507",
+      "target": "proc:3508",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617718,
+      "source": "proc:3565",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617596,
+      "source": "proc:3514",
+      "target": "proc:3515",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617618,
+      "source": "proc:3524",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617635,
+      "source": "proc:3530",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617680,
+      "source": "proc:1",
+      "target": "proc:3549",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617549,
+      "source": "proc:1",
+      "target": "proc:3494",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617596,
+      "source": "proc:3514",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617718,
+      "source": "proc:1",
+      "target": "proc:3565",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617725,
+      "source": "proc:1",
+      "target": "proc:3568",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617692,
+      "source": "proc:1",
+      "target": "proc:3554",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617706,
+      "source": "proc:3561",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617730,
+      "source": "proc:3571",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617582,
+      "source": "proc:1",
+      "target": "proc:3508",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617503,
+      "source": "proc:3475",
+      "target": "proc:3476",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617467,
+      "source": "proc:1",
+      "target": "proc:3460",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617472,
+      "source": "proc:3462",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617501,
+      "source": "proc:3475",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617666,
+      "source": "proc:3543",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617441,
+      "source": "proc:3449",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617675,
+      "source": "proc:3548",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617682,
+      "source": "proc:3550",
+      "target": "proc:3551",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617670,
+      "source": "proc:3546",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617505,
+      "source": "proc:3476",
+      "target": "proc:3477",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617623,
+      "source": "proc:3526",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617546,
+      "source": "proc:3493",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617513,
+      "source": "proc:3479",
+      "target": "proc:3480",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617546,
+      "source": "proc:3493",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617534,
+      "source": "proc:3489",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617651,
+      "source": "proc:1",
+      "target": "proc:3537",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617537,
+      "source": "proc:3489",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617469,
+      "source": "proc:3461",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617635,
+      "source": "proc:3530",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617659,
+      "source": "proc:3540",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617668,
+      "source": "proc:3544",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617654,
+      "source": "proc:3538",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617637,
+      "source": "proc:3531",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617513,
+      "source": "proc:3480",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617508,
+      "source": "proc:3477",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617455,
+      "source": "proc:3456",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617493,
+      "source": "proc:1",
+      "target": "proc:3471",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617644,
+      "source": "proc:1",
+      "target": "proc:3534",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617690,
+      "source": "proc:3553",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617496,
+      "source": "proc:3472",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617594,
+      "source": "proc:3513",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617687,
+      "source": "proc:3552",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617690,
+      "source": "proc:3553",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617706,
+      "source": "proc:1",
+      "target": "proc:3560",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617513,
+      "source": "proc:1",
+      "target": "proc:3479",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617728,
+      "source": "proc:1",
+      "target": "proc:3569",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617486,
+      "source": "proc:1",
+      "target": "proc:3468",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617479,
+      "source": "proc:3465",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617520,
+      "source": "proc:3482",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617577,
+      "source": "proc:3506",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617580,
+      "source": "proc:3507",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617474,
+      "source": "proc:3463",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617472,
+      "source": "proc:3463",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617568,
+      "source": "proc:3503",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617635,
+      "source": "proc:1",
+      "target": "proc:3530",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617510,
+      "source": "proc:3479",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617563,
+      "source": "proc:3500",
+      "target": "proc:3501",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617673,
+      "source": "proc:3546",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617737,
+      "source": "proc:3573",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617663,
+      "source": "proc:3543",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617441,
+      "source": "proc:3450",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617639,
+      "source": "proc:3533",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617544,
+      "source": "proc:3492",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617680,
+      "source": "proc:3549",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617723,
+      "source": "proc:3568",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617673,
+      "source": "proc:3547",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617642,
+      "source": "proc:3533",
+      "target": "proc:3534",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617716,
+      "source": "proc:1",
+      "target": "proc:3564",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617498,
+      "source": "proc:3473",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617572,
+      "source": "proc:3505",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617479,
+      "source": "proc:3465",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617632,
+      "source": "proc:3530",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617467,
+      "source": "proc:3461",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617479,
+      "source": "proc:3465",
+      "target": "proc:3466",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617632,
+      "source": "proc:3529",
+      "target": "proc:3530",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617472,
+      "source": "proc:3462",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617438,
+      "source": "proc:3448",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617630,
+      "source": "proc:3528",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617517,
+      "source": "proc:3481",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617623,
+      "source": "proc:3525",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617541,
+      "source": "proc:3492",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617572,
+      "source": "proc:1",
+      "target": "proc:3504",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617505,
+      "source": "proc:3476",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617592,
+      "source": "proc:3513",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617618,
+      "source": "proc:3523",
+      "target": "proc:3524",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617469,
+      "source": "proc:1",
+      "target": "proc:3461",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617627,
+      "source": "proc:3527",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617558,
+      "source": "proc:3498",
+      "target": "proc:3499",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617725,
+      "source": "proc:3569",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617510,
+      "source": "proc:1",
+      "target": "proc:3478",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617570,
+      "source": "proc:3504",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617458,
+      "source": "proc:3456",
+      "target": "proc:3457",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617625,
+      "source": "proc:3526",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617615,
+      "source": "proc:1",
+      "target": "proc:3522",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617529,
+      "source": "proc:3487",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617647,
+      "source": "proc:3535",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617687,
+      "source": "proc:3553",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617534,
+      "source": "proc:3488",
+      "target": "proc:3489",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617713,
+      "source": "proc:3564",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617520,
+      "source": "proc:3483",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617450,
+      "source": "proc:3453",
+      "target": "proc:3454",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617678,
+      "source": "proc:3548",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617599,
+      "source": "proc:3515",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617575,
+      "source": "proc:3506",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617537,
+      "source": "proc:3489",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617453,
+      "source": "proc:3454",
+      "target": "proc:3455",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617687,
+      "source": "proc:3552",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617594,
+      "source": "proc:3514",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617661,
+      "source": "proc:3541",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617656,
+      "source": "proc:3539",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617563,
+      "source": "proc:1",
+      "target": "proc:3500",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617481,
+      "source": "proc:3466",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617589,
+      "source": "proc:3512",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617601,
+      "source": "proc:1",
+      "target": "proc:3516",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617678,
+      "source": "proc:1",
+      "target": "proc:3548",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617522,
+      "source": "proc:1",
+      "target": "proc:3483",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617604,
+      "source": "proc:3517",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617575,
+      "source": "proc:1",
+      "target": "proc:3505",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617723,
+      "source": "proc:3567",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617503,
+      "source": "proc:3475",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617551,
+      "source": "proc:3495",
+      "target": "proc:3496",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617680,
+      "source": "proc:3549",
+      "target": "proc:3550",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617568,
+      "source": "proc:1",
+      "target": "proc:3502",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617675,
+      "source": "proc:3547",
+      "target": "proc:3548",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617594,
+      "source": "proc:1",
+      "target": "proc:3513",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617491,
+      "source": "proc:1",
+      "target": "proc:3470",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617592,
+      "source": "proc:1",
+      "target": "proc:3512",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617694,
+      "source": "proc:3555",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617570,
+      "source": "proc:1",
+      "target": "proc:3503",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617608,
+      "source": "proc:1",
+      "target": "proc:3519",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617656,
+      "source": "proc:1",
+      "target": "proc:3539",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617604,
+      "source": "proc:3517",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617670,
+      "source": "proc:3545",
+      "target": "proc:3546",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617582,
+      "source": "proc:3509",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617505,
+      "source": "proc:1",
+      "target": "proc:3476",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617589,
+      "source": "proc:1",
+      "target": "proc:3511",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617448,
+      "source": "proc:3453",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617553,
+      "source": "proc:3496",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617438,
+      "source": "proc:3448",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617541,
+      "source": "proc:3491",
+      "target": "proc:3492",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617587,
+      "source": "proc:1",
+      "target": "proc:3510",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617637,
+      "source": "proc:1",
+      "target": "proc:3531",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617692,
+      "source": "proc:3554",
+      "target": "proc:3555",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617697,
+      "source": "proc:3556",
+      "target": "proc:3557",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617735,
+      "source": "proc:3572",
+      "target": "proc:3573",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617501,
+      "source": "proc:3474",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617532,
+      "source": "proc:3488",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617553,
+      "source": "proc:3497",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617563,
+      "source": "proc:3501",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617659,
+      "source": "proc:3540",
+      "target": "proc:3541",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617663,
+      "source": "proc:1",
+      "target": "proc:3542",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617532,
+      "source": "proc:1",
+      "target": "proc:3487",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617465,
+      "source": "proc:1",
+      "target": "proc:3459",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617450,
+      "source": "proc:1",
+      "target": "proc:3453",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617539,
+      "source": "proc:3491",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617711,
+      "source": "proc:3563",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617491,
+      "source": "proc:3470",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617630,
+      "source": "proc:1",
+      "target": "proc:3528",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617479,
+      "source": "proc:1",
+      "target": "proc:3465",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617709,
+      "source": "proc:1",
+      "target": "proc:3561",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617606,
+      "source": "proc:3519",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617508,
+      "source": "proc:3477",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617496,
+      "source": "proc:3472",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617520,
+      "source": "proc:3482",
+      "target": "proc:3483",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617580,
+      "source": "proc:1",
+      "target": "proc:3507",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617465,
+      "source": "proc:3460",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617549,
+      "source": "proc:3495",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617445,
+      "source": "proc:1",
+      "target": "proc:3451",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617649,
+      "source": "proc:3536",
+      "target": "proc:3537",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617443,
+      "source": "proc:1",
+      "target": "proc:3450",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617737,
+      "source": "proc:3573",
+      "target": "proc:3574",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617477,
+      "source": "proc:3464",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617489,
+      "source": "proc:1",
+      "target": "proc:3469",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617584,
+      "source": "proc:3509",
+      "target": "proc:3510",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617730,
+      "source": "proc:3570",
+      "target": "proc:3571",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617539,
+      "source": "proc:3490",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617668,
+      "source": "proc:3544",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617639,
+      "source": "proc:3532",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617584,
+      "source": "proc:3509",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617469,
+      "source": "proc:3461",
+      "target": "proc:3462",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617642,
+      "source": "proc:3533",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617572,
+      "source": "proc:3504",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617732,
+      "source": "proc:1",
+      "target": "proc:3571",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617537,
+      "source": "proc:3489",
+      "target": "proc:3490",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617549,
+      "source": "proc:3494",
+      "target": "proc:3495",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617718,
+      "source": "proc:3565",
+      "target": "proc:3566",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617525,
+      "source": "proc:3484",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617623,
+      "source": "proc:1",
+      "target": "proc:3525",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617735,
+      "source": "proc:3572",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617558,
+      "source": "proc:3498",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617601,
+      "source": "proc:3516",
+      "target": "proc:3517",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617582,
+      "source": "proc:3508",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617711,
+      "source": "proc:3562",
+      "target": "proc:3563",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617544,
+      "source": "proc:3492",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617711,
+      "source": "proc:1",
+      "target": "proc:3562",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617606,
+      "source": "proc:3518",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617649,
+      "source": "proc:1",
+      "target": "proc:3536",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617723,
+      "source": "proc:3567",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617496,
+      "source": "proc:3472",
+      "target": "proc:3473",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617489,
+      "source": "proc:3470",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617438,
+      "source": "proc:1",
+      "target": "proc:3448",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617575,
+      "source": "proc:3505",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617474,
+      "source": "proc:3463",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617460,
+      "source": "proc:3458",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617587,
+      "source": "proc:3510",
+      "target": "proc:3511",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617561,
+      "source": "proc:3499",
+      "target": "proc:3500",
+      "weight": 1.0
+    },
+    {
+      "kind": "WRITE",
+      "last_seen": 1757617701,
+      "source": "proc:3558",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617713,
+      "source": "proc:3563",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617527,
+      "source": "proc:3486",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617532,
+      "source": "proc:3487",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617618,
+      "source": "proc:3523",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617584,
+      "source": "proc:3510",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617620,
+      "source": "proc:3524",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617627,
+      "source": "proc:1",
+      "target": "proc:3527",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617498,
+      "source": "proc:3474",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617529,
+      "source": "proc:3486",
+      "target": "proc:3487",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617498,
+      "source": "proc:3473",
+      "target": "proc:3474",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617503,
+      "source": "proc:3475",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617728,
+      "source": "proc:3569",
+      "target": "proc:3570",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617670,
+      "source": "proc:3545",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617539,
+      "source": "proc:3490",
+      "target": "ip:1.1.1.1:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "CONNECT",
+      "last_seen": 1757617546,
+      "source": "proc:3494",
+      "target": "ip:93.184.216.34:443",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617596,
+      "source": "proc:1",
+      "target": "proc:3514",
+      "weight": 1.0
+    },
+    {
+      "kind": "READ",
+      "last_seen": 1757617623,
+      "source": "proc:3525",
+      "target": "file:/tmp/demo.txt",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617484,
+      "source": "proc:1",
+      "target": "proc:3467",
+      "weight": 1.0
+    },
+    {
+      "kind": "EXEC",
+      "last_seen": 1757617565,
+      "source": "proc:3501",
+      "target": "proc:3502",
+      "weight": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3507",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3507)",
+      "last_seen": 1757617580,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3550",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3550)",
+      "last_seen": 1757617682,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3544",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3544)",
+      "last_seen": 1757617668,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3461",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3461)",
+      "last_seen": 1757617469,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3463",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3463)",
+      "last_seen": 1757617474,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3517",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3517)",
+      "last_seen": 1757617604,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3503",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3503)",
+      "last_seen": 1757617570,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3492",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3492)",
+      "last_seen": 1757617544,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3519",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3519)",
+      "last_seen": 1757617608,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3568",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3568)",
+      "last_seen": 1757617725,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3493",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3493)",
+      "last_seen": 1757617546,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3567",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3567)",
+      "last_seen": 1757617723,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3475",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3475)",
+      "last_seen": 1757617503,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3458",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3458)",
+      "last_seen": 1757617462,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3468",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3468)",
+      "last_seen": 1757617486,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.0,
+      "id": "ip:1.1.1.1:443",
+      "kind": "ip",
+      "label": "1.1.1.1:443",
+      "last_seen": 1757617737,
+      "rgcn_score": 0.0,
+      "score": 0.0
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3505",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3505)",
+      "last_seen": 1757617575,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3482",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3482)",
+      "last_seen": 1757617520,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3531",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3531)",
+      "last_seen": 1757617637,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3525",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3525)",
+      "last_seen": 1757617623,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3494",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3494)",
+      "last_seen": 1757617549,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3572",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3572)",
+      "last_seen": 1757617735,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3476",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3476)",
+      "last_seen": 1757617505,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3500",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3500)",
+      "last_seen": 1757617563,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3483",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3483)",
+      "last_seen": 1757617522,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3549",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3549)",
+      "last_seen": 1757617680,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3502",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3502)",
+      "last_seen": 1757617568,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3571",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3571)",
+      "last_seen": 1757617732,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3509",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3509)",
+      "last_seen": 1757617584,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3471",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3471)",
+      "last_seen": 1757617493,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3553",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3553)",
+      "last_seen": 1757617690,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3512",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3512)",
+      "last_seen": 1757617592,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.0,
+      "id": "ip:93.184.216.34:443",
+      "kind": "ip",
+      "label": "93.184.216.34:443",
+      "last_seen": 1757617737,
+      "rgcn_score": 0.0,
+      "score": 0.0
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3453",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3453)",
+      "last_seen": 1757617450,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3464",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3464)",
+      "last_seen": 1757617477,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3470",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3470)",
+      "last_seen": 1757617491,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3472",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3472)",
+      "last_seen": 1757617496,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3486",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3486)",
+      "last_seen": 1757617529,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3527",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3527)",
+      "last_seen": 1757617627,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3540",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3540)",
+      "last_seen": 1757617659,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3454",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3454)",
+      "last_seen": 1757617453,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3563",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3563)",
+      "last_seen": 1757617713,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3570",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3570)",
+      "last_seen": 1757617730,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3487",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3487)",
+      "last_seen": 1757617532,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3478",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3478)",
+      "last_seen": 1757617510,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3496",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3496)",
+      "last_seen": 1757617553,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3558",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3558)",
+      "last_seen": 1757617701,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3518",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3518)",
+      "last_seen": 1757617606,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3566",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3566)",
+      "last_seen": 1757617721,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3552",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3552)",
+      "last_seen": 1757617687,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3504",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3504)",
+      "last_seen": 1757617572,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3516",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3516)",
+      "last_seen": 1757617601,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3551",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3551)",
+      "last_seen": 1757617685,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3479",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3479)",
+      "last_seen": 1757617513,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3548",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3548)",
+      "last_seen": 1757617678,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3565",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3565)",
+      "last_seen": 1757617718,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3515",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3515)",
+      "last_seen": 1757617599,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3473",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3473)",
+      "last_seen": 1757617498,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3499",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3499)",
+      "last_seen": 1757617561,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3524",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3524)",
+      "last_seen": 1757617620,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3533",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3533)",
+      "last_seen": 1757617642,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3448",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3448)",
+      "last_seen": 1757617438,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3530",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3530)",
+      "last_seen": 1757617635,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3497",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3497)",
+      "last_seen": 1757617556,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3562",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3562)",
+      "last_seen": 1757617711,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3506",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3506)",
+      "last_seen": 1757617577,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3456",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3456)",
+      "last_seen": 1757617458,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3520",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3520)",
+      "last_seen": 1757617611,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3546",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3546)",
+      "last_seen": 1757617673,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3554",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3554)",
+      "last_seen": 1757617692,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3485",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3485)",
+      "last_seen": 1757617527,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3561",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3561)",
+      "last_seen": 1757617709,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3450",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3450)",
+      "last_seen": 1757617443,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3480",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3480)",
+      "last_seen": 1757617515,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3455",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3455)",
+      "last_seen": 1757617455,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3542",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3542)",
+      "last_seen": 1757617663,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.0,
+      "id": "file:/tmp/demo.txt",
+      "kind": "file",
+      "label": "/tmp/demo.txt",
+      "last_seen": 1757617737,
+      "rgcn_score": 0.0,
+      "score": 0.0
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3522",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3522)",
+      "last_seen": 1757617615,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3467",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3467)",
+      "last_seen": 1757617484,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3508",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3508)",
+      "last_seen": 1757617582,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3460",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3460)",
+      "last_seen": 1757617467,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3457",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3457)",
+      "last_seen": 1757617460,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3491",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3491)",
+      "last_seen": 1757617541,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3511",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3511)",
+      "last_seen": 1757617589,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3528",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3528)",
+      "last_seen": 1757617630,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3556",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3556)",
+      "last_seen": 1757617697,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3535",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3535)",
+      "last_seen": 1757617647,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3469",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3469)",
+      "last_seen": 1757617489,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3538",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3538)",
+      "last_seen": 1757617654,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3555",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3555)",
+      "last_seen": 1757617694,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3573",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3573)",
+      "last_seen": 1757617737,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3465",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3465)",
+      "last_seen": 1757617479,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3490",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3490)",
+      "last_seen": 1757617539,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3513",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3513)",
+      "last_seen": 1757617594,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3452",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3452)",
+      "last_seen": 1757617448,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3510",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3510)",
+      "last_seen": 1757617587,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3529",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3529)",
+      "last_seen": 1757617632,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3459",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3459)",
+      "last_seen": 1757617465,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3451",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3451)",
+      "last_seen": 1757617445,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3537",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3537)",
+      "last_seen": 1757617651,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3526",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3526)",
+      "last_seen": 1757617625,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3532",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3532)",
+      "last_seen": 1757617639,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3488",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3488)",
+      "last_seen": 1757617534,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3484",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3484)",
+      "last_seen": 1757617525,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3536",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3536)",
+      "last_seen": 1757617649,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.6,
+      "id": "proc:3466",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3466)",
+      "last_seen": 1757617481,
+      "rgcn_score": 0.0,
+      "score": 0.6
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3534",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3534)",
+      "last_seen": 1757617644,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.4,
+      "id": "proc:3462",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3462)",
+      "last_seen": 1757617472,
+      "rgcn_score": 0.0,
+      "score": 0.2
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3521",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3521)",
+      "last_seen": 1757617613,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3481",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3481)",
+      "last_seen": 1757617517,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3560",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3560)",
+      "last_seen": 1757617706,
+      "rgcn_score": 0.0,
+      "score": 0.81
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3489",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3489)",
+      "last_seen": 1757617537,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3543",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3543)",
+      "last_seen": 1757617666,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.7,
+      "id": "proc:3498",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3498)",
+      "last_seen": 1757617558,
+      "rgcn_score": 0.0,
+      "score": 0.8
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3547",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3547)",
+      "last_seen": 1757617675,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3559",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3559)",
+      "last_seen": 1757617704,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.0,
+      "id": "proc:1",
+      "kind": "proc",
+      "label": "-(1)",
+      "last_seen": 1757617737,
+      "rgcn_score": 0.0,
+      "score": 0.0
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3541",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3541)",
+      "last_seen": 1757617661,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3557",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3557)",
+      "last_seen": 1757617699,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3574",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3574)",
+      "last_seen": 1757617737,
+      "rgcn_score": 0.0,
+      "score": 0.27
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3495",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3495)",
+      "last_seen": 1757617551,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3514",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3514)",
+      "last_seen": 1757617596,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3474",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3474)",
+      "last_seen": 1757617501,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.35,
+      "id": "proc:3501",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3501)",
+      "last_seen": 1757617565,
+      "rgcn_score": 0.0,
+      "score": 0.1
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3569",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3569)",
+      "last_seen": 1757617728,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.55,
+      "id": "proc:3545",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3545)",
+      "last_seen": 1757617670,
+      "rgcn_score": 0.0,
+      "score": 0.5
+    },
+    {
+      "confidence": 0.45,
+      "id": "proc:3523",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3523)",
+      "last_seen": 1757617618,
+      "rgcn_score": 0.0,
+      "score": 0.3
+    },
+    {
+      "confidence": 0.5,
+      "id": "proc:3564",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3564)",
+      "last_seen": 1757617716,
+      "rgcn_score": 0.0,
+      "score": 0.4
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3539",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3539)",
+      "last_seen": 1757617656,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.75,
+      "id": "proc:3449",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3449)",
+      "last_seen": 1757617441,
+      "rgcn_score": 0.0,
+      "score": 0.9
+    },
+    {
+      "confidence": 0.6499999999999999,
+      "id": "proc:3477",
+      "kind": "proc",
+      "label": "/usr/bin/curl(3477)",
+      "last_seen": 1757617508,
+      "rgcn_score": 0.0,
+      "score": 0.7
+    }
+  ],
+  "ts": 1757617738
+}
