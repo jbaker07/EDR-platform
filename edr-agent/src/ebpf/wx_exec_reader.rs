@@ -87,19 +87,17 @@ pub fn start_wx_exec_reader(_writer: Arc<Mutex<TelemetryWriter>>) {
     attach_tp(&["tp_enter_mmap2"], "syscalls", "sys_enter_mmap2");
     attach_tp(&["tp_exit_mmap2" ], "syscalls", "sys_exit_mmap2");
 
-    // Choose ringbuf map (prefer module-specific)
-    let map_name = if obj.map("wx_events").is_some() {
-        "wx_events"
-    } else if obj.map("EVENTS").is_some() {
-        "EVENTS"
-    } else if obj.map("events").is_some() {
-        "events"
-    } else {
-        eprintln!("[ebpf/wx] ❌ ringbuf map 'wx_events'/'EVENTS'/'events' not found in {obj_path}");
-        return;
+    // Choose ringbuf map (prefer module-specific, allow env override)
+    let map_name = match events_reader::choose_single_ringbuf_name(&obj) {
+        Some(name) => name,
+        None => {
+            eprintln!("[ebpf/wx] ❌ ringbuf map not found (wx_events/net_events/edr_events_rb/EVENTS/events) in {obj_path}");
+            return;
+        }
     };
+    eprintln!("[ebpf/wx] subscribing ringbuf map='{map_name}'");
 
-    let mut map = match obj.map_mut(map_name) {
+    let mut map = match obj.map_mut(&map_name) {
         Some(m) => m,
         None => { eprintln!("[ebpf/wx] map '{map_name}' vanished after lookup"); return; }
     };

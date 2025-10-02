@@ -73,10 +73,11 @@ fn choose_pinned_map_path(map_name: &str) -> Result<(String, std::os::fd::OwnedF
         }
     }
     Err(format!(
-        "pinned map '{}' not found under {} or {}/maps",
+        "pinned map '{}' not found under {}/{{{},maps/{}}}",
         map_name,
         pin_prefix(),
-        pin_prefix()
+        map_name,
+        map_name
     ))
 }
 
@@ -141,13 +142,15 @@ pub fn resolve_bpf(env_single: &str, file: &str) -> String {
 
 /* ------------------------- RINGBUF readers (object) ------------------------- */
 
-fn choose_ringbuf_name(obj: &libbpf_rs::Object) -> Option<String> {
-    if let Ok(over) = std::env::var("EDR_NET_RINGBUF") {
-        if obj.map(&over).is_some() {
-            return Some(over);
+pub fn choose_single_ringbuf_name(obj: &libbpf_rs::Object) -> Option<String> {
+    for env in ["EDR_SYS_RINGBUF", "EDR_NET_RINGBUF", "EDR_WX_RINGBUF"] {
+        if let Ok(over) = std::env::var(env) {
+            if obj.map(&over).is_some() {
+                return Some(over);
+            }
         }
     }
-    for n in ["EVENTS", "events", "net_events", "wx_events"] {
+    for n in ["wx_events", "net_events", "edr_events_rb", "EVENTS", "events"] {
         if obj.map(n).is_some() {
             return Some(n.to_string());
         }
@@ -169,8 +172,8 @@ pub fn start_ringbuf_reader_simple(
         .map_err(|e| format!("open.load() {}: {e}", obj_path))?;
 
     // Decide map name using immutable queries first
-    let map_name = choose_ringbuf_name(&obj)
-        .ok_or_else(|| format!("ringbuf map 'EVENTS'/'events'/'net_events'/'wx_events' not found in {}", obj_path))?;
+    let map_name = choose_single_ringbuf_name(&obj)
+        .ok_or_else(|| format!("ringbuf map 'wx_events'/'net_events'/'edr_events_rb'/'EVENTS'/'events' not found in {}", obj_path))?;
 
     // Now borrow mutably exactly once
     let mut events_map = obj
@@ -214,8 +217,8 @@ pub fn start_ringbuf_reader_with_attach(
 
     attach(&mut obj)?;
 
-    let map_name = choose_ringbuf_name(&obj)
-        .ok_or_else(|| format!("ringbuf map 'EVENTS'/'events'/'net_events'/'wx_events' not found in {}", obj_path))?;
+    let map_name = choose_single_ringbuf_name(&obj)
+        .ok_or_else(|| format!("ringbuf map 'wx_events'/'net_events'/'edr_events_rb'/'EVENTS'/'events' not found in {}", obj_path))?;
     let mut events_map = obj
         .map_mut(&map_name)
         .ok_or_else(|| format!("ringbuf map '{}' vanished in {}", map_name, obj_path))?;
@@ -518,6 +521,7 @@ pub fn start_all_pinned_readers_demux(
 /// Spins up the four object-attached readers on background threads.
 pub fn start_realtime_monitors(
     writer: Arc<Mutex<forensic_hooks::telemetry_writer::TelemetryWriter>>,
+    include_file_access: bool,
 ) {
     use crate::ebpf::container_exec_reader::start_container_exec_reader;
     use crate::file_access_reader::start_file_access_reader;
@@ -535,6 +539,10 @@ pub fn start_realtime_monitors(
     let w = writer.clone();
     thread::spawn(move || start_container_exec_reader(w));
 
-    let w = writer.clone();
-    thread::spawn(move || start_file_access_reader(w));
+    if include_file_access {
+        let w = writer.clone();
+        thread::spawn(move || start_file_access_reader(w));
+    } else {
+        info!("[events_reader] skipping file_access_reader in realtime attach (EDR_USE_LEGACY_REALTIME=0)");
+    }
 }

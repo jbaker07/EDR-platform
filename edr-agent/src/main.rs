@@ -72,8 +72,7 @@ use forensic_hooks::services::trust_engine_final::{
     evaluate_and_dispatch_trust_score, TelemetryData, TrustResult,
 };
 use forensic_hooks::telemetry::{
-    get_current_telemetry_snapshot, run_sideeffect_monitors_and_collect, start_realtime_monitors,
-    TelemetryRecord,
+    get_current_telemetry_snapshot, run_sideeffect_monitors_and_collect, TelemetryRecord,
 };
 use forensic_hooks::telemetry::Telemetry as NormTelemetry;
 use forensic_hooks::telemetry_types::TelemetryOutput;
@@ -2324,18 +2323,11 @@ async fn main() {
 
         #[cfg(target_os = "linux")]
 {
-    use log::{info, warn};
-    use std::path::Path;
+    use log::{info, warn, error};
+    use std::sync::atomic::{AtomicBool, Ordering as AOrd};
     use crate::ebpf::events_reader;
     use crate::ebpf::events_reader::Source;
     use crate::ebpf::ebpf_ingest::{ on_edr_event, on_edr_event_file_only, on_edr_event_net_only, on_edr_event_wx_only };
-
-    fn pins_present(pin_prefix: &str) -> bool {
-        let p = Path::new(pin_prefix);
-        if !p.exists() { return false; }
-        let names = ["edr_events_rb", "events", "net_events", "wx_events", "perf_events"];
-        names.iter().any(|n| p.join(n).exists() || p.join("maps").join(n).exists())
-    }
     // ⬇️ put this in main.rs AFTER the reader startup block you pasted
     {
         
@@ -2381,56 +2373,46 @@ async fn main() {
         })
     }
 
-    // Wire sizes used for quick demux from EdrSys → specific handlers.
-// Net (tcp_state) frames are ~48B per ebpf_ingest::on_edr_event_net_only.
-// WX can be other sizes (often 56B when fixed-struct), and file-perf are longer.
-const LEN_EDR_SYS_A:     usize = 376;
-const LEN_EDR_SYS_OLD1:  usize = 332;
-const LEN_EDR_SYS_OLD2:  usize = 312;
-const LEN_NET_EVT:       usize = 48;  // tcp_state frames
-const LEN_FILE_PERF_MIN: usize = 40;  // file-only parser needs ≥40
-
-fn route_by_len(source: Source, bytes: &[u8]) -> Source {
-    match source {
-        Source::EdrSys => match bytes.len() {
-            // keep classic syscall struct(s)
-            LEN_EDR_SYS_A | LEN_EDR_SYS_OLD1 | LEN_EDR_SYS_OLD2 => Source::EdrSys,
-
-            // tiny, well-known net frame
-            LEN_NET_EVT => Source::Net,
-
-            // WX is variable (≥24B). If you *know* your build emits fixed 56B,
-            // you can add `| 56` above, but safest is to let WX come from its own map.
-            _ if bytes.len() >= LEN_FILE_PERF_MIN => Source::FilePerf,
-
-            _ => source,
-        },
-        s => s,
+    static STARTED: AtomicBool = AtomicBool::new(false);
+    macro_rules! mark_started_once {
+        () => {
+            if STARTED.swap(true, AOrd::SeqCst) {
+                warn!("ebpf readers already started; ignoring duplicate start");
+                return;
+            }
+        };
     }
-}
 
+    let env_bool = |k: &str| std::env::var(k)
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false);
+    let env_str = |k: &str, default: &str| std::env::var(k).unwrap_or_else(|_| default.to_string());
 
+    let multi = env_bool("EDR_ENABLE_MULTI_PINNED");
+    let single = env_str("EDR_SYS_RINGBUF", "edr_events_rb");
+    let perfp = env_str("EDR_PERF_PAGES", "256");
+    info!(
+        "🔧 EDR mode → {{ EDR_USE_LEGACY_REALTIME: {use_legacy}, EDR_ENABLE_MULTI_PINNED: {multi}, EDR_SYS_RINGBUF: \"{single}\", EDR_PERF_PAGES: {perfp} }}"
+    );
 
-    let pin_prefix = std::env::var("EDR_PIN_PREFIX").unwrap_or_else(|_| "/sys/fs/bpf/edr".into());
-
-    if !use_legacy && pins_present(&pin_prefix) {
-        info!("🧲 Pinned maps detected under {pin_prefix} → starting demux readers");
-
+    if use_legacy {
+        info!("⚙️ Realtime attach mode (env override)");
+        mark_started_once!();
+        events_reader::start_realtime_monitors(writer.clone(), true);
+    } else {
+        mark_started_once!();
         let w_for_on = writer.clone();
         let tx = ingest_tx.clone();
-        use std::sync::atomic::{AtomicUsize, Ordering};
 
-        events_reader::start_all_pinned_readers_demux(move |source, bytes| {
+        match events_reader::start_all_pinned_readers_demux(move |source, bytes| {
             EVENTS_IN.fetch_add(1, Ordering::Relaxed);
-            let routed = route_by_len(source, bytes);
-
-            let rec_opt = match routed {
+            let rec_opt = match source {
                 Source::EdrSys   => on_edr_event(bytes, &w_for_on),
                 Source::Net      => on_edr_event_net_only(bytes, &w_for_on),
                 Source::Wx       => on_edr_event_wx_only(bytes, &w_for_on),
                 Source::FilePerf => on_edr_event_file_only(bytes, &w_for_on),
             }
-            .or_else(|| wrap_unknown(routed, bytes));
+            .or_else(|| wrap_unknown(source, bytes));
 
             match rec_opt {
                 Some(rec) => {
@@ -2444,19 +2426,19 @@ fn route_by_len(source: Source, bytes: &[u8]) -> Source {
                         .collect::<Vec<_>>()
                         .join("");
                     warn!(
-                        "decode_miss source={source:?} routed={routed:?} wire_len={} head16=0x{head}",
+                        "decode_miss source={source:?} wire_len={} head16=0x{head}",
                         bytes.len()
                     );
                 }
             }
-        }).unwrap_or_else(|e| {
-            warn!("pinned demux failed: {e:?}; falling back to realtime attach");
-            events_reader::start_realtime_monitors(writer.clone());
-        });
-    } else {
-        let why = if use_legacy { "env override" } else { "no pins present" };
-        warn!("⚙️ Realtime attach mode ({why}) → loading .bpf.o and attaching now");
-        events_reader::start_realtime_monitors(writer.clone());
+        }) {
+            Ok(()) => info!("📌 Pinned demux started"),
+            Err(e) => {
+                error!("Pinned demux failed: {e:?} → falling back to realtime attach");
+                events_reader::start_realtime_monitors(writer.clone(), false);
+                info!("⚙️ Realtime attach started (fallback)");
+            }
+        }
     }
 }
 

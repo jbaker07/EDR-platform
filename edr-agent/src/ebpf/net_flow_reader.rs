@@ -178,19 +178,16 @@ pub fn start_net_flow_reader(_writer: Arc<Mutex<TelemetryWriter>>) {
     let _s3 = attached(&["tp_exit_recvfrom", "tp_exit_recvfro"], "syscalls", "sys_exit_recvfrom");
     let _s4 = attached(&["tp_exit_recvmsg"], "syscalls", "sys_exit_recvmsg");
 
-    // Map selection
-    let map_name = if obj.map("EVENTS").is_some() {
-        "EVENTS"
-    } else if obj.map("net_events").is_some() {
-        "net_events"
-    } else if obj.map("events").is_some() {
-        "events"
-    } else {
-        eprintln!("[ebpf/net] ❌ map 'EVENTS'/'net_events'/'events' not found");
-        return;
+    let map_name = match events_reader::choose_single_ringbuf_name(&obj) {
+        Some(name) => name,
+        None => {
+            eprintln!("[ebpf/net] ❌ ringbuf map not found (wx_events/net_events/edr_events_rb/EVENTS/events)");
+            return;
+        }
     };
+    eprintln!("[ebpf/net] subscribing ringbuf map='{map_name}'");
 
-    let mut events_map = match obj.map_mut(map_name) {
+    let mut events_map = match obj.map_mut(&map_name) {
         Some(m) => m,
         None => { eprintln!("[ebpf/net] map '{map_name}' vanished after lookup"); return; }
     };

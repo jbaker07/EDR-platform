@@ -3,6 +3,7 @@
 
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
+use std::sync::atomic::Ordering;
 
 use aya::{Bpf, programs::TracePoint};
 
@@ -13,6 +14,7 @@ use forensic_hooks::gnn_hook::push_to_gnn_vector_log;
 use forensic_hooks::modules::replay_writer::store_replay_event;
 use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::telemetry_writer::{self, TelemetryWriter};
+use log::{error, info};
 
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -23,10 +25,10 @@ struct FileAccessEvent {
     filename: [u8; 256],
 }
 
-fn parse_and_emit(buf: &[u8]) {
+fn parse_and_emit(buf: &[u8]) -> bool {
     use std::ptr::copy_nonoverlapping;
     if buf.len() < std::mem::size_of::<FileAccessEvent>() {
-        return;
+        return false;
     }
 
     let mut e = FileAccessEvent { pid: 0, uid: 0, comm: [0; 64], filename: [0; 256] };
@@ -71,6 +73,8 @@ fn parse_and_emit(buf: &[u8]) {
     telemetry_writer::write_telemetry_record(m.clone());
     push_to_gnn_vector_log(m.clone());
     store_replay_event(m);
+
+    true
 }
 
 /// Attach the BPF programs (Aya path) — called by the PERF reader.
@@ -101,8 +105,8 @@ fn attach(bpf: &mut Bpf) -> Result<(), String> {
 /// Entry point used by main.rs (no writer needed; keep signature for compatibility).
 pub fn start_file_access_reader(_writer: Arc<Mutex<TelemetryWriter>>) {
     match start() {
-        Ok(_)  => eprintln!("✅ file_access_reader started (PERF)"),
-        Err(e) => eprintln!("⛔ file_access_reader disabled: {e}"),
+        Ok(_)  => info!("✅ file_access_reader started (PERF)"),
+        Err(e) => error!("⛔ file_access_reader disabled: {e}"),
     }
 }
 
@@ -126,7 +130,11 @@ pub fn start() -> Result<(), String> {
     // Load bytes and start PERF consumer with our attach callback + parser
     let bytes = std::fs::read(&obj_path)
         .map_err(|e| format!("read {}: {}", obj_path, e))?;
-    crate::EVENTS_IN.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
 
-    events_reader::start_perf_reader_with_attach(&bytes, attach, parse_and_emit)
+    events_reader::start_perf_reader_with_attach(&bytes, attach, |buf| {
+        crate::EVENTS_IN.fetch_add(1, Ordering::Relaxed);
+        if parse_and_emit(buf) {
+            crate::EVENTS_ACCEPTED.fetch_add(1, Ordering::Relaxed);
+        }
+    })
 }
