@@ -2,7 +2,7 @@
 // YARA wrapper (optional). Requires libyara + `yara` crate when built with `with_yara` feature.
 // Falls back to a no-op if the feature is disabled.
 
-use crate::decision::{Signal, DetectorKind};
+use crate::decision::{DetectorKind, Signal};
 
 #[cfg(feature = "with_yara")]
 mod inner {
@@ -33,14 +33,24 @@ mod inner {
             if let Ok(rd) = fs::read_dir(dir) {
                 for entry in rd.flatten() {
                     let p = entry.path();
-                    if p.is_file() && p.extension().and_then(|e| e.to_str()).map(|s| s.eq_ignore_ascii_case("yar") || s.eq_ignore_ascii_case("yara")).unwrap_or(false) {
+                    if p.is_file()
+                        && p.extension()
+                            .and_then(|e| e.to_str())
+                            .map(|s| {
+                                s.eq_ignore_ascii_case("yar") || s.eq_ignore_ascii_case("yara")
+                            })
+                            .unwrap_or(false)
+                    {
                         let s = fs::read_to_string(&p)?;
                         comp.add_rules_str(&s)?;
                     }
                 }
             }
             let rules = comp.compile_rules()?;
-            Ok(Self { rules, source_dir: dir.to_string() })
+            Ok(Self {
+                rules,
+                source_dir: dir.to_string(),
+            })
         }
 
         pub fn try_from_env() -> Option<Self> {
@@ -64,15 +74,30 @@ mod inner {
                     // score from rule meta: "score" or "confidence" else 0.7
                     let mut score = 0.7f32;
                     if let Some(mv) = m.meta.iter().find(|mm| mm.identifier == "score") {
-                        if let Ok(v) = mv.as_integer().map(|x| x as f32 / 100.0) { score = v; }
-                    } else if let Some(mv) = m.meta.iter().find(|mm| mm.identifier == "confidence") {
-                        if let Ok(v) = mv.as_integer().map(|x| x as f32 / 100.0) { score = v; }
+                        if let Ok(v) = mv.as_integer().map(|x| x as f32 / 100.0) {
+                            score = v;
+                        }
+                    } else if let Some(mv) = m.meta.iter().find(|mm| mm.identifier == "confidence")
+                    {
+                        if let Ok(v) = mv.as_integer().map(|x| x as f32 / 100.0) {
+                            score = v;
+                        }
                     }
-                    let exe = if !rec.binary_path.is_empty() { rec.binary_path.clone() } else {
-                        rec.command_line.split_whitespace().next().unwrap_or("-").to_string()
+                    let exe = if !rec.binary_path.is_empty() {
+                        rec.binary_path.clone()
+                    } else {
+                        rec.command_line
+                            .split_whitespace()
+                            .next()
+                            .unwrap_or("-")
+                            .to_string()
                     };
                     let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
-                    let user = if rec.uid == 0 { "root".into() } else { format!("uid:{}", rec.uid) };
+                    let user = if rec.uid == 0 {
+                        "root".into()
+                    } else {
+                        format!("uid:{}", rec.uid)
+                    };
 
                     out.push(Signal {
                         detector: DetectorKind::Other,
@@ -81,7 +106,13 @@ mod inner {
                         exe: Some(exe),
                         user: Some(user),
                         host: Some(host),
-                        cmd_prefix: Some(rec.command_line.split_whitespace().next().unwrap_or("").to_string()),
+                        cmd_prefix: Some(
+                            rec.command_line
+                                .split_whitespace()
+                                .next()
+                                .unwrap_or("")
+                                .to_string(),
+                        ),
                         parent: None,
                         signer: None,
                         hash: None,

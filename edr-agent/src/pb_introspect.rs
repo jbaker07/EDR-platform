@@ -25,15 +25,15 @@ pub struct PlaybookHit {
 /// pb_introspect::add_or_update_pending(pb_introspect::PendingEvidence { ... })
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PendingEvidence {
-    pub id: String,            // stable id for this pending evidence
-    pub playbook_id: String,   // which playbook this pending entry belongs to
-    pub ts: u64,               // when it was created/observed
-    pub slot_id: String,       // which slot is being filled / awaited
-    pub fact: String,          // short source/fact label (e.g., "Net", "FileIO", "Exec")
-    pub summary: String,       // short human summary
+    pub id: String,          // stable id for this pending evidence
+    pub playbook_id: String, // which playbook this pending entry belongs to
+    pub ts: u64,             // when it was created/observed
+    pub slot_id: String,     // which slot is being filled / awaited
+    pub fact: String,        // short source/fact label (e.g., "Net", "FileIO", "Exec")
+    pub summary: String,     // short human summary
     #[serde(default)]
-    pub tags: Vec<String>,     // ["IOC","YARA",...]
-    pub ttl_sec: u64,          // suggested time to keep it visible
+    pub tags: Vec<String>, // ["IOC","YARA",...]
+    pub ttl_sec: u64,        // suggested time to keep it visible
 }
 
 #[derive(Default)]
@@ -49,7 +49,12 @@ struct Store {
 
 static STORE: OnceLock<Mutex<Store>> = OnceLock::new();
 fn store() -> &'static Mutex<Store> {
-    STORE.get_or_init(|| Mutex::new(Store { cap_hits: 1000, ..Default::default() }))
+    STORE.get_or_init(|| {
+        Mutex::new(Store {
+            cap_hits: 1000,
+            ..Default::default()
+        })
+    })
 }
 
 static PB_TX: OnceLock<broadcast::Sender<String>> = OnceLock::new();

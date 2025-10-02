@@ -1,11 +1,11 @@
-use std::fs;
 use anyhow::Result;
 use regex::Regex as Re;
 use serde::Deserialize;
-use serde_json::{Value, json};
+use serde_json::{json, Value};
+use std::fs;
 
-use crate::detect::{Detector, Finding};
 use crate::detect::types::NormalizedAlert;
+use crate::detect::{Detector, Finding};
 // keep the rest of the file using NormalizedEvent without refactors
 type NormalizedEvent = NormalizedAlert;
 
@@ -18,10 +18,13 @@ pub struct RuleSet {
 pub struct Rule {
     pub id: String,
     pub name: String,
-    pub severity: f32,                    // [0,1]
-    #[serde(default)] pub all: Vec<Clause>,   // AND
-    #[serde(default)] pub any: Vec<Clause>,   // OR
-    #[serde(default)] pub none: Vec<Clause>,  // NOT
+    pub severity: f32, // [0,1]
+    #[serde(default)]
+    pub all: Vec<Clause>, // AND
+    #[serde(default)]
+    pub any: Vec<Clause>, // OR
+    #[serde(default)]
+    pub none: Vec<Clause>, // NOT
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -34,8 +37,16 @@ pub struct Clause {
 #[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum Op {
-    Eq, Ne, Gt, Ge, Lt, Le,
-    Contains, Startswith, Endswith, Regex
+    Eq,
+    Ne,
+    Gt,
+    Ge,
+    Lt,
+    Le,
+    Contains,
+    Startswith,
+    Endswith,
+    Regex,
 }
 
 pub struct RulesDetector {
@@ -51,7 +62,9 @@ impl RulesDetector {
 }
 
 impl Detector for RulesDetector {
-    fn name(&self) -> &'static str { "rules" }
+    fn name(&self) -> &'static str {
+        "rules"
+    }
 
     fn score(&self, e: &NormalizedEvent, _features: &[f64]) -> Vec<Finding> {
         let mut out = Vec::new();
@@ -70,9 +83,15 @@ impl Detector for RulesDetector {
 }
 
 fn eval_rule(r: &Rule, e: &NormalizedEvent) -> bool {
-    if !r.all.iter().all(|c| eval_clause(c, e)) { return false; }
-    if !r.any.is_empty() && !r.any.iter().any(|c| eval_clause(c, e)) { return false; }
-    if r.none.iter().any(|c| eval_clause(c, e)) { return false; }
+    if !r.all.iter().all(|c| eval_clause(c, e)) {
+        return false;
+    }
+    if !r.any.is_empty() && !r.any.iter().any(|c| eval_clause(c, e)) {
+        return false;
+    }
+    if r.none.iter().any(|c| eval_clause(c, e)) {
+        return false;
+    }
     true
 }
 
@@ -100,41 +119,45 @@ fn eval_clause(c: &Clause, e: &NormalizedEvent) -> bool {
         // Try to read from attributes first.
         match f {
             "category" => get_path_as_string(&e.attributes, "category"),
-            "event"    => get_path_as_string(&e.attributes, "event"),
-            "exe"      => get_path_as_string(&e.attributes, "exe"),
-            "cmdline"  => get_path_as_string(&e.attributes, "cmdline"),
-            "cwd"      => get_path_as_string(&e.attributes, "cwd"),
+            "event" => get_path_as_string(&e.attributes, "event"),
+            "exe" => get_path_as_string(&e.attributes, "exe"),
+            "cmdline" => get_path_as_string(&e.attributes, "cmdline"),
+            "cwd" => get_path_as_string(&e.attributes, "cwd"),
             // Actual top-level fields on NormalizedAlert
-            "id"            => Some(e.id.clone()),
-            "source"        => Some(e.source.clone()),
-            "connector_id"  => Some(e.connector_id.clone()),
-            "title"         => Some(e.title.clone()),
+            "id" => Some(e.id.clone()),
+            "source" => Some(e.source.clone()),
+            "connector_id" => Some(e.connector_id.clone()),
+            "title" => Some(e.title.clone()),
             "short" | "short_why" => Some(e.short_why.clone()),
-            "severity"      => Some(format!("{}", e.severity)),
-            "ts"            => Some(e.ts.to_rfc3339()),
-            "mitre"         => Some(e.mitre.join(",")),
-            "attributes"    => Some(e.attributes.to_string()),
-            "entities"      => Some(e.entities.to_string()),
-            _               => None,
+            "severity" => Some(format!("{}", e.severity)),
+            "ts" => Some(e.ts.to_rfc3339()),
+            "mitre" => Some(e.mitre.join(",")),
+            "attributes" => Some(e.attributes.to_string()),
+            "entities" => Some(e.entities.to_string()),
+            _ => None,
         }
     };
 
     match c.op {
-        Op::Eq         => eq_cmp(&lookup(&c.field), &c.value),
-        Op::Ne         => !eq_cmp(&lookup(&c.field), &c.value),
-        Op::Gt         => num_cmp(&lookup(&c.field), &c.value, |a,b| a >  b),
-        Op::Ge         => num_cmp(&lookup(&c.field), &c.value, |a,b| a >= b),
-        Op::Lt         => num_cmp(&lookup(&c.field), &c.value, |a,b| a <  b),
-        Op::Le         => num_cmp(&lookup(&c.field), &c.value, |a,b| a <= b),
-        Op::Contains   => lookup(&c.field).map(|v| v.contains(as_str(&c.value))).unwrap_or(false),
-        Op::Startswith => lookup(&c.field).map(|v| v.starts_with(as_str(&c.value))).unwrap_or(false),
-        Op::Endswith   => lookup(&c.field).map(|v| v.ends_with(as_str(&c.value))).unwrap_or(false),
-        Op::Regex      => {
-            Re::new(as_str(&c.value))
-                .ok()
-                .and_then(|re| lookup(&c.field).map(|v| re.is_match(&v)))
-                .unwrap_or(false)
-        }
+        Op::Eq => eq_cmp(&lookup(&c.field), &c.value),
+        Op::Ne => !eq_cmp(&lookup(&c.field), &c.value),
+        Op::Gt => num_cmp(&lookup(&c.field), &c.value, |a, b| a > b),
+        Op::Ge => num_cmp(&lookup(&c.field), &c.value, |a, b| a >= b),
+        Op::Lt => num_cmp(&lookup(&c.field), &c.value, |a, b| a < b),
+        Op::Le => num_cmp(&lookup(&c.field), &c.value, |a, b| a <= b),
+        Op::Contains => lookup(&c.field)
+            .map(|v| v.contains(as_str(&c.value)))
+            .unwrap_or(false),
+        Op::Startswith => lookup(&c.field)
+            .map(|v| v.starts_with(as_str(&c.value)))
+            .unwrap_or(false),
+        Op::Endswith => lookup(&c.field)
+            .map(|v| v.ends_with(as_str(&c.value)))
+            .unwrap_or(false),
+        Op::Regex => Re::new(as_str(&c.value))
+            .ok()
+            .and_then(|re| lookup(&c.field).map(|v| re.is_match(&v)))
+            .unwrap_or(false),
     }
 }
 
@@ -145,13 +168,16 @@ fn as_str(v: &Value) -> &str {
 fn eq_cmp(lhs: &Option<String>, rhs: &Value) -> bool {
     match (lhs, rhs) {
         (Some(l), Value::Number(n)) => l.parse::<f64>().ok() == n.as_f64(),
-        (Some(l), _)                => l == as_str(rhs),
-        _                           => false,
+        (Some(l), _) => l == as_str(rhs),
+        _ => false,
     }
 }
 
-fn num_cmp<F: Fn(f64,f64)->bool>(lhs: &Option<String>, rhs: &Value, f: F) -> bool {
-    if let (Some(l), Some(r)) = (lhs.as_ref().and_then(|s| s.parse::<f64>().ok()), rhs.as_f64()) {
+fn num_cmp<F: Fn(f64, f64) -> bool>(lhs: &Option<String>, rhs: &Value, f: F) -> bool {
+    if let (Some(l), Some(r)) = (
+        lhs.as_ref().and_then(|s| s.parse::<f64>().ok()),
+        rhs.as_f64(),
+    ) {
         f(l, r)
     } else {
         false
@@ -178,7 +204,7 @@ fn get_path_as_string(root: &Value, path: &str) -> Option<String> {
     match cur {
         Value::String(s) => Some(s.clone()),
         Value::Number(n) => Some(n.to_string()),
-        Value::Bool(b)   => Some(b.to_string()),
-        other            => Some(other.to_string()),
+        Value::Bool(b) => Some(b.to_string()),
+        other => Some(other.to_string()),
     }
 }

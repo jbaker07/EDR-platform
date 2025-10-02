@@ -1,7 +1,7 @@
 // edr-agent/risk_alert_writer.rs
 
-use std::time::{SystemTime, UNIX_EPOCH};
 use serde::Serialize;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Debug, Serialize)]
 pub struct RiskAlert {
@@ -12,7 +12,12 @@ pub struct RiskAlert {
     pub summary: String,
 }
 
-pub fn emit_risk_alert(endpoint_id: &str, trust_score: f64, risk_level: &str, summary: &str) -> RiskAlert {
+pub fn emit_risk_alert(
+    endpoint_id: &str,
+    trust_score: f64,
+    risk_level: &str,
+    summary: &str,
+) -> RiskAlert {
     let alert = RiskAlert {
         timestamp: SystemTime::now()
             .duration_since(UNIX_EPOCH)

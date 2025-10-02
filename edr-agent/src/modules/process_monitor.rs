@@ -1,12 +1,12 @@
 use std::collections::HashMap;
 
-use sysinfo::{System, SystemExt, ProcessExt, PidExt};
+use sysinfo::{PidExt, ProcessExt, System, SystemExt};
 
-use crate::modules::user_tracker::{get_logged_in_users, UserSession};
-use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
-use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
-use crate::trust_hook::{submit_trust_event, TrustEvent};
 use crate::gnn_hook::push_to_gnn_vector_log;
+use crate::modules::user_tracker::{get_logged_in_users, UserSession};
+use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
+use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
+use crate::trust_hook::{submit_trust_event, TrustEvent};
 use crate::utils::time::now_ts;
 
 #[derive(Debug, Clone)]
@@ -130,21 +130,21 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
 }
 
 #[cfg(target_os = "linux")]
-use aya::{Bpf, include_bytes_aligned};
+use aya::maps::perf::PerfEventArray;
 #[cfg(target_os = "linux")]
 use aya::programs::TracePoint;
 #[cfg(target_os = "linux")]
-use aya::maps::perf::PerfEventArray;
-#[cfg(target_os = "linux")]
 use aya::util::online_cpus;
+#[cfg(target_os = "linux")]
+use aya::{include_bytes_aligned, Bpf};
 #[cfg(target_os = "linux")]
 use bytes::BytesMut;
 #[cfg(target_os = "linux")]
-use std::{thread, mem, time::Duration};
+use lazy_static::lazy_static;
 #[cfg(target_os = "linux")]
 use std::sync::atomic::{AtomicBool, Ordering};
 #[cfg(target_os = "linux")]
-use lazy_static::lazy_static;
+use std::{mem, thread, time::Duration};
 
 #[cfg(target_os = "linux")]
 #[repr(C)]
@@ -166,9 +166,7 @@ lazy_static! {
 pub fn start_ipc_abuse_monitor() {
     thread::spawn(move || {
         // Load then leak the BPF so perf buffers can live 'static inside spawned threads
-        let mut tmp = match Bpf::load(include_bytes_aligned!(
-            "../ebpf/ipc_abuse_monitor.bpf.o"
-        )) {
+        let mut tmp = match Bpf::load(include_bytes_aligned!("../ebpf/ipc_abuse_monitor.bpf.o")) {
             Ok(b) => b,
             Err(e) => {
                 eprintln!("❌ Failed to load ipc_abuse bpf: {:?}", e);
@@ -256,13 +254,25 @@ pub fn start_ipc_abuse_monitor() {
                                         let mut meta = HashMap::new();
                                         meta.insert("timestamp".into(), ts.to_string());
                                         meta.insert("pid".into(), evt.pid.to_string());
-                                        meta.insert("target_pid".into(), evt.target_pid.to_string());
-                                        meta.insert("syscall_id".into(), evt.syscall_id.to_string());
-                                        meta.insert("channel_type".into(), evt.channel_type.to_string());
+                                        meta.insert(
+                                            "target_pid".into(),
+                                            evt.target_pid.to_string(),
+                                        );
+                                        meta.insert(
+                                            "syscall_id".into(),
+                                            evt.syscall_id.to_string(),
+                                        );
+                                        meta.insert(
+                                            "channel_type".into(),
+                                            evt.channel_type.to_string(),
+                                        );
                                         meta.insert("anomaly".into(), "ipc_abuse".into());
                                         meta.insert("replay_tag".into(), "ipc_abuse".into());
                                         meta.insert("gnn_escalate".into(), "true".into());
-                                        meta.insert("soc_note".into(), "eBPF IPC abuse anomaly".into());
+                                        meta.insert(
+                                            "soc_note".into(),
+                                            "eBPF IPC abuse anomaly".into(),
+                                        );
 
                                         let trust_event = TrustEvent {
                                             timestamp: ts,
@@ -283,14 +293,20 @@ pub fn start_ipc_abuse_monitor() {
                                             signal_type: Some("ebpf".into()),
                                             score: Some(22.0),
                                             raw_score: Some(22.0),
-                                            tags: Some(vec!["ipc".into(), "anomaly".into(), "ebpf".into()]),
+                                            tags: Some(vec![
+                                                "ipc".into(),
+                                                "anomaly".into(),
+                                                "ebpf".into(),
+                                            ]),
                                             description: Some(desc.clone()),
                                         };
 
                                         submit_trust_event(trust_event);
                                         push_to_gnn_vector_log(meta.clone());
                                         write_telemetry_record(meta.clone());
-                                        crate::modules::replay_writer::store_replay_event(meta.clone());
+                                        crate::modules::replay_writer::store_replay_event(
+                                            meta.clone(),
+                                        );
 
                                         let _ = push_memory_telemetry(
                                             evt.pid as i32,
@@ -301,7 +317,8 @@ pub fn start_ipc_abuse_monitor() {
                                             "unknown".into(),
                                             MemoryAnomalyType::IPCAbuse,
                                             desc,
-                                        ).map_err(|e| eprintln!("⚠️ IPC telemetry failed: {:?}", e));
+                                        )
+                                        .map_err(|e| eprintln!("⚠️ IPC telemetry failed: {:?}", e));
                                     }
                                 }
                                 Err(e) => {
@@ -336,7 +353,10 @@ pub fn scan_ipc_abuse_activity() -> Vec<TelemetryOutput> {
     data.insert("method".into(), "no eBPF event observed".into());
     data.insert("note".into(), "Fallback IPC abuse scan triggered".into());
     data.insert("gnn_escalate".into(), "true".into());
-    data.insert("soc_note".into(), "Fallback IPC abuse detection used as safety net".into());
+    data.insert(
+        "soc_note".into(),
+        "Fallback IPC abuse detection used as safety net".into(),
+    );
 
     let trust_event = TrustEvent {
         timestamp: ts,

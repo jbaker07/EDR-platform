@@ -58,12 +58,7 @@ pub fn explain<T>(events: &[TrustEvent], _records: &[TelemetryRecord], _data: &T
         let desc = ev.description.clone().unwrap_or_else(|| {
             format!(
                 "{}:{} (uid {}) → rs={:.2} tags={} path={}",
-                ev.binary_path,
-                ev.pid,
-                ev.uid,
-                ev.risk_score,
-                tags,
-                meta_path
+                ev.binary_path, ev.pid, ev.uid, ev.risk_score, tags, meta_path
             )
         });
 

@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use std::fs::{self, File};
-use std::io::{Read, BufRead, BufReader};
+use std::io::{BufRead, BufReader, Read};
 use std::os::unix::fs::PermissionsExt;
 
 use crate::modules::telemetry_fingerprint::FingerprintEntry;
@@ -124,8 +124,14 @@ pub fn parse_proc_maps_for_addr(pid: i32, addr: u64) -> Option<FingerprintEntry>
 
         let (region_start, region_end) = match range.split_once('-') {
             Some((start_str, end_str)) => {
-                let s = match u64::from_str_radix(start_str, 16) { Ok(v) => v, Err(_) => continue };
-                let e = match u64::from_str_radix(end_str, 16) { Ok(v) => v, Err(_) => continue };
+                let s = match u64::from_str_radix(start_str, 16) {
+                    Ok(v) => v,
+                    Err(_) => continue,
+                };
+                let e = match u64::from_str_radix(end_str, 16) {
+                    Ok(v) => v,
+                    Err(_) => continue,
+                };
                 (s, e)
             }
             None => continue,

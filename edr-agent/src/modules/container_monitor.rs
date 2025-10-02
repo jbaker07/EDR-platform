@@ -1,8 +1,7 @@
 // src/modules/container_monitor.rs
 use std::{
     collections::HashMap,
-    fs,
-    mem,
+    fs, mem,
     sync::{
         atomic::{AtomicBool, Ordering},
         Once,
@@ -49,8 +48,8 @@ pub struct ContainerExecEventRaw {
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct ContainerExecEventRingRaw {
-    pub ts: u64,        // ns
-    pub pid: u32,       // tgid
+    pub ts: u64,  // ns
+    pub pid: u32, // tgid
     pub uid: u32,
     pub cgroup_id: u64,
     pub mnt_ns: u32,
@@ -80,10 +79,16 @@ fn attach_all_programs(bpf: &mut Ebpf) -> anyhow::Result<()> {
                     let cat = it.next().unwrap_or("");
                     let evt = it.next().unwrap_or(fallback_name);
                     tp.attach(cat, evt)?;
-                    log_scoped("container_monitor", &format!("✔️ tracepoint {}/{}", cat, evt));
+                    log_scoped(
+                        "container_monitor",
+                        &format!("✔️ tracepoint {}/{}", cat, evt),
+                    );
                 } else {
                     tp.attach("sched", "sched_process_exec")?;
-                    log_scoped("container_monitor", "✔️ tracepoint sched/sched_process_exec (fallback)");
+                    log_scoped(
+                        "container_monitor",
+                        "✔️ tracepoint sched/sched_process_exec (fallback)",
+                    );
                 }
             }
             Program::RawTracePoint(rtp) => {
@@ -96,13 +101,19 @@ fn attach_all_programs(bpf: &mut Ebpf) -> anyhow::Result<()> {
                 kp.load()?;
                 let sym = sec.split('/').nth(1).unwrap_or(fallback_name);
                 if let Err(e) = kp.attach(sym, 0) {
-                    log_scoped("container_monitor", &format!("ℹ️ kprobe attach({sym}) failed: {:?}", e));
+                    log_scoped(
+                        "container_monitor",
+                        &format!("ℹ️ kprobe attach({sym}) failed: {:?}", e),
+                    );
                 } else {
                     log_scoped("container_monitor", &format!("✔️ kprobe {}", sym));
                 }
             }
             _ => {
-                log_scoped("container_monitor", &format!("ℹ️ skip unsupported program section [{}]", sec));
+                log_scoped(
+                    "container_monitor",
+                    &format!("ℹ️ skip unsupported program section [{}]", sec),
+                );
             }
         }
     }
@@ -111,7 +122,9 @@ fn attach_all_programs(bpf: &mut Ebpf) -> anyhow::Result<()> {
 
 pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
     // src/modules/ -> ../ebpf/...
-    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/container_exec_monitor.bpf.o"))?;
+    let mut tmp = Ebpf::load(include_bytes_aligned!(
+        "../ebpf/container_exec_monitor.bpf.o"
+    ))?;
     let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
     attach_all_programs(bpf)?;
 
@@ -189,8 +202,12 @@ fn attach_perf_owned(map: Map) -> anyhow::Result<()> {
                             record.insert("gid".into(), container_event.gid.to_string());
                             record.insert("comm".into(), container_event.comm.clone());
                             record.insert("cmdline".into(), container_event.cmdline.clone());
-                            record.insert("timestamp".into(), container_event.timestamp.to_string());
-                            record.insert("container_type".into(), container_event.container_type.clone());
+                            record
+                                .insert("timestamp".into(), container_event.timestamp.to_string());
+                            record.insert(
+                                "container_type".into(),
+                                container_event.container_type.clone(),
+                            );
                             record.insert("event_type".into(), "container_exec".into());
                             record.insert("signal".into(), "container_exec".into());
                             record.insert("category".into(), "container".into());
@@ -211,7 +228,11 @@ fn attach_perf_owned(map: Map) -> anyhow::Result<()> {
                                 "container_monitor".into(),
                                 Some("Containerized process execution detected".into()),
                                 Some("container::exec".into()),
-                                Some(vec!["container".into(), "exec".into(), container_event.comm.clone()]),
+                                Some(vec![
+                                    "container".into(),
+                                    "exec".into(),
+                                    container_event.comm.clone(),
+                                ]),
                                 Some(7.0),
                             );
                             submit_trust_event(trust_event);
@@ -229,11 +250,17 @@ fn attach_perf_owned(map: Map) -> anyhow::Result<()> {
                         }
 
                         if events.lost > 0 {
-                            log_scoped("container_monitor", &format!("⚠️ Lost {} container exec events", events.lost));
+                            log_scoped(
+                                "container_monitor",
+                                &format!("⚠️ Lost {} container exec events", events.lost),
+                            );
                         }
                     }
                     Err(e) => {
-                        log_scoped("container_monitor", &format!("❌ Error reading container perf events: {:?}", e));
+                        log_scoped(
+                            "container_monitor",
+                            &format!("❌ Error reading container perf events: {:?}", e),
+                        );
                         tokio::time::sleep(std::time::Duration::from_millis(50)).await;
                     }
                 }
@@ -261,8 +288,12 @@ fn attach_ringbuf_owned(map: Map) -> anyhow::Result<()> {
             let raw: ContainerExecEventRingRaw =
                 unsafe { std::ptr::read_unaligned(data.as_ptr() as *const _) };
 
-            let comm = String::from_utf8_lossy(&raw.comm).trim_end_matches('\0').to_string();
-            let filename = String::from_utf8_lossy(&raw.filename).trim_end_matches('\0').to_string();
+            let comm = String::from_utf8_lossy(&raw.comm)
+                .trim_end_matches('\0')
+                .to_string();
+            let filename = String::from_utf8_lossy(&raw.filename)
+                .trim_end_matches('\0')
+                .to_string();
             let ts_sec = raw.ts / 1_000_000_000; // ns → s
 
             let container_event = ContainerExecEvent {
@@ -288,7 +319,10 @@ fn attach_ringbuf_owned(map: Map) -> anyhow::Result<()> {
             record.insert("pid_ns".into(), raw.pid_ns.to_string());
             record.insert("cgroup_id".into(), raw.cgroup_id.to_string());
             record.insert("flags".into(), raw.flags.to_string());
-            record.insert("container_type".into(), container_event.container_type.clone());
+            record.insert(
+                "container_type".into(),
+                container_event.container_type.clone(),
+            );
             record.insert("event_type".into(), "container_exec".into());
             record.insert("signal".into(), "container_exec".into());
             record.insert("category".into(), "container".into());
@@ -309,7 +343,11 @@ fn attach_ringbuf_owned(map: Map) -> anyhow::Result<()> {
                 "container_monitor".into(),
                 Some("Containerized process execution detected".into()),
                 Some("container::exec".into()),
-                Some(vec!["container".into(), "exec".into(), container_event.comm.clone()]),
+                Some(vec![
+                    "container".into(),
+                    "exec".into(),
+                    container_event.comm.clone(),
+                ]),
                 Some(7.0),
             );
             submit_trust_event(trust_event);
@@ -379,8 +417,13 @@ pub fn scan_container_activity() -> Vec<TelemetryOutput> {
                                 signal_type: Some("monitor_heartbeat".into()),
                                 score: Some(100.0),
                                 raw_score: Some(0.0),
-                                tags: Some(vec!["monitor_alive".into(), "ebpf_monitor_ready".into()]),
-                                description: Some("Container eBPF monitor heartbeat confirmation".into()),
+                                tags: Some(vec![
+                                    "monitor_alive".into(),
+                                    "ebpf_monitor_ready".into(),
+                                ]),
+                                description: Some(
+                                    "Container eBPF monitor heartbeat confirmation".into(),
+                                ),
                             };
                             submit_trust_event(trust_event);
 

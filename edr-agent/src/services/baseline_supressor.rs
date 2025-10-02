@@ -1,4 +1,4 @@
-use crate::services::trust_vector::{TrustVector, TrustDim};
+use crate::services::trust_vector::{TrustDim, TrustVector};
 
 #[derive(Debug)]
 pub enum SuppressionDecision {
@@ -35,7 +35,10 @@ pub fn should_suppress(
         "gnn_escalate",
         "file::high_entropy",
     ];
-    if tags.iter().any(|t| critical_tags.iter().any(|ct| t.contains(ct))) {
+    if tags
+        .iter()
+        .any(|t| critical_tags.iter().any(|ct| t.contains(ct)))
+    {
         return SuppressionDecision::DoNotSuppress("Critical tag present".to_string());
     }
 
@@ -45,12 +48,7 @@ pub fn should_suppress(
         && get_trust_score(trust_vector, "file") >= 80.0;
 
     // Heuristic checks
-    let known_safe_paths = [
-        "/usr/bin/",
-        "/usr/lib/",
-        "/bin/",
-        "/opt/firefox/",
-    ];
+    let known_safe_paths = ["/usr/bin/", "/usr/lib/", "/bin/", "/opt/firefox/"];
     let path_safe = known_safe_paths.iter().any(|p| path.starts_with(p));
     let uid_safe = uid > 1000;
     let has_tags = !tags.is_empty();
@@ -62,4 +60,3 @@ pub fn should_suppress(
         SuppressionDecision::DoNotSuppress("One or more unsafe conditions present".to_string())
     }
 }
-

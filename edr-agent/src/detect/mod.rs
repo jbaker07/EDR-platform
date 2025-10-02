@@ -1,11 +1,11 @@
 // src/detect/mod.rs
 use serde::Serialize;
 
-pub mod types;
-pub mod rules;
-pub mod registry;
-pub mod okta;
 pub mod controller;
+pub mod okta;
+pub mod registry;
+pub mod rules;
+pub mod types;
 
 // 👇 Unify: detectors work on NormalizedAlert via this alias
 pub type NormalizedEvent = crate::detect::types::NormalizedAlert;
@@ -22,6 +22,8 @@ pub struct Finding {
 
 pub trait Detector: Send + Sync {
     fn name(&self) -> &'static str;
-    fn supports(&self, _e: &NormalizedEvent) -> bool { true }
+    fn supports(&self, _e: &NormalizedEvent) -> bool {
+        true
+    }
     fn score(&self, e: &NormalizedEvent, features: &[f64]) -> Vec<Finding>;
 }

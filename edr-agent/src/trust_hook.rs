@@ -1,6 +1,6 @@
 use crate::telemetry::TelemetryRecord;
-use std::collections::HashMap;
 use serde::Serialize;
+use std::collections::HashMap;
 
 /// Max/min bounds for scores
 const MAX_RISK: f32 = 100.0;
@@ -296,7 +296,12 @@ pub fn submit_trust_event(event: TrustEvent) {
 /// - `cpu`: typically a 0–1 or % value; we keep as given
 /// - `mem`: bytes or KB; we keep as given to avoid breaking callers
 /// - `risk`: risk in [0,100]
-pub fn generate_trust_payload(hostname: &str, cpu: f64, mem: u64, risk: f64) -> HashMap<String, String> {
+pub fn generate_trust_payload(
+    hostname: &str,
+    cpu: f64,
+    mem: u64,
+    risk: f64,
+) -> HashMap<String, String> {
     let risk = (risk as f32).clamp(MIN_RISK, MAX_RISK);
     let trust = trust_from_risk(risk);
 

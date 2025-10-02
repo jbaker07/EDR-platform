@@ -1,30 +1,32 @@
 use std::collections::HashMap;
 use std::fs::{self, File};
-use std::io::{self, Read, Write, BufRead, BufReader};
+use std::io::{self, BufRead, BufReader, Read, Write};
 use std::mem;
-use std::sync::{Arc, Once, Mutex};
+use std::sync::{Arc, Mutex, Once};
 use std::thread;
 use std::time::Duration;
 
 use bytes::BytesMut;
 use lazy_static::lazy_static;
 use regex::Regex;
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 use std::sync::atomic::{AtomicBool, Ordering};
 
 use crate::modules::replay_writer::store_replay_event;
-use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry::TelemetryRecord;
+use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::TelemetryWriter;
-use crate::trust_hook::{generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent};
+use crate::trust_hook::{
+    generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
+};
 use crate::utils::time::now_ts;
 
-#[cfg(target_os = "linux")]
-use aya::{Bpf, include_bytes_aligned, util::online_cpus};
 #[cfg(target_os = "linux")]
 use aya::maps::perf::PerfEventArray;
 #[cfg(target_os = "linux")]
 use aya::programs::TracePoint;
+#[cfg(target_os = "linux")]
+use aya::{include_bytes_aligned, util::online_cpus, Bpf};
 
 #[cfg(target_os = "linux")]
 use std::convert::TryInto;
@@ -32,15 +34,27 @@ use std::convert::TryInto;
 // ---- small cross-platform shims for pid/ppid/euid ----
 #[cfg(target_os = "linux")]
 mod pids {
-    pub fn pid() -> i32 { unsafe { nix::libc::getpid() } }
-    pub fn ppid() -> i32 { unsafe { nix::libc::getppid() } }
-    pub fn euid() -> u32 { unsafe { nix::libc::geteuid() as u32 } }
+    pub fn pid() -> i32 {
+        unsafe { nix::libc::getpid() }
+    }
+    pub fn ppid() -> i32 {
+        unsafe { nix::libc::getppid() }
+    }
+    pub fn euid() -> u32 {
+        unsafe { nix::libc::geteuid() as u32 }
+    }
 }
 #[cfg(not(target_os = "linux"))]
 mod pids {
-    pub fn pid() -> i32 { std::process::id() as i32 }
-    pub fn ppid() -> i32 { 0 }
-    pub fn euid() -> u32 { 0 }
+    pub fn pid() -> i32 {
+        std::process::id() as i32
+    }
+    pub fn ppid() -> i32 {
+        0
+    }
+    pub fn euid() -> u32 {
+        0
+    }
 }
 
 static JOB_SCHED_REAL_FOUND: AtomicBool = AtomicBool::new(false);
@@ -75,7 +89,12 @@ fn is_legitimate_command(command: &str) -> bool {
 fn get_ip_reputation(ip: &str) -> Option<String> {
     let client = reqwest::blocking::Client::new();
     let url = format!("https://api.ipinfo.io/{ip}/json");
-    let res = client.get(&url).send().ok()?.json::<serde_json::Value>().ok()?;
+    let res = client
+        .get(&url)
+        .send()
+        .ok()?
+        .json::<serde_json::Value>()
+        .ok()?;
     res["threat"].as_str().map(|s| s.to_string())
 }
 
@@ -159,7 +178,10 @@ fn alert_high_risk_job(command: &str, risk_score: f32) {
 }
 
 fn trigger_automated_response(command: &str) {
-    println!("[Automated Response] Triggering remediation for: {}", command);
+    println!(
+        "[Automated Response] Triggering remediation for: {}",
+        command
+    );
 }
 
 #[cfg(target_os = "linux")]
@@ -356,14 +378,18 @@ pub fn start_job_sched_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
                 let command = line.to_string();
                 let risk_score = score_cron_command(&command.to_lowercase(), None);
 
-                let trust_payload = generate_trust_payload("localhost", 0.5, 120_000, risk_score as f64);
+                let trust_payload =
+                    generate_trust_payload("localhost", 0.5, 120_000, risk_score as f64);
                 let feature_vector = generate_feature_vector(0.5, 120_000, risk_score as f64);
 
                 let mut gnn_data = HashMap::new();
                 gnn_data.insert("vector".into(), format!("{:?}", feature_vector));
                 gnn_data.insert("category".into(), "scheduler".into());
                 gnn_data.insert("signal".into(), "cron_command".into());
-                gnn_data.insert("confidence".into(), format!("{:.2}", (1.0 - risk_score).clamp(0.0, 1.0)));
+                gnn_data.insert(
+                    "confidence".into(),
+                    format!("{:.2}", (1.0 - risk_score).clamp(0.0, 1.0)),
+                );
                 gnn_data.insert("gnn_escalate".into(), "true".into());
                 gnn_data.insert("summary".into(), format!("cron job detected: {}", command));
                 gnn_data.insert("replay_tag".into(), "cron_execution".into());
@@ -514,12 +540,18 @@ pub fn start_ebpf_kernel_fallout_watch() {
         for cpu_id in online_cpus().unwrap_or_default() {
             if let Ok(mut buf) = perf_array.open(cpu_id, None) {
                 thread::spawn(move || {
-                    let mut buffers = vec![BytesMut::with_capacity(Limits::PERF_BUF_CAP); Limits::PERF_BUFS_PER_CPU];
+                    let mut buffers = vec![
+                        BytesMut::with_capacity(Limits::PERF_BUF_CAP);
+                        Limits::PERF_BUFS_PER_CPU
+                    ];
                     loop {
                         match buf.read_events(&mut buffers) {
                             Ok(events) => {
                                 if events.lost > 0 {
-                                    eprintln!("⚠️ Lost {} kernel fallout events on CPU {}", events.lost, cpu_id);
+                                    eprintln!(
+                                        "⚠️ Lost {} kernel fallout events on CPU {}",
+                                        events.lost, cpu_id
+                                    );
                                 }
                                 for buf in &buffers[..events.read] {
                                     if buf.len() < mem::size_of::<KernelFalloutEvent>() {
@@ -546,9 +578,8 @@ pub fn start_ebpf_kernel_fallout_watch() {
                                         desc.clone(),
                                     ).map_err(|e| eprintln!("⚠️ Fallout telemetry failed: {:?}", e));
 
-                                    let trust_payload = generate_trust_payload(
-                                        "localhost", 0.9, 250_000, 7.5
-                                    );
+                                    let trust_payload =
+                                        generate_trust_payload("localhost", 0.9, 250_000, 7.5);
 
                                     let vector = generate_feature_vector(0.9, 250_000, 7.5);
                                     let mut gnn_data = HashMap::new();
@@ -558,16 +589,25 @@ pub fn start_ebpf_kernel_fallout_watch() {
                                     gnn_data.insert("confidence".into(), "0.9".into());
                                     gnn_data.insert("gnn_escalate".into(), "true".into());
                                     gnn_data.insert("summary".into(), desc.clone());
-                                    gnn_data.insert("replay_tag".into(), "kernel_exploit_fallout".into());
+                                    gnn_data.insert(
+                                        "replay_tag".into(),
+                                        "kernel_exploit_fallout".into(),
+                                    );
                                     crate::gnn_hook::push_to_gnn_vector_log(gnn_data.clone());
                                     let _ = store_replay_event(gnn_data);
 
                                     let mut metadata = HashMap::new();
                                     metadata.insert("signal".into(), evt.signal.to_string());
-                                    metadata.insert("info_code".into(), format!("{:#x}", evt.info_code));
+                                    metadata.insert(
+                                        "info_code".into(),
+                                        format!("{:#x}", evt.info_code),
+                                    );
                                     metadata.insert("category".into(), "memory".into());
                                     metadata.insert("event_type".into(), "kernel_fallout".into());
-                                    metadata.insert("replay_tag".into(), "kernel_exploit_fallout".into());
+                                    metadata.insert(
+                                        "replay_tag".into(),
+                                        "kernel_exploit_fallout".into(),
+                                    );
 
                                     submit_trust_event(TrustEvent {
                                         timestamp: now,
@@ -588,7 +628,11 @@ pub fn start_ebpf_kernel_fallout_watch() {
                                         signal_type: Some("exploit_fallout".into()),
                                         score: Some(100.0 - 7.5 * 10.0),
                                         raw_score: Some(7.5),
-                                        tags: Some(vec!["kernel".into(), "exploit_fallout".into(), "ebpf".into()]),
+                                        tags: Some(vec![
+                                            "kernel".into(),
+                                            "exploit_fallout".into(),
+                                            "ebpf".into(),
+                                        ]),
                                         description: Some(desc),
                                     });
                                 }

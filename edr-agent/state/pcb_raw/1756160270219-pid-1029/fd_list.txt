@@ -1,5 +1,0 @@
-fd 0 -> /dev/null
-fd 1 -> socket:[29914]
-fd 2 -> socket:[29914]
-fd 3 -> /run/crond.pid
-fd 4 -> socket:[29917]

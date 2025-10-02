@@ -10,12 +10,17 @@ pub struct RobustZ {
 
 impl Default for RobustZ {
     fn default() -> Self {
-        Self { qs: Quantiles::default(), epsilon: 1e-6 }
+        Self {
+            qs: Quantiles::default(),
+            epsilon: 1e-6,
+        }
     }
 }
 
 impl RobustZ {
-    pub fn new() -> Self { Self::default() }
+    pub fn new() -> Self {
+        Self::default()
+    }
 
     /// Update with a new observation and return current robust z for that observation.
     pub fn update(&mut self, x: f64) -> f64 {
@@ -35,5 +40,7 @@ impl RobustZ {
         z
     }
 
-    pub fn count(&self) -> usize { self.qs.count() }
+    pub fn count(&self) -> usize {
+        self.qs.count()
+    }
 }

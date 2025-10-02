@@ -1,17 +1,20 @@
 use aya::programs::TracePoint;
-use aya::{Bpf, include_bytes_aligned};
-use std::collections::{HashSet, HashMap};
+use aya::{include_bytes_aligned, Bpf};
+use std::collections::{HashMap, HashSet};
 use std::process::Command;
+use std::sync::{
+    atomic::{AtomicBool, Ordering},
+    Mutex, Once, OnceLock,
+};
 use std::thread;
 use std::time::Duration;
-use std::sync::{Once, OnceLock, atomic::{AtomicBool, Ordering}, Mutex};
 
-use crate::trust_hook::{submit_trust_event, TrustEvent, generate_feature_vector};
-use crate::utils::time::now_ts;
-use crate::telemetry_types::TelemetryOutput;
 use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::telemetry_writer::write_telemetry_record;
 use crate::logger::log;
+use crate::telemetry_types::TelemetryOutput;
+use crate::telemetry_writer::write_telemetry_record;
+use crate::trust_hook::{generate_feature_vector, submit_trust_event, TrustEvent};
+use crate::utils::time::now_ts;
 use anyhow::{Context, Result};
 
 /// Tracks devices seen in the previous polling cycle (thread-safe; replaces `static mut`).
@@ -39,7 +42,11 @@ pub fn start_usb_monitor() {
 
         match fetch_usb_devices() {
             Ok(current) => {
-                let mut guard = PREV_DEVICES.get().unwrap().lock().expect("poisoned PREV_DEVICES");
+                let mut guard = PREV_DEVICES
+                    .get()
+                    .unwrap()
+                    .lock()
+                    .expect("poisoned PREV_DEVICES");
                 // Compute newly seen devices
                 for dev in current.difference(&*guard) {
                     emit_usb_inserted_event(dev);
@@ -76,7 +83,10 @@ pub fn start_usb_monitor() {
 /// Returns a set of normalized "name,tran" lines that include "usb" transport.
 /// Robust to headers and odd spacing.
 fn fetch_usb_devices() -> Result<HashSet<String>> {
-    let output = Command::new("lsblk").arg("-o").arg("NAME,TRAN").output()
+    let output = Command::new("lsblk")
+        .arg("-o")
+        .arg("NAME,TRAN")
+        .output()
         .context("failed to execute lsblk")?;
 
     let stdout = String::from_utf8_lossy(&output.stdout);
@@ -150,7 +160,10 @@ fn emit_usb_inserted_event(device_line: &str) {
     push_to_gnn_vector_log(data.clone());
     let _ = write_telemetry_record(data.clone());
 
-    log(&format!("[🔌 USB Monitor] New USB device inserted: {}", device_line));
+    log(&format!(
+        "[🔌 USB Monitor] New USB device inserted: {}",
+        device_line
+    ));
 }
 
 #[cfg(target_os = "linux")]
@@ -203,7 +216,10 @@ pub fn scan_usb_state() -> Vec<TelemetryOutput> {
                 data.insert("device_info".into(), dev.clone());
                 data.insert("timestamp".into(), ts.to_string());
                 data.insert("replay_tag".into(), "usb_inserted".into());
-                data.insert("soc_note".into(), "USB device seen during passive scan".into());
+                data.insert(
+                    "soc_note".into(),
+                    "USB device seen during passive scan".into(),
+                );
                 data.insert("source".into(), "scan_usb_state".into());
                 data.insert("features".into(), format!("{:?}", features));
 

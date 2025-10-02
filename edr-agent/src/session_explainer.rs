@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use chrono::{DateTime, Utc};
+use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
 pub struct SessionExplanation {
@@ -54,16 +54,18 @@ fn generate_summary(
     }
 
     if !triggered_tags.is_empty() {
-        summary.push_str(&format!(
-            "Triggered tags: {}. ",
-            triggered_tags.join(", ")
-        ));
+        summary.push_str(&format!("Triggered tags: {}. ", triggered_tags.join(", ")));
     }
 
     if !key_events.is_empty() {
         summary.push_str(&format!(
             "Notable activity: {}. ",
-            key_events.iter().take(3).cloned().collect::<Vec<_>>().join(" | ")
+            key_events
+                .iter()
+                .take(3)
+                .cloned()
+                .collect::<Vec<_>>()
+                .join(" | ")
         ));
     }
 
@@ -75,9 +77,16 @@ fn generate_summary(
 }
 
 fn determine_severity(trust_curve: &Vec<(u64, f64)>, tags: &Vec<String>) -> String {
-    let lowest = trust_curve.iter().map(|(_, score)| *score).fold(100.0, f64::min);
+    let lowest = trust_curve
+        .iter()
+        .map(|(_, score)| *score)
+        .fold(100.0, f64::min);
 
-    if lowest < 25.0 || tags.iter().any(|t| t.contains("privilege") || t.contains("rce")) {
+    if lowest < 25.0
+        || tags
+            .iter()
+            .any(|t| t.contains("privilege") || t.contains("rce"))
+    {
         "critical".into()
     } else if lowest < 50.0 || tags.len() >= 3 {
         "high".into()

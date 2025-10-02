@@ -1,16 +1,16 @@
+use chrono::TimeZone;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use serde::{Serialize, Deserialize};
 use std::fs;
 use std::io::{BufRead, BufReader};
 use std::process::Command;
-use std::sync::{OnceLock, atomic::AtomicBool};
-use chrono::TimeZone;
+use std::sync::{atomic::AtomicBool, OnceLock};
 
-use crate::telemetry_types::TelemetryOutput;
-use crate::utils::time::now_ts;
-use crate::telemetry_writer::write_telemetry_record;
-use crate::trust_hook::{TrustEvent, submit_trust_event, generate_feature_vector};
 use crate::gnn_hook::push_to_gnn_vector_log;
+use crate::telemetry_types::TelemetryOutput;
+use crate::telemetry_writer::write_telemetry_record;
+use crate::trust_hook::{generate_feature_vector, submit_trust_event, TrustEvent};
+use crate::utils::time::now_ts;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserSession {
@@ -33,7 +33,10 @@ fn normalize_tty(s: &str) -> String {
 /// Attempt to extract (pid, ppid, uid) for a user session tied to a terminal.
 pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u32) {
     // 1) Prefer `ps` to correlate controlling ttys for interactive sessions.
-    if let Ok(output) = Command::new("ps").args(&["-eo", "pid,ppid,uid,tty,user,comm"]).output() {
+    if let Ok(output) = Command::new("ps")
+        .args(&["-eo", "pid,ppid,uid,tty,user,comm"])
+        .output()
+    {
         if output.status.success() {
             let reader = BufReader::new(&output.stdout[..]);
             let term_norm = normalize_tty(terminal);
@@ -52,7 +55,10 @@ pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u3
 
                 if user == username {
                     let tty_norm = normalize_tty(tty);
-                    if tty_norm == term_norm || tty.contains(&term_norm) || term_norm.contains(&tty_norm) {
+                    if tty_norm == term_norm
+                        || tty.contains(&term_norm)
+                        || term_norm.contains(&tty_norm)
+                    {
                         return (pid, ppid, uid);
                     }
                 }
@@ -84,9 +90,17 @@ pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u3
                         let mut ppid = -1_i32;
                         for line in status.lines() {
                             if let Some(rest) = line.strip_prefix("Uid:") {
-                                uid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(0);
+                                uid = rest
+                                    .split_whitespace()
+                                    .nth(0)
+                                    .and_then(|n| n.parse().ok())
+                                    .unwrap_or(0);
                             } else if let Some(rest) = line.strip_prefix("PPid:") {
-                                ppid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(-1);
+                                ppid = rest
+                                    .split_whitespace()
+                                    .nth(0)
+                                    .and_then(|n| n.parse().ok())
+                                    .unwrap_or(-1);
                             }
                         }
                         let pid = pid_str.parse::<i32>().unwrap_or(-1);
@@ -109,9 +123,17 @@ pub fn get_session_process_info(username: &str, terminal: &str) -> (i32, i32, u3
                         let mut ppid = -1_i32;
                         for line in status.lines() {
                             if let Some(rest) = line.strip_prefix("Uid:") {
-                                uid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(0);
+                                uid = rest
+                                    .split_whitespace()
+                                    .nth(0)
+                                    .and_then(|n| n.parse().ok())
+                                    .unwrap_or(0);
                             } else if let Some(rest) = line.strip_prefix("PPid:") {
-                                ppid = rest.split_whitespace().nth(0).and_then(|n| n.parse().ok()).unwrap_or(-1);
+                                ppid = rest
+                                    .split_whitespace()
+                                    .nth(0)
+                                    .and_then(|n| n.parse().ok())
+                                    .unwrap_or(-1);
                             }
                         }
                         if uid != 0 {
@@ -143,10 +165,17 @@ fn parse_who_login_ts(tokens: &[&str]) -> Option<u64> {
     let try_iso_pair = |d: &str, t: &str| -> Option<u64> {
         NaiveDate::parse_from_str(d, "%Y-%m-%d")
             .ok()
-            .and_then(|nd| NaiveTime::parse_from_str(t, "%H:%M").ok().map(|nt| (nd, nt)))
+            .and_then(|nd| {
+                NaiveTime::parse_from_str(t, "%H:%M")
+                    .ok()
+                    .map(|nt| (nd, nt))
+            })
             .and_then(|(nd, nt)| {
                 let ldt = NaiveDateTime::new(nd, nt);
-                Local.from_local_datetime(&ldt).single().map(|dt| dt.timestamp() as u64)
+                Local
+                    .from_local_datetime(&ldt)
+                    .single()
+                    .map(|dt| dt.timestamp() as u64)
             })
     };
 
@@ -156,23 +185,39 @@ fn parse_who_login_ts(tokens: &[&str]) -> Option<u64> {
         let date_str = format!("{} {} {}", year, m, d);
         NaiveDate::parse_from_str(&date_str, "%Y %b %d")
             .ok()
-            .and_then(|nd| NaiveTime::parse_from_str(t, "%H:%M").ok().map(|nt| (nd, nt)))
+            .and_then(|nd| {
+                NaiveTime::parse_from_str(t, "%H:%M")
+                    .ok()
+                    .map(|nt| (nd, nt))
+            })
             .and_then(|(nd, nt)| {
                 let ldt = NaiveDateTime::new(nd, nt);
-                Local.from_local_datetime(&ldt).single().map(|dt| dt.timestamp() as u64)
+                Local
+                    .from_local_datetime(&ldt)
+                    .single()
+                    .map(|dt| dt.timestamp() as u64)
             })
     };
 
     let n = tokens.len();
     for i in 2..n {
         // ISO date + time
-        if i + 1 < n && tokens[i].len() == 10 && tokens[i + 1].len() >= 4 && tokens[i].contains('-') && tokens[i + 1].contains(':') {
+        if i + 1 < n
+            && tokens[i].len() == 10
+            && tokens[i + 1].len() >= 4
+            && tokens[i].contains('-')
+            && tokens[i + 1].contains(':')
+        {
             if let Some(ts) = try_iso_pair(tokens[i], tokens[i + 1]) {
                 return Some(ts);
             }
         }
         // Mon DD HH:MM
-        if i + 2 < n && tokens[i].len() == 3 && tokens[i + 1].chars().all(|c| c.is_ascii_digit()) && tokens[i + 2].contains(':') {
+        if i + 2 < n
+            && tokens[i].len() == 3
+            && tokens[i + 1].chars().all(|c| c.is_ascii_digit())
+            && tokens[i + 2].contains(':')
+        {
             if let Some(ts) = try_mon_pair(tokens[i], tokens[i + 1], tokens[i + 2]) {
                 return Some(ts);
             }
@@ -241,8 +286,8 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
 
                 let features = generate_feature_vector(
                     if suspicious_tty { 0.3 } else { 0.1 }, // cpu-ish
-                    session_age,                              // mem placeholder
-                    2.0,                                      // risk-ish
+                    session_age,                            // mem placeholder
+                    2.0,                                    // risk-ish
                 );
                 data.insert("features".into(), format!("{:?}", features));
 
@@ -275,7 +320,11 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
                         "user".into(),
                         "login".into(),
                         terminal.clone(),
-                        if suspicious_tty { "suspicious_tty".into() } else { "tty".into() },
+                        if suspicious_tty {
+                            "suspicious_tty".into()
+                        } else {
+                            "tty".into()
+                        },
                     ]),
                 });
 
@@ -323,7 +372,8 @@ pub fn scan_user_sessions() -> Vec<TelemetryOutput> {
             .parse::<u64>()
             .unwrap_or_else(|_| now_ts());
         let session_age = now.saturating_sub(login_ts_u64);
-        let suspicious_tty = !session.terminal.starts_with("tty") && !session.terminal.starts_with("pts");
+        let suspicious_tty =
+            !session.terminal.starts_with("tty") && !session.terminal.starts_with("pts");
 
         let mut data = HashMap::new();
         data.insert("username".into(), session.username.clone());
@@ -344,11 +394,8 @@ pub fn scan_user_sessions() -> Vec<TelemetryOutput> {
         data.insert("session_age_seconds".into(), session_age.to_string());
         data.insert("suspicious_tty".into(), suspicious_tty.to_string());
 
-        let features = generate_feature_vector(
-            if suspicious_tty { 0.3 } else { 0.1 },
-            session_age,
-            1.5,
-        );
+        let features =
+            generate_feature_vector(if suspicious_tty { 0.3 } else { 0.1 }, session_age, 1.5);
         data.insert("features".into(), format!("{:?}", features));
 
         push_to_gnn_vector_log(data.clone());
@@ -380,7 +427,11 @@ pub fn scan_user_sessions() -> Vec<TelemetryOutput> {
                 "user".into(),
                 "session".into(),
                 "login".into(),
-                if suspicious_tty { "suspicious_tty".into() } else { "tty".into() },
+                if suspicious_tty {
+                    "suspicious_tty".into()
+                } else {
+                    "tty".into()
+                },
             ]),
         });
 

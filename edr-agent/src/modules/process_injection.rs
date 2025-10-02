@@ -1,7 +1,8 @@
+use anyhow::{anyhow, Context, Result};
 use aya::maps::perf::AsyncPerfEventArray;
 use aya::programs::TracePoint;
-use aya::{include_bytes_aligned, Ebpf};
 use aya::util::online_cpus;
+use aya::{include_bytes_aligned, Ebpf};
 use bytes::BytesMut;
 use lazy_static::lazy_static;
 use std::collections::HashMap;
@@ -9,14 +10,13 @@ use std::fs;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 use tokio::{task, time};
-use anyhow::{Result, anyhow, Context};
 
-use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
-use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
-use crate::trust_hook::{generate_feature_vector, submit_trust_event, TrustEvent};
 use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::utils::time::now_ts;
 use crate::modules::replay_writer::store_replay_event;
+use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
+use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
+use crate::trust_hook::{generate_feature_vector, submit_trust_event, TrustEvent};
+use crate::utils::time::now_ts;
 
 use sysinfo::{Pid, PidExt, ProcessExt, System, SystemExt};
 
@@ -36,9 +36,7 @@ pub struct InjectionEvent {
 #[cfg(target_os = "linux")]
 pub async fn start_process_injection_monitor() -> Result<()> {
     // Load and leak BPF so perf buffers (spawned tasks) can outlive this function.
-    let tmp = Ebpf::load(include_bytes_aligned!(
-        "../ebpf/process_injection.bpf.o"
-    ))?;
+    let tmp = Ebpf::load(include_bytes_aligned!("../ebpf/process_injection.bpf.o"))?;
     let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
     // Attach tracepoint program
@@ -57,8 +55,7 @@ pub async fn start_process_injection_monitor() -> Result<()> {
     )?;
 
     // Iterate online CPUs and spawn readers
-    let cpus = online_cpus()
-        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
     for cpu_id in cpus {
         let mut buf = events
             .open(cpu_id, None)
@@ -152,7 +149,10 @@ pub async fn handle_injection_event(evt: InjectionEvent) -> Result<()> {
     metadata.insert("timestamp".into(), ts.to_string());
     metadata.insert("features".into(), format!("{:?}", features));
     metadata.insert("replay_tag".into(), "process_injection".into());
-    metadata.insert("soc_note".into(), "Process injection via ptrace syscall".into());
+    metadata.insert(
+        "soc_note".into(),
+        "Process injection via ptrace syscall".into(),
+    );
     metadata.insert("gnn_escalate".into(), "true".into());
 
     // Trust Event
@@ -298,7 +298,10 @@ pub fn scan_injection_fallback() -> Vec<TelemetryOutput> {
     data.insert("timestamp".into(), ts.to_string());
     data.insert("signal".into(), "process_injection_fallback".into());
     data.insert("replay_tag".into(), "process_injection".into());
-    data.insert("soc_note".into(), "Fallback scan detected possible injection".into());
+    data.insert(
+        "soc_note".into(),
+        "Fallback scan detected possible injection".into(),
+    );
     data.insert("gnn_escalate".into(), "true".into());
     data.insert("pid".into(), pid.to_string());
     data.insert("ppid".into(), ppid.to_string());

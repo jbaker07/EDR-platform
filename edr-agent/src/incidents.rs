@@ -176,7 +176,10 @@ impl IncidentsMgr {
             obj.insert("last_ts".into(), json!(last_ts.max(ts)));
 
             // Counts
-            let n = obj.get("alerts_count").and_then(|x| x.as_u64()).unwrap_or(0);
+            let n = obj
+                .get("alerts_count")
+                .and_then(|x| x.as_u64())
+                .unwrap_or(0);
             obj.insert("alerts_count".into(), json!(n + 1));
 
             // Severity max (ranked)
@@ -324,8 +327,16 @@ fn window_records(ts_center: i64, secs: i64) -> Vec<TelemetryRecord> {
                 if (ts - ts_center).abs() <= secs {
                     let pid = v.get("pid").and_then(|x| x.as_i64()).unwrap_or(0) as i32;
                     let ppid = v.get("ppid").and_then(|x| x.as_i64()).unwrap_or(0) as i32;
-                    let exe = v.get("exe").and_then(|x| x.as_str()).unwrap_or("").to_string();
-                    let cmd = v.get("cmdline").and_then(|x| x.as_str()).unwrap_or("").to_string();
+                    let exe = v
+                        .get("exe")
+                        .and_then(|x| x.as_str())
+                        .unwrap_or("")
+                        .to_string();
+                    let cmd = v
+                        .get("cmdline")
+                        .and_then(|x| x.as_str())
+                        .unwrap_or("")
+                        .to_string();
                     out.push(TelemetryRecord {
                         timestamp: ts as u64,
                         pid,

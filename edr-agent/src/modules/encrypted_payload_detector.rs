@@ -1,7 +1,6 @@
 use std::{
     collections::HashMap,
-    fs,
-    mem,
+    fs, mem,
     path::Path,
     sync::{
         atomic::{AtomicBool, Ordering},
@@ -22,6 +21,7 @@ use bytes::BytesMut;
 use chrono::{Local, Timelike}; // for .hour()
 use walkdir::WalkDir;
 
+use crate::logger::log;
 use crate::utils::time::now_ts;
 use crate::{
     gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log},
@@ -30,7 +30,6 @@ use crate::{
     telemetry_writer::write_telemetry_record,
     trust_hook::{submit_trust_event, TrustEvent},
 };
-use crate::logger::log;
 
 static ENCRYPTED_MONITOR_STARTED: AtomicBool = AtomicBool::new(false);
 static ENCRYPTED_MONITOR_ONCE: Once = Once::new();
@@ -100,7 +99,12 @@ fn get_file_metadata(path: &Path) -> Option<(u64 /*size*/, u64 /*mtime_sec*/)> {
     use std::time::UNIX_EPOCH;
     let m = fs::metadata(path).ok()?;
     let size = m.len();
-    let mtime = m.modified().ok()?.duration_since(UNIX_EPOCH).ok()?.as_secs();
+    let mtime = m
+        .modified()
+        .ok()?
+        .duration_since(UNIX_EPOCH)
+        .ok()?
+        .as_secs();
     Some((size, mtime))
 }
 
@@ -139,7 +143,10 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
                 kp.load()?;
                 if let Some(sym) = sec.split('/').nth(1) {
                     if let Err(e) = kp.attach(sym, 0) {
-                        log(&format!("ℹ️ KProbe loaded but attach({sym}) failed: {:?}", e));
+                        log(&format!(
+                            "ℹ️ KProbe loaded but attach({sym}) failed: {:?}",
+                            e
+                        ));
                     } else {
                         log(&format!("✔️ attached kprobe {}", sym));
                         attached_any = true;
@@ -360,7 +367,13 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
     let mut records = Vec::new();
 
     let suspicious_dirs = vec![
-        "/tmp", "/var/tmp", "/dev/shm", "/run/user", "/home", "/opt", "/usr/local/bin",
+        "/tmp",
+        "/var/tmp",
+        "/dev/shm",
+        "/run/user",
+        "/home",
+        "/opt",
+        "/usr/local/bin",
     ];
 
     const MAX_SCAN_BYTES: u64 = 8 * 1024 * 1024; // 8 MiB guardrail
@@ -383,8 +396,9 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
                         let size = get_file_metadata(path).map(|(sz, _)| sz).unwrap_or(0);
                         let hour = Local::now().hour();
 
-                        let is_weird_name =
-                            filename.contains(".enc") || filename.contains(".bin") || filename.contains(".dat");
+                        let is_weird_name = filename.contains(".enc")
+                            || filename.contains(".bin")
+                            || filename.contains(".dat");
                         let is_obfuscated_name = filename.len() > 30 && !filename.contains('.');
                         let is_off_hours = hour < 6 || hour > 22;
 
@@ -417,7 +431,8 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
                         metadata_map.insert("size_bytes".into(), size.to_string());
                         metadata_map.insert("off_hours".into(), is_off_hours.to_string());
                         metadata_map.insert("weird_name".into(), is_weird_name.to_string());
-                        metadata_map.insert("obfuscated_name".into(), is_obfuscated_name.to_string());
+                        metadata_map
+                            .insert("obfuscated_name".into(), is_obfuscated_name.to_string());
 
                         let trust_event = TrustEvent {
                             timestamp: now,
@@ -460,7 +475,11 @@ pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
                         record.insert("event".into(), "encrypted_payload".into());
                         record.insert(
                             "severity".into(),
-                            if trust_score > 10.0 { "high".into() } else { "medium".into() },
+                            if trust_score > 10.0 {
+                                "high".into()
+                            } else {
+                                "medium".into()
+                            },
                         );
                         record.insert("replay_tag".into(), "encrypted_file_drop".into());
                         record.insert(
@@ -497,13 +516,19 @@ pub fn scan_encrypted_payload_activity() -> Vec<TelemetryOutput> {
 
     let mut data = HashMap::new();
     data.insert("timestamp".into(), ts.to_string());
-    data.insert("event_type".into(), "encrypted_payload_monitor_active".into());
+    data.insert(
+        "event_type".into(),
+        "encrypted_payload_monitor_active".into(),
+    );
     data.insert("category".into(), "memory".into());
     data.insert("signal".into(), "encrypted_payload_monitor_active".into());
     data.insert("confidence".into(), "0.0".into());
     data.insert("replay_tag".into(), "monitor_heartbeat".into());
     data.insert("gnn_escalate".into(), "false".into());
-    data.insert("soc_note".into(), "Heartbeat: Encrypted payload monitor active".into());
+    data.insert(
+        "soc_note".into(),
+        "Heartbeat: Encrypted payload monitor active".into(),
+    );
 
     let trust_event = TrustEvent {
         timestamp: ts,

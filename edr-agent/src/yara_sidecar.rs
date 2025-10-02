@@ -1,9 +1,8 @@
-
 // src/yara_sidecar.rs
 // Lightweight tailer for YARA / IOC sidecar hits written as NDJSON to state/yara_hits.ndjson
 // Each line: {"ts": 1710000000, "host": "...", "path": "...", "rule": "SuspiciousPacked", "meta": {"family":"xyz"}}
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::io::{BufRead, BufReader, Seek, SeekFrom};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -25,7 +24,10 @@ pub struct YaraTail {
 
 impl YaraTail {
     pub fn new(path: &str) -> Self {
-        Self { path: path.to_string(), offset: 0 }
+        Self {
+            path: path.to_string(),
+            offset: 0,
+        }
     }
 
     pub fn poll(&mut self) -> Vec<YaraHit> {
@@ -37,9 +39,13 @@ impl YaraTail {
             loop {
                 let mut line = String::new();
                 let bytes = reader.read_line(&mut line).unwrap_or(0);
-                if bytes == 0 { break; }
+                if bytes == 0 {
+                    break;
+                }
                 pos += bytes as u64;
-                if line.trim().is_empty() { continue; }
+                if line.trim().is_empty() {
+                    continue;
+                }
                 if let Ok(hit) = serde_json::from_str::<YaraHit>(&line) {
                     out.push(hit);
                 }
@@ -69,5 +75,8 @@ pub fn to_signal(hit: &YaraHit) -> crate::decision::Signal {
 }
 
 fn now() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }

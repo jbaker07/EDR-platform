@@ -50,14 +50,13 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
     START_EBPF.call_once(|| {
         thread::spawn(move || {
             // Leak BPF so perf buffers and spawned threads can outlive this scope ('static)
-            let mut tmp =
-                match Bpf::load(include_bytes_aligned!("../ebpf/logon_tracker.bpf.o")) {
-                    Ok(b) => b,
-                    Err(e) => {
-                        eprintln!("❌ Failed to load logon BPF program: {:?}", e);
-                        return;
-                    }
-                };
+            let mut tmp = match Bpf::load(include_bytes_aligned!("../ebpf/logon_tracker.bpf.o")) {
+                Ok(b) => b,
+                Err(e) => {
+                    eprintln!("❌ Failed to load logon BPF program: {:?}", e);
+                    return;
+                }
+            };
             let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
             let program: &mut TracePoint = match bpf.program_mut("trace_execve") {
@@ -151,8 +150,12 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                                 3.0
                                             };
 
-                                        let trust =
-                                            generate_trust_payload("logon_tracker", 0.3, 85_000, risk_score);
+                                        let trust = generate_trust_payload(
+                                            "logon_tracker",
+                                            0.3,
+                                            85_000,
+                                            risk_score,
+                                        );
                                         let features =
                                             generate_feature_vector(0.3, 85_000, risk_score);
 
@@ -161,7 +164,8 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                         gnn_data.insert("category".into(), "logon".into());
                                         gnn_data.insert("signal".into(), "execve_logon".into());
                                         let conf = (1.0 - (risk_score / 10.0)).clamp(0.0, 1.0);
-                                        gnn_data.insert("confidence".into(), format!("{:.2}", conf));
+                                        gnn_data
+                                            .insert("confidence".into(), format!("{:.2}", conf));
                                         gnn_data.insert("gnn_escalate".into(), "true".into());
                                         gnn_data.insert(
                                             "summary".into(),
@@ -252,7 +256,10 @@ pub fn scan_logon_activity() -> Vec<TelemetryOutput> {
 
     let mut metadata = HashMap::new();
     metadata.insert("fallback".into(), "true".into());
-    metadata.insert("reason".into(), "No logon events seen in this session".into());
+    metadata.insert(
+        "reason".into(),
+        "No logon events seen in this session".into(),
+    );
 
     submit_trust_event(TrustEvent {
         timestamp,

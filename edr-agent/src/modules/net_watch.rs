@@ -1,23 +1,25 @@
 // edr-agent/src/modules/net_watch.rs
-use std::process::Command;
-use std::{fs, thread, sync::mpsc};
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
 use std::convert::TryInto;
+use std::process::Command;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::OnceLock;
+use std::sync::{Arc, Mutex};
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::{fs, sync::mpsc, thread};
 
 use bytes::BytesMut;
 
-use crate::telemetry_writer::{TelemetryWriter, write_telemetry_record};
-use crate::trust_hook::{submit_trust_event, TrustEvent, build_trust_payload, generate_feature_vector};
 use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::telemetry::TelemetryRecord;
-use crate::utils::time::now_ts as utils_now_ts;
-use crate::telemetry_types::TelemetryOutput;
 use crate::logger::log;
 use crate::modules::replay_writer::store_replay_event;
+use crate::telemetry::TelemetryRecord;
+use crate::telemetry_types::TelemetryOutput;
+use crate::telemetry_writer::{write_telemetry_record, TelemetryWriter};
+use crate::trust_hook::{
+    build_trust_payload, generate_feature_vector, submit_trust_event, TrustEvent,
+};
+use crate::utils::time::now_ts as utils_now_ts;
 
 pub static SCAN_NETWORK_ANOMALIES: OnceLock<AtomicBool> = OnceLock::new();
 
@@ -106,7 +108,10 @@ pub fn start_network_monitor() {
             Some(metadata),
             risk_score,
             "net_watch",
-            Some(format!("{} suspicious connections detected", connections.len())),
+            Some(format!(
+                "{} suspicious connections detected",
+                connections.len()
+            )),
             Some(vec!["network".into(), "connection".into()]),
             Some("network_connection_anomaly".into()),
             Some("network::connection_scan".into()),
@@ -144,7 +149,10 @@ pub fn log_open_connections(writer: &mut TelemetryWriter) {
             ppid: conn.ppid,
             uid: conn.uid,
             binary_path: conn.process_name.clone(),
-            command_line: format!("{} -> {} [{}]", conn.local_address, conn.remote_address, conn.status),
+            command_line: format!(
+                "{} -> {} [{}]",
+                conn.local_address, conn.remote_address, conn.status
+            ),
             cwd: conn.protocol.clone(),
             env_vars: Some(vec![]),
             risk_score: Some(risk as u32),
@@ -169,7 +177,10 @@ pub fn log_open_connections(writer: &mut TelemetryWriter) {
                 "suspicious_connection".into(),
                 "net_watch".into(),
                 "net_watch".into(),
-                Some(format!("Open connection from {} to {} [{}]", conn.local_address, conn.remote_address, conn.status)),
+                Some(format!(
+                    "Open connection from {} to {} [{}]",
+                    conn.local_address, conn.remote_address, conn.status
+                )),
                 Some("network::connection_scan".into()),
                 Some(vec!["network".into(), "connection".into()]),
                 Some(risk),
@@ -191,8 +202,12 @@ pub fn is_known_benign(local: &str, remote: &str, status: &str) -> bool {
     let benign_statuses = ["TIME_WAIT", "CLOSE_WAIT"];
     let benign_subnets = ["127.", "::1", "192.168.", "10.", "172.16.", "172.31."];
 
-    let is_remote_local = benign_subnets.iter().any(|subnet| remote.starts_with(subnet));
-    let is_local_local = benign_subnets.iter().any(|subnet| local.starts_with(subnet));
+    let is_remote_local = benign_subnets
+        .iter()
+        .any(|subnet| remote.starts_with(subnet));
+    let is_local_local = benign_subnets
+        .iter()
+        .any(|subnet| local.starts_with(subnet));
 
     let remote_port = remote.rsplit(':').next().unwrap_or("");
     let is_common_low_risk_port = benign_ports.contains(&remote_port);
@@ -217,7 +232,10 @@ fn calculate_network_risk(conn: &ConnectionInfo) -> f32 {
 
     if high_risk_ports.contains(&port) {
         10.0
-    } else if known_suspicious_ips.iter().any(|ip_sub| ip.contains(ip_sub)) {
+    } else if known_suspicious_ips
+        .iter()
+        .any(|ip_sub| ip.contains(ip_sub))
+    {
         8.0
     } else if conn.status == "ESTABLISHED" && !ip.contains("google") && port == 443 {
         5.0
@@ -231,7 +249,9 @@ pub fn collect_network_connections(timestamp: u64) -> (Vec<ConnectionInfoWithRis
     let mut total_risk = 0.0;
 
     // Prefer netstat, fall back to ss
-    let output = Command::new("netstat").arg("-tunp").output()
+    let output = Command::new("netstat")
+        .arg("-tunp")
+        .output()
         .or_else(|_| Command::new("ss").arg("-tunp").output());
 
     if let Ok(output) = output {
@@ -247,7 +267,11 @@ pub fn collect_network_connections(timestamp: u64) -> (Vec<ConnectionInfoWithRis
                     let pid_program = parts.get(6).copied().unwrap_or("");
 
                     let (pid, pname) = parse_pid_and_name(pid_program);
-                    let (ppid, uid) = if pid > 0 { get_ppid_and_uid(pid) } else { (-1, u32::MAX) };
+                    let (ppid, uid) = if pid > 0 {
+                        get_ppid_and_uid(pid)
+                    } else {
+                        (-1, u32::MAX)
+                    };
 
                     let info = ConnectionInfo {
                         timestamp,
@@ -309,7 +333,7 @@ pub struct NetworkAnomalyEvent {
 }
 
 #[cfg(target_os = "linux")]
-use aya::{Bpf, util::online_cpus, maps::perf::PerfEventArray, programs::TracePoint};
+use aya::{maps::perf::PerfEventArray, programs::TracePoint, util::online_cpus, Bpf};
 
 #[cfg(target_os = "linux")]
 pub fn start_ebpf_net_watch() -> Vec<TelemetryOutput> {
@@ -317,52 +341,55 @@ pub fn start_ebpf_net_watch() -> Vec<TelemetryOutput> {
     let (tx, rx) = mpsc::channel::<TelemetryOutput>();
 
     // helper to open, attach and spawn a reader for a perf array
-    let handle_perf_array = |path: &str,
-                             prog_name: &str,
-                             attach_point: (&str, &str),
-                             parse_fn: fn(&[u8]) -> Option<TelemetryOutput>| {
-        if let Ok(data) = fs::read(path) {
-            if let Ok(mut tmp) = Bpf::load(&data) {
-                // Leak BPF so programs stay attached while background threads run
-                let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
+    let handle_perf_array =
+        |path: &str,
+         prog_name: &str,
+         attach_point: (&str, &str),
+         parse_fn: fn(&[u8]) -> Option<TelemetryOutput>| {
+            if let Ok(data) = fs::read(path) {
+                if let Ok(mut tmp) = Bpf::load(&data) {
+                    // Leak BPF so programs stay attached while background threads run
+                    let bpf: &'static mut Bpf = Box::leak(Box::new(tmp));
 
-                if let Some(prog) = bpf.program_mut(prog_name) {
-                    if let Ok(tp) = <&mut TracePoint>::try_from(prog) {
-                        if tp.load().is_ok() {
-                            let _ = tp.attach(attach_point.0, attach_point.1);
+                    if let Some(prog) = bpf.program_mut(prog_name) {
+                        if let Ok(tp) = <&mut TracePoint>::try_from(prog) {
+                            if tp.load().is_ok() {
+                                let _ = tp.attach(attach_point.0, attach_point.1);
+                            }
                         }
                     }
-                }
 
-                if let Some(map) = bpf.map_mut("EVENTS") {
-                    if let Ok(mut perf_array) = PerfEventArray::try_from(map) {
-                        for cpu_id in online_cpus().unwrap_or_default() {
-                            if let Ok(mut buf) = perf_array.open(cpu_id, None) {
-                                let tx = tx.clone();
-                                thread::spawn(move || {
-                                    let mut buffers: Vec<BytesMut> =
-                                        (0..8).map(|_| BytesMut::with_capacity(4096)).collect();
-                                    loop {
-                                        match buf.read_events(&mut buffers[..]) {
-                                            Ok(events) => {
-                                                for b in buffers.iter().take(events.read) {
-                                                    if b.is_empty() { continue; }
-                                                    if let Some(output) = parse_fn(&b[..]) {
-                                                        let _ = tx.send(output);
+                    if let Some(map) = bpf.map_mut("EVENTS") {
+                        if let Ok(mut perf_array) = PerfEventArray::try_from(map) {
+                            for cpu_id in online_cpus().unwrap_or_default() {
+                                if let Ok(mut buf) = perf_array.open(cpu_id, None) {
+                                    let tx = tx.clone();
+                                    thread::spawn(move || {
+                                        let mut buffers: Vec<BytesMut> =
+                                            (0..8).map(|_| BytesMut::with_capacity(4096)).collect();
+                                        loop {
+                                            match buf.read_events(&mut buffers[..]) {
+                                                Ok(events) => {
+                                                    for b in buffers.iter().take(events.read) {
+                                                        if b.is_empty() {
+                                                            continue;
+                                                        }
+                                                        if let Some(output) = parse_fn(&b[..]) {
+                                                            let _ = tx.send(output);
+                                                        }
                                                     }
                                                 }
+                                                Err(_) => thread::sleep(Duration::from_millis(5)),
                                             }
-                                            Err(_) => thread::sleep(Duration::from_millis(5)),
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    };
+        };
 
     // spawn both readers
     handle_perf_array(
@@ -391,7 +418,10 @@ pub fn start_ebpf_net_watch() -> Vec<TelemetryOutput> {
         }
     }
 
-    Arc::try_unwrap(results).unwrap_or_default().into_inner().unwrap_or_default()
+    Arc::try_unwrap(results)
+        .unwrap_or_default()
+        .into_inner()
+        .unwrap_or_default()
 }
 
 #[cfg(target_os = "linux")]
@@ -417,7 +447,10 @@ fn parse_net_event(buf: &[u8]) -> Option<TelemetryOutput> {
     );
     data.insert("replay_tag".into(), "network_anomaly".into());
     data.insert("gnn_escalate".into(), "true".into());
-    data.insert("soc_note".into(), "Unusual socket behavior from eBPF trace".into());
+    data.insert(
+        "soc_note".into(),
+        "Unusual socket behavior from eBPF trace".into(),
+    );
 
     let trust_evt = TrustEvent::new_full(
         evt.timestamp,
@@ -463,11 +496,17 @@ fn parse_dns_event(buf: &[u8]) -> Option<TelemetryOutput> {
     data.insert("query_length".to_string(), evt.query_length.to_string());
     data.insert(
         "summary".to_string(),
-        format!("Potential DNS tunneling detected (query_len = {})", evt.query_length),
+        format!(
+            "Potential DNS tunneling detected (query_len = {})",
+            evt.query_length
+        ),
     );
     data.insert("replay_tag".into(), "dns_tunnel_detected".into());
     data.insert("gnn_escalate".into(), "true".into());
-    data.insert("soc_note".into(), "High-entropy or oversized DNS query detected".into());
+    data.insert(
+        "soc_note".into(),
+        "High-entropy or oversized DNS query detected".into(),
+    );
 
     let trust_evt = TrustEvent::new_full(
         now,
@@ -497,22 +536,33 @@ fn parse_dns_event(buf: &[u8]) -> Option<TelemetryOutput> {
     })
 }
 
-
 #[cfg(target_os = "linux")]
 pub fn detect_suspicious_proxies() -> Vec<TelemetryOutput> {
     use std::collections::{HashMap, HashSet};
     use std::fs::{self, File};
-    use std::path::Path;
     use std::io::{BufRead, BufReader};
+    use std::path::Path;
 
     let mut outputs = Vec::new();
     let now = utils_now_ts();
     let mut seen = HashSet::new();
 
     let proxy_binaries: HashSet<&str> = HashSet::from([
-        "tor", "obfs4proxy", "v2ray", "xray", "shadowsocks", "ssserver", "sslocal",
-        "tun2socks", "proxychains", "privoxy", "squid", "vpnkit", "openvpn",
-        "stunnel", "sockd",
+        "tor",
+        "obfs4proxy",
+        "v2ray",
+        "xray",
+        "shadowsocks",
+        "ssserver",
+        "sslocal",
+        "tun2socks",
+        "proxychains",
+        "privoxy",
+        "squid",
+        "vpnkit",
+        "openvpn",
+        "stunnel",
+        "sockd",
     ]);
 
     if let Ok(entries) = fs::read_dir("/proc") {
@@ -543,9 +593,9 @@ pub fn detect_suspicious_proxies() -> Vec<TelemetryOutput> {
                     let ppid = fs::read_to_string(&status_path)
                         .ok()
                         .and_then(|s| {
-                            s.lines()
-                                .find(|l| l.starts_with("PPid:"))
-                                .and_then(|line| line.split_whitespace().nth(1).map(|v| v.to_string()))
+                            s.lines().find(|l| l.starts_with("PPid:")).and_then(|line| {
+                                line.split_whitespace().nth(1).map(|v| v.to_string())
+                            })
                         })
                         .and_then(|val| val.parse::<i32>().ok())
                         .unwrap_or(-1);
@@ -553,9 +603,9 @@ pub fn detect_suspicious_proxies() -> Vec<TelemetryOutput> {
                     let uid = fs::read_to_string(&status_path)
                         .ok()
                         .and_then(|s| {
-                            s.lines()
-                                .find(|l| l.starts_with("Uid:"))
-                                .and_then(|line| line.split_whitespace().nth(1).map(|v| v.to_string()))
+                            s.lines().find(|l| l.starts_with("Uid:")).and_then(|line| {
+                                line.split_whitespace().nth(1).map(|v| v.to_string())
+                            })
                         })
                         .and_then(|val| val.parse::<u32>().ok())
                         .unwrap_or(u32::MAX);
@@ -570,7 +620,10 @@ pub fn detect_suspicious_proxies() -> Vec<TelemetryOutput> {
 
                     let mut data = HashMap::new();
                     data.insert("binary".into(), binary.clone());
-                    data.insert("summary".into(), format!("Suspicious proxy binary found: {}", binary));
+                    data.insert(
+                        "summary".into(),
+                        format!("Suspicious proxy binary found: {}", binary),
+                    );
                     data.insert("timestamp".into(), now.to_string());
                     data.insert("replay_tag".into(), "proxy_detect".into());
                     data.insert("gnn_escalate".into(), "true".into());
@@ -623,7 +676,10 @@ pub fn detect_suspicious_proxies() -> Vec<TelemetryOutput> {
                     data.insert("line".into(), line.to_string());
                     data.insert("timestamp".into(), now.to_string());
                     data.insert("replay_tag".into(), "proxy_listener".into());
-                    data.insert("soc_note".into(), "Suspicious SOCKS or Tor proxy listener port".into());
+                    data.insert(
+                        "soc_note".into(),
+                        "Suspicious SOCKS or Tor proxy listener port".into(),
+                    );
 
                     let trust_event = TrustEvent::new_full(
                         now,
@@ -696,7 +752,11 @@ pub fn scan_network_anomalies() -> Vec<TelemetryOutput> {
             .cloned()
             .unwrap_or_else(|| format!("Anomaly detected: {}", output.signal));
 
-        let mut tags = vec!["network".into(), "telemetry_batch".into(), output.signal.clone()];
+        let mut tags = vec![
+            "network".into(),
+            "telemetry_batch".into(),
+            output.signal.clone(),
+        ];
         if output.signal == "dns_tunnel" {
             tags.push("gnn_escalate".into());
             tags.push("forensic_replay".into());

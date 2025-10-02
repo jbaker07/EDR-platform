@@ -6,10 +6,10 @@
 
 use std::collections::HashSet;
 
+use crate::baselines::BaselineStore;
 use crate::episode::Episode;
 use crate::graph_builder::GraphNode;
 use crate::traits::{FeatureEmitter, FeatureObservation};
-use crate::baselines::BaselineStore;
 
 /// Tunables & heuristics for memory/privilege features.
 #[derive(Debug, Clone)]
@@ -58,9 +58,7 @@ impl MemoryPrivEmitter {
 
         for n in nodes {
             // Privilege: uid==0 or explicit priv_escalation tag.
-            if n.uid.unwrap_or_default() == 0
-                || n.tags.iter().any(|t| t == "priv_escalation")
-            {
+            if n.uid.unwrap_or_default() == 0 || n.tags.iter().any(|t| t == "priv_escalation") {
                 privileged_proc_count += 1;
             }
 
@@ -104,11 +102,7 @@ pub struct MemoryPrivStats {
 }
 
 impl FeatureEmitter for MemoryPrivEmitter {
-    fn emit(
-        &self,
-        ep: &Episode,
-        _baselines: &mut BaselineStore,
-    ) -> Vec<FeatureObservation> {
+    fn emit(&self, ep: &Episode, _baselines: &mut BaselineStore) -> Vec<FeatureObservation> {
         let (nodes, _edges) = ep.to_graph();
         let stats = self.analyze_nodes(&nodes);
 

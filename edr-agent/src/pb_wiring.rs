@@ -55,8 +55,8 @@ fn to_introspect_hit(h: EngineHit) -> IntrospectHit {
         id,
         playbook_id: h.playbook_id,
         ts: h.ts,
-        filled_slots: vec![],     // engine hit doesn't expose slots here
-        missing_slots: vec![],    // ^
+        filled_slots: vec![],  // engine hit doesn't expose slots here
+        missing_slots: vec![], // ^
         tags: vec![tag],
         rationale,
     }

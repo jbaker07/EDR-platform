@@ -1,6 +1,6 @@
 // src/score_reason.rs
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 /// Trust vector domains used to map reasons into dimensions
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,12 +22,12 @@ pub enum TrustDomain {
 /// Classification of where the signal came from
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ReasonSource {
-    RuleEngine,       // Detection rule triggered
-    SemanticTag,      // Ontology/semantic tag match
-    BehaviorProfile,  // Trust decay or behavior model
-    Heuristic,        // Ad-hoc logic
-    ExternalSignal,   // Third-party (e.g., cloud API, IAM, MDM)
-    Custom,           // Developer-defined reason
+    RuleEngine,      // Detection rule triggered
+    SemanticTag,     // Ontology/semantic tag match
+    BehaviorProfile, // Trust decay or behavior model
+    Heuristic,       // Ad-hoc logic
+    ExternalSignal,  // Third-party (e.g., cloud API, IAM, MDM)
+    Custom,          // Developer-defined reason
 }
 
 /// Main enum for all scoring justifications
@@ -61,7 +61,10 @@ pub enum ScoreReason {
     Composite(Vec<ScoreReason>),
 
     /// NEW: generic outlier from a statistical method (Mahalanobis, EllipticEnvelope, etc.)
-    Outlier { method: String, detail: String },
+    Outlier {
+        method: String,
+        detail: String,
+    },
 
     /// NEW: anomaly arose from a suspicious causal subgraph (KRIM/graph analysis)
     CausalSubgraph,
@@ -127,9 +130,11 @@ impl ScoreReason {
             ScoreReason::Tagged(_) => 25,
             ScoreReason::RuleTriggered(_) => 50,
             ScoreReason::Custom(_) => 20,
-            ScoreReason::Composite(inner) => inner.iter().map(|r| r.risk_weight()).max().unwrap_or(0),
-            ScoreReason::Outlier { .. } => 70,      // robust statistics flagged an outlier
-            ScoreReason::CausalSubgraph => 65,       // graph/KRIM anomaly
+            ScoreReason::Composite(inner) => {
+                inner.iter().map(|r| r.risk_weight()).max().unwrap_or(0)
+            }
+            ScoreReason::Outlier { .. } => 70, // robust statistics flagged an outlier
+            ScoreReason::CausalSubgraph => 65, // graph/KRIM anomaly
         }
     }
 

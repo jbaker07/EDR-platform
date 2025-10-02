@@ -24,24 +24,27 @@ use crate::modules::file_tamper_monitor::scan_file_tamper_activity;
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use crate::modules::file_tamper_monitor::start_ebpf_file_tamper_watch;
 use crate::modules::geo_ip_anomaly::scan_geo_ip_activity;
-use crate::modules::job_sched_monitor::{scan_job_sched_activity, start_job_sched_monitors};
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use crate::modules::job_sched_monitor::start_ebpf_kernel_fallout_watch;
+use crate::modules::job_sched_monitor::{scan_job_sched_activity, start_job_sched_monitors};
 use crate::modules::logon_tracker::{scan_logon_activity, start_logon_tracker};
 use crate::modules::mem_scan::scan_memory_health;
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use crate::modules::mem_scan::{start_ebpf_mem_scan, start_ebpf_proc_hollow_scan};
 use crate::modules::mfa_bypass::{scan_mfa_bypass_activity, start_mfa_bypass_monitor};
-use crate::modules::net_watch::{log_open_connections, scan_network_anomalies, start_network_monitor};
+use crate::modules::net_watch::{
+    log_open_connections, scan_network_anomalies, start_network_monitor,
+};
 use crate::modules::password_spray::scan_password_sprays;
 use crate::modules::persistence_watch::{scan_persistence_activity, start_persistence_watch};
-use crate::modules::privilege_monitor::{scan_privilege_activity, start_privilege_monitor};
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use crate::modules::privilege_monitor::spawn_cred_dump_monitor;
+use crate::modules::privilege_monitor::{scan_privilege_activity, start_privilege_monitor};
 use crate::modules::process_injection::{scan_injection_fallback, start_process_injection_monitor};
-use crate::modules::process_monitor::{gather_processes, scan_processes};
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use crate::modules::process_monitor::start_ipc_abuse_monitor;
+use crate::modules::process_monitor::{gather_processes, scan_processes};
+use crate::modules::replay_writer::store_replay_event;
 use crate::modules::script_monitor::{scan_script_monitor, start_script_monitor};
 use crate::modules::signal_integrity_mapper::{scan_signal_integrity, start_integrity_monitor};
 use crate::modules::suspicious_ipc::scan_ipc_passive;
@@ -49,7 +52,6 @@ use crate::modules::suspicious_ipc::scan_ipc_passive;
 use crate::modules::suspicious_ipc::start_ebpf_ipc_abuse_watch;
 use crate::modules::usb_monitor::{scan_usb_state, start_usb_monitor};
 use crate::modules::user_tracker::{get_logged_in_users, scan_user_sessions};
-use crate::modules::replay_writer::store_replay_event;
 
 use crate::services::trust_engine_final::{evaluate_and_dispatch_trust_score, TelemetryData};
 use crate::telemetry_types::TelemetryOutput;
@@ -190,6 +192,21 @@ fn deduplicate_outputs(outputs: Vec<TelemetryOutput>) -> Vec<TelemetryOutput> {
         .collect()
 }
 
+#[inline]
+fn kv_enabled() -> bool {
+    !std::env::var("EDR_DISABLE_KV")
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false)
+}
+
+// Centralized gate for KV JSONL writes from this module.
+#[inline]
+fn persist_side_effect_kv(map: &HashMap<String, String>) {
+    if kv_enabled() {
+        write_telemetry_record(map.clone());
+    }
+}
+
 // ======================= Realtime Monitors =======================
 
 pub fn start_realtime_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
@@ -305,9 +322,7 @@ pub fn record_to_pcb_map(rec: &TelemetryRecord) -> HashMap<String, String> {
     m
 }
 
-pub fn get_current_telemetry_snapshot(
-    writer: Arc<Mutex<TelemetryWriter>>,
-) -> Vec<TelemetryRecord> {
+pub fn get_current_telemetry_snapshot(writer: Arc<Mutex<TelemetryWriter>>) -> Vec<TelemetryRecord> {
     // Start with process snapshot rows
     let mut records = get_current_snapshot();
 
@@ -324,15 +339,27 @@ pub fn get_current_telemetry_snapshot(
             }
         }
 
-        // Persist/forward side-effects (these are cheap, don’t block ingestion)
-        write_telemetry_record(mapped.clone());
+        // Persist/forward side-effects (cheap, but now gated)
+        persist_side_effect_kv(&mapped);
         push_to_gnn_vector_log(mapped.clone());
         let _ = store_replay_event(mapped.clone());
 
         // Normalize some common fields
-        let pid = output.data.get("pid").and_then(|v| v.parse().ok()).unwrap_or(-1);
-        let ppid = output.data.get("ppid").and_then(|v| v.parse().ok()).unwrap_or(-1);
-        let uid = output.data.get("uid").and_then(|v| v.parse().ok()).unwrap_or(0);
+        let pid = output
+            .data
+            .get("pid")
+            .and_then(|v| v.parse().ok())
+            .unwrap_or(-1);
+        let ppid = output
+            .data
+            .get("ppid")
+            .and_then(|v| v.parse().ok())
+            .unwrap_or(-1);
+        let uid = output
+            .data
+            .get("uid")
+            .and_then(|v| v.parse().ok())
+            .unwrap_or(0);
         let binary_path = output
             .data
             .get("binary_path")
@@ -398,7 +425,7 @@ pub fn push_feature_as_signal(f: &FeatureObservation) {
 
     // make it look like a normal output for downstreams
     let mapped = data.clone();
-    write_telemetry_record(mapped.clone());
+    persist_side_effect_kv(&mapped);
     push_to_gnn_vector_log(mapped);
 }
 
@@ -410,7 +437,7 @@ pub fn push_edr_event_record(
     out: &crate::telemetry_types::TelemetryOutput,
 ) {
     let mapped = out.data.clone();
-    crate::telemetry_writer::write_telemetry_record(mapped.clone());
+    persist_side_effect_kv(&mapped);
     crate::gnn_hook::push_to_gnn_vector_log(mapped);
 }
 
@@ -439,7 +466,7 @@ pub fn log_user_sessions() {
                 println!("🟡 Raw Telemetry: {}", js);
             }
         }
-        write_telemetry_record(mapped.clone());
+        persist_side_effect_kv(&mapped);
         push_to_gnn_vector_log(mapped);
     }
 }
@@ -550,11 +577,7 @@ impl From<TelemetryRecord> for Telemetry {
             } else {
                 Some(r.command_line)
             },
-            cwd: if r.cwd.is_empty() {
-                None
-            } else {
-                Some(r.cwd)
-            },
+            cwd: if r.cwd.is_empty() { None } else { Some(r.cwd) },
             tags: tagmap,
             attrs,
         }
@@ -612,5 +635,7 @@ pub fn normalized_from_output(output: &crate::telemetry_types::TelemetryOutput) 
 }
 
 fn ts_u64_to_dt(secs: u64) -> DateTime<Utc> {
-    Utc.timestamp_opt(secs as i64, 0).single().unwrap_or_else(Utc::now)
+    Utc.timestamp_opt(secs as i64, 0)
+        .single()
+        .unwrap_or_else(Utc::now)
 }

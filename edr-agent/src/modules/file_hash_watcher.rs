@@ -1,3 +1,4 @@
+use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::{
     collections::{HashMap, HashSet, VecDeque},
     fs,
@@ -10,14 +11,9 @@ use std::{
     thread,
     time::{Duration, Instant},
 };
-use std::os::unix::fs::{MetadataExt, PermissionsExt};
 
 use aya::{
-    include_bytes_aligned,
-    maps::perf::PerfEventArray,
-    programs::TracePoint,
-    util::online_cpus,
-    Bpf,
+    include_bytes_aligned, maps::perf::PerfEventArray, programs::TracePoint, util::online_cpus, Bpf,
 };
 use bytes::BytesMut;
 use chrono::Utc;
@@ -26,13 +22,13 @@ use sha2::{Digest, Sha256};
 use crate::forensic::utils::read_proc_value;
 use crate::logger::log;
 
+use crate::gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log};
+use crate::modules::replay_writer::store_replay_event;
 use crate::telemetry::TelemetryRecord;
 use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::{write_telemetry_record, TelemetryWriter};
 use crate::trust_hook::{submit_trust_event, TrustEvent};
 use crate::utils::time::now_ts;
-use crate::modules::replay_writer::store_replay_event;
-use crate::gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log};
 
 static FILE_HASH_FOUND: AtomicBool = AtomicBool::new(false);
 
@@ -74,7 +70,10 @@ fn load_hash_list_from_file(path: &str) -> HashSet<String> {
             .into_iter()
             .collect()
     } else {
-        println!("[⚠️ file_hash_watcher] Threat hash file not found: {}", path);
+        println!(
+            "[⚠️ file_hash_watcher] Threat hash file not found: {}",
+            path
+        );
         HashSet::new()
     }
 }
@@ -276,7 +275,8 @@ pub fn start_file_hash_monitor(writer: Arc<Mutex<TelemetryWriter>>) {
                             fingerprint_data.insert("hash".into(), hash.clone());
                             fingerprint_data.insert("trusted_uid".into(), uid.to_string());
                             fingerprint_data.insert("permissions".into(), permissions.to_string());
-                            fingerprint_data.insert("exec_capable".into(), exec_capable.to_string());
+                            fingerprint_data
+                                .insert("exec_capable".into(), exec_capable.to_string());
                             fingerprint_data.insert("category".into(), category.clone());
                             fingerprint_data
                                 .insert("source_module".into(), "file_hash_watcher".into());
@@ -419,7 +419,10 @@ pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
         let data = match std::fs::read("/opt/edr-ebpf/file_access_monitor.bpf.o") {
             Ok(d) => d,
             Err(e) => {
-                eprintln!("Missing eBPF object (/opt/edr-ebpf/file_access_monitor.bpf.o): {:?}", e);
+                eprintln!(
+                    "Missing eBPF object (/opt/edr-ebpf/file_access_monitor.bpf.o): {:?}",
+                    e
+                );
                 return;
             }
         };
@@ -450,7 +453,10 @@ pub fn start_ebpf_file_watch() -> Vec<TelemetryOutput> {
             }
         };
 
-        if let Err(e) = prog.load().and_then(|_| prog.attach("syscalls", "sys_enter_openat")) {
+        if let Err(e) = prog
+            .load()
+            .and_then(|_| prog.attach("syscalls", "sys_enter_openat"))
+        {
             eprintln!("Attach failed: {:?}", e);
             return;
         }
@@ -607,7 +613,10 @@ pub fn scan_file_hash_activity() -> Vec<TelemetryOutput> {
     data.insert("confidence".into(), "0.0".into());
     data.insert("replay_tag".into(), "monitor_heartbeat".into());
     data.insert("gnn_escalate".into(), "false".into());
-    data.insert("soc_note".into(), "Heartbeat: file hash monitor active".into());
+    data.insert(
+        "soc_note".into(),
+        "Heartbeat: file hash monitor active".into(),
+    );
 
     submit_trust_event(TrustEvent {
         timestamp: ts,

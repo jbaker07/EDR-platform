@@ -1,6 +1,0 @@
-fd 0 -> /dev/null
-fd 1 -> /tmp/tmp.CJgGTI8Jo2
-fd 2 -> /tmp/tmp.S3kfSDoPWW
-fd 10 -> /etc/update-motd.d/50-motd-news
-fd 11 -> socket:[695267]
-fd 12 -> socket:[695267]

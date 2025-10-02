@@ -20,8 +20,8 @@ const PROMOTION_CONF_THRESH: f32 = 0.80;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BaselineEntry {
     pub uid: i32,
-    pub confidence: f32,   // 0.0..1.0
-    pub last_seen: u64,    // unix secs
+    pub confidence: f32, // 0.0..1.0
+    pub last_seen: u64,  // unix secs
     /// Optional observations: uid -> count
     #[serde(default)]
     pub observations: HashMap<i32, u32>,
@@ -87,7 +87,10 @@ impl BaselineStore {
         let mut exact = HashMap::new();
         // Seed a few common, stable baselines (examples; adjust as needed)
         exact.insert("/usr/bin/dbus-daemon".to_string(), BaselineEntry::new(81));
-        exact.insert("/usr/lib/systemd/systemd".to_string(), BaselineEntry::new(0));
+        exact.insert(
+            "/usr/lib/systemd/systemd".to_string(),
+            BaselineEntry::new(0),
+        );
 
         let mut by_name = HashMap::new();
         // Some daemons have consistent UIDs regardless of location/chroots
@@ -143,7 +146,8 @@ impl BaselineStore {
     }
 
     fn set_by_name(&mut self, name: &str, uid: i32) {
-        self.by_name.insert(name.to_string(), BaselineEntry::new(uid));
+        self.by_name
+            .insert(name.to_string(), BaselineEntry::new(uid));
     }
 
     fn set_prefix(&mut self, dir_prefix: &str, uid: i32) {
@@ -169,7 +173,10 @@ impl BaselineStore {
 
     fn learn(&mut self, path: &str, observed_uid: i32) -> Option<i32> {
         let key = canonicalize_lossy_opt(path).unwrap_or_else(|| path.to_string());
-        let entry = self.exact.entry(key.clone()).or_insert_with(|| BaselineEntry::new(observed_uid));
+        let entry = self
+            .exact
+            .entry(key.clone())
+            .or_insert_with(|| BaselineEntry::new(observed_uid));
         entry.observe(observed_uid);
 
         if let Some((modal_uid, modal_ct, total)) = entry.modal_uid() {
@@ -271,7 +278,9 @@ pub fn load_from_disk(path: &str) -> io::Result<BaselineStore> {
 
 /// Save current baselines to disk (JSON).
 pub fn save_to_disk(path: Option<&str>) -> io::Result<()> {
-    let s = STORE.read().map_err(|_| io::Error::new(io::ErrorKind::Other, "lock poisoned"))?;
+    let s = STORE
+        .read()
+        .map_err(|_| io::Error::new(io::ErrorKind::Other, "lock poisoned"))?;
     let path = path
         .map(|p| p.to_string())
         .or_else(|| s.backing_path.clone())

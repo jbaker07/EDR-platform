@@ -40,8 +40,12 @@ impl Episode {
         self.events.push(ev);
     }
 
-    pub fn len(&self) -> usize { self.events.len() }
-    pub fn is_empty(&self) -> bool { self.events.is_empty() }
+    pub fn len(&self) -> usize {
+        self.events.len()
+    }
+    pub fn is_empty(&self) -> bool {
+        self.events.is_empty()
+    }
 
     pub fn count_by(&self, et: EventType) -> usize {
         self.events.iter().filter(|e| e.event_type == et).count()
@@ -63,17 +67,34 @@ impl Episode {
                     ppid: Some(r.ppid),
                     uid: Some(r.uid),
                     exe: Some(r.binary_path.clone()),
-                    argv: if r.command_line.is_empty() { None } else { Some(vec![r.command_line.clone()]) },
-                    cwd: if r.cwd.is_empty() { None } else { Some(r.cwd.clone()) },
+                    argv: if r.command_line.is_empty() {
+                        None
+                    } else {
+                        Some(vec![r.command_line.clone()])
+                    },
+                    cwd: if r.cwd.is_empty() {
+                        None
+                    } else {
+                        Some(r.cwd.clone())
+                    },
                     ..Default::default()
                 });
             }
             for t in &r.tags {
-                let et = if t.contains("dll") { EventType::DllInject }
-                    else if t.contains("ipc") { EventType::EpollWait }
-                    else if t.contains("beacon") || t.contains("network") { EventType::BeaconTick }
-                    else { EventType::Other };
-                ep.push(Event { ts: Utc::now(), event_type: et, ..Default::default() });
+                let et = if t.contains("dll") {
+                    EventType::DllInject
+                } else if t.contains("ipc") {
+                    EventType::EpollWait
+                } else if t.contains("beacon") || t.contains("network") {
+                    EventType::BeaconTick
+                } else {
+                    EventType::Other
+                };
+                ep.push(Event {
+                    ts: Utc::now(),
+                    event_type: et,
+                    ..Default::default()
+                });
             }
         }
         ep
@@ -97,7 +118,12 @@ impl Episode {
         let mut pstate: HashMap<i32, PState> = HashMap::new();
 
         // Helper to ensure node exists
-        let mut ensure_node = |pid: i32, ppid: Option<i32>, exe: Option<String>, argv: Option<Vec<String>>, cwd: Option<String>, uid: Option<u32>| {
+        let mut ensure_node = |pid: i32,
+                               ppid: Option<i32>,
+                               exe: Option<String>,
+                               argv: Option<Vec<String>>,
+                               cwd: Option<String>,
+                               uid: Option<u32>| {
             nodes_map.entry(pid).or_insert_with(|| {
                 GraphNode {
                     id: format!("pid:{pid}"),
@@ -117,8 +143,18 @@ impl Episode {
 
         // First pass: spawn edges via ppid→pid; and record local state for W→X/memfd chains.
         for ev in &self.events {
-            let pid = match ev.pid { Some(p) => p, None => continue };
-            ensure_node(pid, ev.ppid, ev.exe.clone(), ev.argv.clone(), ev.cwd.clone(), ev.uid);
+            let pid = match ev.pid {
+                Some(p) => p,
+                None => continue,
+            };
+            ensure_node(
+                pid,
+                ev.ppid,
+                ev.exe.clone(),
+                ev.argv.clone(),
+                ev.cwd.clone(),
+                ev.uid,
+            );
 
             // Spawn edges (ppid→pid) on Execve/Fork/Clone
             match ev.event_type {
@@ -135,7 +171,13 @@ impl Episode {
                 }
                 EventType::Mmap => {
                     // If PROT includes 'W' (we only have prot as String optionally)
-                    if ev.prot.as_deref().unwrap_or("").to_ascii_uppercase().contains('W') {
+                    if ev
+                        .prot
+                        .as_deref()
+                        .unwrap_or("")
+                        .to_ascii_uppercase()
+                        .contains('W')
+                    {
                         pstate.entry(pid).or_default().last_w_map = Some(ev.ts);
                     }
                 }

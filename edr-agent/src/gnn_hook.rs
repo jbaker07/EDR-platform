@@ -10,9 +10,9 @@ use std::fs::{create_dir_all, OpenOptions};
 use std::io::Write;
 use std::path::{Path, PathBuf};
 
-use crate::services::trust_vector::TrustVector;
-use crate::graph_builder::{GraphEdge, GraphNode};
 use crate::gnn_models::GnnScoringInput;
+use crate::graph_builder::{GraphEdge, GraphNode};
+use crate::services::trust_vector::TrustVector;
 
 /// =========================
 /// Configuration & Utilities
@@ -80,7 +80,10 @@ pub fn push_feature_map_to_gnn_log(feature_map: HashMap<String, String>) {
     match serde_json::to_string(&feature_map) {
         Ok(line) => {
             if let Err(e) = append_jsonl(&path, &line) {
-                eprintln!("[GNN Hook] Failed to write vector log: {e} (path: {:?})", path);
+                eprintln!(
+                    "[GNN Hook] Failed to write vector log: {e} (path: {:?})",
+                    path
+                );
             }
         }
         Err(_) => eprintln!("[GNN Hook] Failed to serialize feature map to JSON"),
@@ -177,9 +180,9 @@ pub fn build_gnn_scoring_input(
         nodes,
         edges,
         features,
-        anchor_hits: Vec::new(),                 // <- Vec<String>
+        anchor_hits: Vec::new(), // <- Vec<String>
         decay_score: 0.0,
-        graph_snapshot_path: snapshot_path,      // <- Option<String>
+        graph_snapshot_path: snapshot_path, // <- Option<String>
         ..Default::default()
     }
 }
@@ -192,7 +195,7 @@ pub fn send_to_gnn_daemon(trust_vector: TrustVector, _tags: Vec<String>) {
         features: trust_vector.v.to_vec(), // array -> Vec
         anchor_hits: Vec::new(),           // <- Vec<String>
         decay_score: 0.0,
-        graph_snapshot_path: None,         // <- Option<String>
+        graph_snapshot_path: None, // <- Option<String>
         ..Default::default()
     };
 

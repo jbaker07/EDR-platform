@@ -43,18 +43,36 @@ pub struct MahalaCfg {
 }
 
 impl MahalaCfg {
-    pub fn d_half() -> f64 { 6.0 * 3600.0 }
-    pub fn d_support() -> u64 { 200 }
-    pub fn d_ridge() -> f64 { 1e-6 }
-    pub fn d_shrink() -> f64 { 0.15 }
-    pub fn d_dmin() -> f32 { 0.75 }
-    pub fn d_dmax() -> f32 { 1.05 }
-    pub fn d_center() -> f32 { 1.0 }
-    pub fn d_k() -> f32 { 0.7 }
+    pub fn d_half() -> f64 {
+        6.0 * 3600.0
+    }
+    pub fn d_support() -> u64 {
+        200
+    }
+    pub fn d_ridge() -> f64 {
+        1e-6
+    }
+    pub fn d_shrink() -> f64 {
+        0.15
+    }
+    pub fn d_dmin() -> f32 {
+        0.75
+    }
+    pub fn d_dmax() -> f32 {
+        1.05
+    }
+    pub fn d_center() -> f32 {
+        1.0
+    }
+    pub fn d_k() -> f32 {
+        0.7
+    }
 
     /// Load from a JSON file (returns None if read/parse fails).
     pub fn load<P: AsRef<Path>>(p: P) -> Option<Self> {
-        fs::read_to_string(p).ok().and_then(|s| serde_json::from_str(&s).ok())
+        fs::read_to_string(p)
+            .ok()
+            .and_then(|s| serde_json::from_str(&s).ok())
     }
 
     /// Save to a JSON file (best-effort).
@@ -82,14 +100,16 @@ impl Default for MahalaCfg {
 /// Internal per-context statistics (kept compact).
 #[derive(Default, Clone, Serialize, Deserialize)]
 struct CtxStats {
-    mu: Vec<f64>,   // mean (length d)
-    cov: Vec<f64>,  // row-major d×d (E[(x-μ)(x-μ)^T]) under EMA
-    last_ns: i64,   // last observation wall clock (ns)
-    support: f64,   // effective decayed count
+    mu: Vec<f64>,  // mean (length d)
+    cov: Vec<f64>, // row-major d×d (E[(x-μ)(x-μ)^T]) under EMA
+    last_ns: i64,  // last observation wall clock (ns)
+    support: f64,  // effective decayed count
 }
 
 impl CtxStats {
-    fn dim(&self) -> usize { self.mu.len() }
+    fn dim(&self) -> usize {
+        self.mu.len()
+    }
     fn reset(&mut self, d: usize, now_ns: i64) {
         self.mu = vec![0.0; d];
         self.cov = vec![0.0; d * d];
@@ -105,20 +125,29 @@ pub struct Mahala {
 }
 
 impl Default for Mahala {
-    fn default() -> Self { Self::new(MahalaCfg::default()) }
+    fn default() -> Self {
+        Self::new(MahalaCfg::default())
+    }
 }
 
 impl Mahala {
     pub fn new(cfg: MahalaCfg) -> Self {
-        Self { cfg, map: HashMap::new() }
+        Self {
+            cfg,
+            map: HashMap::new(),
+        }
     }
 
     /// Replace runtime config (keeps current running stats).
-    pub fn set_cfg(&mut self, cfg: MahalaCfg) { self.cfg = cfg; }
+    pub fn set_cfg(&mut self, cfg: MahalaCfg) {
+        self.cfg = cfg;
+    }
 
     /// Exponential decay factor for Δt seconds (half-life in cfg).
     fn exp_decay(&self, dt_s: f64) -> f64 {
-        if self.cfg.half_life_s <= 0.0 { return 1.0; }
+        if self.cfg.half_life_s <= 0.0 {
+            return 1.0;
+        }
         let lambda = std::f64::consts::LN_2 / self.cfg.half_life_s;
         (-lambda * dt_s).exp()
     }
@@ -126,7 +155,9 @@ impl Mahala {
     /// Helper that doesn't borrow `self` (avoids borrow conflicts).
     #[inline]
     fn exp_decay_for(dt_s: f64, half_life_s: f64) -> f64 {
-        if half_life_s <= 0.0 { return 1.0; }
+        if half_life_s <= 0.0 {
+            return 1.0;
+        }
         let lambda = std::f64::consts::LN_2 / half_life_s;
         (-lambda * dt_s).exp()
     }
@@ -135,14 +166,19 @@ impl Mahala {
     /// Automatically handles dimension changes by reinitializing that context.
     pub fn observe(&mut self, context: &str, x: &[f64], now: DateTime<Utc>) {
         let d = x.len();
-        if d == 0 { return; }
+        if d == 0 {
+            return;
+        }
         let now_ns = now.timestamp_nanos_opt().unwrap_or(0);
 
         // Copy config scalar to avoid immutably borrowing `self` later.
         let half_life_s = self.cfg.half_life_s;
 
         // Get mutable entry
-        let entry = self.map.entry(context.to_string()).or_insert_with(CtxStats::default);
+        let entry = self
+            .map
+            .entry(context.to_string())
+            .or_insert_with(CtxStats::default);
         if entry.dim() != d {
             entry.reset(d, now_ns);
         }
@@ -187,11 +223,15 @@ impl Mahala {
         now: DateTime<Utc>,
     ) -> (f32, f32, u64) {
         let d = x.len();
-        if d == 0 { return (0.0, 1.0, 0); }
+        if d == 0 {
+            return (0.0, 1.0, 0);
+        }
 
         let st = match self.map.get(context) {
             Some(s) if s.dim() == d => s.clone(),
-            _ => { return (0.0, 1.0, 0); }
+            _ => {
+                return (0.0, 1.0, 0);
+            }
         };
 
         // Decay to "now" for a fair covariance magnitude
@@ -220,12 +260,16 @@ impl Mahala {
         // Safe inverse
         let inv = match cov.try_inverse() {
             Some(m) => m,
-            None => { return (0.0, 1.0, st.support as u64); }
+            None => {
+                return (0.0, 1.0, st.support as u64);
+            }
         };
 
         let xvec = DVector::<f64>::from_column_slice(x);
         let delta = xvec - mu;
-        let d2 = (delta.transpose() * inv * delta)[(0, 0)].max(0.0).min(f64::MAX) as f32;
+        let d2 = (delta.transpose() * inv * delta)[(0, 0)]
+            .max(0.0)
+            .min(f64::MAX) as f32;
 
         // Damping sigmoid: map MD² to [damp_min, damp_max]
         let df_f = d as f32; // degrees of freedom proxy
@@ -239,11 +283,15 @@ impl Mahala {
 
     /// Export a JSON snapshot of a context’s current stats (debug/inspection).
     pub fn export_context_snapshot(&self, context: &str) -> Option<String> {
-        self.map.get(context).and_then(|st| serde_json::to_string_pretty(st).ok())
+        self.map
+            .get(context)
+            .and_then(|st| serde_json::to_string_pretty(st).ok())
     }
 
     /// Clear a context (e.g., if you rotate roles or trust that the baseline drifted).
-    pub fn reset_context(&mut self, context: &str) { self.map.remove(context); }
+    pub fn reset_context(&mut self, context: &str) {
+        self.map.remove(context);
+    }
 
     // -----------------------------------------------------------------------------------------
     // Episode vectorizer: stable, low-dimensional features for MD. Tweak as needed.
@@ -322,7 +370,11 @@ impl Mahala {
                         let dt = (ev.ts - t0).num_seconds().abs() as f64;
                         if dt <= 120.0 && !memfd_exec_scored {
                             let bytes = memfd_write_acc as f64;
-                            let byte_boost = if bytes > 0.0 { bytes.ln().max(1.0) } else { 1.0 };
+                            let byte_boost = if bytes > 0.0 {
+                                bytes.ln().max(1.0)
+                            } else {
+                                1.0
+                            };
                             let score = ((120.0 - dt).max(0.0) / 120.0) * byte_boost.min(16.0);
                             memfd2exec_score = memfd2exec_score.max(score);
                             memfd_exec_scored = true;
@@ -351,7 +403,9 @@ impl Mahala {
             }
         }
 
-        fn log1p_u(v: u64) -> f64 { (v as f64 + 1.0).ln() }
+        fn log1p_u(v: u64) -> f64 {
+            (v as f64 + 1.0).ln()
+        }
 
         vec![
             total as f64,

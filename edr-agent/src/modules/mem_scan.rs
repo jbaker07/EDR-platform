@@ -1,31 +1,33 @@
 // src/modules/mem_scan.rs
+use std::collections::HashMap;
 use std::fs::{File, OpenOptions};
 use std::io::{BufRead, BufReader, Read, Seek};
 use std::path::Path;
-use std::collections::HashMap;
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use anyhow::{Result, anyhow, Context};
+use anyhow::{anyhow, Context, Result};
 use bytes::BytesMut;
 use chrono::Utc;
 
-use aya::{Ebpf, include_bytes_aligned};
+use aya::maps::perf::AsyncPerfEventArray;
 use aya::programs::TracePoint;
 use aya::util::online_cpus;
-use aya::maps::perf::AsyncPerfEventArray;
+use aya::{include_bytes_aligned, Ebpf};
 
 use tokio::task;
 
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::logger::log;
 use crate::modules::replay_writer::store_replay_event;
+use crate::modules::telemetry_fingerprint::{
+    is_known_good, load_fingerprints_from_disk, FingerprintEntry,
+};
 use crate::telemetry::mark_memory_anomaly_detected;
-use crate::telemetry_types::{TelemetryEvent, MemoryAnomalyType, TelemetryOutput};
-use crate::trust_hook::{TrustEvent, submit_trust_event};
-use crate::utils::utils::{parse_proc_maps, parse_proc_maps_for_addr};
-use crate::utils::time::now_ts;
+use crate::telemetry_types::{MemoryAnomalyType, TelemetryEvent, TelemetryOutput};
 use crate::telemetry_writer::write_telemetry_record;
-use crate::modules::telemetry_fingerprint::{load_fingerprints_from_disk, is_known_good, FingerprintEntry};
+use crate::trust_hook::{submit_trust_event, TrustEvent};
+use crate::utils::time::now_ts;
+use crate::utils::utils::{parse_proc_maps, parse_proc_maps_for_addr};
 
 lazy_static::lazy_static! {
     static ref MEMORY_ANOMALY_FOUND: AtomicBool = AtomicBool::new(false);
@@ -73,14 +75,13 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
     let map = bpf
         .map_mut("events")
         .ok_or_else(|| anyhow!("map 'events' not found"))?;
-    let mut perf_array = AsyncPerfEventArray::try_from(map)
-        .context("AsyncPerfEventArray init for 'events'")?;
+    let mut perf_array =
+        AsyncPerfEventArray::try_from(map).context("AsyncPerfEventArray init for 'events'")?;
 
     // Preload fingerprints once (shared by tasks)
     let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
 
-    let cpus = online_cpus()
-        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
     for cpu_id in cpus {
         let mut buf = perf_array.open(cpu_id, None)?;
         let fingerprints = fingerprints.clone();
@@ -117,7 +118,9 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
 
                             // Build a suppression probe map using matched fields
                             let mut fp_map = HashMap::new();
-                            if let Some(FingerprintEntry::MemoryRegion { path, perms, .. }) = region.as_ref() {
+                            if let Some(FingerprintEntry::MemoryRegion { path, perms, .. }) =
+                                region.as_ref()
+                            {
                                 fp_map.insert("path".into(), path.clone());
                                 fp_map.insert("perms".into(), perms.clone());
                             } else {
@@ -161,8 +164,14 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                                 // NOTE: these are &Option<T>; deref first, then unwrap_or(...)
                                 data.insert("offset".into(), (*offset).unwrap_or(0).to_string());
                                 data.insert("size".into(), (*size).unwrap_or(0).to_string());
-                                data.insert("entropy".into(), format!("{:.2}", (*entropy).unwrap_or(0.0)));
-                                data.insert("exec_capable".into(), (*exec_capable).unwrap_or(false).to_string());
+                                data.insert(
+                                    "entropy".into(),
+                                    format!("{:.2}", (*entropy).unwrap_or(0.0)),
+                                );
+                                data.insert(
+                                    "exec_capable".into(),
+                                    (*exec_capable).unwrap_or(false).to_string(),
+                                );
                                 // trusted_uid is a plain u32 in your fingerprint struct
                                 data.insert("trusted_uid".into(), (*trusted_uid).to_string());
                                 data.insert("category".into(), category.clone());
@@ -187,7 +196,13 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                             write_telemetry_record(wtr);
 
                             // Choose anomaly based on matched fields
-                            let anomaly = if let Some(FingerprintEntry::MemoryRegion { exec_capable, perms, path, .. }) = region.as_ref() {
+                            let anomaly = if let Some(FingerprintEntry::MemoryRegion {
+                                exec_capable,
+                                perms,
+                                path,
+                                ..
+                            }) = region.as_ref()
+                            {
                                 if (*exec_capable).unwrap_or(false) && perms.contains('w') {
                                     MemoryAnomalyType::RWXMapping
                                 } else if path.contains("[anon]") {
@@ -202,7 +217,9 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                             let binary_for_event = region
                                 .as_ref()
                                 .and_then(|r| match r {
-                                    FingerprintEntry::MemoryRegion { path, .. } => Some(path.clone()),
+                                    FingerprintEntry::MemoryRegion { path, .. } => {
+                                        Some(path.clone())
+                                    }
                                     _ => None,
                                 })
                                 .unwrap_or_else(|| "[unknown]".into());
@@ -226,7 +243,11 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                                 signal_type: Some("memory::ebpf".into()),
                                 score: Some(6.0),
                                 raw_score: Some(6.0),
-                                tags: Some(vec!["memory".into(), "ebpf".into(), "rwx_mapping".into()]),
+                                tags: Some(vec![
+                                    "memory".into(),
+                                    "ebpf".into(),
+                                    "rwx_mapping".into(),
+                                ]),
                                 description: Some(details.clone()),
                             };
                             submit_trust_event(trust_event);
@@ -281,7 +302,7 @@ pub fn detect_memory_maps(pid: u32) -> Vec<TelemetryEvent> {
 
     for region in regions {
         let perms = region.get("perms").cloned().unwrap_or_else(|| "---".into());
-        let path  = region.get("path").cloned().unwrap_or_default();
+        let path = region.get("path").cloned().unwrap_or_default();
 
         let is_rwx = perms.contains('r') && perms.contains('w') && perms.contains('x');
         let is_anon = path.contains("[anon]");
@@ -302,12 +323,36 @@ pub fn detect_memory_maps(pid: u32) -> Vec<TelemetryEvent> {
             let mut data = HashMap::new();
             data.insert("path".into(), path.clone());
             data.insert("perms".into(), perms.clone());
-            data.insert("offset".into(), region.get("offset").cloned().unwrap_or_else(|| "0".into()));
-            data.insert("size".into(), region.get("size").cloned().unwrap_or_else(|| "0".into()));
-            data.insert("entropy".into(), region.get("entropy").cloned().unwrap_or_else(|| "0.0".into()));
+            data.insert(
+                "offset".into(),
+                region.get("offset").cloned().unwrap_or_else(|| "0".into()),
+            );
+            data.insert(
+                "size".into(),
+                region.get("size").cloned().unwrap_or_else(|| "0".into()),
+            );
+            data.insert(
+                "entropy".into(),
+                region
+                    .get("entropy")
+                    .cloned()
+                    .unwrap_or_else(|| "0.0".into()),
+            );
             data.insert("exec_capable".into(), (perms.contains('x')).to_string());
-            data.insert("trusted_uid".into(), region.get("trusted_uid").cloned().unwrap_or_else(|| "0".into()));
-            data.insert("category".into(), region.get("category").cloned().unwrap_or_else(|| "memory".into()));
+            data.insert(
+                "trusted_uid".into(),
+                region
+                    .get("trusted_uid")
+                    .cloned()
+                    .unwrap_or_else(|| "0".into()),
+            );
+            data.insert(
+                "category".into(),
+                region
+                    .get("category")
+                    .cloned()
+                    .unwrap_or_else(|| "memory".into()),
+            );
             data.insert("pid".into(), pid.to_string());
             data.insert("type".into(), "memory_region".into());
 
@@ -320,8 +365,14 @@ pub fn detect_memory_maps(pid: u32) -> Vec<TelemetryEvent> {
             }
 
             // parse numeric pieces if present
-            let uid_parsed = region.get("trusted_uid").and_then(|s| s.parse::<u32>().ok()).unwrap_or(0);
-            let entropy_parsed = region.get("entropy").and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
+            let uid_parsed = region
+                .get("trusted_uid")
+                .and_then(|s| s.parse::<u32>().ok())
+                .unwrap_or(0);
+            let entropy_parsed = region
+                .get("entropy")
+                .and_then(|s| s.parse::<f64>().ok())
+                .unwrap_or(0.0);
 
             events.push(TelemetryEvent::MemoryAnomaly {
                 pid,
@@ -440,9 +491,10 @@ pub fn detect_high_entropy(pid: u32) -> Vec<TelemetryEvent> {
 
         let mut addr_parts = range.split('-');
         if let (Some(start), Some(end)) = (addr_parts.next(), addr_parts.next()) {
-            if let (Ok(start_addr), Ok(end_addr)) =
-                (usize::from_str_radix(start, 16), usize::from_str_radix(end, 16))
-            {
+            if let (Ok(start_addr), Ok(end_addr)) = (
+                usize::from_str_radix(start, 16),
+                usize::from_str_radix(end, 16),
+            ) {
                 let size = end_addr.saturating_sub(start_addr);
                 let mut buffer = vec![0u8; 256];
 
@@ -536,11 +588,10 @@ pub async fn start_ebpf_proc_hollow_scan() -> Result<()> {
     let map = bpf
         .map_mut("EVENTS")
         .ok_or_else(|| anyhow!("map 'EVENTS' not found"))?;
-    let mut perf_array = AsyncPerfEventArray::try_from(map)
-        .context("AsyncPerfEventArray init for 'EVENTS'")?;
+    let mut perf_array =
+        AsyncPerfEventArray::try_from(map).context("AsyncPerfEventArray init for 'EVENTS'")?;
 
-    let cpus = online_cpus()
-        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
     for cpu_id in cpus {
         let mut buf = perf_array.open(cpu_id, None)?;
         task::spawn(async move {
@@ -559,12 +610,15 @@ pub async fn start_ebpf_proc_hollow_scan() -> Result<()> {
                             };
 
                             let pid = event.pid as i32;
-                            let binary_path = get_binary_path(pid).unwrap_or_else(|| "unknown".into());
+                            let binary_path =
+                                get_binary_path(pid).unwrap_or_else(|| "unknown".into());
                             let command_line = get_cmdline(pid).unwrap_or_else(|| "unknown".into());
                             let cwd = get_cwd(pid).unwrap_or_else(|| "unknown".into());
 
                             // fingerprint suppression (map form)
-                            let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+                            let fingerprints = load_fingerprints_from_disk(
+                                "src/modules/telemetry_fingerprint.json",
+                            );
                             let mut fp_map = HashMap::new();
                             fp_map.insert("path".into(), binary_path.clone());
                             fp_map.insert("category".into(), "proc_hollowing".into());
@@ -586,7 +640,10 @@ pub async fn start_ebpf_proc_hollow_scan() -> Result<()> {
                             let mut metadata = HashMap::new();
                             metadata.insert("target_pid".into(), event.target_pid.to_string());
                             metadata.insert("flags".into(), format!("0x{:x}", event.flags));
-                            metadata.insert("risk_reason".into(), "Detected mmap-based hollowing of target PID".into());
+                            metadata.insert(
+                                "risk_reason".into(),
+                                "Detected mmap-based hollowing of target PID".into(),
+                            );
 
                             let trust_event = TrustEvent {
                                 timestamp: now_ts(),
@@ -615,7 +672,8 @@ pub async fn start_ebpf_proc_hollow_scan() -> Result<()> {
                             let mut gnn_data = HashMap::new();
                             gnn_data.insert(
                                 "vector".into(),
-                                format!("{{\"pid\":{},\"target_pid\":{},\"flags\":\"0x{:x}\"}}",
+                                format!(
+                                    "{{\"pid\":{},\"target_pid\":{},\"flags\":\"0x{:x}\"}}",
                                     event.pid, event.target_pid, event.flags
                                 ),
                             );
@@ -708,15 +766,24 @@ pub fn scan_memory_health() -> Vec<TelemetryOutput> {
 /* -------------------- small /proc helpers -------------------- */
 
 fn get_binary_path(pid: i32) -> Option<String> {
-    std::fs::read_link(format!("/proc/{}/exe", pid)).ok().map(|p| p.display().to_string())
+    std::fs::read_link(format!("/proc/{}/exe", pid))
+        .ok()
+        .map(|p| p.display().to_string())
 }
 
 fn get_cmdline(pid: i32) -> Option<String> {
     std::fs::read(format!("/proc/{}/cmdline", pid))
         .ok()
-        .map(|b| String::from_utf8_lossy(&b).replace('\0', " ").trim().to_string())
+        .map(|b| {
+            String::from_utf8_lossy(&b)
+                .replace('\0', " ")
+                .trim()
+                .to_string()
+        })
 }
 
 fn get_cwd(pid: i32) -> Option<String> {
-    std::fs::read_link(format!("/proc/{}/cwd", pid)).ok().map(|p| p.display().to_string())
+    std::fs::read_link(format!("/proc/{}/cwd", pid))
+        .ok()
+        .map(|p| p.display().to_string())
 }

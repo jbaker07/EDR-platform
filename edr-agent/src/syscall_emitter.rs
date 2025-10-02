@@ -12,9 +12,9 @@
 
 use std::collections::{HashMap, HashSet};
 
+use crate::baselines::BaselineStore;
 use crate::episode::Episode;
 use crate::graph_builder::{GraphEdge, GraphNode};
-use crate::baselines::BaselineStore;
 use crate::traits::FeatureEmitter;
 
 #[derive(Debug, Clone)]
@@ -34,17 +34,15 @@ impl Default for SyscallEmitter {
     }
 }
 impl SyscallEmitter {
-    pub fn new() -> Self { Self::default() }
+    pub fn new() -> Self {
+        Self::default()
+    }
 
     #[inline]
     fn interesting_set() -> &'static [&'static str] {
         &[
-            "execve", "execveat",
-            "ptrace", "bpf",
-            "mprotect", "mmap",
-            "socket", "connect",
-            "clone", "fork", "vfork",
-            "open", "openat",
+            "execve", "execveat", "ptrace", "bpf", "mprotect", "mmap", "socket", "connect",
+            "clone", "fork", "vfork", "open", "openat",
         ]
     }
 
@@ -103,18 +101,23 @@ impl SyscallEmitter {
         // ---- 2) 2-hop sequence scan ---------------------------
         let mut adj: HashMap<&str, Vec<&str>> = HashMap::new();
         for e in edges {
-            adj.entry(e.source.as_str()).or_default().push(e.target.as_str());
+            adj.entry(e.source.as_str())
+                .or_default()
+                .push(e.target.as_str());
         }
 
         let mut seq_exec_to_memctl = 0u64; // execve -> {ptrace|bpf|mprotect|mmap}
         let mut seq_socket_connect = 0u64; // socket -> connect
 
-        let targets_memctl: HashSet<&str> = ["ptrace", "bpf", "mprotect", "mmap"].into_iter().collect();
+        let targets_memctl: HashSet<&str> =
+            ["ptrace", "bpf", "mprotect", "mmap"].into_iter().collect();
         let targets_connect: HashSet<&str> = ["connect"].into_iter().collect();
 
         let mut scanned = 0usize;
         for n in nodes {
-            if scanned >= self.max_nodes_for_sequences { break; }
+            if scanned >= self.max_nodes_for_sequences {
+                break;
+            }
             scanned += 1;
 
             if let Some(set) = node_syscalls.get(n.id.as_str()) {

@@ -1,7 +1,0 @@
-rchar: 32244
-wchar: 26769
-syscr: 2021
-syscw: 3343
-read_bytes: 98304
-write_bytes: 0
-cancelled_write_bytes: 0

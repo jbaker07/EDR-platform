@@ -2,26 +2,35 @@ use std::{fs, io::Write, time::Duration};
 
 use anyhow::{anyhow, Result};
 use chrono::{DateTime, Utc};
-use reqwest::{Client};
+use log::{info, warn};
 use reqwest::header::HeaderMap as ReqHeaderMap;
+use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use tokio::sync::oneshot::Receiver;
 use tokio::time::sleep;
-use log::{info, warn};
 
 use crate::detect::{registry::IntegrationsRegistry, types::*};
 
 #[derive(Debug, Deserialize, Clone)]
 struct OktaEvent {
-    #[serde(default)] uuid: String,
-    #[serde(default)] eventType: String,
-    #[serde(default)] displayMessage: String,
-    #[serde(default)] severity: String, // INFO|WARN|ERROR
-    #[serde(default)] published: Option<DateTime<Utc>>,
-    #[serde(default)] actor: serde_json::Value,
-    #[serde(default)] target: Option<Vec<serde_json::Value>>,
-    #[serde(default)] client: Option<serde_json::Value>,
-    #[serde(default)] outcome: Option<serde_json::Value>,
+    #[serde(default)]
+    uuid: String,
+    #[serde(default)]
+    eventType: String,
+    #[serde(default)]
+    displayMessage: String,
+    #[serde(default)]
+    severity: String, // INFO|WARN|ERROR
+    #[serde(default)]
+    published: Option<DateTime<Utc>>,
+    #[serde(default)]
+    actor: serde_json::Value,
+    #[serde(default)]
+    target: Option<Vec<serde_json::Value>>,
+    #[serde(default)]
+    client: Option<serde_json::Value>,
+    #[serde(default)]
+    outcome: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -82,7 +91,11 @@ fn parse_next_link(headers: &ReqHeaderMap) -> Option<String> {
     None
 }
 
-async fn fetch_page(client: &Client, url: &str, token: &str) -> Result<(Vec<OktaEvent>, Option<String>)> {
+async fn fetch_page(
+    client: &Client,
+    url: &str,
+    token: &str,
+) -> Result<(Vec<OktaEvent>, Option<String>)> {
     let resp = client
         .get(url)
         .header("Authorization", format!("SSWS {}", token))
@@ -213,12 +226,20 @@ pub async fn run_okta_connector(
                     for ev in events {
                         let sev = match ev.severity.as_str() {
                             "ERROR" => 0.9,
-                            "WARN"  => 0.6,
-                            _       => 0.3,
+                            "WARN" => 0.6,
+                            _ => 0.3,
                         };
 
-                        let title = if ev.eventType.is_empty() { "Okta Event".to_string() } else { ev.eventType.clone() };
-                        let short = if ev.displayMessage.is_empty() { ev.eventType.clone() } else { ev.displayMessage.clone() };
+                        let title = if ev.eventType.is_empty() {
+                            "Okta Event".to_string()
+                        } else {
+                            ev.eventType.clone()
+                        };
+                        let short = if ev.displayMessage.is_empty() {
+                            ev.eventType.clone()
+                        } else {
+                            ev.displayMessage.clone()
+                        };
 
                         let entities = serde_json::json!({
                             "actor": ev.actor,
@@ -273,7 +294,13 @@ pub async fn run_okta_connector(
 
         if let Some(ts) = last_ts {
             since = Some(ts);
-            let _ = save_cursor(&cfg.id, &Cursor { since, next_url: None });
+            let _ = save_cursor(
+                &cfg.id,
+                &Cursor {
+                    since,
+                    next_url: None,
+                },
+            );
         }
 
         reg.update_status(

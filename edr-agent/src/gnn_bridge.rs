@@ -59,7 +59,8 @@ pub fn update_graph(hostname: &str, event_type: &str, metadata: HashMap<String, 
     let serialized = serde_json::to_string(&graph_delta).unwrap();
     let output_path = Path::new("/tmp/gnn_delta.json");
     let mut file = File::create(output_path).expect("Unable to create delta file");
-    file.write_all(serialized.as_bytes()).expect("Unable to write delta file");
+    file.write_all(serialized.as_bytes())
+        .expect("Unable to write delta file");
 
     println!("[GNN] Delta written to /tmp/gnn_delta.json");
 }

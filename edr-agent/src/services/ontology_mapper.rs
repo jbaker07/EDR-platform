@@ -1,7 +1,7 @@
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct SemanticTagInfo {
@@ -19,10 +19,7 @@ pub struct OntologyMap {
 }
 
 impl OntologyMap {
-    pub fn load_from_files(
-        semantic_tag_path: &str,
-        risk_weight_path: &str,
-    ) -> Self {
+    pub fn load_from_files(semantic_tag_path: &str, risk_weight_path: &str) -> Self {
         let tag_json = fs::read_to_string(Path::new(semantic_tag_path))
             .expect("[ontology_mapper] Failed to read semantic_tags.json");
 
