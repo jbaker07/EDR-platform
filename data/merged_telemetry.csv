@@ -1,0 +1,907 @@
+timestamp,hostname,endpoint_id,os_type,pid,ppid,process_name,cmd,cpu_percent,memory,risk_score,label
+1747122148,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3204,2345,svchost_461.ps1,C:\Users\Public\svchost_461.ps1,23.81,58724687,,
+1747119232,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4803,924,payload_33.bat,C:\Recycle Bin\payload_33.bat,55.3,294676604,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,716,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,2883584,0.0,0.0
+1747119595,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4986,2700,install_329.jar,C:\Users\Public\install_329.jar,41.94,240994400,,
+1747120956,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4365,896,setup_378.js,C:\Recycle Bin\setup_378.js,17.13,421501878,,
+1747118964,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2546,1865,install_429.bat,C:\Temp\install_429.bat,28.36,475527898,,
+1747119192,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3404,2011,setup_116.vbs,C:\AppData\setup_116.vbs,36.39,486840372,,
+1747112965,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,536,1,suggestd,/System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/suggestd,0.1,176062464,0.0,0.0
+1747122025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4618,3893,install_495.pif,C:\AppData\install_495.pif,41.37,282957765,,
+1747120506,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4736,836,malware_133.bat,C:\Recycle Bin\malware_133.bat,65.97,397032247,,
+1747118834,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2159,448,driver_130.ps1,C:\Temp\driver_130.ps1,4.02,213586963,,
+1747120096,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3158,429,script_498.exe,C:\Recycle Bin\script_498.exe,7.66,271897397,,
+1747112853,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,937,1,MTLAssetUpgraderD,/usr/libexec/MTLAssetUpgraderD,0.0,13172736,0.0,0.0
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16218,1,FamilySettings,/System/Library/ExtensionKit/Extensions/FamilySettings.appex/Contents/MacOS/FamilySettings,0.0,45957120,0.0,0.0
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,466,1,Safari,/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari,6.4,272842752,0.0,0.0
+1747118967,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4792,4299,malware_205.vbs,C:\Temp\malware_205.vbs,59.01,634618972,,
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,556,1,com.apple.dock.extra,/System/Library/CoreServices/Dock.app/Contents/XPCServices/com.apple.dock.extra.xpc/Contents/MacOS/com.apple.dock.extra,0.0,38600704,0.0,0.0
+1747121014,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4035,2103,system_23.ps1,C:\Temp\system_23.ps1,60.7,525987733,,
+1747119081,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4670,4224,driver_301.hta,C:\Users\Public\driver_301.hta,58.57,53535753,,
+1747121276,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3533,3420,payload_135.jar,C:\Temp\payload_135.jar,6.12,502583571,,
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1665,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,6356992,0.0,0.0
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,458,1,corespotlightd,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/corespotlightd,0.2,158466048,0.0,0.0
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,485,1,donotdisturbd,/System/Library/PrivateFrameworks/DoNotDisturbServer.framework/Support/donotdisturbd,0.0,26607616,0.0,0.0
+1747119256,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2718,433,service_50.lnk,C:\Users\Public\service_50.lnk,43.46,223892627,,
+1747119894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3975,3693,system_75.lnk,C:\AppData\system_75.lnk,25.04,724711579,,
+1747120206,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2356,817,task_139.hta,C:\Recycle Bin\task_139.hta,10.82,341520332,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1281,1,SafariLinkExtension,/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Extensions/SafariLinkExtension.appex/Contents/MacOS/SafariLinkExtension,0.0,11141120,0.0,0.0
+1747119945,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2393,1079,update_262.pif,C:\AppData\update_262.pif,61.86,518359085,,
+1747120800,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3242,79,payload_256.lnk,C:\AppData\payload_256.lnk,50.28,141530418,,
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16279,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.0,59146240,0.0,0.0
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,939,930,Code Helper,"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=network --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --seatbelt-client=39",0.0,24707072,0.0,0.0
+1747119080,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1889,1477,svchost_169.vbs,C:\AppData\svchost_169.vbs,51.34,357628417,,
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1256,1,com.apple.DictionaryServiceHelper,/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/DictionaryServices.framework/Versions/A/XPCServices/com.apple.DictionaryServiceHelper.xpc/Contents/MacOS/com.apple.DictionaryServiceHelper,0.0,2867200,0.0,0.0
+1747120852,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2590,2198,config_220.dll,C:\Temp\config_220.dll,73.4,376351474,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,571,1,Keychain Circle Notification,/System/Library/CoreServices/Keychain Circle Notification.app/Contents/MacOS/Keychain Circle Notification,0.0,19365888,0.0,0.0
+1747121374,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2309,703,kernel_243.exe,C:\Recycle Bin\kernel_243.exe,46.9,199725199,,
+1747118640,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2644,1038,system_300.js,C:\ProgramData\system_300.js,3.52,615780342,,
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,716,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,2883584,0.0,0.0
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,960,1,IntelligencePlatformComputeService,/System/Library/PrivateFrameworks/IntelligencePlatformCompute.framework/Versions/A/XPCServices/IntelligencePlatformComputeService.xpc/Contents/MacOS/IntelligencePlatformComputeService,0.0,25444352,0.0,0.0
+1747119314,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2659,37,exploit_112.scr,C:\AppData\exploit_112.scr,85.04,675321990,,
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,416,1,distnoted,/usr/sbin/distnoted agent,0.1,5996544,0.0,0.0
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5530,1,EscrowSecurityAlert,/System/Library/CoreServices/EscrowSecurityAlert.app/Contents/MacOS/EscrowSecurityAlert,0.0,11108352,0.0,0.0
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,440,1,trustd,/usr/libexec/trustd --agent,0.0,19333120,0.0,0.0
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,953,1,WardaSynthesizer_x86_64,"/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_x86_64.appex/Contents/MacOS/WardaSynthesizer_x86_64 -AppleLanguages (""en-US"")",0.0,1638400,0.0,0.0
+1747121862,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1853,393,service_343.scr,C:\Temp\service_343.scr,67.65,89680909,,
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,546,1,com.apple.accessibility.mediaaccessibilityd,/System/Library/Frameworks/MediaAccessibility.framework/Versions/A/XPCServices/com.apple.accessibility.mediaaccessibilityd.xpc/Contents/MacOS/com.apple.accessibility.mediaaccessibilityd,0.0,4489216,0.0,0.0
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,542,1,localizationswitcherd,/System/Library/PrivateFrameworks/IntlPreferences.framework/Support/localizationswitcherd,0.0,8257536,0.0,0.0
+1747112853,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,438,1,ContextStoreAgent,/System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/ContextStoreAgent,0.0,29212672,0.0,0.0
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,427,1,com.apple.sbd,/System/Library/PrivateFrameworks/CloudServices.framework/Helpers/com.apple.sbd,0.0,13664256,0.0,0.0
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,507,1,extensionkitservice,/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice,0.0,5914624,0.0,0.0
+1747121681,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1444,924,install_146.lnk,C:\Recycle Bin\install_146.lnk,63.87,525063798,,
+1747122164,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4846,2858,monitor_56.ps1,C:\Users\Public\monitor_56.ps1,32.98,701699969,,
+1747118788,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2078,1192,payload_80.jar,C:\Temp\payload_80.jar,28.93,723749298,,
+1747121573,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3080,1535,kernel_172.hta,C:\AppData\kernel_172.hta,34.06,405514086,,
+1747112965,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,483,1,iCloudNotificationAgent,/System/Library/PrivateFrameworks/iCloudNotification.framework/iCloudNotificationAgent,0.0,23347200,0.0,0.0
+1747112853,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,649,1,StocksWidget,/System/Applications/Stocks.app/Contents/PlugIns/StocksWidget.appex/Contents/MacOS/StocksWidget,0.0,33783808,0.0,0.0
+1747112889,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,476,1,accountsd,/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd,0.0,56836096,0.0,0.0
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16122,1,VisualizerService_x86,/System/Applications/Music.app/Contents/XPCServices/VisualizerService_x86.xpc/Contents/MacOS/VisualizerService_x86,0.0,8949760,0.0,0.0
+1747119757,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4034,1980,malware_113.jar,C:\AppData\malware_113.jar,64.41,176065222,,
+1747118936,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1497,1102,system_89.ps1,C:\AppData\system_89.ps1,29.75,277751168,,
+1747119056,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3265,2066,malware_409.dll,C:\Users\Public\malware_409.dll,36.1,708578925,,
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15269,1,storekitagent,/System/Library/Frameworks/StoreKit.framework/Support/storekitagent,0.0,26968064,0.0,0.0
+1747121181,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4539,4181,monitor_309.scr,C:\ProgramData\monitor_309.scr,57.15,153178496,,
+1747121476,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1238,16,task_127.pif,C:\AppData\task_127.pif,9.2,402958104,,
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1282,1,MessagesActionExtension,/System/Applications/Messages.app/Contents/Extensions/MessagesActionExtension.appex/Contents/MacOS/MessagesActionExtension,0.0,17580032,0.0,0.0
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,484,1,financed,/System/Library/Frameworks/FinanceKit.framework/financed,0.0,18104320,0.0,0.0
+1747118983,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2165,837,script_474.hta,C:\ProgramData\script_474.hta,27.37,573992153,,
+1747118869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4635,159,update_355.scr,C:\Temp\update_355.scr,4.42,253246275,,
+1747119134,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2750,971,svchost_478.vbs,C:\ProgramData\svchost_478.vbs,43.59,671966901,,
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,514,1,akd,/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd,0.0,27836416,0.0,0.0
+1747119533,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1166,209,setup_24.vbs,C:\Temp\setup_24.vbs,79.01,515728596,,
+1747119324,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1291,7,system_199.bat,C:\AppData\system_199.bat,8.25,380325144,,
+1747121073,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4768,1222,payload_274.exe,C:\AppData\payload_274.exe,64.44,419793859,,
+1747122114,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3747,937,update_303.exe,C:\Recycle Bin\update_303.exe,33.53,698970518,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,595,1,ollama,/opt/homebrew/opt/ollama/bin/ollama serve,0.0,21397504,0.0,0.0
+1747122030,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3964,1955,update_42.bat,C:\Temp\update_42.bat,56.13,319095910,,
+1747119638,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3217,1989,update_443.dll,C:\AppData\update_443.dll,35.83,557381900,,
+1747112975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2896,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747119622,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3946,2860,install_307.pif,C:\Recycle Bin\install_307.pif,76.95,174689523,,
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,986,930,Code Helper (Plugin),"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --inspect-port=0 --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",0.1,481509376,6.0,0.0
+1747122044,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4035,1057,malware_14.jar,C:\ProgramData\malware_14.jar,83.79,149316599,,
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17966,1,AvatarPickerMemojiPicker,"/System/iOSSupport/System/Library/PrivateFrameworks/AvatarUI.framework/PlugIns/AvatarPickerMemojiPicker.appex/Contents/MacOS/AvatarPickerMemojiPicker -AppleLanguages (""en-US"")",0.0,68927488,0.0,0.0
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17984,17945,Steam Helper,"/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/Frameworks/Steam Helper.app/Contents/MacOS/Steam Helper --type=renderer --locales-dir-path=/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/Frameworks/Steam Helper.app/Contents//bin/locales --user-agent-product=Valve Steam Client --user-data-dir=/Users/jermainebaker/Library/Application Support/Steam/config/htmlcache --buildid=1745876290 --steamid=0 --valve-initial-threadpool-size=20 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=8 --time-ticks-at-unix-epoch=-1747063897865005 --launch-time-ticks=48978608307 --shared-files --field-trial-handle=1718379636,r,1740280637600812251,11031083415003555219,262144 --enable-features=PlatformHEVCDecoderSupport --disable-features=BackForwardCache,DcheckIsFatal,DocumentPictureInPictureAPI,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC --variations-seed-version --log-file=/Users/jermainebaker/Library/Application Support/Steam/logs/cef_log.txt --seatbelt-client=149",0.2,243056640,0.0,0.0
+1747112889,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,599,1,AirPlayUIAgent,/System/Library/CoreServices/AirPlayUIAgent.app/Contents/MacOS/AirPlayUIAgent --launchd,0.0,18153472,0.0,0.0
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,643,1,contentlinkingd,/System/Library/PrivateFrameworks/Synapse.framework/Support/contentlinkingd,0.0,14254080,0.0,0.0
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1256,1,com.apple.DictionaryServiceHelper,/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/DictionaryServices.framework/Versions/A/XPCServices/com.apple.DictionaryServiceHelper.xpc/Contents/MacOS/com.apple.DictionaryServiceHelper,0.0,2867200,0.0,0.0
+1747112960,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15213,1,studentd,/usr/libexec/studentd,0.0,39747584,0.0,0.0
+1747120182,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4956,1736,install_351.scr,C:\ProgramData\install_351.scr,37.35,697266976,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2951,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,83771392,0.0,0.0
+1747121920,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3948,1296,exploit_266.pif,C:\ProgramData\exploit_266.pif,65.61,342965398,,
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1089,986,Code Helper (Plugin),/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /Users/jermainebaker/.vscode/extensions/bradlc.vscode-tailwindcss-0.14.16/dist/tailwindServer.js --node-ipc --clientProcessId=986,0.0,49872896,5.0,0.0
+1747121685,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2166,1278,script_298.scr,C:\Temp\script_298.scr,61.05,408752673,,
+1747112960,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,560,1,NewsToday2,"/System/Applications/News.app/Contents/PlugIns/NewsToday2.appex/Contents/MacOS/NewsToday2 -AppleLanguages (""en-US"")",0.0,75513856,0.0,0.0
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,940,930,Code Helper (Renderer),"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) --type=renderer --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --app-path=/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Resources/app --enable-sandbox --enable-blink-features=HighlightAPI --first-renderer-process --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1747039551578864 --launch-time-ticks=88000613 --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --vscode-window-config=vscode:8078db25-8a55-43bb-a228-17fdcf3c5259 --seatbelt-client=53",0.6,342278144,0.0,0.0
+1747121247,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1783,1688,update_22.jar,C:\AppData\update_22.jar,79.14,263745038,,
+1747122055,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2538,1094,kernel_187.dll,C:\ProgramData\kernel_187.dll,32.31,480129256,,
+1747120883,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4674,1167,exploit_418.ps1,C:\Users\Public\exploit_418.ps1,62.68,212978644,,
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,618,1,TextInputSwitcher,/System/Library/CoreServices/TextInputSwitcher.app/Contents/MacOS/TextInputSwitcher,0.0,19726336,0.0,0.0
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2899,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,428,1,universalaccessd,/usr/sbin/universalaccessd launchd -s,0.0,17940480,0.0,0.0
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,601,1,diagnostics_agent,/System/Library/CoreServices/diagnostics_agent,0.0,14974976,0.0,0.0
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16211,1,Appearance,/System/Library/ExtensionKit/Extensions/Appearance.appex/Contents/MacOS/Appearance,0.0,46874624,0.0,0.0
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17984,17945,Steam Helper,"/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/Frameworks/Steam Helper.app/Contents/MacOS/Steam Helper --type=renderer --locales-dir-path=/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/Frameworks/Steam Helper.app/Contents//bin/locales --user-agent-product=Valve Steam Client --user-data-dir=/Users/jermainebaker/Library/Application Support/Steam/config/htmlcache --buildid=1745876290 --steamid=0 --valve-initial-threadpool-size=20 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=8 --time-ticks-at-unix-epoch=-1747063897865005 --launch-time-ticks=48978608307 --shared-files --field-trial-handle=1718379636,r,1740280637600812251,11031083415003555219,262144 --enable-features=PlatformHEVCDecoderSupport --disable-features=BackForwardCache,DcheckIsFatal,DocumentPictureInPictureAPI,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC --variations-seed-version --log-file=/Users/jermainebaker/Library/Application Support/Steam/logs/cef_log.txt --seatbelt-client=149",0.0,243056640,0.0,0.0
+1747121132,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3805,3521,task_406.jar,C:\Recycle Bin\task_406.jar,26.88,611118164,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,495,1,transparencyd,/usr/libexec/transparencyd,0.0,35045376,0.0,0.0
+1747120393,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2269,1013,exploit_426.scr,C:\Recycle Bin\exploit_426.scr,14.7,732325478,,
+1747119104,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2880,907,monitor_291.jar,C:\ProgramData\monitor_291.jar,59.61,283054983,,
+1747121981,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3029,517,install_162.dll,C:\Users\Public\install_162.dll,34.51,175204358,,
+1747120399,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3872,1117,svchost_183.exe,C:\Users\Public\svchost_183.exe,27.52,352462062,,
+1747119156,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1083,956,update_455.hta,C:\Temp\update_455.hta,81.5,238786522,,
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1276,1,weatherd,/System/Library/PrivateFrameworks/WeatherDaemon.framework/weatherd,0.0,10485760,0.0,0.0
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15269,1,storekitagent,/System/Library/Frameworks/StoreKit.framework/Support/storekitagent,0.0,26968064,0.0,0.0
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,4280,1,MTLCompilerService,/System/Library/Frameworks/Metal.framework/Versions/A/XPCServices/MTLCompilerService.xpc/Contents/MacOS/MTLCompilerService,0.0,4325376,0.0,0.0
+1747120043,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3317,2306,system_272.lnk,C:\ProgramData\system_272.lnk,17.15,411573690,,
+1747112975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,552,1,contactsd,/System/Library/Frameworks/Contacts.framework/Support/contactsd,0.0,63635456,0.0,0.0
+1747121386,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2730,542,service_84.vbs,C:\Recycle Bin\service_84.vbs,81.61,376247878,,
+1747120490,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1363,965,driver_161.exe,C:\Recycle Bin\driver_161.exe,45.74,598970025,,
+1747121842,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3783,2323,exploit_166.hta,C:\AppData\exploit_166.hta,34.65,154173087,,
+1747122029,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4151,2380,malware_485.hta,C:\AppData\malware_485.hta,62.07,533570481,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1665,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,6356992,0.0,0.0
+1747119856,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2113,1947,monitor_344.dll,C:\Temp\monitor_344.dll,29.73,324825581,,
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,470,1,tccd,/System/Library/PrivateFrameworks/TCC.framework/Support/tccd,0.1,16695296,0.0,0.0
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,497,1,cloudd,/System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd,0.0,42024960,0.0,0.0
+1747119382,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3581,919,system_211.lnk,C:\ProgramData\system_211.lnk,89.92,507211594,,
+1747119842,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4595,2223,update_122.js,C:\Users\Public\update_122.js,25.63,372918354,,
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,602,1,TextInputMenuAgent,/System/Library/CoreServices/TextInputMenuAgent.app/Contents/MacOS/TextInputMenuAgent,0.0,21774336,0.0,0.0
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,490,1,Finder,/System/Library/CoreServices/Finder.app/Contents/MacOS/Finder,0.0,65437696,0.0,0.0
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,579,1,ReportCrash,/System/Library/CoreServices/ReportCrash agent,0.0,20463616,0.0,0.0
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16120,1,Music,/System/Applications/Music.app/Contents/MacOS/Music,0.5,254279680,0.0,0.0
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,644,1,commerce,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerce,0.0,18382848,0.0,0.0
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16216,1,FollowUpSettingsExtension,/System/Library/ExtensionKit/Extensions/FollowUpSettingsExtension.appex/Contents/MacOS/FollowUpSettingsExtension,0.0,27721728,0.0,0.0
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2481,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,5750784,0.0,0.0
+1747121638,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3104,2638,install_179.pif,C:\AppData\install_179.pif,15.31,297190323,,
+1747121859,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2716,708,kernel_100.vbs,C:\Temp\kernel_100.vbs,32.29,165774378,,
+1747119899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2467,329,malware_389.dll,C:\Recycle Bin\malware_389.dll,28.9,155669216,,
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,520,1,sharingd,/usr/libexec/sharingd,0.0,37552128,0.0,0.0
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,417,1,cfprefsd,/usr/sbin/cfprefsd agent,0.0,9650176,0.0,0.0
+1747119411,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2544,308,driver_250.scr,C:\Recycle Bin\driver_250.scr,13.49,98887120,,
+1747118936,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3110,2562,system_200.scr,C:\Users\Public\system_200.scr,22.9,61974435,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,6546,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.2,4651433984,6.0,0.0
+1747119227,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2708,1621,svchost_420.ps1,C:\Users\Public\svchost_420.ps1,56.24,244518977,,
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,641,1,SafariNotificationAgent,/System/Cryptexes/App/usr/libexec/SafariNotificationAgent,0.0,10633216,0.0,0.0
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15295,1,NewsEngagementExtension,/System/Applications/News.app/Contents/PlugIns/NewsEngagementExtension.appex/Contents/MacOS/NewsEngagementExtension,0.0,12009472,0.0,0.0
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,955,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747120229,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1505,716,malware_479.dll,C:\AppData\malware_479.dll,82.03,132996468,,
+1747120490,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4861,2437,payload_253.hta,C:\Users\Public\payload_253.hta,65.59,198560910,,
+1747120845,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1483,345,malware_391.lnk,C:\Users\Public\malware_391.lnk,45.49,258696633,,
+1747112975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,3411,1,proactiveeventtrackerd,/usr/libexec/proactiveeventtrackerd,0.0,6389760,0.0,0.0
+1747121004,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4016,3072,update_494.js,C:\ProgramData\update_494.js,27.92,581282514,,
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,538,1,heard,/System/Library/PrivateFrameworks/HearingCore.framework/heard,0.0,32161792,0.0,0.0
+1747121671,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2957,1279,update_128.ps1,C:\ProgramData\update_128.ps1,73.3,65765678,,
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,569,1,mediaremoteagent,/System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoteagent,0.0,7372800,0.0,0.0
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,559,1,com.apple.geod,/System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod,0.0,27377664,0.0,0.0
+1747121605,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3656,1772,setup_271.dll,C:\AppData\setup_271.dll,6.03,269528662,,
+1747119670,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4460,1322,malware_5.lnk,C:\Recycle Bin\malware_5.lnk,5.6,278623066,,
+1747121116,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4702,1703,install_115.ps1,C:\Temp\install_115.ps1,65.16,534440259,,
+1747121771,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1370,460,driver_463.pif,C:\Users\Public\driver_463.pif,74.89,432269027,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15200,1,storeuid,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeuid.app/Contents/MacOS/storeuid,0.0,21741568,0.0,0.0
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,421,1,UserEventAgent,/usr/libexec/UserEventAgent (Aqua),0.0,21348352,0.0,0.0
+1747113010,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,13030,966,zsh,/bin/zsh -il,0.0,3801088,0.0,0.0
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,954,1,WardaSynthesizer_arm64,"/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_arm64.appex/Contents/MacOS/WardaSynthesizer_arm64 -AppleLanguages (""en-US"")",0.0,7159808,0.0,0.0
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,911,1,appstoreagent,/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent,0.0,50659328,0.0,0.0
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,647,1,WorldClockWidget,/System/Applications/Clock.app/Contents/PlugIns/WorldClockWidget.appex/Contents/MacOS/WorldClockWidget,0.0,24985600,0.0,0.0
+1747119728,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3293,1761,payload_20.exe,C:\Temp\payload_20.exe,66.41,217767456,,
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17824,17823,python3.11,/Users/jermainebaker/anaconda3/envs/edr-env/bin/python -c from multiprocessing.resource_tracker import main;main(4),0.0,4259840,0.0,0.0
+1747121015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1396,780,setup_473.dll,C:\ProgramData\setup_473.dll,5.09,639760454,,
+1747119791,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1624,1369,driver_437.bat,C:\Users\Public\driver_437.bat,88.83,239750384,,
+1747119554,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2913,1781,install_328.vbs,C:\Temp\install_328.vbs,3.08,611029182,,
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,155,1,loginwindow,/System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow console,0.0,39043072,0.0,0.0
+1747112843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,437,1,ControlCenter,/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter,0.0,71057408,0.0,0.0
+1747121534,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4712,1160,install_448.bat,C:\ProgramData\install_448.bat,57.27,292342561,,
+1747120440,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4538,1636,config_285.exe,C:\Users\Public\config_285.exe,74.22,250080107,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16218,1,FamilySettings,/System/Library/ExtensionKit/Extensions/FamilySettings.appex/Contents/MacOS/FamilySettings,0.0,45957120,0.0,0.0
+1747121361,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3878,1786,svchost_288.dll,C:\Recycle Bin\svchost_288.dll,62.9,200090073,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,645,1,CalendarWidgetExtension,/System/Applications/Calendar.app/Contents/PlugIns/CalendarWidgetExtension.appex/Contents/MacOS/CalendarWidgetExtension,0.0,31637504,0.0,0.0
+1747118837,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2463,2035,update_212.ps1,C:\Users\Public\update_212.ps1,32.21,586377828,,
+1747120974,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3476,936,config_464.js,C:\Users\Public\config_464.js,7.49,266597526,,
+1747121357,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1660,26,config_192.ps1,C:\Temp\config_192.ps1,34.38,653409046,,
+1747120721,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2498,1982,monitor_460.exe,C:\Recycle Bin\monitor_460.exe,86.92,495319633,,
+1747121842,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4058,536,task_39.hta,C:\ProgramData\task_39.hta,60.54,378666408,,
+1747121637,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2662,696,task_379.js,C:\Recycle Bin\task_379.js,73.63,422968533,,
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5363,1,BitacoraWorker,/System/Library/ExtensionKit/Extensions/BitacoraWorker.appex/Contents/MacOS/BitacoraWorker,0.0,12222464,0.0,0.0
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,533,1,followupd,/System/Library/PrivateFrameworks/CoreFollowUp.framework/Versions/A/Support/followupd,0.0,13254656,0.0,0.0
+1747112818,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,741,1,CursorUIViewService,/System/Library/PrivateFrameworks/TextInputUIMacHelper.framework/Versions/A/XPCServices/CursorUIViewService.xpc/Contents/MacOS/CursorUIViewService,0.7,28901376,0.0,0.0
+1747120724,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4184,880,config_210.vbs,C:\Recycle Bin\config_210.vbs,52.7,54625979,,
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16211,1,Appearance,/System/Library/ExtensionKit/Extensions/Appearance.appex/Contents/MacOS/Appearance,0.0,46874624,0.0,0.0
+1747119230,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1952,854,setup_72.dll,C:\Recycle Bin\setup_72.dll,80.2,268324263,,
+1747121287,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2279,2076,config_337.hta,C:\Users\Public\config_337.hta,49.44,140483122,,
+1747120432,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4572,963,payload_191.vbs,C:\Users\Public\payload_191.vbs,48.78,116381037,,
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17945,17933,Steam Helper,"/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/Frameworks/Steam Helper.app/Contents/MacOS/Steam Helper -nocrashdialog -lang=en_US -cachedir=/Users/jermainebaker/Library/Application Support/Steam/config/htmlcache -steampid=17933 -buildid=1745876290 -steamid=0 -logdir=/Users/jermainebaker/Library/Application Support/Steam/logs -uimode=7 -startcount=0 -steamuniverse=Public -realm=Global -clientui=/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/clientui -steampath=/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/steam_osx -launcher=0 -delaypageload --valve-initial-threadpool-size=20 --valve-enable-site-isolation --enable-smooth-scrolling --log-file=/Users/jermainebaker/Library/Application Support/Steam/logs/cef_log.txt --disable-quick-menu --enable-features=PlatformHEVCDecoderSupport --disable-features=SpareRendererForSitePerProcess,DcheckIsFatal,ValveFFmpegAllowLowDelayHEVC",11.4,197087232,0.0,0.0
+1747119146,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2739,1457,install_400.hta,C:\Users\Public\install_400.hta,69.38,153062361,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,626,1,com.apple.CloudDocs.iCloudDriveFileProvider,"/System/Library/PrivateFrameworks/CloudDocs.framework/PlugIns/com.apple.CloudDocs.iCloudDriveFileProvider.appex/Contents/MacOS/com.apple.CloudDocs.iCloudDriveFileProvider -AppleLanguages (""en-US"")",0.0,13647872,0.0,0.0
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,417,1,cfprefsd,/usr/sbin/cfprefsd agent,0.0,8323072,0.0,0.0
+1747112843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,480,1,ndoagent,/System/Library/PrivateFrameworks/NewDeviceOutreach.framework/ndoagent,0.0,14860288,0.0,0.0
+1747120573,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1184,181,update_18.bat,C:\AppData\update_18.bat,34.99,393620699,,
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,601,1,diagnostics_agent,/System/Library/CoreServices/diagnostics_agent,0.0,15073280,0.0,0.0
+1747120739,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2147,402,payload_196.exe,C:\Temp\payload_196.exe,19.92,225611049,,
+1747119145,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3214,2372,service_10.js,C:\ProgramData\service_10.js,79.48,212156229,,
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,594,1,icdd,/System/Library/Image Capture/Support/icdd,0.0,7389184,0.0,0.0
+1747122018,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2319,204,script_181.hta,C:\AppData\script_181.hta,20.05,477290865,,
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,8234,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,2179072,0.0,0.0
+1747113010,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2898,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,7585792,0.0,0.0
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,956,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3833856,0.0,0.0
+1747120209,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3390,2981,exploit_453.pif,C:\Temp\exploit_453.pif,3.35,579889339,,
+1747119579,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1415,220,script_339.hta,C:\Users\Public\script_339.hta,23.99,699403240,,
+1747120292,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1295,859,monitor_387.ps1,C:\Temp\monitor_387.ps1,36.86,445423889,,
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1221,1,DockHelper,/System/Library/CoreServices/Dock.app/Contents/XPCServices/DockHelper.xpc/Contents/MacOS/DockHelper,0.0,25821184,0.0,0.0
+1747120678,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4434,3616,malware_143.ps1,C:\ProgramData\malware_143.ps1,27.4,296121490,,
+1747118850,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3513,1573,kernel_246.exe,C:\Recycle Bin\kernel_246.exe,41.82,193167423,,
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,618,1,TextInputSwitcher,/System/Library/CoreServices/TextInputSwitcher.app/Contents/MacOS/TextInputSwitcher,0.0,19628032,0.0,0.0
+1747120604,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1301,119,install_407.js,C:\Temp\install_407.js,46.77,245343766,,
+1747120045,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1114,359,monitor_136.bat,C:\Users\Public\monitor_136.bat,18.3,191110417,,
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,589,1,axassetsd,/System/Library/PrivateFrameworks/AXAssetLoader.framework/Support/axassetsd,0.0,23085056,0.0,0.0
+1747120203,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4580,203,payload_367.ps1,C:\Users\Public\payload_367.ps1,5.9,550179274,,
+1747119913,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2086,1259,monitor_445.jar,C:\Users\Public\monitor_445.jar,78.07,523574862,,
+1747122170,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2026,1032,monitor_316.lnk,C:\Users\Public\monitor_316.lnk,81.23,486719296,,
+1747119435,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3882,800,svchost_185.lnk,C:\Users\Public\svchost_185.lnk,53.68,646876054,,
+1747121607,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1605,773,malware_238.dll,C:\AppData\malware_238.dll,40.55,79474220,,
+1747120691,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2255,1929,exploit_79.dll,C:\AppData\exploit_79.dll,72.3,307274418,,
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,535,1,sociallayerd,/System/Library/PrivateFrameworks/SocialLayer.framework/sociallayerd.app/Contents/MacOS/sociallayerd,0.0,15269888,0.0,0.0
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,525,1,NotificationCenter,/System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter,0.0,61112320,0.0,0.0
+1747121848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1351,398,exploit_142.hta,C:\AppData\exploit_142.hta,89.53,162217056,,
+1747120842,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1646,302,driver_77.pif,C:\Users\Public\driver_77.pif,53.07,300964923,,
+1747119501,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1243,468,exploit_228.js,C:\ProgramData\exploit_228.js,50.55,567645803,,
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2464,1,AuthenticationServicesAgent,/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent,0.0,15204352,0.0,0.0
+1747121687,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2874,1737,update_411.bat,C:\Users\Public\update_411.bat,43.36,674288915,,
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16141,1,News,/System/Applications/News.app/Contents/MacOS/News,0.0,449200128,6.0,0.0
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,443,1,APFSUserAgent,/System/Library/CoreServices/APFSUserAgent,0.0,6094848,0.0,0.0
+1747122081,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2070,1418,update_175.lnk,C:\Users\Public\update_175.lnk,20.6,202435971,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,634,1,com.apple.WebKit.GPU,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU,0.2,211894272,0.0,0.0
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,650,1,CSExattrCryptoService,/System/Library/PrivateFrameworks/CSExattrCrypto.framework/Versions/A/XPCServices/CSExattrCryptoService.xpc/Contents/MacOS/CSExattrCryptoService,0.0,4096000,0.0,0.0
+1747120356,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3194,2558,exploit_413.jar,C:\Recycle Bin\exploit_413.jar,82.88,436778213,,
+1747119408,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1377,230,malware_377.vbs,C:\Temp\malware_377.vbs,30.71,317501680,,
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17757,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.0,46137344,0.0,0.0
+1747121939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2679,420,svchost_276.scr,C:\Users\Public\svchost_276.scr,48.15,73384637,,
+1747118975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1265,95,setup_299.scr,C:\ProgramData\setup_299.scr,25.12,295523384,,
+1747119711,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3190,1300,config_353.ps1,C:\Recycle Bin\config_353.ps1,60.36,106820624,,
+1747119164,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4245,940,svchost_95.pif,C:\Temp\svchost_95.pif,5.22,583449449,,
+1747119664,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2458,1331,malware_6.js,C:\ProgramData\malware_6.js,58.76,271763589,,
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,536,1,suggestd,/System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/suggestd,0.0,102252544,0.0,0.0
+1747120106,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3505,1517,update_401.dll,C:\AppData\update_401.dll,20.96,641235457,,
+1747120439,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2165,820,payload_108.lnk,C:\ProgramData\payload_108.lnk,73.44,237164622,,
+1747119908,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1038,150,monitor_87.lnk,C:\AppData\monitor_87.lnk,53.96,306050465,,
+1747120380,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2484,567,malware_51.lnk,C:\Recycle Bin\malware_51.lnk,10.27,331834702,,
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5366,1,MetricsExtension,/System/Library/ExtensionKit/Extensions/MetricsExtension.appex/Contents/MacOS/MetricsExtension,0.0,8814592,0.0,0.0
+1747119835,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2608,2233,payload_126.jar,C:\ProgramData\payload_126.jar,68.64,331827612,,
+1747122166,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2322,1009,driver_436.pif,C:\Recycle Bin\driver_436.pif,65.73,658283988,,
+1747119574,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1251,1014,script_164.scr,C:\ProgramData\script_164.scr,79.59,595535505,,
+1747118686,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1072,744,svchost_195.lnk,C:\Users\Public\svchost_195.lnk,79.73,301827489,,
+1747118778,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1401,907,config_34.jar,C:\Users\Public\config_34.jar,16.14,529489534,,
+1747119002,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3668,1023,script_91.pif,C:\Recycle Bin\script_91.pif,69.01,671187251,,
+1747121777,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1322,132,payload_38.scr,C:\AppData\payload_38.scr,82.71,707997069,,
+1747120191,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2559,1512,task_123.pif,C:\Users\Public\task_123.pif,76.46,256194234,,
+1747120772,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2352,1976,svchost_260.bat,C:\Temp\svchost_260.bat,28.86,632420825,,
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,4136,1,com.apple.siri-distributed-evaluation,/System/Library/PrivateFrameworks/DistributedEvaluation.framework/Versions/A/XPCServices/com.apple.siri-distributed-evaluation.xpc/Contents/MacOS/com.apple.siri-distributed-evaluation,0.0,7733248,0.0,0.0
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,986,930,Code Helper (Plugin),"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --inspect-port=0 --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",0.1,481755136,6.0,0.0
+1747120479,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4106,22,setup_347.scr,C:\ProgramData\setup_347.scr,36.15,706873118,,
+1747119102,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4434,1973,install_137.hta,C:\Users\Public\install_137.hta,77.04,347265849,,
+1747120658,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2858,2208,exploit_289.dll,C:\Temp\exploit_289.dll,23.63,543440929,,
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2464,1,AuthenticationServicesAgent,/System/Cryptexes/App/usr/libexec/AuthenticationServicesAgent,0.0,15204352,0.0,0.0
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,940,930,Code Helper (Renderer),"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) --type=renderer --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --app-path=/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Resources/app --enable-sandbox --enable-blink-features=HighlightAPI --first-renderer-process --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1747039551578864 --launch-time-ticks=88000613 --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --vscode-window-config=vscode:8078db25-8a55-43bb-a228-17fdcf3c5259 --seatbelt-client=53",2.9,336625664,0.0,0.0
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17916,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,3620864,0.0,0.0
+1747119350,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3053,1789,svchost_2.bat,C:\Temp\svchost_2.bat,37.2,710920106,,
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,475,1,com.apple.hiservices-xpcservice,/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/XPCServices/com.apple.hiservices-xpcservice.xpc/Contents/MacOS/com.apple.hiservices-xpcservice,0.0,7536640,0.0,0.0
+1747120685,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3326,1854,svchost_94.dll,C:\Users\Public\svchost_94.dll,4.14,134839500,,
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15213,1,studentd,/usr/libexec/studentd,0.0,39747584,0.0,0.0
+1747120054,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3117,777,system_440.dll,C:\Temp\system_440.dll,60.2,126682422,,
+1747112889,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17891,17890,zsh,-zsh,0.0,3702784,0.0,0.0
+1747119033,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1786,369,update_71.exe,C:\Users\Public\update_71.exe,80.61,518470821,,
+1747119845,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4201,2225,task_145.scr,C:\ProgramData\task_145.scr,69.49,509985984,,
+1747113010,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,586,1,avconferenced,/usr/libexec/avconferenced,0.0,17678336,0.0,0.0
+1747119281,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2006,1218,malware_62.jar,C:\AppData\malware_62.jar,79.76,732011342,,
+1747120375,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1616,1567,script_350.ps1,C:\AppData\script_350.ps1,47.88,440673885,,
+1747120026,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3584,335,script_119.pif,C:\Users\Public\script_119.pif,27.53,124633802,,
+1747120734,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2157,744,payload_3.vbs,C:\Users\Public\payload_3.vbs,1.15,278322935,,
+1747121454,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2200,167,kernel_36.exe,C:\Users\Public\kernel_36.exe,47.75,423036485,,
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,425,1,knowledge-agent,/usr/libexec/knowledge-agent,0.0,38502400,0.0,0.0
+1747120240,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2780,894,payload_486.ps1,C:\ProgramData\payload_486.ps1,55.98,221822609,,
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,940,930,Code Helper (Renderer),"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) --type=renderer --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --app-path=/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Resources/app --enable-sandbox --enable-blink-features=HighlightAPI --first-renderer-process --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1747039551578864 --launch-time-ticks=88000613 --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --vscode-window-config=vscode:8078db25-8a55-43bb-a228-17fdcf3c5259 --seatbelt-client=53",0.5,341852160,0.0,0.0
+1747119249,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4121,634,task_58.exe,C:\AppData\task_58.exe,25.81,666181195,,
+1747120779,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2755,151,config_11.js,C:\Users\Public\config_11.js,56.89,376641079,,
+1747119580,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4724,4718,script_27.ps1,C:\AppData\script_27.ps1,32.71,625722494,,
+1747120825,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1873,692,task_408.lnk,C:\Recycle Bin\task_408.lnk,30.69,195546191,,
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1278,1,extensionkitservice,/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice,0.0,6012928,0.0,0.0
+1747119324,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2494,1717,svchost_441.scr,C:\Temp\svchost_441.scr,39.06,125920115,,
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,599,1,AirPlayUIAgent,/System/Library/CoreServices/AirPlayUIAgent.app/Contents/MacOS/AirPlayUIAgent --launchd,0.0,18153472,0.0,0.0
+1747121597,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4476,3336,script_333.lnk,C:\AppData\script_333.lnk,46.39,85066051,,
+1747119670,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2662,2357,svchost_402.bat,C:\ProgramData\svchost_402.bat,69.62,570253695,,
+1747112853,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5336,1,SiriCoreMetricsWorker,/System/Library/ExtensionKit/Extensions/SiriCoreMetricsWorker.appex/Contents/MacOS/SiriCoreMetricsWorker,0.0,12730368,0.0,0.0
+1747112889,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,534,1,replayd,/usr/libexec/replayd,0.0,13156352,0.0,0.0
+1747122163,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2734,120,kernel_383.vbs,C:\AppData\kernel_383.vbs,5.08,89842439,,
+1747119318,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4703,3902,config_81.ps1,C:\Temp\config_81.ps1,47.43,524056781,,
+1747112889,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,924,1,QuickLookSatellite,/System/Library/Frameworks/QuickLook.framework/Versions/A/XPCServices/QuickLookSatellite.xpc/Contents/MacOS/QuickLookSatellite,0.0,43663360,0.0,0.0
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,654,1,deleted,/System/Library/PrivateFrameworks/CacheDelete.framework/deleted,0.0,35602432,0.0,0.0
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,549,1,assistant_cdmd,/System/Library/PrivateFrameworks/ContinuousDialogManagerService.framework/assistant_cdmd,0.0,11976704,0.0,0.0
+1747120840,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3153,707,kernel_101.lnk,C:\Users\Public\kernel_101.lnk,32.38,184233524,,
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16324,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.0,281559040,0.0,0.0
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,921,1,promotedcontentd,/usr/libexec/promotedcontentd,0.0,21889024,0.0,0.0
+1747120050,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3633,3493,kernel_174.pif,C:\ProgramData\kernel_174.pif,16.86,671361650,,
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16120,1,Music,/System/Applications/Music.app/Contents/MacOS/Music,0.6,254246912,0.0,0.0
+1747119170,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1650,110,monitor_188.ps1,C:\ProgramData\monitor_188.ps1,19.83,617499619,,
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17761,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.0,72597504,0.0,0.0
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,619,1,Spotlight,/System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight,0.0,87343104,0.0,0.0
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,485,1,donotdisturbd,/System/Library/PrivateFrameworks/DoNotDisturbServer.framework/Support/donotdisturbd,0.0,33079296,0.0,0.0
+1747121099,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2621,2233,payload_178.exe,C:\AppData\payload_178.exe,86.4,83199278,,
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,930,1,Electron,/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/MacOS/Electron,5.0,208633856,0.0,0.0
+1747112853,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16123,1,VisualizerService,/System/Applications/Music.app/Contents/XPCServices/VisualizerService.xpc/Contents/MacOS/VisualizerService,0.0,20512768,0.0,0.0
+1747121560,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4758,3455,install_215.scr,C:\AppData\install_215.scr,30.73,375883200,,
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,602,1,TextInputMenuAgent,/System/Library/CoreServices/TextInputMenuAgent.app/Contents/MacOS/TextInputMenuAgent,0.0,21774336,0.0,0.0
+1747121220,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2796,950,system_61.lnk,C:\ProgramData\system_61.lnk,10.75,79396693,,
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,600,1,audioaccessoryd,/System/Library/CoreServices/audioaccessoryd,0.0,23904256,0.0,0.0
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,984,1,photoanalysisd,/System/Library/PrivateFrameworks/PhotoAnalysis.framework/Versions/A/Support/photoanalysisd,0.0,53313536,0.0,0.0
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,485,1,donotdisturbd,/System/Library/PrivateFrameworks/DoNotDisturbServer.framework/Support/donotdisturbd,0.0,26607616,0.0,0.0
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,602,1,TextInputMenuAgent,/System/Library/CoreServices/TextInputMenuAgent.app/Contents/MacOS/TextInputMenuAgent,0.0,21774336,0.0,0.0
+1747119838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2405,385,monitor_30.pif,C:\AppData\monitor_30.pif,42.39,332268429,,
+1747112889,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,596,1,askpermissiond,/System/Library/PrivateFrameworks/AskPermission.framework/Versions/A/Resources/askpermissiond,0.0,16171008,0.0,0.0
+1747121418,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1510,903,driver_182.pif,C:\AppData\driver_182.pif,78.92,656866658,,
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,515,1,WallpaperVideoExtension,/System/Library/ExtensionKit/Extensions/WallpaperVideoExtension.appex/Contents/MacOS/WallpaperVideoExtension,0.0,17612800,0.0,0.0
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,961,1,voicebankingd,/System/Library/PrivateFrameworks/TextToSpeechVoiceBankingSupport.framework/Support/voicebankingd,0.0,17186816,0.0,0.0
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,641,1,SafariNotificationAgent,/System/Cryptexes/App/usr/libexec/SafariNotificationAgent,0.0,10633216,0.0,0.0
+1747121888,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1781,1728,exploit_148.lnk,C:\Temp\exploit_148.lnk,80.34,269800864,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,644,1,commerce,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerce,0.0,18382848,0.0,0.0
+1747119578,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1592,1235,svchost_26.lnk,C:\Temp\svchost_26.lnk,25.63,716852879,,
+1747112843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,525,1,NotificationCenter,/System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter,0.0,60932096,0.0,0.0
+1747121118,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3583,1792,install_312.exe,C:\Users\Public\install_312.exe,13.96,196902002,,
+1747119094,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4702,4426,config_189.jar,C:\Temp\config_189.jar,3.56,590768315,,
+1747120079,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3254,3243,driver_121.lnk,C:\AppData\driver_121.lnk,54.9,137281680,,
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,528,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,7307264,0.0,0.0
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1400,1,proactived,/usr/libexec/proactived,0.0,20201472,0.0,0.0
+1747120692,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3040,2161,service_281.js,C:\Temp\service_281.js,79.97,608590762,,
+1747119844,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1467,830,service_41.lnk,C:\Recycle Bin\service_41.lnk,29.79,674403259,,
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,563,1,sirittsd,/System/Library/PrivateFrameworks/SiriTTSService.framework/sirittsd,0.0,9715712,0.0,0.0
+1747122014,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3719,2050,exploit_373.ps1,C:\AppData\exploit_373.ps1,16.79,563955601,,
+1747118779,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3842,919,config_423.hta,C:\Temp\config_423.hta,28.08,619280549,,
+1747118646,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1791,1141,system_170.ps1,C:\AppData\system_170.ps1,63.57,555680758,,
+1747112965,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1255,1,nsattributedstringagent,/System/Library/PrivateFrameworks/UIFoundation.framework/Versions/A/XPCServices/nsattributedstringagent.xpc/Contents/MacOS/nsattributedstringagent,0.0,27836416,0.0,0.0
+1747122172,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1769,1373,setup_43.pif,C:\Temp\setup_43.pif,5.68,511828713,,
+1747121523,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2031,713,exploit_214.hta,C:\ProgramData\exploit_214.hta,73.31,642901325,,
+1747121497,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1572,1456,install_227.ps1,C:\ProgramData\install_227.ps1,47.27,614710424,,
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,529,1,neagent,/usr/libexec/neagent,0.0,14123008,0.0,0.0
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,642,1,seserviced,/usr/libexec/seserviced,0.0,7946240,0.0,0.0
+1747118826,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3197,50,svchost_244.dll,C:\ProgramData\svchost_244.dll,9.12,525620187,,
+1747119022,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3693,2819,malware_110.js,C:\Temp\malware_110.js,78.02,658927632,,
+1747122113,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3967,3346,svchost_45.js,C:\Users\Public\svchost_45.js,35.14,702829722,,
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,580,1,bluetoothuserd,/usr/libexec/bluetoothuserd,0.0,17104896,0.0,0.0
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,512,1,AMPDeviceDiscoveryAgent,/System/Library/PrivateFrameworks/AMPDevices.framework/Versions/A/Support/AMPDeviceDiscoveryAgent --launchd,0.0,10158080,0.0,0.0
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,662,1,com.apple.appkit.xpc.openAndSavePanelService,/System/Library/Frameworks/AppKit.framework/Versions/C/XPCServices/com.apple.appkit.xpc.openAndSavePanelService.xpc/Contents/MacOS/com.apple.appkit.xpc.openAndSavePanelService,0.0,36519936,0.0,0.0
+1747112975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,646,1,ScopedBookmarkAgent,/System/Library/CoreServices/ScopedBookmarkAgent,0.0,11862016,0.0,0.0
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17825,17823,python3.11,"/Users/jermainebaker/anaconda3/envs/edr-env/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=5, pipe_handle=7) --multiprocessing-fork",0.2,670875648,6.0,0.0
+1747119753,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3397,1806,system_457.vbs,C:\Users\Public\system_457.vbs,30.29,520673911,,
+1747112818,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,3020,1,BTLEServerAgent,/usr/sbin/BTLEServerAgent,0.0,7176192,0.0,0.0
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1278,1,extensionkitservice,/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice,0.0,6012928,0.0,0.0
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,455,1,siriactionsd,/System/Library/PrivateFrameworks/VoiceShortcuts.framework/Versions/A/Support/siriactionsd,0.0,22364160,0.0,0.0
+1747118823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4565,2499,config_153.pif,C:\Recycle Bin\config_153.pif,38.76,570929390,,
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,429,1,ContinuityCaptureAgent,/usr/libexec/ContinuityCaptureAgent server,0.0,17711104,0.0,0.0
+1747121461,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3300,2000,kernel_384.scr,C:\Recycle Bin\kernel_384.scr,16.2,469509127,,
+1747121771,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1798,746,task_230.scr,C:\Temp\task_230.scr,60.4,343961548,,
+1747121701,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4606,1707,script_444.ps1,C:\Users\Public\script_444.ps1,21.24,213145514,,
+1747118718,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4038,362,kernel_229.hta,C:\ProgramData\kernel_229.hta,75.86,665333031,,
+1747119348,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1943,1768,script_124.jar,C:\Users\Public\script_124.jar,3.58,712813091,,
+1747119305,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1678,658,task_397.scr,C:\Temp\task_397.scr,15.54,216914724,,
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,553,1,webprivacyd,/System/Library/PrivateFrameworks/WebPrivacy.framework/webprivacyd,0.0,13565952,0.0,0.0
+1747119050,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3049,1817,kernel_286.exe,C:\Recycle Bin\kernel_286.exe,73.41,430994065,,
+1747121549,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4192,2569,monitor_297.ps1,C:\AppData\monitor_297.ps1,73.33,115228449,,
+1747121862,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4844,3166,exploit_427.bat,C:\Recycle Bin\exploit_427.bat,14.9,711360028,,
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,528,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,7307264,0.0,0.0
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,486,1,pkd,/usr/libexec/pkd,0.0,15351808,0.0,0.0
+1747120252,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3488,422,monitor_358.lnk,C:\Users\Public\monitor_358.lnk,41.51,184273637,,
+1747121608,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1135,1012,exploit_393.lnk,C:\AppData\exploit_393.lnk,55.44,120750210,,
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,581,1,com.apple.Safari.SearchHelper,/System/Library/PrivateFrameworks/SafariShared.framework/Versions/A/XPCServices/com.apple.Safari.SearchHelper.xpc/Contents/MacOS/com.apple.Safari.SearchHelper,0.0,21823488,0.0,0.0
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,439,1,secd,/usr/libexec/secd,0.6,28803072,0.0,0.0
+1747121939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3170,88,svchost_421.scr,C:\Users\Public\svchost_421.scr,54.45,470451387,,
+1747118793,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4279,2410,monitor_125.js,C:\AppData\monitor_125.js,13.21,668153152,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2899,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,581,1,com.apple.Safari.SearchHelper,/System/Library/PrivateFrameworks/SafariShared.framework/Versions/A/XPCServices/com.apple.Safari.SearchHelper.xpc/Contents/MacOS/com.apple.Safari.SearchHelper,0.0,21938176,0.0,0.0
+1747121320,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3403,1106,script_371.jar,C:\Recycle Bin\script_371.jar,39.97,464248194,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,969,930,Code Helper,"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",0.0,62373888,0.0,0.0
+1747121596,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2980,509,monitor_106.dll,C:\Users\Public\monitor_106.dll,87.91,465598595,,
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16120,1,Music,/System/Applications/Music.app/Contents/MacOS/Music,0.6,257589248,0.0,0.0
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16113,1,Notes,/System/Applications/Notes.app/Contents/MacOS/Notes,0.0,123502592,0.0,0.0
+1747119369,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1463,1114,payload_488.dll,C:\Temp\payload_488.dll,16.55,617412269,,
+1747121541,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1554,961,svchost_424.hta,C:\Temp\svchost_424.hta,67.51,122411940,,
+1747119879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4584,1056,svchost_435.hta,C:\Users\Public\svchost_435.hta,45.02,271793802,,
+1747119082,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2696,465,exploit_234.lnk,C:\AppData\exploit_234.lnk,43.89,409830889,,
+1747120310,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4234,621,driver_314.hta,C:\ProgramData\driver_314.hta,35.82,129958393,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17398,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.1,189710336,0.0,0.0
+1747112818,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,3411,1,proactiveeventtrackerd,/usr/libexec/proactiveeventtrackerd,0.0,6389760,0.0,0.0
+1747121355,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3338,1731,system_107.exe,C:\Users\Public\system_107.exe,69.16,430908468,,
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16080,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,4833280,0.0,0.0
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,967,1,com.apple.SiriTTSService.TrialProxy,/System/Library/PrivateFrameworks/SiriTTSService.framework/Versions/A/XPCServices/com.apple.SiriTTSService.TrialProxy.xpc/Contents/MacOS/com.apple.SiriTTSService.TrialProxy,0.0,6340608,0.0,0.0
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2897,1,com.apple.photos.ImageConversionService,/System/Library/PrivateFrameworks/MediaConversionService.framework/Versions/A/XPCServices/com.apple.photos.ImageConversionService.xpc/Contents/MacOS/com.apple.photos.ImageConversionService,0.0,15171584,0.0,0.0
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,443,1,APFSUserAgent,/System/Library/CoreServices/APFSUserAgent,0.0,6094848,0.0,0.0
+1747119972,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1323,942,svchost_394.vbs,C:\ProgramData\svchost_394.vbs,47.51,65067050,,
+1747120159,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1054,797,payload_138.js,C:\ProgramData\payload_138.js,82.53,443993566,,
+1747119640,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3935,972,monitor_279.vbs,C:\Users\Public\monitor_279.vbs,69.52,351919676,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,561,1,cdpd,/System/Library/PrivateFrameworks/CoreCDP.framework/Versions/A/Resources/cdpd,0.0,14434304,0.0,0.0
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,637,1,photolibraryd,/System/Library/PrivateFrameworks/PhotoLibraryServices.framework/Versions/A/Support/photolibraryd,0.0,51200000,0.0,0.0
+1747120416,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1215,903,svchost_184.lnk,C:\Temp\svchost_184.lnk,89.12,536805451,,
+1747120942,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3577,761,config_390.ps1,C:\Temp\config_390.ps1,64.01,62538281,,
+1747119473,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4040,3498,system_438.pif,C:\Recycle Bin\system_438.pif,33.48,653412759,,
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17992,1,mdworker_shared,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared,0.0,19120128,0.0,0.0
+1747121937,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3638,1943,update_198.lnk,C:\Users\Public\update_198.lnk,28.05,471859424,,
+1747120325,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1351,1334,system_209.jar,C:\Temp\system_209.jar,21.88,475939740,,
+1747121320,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2066,135,task_398.scr,C:\Temp\task_398.scr,79.51,499328334,,
+1747121080,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4861,520,svchost_216.ps1,C:\ProgramData\svchost_216.ps1,59.79,300996196,,
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,429,1,ContinuityCaptureAgent,/usr/libexec/ContinuityCaptureAgent server,0.0,17956864,0.0,0.0
+1747112960,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,496,1,WallpaperAgent,/System/Library/CoreServices/WallpaperAgent.app/Contents/MacOS/WallpaperAgent,0.0,27721728,0.0,0.0
+1747120493,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1041,845,svchost_44.exe,C:\Recycle Bin\svchost_44.exe,25.21,726251325,,
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,637,1,photolibraryd,/System/Library/PrivateFrameworks/PhotoLibraryServices.framework/Versions/A/Support/photolibraryd,0.0,51200000,0.0,0.0
+1747120519,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3826,3796,monitor_152.bat,C:\AppData\monitor_152.bat,70.6,306365936,,
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1368,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1700,1,backgroundassets.user,/usr/libexec/backgroundassets.user,0.0,7634944,0.0,0.0
+1747120750,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1475,1184,service_16.lnk,C:\Recycle Bin\service_16.lnk,3.32,310961743,,
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17998,1,mdworker_shared,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared,0.0,22396928,0.0,0.0
+1747118878,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4959,211,monitor_59.jar,C:\Temp\monitor_59.jar,62.02,310436199,,
+1747118715,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4485,4445,update_269.bat,C:\ProgramData\update_269.bat,3.81,733016724,,
+1747121593,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2540,300,system_19.bat,C:\Users\Public\system_19.bat,15.59,618446154,,
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,437,1,ControlCenter,/System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter,0.0,68517888,0.0,0.0
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,463,1,pboard,/usr/libexec/pboard,0.0,10747904,0.0,0.0
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,520,1,sharingd,/usr/libexec/sharingd,0.1,38092800,0.0,0.0
+1747118823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4840,2774,install_489.scr,C:\Temp\install_489.scr,21.24,209973369,,
+1747119110,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3498,1627,update_428.exe,C:\AppData\update_428.exe,21.16,254506135,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16853,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,34.2,508723200,6.0,0.0
+1747122127,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2751,1794,kernel_131.ps1,C:\Temp\kernel_131.ps1,52.76,389139992,,
+1747112818,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5336,1,SiriCoreMetricsWorker,/System/Library/ExtensionKit/Extensions/SiriCoreMetricsWorker.appex/Contents/MacOS/SiriCoreMetricsWorker,0.0,12730368,0.0,0.0
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17951,1,com.apple.iCloudHelper,/System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/XPCServices/com.apple.iCloudHelper.xpc/Contents/MacOS/com.apple.iCloudHelper,0.0,12451840,0.0,0.0
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,470,1,tccd,/System/Library/PrivateFrameworks/TCC.framework/Support/tccd,0.0,16793600,0.0,0.0
+1747113010,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,549,1,assistant_cdmd,/System/Library/PrivateFrameworks/ContinuousDialogManagerService.framework/assistant_cdmd,0.0,12107776,0.0,0.0
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16760,1,MTLCompilerService,/System/Library/Frameworks/Metal.framework/Versions/A/XPCServices/MTLCompilerService.xpc/Contents/MacOS/MTLCompilerService,0.0,4276224,0.0,0.0
+1747120719,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2586,1520,kernel_247.ps1,C:\Temp\kernel_247.ps1,51.24,84443322,,
+1747119478,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1833,1620,exploit_372.jar,C:\ProgramData\exploit_372.jar,39.89,719762011,,
+1747120711,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4121,143,monitor_483.js,C:\Recycle Bin\monitor_483.js,16.21,231657050,,
+1747122048,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1034,109,config_129.bat,C:\Temp\config_129.bat,32.64,283478794,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,961,1,voicebankingd,/System/Library/PrivateFrameworks/TextToSpeechVoiceBankingSupport.framework/Support/voicebankingd,0.0,17186816,0.0,0.0
+1747120126,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3450,1568,setup_25.jar,C:\Temp\setup_25.jar,3.95,431621166,,
+1747120158,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1659,1572,install_348.jar,C:\ProgramData\install_348.jar,6.01,160969328,,
+1747121656,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3385,61,exploit_120.dll,C:\Users\Public\exploit_120.dll,57.52,318461212,,
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,648,1,WeatherWidget,/System/Applications/Weather.app/Contents/PlugIns/WeatherWidget.appex/Contents/MacOS/WeatherWidget,0.0,28672000,0.0,0.0
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16215,1,PowerPreferences,/System/Library/ExtensionKit/Extensions/PowerPreferences.appex/Contents/MacOS/PowerPreferences,0.0,29720576,0.0,0.0
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,12963,966,zsh,/bin/zsh -il,0.0,2752512,0.0,0.0
+1747119449,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1266,440,malware_93.pif,C:\Users\Public\malware_93.pif,59.55,425604043,,
+1747120128,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4161,3646,svchost_47.hta,C:\Recycle Bin\svchost_47.hta,89.84,104566517,,
+1747120633,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3564,2355,svchost_451.scr,C:\Temp\svchost_451.scr,7.21,727666492,,
+1747112975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1400,1,proactived,/usr/libexec/proactived,0.0,20201472,0.0,0.0
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,716,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,2883584,0.0,0.0
+1747119440,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3319,3285,service_322.ps1,C:\AppData\service_322.ps1,57.36,425974326,,
+1747119116,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1976,687,config_28.pif,C:\Recycle Bin\config_28.pif,74.08,604068680,,
+1747120116,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2294,1743,svchost_88.ps1,C:\ProgramData\svchost_88.ps1,80.99,707813495,,
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17995,1,mdworker_shared,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared,0.2,22331392,0.0,0.0
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2898,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,7585792,0.0,0.0
+1747121606,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2565,86,install_259.jar,C:\Users\Public\install_259.jar,36.39,142586326,,
+1747120686,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1037,589,kernel_151.dll,C:\ProgramData\kernel_151.dll,47.42,113234407,,
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,922,1,UniversalControl,/System/Library/CoreServices/UniversalControl.app/Contents/MacOS/UniversalControl,0.5,21757952,0.0,0.0
+1747112853,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,440,1,trustd,/usr/libexec/trustd --agent,0.2,19513344,0.0,0.0
+1747120222,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4458,3088,driver_40.dll,C:\Users\Public\driver_40.dll,10.01,509281909,,
+1747120217,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4420,559,script_222.pif,C:\Users\Public\script_222.pif,67.23,724956883,,
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,555,1,CarbonComponentScannerXPC,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/CarbonComponentScannerXPC.xpc/Contents/MacOS/CarbonComponentScannerXPC,0.0,1744896,0.0,0.0
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16214,1,HeadphoneSettingsExtension,/System/Library/ExtensionKit/Extensions/HeadphoneSettingsExtension.appex/Contents/MacOS/HeadphoneSettingsExtension,0.0,28016640,0.0,0.0
+1747121417,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1123,244,system_287.dll,C:\AppData\system_287.dll,28.06,561737694,,
+1747120356,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3807,2992,payload_176.lnk,C:\Temp\payload_176.lnk,41.05,381365821,,
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16208,1,System Settings,/System/Applications/System Settings.app/Contents/MacOS/System Settings,1.7,86507520,0.0,0.0
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2951,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,83771392,0.0,0.0
+1747119540,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3803,1984,install_362.exe,C:\Recycle Bin\install_362.exe,18.86,228026371,,
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,542,1,localizationswitcherd,/System/Library/PrivateFrameworks/IntlPreferences.framework/Support/localizationswitcherd,0.0,8257536,0.0,0.0
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1627,1,searchpartyuseragent,/usr/libexec/searchpartyuseragent,0.2,37847040,0.0,0.0
+1747120212,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2449,143,config_335.ps1,C:\ProgramData\config_335.ps1,43.17,437274061,,
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5372,1,SecuritySubscriber,/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/SecuritySubscriber.xpc/Contents/MacOS/SecuritySubscriber,0.0,6586368,0.0,0.0
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,543,1,AppSSOAgent,/System/Library/PrivateFrameworks/AppSSO.framework/Support/AppSSOAgent.app/Contents/MacOS/AppSSOAgent,0.0,20873216,0.0,0.0
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,430,1,lsd,/usr/libexec/lsd,0.0,20561920,0.0,0.0
+1747119255,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2521,1486,payload_490.scr,C:\AppData\payload_490.scr,14.54,172121721,,
+1747121140,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4876,2685,monitor_76.dll,C:\AppData\monitor_76.dll,13.82,282164598,,
+1747121385,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2634,833,malware_382.hta,C:\Recycle Bin\malware_382.hta,54.55,714411414,,
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,459,1,swcd,/usr/libexec/swcd,0.0,16515072,0.0,0.0
+1747118613,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3342,197,install_132.scr,C:\Recycle Bin\install_132.scr,53.24,59367944,,
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,514,1,akd,/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd,0.1,27836416,0.0,0.0
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,953,1,WardaSynthesizer_x86_64,"/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_x86_64.appex/Contents/MacOS/WardaSynthesizer_x86_64 -AppleLanguages (""en-US"")",0.0,1638400,0.0,0.0
+1747121979,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4280,900,monitor_493.ps1,C:\Users\Public\monitor_493.ps1,49.77,530964860,,
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17848,1144,python3.11,python scripts/collect_benign_telemetry.py,1.2,61227008,0.0,0.0
+1747120599,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1374,795,task_67.ps1,C:\Users\Public\task_67.ps1,11.45,560755204,,
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,554,1,useractivityd,/System/Library/PrivateFrameworks/UserActivity.framework/Agents/useractivityd,0.0,12779520,0.0,0.0
+1747121813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2574,292,svchost_224.jar,C:\ProgramData\svchost_224.jar,47.01,335629405,,
+1747122039,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1244,24,exploit_258.jar,C:\Temp\exploit_258.jar,28.25,92072266,,
+1747112843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2898,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,7585792,0.0,0.0
+1747121134,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4588,2410,payload_117.exe,C:\AppData\payload_117.exe,72.19,639003095,,
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2564,1,intents_helper,/System/Library/Frameworks/Intents.framework/XPCServices/intents_helper.xpc/Contents/MacOS/intents_helper,0.0,11763712,0.0,0.0
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,962,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3801088,0.0,0.0
+1747121420,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2341,1714,service_207.dll,C:\AppData\service_207.dll,32.49,234358159,,
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1100,1,CategoriesService,/System/Library/PrivateFrameworks/Categories.framework/Versions/A/XPCServices/CategoriesService.xpc/Contents/MacOS/CategoriesService,0.0,13025280,0.0,0.0
+1747120647,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3412,2662,driver_237.exe,C:\ProgramData\driver_237.exe,5.63,475176552,,
+1747120254,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2265,1031,service_267.pif,C:\ProgramData\service_267.pif,16.93,114285461,,
+1747118757,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3105,1804,exploit_416.lnk,C:\Temp\exploit_416.lnk,47.8,111696303,,
+1747120953,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1310,1107,exploit_245.bat,C:\Temp\exploit_245.bat,4.61,187581272,,
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,442,1,CommCenter,/System/Library/Frameworks/CoreTelephony.framework/Support/CommCenter -L,0.0,24739840,0.0,0.0
+1747112965,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17961,17945,Steam Helper,"/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/Frameworks/Steam Helper.app/Contents/MacOS/Steam Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=network --locales-dir-path=/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/Frameworks/Steam Helper.app/Contents//bin/locales --user-agent-product=Valve Steam Client --lang=en-US --user-data-dir=/Users/jermainebaker/Library/Application Support/Steam/config/htmlcache --buildid=1745876290 --steamid=0 --valve-initial-threadpool-size=20 --shared-files --field-trial-handle=1718379636,r,1740280637600812251,11031083415003555219,262144 --enable-features=PlatformHEVCDecoderSupport --disable-features=BackForwardCache,DcheckIsFatal,DocumentPictureInPictureAPI,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC --variations-seed-version --log-file=/Users/jermainebaker/Library/Application Support/Steam/logs/cef_log.txt --seatbelt-client=107",0.3,67706880,0.0,0.0
+1747120949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2280,485,service_225.hta,C:\Recycle Bin\service_225.hta,49.36,199453884,,
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,958,1,KonaSynthesizer,"/System/Library/PrivateFrameworks/TextToSpeechKonaSupport.framework/Versions/A/PlugIns/KonaSynthesizer.appex/Contents/MacOS/KonaSynthesizer -AppleLanguages (""en-US"")",0.0,9666560,0.0,0.0
+1747120493,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4263,3338,service_17.hta,C:\Recycle Bin\service_17.hta,20.93,489400859,,
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5433,1,AMPArtworkAgent,/System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPArtworkAgent --launchd,0.0,36945920,0.0,0.0
+1747113010,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,479,1,diagnosticextensionsd,/usr/libexec/diagnosticextensionsd,0.0,10747904,0.0,0.0
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,482,1,triald,/usr/libexec/triald,0.0,13418496,0.0,0.0
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17984,17945,Steam Helper,"/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/Frameworks/Steam Helper.app/Contents/MacOS/Steam Helper --type=renderer --locales-dir-path=/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/Frameworks/Steam Helper.app/Contents//bin/locales --user-agent-product=Valve Steam Client --user-data-dir=/Users/jermainebaker/Library/Application Support/Steam/config/htmlcache --buildid=1745876290 --steamid=0 --valve-initial-threadpool-size=20 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=8 --time-ticks-at-unix-epoch=-1747063897865005 --launch-time-ticks=48978608307 --shared-files --field-trial-handle=1718379636,r,1740280637600812251,11031083415003555219,262144 --enable-features=PlatformHEVCDecoderSupport --disable-features=BackForwardCache,DcheckIsFatal,DocumentPictureInPictureAPI,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC --variations-seed-version --log-file=/Users/jermainebaker/Library/Application Support/Steam/logs/cef_log.txt --seatbelt-client=149",0.0,243056640,0.0,0.0
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,4856,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747120983,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4451,4199,setup_73.ps1,C:\Users\Public\setup_73.ps1,19.62,661033332,,
+1747120503,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4408,3693,setup_177.hta,C:\Users\Public\setup_177.hta,22.92,97538165,,
+1747112960,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1275,1,lockdownmoded,/System/Library/PrivateFrameworks/LockdownMode.framework/Versions/A/XPCServices/lockdownmoded,0.0,9928704,0.0,0.0
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,416,1,distnoted,/usr/sbin/distnoted agent,0.1,5963776,0.0,0.0
+1747120932,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3741,1776,script_499.ps1,C:\Users\Public\script_499.ps1,22.99,729931648,,
+1747121356,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1938,1350,malware_349.ps1,C:\Temp\malware_349.ps1,55.3,318295878,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15171,1,destinationd,/System/Library/CoreServices/destinationd,0.0,24592384,0.0,0.0
+1747120421,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3988,1255,setup_475.lnk,C:\Recycle Bin\setup_475.lnk,44.09,571760506,,
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5433,1,AMPArtworkAgent,/System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPArtworkAgent --launchd,0.0,36896768,0.0,0.0
+1747120802,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2120,1818,install_261.ps1,C:\Temp\install_261.ps1,13.05,409652438,,
+1747112960,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,563,1,sirittsd,/System/Library/PrivateFrameworks/SiriTTSService.framework/sirittsd,0.0,9715712,0.0,0.0
+1747122130,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2412,1108,monitor_37.jar,C:\Users\Public\monitor_37.jar,61.12,176024710,,
+1747120328,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4917,3477,kernel_491.scr,C:\AppData\kernel_491.scr,31.99,163769576,,
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,454,1,ScreenTimeAgent,/System/Library/PrivateFrameworks/ScreenTimeCore.framework/Versions/A/ScreenTimeAgent,0.0,29442048,0.0,0.0
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,421,1,UserEventAgent,/usr/libexec/UserEventAgent (Aqua),0.0,22642688,0.0,0.0
+1747121428,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2339,1904,setup_467.hta,C:\ProgramData\setup_467.hta,16.73,710456754,,
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,938,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,6537216,0.0,0.0
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,596,1,askpermissiond,/System/Library/PrivateFrameworks/AskPermission.framework/Versions/A/Resources/askpermissiond,0.0,16171008,0.0,0.0
+1747120272,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3440,2436,service_306.ps1,C:\AppData\service_306.ps1,81.37,128175919,,
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,536,1,suggestd,/System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/suggestd,0.0,102318080,0.0,0.0
+1747113010,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,499,1,fontworker,/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Support/fontworker,0.0,7225344,0.0,0.0
+1747121780,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4712,1587,exploit_430.scr,C:\Users\Public\exploit_430.scr,70.36,621988294,,
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1631,1,com.apple.ColorSyncXPCAgent,/System/Library/Frameworks/ColorSync.framework/Versions/A/XPCServices/com.apple.ColorSyncXPCAgent.xpc/Contents/MacOS/com.apple.ColorSyncXPCAgent,0.0,3506176,0.0,0.0
+1747120641,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1713,644,update_64.ps1,C:\Temp\update_64.ps1,86.67,343201282,,
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,3020,1,BTLEServerAgent,/usr/sbin/BTLEServerAgent,0.0,7176192,0.0,0.0
+1747121330,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2405,1061,task_163.exe,C:\Recycle Bin\task_163.exe,33.14,526753468,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5340,1,AMPLibraryAgent,/System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/Support/AMPLibraryAgent --launchd,0.0,61440000,0.0,0.0
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1557,1,mdwrite,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdwrite,0.0,8552448,0.0,0.0
+1747120271,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1674,214,update_334.ps1,C:\Recycle Bin\update_334.ps1,51.31,636321700,,
+1747119273,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1051,528,script_310.exe,C:\AppData\script_310.exe,67.25,262077459,,
+1747120792,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1185,1046,malware_326.bat,C:\ProgramData\malware_326.bat,17.47,524565094,,
+1747120634,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1151,583,script_1.pif,C:\AppData\script_1.pif,20.65,668371381,,
+1747119002,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4363,1708,svchost_432.dll,C:\AppData\svchost_432.dll,86.09,60366615,,
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16152,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,8978432,0.0,0.0
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,938,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,6537216,0.0,0.0
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,953,1,WardaSynthesizer_x86_64,"/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_x86_64.appex/Contents/MacOS/WardaSynthesizer_x86_64 -AppleLanguages (""en-US"")",0.0,1638400,0.0,0.0
+1747121104,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3504,2232,payload_345.vbs,C:\Temp\payload_345.vbs,29.31,186669589,,
+1747118646,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4874,3534,kernel_251.exe,C:\ProgramData\kernel_251.exe,84.42,482650166,,
+1747120090,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2237,602,setup_290.ps1,C:\Recycle Bin\setup_290.ps1,51.03,85666584,,
+1747119344,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1232,1163,driver_449.jar,C:\AppData\driver_449.jar,19.88,572438942,,
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,580,1,bluetoothuserd,/usr/libexec/bluetoothuserd,0.0,17252352,0.0,0.0
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16123,1,VisualizerService,/System/Applications/Music.app/Contents/XPCServices/VisualizerService.xpc/Contents/MacOS/VisualizerService,0.0,20545536,0.0,0.0
+1747120105,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3918,1930,update_141.bat,C:\Recycle Bin\update_141.bat,60.64,519584893,,
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17825,17823,python3.11,"/Users/jermainebaker/anaconda3/envs/edr-env/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=5, pipe_handle=7) --multiprocessing-fork",0.2,347193344,0.0,0.0
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17990,1,mdworker_shared,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared,0.1,19333120,0.0,0.0
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1297,1,PasswordBreachAgent,/System/Cryptexes/App/usr/libexec/PasswordBreachAgent,0.0,9093120,0.0,0.0
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5378,1,LegacyProfilesSubscriber,/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/LegacyProfilesSubscriber.xpc/Contents/MacOS/LegacyProfilesSubscriber,0.0,5521408,0.0,0.0
+1747119799,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2459,866,update_193.bat,C:\Users\Public\update_193.bat,82.91,414883903,,
+1747122134,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3430,1266,svchost_482.exe,C:\AppData\svchost_482.exe,86.85,540242523,,
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1627,1,searchpartyuseragent,/usr/libexec/searchpartyuseragent,0.1,37978112,0.0,0.0
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,962,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3801088,0.0,0.0
+1747120054,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1070,704,script_462.jar,C:\Users\Public\script_462.jar,32.0,582871279,,
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,602,1,TextInputMenuAgent,/System/Library/CoreServices/TextInputMenuAgent.app/Contents/MacOS/TextInputMenuAgent,0.0,21774336,0.0,0.0
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2897,1,com.apple.photos.ImageConversionService,/System/Library/PrivateFrameworks/MediaConversionService.framework/Versions/A/XPCServices/com.apple.photos.ImageConversionService.xpc/Contents/MacOS/com.apple.photos.ImageConversionService,0.0,15171584,0.0,0.0
+1747121578,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2700,1332,script_282.bat,C:\AppData\script_282.bat,76.16,405028420,,
+1747119048,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2320,388,setup_381.hta,C:\Recycle Bin\setup_381.hta,25.22,135020344,,
+1747119796,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3247,662,install_252.vbs,C:\Temp\install_252.vbs,30.7,446231087,,
+1747119575,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3664,2907,service_223.js,C:\Users\Public\service_223.js,53.4,156806148,,
+1747121575,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3549,1663,script_197.hta,C:\Users\Public\script_197.hta,83.42,247260462,,
+1747121506,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3618,765,svchost_111.pif,C:\Recycle Bin\svchost_111.pif,30.36,329351107,,
+1747121404,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2629,1086,script_484.scr,C:\Temp\script_484.scr,6.35,134733087,,
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2951,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,83771392,0.0,0.0
+1747119468,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4402,1359,kernel_414.hta,C:\ProgramData\kernel_414.hta,68.48,431765807,,
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2895,1,MobileSMSSpotlightImporterCatalyst,"/System/Applications/Messages.app/Contents/PlugIns/MobileSMSSpotlightImporterCatalyst.appex/Contents/MacOS/MobileSMSSpotlightImporterCatalyst -AppleLanguages (""en-US"")",0.0,15253504,0.0,0.0
+1747121780,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3502,391,kernel_374.lnk,C:\ProgramData\kernel_374.lnk,22.06,127715221,,
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,6546,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.2,4643733504,6.0,0.0
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,661,1,findmylocateagent,/usr/libexec/findmylocateagent,0.0,19972096,0.0,0.0
+1747118848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1535,946,config_105.bat,C:\Temp\config_105.bat,78.69,568594950,,
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,662,1,com.apple.appkit.xpc.openAndSavePanelService,/System/Library/Frameworks/AppKit.framework/Versions/C/XPCServices/com.apple.appkit.xpc.openAndSavePanelService.xpc/Contents/MacOS/com.apple.appkit.xpc.openAndSavePanelService,0.0,36487168,0.0,0.0
+1747120449,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1955,387,script_471.bat,C:\Recycle Bin\script_471.bat,43.68,482950828,,
+1747120265,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4249,3373,kernel_354.ps1,C:\AppData\kernel_354.ps1,9.56,704472652,,
+1747118968,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2258,551,monitor_109.exe,C:\Temp\monitor_109.exe,42.88,689882486,,
+1747119676,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2141,1628,svchost_273.vbs,C:\Recycle Bin\svchost_273.vbs,14.49,587709944,,
+1747119838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3838,674,service_74.pif,C:\Recycle Bin\service_74.pif,8.52,244605790,,
+1747112975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,619,1,Spotlight,/System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight,0.0,87867392,0.0,0.0
+1747119718,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1382,748,update_190.dll,C:\ProgramData\update_190.dll,67.71,80366670,,
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,520,1,sharingd,/usr/libexec/sharingd,0.1,38092800,0.0,0.0
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17797,1,mdworker_shared,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared,0.0,21168128,0.0,0.0
+1747119723,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1750,938,malware_302.exe,C:\AppData\malware_302.exe,53.86,519837616,,
+1747121840,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4726,1712,install_31.js,C:\Recycle Bin\install_31.js,13.57,151723321,,
+1747120718,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1837,1823,kernel_452.dll,C:\ProgramData\kernel_452.dll,82.92,457585498,,
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,573,1,translationd,/System/Library/PrivateFrameworks/Translation.framework/translationd,0.0,19300352,0.0,0.0
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,4136,1,com.apple.siri-distributed-evaluation,/System/Library/PrivateFrameworks/DistributedEvaluation.framework/Versions/A/XPCServices/com.apple.siri-distributed-evaluation.xpc/Contents/MacOS/com.apple.siri-distributed-evaluation,0.0,7733248,0.0,0.0
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5380,1,AccountSubscriber,/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/AccountSubscriber.xpc/Contents/MacOS/AccountSubscriber,0.0,12058624,0.0,0.0
+1747119427,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2541,810,task_466.exe,C:\Temp\task_466.exe,77.44,118282040,,
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,479,1,diagnosticextensionsd,/usr/libexec/diagnosticextensionsd,0.0,10747904,0.0,0.0
+1747122144,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3901,2835,malware_63.pif,C:\Users\Public\malware_63.pif,39.95,368821573,,
+1747118938,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1434,583,task_468.lnk,C:\Temp\task_468.lnk,64.67,492433293,,
+1747121876,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3016,2492,system_477.dll,C:\AppData\system_477.dll,12.7,611249903,,
+1747120645,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2425,756,payload_254.vbs,C:\Temp\payload_254.vbs,56.99,78720791,,
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2899,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747118605,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1957,1712,task_415.jar,C:\ProgramData\task_415.jar,84.86,531212121,,
+1747119050,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2339,984,install_375.ps1,C:\Recycle Bin\install_375.ps1,35.87,719779658,,
+1747121677,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1403,1335,monitor_97.scr,C:\Temp\monitor_97.scr,39.49,385711115,,
+1747119901,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1512,572,config_470.bat,C:\Users\Public\config_470.bat,32.47,533178454,,
+1747118993,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3041,2991,driver_346.vbs,C:\ProgramData\driver_346.vbs,25.13,533090010,,
+1747118945,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4085,2502,setup_173.dll,C:\Users\Public\setup_173.dll,48.61,254835129,,
+1747122024,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4772,2285,system_469.bat,C:\Users\Public\system_469.bat,81.62,733608027,,
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16211,1,Appearance,/System/Library/ExtensionKit/Extensions/Appearance.appex/Contents/MacOS/Appearance,0.0,46874624,0.0,0.0
+1747120404,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1805,202,service_232.exe,C:\Temp\service_232.exe,63.59,279323692,,
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,568,1,passd,/System/Library/PrivateFrameworks/PassKitCore.framework/passd,0.0,27377664,0.0,0.0
+1747119182,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1951,973,install_315.bat,C:\ProgramData\install_315.bat,79.96,334506299,,
+1747119133,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3090,2009,driver_263.js,C:\ProgramData\driver_263.js,72.9,218975464,,
+1747119771,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4445,3235,config_278.js,C:\AppData\config_278.js,10.08,351266757,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5372,1,SecuritySubscriber,/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/SecuritySubscriber.xpc/Contents/MacOS/SecuritySubscriber,0.0,6586368,0.0,0.0
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,529,1,neagent,/usr/libexec/neagent,0.0,14123008,0.0,0.0
+1747121863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3481,1836,monitor_219.jar,C:\ProgramData\monitor_219.jar,9.85,259797958,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,571,1,Keychain Circle Notification,/System/Library/CoreServices/Keychain Circle Notification.app/Contents/MacOS/Keychain Circle Notification,0.0,19415040,0.0,0.0
+1747121832,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3080,2085,driver_15.pif,C:\Temp\driver_15.pif,56.24,517043020,,
+1747121921,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4518,677,install_13.bat,C:\ProgramData\install_13.bat,70.36,469822898,,
+1747119698,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3948,1933,exploit_180.pif,C:\Users\Public\exploit_180.pif,64.37,527030074,,
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1235,1,installerauthagent,/System/Library/PrivateFrameworks/IASUtilities.framework/Versions/A/Resources/installerauthagent,0.0,3293184,0.0,0.0
+1747112843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,13388,1,OSDUIHelper,/System/Library/CoreServices/OSDUIHelper.app/Contents/MacOS/OSDUIHelper,0.0,21905408,0.0,0.0
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1111,1,loginitemregisterd,/usr/libexec/loginitemregisterd,0.0,4997120,0.0,0.0
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5384,1,ASConfigurationSubscriber,/System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/ASConfigurationSubscriber.xpc/Contents/MacOS/ASConfigurationSubscriber,0.0,9699328,0.0,0.0
+1747119263,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4292,88,payload_447.js,C:\Users\Public\payload_447.js,63.04,486748470,,
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1127,1,SoftwareUpdateNotificationManager,/System/Library/PrivateFrameworks/SoftwareUpdate.framework/Resources/SoftwareUpdateNotificationManager.app/Contents/MacOS/SoftwareUpdateNotificationManager,0.0,22003712,0.0,0.0
+1747121661,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4643,2136,exploit_392.vbs,C:\ProgramData\exploit_392.vbs,69.79,231383645,,
+1747119453,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2290,1044,script_340.js,C:\Recycle Bin\script_340.js,25.88,681993355,,
+1747112818,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5344,1,IMAutomaticHistoryDeletionAgent,/System/Library/PrivateFrameworks/IMDPersistence.framework/IMAutomaticHistoryDeletionAgent.app/Contents/MacOS/IMAutomaticHistoryDeletionAgent,0.0,14434304,0.0,0.0
+1747120223,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2738,1552,update_325.dll,C:\Users\Public\update_325.dll,63.92,166556842,,
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,684,1,XProtectPluginService,/Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService,0.0,8683520,0.0,0.0
+1747119034,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1598,21,config_46.exe,C:\Temp\config_46.exe,37.38,585997333,,
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,549,1,assistant_cdmd,/System/Library/PrivateFrameworks/ContinuousDialogManagerService.framework/assistant_cdmd,0.0,12107776,0.0,0.0
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17951,1,com.apple.iCloudHelper,/System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/XPCServices/com.apple.iCloudHelper.xpc/Contents/MacOS/com.apple.iCloudHelper,0.0,12451840,0.0,0.0
+1747121823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4286,2082,system_456.exe,C:\Recycle Bin\system_456.exe,10.84,88210496,,
+1747120136,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3296,2778,setup_165.pif,C:\Users\Public\setup_165.pif,40.59,391614148,,
+1747118848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2327,1663,service_217.lnk,C:\Users\Public\service_217.lnk,36.33,126297515,,
+1747121817,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4223,939,payload_317.jar,C:\ProgramData\payload_317.jar,11.38,441985999,,
+1747120517,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2310,483,update_330.dll,C:\Temp\update_330.dll,15.32,380515178,,
+1747112960,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,453,1,dmd,/usr/libexec/dmd,0.0,15122432,0.0,0.0
+1747121651,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1223,154,svchost_204.bat,C:\AppData\svchost_204.bat,78.37,66278081,,
+1747112985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1635,1,recentsd,/System/Library/PrivateFrameworks/CoreRecents.framework/Versions/A/Support/recentsd,0.0,15187968,0.0,0.0
+1747119725,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2083,123,malware_8.scr,C:\Recycle Bin\malware_8.scr,31.25,173947223,,
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,954,1,WardaSynthesizer_arm64,"/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_arm64.appex/Contents/MacOS/WardaSynthesizer_arm64 -AppleLanguages (""en-US"")",0.0,7159808,0.0,0.0
+1747121592,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2775,316,driver_308.jar,C:\Temp\driver_308.jar,15.28,61024347,,
+1747119472,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1519,1121,task_396.jar,C:\Temp\task_396.jar,26.85,588485602,,
+1747119662,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2180,1595,setup_144.pif,C:\Temp\setup_144.pif,84.67,401757149,,
+1747120584,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2946,2734,task_311.scr,C:\AppData\task_311.scr,57.19,223874508,,
+1747121042,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1561,725,svchost_82.scr,C:\AppData\svchost_82.scr,73.75,290887779,,
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,967,1,com.apple.SiriTTSService.TrialProxy,/System/Library/PrivateFrameworks/SiriTTSService.framework/Versions/A/XPCServices/com.apple.SiriTTSService.TrialProxy.xpc/Contents/MacOS/com.apple.SiriTTSService.TrialProxy,0.0,6340608,0.0,0.0
+1747112899,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,970,930,Code Helper,"/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --user-data-dir=/Users/jermainebaker/Library/Application Support/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --bypasscsp-schemes --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --streaming-schemes --shared-files --field-trial-handle=1718379636,r,1996932021323151898,3353136425956139680,131072 --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess",0.0,37322752,0.0,0.0
+1747120064,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1070,682,service_249.vbs,C:\Recycle Bin\service_249.vbs,85.31,515817382,,
+1747121165,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4176,2552,malware_433.hta,C:\ProgramData\malware_433.hta,65.87,554487869,,
+1747119653,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1151,1079,driver_264.vbs,C:\ProgramData\driver_264.vbs,26.36,443029200,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,569,1,mediaremoteagent,/System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoteagent,0.0,7356416,0.0,0.0
+1747121743,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4995,1441,service_57.ps1,C:\ProgramData\service_57.ps1,37.9,296982667,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,921,1,promotedcontentd,/usr/libexec/promotedcontentd,0.0,21889024,0.0,0.0
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,9085,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,3440640,0.0,0.0
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,524,1,SafariBookmarksSyncAgent,/System/Cryptexes/App/System/Library/CoreServices/SafariSupport.bundle/Contents/MacOS/SafariBookmarksSyncAgent,0.0,23543808,0.0,0.0
+1747119571,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4572,1318,driver_364.scr,C:\Temp\driver_364.scr,69.07,372162151,,
+1747121029,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2439,2149,update_202.scr,C:\Users\Public\update_202.scr,58.98,709170043,,
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,701,1,spindump_agent,/usr/libexec/spindump_agent,0.0,4997120,0.0,0.0
+1747121498,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4552,3693,service_459.scr,C:\Users\Public\service_459.scr,23.22,165091349,,
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1089,986,Code Helper (Plugin),/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /Users/jermainebaker/.vscode/extensions/bradlc.vscode-tailwindcss-0.14.16/dist/tailwindServer.js --node-ipc --clientProcessId=986,0.0,49856512,5.0,0.0
+1747121401,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3512,2678,update_203.jar,C:\Users\Public\update_203.jar,43.09,220777077,,
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5457,1,com.apple.mlhost.CloudWorker,/System/Library/ExtensionKit/Extensions/com.apple.mlhost.CloudWorker.appex/Contents/MacOS/com.apple.mlhost.CloudWorker,0.0,8224768,0.0,0.0
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,476,1,accountsd,/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd,0.0,56901632,0.0,0.0
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,567,1,IMDPersistenceAgent,/System/Library/PrivateFrameworks/IMDPersistence.framework/XPCServices/IMDPersistenceAgent.xpc/Contents/MacOS/IMDPersistenceAgent,0.0,63799296,0.0,0.0
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1324,1,AppleSpell,/System/Library/Services/AppleSpell.service/Contents/MacOS/AppleSpell,0.1,248872960,0.0,0.0
+1747112914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,968,1,com.apple.SiriTTSService.TrialProxy,/System/Library/PrivateFrameworks/SiriTTSService.framework/Versions/A/XPCServices/com.apple.SiriTTSService.TrialProxy.xpc/Contents/MacOS/com.apple.SiriTTSService.TrialProxy,0.0,6651904,0.0,0.0
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,494,1,appleaccountd,/usr/libexec/appleaccountd,0.0,16957440,0.0,0.0
+1747122002,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3350,955,malware_32.vbs,C:\Users\Public\malware_32.vbs,68.91,279843823,,
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17761,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.0,72597504,0.0,0.0
+1747121465,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2150,1882,monitor_9.js,C:\Recycle Bin\monitor_9.js,68.77,394772564,,
+1747121569,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4762,985,exploit_395.js,C:\Users\Public\exploit_395.js,66.99,142902669,,
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2896,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747118880,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1856,1679,kernel_231.scr,C:\ProgramData\kernel_231.scr,16.69,707563913,,
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,474,1,identityservicesd,/System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd,0.0,51347456,0.0,0.0
+1747121885,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3403,1492,setup_304.jar,C:\Recycle Bin\setup_304.jar,7.32,686163788,,
+1747119983,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2627,1840,task_324.js,C:\AppData\task_324.js,89.05,674074285,,
+1747120358,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4848,2356,update_417.lnk,C:\ProgramData\update_417.lnk,81.54,147365574,,
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,553,1,webprivacyd,/System/Library/PrivateFrameworks/WebPrivacy.framework/webprivacyd,0.0,13565952,0.0,0.0
+1747121738,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,5000,1516,task_235.exe,C:\AppData\task_235.exe,61.07,207827820,,
+1747121087,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2854,511,update_419.dll,C:\Users\Public\update_419.dll,85.5,243723402,,
+1747119221,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2086,1536,update_403.exe,C:\AppData\update_403.exe,23.3,618093637,,
+1747120148,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3671,642,system_422.jar,C:\Temp\system_422.jar,32.53,499784788,,
+1747119012,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4427,2359,malware_218.jar,C:\AppData\malware_218.jar,30.93,132931270,,
+1747120631,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1194,145,service_352.pif,C:\ProgramData\service_352.pif,9.72,381669067,,
+1747122123,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3838,1601,update_283.exe,C:\Temp\update_283.exe,48.47,463754245,,
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,457,1,chronod,/System/Library/PrivateFrameworks/ChronoCore.framework/Support/chronod,0.0,46120960,0.0,0.0
+1747121190,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2733,1723,kernel_472.exe,C:\Recycle Bin\kernel_472.exe,26.5,726174950,,
+1747121224,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3453,3434,system_103.pif,C:\Temp\system_103.pif,13.2,704082004,,
+1747112965,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,486,1,pkd,/usr/libexec/pkd,0.0,15351808,0.0,0.0
+1747118642,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3161,714,svchost_338.scr,C:\Temp\svchost_338.scr,34.62,436259255,,
+1747119839,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1802,873,driver_35.lnk,C:\Recycle Bin\driver_35.lnk,63.22,366531588,,
+1747121255,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2741,2002,task_90.exe,C:\Recycle Bin\task_90.exe,13.48,155062244,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,961,1,voicebankingd,/System/Library/PrivateFrameworks/TextToSpeechVoiceBankingSupport.framework/Support/voicebankingd,0.0,17186816,0.0,0.0
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,18045,1,mdworker_shared,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared,0.0,26361856,0.0,0.0
+1747120923,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3232,1314,kernel_380.pif,C:\AppData\kernel_380.pif,25.56,60731144,,
+1747120456,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2729,2345,kernel_201.ps1,C:\Users\Public\kernel_201.ps1,50.75,581768060,,
+1747119281,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4947,1252,setup_265.js,C:\AppData\setup_265.js,52.93,592539551,,
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,460,1,linkd,/usr/libexec/linkd,0.0,17170432,0.0,0.0
+1747119308,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2935,1020,task_481.dll,C:\ProgramData\task_481.dll,64.17,516742606,,
+1747121582,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4405,831,task_356.pif,C:\Temp\task_356.pif,82.08,472259389,,
+1747112944,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1635,1,recentsd,/System/Library/PrivateFrameworks/CoreRecents.framework/Versions/A/Support/recentsd,0.0,15187968,0.0,0.0
+1747119970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1938,1599,svchost_305.js,C:\Temp\svchost_305.js,31.95,543475207,,
+1747119914,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1503,1245,setup_270.jar,C:\Users\Public\setup_270.jar,12.86,597496036,,
+1747112995,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,649,1,StocksWidget,/System/Applications/Stocks.app/Contents/PlugIns/StocksWidget.appex/Contents/MacOS/StocksWidget,0.0,33783808,0.0,0.0
+1747121305,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4613,2380,service_242.hta,C:\ProgramData\service_242.hta,50.39,344218800,,
+1747118619,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3688,1723,system_4.vbs,C:\Temp\system_4.vbs,10.1,556908002,,
+1747119640,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3059,713,payload_405.bat,C:\AppData\payload_405.bat,28.4,85106503,,
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,429,1,ContinuityCaptureAgent,/usr/libexec/ContinuityCaptureAgent server,0.0,17956864,0.0,0.0
+1747112960,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,427,1,com.apple.sbd,/System/Library/PrivateFrameworks/CloudServices.framework/Helpers/com.apple.sbd,0.0,13516800,0.0,0.0
+1747120283,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4176,3819,exploit_221.pif,C:\Recycle Bin\exploit_221.pif,10.14,71657444,,
+1747122152,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4272,2373,svchost_226.ps1,C:\Recycle Bin\svchost_226.ps1,19.35,97025115,,
+1747112975,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,8234,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,2179072,0.0,0.0
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,617,1,com.apple.Safari.SandboxBroker,/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.SandboxBroker.xpc/Contents/MacOS/com.apple.Safari.SandboxBroker,0.0,25886720,0.0,0.0
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,456,1,networkserviceproxy,/usr/libexec/networkserviceproxy,0.0,27197440,0.0,0.0
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,634,1,com.apple.WebKit.GPU,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU,4.2,220299264,0.0,0.0
+1747120671,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2906,1122,script_497.pif,C:\AppData\script_497.pif,43.15,172836011,,
+1747119871,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3441,1040,install_331.vbs,C:\Temp\install_331.vbs,5.04,463216494,,
+1747120870,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1352,878,payload_66.dll,C:\Temp\payload_66.dll,67.31,502182568,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,447,1,usernoted,/usr/sbin/usernoted,0.0,27328512,0.0,0.0
+1747118905,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2608,982,system_99.exe,C:\Temp\system_99.exe,77.89,650832757,,
+1747121340,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2249,2151,malware_233.jar,C:\ProgramData\malware_233.jar,35.77,464305750,,
+1747121671,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4476,4429,kernel_487.scr,C:\Users\Public\kernel_487.scr,30.19,549310229,,
+1747119983,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1774,835,setup_431.lnk,C:\ProgramData\setup_431.lnk,66.21,362450409,,
+1747118806,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4613,3723,update_410.dll,C:\Users\Public\update_410.dll,85.75,662733701,,
+1747120782,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4989,2240,system_213.lnk,C:\Users\Public\system_213.lnk,86.43,204995969,,
+1747122195,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2266,1835,install_442.exe,C:\AppData\install_442.exe,27.92,216910324,,
+1747121625,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3963,1290,config_239.pif,C:\ProgramData\config_239.pif,80.16,308318074,,
+1747119685,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2176,316,setup_359.scr,C:\Users\Public\setup_359.scr,84.04,262205022,,
+1747119502,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4518,3113,exploit_150.lnk,C:\AppData\exploit_150.lnk,29.51,635877368,,
+1747119006,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3158,1455,monitor_458.dll,C:\Recycle Bin\monitor_458.dll,3.13,392130520,,
+1747119659,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1266,636,exploit_171.ps1,C:\ProgramData\exploit_171.ps1,51.64,723592538,,
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,14222,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,0.0,188628992,0.0,0.0
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,701,1,spindump_agent,/usr/libexec/spindump_agent,0.0,4997120,0.0,0.0
+1747120020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3313,968,config_292.hta,C:\Users\Public\config_292.hta,27.8,733941000,,
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16122,1,VisualizerService_x86,/System/Applications/Music.app/Contents/XPCServices/VisualizerService_x86.xpc/Contents/MacOS/VisualizerService_x86,0.0,8949760,0.0,0.0
+1747118942,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2496,741,malware_118.scr,C:\Temp\malware_118.scr,17.24,586429160,,
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,568,1,passd,/System/Library/PrivateFrameworks/PassKitCore.framework/passd,0.0,26558464,0.0,0.0
+1747118870,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1436,741,monitor_134.scr,C:\Temp\monitor_134.scr,55.06,338792711,,
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1235,1,installerauthagent,/System/Library/PrivateFrameworks/IASUtilities.framework/Versions/A/Resources/installerauthagent,0.0,3293184,0.0,0.0
+1747120123,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2723,1544,system_248.scr,C:\Recycle Bin\system_248.scr,21.28,603200256,,
+1747119242,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2317,576,config_368.js,C:\Users\Public\config_368.js,60.74,279077628,,
+1747119718,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1929,600,system_360.exe,C:\Users\Public\system_360.exe,60.08,132478780,,
+1747118882,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3034,259,install_446.scr,C:\Recycle Bin\install_446.scr,53.8,412067772,,
+1747120361,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4788,306,malware_327.hta,C:\AppData\malware_327.hta,6.4,442049730,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1111,1,loginitemregisterd,/usr/libexec/loginitemregisterd,0.0,4997120,0.0,0.0
+1747119774,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3604,526,script_157.exe,C:\AppData\script_157.exe,13.69,643184844,,
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,535,1,sociallayerd,/System/Library/PrivateFrameworks/SocialLayer.framework/sociallayerd.app/Contents/MacOS/sociallayerd,0.0,15269888,0.0,0.0
+1747118932,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1435,302,payload_336.hta,C:\ProgramData\payload_336.hta,13.67,221889017,,
+1747121315,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3722,1241,svchost_168.ps1,C:\ProgramData\svchost_168.ps1,15.52,226397911,,
+1747121520,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1515,943,driver_284.ps1,C:\ProgramData\driver_284.ps1,17.85,465057386,,
+1747118654,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4070,3231,driver_54.lnk,C:\ProgramData\driver_54.lnk,27.55,444874918,,
+1747119558,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2320,2301,malware_147.hta,C:\Recycle Bin\malware_147.hta,46.59,583643639,,
+1747119789,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3386,1826,kernel_386.js,C:\ProgramData\kernel_386.js,57.95,620628124,,
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,534,1,replayd,/usr/libexec/replayd,0.0,13156352,0.0,0.0
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1325,1,naturallanguaged,/usr/libexec/naturallanguaged,0.0,36028416,0.0,0.0
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,548,1,imagent,/System/Library/PrivateFrameworks/IMCore.framework/imagent.app/Contents/MacOS/imagent,0.0,36798464,0.0,0.0
+1747118719,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1605,1145,task_361.bat,C:\Temp\task_361.bat,32.37,111394340,,
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,648,1,WeatherWidget,/System/Applications/Weather.app/Contents/PlugIns/WeatherWidget.appex/Contents/MacOS/WeatherWidget,0.0,28672000,0.0,0.0
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,565,1,UIKitSystem,/System/Library/CoreServices/UIKitSystem.app/Contents/MacOS/UIKitSystem system_app_start,0.0,33062912,0.0,0.0
+1747121998,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2251,1322,exploit_236.dll,C:\AppData\exploit_236.dll,77.77,114267190,,
+1747121098,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1194,561,svchost_404.hta,C:\ProgramData\svchost_404.hta,45.3,143424350,,
+1747119985,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2168,1783,system_206.pif,C:\Recycle Bin\system_206.pif,52.35,144038892,,
+1747121990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2899,1297,install_332.js,C:\Temp\install_332.js,9.58,217824725,,
+1747119799,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2259,299,config_140.lnk,C:\ProgramData\config_140.lnk,34.81,486650399,,
+1747120083,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1141,929,update_319.lnk,C:\Users\Public\update_319.lnk,34.48,276105518,,
+1747121020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3439,1113,malware_277.hta,C:\ProgramData\malware_277.hta,62.43,528902624,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,623,1,amsengagementd,/System/Library/PrivateFrameworks/AppleMediaServicesUI.framework/amsengagementd,0.0,34947072,0.0,0.0
+1747119893,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3989,2927,svchost_321.bat,C:\AppData\svchost_321.bat,77.76,231049789,,
+1747120904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2830,1433,install_167.js,C:\Recycle Bin\install_167.js,84.75,150046311,,
+1747121909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4800,3284,config_0.js,C:\AppData\config_0.js,74.48,228129248,,
+1747121938,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3083,433,system_96.ps1,C:\Users\Public\system_96.ps1,45.88,651495476,,
+1747112838,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,534,1,replayd,/usr/libexec/replayd,0.0,13156352,0.0,0.0
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,13388,1,OSDUIHelper,/System/Library/CoreServices/OSDUIHelper.app/Contents/MacOS/OSDUIHelper,0.0,21905408,0.0,0.0
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,440,1,trustd,/usr/libexec/trustd --agent,0.0,23183360,0.0,0.0
+1747112889,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,461,1,mobiletimerd,/System/Library/PrivateFrameworks/MobileTimer.framework/Executables/mobiletimerd,0.0,11010048,0.0,0.0
+1747112828,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16129,1,GroupSessionService,/System/Library/Frameworks/GroupActivities.framework/Versions/A/XPCServices/GroupSessionService.xpc/Contents/MacOS/GroupSessionService,0.0,18071552,0.0,0.0
+1747119430,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1451,1136,driver_388.vbs,C:\Temp\driver_388.vbs,63.9,74801601,,
+1747112939,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1297,1,PasswordBreachAgent,/System/Cryptexes/App/usr/libexec/PasswordBreachAgent,0.0,9093120,0.0,0.0
+1747119018,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2331,726,system_83.js,C:\AppData\system_83.js,46.9,311099464,,
+1747121170,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4527,929,update_366.vbs,C:\AppData\update_366.vbs,36.08,391046076,,
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,959,1,MauiAUSP,"/System/Library/PrivateFrameworks/TextToSpeechMauiSupport.framework/Versions/A/PlugIns/MauiAUSP.appex/Contents/MacOS/MauiAUSP -AppleLanguages (""en-US"")",0.0,10584064,0.0,0.0
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,657,1,ScreenTimeWidgetExtension,/System/Library/CoreServices/Screen Time.app/Contents/PlugIns/ScreenTimeWidgetExtension.appex/Contents/MacOS/ScreenTimeWidgetExtension,0.0,54280192,0.0,0.0
+1747121614,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2810,548,payload_12.lnk,C:\ProgramData\payload_12.lnk,25.23,413690029,,
+1747119295,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4882,1066,svchost_268.bat,C:\Recycle Bin\svchost_268.bat,34.39,154177413,,
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,425,1,knowledge-agent,/usr/libexec/knowledge-agent,0.0,38502400,0.0,0.0
+1747121381,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3808,2579,malware_186.ps1,C:\AppData\malware_186.ps1,12.07,441484560,,
+1747121373,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2877,1672,svchost_92.bat,C:\Users\Public\svchost_92.bat,57.58,101074074,,
+1747112894,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16150,1,extensionkitservice,/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice,0.0,8028160,0.0,0.0
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,14315,14299,node,node /Users/jermainebaker/EDR-platform/dashboard/node_modules/.bin/vite,0.0,132284416,0.0,0.0
+1747119322,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1902,1831,setup_65.ps1,C:\ProgramData\setup_65.ps1,59.44,266987971,,
+1747119195,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3325,1135,exploit_241.lnk,C:\AppData\exploit_241.lnk,39.62,262839249,,
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,652,1,WiFiVelocityAgent,/usr/libexec/WiFiVelocityAgent,0.0,4030464,0.0,0.0
+1747121154,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2466,1276,setup_476.vbs,C:\AppData\setup_476.vbs,8.85,269510059,,
+1747119614,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4372,1731,driver_114.dll,C:\Users\Public\driver_114.dll,32.5,484836670,,
+1747112848,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,14316,14315,esbuild,/Users/jermainebaker/EDR-platform/dashboard/node_modules/@esbuild/darwin-arm64/bin/esbuild --service=0.25.2 --ping,0.1,18759680,0.0,0.0
+1747112818,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,474,1,identityservicesd,/System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd,0.0,49332224,0.0,0.0
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16151,1,UtilityExtension_catalyst,/System/iOSSupport/System/Library/PrivateFrameworks/AppleMediaServicesUI.framework/PlugIns/UtilityExtension_catalyst.appex/Contents/MacOS/UtilityExtension_catalyst,0.0,33685504,0.0,0.0
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5337,1,devicecheckd,/System/Library/PrivateFrameworks/DeviceCheckInternal.framework/devicecheckd,0.0,4177920,0.0,0.0
+1747121115,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2240,1981,monitor_86.hta,C:\AppData\monitor_86.hta,65.55,320057640,,
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,426,1,CoreServicesUIAgent,/System/Library/CoreServices/CoreServicesUIAgent.app/Contents/MacOS/CoreServicesUIAgent,0.0,20938752,0.0,0.0
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,605,1,amsaccountsd,/System/Library/PrivateFrameworks/AppleMediaServices.framework/Resources/amsaccountsd,0.0,22167552,0.0,0.0
+1747119324,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1605,786,update_357.js,C:\Recycle Bin\update_357.js,29.7,492841570,,
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17933,1,steam_osx,/Users/jermainebaker/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/steam_osx -skipinitialbootstrap,1.0,85979136,0.0,0.0
+1747121684,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2538,1111,malware_385.vbs,C:\Recycle Bin\malware_385.vbs,13.44,409741465,,
+1747112843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2521,1,com.apple.CloudPhotosConfiguration,/System/Library/PrivateFrameworks/CloudPhotoServices.framework/Versions/A/XPCServices/com.apple.CloudPhotosConfiguration.xpc/Contents/MacOS/com.apple.CloudPhotosConfiguration,0.0,17580032,0.0,0.0
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,624,1,com.apple.siri.embeddedspeech,/System/Library/PrivateFrameworks/CoreEmbeddedSpeechRecognition.framework/Versions/A/XPCServices/com.apple.siri.embeddedspeech.xpc/Contents/MacOS/com.apple.siri.embeddedspeech,0.0,11878400,0.0,0.0
+1747122013,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2434,969,svchost_342.vbs,C:\Users\Public\svchost_342.vbs,50.96,229910090,,
+1747119560,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1222,698,install_313.bat,C:\Temp\install_313.bat,12.28,468181954,,
+1747120013,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4176,429,service_318.dll,C:\Users\Public\service_318.dll,35.26,152618574,,
+1747112980,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,523,1,TrustedPeersHelper,/System/Library/Frameworks/Security.framework/Versions/A/XPCServices/TrustedPeersHelper.xpc/Contents/MacOS/TrustedPeersHelper,0.0,14745600,0.0,0.0
+1747120106,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3901,335,update_295.dll,C:\AppData\update_295.dll,49.68,63095847,,
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1089,986,Code Helper (Plugin),/private/var/folders/1g/wqnrzxcn43z2sgcvgbtwy28r0000gn/T/AppTranslocation/8A9296ED-5E59-48DB-8C5E-73613FABA55F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) --ms-enable-electron-run-as-node /Users/jermainebaker/.vscode/extensions/bradlc.vscode-tailwindcss-0.14.16/dist/tailwindServer.js --node-ipc --clientProcessId=986,0.0,49872896,5.0,0.0
+1747120323,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3439,2333,payload_320.dll,C:\Users\Public\payload_320.dll,82.48,348372853,,
+1747120890,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1696,1125,script_55.vbs,C:\AppData\script_55.vbs,41.41,129090334,,
+1747121413,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3427,273,setup_49.vbs,C:\ProgramData\setup_49.vbs,46.99,668746450,,
+1747120186,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2536,367,setup_496.jar,C:\AppData\setup_496.jar,26.29,274085476,,
+1747112965,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,649,1,StocksWidget,/System/Applications/Stocks.app/Contents/PlugIns/StocksWidget.appex/Contents/MacOS/StocksWidget,0.0,33783808,0.0,0.0
+1747112924,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,18009,1,mdworker_shared,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared -s mdworker -c MDSImporterWorker -m com.apple.mdworker.shared,0.0,16269312,0.0,0.0
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,565,1,UIKitSystem,/System/Library/CoreServices/UIKitSystem.app/Contents/MacOS/UIKitSystem system_app_start,0.0,33193984,0.0,0.0
+1747121849,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1368,1349,install_149.scr,C:\Recycle Bin\install_149.scr,8.26,353911885,,
+1747119288,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2994,1046,monitor_323.bat,C:\Users\Public\monitor_323.bat,87.35,394987366,,
+1747113036,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,641,1,SafariNotificationAgent,/System/Cryptexes/App/usr/libexec/SafariNotificationAgent,0.0,10633216,0.0,0.0
+1747121299,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1212,185,monitor_296.scr,C:\ProgramData\monitor_296.scr,59.1,301638187,,
+1747120808,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4242,2847,payload_70.bat,C:\ProgramData\payload_70.bat,35.99,82421901,,
+1747121115,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1922,951,service_365.exe,C:\ProgramData\service_365.exe,40.76,407065479,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2532,1,com.apple.BKAgentService,/System/Library/PrivateFrameworks/BookKit.framework/Versions/A/XPCServices/com.apple.BKAgentService.xpc/Contents/MacOS/com.apple.BKAgentService,0.0,9273344,0.0,0.0
+1747120266,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2132,999,setup_159.vbs,C:\Recycle Bin\setup_159.vbs,71.27,618026408,,
+1747113031,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1278,1,extensionkitservice,/System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice,0.0,6012928,0.0,0.0
+1747112813,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,528,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,7307264,0.0,0.0
+1747120064,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3339,2947,svchost_439.lnk,C:\AppData\svchost_439.lnk,87.48,606404591,,
+1747119593,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4592,3707,config_155.bat,C:\Users\Public\config_155.bat,69.6,281163864,,
+1747112858,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5573,1,mapssyncd,/System/Library/PrivateFrameworks/MapsSync.framework/mapssyncd,0.0,17940480,0.0,0.0
+1747112929,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,473,1,syncdefaultsd,/System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd,0.2,20561920,0.0,0.0
+1747112833,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,953,1,WardaSynthesizer_x86_64,"/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_x86_64.appex/Contents/MacOS/WardaSynthesizer_x86_64 -AppleLanguages (""en-US"")",0.0,1638400,0.0,0.0
+1747120249,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4518,262,task_369.pif,C:\Recycle Bin\task_369.pif,85.25,467534179,,
+1747119738,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1116,50,malware_102.dll,C:\Users\Public\malware_102.dll,61.96,338678985,,
+1747120849,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3835,3586,script_21.bat,C:\Recycle Bin\script_21.bat,44.04,176520906,,
+1747120507,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4726,2434,system_48.jar,C:\ProgramData\system_48.jar,85.55,117458800,,
+1747113015,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,634,1,com.apple.WebKit.GPU,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU,0.2,215318528,0.0,0.0
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,441,1,gamecontrolleragentd,/usr/libexec/gamecontrolleragentd,0.0,7618560,0.0,0.0
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,954,1,WardaSynthesizer_arm64,"/System/Library/PrivateFrameworks/MacinTalk.framework/Versions/A/PlugIns/WardaSynthesizer_arm64.appex/Contents/MacOS/WardaSynthesizer_arm64 -AppleLanguages (""en-US"")",0.0,7159808,0.0,0.0
+1747121869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1998,154,task_158.scr,C:\ProgramData\task_158.scr,77.87,380962785,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,741,1,CursorUIViewService,/System/Library/PrivateFrameworks/TextInputUIMacHelper.framework/Versions/A/XPCServices/CursorUIViewService.xpc/Contents/MacOS/CursorUIViewService,0.0,28770304,0.0,0.0
+1747121002,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1361,838,kernel_370.js,C:\Recycle Bin\kernel_370.js,17.59,392955081,,
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,958,1,KonaSynthesizer,"/System/Library/PrivateFrameworks/TextToSpeechKonaSupport.framework/Versions/A/PlugIns/KonaSynthesizer.appex/Contents/MacOS/KonaSynthesizer -AppleLanguages (""en-US"")",0.0,9666560,0.0,0.0
+1747112818,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15254,1,avatarsd,/System/Library/PrivateFrameworks/AvatarPersistence.framework/Support/avatarsd,0.0,28327936,0.0,0.0
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1144,966,zsh,/bin/zsh -il,0.0,3391488,0.0,0.0
+1747121456,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2756,562,svchost_194.ps1,C:\ProgramData\svchost_194.ps1,59.14,617927895,,
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,471,1,fileproviderd,/System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd,0.1,33243136,0.0,0.0
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16096,1,MTLCompilerService,/System/Library/Frameworks/Metal.framework/Versions/A/XPCServices/MTLCompilerService.xpc/Contents/MacOS/MTLCompilerService,0.0,14254080,0.0,0.0
+1747112909,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1297,1,PasswordBreachAgent,/System/Cryptexes/App/usr/libexec/PasswordBreachAgent,0.0,9093120,0.0,0.0
+1747119090,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1015,334,update_434.bat,C:\Users\Public\update_434.bat,27.81,422567596,,
+1747121246,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3071,1191,service_492.dll,C:\ProgramData\service_492.dll,55.56,468176807,,
+1747118802,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3438,2466,payload_240.scr,C:\Users\Public\payload_240.scr,59.54,486464366,,
+1747119866,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4501,1173,kernel_412.jar,C:\AppData\kernel_412.jar,87.68,476324072,,
+1747119843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1393,950,exploit_78.bat,C:\Users\Public\exploit_78.bat,34.12,221044066,,
+1747122127,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4923,3228,script_480.hta,C:\Temp\script_480.hta,77.87,201695775,,
+1747121413,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3112,1757,system_98.ps1,C:\AppData\system_98.ps1,85.32,224860536,,
+1747119599,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3610,2910,exploit_425.ps1,C:\AppData\exploit_425.ps1,14.26,728406362,,
+1747112949,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,589,1,axassetsd,/System/Library/PrivateFrameworks/AXAssetLoader.framework/Support/axassetsd,0.0,23085056,0.0,0.0
+1747121645,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4189,2745,kernel_160.scr,C:\Users\Public\kernel_160.scr,28.42,418160594,,
+1747119886,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2008,1113,kernel_156.vbs,C:\Users\Public\kernel_156.vbs,2.82,234929084,,
+1747119492,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1534,1264,system_280.scr,C:\ProgramData\system_280.scr,1.7,370000352,,
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,599,1,AirPlayUIAgent,/System/Library/CoreServices/AirPlayUIAgent.app/Contents/MacOS/AirPlayUIAgent --launchd,0.0,18153472,0.0,0.0
+1747118751,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1130,708,malware_376.jar,C:\Recycle Bin\malware_376.jar,11.84,727288588,,
+1747118711,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4881,3288,malware_293.exe,C:\Temp\malware_293.exe,76.48,360318520,,
+1747121968,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1880,656,update_69.jar,C:\ProgramData\update_69.jar,89.96,517934602,,
+1747121580,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3886,3643,svchost_275.vbs,C:\Users\Public\svchost_275.vbs,17.38,667929868,,
+1747118786,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2268,1217,payload_104.vbs,C:\AppData\payload_104.vbs,85.77,662578805,,
+1747112843,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,4136,1,com.apple.siri-distributed-evaluation,/System/Library/PrivateFrameworks/DistributedEvaluation.framework/Versions/A/XPCServices/com.apple.siri-distributed-evaluation.xpc/Contents/MacOS/com.apple.siri-distributed-evaluation,0.0,7733248,0.0,0.0
+1747120576,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2002,315,exploit_68.js,C:\Temp\exploit_68.js,75.99,677264883,,
+1747121459,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3819,758,update_154.dll,C:\Recycle Bin\update_154.dll,84.09,640564707,,
+1747121209,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1365,1115,payload_450.vbs,C:\Users\Public\payload_450.vbs,4.67,258210360,,
+1747120159,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2596,813,service_341.exe,C:\AppData\service_341.exe,89.72,562832573,,
+1747112954,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,4754,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,2080768,0.0,0.0
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,16214,1,HeadphoneSettingsExtension,/System/Library/ExtensionKit/Extensions/HeadphoneSettingsExtension.appex/Contents/MacOS/HeadphoneSettingsExtension,0.0,28000256,0.0,0.0
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,17916,1,PlugInLibraryService,/System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService,0.0,3620864,0.0,0.0
+1747120688,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1945,768,payload_53.exe,C:\Users\Public\payload_53.exe,52.05,143522322,,
+1747112904,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,4856,1,com.apple.audio.SandboxHelper,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper,0.0,3817472,0.0,0.0
+1747112970,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,523,1,TrustedPeersHelper,/System/Library/Frameworks/Security.framework/Versions/A/XPCServices/TrustedPeersHelper.xpc/Contents/MacOS/TrustedPeersHelper,0.0,14745600,0.0,0.0
+1747112919,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,1279,1,CalendarFocusConfigurationExtension,/System/Applications/Calendar.app/Contents/Extensions/CalendarFocusConfigurationExtension.appex/Contents/MacOS/CalendarFocusConfigurationExtension,0.0,11649024,0.0,0.0
+1747113025,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,544,1,StatusKitAgent,/System/Library/PrivateFrameworks/StatusKit.framework/StatusKitAgent,0.0,24641536,0.0,0.0
+1747120041,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1049,508,system_399.exe,C:\Recycle Bin\system_399.exe,10.33,447192151,,
+1747122144,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4357,2635,payload_7.scr,C:\Temp\payload_7.scr,38.55,317404598,,
+1747119417,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1653,537,script_85.dll,C:\Temp\script_85.dll,55.17,216765353,,
+1747113005,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,6546,1,com.apple.WebKit.WebContent,/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent,81.4,4651433984,14.0,0.0
+1747121269,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4728,3689,script_363.lnk,C:\Users\Public\script_363.lnk,21.71,532941083,,
+1747112990,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,15200,1,storeuid,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeuid.app/Contents/MacOS/storeuid,0.0,21692416,0.0,0.0
+1747119592,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4970,3135,install_255.hta,C:\Users\Public\install_255.hta,13.48,612670296,,
+1747112884,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,473,1,syncdefaultsd,/System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd,0.0,20250624,0.0,0.0
+1747118631,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,4092,3309,task_257.scr,C:\Temp\task_257.scr,64.67,707524163,,
+1747121615,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1182,1003,task_465.jar,C:\ProgramData\task_465.jar,83.42,310500863,,
+1747112869,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,432,1,BackgroundTaskManagementAgent,/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Support/BackgroundTaskManagementAgent.app/Contents/MacOS/BackgroundTaskManagementAgent,0.0,16203776,0.0,0.0
+1747113020,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2951,1,MessagesBlastDoorService,/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService,0.0,83771392,0.0,0.0
+1747112863,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,5573,1,mapssyncd,/System/Library/PrivateFrameworks/MapsSync.framework/mapssyncd,0.0,17940480,0.0,0.0
+1747119710,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2996,1154,exploit_52.lnk,C:\Users\Public\exploit_52.lnk,82.33,658201437,,
+1747113000,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,459,1,swcd,/usr/libexec/swcd,0.0,16515072,0.0,0.0
+1747112934,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,557,1,maild,/System/Library/PrivateFrameworks/EmailDaemon.framework/Versions/A/maild,0.0,17940480,0.0,0.0
+1747119717,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1447,1209,config_60.pif,C:\AppData\config_60.pif,5.26,225491671,,
+1747112879,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,938,1,VTDecoderXPCService,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService,0.0,6537216,0.0,0.0
+1747122164,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2293,1681,exploit_208.hta,C:\AppData\exploit_208.hta,27.34,311335721,,
+1747112823,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,430,1,lsd,/usr/libexec/lsd,0.0,20561920,0.0,0.0
+1747121979,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,2901,2785,malware_294.pif,C:\Temp\malware_294.pif,53.07,651890906,,
+1747112853,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,542,1,localizationswitcherd,/System/Library/PrivateFrameworks/IntlPreferences.framework/Support/localizationswitcherd,0.0,8257536,0.0,0.0
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,925,1,reversetemplated,/System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/reversetemplated,0.0,14548992,0.0,0.0
+1747112965,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,2079,1,homeenergyd,/System/iOSSupport/System/Library/PrivateFrameworks/HomeEnergyDaemon.framework/Support/homeenergyd,0.0,16089088,0.0,0.0
+1747121417,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,3077,1461,payload_454.bat,C:\Temp\payload_454.bat,32.44,68359421,,
+1747120793,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,windows,1251,1189,update_29.scr,C:\ProgramData\update_29.scr,34.99,395923102,,
+1747112874,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,657,1,ScreenTimeWidgetExtension,/System/Library/CoreServices/Screen Time.app/Contents/PlugIns/ScreenTimeWidgetExtension.appex/Contents/MacOS/ScreenTimeWidgetExtension,0.0,54280192,0.0,0.0

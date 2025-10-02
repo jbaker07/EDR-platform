@@ -1,0 +1,501 @@
+timestamp,hostname,endpoint_id,os_type,pid,ppid,process_name,cmd,cpu_percent,memory,label
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10000,1,lolbins_agent,wscript,6.01,204404244,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10001,1,lolbins_agent,msbuild,14.3,85771409,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10002,1,lolbins_agent,forfiles,11.61,196683668,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10003,1,lolbins_agent,rundll32,6.81,127918977,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10004,1,lolbins_agent,forfiles,6.89,162416894,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10005,1,lolbins_agent,wmic,13.84,282999092,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10006,1,lolbins_agent,cscript,4.74,214328393,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10007,1,lolbins_agent,scriptrunner,4.46,164610069,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10008,1,lolbins_agent,certutil,10.59,220406349,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10009,1,lolbins_agent,regsvr32,7.07,176864842,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10010,1,lolbins_agent,forfiles,18.7,276185637,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10011,1,lolbins_agent,powershell,17.23,65862738,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10012,1,lolbins_agent,cmd,7.99,66444162,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10013,1,lolbins_agent,certutil,11.07,119317486,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10014,1,lolbins_agent,mshta,17.44,179719320,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10015,1,lolbins_agent,certutil,4.23,73091130,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10016,1,lolbins_agent,mshta,14.39,109479774,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10017,1,lolbins_agent,wscript,13.57,115497080,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10018,1,lolbins_agent,cmd,6.38,221051275,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10019,1,lolbins_agent,mshta,3.84,132145195,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10020,1,lolbins_agent,certutil,9.96,194987874,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10021,1,lolbins_agent,msbuild,2.84,212327869,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10022,1,lolbins_agent,msbuild,8.97,98917058,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10023,1,lolbins_agent,msbuild,19.5,233303486,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10024,1,lolbins_agent,wscript,18.09,257181469,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10025,1,lolbins_agent,wmic,18.41,187810651,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10026,1,lolbins_agent,certutil,2.71,226360904,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10027,1,lolbins_agent,scriptrunner,6.54,194956253,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10028,1,lolbins_agent,rundll32,3.87,194180478,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10029,1,lolbins_agent,certutil,17.05,234796544,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10030,1,lolbins_agent,cscript,9.22,141331487,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10031,1,lolbins_agent,rundll32,7.82,206204143,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10032,1,lolbins_agent,wmic,12.88,155166280,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10033,1,lolbins_agent,installutil,7.42,89999965,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10034,1,lolbins_agent,scriptrunner,17.13,62326092,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10035,1,lolbins_agent,cmd,17.72,161017344,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10036,1,lolbins_agent,forfiles,10.05,247153466,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10037,1,lolbins_agent,msbuild,7.7,254730072,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10038,1,lolbins_agent,mshta,11.61,290632991,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10039,1,lolbins_agent,forfiles,7.37,57322118,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10040,1,lolbins_agent,msbuild,5.29,237839290,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10041,1,lolbins_agent,rundll32,19.04,283062968,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10042,1,lolbins_agent,scriptrunner,5.03,176588808,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10043,1,lolbins_agent,wscript,18.26,190820508,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10044,1,lolbins_agent,cmd,10.72,132053025,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10045,1,lolbins_agent,rundll32,6.35,170790883,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10046,1,lolbins_agent,forfiles,1.92,195218459,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10047,1,lolbins_agent,mshta,2.46,202958144,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10048,1,lolbins_agent,rundll32,13.48,192083545,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10049,1,lolbins_agent,installutil,7.14,160999266,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10050,1,dangerous_extensions_agent,.vbs,19.41,211730680,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10051,1,dangerous_extensions_agent,.ps1,19.86,175981679,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10052,1,dangerous_extensions_agent,.js,12.98,209425897,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10053,1,dangerous_extensions_agent,.hta,13.64,214863534,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10054,1,dangerous_extensions_agent,.bat,3.49,223286338,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10055,1,dangerous_extensions_agent,.vbs,18.83,226355749,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10056,1,dangerous_extensions_agent,.bat,11.35,194395895,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10057,1,dangerous_extensions_agent,.scr,12.35,90085515,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10058,1,dangerous_extensions_agent,.dll,19.84,87099647,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10059,1,dangerous_extensions_agent,.lnk,13.38,288510288,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10060,1,dangerous_extensions_agent,.ps1,6.5,256990700,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10061,1,dangerous_extensions_agent,.exe,4.9,107448788,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10062,1,dangerous_extensions_agent,.dll,7.36,133125747,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10063,1,dangerous_extensions_agent,.dll,5.93,118333352,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10064,1,dangerous_extensions_agent,.js,4.55,270155173,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10065,1,dangerous_extensions_agent,.ps1,19.15,63766209,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10066,1,dangerous_extensions_agent,.vbs,1.22,78316980,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10067,1,dangerous_extensions_agent,.lnk,15.78,136100292,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10068,1,dangerous_extensions_agent,.pif,15.03,253339047,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10069,1,dangerous_extensions_agent,.pif,19.35,60247995,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10070,1,dangerous_extensions_agent,.pif,1.02,288045637,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10071,1,dangerous_extensions_agent,.vbs,15.2,282878631,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10072,1,dangerous_extensions_agent,.lnk,13.91,273118877,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10073,1,dangerous_extensions_agent,.scr,12.72,215336495,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10074,1,dangerous_extensions_agent,.lnk,19.96,112043447,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10075,1,dangerous_extensions_agent,.js,18.32,85379909,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10076,1,dangerous_extensions_agent,.pif,16.81,209145484,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10077,1,dangerous_extensions_agent,.ps1,3.75,94732476,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10078,1,dangerous_extensions_agent,.js,5.61,79728515,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10079,1,dangerous_extensions_agent,.exe,12.73,163865445,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10080,1,dangerous_extensions_agent,.exe,15.74,252258103,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10081,1,dangerous_extensions_agent,.dll,15.26,126484453,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10082,1,dangerous_extensions_agent,.js,14.41,162402919,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10083,1,dangerous_extensions_agent,.hta,13.4,159132261,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10084,1,dangerous_extensions_agent,.lnk,13.93,139961134,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10085,1,dangerous_extensions_agent,.dll,9.45,207392974,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10086,1,dangerous_extensions_agent,.jar,17.86,171559694,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10087,1,dangerous_extensions_agent,.scr,10.51,277655349,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10088,1,dangerous_extensions_agent,.hta,18.64,82630922,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10089,1,dangerous_extensions_agent,.exe,9.27,276990793,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10090,1,dangerous_extensions_agent,.jar,8.06,115135838,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10091,1,dangerous_extensions_agent,.ps1,15.76,260076815,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10092,1,dangerous_extensions_agent,.ps1,8.08,291344180,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10093,1,dangerous_extensions_agent,.exe,4.43,208853165,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10094,1,dangerous_extensions_agent,.scr,2.51,106698993,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10095,1,dangerous_extensions_agent,.lnk,15.84,277824671,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10096,1,dangerous_extensions_agent,.exe,17.93,285372177,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10097,1,dangerous_extensions_agent,.lnk,13.99,240656944,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10098,1,dangerous_extensions_agent,.exe,10.25,143285262,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10099,1,dangerous_extensions_agent,.bat,18.42,51295328,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10100,1,obfuscation_agent,-windowstyle hidden,13.35,124643264,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10101,1,obfuscation_agent,base64,1.14,266422903,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10102,1,obfuscation_agent,frombase64string,13.76,267234908,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10103,1,obfuscation_agent,-ep bypass,4.94,203939676,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10104,1,obfuscation_agent,frombase64string,8.56,115513184,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10105,1,obfuscation_agent,-noni,11.44,63228003,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10106,1,obfuscation_agent,invoke-expression,18.37,124436115,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10107,1,obfuscation_agent,-ep bypass,4.88,276558706,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10108,1,obfuscation_agent,base64,14.7,171607098,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10109,1,obfuscation_agent,base64,1.39,182165993,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10110,1,obfuscation_agent,compress,6.51,246556098,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10111,1,obfuscation_agent,-w hidden,3.26,205131904,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10112,1,obfuscation_agent,-nop,2.78,89991803,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10113,1,obfuscation_agent,compress,17.49,112203025,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10114,1,obfuscation_agent,-nop,4.39,68574149,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10115,1,obfuscation_agent,obfuscate,4.46,202274445,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10116,1,obfuscation_agent,-noni,1.5,53253256,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10117,1,obfuscation_agent,compress,1.77,63962402,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10118,1,obfuscation_agent,-enc,16.11,195486152,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10119,1,obfuscation_agent,sleep,13.99,122096486,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10120,1,obfuscation_agent,compress,11.77,263250310,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10121,1,obfuscation_agent,frombase64string,1.28,115605689,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10122,1,obfuscation_agent,-windowstyle hidden,12.17,254810272,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10123,1,obfuscation_agent,-nop,14.6,108482252,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10124,1,obfuscation_agent,frombase64string,1.15,99772449,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10125,1,obfuscation_agent,-noni,16.42,176450923,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10126,1,obfuscation_agent,sleep,15.84,223621028,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10127,1,obfuscation_agent,iex,4.04,143133544,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10128,1,obfuscation_agent,-w hidden,18.14,159387825,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10129,1,obfuscation_agent,obfuscate,14.34,116973961,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10130,1,obfuscation_agent,sleep,18.01,177052964,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10131,1,obfuscation_agent,-windowstyle hidden,5.51,254594026,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10132,1,obfuscation_agent,frombase64string,19.0,246511091,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10133,1,obfuscation_agent,-ep bypass,17.03,79884640,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10134,1,obfuscation_agent,sleep,7.59,72785106,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10135,1,obfuscation_agent,compress,15.79,293408976,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10136,1,obfuscation_agent,-windowstyle hidden,1.78,65213688,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10137,1,obfuscation_agent,-enc,10.18,237959351,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10138,1,obfuscation_agent,obfuscate,14.56,209375479,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10139,1,obfuscation_agent,iex,15.23,177349012,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10140,1,obfuscation_agent,-enc,14.51,140064166,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10141,1,obfuscation_agent,base64,12.89,249727226,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10142,1,obfuscation_agent,iex,11.04,124915731,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10143,1,obfuscation_agent,frombase64string,14.02,137131672,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10144,1,obfuscation_agent,-nop,3.4,269448910,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10145,1,obfuscation_agent,compress,7.79,173866905,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10146,1,obfuscation_agent,base64,8.34,257924776,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10147,1,obfuscation_agent,-enc,12.79,194603898,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10148,1,obfuscation_agent,-ep bypass,13.46,114652915,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10149,1,obfuscation_agent,-ep bypass,5.7,271936437,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10150,1,memory_injection_agent,process hollowing,4.47,121497182,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10151,1,memory_injection_agent,writeprocessmemory,7.78,264386913,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10152,1,memory_injection_agent,reflective,1.62,207365394,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10153,1,memory_injection_agent,createremotethread,18.3,93765499,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10154,1,memory_injection_agent,inject,17.79,200686124,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10155,1,memory_injection_agent,process hollowing,7.93,289368900,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10156,1,memory_injection_agent,createremotethread,12.29,193871602,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10157,1,memory_injection_agent,inject,9.44,243380069,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10158,1,memory_injection_agent,inject,4.66,262386317,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10159,1,memory_injection_agent,shellcode,19.12,208426430,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10160,1,memory_injection_agent,inject,15.28,74086966,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10161,1,memory_injection_agent,virtualalloc,3.85,212148478,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10162,1,memory_injection_agent,shellcode,6.95,92502890,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10163,1,memory_injection_agent,reflective,15.24,275482051,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10164,1,memory_injection_agent,mmap,2.36,238678732,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10165,1,memory_injection_agent,writeprocessmemory,19.61,267184002,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10166,1,memory_injection_agent,createremotethread,14.09,201137372,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10167,1,memory_injection_agent,createremotethread,8.24,90434417,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10168,1,memory_injection_agent,DLL hollowing,13.34,135374864,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10169,1,memory_injection_agent,shellcode,5.57,106358793,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10170,1,memory_injection_agent,process hollowing,14.47,241648894,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10171,1,memory_injection_agent,reflective,4.22,297673945,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10172,1,memory_injection_agent,writeprocessmemory,15.02,149327162,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10173,1,memory_injection_agent,shellcode,7.32,54443977,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10174,1,memory_injection_agent,DLL hollowing,18.82,274797372,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10175,1,memory_injection_agent,PEB,6.59,238942735,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10176,1,memory_injection_agent,early bird,13.25,62621323,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10177,1,memory_injection_agent,early bird,19.34,182061779,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10178,1,memory_injection_agent,createremotethread,15.42,233749365,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10179,1,memory_injection_agent,createremotethread,15.23,102672651,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10180,1,memory_injection_agent,PEB,19.48,79691097,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10181,1,memory_injection_agent,createremotethread,15.33,280924752,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10182,1,memory_injection_agent,early bird,17.5,59132008,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10183,1,memory_injection_agent,shellcode,10.22,214551977,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10184,1,memory_injection_agent,early bird,5.66,213164450,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10185,1,memory_injection_agent,early bird,14.4,197755563,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10186,1,memory_injection_agent,process hollowing,1.74,148413273,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10187,1,memory_injection_agent,shellcode,9.07,108405691,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10188,1,memory_injection_agent,shellcode,8.78,171421511,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10189,1,memory_injection_agent,process hollowing,1.43,293957907,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10190,1,memory_injection_agent,shellcode,11.27,87269575,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10191,1,memory_injection_agent,early bird,2.25,92925402,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10192,1,memory_injection_agent,createremotethread,18.73,88701104,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10193,1,memory_injection_agent,shellcode,3.06,90609647,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10194,1,memory_injection_agent,DLL hollowing,3.85,242460706,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10195,1,memory_injection_agent,PEB,15.34,196233566,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10196,1,memory_injection_agent,PEB,4.56,184338410,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10197,1,memory_injection_agent,early bird,15.25,184320826,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10198,1,memory_injection_agent,writeprocessmemory,2.41,272310505,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10199,1,memory_injection_agent,virtualalloc,6.44,88628407,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10200,1,recon_agent,icacls,4.3,263326878,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10201,1,recon_agent,netstat,19.29,281215946,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10202,1,recon_agent,secedit,14.16,207119552,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10203,1,recon_agent,mimikatz,17.54,92396566,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10204,1,recon_agent,token::elevate,16.8,108264991,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10205,1,recon_agent,lsass,14.63,80350141,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10206,1,recon_agent,dumpcred,14.81,184920049,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10207,1,recon_agent,lsass,4.47,97338726,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10208,1,recon_agent,mimikatz,4.39,242172157,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10209,1,recon_agent,token::elevate,16.56,122637204,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10210,1,recon_agent,token::elevate,3.65,202215526,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10211,1,recon_agent,secedit,3.38,131826379,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10212,1,recon_agent,mimikatz,12.96,251478249,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10213,1,recon_agent,whoami,8.04,239072613,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10214,1,recon_agent,netstat,8.69,197538873,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10215,1,recon_agent,tasklist,12.38,106598264,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10216,1,recon_agent,hostname,11.71,66873257,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10217,1,recon_agent,nltest,11.38,59835420,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10218,1,recon_agent,whoami,10.38,175542343,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10219,1,recon_agent,systeminfo,5.48,240523679,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10220,1,recon_agent,icacls,11.67,61912721,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10221,1,recon_agent,tasklist,7.96,87907863,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10222,1,recon_agent,lsass,7.32,133042100,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10223,1,recon_agent,hostname,13.82,247216944,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10224,1,recon_agent,rundll32 lsadump.dll,1.17,297303509,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10225,1,recon_agent,dumpcred,9.6,102065356,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10226,1,recon_agent,icacls,11.84,291318575,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10227,1,recon_agent,dumpcred,14.01,290665575,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10228,1,recon_agent,lsass,4.64,245352090,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10229,1,recon_agent,secedit,11.96,176207494,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10230,1,recon_agent,netstat,7.68,210420608,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10231,1,recon_agent,hostname,4.07,153628186,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10232,1,recon_agent,tasklist,3.5,205970828,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10233,1,recon_agent,quser,9.89,154546436,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10234,1,recon_agent,nltest,14.7,289877992,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10235,1,recon_agent,lsass,2.86,186431894,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10236,1,recon_agent,rundll32 lsadump.dll,6.75,122183793,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10237,1,recon_agent,lsass,18.98,183774212,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10238,1,recon_agent,hostname,3.73,100306977,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10239,1,recon_agent,rundll32 lsadump.dll,7.65,68579010,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10240,1,recon_agent,rundll32 lsadump.dll,2.5,189134828,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10241,1,recon_agent,tasklist,7.6,248356381,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10242,1,recon_agent,rundll32 lsadump.dll,19.97,149429831,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10243,1,recon_agent,quser,1.29,255835955,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10244,1,recon_agent,ipconfig,4.2,138517149,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10245,1,recon_agent,dumpcred,18.5,89422448,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10246,1,recon_agent,tasklist,1.49,121115920,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10247,1,recon_agent,whoami,4.78,233890743,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10248,1,recon_agent,tasklist,14.9,189753092,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10249,1,recon_agent,rundll32 lsadump.dll,2.24,210920313,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10250,1,dual_use_agent,\Users\Public\,6.99,289538307,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10251,1,dual_use_agent,\Users\Public\,9.83,90625929,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10252,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,3.8,228077396,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10253,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,8.43,133708292,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10254,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,8.18,135339043,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10255,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,18.0,175514201,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10256,1,dual_use_agent,\Recycle Bin\,2.26,93247655,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10257,1,dual_use_agent,\AppData\,4.92,91974471,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10258,1,dual_use_agent,C:\Users\Public\python.exe,18.79,143547820,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10259,1,dual_use_agent,C:\Users\Public\python.exe,16.19,175980780,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10260,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,15.95,159995712,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10261,1,dual_use_agent,\ProgramData\,14.76,280796479,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10262,1,dual_use_agent,\ProgramData\,18.08,64431572,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10263,1,dual_use_agent,\Users\Public\,1.46,252341292,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10264,1,dual_use_agent,\Users\Public\,8.13,179166597,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10265,1,dual_use_agent,\Temp\,10.43,111936254,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10266,1,dual_use_agent,\Users\Public\,6.72,284652961,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10267,1,dual_use_agent,\Recycle Bin\,17.44,265307434,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10268,1,dual_use_agent,\Users\Public\,18.22,251590612,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10269,1,dual_use_agent,\AppData\,17.71,138973373,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10270,1,dual_use_agent,\AppData\,20.0,206983614,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10271,1,dual_use_agent,\AppData\,8.93,79271302,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10272,1,dual_use_agent,\Users\Public\,15.66,208271262,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10273,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,17.11,265169427,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10274,1,dual_use_agent,C:\Users\Public\python.exe,16.4,253610669,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10275,1,dual_use_agent,\AppData\,3.31,112123029,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10276,1,dual_use_agent,C:\Users\Public\python.exe,14.86,289787990,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10277,1,dual_use_agent,\ProgramData\,12.24,199125058,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10278,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,19.25,287869386,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10279,1,dual_use_agent,C:\Users\Public\python.exe,18.02,116520518,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10280,1,dual_use_agent,\Recycle Bin\,19.36,121943876,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10281,1,dual_use_agent,\AppData\,17.42,104181557,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10282,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,15.35,254893911,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10283,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,7.36,105550075,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10284,1,dual_use_agent,\Users\Public\,2.97,150166062,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10285,1,dual_use_agent,\ProgramData\,19.2,63744856,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10286,1,dual_use_agent,C:\Users\Public\python.exe,2.46,155668226,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10287,1,dual_use_agent,\Recycle Bin\,3.11,67724656,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10288,1,dual_use_agent,\Recycle Bin\,6.31,268745588,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10289,1,dual_use_agent,\ProgramData\,18.1,205737177,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10290,1,dual_use_agent,C:\Users\Public\python.exe,9.68,167987129,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10291,1,dual_use_agent,C:\Users\Public\python.exe,14.8,63966508,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10292,1,dual_use_agent,\Recycle Bin\,9.8,203410110,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10293,1,dual_use_agent,\ProgramData\,12.39,231992961,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10294,1,dual_use_agent,C:\Users\Public\python.exe,18.38,250129738,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10295,1,dual_use_agent,C:\Users\*\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup,17.12,105171824,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10296,1,dual_use_agent,\ProgramData\,3.89,52886832,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10297,1,dual_use_agent,\Temp\,3.76,125766557,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10298,1,dual_use_agent,\AppData\,13.13,67103030,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10299,1,dual_use_agent,C:\Users\Public\python.exe,2.15,191353243,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10300,1,network_agent,frp,17.16,289792057,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10301,1,network_agent,cloudflared,9.62,108118156,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10302,1,network_agent,tunnel,6.89,211165604,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10303,1,network_agent,cloudflared,14.86,279269477,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10304,1,network_agent,localhost.run,6.97,225489776,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10305,1,network_agent,cloudflared,5.2,298671319,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10306,1,network_agent,ssh -R,13.09,242613040,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10307,1,network_agent,localhost.run,1.35,294761302,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10308,1,network_agent,ngrok,1.55,150846652,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10309,1,network_agent,127.0.0.1:8081,6.6,95624112,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10310,1,network_agent,127.0.0.1:8081,19.35,51961659,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10311,1,network_agent,cloudflared,3.48,213326933,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10312,1,network_agent,frp,3.15,185560854,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10313,1,network_agent,cloudflared,13.31,141612063,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10314,1,network_agent,proxychains,17.81,296365383,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10315,1,network_agent,localhost.run,15.14,188979599,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10316,1,network_agent,ssh -R,3.43,173224914,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10317,1,network_agent,ngrok,17.77,172225383,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10318,1,network_agent,ssh -R,9.53,217549770,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10319,1,network_agent,frp,10.71,222306102,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10320,1,network_agent,frp,16.18,105929179,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10321,1,network_agent,ngrok,17.82,144496947,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10322,1,network_agent,cloudflared,6.17,125468605,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10323,1,network_agent,ngrok,4.36,284698234,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10324,1,network_agent,localhost.run,4.85,220999921,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10325,1,network_agent,localhost.run,6.18,78835530,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10326,1,network_agent,cloudflared,9.84,108687715,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10327,1,network_agent,cloudflared,8.12,120382331,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10328,1,network_agent,frp,1.56,167843893,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10329,1,network_agent,proxychains,10.01,153991039,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10330,1,network_agent,tunnel,9.34,249032089,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10331,1,network_agent,tunnel,11.91,130369100,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10332,1,network_agent,localhost.run,11.72,137782492,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10333,1,network_agent,localhost.run,19.19,107011883,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10334,1,network_agent,ngrok,16.07,67687323,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10335,1,network_agent,proxychains,15.28,66643295,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10336,1,network_agent,tunnel,1.22,273412807,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10337,1,network_agent,proxychains,5.57,204062258,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10338,1,network_agent,127.0.0.1:8081,18.02,258623102,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10339,1,network_agent,frp,19.63,236893340,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10340,1,network_agent,cloudflared,15.02,64873815,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10341,1,network_agent,localhost.run,15.47,161058528,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10342,1,network_agent,frp,9.25,62195848,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10343,1,network_agent,proxychains,17.83,57810491,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10344,1,network_agent,ssh -R,14.29,280246792,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10345,1,network_agent,frp,6.71,66291867,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10346,1,network_agent,cloudflared,3.95,107479808,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10347,1,network_agent,ssh -R,7.02,51797165,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10348,1,network_agent,ssh -R,17.72,261291187,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10349,1,network_agent,cloudflared,17.5,93890945,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10350,1,masquerade_agent,taskmgr_,12.09,180016586,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10351,1,masquerade_agent,dllhosst,10.35,182480095,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10352,1,masquerade_agent,csrss_,14.47,179547721,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10353,1,masquerade_agent,expl0rer,15.31,174845628,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10354,1,masquerade_agent,csrss_,13.73,136746104,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10355,1,masquerade_agent,taskmgr_,16.28,214344621,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10356,1,masquerade_agent,svch0st,6.63,60591059,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10357,1,masquerade_agent,csrss_,8.42,179780845,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10358,1,masquerade_agent,csrss_,9.95,191284937,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10359,1,masquerade_agent,dllhosst,4.48,173946256,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10360,1,masquerade_agent,spoolsvv,9.23,290389132,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10361,1,masquerade_agent,svch0st,7.21,251812892,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10362,1,masquerade_agent,taskmgr_,18.52,69399598,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10363,1,masquerade_agent,csrss_,7.25,225303285,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10364,1,masquerade_agent,svch0st,8.5,252269714,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10365,1,masquerade_agent,expl0rer,3.34,176834342,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10366,1,masquerade_agent,dllhosst,4.54,78223489,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10367,1,masquerade_agent,lsasss,8.34,114754761,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10368,1,masquerade_agent,expl0rer,7.03,285230015,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10369,1,masquerade_agent,spoolsvv,16.07,69291828,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10370,1,masquerade_agent,spoolsvv,6.28,140275577,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10371,1,masquerade_agent,svch0st,12.33,157014648,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10372,1,masquerade_agent,svch0st,8.22,190711348,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10373,1,masquerade_agent,winl0g0n,3.15,183065328,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10374,1,masquerade_agent,csrss_,18.5,110970024,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10375,1,masquerade_agent,lsasss,15.98,72973196,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10376,1,masquerade_agent,svch0st,8.34,256025664,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10377,1,masquerade_agent,winl0g0n,15.22,55107036,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10378,1,masquerade_agent,csrss_,17.69,182066176,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10379,1,masquerade_agent,dllhosst,2.2,232147212,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10380,1,masquerade_agent,lsasss,15.0,93750206,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10381,1,masquerade_agent,taskmgr_,12.06,298341047,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10382,1,masquerade_agent,taskmgr_,19.29,287838089,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10383,1,masquerade_agent,spoolsvv,18.22,255598144,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10384,1,masquerade_agent,svch0st,10.83,151346464,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10385,1,masquerade_agent,spoolsvv,2.71,295910252,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10386,1,masquerade_agent,csrss_,4.58,190295180,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10387,1,masquerade_agent,lsasss,1.78,227945486,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10388,1,masquerade_agent,winl0g0n,16.39,280894493,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10389,1,masquerade_agent,expl0rer,8.66,251042221,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10390,1,masquerade_agent,spoolsvv,9.94,223916527,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10391,1,masquerade_agent,dllhosst,14.79,128112129,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10392,1,masquerade_agent,spoolsvv,9.15,84578979,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10393,1,masquerade_agent,dllhosst,2.67,259446391,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10394,1,masquerade_agent,lsasss,15.5,74826279,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10395,1,masquerade_agent,lsasss,8.94,157002472,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10396,1,masquerade_agent,spoolsvv,1.11,62188582,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10397,1,masquerade_agent,dllhosst,5.21,91784325,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10398,1,masquerade_agent,spoolsvv,17.55,289308154,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10399,1,masquerade_agent,dllhosst,5.56,278129052,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10400,1,scripts_agent,at.exe,2.24,77611820,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10401,1,scripts_agent,wmic process call,7.55,74495425,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10402,1,scripts_agent,macro,10.32,238087562,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10403,1,scripts_agent,macro,7.61,235721553,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10404,1,scripts_agent,at.exe,8.8,170076372,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10405,1,scripts_agent,at.exe,3.87,60734865,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10406,1,scripts_agent,macro,1.33,161538684,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10407,1,scripts_agent,macro,16.72,84593751,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10408,1,scripts_agent,excel /x,4.61,236682598,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10409,1,scripts_agent,macro,18.25,153157253,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10410,1,scripts_agent,macro,3.75,282259117,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10411,1,scripts_agent,excel /x,5.52,110335558,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10412,1,scripts_agent,autorun,11.03,214370112,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10413,1,scripts_agent,vbs,8.02,78935786,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10414,1,scripts_agent,excel /x,19.33,107721441,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10415,1,scripts_agent,wmic process call,5.58,212239569,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10416,1,scripts_agent,excel /x,5.59,209178881,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10417,1,scripts_agent,vbs,19.94,181291024,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10418,1,scripts_agent,autorun,5.19,158190618,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10419,1,scripts_agent,at.exe,19.6,171698714,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10420,1,scripts_agent,schtasks,15.47,275249346,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10421,1,scripts_agent,macro,14.88,83959214,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10422,1,scripts_agent,macro,12.29,118332925,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10423,1,scripts_agent,excel /x,8.11,59426426,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10424,1,scripts_agent,schtasks,5.61,142326158,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10425,1,scripts_agent,powershell -enc,13.49,271362269,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10426,1,scripts_agent,autorun,14.98,205098794,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10427,1,scripts_agent,autorun,17.75,137372665,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10428,1,scripts_agent,vbs,18.41,177733371,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10429,1,scripts_agent,schtasks,8.29,129617249,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10430,1,scripts_agent,at.exe,9.73,50811402,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10431,1,scripts_agent,wmic process call,14.45,101175417,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10432,1,scripts_agent,excel /x,4.68,166730153,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10433,1,scripts_agent,at.exe,8.27,79545601,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10434,1,scripts_agent,wmic process call,11.15,50791994,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10435,1,scripts_agent,wmic process call,15.44,124825877,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10436,1,scripts_agent,autorun,5.25,56957649,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10437,1,scripts_agent,macro,8.72,96370041,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10438,1,scripts_agent,excel /x,13.34,194245431,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10439,1,scripts_agent,schtasks,3.99,201264173,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10440,1,scripts_agent,wmic process call,4.66,160377433,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10441,1,scripts_agent,macro,15.15,176024989,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10442,1,scripts_agent,macro,13.11,187079903,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10443,1,scripts_agent,autorun,6.09,256323984,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10444,1,scripts_agent,powershell -enc,16.18,178778710,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10445,1,scripts_agent,macro,14.62,277327074,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10446,1,scripts_agent,powershell -enc,5.33,199027311,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10447,1,scripts_agent,wmic process call,7.16,292853154,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10448,1,scripts_agent,vbs,6.39,218631562,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10449,1,scripts_agent,at.exe,10.16,171235466,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10450,1,resource_abuse_agent,resource_abuse,85.95,909787677,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10451,1,resource_abuse_agent,resource_abuse,84.76,1156478357,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10452,1,resource_abuse_agent,resource_abuse,82.53,1378199978,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10453,1,resource_abuse_agent,resource_abuse,93.19,1111345973,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10454,1,resource_abuse_agent,resource_abuse,91.92,1360986626,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10455,1,resource_abuse_agent,resource_abuse,87.25,1176234822,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10456,1,resource_abuse_agent,resource_abuse,80.29,1412745874,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10457,1,resource_abuse_agent,resource_abuse,81.21,1106199329,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10458,1,resource_abuse_agent,resource_abuse,90.31,1383798131,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10459,1,resource_abuse_agent,resource_abuse,94.65,1344587633,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10460,1,resource_abuse_agent,resource_abuse,90.61,1046771380,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10461,1,resource_abuse_agent,resource_abuse,82.41,976066562,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10462,1,resource_abuse_agent,resource_abuse,85.15,1173441065,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10463,1,resource_abuse_agent,resource_abuse,82.45,1398305540,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10464,1,resource_abuse_agent,resource_abuse,88.43,845846722,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10465,1,resource_abuse_agent,resource_abuse,90.59,1363384375,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10466,1,resource_abuse_agent,resource_abuse,92.25,835263756,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10467,1,resource_abuse_agent,resource_abuse,92.9,1035179194,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10468,1,resource_abuse_agent,resource_abuse,82.95,1239666203,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10469,1,resource_abuse_agent,resource_abuse,90.32,1046264799,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10470,1,resource_abuse_agent,resource_abuse,87.39,1030893338,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10471,1,resource_abuse_agent,resource_abuse,88.79,826666426,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10472,1,resource_abuse_agent,resource_abuse,80.83,1101568792,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10473,1,resource_abuse_agent,resource_abuse,85.1,1099872224,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10474,1,resource_abuse_agent,resource_abuse,94.8,1303399201,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10475,1,resource_abuse_agent,resource_abuse,86.18,1217853372,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10476,1,resource_abuse_agent,resource_abuse,87.43,889583207,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10477,1,resource_abuse_agent,resource_abuse,82.56,991840084,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10478,1,resource_abuse_agent,resource_abuse,91.63,1189821532,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10479,1,resource_abuse_agent,resource_abuse,84.97,951643720,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10480,1,resource_abuse_agent,resource_abuse,88.43,971479857,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10481,1,resource_abuse_agent,resource_abuse,91.63,1016884654,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10482,1,resource_abuse_agent,resource_abuse,80.84,901657083,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10483,1,resource_abuse_agent,resource_abuse,83.53,855279659,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10484,1,resource_abuse_agent,resource_abuse,92.91,1174357690,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10485,1,resource_abuse_agent,resource_abuse,84.19,1036650630,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10486,1,resource_abuse_agent,resource_abuse,83.93,1449903332,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10487,1,resource_abuse_agent,resource_abuse,90.44,1276389203,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10488,1,resource_abuse_agent,resource_abuse,89.8,1477991566,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10489,1,resource_abuse_agent,resource_abuse,80.1,1206501087,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10490,1,resource_abuse_agent,resource_abuse,89.27,984569182,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10491,1,resource_abuse_agent,resource_abuse,80.9,927695933,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10492,1,resource_abuse_agent,resource_abuse,88.72,954661846,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10493,1,resource_abuse_agent,resource_abuse,86.37,1193170928,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10494,1,resource_abuse_agent,resource_abuse,82.53,1213367081,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10495,1,resource_abuse_agent,resource_abuse,87.57,855239894,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10496,1,resource_abuse_agent,resource_abuse,81.65,1496628521,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10497,1,resource_abuse_agent,resource_abuse,92.44,1450334225,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10498,1,resource_abuse_agent,resource_abuse,80.36,1362226635,1
+1747118589,JermainacStudio.attlocal.net,JermainacStudio.attlocal.net,darwin,10499,1,resource_abuse_agent,resource_abuse,93.7,1373035386,1
