@@ -58,7 +58,7 @@ fn is_vpn_or_anonymized(ip: &IpAddr) -> bool {
     // Very light heuristic; keep as-is unless you wire to a provider
     let suspicious_ranges = [
         "185.", "45.129", "172.67", "104.244", // common CDN/VPN-ish blocks
-        "198.18", "192.42",                    // benchmarking / Tor exits
+        "198.18", "192.42", // benchmarking / Tor exits
     ];
     suspicious_ranges
         .iter()
@@ -83,7 +83,10 @@ fn get_role_multiplier(user: &str) -> f64 {
 }
 
 fn log_geo_ip_anomaly(user: &str, country: &str) {
-    println!("Geo-IP anomaly detected: user={}, country={}", user, country);
+    println!(
+        "Geo-IP anomaly detected: user={}, country={}",
+        user, country
+    );
 }
 
 /// Main detector. Mutates HISTORY and trust_vector, emits telemetry + trust.
@@ -96,9 +99,7 @@ pub fn detect_geo_anomaly(
         return Ok(());
     }
 
-    let mut history = HISTORY
-        .write()
-        .map_err(|e| format!("Lock error: {e}"))?;
+    let mut history = HISTORY.write().map_err(|e| format!("Lock error: {e}"))?;
     let prev_entry = history.get(&login.user).cloned();
     let now = now_ts();
 
@@ -235,8 +236,16 @@ pub fn detect_geo_anomaly(
             // "auth_trust" is not a defined dimension; use "privilege" for auth anomalies.
             let abs_trust: f32 = (bounded_score as f32 / 100.0).clamp(0.0, 1.0);
             let mut tags_for_tv = vec!["geo_mismatch".into(), login.country.clone()];
-            if from_vpn { tags_for_tv.push("vpn_detected".into()); } else { tags_for_tv.push("no_vpn".into()); }
-            if sso_drift { tags_for_tv.push("sso_drift".into()); } else { tags_for_tv.push("sso_stable".into()); }
+            if from_vpn {
+                tags_for_tv.push("vpn_detected".into());
+            } else {
+                tags_for_tv.push("no_vpn".into());
+            }
+            if sso_drift {
+                tags_for_tv.push("sso_drift".into());
+            } else {
+                tags_for_tv.push("sso_stable".into());
+            }
 
             // Use a stable endpoint id for per-user auth trust.
             let endpoint_id = format!("auth::{}", login.user);
@@ -252,7 +261,6 @@ pub fn detect_geo_anomaly(
 
             // Audit trail
             log_decay_reason("geo_ip_anomaly", &login.user, -risk_score, "privilege");
-
 
             history.insert(
                 login.user.clone(),
@@ -353,4 +361,3 @@ pub fn whitelist_country_for_user(user: &str, country: &str) {
             .push(country.to_string());
     }
 }
-

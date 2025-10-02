@@ -9,13 +9,13 @@ use std::sync::{
 use std::{thread, time::Duration};
 
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
-use aya::{include_bytes_aligned, Bpf};
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
 use aya::maps::perf::PerfEventArray;
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use aya::programs::TracePoint;
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use aya::util::online_cpus;
+#[cfg(all(target_os = "linux", feature = "ebpf"))]
+use aya::{include_bytes_aligned, Bpf};
 
 use bytes::BytesMut;
 

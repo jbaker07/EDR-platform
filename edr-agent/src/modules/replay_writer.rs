@@ -1,4 +1,4 @@
-use std::fs::{OpenOptions, create_dir_all, metadata, rename};
+use std::fs::{create_dir_all, metadata, rename, OpenOptions};
 use std::io::Write;
 use std::path::Path;
 
@@ -7,7 +7,7 @@ use serde::Serialize;
 
 use fs2::FileExt; // advisory file locks on *nix
 
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 
 use crate::services::ontology_mapper::SemanticTagInfo;
 use crate::utils::time::now_ts;

@@ -1,25 +1,30 @@
-use sha2::{Digest, Sha256};
-use walkdir::WalkDir;
-use mime_guess::from_path;
-use users::get_user_by_uid;
-use std::os::fd::AsRawFd;
-use nix::sys::uio::pread;
-use libc::iovec; // replaces `IoVec`
-use serde::Serialize;
-use serde::Deserialize;
-use std::io::BufReader;
-use std::process::Command;
-use crate::telemetry::estimate_entropy;
-use std::time::{SystemTime, UNIX_EPOCH};
 use crate::telemetry::calculate_entropy;
-use std::{fs::{self, File}, io::Read, path::{Path, PathBuf}, os::unix::fs::PermissionsExt};
-use std::os::unix::fs::MetadataExt;
-use std::io::BufRead;
-use std::fs::metadata;
-use std::time::Instant;
-use users::os::unix::UserExt;
-use std::collections::HashMap;
+use crate::telemetry::estimate_entropy;
 use crate::utils::utils::sha256_digest;
+use libc::iovec; // replaces `IoVec`
+use mime_guess::from_path;
+use nix::sys::uio::pread;
+use serde::Deserialize;
+use serde::Serialize;
+use sha2::{Digest, Sha256};
+use std::collections::HashMap;
+use std::fs::metadata;
+use std::io::BufRead;
+use std::io::BufReader;
+use std::os::fd::AsRawFd;
+use std::os::unix::fs::MetadataExt;
+use std::process::Command;
+use std::time::Instant;
+use std::time::{SystemTime, UNIX_EPOCH};
+use std::{
+    fs::{self, File},
+    io::Read,
+    os::unix::fs::PermissionsExt,
+    path::{Path, PathBuf},
+};
+use users::get_user_by_uid;
+use users::os::unix::UserExt;
+use walkdir::WalkDir;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum FingerprintEntry {
@@ -48,7 +53,6 @@ pub enum FingerprintEntry {
         description: Option<String>,
     },
 
-
     UsbDevice {
         vendor_id: String,
         product_id: String,
@@ -70,20 +74,20 @@ pub enum FingerprintEntry {
         description: Option<String>,
     },
     Script {
-    path: String,
-    hash: String,
-    owner: u32,
-    group: u32,
-    trusted_uid: u32,
-    permissions: Option<u32>,
-    entropy: Option<f64>,
-    exec_capable: Option<bool>,
-    shebang: Option<String>,
-    category: String,
-    tags: Vec<String>,
-    source_module: String,
-    created_at: Option<u64>,
-    description: Option<String>,
+        path: String,
+        hash: String,
+        owner: u32,
+        group: u32,
+        trusted_uid: u32,
+        permissions: Option<u32>,
+        entropy: Option<f64>,
+        exec_capable: Option<bool>,
+        shebang: Option<String>,
+        category: String,
+        tags: Vec<String>,
+        source_module: String,
+        created_at: Option<u64>,
+        description: Option<String>,
     },
 
     NetworkEndpoint {
@@ -123,20 +127,20 @@ pub enum FingerprintEntry {
         description: Option<String>,
     },
     CronShell {
-    command: String,              // Full cron command
-    shell_path: String,           // Shell binary used (e.g., /bin/bash)
-    user: String,                 // Username (not UID)
-    uid: u32,                     // UID for trust mapping
-    home_dir: Option<String>,     // Useful for role mapping
-    frequency: Option<String>,    // e.g., "@hourly", "0 5 * * *"
-    exec_capable: Option<bool>,   // Indicates if the shell path is executable
-    category: String,
-    tags: Vec<String>,
-    source_module: String,
-    created_at: Option<u64>,
-    description: Option<String>,
-},    
-BaselineSyscallRange {
+        command: String,            // Full cron command
+        shell_path: String,         // Shell binary used (e.g., /bin/bash)
+        user: String,               // Username (not UID)
+        uid: u32,                   // UID for trust mapping
+        home_dir: Option<String>,   // Useful for role mapping
+        frequency: Option<String>,  // e.g., "@hourly", "0 5 * * *"
+        exec_capable: Option<bool>, // Indicates if the shell path is executable
+        category: String,
+        tags: Vec<String>,
+        source_module: String,
+        created_at: Option<u64>,
+        description: Option<String>,
+    },
+    BaselineSyscallRange {
         path: String,
         hash: String,
         owner: u32,
@@ -166,18 +170,16 @@ BaselineSyscallRange {
         description: Option<String>,
     },
 
-
-    
     ProcessLineageBaseline {
-    root_process: String,
-    expected_ancestry: Vec<String>,
-    trusted_uid: u32,
-    category: String,
-    tags: Vec<String>,
-    source_module: String,
-    created_at: Option<u64>,
-    description: Option<String>,
-},
+        root_process: String,
+        expected_ancestry: Vec<String>,
+        trusted_uid: u32,
+        category: String,
+        tags: Vec<String>,
+        source_module: String,
+        created_at: Option<u64>,
+        description: Option<String>,
+    },
 
     KnownGoodBinary {
         binary_path: String,
@@ -190,50 +192,49 @@ BaselineSyscallRange {
         tags: Vec<String>,
         source_module: String,
         created_at: Option<u64>,
-        description: Option<String>
+        description: Option<String>,
     },
     Container {
-    container_id: String,
-    name: String,
-    runtime: String,
-    rootfs_path: String,
-    trusted_uid: u32,
-    category: String,
-    tags: Vec<String>,
-    source_module: String,
-    created_at: Option<u64>,
-    description: Option<String>,
+        container_id: String,
+        name: String,
+        runtime: String,
+        rootfs_path: String,
+        trusted_uid: u32,
+        category: String,
+        tags: Vec<String>,
+        source_module: String,
+        created_at: Option<u64>,
+        description: Option<String>,
     },
 
     MemoryRegion {
-    path: String,
-    pid: u32,
-    perms: String,
-    offset: Option<u64>,
-    size: Option<u64>,
-    entropy: Option<f64>,
-    exec_capable: Option<bool>,
-    trusted_uid: u32,
-    category: String,
-    tags: Vec<String>,
-    source_module: String,
-    created_at: Option<u64>,
-    description: Option<String>,
-},
-
-    
+        path: String,
+        pid: u32,
+        perms: String,
+        offset: Option<u64>,
+        size: Option<u64>,
+        entropy: Option<f64>,
+        exec_capable: Option<bool>,
+        trusted_uid: u32,
+        category: String,
+        tags: Vec<String>,
+        source_module: String,
+        created_at: Option<u64>,
+        description: Option<String>,
+    },
 }
-
 
 pub fn current_timestamp() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }
 
-
 pub fn crawl_files() -> Vec<FingerprintEntry> {
+    use mime_guess::from_path;
     use std::collections::HashSet;
     use std::os::unix::fs::PermissionsExt;
-    use mime_guess::from_path;
 
     println!("[*] crawl_files() called");
     let mut entries = Vec::new();
@@ -244,9 +245,20 @@ pub fn crawl_files() -> Vec<FingerprintEntry> {
     let local_path = format!("{}/.local", home);
 
     let dirs = vec![
-        "/etc", "/usr/bin", "/bin", "/usr/sbin", "/opt", "/lib", "/lib64",
-        "/tmp", "/var/tmp", config_path.as_str(), local_path.as_str(),
-        "/var/lib/docker/overlay2", "/var/lib/containers", "/run/containers",
+        "/etc",
+        "/usr/bin",
+        "/bin",
+        "/usr/sbin",
+        "/opt",
+        "/lib",
+        "/lib64",
+        "/tmp",
+        "/var/tmp",
+        config_path.as_str(),
+        local_path.as_str(),
+        "/var/lib/docker/overlay2",
+        "/var/lib/containers",
+        "/run/containers",
     ];
 
     for dir in dirs {
@@ -324,7 +336,10 @@ pub fn crawl_files() -> Vec<FingerprintEntry> {
             seen_hashes.insert(hash.clone()); // keep original for insertion
 
             let entropy = estimate_entropy(path.to_string_lossy().as_bytes());
-            let mime = from_path(&path).first_or_octet_stream().essence_str().to_string();
+            let mime = from_path(&path)
+                .first_or_octet_stream()
+                .essence_str()
+                .to_string();
 
             let mut tags = vec!["baseline".to_string()];
             if exec_capable {
@@ -336,8 +351,7 @@ pub fn crawl_files() -> Vec<FingerprintEntry> {
             if sgid {
                 tags.push("sgid".to_string());
             }
-            if mime.contains("desktop")
-                || path.extension().map(|e| e == "desktop").unwrap_or(false)
+            if mime.contains("desktop") || path.extension().map(|e| e == "desktop").unwrap_or(false)
             {
                 tags.push("launcher".to_string());
             }
@@ -375,8 +389,6 @@ pub fn crawl_files() -> Vec<FingerprintEntry> {
     entries
 }
 
-
-
 pub fn crawl_users() -> Vec<FingerprintEntry> {
     let mut entries = Vec::new();
     let passwd_file = File::open("/etc/passwd").expect("Failed to open /etc/passwd");
@@ -408,9 +420,13 @@ pub fn crawl_users() -> Vec<FingerprintEntry> {
 
         let shadow_entry = shadow_map.get(&username);
         let locked = shadow_entry.map_or(false, |s| s.starts_with('!') || s.starts_with('*'));
-        if locked { tags.push("locked".to_string()); }
+        if locked {
+            tags.push("locked".to_string());
+        }
 
-        if uid == 0 { tags.push("root".to_string()); }
+        if uid == 0 {
+            tags.push("root".to_string());
+        }
         if shell == "/usr/sbin/nologin" || shell == "/bin/false" {
             tags.push("non_interactive".to_string());
         } else {
@@ -436,21 +452,20 @@ pub fn crawl_users() -> Vec<FingerprintEntry> {
             uid,
             roles: roles.clone(), // roles must be a String, not a Vec<String>
             category: "user_account".into(),
-            tags: tags.clone(),   // assuming this is Vec<String>
+            tags: tags.clone(), // assuming this is Vec<String>
             source_module: "user_tracker".into(),
             created_at: Some(current_timestamp()),
             description: Some(format!(
                 "Baseline user account (uid={}, shell={}, home={})",
-                uid, shell.trim(), home.trim()
+                uid,
+                shell.trim(),
+                home.trim()
             )),
         });
-
     }
 
     entries
 }
-
-
 
 pub fn crawl_jobs() -> Vec<FingerprintEntry> {
     let mut entries = Vec::new();
@@ -459,7 +474,9 @@ pub fn crawl_jobs() -> Vec<FingerprintEntry> {
     if let Ok(file) = File::open("/etc/crontab") {
         let reader = BufReader::new(file);
         for line in reader.lines().flatten() {
-            if line.trim().is_empty() || line.starts_with('#') { continue; }
+            if line.trim().is_empty() || line.starts_with('#') {
+                continue;
+            }
             let fields: Vec<&str> = line.split_whitespace().collect();
             if fields.len() >= 7 {
                 let user = fields[5];
@@ -484,9 +501,15 @@ pub fn crawl_jobs() -> Vec<FingerprintEntry> {
             let path = entry.path();
             if let Ok(file) = File::open(&path) {
                 let reader = BufReader::new(file);
-                let user = path.file_name().unwrap_or_default().to_string_lossy().to_string();
+                let user = path
+                    .file_name()
+                    .unwrap_or_default()
+                    .to_string_lossy()
+                    .to_string();
                 for line in reader.lines().flatten() {
-                    if line.trim().is_empty() || line.starts_with('#') { continue; }
+                    if line.trim().is_empty() || line.starts_with('#') {
+                        continue;
+                    }
                     entries.push(FingerprintEntry::Job {
                         command: line.trim().to_string(),
                         schedule: "user_cron".into(),
@@ -505,7 +528,9 @@ pub fn crawl_jobs() -> Vec<FingerprintEntry> {
     // --- systemd timers ---
     if let Ok(output) = Command::new("systemctl").arg("list-timers").output() {
         for line in String::from_utf8_lossy(&output.stdout).lines().skip(1) {
-            if line.trim().is_empty() || line.starts_with("---") { continue; }
+            if line.trim().is_empty() || line.starts_with("---") {
+                continue;
+            }
             let cols: Vec<&str> = line.split_whitespace().collect();
             if cols.len() >= 6 {
                 let timer_name = cols[5];
@@ -544,7 +569,6 @@ pub fn crawl_jobs() -> Vec<FingerprintEntry> {
     entries
 }
 
-
 fn get_uid_for_user(username: &str) -> u32 {
     use users::get_user_by_name;
     get_user_by_name(username).map(|u| u.uid()).unwrap_or(0)
@@ -574,7 +598,9 @@ pub fn crawl_usb_devices() -> Vec<FingerprintEntry> {
     if let Ok(devices) = fs::read_dir("/sys/block/") {
         for dev in devices.flatten() {
             let dev_name = dev.file_name().to_string_lossy().into_owned();
-            if !dev_name.starts_with("sd") { continue; } // Only look at real block devices
+            if !dev_name.starts_with("sd") {
+                continue;
+            } // Only look at real block devices
 
             let sys_path = format!("/sys/block/{}/device", dev_name);
             let uevent_path = format!("{}/uevent", sys_path);
@@ -582,7 +608,9 @@ pub fn crawl_usb_devices() -> Vec<FingerprintEntry> {
 
             // Confirm USB parent (via uevent)
             let uevent = fs::read_to_string(&uevent_path).unwrap_or_default();
-            if !uevent.contains("DRIVER=usb") && !uevent.contains("MODALIAS=usb:") { continue; }
+            if !uevent.contains("DRIVER=usb") && !uevent.contains("MODALIAS=usb:") {
+                continue;
+            }
 
             // Try to get serial number
             let serial = get_serial_from_udevadm(&dev_path);
@@ -611,7 +639,6 @@ pub fn crawl_usb_devices() -> Vec<FingerprintEntry> {
                 created_at: Some(current_timestamp()),
                 description: Some(format!("USB block device: {}", dev_path)),
             });
-
         }
     }
 
@@ -619,17 +646,25 @@ pub fn crawl_usb_devices() -> Vec<FingerprintEntry> {
 }
 
 fn get_serial_from_udevadm(dev_path: &str) -> Option<String> {
-    if let Ok(output) = Command::new("udevadm").arg("info").arg("-a").arg("-n").arg(dev_path).output() {
+    if let Ok(output) = Command::new("udevadm")
+        .arg("info")
+        .arg("-a")
+        .arg("-n")
+        .arg(dev_path)
+        .output()
+    {
         let stdout = String::from_utf8_lossy(&output.stdout);
         for line in stdout.lines() {
             if line.trim_start().starts_with("ATTRS{serial}==") {
-                return line.split('=').nth(1).map(|s| s.trim_matches('"').to_string());
+                return line
+                    .split('=')
+                    .nth(1)
+                    .map(|s| s.trim_matches('"').to_string());
             }
         }
     }
     None
 }
-
 
 pub fn crawl_network() -> Vec<FingerprintEntry> {
     let mut entries = Vec::new();
@@ -649,7 +684,9 @@ pub fn crawl_network() -> Vec<FingerprintEntry> {
             }
 
             let cols: Vec<&str> = line.split_whitespace().collect();
-            if cols.len() < 5 { continue; }
+            if cols.len() < 5 {
+                continue;
+            }
 
             let proto = cols[0];
             let local_addr = cols[3];
@@ -665,8 +702,16 @@ pub fn crawl_network() -> Vec<FingerprintEntry> {
             // Handle IPv6 safely
             let (ip, port) = if local_addr.contains('[') && local_addr.contains(']') {
                 // IPv6 format: [::1]:443
-                let ip_part = local_addr.split(']').next().unwrap_or("").trim_start_matches('[');
-                let port_part = local_addr.split(']').nth(1).unwrap_or("").trim_start_matches(':');
+                let ip_part = local_addr
+                    .split(']')
+                    .next()
+                    .unwrap_or("")
+                    .trim_start_matches('[');
+                let port_part = local_addr
+                    .split(']')
+                    .nth(1)
+                    .unwrap_or("")
+                    .trim_start_matches(':');
                 (ip_part, port_part)
             } else {
                 // IPv4 or bare format
@@ -691,18 +736,18 @@ pub fn crawl_network() -> Vec<FingerprintEntry> {
         eprintln!("[!] Failed to run ss or netstat");
     }
 
-    println!("[*] crawl_network() completed with {} entries", entries.len());
+    println!(
+        "[*] crawl_network() completed with {} entries",
+        entries.len()
+    );
     entries
 }
-
 
 pub fn crawl_containers() -> Vec<FingerprintEntry> {
     let mut entries = Vec::new();
 
     // Utility: Extract UID from path
-    let get_uid_from_path = |p: &str| -> u32 {
-        fs::metadata(p).map(|m| m.uid()).unwrap_or(0)
-    };
+    let get_uid_from_path = |p: &str| -> u32 { fs::metadata(p).map(|m| m.uid()).unwrap_or(0) };
 
     // 1. Docker containers
     if let Ok(output) = Command::new("docker")
@@ -817,12 +862,18 @@ pub fn crawl_containers() -> Vec<FingerprintEntry> {
     if let Some(home) = dirs::home_dir() {
         let overlay_root = home.join(".local/share/containers/storage/overlay");
         if overlay_root.exists() {
-            for entry in fs::read_dir(overlay_root).unwrap_or_else(|_| fs::read_dir("/dev/null").unwrap()) {
+            for entry in
+                fs::read_dir(overlay_root).unwrap_or_else(|_| fs::read_dir("/dev/null").unwrap())
+            {
                 if let Ok(e) = entry {
                     let path = e.path();
                     let merged = path.join("merged");
                     if merged.exists() {
-                        let id = path.file_name().unwrap_or_default().to_string_lossy().to_string();
+                        let id = path
+                            .file_name()
+                            .unwrap_or_default()
+                            .to_string_lossy()
+                            .to_string();
                         let trusted_uid = get_uid_from_path(merged.to_str().unwrap_or(""));
                         entries.push(FingerprintEntry::Container {
                             container_id: id.clone(),
@@ -900,7 +951,8 @@ pub fn crawl_scripts() -> Vec<FingerprintEntry> {
             if let Ok(f) = File::open(path) {
                 let mut reader = BufReader::new(f);
                 let mut first_line = String::new();
-                if reader.read_line(&mut first_line).is_ok() && first_line.trim().starts_with("#!") {
+                if reader.read_line(&mut first_line).is_ok() && first_line.trim().starts_with("#!")
+                {
                     shebang = Some(first_line.trim().to_string());
                 }
             }
@@ -921,7 +973,8 @@ pub fn crawl_scripts() -> Vec<FingerprintEntry> {
             }
 
             let hash = Sha256::digest(&contents);
-            let entropy = { let s = String::from_utf8_lossy(&contents);
+            let entropy = {
+                let s = String::from_utf8_lossy(&contents);
                 calculate_entropy(s.as_ref())
             };
 
@@ -1115,14 +1168,22 @@ pub fn crawl_known_cron_shells() -> Vec<FingerprintEntry> {
             if tokens.len() < 3 {
                 continue;
             }
-            (Some(tokens[0].to_string()), tokens[1].to_string(), tokens[2..].to_vec())
+            (
+                Some(tokens[0].to_string()),
+                tokens[1].to_string(),
+                tokens[2..].to_vec(),
+            )
         } else {
             // Format: m h dom mon dow user /command
             if tokens.len() < 7 {
                 continue;
             }
             let freq_parts = tokens[0..5].join(" ");
-            (Some(freq_parts), tokens[5].to_string(), tokens[6..].to_vec())
+            (
+                Some(freq_parts),
+                tokens[5].to_string(),
+                tokens[6..].to_vec(),
+            )
         };
 
         let command_str = command_tokens.join(" ");
@@ -1232,7 +1293,6 @@ pub fn crawl_binary_auth_chain() -> Vec<FingerprintEntry> {
     entries
 }
 
-
 pub fn trace_ancestry(mut pid: i32) -> Vec<String> {
     let mut ancestry = Vec::new();
     let mut visited = std::collections::HashSet::new();
@@ -1255,7 +1315,9 @@ pub fn trace_ancestry(mut pid: i32) -> Vec<String> {
             .and_then(|content| {
                 content.lines().find_map(|line| {
                     if line.starts_with("PPid:") {
-                        line.split_whitespace().nth(1).and_then(|v| v.parse::<i32>().ok())
+                        line.split_whitespace()
+                            .nth(1)
+                            .and_then(|v| v.parse::<i32>().ok())
                     } else {
                         None
                     }
@@ -1267,7 +1329,8 @@ pub fn trace_ancestry(mut pid: i32) -> Vec<String> {
     }
 
     ancestry
-}pub fn crawl_process_lineage_baseline() -> Vec<FingerprintEntry> {
+}
+pub fn crawl_process_lineage_baseline() -> Vec<FingerprintEntry> {
     let mut entries = Vec::new();
     let proc_root = Path::new("/proc");
 
@@ -1288,7 +1351,9 @@ pub fn trace_ancestry(mut pid: i32) -> Vec<String> {
                 .and_then(|content| {
                     content.lines().find_map(|line| {
                         if line.starts_with("PPid:") {
-                            line.split_whitespace().nth(1).and_then(|ppid| ppid.parse().ok())
+                            line.split_whitespace()
+                                .nth(1)
+                                .and_then(|ppid| ppid.parse().ok())
                         } else {
                             None
                         }
@@ -1383,20 +1448,30 @@ pub fn crawl_gpg_ssh_keys() -> Vec<FingerprintEntry> {
                             if fname.starts_with("id_") && !fname.ends_with(".pub") {
                                 if let Ok(metadata) = fs::metadata(&path) {
                                     let mut file_contents = Vec::new();
-                                    if File::open(&path).and_then(|mut f| f.read_to_end(&mut file_contents)).is_ok() {
+                                    if File::open(&path)
+                                        .and_then(|mut f| f.read_to_end(&mut file_contents))
+                                        .is_ok()
+                                    {
                                         entries.push(FingerprintEntry::GpgSshKey {
                                             path: path.to_string_lossy().to_string(),
                                             hash: format!("{:x}", Sha256::digest(&file_contents)),
                                             owner: metadata.uid(),
                                             trusted_uid: uid,
                                             permissions: Some(metadata.permissions().mode()),
-                                            entropy: Some(estimate_entropy(file_contents.as_slice())),
-                                            exec_capable: Some(metadata.permissions().mode() & 0o111 != 0),
+                                            entropy: Some(estimate_entropy(
+                                                file_contents.as_slice(),
+                                            )),
+                                            exec_capable: Some(
+                                                metadata.permissions().mode() & 0o111 != 0,
+                                            ),
                                             category: "key".into(),
                                             tags: vec!["ssh_key".into()],
                                             source_module: "key_crawler".into(),
                                             created_at: Some(current_timestamp()),
-                                            description: Some(format!("SSH key file for user '{}'", username)),
+                                            description: Some(format!(
+                                                "SSH key file for user '{}'",
+                                                username
+                                            )),
                                         });
                                     }
                                 }
@@ -1412,23 +1487,36 @@ pub fn crawl_gpg_ssh_keys() -> Vec<FingerprintEntry> {
                     for file in files.flatten() {
                         let path = file.path();
                         if let Some(fname) = path.file_name().and_then(|f| f.to_str()) {
-                            if fname.contains("key") || fname.ends_with(".gpg") || fname.ends_with(".asc") {
+                            if fname.contains("key")
+                                || fname.ends_with(".gpg")
+                                || fname.ends_with(".asc")
+                            {
                                 if let Ok(metadata) = fs::metadata(&path) {
                                     let mut file_contents = Vec::new();
-                                    if File::open(&path).and_then(|mut f| f.read_to_end(&mut file_contents)).is_ok() {
+                                    if File::open(&path)
+                                        .and_then(|mut f| f.read_to_end(&mut file_contents))
+                                        .is_ok()
+                                    {
                                         entries.push(FingerprintEntry::GpgSshKey {
                                             path: path.to_string_lossy().to_string(),
                                             hash: format!("{:x}", Sha256::digest(&file_contents)),
                                             owner: metadata.uid(),
                                             trusted_uid: uid,
                                             permissions: Some(metadata.permissions().mode()),
-                                            entropy: Some(estimate_entropy(file_contents.as_slice())),
-                                            exec_capable: Some(metadata.permissions().mode() & 0o111 != 0),
+                                            entropy: Some(estimate_entropy(
+                                                file_contents.as_slice(),
+                                            )),
+                                            exec_capable: Some(
+                                                metadata.permissions().mode() & 0o111 != 0,
+                                            ),
                                             category: "key".into(),
                                             tags: vec!["gpg_key".into()],
                                             source_module: "key_crawler".into(),
                                             created_at: Some(current_timestamp()),
-                                            description: Some(format!("GPG key file for user '{}'", username)),
+                                            description: Some(format!(
+                                                "GPG key file for user '{}'",
+                                                username
+                                            )),
                                         });
                                     }
                                 }
@@ -1500,39 +1588,49 @@ pub fn crawl_kernel_modules() -> Vec<FingerprintEntry> {
     entries
 }
 
-pub fn is_known_good(
-    data: &HashMap<String, String>,
-    fingerprints: &[FingerprintEntry],
-) -> bool {
+pub fn is_known_good(data: &HashMap<String, String>, fingerprints: &[FingerprintEntry]) -> bool {
     for fp in fingerprints {
         match fp {
-            FingerprintEntry::File { path, hash, trusted_uid, .. } => {
+            FingerprintEntry::File {
+                path,
+                hash,
+                trusted_uid,
+                ..
+            } => {
                 if let (Some(d_path), Some(d_hash), Some(d_uid_str)) = (
                     data.get("file_path").or_else(|| data.get("path")),
                     data.get("file_hash"),
                     data.get("uid"),
                 ) {
-                    if d_path == path && d_hash == hash && d_uid_str.parse::<u32>().ok() == Some(*trusted_uid) {
+                    if d_path == path
+                        && d_hash == hash
+                        && d_uid_str.parse::<u32>().ok() == Some(*trusted_uid)
+                    {
                         return true;
                     }
                 }
             }
-            FingerprintEntry::Script { path, hash, trusted_uid, .. } => {
+            FingerprintEntry::Script {
+                path,
+                hash,
+                trusted_uid,
+                ..
+            } => {
                 if let (Some(d_path), Some(d_hash), Some(d_uid_str)) = (
                     data.get("file_path"),
                     data.get("file_hash"),
                     data.get("uid"),
                 ) {
-                    if d_path == path && d_hash == hash && d_uid_str.parse::<u32>().ok() == Some(*trusted_uid) {
+                    if d_path == path
+                        && d_hash == hash
+                        && d_uid_str.parse::<u32>().ok() == Some(*trusted_uid)
+                    {
                         return true;
                     }
                 }
             }
             FingerprintEntry::MemoryRegion { path, pid, .. } => {
-                if let (Some(d_path), Some(d_pid_str)) = (
-                    data.get("path"),
-                    data.get("pid"),
-                ) {
+                if let (Some(d_path), Some(d_pid_str)) = (data.get("path"), data.get("pid")) {
                     if d_path == path && d_pid_str.parse::<u32>().ok() == Some(*pid) {
                         return true;
                     }
@@ -1549,29 +1647,34 @@ pub fn crawl_all_advanced_and_write(output_path: &str) {
     let mut entries: Vec<FingerprintEntry> = Vec::new();
 
     // Core behavioral/system baselines
-    entries.extend(crawl_files());                     // /etc, /usr/bin/, /bin/, etc.
-    entries.extend(crawl_users());                     // All local users and metadata
-    entries.extend(crawl_jobs());                      // Cron, systemd timers, job schedulers
-    entries.extend(crawl_usb_devices());               // USB serials, mount points
-    entries.extend(crawl_network());                   // Open ports, ss, ip, netstat
-    entries.extend(crawl_containers());                // Docker/LXC/OCI presence + FS paths
-    entries.extend(crawl_scripts());                   // /tmp and dropper-like script baselines
-    entries.extend(crawl_memory_regions());            // /proc/[pid]/maps & smaps for trusted binaries
+    entries.extend(crawl_files()); // /etc, /usr/bin/, /bin/, etc.
+    entries.extend(crawl_users()); // All local users and metadata
+    entries.extend(crawl_jobs()); // Cron, systemd timers, job schedulers
+    entries.extend(crawl_usb_devices()); // USB serials, mount points
+    entries.extend(crawl_network()); // Open ports, ss, ip, netstat
+    entries.extend(crawl_containers()); // Docker/LXC/OCI presence + FS paths
+    entries.extend(crawl_scripts()); // /tmp and dropper-like script baselines
+    entries.extend(crawl_memory_regions()); // /proc/[pid]/maps & smaps for trusted binaries
 
     // Advanced system invariants
-    entries.extend(crawl_known_cron_shells());         // Known shells used in job scheds
-    entries.extend(crawl_binary_auth_chain());         // Setuid-root exec chains
-    entries.extend(crawl_process_lineage_baseline());  // Known-good ancestry of system procs
-    entries.extend(crawl_gpg_ssh_keys());              // ~/.ssh and ~/.gnupg validation
-    entries.extend(crawl_kernel_modules());            // Loaded kernel modules
-    println!("[DEBUG] Total fingerprint entries collected: {}", entries.len());
+    entries.extend(crawl_known_cron_shells()); // Known shells used in job scheds
+    entries.extend(crawl_binary_auth_chain()); // Setuid-root exec chains
+    entries.extend(crawl_process_lineage_baseline()); // Known-good ancestry of system procs
+    entries.extend(crawl_gpg_ssh_keys()); // ~/.ssh and ~/.gnupg validation
+    entries.extend(crawl_kernel_modules()); // Loaded kernel modules
+    println!(
+        "[DEBUG] Total fingerprint entries collected: {}",
+        entries.len()
+    );
 
     for (i, entry) in entries.iter().enumerate() {
         println!("[DEBUG] Entry {}: {:?}", i, entry);
     }
 
-    println!("[*] Number of fingerprint entries collected: {}", entries.len());
-
+    println!(
+        "[*] Number of fingerprint entries collected: {}",
+        entries.len()
+    );
 
     match serde_json::to_string_pretty(&entries) {
         Ok(json) => {
@@ -1589,7 +1692,6 @@ pub fn crawl_all_advanced_and_write(output_path: &str) {
     println!("[*] Finished in {:?}", start.elapsed());
 }
 
-
 /// Load fingerprint entries from disk.
 ///
 /// Supports either:
@@ -1601,7 +1703,10 @@ pub fn load_fingerprints_from_disk<P: AsRef<Path>>(path: P) -> Vec<FingerprintEn
     let path = path.as_ref();
 
     let Ok(raw) = fs::read_to_string(path) else {
-        eprintln!("[fingerprints] file not found or unreadable: {}", path.display());
+        eprintln!(
+            "[fingerprints] file not found or unreadable: {}",
+            path.display()
+        );
         return Vec::new();
     };
 
@@ -1615,7 +1720,9 @@ pub fn load_fingerprints_from_disk<P: AsRef<Path>>(path: P) -> Vec<FingerprintEn
     let mut any_line_ok = false;
     for line in raw.lines() {
         let line = line.trim();
-        if line.is_empty() { continue; }
+        if line.is_empty() {
+            continue;
+        }
         match serde_json::from_str::<FingerprintEntry>(line) {
             Ok(entry) => {
                 out.push(entry);

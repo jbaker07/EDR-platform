@@ -37,10 +37,10 @@ static YARA_MATCHES: AtomicU64 = AtomicU64::new(0);
 
 #[derive(Debug, Clone, Serialize)]
 pub struct Hit {
-    pub id: String,     // stable id (ioc:<kind>:<value> or configured id)
-    pub ts: u64,        // record timestamp
-    pub slot: String,   // e.g., "artifact_ioc" or "binary_ioc"
-    pub fact: String,   // short class: "Net" | "FileIO" | "Exec"
+    pub id: String,   // stable id (ioc:<kind>:<value> or configured id)
+    pub ts: u64,      // record timestamp
+    pub slot: String, // e.g., "artifact_ioc" or "binary_ioc"
+    pub fact: String, // short class: "Net" | "FileIO" | "Exec"
     pub summary: String,
     pub tags: Vec<String>, // e.g., ["IOC"] or ["IOC","YARA"]
 }
@@ -100,7 +100,10 @@ impl Default for IocStore {
         Self {
             items: Vec::new(),
             re_url: Regex::new(r#"(?i)\bhttps?://[^\s<>"']{3,}"#).unwrap(),
-            re_domain: Regex::new(r#"(?i)\b([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}\b"#).unwrap(),
+            re_domain: Regex::new(
+                r#"(?i)\b([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}\b"#,
+            )
+            .unwrap(),
             re_ipv4: Regex::new(
                 r#"\b(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}(?:25[0-5]|2[0-4]\d|1?\d{1,2})\b"#,
             )
@@ -241,9 +244,13 @@ pub fn tag_records(records: &mut [TelemetryRecord]) -> Result<Vec<Hit>> {
 
             // Map to (slot,fact) for PB UI
             let (slot, fact) = match it.kind {
-                IocKind::Ip | IocKind::IpPrefix | IocKind::Domain | IocKind::DomainGlob | IocKind::Url | IocKind::UrlRegex | IocKind::CertCnRegex => {
-                    ("artifact_ioc", "Net")
-                }
+                IocKind::Ip
+                | IocKind::IpPrefix
+                | IocKind::Domain
+                | IocKind::DomainGlob
+                | IocKind::Url
+                | IocKind::UrlRegex
+                | IocKind::CertCnRegex => ("artifact_ioc", "Net"),
                 IocKind::Sha256 | IocKind::PathRegex => ("binary_ioc", "FileIO"),
             };
 
@@ -306,7 +313,13 @@ fn domain_matches_glob(glob: &str, dom: &str) -> bool {
 fn extract_candidates<'a>(
     store: &IocStore,
     rec: &'a TelemetryRecord,
-) -> (Vec<String>, Vec<String>, Vec<String>, Vec<String>, Vec<String>) {
+) -> (
+    Vec<String>,
+    Vec<String>,
+    Vec<String>,
+    Vec<String>,
+    Vec<String>,
+) {
     // urls, domains, ips, sha256s, paths
     let mut urls = Vec::new();
     let mut domains = Vec::new();
@@ -377,7 +390,13 @@ fn extract_candidates<'a>(
         v.dedup();
         v
     };
-    (uniq(urls), uniq(domains), uniq(ips), uniq(shas), uniq(paths))
+    (
+        uniq(urls),
+        uniq(domains),
+        uniq(ips),
+        uniq(shas),
+        uniq(paths),
+    )
 }
 
 fn parse_item_from_obj(obj: &serde_json::Map<String, Value>) -> Option<IocItem> {
@@ -404,7 +423,11 @@ fn parse_item_from_obj(obj: &serde_json::Map<String, Value>) -> Option<IocItem> 
     let tags: Vec<String> = obj
         .get("tags")
         .and_then(|v| v.as_array())
-        .map(|a| a.iter().filter_map(|x| x.as_str().map(|s| s.to_string())).collect())
+        .map(|a| {
+            a.iter()
+                .filter_map(|x| x.as_str().map(|s| s.to_string()))
+                .collect()
+        })
         .unwrap_or_default();
 
     let kind = match kind_str.to_ascii_lowercase().as_str() {
@@ -512,7 +535,8 @@ pub fn load_all(dir: impl AsRef<Path>) -> Result<IocStore> {
             }
 
             let mut add = if is_jsonl {
-                read_items_from_jsonl(&p).with_context(|| format!("reading jsonl {}", p.display()))?
+                read_items_from_jsonl(&p)
+                    .with_context(|| format!("reading jsonl {}", p.display()))?
             } else {
                 read_items_from_file(&p).with_context(|| format!("reading json {}", p.display()))?
             };

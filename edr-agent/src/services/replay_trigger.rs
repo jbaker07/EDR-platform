@@ -3,11 +3,10 @@
 use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
 
-use crate::session_trust_curve::SessionTrustCurve;
 use crate::services::vault_exporter::export_to_vault;
+use crate::session_trust_curve::SessionTrustCurve;
 
 use lazy_static::lazy_static;
-
 
 /// ✅ Static list of sensitive tags that always trigger replay
 fn sensitive_tags_set() -> HashSet<&'static str> {
@@ -41,7 +40,10 @@ pub fn handle_replay_trigger(
     session_logs: &[String],
 ) {
     if should_trigger_replay(trust_score, tags) {
-        println!("[ALERT] Triggering forensic replay for session: {}", session_id);
+        println!(
+            "[ALERT] Triggering forensic replay for session: {}",
+            session_id
+        );
         if let Err(e) = export_to_vault(session_id, session_logs) {
             eprintln!("[ERROR] Vault export failed: {}", e);
         }
@@ -86,5 +88,3 @@ pub fn trigger_replay_if_needed(
         handle_replay_trigger(session_id, trust_score, tags, session_logs);
     }
 }
-
-

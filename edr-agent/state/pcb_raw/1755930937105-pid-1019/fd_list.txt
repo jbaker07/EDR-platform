@@ -1,4 +1,0 @@
-fd 0 -> /dev/ttyAMA0
-fd 1 -> /dev/ttyAMA0
-fd 2 -> /dev/ttyAMA0
-fd 4 -> anon_inode:inotify

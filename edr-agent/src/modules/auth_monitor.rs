@@ -13,8 +13,8 @@ use serde::Serialize;
 use crate::{
     gnn_hook::{push_to_gnn_vector_log, submit_to_gnn},
     logger::log,
-    modules::{geo_ip_anomaly, mfa_bypass, password_spray}, // kept for compatibility if referenced elsewhere
     modules::replay_writer::store_replay_event,
+    modules::{geo_ip_anomaly, mfa_bypass, password_spray}, // kept for compatibility if referenced elsewhere
     telemetry::TelemetryRecord,
     telemetry_types::TelemetryOutput,
     telemetry_writer::write_telemetry_record,
@@ -82,7 +82,13 @@ fn log_retention_secs() -> u64 {
 
 pub fn log_auth_attempt(user: &str, success: bool, ip: &str, geo: &str) {
     let mut logs = LOGIN_LOGS.lock().unwrap();
-    logs.push((user.to_string(), success, ip.to_string(), geo.to_string(), now_ts()));
+    logs.push((
+        user.to_string(),
+        success,
+        ip.to_string(),
+        geo.to_string(),
+        now_ts(),
+    ));
 
     // Trim by size
     if logs.len() > 10_000 {

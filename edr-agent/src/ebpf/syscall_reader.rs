@@ -1,193 +1,160 @@
 // src/ebpf/syscall_reader.rs
-//
-// Minimal CO-RE eBPF ringbuf reader for syscall_tracer.bpf.o
-// Requires libbpf-rs in Cargo.toml:
-//   libbpf-rs = "0.21"
-//   libbpf-sys = "1.*"
-// Also ensure rlimit memlock is raised and BTF available at runtime.
-
 #![allow(clippy::needless_return)]
+#![cfg(target_os = "linux")]
 
-use std::collections::HashMap;
-use std::os::fd::AsRawFd;
-use std::path::PathBuf;
+use std::collections::HashSet;
 use std::sync::{Arc, Mutex};
-use std::{fs, thread, time::Duration};
+use std::time::Duration;
+use std::sync::atomic::Ordering;
 
-use crate::telemetry_types::TelemetryOutput;
-use crate::telemetry_writer::{TelemetryWriter, write_telemetry_record};
-use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::modules::replay_writer::store_replay_event;
+use libbpf_rs::{Link, ObjectBuilder, RingBufferBuilder};
+use forensic_hooks::telemetry_writer::TelemetryWriter;
 
-#[cfg(target_os = "linux")]
-mod linux_impl {
-    use super::*;
-    use libbpf_rs::{MapFlags, ObjectBuilder, RingBufferBuilder};
+use crate::ebpf::events_reader; // resolve_bpf()
+use crate::ebpf::ebpf_ingest::on_edr_event;
 
-    #[repr(C)]
-    #[derive(Clone, Copy)]
-    struct SyscallEvent {
-        pid: u32,
-        syscall_id: u32,
-    }
-
-    fn syscall_to_tag(sys: u32) -> (&'static str, &'static str) {
-        // (category, signal) — mapped to trust dimensions downstream
-        match sys as i64 {
-            libc::SYS_execve | libc::SYS_execveat => ("process", "process::exec"),
-            libc::SYS_open | libc::SYS_openat | libc::SYS_rename | libc::SYS_unlink | libc::SYS_unlinkat => ("file", "file::fs_mutation"),
-            libc::SYS_connect => ("network", "network::connect"),
-            libc::SYS_read | libc::SYS_write => ("process", "process::io"),
-            libc::SYS_clone | libc::SYS_fork | libc::SYS_vfork => ("process", "process::spawn"),
-            libc::SYS_exit | libc::SYS_exit_group => ("process", "process::exit"),
-            libc::SYS_setuid | libc::SYS_setreuid | libc::SYS_setresuid => ("privilege", "privilege::setuid"),
-            libc::SYS_mount | libc::SYS_umount2 => ("privilege", "privilege::mount"),
-            _ => ("process", "process::syscall"),
-        }
-    }
-
-    fn read_proc_exe(pid: u32) -> Option<String> {
-        let p = PathBuf::from(format!("/proc/{pid}/exe"));
-        fs::read_link(p).ok().map(|p| p.to_string_lossy().to_string())
-    }
-    fn read_proc_cmdline(pid: u32) -> Option<String> {
-        let p = PathBuf::from(format!("/proc/{pid}/cmdline"));
-        fs::read(p).ok().map(|bytes| {
-            let mut s = String::from_utf8_lossy(&bytes).to_string();
-            s = s.replace('\0', " ").trim().to_string();
-            s
-        })
-    }
-    fn read_proc_cwd(pid: u32) -> Option<String> {
-        let p = PathBuf::from(format!("/proc/{pid}/cwd"));
-        fs::read_link(p).ok().map(|p| p.to_string_lossy().to_string())
-    }
-
-    pub fn start(writer: Arc<Mutex<TelemetryWriter>>) -> anyhow::Result<()> {
-        // Raise memlock (best-effort)
-        let rlim = libc::rlimit { rlim_cur: u64::MAX, rlim_max: u64::MAX };
-        unsafe { libc::setrlimit(libc::RLIMIT_MEMLOCK, &rlim as *const _) };
-
-        // Open & load BPF object
-        let obj_path = std::env::var("EDR_BPF_SYSCALL_OBJ")
-            .unwrap_or_else(|_| "syscall_tracer.bpf.o".into());
-        let open_obj = ObjectBuilder::default().open_file(&obj_path)?;
-        let mut obj = open_obj.load()?;
-
-        // Attach all tracepoint programs by parsing section names
-        for prog in obj.progs_mut() {
-            let sec = prog.section().unwrap_or_default();
-            if let Some(rest) = sec.strip_prefix("tracepoint/") {
-                if let Some((cat, name)) = rest.split_once('/') {
-                    prog.attach_tracepoint(cat, name)?;
+/// Attach a candidate function (if present) to a tracepoint category/name.
+fn attach_tp_if_present(
+    obj: &mut libbpf_rs::Object,
+    links: &mut Vec<Link>,
+    func_names: &[&str],
+    cat: &str,
+    name: &str,
+) {
+    for f in func_names {
+        if let Some(p) = obj.prog_mut(f) {
+            match p.attach_tracepoint(cat, name) {
+                Ok(l) => {
+                    eprintln!("[ebpf/syscalls] ✅ attached {f} -> {cat}/{name}");
+                    links.push(l);
+                    return;
+                }
+                Err(e) => {
+                    eprintln!("[ebpf/syscalls] attach {f}@{cat}/{name} failed: {e}");
                 }
             }
         }
-
-        // Ring buffer setup
-        let mut rb = RingBufferBuilder::new();
-        let mut burst_guard: std::collections::HashMap<u32, u64> = HashMap::new();
-
-        let mut map = obj.map_mut("events")?;
-        rb.add(&mut map, move |data: &[u8]| {
-            if data.len() < std::mem::size_of::<SyscallEvent>() { return 0; }
-            let mut ev = SyscallEvent { pid: 0, syscall_id: 0 };
-            unsafe {
-                std::ptr::copy_nonoverlapping(
-                    data.as_ptr(),
-                    &mut ev as *mut _ as *mut u8,
-                    std::mem::size_of::<SyscallEvent>(),
-                );
-            }
-
-            // basic burst guard per (pid) 10ms
-            let now_ms = monotonic_ms();
-            if let Some(last) = burst_guard.get(&ev.pid) {
-                if now_ms.saturating_sub(*last) < 10 {
-                    return 0;
-                }
-            }
-            burst_guard.insert(ev.pid, now_ms);
-
-            let (category, signal) = syscall_to_tag(ev.syscall_id);
-
-            // Enrich from /proc (best effort)
-            let mut data = HashMap::new();
-            data.insert("pid".into(), ev.pid.to_string());
-            data.insert("syscall_id".into(), ev.syscall_id.to_string());
-
-            if let Some(exe) = read_proc_exe(ev.pid)       { data.insert("binary_path".into(), exe); }
-            if let Some(cmd) = read_proc_cmdline(ev.pid)   { data.insert("command_line".into(), cmd); }
-            if let Some(cwd) = read_proc_cwd(ev.pid)       { data.insert("cwd".into(), cwd); }
-
-            let out = TelemetryOutput {
-                category: category.to_string(),
-                signal: signal.to_string(),
-                confidence: 0.85,
-                data,
-            };
-
-            // Fan into existing pipelines exactly like other realtime modules
-            let mut map_line = out.data.clone();
-            map_line.insert("category".into(), out.category.clone());
-            map_line.insert("signal".into(), out.signal.clone());
-            map_line.insert("confidence".into(), out.confidence.to_string());
-
-            write_telemetry_record(map_line.clone());
-            push_to_gnn_vector_log(map_line.clone());
-            store_replay_event(map_line);
-
-            // (Optional) If you want to push into the writer buffer, do it here:
-            if let Ok(mut w) = writer.lock() {
-                // If TelemetryWriter exposes a direct event API, call it; else ignore.
-                let _ = &mut *w;
-            }
-            0
-        })?;
-
-        let rb = rb.build()?;
-        let fd = rb.as_raw_fd();
-        log_if("ebpf/syscall_reader", &format!("ringbuf fd={fd} attached OK"));
-
-        // Poll loop
-        thread::spawn(move || {
-            loop {
-                // 100 ms poll; libbpf returns number of records consumed
-                let _ = rb.poll(1);
-            }
-        });
-
-        Ok(())
-    }
-
-    #[inline]
-    fn monotonic_ms() -> u64 {
-        use std::time::Instant;
-        static START: once_cell::sync::Lazy<Instant> = once_cell::sync::Lazy::new(Instant::now);
-        START.elapsed().as_millis() as u64
-    }
-
-    fn log_if(_c: &str, _m: &str) {
-        // hook into your logger if you want:
-        // crate::logger::log(_c, _m);
-        let _ = (_c, _m);
     }
 }
 
-#[cfg(not(target_os = "linux"))]
-mod linux_impl {
-    use super::*;
-    pub fn start(_writer: Arc<Mutex<TelemetryWriter>>) -> anyhow::Result<()> {
-        // No-op on non-Linux targets
-        Ok(())
+/// Return ringbuf map names to try, honoring EDR_SYS_RINGBUF if it exists in the object.
+/// We’ll subscribe to ALL that are present (no longer “pick one”).
+fn discover_ringbuf_maps(obj: &libbpf_rs::Object) -> Vec<String> {
+    let mut ordered: Vec<String> = Vec::new();
+    let mut seen: HashSet<String> = HashSet::new();
+
+    // Highest priority: explicit env override (still include others later).
+    if let Ok(over) = std::env::var("EDR_SYS_RINGBUF") {
+        if obj.map(&over).is_some() && seen.insert(over.clone()) {
+            ordered.push(over);
+        }
     }
+
+    // Common names used across our objects.
+    for n in ["edr_events_rb", "events", "wx_events", "syscall_events", "sys_events", "EVENTS"] {
+        if obj.map(n).is_some() && seen.insert(n.to_string()) {
+            ordered.push(n.to_string());
+        }
+    }
+
+    if ordered.is_empty() {
+        eprintln!("[ebpf/syscalls] no known ringbuf maps found in object (edr_events_rb/events/wx_events/...)");
+    } else {
+        eprintln!("[ebpf/syscalls] ringbuf maps available: {}", ordered.join(", "));
+    }
+    ordered
 }
 
 pub fn start_syscall_reader(writer: Arc<Mutex<TelemetryWriter>>) {
-    #[cfg(target_os = "linux")]
-    {
-        if let Err(e) = linux_impl::start(writer) {
-            eprintln!("[ebpf/syscall_reader] failed: {e}");
+    // Best-effort RLIMIT_MEMLOCK raise.
+    unsafe {
+        let rlim = libc::rlimit { rlim_cur: u64::MAX, rlim_max: u64::MAX };
+        let _ = libc::setrlimit(libc::RLIMIT_MEMLOCK, &rlim as *const _);
+    }
+
+    // Default to proc_lifecycle.bpf.o; allow override via EDR_BPF_SYSCALL_OBJ.
+    let obj_path = events_reader::resolve_bpf("EDR_BPF_SYSCALL_OBJ", "proc_lifecycle.bpf.o");
+
+    let open = match ObjectBuilder::default().open_file(&obj_path) {
+        Ok(o) => o,
+        Err(e) => { eprintln!("[ebpf/syscalls] open {obj_path} failed: {e}"); return; }
+    };
+    let mut obj = match open.load() {
+        Ok(o) => o,
+        Err(e) => { eprintln!("[ebpf/syscalls] load failed: {e}"); return; }
+    };
+
+    // Attach a few likely tracepoints (we tolerate failures, logging the one that worked).
+    let mut links: Vec<Link> = Vec::new();
+    attach_tp_if_present(&mut obj, &mut links, &["tp_enter_execve"], "syscalls", "sys_enter_execve");
+    attach_tp_if_present(&mut obj, &mut links, &["tp_enter_execveat"], "syscalls", "sys_enter_execveat");
+    attach_tp_if_present(&mut obj, &mut links, &["tp_enter_connect","tp_enter_connec"], "syscalls", "sys_enter_connect");
+    attach_tp_if_present(&mut obj, &mut links, &["tp_enter_mmap"], "syscalls", "sys_enter_mmap");
+    attach_tp_if_present(&mut obj, &mut links, &["tp_enter_mprotect","tp_enter_mprote"], "syscalls", "sys_enter_mprotect");
+    attach_tp_if_present(&mut obj, &mut links, &["tp_enter_clone"], "syscalls", "sys_enter_clone");
+    attach_tp_if_present(&mut obj, &mut links, &["tp_sched_process_exec","tp_sched_process_exe"], "sched", "sched_process_exec");
+
+    // Subscribe to ALL ringbuf maps we can find in THIS object.
+    let maps = discover_ringbuf_maps(&obj);
+    if maps.is_empty() {
+        eprintln!("[ebpf/syscalls] ❌ no ringbuf maps to subscribe in {obj_path}");
+        return;
+    }
+
+    let host_sz = std::mem::size_of::<crate::ebpf::ebpf_bridge::EdREvent>();
+    eprintln!(
+        "[ebpf/syscalls] ingest ready — host_struct_size={host_sz}; decoder also accepts legacy sizes: 312/332/376 and tcp_state: 48"
+    );
+
+    // Build one ring buffer per map to avoid borrow issues, and spawn a poller per rb.
+    let mut started = 0usize;
+    for name in maps {
+        if let Some(mut m) = obj.map_mut(&name) {
+            eprintln!("[ebpf/syscalls] subscribing ringbuf map='{name}' obj='{obj_path}'");
+            let mut rb_builder = RingBufferBuilder::new();
+
+            let w = writer.clone();
+            if let Err(e) = rb_builder.add(&mut m, move |data: &[u8]| {
+                // Count every raw frame delivered to userspace (pre-filter).
+                crate::EVENTS_IN.fetch_add(1, Ordering::Relaxed);
+
+                if let Some(rec) = on_edr_event(data, &w) {
+                    // Persist the record
+                    if let Ok(mut ww) = w.lock() {
+                        ww.append(rec);
+                    }
+                    // Count accepted events (since in realtime mode we bypass the batching loop).
+                    crate::EVENTS_ACCEPTED.fetch_add(1, Ordering::Relaxed);
+                }
+                0
+            }) {
+                eprintln!("[ebpf/syscalls] ❌ ringbuf add failed for map='{name}': {e}");
+                continue;
+            }
+
+            match rb_builder.build() {
+                Ok(rb) => {
+                    started += 1;
+                    std::thread::spawn(move || loop {
+                        // poll fast to reduce overrun risk
+                        let _ = rb.poll(Duration::from_millis(5));
+                    });
+                }
+                Err(e) => {
+                    eprintln!("[ebpf/syscalls] ❌ ringbuf build failed for map='{name}': {e}");
+                }
+            }
+        } else {
+            eprintln!("[ebpf/syscalls] ⚠️ ringbuf map '{name}' not found in object");
         }
     }
+
+    if started == 0 {
+        eprintln!("[ebpf/syscalls] ❌ no ring buffers started for {obj_path}");
+        return;
+    }
+
+    // Keep BPF object and links alive for the lifetime of the readers.
+    let _leaked_links: &'static mut Vec<Link> = Box::leak(Box::new(links));
+    std::mem::forget(obj);
 }

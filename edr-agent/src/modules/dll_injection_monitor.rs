@@ -6,6 +6,8 @@ use aya::{
     Bpf,
 };
 use bytes::BytesMut;
+use std::fs;
+use std::path::PathBuf;
 use std::{
     collections::HashMap,
     convert::TryInto,
@@ -18,9 +20,8 @@ use std::{
     thread,
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
-use std::fs;
-use std::path::PathBuf;
 
+use crate::logger::log;
 use crate::{
     gnn_hook::{push_metadata_to_gnn_vector_log, push_to_gnn_vector_log},
     modules::replay_writer::store_replay_event,
@@ -28,7 +29,6 @@ use crate::{
     telemetry_writer::{push_memory_telemetry, write_telemetry_record},
     trust_hook::{submit_trust_event, TrustEvent},
 };
-use crate::logger::log;
 
 static DLL_INJECTION_STARTED: AtomicBool = AtomicBool::new(false);
 static DLL_INJECTION_ONCE: Once = Once::new();
@@ -82,7 +82,10 @@ fn get_uid_for_pid(pid: u32) -> Option<u32> {
     if let Ok(contents) = fs::read_to_string(status_path) {
         for line in contents.lines() {
             if line.starts_with("Uid:") {
-                return line.split_whitespace().nth(1).and_then(|s| s.parse::<u32>().ok());
+                return line
+                    .split_whitespace()
+                    .nth(1)
+                    .and_then(|s| s.parse::<u32>().ok());
             }
         }
     }
@@ -130,7 +133,10 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
                 // Broad entry point
                 match rtp.attach("sys_enter") {
                     Ok(_link) => log("✔️ attached raw_tracepoint sys_enter"),
-                    Err(e) => log(&format!("ℹ️ raw_tracepoint attach(sys_enter) failed: {:?}", e)),
+                    Err(e) => log(&format!(
+                        "ℹ️ raw_tracepoint attach(sys_enter) failed: {:?}",
+                        e
+                    )),
                 }
             }
 
@@ -158,7 +164,10 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
                     }
                 }
                 if !attached {
-                    log(&format!("⚠️ no kprobe candidate attached for program '{}'", name));
+                    log(&format!(
+                        "⚠️ no kprobe candidate attached for program '{}'",
+                        name
+                    ));
                 }
             }
 
@@ -175,8 +184,7 @@ fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
 }
 
 #[cfg(all(target_os = "linux", feature = "with-ebpf"))]
-const DLL_INJECTION_BPF: &[u8] =
-    include_bytes_aligned!("../ebpf/dll_injection_monitor.bpf.o");
+const DLL_INJECTION_BPF: &[u8] = include_bytes_aligned!("../ebpf/dll_injection_monitor.bpf.o");
 
 #[cfg(not(all(target_os = "linux", feature = "with-ebpf")))]
 const DLL_INJECTION_BPF: &[u8] = &[];
@@ -359,7 +367,10 @@ pub fn scan_dll_injection_activity() -> Vec<TelemetryOutput> {
             meta.insert("source".into(), "dll_injection_monitor".into());
             meta.insert("category".into(), "memory".into());
             meta.insert("signal".into(), "dll_injection_monitor_active".into());
-            meta.insert("replay_tag".into(), "dll_injection_monitor_heartbeat".into());
+            meta.insert(
+                "replay_tag".into(),
+                "dll_injection_monitor_heartbeat".into(),
+            );
             meta.insert("features".into(), "[0.0]".into());
             meta
         },
@@ -382,7 +393,10 @@ pub fn scan_dll_injection_activity() -> Vec<TelemetryOutput> {
     data.insert("timestamp".into(), now.to_string());
     data.insert("category".into(), "memory".into());
     data.insert("signal".into(), "dll_injection_monitor_active".into());
-    data.insert("replay_tag".into(), "dll_injection_monitor_heartbeat".into());
+    data.insert(
+        "replay_tag".into(),
+        "dll_injection_monitor_heartbeat".into(),
+    );
     data.insert("uid".into(), uid.to_string());
     data.insert("pid".into(), "1".into());
     data.insert("ppid".into(), "0".into());

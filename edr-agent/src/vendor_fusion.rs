@@ -14,11 +14,24 @@ pub struct VendorAlert {
 }
 
 impl VendorAlert {
-    pub fn new(product: impl Into<String>, alert_type: impl Into<String>, host: impl Into<String>, ts: u64) -> Self {
-        Self { product: product.into(), alert_type: alert_type.into(), host: host.into(), ts }
+    pub fn new(
+        product: impl Into<String>,
+        alert_type: impl Into<String>,
+        host: impl Into<String>,
+        ts: u64,
+    ) -> Self {
+        Self {
+            product: product.into(),
+            alert_type: alert_type.into(),
+            host: host.into(),
+            ts,
+        }
     }
 }
 
-pub fn fuse(engine: &mut PlaybookEngine, alert: VendorAlert) -> Option<crate::pb_engine::PlaybookHit> {
+pub fn fuse(
+    engine: &mut PlaybookEngine,
+    alert: VendorAlert,
+) -> Option<crate::pb_engine::PlaybookHit> {
     engine.satisfy_slot_from_vendor(&alert.product, &alert.alert_type, &alert.host, alert.ts)
 }

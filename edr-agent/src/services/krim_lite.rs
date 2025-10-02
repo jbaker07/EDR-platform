@@ -8,8 +8,8 @@ use std::collections::{HashMap, HashSet, VecDeque};
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 
-use crate::graph_builder::{GraphEdge, GraphNode};
 use crate::episode::Episode;
+use crate::graph_builder::{GraphEdge, GraphNode};
 
 use crate::telemetry::TelemetryRecord;
 use crate::trust_hook::TrustEvent;
@@ -108,7 +108,8 @@ pub fn analyze_graph_and_score(
     max_depth: usize,
     baseline_path: &str,
 ) -> Vec<TrustEvent> {
-    let node_lookup: HashMap<String, &GraphNode> = nodes.iter().map(|n| (n.id.clone(), n)).collect();
+    let node_lookup: HashMap<String, &GraphNode> =
+        nodes.iter().map(|n| (n.id.clone(), n)).collect();
 
     let baseline_sequences = load_baseline_sequences(baseline_path);
     let sequences = extract_behavior_sequences(nodes, edges, max_depth);
@@ -165,15 +166,11 @@ pub fn extract_behavior_sequences(
     for start in nodes {
         // BFS with per-path visited to avoid cycles
         let mut queue: VecDeque<(String, Vec<String>, HashSet<String>)> = VecDeque::new();
-        queue.push_back((
-            start.id.clone(),
-            vec![start.id.clone()],
-            {
-                let mut s = HashSet::new();
-                s.insert(start.id.clone());
-                s
-            },
-        ));
+        queue.push_back((start.id.clone(), vec![start.id.clone()], {
+            let mut s = HashSet::new();
+            s.insert(start.id.clone());
+            s
+        }));
 
         while let Some((cur, path, visited)) = queue.pop_front() {
             if path.len() >= max_depth {

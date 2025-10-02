@@ -1,7 +1,7 @@
-use aya::{include_bytes_aligned, Ebpf};
 use aya::maps::perf::PerfEventArray;
 use aya::programs::TracePoint;
 use aya::util::online_cpus;
+use aya::{include_bytes_aligned, Ebpf};
 use bytes::BytesMut;
 use chrono::Utc;
 use lazy_static::lazy_static;
@@ -162,9 +162,8 @@ pub fn start_ebpf_file_tamper_watch() {
     TAMPER_ONCE.call_once(|| {
         thread::spawn(move || {
             // Leak the eBPF object so perf buffers used in spawned threads remain valid.
-            let tmp = match Ebpf::load(include_bytes_aligned!(
-                "../ebpf/file_tamper_monitor.bpf.o"
-            )) {
+            let tmp = match Ebpf::load(include_bytes_aligned!("../ebpf/file_tamper_monitor.bpf.o"))
+            {
                 Ok(b) => b,
                 Err(e) => {
                     eprintln!("❌ Failed to load BPF: {:?}", e);
@@ -185,7 +184,10 @@ pub fn start_ebpf_file_tamper_watch() {
                 }
             };
 
-            if let Err(e) = tp.load().and_then(|_| tp.attach("syscalls", "sys_enter_unlink")) {
+            if let Err(e) = tp
+                .load()
+                .and_then(|_| tp.attach("syscalls", "sys_enter_unlink"))
+            {
                 eprintln!("❌ TracePoint attach/load error: {:?}", e);
                 return;
             }
@@ -220,7 +222,10 @@ pub fn start_ebpf_file_tamper_watch() {
                                 match buf.read_events(&mut buffers) {
                                     Ok(events) => {
                                         if events.lost > 0 {
-                                            log(&format!("⚠️ Lost {} file-tamper events", events.lost));
+                                            log(&format!(
+                                                "⚠️ Lost {} file-tamper events",
+                                                events.lost
+                                            ));
                                         }
                                         for b in &buffers[..events.read] {
                                             // Try v2 (with inlined path) first, then v1 (pointer)
@@ -327,7 +332,10 @@ fn handle_event_v1(evt: FileTamperEventV1) {
         signal_type: Some("unlink".into()),
         score: Some(70.0),
         raw_score: Some(70.0),
-        tags: Some(vec!["tag:unlink_detected".into(), "tag:file_integrity".into()]),
+        tags: Some(vec![
+            "tag:unlink_detected".into(),
+            "tag:file_integrity".into(),
+        ]),
         description: Some(details),
     });
 
@@ -361,7 +369,10 @@ fn handle_event_v2(evt: FileTamperEventV2) {
         return;
     }
 
-    let details = format!("File tamper detected: pid={} flags={} path={}", pid, evt.flags, path_str);
+    let details = format!(
+        "File tamper detected: pid={} flags={} path={}",
+        pid, evt.flags, path_str
+    );
 
     let mut data = HashMap::new();
     data.insert("timestamp".into(), now_ts().to_string());
@@ -406,7 +417,10 @@ fn handle_event_v2(evt: FileTamperEventV2) {
         signal_type: Some("unlink".into()),
         score: Some(70.0),
         raw_score: Some(70.0),
-        tags: Some(vec!["tag:unlink_detected".into(), "tag:file_integrity".into()]),
+        tags: Some(vec![
+            "tag:unlink_detected".into(),
+            "tag:file_integrity".into(),
+        ]),
         description: Some(details),
     });
 
@@ -438,7 +452,10 @@ pub fn scan_file_tamper_activity() -> Vec<TelemetryOutput> {
     data.insert("summary".into(), "Passive file tamper scan active".into());
     data.insert("replay_tag".into(), "monitor_heartbeat".into());
     data.insert("gnn_escalate".into(), "false".into());
-    data.insert("soc_note".into(), "Heartbeat: File tamper monitor active".into());
+    data.insert(
+        "soc_note".into(),
+        "Heartbeat: File tamper monitor active".into(),
+    );
 
     let trust_event = TrustEvent {
         timestamp,
@@ -459,7 +476,10 @@ pub fn scan_file_tamper_activity() -> Vec<TelemetryOutput> {
         signal_type: Some("heartbeat".to_string()),
         score: Some(100.0),
         raw_score: Some(0.0),
-        tags: Some(vec!["heartbeat".to_string(), "tag:file_integrity".to_string()]),
+        tags: Some(vec![
+            "heartbeat".to_string(),
+            "tag:file_integrity".to_string(),
+        ]),
         description: Some("File tamper monitor heartbeat signal".to_string()),
     };
 

@@ -1,33 +1,31 @@
 // edr-agent/modules/mfa_bypass.rs
 
 use std::{
-    fs::File,
-    io::{BufReader, BufRead},
-    time::{SystemTime, UNIX_EPOCH},
     collections::HashMap,
+    fs::File,
+    io::{BufRead, BufReader},
     sync::atomic::{AtomicBool, Ordering},
     thread,
+    time::{SystemTime, UNIX_EPOCH},
 };
 
 use aya::{
-    Ebpf, include_bytes_aligned,
-    maps::perf::AsyncPerfEventArray,
-    programs::TracePoint,
-    util::online_cpus,
+    include_bytes_aligned, maps::perf::AsyncPerfEventArray, programs::TracePoint,
+    util::online_cpus, Ebpf,
 };
 
 use bytes::BytesMut;
 use lazy_static::lazy_static;
 use tokio::task;
 
-use anyhow::{Result, anyhow, Context};
+use anyhow::{anyhow, Context, Result};
 
 use crate::modules::replay_writer::store_replay_event;
 use crate::{
-    telemetry_writer::write_telemetry_record,
-    telemetry_types::TelemetryOutput,
     gnn_hook::push_to_gnn_vector_log,
-    trust_hook::{submit_trust_event, generate_trust_payload, generate_feature_vector, TrustEvent},
+    telemetry_types::TelemetryOutput,
+    telemetry_writer::write_telemetry_record,
+    trust_hook::{generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent},
     utils::time::now_ts,
 };
 
@@ -154,7 +152,10 @@ fn push_mfa_telemetry(event: MFABypassEvent) {
     gnn_data.insert("gnn_escalate".into(), "true".into());
     gnn_data.insert(
         "summary".into(),
-        format!("MFA bypass anomaly for {} via execve: {}", event.user, event.reason),
+        format!(
+            "MFA bypass anomaly for {} via execve: {}",
+            event.user, event.reason
+        ),
     );
     gnn_data.insert("replay_tag".into(), "mfa_execve".into());
 
@@ -224,7 +225,10 @@ pub fn start_mfa_bypass_monitor() {
             gnn_data.insert("gnn_escalate".into(), "true".into());
             gnn_data.insert(
                 "summary".into(),
-                format!("Log-detected MFA bypass attempt by {} via {}", event.user, event.method),
+                format!(
+                    "Log-detected MFA bypass attempt by {} via {}",
+                    event.user, event.method
+                ),
             );
             gnn_data.insert("replay_tag".into(), "mfa_log".into());
 
@@ -265,8 +269,7 @@ pub async fn start_ebpf_mfa_trace() -> Result<()> {
     let mut perf_array = AsyncPerfEventArray::try_from(map)
         .context("AsyncPerfEventArray init failed for 'events'")?;
 
-    let cpus = online_cpus()
-        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
     for cpu_id in cpus {
         let mut buf = perf_array.open(cpu_id, None)?;
         task::spawn(async move {
@@ -282,7 +285,9 @@ pub async fn start_ebpf_mfa_trace() -> Result<()> {
                             }
 
                             let event = unsafe {
-                                std::ptr::read_unaligned(slot.as_ptr() as *const MFABypassKernelEvent)
+                                std::ptr::read_unaligned(
+                                    slot.as_ptr() as *const MFABypassKernelEvent
+                                )
                             };
 
                             let comm = String::from_utf8_lossy(&event.comm)
@@ -309,7 +314,8 @@ pub async fn start_ebpf_mfa_trace() -> Result<()> {
                             metadata.insert("user".to_string(), enriched.user.clone());
                             metadata.insert("method".to_string(), enriched.method.clone());
                             metadata.insert("reason".to_string(), enriched.reason.clone());
-                            metadata.insert("timestamp".to_string(), enriched.timestamp.to_string());
+                            metadata
+                                .insert("timestamp".to_string(), enriched.timestamp.to_string());
                             metadata.insert("category".into(), "auth".into());
                             metadata.insert("source".into(), "ebpf".into());
 
@@ -351,7 +357,10 @@ pub async fn start_ebpf_mfa_trace() -> Result<()> {
                             gnn_data.insert("gnn_escalate".into(), "true".into());
                             gnn_data.insert(
                                 "summary".into(),
-                                format!("Execve-based MFA bypass attempt by {} using {}", enriched.user, comm),
+                                format!(
+                                    "Execve-based MFA bypass attempt by {} using {}",
+                                    enriched.user, comm
+                                ),
                             );
                             gnn_data.insert("replay_tag".into(), "mfa_execve".into());
 
@@ -424,4 +433,3 @@ pub fn scan_mfa_bypass_activity() -> Vec<TelemetryOutput> {
         data,
     }]
 }
-

@@ -1,13 +1,13 @@
 // edr-agent/forensic/relay.rs
 
 use std::fs::{self, OpenOptions};
-use std::io::{Write, BufReader, BufRead};
+use std::io::{BufRead, BufReader, Write};
 use std::path::Path;
 use std::time::Duration;
 
+use anyhow::Result;
 use reqwest::blocking::Client;
 use serde::Serialize;
-use anyhow::Result;
 
 /// Struct used to wrap telemetry before transmission or buffering
 #[derive(Serialize)]
@@ -29,9 +29,7 @@ pub fn transmit_or_buffer<T: Serialize>(hostname: &str, timestamp: u64, payload:
         payload,
     };
 
-    let client = Client::builder()
-        .timeout(Duration::from_secs(5))
-        .build()?;
+    let client = Client::builder().timeout(Duration::from_secs(5)).build()?;
 
     let res = client.post(RELAY_ENDPOINT).json(&envelope).send();
 

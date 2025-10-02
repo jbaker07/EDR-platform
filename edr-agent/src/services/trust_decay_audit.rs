@@ -1,7 +1,7 @@
 // trust_decay_audit.rs
 
 use chrono::{DateTime, Utc};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::Path;
@@ -9,15 +9,21 @@ use std::path::Path;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TrustDecayEvent {
     pub endpoint_id: String,
-    pub dimension: String,           // e.g., "auth", "net", "process"
-    pub decay_type: String,          // e.g., "time-based", "triggered", "anomaly-linked"
-    pub decay_amount: f64,           // typically negative
-    pub reason: String,              // e.g., "no activity", "missing telemetry"
+    pub dimension: String,  // e.g., "auth", "net", "process"
+    pub decay_type: String, // e.g., "time-based", "triggered", "anomaly-linked"
+    pub decay_amount: f64,  // typically negative
+    pub reason: String,     // e.g., "no activity", "missing telemetry"
     pub timestamp: DateTime<Utc>,
 }
 
 impl TrustDecayEvent {
-    pub fn new(endpoint_id: &str, dimension: &str, decay_type: &str, decay_amount: f64, reason: &str) -> Self {
+    pub fn new(
+        endpoint_id: &str,
+        dimension: &str,
+        decay_type: &str,
+        decay_amount: f64,
+        reason: &str,
+    ) -> Self {
         TrustDecayEvent {
             endpoint_id: endpoint_id.to_string(),
             dimension: dimension.to_string(),

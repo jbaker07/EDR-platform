@@ -1,8 +1,8 @@
 // edr-agent/src/services/trust_state_writer.rs
 
 use std::collections::HashMap;
-use std::fs::{create_dir_all, File, read_dir};
-use std::io::{Write, BufReader, BufRead};
+use std::fs::{create_dir_all, read_dir, File};
+use std::io::{BufRead, BufReader, Write};
 use std::path::PathBuf;
 use std::thread;
 use std::time::Duration;
@@ -10,10 +10,10 @@ use std::time::Duration;
 use chrono::Utc;
 use flate2::write::GzEncoder;
 use flate2::Compression;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-use crate::services::decay_engine::{TrustState, TrustDecayManager};
 use crate::gnn_hook::push_gnn_event;
+use crate::services::decay_engine::{TrustDecayManager, TrustState};
 
 const TRUST_STATE_PATH: &str = "/var/log/edr/trust_cache/";
 
@@ -86,7 +86,11 @@ pub fn write_trust_state_snapshot(
     );
 
     // Optionally push to GNN (e.g., root cause breadcrumb or marker)
-    push_gnn_event(endpoint_id, trust_state.last_score, &format!("snapshot::{reason}"));
+    push_gnn_event(
+        endpoint_id,
+        trust_state.last_score,
+        &format!("snapshot::{reason}"),
+    );
 
     Ok(())
 }
@@ -95,10 +99,7 @@ pub fn write_trust_state_snapshot(
 pub fn persist_trust_snapshot(cache: &HashMap<String, TrustState>) -> std::io::Result<()> {
     create_dir_all(TRUST_STATE_PATH)?;
 
-    let filename = format!(
-        "trust_state_{}.json.gz",
-        Utc::now().format("%Y%m%d_%H%M%S")
-    );
+    let filename = format!("trust_state_{}.json.gz", Utc::now().format("%Y%m%d_%H%M%S"));
     let full_path = PathBuf::from(TRUST_STATE_PATH).join(filename);
 
     let snapshot = PersistedTrustCache {

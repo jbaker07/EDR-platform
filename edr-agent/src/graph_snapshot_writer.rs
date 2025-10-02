@@ -18,4 +18,3 @@ pub fn store_graph_snapshot(session_id: &str, reasons: &[String], trust_score: f
         eprintln!("[ERROR] Could not create snapshot file: {}", snapshot_path);
     }
 }
-

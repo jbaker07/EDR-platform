@@ -47,7 +47,10 @@ pub fn schedule_replay_job(job: ReplayJob) {
 
 /// Generate timestamp for scheduling
 pub fn current_unix_ts() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }
 
 /// Trigger manually or from trust/ontology module

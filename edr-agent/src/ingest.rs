@@ -30,13 +30,35 @@ static TX: OnceLock<mpsc::Sender<KernelEvent>> = OnceLock::new();
 #[derive(Debug, Clone)]
 pub enum KernelEventKind {
     Exec,
-    Connect { family: u16, dport_be: u16, dst: String },
-    TxBytes { bytes: u64 },
-    RxBytes { bytes: u64 },
-    Mmap { addr: u64, len: u64, prot: u64 },
-    Mprotect { addr: u64, len: u64, prot: u64 },
-    WXTransition { addr: u64, len: u64, prot: u64 },
-    MemfdExec { bytes: u64 },
+    Connect {
+        family: u16,
+        dport_be: u16,
+        dst: String,
+    },
+    TxBytes {
+        bytes: u64,
+    },
+    RxBytes {
+        bytes: u64,
+    },
+    Mmap {
+        addr: u64,
+        len: u64,
+        prot: u64,
+    },
+    Mprotect {
+        addr: u64,
+        len: u64,
+        prot: u64,
+    },
+    WXTransition {
+        addr: u64,
+        len: u64,
+        prot: u64,
+    },
+    MemfdExec {
+        bytes: u64,
+    },
     Fork,
     Setuid,
     Capset,
@@ -64,12 +86,16 @@ pub fn map_syscall_id_to_kind(id: i64) -> Option<KernelEventKind> {
         x if x == libc::SYS_execve as i64 || x == libc::SYS_execveat as i64 => {
             Some(KernelEventKind::Exec)
         }
-        x if x == libc::SYS_mmap as i64 => {
-            Some(KernelEventKind::Mmap { addr: 0, len: 0, prot: 0 })
-        }
-        x if x == libc::SYS_mprotect as i64 => {
-            Some(KernelEventKind::Mprotect { addr: 0, len: 0, prot: 0 })
-        }
+        x if x == libc::SYS_mmap as i64 => Some(KernelEventKind::Mmap {
+            addr: 0,
+            len: 0,
+            prot: 0,
+        }),
+        x if x == libc::SYS_mprotect as i64 => Some(KernelEventKind::Mprotect {
+            addr: 0,
+            len: 0,
+            prot: 0,
+        }),
         x if x == libc::SYS_connect as i64 => Some(KernelEventKind::Connect {
             family: 0,
             dport_be: 0,
@@ -94,7 +120,10 @@ pub fn map_syscall_id_to_kind(id: i64) -> Option<KernelEventKind> {
         x if x == libc::SYS_vfork as i64 => Some(KernelEventKind::Fork),
         x if x == libc::SYS_setuid as i64
             || x == libc::SYS_setreuid as i64
-            || x == libc::SYS_setresuid as i64 => Some(KernelEventKind::Setuid),
+            || x == libc::SYS_setresuid as i64 =>
+        {
+            Some(KernelEventKind::Setuid)
+        }
         x if x == libc::SYS_capset as i64 => Some(KernelEventKind::Capset),
         _ => None,
     }
@@ -138,7 +167,10 @@ struct Window {
 
 impl Window {
     fn new() -> Self {
-        Self { started: Instant::now(), events: Vec::new() }
+        Self {
+            started: Instant::now(),
+            events: Vec::new(),
+        }
     }
     fn push(&mut self, ev: Event) {
         self.events.push(ev);
@@ -220,8 +252,8 @@ fn flush_window(host: &str, window: &mut Window) {
     window.started = Instant::now();
 
     // 1) Feature emitters
-    let mut store = BaselineStore::open("state/baselines")
-        .unwrap_or_else(|_| BaselineStore::in_memory());
+    let mut store =
+        BaselineStore::open("state/baselines").unwrap_or_else(|_| BaselineStore::in_memory());
 
     use crate::traits::FeatureEmitter;
     let mut feats = Vec::new();

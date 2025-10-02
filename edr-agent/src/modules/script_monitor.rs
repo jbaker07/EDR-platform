@@ -1,28 +1,31 @@
+use std::collections::HashMap;
 use std::fs::{self, File};
 use std::io::Read;
 use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::path::{Path, PathBuf};
 use std::thread;
 use std::time::Duration;
-use std::collections::HashMap;
 
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::logger::log;
+use crate::modules::replay_writer::store_replay_event;
+use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprints_from_disk};
+use crate::telemetry_types::TelemetryOutput;
+use crate::telemetry_writer::write_telemetry_record;
 use crate::trust_hook::{
     generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
 };
 use crate::utils::time::now_ts;
-use crate::telemetry_types::TelemetryOutput;
-use sha2::{Digest, Sha256};
 use entropy::shannon_entropy;
+use sha2::{Digest, Sha256};
 use users::get_user_by_uid;
-use crate::telemetry_writer::write_telemetry_record;
-use crate::modules::replay_writer::store_replay_event;
-use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprints_from_disk};
 
 /// Whitelisted safe script names (system-owned jobs or known benign scripts)
 const WHITELIST: &[&str] = &[
-    "/tmp/systemd-private-", "/tmp/pip-", "/tmp/ansible-", "/tmp/crontab",
+    "/tmp/systemd-private-",
+    "/tmp/pip-",
+    "/tmp/ansible-",
+    "/tmp/crontab",
 ];
 
 /// Extensions considered suspicious if found in /tmp
@@ -77,7 +80,9 @@ pub fn scan_script_monitor() -> Vec<TelemetryOutput> {
                     score: Some(22.0_f32),
                     raw_score: Some(22.0_f32),
                     tags: Some(vec!["script".into(), "entropy".into(), "tmp_drop".into()]),
-                    description: Some("Suspicious script with high entropy dropped in /tmp.".into()),
+                    description: Some(
+                        "Suspicious script with high entropy dropped in /tmp.".into(),
+                    ),
                 };
 
                 submit_trust_event(trust_event);

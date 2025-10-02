@@ -1,7 +1,0 @@
-fd 0 -> /dev/null
-fd 1 -> socket:[29016]
-fd 2 -> socket:[29016]
-fd 3 -> socket:[29065]
-fd 4 -> socket:[29066]
-fd 5 -> anon_inode:[eventfd]
-fd 6 -> anon_inode:[eventfd]

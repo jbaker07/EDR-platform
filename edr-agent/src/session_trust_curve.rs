@@ -38,8 +38,10 @@ impl SessionTrustCurve {
         let ts = current_timestamp();
         let last_score = self.history.last().map(|tp| tp.score).unwrap_or(100.0);
         let adjusted_score = match event_type {
-            "deviation" => (last_score - self.decay_profile.drop_rate * (100.0 - new_score)).max(self.decay_profile.min_score),
-            "recovery" => (last_score + self.decay_profile.recovery_rate * new_score).min(self.decay_profile.max_score),
+            "deviation" => (last_score - self.decay_profile.drop_rate * (100.0 - new_score))
+                .max(self.decay_profile.min_score),
+            "recovery" => (last_score + self.decay_profile.recovery_rate * new_score)
+                .min(self.decay_profile.max_score),
             _ => new_score.clamp(self.decay_profile.min_score, self.decay_profile.max_score),
         };
 
@@ -82,13 +84,36 @@ impl SessionTrustCurve {
 
 fn get_decay_profile_for_role(role: &str) -> DecayProfile {
     match role {
-        "developer" => DecayProfile { drop_rate: 0.04, recovery_rate: 0.015, min_score: 10.0, max_score: 100.0 },
-        "admin" => DecayProfile { drop_rate: 0.06, recovery_rate: 0.02, min_score: 15.0, max_score: 100.0 },
-        "executive" => DecayProfile { drop_rate: 0.05, recovery_rate: 0.01, min_score: 5.0, max_score: 100.0 },
-        _ => DecayProfile { drop_rate: 0.05, recovery_rate: 0.0125, min_score: 0.0, max_score: 100.0 },
+        "developer" => DecayProfile {
+            drop_rate: 0.04,
+            recovery_rate: 0.015,
+            min_score: 10.0,
+            max_score: 100.0,
+        },
+        "admin" => DecayProfile {
+            drop_rate: 0.06,
+            recovery_rate: 0.02,
+            min_score: 15.0,
+            max_score: 100.0,
+        },
+        "executive" => DecayProfile {
+            drop_rate: 0.05,
+            recovery_rate: 0.01,
+            min_score: 5.0,
+            max_score: 100.0,
+        },
+        _ => DecayProfile {
+            drop_rate: 0.05,
+            recovery_rate: 0.0125,
+            min_score: 0.0,
+            max_score: 100.0,
+        },
     }
 }
 
 fn current_timestamp() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }

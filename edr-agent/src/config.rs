@@ -1,6 +1,9 @@
 // src/config.rs
 use serde::{Deserialize, Serialize};
-use std::{fs, path::{Path, PathBuf}};
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
 /// ----------------------------
 /// Signed policy (you already use this)
@@ -68,7 +71,10 @@ pub struct Config {
 
 impl Default for RulesCfg {
     fn default() -> Self {
-        Self { path: PathBuf::from("edr-agent/src/rules.json"), hot_reload: true }
+        Self {
+            path: PathBuf::from("edr-agent/src/rules.json"),
+            hot_reload: true,
+        }
     }
 }
 
@@ -76,8 +82,14 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             rules: RulesCfg::default(),
-            thresholds: Thresholds { low: 0.30, medium: 0.55, high: 0.80 },
-            integrations_catalog: Some(IntegrationsCatalogCfg { path: PathBuf::from("integrations/catalog.json") }),
+            thresholds: Thresholds {
+                low: 0.30,
+                medium: 0.55,
+                high: 0.80,
+            },
+            integrations_catalog: Some(IntegrationsCatalogCfg {
+                path: PathBuf::from("integrations/catalog.json"),
+            }),
         }
     }
 }

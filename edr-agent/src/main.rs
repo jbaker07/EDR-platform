@@ -1,4 +1,4 @@
-mod ebpf;
+
 // main.rs (Phase 2 + Phase 3 Decision Engine integration)
 // - Safer TS parsing (secs/ms)
 // - Two-pass graph builder (no missing PPID edges)
@@ -79,6 +79,9 @@ use forensic_hooks::telemetry::Telemetry as NormTelemetry;
 use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::utils::time::now_ts;
 
+#[cfg(target_os = "linux")]
+pub mod ebpf; // <-- this tells Rust there’s a module at src/ebpf/mod.rs
+
 
 // === expose your local detectors (src/detectors/...) ===
 mod detectors {
@@ -129,6 +132,7 @@ fn calibrator() -> &'static Mutex<RollingCalibrator> {
 static MAHALA_ENGINE: OnceLock<Mutex<Mahala>> = OnceLock::new();
 static ENV_BASELINE: OnceLock<Mutex<VecDeque<Vec<f64>>>> = OnceLock::new();
 static ENV_MODEL: OnceLock<Mutex<Option<EllipticEnvelope>>> = OnceLock::new();
+static DECODE_MISS: AtomicU64 = AtomicU64::new(0);
 
 fn mahala_engine() -> &'static Mutex<Mahala> {
     MAHALA_ENGINE.get_or_init(|| Mutex::new(Mahala::default()))
@@ -415,7 +419,7 @@ fn enrich_graph_json(raw: &serde_json::Value) -> serde_json::Value {
         // attach details (best-effort)
         let mut det = serde_json::Map::new();
         if let Some(v) = nn.get("pid").and_then(|x| x.as_i64())      { det.insert("pid".into(), json!(v)); }
-        if let Some(v) = nn.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32)    { det.insert("ppid".into(), json!(v)); }
+        if let Some(v) = nn.get("ppid").and_then(|x| x.as_u64()).map(|x| x as u32) {det.insert("ppid".into(), json!(v));}
         if let Some(v) = nn.get("binary_path").and_then(|x| x.as_str()){ det.insert("exe".into(), json!(v)); }
         if let Some(v) = nn.get("command_line").and_then(|x| x.as_str()){ det.insert("cmdline".into(), json!(v)); }
         if let Some(v) = nn.get("uid").and_then(|x| x.as_i64())      { det.insert("uid".into(), json!(v)); }
@@ -959,6 +963,7 @@ async fn metrics_json() -> Json<Value> {
         "nodes_count": nodes_count,
         "edges_count": edges_count,
         "bpf_drops_total": BPF_DROPS.load(Ordering::Relaxed),
+        "decode_miss_total": DECODE_MISS.load(Ordering::Relaxed),
 
         // compatibility aliases
         "events": ev_in,
@@ -1504,20 +1509,17 @@ fn try_convert_output(output: TelemetryOutput) -> Result<TelemetryRecord, String
 }
 
 // ----------- RELAXED acceptance filter -----------
-fn filter_records(records: &mut Vec<TelemetryRecord>) {
+
+    fn filter_records(records: &mut Vec<TelemetryRecord>) {
+    // TEMP: very permissive accept—keep if we have any signal at all
     records.retain(|r| {
         let has_proc = !r.binary_path.is_empty() || !r.command_line.is_empty();
-
-        // Treat certain tags as implying a real-world entity even if paths/cmdline are blank
-        let has = |s: &str| r.tags.iter().any(|t| t.contains(s));
-        let fileish = r.tags.iter().any(|t| t.starts_with("file_") || t.contains("write") || t.contains("open"));
-        let tag_implies_entity =
-            has("dns") || has("net_") || has("connect") || fileish || has("auth") || has("logon") || has("usb");
-
-        let not_kernel_ppid2 = r.ppid != 2;
-        (has_proc || tag_implies_entity) && not_kernel_ppid2
+        let has_id   = r.pid != 0 || r.ppid != 0 || r.uid != 0;
+        let has_tags = !r.tags.is_empty();
+        has_proc || has_id || has_tags
     });
 
+    // still drop super-noisy *exact* heartbeat tags if they exist
     let noisy = [
         "auth_monitor_active",
         "dll_injection_monitor_active",
@@ -1527,7 +1529,7 @@ fn filter_records(records: &mut Vec<TelemetryRecord>) {
         "no_cron_anomaly_detected",
         "geo_ip_no_anomaly",
     ];
-    let noisy_set: HashSet<&'static str> = noisy.iter().copied().collect();
+    let noisy_set: std::collections::HashSet<&str> = noisy.iter().copied().collect();
     for r in records.iter_mut() {
         r.tags.retain(|t| !noisy_set.contains(t.as_str()));
     }
@@ -1770,7 +1772,11 @@ fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
 fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], data: &TelemetryData) {
     println!(
         "📣 [{}] score={:.2} escalated={} reasons={:?} batch_recs={}",
-        res.endpoint_id, res.score, res.escalated, res.reasons, records.len()
+        res.endpoint_id,
+        res.score,
+        res.escalated,
+        res.reasons,
+        records.len()
     );
 
     // TrustResult doesn’t expose events; pass empty slice for sinks
@@ -1785,6 +1791,7 @@ fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], data: &TelemetryDa
     let _ = forensic_hooks::splunk_hec::emit(events, records, data);
     let _ = forensic_hooks::slack_webhook::emit(events, records, data);
 }
+
 
 // ---- small helpers ----
 fn resolve_rules_path() -> Option<PathBuf> {
@@ -1957,13 +1964,13 @@ fn feed_decider_from_record_tags(
 async fn main() {
     let _ = env_logger::try_init();
     {
-    let cwd = std::env::current_dir().unwrap();
-    eprintln!("🗂️  cwd        : {}", cwd.display());
-    eprintln!("🗂️  ui         : {}", std::fs::canonicalize("ui").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-    eprintln!("🗂️  json_files : {}", std::fs::canonicalize("json_files").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-    eprintln!("🗎   ui/index.html present? {}", std::path::Path::new("ui/index.html").exists());
-    eprintln!("🗎   ui/app.js     present? {}", std::path::Path::new("ui/app.js").exists());
-    eprintln!("🗎   ui/graph.html present? {}", std::path::Path::new("ui/graph.html").exists());
+        let cwd = std::env::current_dir().unwrap();
+        eprintln!("🗂️  cwd        : {}", cwd.display());
+        eprintln!("🗂️  ui         : {}", std::fs::canonicalize("ui").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
+        eprintln!("🗂️  json_files : {}", std::fs::canonicalize("json_files").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
+        eprintln!("🗎   ui/index.html present? {}", std::path::Path::new("ui/index.html").exists());
+        eprintln!("🗎   ui/app.js     present? {}", std::path::Path::new("ui/app.js").exists());
+        eprintln!("🗎   ui/graph.html present? {}", std::path::Path::new("ui/graph.html").exists());
     }
 
     let _policy = forensic_hooks::config::load_and_verify_policy("policy.json")
@@ -1979,23 +1986,19 @@ async fn main() {
     }
 
     // === Playbook engine: load all YAMLs from ./playbooks ===
-    // === Playbook engine: load all YAMLs from ./playbooks ===
     {
         let pb_dir = std::env::var("PB_DIR").unwrap_or_else(|_| "playbooks".to_string());
         match pb_engine().lock() {
-            Ok(mut eng) => {
-                match PlaybookEngine::load_dir(&pb_dir) {
-                    Ok(new_eng) => {
-                        *eng = new_eng;
-                        eprintln!("✅ playbook_engine loaded from {pb_dir}");
-                    }
-                    Err(e) => eprintln!("⚠️ playbook_engine load_dir({pb_dir}) failed: {e}"),
+            Ok(mut eng) => match PlaybookEngine::load_dir(&pb_dir) {
+                Ok(new_eng) => {
+                    *eng = new_eng;
+                    eprintln!("✅ playbook_engine loaded from {pb_dir}");
                 }
-            }
+                Err(e) => eprintln!("⚠️ playbook_engine load_dir({pb_dir}) failed: {e}"),
+            },
             Err(_) => eprintln!("⚠️ playbook_engine lock poisoned"),
         }
     }
-
 
     // alerts / graph / incidents channels
     let (alert_tx, _alert_rx) = broadcast::channel::<String>(1024);
@@ -2009,61 +2012,54 @@ async fn main() {
 
     // ensure layout exists
     let _ = std::fs::create_dir_all("logs");
-    let _ = std::fs::create_dir_all("edr-agent/logs"); // also support logger paths that expect this prefix
+    let _ = std::fs::create_dir_all("edr-agent/logs");
     let _ = std::fs::create_dir_all("state");
     let _ = std::fs::create_dir_all("ui");
     let _ = std::fs::create_dir_all("json_files"); // ensure live-graph path exists
-    let cwd = env::current_dir().unwrap();
-    eprintln!("🗂️  cwd        : {}", cwd.display());
-    eprintln!("🗂️  ui         : {}", fs::canonicalize("ui").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-    eprintln!("🗂️  json_files : {}", fs::canonicalize("json_files").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-    eprintln!("🗎   ui/index.html present? {}", Path::new("ui/index.html").exists());
-    eprintln!("🗎   ui/app.js     present? {}", Path::new("ui/app.js").exists());
-    eprintln!("🗎   ui/graph.html present? {}", Path::new("ui/graph.html").exists());
+    {
+        let cwd = env::current_dir().unwrap();
+        eprintln!("🗂️  cwd        : {}", cwd.display());
+        eprintln!("🗂️  ui         : {}", fs::canonicalize("ui").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
+        eprintln!("🗂️  json_files : {}", fs::canonicalize("json_files").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
+        eprintln!("🗎   ui/index.html present? {}", Path::new("ui/index.html").exists());
+        eprintln!("🗎   ui/app.js     present? {}", Path::new("ui/app.js").exists());
+        eprintln!("🗎   ui/graph.html present? {}", Path::new("ui/graph.html").exists());
+    }
 
     // ---- initialize live graph writer using your graph.rs ----
     let gs = graph_state();
-let _graph_task = spawn_writer(gs.clone(), PathBuf::from("json_files/graph_live.json"));
+    let _graph_task = spawn_writer(gs.clone(), PathBuf::from("json_files/graph_live.json"));
 
-{
-    let rgcn_enabled = std::env::var("RGCN_ENABLED")
-        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-        .unwrap_or(false);
+    // ---- optional R-GCN bridge ----
+    {
+        let rgcn_enabled = std::env::var("RGCN_ENABLED")
+            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+            .unwrap_or(false);
 
-    if rgcn_enabled {
-        use crate::rgcn_bridge::{start_rgcn_bridge, Config as RgcnCfg};
+        if rgcn_enabled {
+            let url        = std::env::var("RGCN_URL").unwrap_or_else(|_| "http://127.0.0.1:9000/infer".into());
+            let poll_ms    = std::env::var("RGCN_POLL_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(1500);
+            let timeout_ms = std::env::var("RGCN_TIMEOUT_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(2000);
+            let max_nodes  = std::env::var("RGCN_MAX_NODES").ok().and_then(|s| s.parse().ok()).unwrap_or(3000);
+            let max_edges  = std::env::var("RGCN_MAX_EDGES").ok().and_then(|s| s.parse().ok()).unwrap_or(6000);
 
-        let url        = std::env::var("RGCN_URL")
-            .unwrap_or_else(|_| "http://127.0.0.1:9000/infer".into());
-        let poll_ms    = std::env::var("RGCN_POLL_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(1500);
-        let timeout_ms = std::env::var("RGCN_TIMEOUT_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(2000);
-        let max_nodes  = std::env::var("RGCN_MAX_NODES").ok().and_then(|s| s.parse().ok()).unwrap_or(3000);
-        let max_edges  = std::env::var("RGCN_MAX_EDGES").ok().and_then(|s| s.parse().ok()).unwrap_or(6000);
-
-        let cfg = rgcn_bridge::Config {
-        url,
-        poll_ms: 2000,
-        timeout_ms: 3000,
-        max_nodes: 3000,
-        max_edges: 6000,
-        graph_path: "json_files/graph_live.annotated.json".into(), // 👈 annotated
-    };
-    start_rgcn_bridge(cfg);
-
-        eprintln!("✅ R-GCN bridge started");
-    } else {
-        eprintln!("ℹ️ R-GCN bridge disabled (set RGCN_ENABLED=1 to enable)");
+            let cfg = rgcn_bridge::Config {
+                url,
+                poll_ms,
+                timeout_ms,
+                max_nodes,
+                max_edges,
+                graph_path: "json_files/graph_live.annotated.json".into(),
+            };
+            start_rgcn_bridge(cfg);
+            eprintln!("✅ R-GCN bridge started");
+        } else {
+            eprintln!("ℹ️ R-GCN bridge disabled (set RGCN_ENABLED=1 to enable)");
+        }
     }
-}
-
-
 
     // ==== MVP event-level detection wiring (rules -> JSONL alerts) ====
-    let mut evaluator = Evaluator::new(Thresholds {
-        low: 0.30,
-        medium: 0.55,
-        high: 0.80,
-    });
+    let mut evaluator = Evaluator::new(Thresholds { low: 0.30, medium: 0.55, high: 0.80 });
 
     if let Some(path) = resolve_rules_path() {
         if let Ok(hot) = HotRulesDetector::new(&path, Duration::from_secs(2)) {
@@ -2074,9 +2070,7 @@ let _graph_task = spawn_writer(gs.clone(), PathBuf::from("json_files/graph_live.
     } else {
         eprintln!("⚠️ rules.json not found in expected locations; continuing without hot rules");
     }
-
     evaluator.registry.add(Box::new(TagFlagsDetector));
-
     if let Err(e) = evaluator.set_output(Path::new("logs/alerts.jsonl")) {
         eprintln!("⚠️ alerts file not set: {e}");
     }
@@ -2103,496 +2097,585 @@ let _graph_task = spawn_writer(gs.clone(), PathBuf::from("json_files/graph_live.
         integrations: Arc::new(Mutex::new(integrations_map)),
     };
 
-    // publisher: push graph JSON to SSE channel when file changes
-    // publisher: push graph JSON to SSE channel when file changes (enriched)
     // publisher: push graph JSON to SSE channel when file changes (annotated with R-GCN overlay)
-{
-    let graph_tx = graph_tx.clone();
-    tokio::spawn(async move {
-        use std::fs;
-        let mut tick = tokio::time::interval(std::time::Duration::from_millis(900));
-        let mut last = String::new();
-        loop {
-            tick.tick().await;
-            match fs::read_to_string("json_files/graph_live.json") {
-                Ok(raw) if !raw.is_empty() => {
-                    // Parse, normalize, annotate, re-emit
-                    if let Ok(v) = serde_json::from_str::<serde_json::Value>(&raw) {
-                        let v = normalize_and_annotate_graph(v);
-                        if let Ok(out) = serde_json::to_string(&v) {
-                            if out != last {
-                                last = out.clone();
-                                let _ = graph_tx.send(out);
+    {
+        let graph_tx = graph_tx.clone();
+        tokio::spawn(async move {
+            use std::fs;
+            let mut tick = tokio::time::interval(std::time::Duration::from_millis(900));
+            let mut last = String::new();
+            loop {
+                tick.tick().await;
+                match fs::read_to_string("json_files/graph_live.json") {
+                    Ok(raw) if !raw.is_empty() => {
+                        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&raw) {
+                            let v = normalize_and_annotate_graph(v);
+                            if let Ok(out) = serde_json::to_string(&v) {
+                                if out != last {
+                                    last = out.clone();
+                                    let _ = graph_tx.send(out);
+                                }
                             }
                         }
                     }
-                }
-                _ => {}
-            }
-        }
-    });
-}
-
-
-
-
-
-   // --- Build the PB router (separate state) and main app router ---
-// --- Build the PB router (separate state) and main app router ---
-let pb_router = Router::new()
-    .route("/pending", get(pb_api::pending))
-    .route("/hits", get(pb_api::hits))
-    .route("/reload", post(pb_api::reload))
-    .route("/stream", get(pb_api::stream))
-    .with_state(pb_state.clone());
-
-// ---------- Static UI (no-cache) ----------
-let no_cache = SetResponseHeaderLayer::overriding(
-    CACHE_CONTROL,
-    HeaderValue::from_static("no-store, max-age=0, must-revalidate"),
-);
-
-// Serve UI explicitly for the main files, plus a directory fallback.
-// Using a child Router lets us apply the no-cache layer cleanly.
-let ui_router = Router::new()
-    .route("/index.html", get_service(ServeFile::new("ui/index.html")))
-    .route("/graph.html", get_service(ServeFile::new("ui/graph.html")))
-    .route("/app.js",     get_service(ServeFile::new("ui/app.js")))
-    .fallback_service(get_service(ServeDir::new("ui")))
-    .layer(no_cache.clone());
-
-// ---------- Main app ----------
-// ---------- Main app ----------
-let app = Router::new()
-    // APIs
-    .route("/alerts", get(alerts_sse))
-    .route("/metrics", get(metrics_json))
-    .route("/alerts/:id/explain", get(explain_alert))
-    .route("/graph/:id", get(graph_for_endpoint))
-    .route("/graph/live", get(graph_live))
-    .route("/graph/stream", get(graph_sse))
-    // Ontology
-    .route("/ontology/status", get(ontology_status))
-    .route("/ontology/reload", post(ontology_reload))
-    .route("/ontology/validate", get(ontology_validate))
-    // Health row
-    .route("/hosts/self/health", get(host_self_health))
-    // Incidents (Phase 2)
-    .route("/incidents/stream", get(incidents_sse))
-    .route("/incidents", get(|| async {
-        let list = incidents().lock().unwrap().list();
-        Json(list)
-    }))
-    .route("/incidents/:id", get(|AxPath(id): AxPath<String>| async move {
-        if let Some(it) = incidents().lock().unwrap().get(&id) {
-            Json(it).into_response()
-        } else {
-            (StatusCode::NOT_FOUND, "not found").into_response()
-        }
-    }))
-    // Safe action stubs (Phase 2)
-    .route("/actions/isolate_host", post(|Json(v): Json<Value>| async move {
-        eprintln!("✳️ action:isolate_host {}", v);
-        (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"isolate_host","echo":v})))
-    }))
-    .route("/actions/kill_proc", post(|Json(v): Json<Value>| async move {
-        eprintln!("✳️ action:kill_proc {}", v);
-        (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"kill_proc","echo":v})))
-    }))
-    .route("/actions/block_egress", post(|Json(v): Json<Value>| async move {
-        eprintln!("✳️ action:block_egress {}", v);
-        (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"block_egress","echo":v})))
-    }))
-    // Integrations
-    .route("/integrations/catalog", get(integrations_catalog))
-    .route("/integrations", get(integrations_list).post(integrations_add))
-    .route("/integrations/:id", delete(integrations_delete))
-    // IOC endpoints
-    .route("/ioc/reload", post(ioc_reload_handler))
-    .route("/ioc/stats", get(ioc_stats_handler))
-    // PB endpoints (nested with separate state)
-    .nest("/playbooks", pb_router)
-    // Diag/health
-    .route("/where", get(diag_where))
-    .route("/__where", get(diag_where))
-    .route("/healthz", get(healthz))
-    // Static
-    .route("/", get_service(ServeFile::new("ui/index.html")))
-    .nest("/ui", ui_router)
-    .nest_service("/json_files", get_service(ServeDir::new("json_files")))
-    // Layers/state
-    .with_state(api_state.clone())
-    .layer(CorsLayer::permissive());
-
-
-// Allow port override (EDR_PORT), default 8080
-{
-    let port: u16 = std::env::var("EDR_PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(8080);
-    tokio::spawn(async move {
-        let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
-        eprintln!("🌐 UI available at http://{}/  (dashboard) | http://{}/ui/graph.html (live graph)", addr, addr);
-        let listener = TcpListener::bind(addr).await.unwrap();
-        axum::serve(listener, app).await.unwrap();
-    });
-}
-
-
-
-    // ==== startup of eBPF readers ====
-    let use_legacy = std::env::var("EDR_USE_LEGACY_REALTIME")
-        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-        .unwrap_or(false);
-
-    #[cfg(target_os = "linux")]
-    {
-        if use_legacy {
-            start_realtime_monitors(writer.clone());
-        } else {
-            // Local readers (binary-side)
-            net_flow_reader::start_net_flow_reader(writer.clone());
-            crate::ebpf::wx_exec_reader::start_wx_exec_reader(writer.clone());
-            crate::ebpf::syscall_reader::start_syscall_reader(writer.clone());
-
-            if let Err(e) = file_access_reader::start() {
-                eprintln!("⛔ file_access_reader disabled: {e}");
-            } else {
-                eprintln!("✅ file_access_reader started");
-            }
-
-            // NOTE: events_reader::start(...) is NOT called here because this
-            // module does not expose a `start` function in your tree.
-            // If you add one later, you can enable it here.
-        }
-    }
-
-    if let Ok(mut cal) = calibrator().lock() {
-        cal.flush();
-    }
-
-    // periodic writer flush (actually flushes to disk now)
-    {
-        let flush_writer = writer.clone();
-        tokio::spawn(async move {
-            let mut tick = tokio::time::interval(Duration::from_secs(30));
-            loop {
-                tick.tick().await;
-                if let Ok(locked) = flush_writer.lock() {
-                    // call the real flush_to_disk; `flush()` is a no-op shim
-                    locked.flush_to_disk();
+                    _ => {}
                 }
             }
         });
     }
 
-    // metrics logger (optional)
+    // ---------------- Integrations API ----------------
     {
-        let mut tick = tokio::time::interval(Duration::from_secs(60));
-        tokio::spawn(async move {
-            loop {
-                tick.tick().await;
-                let ev_in = EVENTS_IN.load(Ordering::Relaxed);
-                let ev_acc = EVENTS_ACCEPTED.load(Ordering::Relaxed);
-                let al = ALERTS_OUT.load(Ordering::Relaxed);
-                let drops = BPF_DROPS.load(Ordering::Relaxed);
-                eprintln!("📊 metrics: received={} accepted={} alerts_out={} bpf_drops={}", ev_in, ev_acc, al, drops);
-            }
-        });
-    }
+        use serde::{Deserialize, Serialize};
+        use serde_json::{json, Value};
+        use axum::{extract::State, response::IntoResponse, Json, Router};
+        use axum::http::StatusCode;
+        use axum::routing::{get, post, delete, get_service};
+        use std::{fs, path::Path};
+        use tower_http::services::{ServeDir, ServeFile};
+        use tower_http::set_header::SetResponseHeaderLayer;
+        use tower_http::cors::CorsLayer;
+        use axum::http::{header, HeaderValue};
+        
 
-    // ======================= main loop =======================
-    loop {
-        let mut records: Vec<TelemetryRecord> = get_current_telemetry_snapshot(writer.clone());
+        #[derive(Serialize, Deserialize, Default)]
+        struct IntegrationCreate { id: String, name: String, creds: Value }
 
-        for output in run_sideeffect_monitors_and_collect() {
-            println!("📥 Passive Signal: {:?}", output);
-            match try_convert_output(output) {
-                Ok(rec) => records.push(rec),
-                Err(_) => println!("⚠️ Failed to convert TelemetryOutput → TelemetryRecord"),
-            }
+        async fn integrations_catalog() -> impl IntoResponse {
+            let path = Path::new("integrations/catalog.json");
+            let body = fs::read_to_string(path).unwrap_or_else(|_| "{\"version\":1,\"vendors\":[]}".into());
+            (StatusCode::OK, body)
         }
 
-        // Count received BEFORE hygiene so "events_in" reflects raw ingress
-        let received_len = records.len();
+        async fn integrations_list(State(st): State<ApiState>) -> impl IntoResponse {
+            let m = st.integrations.lock().unwrap();
+            let items: Vec<Value> = m.values().cloned().collect();
+            Json(json!({ "items": items }))
+        }
 
-        // Hygiene
-        filter_records(&mut records);
-        dedup_records(&mut records);
+        async fn integrations_add(
+            State(st): State<ApiState>,
+            Json(req): Json<IntegrationCreate>,
+        ) -> impl IntoResponse {
+            let mut m = st.integrations.lock().unwrap();
+            m.insert(
+                req.id.clone(),
+                json!({
+                    "id": req.id.clone(),
+                    "name": req.name.clone(),
+                    "creds": req.creds.clone(),
+                    "status": "syncing",
+                    "last_ok": Value::Null
+                }),
+            );
+            let _ = fs::create_dir_all("state");
+            let _ = fs::write(
+                "state/integrations.json",
+                serde_json::to_vec_pretty(&*m).unwrap_or_else(|_| b"{}".to_vec()),
+            );
+            (StatusCode::ACCEPTED, Json(json!({ "ok": true })))
+        }
 
-        // Count accepted AFTER hygiene
-        let accepted_len = records.len();
-
-        // bump counters (accepted will be bumped after persist)
-        EVENTS_IN.fetch_add(received_len as u64, Ordering::Relaxed);
-
-        if records.is_empty() {
-            println!("⚠️  No telemetry records collected this cycle.");
-        } else {
-            // —— PCB snapshots
-            let pcb_snaps = forensic_hooks::pcb::collect_for_records(&records);
-            let _ = forensic_hooks::pcb::append_snapshots_ndjson("state/pcb_snaps.ndjson", &pcb_snaps);
-
-            let dump_raw = std::env::var("EDR_PCB_DUMP_RAW")
-                .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-                .unwrap_or(false);
-            if dump_raw {
-                let _ = forensic_hooks::pcb::dump_records_raw(&records, "state/pcb_raw", false);
+        async fn integrations_delete(
+            State(st): State<ApiState>,
+            axum::extract::Path(id): axum::extract::Path<String>,
+        ) -> impl IntoResponse {
+            let mut m = st.integrations.lock().unwrap();
+            m.remove(&id);
+            let _ = fs::create_dir_all("state");
+            if let Err(e) = fs::write(
+                "state/integrations.json",
+                serde_json::to_vec_pretty(&*m).unwrap(),
+            ) {
+                eprintln!("⚠️ failed writing state/integrations.json: {e}");
             }
+            StatusCode::NO_CONTENT
+        }
 
-            if let Some(ep) = build_episode_from_records(&records) {
-                // Feature emitters with in-memory baseline
-                let mut store = BaselineStore::default();
-                use forensic_hooks::traits::FeatureEmitter;
-                let mut feats = Vec::new();
-                feats.extend(MemoryPrivEmitter::new().emit(&ep, &mut store));
-                feats.extend(NetCadenceEmitter::new().emit(&ep, &mut store));
-                feats.extend(PcbEmitter::new().emit(&ep, &mut store));
-                let _ = store.flush();
+        // ---------------- PB router + Static UI + Main app ----------------
+        let pb_router = Router::new()
+            .route("/pending", get(pb_api::pending))
+            .route("/hits", get(pb_api::hits))
+            .route("/reload", post(pb_api::reload))
+            .route("/stream", get(pb_api::stream))
+            .with_state(pb_state.clone());
 
-                for f in feats.iter().filter(|f| f.z.abs() > 2.0) {
-                    println!("🔎 feature: {}={} z={:.2} fam={}", f.key, f.value, f.z, f.family);
-                }
-                let (_mahalanobis_d2, _elliptic_margin) =
-                    tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);
-                tag_records_from_krim(&mut records);
-            }
+        // no-cache for UI assets
+        let no_cache = SetResponseHeaderLayer::overriding(
+            header::CACHE_CONTROL,
+            HeaderValue::from_static("no-store, max-age=0, must-revalidate"),
+        );
 
-            // 6a) IOC enrichment: tags records + reflect hits into PB pending
-            match ioc::tag_records(&mut records) {
-                Ok(hits) => {
-                    for h in hits {
-                        pb_introspect::add_or_update_pending(pb_introspect::PendingEvidence {
-                            id: h.id,                // stable id from ioc::Hit
-                            playbook_id: "ioc_layer".to_string(),
-                            ts: h.ts,
-                            slot_id: h.slot,         // e.g., "artifact_ioc" / "binary_ioc"
-                            fact: h.fact,            // e.g., "Net", "FileIO", "Exec"
-                            summary: h.summary,      // short human string
-                            tags: h.tags,            // ["IOC", "YARA", ...]
-                            ttl_sec: 900,
-                        });
-                    }
-                }
-                Err(e) => eprintln!("⚠️ ioc::tag_records error: {e}"),
-            }
+        // UI subtree (served under /ui)
+        let ui_router = Router::new()
+            .route("/index.html", get_service(ServeFile::new("ui/index.html")))
+            .route("/graph.html", get_service(ServeFile::new("ui/graph.html")))
+            .route("/app.js",     get_service(ServeFile::new("ui/app.js")))
+            .fallback_service(get_service(ServeDir::new("ui")))
+            .layer(no_cache.clone());
 
-            // 6b) PlaybookEngine: ingest this batch and emit pending/hits
-            {
-                let now = now_ts();
-            if let Ok(mut eng) = pb_engine().lock() {
-                // Delegate conversion of TelemetryRecord -> Facts and ingest+collect to pb_wiring
-                let out = pb_wiring::ingest_batch(&mut *eng, &records, now);
-                for p in out.pending {
-                    pb_introspect::add_or_update_pending(p);
-                }
-                for h in out.hits {
-                    pb_introspect::push_hit(h);
-                }
-            }}
-
-
-            // ⬇️ Feed anomalies & structural tags to DecisionEngine before rules
-            feed_decider_from_record_tags(&records, &alert_tx, &inc_tx);
-
-            // === Run event-level rules on each record and emit JSONL alerts + SSE ===
-            for rec in &records {
-                let mut t = NormTelemetry::from(rec.clone());
-                let (cat, evt) = categorize_record(rec);
-                t.category = cat;
-                t.event = evt;
-
-                // ---- Live Graph ingest (fixed types: u32 + f64) ----
-                {
-                    let mut gsw = gs.write();
-
-                    let pid_i  = rec.pid;
-                    let ppid_i = rec.ppid;
-                    let pid_u  = if pid_i < 0 { 0 } else { pid_i as u32 };
-                    let ppid_u = if ppid_i < 0 { 0 } else { ppid_i as u32 };
-
-                    let comm = if !rec.binary_path.is_empty() {
-                        rec.binary_path.clone()
+        // Main app router
+        let app = Router::new()
+            // APIs
+            .route("/alerts", get(alerts_sse))
+            .route("/metrics", get(metrics_json))
+            .route("/alerts/:id/explain", get(explain_alert))
+            .route("/graph/:id", get(graph_for_endpoint))
+            .route("/graph/live", get(graph_live))
+            .route("/graph/stream", get(graph_sse))
+            // Ontology
+            .route("/ontology/status", get(ontology_status))
+            .route("/ontology/reload", post(ontology_reload))
+            .route("/ontology/validate", get(ontology_validate))
+            // Health row
+            .route("/hosts/self/health", get(host_self_health))
+            // Incidents (Phase 2)
+            .route("/incidents/stream", get(incidents_sse))
+            .route("/incidents", get(|| async {
+                let list = incidents().lock().unwrap().list();
+                Json(list)
+            }))
+            .route(
+                "/incidents/:id",
+                get(|axum::extract::Path(id): axum::extract::Path<String>| async move {
+                    if let Some(it) = incidents().lock().unwrap().get(&id) {
+                        Json(it).into_response()
                     } else {
-                        rec.command_line
-                            .split_whitespace()
-                            .next()
-                            .unwrap_or("-")
-                            .to_string()
-                    };
-
-                    let score_f64 = (rec.risk_score.unwrap_or(0) as f64) / 100.0_f64;
-                    let conf_f64  = (0.1_f64 + score_f64).min(0.95_f64);
-
-                    match (t.category.as_str(), t.event.as_str()) {
-                        ("process", "exec") => {
-                            gsw.ingest_exec(ppid_u, "-", pid_u, &comm, score_f64, conf_f64);
-                        }
-                        ("network", "connect") => {
-                            let ip_port = rec
-                                .command_line
-                                .split_whitespace()
-                                .find(|s| s.contains(':') && s.chars().any(|c| c.is_ascii_digit()))
-                                .unwrap_or("-");
-                            gsw.ingest_connect(pid_u, &comm, ip_port, score_f64, conf_f64);
-                        }
-                        ("file", "write") | ("file", "open") => {
-                            let path = if !rec.cwd.is_empty() { rec.cwd.clone() } else { "-".into() };
-                            let is_write = t.event == "write";
-                            gsw.ingest_file_access(pid_u, &comm, &path, is_write, score_f64, conf_f64);
-                        }
-                        _ => {}
+                        (StatusCode::NOT_FOUND, "not found").into_response()
                     }
-                }
+                }),
+            )
+            // Safe action stubs (Phase 2)
+            .route("/actions/isolate_host", post(|Json(v): Json<Value>| async move {
+                eprintln!("✳️ action:isolate_host {}", v);
+                (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"isolate_host","echo":v})))
+            }))
+            .route("/actions/kill_proc", post(|Json(v): Json<Value>| async move {
+                eprintln!("✳️ action:kill_proc {}", v);
+                (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"kill_proc","echo":v})))
+            }))
+            .route("/actions/block_egress", post(|Json(v): Json<Value>| async move {
+                eprintln!("✳️ action:block_egress {}", v);
+                (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"block_egress","echo":v})))
+            }))
+            // Integrations
+            .route("/integrations/catalog", get(integrations_catalog))
+            .route("/integrations", get(integrations_list).post(integrations_add))
+            .route("/integrations/:id", delete(integrations_delete))
+            // IOC endpoints
+            .route("/ioc/reload", post(ioc_reload_handler))
+            .route("/ioc/stats", get(ioc_stats_handler))
+            // PB endpoints (nested with separate state)
+            .nest("/playbooks", pb_router)
+            // Diag/health
+            .route("/where", get(diag_where))
+            .route("/__where", get(diag_where))
+            .route("/healthz", get(healthz))
+            // Static
+            .route("/", get_service(ServeFile::new("ui/index.html")))
+            .nest("/ui", ui_router)
+            .nest_service("/json_files", get_service(ServeDir::new("json_files")))
+            // Layers/state
+            .with_state(api_state.clone())
+            .layer(CorsLayer::permissive());
 
-                match evaluator.evaluate(&t) {
-                    Ok(Some(alert)) => {
-                        // Keep legacy alert path (Phase 2)
-                        ALERTS_OUT.fetch_add(1, Ordering::Relaxed);
-                        if let Ok(line) = serde_json::to_string(&alert) {
-                            let _ = alert_tx.send(line.clone());
+        // ---- Serve UI/API: simple Tokio bind + loud errors ----
+        {
+            let port: u16 = std::env::var("EDR_PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(8080);
+            let server_app = app.clone(); // Router is Clone
 
-                            // Phase 2: feed incidents and broadcast
-                            if let Ok(v) = serde_json::from_str::<Value>(&line) {
-                                if let Some(out) = incidents().lock().unwrap().ingest_alert_json(&v) {
-                                    let _ = inc_tx.send(out.to_string());
-                                }
-
-                                // ⬇️ also feed this as a Rules signal into DecisionEngine
-                                let exe = v
-                                    .pointer("/event/exe")
-                                    .or_else(|| v.pointer("/event/binary_path"))
-                                    .and_then(|x| x.as_str())
-                                    .unwrap_or("-")
-                                    .to_string();
-                                let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
-                                let user = v
-                                    .pointer("/event/user")
-                                    .and_then(|x| x.as_str())
-                                    .unwrap_or("unknown")
-                                    .to_string();
-                                let cmd = v
-                                    .pointer("/event/cmdline")
-                                    .or_else(|| v.pointer("/event/command_line"))
-                                    .and_then(|x| x.as_str())
-                                    .unwrap_or("")
-                                    .to_string();
-                                let ts = v
-                                    .get("ts")
-                                    .or_else(|| v.get("time"))
-                                    .or_else(|| v.get("timestamp"))
-                                    .and_then(|x| x.as_i64())
-                                    .unwrap_or(now_ts() as i64) as u64;
-                                let score = v
-                                    .get("risk").and_then(|x| x.as_f64())
-                                    .or_else(|| v.get("score").and_then(|x| x.as_f64()))
-                                    .unwrap_or(0.8)
-                                    .clamp(0.0, 1.5) as f32;
-
-                                let tags: Vec<String> = v.get("findings")
-                                    .and_then(|x| x.as_array())
-                                    .map(|arr| arr.iter()
-                                         .filter_map(|f| f.get("label").and_then(|l| l.as_str()).map(|s| s.to_string()))
-                                         .collect()
-                                    ).unwrap_or_default();
-
-                                let sig = Signal {
-                                    detector: DetectorKind::Rules,
-                                    score: score.min(1.0),
-                                    ts,
-                                    exe: Some(exe),
-                                    user: Some(user),
-                                    host: Some(host),
-                                    cmd_prefix: Some(first_token(&cmd)),
-                                    parent: None,
-                                    signer: None,
-                                    hash: None,
-                                    pid: None,
-                                    tags,
-                                };
-                                let outs = decision_engine().lock().unwrap().ingest(sig);
-                                for a in outs {
-                                    emit_final_incident(a, &alert_tx, &inc_tx);
-                                }
-                            }
-                        }
+            tokio::spawn(async move {
+                // Bind directly with Tokio (loopback by default)
+                let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
+                let listener = match tokio::net::TcpListener::bind(addr).await {
+                    Ok(l) => l,
+                    Err(e) => {
+                        eprintln!("❌ bind({addr}) failed: {e}");
+                        return;
                     }
-                    Ok(None) => {}
-                    Err(e) => eprintln!("⚠️ evaluator error: {e}"),
-                }
-            }
+                };
 
-            // Trust engine fanout
-            for rec in &records {
-                println!("🟡 Raw Telemetry: {:?}", rec);
-                let telemetry_data = TelemetryData::from_record(rec);
-                let result: TrustResult = evaluate_and_dispatch_trust_score(&telemetry_data);
-                println!("✅ Trust Result: {:?}", result);
-                fanout_all(&result, &records, &telemetry_data);
-            }
+                let local = listener.local_addr().unwrap_or(addr);
+                eprintln!(
+                    "🌐 UI listening on http://{}/  (dashboard) | http://{}/ui/graph.html (live graph)",
+                    local, local
+                );
+                eprintln!("▶️ axum server task starting…");
+
+                if let Err(e) = axum::serve(listener, server_app.into_make_service()).await {
+                    eprintln!("❌ axum serve error: {e}");
+                } else {
+                    eprintln!("❌ axum serve ended unexpectedly (no error)");
+                }
+            });
         }
 
-        // Persist the batch, then bump accepted so metrics reflect on-disk state
-        let accepted_len_u64 = accepted_len as u64;
-        if let Ok(locked) = writer.clone().lock() {
-            locked.append_batch(records);
-            EVENTS_ACCEPTED.fetch_add(accepted_len_u64, Ordering::Relaxed);
-        }
-        tokio::time::sleep(Duration::from_secs(30)).await;
+        // ---------------- demux → batch channel ----------------
+        use tokio::sync::mpsc::{unbounded_channel, UnboundedSender, UnboundedReceiver};
+        use forensic_hooks::telemetry::TelemetryRecord;
+
+        let (ingest_tx, mut ingest_rx): (UnboundedSender<TelemetryRecord>, UnboundedReceiver<TelemetryRecord>) =
+            unbounded_channel();
+
+        // ---------------- startup of eBPF readers ----------------
+        let use_legacy = std::env::var("EDR_USE_LEGACY_REALTIME")
+            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+            .unwrap_or(false);
+
+        #[cfg(target_os = "linux")]
+{
+    use log::{info, warn};
+    use std::path::Path;
+    use crate::ebpf::events_reader;
+    use crate::ebpf::events_reader::Source;
+    use crate::ebpf::ebpf_ingest::{ on_edr_event, on_edr_event_file_only, on_edr_event_net_only, on_edr_event_wx_only };
+
+    fn pins_present(pin_prefix: &str) -> bool {
+        let p = Path::new(pin_prefix);
+        if !p.exists() { return false; }
+        let names = ["edr_events_rb", "events", "net_events", "wx_events", "perf_events"];
+        names.iter().any(|n| p.join(n).exists() || p.join("maps").join(n).exists())
+    }
+    // ⬇️ put this in main.rs AFTER the reader startup block you pasted
+    {
+        
+        std::thread::spawn(|| loop {
+            let in_  = EVENTS_IN.load(Ordering::Relaxed);
+            let acc  = EVENTS_ACCEPTED.load(Ordering::Relaxed);
+            let drops = BPF_DROPS.load(Ordering::Relaxed);
+            let missed = in_.saturating_sub(acc);
+
+            let drop_rate = if in_ > 0 {
+                100.0 * missed as f64 / in_ as f64
+            } else {
+                0.0
+            };
+
+            eprintln!(
+                "[metrics] events_in={} accepted={} missed={} perf_drops={} drop_rate={:.2}%",
+                in_, acc, missed, drops, drop_rate
+            );
+
+            std::thread::sleep(Duration::from_secs(5));
+        });
+    }
+
+    fn wrap_unknown(source: Source, bytes: &[u8]) -> Option<TelemetryRecord> {
+        let enabled = std::env::var("EDR_ACCEPT_UNKNOWN")
+            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+            .unwrap_or(false);
+        if !enabled { return None; }
+        use std::time::{SystemTime, UNIX_EPOCH};
+        let ts: u64 = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map(|d| d.as_secs())
+            .unwrap_or(0);
+        Some(TelemetryRecord {
+            timestamp: ts, pid: 0, ppid: 0, uid: 0,
+            binary_path: format!("bpf:{source:?}"),
+            command_line: format!("raw_blob len={}", bytes.len()),
+            cwd: String::new(),
+            env_vars: Default::default(),
+            risk_score: Some(0),
+            tags: Vec::new(),
+        })
+    }
+
+    // Wire sizes used for quick demux from EdrSys → specific handlers.
+// Net (tcp_state) frames are ~48B per ebpf_ingest::on_edr_event_net_only.
+// WX can be other sizes (often 56B when fixed-struct), and file-perf are longer.
+const LEN_EDR_SYS_A:     usize = 376;
+const LEN_EDR_SYS_OLD1:  usize = 332;
+const LEN_EDR_SYS_OLD2:  usize = 312;
+const LEN_NET_EVT:       usize = 48;  // tcp_state frames
+const LEN_FILE_PERF_MIN: usize = 40;  // file-only parser needs ≥40
+
+fn route_by_len(source: Source, bytes: &[u8]) -> Source {
+    match source {
+        Source::EdrSys => match bytes.len() {
+            // keep classic syscall struct(s)
+            LEN_EDR_SYS_A | LEN_EDR_SYS_OLD1 | LEN_EDR_SYS_OLD2 => Source::EdrSys,
+
+            // tiny, well-known net frame
+            LEN_NET_EVT => Source::Net,
+
+            // WX is variable (≥24B). If you *know* your build emits fixed 56B,
+            // you can add `| 56` above, but safest is to let WX come from its own map.
+            _ if bytes.len() >= LEN_FILE_PERF_MIN => Source::FilePerf,
+
+            _ => source,
+        },
+        s => s,
     }
 }
 
-// --- Integrations minimal controller (catalog/list/add/delete) ---
 
-#[derive(Serialize, Deserialize, Default)]
-struct IntegrationCreate {
-    id: String,
-    name: String,
-    creds: Value,
+
+    let pin_prefix = std::env::var("EDR_PIN_PREFIX").unwrap_or_else(|_| "/sys/fs/bpf/edr".into());
+
+    if !use_legacy && pins_present(&pin_prefix) {
+        info!("🧲 Pinned maps detected under {pin_prefix} → starting demux readers");
+
+        let w_for_on = writer.clone();
+        let tx = ingest_tx.clone();
+        use std::sync::atomic::{AtomicUsize, Ordering};
+
+        events_reader::start_all_pinned_readers_demux(move |source, bytes| {
+            EVENTS_IN.fetch_add(1, Ordering::Relaxed);
+            let routed = route_by_len(source, bytes);
+
+            let rec_opt = match routed {
+                Source::EdrSys   => on_edr_event(bytes, &w_for_on),
+                Source::Net      => on_edr_event_net_only(bytes, &w_for_on),
+                Source::Wx       => on_edr_event_wx_only(bytes, &w_for_on),
+                Source::FilePerf => on_edr_event_file_only(bytes, &w_for_on),
+            }
+            .or_else(|| wrap_unknown(routed, bytes));
+
+            match rec_opt {
+                Some(rec) => {
+                    match tx.send(rec) { Ok(_) => {}, Err(e) => eprintln!("❌ tx.send failed: {e}"), }
+                }
+                None => {
+                    // single miss branch; no duplicate `else`
+                    let head = bytes.iter()
+                        .take(16)
+                        .map(|b| format!("{:02x}", b))
+                        .collect::<Vec<_>>()
+                        .join("");
+                    warn!(
+                        "decode_miss source={source:?} routed={routed:?} wire_len={} head16=0x{head}",
+                        bytes.len()
+                    );
+                }
+            }
+        }).unwrap_or_else(|e| {
+            warn!("pinned demux failed: {e:?}; falling back to realtime attach");
+            events_reader::start_realtime_monitors(writer.clone());
+        });
+    } else {
+        let why = if use_legacy { "env override" } else { "no pins present" };
+        warn!("⚙️ Realtime attach mode ({why}) → loading .bpf.o and attaching now");
+        events_reader::start_realtime_monitors(writer.clone());
+    }
 }
 
-async fn integrations_catalog() -> impl IntoResponse {
-    let path = Path::new("integrations/catalog.json");
-    let body = fs::read_to_string(path).unwrap_or_else(|_| "{\"version\":1,\"vendors\":[]}".into());
-    (StatusCode::OK, body)
-}
+        #[cfg(not(target_os = "linux"))]
+        {
+            log::warn!("eBPF readers are disabled on non-Linux targets.");
+        }
 
-async fn integrations_list(State(st): State<ApiState>) -> impl IntoResponse {
-    let m = st.integrations.lock().unwrap();
-    let items: Vec<Value> = m.values().cloned().collect();
-    Json(json!({ "items": items }))
-}
+        // ---------------- processing loop (inline in spawn; captures gs/evaluator) ----------------
+        {
+            use std::time::Duration;
+            let w  = writer.clone();
+            let at = alert_tx.clone();
+            let it = inc_tx.clone();
+            let mut rx = ingest_rx;
 
-async fn integrations_add(
-    State(st): State<ApiState>,
-    Json(req): Json<IntegrationCreate>,
-) -> impl IntoResponse {
-    let mut m = st.integrations.lock().unwrap();
-    m.insert(
-        req.id.clone(),
-        json!({
-            "id": req.id,
-            "name": req.name,
-            "creds": req.creds,
-            "status": "syncing",
-            "last_ok": Value::Null
-        }),
-    );
-    let _ = fs::create_dir_all("state");
-    let _ = fs::write(
-        "state/integrations.json",
-        serde_json::to_vec_pretty(&*m).unwrap(),
-    );
-    StatusCode::ACCEPTED
-}
+            tokio::spawn(async move {
+                loop {
+                    // Drain queued from eBPF demux
+                    let mut records: Vec<TelemetryRecord> = Vec::new();
+                    while let Ok(rec) = rx.try_recv() {
+                        records.push(rec);
+                    }
 
-async fn integrations_delete(
-    State(st): State<ApiState>,
-    AxPath(id): AxPath<String>,
-) -> impl IntoResponse {
-    let mut m = st.integrations.lock().unwrap();
-    m.remove(&id);
-    let _ = fs::write(
-        "state/integrations.json",
-        serde_json::to_vec_pretty(&*m).unwrap(),
-    );
-    StatusCode::NO_CONTENT
+                    // Passive side-effect monitors
+                    for output in run_sideeffect_monitors_and_collect() {
+                        match try_convert_output(output) {
+                            Ok(rec) => records.push(rec),
+                            Err(_) => eprintln!("⚠️ Failed to convert TelemetryOutput → TelemetryRecord"),
+                        }
+                    }
+
+                    // Hygiene
+                    let received_len = records.len();
+                    filter_records(&mut records);
+                    dedup_records(&mut records);
+                    let accepted_len = records.len();
+                    if accepted_len > 0 {
+                        EVENTS_ACCEPTED.fetch_add(accepted_len as u64, Ordering::Relaxed);
+                    }
+                    if received_len > 0 {
+                        eprintln!("↪️ batch: received={received_len} accepted={accepted_len}");
+                    }
+
+                    if !records.is_empty() {
+                        // PCB snapshots
+                        let pcb_snaps = forensic_hooks::pcb::collect_for_records(&records);
+                        let _ = forensic_hooks::pcb::append_snapshots_ndjson("state/pcb_snaps.ndjson", &pcb_snaps);
+
+                        // Optional raw dump
+                        if std::env::var("EDR_PCB_DUMP_RAW").map(|v| v == "1" || v.eq_ignore_ascii_case("true")).unwrap_or(false) {
+                            let _ = forensic_hooks::pcb::dump_records_raw(&records, "state/pcb_raw", false);
+                        }
+
+                        // Feature/anomaly taggers
+                        if let Some(ep) = build_episode_from_records(&records) {
+                            let mut store = BaselineStore::default();
+                            use forensic_hooks::traits::FeatureEmitter;
+                            let mut feats = Vec::new();
+                            feats.extend(MemoryPrivEmitter::new().emit(&ep, &mut store));
+                            feats.extend(NetCadenceEmitter::new().emit(&ep, &mut store));
+                            feats.extend(PcbEmitter::new().emit(&ep, &mut store));
+                            let _ = store.flush();
+
+                            for f in feats.iter().filter(|f| f.z.abs() > 2.0) {
+                                println!("🔎 feature: {}={} z={:.2} fam={}", f.key, f.value, f.z, f.family);
+                            }
+                            let (_d2, _env_margin) = tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);
+                            tag_records_from_krim(&mut records);
+                        }
+
+                        // IOC → PB pending
+                        match ioc::tag_records(&mut records) {
+                            Ok(hits) => {
+                                for h in hits {
+                                    pb_introspect::add_or_update_pending(pb_introspect::PendingEvidence {
+                                        id: h.id, playbook_id: "ioc_layer".to_string(), ts: h.ts,
+                                        slot_id: h.slot, fact: h.fact, summary: h.summary,
+                                        tags: h.tags, ttl_sec: 900,
+                                    });
+                                }
+                            }
+                            Err(e) => eprintln!("⚠️ ioc::tag_records error: {e}"),
+                        }
+
+                        // Playbook Engine ingest
+                        {
+                            let now = now_ts();
+                            if let Ok(mut eng) = pb_engine().lock() {
+                                let out = pb_wiring::ingest_batch(&mut *eng, &records, now);
+                                for p in out.pending { pb_introspect::add_or_update_pending(p); }
+                                for h in out.hits { pb_introspect::push_hit(h); }
+                            }
+                        }
+
+                        // DecisionEngine (from tags)
+                        feed_decider_from_record_tags(&records, &at, &it);
+
+                        // Per-record rules + live graph
+                        for rec in &records {
+                            let mut t = NormTelemetry::from(rec.clone());
+                            let (cat, evt) = categorize_record(rec);
+                            t.category = cat; t.event = evt;
+
+                            // Live graph
+                            {
+                                let mut gsw = gs.write();
+                                let pid_u  = if rec.pid  < 0 { 0 } else { rec.pid  as u32 };
+                                let ppid_u = if rec.ppid < 0 { 0 } else { rec.ppid as u32 };
+                                let comm = if !rec.binary_path.is_empty() {
+                                    rec.binary_path.clone()
+                                } else {
+                                    rec.command_line.split_whitespace().next().unwrap_or("-").to_string()
+                                };
+                                let score_f64 = (rec.risk_score.unwrap_or(0) as f64) / 100.0;
+                                let conf_f64  = (0.1 + score_f64).min(0.95);
+
+                                match (t.category.as_str(), t.event.as_str()) {
+                                    ("process", "exec") => {
+                                        gsw.ingest_exec(ppid_u, "-", pid_u, &comm, score_f64, conf_f64);
+                                    }
+                                    ("network", "connect") => {
+                                        let ip_port = rec.command_line
+                                            .split_whitespace()
+                                            .find(|s| s.contains(':') && s.chars().any(|c| c.is_ascii_digit()))
+                                            .unwrap_or("-");
+                                        gsw.ingest_connect(pid_u, &comm, ip_port, score_f64, conf_f64);
+                                    }
+                                    ("file", "write") | ("file", "open") => {
+                                        let path = if !rec.cwd.is_empty() { rec.cwd.clone() } else { "-".into() };
+                                        let is_write = t.event == "write";
+                                        gsw.ingest_file_access(pid_u, &comm, &path, is_write, score_f64, conf_f64);
+                                    }
+                                    _ => {}
+                                }
+                            }
+
+                            // Rules evaluator → alerts + incidents + DE feed
+                            match evaluator.evaluate(&t) {
+                                Ok(Some(alert)) => {
+                                    ALERTS_OUT.fetch_add(1, Ordering::Relaxed);
+                                    if let Ok(line) = serde_json::to_string(&alert) {
+                                        let _ = at.send(line.clone());
+
+                                        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&line) {
+                                            if let Some(out) = incidents().lock().unwrap().ingest_alert_json(&v) {
+                                                let _ = it.send(out.to_string());
+                                            }
+
+                                            // Rules → DE signal
+                                            let exe = v
+                                                .pointer("/event/exe")
+                                                .or_else(|| v.pointer("/event/binary_path"))
+                                                .and_then(|x| x.as_str())
+                                                .unwrap_or("-")
+                                                .to_string();
+                                            let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
+                                            let user = v.pointer("/event/user").and_then(|x| x.as_str()).unwrap_or("unknown").to_string();
+                                            let cmd  = v.pointer("/event/cmdline")
+                                                .or_else(|| v.pointer("/event/command_line"))
+                                                .and_then(|x| x.as_str())
+                                                .unwrap_or("")
+                                                .to_string();
+                                            let ts   = v.get("ts").or_else(|| v.get("time")).or_else(|| v.get("timestamp"))
+                                                .and_then(|x| x.as_i64()).unwrap_or(now_ts() as i64) as u64;
+                                            let score = v.get("risk").and_then(|x| x.as_f64())
+                                                .or_else(|| v.get("score").and_then(|x| x.as_f64()))
+                                                .unwrap_or(0.8).clamp(0.0, 1.5) as f32;
+
+                                            let tags: Vec<String> = v.get("findings").and_then(|x| x.as_array())
+                                                .map(|arr| arr.iter()
+                                                    .filter_map(|f| f.get("label").and_then(|l| l.as_str()).map(|s| s.to_string()))
+                                                    .collect())
+                                                .unwrap_or_default();
+
+                                            let sig = Signal {
+                                                detector: DetectorKind::Rules,
+                                                score: score.min(1.0),
+                                                ts,
+                                                exe: Some(exe),
+                                                user: Some(user),
+                                                host: Some(host),
+                                                cmd_prefix: Some(first_token(&cmd)),
+                                                parent: None, signer: None, hash: None, pid: None,
+                                                tags,
+                                            };
+                                            let outs = decision_engine().lock().unwrap().ingest(sig);
+                                            for a in outs { emit_final_incident(a, &at, &it); }
+                                        }
+                                    }
+                                }
+                                Ok(None) => {}
+                                Err(e) => eprintln!("⚠️ evaluator error: {e}"),
+                            }
+                        }
+
+                        // Trust engine fanout
+                        for rec in &records {
+                            println!("🟡 Raw Telemetry: {:?}", rec);
+                            let telemetry_data = TelemetryData::from_record(rec);
+                            let result: TrustResult = evaluate_and_dispatch_trust_score(&telemetry_data);
+                            println!("✅ Trust Result: {:?}", result);
+                            fanout_all(&result, &records, &telemetry_data);
+                        }
+                    }
+
+                    // Persist batch
+                    if let Ok(locked) = w.clone().lock() {
+                        locked.append_batch(records);
+                    }
+
+                    // Cadence
+                    tokio::time::sleep(Duration::from_secs(5)).await;
+                }
+            });
+        }
+    }
+
+    // --- keep the process alive until Ctrl-C (so the server keeps listening) ---
+    tokio::signal::ctrl_c().await.expect("failed to install Ctrl-C handler");
+    eprintln!("🛑 received Ctrl-C, shutting down…");
 }

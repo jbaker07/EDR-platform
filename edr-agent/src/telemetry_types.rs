@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fmt;
 
@@ -38,10 +38,10 @@ pub enum MemoryAnomalyType {
     HollowingDetected,
     ReflectiveInjection,
     AnonymousExec,
-    SuspiciousIPC,       // kept for compatibility
+    SuspiciousIPC, // kept for compatibility
     DllInjection,
-    IpcAbuse,            // preferred canonical (snake_case -> "ipc_abuse")
-    IPCAbuse,            // legacy/casing variant used elsewhere
+    IpcAbuse, // preferred canonical (snake_case -> "ipc_abuse")
+    IPCAbuse, // legacy/casing variant used elsewhere
     NullBaseExec,
     HighDirtyRSS,
     FileTampering,
@@ -49,11 +49,11 @@ pub enum MemoryAnomalyType {
     CodeInjection,
     KernelExploitFallout,
     HighEntropyRegion,
-    HighEntropy,         // alias-y duplicate kept for compatibility
+    HighEntropy, // alias-y duplicate kept for compatibility
     NetworkAnomaly,
     DnsTunnel,
     SuspiciousActivity,
-    ProcessInjection,    // catch-all
+    ProcessInjection, // catch-all
     CredDump,
 }
 
@@ -68,9 +68,9 @@ impl fmt::Display for MemoryAnomalyType {
 /// We keep the raw f32 for compatibility and provide helpers to set/normalize.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TelemetryOutput {
-    pub category: String,         // e.g., "network", "process"
-    pub signal: String,           // e.g., "dns_tunnel", "suspicious_port"
-    pub confidence: f32,          // tolerant: 0..1 or 0..100 from legacy callers
+    pub category: String,              // e.g., "network", "process"
+    pub signal: String,                // e.g., "dns_tunnel", "suspicious_port"
+    pub confidence: f32,               // tolerant: 0..1 or 0..100 from legacy callers
     pub data: HashMap<String, String>, // flexible key-value fields
 }
 
@@ -88,7 +88,11 @@ impl TelemetryOutput {
     /// Set confidence with tolerance for 0..1 or 0..100. Values >1.0 are
     /// interpreted as percentages and normalized to 0..1.
     pub fn with_confidence(mut self, c: f32) -> Self {
-        self.confidence = if c > 1.0 { (c / 100.0).clamp(0.0, 1.0) } else { c.clamp(0.0, 1.0) };
+        self.confidence = if c > 1.0 {
+            (c / 100.0).clamp(0.0, 1.0)
+        } else {
+            c.clamp(0.0, 1.0)
+        };
         self
     }
 

@@ -28,27 +28,37 @@ pub static TRUST_VECTOR_GLOBAL: Lazy<Mutex<HashMap<String, TrustVector>>> =
 /// Canonical dimensions (stable order/index).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum TrustDim {
-    Memory = 0,     // RWX flips, injection, memfd, hollowing
-    Network = 1,    // connect/accept, jitter, exfil, beacon signals
-    Privilege = 2,  // setuid/capset/ptrace/seccomp/bpf/module tamper
-    Persistence = 3,// autoruns, scheduler abuse, tamper
-    FileSys = 4,    // unlink/rename/xattr/tamper, destructive ops
-    Process = 5,    // exec/parent anomalies, fork storms, retained FDs
-    Container = 6,  // setns/unshare/pivot_root
-    Lateral = 7,    // cred dump, remote exec, pivots
-    Beacon = 8,     // cadence/ASN/JA3 novelty, retrans spikes
-    Stealth = 9,    // suppression/visibility gaps, anti-forensics
+    Memory = 0,      // RWX flips, injection, memfd, hollowing
+    Network = 1,     // connect/accept, jitter, exfil, beacon signals
+    Privilege = 2,   // setuid/capset/ptrace/seccomp/bpf/module tamper
+    Persistence = 3, // autoruns, scheduler abuse, tamper
+    FileSys = 4,     // unlink/rename/xattr/tamper, destructive ops
+    Process = 5,     // exec/parent anomalies, fork storms, retained FDs
+    Container = 6,   // setns/unshare/pivot_root
+    Lateral = 7,     // cred dump, remote exec, pivots
+    Beacon = 8,      // cadence/ASN/JA3 novelty, retrans spikes
+    Stealth = 9,     // suppression/visibility gaps, anti-forensics
 }
 
 impl TrustDim {
     #[inline]
-    pub fn idx(self) -> usize { self as usize }
+    pub fn idx(self) -> usize {
+        self as usize
+    }
 
     pub fn all() -> &'static [TrustDim; TRUST_DIM_CT] {
         use TrustDim::*;
         static ALL: [TrustDim; TRUST_DIM_CT] = [
-            Memory, Network, Privilege, Persistence, FileSys,
-            Process, Container, Lateral, Beacon, Stealth,
+            Memory,
+            Network,
+            Privilege,
+            Persistence,
+            FileSys,
+            Process,
+            Container,
+            Lateral,
+            Beacon,
+            Stealth,
         ];
         &ALL
     }
@@ -71,7 +81,9 @@ impl TrustDim {
 }
 
 impl fmt::Display for TrustDim {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "{}", self.name()) }
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.name())
+    }
 }
 
 /// Per-endpoint trust vector.
@@ -93,7 +105,9 @@ pub struct TrustVector {
 }
 
 impl Default for TrustVector {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl TrustVector {
@@ -126,7 +140,9 @@ impl TrustVector {
 
     /// Direct penalty: subtract `strength` (≥0) from dimension trust.
     pub fn penalty(&mut self, dim: TrustDim, strength: f32) {
-        if strength <= 0.0 { return; }
+        if strength <= 0.0 {
+            return;
+        }
         let i = dim.idx();
         let before = self.v[i];
         self.v[i] = (self.v[i] - strength).clamp(0.0, 1.0);
@@ -142,7 +158,9 @@ impl TrustVector {
 
     /// Heal a dimension by some amount.
     pub fn heal(&mut self, dim: TrustDim, amount: f32) {
-        if amount <= 0.0 { return; }
+        if amount <= 0.0 {
+            return;
+        }
         let i = dim.idx();
         let before_def = 1.0 - self.v[i];
         self.v[i] = (self.v[i] + amount).clamp(0.0, 1.0);
@@ -155,7 +173,9 @@ impl TrustVector {
     /// Time decay: deficits (1 - v[i]) shrink by half every `half_life_s`.
     /// This applies a single dt across all dimensions (legacy behavior).
     pub fn apply_decay(&mut self, dt_s: f32, half_life_s: f32) {
-        if half_life_s <= 0.0 || dt_s <= 0.0 { return; }
+        if half_life_s <= 0.0 || dt_s <= 0.0 {
+            return;
+        }
         let df = (0.5f32).powf(dt_s / half_life_s);
         self.cached_deficit_sum = 0.0;
         for i in 0..TRUST_DIM_CT {
@@ -168,7 +188,9 @@ impl TrustVector {
     /// Improved decay: uses each dimension's `last_updated` to compute dt individually,
     /// then updates last_updated to `now_s`. Call this periodically.
     pub fn apply_decay_auto(&mut self, now_s: u64, half_life_s: f32) {
-        if half_life_s <= 0.0 { return; }
+        if half_life_s <= 0.0 {
+            return;
+        }
         self.cached_deficit_sum = 0.0;
         for i in 0..TRUST_DIM_CT {
             let dt_s = (now_s.saturating_sub(self.last_updated[i])) as f32;
@@ -191,8 +213,12 @@ impl TrustVector {
         }
         if self.tags.len() < 128 {
             for t in &other.tags {
-                if self.tags.len() >= 128 { break; }
-                if !self.tags.iter().any(|x| x == t) { self.tags.push(t.clone()); }
+                if self.tags.len() >= 128 {
+                    break;
+                }
+                if !self.tags.iter().any(|x| x == t) {
+                    self.tags.push(t.clone());
+                }
             }
         }
     }
@@ -213,13 +239,16 @@ impl TrustVector {
     }
 
     /// Deficit (1 - trust) for a dimension.
-    #[inline] pub fn deficit_by(&self, dim: TrustDim) -> f32 {
+    #[inline]
+    pub fn deficit_by(&self, dim: TrustDim) -> f32 {
         1.0 - self.v[dim.idx()]
     }
 
     /// Convenience: apply penalty by dimension string (case-insensitive).
     pub fn penalty_by_name(&mut self, dim: &str, strength: f32) {
-        if let Some(d) = dim_from_str(dim) { self.penalty(d, strength); }
+        if let Some(d) = dim_from_str(dim) {
+            self.penalty(d, strength);
+        }
     }
 
     /// Export as a map of "trust.<name>" → value (0.0–1.0).
@@ -246,7 +275,9 @@ impl TrustVector {
     fn push_history(&mut self, dim: TrustDim, note: String) {
         let key = dim.name().to_string();
         let ent = self.causal_history.entry(key).or_insert_with(Vec::new);
-        if ent.len() >= 64 { ent.remove(0); }
+        if ent.len() >= 64 {
+            ent.remove(0);
+        }
         ent.push(format!("{note}@{}", now_ts()));
     }
 
@@ -330,92 +361,152 @@ const MATCH_TABLE: &[TagRule] = &[
     // Memory / injection
     TagRule {
         name: "process_injection",
-        patterns: &["process_injection", "ptrace_injection", "inject", "hollow", "memfd", "mprotect_exec"],
-        dims: &[(TrustDim::Memory, 0.12), (TrustDim::Process, 0.08), (TrustDim::Stealth, 0.05)],
+        patterns: &[
+            "process_injection",
+            "ptrace_injection",
+            "inject",
+            "hollow",
+            "memfd",
+            "mprotect_exec",
+        ],
+        dims: &[
+            (TrustDim::Memory, 0.12),
+            (TrustDim::Process, 0.08),
+            (TrustDim::Stealth, 0.05),
+        ],
     },
     TagRule {
         name: "cred_dump",
         patterns: &["cred_dump", "lsass", "dumpcred", "hashdump"],
-        dims: &[(TrustDim::Lateral, 0.12), (TrustDim::Memory, 0.08), (TrustDim::Stealth, 0.06)],
+        dims: &[
+            (TrustDim::Lateral, 0.12),
+            (TrustDim::Memory, 0.08),
+            (TrustDim::Stealth, 0.06),
+        ],
     },
-
     // Network / beacon / tunnel / proxy
     TagRule {
         name: "dns_tunnel",
         patterns: &["dns_tunnel", "dnstunnel"],
-        dims: &[(TrustDim::Network, 0.10), (TrustDim::Beacon, 0.12), (TrustDim::Stealth, 0.04)],
+        dims: &[
+            (TrustDim::Network, 0.10),
+            (TrustDim::Beacon, 0.12),
+            (TrustDim::Stealth, 0.04),
+        ],
     },
     TagRule {
         name: "proxy_tools",
-        patterns: &["proxy_binary", "proxy_listener", "socks", "tor", "v2ray", "shadowsocks"],
-        dims: &[(TrustDim::Network, 0.08), (TrustDim::Beacon, 0.06), (TrustDim::Stealth, 0.05)],
+        patterns: &[
+            "proxy_binary",
+            "proxy_listener",
+            "socks",
+            "tor",
+            "v2ray",
+            "shadowsocks",
+        ],
+        dims: &[
+            (TrustDim::Network, 0.08),
+            (TrustDim::Beacon, 0.06),
+            (TrustDim::Stealth, 0.05),
+        ],
     },
     TagRule {
         name: "net_anomaly",
         patterns: &["network_anomaly", "suspicious_socket", "ja3", "beacon"],
         dims: &[(TrustDim::Network, 0.07), (TrustDim::Beacon, 0.05)],
     },
-
     // Privilege & kernel tamper
     TagRule {
         name: "priv_escalation",
-        patterns: &["privilege_escalation", "setuid_abuse", "capset", "seccomp", "bpf_usage", "kernel_module"],
+        patterns: &[
+            "privilege_escalation",
+            "setuid_abuse",
+            "capset",
+            "seccomp",
+            "bpf_usage",
+            "kernel_module",
+        ],
         dims: &[(TrustDim::Privilege, 0.15), (TrustDim::Stealth, 0.03)],
     },
-
     // Persistence / filesystem
     TagRule {
         name: "persistence",
-        patterns: &["suspicious_persistence", "persistence_mechanism", "autorun", "scheduler"],
-        dims: &[(TrustDim::Persistence, 0.12), (TrustDim::FileSys, 0.05), (TrustDim::Stealth, 0.03)],
+        patterns: &[
+            "suspicious_persistence",
+            "persistence_mechanism",
+            "autorun",
+            "scheduler",
+        ],
+        dims: &[
+            (TrustDim::Persistence, 0.12),
+            (TrustDim::FileSys, 0.05),
+            (TrustDim::Stealth, 0.03),
+        ],
     },
     TagRule {
         name: "script_drop_tmp",
         patterns: &["script_drop", "tmp_script", "suspicious_tmp_script"],
-        dims: &[(TrustDim::Persistence, 0.05), (TrustDim::FileSys, 0.04), (TrustDim::Stealth, 0.03)],
+        dims: &[
+            (TrustDim::Persistence, 0.05),
+            (TrustDim::FileSys, 0.04),
+            (TrustDim::Stealth, 0.03),
+        ],
     },
-
     // Lateral / auth abuse
     TagRule {
         name: "password_spray",
         patterns: &["password_spray", "brute_force"],
-        dims: &[(TrustDim::Lateral, 0.10), (TrustDim::Beacon, 0.04), (TrustDim::Stealth, 0.02)],
+        dims: &[
+            (TrustDim::Lateral, 0.10),
+            (TrustDim::Beacon, 0.04),
+            (TrustDim::Stealth, 0.02),
+        ],
     },
     TagRule {
         name: "mfa_bypass",
         patterns: &["mfa_bypass", "push_fatigue"],
-        dims: &[(TrustDim::Privilege, 0.12), (TrustDim::Lateral, 0.06), (TrustDim::Stealth, 0.04)],
+        dims: &[
+            (TrustDim::Privilege, 0.12),
+            (TrustDim::Lateral, 0.06),
+            (TrustDim::Stealth, 0.04),
+        ],
     },
-
     // IPC / process abuse
     TagRule {
         name: "ipc_abuse",
         patterns: &["ipc_abuse", "suspicious_ipc"],
-        dims: &[(TrustDim::Process, 0.06), (TrustDim::Memory, 0.06), (TrustDim::Privilege, 0.04)],
+        dims: &[
+            (TrustDim::Process, 0.06),
+            (TrustDim::Memory, 0.06),
+            (TrustDim::Privilege, 0.04),
+        ],
     },
-
     // Container / namespaces
     TagRule {
         name: "container_ns",
         patterns: &["setns", "unshare", "pivot_root", "container_escape"],
         dims: &[(TrustDim::Container, 0.08), (TrustDim::Privilege, 0.04)],
     },
-
     // USB peripheral (low severity, potential lateral)
     TagRule {
         name: "usb",
         patterns: &["usb_inserted", "usb_device_seen"],
         dims: &[(TrustDim::FileSys, 0.02), (TrustDim::Lateral, 0.02)],
     },
-
     // Global anomaly gates / outliers
     TagRule {
         name: "global_outlier",
         patterns: &["mahalanobis_outlier", "elliptic_outlier", "krim_alert"],
         dims: &[
-            (TrustDim::Memory, 0.02),(TrustDim::Network, 0.02),(TrustDim::Privilege, 0.02),
-            (TrustDim::Persistence, 0.02),(TrustDim::FileSys, 0.02),(TrustDim::Process, 0.02),
-            (TrustDim::Container, 0.02),(TrustDim::Lateral, 0.02),(TrustDim::Beacon, 0.02),
+            (TrustDim::Memory, 0.02),
+            (TrustDim::Network, 0.02),
+            (TrustDim::Privilege, 0.02),
+            (TrustDim::Persistence, 0.02),
+            (TrustDim::FileSys, 0.02),
+            (TrustDim::Process, 0.02),
+            (TrustDim::Container, 0.02),
+            (TrustDim::Lateral, 0.02),
+            (TrustDim::Beacon, 0.02),
             (TrustDim::Stealth, 0.02),
         ],
     },
@@ -427,8 +518,11 @@ fn legacy_apply_tag(tv: &mut TrustVector, t: &str, sev_scale: f32) {
     let mut penalized = false;
 
     // Memory & injection signatures
-    if t.contains("mprotect_exec") || t.contains("dllinject") || t.contains("proc_hollow")
-        || t.contains("memfd") || t.contains("memory_anomaly")
+    if t.contains("mprotect_exec")
+        || t.contains("dllinject")
+        || t.contains("proc_hollow")
+        || t.contains("memfd")
+        || t.contains("memory_anomaly")
     {
         tv.penalty(Memory, 0.12 * sev_scale);
         tv.penalty(Process, 0.05 * sev_scale);
@@ -445,14 +539,20 @@ fn legacy_apply_tag(tv: &mut TrustVector, t: &str, sev_scale: f32) {
     }
 
     // Privilege / kernel tamper
-    if t.contains("priv_") || t == "ptrace" || t == "seccomp" || t.contains("kernel_module") || t == "bpf_usage" {
+    if t.contains("priv_")
+        || t == "ptrace"
+        || t == "seccomp"
+        || t.contains("kernel_module")
+        || t == "bpf_usage"
+    {
         tv.penalty(Privilege, 0.12 * sev_scale);
         tv.penalty(Stealth, 0.04 * sev_scale);
         penalized = true;
     }
 
     // Filesystem / persistence
-    if t.starts_with("file_") || t.starts_with("fs_") || t.contains("xattr") || t.contains("tamper") {
+    if t.starts_with("file_") || t.starts_with("fs_") || t.contains("xattr") || t.contains("tamper")
+    {
         tv.penalty(FileSys, 0.06 * sev_scale);
         penalized = true;
     }
@@ -462,20 +562,30 @@ fn legacy_apply_tag(tv: &mut TrustVector, t: &str, sev_scale: f32) {
     }
 
     // Container / namespaces
-    if t.starts_with("ns_") || t.contains("setns") || t.contains("unshare") || t.contains("pivot_root") {
+    if t.starts_with("ns_")
+        || t.contains("setns")
+        || t.contains("unshare")
+        || t.contains("pivot_root")
+    {
         tv.penalty(Container, 0.06 * sev_scale);
         penalized = true;
     }
 
     // Lateral movement cues
-    if t.contains("cred_dump") || t.contains("lateral_move") || t.contains("psexec") || t.contains("winrm") {
+    if t.contains("cred_dump")
+        || t.contains("lateral_move")
+        || t.contains("psexec")
+        || t.contains("winrm")
+    {
         tv.penalty(Lateral, 0.12 * sev_scale);
         penalized = true;
     }
 
     // Global batch outlier gates
     if t == "mahalanobis_outlier" || t == "elliptic_outlier" || t == "krim_alert" {
-        for d in TrustDim::all() { tv.penalty(*d, 0.02 * sev_scale); }
+        for d in TrustDim::all() {
+            tv.penalty(*d, 0.02 * sev_scale);
+        }
         penalized = true;
     }
 
@@ -494,8 +604,11 @@ fn legacy_apply_tag(tv: &mut TrustVector, t: &str, sev_scale: f32) {
 fn legacy_explain(t: &str, sev_scale: f32) -> Vec<(TrustDim, f32)> {
     use TrustDim::*;
     let mut v = Vec::new();
-    if t.contains("mprotect_exec") || t.contains("dllinject") || t.contains("proc_hollow")
-        || t.contains("memfd") || t.contains("memory_anomaly")
+    if t.contains("mprotect_exec")
+        || t.contains("dllinject")
+        || t.contains("proc_hollow")
+        || t.contains("memfd")
+        || t.contains("memory_anomaly")
     {
         v.push((Memory, 0.12 * sev_scale));
         v.push((Process, 0.05 * sev_scale));
@@ -506,24 +619,40 @@ fn legacy_explain(t: &str, sev_scale: f32) -> Vec<(TrustDim, f32)> {
             v.push((Beacon, 0.08 * sev_scale));
         }
     }
-    if t.contains("priv_") || t == "ptrace" || t == "seccomp" || t.contains("kernel_module") || t == "bpf_usage" {
+    if t.contains("priv_")
+        || t == "ptrace"
+        || t == "seccomp"
+        || t.contains("kernel_module")
+        || t == "bpf_usage"
+    {
         v.push((Privilege, 0.12 * sev_scale));
         v.push((Stealth, 0.04 * sev_scale));
     }
-    if t.starts_with("file_") || t.starts_with("fs_") || t.contains("xattr") || t.contains("tamper") {
+    if t.starts_with("file_") || t.starts_with("fs_") || t.contains("xattr") || t.contains("tamper")
+    {
         v.push((FileSys, 0.06 * sev_scale));
     }
     if t.contains("autorun") || t.contains("persistence") || t.contains("scheduler") {
         v.push((Persistence, 0.08 * sev_scale));
     }
-    if t.starts_with("ns_") || t.contains("setns") || t.contains("unshare") || t.contains("pivot_root") {
+    if t.starts_with("ns_")
+        || t.contains("setns")
+        || t.contains("unshare")
+        || t.contains("pivot_root")
+    {
         v.push((Container, 0.06 * sev_scale));
     }
-    if t.contains("cred_dump") || t.contains("lateral_move") || t.contains("psexec") || t.contains("winrm") {
+    if t.contains("cred_dump")
+        || t.contains("lateral_move")
+        || t.contains("psexec")
+        || t.contains("winrm")
+    {
         v.push((Lateral, 0.12 * sev_scale));
     }
     if t == "mahalanobis_outlier" || t == "elliptic_outlier" || t == "krim_alert" {
-        for d in TrustDim::all() { v.push((*d, 0.02 * sev_scale)); }
+        for d in TrustDim::all() {
+            v.push((*d, 0.02 * sev_scale));
+        }
     }
     if t == "exec" || t.contains("proc_fork") || t.contains("proc_exit") {
         v.push((Process, 0.02 * sev_scale));
@@ -544,7 +673,11 @@ fn parse_severity(tag_lower: &str) -> (String, f32) {
             "low" => 0.5,
             "med" | "medium" => 1.0,
             "high" => 1.5,
-            _ => sev.parse::<f32>().ok().map(|x| x.clamp(0.1, 3.0)).unwrap_or(1.0),
+            _ => sev
+                .parse::<f32>()
+                .ok()
+                .map(|x| x.clamp(0.1, 3.0))
+                .unwrap_or(1.0),
         };
         (core.to_string(), scale)
     } else {
@@ -559,18 +692,33 @@ fn is_meta_tag(t: &str) -> bool {
         "replay_", "soc_", "env_", "trust.", "feature", "cpu", "mem", "host",
     ];
     const META_EXACT: &[&str] = &[
-        "gnn_escalate", "timestamp", "category", "signal", "telemetry_batch",
-        "forensic_replay", "passive", "fallback", "snapshot", "process_snapshot",
-        "benign_suppressed", "note", "summary",
+        "gnn_escalate",
+        "timestamp",
+        "category",
+        "signal",
+        "telemetry_batch",
+        "forensic_replay",
+        "passive",
+        "fallback",
+        "snapshot",
+        "process_snapshot",
+        "benign_suppressed",
+        "note",
+        "summary",
     ];
-    if META_EXACT.iter().any(|&x| t == x) { return true; }
+    if META_EXACT.iter().any(|&x| t == x) {
+        return true;
+    }
     META_PREFIXES.iter().any(|p| t.starts_with(p))
 }
 
 // --------------------- helpers ---------------------
 
 fn now_ts() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }
 
 /// Parse various names/aliases to a TrustDim.
@@ -598,7 +746,9 @@ where
     F: FnOnce(&mut TrustVector) -> T,
 {
     let mut guard = TRUST_VECTOR_GLOBAL.lock().unwrap();
-    let tv = guard.entry(endpoint_id.to_string()).or_insert_with(TrustVector::new);
+    let tv = guard
+        .entry(endpoint_id.to_string())
+        .or_insert_with(TrustVector::new);
     f(tv)
 }
 

@@ -198,9 +198,7 @@ impl Evaluator {
             return Some(r.clone());
         }
         if let Ok(r) = Regex::new(pat) {
-            self.regex_cache
-                .write()
-                .insert(pat.to_string(), r.clone());
+            self.regex_cache.write().insert(pat.to_string(), r.clone());
             Some(r)
         } else {
             None
@@ -392,14 +390,8 @@ impl FileBurstState {
         let mut fields = HashMap::new();
         fields.insert("__agg.kind".into(), "file_burst".into());
         fields.insert("__agg.files".into(), format!("{}", total_files));
-        fields.insert(
-            "__agg.distinct_topdirs".into(),
-            format!("{}", topdirs),
-        );
-        fields.insert(
-            "__agg.window_sec".into(),
-            format!("{}", self.window_sec),
-        );
+        fields.insert("__agg.distinct_topdirs".into(), format!("{}", topdirs));
+        fields.insert("__agg.window_sec".into(), format!("{}", self.window_sec));
         Some(Fact {
             ts: now,
             kind: FactKind::Agg,
@@ -534,7 +526,11 @@ impl PlaybookEngine {
     }
 
     pub fn ingest_fact(&mut self, fact: Fact) -> Option<PlaybookHit> {
-        let now = if fact.ts == 0 { Self::now_sec() } else { fact.ts };
+        let now = if fact.ts == 0 {
+            Self::now_sec()
+        } else {
+            fact.ts
+        };
         // Observe for aggregators
         if let FactKind::FileIO = fact.kind {
             if let (Some(op), Some(path)) = (fact.get_str("op"), fact.get_str("path")) {
@@ -649,15 +645,10 @@ impl PlaybookEngine {
                             && hyp.age(now) <= pb.window_sec
                         {
                             let cd_key = (pb_id.clone(), host.to_string());
-                            let last =
-                                self.cooldown.get(&cd_key).cloned().unwrap_or(0);
+                            let last = self.cooldown.get(&cd_key).cloned().unwrap_or(0);
                             if last == 0 || now.saturating_sub(last) >= pb.cooldown_sec {
                                 self.cooldown.insert(cd_key, now);
-                                out = Some(PlaybookHit::from_pb(
-                                    pb,
-                                    host.to_string(),
-                                    hyp,
-                                ));
+                                out = Some(PlaybookHit::from_pb(pb, host.to_string(), hyp));
                                 *hyp = Hypothesis::new(now);
                             }
                         }

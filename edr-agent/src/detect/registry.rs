@@ -129,13 +129,8 @@ impl IntegrationsRegistry {
 
             match cfg.kind.as_str() {
                 "okta_syslog" => {
-                    crate::detect::okta::run_okta_connector(
-                        cfg,
-                        base_url,
-                        rx_cancel,
-                        reg.clone(),
-                    )
-                    .await
+                    crate::detect::okta::run_okta_connector(cfg, base_url, rx_cancel, reg.clone())
+                        .await
                 }
                 other => reg.update_status(
                     &cfg.id,
@@ -147,10 +142,13 @@ impl IntegrationsRegistry {
             }
         });
 
-        self.inner
-            .write()
-            .tasks
-            .insert(id.to_string(), TaskCtl { join: handle, cancel: tx_cancel });
+        self.inner.write().tasks.insert(
+            id.to_string(),
+            TaskCtl {
+                join: handle,
+                cancel: tx_cancel,
+            },
+        );
 
         Ok(())
     }
@@ -166,11 +164,17 @@ pub struct DetectorRegistry {
 }
 
 impl Default for DetectorRegistry {
-    fn default() -> Self { Self { detectors: Vec::new() } }
+    fn default() -> Self {
+        Self {
+            detectors: Vec::new(),
+        }
+    }
 }
 
 impl DetectorRegistry {
-    pub fn new() -> Self { Self::default() }
+    pub fn new() -> Self {
+        Self::default()
+    }
 
     pub fn add(&mut self, detector: Box<dyn Detector>) {
         self.detectors.push(detector);

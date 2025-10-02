@@ -39,7 +39,10 @@ pub struct RollingSeries {
 }
 impl RollingSeries {
     pub fn with_cap(cap: usize) -> Self {
-        Self { cap, window: VecDeque::with_capacity(cap) }
+        Self {
+            cap,
+            window: VecDeque::with_capacity(cap),
+        }
     }
     pub fn push(&mut self, x: f64) {
         if self.window.len() == self.cap {
@@ -52,31 +55,51 @@ impl RollingSeries {
         v.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
         v
     }
-    pub fn len(&self) -> usize { self.window.len() }
-    pub fn is_ready(&self) -> bool { self.window.len() >= 32 }
+    pub fn len(&self) -> usize {
+        self.window.len()
+    }
+    pub fn is_ready(&self) -> bool {
+        self.window.len() >= 32
+    }
 
     pub fn median(&self) -> f64 {
         let v = self.sorted();
-        if v.is_empty() { return 0.0; }
+        if v.is_empty() {
+            return 0.0;
+        }
         let n = v.len();
-        if n % 2 == 1 { v[n/2] } else { 0.5*(v[n/2 - 1] + v[n/2]) }
+        if n % 2 == 1 {
+            v[n / 2]
+        } else {
+            0.5 * (v[n / 2 - 1] + v[n / 2])
+        }
     }
     pub fn mad(&self, med: f64) -> f64 {
-        if self.window.is_empty() { return 1e-6; }
+        if self.window.is_empty() {
+            return 1e-6;
+        }
         let mut devs: Vec<f64> = self.window.iter().map(|x| (x - med).abs()).collect();
-        devs.sort_by(|a,b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
+        devs.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
         let n = devs.len();
-        if n % 2 == 1 { devs[n/2] } else { 0.5*(devs[n/2 - 1] + devs[n/2]) }
+        if n % 2 == 1 {
+            devs[n / 2]
+        } else {
+            0.5 * (devs[n / 2 - 1] + devs[n / 2])
+        }
     }
     pub fn quantile(&self, q: f64) -> f64 {
         let v = self.sorted();
-        if v.is_empty() { return 0.0; }
+        if v.is_empty() {
+            return 0.0;
+        }
         let n = v.len();
-        let idx = ((n as f64 - 1.0) * q.clamp(0.0,1.0)).round() as usize;
+        let idx = ((n as f64 - 1.0) * q.clamp(0.0, 1.0)).round() as usize;
         v[idx]
     }
     pub fn p_emp(&self, x: f64) -> f64 {
-        if self.window.is_empty() { return 0.5; }
+        if self.window.is_empty() {
+            return 0.5;
+        }
         let v = self.sorted();
         let n = v.len() as f64;
         // Rank-based ECDF with 0.5/n smoothing
@@ -107,23 +130,38 @@ impl Default for RollingCalibrator {
 }
 impl RollingCalibrator {
     pub fn new(cap: usize, root: PathBuf) -> Self {
-        let mut me = Self { cap, series: HashMap::new(), root, dirty: false };
+        let mut me = Self {
+            cap,
+            series: HashMap::new(),
+            root,
+            dirty: false,
+        };
         let _ = me.load(); // best-effort
         me
     }
 
     fn series_mut(&mut self, key: &CalibKey) -> &mut RollingSeries {
-        self.series.entry(key.clone()).or_insert_with(|| RollingSeries::with_cap(self.cap))
+        self.series
+            .entry(key.clone())
+            .or_insert_with(|| RollingSeries::with_cap(self.cap))
     }
 
     pub fn observe(&mut self, host: &str, family: &str, key: &str, value: f64) {
-        let k = CalibKey { host: host.into(), family: family.into(), key: key.into() };
+        let k = CalibKey {
+            host: host.into(),
+            family: family.into(),
+            key: key.into(),
+        };
         self.series_mut(&k).push(value);
         self.dirty = true;
     }
 
     pub fn calibrate(&self, host: &str, family: &str, key: &str, value: f64) -> CalibResult {
-        let k = CalibKey { host: host.into(), family: family.into(), key: key.into() };
+        let k = CalibKey {
+            host: host.into(),
+            family: family.into(),
+            key: key.into(),
+        };
         if let Some(s) = self.series.get(&k) {
             let med = s.median();
             let mad = s.mad(med).max(1e-6);
@@ -138,15 +176,27 @@ impl RollingCalibrator {
                 p_emp,
             }
         } else {
-            CalibResult { ready: false, count: 0, median: 0.0, mad: 1.0, z_robust: 0.0, p_emp: 0.5 }
+            CalibResult {
+                ready: false,
+                count: 0,
+                median: 0.0,
+                mad: 1.0,
+                z_robust: 0.0,
+                p_emp: 0.5,
+            }
         }
     }
 
     pub fn flush(&mut self) {
-        if !self.dirty { return; }
+        if !self.dirty {
+            return;
+        }
         let _ = fs::create_dir_all(&self.root);
         let path = self.root.join("rolling_calibration.json");
-        let img = PersistImage { cap: self.cap, series: self.series.clone() };
+        let img = PersistImage {
+            cap: self.cap,
+            series: self.series.clone(),
+        };
         if let Ok(txt) = serde_json::to_string_pretty(&img) {
             let _ = fs::write(path, txt);
         }
@@ -175,7 +225,9 @@ pub struct CalibResult {
 }
 
 /// Softplus for smooth positive mapping.
-pub fn softplus(x: f64) -> f64 { (1.0 + x.exp()).ln() }
+pub fn softplus(x: f64) -> f64 {
+    (1.0 + x.exp()).ln()
+}
 
 /// Logit on (0,1); clamps to avoid infinities.
 pub fn logit(p: f64) -> f64 {

@@ -41,7 +41,8 @@ enum RollingMode {
 impl TelemetryWriter {
     /// Create a writer using defaults or env overrides.
     pub fn new() -> Self {
-        let dir = PathBuf::from(env::var("EDR_TELEMETRY_DIR").unwrap_or_else(|_| DEFAULT_DIR.into()));
+        let dir =
+            PathBuf::from(env::var("EDR_TELEMETRY_DIR").unwrap_or_else(|_| DEFAULT_DIR.into()));
         let _ = create_dir_all(&dir);
 
         let max_buffer = env::var("EDR_TELEMETRY_MAX_BUFFER")
@@ -54,9 +55,14 @@ impl TelemetryWriter {
             .and_then(|s| s.parse::<u64>().ok())
             .unwrap_or(30);
 
-        let file_prefix = env::var("EDR_TELEMETRY_FILE_PREFIX").unwrap_or_else(|_| "telemetry".into());
+        let file_prefix =
+            env::var("EDR_TELEMETRY_FILE_PREFIX").unwrap_or_else(|_| "telemetry".into());
 
-        let rolling = match env::var("EDR_TELEMETRY_ROLLING").unwrap_or_else(|_| "ts".into()).to_ascii_lowercase().as_str() {
+        let rolling = match env::var("EDR_TELEMETRY_ROLLING")
+            .unwrap_or_else(|_| "ts".into())
+            .to_ascii_lowercase()
+            .as_str()
+        {
             "day" => RollingMode::Day,
             "hour" => RollingMode::Hour,
             _ => RollingMode::Ts,
@@ -97,7 +103,8 @@ impl TelemetryWriter {
             let needed = records.len();
             if buffer.len() + needed > self.max_buffer {
                 let over = buffer.len() + needed - self.max_buffer;
-                let drop_n = over.max((self.max_buffer as f32 * DROP_FRACTION_ON_PRESSURE).ceil() as usize);
+                let drop_n =
+                    over.max((self.max_buffer as f32 * DROP_FRACTION_ON_PRESSURE).ceil() as usize);
                 if drop_n > 0 && drop_n <= buffer.len() {
                     buffer.drain(0..drop_n);
                     debug_log(&format!(
@@ -114,10 +121,14 @@ impl TelemetryWriter {
     }
 
     /// Historical alias; identical to `append`.
-    pub fn write_record(&self, record: TelemetryRecord) { self.append(record); }
+    pub fn write_record(&self, record: TelemetryRecord) {
+        self.append(record);
+    }
 
     /// Another alias used by some modules.
-    pub fn send(&self, record: TelemetryRecord) { self.append(record); }
+    pub fn send(&self, record: TelemetryRecord) {
+        self.append(record);
+    }
 
     /// Spawns a background thread to flush periodically (default: 30s).
     pub fn start_periodic_flush(self: Arc<Self>) {
@@ -142,7 +153,10 @@ impl TelemetryWriter {
         }
 
         if let Err(e) = create_dir_all(&self.dir) {
-            eprintln!("❌ [TelemetryWriter] Failed to ensure output dir {:?}: {e}", self.dir);
+            eprintln!(
+                "❌ [TelemetryWriter] Failed to ensure output dir {:?}: {e}",
+                self.dir
+            );
             return;
         }
 
@@ -161,7 +175,11 @@ impl TelemetryWriter {
     }
 
     /// Builder for modules needing structured record creation (unchanged).
-    pub fn build(data: HashMap<String, String>, risk_score: Option<u32>, tags: Vec<String>) -> TelemetryRecord {
+    pub fn build(
+        data: HashMap<String, String>,
+        risk_score: Option<u32>,
+        tags: Vec<String>,
+    ) -> TelemetryRecord {
         TelemetryRecord {
             timestamp: now_ts(),
             pid: data.get("pid").and_then(|s| s.parse().ok()).unwrap_or(0),
@@ -199,16 +217,27 @@ impl TelemetryWriter {
         // - Day:  telemetry_YYYYMMDD.jsonl
         match self.rolling {
             RollingMode::Ts => {
-                let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_secs();
+                let ts = SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap_or_default()
+                    .as_secs();
                 self.dir.join(format!("{}_{}.jsonl", self.file_prefix, ts))
             }
             RollingMode::Hour => {
                 let tm = chrono::Utc::now();
-                self.dir.join(format!("{}_{}.jsonl", self.file_prefix, tm.format("%Y%m%d_%H")))
+                self.dir.join(format!(
+                    "{}_{}.jsonl",
+                    self.file_prefix,
+                    tm.format("%Y%m%d_%H")
+                ))
             }
             RollingMode::Day => {
                 let tm = chrono::Utc::now();
-                self.dir.join(format!("{}_{}.jsonl", self.file_prefix, tm.format("%Y%m%d")))
+                self.dir.join(format!(
+                    "{}_{}.jsonl",
+                    self.file_prefix,
+                    tm.format("%Y%m%d")
+                ))
             }
         }
     }
@@ -237,7 +266,11 @@ impl TelemetryWriter {
         let file = OpenOptions::new().create(true).append(true).open(path)?;
         let mut writer = BufWriter::new(file);
         let line = serde_json::to_string(map).unwrap_or_else(|e| {
-            format!(r#"{{"error":"kv_serialize","msg":"{}","ts":{}}}"#, e, now_ts())
+            format!(
+                r#"{{"error":"kv_serialize","msg":"{}","ts":{}}}"#,
+                e,
+                now_ts()
+            )
         });
         writer.write_all(line.as_bytes())?;
         writer.write_all(b"\n")?;
@@ -254,12 +287,18 @@ impl Drop for TelemetryWriter {
                 return;
             }
             if let Err(e) = create_dir_all(&self.dir) {
-                eprintln!("❌ [TelemetryWriter] Drop flush: failed to ensure dir {:?}: {e}", self.dir);
+                eprintln!(
+                    "❌ [TelemetryWriter] Drop flush: failed to ensure dir {:?}: {e}",
+                    self.dir
+                );
                 return;
             }
             let filename = self.make_file_name();
             if let Err(e) = TelemetryWriter::write_jsonl(&filename, buf.drain(..)) {
-                eprintln!("❌ [TelemetryWriter] Drop flush failed to {:?}: {e}", filename);
+                eprintln!(
+                    "❌ [TelemetryWriter] Drop flush failed to {:?}: {e}",
+                    filename
+                );
             } else {
                 debug_log(&format!("[📝 Telemetry] Final flush to {:?}", filename));
             }

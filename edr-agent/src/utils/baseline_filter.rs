@@ -59,14 +59,18 @@ pub fn should_suppress_signal(
         return SuppressionDecision::DoNotSuppress("Ephemeral path (tmp/shm)".into());
     }
     if is_cmdline_suspicious(cmdline) {
-        return SuppressionDecision::DoNotSuppress("Command line contains suspicious patterns".into());
+        return SuppressionDecision::DoNotSuppress(
+            "Command line contains suspicious patterns".into(),
+        );
     }
 
     // ---------------- Known-good fingerprint match -------------------
     if let Some(h) = hash {
         let triple = format!("{path}:{h}:{uid}");
         if known_safe_set.contains(&triple) {
-            return SuppressionDecision::SuppressReasonably("Fingerprint triple matches baseline".into());
+            return SuppressionDecision::SuppressReasonably(
+                "Fingerprint triple matches baseline".into(),
+            );
         }
     }
 
@@ -96,7 +100,8 @@ pub fn should_suppress_signal(
         && (net_ok || priv_ok)
     {
         return SuppressionDecision::SuppressReasonably(
-            "High trust across core dims, standard path, unprivileged UID, no suspicious tags".into(),
+            "High trust across core dims, standard path, unprivileged UID, no suspicious tags"
+                .into(),
         );
     }
 
@@ -131,7 +136,10 @@ fn has_critical_tag(tags: &[String]) -> bool {
         "file::high_entropy",
         "forensic_replay",
     ];
-    let tags_lc = tags.iter().map(|t| t.to_ascii_lowercase()).collect::<Vec<_>>();
+    let tags_lc = tags
+        .iter()
+        .map(|t| t.to_ascii_lowercase())
+        .collect::<Vec<_>>();
     tags_lc.iter().any(|t| crit.iter().any(|c| t.contains(c)))
 }
 

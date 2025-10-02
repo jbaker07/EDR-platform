@@ -6,10 +6,10 @@
 
 use std::collections::HashSet;
 
+use crate::baselines::BaselineStore;
 use crate::episode::Episode;
 use crate::graph_builder::GraphNode;
 use crate::traits::{FeatureEmitter, FeatureObservation};
-use crate::baselines::BaselineStore;
 
 #[derive(Debug, Clone)]
 pub struct NetCadenceEmitter {
@@ -93,11 +93,7 @@ pub struct NetCadenceStats {
 }
 
 impl FeatureEmitter for NetCadenceEmitter {
-    fn emit(
-        &self,
-        ep: &Episode,
-        _baselines: &mut BaselineStore,
-    ) -> Vec<FeatureObservation> {
+    fn emit(&self, ep: &Episode, _baselines: &mut BaselineStore) -> Vec<FeatureObservation> {
         let (nodes, _edges) = ep.to_graph();
         let stats = self.analyze_nodes(&nodes);
 

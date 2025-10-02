@@ -1,127 +1,150 @@
-// Ringbuf reader for wx_exec.bpf.o
-// Signals:
-//   - process::w_x_transition  (W->X within 5s window)
-//   - memory::memfd_exec       (memfd written then exec in <=120s)
+// src/ebpf/wx_exec_reader.rs
+//
+// CO-RE ringbuf reader for wx_exec.bpf.o (write-xor-execute monitor)
+// libbpf-rs 0.21
+//
+// Key points:
+// - resolve object via events_reader::resolve_bpf("EDR_BPF_WX_OBJ", "wx_exec.bpf.o")
+// - attach mprotect/mmap(/mmap2) enter/exit if present (names may be truncated)
+// - prefer "wx_events" map (fallback to "EVENTS"/"events")
+// - decode minimally inside the callback (no ebpf_ingest), emit telemetry
+// - leak Link handles + forget(obj); poll at 1ms to reduce overruns
+
+#![allow(clippy::needless_return)]
+#![cfg(target_os = "linux")]
 
 use std::collections::HashMap;
-use std::os::fd::AsRawFd;
 use std::sync::{Arc, Mutex};
-use std::{thread, time::Duration};
+use std::time::Duration;
 
-use libbpf_rs::{ObjectBuilder, RingBufferBuilder};
+use libbpf_rs::{Link, ObjectBuilder, RingBufferBuilder};
 
-use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::modules::replay_writer::store_replay_event;
-use crate::telemetry_types::TelemetryOutput;
-use crate::telemetry_writer::{write_telemetry_record, TelemetryWriter};
+use forensic_hooks::gnn_hook::push_to_gnn_vector_log;
+use forensic_hooks::modules::replay_writer::store_replay_event;
+use forensic_hooks::telemetry_types::TelemetryOutput;
+use forensic_hooks::telemetry_writer::{write_telemetry_record, TelemetryWriter};
 
-#[repr(C)]
-#[derive(Clone, Copy)]
-struct WxEvt {
-    pid: u32,
-    kind: u32, // 1 W->X, 2 memfd_exec
-    ts_ns: u64,
-    addr: u64,
-    len: u64,
-    prot: u64,
-    bytes: u64,
+use crate::events_reader;
+
+// Best-effort parse of the first 4 bytes as u32 pid (many wx_exec structs begin with pid)
+#[inline]
+fn read_pid_be(data: &[u8]) -> Option<u32> {
+    if data.len() >= 4 {
+        // eBPF ringbuf structs are native-endian; most x86_64/aarch64 are little-endian.
+        // We'll interpret as native-endian safely via copy.
+        let mut pid: u32 = 0;
+        unsafe {
+            std::ptr::copy_nonoverlapping(data.as_ptr(), &mut pid as *mut _ as *mut u8, 4);
+        }
+        Some(pid)
+    } else {
+        None
+    }
 }
 
-pub fn start_wx_exec_reader(writer: Arc<Mutex<TelemetryWriter>>) {
+pub fn start_wx_exec_reader(_writer: Arc<Mutex<TelemetryWriter>>) {
+    // Raise memlock best-effort
     unsafe {
         let rlim = libc::rlimit { rlim_cur: u64::MAX, rlim_max: u64::MAX };
-        libc::setrlimit(libc::RLIMIT_MEMLOCK, &rlim as *const _);
+        let _ = libc::setrlimit(libc::RLIMIT_MEMLOCK, &rlim as *const _);
     }
 
-    let obj_path = std::env::var("EDR_BPF_WX_OBJ")
-        .unwrap_or_else(|_| "wx_exec.bpf.o".into());
-    let open = match ObjectBuilder::default().open_file(&obj_path) {
+    // Resolve the .o robustly (env override respected)
+    let obj_path = events_reader::resolve_bpf("EDR_BPF_WX_OBJ", "wx_exec.bpf.o");
+
+    // Open & load BPF object
+    let open_obj = match ObjectBuilder::default().open_file(&obj_path) {
         Ok(o) => o,
-        Err(e) => { eprintln!("[ebpf/wx] open failed: {e}"); return; }
+        Err(e) => { eprintln!("[ebpf/wx] open {obj_path} failed: {e}"); return; }
     };
-    let mut obj = match open.load() {
+    let mut obj = match open_obj.load() {
         Ok(o) => o,
         Err(e) => { eprintln!("[ebpf/wx] load failed: {e}"); return; }
     };
 
-    for prog in obj.progs_mut() {
-        if let Some(sec) = prog.section() {
-            if sec.starts_with("tracepoint/") {
-                if let Some((cat, name)) = sec.trim_start_matches("tracepoint/").split_once('/') {
-                    if let Err(e) = prog.attach_tracepoint(cat, name) {
-                        eprintln!("[ebpf/wx] attach {sec} failed: {e}");
-                    }
+    // Attach available programs (some section names are truncated by linker/kernel)
+    let mut links: Vec<Link> = Vec::new();
+    let mut attach_tp = |candidates: &[&str], cat: &str, name: &str| {
+        for func in candidates {
+            if let Some(p) = obj.prog_mut(func) {
+                match p.attach_tracepoint(cat, name) {
+                    Ok(l) => { links.push(l); return; }
+                    Err(e) => eprintln!("[ebpf/wx] attach {func}@{cat}/{name} failed: {e}"),
                 }
             }
         }
-    }
-
-    let mut rb = RingBufferBuilder::new();
-    let mut map = match obj.map_mut("wx_events") {
-        Ok(m) => m,
-        Err(e) => { eprintln!("[ebpf/wx] map open failed: {e}"); return; }
     };
 
+    // mprotect enter/exit
+    attach_tp(&["tp_enter_mprotect", "tp_enter_mprote"], "syscalls", "sys_enter_mprotect");
+    attach_tp(&["tp_exit_mprotect",  "tp_exit_mprote" ], "syscalls", "sys_exit_mprotect");
+
+    // mmap enter/exit
+    attach_tp(&["tp_enter_mmap"], "syscalls", "sys_enter_mmap");
+    attach_tp(&["tp_exit_mmap" ], "syscalls", "sys_exit_mmap");
+
+    // mmap2 enter/exit (on some ABIs/kernels)
+    attach_tp(&["tp_enter_mmap2"], "syscalls", "sys_enter_mmap2");
+    attach_tp(&["tp_exit_mmap2" ], "syscalls", "sys_exit_mmap2");
+
+    // Choose ringbuf map (prefer module-specific)
+    let map_name = if obj.map("wx_events").is_some() {
+        "wx_events"
+    } else if obj.map("EVENTS").is_some() {
+        "EVENTS"
+    } else if obj.map("events").is_some() {
+        "events"
+    } else {
+        eprintln!("[ebpf/wx] ❌ ringbuf map 'wx_events'/'EVENTS'/'events' not found in {obj_path}");
+        return;
+    };
+
+    let mut map = match obj.map_mut(map_name) {
+        Some(m) => m,
+        None => { eprintln!("[ebpf/wx] map '{map_name}' vanished after lookup"); return; }
+    };
+
+    // Build ringbuf & perform a minimal decode (no ebpf_ingest)
+    let mut rb = RingBufferBuilder::new();
     rb.add(&mut map, move |data: &[u8]| {
-        if data.len() < std::mem::size_of::<WxEvt>() { return 0; }
-        let mut ev = WxEvt { pid:0, kind:0, ts_ns:0, addr:0, len:0, prot:0, bytes:0 };
-        unsafe {
-            std::ptr::copy_nonoverlapping(
-                data.as_ptr(),
-                &mut ev as *mut _ as *mut u8,
-                std::mem::size_of::<WxEvt>(),
-            );
-        }
+        crate::EVENTS_IN.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
 
-        let mut fields = HashMap::new();
-        fields.insert("pid".into(), ev.pid.to_string());
-        fields.insert("ts_ns".into(), ev.ts_ns.to_string());
+        // Minimal, robust emission: report payload size and best-effort pid
+        let pid = read_pid_be(data).unwrap_or(0);
+        let mut m = HashMap::new();
+        m.insert("pid".into(), pid.to_string());
+        m.insert("payload_len".into(), data.len().to_string());
+        m.insert("source".into(), "wx_exec".into());
 
-        match ev.kind {
-            1 => {
-                // W->X
-                if ev.addr != 0 { fields.insert("addr".into(), format!("0x{:x}", ev.addr)); }
-                if ev.len  != 0 { fields.insert("len".into(),  ev.len.to_string()); }
-                if ev.prot != 0 { fields.insert("prot".into(), ev.prot.to_string()); }
-                let out = TelemetryOutput {
-                    category: "process".into(),
-                    signal: "process::w_x_transition".into(),
-                    confidence: 0.95,
-                    data: fields,
-                };
-                emit(out);
-            }
-            2 => {
-                // memfd -> exec chain
-                if ev.bytes != 0 { fields.insert("bytes".into(), ev.bytes.to_string()); }
-                let out = TelemetryOutput {
-                    category: "memory".into(),
-                    signal: "memory::memfd_exec".into(),
-                    confidence: 0.95,
-                    data: fields,
-                };
-                emit(out);
-            }
-            _ => {}
-        }
+        // Optional: include first few bytes for debugging/dedup (hex)
+        let head_n = data.len().min(16);
+        let head_hex = data[..head_n].iter().map(|b| format!("{:02x}", b)).collect::<String>();
+        m.insert("payload_head_hex".into(), head_hex);
+
+        let out = TelemetryOutput {
+            category: "memory".into(),
+            signal: "memory::wx_event".into(),
+            confidence: if data.len() >= 24 { 0.60 } else { 0.35 },
+            data: m,
+        };
+
+        let mut line = out.data.clone();
+        line.insert("category".into(), out.category.clone());
+        line.insert("signal".into(), out.signal.clone());
+        line.insert("confidence".into(), format!("{:.2}", out.confidence));
+        write_telemetry_record(line.clone());
+        push_to_gnn_vector_log(line.clone());
+        store_replay_event(line);
         0
     }).expect("ringbuf add");
-
     let rb = rb.build().expect("ringbuf build");
-    let _fd = rb.as_raw_fd();
 
-    thread::spawn(move || loop {
-        let _ = rb.poll(1);
-        std::thread::sleep(Duration::from_millis(1));
+    // Keep attachments alive & keep object memory resident
+    let _leaked_links: &'static mut Vec<Link> = Box::leak(Box::new(links));
+    std::mem::forget(obj);
+
+    // Tight poll to reduce overruns
+    std::thread::spawn(move || loop {
+        let _ = rb.poll(Duration::from_millis(1));
     });
-
-    fn emit(out: TelemetryOutput) {
-        let mut m = out.data.clone();
-        m.insert("category".into(), out.category.clone());
-        m.insert("signal".into(), out.signal.clone());
-        m.insert("confidence".into(), out.confidence.to_string());
-        write_telemetry_record(m.clone());
-        push_to_gnn_vector_log(m.clone());
-        store_replay_event(m);
-    }
 }

@@ -1,6 +1,5 @@
-
 use crate::adaptive_threshold_engine::{
-    AdaptiveThresholdEngine, evaluate_role_thresholds, load_role_profile_map,
+    evaluate_role_thresholds, load_role_profile_map, AdaptiveThresholdEngine,
 };
 use crate::gnn_hook::{export_trust_vector_to_gnn, stream_to_gnn_fifo};
 use crate::logger::log;
@@ -167,7 +166,10 @@ fn apply_tagged_outlier_penalties_dimmed(
         tv.penalty_by_name("process", w.mahal * 0.50);
         tv.penalty_by_name("memory", w.mahal * 0.30);
         tv.penalty_by_name("network", w.mahal * 0.20);
-        reasons.push(ScoreReason::outlier("mahalanobis", "χ² gate exceeded".into()));
+        reasons.push(ScoreReason::outlier(
+            "mahalanobis",
+            "χ² gate exceeded".into(),
+        ));
     }
 
     // Robust envelope → Memory/Privilege/Process
@@ -251,7 +253,10 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
     probe.insert("endpoint_role".into(), telemetry.endpoint_role.clone());
     probe.insert("risk_score".into(), format!("{:.2}", telemetry.risk_score));
     probe.insert("cpu_usage".into(), format!("{:.2}", telemetry.cpu_usage));
-    probe.insert("memory_usage".into(), format!("{:.2}", telemetry.memory_usage));
+    probe.insert(
+        "memory_usage".into(),
+        format!("{:.2}", telemetry.memory_usage),
+    );
     if !telemetry.tags.is_empty() {
         probe.insert("tags".into(), telemetry.tags.join(","));
     }
@@ -264,7 +269,9 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
             endpoint_id: telemetry.endpoint_id.clone(),
             score: 100.0,
             escalated: false,
-            reasons: vec![ScoreReason::Custom("Suppressed due to fingerprint match".into())],
+            reasons: vec![ScoreReason::Custom(
+                "Suppressed due to fingerprint match".into(),
+            )],
         };
     }
 
@@ -378,7 +385,7 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
     if rolling_risk >= *ESCALATION_RISK_THRESHOLD || adaptive_escalate {
         escalated = true;
         reasons.push(ScoreReason::Custom(format!(
-            "Escalation: risk {:.1} (thr {:.1}) adaptive={}" ,
+            "Escalation: risk {:.1} (thr {:.1}) adaptive={}",
             rolling_risk, *ESCALATION_RISK_THRESHOLD, adaptive_escalate
         )));
     }

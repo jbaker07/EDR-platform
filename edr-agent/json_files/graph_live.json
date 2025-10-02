@@ -1,5 +1,22 @@
 {
-  "ts": 1757094452,
-  "nodes": [],
-  "links": []
+  "ts": 1759366258,
+  "nodes": [
+    {
+      "id": "proc:0",
+      "label": "-(0)",
+      "kind": "proc",
+      "score": 0.3,
+      "confidence": 0.4,
+      "last_seen": 1759366254
+    }
+  ],
+  "links": [
+    {
+      "source": "proc:0",
+      "target": "proc:0",
+      "kind": "EXEC",
+      "weight": 9.0,
+      "last_seen": 1759366254
+    }
+  ]
 }

@@ -1,4 +1,3 @@
-
 // src/pb_api.rs
 // Axum HTTP and SSE endpoints to expose playbook state.
 // Mount these routes in main.rs:
@@ -46,10 +45,15 @@ pub async fn hits(Query(q): Query<HitsQ>) -> Json<serde_json::Value> {
 // Stub: wire your loader to actually rebuild the in-memory bundle.
 // For now we just respond 202 to indicate the request is accepted.
 pub async fn reload() -> (StatusCode, Json<serde_json::Value>) {
-    (StatusCode::ACCEPTED, Json(serde_json::json!({"ok": true, "reloaded": true})))
+    (
+        StatusCode::ACCEPTED,
+        Json(serde_json::json!({"ok": true, "reloaded": true})),
+    )
 }
 
-pub async fn stream(State(st): State<PbApiState>) -> Sse<impl futures_util::Stream<Item = Result<Event, Infallible>>> {
+pub async fn stream(
+    State(st): State<PbApiState>,
+) -> Sse<impl futures_util::Stream<Item = Result<Event, Infallible>>> {
     let rx = st.tx.subscribe();
     let stream = unfold(rx, |mut rx| async move {
         match rx.recv().await {

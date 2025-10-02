@@ -1,6 +1,6 @@
 use nalgebra::{DMatrix, DVector};
-use rand::thread_rng;
 use rand::seq::SliceRandom;
+use rand::thread_rng;
 
 /// Minimal robust covariance via random subsampling + coordinate-wise medians.
 pub struct EllipticEnvelope {
@@ -12,10 +12,14 @@ pub struct EllipticEnvelope {
 
 impl EllipticEnvelope {
     pub fn fit(baseline: &Vec<Vec<f64>>, subsamples: usize, alpha: f64) -> Option<Self> {
-        if baseline.len() < 8 || baseline[0].is_empty() { return None; }
+        if baseline.len() < 8 || baseline[0].is_empty() {
+            return None;
+        }
         let n = baseline.len();
         let d = baseline[0].len();
-        if baseline.iter().any(|row| row.len() != d) { return None; }
+        if baseline.iter().any(|row| row.len() != d) {
+            return None;
+        }
 
         let mut rng = thread_rng();
         let mut covs = Vec::new();
@@ -36,10 +40,12 @@ impl EllipticEnvelope {
                 means.push(m);
             }
         }
-        if covs.is_empty() { return None; }
+        if covs.is_empty() {
+            return None;
+        }
 
         let cov_inv = median_matrix(&covs);
-        let center  = median_vector(&means);
+        let center = median_vector(&means);
 
         let mut dists = Vec::with_capacity(n);
         for x in baseline {
@@ -54,7 +60,11 @@ impl EllipticEnvelope {
         let k = ((dists.len() - 1) as f64 * alpha).round() as usize;
         let threshold = dists[k];
 
-        Some(Self { center, cov_inv, threshold })
+        Some(Self {
+            center,
+            cov_inv,
+            threshold,
+        })
     }
 
     /// Positive => inlier, Negative => outlier
@@ -71,9 +81,13 @@ fn mean_vec(sub: &Vec<&Vec<f64>>, d: usize) -> DVector<f64> {
     let m = sub.len().max(1) as f64;
     let mut acc = vec![0.0f64; d];
     for row in sub {
-        for j in 0..d { acc[j] += row[j]; }
+        for j in 0..d {
+            acc[j] += row[j];
+        }
     }
-    for j in 0..d { acc[j] /= m; }
+    for j in 0..d {
+        acc[j] /= m;
+    }
     DVector::from_vec(acc)
 }
 
@@ -88,7 +102,9 @@ fn cov_mat(sub: &Vec<&Vec<f64>>, mean: &DVector<f64>, d: usize) -> DMatrix<f64> 
     }
     c /= denom;
     let ridge = 1e-8;
-    for i in 0..d { c[(i, i)] += ridge; }
+    for i in 0..d {
+        c[(i, i)] += ridge;
+    }
     c
 }
 
@@ -115,15 +131,25 @@ fn median_matrix(ms: &Vec<DMatrix<f64>>) -> DMatrix<f64> {
 }
 
 fn median_scalar(v: &mut [f64]) -> f64 {
-    if v.is_empty() { return 0.0; }
+    if v.is_empty() {
+        return 0.0;
+    }
     let mid = v.len() / 2;
-    v.select_nth_unstable_by(mid, |a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
-    if v.len() % 2 == 1 { v[mid] } else {
+    v.select_nth_unstable_by(mid, |a, b| {
+        a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal)
+    });
+    if v.len() % 2 == 1 {
+        v[mid]
+    } else {
         // average neighbors
         let mut lo = mid.saturating_sub(1);
         let mut hi = mid;
-        if lo >= v.len() { lo = mid; }
-        if hi >= v.len() { hi = mid; }
+        if lo >= v.len() {
+            lo = mid;
+        }
+        if hi >= v.len() {
+            hi = mid;
+        }
         (v[lo] + v[hi]) * 0.5
     }
 }

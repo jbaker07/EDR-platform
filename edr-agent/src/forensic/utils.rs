@@ -1,8 +1,8 @@
+use futures::io as futures_io;
+use futures_util::io as futures_util_io; // Alias this too
 use std::fs;
-use std::io::{self, BufRead, BufReader};        // Use this as your standard `io`
-use tokio::io as tokio_io;                      // Alias `tokio::io` if needed
-use futures_util::io as futures_util_io;        // Alias this too
-use futures::io as futures_io;                  // Also alias this to avoid collision
+use std::io::{self, BufRead, BufReader}; // Use this as your standard `io`
+use tokio::io as tokio_io; // Alias `tokio::io` if needed // Also alias this to avoid collision
 
 /// Pulls dmesg or journalctl output
 pub fn get_kernel_logs() -> Result<String, std::io::Error> {
@@ -42,11 +42,23 @@ pub fn extract_status_fields(pid: i32) -> (i32, i32, i32) {
 
     for line in reader.lines().flatten() {
         if line.starts_with("PPid:") {
-            ppid = line.split_whitespace().nth(1).and_then(|v| v.parse().ok()).unwrap_or(0);
+            ppid = line
+                .split_whitespace()
+                .nth(1)
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(0);
         } else if line.starts_with("Uid:") {
-            uid = line.split_whitespace().nth(1).and_then(|v| v.parse().ok()).unwrap_or(0);
+            uid = line
+                .split_whitespace()
+                .nth(1)
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(0);
         } else if line.starts_with("Gid:") {
-            gid = line.split_whitespace().nth(1).and_then(|v| v.parse().ok()).unwrap_or(0);
+            gid = line
+                .split_whitespace()
+                .nth(1)
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(0);
         }
     }
 

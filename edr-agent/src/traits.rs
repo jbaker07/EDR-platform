@@ -7,8 +7,8 @@
 //! - Add metadata (ts, unit, confidence, desc, tags) for richer sinks and UIs.
 //! - Provide small builder helpers so emitters stay terse and readable.
 
-use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 
 use crate::episode::Episode;
 
@@ -61,7 +61,12 @@ impl Default for FeatureObservation {
 
 impl FeatureObservation {
     /// Quick constructor for numeric features.
-    pub fn numeric<K: Into<String>, F: Into<String>>(family: F, key: K, value: f64, z: f64) -> Self {
+    pub fn numeric<K: Into<String>, F: Into<String>>(
+        family: F,
+        key: K,
+        value: f64,
+        z: f64,
+    ) -> Self {
         Self {
             key: key.into(),
             value,

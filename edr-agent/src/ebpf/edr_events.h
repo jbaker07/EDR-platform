@@ -160,7 +160,13 @@ struct {
     __type(value, struct pending_clone);
 } edr_pending_clone SEC(".maps");
 
-/* -------- userland event -------- */
+/*
+ * -------- userland event --------
+ * IMPORTANT:
+ *  - Natural 8-byte alignment is required by libbpf ringbuf.
+ *  - On x86_64 this layout is 376 bytes; the Rust mirror expects 376.
+ *  - Keep field order; add new fields only at the end to preserve ABI.
+ */
 struct edr_event {
     __u64 ts;          // ktime_ns
     __u32 type;        // edr_evt_type
@@ -175,7 +181,7 @@ struct edr_event {
 
     __u32 flags;       // O_* / PROT_* / PR_* / CLONE_* / etc.
     __u32 aux_u32;     // misc (e.g., bpf cmd)
-    __u64 aux_u64;     // misc (e.g., len)
+    __u64 aux_u64;     // misc (e.g., len) — keeps 8B alignment
 
     /* networking */
     __u8  fam;         // AF_*
@@ -192,7 +198,12 @@ struct edr_event {
     char  path2[128];  // secondary path (e.g., rename dst)
 
     char  comm[16];    // task comm
-};
+} __attribute__((aligned(8)));    // ensure ringbuf-friendly alignment
+
+/* Hard guard for drift on 64-bit builds (Rust side expects 376). */
+#if __SIZEOF_LONG__ == 8
+_Static_assert(sizeof(struct edr_event) == 376, "struct edr_event must be 376 bytes on x86_64");
+#endif
 
 static __always_inline __u32 edr_tgid(void) { return (__u32)(bpf_get_current_pid_tgid() >> 32); }
 static __always_inline __u32 edr_pid(void)  { return (__u32)(bpf_get_current_pid_tgid()); }

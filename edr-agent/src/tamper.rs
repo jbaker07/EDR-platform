@@ -1,4 +1,3 @@
-
 // src/tamper.rs
 // Agent tamper/blackout detection utilities.
 // Detects: agent silence, BPF loss spikes, log deletion, service stop intent.
@@ -36,7 +35,12 @@ pub struct TamperMonitor {
 impl TamperMonitor {
     pub fn new(silence_window_sec: u64, _min_interval_sec: u64) -> Self {
         let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
-        Self { host, silence_window: silence_window_sec, last_heartbeat: now(), last_bpf_drops: 0 }
+        Self {
+            host,
+            silence_window: silence_window_sec,
+            last_heartbeat: now(),
+            last_bpf_drops: 0,
+        }
     }
 
     pub fn beat(&mut self) {
@@ -44,14 +48,16 @@ impl TamperMonitor {
     }
 
     pub fn observe_bpf_drops(&mut self, total_drops_counter: u64) -> Option<TamperFinding> {
-        if total_drops_counter > self.last_bpf_drops + 100 { // arbitrary spike threshold
+        if total_drops_counter > self.last_bpf_drops + 100 {
+            // arbitrary spike threshold
             self.last_bpf_drops = total_drops_counter;
             return Some(TamperFinding {
                 kind: TamperFindingKind::BpfLossSpike,
                 ts: now(),
                 host: self.host.clone(),
                 severity: "high".into(),
-                rationale: "BPF ringbuffer loss spike; potential agent impairment or overload".into(),
+                rationale: "BPF ringbuffer loss spike; potential agent impairment or overload"
+                    .into(),
                 tags: vec!["TAMPER:BPF_LOSS".into()],
             });
         }
@@ -76,7 +82,7 @@ impl TamperMonitor {
 }
 
 pub fn to_signal(f: &TamperFinding) -> crate::decision::Signal {
-    use crate::decision::{Signal, DetectorKind};
+    use crate::decision::{DetectorKind, Signal};
     Signal {
         detector: DetectorKind::Other,
         score: 0.9,
@@ -94,5 +100,8 @@ pub fn to_signal(f: &TamperFinding) -> crate::decision::Signal {
 }
 
 fn now() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }

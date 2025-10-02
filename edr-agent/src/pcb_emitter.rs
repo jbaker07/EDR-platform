@@ -12,9 +12,9 @@ use std::fs::{read_dir, read_to_string};
 use std::path::PathBuf;
 use std::time::Duration;
 
+use crate::baselines::BaselineStore; // use the BaselineStore expected by the trait
 use crate::episode::Episode;
 use crate::graph_builder::GraphNode;
-use crate::baselines::BaselineStore; // use the BaselineStore expected by the trait
 use crate::traits::FeatureEmitter;
 
 // ----- public emitter --------------------------------------------------------
@@ -37,7 +37,9 @@ impl Default for PcbEmitter {
 }
 
 impl PcbEmitter {
-    pub fn new() -> Self { Self::default() }
+    pub fn new() -> Self {
+        Self::default()
+    }
 }
 
 impl FeatureEmitter for PcbEmitter {
@@ -97,7 +99,7 @@ struct PcbStats {
     max_rss_kb: u64,
     p95_rss_kb: u64,
 
-    max_ctx_switches: u64,   // voluntary + nonvoluntary (approx)
+    max_ctx_switches: u64, // voluntary + nonvoluntary (approx)
     p95_ctx_switches: u64,
 }
 
@@ -119,9 +121,9 @@ fn collect_pids(nodes: &[GraphNode]) -> Vec<u32> {
 #[cfg(target_os = "linux")]
 fn probe_pcb_snapshot(pids: &[u32], tiny_sleep_ms: u64) -> PcbStats {
     let mut threads: Vec<u64> = Vec::new();
-    let mut fds:     Vec<u64> = Vec::new();
-    let mut rss_kb:  Vec<u64> = Vec::new();
-    let mut ctx:     Vec<u64> = Vec::new();
+    let mut fds: Vec<u64> = Vec::new();
+    let mut rss_kb: Vec<u64> = Vec::new();
+    let mut ctx: Vec<u64> = Vec::new();
 
     let mut alive = 0usize;
 
@@ -133,10 +135,18 @@ fn probe_pcb_snapshot(pids: &[u32], tiny_sleep_ms: u64) -> PcbStats {
         match read_one_pid(pid) {
             Ok(one) => {
                 alive += 1;
-                if let Some(v) = one.threads     { threads.push(v) }
-                if let Some(v) = one.fd_count    { fds.push(v) }
-                if let Some(v) = one.rss_kb      { rss_kb.push(v) }
-                if let Some(v) = one.ctx_switch  { ctx.push(v) }
+                if let Some(v) = one.threads {
+                    threads.push(v)
+                }
+                if let Some(v) = one.fd_count {
+                    fds.push(v)
+                }
+                if let Some(v) = one.rss_kb {
+                    rss_kb.push(v)
+                }
+                if let Some(v) = one.ctx_switch {
+                    ctx.push(v)
+                }
             }
             Err(_e) => {
                 // Process might have exited / permission denied; skip quietly.
@@ -161,9 +171,9 @@ fn probe_pcb_snapshot(pids: &[u32], tiny_sleep_ms: u64) -> PcbStats {
 #[cfg(target_os = "linux")]
 #[derive(Debug, Default)]
 struct OnePid {
-    threads:    Option<u64>,
-    fd_count:   Option<u64>,
-    rss_kb:     Option<u64>,
+    threads: Option<u64>,
+    fd_count: Option<u64>,
+    rss_kb: Option<u64>,
     ctx_switch: Option<u64>, // voluntary + nonvoluntary
 }
 
@@ -189,7 +199,9 @@ fn read_one_pid(pid: u32) -> anyhow::Result<OnePid> {
         }
     }
     let sum = vol.saturating_add(nvol);
-    if sum > 0 { out.ctx_switch = Some(sum) }
+    if sum > 0 {
+        out.ctx_switch = Some(sum)
+    }
 
     // /proc/<pid>/fd: count
     if let Ok(rd) = read_dir(root.join("fd")) {
@@ -206,7 +218,9 @@ fn read_one_pid(pid: u32) -> anyhow::Result<OnePid> {
 #[cfg(target_os = "linux")]
 fn parse_last_u64(s: &str) -> Option<u64> {
     // Extract the last numeric token in a line like "VmRSS:\t  1234 kB"
-    s.split_whitespace().rev().find_map(|tok| tok.parse::<u64>().ok())
+    s.split_whitespace()
+        .rev()
+        .find_map(|tok| tok.parse::<u64>().ok())
 }
 
 #[cfg(target_os = "linux")]
@@ -216,7 +230,9 @@ fn max_or_zero(v: &[u64]) -> u64 {
 
 #[cfg(target_os = "linux")]
 fn percentile_or_zero(v: &[u64], p: f64) -> u64 {
-    if v.is_empty() { return 0; }
+    if v.is_empty() {
+        return 0;
+    }
     let mut vv = v.to_vec();
     vv.sort_unstable();
     let rank = ((p / 100.0) * (vv.len() as f64 - 1.0)).round() as usize;

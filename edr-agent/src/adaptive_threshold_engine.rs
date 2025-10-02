@@ -1,8 +1,8 @@
+use chrono::{DateTime, Utc};
+use serde::Deserialize;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::Read;
-use chrono::{Utc, DateTime};
-use serde::Deserialize;
 
 /// Core engine managing adaptive risk thresholds.
 pub struct AdaptiveThresholdEngine {
@@ -39,7 +39,9 @@ impl AdaptiveThresholdEngine {
     /// Load role-aware thresholds from config
     pub fn from_role(path: &str, role: &str) -> Self {
         let profile_map = load_role_profile_map(path);
-        let profile = profile_map.roles.get(role)
+        let profile = profile_map
+            .roles
+            .get(role)
             .unwrap_or_else(|| panic!("Role '{}' not found in config", role));
 
         let decay = profile.trust_decay_rate;
@@ -50,7 +52,10 @@ impl AdaptiveThresholdEngine {
 
     /// Get threshold for a session, defaulting if not yet tracked
     pub fn get_threshold(&self, session_id: &str) -> f64 {
-        *self.thresholds.get(session_id).unwrap_or(&self.default_threshold)
+        *self
+            .thresholds
+            .get(session_id)
+            .unwrap_or(&self.default_threshold)
     }
 
     /// Update session threshold with new risk score
@@ -107,15 +112,11 @@ pub fn evaluate_and_escalate(
 }
 
 /// Optional score multiplier based on role's high_risk_threshold
-pub fn evaluate_role_thresholds(
-    role: &str,
-    score: f64,
-    profile_map: &RoleRiskProfileMap,
-) -> f64 {
+pub fn evaluate_role_thresholds(role: &str, score: f64, profile_map: &RoleRiskProfileMap) -> f64 {
     match profile_map.roles.get(role) {
         Some(profile) => {
             if let Some(multiplier) = profile.high_risk_threshold {
-                score * (1.0 / multiplier)  // adjust based on tighter thresholds
+                score * (1.0 / multiplier) // adjust based on tighter thresholds
             } else {
                 score
             }

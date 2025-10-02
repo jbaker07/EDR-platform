@@ -207,28 +207,46 @@ impl AllowSuppressList {
             let signer_ok = r
                 .signer
                 .as_ref()
-                .map(|re| sig.signer.as_deref().map(|s| re.is_match(s)).unwrap_or(false))
+                .map(|re| {
+                    sig.signer
+                        .as_deref()
+                        .map(|s| re.is_match(s))
+                        .unwrap_or(false)
+                })
                 .unwrap_or(true);
             let parent_ok = r
                 .parent
                 .as_ref()
-                .map(|re| sig.parent.as_deref().map(|s| re.is_match(s)).unwrap_or(false))
+                .map(|re| {
+                    sig.parent
+                        .as_deref()
+                        .map(|s| re.is_match(s))
+                        .unwrap_or(false)
+                })
                 .unwrap_or(true);
             let cmd_ok = r
                 .cmd_prefix
                 .as_ref()
-                .map(|re| sig
-                    .cmd_prefix
-                    .as_deref()
-                    .map(|s| re.is_match(s))
-                    .unwrap_or(false))
+                .map(|re| {
+                    sig.cmd_prefix
+                        .as_deref()
+                        .map(|s| re.is_match(s))
+                        .unwrap_or(false)
+                })
                 .unwrap_or(true);
             let hash_ok = r
                 .hash
                 .as_ref()
                 .map(|re| sig.hash.as_deref().map(|s| re.is_match(s)).unwrap_or(false))
                 .unwrap_or(true);
-            if exe_ok && user_ok && host_ok && path_ok && signer_ok && parent_ok && cmd_ok && hash_ok
+            if exe_ok
+                && user_ok
+                && host_ok
+                && path_ok
+                && signer_ok
+                && parent_ok
+                && cmd_ok
+                && hash_ok
             {
                 return Some(
                     r.reason
@@ -479,7 +497,8 @@ impl DecisionEngine {
 
         // Evidence checks
         let distinct = by_kind.len();
-        let has_structural = by_kind.contains_key(&DetectorKind::Krim) || has_rules_with_ttp(signals);
+        let has_structural =
+            by_kind.contains_key(&DetectorKind::Krim) || has_rules_with_ttp(signals);
         let has_critical_ttp = tags.iter().any(|t| is_critical_ttp(t));
 
         // Risk ~ support clamped
@@ -545,9 +564,9 @@ impl DecisionEngine {
 }
 
 fn has_rules_with_ttp(signals: &Vec<Signal>) -> bool {
-    signals.iter().any(|s| {
-        s.detector == DetectorKind::Rules && s.tags.iter().any(|t| t.starts_with('T'))
-    })
+    signals
+        .iter()
+        .any(|s| s.detector == DetectorKind::Rules && s.tags.iter().any(|t| t.starts_with('T')))
 }
 
 fn is_critical_ttp(tag: &str) -> bool {

@@ -44,10 +44,7 @@ async fn get_catalog() -> Json<CatalogResp> {
             name: "GitHub Audit".into(),
             vendor: "GitHub".into(),
             description: "Org audit/security log".into(),
-            required_fields: ["org", "token"]
-                .into_iter()
-                .map(String::from)
-                .collect(),
+            required_fields: ["org", "token"].into_iter().map(String::from).collect(),
         },
         IntegrationSpec {
             id: "duo_auth".into(),
@@ -81,10 +78,7 @@ async fn get_catalog() -> Json<CatalogResp> {
             name: "Windows Event Log".into(),
             vendor: "Microsoft".into(),
             description: "Local winevt".into(),
-            required_fields: ["channels"]
-                .into_iter()
-                .map(String::from)
-                .collect(),
+            required_fields: ["channels"].into_iter().map(String::from).collect(),
         },
         IntegrationSpec {
             id: "pf_opnsense_syslog".into(),
@@ -117,9 +111,7 @@ async fn create_integration(
     let cfg = IntegrationConfig::new(&req.kind, &req.name, req.creds);
     let id = cfg.id.clone();
     st.reg.add(cfg).expect("persist add");
-    st.reg
-        .spawn(&id, st.internal_base.clone())
-        .expect("spawn");
+    st.reg.spawn(&id, st.internal_base.clone()).expect("spawn");
     Json(CreateResp {
         id,
         status: IntegrationStatus::Starting,

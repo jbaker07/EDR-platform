@@ -1,3 +1,10 @@
+use crate::telemetry::estimate_entropy;
+use crate::{
+    gnn_hook::push_to_gnn_vector_log,
+    logger::log,
+    telemetry_writer::write_telemetry_record,
+    trust_hook::{submit_trust_event, TrustEvent},
+};
 use aya::{
     include_bytes_aligned,
     maps::{perf::PerfEventArray, Array, MapData},
@@ -16,13 +23,6 @@ use std::{
     sync::atomic::{AtomicBool, Ordering},
     thread,
     time::Duration,
-};
-use crate::telemetry::estimate_entropy;
-use crate::{
-    gnn_hook::push_to_gnn_vector_log,
-    logger::log,
-    telemetry_writer::write_telemetry_record,
-    trust_hook::{submit_trust_event, TrustEvent},
 };
 
 static MONITOR_STARTED: AtomicBool = AtomicBool::new(false);
@@ -65,10 +65,14 @@ fn attach_tracepoint(bpf: &mut Bpf, prog_key: &str, cat: &str, ev: &str) -> Resu
     let tp: &mut TracePoint = prog
         .try_into()
         .map_err(|e| format!("program '{}' wrong type: {:?}", prog_key, e))?;
-    tp.load().map_err(|e| format!("load '{}' failed: {:?}", prog_key, e))?;
+    tp.load()
+        .map_err(|e| format!("load '{}' failed: {:?}", prog_key, e))?;
     tp.attach(cat, ev)
         .map_err(|e| format!("attach {}/{} via '{}' failed: {:?}", cat, ev, prog_key, e))?;
-    log(&format!("✔️ attached tracepoint {}/{} using key '{}'", cat, ev, prog_key));
+    log(&format!(
+        "✔️ attached tracepoint {}/{} using key '{}'",
+        cat, ev, prog_key
+    ));
     Ok(())
 }
 
@@ -85,7 +89,10 @@ pub fn start_entropy_exec_monitor() {
         ))) {
             Ok(b) => b,
             Err(e) => {
-                log(&format!("❌ Failed to load entropy_exec_monitor.bpf.o: {:?}", e));
+                log(&format!(
+                    "❌ Failed to load entropy_exec_monitor.bpf.o: {:?}",
+                    e
+                ));
                 return;
             }
         };
@@ -169,15 +176,20 @@ pub fn start_entropy_exec_monitor() {
                                                 }
                                                 let contents = fs::read(&filename).ok()?;
                                                 Some(estimate_entropy(&contents))
-                                            })();
+                                            })(
+                                            );
                                             let entropy = match entropy_opt {
                                                 Some(v) => v,
                                                 None => continue,
                                             };
-                                            let severity: f32 = if entropy >= 7.9 { 0.95 } else { 0.6 };
+                                            let severity: f32 =
+                                                if entropy >= 7.9 { 0.95 } else { 0.6 };
 
                                             let mut data: HashMap<String, String> = HashMap::new();
-                                            data.insert("entropy".into(), format!("{:.4}", entropy));
+                                            data.insert(
+                                                "entropy".into(),
+                                                format!("{:.4}", entropy),
+                                            );
                                             data.insert("syscall".into(), syscall.clone());
                                             data.insert("path".into(), filename.clone());
                                             data.insert(
@@ -187,9 +199,18 @@ pub fn start_entropy_exec_monitor() {
                                             data.insert("pid".into(), ev.pid.to_string());
                                             data.insert("ppid".into(), ev.ppid.to_string());
                                             data.insert("category".into(), "file".to_string());
-                                            data.insert("signal".into(), "entropy_exec_trigger".to_string());
-                                            data.insert("confidence".into(), format!("{:.2}", severity));
-                                            data.insert("command_line".into(), format!("[{}]", syscall));
+                                            data.insert(
+                                                "signal".into(),
+                                                "entropy_exec_trigger".to_string(),
+                                            );
+                                            data.insert(
+                                                "confidence".into(),
+                                                format!("{:.2}", severity),
+                                            );
+                                            data.insert(
+                                                "command_line".into(),
+                                                format!("[{}]", syscall),
+                                            );
                                             data.insert("cwd".into(), "n/a".to_string());
 
                                             let mut tags = vec![
@@ -229,14 +250,20 @@ pub fn start_entropy_exec_monitor() {
                                         }
                                     }
                                     Err(e) => {
-                                        log(&format!("⚠️ perf read error (CPU {}): {:?}", cpu_id, e));
+                                        log(&format!(
+                                            "⚠️ perf read error (CPU {}): {:?}",
+                                            cpu_id, e
+                                        ));
                                         thread::sleep(Duration::from_millis(50));
                                     }
                                 }
                             }
                         });
                     }
-                    Err(e) => log(&format!("⚠️ Failed opening perf buffer on CPU {}: {:?}", cpu_id, e)),
+                    Err(e) => log(&format!(
+                        "⚠️ Failed opening perf buffer on CPU {}: {:?}",
+                        cpu_id, e
+                    )),
                 }
             }
         }
@@ -263,12 +290,18 @@ pub fn start_entropy_exec_monitor() {
                     spawn_readers(perf_array);
                 }
                 Err(e) => {
-                    log(&format!("❌ Failed to create PerfEventArray from '{}': {:?}", map_name, e));
+                    log(&format!(
+                        "❌ Failed to create PerfEventArray from '{}': {:?}",
+                        map_name, e
+                    ));
                     return;
                 }
             }
         } else {
-            log(&format!("❌ map '{}' disappeared after selection", map_name));
+            log(&format!(
+                "❌ map '{}' disappeared after selection",
+                map_name
+            ));
             return;
         }
         // ---------------------------------------------------------------------------

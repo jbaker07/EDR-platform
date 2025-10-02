@@ -1,23 +1,22 @@
-use std::collections::{HashMap, VecDeque, HashSet};
+use std::collections::{HashMap, HashSet, VecDeque};
+use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-use std::sync::{Mutex, LazyLock};
+use std::sync::{LazyLock, Mutex};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
-use std::env;
 
 use regex::Regex;
 
-use crate::trust_hook::{submit_trust_event, TrustEvent};
 use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::telemetry_writer::write_telemetry_record;
-use crate::telemetry_types::TelemetryOutput;
-use crate::utils::time::now_ts;
 use crate::modules::replay_writer::store_replay_event;
+use crate::telemetry_types::TelemetryOutput;
+use crate::telemetry_writer::write_telemetry_record;
+use crate::trust_hook::{submit_trust_event, TrustEvent};
+use crate::utils::time::now_ts;
 
 static ATTEMPT_LOG: LazyLock<Mutex<HashMap<String, VecDeque<SystemTime>>>> =
     LazyLock::new(|| Mutex::new(HashMap::new()));
-pub static PASSWORD_SPRAY_STATIC: LazyLock<Mutex<bool>> =
-    LazyLock::new(|| Mutex::new(false));
+pub static PASSWORD_SPRAY_STATIC: LazyLock<Mutex<bool>> = LazyLock::new(|| Mutex::new(false));
 
 /// Per-user and per-IP cooldowns to avoid event floods
 static USER_LAST_ALERT: LazyLock<Mutex<HashMap<String, SystemTime>>> =
@@ -41,11 +40,18 @@ fn attempt_threshold() -> usize {
 
 /// Evict oldest usernames (by their newest attempt time) to bound memory
 fn evict_if_oversize(log: &mut HashMap<String, VecDeque<SystemTime>>) {
-    if log.len() <= MAX_LOG_SIZE { return; }
+    if log.len() <= MAX_LOG_SIZE {
+        return;
+    }
     // Collect (username, newest_ts)
     let mut users: Vec<(String, SystemTime)> = log
         .iter()
-        .map(|(u, q)| (u.clone(), q.back().copied().unwrap_or(SystemTime::UNIX_EPOCH)))
+        .map(|(u, q)| {
+            (
+                u.clone(),
+                q.back().copied().unwrap_or(SystemTime::UNIX_EPOCH),
+            )
+        })
         .collect();
     users.sort_by_key(|(_, ts)| *ts); // oldest first
     let to_remove = log.len().saturating_sub(MAX_LOG_SIZE);
@@ -96,7 +102,8 @@ pub fn log_login_attempt(raw_username: &str) -> Option<TelemetryOutput> {
         let ts = now.duration_since(UNIX_EPOCH).unwrap_or_default().as_secs();
         let msg = format!(
             "Password spray detected for user '{}': {} attempts in 60 seconds",
-            username, entry.len()
+            username,
+            entry.len()
         );
 
         let mut data = HashMap::new();
@@ -105,7 +112,10 @@ pub fn log_login_attempt(raw_username: &str) -> Option<TelemetryOutput> {
         data.insert("timestamp".into(), ts.to_string());
         data.insert("summary".into(), msg.clone());
         data.insert("replay_tag".into(), "password_spray".into());
-        data.insert("soc_note".into(), "High-rate login attempts detected".into());
+        data.insert(
+            "soc_note".into(),
+            "High-rate login attempts detected".into(),
+        );
         data.insert("gnn_escalate".into(), "true".into());
 
         let event = TrustEvent {
@@ -227,7 +237,10 @@ pub fn scan_password_sprays() -> Vec<TelemetryOutput> {
             data.insert("summary".into(), msg.clone());
             data.insert("timestamp".into(), now.to_string());
             data.insert("replay_tag".into(), "password_spray".into());
-            data.insert("soc_note".into(), "Detected multiple failed logins from one IP".into());
+            data.insert(
+                "soc_note".into(),
+                "Detected multiple failed logins from one IP".into(),
+            );
             data.insert("gnn_escalate".into(), "true".into());
 
             let event = TrustEvent {

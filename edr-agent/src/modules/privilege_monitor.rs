@@ -1,8 +1,8 @@
 // src/modules/privilege_monitor.rs
 use aya::maps::perf::{AsyncPerfEventArray, PerfEventArray};
 use aya::programs::TracePoint;
-use aya::{include_bytes_aligned, Ebpf};
 use aya::util::online_cpus;
+use aya::{include_bytes_aligned, Ebpf};
 use bytes::BytesMut;
 use lazy_static::lazy_static;
 use std::collections::HashMap;
@@ -15,8 +15,8 @@ use std::{
     thread,
     time::{Duration, Instant},
 };
-use tokio::{task, time};
 use tokio::sync::Mutex;
+use tokio::{task, time};
 
 use anyhow::{anyhow, Context, Result};
 use sysinfo::{PidExt, ProcessExt, System, SystemExt};
@@ -137,8 +137,7 @@ pub async fn start_privilege_monitor() -> Result<()> {
     let recent_seen: Arc<TokioMutex<StdHashMap<(i32, i32), Instant>>> =
         Arc::new(TokioMutex::new(StdHashMap::new()));
 
-    let cpus = online_cpus()
-        .map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
     for cpu_id in cpus {
         let perf_clone = Arc::clone(&perf);
         let seen_clone = Arc::clone(&recent_seen);
@@ -184,7 +183,8 @@ pub async fn start_privilege_monitor() -> Result<()> {
                                     }
 
                                     let timestamp = now_ts();
-                                    let cmdline = get_cmdline(event.pid).unwrap_or_else(|| "n/a".into());
+                                    let cmdline =
+                                        get_cmdline(event.pid).unwrap_or_else(|| "n/a".into());
                                     let cwd = get_cwd(event.pid).unwrap_or_else(|| "n/a".into());
 
                                     record_privilege_escalation(
@@ -205,7 +205,8 @@ pub async fn start_privilege_monitor() -> Result<()> {
                                         "soc_note".into(),
                                         "Detected potential privilege misuse".into(),
                                     );
-                                    metadata.insert("replay_tag".into(), "privilege_escalation".into());
+                                    metadata
+                                        .insert("replay_tag".into(), "privilege_escalation".into());
                                     metadata.insert("gnn_escalate".into(), "true".into());
 
                                     let trust = TrustEvent {
@@ -320,8 +321,7 @@ async fn parse_privilege_event(buf: &BytesMut) -> Option<PrivilegeEvent> {
     // Baseline deviation check
     if let Some(baseline_uid) = get_baseline_uid(&event.path) {
         if baseline_uid != event.uid {
-            event.reason
-                .push_str(" [deviation from baseline UID]");
+            event.reason.push_str(" [deviation from baseline UID]");
         }
     }
 
@@ -350,7 +350,10 @@ async fn simulate_privilege_event() {
     map.insert("replay_tag".into(), "privilege_escalation".into());
     map.insert("timestamp".into(), ts.to_string());
     map.insert("gnn_escalate".into(), "true".into());
-    map.insert("soc_note".into(), "eBPF privilege escalation detected".into());
+    map.insert(
+        "soc_note".into(),
+        "eBPF privilege escalation detected".into(),
+    );
 
     push_to_gnn_vector_log(map.clone());
     write_telemetry_record(map.clone());
@@ -517,9 +520,7 @@ pub fn spawn_cred_dump_monitor() {
 
     thread::spawn(move || {
         // Load and leak so child reader threads can safely borrow maps
-        let mut tmp = match Ebpf::load(include_bytes_aligned!(
-            "../ebpf/cred_dump_monitor.bpf.o"
-        )) {
+        let mut tmp = match Ebpf::load(include_bytes_aligned!("../ebpf/cred_dump_monitor.bpf.o")) {
             Ok(b) => b,
             Err(e) => {
                 eprintln!("❌ Failed to load cred_dump BPF: {:?}", e);
@@ -579,7 +580,9 @@ pub fn spawn_cred_dump_monitor() {
                                             continue;
                                         }
                                         if let Some(evt) =
-                                            crate::modules::privilege_monitor::parse_cred_dump_event(b)
+                                            crate::modules::privilege_monitor::parse_cred_dump_event(
+                                                b,
+                                            )
                                         {
                                             if !cred_dump_context_gater(&evt) {
                                                 log("[⚠️ CredDumpMonitor] Skipping known benign pattern");
@@ -610,7 +613,10 @@ pub fn spawn_cred_dump_monitor() {
                                             data.insert("pid".into(), evt.pid.to_string());
                                             data.insert("summary".into(), summary.clone());
                                             data.insert("timestamp".into(), ts.to_string());
-                                            data.insert("replay_tag".into(), "cred_dump_detected".into());
+                                            data.insert(
+                                                "replay_tag".into(),
+                                                "cred_dump_detected".into(),
+                                            );
                                             data.insert(
                                                 "soc_note".into(),
                                                 "Credential dumping activity detected".into(),

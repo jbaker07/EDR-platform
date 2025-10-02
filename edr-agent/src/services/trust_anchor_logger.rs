@@ -1,7 +1,7 @@
-use std::fs::{OpenOptions};
-use std::io::Write;
 use chrono::Utc;
 use serde::Serialize;
+use std::fs::OpenOptions;
+use std::io::Write;
 
 #[derive(Serialize, Debug)]
 pub struct AnchorDropEvent {

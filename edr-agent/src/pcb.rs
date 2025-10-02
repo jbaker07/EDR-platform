@@ -28,20 +28,20 @@ pub struct PcbSnapshot {
     pub pid: i32,
     pub uid: Option<u32>,
     pub exe: Option<String>,
-    pub state: Option<char>,     // R,S,D,T,t,Z,W,I
-    pub threads: Option<u32>,    // Threads
-    pub vmrss_kb: Option<u64>,   // VmRSS
-    pub vmsize_kb: Option<u64>,  // VmSize
-    pub fds: Option<u32>,        // count of /proc/<pid>/fd
-    pub cap_eff: Option<u64>,    // CapEff bitmap (hex)
-    pub seccomp: Option<u8>,     // 0/1/2
-    pub cpu_pct: Option<f64>,    // % across all cores (delta-based)
-    pub read_bps: Option<f64>,   // bytes/sec (delta)
-    pub write_bps: Option<f64>,  // bytes/sec (delta)
-    pub tcp_socks: u32,          // TCP + TCP6 entries
-    pub udp_socks: u32,          // UDP + UDP6 entries
-    pub unix_socks: u32,         // UNIX sockets
-    pub in_container: bool,      // cgroup hint
+    pub state: Option<char>,    // R,S,D,T,t,Z,W,I
+    pub threads: Option<u32>,   // Threads
+    pub vmrss_kb: Option<u64>,  // VmRSS
+    pub vmsize_kb: Option<u64>, // VmSize
+    pub fds: Option<u32>,       // count of /proc/<pid>/fd
+    pub cap_eff: Option<u64>,   // CapEff bitmap (hex)
+    pub seccomp: Option<u8>,    // 0/1/2
+    pub cpu_pct: Option<f64>,   // % across all cores (delta-based)
+    pub read_bps: Option<f64>,  // bytes/sec (delta)
+    pub write_bps: Option<f64>, // bytes/sec (delta)
+    pub tcp_socks: u32,         // TCP + TCP6 entries
+    pub udp_socks: u32,         // UDP + UDP6 entries
+    pub unix_socks: u32,        // UNIX sockets
+    pub in_container: bool,     // cgroup hint
 }
 
 #[derive(Default)]
@@ -68,8 +68,14 @@ impl PcbCollector {
         let ncpu = count_cpus();
         let last_sys = read_proc_stat_total().unwrap_or(0);
         Self {
-            cpu: CpuState { last_proc: HashMap::new(), last_sys, ncpu },
-            io: IoState { last: HashMap::new() },
+            cpu: CpuState {
+                last_proc: HashMap::new(),
+                last_sys,
+                ncpu,
+            },
+            io: IoState {
+                last: HashMap::new(),
+            },
         }
     }
 
@@ -77,7 +83,9 @@ impl PcbCollector {
         let now_ms = now_ms();
         let mut out = Vec::with_capacity(recs.len());
         for r in recs {
-            if r.pid <= 0 { continue; }
+            if r.pid <= 0 {
+                continue;
+            }
             if let Some(mut s) = self.sample_pid(r.pid, some_uid_hint(r), now_ms) {
                 if s.exe.is_none() && !r.binary_path.is_empty() {
                     s.exe = Some(r.binary_path.clone());
@@ -92,7 +100,10 @@ impl PcbCollector {
         if let Some(dir) = Path::new(path).parent() {
             let _ = fs::create_dir_all(dir);
         }
-        let mut f = fs::OpenOptions::new().create(true).append(true).open(path)?;
+        let mut f = fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(path)?;
         for s in snaps {
             let line = serde_json::to_string(s).unwrap_or_else(|_| "{}".into());
             writeln!(f, "{}", line)?;
@@ -105,18 +116,33 @@ impl PcbCollector {
             return None;
         }
         let mut snap = PcbSnapshot {
-            ts_ms: now_ms, pid,
-            uid: None, exe: None, state: None, threads: None,
-            vmrss_kb: None, vmsize_kb: None, fds: None,
-            cap_eff: None, seccomp: None,
-            cpu_pct: None, read_bps: None, write_bps: None,
-            tcp_socks: 0, udp_socks: 0, unix_socks: 0,
+            ts_ms: now_ms,
+            pid,
+            uid: None,
+            exe: None,
+            state: None,
+            threads: None,
+            vmrss_kb: None,
+            vmsize_kb: None,
+            fds: None,
+            cap_eff: None,
+            seccomp: None,
+            cpu_pct: None,
+            read_bps: None,
+            write_bps: None,
+            tcp_socks: 0,
+            udp_socks: 0,
+            unix_socks: 0,
             in_container: false,
         };
 
         read_status(pid, &mut snap);
-        if snap.uid.is_none() { snap.uid = uid_hint; }
-        snap.exe = snap.exe.or_else(|| read_link_string(format!("/proc/{pid}/exe")));
+        if snap.uid.is_none() {
+            snap.uid = uid_hint;
+        }
+        snap.exe = snap
+            .exe
+            .or_else(|| read_link_string(format!("/proc/{pid}/exe")));
         snap.fds = read_fd_count(pid);
 
         let (rb, wb) = read_io_totals(pid);
@@ -130,8 +156,14 @@ impl PcbCollector {
             }
         }
 
-        let (tcp, tcp6) = (read_netfile_count(pid, "tcp"), read_netfile_count(pid, "tcp6"));
-        let (udp, udp6) = (read_netfile_count(pid, "udp"), read_netfile_count(pid, "udp6"));
+        let (tcp, tcp6) = (
+            read_netfile_count(pid, "tcp"),
+            read_netfile_count(pid, "tcp6"),
+        );
+        let (udp, udp6) = (
+            read_netfile_count(pid, "udp"),
+            read_netfile_count(pid, "udp6"),
+        );
         snap.tcp_socks = tcp.saturating_add(tcp6);
         snap.udp_socks = udp.saturating_add(udp6);
         snap.unix_socks = read_netfile_count(pid, "unix");
@@ -151,7 +183,9 @@ impl PcbCollector {
 
         let dproc = proc_j.saturating_sub(prev_proc);
         let dsys = sys_j.saturating_sub(prev_sys);
-        if dsys == 0 { return None; }
+        if dsys == 0 {
+            return None;
+        }
 
         let ncpu = if self.cpu.ncpu == 0 { 1 } else { self.cpu.ncpu };
         Some((dproc as f64) / (dsys as f64) * (ncpu as f64) * 100.0)
@@ -183,7 +217,9 @@ pub fn dump_records_raw(
     fs::create_dir_all(root_dir).ok();
     let ts = now_ms();
     for r in records {
-        if r.pid <= 0 { continue; }
+        if r.pid <= 0 {
+            continue;
+        }
         if let Some(p) = dump_one_pid(r.pid, ts, root_dir, include_sensitive)? {
             out.push(p);
         }
@@ -208,7 +244,9 @@ fn dump_one_pid(
     let mut copy = |rel: &str, cap: usize| -> std::io::Result<()> {
         let src = format!("{proc_root}/{rel}");
         let dst = snap_dir.join(rel.replace('/', "_"));
-        if let Some(parent) = dst.parent() { fs::create_dir_all(parent).ok(); }
+        if let Some(parent) = dst.parent() {
+            fs::create_dir_all(parent).ok();
+        }
         if let Some(s) = read_capped_to_string(&src, cap) {
             fs::write(dst, s)?;
         }
@@ -217,13 +255,13 @@ fn dump_one_pid(
 
     // 1) text-ish files
     let _ = copy("status", 256 * 1024);
-    let _ = copy("stat",   256 * 1024);
-    let _ = copy("io",     256 * 1024);
+    let _ = copy("stat", 256 * 1024);
+    let _ = copy("io", 256 * 1024);
     let _ = copy("limits", 256 * 1024);
-    let _ = copy("sched",  512 * 1024);
-    let _ = copy("wchan",  64 * 1024);
+    let _ = copy("sched", 512 * 1024);
+    let _ = copy("wchan", 64 * 1024);
     let _ = copy("cgroup", 256 * 1024);
-    let _ = copy("comm",   64 * 1024);
+    let _ = copy("comm", 64 * 1024);
 
     // Prefer smaps_rollup; fallback to capped smaps.
     let rollup = format!("{proc_root}/smaps_rollup");
@@ -240,11 +278,11 @@ fn dump_one_pid(
     }
 
     // 2) symlink targets: exe, cwd, root
-    let exe  = read_link_string(format!("{proc_root}/exe")).unwrap_or_default();
-    let cwd  = read_link_string(format!("{proc_root}/cwd")).unwrap_or_default();
+    let exe = read_link_string(format!("{proc_root}/exe")).unwrap_or_default();
+    let cwd = read_link_string(format!("{proc_root}/cwd")).unwrap_or_default();
     let root = read_link_string(format!("{proc_root}/root")).unwrap_or_default();
-    fs::write(snap_dir.join("exe.link"),  exe.as_bytes()).ok();
-    fs::write(snap_dir.join("cwd.link"),  cwd.as_bytes()).ok();
+    fs::write(snap_dir.join("exe.link"), exe.as_bytes()).ok();
+    fs::write(snap_dir.join("cwd.link"), cwd.as_bytes()).ok();
     fs::write(snap_dir.join("root.link"), root.as_bytes()).ok();
 
     // 3) fd list (resolve symlinks)
@@ -276,12 +314,18 @@ fn dump_one_pid(
 // ========== Low-level readers shared by both ==========
 
 fn now_ms() -> u128 {
-    SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)
-        .map(|d| d.as_millis()).unwrap_or(0)
+    SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .map(|d| d.as_millis())
+        .unwrap_or(0)
 }
 
 fn some_uid_hint(r: &TelemetryRecord) -> Option<u32> {
-    if r.uid == 0 && r.pid == 0 { None } else { Some(r.uid) }
+    if r.uid == 0 && r.pid == 0 {
+        None
+    } else {
+        Some(r.uid)
+    }
 }
 
 fn read_link_string(p: impl AsRef<Path>) -> Option<String> {
@@ -302,7 +346,10 @@ fn read_status(pid: i32, out: &mut PcbSnapshot) {
             if let Some(rest) = line.strip_prefix("State:") {
                 out.state = rest.chars().find(|c| !c.is_whitespace());
             } else if let Some(rest) = line.strip_prefix("Threads:") {
-                out.threads = rest.split_whitespace().last().and_then(|t| t.parse::<u32>().ok());
+                out.threads = rest
+                    .split_whitespace()
+                    .last()
+                    .and_then(|t| t.parse::<u32>().ok());
             } else if let Some(rest) = line.strip_prefix("VmRSS:") {
                 out.vmrss_kb = parse_kb(rest);
             } else if let Some(rest) = line.strip_prefix("VmSize:") {
@@ -310,16 +357,24 @@ fn read_status(pid: i32, out: &mut PcbSnapshot) {
             } else if let Some(rest) = line.strip_prefix("CapEff:") {
                 out.cap_eff = u64::from_str_radix(rest.trim(), 16).ok();
             } else if let Some(rest) = line.strip_prefix("Seccomp:") {
-                out.seccomp = rest.split_whitespace().last().and_then(|t| t.parse::<u8>().ok());
+                out.seccomp = rest
+                    .split_whitespace()
+                    .last()
+                    .and_then(|t| t.parse::<u8>().ok());
             } else if let Some(rest) = line.strip_prefix("Uid:") {
-                out.uid = rest.split_whitespace().next().and_then(|t| t.parse::<u32>().ok());
+                out.uid = rest
+                    .split_whitespace()
+                    .next()
+                    .and_then(|t| t.parse::<u32>().ok());
             }
         }
     }
 }
 
 fn parse_kb(line: &str) -> Option<u64> {
-    line.split_whitespace().filter_map(|t| t.parse::<u64>().ok()).next()
+    line.split_whitespace()
+        .filter_map(|t| t.parse::<u64>().ok())
+        .next()
 }
 
 fn read_fd_count(pid: i32) -> Option<u32> {
@@ -327,7 +382,9 @@ fn read_fd_count(pid: i32) -> Option<u32> {
     let mut c: u32 = 0;
     for _ in rd.flatten() {
         c = c.saturating_add(1);
-        if c >= 100_000 { break; }
+        if c >= 100_000 {
+            break;
+        }
     }
     Some(c)
 }
@@ -338,9 +395,15 @@ fn read_io_totals(pid: i32) -> (Option<u64>, Option<u64>) {
         let mut w = None;
         for line in s.lines() {
             if let Some(rest) = line.strip_prefix("read_bytes:") {
-                r = rest.split_whitespace().last().and_then(|t| t.parse::<u64>().ok());
+                r = rest
+                    .split_whitespace()
+                    .last()
+                    .and_then(|t| t.parse::<u64>().ok());
             } else if let Some(rest) = line.strip_prefix("write_bytes:") {
-                w = rest.split_whitespace().last().and_then(|t| t.parse::<u64>().ok());
+                w = rest
+                    .split_whitespace()
+                    .last()
+                    .and_then(|t| t.parse::<u64>().ok());
             }
         }
         return (r, w);
@@ -374,7 +437,9 @@ fn count_cpus() -> usize {
                 n += 1;
             }
         }
-        if n > 0 { return n; }
+        if n > 0 {
+            return n;
+        }
     }
     1
 }
@@ -398,11 +463,14 @@ fn read_proc_stat_total() -> Option<u64> {
 fn read_stat_utime_stime(pid: i32) -> Option<u64> {
     // /proc/<pid>/stat: last ')' then fields; 14:utime, 15:stime
     let mut s = String::new();
-    fs::File::open(format!("/proc/{pid}/stat")).ok()?.read_to_string(&mut s).ok()?;
+    fs::File::open(format!("/proc/{pid}/stat"))
+        .ok()?
+        .read_to_string(&mut s)
+        .ok()?;
     let rparen = s.rfind(')')?;
     let after = &s[rparen + 2..]; // skip ") "
     let mut it = after.split_whitespace();
     let utime = it.nth(11)?.parse::<u64>().ok()?; // field 14
-    let stime = it.next()?.parse::<u64>().ok()?;  // field 15
+    let stime = it.next()?.parse::<u64>().ok()?; // field 15
     Some(utime.saturating_add(stime))
 }

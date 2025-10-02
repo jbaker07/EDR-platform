@@ -4,11 +4,11 @@ use std::io::Write;
 
 use anyhow::Result;
 use chrono::Utc;
-use serde_json::{to_string, json};
+use serde_json::{json, to_string};
 
 use crate::alert::{Alert, Severity};
-use crate::detect::{Finding, registry::DetectorRegistry, NormalizedEvent}; // alias
 use crate::detect::types::NormalizedAlert; // concrete struct we construct
+use crate::detect::{registry::DetectorRegistry, Finding, NormalizedEvent}; // alias
 use crate::features::extract_features;
 use crate::telemetry::Telemetry;
 
@@ -30,13 +30,22 @@ pub struct Evaluator {
 
 impl Evaluator {
     pub fn new(thresholds: Thresholds) -> Self {
-        Self { registry: DetectorRegistry::new(), thresholds, out: None, audit_benign: false }
+        Self {
+            registry: DetectorRegistry::new(),
+            thresholds,
+            out: None,
+            audit_benign: false,
+        }
     }
 
-    pub fn set_audit_benign(&mut self, yes: bool) { self.audit_benign = yes; }
+    pub fn set_audit_benign(&mut self, yes: bool) {
+        self.audit_benign = yes;
+    }
 
     pub fn set_output(&mut self, path: &std::path::Path) -> Result<()> {
-        if let Some(dir) = path.parent() { std::fs::create_dir_all(dir)?; }
+        if let Some(dir) = path.parent() {
+            std::fs::create_dir_all(dir)?;
+        }
         let f = File::options().create(true).append(true).open(path)?;
         self.out = Some(f);
         Ok(())
@@ -52,23 +61,39 @@ impl Evaluator {
         let (risk, sev) = grade(&findings, &self.thresholds);
 
         let explanation = if findings.is_empty() {
-            format!("benign: no detectors fired; risk={:.2} (< low {:.2})", risk, self.thresholds.low)
+            format!(
+                "benign: no detectors fired; risk={:.2} (< low {:.2})",
+                risk, self.thresholds.low
+            )
         } else {
-            let parts = findings.iter().map(|f| {
-                let lbl = f.label.as_deref().unwrap_or("-");
-                format!("{}:{}({})", f.source, f.score, lbl)
-            }).collect::<Vec<_>>().join(", ");
+            let parts = findings
+                .iter()
+                .map(|f| {
+                    let lbl = f.label.as_deref().unwrap_or("-");
+                    format!("{}:{}({})", f.source, f.score, lbl)
+                })
+                .collect::<Vec<_>>()
+                .join(", ");
 
             match sev {
-                Severity::None =>
-                    format!("benign: risk={:.2} (< low {:.2}); contributions: {}", risk, self.thresholds.low, parts),
+                Severity::None => format!(
+                    "benign: risk={:.2} (< low {:.2}); contributions: {}",
+                    risk, self.thresholds.low, parts
+                ),
                 _ => parts,
             }
         };
 
         let alert = match sev {
             Severity::None if !self.audit_benign => return Ok(None),
-            _ => Alert::new_with_explanation(Utc::now(), event.clone(), risk, sev, findings, explanation),
+            _ => Alert::new_with_explanation(
+                Utc::now(),
+                event.clone(),
+                risk,
+                sev,
+                findings,
+                explanation,
+            ),
         };
 
         let line = to_string(&alert)?;
@@ -82,15 +107,24 @@ impl Evaluator {
 }
 
 fn grade(findings: &[Finding], th: &Thresholds) -> (f32, Severity) {
-    if findings.is_empty() { return (0.0, Severity::None); }
+    if findings.is_empty() {
+        return (0.0, Severity::None);
+    }
     let mut sum = 0.0_f32;
-    for f in findings { sum += f.score; }
+    for f in findings {
+        sum += f.score;
+    }
     let risk = (sum / (findings.len() as f32)).clamp(0.0, 1.0);
 
-    let sev = if risk >= th.high { Severity::High }
-        else if risk >= th.medium { Severity::Medium }
-        else if risk >= th.low { Severity::Low }
-        else { Severity::None };
+    let sev = if risk >= th.high {
+        Severity::High
+    } else if risk >= th.medium {
+        Severity::Medium
+    } else if risk >= th.low {
+        Severity::Low
+    } else {
+        Severity::None
+    };
 
     (risk, sev)
 }
@@ -99,7 +133,10 @@ fn grade(findings: &[Finding], th: &Thresholds) -> (f32, Severity) {
 fn to_normalized_alert(event: &Telemetry) -> NormalizedAlert {
     let attrs = serde_json::to_value(event).unwrap_or(json!({}));
     NormalizedAlert {
-        id: format!("telemetry:{}", Utc::now().timestamp_nanos_opt().unwrap_or(0)),
+        id: format!(
+            "telemetry:{}",
+            Utc::now().timestamp_nanos_opt().unwrap_or(0)
+        ),
         ts: Utc::now(),
         source: "agent".to_string(),
         connector_id: "edr-agent".to_string(),

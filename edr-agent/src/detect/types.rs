@@ -21,7 +21,11 @@ pub struct PollStats {
 }
 impl Default for PollStats {
     fn default() -> Self {
-        Self { last_poll: None, events_seen: 0, events_emitted: 0 }
+        Self {
+            last_poll: None,
+            events_seen: 0,
+            events_emitted: 0,
+        }
     }
 }
 
@@ -68,7 +72,11 @@ pub struct IntegrationRuntime {
 }
 impl Default for IntegrationRuntime {
     fn default() -> Self {
-        Self { status: IntegrationStatus::Disabled, last_error: None, poll: PollStats::default() }
+        Self {
+            status: IntegrationStatus::Disabled,
+            last_error: None,
+            poll: PollStats::default(),
+        }
     }
 }
 
@@ -91,10 +99,10 @@ pub struct NormalizedAlert {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct NormalizedEvent {
     pub category: Option<String>,
-    pub event:    Option<String>,
-    pub exe:      Option<String>,
-    pub cmdline:  Option<String>,
-    pub cwd:      Option<String>,
+    pub event: Option<String>,
+    pub exe: Option<String>,
+    pub cmdline: Option<String>,
+    pub cwd: Option<String>,
     /// free-form attributes (everything else)
     pub attrs: JsonMap<String, Value>,
     /// tag -> "1" style presence map
@@ -109,14 +117,16 @@ impl NormalizedEvent {
         let obj = v.as_object();
 
         let get_str = |k: &str| -> Option<String> {
-            obj.and_then(|m| m.get(k)).and_then(|x| x.as_str()).map(|s| s.to_string())
+            obj.and_then(|m| m.get(k))
+                .and_then(|x| x.as_str())
+                .map(|s| s.to_string())
         };
 
         let category = get_str("category").or_else(|| get_str("cat"));
-        let event    = get_str("event").or_else(|| get_str("evt"));
-        let exe      = get_str("exe").or_else(|| get_str("binary_path"));
-        let cmdline  = get_str("cmdline").or_else(|| get_str("command_line"));
-        let cwd      = get_str("cwd");
+        let event = get_str("event").or_else(|| get_str("evt"));
+        let exe = get_str("exe").or_else(|| get_str("binary_path"));
+        let cmdline = get_str("cmdline").or_else(|| get_str("command_line"));
+        let cwd = get_str("cwd");
 
         let mut tags: HashMap<String, String> = HashMap::new();
         if let Some(arr) = obj.and_then(|m| m.get("tags")).and_then(|v| v.as_array()) {
@@ -128,18 +138,33 @@ impl NormalizedEvent {
         let mut attrs: JsonMap<String, Value> = JsonMap::new();
         if let Some(m) = obj {
             for (k, vv) in m {
-                if matches!(k.as_str(),
-                    "category" | "cat" |
-                    "event" | "evt" |
-                    "exe" | "binary_path" |
-                    "cmdline" | "command_line" |
-                    "cwd" | "tags") {
+                if matches!(
+                    k.as_str(),
+                    "category"
+                        | "cat"
+                        | "event"
+                        | "evt"
+                        | "exe"
+                        | "binary_path"
+                        | "cmdline"
+                        | "command_line"
+                        | "cwd"
+                        | "tags"
+                ) {
                     continue;
                 }
                 attrs.insert(k.clone(), vv.clone());
             }
         }
 
-        Self { category, event, exe, cmdline, cwd, attrs, tags }
+        Self {
+            category,
+            event,
+            exe,
+            cmdline,
+            cwd,
+            attrs,
+            tags,
+        }
     }
 }

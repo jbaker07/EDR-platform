@@ -1,28 +1,34 @@
+use std::collections::HashMap;
 use std::fs::{self, File};
 use std::io::Read;
 use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::path::Path;
+use std::sync::{
+    atomic::{AtomicBool, Ordering},
+    OnceLock,
+};
 use std::thread;
 use std::time::Duration;
-use std::collections::HashMap;
-use std::sync::{OnceLock, atomic::{AtomicBool, Ordering}};
 
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::logger::log;
+use crate::modules::replay_writer::store_replay_event;
+use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprints_from_disk};
+use crate::telemetry_types::TelemetryOutput;
+use crate::telemetry_writer::write_telemetry_record;
 use crate::trust_hook::{
     generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
 };
-use crate::telemetry_types::TelemetryOutput;
-use crate::telemetry_writer::write_telemetry_record;
 use crate::utils::time::now_ts;
-use crate::modules::replay_writer::store_replay_event;
-use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprints_from_disk};
-use sha2::{Digest, Sha256};
 use entropy::shannon_entropy;
+use sha2::{Digest, Sha256};
 
 /// Whitelisted safe script names (system-owned jobs or known benign scripts)
 const WHITELIST: &[&str] = &[
-    "/tmp/systemd-private-", "/tmp/pip-", "/tmp/ansible-", "/tmp/crontab",
+    "/tmp/systemd-private-",
+    "/tmp/pip-",
+    "/tmp/ansible-",
+    "/tmp/crontab",
 ];
 
 /// Extensions considered suspicious if found in /tmp
@@ -50,7 +56,10 @@ pub fn start_integrity_monitor() {
 
                     meta_map.insert("features".into(), format!("{:?}", features));
                     meta_map.insert("timestamp".into(), ts.to_string());
-                    meta_map.insert("soc_note".into(), "Script drop in /tmp detected by signal integrity monitor".into());
+                    meta_map.insert(
+                        "soc_note".into(),
+                        "Script drop in /tmp detected by signal integrity monitor".into(),
+                    );
                     meta_map.insert("gnn_escalate".into(), "true".into());
 
                     write_telemetry_record(meta_map.clone());
@@ -75,9 +84,7 @@ pub fn start_integrity_monitor() {
                         signal: Some("tmp_script_drop".into()),
                         signal_type: Some("script".into()),
                         score: Some(risk as f32),
-                        raw_score: meta_map
-                            .get("entropy")
-                            .and_then(|e| e.parse::<f32>().ok()),
+                        raw_score: meta_map.get("entropy").and_then(|e| e.parse::<f32>().ok()),
                         tags: Some(vec!["script_drop".into(), "signal_integrity".into()]),
                         description: Some(format!("Suspicious script drop at {:?}", path)),
                     };
@@ -131,9 +138,7 @@ pub fn scan_signal_integrity() -> Vec<TelemetryOutput> {
                     signal: Some("signal_integrity".into()),
                     signal_type: Some("script".into()),
                     score: Some(12.0),
-                    raw_score: meta_map
-                        .get("entropy")
-                        .and_then(|e| e.parse::<f32>().ok()),
+                    raw_score: meta_map.get("entropy").and_then(|e| e.parse::<f32>().ok()),
                     tags: Some(vec!["signal_integrity".into(), "script_drop".into()]),
                     description: Some(format!("/tmp integrity violation: {:?}", path)),
                 };
@@ -208,7 +213,11 @@ fn collect_script_metadata(path: &Path, risk: f32) -> Option<(HashMap<String, St
     let cpu = if risk >= 15.0 { 0.5 } else { 0.4 };
     let mem = if risk >= 15.0 { 90_000 } else { 70_000 };
     let trust = generate_trust_payload(
-        if risk >= 15.0 { "script_monitor" } else { "signal_integrity_monitor" },
+        if risk >= 15.0 {
+            "script_monitor"
+        } else {
+            "signal_integrity_monitor"
+        },
         cpu as f64,
         mem as u64,
         risk as f64,
@@ -220,16 +229,28 @@ fn collect_script_metadata(path: &Path, risk: f32) -> Option<(HashMap<String, St
     map.insert("uid".into(), meta.uid().to_string());
     map.insert("entropy".into(), format!("{:.2}", entropy_score));
     map.insert("exec_capable".into(), exec_capable.to_string());
-    map.insert("replay_tag".into(), if risk >= 15.0 {
-        "suspicious_script_drop".into()
-    } else {
-        "signal_integrity_check".into()
-    });
-    map.insert("summary".into(), format!(
-        "Suspicious /tmp script (entropy {:.2}, exec={})",
-        entropy_score, exec_capable
-    ));
-    map.insert("trust_score".into(), trust.get("trust_score").cloned().unwrap_or_else(|| "N/A".into()));
+    map.insert(
+        "replay_tag".into(),
+        if risk >= 15.0 {
+            "suspicious_script_drop".into()
+        } else {
+            "signal_integrity_check".into()
+        },
+    );
+    map.insert(
+        "summary".into(),
+        format!(
+            "Suspicious /tmp script (entropy {:.2}, exec={})",
+            entropy_score, exec_capable
+        ),
+    );
+    map.insert(
+        "trust_score".into(),
+        trust
+            .get("trust_score")
+            .cloned()
+            .unwrap_or_else(|| "N/A".into()),
+    );
 
     Some((map, meta.uid()))
 }

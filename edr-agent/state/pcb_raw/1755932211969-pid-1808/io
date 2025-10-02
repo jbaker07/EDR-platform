@@ -1,7 +1,0 @@
-rchar: 2080
-wchar: 20
-syscr: 11
-syscw: 2
-read_bytes: 0
-write_bytes: 0
-cancelled_write_bytes: 0
