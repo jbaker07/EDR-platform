@@ -1,17 +1,27 @@
-target/
-**/target/
-_bpf_build/
-ebpf/_bpf_build/
-*.bpf.o
-logs/
-json_files/
-state/
-*.ndjson
+# OS/editor
+.DS_Store
+.vscode/
+*.swp
 
-# runtime/generated
-edr-agent/json_files/
-edr-agent/telemetry_output/
-state/pcb_snaps.ndjson
-logs/
-edr-agent/logs/
+# Node/Rust/build
+node_modules/
+dist/
+build/
 target/
+
+# Logs & fixtures & captures
+logs/
+*.log
+dev/fixtures/*.pcap
+dev/fixtures/*.pcapng
+dev/fixtures/*.gz
+dev/fixtures/*.zip
+dev/fixtures/*.jsonl
+dev/fixtures/*.ndjson
+telemetry_output/
+**/*.jsonl
+**/*.ndjson
+
+# Docker/Opensearch data
+**/data/
+**/opensearch-data/
