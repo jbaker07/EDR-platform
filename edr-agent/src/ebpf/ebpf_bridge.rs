@@ -3,7 +3,8 @@
 
 use forensic_hooks::telemetry::TelemetryRecord;
 use forensic_hooks::telemetry_types::TelemetryOutput;
-use std::borrow::Cow;
+use forensic_hooks::utils::strnorm::{cbytes_to_string_lossy, sanitize_tag_value};
+use std::{borrow::Cow, fs, path::PathBuf};
 // ---- Keep these numeric ids aligned with ebpf/include/edr_events.h ----
 pub mod evt {
     pub const EVT_EXEC: u32 = 30;
@@ -65,8 +66,8 @@ pub mod evt {
 #[repr(C, align(8))]
 #[derive(Clone, Copy)]
 pub struct EdREvent {
-    pub ts: u64,          // ktime_ns (nanoseconds)
-    pub type_: u32,       // edr_evt_type
+    pub ts: u64,    // ktime_ns (nanoseconds)
+    pub type_: u32, // edr_evt_type
     pub syscall_id: u32,
 
     pub tgid: u32,
@@ -102,8 +103,7 @@ pub struct EdREvent {
 const _: [(); 376] = [(); core::mem::size_of::<EdREvent>()];
 
 fn cstr_trunc(bytes: &[u8]) -> String {
-    let n = bytes.iter().position(|&b| b == 0).unwrap_or(bytes.len());
-    String::from_utf8_lossy(&bytes[..n]).to_string()
+    cbytes_to_string_lossy(bytes)
 }
 
 fn ipv4_be_to_string(be: u32) -> String {
@@ -179,23 +179,72 @@ fn tagset_for_event(e: &EdREvent) -> Vec<String> {
 fn canonical_signal(primary: &str) -> (String, &'static str) {
     // (canonical, category)
     match primary {
-        "exec"                      => ("process::exec".to_string(), "process"),
-        "net_connect"               => ("network::connect".to_string(), "network"),
-        "net_accept"                => ("network::accept".to_string(),  "network"),
-        "net_send"                  => ("network::send".to_string(),    "network"),
-        "net_recv"                  => ("network::recv".to_string(),    "network"),
-        "tcp_state" | "tcp_retrans" => ("tcp_state".to_string(),        "network"),
-        s if s.starts_with("file_") || s.starts_with("fd_") || s.starts_with("fs_")
-                                    => (primary.to_string(),            "file"),
-        s if s.starts_with("priv_") || matches!(s, "ptrace" | "seccomp" | "bpf_usage")
-                                    => (primary.to_string(),            "privilege"),
-        s if s.starts_with("mprotect") || s.starts_with("memfd")
-                                    => (primary.to_string(),            "memory"),
-        s if s.starts_with("proc_")  => (primary.to_string(),            "process"),
-        _                             => (primary.to_string(),           "kernel"),
+        "exec" => ("process::exec".to_string(), "process"),
+        "net_connect" => ("network::connect".to_string(), "network"),
+        "net_accept" => ("network::accept".to_string(), "network"),
+        "net_send" => ("network::send".to_string(), "network"),
+        "net_recv" => ("network::recv".to_string(), "network"),
+        "tcp_state" | "tcp_retrans" => ("tcp_state".to_string(), "network"),
+        s if s.starts_with("file_") || s.starts_with("fd_") || s.starts_with("fs_") => {
+            (primary.to_string(), "file")
+        }
+        s if s.starts_with("priv_") || matches!(s, "ptrace" | "seccomp" | "bpf_usage") => {
+            (primary.to_string(), "privilege")
+        }
+        s if s.starts_with("mprotect") || s.starts_with("memfd") => (primary.to_string(), "memory"),
+        s if s.starts_with("proc_") => (primary.to_string(), "process"),
+        _ => (primary.to_string(), "kernel"),
     }
 }
 
+fn read_proc_cmdline(pid: i32) -> String {
+    if pid <= 0 {
+        return String::new();
+    }
+
+    let path = format!("/proc/{}/cmdline", pid);
+    fs::read(path)
+        .map(|bytes| {
+            bytes
+                .split(|b| *b == 0u8)
+                .filter(|part| !part.is_empty())
+                .map(|part| String::from_utf8_lossy(part).into_owned())
+                .collect::<Vec<_>>()
+                .join(" ")
+        })
+        .unwrap_or_default()
+}
+
+fn read_proc_cwd(pid: i32) -> String {
+    if pid <= 0 {
+        return String::new();
+    }
+
+    let path = PathBuf::from(format!("/proc/{}/cwd", pid));
+    fs::read_link(path)
+        .map(|p| p.to_string_lossy().into_owned())
+        .unwrap_or_default()
+}
+
+pub(crate) fn populate_proc_fields(record: &mut TelemetryRecord) {
+    if record.pid <= 0 {
+        return;
+    }
+
+    if record.command_line.is_empty() {
+        let cmd = read_proc_cmdline(record.pid);
+        if !cmd.is_empty() {
+            record.command_line = cmd;
+        }
+    }
+
+    if record.cwd.is_empty() {
+        let cwd = read_proc_cwd(record.pid);
+        if !cwd.is_empty() {
+            record.cwd = cwd;
+        }
+    }
+}
 
 // Turn one kernel event into a compact TelemetryOutput
 pub fn edr_event_to_output(e: &EdREvent) -> TelemetryOutput {
@@ -204,7 +253,7 @@ pub fn edr_event_to_output(e: &EdREvent) -> TelemetryOutput {
 
     // common
     data.insert("ts_ns".into(), e.ts.to_string()); // raw ktime_ns (lossless)
-    // also provide seconds to make downstream life easier
+                                                   // also provide seconds to make downstream life easier
     data.insert("timestamp".into(), (e.ts / 1_000_000_000).to_string());
 
     data.insert("tgid".into(), e.tgid.to_string());
@@ -258,7 +307,6 @@ pub fn edr_event_to_output(e: &EdREvent) -> TelemetryOutput {
         ("unknown_evt".to_string(), "kernel".to_string())
     };
 
-
     TelemetryOutput {
         category,
         signal,
@@ -274,6 +322,10 @@ pub fn edr_event_to_record(e: &EdREvent) -> TelemetryRecord {
     let cmd = cstr_trunc(&e.comm);
     let mut tags = tagset_for_event(e);
 
+    if !cmd.is_empty() {
+        tags.push(format!("comm:{}", sanitize_tag_value(&cmd)));
+    }
+
     // add canonicalized form of the primary tag so downstream filters see both
     if let Some(primary) = tags.get(0).cloned() {
         let (canon, _cat) = canonical_signal(&primary);
@@ -282,18 +334,21 @@ pub fn edr_event_to_record(e: &EdREvent) -> TelemetryRecord {
         }
     }
 
-
-    TelemetryRecord {
+    let mut record = TelemetryRecord {
         // Use seconds to match downstream expectations (Chrono conversion assumes secs).
         timestamp: e.ts / 1_000_000_000,
         pid: e.tgid as i32,
         ppid: e.ppid as i32,
         uid: e.uid,
-        binary_path: p1, // for exec/open this is meaningful
+        binary_path: p1,   // for exec/open this is meaningful
         command_line: cmd, // short, but better than empty
         cwd: String::new(),
         env_vars: None,
         tags,
         risk_score: None,
-    }
+    };
+
+    populate_proc_fields(&mut record);
+
+    record
 }

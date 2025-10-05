@@ -1,0 +1,80 @@
+{
+  "index_patterns": ["edr-correlated-v2-*"] ,
+  "priority": 500,
+  "template": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "mappings": {
+      "dynamic": true,
+      "properties": {
+        "@timestamp": { "type": "date" },
+        "schema_version": { "type": "integer" },
+        "correlation_group_id": { "type": "keyword" },
+        "sequence_id": { "type": "keyword" },
+        "stage_index": { "type": "integer" },
+        "campaign_id": { "type": "keyword" },
+        "summary": { "type": "text" },
+        "explain_snippet": { "type": "text" },
+        "observed_at": { "type": "date" },
+        "subject": {
+          "properties": {
+            "endpoint_id": { "type": "keyword" },
+            "hostname": { "type": "keyword" },
+            "ip": { "type": "ip" },
+            "user": { "type": "keyword" }
+          }
+        },
+        "scoring": {
+          "properties": {
+            "risk": { "type": "scaled_float", "scaling_factor": 100 },
+            "confidence": { "type": "scaled_float", "scaling_factor": 1000 },
+            "corroborations": { "type": "integer" },
+            "novelty": { "type": "scaled_float", "scaling_factor": 1000 }
+          }
+        },
+        "observations": {
+          "type": "nested",
+          "properties": {
+            "vendor": { "type": "keyword" },
+            "product": { "type": "keyword" },
+            "event_id": { "type": "keyword" },
+            "source_index": { "type": "keyword" },
+            "observed_at": { "type": "date" },
+            "severity": { "type": "keyword" },
+            "confidence": { "type": "scaled_float", "scaling_factor": 1000 }
+          }
+        },
+        "evidence_edges": {
+          "type": "nested",
+          "properties": {
+            "kind": { "type": "keyword" },
+            "src": { "type": "keyword" },
+            "dst": { "type": "keyword" },
+            "at": { "type": "date" },
+            "vendor_source": { "type": "keyword" }
+          }
+        },
+        "multistage": {
+          "type": "nested",
+          "properties": {
+            "stage": { "type": "keyword" },
+            "start_at": { "type": "date" },
+            "end_at": { "type": "date" },
+            "edges_supported": { "type": "integer" },
+            "score": { "type": "scaled_float", "scaling_factor": 100 }
+          }
+        },
+        "sinks": {
+          "properties": {
+            "opensearch": { "type": "boolean" },
+            "splunk": { "type": "boolean" },
+            "sentinel": { "type": "boolean" },
+            "thehive": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,10 +8,10 @@ key_by: [host, user]
 steps:
   - id: memfd_or_rwx
     domain: memory
-    any_tags: ["MEMFD_EXEC", "RWX_MAP", "T1055*","memory::injection"]
+    any_tags: ["MEMFD_EXEC", "RWX_MAP", "T1055*", "memory::injection"]
   - id: unsigned_child
     domain: process
-    any_tags: ["process::hollow","T1055*"]
+    any_tags: ["process::hollow", "T1055*"]
     cmd_regex: "^(?!(.*(signedvendor|/usr/bin/ssh|/usr/bin/sudo))).*$"
     max_gap_secs: 300
   - id: egress_443_or_tunnel
@@ -22,3 +22,10 @@ steps:
 emit:
   add_tags: ["ATTACK:INMEM_EGRESS", "T1055", "T1041"]
   risk: 0.95
+version: 1
+severity: medium
+window_sec: 900
+cooldown_sec: 300
+title: In‑Memory Exec → Unsigned Child → Egress
+reason_code: MEMFD_UNSIGNED_EGRESS
+rules: []

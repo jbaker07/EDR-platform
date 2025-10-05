@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://edr.local/schema/correlated_incident.json",
+  "title": "CorrelatedIncident",
+  "description": "Canonical incident envelope emitted by the correlation pipeline.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "incident_id",
+    "correlation_group_id",
+    "observed_at",
+    "severity",
+    "scores",
+    "entities",
+    "linkage",
+    "tags"
+  ],
+  "properties": {
+    "incident_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "correlation_group_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observed_until": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "verdict": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "tactics": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "scores": {
+      "type": "object",
+      "required": ["risk", "support"],
+      "additionalProperties": true,
+      "properties": {
+        "risk": { "type": "number" },
+        "support": { "type": "number" },
+        "confidence": { "type": ["number", "null"] },
+        "rgcn": { "type": ["number", "null"] },
+        "detectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "score"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": { "type": "string" },
+              "score": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "entities": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "host": { "type": "string" },
+        "user": { "type": "string" },
+        "process": {
+          "type": "object",
+          "required": ["exe"],
+          "additionalProperties": true,
+          "properties": {
+            "exe": { "type": "string" },
+            "cmd": { "type": ["string", "null"] },
+            "pid": { "type": ["integer", "null"] }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "score"],
+        "additionalProperties": true,
+        "properties": {
+          "source": { "type": "string" },
+          "score": { "type": "number" },
+          "label": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["at", "message"],
+        "additionalProperties": true,
+        "properties": {
+          "at": { "type": "string", "format": "date-time" },
+          "message": { "type": "string" }
+        }
+      }
+    },
+    "linkage": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "alerts": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "hosts": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "users": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "executables": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "techniques": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

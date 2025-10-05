@@ -19,6 +19,7 @@ use crate::telemetry_writer::TelemetryWriter;
 use crate::trust_hook::{
     generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
 };
+use crate::utils::strnorm::cbytes_to_string_lossy;
 use crate::utils::time::now_ts;
 
 #[cfg(target_os = "linux")]
@@ -186,6 +187,17 @@ fn trigger_automated_response(command: &str) {
 
 #[cfg(target_os = "linux")]
 pub fn start_cron_ebpf_watch(writer: Arc<Mutex<TelemetryWriter>>) {
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        let _ = writer;
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return;
+    }
+
+    #[cfg(feature = "embed_bpf")]
     START_EBPF.call_once(|| {
         thread::spawn(move || {
             // ---- Load & leak BPF so perf buffers outlive this thread ----
@@ -263,9 +275,7 @@ pub fn start_cron_ebpf_watch(writer: Arc<Mutex<TelemetryWriter>>) {
                                         let ptr = buf.as_ptr() as *const CronEvent;
                                         let event = unsafe { ptr.read_unaligned() };
 
-                                        let cmd = String::from_utf8_lossy(&event.filename)
-                                            .trim_matches(char::from(0))
-                                            .to_string();
+                                        let cmd = cbytes_to_string_lossy(&event.filename);
 
                                         let timestamp = now_ts();
                                         let risk = score_cron_command(&cmd, None);
@@ -480,6 +490,16 @@ struct KernelFalloutEvent {
 
 #[cfg(target_os = "linux")]
 pub fn start_ebpf_kernel_fallout_watch() {
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return;
+    }
+
+    #[cfg(feature = "embed_bpf")]
     thread::spawn(move || {
         // ---- Load & leak BPF so per-CPU readers are 'static-safe ----
         let mut tmp = match Bpf::load(include_bytes_aligned!(

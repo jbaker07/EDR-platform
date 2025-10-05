@@ -1,6 +1,8 @@
 use crate::telemetry::TelemetryRecord;
 use crate::telemetry_types::MemoryAnomalyType;
 use crate::utils::time::now_ts;
+use log::{debug, error, info, warn};
+use serde_json::Value;
 
 use std::collections::HashMap;
 use std::env;
@@ -10,6 +12,121 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
+
+// Shim so older callsites keep compiling with structured logging.
+#[inline]
+fn debug_log(msg: &str) {
+    debug!("{}", msg);
+}
+
+fn value_to_i64(v: &Value) -> Option<i64> {
+    match v {
+        Value::Number(num) => {
+            if let Some(i) = num.as_i64() {
+                Some(i)
+            } else if let Some(u) = num.as_u64() {
+                if u <= i64::MAX as u64 {
+                    Some(u as i64)
+                } else {
+                    None
+                }
+            } else {
+                None
+            }
+        }
+        Value::String(s) => s.parse::<i64>().ok(),
+        _ => None,
+    }
+}
+
+fn value_to_string(v: &Value) -> Option<String> {
+    match v {
+        Value::String(s) => Some(s.clone()),
+        Value::Number(n) => Some(n.to_string()),
+        Value::Bool(b) => Some(b.to_string()),
+        _ => None,
+    }
+}
+
+fn looks_like_exec(obj: &serde_json::Map<String, Value>) -> bool {
+    let signal_is_exec = obj
+        .get("signal")
+        .and_then(|v| v.as_str())
+        .map(|s| s == "process::exec")
+        .unwrap_or(false);
+
+    let tags_has_exec = obj
+        .get("tags")
+        .and_then(|v| v.as_array())
+        .map(|arr| {
+            arr.iter()
+                .any(|t| t.as_str().map(|s| s == "process::exec").unwrap_or(false))
+        })
+        .unwrap_or(false);
+
+    signal_is_exec || tags_has_exec
+}
+
+fn normalize_for_playbooks(obj: &mut serde_json::Map<String, Value>) {
+    // Ensure a stable millisecond timestamp.
+    let ts_ms = obj
+        .get("ts_ms")
+        .and_then(value_to_i64)
+        .or_else(|| obj.get("timestamp").and_then(value_to_i64))
+        .unwrap_or_else(|| {
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_millis() as i64
+        });
+    obj.insert("ts_ms".into(), Value::from(ts_ms));
+
+    if !looks_like_exec(obj) {
+        return;
+    }
+
+    let exe = obj
+        .get("exe")
+        .and_then(|v| v.as_str())
+        .map(|s| s.to_string())
+        .or_else(|| {
+            obj.get("binary_path")
+                .and_then(|v| v.as_str())
+                .map(|s| s.to_string())
+        })
+        .filter(|s| !s.is_empty())
+        .unwrap_or_else(|| "unknown".to_string());
+    obj.insert("exe".into(), Value::from(exe));
+
+    let cmd = obj
+        .get("cmd")
+        .and_then(|v| v.as_str())
+        .map(|s| s.to_string())
+        .or_else(|| {
+            obj.get("command_line")
+                .and_then(|v| v.as_str())
+                .map(|s| s.to_string())
+        })
+        .unwrap_or_default();
+    obj.insert("cmd".into(), Value::from(cmd));
+
+    let pid = obj.get("pid").and_then(value_to_i64).unwrap_or(-1);
+    obj.insert("pid".into(), Value::from(pid));
+
+    let ppid = obj.get("ppid").and_then(value_to_i64).unwrap_or(-1);
+    obj.insert("ppid".into(), Value::from(ppid));
+
+    let uid = obj.get("uid").and_then(value_to_i64).unwrap_or(-1);
+    obj.insert("uid".into(), Value::from(uid));
+
+    let cwd = obj.get("cwd").and_then(value_to_string).unwrap_or_default();
+    obj.insert("cwd".into(), Value::from(cwd));
+
+    obj.insert(
+        "event".into(),
+        serde_json::json!({"action": "exec", "category": "process"}),
+    );
+}
 
 /// Default limits and paths; can be overridden by env:
 /// - EDR_TELEMETRY_DIR          (default: telemetry_output)
@@ -249,9 +366,71 @@ impl TelemetryWriter {
         let file = OpenOptions::new().create(true).append(true).open(path)?;
         let mut writer = BufWriter::new(file);
         for event in iter {
-            let line = serde_json::to_string(&event).unwrap_or_else(|e| {
+            // Serialize to a JSON value so we can inject derived aliases
+            // for downstream playbooks without mutating TelemetryRecord itself.
+            let mut v = serde_json::to_value(&event).unwrap_or_else(|e| {
+                serde_json::json!({
+                    "error": "serialize_event_failed",
+                    "msg": e.to_string(),
+                    "ts": now_ts()
+                })
+            });
+
+            if let Some(obj) = v.as_object_mut() {
+                let binary_path = obj
+                    .get("binary_path")
+                    .and_then(|x| x.as_str())
+                    .unwrap_or_default()
+                    .to_string();
+                let parent_path = obj
+                    .get("parent_path")
+                    .and_then(|x| x.as_str())
+                    .unwrap_or_default()
+                    .to_string();
+                let command_line = obj
+                    .get("command_line")
+                    .and_then(|x| x.as_str())
+                    .unwrap_or_default()
+                    .to_string();
+                let cmdline = obj
+                    .get("cmdline")
+                    .and_then(|x| x.as_str())
+                    .unwrap_or_default()
+                    .to_string();
+
+                let exe_value = if !binary_path.is_empty() {
+                    serde_json::Value::String(binary_path.clone())
+                } else {
+                    serde_json::Value::String(String::new())
+                };
+                obj.insert("exe".into(), exe_value);
+
+                let parent_exe_value = if !parent_path.is_empty() {
+                    serde_json::Value::String(parent_path.clone())
+                } else {
+                    serde_json::Value::String(String::new())
+                };
+                obj.insert("parent_exe".into(), parent_exe_value);
+
+                let derived_cmd = if !command_line.is_empty() {
+                    command_line
+                } else if !cmdline.is_empty() {
+                    cmdline
+                } else {
+                    String::new()
+                };
+                obj.insert("cmd".into(), serde_json::Value::String(derived_cmd));
+
+                normalize_for_playbooks(obj);
+            }
+
+            let line = serde_json::to_string(&v).unwrap_or_else(|e| {
                 // Fallback minimal line if serialization fails (should be rare).
-                format!(r#"{{"error":"serialize","msg":"{}","ts":{}}}"#, e, now_ts())
+                format!(
+                    r#"{{"error":"stringify_event_failed","msg":"{}","ts":{}}}"#,
+                    e,
+                    now_ts()
+                )
             });
             writer.write_all(line.as_bytes())?;
             writer.write_all(b"\n")?;
@@ -361,7 +540,36 @@ pub fn push_memory_telemetry(
 
 /// Debug-style fallback printer for basic telemetry maps.
 /// Also writes a KV JSONL file next to structured telemetry.
-pub fn write_telemetry_record(record: HashMap<String, String>) {
+pub fn write_telemetry_record(mut record: HashMap<String, String>) {
+    let needs_signal = record
+        .get("signal")
+        .map(|s| s.trim().is_empty())
+        .unwrap_or(true);
+    if needs_signal {
+        let derived = record
+            .get("replay_tag")
+            .or_else(|| record.get("tag0"))
+            .or_else(|| record.get("category"))
+            .cloned()
+            .map(|s| format!("debug::derived::{}", s))
+            .unwrap_or_else(|| "debug::unsignaled".to_string());
+        record.insert("signal".into(), derived);
+    }
+
+    let empty_keys: Vec<String> = record
+        .iter()
+        .filter_map(|(k, v)| {
+            if v.trim().is_empty() {
+                Some(k.clone())
+            } else {
+                None
+            }
+        })
+        .collect();
+    for key in empty_keys {
+        record.remove(&key);
+    }
+
     debug_log(&format!("📝 Telemetry record: {:?}", record));
 
     if let Err(e) = (|| -> std::io::Result<()> {
@@ -374,18 +582,3 @@ pub fn write_telemetry_record(record: HashMap<String, String>) {
 }
 
 // ---------------- small utils ----------------
-
-fn debug_enabled() -> bool {
-    env::var("RUST_LOG")
-        .map(|v| v.contains("telemetry_writer=trace"))
-        .unwrap_or(false)
-        || env::var("EDR_VERBOSE")
-            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-            .unwrap_or(false)
-}
-
-fn debug_log(msg: &str) {
-    if debug_enabled() {
-        println!("{msg}");
-    }
-}

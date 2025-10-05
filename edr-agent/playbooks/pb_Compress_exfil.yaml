@@ -17,3 +17,10 @@ steps:
 emit:
   add_tags: ["ATTACK:EXFIL_COMPRESS", "T1560", "T1041"]
   risk: 0.9
+version: 1
+severity: medium
+window_sec: 900
+cooldown_sec: 600
+title: Compression → HTTPS Exfil
+reason_code: COMPRESS_THEN_EXFIL
+rules: []

@@ -2,12 +2,17 @@
 #![cfg(target_os = "linux")]
 
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
+use std::path::Path;
 use std::sync::atomic::Ordering;
+use std::sync::{Arc, Mutex};
 
-use aya::{Bpf, programs::TracePoint};
+use aya::{programs::TracePoint, Bpf};
 
 use crate::events_reader::{self, MapKind};
+use crate::pb_adapter;
+use forensic_hooks::utils::strnorm::cbytes_to_string_lossy;
+
+use anyhow::{anyhow, Context, Result as AnyResult};
 
 use forensic_hooks::forensic::utils::read_proc_value;
 use forensic_hooks::gnn_hook::push_to_gnn_vector_log;
@@ -31,7 +36,12 @@ fn parse_and_emit(buf: &[u8]) -> bool {
         return false;
     }
 
-    let mut e = FileAccessEvent { pid: 0, uid: 0, comm: [0; 64], filename: [0; 256] };
+    let mut e = FileAccessEvent {
+        pid: 0,
+        uid: 0,
+        comm: [0; 64],
+        filename: [0; 256],
+    };
     unsafe {
         copy_nonoverlapping(
             buf.as_ptr(),
@@ -40,12 +50,8 @@ fn parse_and_emit(buf: &[u8]) -> bool {
         );
     }
 
-    let comm = String::from_utf8_lossy(&e.comm)
-        .trim_end_matches(char::from(0))
-        .to_string();
-    let path = String::from_utf8_lossy(&e.filename)
-        .trim_end_matches(char::from(0))
-        .to_string();
+    let comm = cbytes_to_string_lossy(&e.comm);
+    let path = cbytes_to_string_lossy(&e.filename);
 
     let mut data: HashMap<String, String> = HashMap::new();
     data.insert("pid".into(), e.pid.to_string());
@@ -54,9 +60,15 @@ fn parse_and_emit(buf: &[u8]) -> bool {
     data.insert("file_path".into(), path.clone());
 
     // Best-effort enrichment
-    if let Ok(bin) = read_proc_value(e.pid, "exe")     { data.insert("binary_path".into(), bin); }
-    if let Ok(cmd) = read_proc_value(e.pid, "cmdline") { data.insert("command_line".into(), cmd); }
-    if let Ok(cwd) = read_proc_value(e.pid, "cwd")     { data.insert("cwd".into(), cwd); }
+    if let Ok(bin) = read_proc_value(e.pid, "exe") {
+        data.insert("binary_path".into(), bin);
+    }
+    if let Ok(cmd) = read_proc_value(e.pid, "cmdline") {
+        data.insert("command_line".into(), cmd);
+    }
+    if let Ok(cwd) = read_proc_value(e.pid, "cwd") {
+        data.insert("cwd".into(), cwd);
+    }
 
     let out = TelemetryOutput {
         category: "file".into(),
@@ -64,6 +76,8 @@ fn parse_and_emit(buf: &[u8]) -> bool {
         confidence: 0.50,
         data,
     };
+
+    pb_adapter::emit_adapter_facts(&out);
 
     // fan-out
     let mut m = out.data.clone();
@@ -105,36 +119,77 @@ fn attach(bpf: &mut Bpf) -> Result<(), String> {
 /// Entry point used by main.rs (no writer needed; keep signature for compatibility).
 pub fn start_file_access_reader(_writer: Arc<Mutex<TelemetryWriter>>) {
     match start() {
-        Ok(_)  => info!("✅ file_access_reader started (PERF)"),
-        Err(e) => error!("⛔ file_access_reader disabled: {e}"),
+        Ok(_) => info!("✅ file_access_reader started (PERF)"),
+        Err(e) => error!("⛔ file_access_reader disabled: {e:?}"),
     }
 }
 
 /// Actual starter (returns Result so callers can handle boot failures).
-pub fn start() -> Result<(), String> {
-    // Raise RLIMIT_MEMLOCK (best effort)
-    unsafe {
-        let rlim = libc::rlimit { rlim_cur: u64::MAX, rlim_max: u64::MAX };
-        let _ = libc::setrlimit(libc::RLIMIT_MEMLOCK, &rlim as *const _);
-    }
+pub fn start() -> AnyResult<()> {
+    let prefix = std::env::var("EDR_PIN_PREFIX").unwrap_or_else(|_| "/sys/fs/bpf/edr".to_string());
+    let force = std::env::var("EDR_FORCE_PINNED")
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false);
+    let pin = format!("{}/events", prefix.trim_end_matches('/'));
 
-    // Find object via env or common fallback paths
-    let obj_path = events_reader::resolve_bpf("EDR_BPF_FILE_OBJ", "file_access_monitor.bpf.o");
-
-    // This object is PERF-based; refuse if someone points it to a ringbuf build
-    match events_reader::detect_events_map_kind(&obj_path)? {
-        MapKind::Perf => {}
-        other => return Err(format!("file_access_monitor expects PERF_EVENT_ARRAY, got {:?}", other)),
-    }
-
-    // Load bytes and start PERF consumer with our attach callback + parser
-    let bytes = std::fs::read(&obj_path)
-        .map_err(|e| format!("read {}: {}", obj_path, e))?;
-
-    events_reader::start_perf_reader_with_attach(&bytes, attach, |buf| {
-        crate::EVENTS_IN.fetch_add(1, Ordering::Relaxed);
-        if parse_and_emit(buf) {
-            crate::EVENTS_ACCEPTED.fetch_add(1, Ordering::Relaxed);
+    if force || super::pins_available(&prefix) {
+        if !Path::new(&pin).exists() {
+            log::error!("pinned subscribe failed: missing {pin}");
+            log::error!("hint: run edr_attach_any -p {prefix}");
+            return Err(anyhow!("missing pin: {pin}"));
         }
-    })
+        log::info!("subscribe: file_access_reader source=perf path={pin}");
+        events_reader::start_perf_reader_from_pinned(&pin, |buf| {
+            crate::metrics::events_in().fetch_add(1, Ordering::Relaxed);
+            if parse_and_emit(buf) {
+                crate::metrics::events_accepted().fetch_add(1, Ordering::Relaxed);
+            }
+        })
+        .map_err(|e| anyhow!(e))?;
+        return Ok(());
+    }
+
+    #[cfg(all(target_os = "linux", feature = "with-ebpf-load"))]
+    {
+        log::warn!("loader: file_access_reader using .bpf.o (feature explicitly enabled)");
+
+        // Raise RLIMIT_MEMLOCK (best effort)
+        unsafe {
+            let rlim = libc::rlimit {
+                rlim_cur: u64::MAX,
+                rlim_max: u64::MAX,
+            };
+            let _ = libc::setrlimit(libc::RLIMIT_MEMLOCK, &rlim as *const _);
+        }
+
+        let obj_path = events_reader::resolve_bpf("EDR_BPF_FILE_OBJ", "file_access_monitor.bpf.o");
+
+        match events_reader::detect_events_map_kind(&obj_path).map_err(|e| anyhow!(e))? {
+            MapKind::Perf => {}
+            other => {
+                return Err(anyhow!(
+                    "file_access_monitor expects PERF_EVENT_ARRAY, got {:?}",
+                    other
+                ))
+            }
+        }
+
+        let bytes =
+            std::fs::read(&obj_path).with_context(|| format!("read {}", obj_path.clone()))?;
+
+        events_reader::start_perf_reader_with_attach(&bytes, attach, |buf| {
+            crate::metrics::events_in().fetch_add(1, Ordering::Relaxed);
+            if parse_and_emit(buf) {
+                crate::metrics::events_accepted().fetch_add(1, Ordering::Relaxed);
+            }
+        })
+        .map_err(|e| anyhow!(e))?;
+        return Ok(());
+    }
+
+    #[cfg(not(all(target_os = "linux", feature = "with-ebpf-load")))]
+    {
+        log::info!("loader path disabled; build with `--features with-ebpf-load` to enable");
+        Ok(())
+    }
 }

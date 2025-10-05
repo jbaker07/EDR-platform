@@ -68,6 +68,7 @@ pub fn send_bytes(bytes: &[u8]) {
 /// Record kernel-reported perf/ring buffer losses.
 pub fn lost_event(cpu: i32, cnt: u64) {
     BPF_DROPS_TOTAL.fetch_add(cnt, Ordering::Relaxed);
+    crate::metrics::bpf_drops_total().fetch_add(cnt, Ordering::Relaxed);
     if let Some(map) = PER_CPU_DROPS.get() {
         let mut m = map.lock().unwrap();
         *m.entry(cpu).or_insert(0) += cnt;

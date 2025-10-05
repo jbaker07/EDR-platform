@@ -24,6 +24,10 @@
         <span id="statNodes">nodes: 0</span>
         <span id="statEdges">edges: 0</span>
         <span id="statDrops">bpf_drops: 0</span>
+        <span id="publishRibbon" class="flex items-center gap-1 text-xs text-emerald-300 bg-emerald-900/40 border border-emerald-700/40 rounded px-2 py-1">
+          <span class="opacity-70">Published to:</span>
+          <span id="publishTargets">—</span>
+        </span>
         <a class="underline decoration-sky-500/60 hover:decoration-sky-400" href="/ui/graph.html">Open Live Graph</a>
       </div>
     </header>
@@ -39,8 +43,10 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <!-- Alerts table -->
         <div class="lg:col-span-2 rounded border border-slate-800">
-          <div class="p-3 border-b border-slate-800 flex items-center justify-between">
+          <div class="p-3 border-b border-slate-800 flex items-center justify-between flex-wrap gap-2">
             <div class="text-sm font-medium">Alerts (live)</div>
+
+            <!-- existing controls -->
             <div class="flex items-center gap-2 text-xs">
               <input id="search" placeholder="filter…" class="bg-slate-900 border border-slate-700 rounded px-2 py-1" />
               <select id="sevFilter" class="bg-slate-900 border border-slate-700 rounded px-2 py-1">
@@ -50,6 +56,36 @@
                 <option value="high">high</option>
               </select>
             </div>
+
+            <!-- NEW: integrations filter cluster -->
+            <div class="flex items-center gap-3 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400">Sources</span>
+                <label class="inline-flex items-center gap-1">
+                  <input type="checkbox" name="source" value="suricata" class="accent-sky-500" checked>
+                  <span>Suricata</span>
+                </label>
+                <label class="inline-flex items-center gap-1">
+                  <input type="checkbox" name="source" value="zeek" class="accent-sky-500" checked>
+                  <span>Zeek</span>
+                </label>
+                <label class="inline-flex items-center gap-1">
+                  <input type="checkbox" name="source" value="edr" class="accent-sky-500" checked>
+                  <span>EDR</span>
+                </label>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <label for="minutes" class="text-slate-400">Last</label>
+                <input id="minutes" type="number" min="5" value="60"
+                       class="w-16 bg-slate-900 border border-slate-700 rounded px-1 py-0.5 text-right">
+                <span class="text-slate-400">min</span>
+              </div>
+
+              <button id="refreshBtn" type="button"
+                      class="px-2 py-1 rounded bg-sky-600 hover:bg-sky-500 text-white">Refresh</button>
+              <span id="osStatus" class="text-slate-400"></span>
+            </div>
           </div>
           <div class="overflow-auto max-h-[420px]">
             <table class="w-full text-sm">
@@ -58,8 +94,11 @@
                   <th class="text-left px-3 py-2">time</th>
                   <th class="text-left px-3 py-2">sev</th>
                   <th class="text-left px-3 py-2">risk</th>
+                  <th class="text-left px-3 py-2">stage</th>
+                  <th class="text-left px-3 py-2">cgrp</th>
                   <th class="text-left px-3 py-2">event</th>
                   <th class="text-left px-3 py-2">findings</th>
+                  <th class="text-left px-3 py-2">actions</th>
                 </tr>
               </thead>
               <tbody id="rows"></tbody>

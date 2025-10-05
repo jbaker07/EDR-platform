@@ -82,10 +82,7 @@ fn build_infer_payload(v: &Value, max_nodes: usize, max_edges: usize) -> Value {
                 .or_else(|| v.get("ts"))
                 .and_then(|x| x.as_i64())
                 .unwrap_or(now_ts() as i64);
-            let trust = n
-                .get("trust_score")
-                .and_then(|x| x.as_f64())
-                .unwrap_or(1.0);
+            let trust = n.get("trust_score").and_then(|x| x.as_f64()).unwrap_or(1.0);
             nodes_out.push(json!({
                 "id": id, "kind": kind, "last_seen": last_seen, "trust_score": trust
             }));

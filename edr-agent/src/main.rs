@@ -1,4 +1,3 @@
-
 // main.rs (Phase 2 + Phase 3 Decision Engine integration)
 // - Safer TS parsing (secs/ms)
 // - Two-pass graph builder (no missing PPID edges)
@@ -14,46 +13,71 @@
 // - NEW (Phase 3): DecisionEngine (consensus + correlation + cooldown + allow/suppress) wired in
 // - NEW (Phase PB): Playbook Engine + IOC/YARA wired (pending/hits, metrics, endpoints)
 
-use std::collections::{HashMap, HashSet, VecDeque};
-use std::convert::Infallible;
-use std::fs;
-use std::path::{Path, PathBuf};
-use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, Mutex, OnceLock};
-use std::time::Duration;
-use std::env;
+use anyhow::{anyhow, Result};
 use axum::{
     extract::{Path as AxPath, Query, State},
-    http::{StatusCode, header::CACHE_CONTROL, HeaderValue},
+    http::{header::CACHE_CONTROL, HeaderValue, StatusCode},
     response::{
         sse::{Event, Sse},
         IntoResponse,
     },
-    routing::{delete, get, post, get_service},
+    routing::{delete, get, get_service, post},
     Json, Router,
 };
 use chrono::{TimeZone, Utc};
+use forensic_hooks::pb_engine::PlaybookEngine;
+use forensic_hooks::{
+    ioc, pb_adapter, pb_api, pb_introspect, pb_wiring, pending, tamper, yara_sidecar,
+};
 use futures_util::stream::{unfold, Stream};
+use once_cell::sync::Lazy;
+use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use sha1::{Digest, Sha1};
-use tokio::{net::TcpListener, sync::broadcast};
+use std::collections::{HashMap, HashSet, VecDeque};
+use std::convert::Infallible;
+use std::env;
+use std::fs;
+use std::fs::OpenOptions;
+use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::{Arc, Mutex, OnceLock};
+use std::time::Duration;
+use tokio::{
+    net::TcpListener,
+    sync::{broadcast, oneshot},
+};
 use tower_http::{
     cors::CorsLayer,
     services::{ServeDir, ServeFile},
     set_header::SetResponseHeaderLayer,
 };
-use forensic_hooks::{ioc, pb_api, pb_introspect, pb_wiring, pending, tamper, yara_sidecar};
-use forensic_hooks::pb_engine::PlaybookEngine;
-
 
 // ---------- metrics counters ----------
-static EVENTS_IN: AtomicU64 = AtomicU64::new(0);          // received (pre-filter)
-static EVENTS_ACCEPTED: AtomicU64 = AtomicU64::new(0);     // accepted (post-filter, after persist)
 static ALERTS_OUT: AtomicU64 = AtomicU64::new(0);
-// NEW: BPF ringbuffer/loss metric hook
-pub static BPF_DROPS: AtomicU64 = AtomicU64::new(0);
-pub fn bpf_drops_add(n: u64) { BPF_DROPS.fetch_add(n, Ordering::Relaxed); }
+static PUBLISH_WARN_TS: AtomicU64 = AtomicU64::new(0);
+static PUBLISH_BUS_URL: Lazy<Option<String>> = Lazy::new(|| {
+    if env::var("PUBLISH_BUS_DISABLED")
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false)
+    {
+        return None;
+    }
+    match env::var("PUBLISH_BUS_URL") {
+        Ok(url) if !url.trim().is_empty() => Some(url),
+        _ => Some("http://127.0.0.1:8787/api/incidents".to_string()),
+    }
+});
+static PUBLISH_BUS_CLIENT: Lazy<Client> = Lazy::new(|| {
+    Client::builder()
+        .timeout(Duration::from_secs(2))
+        .build()
+        .expect("publish bus client")
+});
+pub fn bpf_drops_add(n: u64) {
+    metrics::bpf_drops_total().fetch_add(n, Ordering::Relaxed);
+}
 
 // ---------- your pipeline / telemetry ----------
 use forensic_hooks::baselines::BaselineStore;
@@ -71,26 +95,55 @@ use forensic_hooks::services::krim_lite::analyze_graph_and_score;
 use forensic_hooks::services::trust_engine_final::{
     evaluate_and_dispatch_trust_score, TelemetryData, TrustResult,
 };
+use forensic_hooks::telemetry::Telemetry as NormTelemetry;
 use forensic_hooks::telemetry::{
     get_current_telemetry_snapshot, run_sideeffect_monitors_and_collect, TelemetryRecord,
 };
-use forensic_hooks::telemetry::Telemetry as NormTelemetry;
 use forensic_hooks::telemetry_types::TelemetryOutput;
+use forensic_hooks::telemetry_writer::TelemetryWriter;
 use forensic_hooks::utils::time::now_ts;
+use fs2::FileExt;
 
 #[cfg(target_os = "linux")]
 pub mod ebpf; // <-- this tells Rust there’s a module at src/ebpf/mod.rs
 
+#[cfg(target_os = "linux")]
+use crate::ebpf::ebpf_ingest::{
+    on_edr_event, on_edr_event_file_only, on_edr_event_net_only, on_edr_event_wx_only,
+};
+#[cfg(target_os = "linux")]
+use crate::ebpf::events_reader;
+#[cfg(target_os = "linux")]
+use log::{info, warn};
 
-// === expose your local detectors (src/detectors/...) ===
-mod detectors {
-    pub mod rules_hot;
-    pub mod tag_flags;
+#[cfg(target_os = "linux")]
+pub fn pins_available(prefix: &str) -> bool {
+    // Accept if ANY known source exists
+    let rb = ["edr_events_rb", "net_events", "wx_events"];
+    let perf = ["events"]; // file-access perf pin
+    rb.iter()
+        .any(|n| Path::new(&format!("{prefix}/{n}")).exists())
+        || perf
+            .iter()
+            .any(|n| Path::new(&format!("{prefix}/{n}")).exists())
 }
-use crate::detectors::rules_hot::HotRulesDetector;
-use crate::detectors::tag_flags::TagFlagsDetector;
+
+#[cfg(target_os = "linux")]
+fn pinned_mode_selected() -> (bool, String) {
+    let prefix = std::env::var("EDR_PIN_PREFIX").unwrap_or_else(|_| "/sys/fs/bpf/edr".to_string());
+    let force = std::env::var("EDR_FORCE_PINNED")
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false);
+    let present = pins_available(&prefix);
+    (force || present, prefix)
+}
+
+// === detectors come from the library crate ===
+use forensic_hooks::detectors::rules_hot::HotRulesDetector;
+use forensic_hooks::detectors::tag_flags::TagFlagsDetector;
 
 // === add the reader modules directly ===
+#[cfg(not(target_os = "linux"))]
 #[path = "ebpf/events_reader.rs"]
 mod events_reader; // kept for later; we don't call a missing start()
 #[path = "ebpf/file_access_reader.rs"]
@@ -101,17 +154,17 @@ mod net_flow_reader;
 // === use your existing graph module at src/graph.rs ===
 mod graph;
 use crate::graph::{spawn_writer, GraphState};
+use forensic_hooks::metrics::{self, Metrics};
 use parking_lot::RwLock;
 
 // === Decision Engine (Phase 3) ===
 mod decision;
 use crate::decision::{
-    AllowSuppressList, DecisionEngine, DecisionPolicy, DetectorKind, FinalAlert, Signal, Severity,
+    AllowSuppressList, DecisionEngine, DecisionPolicy, DetectorKind, FinalAlert, Severity, Signal,
 };
 
 mod rgcn_bridge;
-use crate::rgcn_bridge::{start_rgcn_bridge, annotate_graph, rgcn_metrics};
-
+use crate::rgcn_bridge::{annotate_graph, rgcn_metrics, start_rgcn_bridge};
 
 // A globally shared live-graph state (optional, does not block UI graph endpoint).
 static GRAPH_STATE: OnceLock<Arc<RwLock<GraphState>>> = OnceLock::new();
@@ -146,19 +199,20 @@ fn env_model() -> &'static Mutex<Option<EllipticEnvelope>> {
 // —— Playbook Engine singleton ——
 // —— Playbook Engine singleton ——
 // —— Playbook Engine singleton ——
-static PB_ENGINE: OnceLock<Mutex<PlaybookEngine>> = OnceLock::new();
-fn pb_engine() -> &'static Mutex<PlaybookEngine> {
-    // Use the constructor that actually exists
-    PB_ENGINE.get_or_init(|| Mutex::new(PlaybookEngine::empty()))
+static PB_ENGINE: OnceLock<Arc<Mutex<PlaybookEngine>>> = OnceLock::new();
+fn pb_engine() -> Arc<Mutex<PlaybookEngine>> {
+    PB_ENGINE
+        .get_or_init(|| Arc::new(Mutex::new(PlaybookEngine::empty())))
+        .clone()
 }
 
 // ======================= Ontology: loader + enrichment =======================
 #[derive(Clone, Default)]
 struct OntologySet {
-    core_ontology: serde_json::Value,                        // core_ontology.json
-    inverse_edges: std::collections::HashMap<String, String>,// inverse_edges.json
-    semantic_tags: serde_json::Value,                        // semantic_tags.json (optional)
-    unknown_risk_profile: serde_json::Value,                 // unknown_risk_profile.json (optional)
+    core_ontology: serde_json::Value, // core_ontology.json
+    inverse_edges: std::collections::HashMap<String, String>, // inverse_edges.json
+    semantic_tags: serde_json::Value, // semantic_tags.json (optional)
+    unknown_risk_profile: serde_json::Value, // unknown_risk_profile.json (optional)
     anchor_definitions: std::collections::HashMap<String, serde_json::Value>, // anchor_definitions.json (optional)
     dir: String,
 }
@@ -184,15 +238,14 @@ async fn host_self_health() -> impl IntoResponse {
         mem_pct: None,
         agent_lag_ms: None,
         event_rate_per_s: None,
-        events_in: Some(EVENTS_IN.load(Ordering::Relaxed)),
+        events_in: Some(metrics::events_in().load(Ordering::Relaxed)),
         alerts_out: Some(ALERTS_OUT.load(Ordering::Relaxed)),
-        bpf_drops: Some(BPF_DROPS.load(Ordering::Relaxed)),
+        bpf_drops: Some(metrics::bpf_drops_total().load(Ordering::Relaxed)),
         nodes_count: Some(nodes_count),
         edges_count: Some(edges_count),
         rgcn_p95: None,
     })
 }
-
 
 static ONTOLOGY: OnceLock<Arc<Mutex<OntologySet>>> = OnceLock::new();
 fn ontology() -> Arc<Mutex<OntologySet>> {
@@ -254,7 +307,10 @@ fn normalize_and_annotate_graph(mut v: serde_json::Value) -> serde_json::Value {
                     "Other"
                 };
                 if let Some(obj) = n.as_object_mut() {
-                    obj.insert("kind".into(), serde_json::Value::String(inferred.to_string()));
+                    obj.insert(
+                        "kind".into(),
+                        serde_json::Value::String(inferred.to_string()),
+                    );
                 }
             }
         }
@@ -267,7 +323,9 @@ fn normalize_and_annotate_graph(mut v: serde_json::Value) -> serde_json::Value {
 }
 
 fn load_json_if(path: &std::path::Path) -> Option<serde_json::Value> {
-    std::fs::read_to_string(path).ok().and_then(|s| serde_json::from_str::<serde_json::Value>(&s).ok())
+    std::fs::read_to_string(path)
+        .ok()
+        .and_then(|s| serde_json::from_str::<serde_json::Value>(&s).ok())
 }
 
 fn map_from_obj(v: &serde_json::Value) -> std::collections::HashMap<String, String> {
@@ -285,9 +343,9 @@ fn map_from_obj(v: &serde_json::Value) -> std::collections::HashMap<String, Stri
 fn load_ontology_from_dir(dir: &str) -> OntologySet {
     let p = |name: &str| std::path::Path::new(dir).join(name);
     let core = load_json_if(&p("core_ontology.json")).unwrap_or_else(|| json!({}));
-    let inv  = load_json_if(&p("inverse_edges.json")).unwrap_or_else(|| json!({}));
-    let sem  = load_json_if(&p("semantic_tags.json")).unwrap_or_else(|| json!({}));
-    let unk  = load_json_if(&p("unknown_risk_profile.json")).unwrap_or_else(|| json!({}));
+    let inv = load_json_if(&p("inverse_edges.json")).unwrap_or_else(|| json!({}));
+    let sem = load_json_if(&p("semantic_tags.json")).unwrap_or_else(|| json!({}));
+    let unk = load_json_if(&p("unknown_risk_profile.json")).unwrap_or_else(|| json!({}));
     let anchors_v = load_json_if(&p("anchor_definitions.json")).unwrap_or_else(|| json!([]));
     let mut anchors = std::collections::HashMap::new();
     if let Some(arr) = anchors_v.as_array() {
@@ -311,7 +369,9 @@ fn candidates_ontology_dirs() -> Vec<String> {
     // Priority: explicit env var, then common workspace layouts
     let mut c = Vec::new();
     if let Ok(s) = std::env::var("ONTOLOGY_DIR") {
-        if !s.trim().is_empty() { c.push(s); }
+        if !s.trim().is_empty() {
+            c.push(s);
+        }
     }
     c.push("edr-platform/ontology".to_string());
     c.push("../edr-platform/ontology".to_string());
@@ -342,35 +402,62 @@ fn load_ontology_default() -> OntologySet {
     load_ontology_from_dir(&resolve_ontology_dir_auto())
 }
 
-
 // --- minimal helpers (no extra crates) ---
 fn looks_like_ipv4(s: &str) -> bool {
     // "1.2.3.4" or "1.2.3.4:443"
     let ip = s.split_once(':').map(|(a, _)| a).unwrap_or(s);
     let parts: Vec<&str> = ip.split('.').collect();
-    if parts.len() != 4 { return false; }
+    if parts.len() != 4 {
+        return false;
+    }
     parts.iter().all(|p| p.parse::<u8>().is_ok())
 }
 
 fn infer_otype_from_node(n: &serde_json::Value) -> String {
     // Prefer explicit info in node fields
-    if n.get("binary_path").and_then(|v| v.as_str()).is_some() { return "Process".into(); }
-    if n.get("pid").and_then(|v| v.as_u64()).is_some()       { return "Process".into(); }
-    if n.get("command_line").and_then(|v| v.as_str()).is_some(){ return "Process".into(); }
+    if n.get("binary_path").and_then(|v| v.as_str()).is_some() {
+        return "Process".into();
+    }
+    if n.get("pid").and_then(|v| v.as_u64()).is_some() {
+        return "Process".into();
+    }
+    if n.get("command_line").and_then(|v| v.as_str()).is_some() {
+        return "Process".into();
+    }
     if let Some(id) = n.get("id").and_then(|v| v.as_str()) {
-        if id.starts_with("proc:") { return "Process".into(); }
-        if id.starts_with("file:") { return "File".into(); }
-        if id.starts_with("user:") { return "User".into(); }
-        if looks_like_ipv4(id)     { return "IP".into(); }
-        if id.contains('/') || id.contains('\\') { return "File".into(); }
+        if id.starts_with("proc:") {
+            return "Process".into();
+        }
+        if id.starts_with("file:") {
+            return "File".into();
+        }
+        if id.starts_with("user:") {
+            return "User".into();
+        }
+        if looks_like_ipv4(id) {
+            return "IP".into();
+        }
+        if id.contains('/') || id.contains('\\') {
+            return "File".into();
+        }
     }
     if let Some(k) = n.get("kind").and_then(|v| v.as_str()) {
         let k = k.to_ascii_lowercase();
-        if k.contains("proc")  { return "Process".into(); }
-        if k.contains("file")  { return "File".into(); }
-        if k == "ip" || k == "net" { return "IP".into(); }
-        if k.contains("dns")   { return "Domain".into(); }
-        if k.contains("user")  { return "User".into(); }
+        if k.contains("proc") {
+            return "Process".into();
+        }
+        if k.contains("file") {
+            return "File".into();
+        }
+        if k == "ip" || k == "net" {
+            return "IP".into();
+        }
+        if k.contains("dns") {
+            return "Domain".into();
+        }
+        if k.contains("user") {
+            return "User".into();
+        }
     }
     "Unknown".into()
 }
@@ -378,12 +465,13 @@ fn infer_otype_from_node(n: &serde_json::Value) -> String {
 fn default_rel_for(st: &str, tt: &str) -> String {
     match (st, tt) {
         ("Process", "Process") => "spawned",
-        ("Process", "IP")      => "connected-to",
-        ("Process", "File")    => "accessed",
-        ("User",    "Process") => "launched",
-        ("File",    "Process") => "executed-by",
+        ("Process", "IP") => "connected-to",
+        ("Process", "File") => "accessed",
+        ("User", "Process") => "launched",
+        ("File", "Process") => "executed-by",
         _ => "linked-to",
-    }.to_string()
+    }
+    .to_string()
 }
 
 fn enrich_graph_json(raw: &serde_json::Value) -> serde_json::Value {
@@ -393,37 +481,58 @@ fn enrich_graph_json(raw: &serde_json::Value) -> serde_json::Value {
     let mut out = raw.clone();
 
     // Get mutable node/edge arrays (copy-on-write from raw)
-    let nodes_in = raw.get("nodes").and_then(|v| v.as_array()).cloned().unwrap_or_default();
-    let edges_in = raw.get("edges")
+    let nodes_in = raw
+        .get("nodes")
+        .and_then(|v| v.as_array())
+        .cloned()
+        .unwrap_or_default();
+    let edges_in = raw
+        .get("edges")
         .or_else(|| raw.get("links"))
         .and_then(|v| v.as_array())
         .cloned()
         .unwrap_or_default();
 
     // 1) Enrich nodes: add otype and details
-    let mut node_type_map: std::collections::HashMap<String, String> = std::collections::HashMap::new();
+    let mut node_type_map: std::collections::HashMap<String, String> =
+        std::collections::HashMap::new();
     let mut nodes_out: Vec<serde_json::Value> = Vec::with_capacity(nodes_in.len());
 
     for n in nodes_in {
         let mut nn = n.clone();
-        let otype = nn.get("otype")
+        let otype = nn
+            .get("otype")
             .and_then(|v| v.as_str().map(|s| s.to_string()))
             .unwrap_or_else(|| infer_otype_from_node(&nn));
         if let Some(id) = nn.get("id").and_then(|v| v.as_str()) {
             node_type_map.insert(id.to_string(), otype.clone());
         }
         // attach otype
-        nn.as_object_mut().unwrap().insert("otype".into(), json!(otype));
+        nn.as_object_mut()
+            .unwrap()
+            .insert("otype".into(), json!(otype));
 
         // attach details (best-effort)
         let mut det = serde_json::Map::new();
-        if let Some(v) = nn.get("pid").and_then(|x| x.as_i64())      { det.insert("pid".into(), json!(v)); }
-        if let Some(v) = nn.get("ppid").and_then(|x| x.as_u64()).map(|x| x as u32) {det.insert("ppid".into(), json!(v));}
-        if let Some(v) = nn.get("binary_path").and_then(|x| x.as_str()){ det.insert("exe".into(), json!(v)); }
-        if let Some(v) = nn.get("command_line").and_then(|x| x.as_str()){ det.insert("cmdline".into(), json!(v)); }
-        if let Some(v) = nn.get("uid").and_then(|x| x.as_i64())      { det.insert("uid".into(), json!(v)); }
+        if let Some(v) = nn.get("pid").and_then(|x| x.as_i64()) {
+            det.insert("pid".into(), json!(v));
+        }
+        if let Some(v) = nn.get("ppid").and_then(|x| x.as_u64()).map(|x| x as u32) {
+            det.insert("ppid".into(), json!(v));
+        }
+        if let Some(v) = nn.get("binary_path").and_then(|x| x.as_str()) {
+            det.insert("exe".into(), json!(v));
+        }
+        if let Some(v) = nn.get("command_line").and_then(|x| x.as_str()) {
+            det.insert("cmdline".into(), json!(v));
+        }
+        if let Some(v) = nn.get("uid").and_then(|x| x.as_i64()) {
+            det.insert("uid".into(), json!(v));
+        }
         if !det.is_empty() {
-            nn.as_object_mut().unwrap().insert("details".into(), serde_json::Value::Object(det));
+            nn.as_object_mut()
+                .unwrap()
+                .insert("details".into(), serde_json::Value::Object(det));
         }
 
         nodes_out.push(nn);
@@ -445,32 +554,55 @@ fn enrich_graph_json(raw: &serde_json::Value) -> serde_json::Value {
         }
         let sid = ee.get("source").and_then(|v| v.as_str()).unwrap_or("");
         let tid = ee.get("target").and_then(|v| v.as_str()).unwrap_or("");
-        let st  = node_type_map.get(sid).cloned().unwrap_or_else(|| "Unknown".into());
-        let tt  = node_type_map.get(tid).cloned().unwrap_or_else(|| "Unknown".into());
+        let st = node_type_map
+            .get(sid)
+            .cloned()
+            .unwrap_or_else(|| "Unknown".into());
+        let tt = node_type_map
+            .get(tid)
+            .cloned()
+            .unwrap_or_else(|| "Unknown".into());
 
         // relation (keep provided, else infer)
-        let rel = ee.get("rel")
+        let rel = ee
+            .get("rel")
             .and_then(|v| v.as_str().map(|s| s.to_string()))
             .unwrap_or_else(|| default_rel_for(&st, &tt));
-        ee.as_object_mut().unwrap().insert("rel".into(), json!(rel.clone()));
+        ee.as_object_mut()
+            .unwrap()
+            .insert("rel".into(), json!(rel.clone()));
 
         // inverse (if known)
         if let Some(inv) = ont.inverse_edges.get(&rel) {
-            ee.as_object_mut().unwrap().insert("rel_inverse".into(), json!(inv));
+            ee.as_object_mut()
+                .unwrap()
+                .insert("rel_inverse".into(), json!(inv));
         }
 
         // ontology validation (if relation exists under source type)
-        if let Some(allowed) = ont.core_ontology
-            .get(&st).and_then(|t| t.get("edges"))
-            .and_then(|m| m.get(&rel)).and_then(|arr| arr.as_array())
+        if let Some(allowed) = ont
+            .core_ontology
+            .get(&st)
+            .and_then(|t| t.get("edges"))
+            .and_then(|m| m.get(&rel))
+            .and_then(|arr| arr.as_array())
         {
-            let allowed: Vec<String> = allowed.iter().filter_map(|v| v.as_str().map(|s| s.to_string())).collect();
+            let allowed: Vec<String> = allowed
+                .iter()
+                .filter_map(|v| v.as_str().map(|s| s.to_string()))
+                .collect();
             let ok = allowed.iter().any(|t| t == &tt);
-            ee.as_object_mut().unwrap().insert("rel_valid".into(), json!(ok));
+            ee.as_object_mut()
+                .unwrap()
+                .insert("rel_valid".into(), json!(ok));
             if !ok {
-                ee.as_object_mut().unwrap().insert("expected_targets".into(), json!(allowed));
-                ee.as_object_mut().unwrap().insert("violation".into(),
-                    json!(format!("edge '{}' not allowed: {} -> {}", rel, st, tt)));
+                ee.as_object_mut()
+                    .unwrap()
+                    .insert("expected_targets".into(), json!(allowed));
+                ee.as_object_mut().unwrap().insert(
+                    "violation".into(),
+                    json!(format!("edge '{}' not allowed: {} -> {}", rel, st, tt)),
+                );
             }
         }
 
@@ -478,17 +610,35 @@ fn enrich_graph_json(raw: &serde_json::Value) -> serde_json::Value {
     }
 
     // 3) Recompose; also mirror edges to links for UI compatibility if needed
-    out.as_object_mut().unwrap().insert("nodes".into(), json!(nodes_out));
-    out.as_object_mut().unwrap().insert("edges".into(), json!(edges_out.clone()));
+    out.as_object_mut()
+        .unwrap()
+        .insert("nodes".into(), json!(nodes_out));
+    out.as_object_mut()
+        .unwrap()
+        .insert("edges".into(), json!(edges_out.clone()));
     if out.get("links").is_some() {
-        out.as_object_mut().unwrap().insert("links".into(), json!(edges_out));
+        out.as_object_mut()
+            .unwrap()
+            .insert("links".into(), json!(edges_out));
     }
 
     // lightweight counts for jq/health
-    let n_cnt = out.get("nodes").and_then(|x| x.as_array()).map(|a| a.len()).unwrap_or(0);
-    let e_cnt = out.get("edges").and_then(|x| x.as_array()).map(|a| a.len()).unwrap_or(0);
-    out.as_object_mut().unwrap().insert("nodes_count".into(), json!(n_cnt));
-    out.as_object_mut().unwrap().insert("edges_count".into(), json!(e_cnt));
+    let n_cnt = out
+        .get("nodes")
+        .and_then(|x| x.as_array())
+        .map(|a| a.len())
+        .unwrap_or(0);
+    let e_cnt = out
+        .get("edges")
+        .and_then(|x| x.as_array())
+        .map(|a| a.len())
+        .unwrap_or(0);
+    out.as_object_mut()
+        .unwrap()
+        .insert("nodes_count".into(), json!(n_cnt));
+    out.as_object_mut()
+        .unwrap()
+        .insert("edges_count".into(), json!(e_cnt));
 
     out
 }
@@ -515,9 +665,8 @@ async fn ontology_status() -> impl IntoResponse {
     }))
 }
 
-
 async fn ontology_reload(
-    Query(q): Query<std::collections::HashMap<String, String>>
+    Query(q): Query<std::collections::HashMap<String, String>>,
 ) -> impl IntoResponse {
     // Decide target dir without holding a lock
     let target_dir = match q.get("dir").map(|s| s.as_str()) {
@@ -535,20 +684,34 @@ async fn ontology_reload(
     Json(json!({"ok": true, "dir": target_dir}))
 }
 
-
-
 async fn ontology_validate() -> impl IntoResponse {
     let raw = if let Ok(s) = fs::read_to_string("json_files/graph_live.json") {
-        serde_json::from_str::<serde_json::Value>(&s).unwrap_or_else(|_| json!({"nodes":[],"edges":[]}))
-    } else { json!({"nodes":[],"edges":[]}) };
+        serde_json::from_str::<serde_json::Value>(&s)
+            .unwrap_or_else(|_| json!({"nodes":[],"edges":[]}))
+    } else {
+        json!({"nodes":[],"edges":[]})
+    };
     let enriched = enrich_graph_json(&raw);
 
-    let nodes = enriched.get("nodes").and_then(|v| v.as_array()).cloned().unwrap_or_default();
-    let edges = enriched.get("edges").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+    let nodes = enriched
+        .get("nodes")
+        .and_then(|v| v.as_array())
+        .cloned()
+        .unwrap_or_default();
+    let edges = enriched
+        .get("edges")
+        .and_then(|v| v.as_array())
+        .cloned()
+        .unwrap_or_default();
 
-    let mut nodes_by_type: std::collections::BTreeMap<String, usize> = std::collections::BTreeMap::new();
+    let mut nodes_by_type: std::collections::BTreeMap<String, usize> =
+        std::collections::BTreeMap::new();
     for n in &nodes {
-        let t = n.get("otype").and_then(|v| v.as_str()).unwrap_or("Unknown").to_string();
+        let t = n
+            .get("otype")
+            .and_then(|v| v.as_str())
+            .unwrap_or("Unknown")
+            .to_string();
         *nodes_by_type.entry(t).or_insert(0) += 1;
     }
 
@@ -558,14 +721,20 @@ async fn ontology_validate() -> impl IntoResponse {
     let mut samples_invalid: Vec<serde_json::Value> = vec![];
 
     for e in &edges {
-        if e.get("rel").is_some() { edges_with_rel += 1; }
+        if e.get("rel").is_some() {
+            edges_with_rel += 1;
+        }
         if let Some(v) = e.get("rel_valid").and_then(|v| v.as_bool()) {
-            if v { edges_valid += 1; } else {
+            if v {
+                edges_valid += 1;
+            } else {
                 edges_invalid += 1;
                 if samples_invalid.len() < 10 {
                     let mut slim = serde_json::Map::new();
-                    for k in ["source","target","rel","rel_inverse","violation"].iter() {
-                        if let Some(val) = e.get(*k) { slim.insert((*k).to_string(), val.clone()); }
+                    for k in ["source", "target", "rel", "rel_inverse", "violation"].iter() {
+                        if let Some(val) = e.get(*k) {
+                            slim.insert((*k).to_string(), val.clone());
+                        }
                     }
                     samples_invalid.push(serde_json::Value::Object(slim));
                 }
@@ -582,7 +751,6 @@ async fn ontology_validate() -> impl IntoResponse {
         "samples_invalid": samples_invalid
     }))
 }
-
 
 // —— DecisionEngine singleton ——
 static DECISION_ENGINE: OnceLock<Mutex<DecisionEngine>> = OnceLock::new();
@@ -623,7 +791,10 @@ struct IncidentsMgr {
 
 impl IncidentsMgr {
     fn new(window_secs: i64) -> Self {
-        Self { window_secs, items: HashMap::new() }
+        Self {
+            window_secs,
+            items: HashMap::new(),
+        }
     }
 
     fn list(&self) -> Vec<Value> {
@@ -636,17 +807,21 @@ impl IncidentsMgr {
         v
     }
 
-    fn get(&self, id: &str) -> Option<Value> { self.items.get(id).cloned() }
+    fn get(&self, id: &str) -> Option<Value> {
+        self.items.get(id).cloned()
+    }
 
     /// Ingest an alert JSON; returns updated incident JSON for SSE.
     fn ingest_alert_json(&mut self, alert: &Value) -> Option<Value> {
-        let ts = alert.get("ts")
+        let ts = alert
+            .get("ts")
             .or_else(|| alert.get("time"))
             .or_else(|| alert.get("timestamp"))
             .and_then(|x| x.as_i64())
             .unwrap_or(now_ts() as i64);
 
-        let exe = alert.pointer("/event/exe")
+        let exe = alert
+            .pointer("/event/exe")
             .or_else(|| alert.pointer("/event/binary_path"))
             .and_then(|x| x.as_str())
             .unwrap_or("-")
@@ -665,13 +840,17 @@ impl IncidentsMgr {
         h.update(bucket.to_string().as_bytes());
         let id = format!("{:x}", h.finalize());
 
-        let risk = alert.get("risk")
+        let risk = alert
+            .get("risk")
             .or_else(|| alert.get("score"))
             .and_then(|x| x.as_f64())
             .unwrap_or(0.0);
 
-        let sev = alert.get("severity")
-            .and_then(|x| x.as_str()).unwrap_or("none").to_string();
+        let sev = alert
+            .get("severity")
+            .and_then(|x| x.as_str())
+            .unwrap_or("none")
+            .to_string();
 
         // pull a compact neighborhood graph ±5m around this alert
         let recs = window_records(ts, 300);
@@ -704,17 +883,27 @@ impl IncidentsMgr {
             let obj = item.as_object_mut().unwrap();
             // times
             let first_ts = obj.get("first_ts").and_then(|x| x.as_i64()).unwrap_or(ts);
-            let last_ts  = obj.get("last_ts").and_then(|x| x.as_i64()).unwrap_or(ts);
+            let last_ts = obj.get("last_ts").and_then(|x| x.as_i64()).unwrap_or(ts);
             obj.insert("first_ts".into(), json!(first_ts.min(ts)));
             obj.insert("last_ts".into(), json!(last_ts.max(ts)));
 
             // counts
-            let n = obj.get("alerts_count").and_then(|x| x.as_u64()).unwrap_or(0);
+            let n = obj
+                .get("alerts_count")
+                .and_then(|x| x.as_u64())
+                .unwrap_or(0);
             obj.insert("alerts_count".into(), json!(n + 1));
 
             // severity max (by rank)
-            let cur = obj.get("severity_max").and_then(|x| x.as_str()).unwrap_or("none");
-            let new_max = if severity_rank(&sev) > severity_rank(cur) { sev.clone() } else { cur.to_string() };
+            let cur = obj
+                .get("severity_max")
+                .and_then(|x| x.as_str())
+                .unwrap_or("none");
+            let new_max = if severity_rank(&sev) > severity_rank(cur) {
+                sev.clone()
+            } else {
+                cur.to_string()
+            };
             obj.insert("severity_max".into(), json!(new_max));
 
             // risk max
@@ -722,23 +911,37 @@ impl IncidentsMgr {
             obj.insert("risk_max".into(), json!(rmax.max(risk)));
 
             // techniques merged
-            let mut tch: Vec<String> = obj.get("techniques")
+            let mut tch: Vec<String> = obj
+                .get("techniques")
                 .and_then(|x| x.as_array())
-                .map(|a| a.iter().filter_map(|v| v.as_str().map(|s| s.to_string())).collect())
+                .map(|a| {
+                    a.iter()
+                        .filter_map(|v| v.as_str().map(|s| s.to_string()))
+                        .collect()
+                })
                 .unwrap_or_default();
             for t in techniques {
-                if !tch.iter().any(|x| x == &t) { tch.push(t); }
+                if !tch.iter().any(|x| x == &t) {
+                    tch.push(t);
+                }
             }
             obj.insert("techniques".into(), json!(tch));
 
             // keep a tiny sample of alert ids (if present)
             if let Some(aid) = alert.get("id").and_then(|x| x.as_str()) {
-                let mut sids: Vec<String> = obj.get("sample_ids")
+                let mut sids: Vec<String> = obj
+                    .get("sample_ids")
                     .and_then(|x| x.as_array())
-                    .map(|a| a.iter().filter_map(|v| v.as_str().map(|s| s.to_string())).collect())
+                    .map(|a| {
+                        a.iter()
+                            .filter_map(|v| v.as_str().map(|s| s.to_string()))
+                            .collect()
+                    })
                     .unwrap_or_default();
                 if !sids.iter().any(|x| x == aid) {
-                    if sids.len() >= 6 { sids.remove(0); }
+                    if sids.len() >= 6 {
+                        sids.remove(0);
+                    }
                     sids.push(aid.to_string());
                 }
                 obj.insert("sample_ids".into(), json!(sids));
@@ -813,10 +1016,12 @@ fn synth_ppid_edges_if_missing(v: &mut serde_json::Value) {
     // Synthesize EXEC edges: parent(ppid) -> child(pid)
     let mut out_edges: Vec<serde_json::Value> = Vec::new();
     for n in nodes_arr {
-        let pid  = n.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32);
+        let pid = n.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32);
         let ppid = n.get("ppid").and_then(|x| x.as_u64()).map(|x| x as u32);
         if let (Some(pid), Some(ppid)) = (pid, ppid) {
-            if pid == 0 || ppid == 0 || pid == ppid { continue; }
+            if pid == 0 || ppid == 0 || pid == ppid {
+                continue;
+            }
             let src = pid_to_id
                 .get(&ppid)
                 .cloned()
@@ -848,9 +1053,9 @@ fn synth_ppid_edges_if_missing(v: &mut serde_json::Value) {
 
 #[derive(Clone)]
 struct ApiState {
-    tx: broadcast::Sender<String>,           // alerts SSE
-    graph_tx: broadcast::Sender<String>,     // graph SSE (whole snapshot JSON)
-    inc_tx: broadcast::Sender<String>,       // incidents SSE
+    tx: broadcast::Sender<String>,       // alerts SSE
+    graph_tx: broadcast::Sender<String>, // graph SSE (whole snapshot JSON)
+    inc_tx: broadcast::Sender<String>,   // incidents SSE
     integrations: Arc<Mutex<HashMap<String, Value>>>,
 }
 
@@ -888,6 +1093,17 @@ async fn incidents_sse(
     Sse::new(sse_stream_from_broadcast(rx))
 }
 
+#[derive(Deserialize, Default)]
+struct RecentIncidentsQuery {
+    limit: Option<usize>,
+}
+
+async fn incidents_recent(Query(q): Query<RecentIncidentsQuery>) -> Json<Value> {
+    let limit = q.limit.unwrap_or(50);
+    let items = pb_introspect::get_hits(limit);
+    Json(json!({ "items": items }))
+}
+
 // current graph JSON (from file)
 // current graph JSON (from file) — enriched with ontology fields
 // current graph JSON (from file) — synthesize edges if missing, then annotate with R-GCN
@@ -902,17 +1118,21 @@ async fn graph_live() -> impl axum::response::IntoResponse {
     Json(v)
 }
 
-
-
-
-
 // helper: read counts so metrics/health can show graph size
 fn read_graph_counts_from_file() -> (u64, u64) {
     if let Ok(s) = fs::read_to_string("json_files/graph_live.json") {
         if let Ok(v) = serde_json::from_str::<Value>(&s) {
-            let n = v.get("nodes").and_then(|x| x.as_array()).map(|a| a.len()).unwrap_or(0);
-            let e = v.get("edges").or_else(|| v.get("links"))
-                .and_then(|x| x.as_array()).map(|a| a.len()).unwrap_or(0);
+            let n = v
+                .get("nodes")
+                .and_then(|x| x.as_array())
+                .map(|a| a.len())
+                .unwrap_or(0);
+            let e = v
+                .get("edges")
+                .or_else(|| v.get("links"))
+                .and_then(|x| x.as_array())
+                .map(|a| a.len())
+                .unwrap_or(0);
             return (n as u64, e as u64);
         }
     }
@@ -920,12 +1140,12 @@ fn read_graph_counts_from_file() -> (u64, u64) {
 }
 async fn metrics_json() -> Json<Value> {
     // fast-path: use atomics
-    let mut ev_in = EVENTS_IN.load(Ordering::Relaxed);
-    let ev_acc = EVENTS_ACCEPTED.load(Ordering::Relaxed);
-    let mut al = ALERTS_OUT.load(Ordering::Relaxed);
+    let ev_in = metrics::events_in().load(Ordering::Relaxed);
+    let ev_acc = metrics::events_accepted().load(Ordering::Relaxed);
+    let al = ALERTS_OUT.load(Ordering::Relaxed);
 
-    // fallback to disk so UI isn't blank if counters were zeroed or miswired
-    if ev_in == 0 {
+    // optional fallback counter derived from persisted telemetry rows
+    let telemetry_rows_total = {
         let mut total = 0u64;
         if let Ok(rd) = fs::read_dir("telemetry_output") {
             for e in rd.flatten() {
@@ -939,21 +1159,30 @@ async fn metrics_json() -> Json<Value> {
                 }
             }
         }
-        if total > 0 {
-            ev_in = total;
-        }
-    }
-    if al == 0 {
-        if let Ok(s) = fs::read_to_string("logs/alerts.jsonl") {
-            al = s.lines().count() as u64;
-        }
-    }
-
+        total
+    };
     let (nodes_count, edges_count) = read_graph_counts_from_file();
     let pbm = pb_introspect::metrics();
     let iocm = ioc::metrics();
+    let adapter = pb_adapter::metrics_handle();
+    let facts_in = adapter
+        .as_ref()
+        .map(|m| m.facts_in.load(Ordering::Relaxed))
+        .unwrap_or(0);
+    let mapper_dropped = adapter
+        .as_ref()
+        .map(|m| m.mapper_dropped_facts_total.load(Ordering::Relaxed))
+        .unwrap_or(0);
+    let playbooks_fired_total = pb_introspect::playbooks_fired_total();
 
     // Build the existing metrics payload first
+    log::debug!(
+        "/metrics live: events_in={} accepted={} rows={}",
+        ev_in,
+        ev_acc,
+        telemetry_rows_total
+    );
+
     let base = json!({
         // canonical keys
         "events_in": ev_in,                 // received (pre-filter)
@@ -961,8 +1190,16 @@ async fn metrics_json() -> Json<Value> {
         "alerts_out": al,
         "nodes_count": nodes_count,
         "edges_count": edges_count,
-        "bpf_drops_total": BPF_DROPS.load(Ordering::Relaxed),
+        "bpf_drops_total": metrics::bpf_drops_total().load(Ordering::Relaxed),
         "decode_miss_total": DECODE_MISS.load(Ordering::Relaxed),
+        "facts_in": facts_in,
+        "mapper_dropped_facts_total": mapper_dropped,
+        "playbooks_fired_total": playbooks_fired_total,
+        "telemetry_rows_total": telemetry_rows_total,
+
+        // adapter compatibility aliases
+        "adapter_facts_in_total": facts_in,
+        "adapter_mapper_dropped_facts_total": mapper_dropped,
 
         // compatibility aliases
         "events": ev_in,
@@ -988,11 +1225,10 @@ async fn metrics_json() -> Json<Value> {
     Json(Value::Object(obj))
 }
 
-
 // /healthz -> JSON with counters + graph counts + bpf drops
 async fn healthz() -> impl IntoResponse {
-    let ev_in = EVENTS_IN.load(Ordering::Relaxed);
-    let ev_acc = EVENTS_ACCEPTED.load(Ordering::Relaxed);
+    let ev_in = metrics::events_in().load(Ordering::Relaxed);
+    let ev_acc = metrics::events_accepted().load(Ordering::Relaxed);
     let al = ALERTS_OUT.load(Ordering::Relaxed);
     let (n, e) = read_graph_counts_from_file();
     Json(json!({
@@ -1002,7 +1238,8 @@ async fn healthz() -> impl IntoResponse {
         "alerts_out": al,
         "nodes_count": n,
         "edges_count": e,
-        "bpf_drops_total": BPF_DROPS.load(Ordering::Relaxed)
+        "bpf_drops_total": metrics::bpf_drops_total().load(Ordering::Relaxed),
+        "playbooks_fired_total": metrics::playbooks_fired_total().load(Ordering::Relaxed)
     }))
 }
 
@@ -1010,7 +1247,10 @@ async fn healthz() -> impl IntoResponse {
 async fn ioc_reload_handler() -> impl IntoResponse {
     match ioc::reload() {
         Ok(_) => (StatusCode::OK, Json(json!({"ok": true}))),
-        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"ok": false, "error": e.to_string()}))),
+        Err(e) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(json!({"ok": false, "error": e.to_string()})),
+        ),
     }
 }
 async fn ioc_stats_handler() -> Json<Value> {
@@ -1023,13 +1263,19 @@ async fn ioc_stats_handler() -> Json<Value> {
 
 // quick diag: where am I serving from + file presence
 async fn diag_where() -> Json<Value> {
-    let cwd = env::current_dir().map(|p| p.display().to_string()).unwrap_or_else(|_| "<err>".into());
+    let cwd = env::current_dir()
+        .map(|p| p.display().to_string())
+        .unwrap_or_else(|_| "<err>".into());
 
     let ui_dir = "ui";
     let jf_dir = "json_files";
 
-    let ui_abs  = fs::canonicalize(ui_dir).ok().map(|p| p.display().to_string());
-    let jf_abs  = fs::canonicalize(jf_dir).ok().map(|p| p.display().to_string());
+    let ui_abs = fs::canonicalize(ui_dir)
+        .ok()
+        .map(|p| p.display().to_string());
+    let jf_abs = fs::canonicalize(jf_dir)
+        .ok()
+        .map(|p| p.display().to_string());
 
     let exists = |p: &str| Path::new(p).exists();
 
@@ -1057,7 +1303,8 @@ struct GraphQ {
 
 // robust timestamp reader: supports seconds + milliseconds
 fn parse_ts_any(v: &Value, default: i64) -> i64 {
-    v.get("timestamp").and_then(|x| x.as_i64())
+    v.get("timestamp")
+        .and_then(|x| x.as_i64())
         .or_else(|| v.get("ts").and_then(|x| x.as_i64()))
         .or_else(|| v.get("time").and_then(|x| x.as_i64()))
         .or_else(|| v.get("ts_ms").and_then(|x| x.as_i64()).map(|ms| ms / 1000))
@@ -1084,8 +1331,16 @@ async fn graph_for_endpoint(
                         pid,
                         ppid,
                         uid: 0,
-                        binary_path: v.get("exe").and_then(|x| x.as_str()).unwrap_or_default().to_string(),
-                        command_line: v.get("cmdline").and_then(|x| x.as_str()).unwrap_or_default().to_string(),
+                        binary_path: v
+                            .get("exe")
+                            .and_then(|x| x.as_str())
+                            .unwrap_or_default()
+                            .to_string(),
+                        command_line: v
+                            .get("cmdline")
+                            .and_then(|x| x.as_str())
+                            .unwrap_or_default()
+                            .to_string(),
                         cwd: String::new(),
                         env_vars: None,
                         tags: vec![],
@@ -1187,8 +1442,16 @@ fn window_records(ts_center: i64, secs: i64) -> Vec<TelemetryRecord> {
             if (ts - ts_center).abs() <= secs {
                 let pid = v.get("pid").and_then(|x| x.as_i64()).unwrap_or(0) as i32;
                 let ppid = v.get("ppid").and_then(|x| x.as_i64()).unwrap_or(0) as i32;
-                let exe = v.get("exe").and_then(|x| x.as_str()).unwrap_or("").to_string();
-                let cmd = v.get("cmdline").and_then(|x| x.as_str()).unwrap_or("").to_string();
+                let exe = v
+                    .get("exe")
+                    .and_then(|x| x.as_str())
+                    .unwrap_or("")
+                    .to_string();
+                let cmd = v
+                    .get("cmdline")
+                    .and_then(|x| x.as_str())
+                    .unwrap_or("")
+                    .to_string();
                 out.push(TelemetryRecord {
                     timestamp: ts as u64,
                     pid,
@@ -1291,12 +1554,18 @@ fn load_enrichment(ip: Option<&str>, sha256: Option<&str>) -> Value {
 }
 
 impl Default for Verdict {
-    fn default() -> Self { Verdict::Benign }
+    fn default() -> Self {
+        Verdict::Benign
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-enum Verdict { Benign, Leaning, Malicious }
+enum Verdict {
+    Benign,
+    Leaning,
+    Malicious,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 struct ExplainSummary {
@@ -1308,11 +1577,20 @@ struct ExplainSummary {
 fn pick_verdict_from_stats(avg_trust: f64, sev: &str, rgcn_avg_risk: f64) -> ExplainSummary {
     let mut reasons = vec![];
     let sev_l = sev.to_ascii_lowercase();
-    if avg_trust < 0.6 { reasons.push("trust_low".into()); }
-    else if avg_trust < 0.85 { reasons.push("trust_medium".into()); }
-    if rgcn_avg_risk >= 0.8 { reasons.push("rgcn_high".into()); }
-    if sev_l == "high" { reasons.push("sev_high".into()); }
-    if sev_l == "medium" { reasons.push("sev_medium".into()); }
+    if avg_trust < 0.6 {
+        reasons.push("trust_low".into());
+    } else if avg_trust < 0.85 {
+        reasons.push("trust_medium".into());
+    }
+    if rgcn_avg_risk >= 0.8 {
+        reasons.push("rgcn_high".into());
+    }
+    if sev_l == "high" {
+        reasons.push("sev_high".into());
+    }
+    if sev_l == "medium" {
+        reasons.push("sev_medium".into());
+    }
 
     let (verdict, confidence) = if avg_trust < 0.6 || sev_l == "high" || rgcn_avg_risk >= 0.9 {
         (Verdict::Malicious, 0.9)
@@ -1322,7 +1600,11 @@ fn pick_verdict_from_stats(avg_trust: f64, sev: &str, rgcn_avg_risk: f64) -> Exp
         (Verdict::Benign, 0.85)
     };
 
-    ExplainSummary { verdict, confidence, reason_codes: reasons }
+    ExplainSummary {
+        verdict,
+        confidence,
+        reason_codes: reasons,
+    }
 }
 
 async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
@@ -1333,13 +1615,28 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
     };
     if alert.get("id").is_none() {
         let sid = synth_id(&alert);
-        alert.as_object_mut().unwrap().insert("id".into(), Value::String(sid));
+        alert
+            .as_object_mut()
+            .unwrap()
+            .insert("id".into(), Value::String(sid));
     }
 
-    let sev = alert.get("severity").and_then(|x| x.as_str()).unwrap_or("none").to_string();
-    let risk = alert.get("risk").or_else(|| alert.get("score")).and_then(|x| x.as_f64()).unwrap_or(0.0);
-    let ts = alert.get("ts").or_else(|| alert.get("time")).or_else(|| alert.get("timestamp"))
-        .and_then(|x| x.as_i64()).unwrap_or(now_ts() as i64);
+    let sev = alert
+        .get("severity")
+        .and_then(|x| x.as_str())
+        .unwrap_or("none")
+        .to_string();
+    let risk = alert
+        .get("risk")
+        .or_else(|| alert.get("score"))
+        .and_then(|x| x.as_f64())
+        .unwrap_or(0.0);
+    let ts = alert
+        .get("ts")
+        .or_else(|| alert.get("time"))
+        .or_else(|| alert.get("timestamp"))
+        .and_then(|x| x.as_i64())
+        .unwrap_or(now_ts() as i64);
 
     // neighborhood & graph
     let recs = window_records(ts, 300);
@@ -1363,7 +1660,9 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
     let mitre = extract_mitre(&alert);
 
     let ip = alert.get("src_ip").and_then(|x| x.as_str());
-    let sha = alert.get("sha256").and_then(|x| x.as_str())
+    let sha = alert
+        .get("sha256")
+        .and_then(|x| x.as_str())
         .or_else(|| alert.pointer("/event/sha256").and_then(|x| x.as_str()));
     let enrichment = load_enrichment(ip, sha);
 
@@ -1371,7 +1670,10 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
         let mut rs = Vec::new();
         if let Some(arr) = findings.as_array() {
             for f in arr {
-                let src = f.get("source").and_then(|x| x.as_str()).unwrap_or("detector");
+                let src = f
+                    .get("source")
+                    .and_then(|x| x.as_str())
+                    .unwrap_or("detector");
                 let sc = f.get("score").and_then(|x| x.as_f64()).unwrap_or(0.0);
                 rs.push(json!({"source": src, "weight": sc}));
             }
@@ -1379,14 +1681,21 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
         json!(rs)
     });
 
-    let technique_names: Vec<String> = mitre.clone().into_iter().map(|t| match t.as_str() {
-        "T1055" => "Process Injection".into(),
-        "T1059.001" => "Command & Scripting: PowerShell".into(),
-        "T1547.001" => "Boot/Logon Autostart: Run Keys".into(),
-        _ => t,
-    }).collect();
+    let technique_names: Vec<String> = mitre
+        .clone()
+        .into_iter()
+        .map(|t| match t.as_str() {
+            "T1055" => "Process Injection".into(),
+            "T1059.001" => "Command & Scripting: PowerShell".into(),
+            "T1547.001" => "Boot/Logon Autostart: Run Keys".into(),
+            _ => t,
+        })
+        .collect();
 
-    let confidence = alert.get("confidence").and_then(|x| x.as_f64()).unwrap_or_else(|| rgcn.max(0.0).min(1.0));
+    let confidence = alert
+        .get("confidence")
+        .and_then(|x| x.as_f64())
+        .unwrap_or_else(|| rgcn.max(0.0).min(1.0));
 
     // ----- compute these BEFORE json! -----
     let mahala_d2: f64 = {
@@ -1470,21 +1779,30 @@ async fn explain_alert(AxPath(alert_id): AxPath<String>) -> impl IntoResponse {
     Json(resp).into_response()
 }
 
-
-
 fn recommend_from_mitre(mitre: &[String]) -> Vec<String> {
     let mut actions: Vec<String> = Vec::new();
     if mitre.iter().any(|t| t.starts_with("T1055")) {
-        actions.push("Isolate host; capture memory; hunt for unsigned DLLs injected into signed parents.".into());
+        actions.push(
+            "Isolate host; capture memory; hunt for unsigned DLLs injected into signed parents."
+                .into(),
+        );
     }
     if mitre.iter().any(|t| t.starts_with("T1059.001")) {
-        actions.push("Block outbound for the user; review PowerShell transcript logs and AMSI events.".into());
+        actions.push(
+            "Block outbound for the user; review PowerShell transcript logs and AMSI events."
+                .into(),
+        );
     }
     if mitre.iter().any(|t| t.starts_with("T1547.001")) {
-        actions.push("Check autorun keys and Startup folder; verify owner and signer of binaries.".into());
+        actions.push(
+            "Check autorun keys and Startup folder; verify owner and signer of binaries.".into(),
+        );
     }
     if actions.is_empty() {
-        actions.push("Triage process tree, parent-child chain, and recent network egress for this endpoint.".into());
+        actions.push(
+            "Triage process tree, parent-child chain, and recent network egress for this endpoint."
+                .into(),
+        );
     }
     actions
 }
@@ -1492,6 +1810,8 @@ fn recommend_from_mitre(mitre: &[String]) -> Vec<String> {
 // ======================= Utilities / mapping =======================
 
 fn try_convert_output(output: TelemetryOutput) -> Result<TelemetryRecord, String> {
+    pb_adapter::emit_adapter_facts(&output);
+
     let mut rec = TelemetryRecord {
         timestamp: now_ts(),
         pid: 0,
@@ -1509,11 +1829,11 @@ fn try_convert_output(output: TelemetryOutput) -> Result<TelemetryRecord, String
 
 // ----------- RELAXED acceptance filter -----------
 
-    fn filter_records(records: &mut Vec<TelemetryRecord>) {
+fn filter_records(records: &mut Vec<TelemetryRecord>) {
     // TEMP: very permissive accept—keep if we have any signal at all
     records.retain(|r| {
         let has_proc = !r.binary_path.is_empty() || !r.command_line.is_empty();
-        let has_id   = r.pid != 0 || r.ppid != 0 || r.uid != 0;
+        let has_id = r.pid != 0 || r.ppid != 0 || r.uid != 0;
         let has_tags = !r.tags.is_empty();
         has_proc || has_id || has_tags
     });
@@ -1626,9 +1946,21 @@ fn build_graph_from_records(records: &[TelemetryRecord]) -> (Vec<GraphNode>, Vec
                 uid: Some(r.uid),
                 pid: Some(r.pid as u32),
                 ppid: Some(r.ppid as u32),
-                binary_path: if r.binary_path.is_empty() { None } else { Some(r.binary_path.clone()) },
-                command_line: if r.command_line.is_empty() { None } else { Some(r.command_line.clone()) },
-                cwd: if r.cwd.is_empty() { None } else { Some(r.cwd.clone()) },
+                binary_path: if r.binary_path.is_empty() {
+                    None
+                } else {
+                    Some(r.binary_path.clone())
+                },
+                command_line: if r.command_line.is_empty() {
+                    None
+                } else {
+                    Some(r.command_line.clone())
+                },
+                cwd: if r.cwd.is_empty() {
+                    None
+                } else {
+                    Some(r.cwd.clone())
+                },
                 tags: r.tags.clone(),
                 anchor_ids: Vec::new(),
                 ..Default::default()
@@ -1654,19 +1986,33 @@ fn build_graph_from_records(records: &[TelemetryRecord]) -> (Vec<GraphNode>, Vec
         if !r.binary_path.is_empty() {
             let file_id = format!("file:{}", r.binary_path);
             if seen_nodes.insert(file_id.clone()) {
-                nodes.push(GraphNode { id: file_id.clone(), ..Default::default() });
+                nodes.push(GraphNode {
+                    id: file_id.clone(),
+                    ..Default::default()
+                });
             }
             if seen_edges.insert((nid.clone(), file_id.clone())) {
-                edges.push(GraphEdge { source: nid.clone(), target: file_id, ..Default::default() });
+                edges.push(GraphEdge {
+                    source: nid.clone(),
+                    target: file_id,
+                    ..Default::default()
+                });
             }
         }
         if !r.cwd.is_empty() {
             let dir_id = format!("file:{}", r.cwd);
             if seen_nodes.insert(dir_id.clone()) {
-                nodes.push(GraphNode { id: dir_id.clone(), ..Default::default() });
+                nodes.push(GraphNode {
+                    id: dir_id.clone(),
+                    ..Default::default()
+                });
             }
             if seen_edges.insert((nid.clone(), dir_id.clone())) {
-                edges.push(GraphEdge { source: nid.clone(), target: dir_id, ..Default::default() });
+                edges.push(GraphEdge {
+                    source: nid.clone(),
+                    target: dir_id,
+                    ..Default::default()
+                });
             }
         }
     }
@@ -1791,14 +2137,9 @@ fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], data: &TelemetryDa
     let _ = forensic_hooks::slack_webhook::emit(events, records, data);
 }
 
-
 // ---- small helpers ----
 fn resolve_rules_path() -> Option<PathBuf> {
-    let candidates = [
-        "edr-agent/src/rules.json",
-        "src/rules.json",
-        "rules.json",
-    ];
+    let candidates = ["edr-agent/src/rules.json", "src/rules.json", "rules.json"];
     for c in candidates {
         if Path::new(c).exists() {
             return Some(PathBuf::from(c));
@@ -1829,12 +2170,15 @@ fn final_alert_to_json(a: &FinalAlert) -> Value {
         .cloned()
         .unwrap_or_else(|| "-".into());
 
+    let correlation_group_id = format!("{}::{}::{}", a.host, a.user, a.exe);
+
     json!({
         "id": format!("da:{}:{}:{}", a.exe, a.user, a.ts),
         "ts": a.ts as i64,
         "severity": sev_to_str(a.severity),
         "risk": (a.risk as f64),
         "support": (a.support as f64),
+        "correlation_group_id": correlation_group_id,
         "technique": primary_ttp,
         "tags": a.tags,
         "detectors": a.detectors.iter().map(|d| json!({"kind": format!("{:?}", d.kind), "score": d.score})).collect::<Vec<_>>(),
@@ -1851,6 +2195,45 @@ fn final_alert_to_json(a: &FinalAlert) -> Value {
     })
 }
 
+fn publish_bus_log_warning(message: String) {
+    let now = Utc::now().timestamp().max(0) as u64;
+    let last = PUBLISH_WARN_TS.load(Ordering::Relaxed);
+    if now.saturating_sub(last) >= 60 {
+        PUBLISH_WARN_TS.store(now, Ordering::Relaxed);
+        warn!("{}", message);
+    } else {
+        log::debug!("{}", message);
+    }
+}
+
+fn queue_publish_bus(payload: Value) {
+    if let Some(url) = PUBLISH_BUS_URL.as_ref() {
+        let client = Client::clone(&PUBLISH_BUS_CLIENT);
+        let url = url.clone();
+        tokio::spawn(async move {
+            match client.post(&url).json(&payload).send().await {
+                Ok(resp) => {
+                    if !resp.status().is_success() {
+                        let status = resp.status();
+                        let body = resp.text().await.unwrap_or_default();
+                        publish_bus_log_warning(format!(
+                            "publish bus responded with status {} and body {}",
+                            status,
+                            body
+                        ));
+                    }
+                }
+                Err(err) => {
+                    publish_bus_log_warning(format!(
+                        "failed to post incident to publish bus: {}",
+                        err
+                    ));
+                }
+            }
+        });
+    }
+}
+
 fn emit_final_incident(
     a: FinalAlert,
     alert_tx: &broadcast::Sender<String>,
@@ -1858,6 +2241,8 @@ fn emit_final_incident(
 ) {
     let v = final_alert_to_json(&a);
     let line = v.to_string();
+
+    queue_publish_bus(v.clone());
 
     // Persist alongside Phase-2 alerts so Explain/Incidents keep working
     let _ = std::fs::OpenOptions::new()
@@ -1874,11 +2259,16 @@ fn emit_final_incident(
         id: format!("de:{}", v.get("id").and_then(|x| x.as_str()).unwrap_or("")),
         playbook_id: "decision_engine".to_string(),
         ts: v.get("ts").and_then(|x| x.as_i64()).unwrap_or(0).max(0) as u64,
-        filled_slots: vec!["consensus".to_string()],   // minimal shim until PB engine feeds real slots
+        filled_slots: vec!["consensus".to_string()], // minimal shim until PB engine feeds real slots
         missing_slots: vec![],
-        tags: v.get("tags")
+        tags: v
+            .get("tags")
             .and_then(|t| t.as_array())
-            .map(|a| a.iter().filter_map(|x| x.as_str().map(|s| s.to_string())).collect())
+            .map(|a| {
+                a.iter()
+                    .filter_map(|x| x.as_str().map(|s| s.to_string()))
+                    .collect()
+            })
             .unwrap_or_default(),
         rationale: vec![format!(
             "DE {} risk={:.2} tech={}",
@@ -1960,24 +2350,67 @@ fn feed_decider_from_record_tags(
 // ======================= Boot =======================
 
 #[tokio::main(flavor = "multi_thread")]
-async fn main() {
+async fn main() -> Result<()> {
+    let lock_path = "/var/run/forensic_hooks.lock";
+    let _lock_file = {
+        let file = OpenOptions::new()
+            .create(true)
+            .write(true)
+            .open(lock_path)
+            .expect("lock file open failed");
+        if let Err(_) = file.try_lock_exclusive() {
+            eprintln!("agent already running (lock {})", lock_path);
+            std::process::exit(1);
+        }
+        file
+    };
+
     let _ = env_logger::try_init();
     {
         let cwd = std::env::current_dir().unwrap();
         eprintln!("🗂️  cwd        : {}", cwd.display());
-        eprintln!("🗂️  ui         : {}", std::fs::canonicalize("ui").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-        eprintln!("🗂️  json_files : {}", std::fs::canonicalize("json_files").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-        eprintln!("🗎   ui/index.html present? {}", std::path::Path::new("ui/index.html").exists());
-        eprintln!("🗎   ui/app.js     present? {}", std::path::Path::new("ui/app.js").exists());
-        eprintln!("🗎   ui/graph.html present? {}", std::path::Path::new("ui/graph.html").exists());
+        eprintln!(
+            "🗂️  ui         : {}",
+            std::fs::canonicalize("ui")
+                .map(|p| p.display().to_string())
+                .unwrap_or_else(|_| "MISSING".into())
+        );
+        eprintln!(
+            "🗂️  json_files : {}",
+            std::fs::canonicalize("json_files")
+                .map(|p| p.display().to_string())
+                .unwrap_or_else(|_| "MISSING".into())
+        );
+        eprintln!(
+            "🗎   ui/index.html present? {}",
+            std::path::Path::new("ui/index.html").exists()
+        );
+        eprintln!(
+            "🗎   ui/app.js     present? {}",
+            std::path::Path::new("ui/app.js").exists()
+        );
+        eprintln!(
+            "🗎   ui/graph.html present? {}",
+            std::path::Path::new("ui/graph.html").exists()
+        );
     }
 
     let _policy = forensic_hooks::config::load_and_verify_policy("policy.json")
         .expect("❌ Failed to load or verify policy");
 
-    let writer = Arc::new(Mutex::new(
-        forensic_hooks::telemetry_writer::TelemetryWriter::new(),
-    ));
+    let writer = Arc::new(Mutex::new(TelemetryWriter::new()));
+
+    let metrics = Arc::new(Metrics::new());
+    metrics.reset_on_startup();
+    metrics::init(metrics.clone());
+    metrics::events_in().store(0, Ordering::Relaxed);
+    pb_adapter::set_metrics_handle(metrics.clone());
+
+    pb_adapter::set_engine_handle(pb_engine());
+
+    let (facts_tx, facts_rx) = tokio::sync::mpsc::channel::<pb_adapter::AdapterFact>(4096);
+    pb_adapter::set_sender(facts_tx.clone());
+    tokio::spawn(pb_adapter::runner::run_adapter(facts_rx, metrics.clone()));
 
     // === IOC lists & YARA ===
     if let Err(e) = ioc::init() {
@@ -2002,12 +2435,14 @@ async fn main() {
     // alerts / graph / incidents channels
     let (alert_tx, _alert_rx) = broadcast::channel::<String>(1024);
     let (graph_tx, _graph_rx) = broadcast::channel::<String>(128);
-    let (inc_tx, _inc_rx)     = broadcast::channel::<String>(256);
+    let (inc_tx, _inc_rx) = broadcast::channel::<String>(256);
 
     // Optional PB SSE bus (for pb_api)
     let (pb_tx, _pb_rx) = tokio::sync::broadcast::channel::<String>(256);
     pb_introspect::set_sse_sender(pb_tx.clone());
     let pb_state = pb_api::PbApiState { tx: pb_tx.clone() };
+
+    let (shutdown_tx, shutdown_rx) = oneshot::channel::<()>();
 
     // ensure layout exists
     let _ = std::fs::create_dir_all("logs");
@@ -2018,11 +2453,30 @@ async fn main() {
     {
         let cwd = env::current_dir().unwrap();
         eprintln!("🗂️  cwd        : {}", cwd.display());
-        eprintln!("🗂️  ui         : {}", fs::canonicalize("ui").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-        eprintln!("🗂️  json_files : {}", fs::canonicalize("json_files").map(|p| p.display().to_string()).unwrap_or_else(|_| "MISSING".into()));
-        eprintln!("🗎   ui/index.html present? {}", Path::new("ui/index.html").exists());
-        eprintln!("🗎   ui/app.js     present? {}", Path::new("ui/app.js").exists());
-        eprintln!("🗎   ui/graph.html present? {}", Path::new("ui/graph.html").exists());
+        eprintln!(
+            "🗂️  ui         : {}",
+            fs::canonicalize("ui")
+                .map(|p| p.display().to_string())
+                .unwrap_or_else(|_| "MISSING".into())
+        );
+        eprintln!(
+            "🗂️  json_files : {}",
+            fs::canonicalize("json_files")
+                .map(|p| p.display().to_string())
+                .unwrap_or_else(|_| "MISSING".into())
+        );
+        eprintln!(
+            "🗎   ui/index.html present? {}",
+            Path::new("ui/index.html").exists()
+        );
+        eprintln!(
+            "🗎   ui/app.js     present? {}",
+            Path::new("ui/app.js").exists()
+        );
+        eprintln!(
+            "🗎   ui/graph.html present? {}",
+            Path::new("ui/graph.html").exists()
+        );
     }
 
     // ---- initialize live graph writer using your graph.rs ----
@@ -2036,11 +2490,24 @@ async fn main() {
             .unwrap_or(false);
 
         if rgcn_enabled {
-            let url        = std::env::var("RGCN_URL").unwrap_or_else(|_| "http://127.0.0.1:9000/infer".into());
-            let poll_ms    = std::env::var("RGCN_POLL_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(1500);
-            let timeout_ms = std::env::var("RGCN_TIMEOUT_MS").ok().and_then(|s| s.parse().ok()).unwrap_or(2000);
-            let max_nodes  = std::env::var("RGCN_MAX_NODES").ok().and_then(|s| s.parse().ok()).unwrap_or(3000);
-            let max_edges  = std::env::var("RGCN_MAX_EDGES").ok().and_then(|s| s.parse().ok()).unwrap_or(6000);
+            let url =
+                std::env::var("RGCN_URL").unwrap_or_else(|_| "http://127.0.0.1:9000/infer".into());
+            let poll_ms = std::env::var("RGCN_POLL_MS")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(1500);
+            let timeout_ms = std::env::var("RGCN_TIMEOUT_MS")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(2000);
+            let max_nodes = std::env::var("RGCN_MAX_NODES")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(3000);
+            let max_edges = std::env::var("RGCN_MAX_EDGES")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(6000);
 
             let cfg = rgcn_bridge::Config {
                 url,
@@ -2058,7 +2525,11 @@ async fn main() {
     }
 
     // ==== MVP event-level detection wiring (rules -> JSONL alerts) ====
-    let mut evaluator = Evaluator::new(Thresholds { low: 0.30, medium: 0.55, high: 0.80 });
+    let mut evaluator = Evaluator::new(Thresholds {
+        low: 0.30,
+        medium: 0.55,
+        high: 0.80,
+    });
 
     if let Some(path) = resolve_rules_path() {
         if let Ok(hot) = HotRulesDetector::new(&path, Duration::from_secs(2)) {
@@ -2125,24 +2596,28 @@ async fn main() {
 
     // ---------------- Integrations API ----------------
     {
+        use axum::http::StatusCode;
+        use axum::http::{header, HeaderValue};
+        use axum::routing::{delete, get, get_service, post};
+        use axum::{extract::State, response::IntoResponse, Json, Router};
         use serde::{Deserialize, Serialize};
         use serde_json::{json, Value};
-        use axum::{extract::State, response::IntoResponse, Json, Router};
-        use axum::http::StatusCode;
-        use axum::routing::{get, post, delete, get_service};
         use std::{fs, path::Path};
+        use tower_http::cors::CorsLayer;
         use tower_http::services::{ServeDir, ServeFile};
         use tower_http::set_header::SetResponseHeaderLayer;
-        use tower_http::cors::CorsLayer;
-        use axum::http::{header, HeaderValue};
-        
 
         #[derive(Serialize, Deserialize, Default)]
-        struct IntegrationCreate { id: String, name: String, creds: Value }
+        struct IntegrationCreate {
+            id: String,
+            name: String,
+            creds: Value,
+        }
 
         async fn integrations_catalog() -> impl IntoResponse {
             let path = Path::new("integrations/catalog.json");
-            let body = fs::read_to_string(path).unwrap_or_else(|_| "{\"version\":1,\"vendors\":[]}".into());
+            let body = fs::read_to_string(path)
+                .unwrap_or_else(|_| "{\"version\":1,\"vendors\":[]}".into());
             (StatusCode::OK, body)
         }
 
@@ -2209,7 +2684,7 @@ async fn main() {
         let ui_router = Router::new()
             .route("/index.html", get_service(ServeFile::new("ui/index.html")))
             .route("/graph.html", get_service(ServeFile::new("ui/graph.html")))
-            .route("/app.js",     get_service(ServeFile::new("ui/app.js")))
+            .route("/app.js", get_service(ServeFile::new("ui/app.js")))
             .fallback_service(get_service(ServeDir::new("ui")))
             .layer(no_cache.clone());
 
@@ -2230,36 +2705,63 @@ async fn main() {
             .route("/hosts/self/health", get(host_self_health))
             // Incidents (Phase 2)
             .route("/incidents/stream", get(incidents_sse))
-            .route("/incidents", get(|| async {
-                let list = incidents().lock().unwrap().list();
-                Json(list)
-            }))
+            .route("/incidents/recent", get(incidents_recent))
             .route(
-                "/incidents/:id",
-                get(|axum::extract::Path(id): axum::extract::Path<String>| async move {
-                    if let Some(it) = incidents().lock().unwrap().get(&id) {
-                        Json(it).into_response()
-                    } else {
-                        (StatusCode::NOT_FOUND, "not found").into_response()
-                    }
+                "/incidents",
+                get(|| async {
+                    let list = incidents().lock().unwrap().list();
+                    Json(list)
                 }),
             )
+            .route(
+                "/incidents/:id",
+                get(
+                    |axum::extract::Path(id): axum::extract::Path<String>| async move {
+                        if let Some(it) = incidents().lock().unwrap().get(&id) {
+                            Json(it).into_response()
+                        } else {
+                            (StatusCode::NOT_FOUND, "not found").into_response()
+                        }
+                    },
+                ),
+            )
             // Safe action stubs (Phase 2)
-            .route("/actions/isolate_host", post(|Json(v): Json<Value>| async move {
-                eprintln!("✳️ action:isolate_host {}", v);
-                (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"isolate_host","echo":v})))
-            }))
-            .route("/actions/kill_proc", post(|Json(v): Json<Value>| async move {
-                eprintln!("✳️ action:kill_proc {}", v);
-                (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"kill_proc","echo":v})))
-            }))
-            .route("/actions/block_egress", post(|Json(v): Json<Value>| async move {
-                eprintln!("✳️ action:block_egress {}", v);
-                (StatusCode::ACCEPTED, Json(json!({"ok":true,"action":"block_egress","echo":v})))
-            }))
+            .route(
+                "/actions/isolate_host",
+                post(|Json(v): Json<Value>| async move {
+                    eprintln!("✳️ action:isolate_host {}", v);
+                    (
+                        StatusCode::ACCEPTED,
+                        Json(json!({"ok":true,"action":"isolate_host","echo":v})),
+                    )
+                }),
+            )
+            .route(
+                "/actions/kill_proc",
+                post(|Json(v): Json<Value>| async move {
+                    eprintln!("✳️ action:kill_proc {}", v);
+                    (
+                        StatusCode::ACCEPTED,
+                        Json(json!({"ok":true,"action":"kill_proc","echo":v})),
+                    )
+                }),
+            )
+            .route(
+                "/actions/block_egress",
+                post(|Json(v): Json<Value>| async move {
+                    eprintln!("✳️ action:block_egress {}", v);
+                    (
+                        StatusCode::ACCEPTED,
+                        Json(json!({"ok":true,"action":"block_egress","echo":v})),
+                    )
+                }),
+            )
             // Integrations
             .route("/integrations/catalog", get(integrations_catalog))
-            .route("/integrations", get(integrations_list).post(integrations_add))
+            .route(
+                "/integrations",
+                get(integrations_list).post(integrations_add),
+            )
             .route("/integrations/:id", delete(integrations_delete))
             // IOC endpoints
             .route("/ioc/reload", post(ioc_reload_handler))
@@ -2280,13 +2782,16 @@ async fn main() {
 
         // ---- Serve UI/API: simple Tokio bind + loud errors ----
         {
-            let port: u16 = std::env::var("EDR_PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(8080);
+            let port: u16 = std::env::var("EDR_PORT")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(8080);
             let server_app = app.clone(); // Router is Clone
 
             tokio::spawn(async move {
                 // Bind directly with Tokio (loopback by default)
                 let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
-                let listener = match tokio::net::TcpListener::bind(addr).await {
+                let listener = match TcpListener::bind(addr).await {
                     Ok(l) => l,
                     Err(e) => {
                         eprintln!("❌ bind({addr}) failed: {e}");
@@ -2301,7 +2806,14 @@ async fn main() {
                 );
                 eprintln!("▶️ axum server task starting…");
 
-                if let Err(e) = axum::serve(listener, server_app.into_make_service()).await {
+                let shutdown = async {
+                    let _ = shutdown_rx.await;
+                };
+
+                if let Err(e) = axum::serve(listener, server_app)
+                    .with_graceful_shutdown(shutdown)
+                    .await
+                {
                     eprintln!("❌ axum serve error: {e}");
                 } else {
                     eprintln!("❌ axum serve ended unexpectedly (no error)");
@@ -2310,137 +2822,131 @@ async fn main() {
         }
 
         // ---------------- demux → batch channel ----------------
-        use tokio::sync::mpsc::{unbounded_channel, UnboundedSender, UnboundedReceiver};
         use forensic_hooks::telemetry::TelemetryRecord;
+        use tokio::sync::mpsc::{unbounded_channel, UnboundedReceiver, UnboundedSender};
 
-        let (ingest_tx, mut ingest_rx): (UnboundedSender<TelemetryRecord>, UnboundedReceiver<TelemetryRecord>) =
-            unbounded_channel();
+        let (ingest_tx, mut ingest_rx): (
+            UnboundedSender<TelemetryRecord>,
+            UnboundedReceiver<TelemetryRecord>,
+        ) = unbounded_channel();
 
         // ---------------- startup of eBPF readers ----------------
-        let use_legacy = std::env::var("EDR_USE_LEGACY_REALTIME")
-            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-            .unwrap_or(false);
 
         #[cfg(target_os = "linux")]
-{
-    use log::{info, warn, error};
-    use std::sync::atomic::{AtomicBool, Ordering as AOrd};
-    use crate::ebpf::events_reader;
-    use crate::ebpf::events_reader::Source;
-    use crate::ebpf::ebpf_ingest::{ on_edr_event, on_edr_event_file_only, on_edr_event_net_only, on_edr_event_wx_only };
-    // ⬇️ put this in main.rs AFTER the reader startup block you pasted
-    {
-        
-        std::thread::spawn(|| loop {
-            let in_  = EVENTS_IN.load(Ordering::Relaxed);
-            let acc  = EVENTS_ACCEPTED.load(Ordering::Relaxed);
-            let drops = BPF_DROPS.load(Ordering::Relaxed);
-            let missed = in_.saturating_sub(acc);
+        {
+            use std::sync::atomic::Ordering;
 
-            let drop_rate = if in_ > 0 {
-                100.0 * missed as f64 / in_ as f64
-            } else {
-                0.0
-            };
+            static INGEST_TX: OnceLock<tokio::sync::mpsc::UnboundedSender<TelemetryRecord>> =
+                OnceLock::new();
 
-            eprintln!(
-                "[metrics] events_in={} accepted={} missed={} perf_drops={} drop_rate={:.2}%",
-                in_, acc, missed, drops, drop_rate
+            fn write_record(rec: TelemetryRecord) -> bool {
+                if let Some(tx) = INGEST_TX.get() {
+                    tx.send(rec).is_ok()
+                } else {
+                    false
+                }
+            }
+
+            fn write_record_and_counters(rec: TelemetryRecord) {
+                if write_record(rec) {
+                    metrics::events_accepted().fetch_add(1, Ordering::Relaxed);
+                }
+            }
+
+            if INGEST_TX.set(ingest_tx.clone()).is_err() {
+                warn!("⚠️ unified ingest sender already initialized; using existing channel");
+            }
+
+            std::thread::spawn(|| loop {
+                let in_ = metrics::events_in().load(Ordering::Relaxed);
+                let acc = metrics::events_accepted().load(Ordering::Relaxed);
+                let drops = metrics::bpf_drops_total().load(Ordering::Relaxed);
+                let missed = in_.saturating_sub(acc);
+
+                let drop_rate = if in_ > 0 {
+                    100.0 * missed as f64 / in_ as f64
+                } else {
+                    0.0
+                };
+
+                eprintln!(
+                    "[metrics] events_in={} accepted={} missed={} perf_drops={} drop_rate={:.2}%",
+                    in_, acc, missed, drops, drop_rate
+                );
+
+                std::thread::sleep(Duration::from_secs(5));
+            });
+            let (use_pins, pin_prefix) = pinned_mode_selected();
+            let legacy = std::env::var("EDR_USE_LEGACY_REALTIME")
+                .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+                .unwrap_or(false);
+
+            log::info!(
+                "Pinned-reader mode: {use_pins} (EDR_PIN_PREFIX={pin_prefix:?}) | Legacy realtime: {legacy}"
             );
 
-            std::thread::sleep(Duration::from_secs(5));
-        });
-    }
-
-    fn wrap_unknown(source: Source, bytes: &[u8]) -> Option<TelemetryRecord> {
-        let enabled = std::env::var("EDR_ACCEPT_UNKNOWN")
-            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-            .unwrap_or(false);
-        if !enabled { return None; }
-        use std::time::{SystemTime, UNIX_EPOCH};
-        let ts: u64 = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .map(|d| d.as_secs())
-            .unwrap_or(0);
-        Some(TelemetryRecord {
-            timestamp: ts, pid: 0, ppid: 0, uid: 0,
-            binary_path: format!("bpf:{source:?}"),
-            command_line: format!("raw_blob len={}", bytes.len()),
-            cwd: String::new(),
-            env_vars: Default::default(),
-            risk_score: Some(0),
-            tags: Vec::new(),
-        })
-    }
-
-    static STARTED: AtomicBool = AtomicBool::new(false);
-    macro_rules! mark_started_once {
-        () => {
-            if STARTED.swap(true, AOrd::SeqCst) {
-                warn!("ebpf readers already started; ignoring duplicate start");
-                return;
+            fn emit_debug_raw(src_name: &str, bytes: &[u8]) {
+                let mut m = std::collections::HashMap::new();
+                m.insert("category".into(), "debug".into());
+                m.insert("signal".into(), "debug::raw_event".into());
+                m.insert("source".into(), src_name.into());
+                m.insert("payload_len".into(), bytes.len().to_string());
+                let head_n = bytes.len().min(16);
+                let head_hex = bytes[..head_n]
+                    .iter()
+                    .map(|b| format!("{:02x}", b))
+                    .collect::<String>();
+                m.insert("payload_head_hex".into(), head_hex);
+                forensic_hooks::telemetry_writer::write_telemetry_record(m);
             }
-        };
-    }
 
-    let env_bool = |k: &str| std::env::var(k)
-        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-        .unwrap_or(false);
-    let env_str = |k: &str, default: &str| std::env::var(k).unwrap_or_else(|_| default.to_string());
-
-    let multi = env_bool("EDR_ENABLE_MULTI_PINNED");
-    let single = env_str("EDR_SYS_RINGBUF", "edr_events_rb");
-    let perfp = env_str("EDR_PERF_PAGES", "256");
-    info!(
-        "🔧 EDR mode → {{ EDR_USE_LEGACY_REALTIME: {use_legacy}, EDR_ENABLE_MULTI_PINNED: {multi}, EDR_SYS_RINGBUF: \"{single}\", EDR_PERF_PAGES: {perfp} }}"
-    );
-
-    if use_legacy {
-        info!("⚙️ Realtime attach mode (env override)");
-        mark_started_once!();
-        events_reader::start_realtime_monitors(writer.clone(), true);
-    } else {
-        mark_started_once!();
-        let w_for_on = writer.clone();
-        let tx = ingest_tx.clone();
-
-        match events_reader::start_all_pinned_readers_demux(move |source, bytes| {
-            EVENTS_IN.fetch_add(1, Ordering::Relaxed);
-            let rec_opt = match source {
-                Source::EdrSys   => on_edr_event(bytes, &w_for_on),
-                Source::Net      => on_edr_event_net_only(bytes, &w_for_on),
-                Source::Wx       => on_edr_event_wx_only(bytes, &w_for_on),
-                Source::FilePerf => on_edr_event_file_only(bytes, &w_for_on),
-            }
-            .or_else(|| wrap_unknown(source, bytes));
-
-            match rec_opt {
-                Some(rec) => {
-                    match tx.send(rec) { Ok(_) => {}, Err(e) => eprintln!("❌ tx.send failed: {e}"), }
+            let demux = {
+                let w = writer.clone();
+                move |src: events_reader::Source, bytes: &[u8]| match src {
+                    events_reader::Source::EdrSys => {
+                        emit_debug_raw("edr_events_rb", bytes);
+                        if let Some(rec) = on_edr_event(bytes, &w) {
+                            write_record_and_counters(rec);
+                        }
+                    }
+                    events_reader::Source::Net => {
+                        emit_debug_raw("net_events", bytes);
+                        if let Some(rec) = on_edr_event_net_only(bytes, &w) {
+                            write_record_and_counters(rec);
+                        }
+                    }
+                    events_reader::Source::Wx => {
+                        emit_debug_raw("wx_events", bytes);
+                        if let Some(rec) = on_edr_event_wx_only(bytes, &w) {
+                            write_record_and_counters(rec);
+                        }
+                    }
+                    events_reader::Source::FilePerf => {
+                        emit_debug_raw("events", bytes);
+                        if let Some(rec) = on_edr_event_file_only(bytes, &w) {
+                            write_record_and_counters(rec);
+                        }
+                    }
                 }
-                None => {
-                    // single miss branch; no duplicate `else`
-                    let head = bytes.iter()
-                        .take(16)
-                        .map(|b| format!("{:02x}", b))
-                        .collect::<Vec<_>>()
-                        .join("");
-                    warn!(
-                        "decode_miss source={source:?} wire_len={} head16=0x{head}",
-                        bytes.len()
+            };
+
+            if use_pins {
+                events_reader::start_all_pinned_readers_demux(&pin_prefix, demux)?;
+                if legacy {
+                    log::warn!(
+                        "Legacy requested but pins selected; NOT loading .bpf.o. Set EDR_USE_LEGACY_REALTIME=0 to suppress this message."
                     );
                 }
-            }
-        }) {
-            Ok(()) => info!("📌 Pinned demux started"),
-            Err(e) => {
-                error!("Pinned demux failed: {e:?} → falling back to realtime attach");
-                events_reader::start_realtime_monitors(writer.clone(), false);
-                info!("⚙️ Realtime attach started (fallback)");
+            } else if legacy {
+                log::warn!("Legacy realtime mode enabled by env; attempting realtime attach");
+                events_reader::start_realtime_monitors(writer.clone(), true);
+            } else {
+                log::error!(
+                    "No pins at {pin_prefix} and legacy attach disabled. Hint: run your attach helper (e.g., edr_attach_any -p {pin_prefix}) or set EDR_USE_LEGACY_REALTIME=1."
+                );
+                return Err(anyhow!("no pins + legacy disabled"));
             }
         }
-    }
-}
 
         #[cfg(not(target_os = "linux"))]
         {
@@ -2450,7 +2956,7 @@ async fn main() {
         // ---------------- processing loop (inline in spawn; captures gs/evaluator) ----------------
         {
             use std::time::Duration;
-            let w  = writer.clone();
+            let w = writer.clone();
             let at = alert_tx.clone();
             let it = inc_tx.clone();
             let mut rx = ingest_rx;
@@ -2466,8 +2972,13 @@ async fn main() {
                     // Passive side-effect monitors
                     for output in run_sideeffect_monitors_and_collect() {
                         match try_convert_output(output) {
-                            Ok(rec) => records.push(rec),
-                            Err(_) => eprintln!("⚠️ Failed to convert TelemetryOutput → TelemetryRecord"),
+                            Ok(rec) => {
+                                metrics::events_accepted().fetch_add(1, Ordering::Relaxed);
+                                records.push(rec);
+                            }
+                            Err(_) => {
+                                eprintln!("⚠️ Failed to convert TelemetryOutput → TelemetryRecord")
+                            }
                         }
                     }
 
@@ -2476,9 +2987,6 @@ async fn main() {
                     filter_records(&mut records);
                     dedup_records(&mut records);
                     let accepted_len = records.len();
-                    if accepted_len > 0 {
-                        EVENTS_ACCEPTED.fetch_add(accepted_len as u64, Ordering::Relaxed);
-                    }
                     if received_len > 0 {
                         eprintln!("↪️ batch: received={received_len} accepted={accepted_len}");
                     }
@@ -2486,11 +2994,21 @@ async fn main() {
                     if !records.is_empty() {
                         // PCB snapshots
                         let pcb_snaps = forensic_hooks::pcb::collect_for_records(&records);
-                        let _ = forensic_hooks::pcb::append_snapshots_ndjson("state/pcb_snaps.ndjson", &pcb_snaps);
+                        let _ = forensic_hooks::pcb::append_snapshots_ndjson(
+                            "state/pcb_snaps.ndjson",
+                            &pcb_snaps,
+                        );
 
                         // Optional raw dump
-                        if std::env::var("EDR_PCB_DUMP_RAW").map(|v| v == "1" || v.eq_ignore_ascii_case("true")).unwrap_or(false) {
-                            let _ = forensic_hooks::pcb::dump_records_raw(&records, "state/pcb_raw", false);
+                        if std::env::var("EDR_PCB_DUMP_RAW")
+                            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+                            .unwrap_or(false)
+                        {
+                            let _ = forensic_hooks::pcb::dump_records_raw(
+                                &records,
+                                "state/pcb_raw",
+                                false,
+                            );
                         }
 
                         // Feature/anomaly taggers
@@ -2504,9 +3022,13 @@ async fn main() {
                             let _ = store.flush();
 
                             for f in feats.iter().filter(|f| f.z.abs() > 2.0) {
-                                println!("🔎 feature: {}={} z={:.2} fam={}", f.key, f.value, f.z, f.family);
+                                println!(
+                                    "🔎 feature: {}={} z={:.2} fam={}",
+                                    f.key, f.value, f.z, f.family
+                                );
                             }
-                            let (_d2, _env_margin) = tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);
+                            let (_d2, _env_margin) =
+                                tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);
                             tag_records_from_krim(&mut records);
                         }
 
@@ -2514,11 +3036,18 @@ async fn main() {
                         match ioc::tag_records(&mut records) {
                             Ok(hits) => {
                                 for h in hits {
-                                    pb_introspect::add_or_update_pending(pb_introspect::PendingEvidence {
-                                        id: h.id, playbook_id: "ioc_layer".to_string(), ts: h.ts,
-                                        slot_id: h.slot, fact: h.fact, summary: h.summary,
-                                        tags: h.tags, ttl_sec: 900,
-                                    });
+                                    pb_introspect::add_or_update_pending(
+                                        pb_introspect::PendingEvidence {
+                                            id: h.id,
+                                            playbook_id: "ioc_layer".to_string(),
+                                            ts: h.ts,
+                                            slot_id: h.slot,
+                                            fact: h.fact,
+                                            summary: h.summary,
+                                            tags: h.tags,
+                                            ttl_sec: 900,
+                                        },
+                                    );
                                 }
                             }
                             Err(e) => eprintln!("⚠️ ioc::tag_records error: {e}"),
@@ -2529,8 +3058,12 @@ async fn main() {
                             let now = now_ts();
                             if let Ok(mut eng) = pb_engine().lock() {
                                 let out = pb_wiring::ingest_batch(&mut *eng, &records, now);
-                                for p in out.pending { pb_introspect::add_or_update_pending(p); }
-                                for h in out.hits { pb_introspect::push_hit(h); }
+                                for p in out.pending {
+                                    pb_introspect::add_or_update_pending(p);
+                                }
+                                for h in out.hits {
+                                    pb_introspect::push_hit(h);
+                                }
                             }
                         }
 
@@ -2541,36 +3074,55 @@ async fn main() {
                         for rec in &records {
                             let mut t = NormTelemetry::from(rec.clone());
                             let (cat, evt) = categorize_record(rec);
-                            t.category = cat; t.event = evt;
+                            t.category = cat;
+                            t.event = evt;
 
                             // Live graph
                             {
                                 let mut gsw = gs.write();
-                                let pid_u  = if rec.pid  < 0 { 0 } else { rec.pid  as u32 };
+                                let pid_u = if rec.pid < 0 { 0 } else { rec.pid as u32 };
                                 let ppid_u = if rec.ppid < 0 { 0 } else { rec.ppid as u32 };
                                 let comm = if !rec.binary_path.is_empty() {
                                     rec.binary_path.clone()
                                 } else {
-                                    rec.command_line.split_whitespace().next().unwrap_or("-").to_string()
+                                    rec.command_line
+                                        .split_whitespace()
+                                        .next()
+                                        .unwrap_or("-")
+                                        .to_string()
                                 };
                                 let score_f64 = (rec.risk_score.unwrap_or(0) as f64) / 100.0;
-                                let conf_f64  = (0.1 + score_f64).min(0.95);
+                                let conf_f64 = (0.1 + score_f64).min(0.95);
 
                                 match (t.category.as_str(), t.event.as_str()) {
                                     ("process", "exec") => {
-                                        gsw.ingest_exec(ppid_u, "-", pid_u, &comm, score_f64, conf_f64);
+                                        gsw.ingest_exec(
+                                            ppid_u, "-", pid_u, &comm, score_f64, conf_f64,
+                                        );
                                     }
                                     ("network", "connect") => {
-                                        let ip_port = rec.command_line
+                                        let ip_port = rec
+                                            .command_line
                                             .split_whitespace()
-                                            .find(|s| s.contains(':') && s.chars().any(|c| c.is_ascii_digit()))
+                                            .find(|s| {
+                                                s.contains(':')
+                                                    && s.chars().any(|c| c.is_ascii_digit())
+                                            })
                                             .unwrap_or("-");
-                                        gsw.ingest_connect(pid_u, &comm, ip_port, score_f64, conf_f64);
+                                        gsw.ingest_connect(
+                                            pid_u, &comm, ip_port, score_f64, conf_f64,
+                                        );
                                     }
                                     ("file", "write") | ("file", "open") => {
-                                        let path = if !rec.cwd.is_empty() { rec.cwd.clone() } else { "-".into() };
+                                        let path = if !rec.cwd.is_empty() {
+                                            rec.cwd.clone()
+                                        } else {
+                                            "-".into()
+                                        };
                                         let is_write = t.event == "write";
-                                        gsw.ingest_file_access(pid_u, &comm, &path, is_write, score_f64, conf_f64);
+                                        gsw.ingest_file_access(
+                                            pid_u, &comm, &path, is_write, score_f64, conf_f64,
+                                        );
                                     }
                                     _ => {}
                                 }
@@ -2583,8 +3135,12 @@ async fn main() {
                                     if let Ok(line) = serde_json::to_string(&alert) {
                                         let _ = at.send(line.clone());
 
-                                        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&line) {
-                                            if let Some(out) = incidents().lock().unwrap().ingest_alert_json(&v) {
+                                        if let Ok(v) =
+                                            serde_json::from_str::<serde_json::Value>(&line)
+                                        {
+                                            if let Some(out) =
+                                                incidents().lock().unwrap().ingest_alert_json(&v)
+                                            {
                                                 let _ = it.send(out.to_string());
                                             }
 
@@ -2595,23 +3151,46 @@ async fn main() {
                                                 .and_then(|x| x.as_str())
                                                 .unwrap_or("-")
                                                 .to_string();
-                                            let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
-                                            let user = v.pointer("/event/user").and_then(|x| x.as_str()).unwrap_or("unknown").to_string();
-                                            let cmd  = v.pointer("/event/cmdline")
+                                            let host = std::env::var("HOSTNAME")
+                                                .unwrap_or_else(|_| "localhost".into());
+                                            let user = v
+                                                .pointer("/event/user")
+                                                .and_then(|x| x.as_str())
+                                                .unwrap_or("unknown")
+                                                .to_string();
+                                            let cmd = v
+                                                .pointer("/event/cmdline")
                                                 .or_else(|| v.pointer("/event/command_line"))
                                                 .and_then(|x| x.as_str())
                                                 .unwrap_or("")
                                                 .to_string();
-                                            let ts   = v.get("ts").or_else(|| v.get("time")).or_else(|| v.get("timestamp"))
-                                                .and_then(|x| x.as_i64()).unwrap_or(now_ts() as i64) as u64;
-                                            let score = v.get("risk").and_then(|x| x.as_f64())
+                                            let ts = v
+                                                .get("ts")
+                                                .or_else(|| v.get("time"))
+                                                .or_else(|| v.get("timestamp"))
+                                                .and_then(|x| x.as_i64())
+                                                .unwrap_or(now_ts() as i64)
+                                                as u64;
+                                            let score = v
+                                                .get("risk")
+                                                .and_then(|x| x.as_f64())
                                                 .or_else(|| v.get("score").and_then(|x| x.as_f64()))
-                                                .unwrap_or(0.8).clamp(0.0, 1.5) as f32;
+                                                .unwrap_or(0.8)
+                                                .clamp(0.0, 1.5)
+                                                as f32;
 
-                                            let tags: Vec<String> = v.get("findings").and_then(|x| x.as_array())
-                                                .map(|arr| arr.iter()
-                                                    .filter_map(|f| f.get("label").and_then(|l| l.as_str()).map(|s| s.to_string()))
-                                                    .collect())
+                                            let tags: Vec<String> = v
+                                                .get("findings")
+                                                .and_then(|x| x.as_array())
+                                                .map(|arr| {
+                                                    arr.iter()
+                                                        .filter_map(|f| {
+                                                            f.get("label")
+                                                                .and_then(|l| l.as_str())
+                                                                .map(|s| s.to_string())
+                                                        })
+                                                        .collect()
+                                                })
                                                 .unwrap_or_default();
 
                                             let sig = Signal {
@@ -2622,11 +3201,17 @@ async fn main() {
                                                 user: Some(user),
                                                 host: Some(host),
                                                 cmd_prefix: Some(first_token(&cmd)),
-                                                parent: None, signer: None, hash: None, pid: None,
+                                                parent: None,
+                                                signer: None,
+                                                hash: None,
+                                                pid: None,
                                                 tags,
                                             };
-                                            let outs = decision_engine().lock().unwrap().ingest(sig);
-                                            for a in outs { emit_final_incident(a, &at, &it); }
+                                            let outs =
+                                                decision_engine().lock().unwrap().ingest(sig);
+                                            for a in outs {
+                                                emit_final_incident(a, &at, &it);
+                                            }
                                         }
                                     }
                                 }
@@ -2639,7 +3224,8 @@ async fn main() {
                         for rec in &records {
                             println!("🟡 Raw Telemetry: {:?}", rec);
                             let telemetry_data = TelemetryData::from_record(rec);
-                            let result: TrustResult = evaluate_and_dispatch_trust_score(&telemetry_data);
+                            let result: TrustResult =
+                                evaluate_and_dispatch_trust_score(&telemetry_data);
                             println!("✅ Trust Result: {:?}", result);
                             fanout_all(&result, &records, &telemetry_data);
                         }
@@ -2658,6 +3244,10 @@ async fn main() {
     }
 
     // --- keep the process alive until Ctrl-C (so the server keeps listening) ---
-    tokio::signal::ctrl_c().await.expect("failed to install Ctrl-C handler");
+    tokio::signal::ctrl_c()
+        .await
+        .expect("failed to install Ctrl-C handler");
     eprintln!("🛑 received Ctrl-C, shutting down…");
+    let _ = shutdown_tx.send(());
+    Ok(())
 }

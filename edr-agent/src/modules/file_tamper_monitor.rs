@@ -26,6 +26,7 @@ use crate::{
     telemetry_types::TelemetryOutput,
     telemetry_writer::write_telemetry_record,
     trust_hook::{submit_trust_event, TrustEvent},
+    utils::strnorm::cbytes_to_string_lossy,
     utils::time::now_ts,
 };
 
@@ -159,6 +160,16 @@ fn is_known_good(meta: &HashMap<String, String>, fp: &Fingerprints) -> bool {
 /* ------------------ eBPF bootstrap ------------------ */
 
 pub fn start_ebpf_file_tamper_watch() {
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return;
+    }
+
+    #[cfg(feature = "embed_bpf")]
     TAMPER_ONCE.call_once(|| {
         thread::spawn(move || {
             // Leak the eBPF object so perf buffers used in spawned threads remain valid.
@@ -346,9 +357,7 @@ fn handle_event_v2(evt: FileTamperEventV2) {
     let pid = evt.pid;
     let (ppid, uid) = get_ppid_and_uid(pid);
 
-    let path_str = String::from_utf8_lossy(&evt.file_path)
-        .trim_end_matches(char::from(0))
-        .to_string();
+    let path_str = cbytes_to_string_lossy(&evt.file_path);
 
     let cmdline = read_proc_value(pid, "cmdline").unwrap_or_else(|_| "unknown".into());
     let cwd = read_proc_value(pid, "cwd").unwrap_or_else(|_| "unknown".into());

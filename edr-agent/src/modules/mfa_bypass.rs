@@ -26,6 +26,7 @@ use crate::{
     telemetry_types::TelemetryOutput,
     telemetry_writer::write_telemetry_record,
     trust_hook::{generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent},
+    utils::strnorm::cbytes_to_string_lossy,
     utils::time::now_ts,
 };
 
@@ -250,76 +251,85 @@ pub fn start_mfa_bypass_monitor() {
 
 #[cfg(target_os = "linux")]
 pub async fn start_ebpf_mfa_trace() -> Result<()> {
-    // Load and leak the BPF object so spawned tasks can hold references safely
-    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mfa_bypass_monitor.bpf.o"))
-        .map_err(|e| anyhow!("load mfa_bypass_monitor.bpf.o: {e:?}"))?;
-    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return Ok(());
+    }
 
-    let program: &mut TracePoint = bpf
-        .program_mut("trace_mfa_anomaly")
-        .ok_or_else(|| anyhow!("program not found: trace_mfa_anomaly"))?
-        .try_into()?;
-    program.load()?;
-    program.attach("syscalls", "sys_enter_execve")?;
+    #[cfg(feature = "embed_bpf")]
+    {
+        // Load and leak the BPF object so spawned tasks can hold references safely
+        let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mfa_bypass_monitor.bpf.o"))
+            .map_err(|e| anyhow!("load mfa_bypass_monitor.bpf.o: {e:?}"))?;
+        let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
-    // Open perf array used by the eBPF program
-    let map = bpf
-        .map_mut("events")
-        .ok_or_else(|| anyhow!("map 'events' not found"))?;
-    let mut perf_array = AsyncPerfEventArray::try_from(map)
-        .context("AsyncPerfEventArray init failed for 'events'")?;
+        let program: &mut TracePoint = bpf
+            .program_mut("trace_mfa_anomaly")
+            .ok_or_else(|| anyhow!("program not found: trace_mfa_anomaly"))?
+            .try_into()?;
+        program.load()?;
+        program.attach("syscalls", "sys_enter_execve")?;
 
-    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
-    for cpu_id in cpus {
-        let mut buf = perf_array.open(cpu_id, None)?;
-        task::spawn(async move {
-            let mut buffers: Vec<BytesMut> = vec![BytesMut::with_capacity(1024); 16];
+        // Open perf array used by the eBPF program
+        let map = bpf
+            .map_mut("events")
+            .ok_or_else(|| anyhow!("map 'events' not found"))?;
+        let mut perf_array = AsyncPerfEventArray::try_from(map)
+            .context("AsyncPerfEventArray init failed for 'events'")?;
 
-            loop {
-                match buf.read_events(&mut buffers).await {
-                    Ok(events) => {
-                        for i in 0..events.read {
-                            let slot = &buffers[i];
-                            if slot.len() < std::mem::size_of::<MFABypassKernelEvent>() {
-                                continue;
-                            }
+        let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+        for cpu_id in cpus {
+            let mut buf = perf_array.open(cpu_id, None)?;
+            task::spawn(async move {
+                let mut buffers: Vec<BytesMut> = vec![BytesMut::with_capacity(1024); 16];
 
-                            let event = unsafe {
-                                std::ptr::read_unaligned(
-                                    slot.as_ptr() as *const MFABypassKernelEvent
-                                )
-                            };
+                loop {
+                    match buf.read_events(&mut buffers).await {
+                        Ok(events) => {
+                            for i in 0..events.read {
+                                let slot = &buffers[i];
+                                if slot.len() < std::mem::size_of::<MFABypassKernelEvent>() {
+                                    continue;
+                                }
 
-                            let comm = String::from_utf8_lossy(&event.comm)
-                                .trim_end_matches('\0')
-                                .to_string();
+                                let event = unsafe {
+                                    std::ptr::read_unaligned(
+                                        slot.as_ptr() as *const MFABypassKernelEvent
+                                    )
+                                };
 
-                            let details = String::from_utf8_lossy(&event.details)
-                                .trim_end_matches('\0')
-                                .to_string();
+                                let comm = cbytes_to_string_lossy(&event.comm);
 
-                            let enriched = MFABypassEvent {
-                                user: format!("uid_{}", event.uid),
-                                method: "execve".to_string(),
-                                reason: details.clone(),
-                                timestamp: now_ts(),
-                            };
+                                let details = cbytes_to_string_lossy(&event.details);
 
-                            // Push telemetry + trust
-                            push_mfa_telemetry(enriched.clone());
-                            println!("[eBPF MFA BYPASS] {} ({})", comm, details);
+                                let enriched = MFABypassEvent {
+                                    user: format!("uid_{}", event.uid),
+                                    method: "execve".to_string(),
+                                    reason: details.clone(),
+                                    timestamp: now_ts(),
+                                };
 
-                            // Additional trust/gnn metadata specific to the eBPF path
-                            let mut metadata = HashMap::new();
-                            metadata.insert("user".to_string(), enriched.user.clone());
-                            metadata.insert("method".to_string(), enriched.method.clone());
-                            metadata.insert("reason".to_string(), enriched.reason.clone());
-                            metadata
-                                .insert("timestamp".to_string(), enriched.timestamp.to_string());
-                            metadata.insert("category".into(), "auth".into());
-                            metadata.insert("source".into(), "ebpf".into());
+                                // Push telemetry + trust
+                                push_mfa_telemetry(enriched.clone());
+                                println!("[eBPF MFA BYPASS] {} ({})", comm, details);
 
-                            let trust_event = TrustEvent {
+                                // Additional trust/gnn metadata specific to the eBPF path
+                                let mut metadata = HashMap::new();
+                                metadata.insert("user".to_string(), enriched.user.clone());
+                                metadata.insert("method".to_string(), enriched.method.clone());
+                                metadata.insert("reason".to_string(), enriched.reason.clone());
+                                metadata.insert(
+                                    "timestamp".to_string(),
+                                    enriched.timestamp.to_string(),
+                                );
+                                metadata.insert("category".into(), "auth".into());
+                                metadata.insert("source".into(), "ebpf".into());
+
+                                let trust_event = TrustEvent {
                                 timestamp: enriched.timestamp,
                                 pid: event.pid as i32,
                                 ppid: event.pid as i32, // no PPID in event
@@ -341,40 +351,41 @@ pub async fn start_ebpf_mfa_trace() -> Result<()> {
                                 tags: Some(vec!["mfa_bypass".to_string(), "execve".to_string(), "auth".to_string()]),
                                 description: Some("Possible MFA bypass attempt via execve-based suspicious process".to_string()),
                             };
-                            submit_trust_event(trust_event);
+                                submit_trust_event(trust_event);
 
-                            let mut gnn_data = HashMap::new();
-                            gnn_data.insert(
-                                "vector".into(),
-                                format!(
-                                    "{{\"user\":\"{}\",\"method\":\"{}\",\"reason\":\"{}\"}}",
-                                    enriched.user, enriched.method, enriched.reason
-                                ),
-                            );
-                            gnn_data.insert("category".into(), "auth".into());
-                            gnn_data.insert("signal".into(), "execve_bypass".into());
-                            gnn_data.insert("confidence".into(), "0.85".into());
-                            gnn_data.insert("gnn_escalate".into(), "true".into());
-                            gnn_data.insert(
-                                "summary".into(),
-                                format!(
-                                    "Execve-based MFA bypass attempt by {} using {}",
-                                    enriched.user, comm
-                                ),
-                            );
-                            gnn_data.insert("replay_tag".into(), "mfa_execve".into());
+                                let mut gnn_data = HashMap::new();
+                                gnn_data.insert(
+                                    "vector".into(),
+                                    format!(
+                                        "{{\"user\":\"{}\",\"method\":\"{}\",\"reason\":\"{}\"}}",
+                                        enriched.user, enriched.method, enriched.reason
+                                    ),
+                                );
+                                gnn_data.insert("category".into(), "auth".into());
+                                gnn_data.insert("signal".into(), "execve_bypass".into());
+                                gnn_data.insert("confidence".into(), "0.85".into());
+                                gnn_data.insert("gnn_escalate".into(), "true".into());
+                                gnn_data.insert(
+                                    "summary".into(),
+                                    format!(
+                                        "Execve-based MFA bypass attempt by {} using {}",
+                                        enriched.user, comm
+                                    ),
+                                );
+                                gnn_data.insert("replay_tag".into(), "mfa_execve".into());
 
-                            push_to_gnn_vector_log(gnn_data.clone());
-                            let _ = store_replay_event(gnn_data);
+                                push_to_gnn_vector_log(gnn_data.clone());
+                                let _ = store_replay_event(gnn_data);
+                            }
+                        }
+                        Err(e) => {
+                            eprintln!("[eBPF MFA BYPASS] Error reading events: {:?}", e);
+                            break;
                         }
                     }
-                    Err(e) => {
-                        eprintln!("[eBPF MFA BYPASS] Error reading events: {:?}", e);
-                        break;
-                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     Ok(())

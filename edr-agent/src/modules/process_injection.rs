@@ -16,6 +16,7 @@ use crate::modules::replay_writer::store_replay_event;
 use crate::telemetry_types::{MemoryAnomalyType, TelemetryOutput};
 use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
 use crate::trust_hook::{generate_feature_vector, submit_trust_event, TrustEvent};
+use crate::utils::strnorm::cbytes_to_string_lossy;
 use crate::utils::time::now_ts;
 
 use sysinfo::{Pid, PidExt, ProcessExt, System, SystemExt};
@@ -35,69 +36,81 @@ pub struct InjectionEvent {
 
 #[cfg(target_os = "linux")]
 pub async fn start_process_injection_monitor() -> Result<()> {
-    // Load and leak BPF so perf buffers (spawned tasks) can outlive this function.
-    let tmp = Ebpf::load(include_bytes_aligned!("../ebpf/process_injection.bpf.o"))?;
-    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
-
-    // Attach tracepoint program
-    let program: &mut TracePoint = bpf
-        .program_mut("trace_inject_evt")
-        .ok_or_else(|| anyhow!("Missing tracepoint program: trace_inject_evt"))?
-        .try_into()?;
-
-    program.load()?;
-    program.attach("syscalls", "sys_enter_ptrace")?;
-
-    // Open perf array map
-    let mut events = AsyncPerfEventArray::try_from(
-        bpf.map_mut("EVENTS")
-            .ok_or_else(|| anyhow!("EVENTS map not found"))?,
-    )?;
-
-    // Iterate online CPUs and spawn readers
-    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
-    for cpu_id in cpus {
-        let mut buf = events
-            .open(cpu_id, None)
-            .with_context(|| format!("open perf buffer on CPU {}", cpu_id))?;
-
-        task::spawn(async move {
-            let mut buffers = vec![BytesMut::with_capacity(4096); 16];
-            println!("[🧠 InjectionMonitor] Listening on CPU {}", cpu_id);
-
-            loop {
-                match buf.read_events(&mut buffers).await {
-                    Ok(ev) => {
-                        for b in &mut buffers[..ev.read] {
-                            if !b.is_empty() {
-                                if let Some(evt) = parse_injection_event(&b[..]) {
-                                    if let Err(e) = handle_injection_event(evt).await {
-                                        eprintln!("[❌ InjectionMonitor] handler error: {e:?}");
-                                    }
-                                }
-                            }
-                            b.clear();
-                        }
-                        if ev.lost > 0 {
-                            eprintln!(
-                                "[⚠️ InjectionMonitor] Lost {} events on CPU {}",
-                                ev.lost, cpu_id
-                            );
-                        }
-                    }
-                    Err(e) => {
-                        eprintln!(
-                            "[❌ InjectionMonitor] Error reading CPU {}: {:?}",
-                            cpu_id, e
-                        );
-                        time::sleep(Duration::from_secs(2)).await;
-                    }
-                }
-            }
-        });
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return Ok(());
     }
 
-    Ok(())
+    #[cfg(feature = "embed_bpf")]
+    {
+        // Load and leak BPF so perf buffers (spawned tasks) can outlive this function.
+        let tmp = Ebpf::load(include_bytes_aligned!("../ebpf/process_injection.bpf.o"))?;
+        let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
+
+        // Attach tracepoint program
+        let program: &mut TracePoint = bpf
+            .program_mut("trace_inject_evt")
+            .ok_or_else(|| anyhow!("Missing tracepoint program: trace_inject_evt"))?
+            .try_into()?;
+
+        program.load()?;
+        program.attach("syscalls", "sys_enter_ptrace")?;
+
+        // Open perf array map
+        let mut events = AsyncPerfEventArray::try_from(
+            bpf.map_mut("EVENTS")
+                .ok_or_else(|| anyhow!("EVENTS map not found"))?,
+        )?;
+
+        // Iterate online CPUs and spawn readers
+        let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+        for cpu_id in cpus {
+            let mut buf = events
+                .open(cpu_id, None)
+                .with_context(|| format!("open perf buffer on CPU {}", cpu_id))?;
+
+            task::spawn(async move {
+                let mut buffers = vec![BytesMut::with_capacity(4096); 16];
+                println!("[🧠 InjectionMonitor] Listening on CPU {}", cpu_id);
+
+                loop {
+                    match buf.read_events(&mut buffers).await {
+                        Ok(ev) => {
+                            for b in &mut buffers[..ev.read] {
+                                if !b.is_empty() {
+                                    if let Some(evt) = parse_injection_event(&b[..]) {
+                                        if let Err(e) = handle_injection_event(evt).await {
+                                            eprintln!("[❌ InjectionMonitor] handler error: {e:?}");
+                                        }
+                                    }
+                                }
+                                b.clear();
+                            }
+                            if ev.lost > 0 {
+                                eprintln!(
+                                    "[⚠️ InjectionMonitor] Lost {} events on CPU {}",
+                                    ev.lost, cpu_id
+                                );
+                            }
+                        }
+                        Err(e) => {
+                            eprintln!(
+                                "[❌ InjectionMonitor] Error reading CPU {}: {:?}",
+                                cpu_id, e
+                            );
+                            time::sleep(Duration::from_secs(2)).await;
+                        }
+                    }
+                }
+            });
+        }
+
+        Ok(())
+    }
 }
 
 pub async fn handle_injection_event(evt: InjectionEvent) -> Result<()> {
@@ -107,9 +120,7 @@ pub async fn handle_injection_event(evt: InjectionEvent) -> Result<()> {
     let risk_score = 88.0_f32;
 
     // Convert summary from [u8; 256] to String
-    let summary = String::from_utf8_lossy(&evt.summary)
-        .trim_matches(char::from(0))
-        .to_string();
+    let summary = cbytes_to_string_lossy(&evt.summary);
 
     // Defaults
     let mut ppid = 0;

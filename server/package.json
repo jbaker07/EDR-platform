@@ -1,0 +1,16 @@
+{
+  "name": "edr-publish-service",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "express": "^4.21.2",
+    "pino": "^9.5.0"
+  }
+}

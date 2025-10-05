@@ -6,6 +6,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use chrono::{DateTime, TimeZone, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
+use std::borrow::Cow;
 
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::modules::auth_monitor::{scan_auth_activity, start_auth_monitor};
@@ -57,6 +58,8 @@ use crate::services::trust_engine_final::{evaluate_and_dispatch_trust_score, Tel
 use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::{write_telemetry_record, TelemetryWriter};
 use crate::utils::time::now_ts;
+
+use crate::pb_adapter;
 
 // 👇 keep this exactly where your type actually lives
 use crate::traits::FeatureObservation;
@@ -330,6 +333,8 @@ pub fn get_current_telemetry_snapshot(writer: Arc<Mutex<TelemetryWriter>>) -> Ve
     let all_outputs: Vec<TelemetryOutput> = run_sideeffect_monitors_and_collect();
 
     for output in all_outputs {
+        pb_adapter::emit_adapter_facts(&output);
+
         let mapped = output_to_map(&output);
 
         // Optional noisy debug — searchable in `strings` and visible at runtime
@@ -423,8 +428,17 @@ pub fn push_feature_as_signal(f: &FeatureObservation) {
     data.insert("feature_key".into(), f.key.clone());
     data.insert("feature_value".into(), f.value.to_string()); // stringify f64
 
+    let output = TelemetryOutput {
+        category: "feature".into(),
+        signal: "feature_observation".into(),
+        confidence: 0.1,
+        data,
+    };
+
+    pb_adapter::emit_adapter_facts(&output);
+
     // make it look like a normal output for downstreams
-    let mapped = data.clone();
+    let mapped = output_to_map(&output);
     persist_side_effect_kv(&mapped);
     push_to_gnn_vector_log(mapped);
 }
@@ -436,6 +450,8 @@ pub fn push_edr_event_record(
     _writer: &Arc<Mutex<TelemetryWriter>>,
     out: &crate::telemetry_types::TelemetryOutput,
 ) {
+    pb_adapter::emit_adapter_facts(out);
+
     let mapped = out.data.clone();
     persist_side_effect_kv(&mapped);
     crate::gnn_hook::push_to_gnn_vector_log(mapped);
@@ -459,6 +475,8 @@ pub fn log_user_sessions() {
             confidence: 0.9,
             data,
         };
+
+        pb_adapter::emit_adapter_facts(&output);
 
         let mapped = output_to_map(&output);
         if should_log_raw() {

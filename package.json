@@ -1,12 +1,22 @@
 {
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint --ext .ts,.tsx src",
+    "inject:fixtures": "ts-node dev/scripts/inject-fixtures.ts"
+  },
   "devDependencies": {
     "@types/chart.js": "^2.9.41",
+    "@types/node": "^22.9.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.21",
+    "eslint": "^9.15.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
@@ -14,12 +24,15 @@
     "chart.js": "^4.4.9",
     "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.5",
     "fuse.js": "^7.1.0",
+    "node-bloom-filter": "^1.0.3",
     "react": "^19.1.0",
     "react-chartjs-2": "^5.3.0",
     "react-force-graph": "^1.47.6",
     "react-force-graph-2d": "^1.27.1",
     "react-router-dom": "^7.5.0",
+    "redis": "^5.0.1",
     "vite": "^6.3.0",
     "web-vitals": "^4.2.4"
   }

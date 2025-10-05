@@ -29,6 +29,7 @@ use crate::{
     telemetry_types::TelemetryOutput,
     telemetry_writer::write_telemetry_record,
     trust_hook::{submit_trust_event, TrustEvent},
+    utils::strnorm::cbytes_to_string_lossy,
 };
 
 static ENCRYPTED_MONITOR_STARTED: AtomicBool = AtomicBool::new(false);
@@ -183,6 +184,13 @@ fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
 
 /// Start the eBPF entropy monitor (execve-side).
 pub fn start_encrypted_payload_monitor() {
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log("⚠️ embed_bpf disabled or encrypted_payload_monitor.bpf.o missing; skipping attach");
+        return;
+    }
+
+    #[cfg(feature = "embed_bpf")]
     ENCRYPTED_MONITOR_ONCE.call_once(|| {
         thread::spawn(move || {
             // Load & leak the BPF so any borrowed handles are 'static-safe in reader threads
@@ -267,9 +275,7 @@ pub fn start_encrypted_payload_monitor() {
                                             let ptr = slice.as_ptr() as *const EncryptedPayloadEvent;
                                             let evt = unsafe { ptr.read_unaligned() };
 
-                                            let fname = String::from_utf8_lossy(&evt.filename)
-                                                .trim_matches(char::from(0))
-                                                .to_string();
+                                            let fname = cbytes_to_string_lossy(&evt.filename);
 
                                             println!(
                                                 "[eBPF] Encrypted payload: pid={} ppid={} name={} entropy={}",

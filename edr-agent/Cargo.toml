@@ -23,16 +23,19 @@ path = "src/bin/fingerprint_gen.rs"
 
 [features]
 default = []
+embed_bpf = []
 ebpf = []
 with-ebpf = []
+with-ebpf-load = []
 
 [dependencies]
 # --- web / http ---
-axum = { version = "0.7", features = ["macros", "json", "http2"] }
+axum = "0.7"
 tower-http = { version = "0.5", features = ["cors", "fs", "set-header"] }
-tokio = { version = "1", features = ["rt-multi-thread","macros","time","fs", "signal" ]}
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "signal", "time"] }
 futures = "0.3"
 futures-util = "0.3.31"
+hyper = "1"
 
 # ❗️REMOVED the bad self-dependency:
 # forensic_hooks = { path = "../forensic_hooks" }
