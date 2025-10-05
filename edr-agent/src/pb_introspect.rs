@@ -5,6 +5,7 @@
 
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, VecDeque};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Mutex, OnceLock};
 use tokio::sync::broadcast;
 
@@ -57,6 +58,8 @@ fn store() -> &'static Mutex<Store> {
     })
 }
 
+static PLAYBOOKS_FIRED_TOTAL: AtomicU64 = AtomicU64::new(0);
+
 static PB_TX: OnceLock<broadcast::Sender<String>> = OnceLock::new();
 
 pub fn set_sse_sender(tx: broadcast::Sender<String>) {
@@ -73,6 +76,8 @@ pub fn push_hit(hit: PlaybookHit) {
         }
         s.hits.push_back(hit.clone());
     }
+    PLAYBOOKS_FIRED_TOTAL.fetch_add(1, Ordering::Relaxed);
+    crate::metrics::playbooks_fired_total().fetch_add(1, Ordering::Relaxed);
     // best-effort broadcast (JSON line per hit)
     if let Some(tx) = PB_TX.get() {
         let _ = tx.send(serde_json::to_string(&hit).unwrap_or_default());
@@ -135,4 +140,8 @@ pub fn metrics() -> PbMetrics {
         pb_hits_total: s.hits_total,
         pb_pending_current: s.pending.len(),
     }
+}
+
+pub fn playbooks_fired_total() -> u64 {
+    PLAYBOOKS_FIRED_TOTAL.load(Ordering::Relaxed)
 }

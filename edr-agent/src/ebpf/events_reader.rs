@@ -12,11 +12,13 @@ use std::{
     time::Duration,
 };
 
+use anyhow::{anyhow, Result as AnyResult};
 use bytes::BytesMut;
 use log::{info, trace, warn};
+use std::path::Path;
 
-use libbpf_rs::{MapType, ObjectBuilder, RingBufferBuilder};
 use aya::{maps::perf::PerfEventArray, util::online_cpus, Bpf};
+use libbpf_rs::{MapType, ObjectBuilder, RingBufferBuilder};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MapKind {
@@ -27,10 +29,10 @@ pub enum MapKind {
 /// A label for the source stream so callers can demux decoding.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Source {
-    EdrSys,    // edr_events_rb
-    Net,       // net_events
-    Wx,        // wx_events
-    FilePerf,  // events (PERF_EVENT_ARRAY)
+    EdrSys,   // edr_events_rb
+    Net,      // net_events
+    Wx,       // wx_events
+    FilePerf, // events (PERF_EVENT_ARRAY)
 }
 
 /* ---------------------------- path helpers ---------------------------- */
@@ -105,7 +107,10 @@ pub fn detect_events_map_kind(obj_path: &str) -> Result<MapKind, String> {
                 }
             });
         } else {
-            warn!("events_reader: override map '{}' not found in {}", over, obj_path);
+            warn!(
+                "events_reader: override map '{}' not found in {}",
+                over, obj_path
+            );
         }
     }
 
@@ -150,7 +155,13 @@ pub fn choose_single_ringbuf_name(obj: &libbpf_rs::Object) -> Option<String> {
             }
         }
     }
-    for n in ["wx_events", "net_events", "edr_events_rb", "EVENTS", "events"] {
+    for n in [
+        "wx_events",
+        "net_events",
+        "edr_events_rb",
+        "EVENTS",
+        "events",
+    ] {
         if obj.map(n).is_some() {
             return Some(n.to_string());
         }
@@ -207,7 +218,10 @@ pub fn start_ringbuf_reader_with_attach(
     attach: impl Fn(&mut libbpf_rs::Object) -> Result<(), String>,
     on_evt: impl Fn(&[u8]) + Send + 'static,
 ) -> Result<(), String> {
-    trace!("events_reader: opening ringbuf (with attach) object {}", obj_path);
+    trace!(
+        "events_reader: opening ringbuf (with attach) object {}",
+        obj_path
+    );
     let open = ObjectBuilder::default()
         .open_file(obj_path)
         .map_err(|e| format!("ObjectBuilder::open_file({obj_path}): {e}"))?;
@@ -290,7 +304,10 @@ pub fn start_perf_reader_with_attach(
                                 }
                                 if ev.lost > 0 {
                                     // bump global drop counter
-                                    crate::BPF_DROPS.fetch_add(ev.lost as u64, std::sync::atomic::Ordering::Relaxed);
+                                    crate::metrics::bpf_drops_total().fetch_add(
+                                        ev.lost as u64,
+                                        std::sync::atomic::Ordering::Relaxed,
+                                    );
                                     eprintln!("⚠️ lost {} events (cpu {})", ev.lost, cpu);
                                 }
                             }
@@ -299,20 +316,22 @@ pub fn start_perf_reader_with_attach(
                                 std::thread::sleep(Duration::from_millis(1));
                             }
                         }
-
                     }
                 });
             }
             Err(e) => eprintln!("open perf buffer cpu {} failed: {:?}", cpu, e),
         }
     }
-    info!("events_reader: subscribed PERF_EVENT_ARRAY map='{}'", map_name);
+    info!(
+        "events_reader: subscribed PERF_EVENT_ARRAY map='{}'",
+        map_name
+    );
     Ok(())
 }
 
 /* -------------------- DIRECT readers (pinned maps) -------------------- */
 
-use std::ffi::{c_void};
+use std::ffi::c_void;
 use std::os::fd::{AsRawFd, OwnedFd};
 
 /// Subscribe to a **pinned ringbuf map** (by *path*) without re-opening the BPF object.
@@ -333,6 +352,7 @@ pub fn start_ringbuf_reader_from_pinned(
     unsafe extern "C" fn rb_cb(ctx: *mut c_void, data: *mut c_void, size: u64) -> i32 {
         let cb = &mut *(ctx as *mut Box<dyn FnMut(&[u8]) + Send>);
         let slice = std::slice::from_raw_parts(data as *const u8, size as usize);
+        crate::metrics::events_in().fetch_add(1, std::sync::atomic::Ordering::Relaxed);
         cb(slice);
         0
     }
@@ -353,7 +373,9 @@ pub fn start_ringbuf_reader_from_pinned(
         )
     };
     if rb.is_null() {
-        unsafe { drop(Box::from_raw(ctx_ptr as *mut Box<dyn FnMut(&[u8]) + Send>)); }
+        unsafe {
+            drop(Box::from_raw(ctx_ptr as *mut Box<dyn FnMut(&[u8]) + Send>));
+        }
         return Err(format!(
             "ring_buffer__new({map_path}) failed: {}",
             std::io::Error::last_os_error()
@@ -398,20 +420,16 @@ pub fn start_ringbuf_reader_from_pinname(
 
 /* ---------- Shared libbpf PERF callbacks (pinned perf path) ---------- */
 
-unsafe extern "C" fn perf_sample_cb(
-    ctx: *mut c_void,
-    _cpu: i32,
-    data: *mut c_void,
-    size: u32,
-) {
+unsafe extern "C" fn perf_sample_cb(ctx: *mut c_void, _cpu: i32, data: *mut c_void, size: u32) {
     let cb = &mut *(ctx as *mut Box<dyn FnMut(&[u8]) + Send>);
     let slice = std::slice::from_raw_parts(data as *const u8, size as usize);
+    crate::metrics::events_in().fetch_add(1, std::sync::atomic::Ordering::Relaxed);
     cb(slice);
 }
 
 unsafe extern "C" fn perf_lost_cb(_ctx: *mut c_void, cpu: i32, lost_cnt: u64) {
     // count perf-buffer drops globally if the crate exposes the counter
-    crate::BPF_DROPS.fetch_add(lost_cnt, std::sync::atomic::Ordering::Relaxed);
+    crate::metrics::bpf_drops_total().fetch_add(lost_cnt, std::sync::atomic::Ordering::Relaxed);
     eprintln!("⚠️ perf lost events on cpu {cpu}: {lost_cnt}");
 }
 
@@ -447,7 +465,9 @@ pub fn start_perf_reader_from_pinned(
         )
     };
     if pb.is_null() {
-        unsafe { drop(Box::from_raw(ctx_ptr as *mut Box<dyn FnMut(&[u8]) + Send>)); }
+        unsafe {
+            drop(Box::from_raw(ctx_ptr as *mut Box<dyn FnMut(&[u8]) + Send>));
+        }
         return Err(format!(
             "perf_buffer__new({map_path}) failed: {}",
             std::io::Error::last_os_error()
@@ -486,33 +506,66 @@ pub fn start_perf_reader_from_pinname(
 
 /* -------------------- convenience: start all pinned readers -------------------- */
 
-/// Start all four pinned readers using the pin prefix (EDR_PIN_PREFIX or default).
+/// Start all four pinned readers using the provided pin prefix.
 /// You can either pass *per-map* callbacks, or use `start_all_pinned_readers_demux` below.
 pub fn start_all_pinned_readers(
+    pin_prefix: &str,
     on_edr_sys: impl Fn(&[u8]) + Send + 'static,
     on_net: impl Fn(&[u8]) + Send + 'static,
     on_wx: impl Fn(&[u8]) + Send + 'static,
     on_file_perf: impl Fn(&[u8]) + Send + 'static,
-) -> Result<(), String> {
-    start_ringbuf_reader_from_pinname("edr_events_rb", on_edr_sys)?;
-    start_ringbuf_reader_from_pinname("net_events", on_net)?;
-    start_ringbuf_reader_from_pinname("wx_events", on_wx)?;
-    start_perf_reader_from_pinname("events", on_file_perf)?;
+) -> AnyResult<()> {
+    let base = pin_prefix.trim_end_matches('/');
+    let hint_prefix = pin_prefix.to_string();
+
+    let ensure = |path: &str| -> AnyResult<()> {
+        if Path::new(path).exists() {
+            Ok(())
+        } else {
+            log::error!("pinned subscribe failed: missing {path}");
+            log::error!("hint: run edr_attach_any -p {hint_prefix}");
+            Err(anyhow!("missing pin: {path}"))
+        }
+    };
+
+    let edr_path = format!("{base}/edr_events_rb");
+    ensure(&edr_path)?;
+    log::info!("subscribe: events_reader source=ringbuf path={edr_path}");
+    start_ringbuf_reader_from_pinned(&edr_path, on_edr_sys).map_err(|e| anyhow!(e))?;
+
+    let net_path = format!("{base}/net_events");
+    ensure(&net_path)?;
+    log::info!("subscribe: net_flow_reader source=ringbuf path={net_path}");
+    start_ringbuf_reader_from_pinned(&net_path, on_net).map_err(|e| anyhow!(e))?;
+
+    let wx_path = format!("{base}/wx_events");
+    ensure(&wx_path)?;
+    log::info!("subscribe: wx_exec_reader source=ringbuf path={wx_path}");
+    start_ringbuf_reader_from_pinned(&wx_path, on_wx).map_err(|e| anyhow!(e))?;
+
+    let perf_path = format!("{base}/events");
+    ensure(&perf_path)?;
+    log::info!("subscribe: file_access_reader source=perf path={perf_path}");
+    start_perf_reader_from_pinned(&perf_path, on_file_perf).map_err(|e| anyhow!(e))?;
+
     Ok(())
 }
 
 /// Same as above, but gives you a single demuxed callback with a `Source` tag.
 pub fn start_all_pinned_readers_demux(
+    pin_prefix: &str,
     on: impl Fn(Source, &[u8]) + Send + Sync + 'static + Clone,
-) -> Result<(), String> {
+) -> AnyResult<()> {
     let on1 = on.clone();
-    start_ringbuf_reader_from_pinname("edr_events_rb", move |b| on1(Source::EdrSys, b))?;
     let on2 = on.clone();
-    start_ringbuf_reader_from_pinname("net_events", move |b| on2(Source::Net, b))?;
     let on3 = on.clone();
-    start_ringbuf_reader_from_pinname("wx_events", move |b| on3(Source::Wx, b))?;
-    start_perf_reader_from_pinname("events", move |b| on(Source::FilePerf, b))?;
-    Ok(())
+    start_all_pinned_readers(
+        pin_prefix,
+        move |b| on1(Source::EdrSys, b),
+        move |b| on2(Source::Net, b),
+        move |b| on3(Source::Wx, b),
+        move |b| on(Source::FilePerf, b),
+    )
 }
 
 /* -------------------- fanout: start object-attach readers -------------------- */
@@ -524,9 +577,9 @@ pub fn start_realtime_monitors(
     include_file_access: bool,
 ) {
     use crate::ebpf::container_exec_reader::start_container_exec_reader;
-    use crate::file_access_reader::start_file_access_reader;
     use crate::ebpf::proc_lifecycle_reader::start_proc_lifecycle_reader;
     use crate::ebpf::syscall_reader::start_syscall_reader;
+    use crate::file_access_reader::start_file_access_reader;
 
     eprintln!("[events_reader] starting realtime monitors (object attach)");
 

@@ -4,6 +4,7 @@ use crate::{
     logger::log,
     telemetry_writer::write_telemetry_record,
     trust_hook::{submit_trust_event, TrustEvent},
+    utils::strnorm::cbytes_to_string_lossy,
 };
 use aya::{
     include_bytes_aligned,
@@ -37,8 +38,7 @@ pub struct EntropyEvent {
 }
 
 fn cstr_trim(bytes: &[u8]) -> String {
-    let n = bytes.iter().position(|&b| b == 0).unwrap_or(bytes.len());
-    String::from_utf8_lossy(&bytes[..n]).to_string()
+    cbytes_to_string_lossy(bytes)
 }
 
 /* Return (category, event) for attach */
@@ -81,6 +81,13 @@ pub fn start_entropy_exec_monitor() {
         return;
     }
 
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log("⚠️ embed_bpf disabled or entropy_exec_monitor.bpf.o missing; skipping attach");
+        return;
+    }
+
+    #[cfg(feature = "embed_bpf")]
     thread::spawn(|| {
         // Leak BPF so perf-buffer readers can outlive this stack frame.
         let mut tmp = match Bpf::load(include_bytes_aligned!(concat!(

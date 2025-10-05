@@ -1,0 +1,23 @@
+[
+  {
+    "id": "os-default",
+    "type": "opensearch",
+    "enabled": true,
+    "url": "http://127.0.0.1:9200",
+    "index": "edr-correlated"
+  },
+  {
+    "id": "splunk-default",
+    "type": "splunk_hec",
+    "enabled": false,
+    "url": "https://splunk:8088",
+    "token": "$ENV{SPLUNK_HEC_TOKEN}"
+  },
+  {
+    "id": "syslog-local",
+    "type": "syslog_cef",
+    "enabled": false,
+    "host": "127.0.0.1",
+    "port": 514
+  }
+]

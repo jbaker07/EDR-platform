@@ -1,15 +1,15 @@
 // src/detectors/rules_hot.rs
+use anyhow::{Context, Result};
+use std::sync::Mutex;
 use std::{
     fs,
     path::{Path, PathBuf},
     time::{Duration, Instant, SystemTime},
 };
-use anyhow::{Context, Result};
-use std::sync::Mutex;
 
-use forensic_hooks::detect::{Detector, Finding};
-use forensic_hooks::detect::rules::RulesDetector;
-use forensic_hooks::detect::types::NormalizedAlert;
+use crate::detect::rules::RulesDetector;
+use crate::detect::types::NormalizedAlert;
+use crate::detect::{Detector, Finding};
 
 /// Inner mutable state guarded by a Mutex for hot-reload.
 struct HotRulesInner {
@@ -49,7 +49,9 @@ impl HotRulesDetector {
         }
         inner.last_check = Instant::now();
 
-        let Ok(meta) = fs::metadata(&inner.path) else { return };
+        let Ok(meta) = fs::metadata(&inner.path) else {
+            return;
+        };
         let Ok(mtime) = meta.modified() else { return };
 
         let should_reload = inner.last_mtime.map(|m| mtime > m).unwrap_or(true);
@@ -69,7 +71,9 @@ impl HotRulesDetector {
 }
 
 impl Detector for HotRulesDetector {
-    fn name(&self) -> &'static str { "rules_hot" }
+    fn name(&self) -> &'static str {
+        "rules_hot"
+    }
 
     fn score(&self, e: &NormalizedAlert, features: &[f64]) -> Vec<Finding> {
         let mut guard = self.inner.lock().expect("rules_hot mutex poisoned");

@@ -28,6 +28,7 @@ use crate::{
     telemetry_types::{ContainerExecEvent, TelemetryOutput},
     telemetry_writer::write_telemetry_record,
     trust_hook::{submit_trust_event, TrustEvent},
+    utils::strnorm::{cbytes_to_string_lossy, sanitize_tag_value},
 };
 
 static CONTAINER_MONITOR_STARTED: AtomicBool = AtomicBool::new(false);
@@ -121,34 +122,46 @@ fn attach_all_programs(bpf: &mut Ebpf) -> anyhow::Result<()> {
 }
 
 pub async fn start_ebpf_container_exec_monitor() -> anyhow::Result<()> {
-    // src/modules/ -> ../ebpf/...
-    let mut tmp = Ebpf::load(include_bytes_aligned!(
-        "../ebpf/container_exec_monitor.bpf.o"
-    ))?;
-    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
-    attach_all_programs(bpf)?;
-
-    /// Prefer PERF first (if present)
-    if let Some(map) = bpf.take_map("CONTAINER_EXEC_EVENTS") {
-        attach_perf_owned(map)?;
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log_scoped(
+            "container_monitor",
+            "⚠️ embed_bpf disabled or container_exec_monitor.bpf.o missing; skipping attach",
+        );
         return Ok(());
     }
 
-    // Ringbuf options used by our CO-RE obj
-    if let Some(map) = bpf.take_map("container_exec_") {
-        attach_ringbuf_owned(map)?;
-        return Ok(());
-    }
+    #[cfg(feature = "embed_bpf")]
+    {
+        // src/modules/ -> ../ebpf/...
+        let mut tmp = Ebpf::load(include_bytes_aligned!(
+            "../ebpf/container_exec_monitor.bpf.o"
+        ))?;
+        let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
+        attach_all_programs(bpf)?;
 
-    // Very generic fallback some objs use
-    if let Some(map) = bpf.take_map("events") {
-        attach_ringbuf_owned(map)?;
-        return Ok(());
-    }
+        /// Prefer PERF first (if present)
+        if let Some(map) = bpf.take_map("CONTAINER_EXEC_EVENTS") {
+            attach_perf_owned(map)?;
+            return Ok(());
+        }
 
-    return Err(anyhow!(
-        "no container-exec map found (tried CONTAINER_EXEC_EVENTS, container_exec_, events)"
-    ));
+        // Ringbuf options used by our CO-RE obj
+        if let Some(map) = bpf.take_map("container_exec_") {
+            attach_ringbuf_owned(map)?;
+            return Ok(());
+        }
+
+        // Very generic fallback some objs use
+        if let Some(map) = bpf.take_map("events") {
+            attach_ringbuf_owned(map)?;
+            return Ok(());
+        }
+
+        return Err(anyhow!(
+            "no container-exec map found (tried CONTAINER_EXEC_EVENTS, container_exec_, events)"
+        ));
+    }
 }
 
 // ---------------------- PERF readers (owned + async) ----------------------
@@ -177,12 +190,8 @@ fn attach_perf_owned(map: Map) -> anyhow::Result<()> {
                             let raw: ContainerExecEventRaw =
                                 unsafe { std::ptr::read_unaligned(b.as_ptr() as *const _) };
 
-                            let comm = String::from_utf8_lossy(&raw.comm)
-                                .trim_end_matches('\0')
-                                .to_string();
-                            let filename = String::from_utf8_lossy(&raw.filename)
-                                .trim_end_matches('\0')
-                                .to_string();
+                            let comm = cbytes_to_string_lossy(&raw.comm);
+                            let filename = cbytes_to_string_lossy(&raw.filename);
 
                             let container_event = ContainerExecEvent {
                                 pid: raw.pid,
@@ -215,6 +224,8 @@ fn attach_perf_owned(map: Map) -> anyhow::Result<()> {
                             record.insert("gnn_escalate".into(), "true".into());
                             record.insert("replay_tag".into(), "container_exec_detected".into());
 
+                            let comm_tag_value = sanitize_tag_value(&container_event.comm);
+
                             let trust_event = TrustEvent::new_full(
                                 container_event.timestamp,
                                 container_event.pid as i32,
@@ -231,7 +242,7 @@ fn attach_perf_owned(map: Map) -> anyhow::Result<()> {
                                 Some(vec![
                                     "container".into(),
                                     "exec".into(),
-                                    container_event.comm.clone(),
+                                    comm_tag_value.clone(),
                                 ]),
                                 Some(7.0),
                             );
@@ -288,12 +299,8 @@ fn attach_ringbuf_owned(map: Map) -> anyhow::Result<()> {
             let raw: ContainerExecEventRingRaw =
                 unsafe { std::ptr::read_unaligned(data.as_ptr() as *const _) };
 
-            let comm = String::from_utf8_lossy(&raw.comm)
-                .trim_end_matches('\0')
-                .to_string();
-            let filename = String::from_utf8_lossy(&raw.filename)
-                .trim_end_matches('\0')
-                .to_string();
+            let comm = cbytes_to_string_lossy(&raw.comm);
+            let filename = cbytes_to_string_lossy(&raw.filename);
             let ts_sec = raw.ts / 1_000_000_000; // ns → s
 
             let container_event = ContainerExecEvent {
@@ -330,6 +337,8 @@ fn attach_ringbuf_owned(map: Map) -> anyhow::Result<()> {
             record.insert("gnn_escalate".into(), "true".into());
             record.insert("replay_tag".into(), "container_exec_detected".into());
 
+            let comm_tag_value = sanitize_tag_value(&container_event.comm);
+
             let trust_event = TrustEvent::new_full(
                 container_event.timestamp,
                 container_event.pid as i32,
@@ -343,11 +352,7 @@ fn attach_ringbuf_owned(map: Map) -> anyhow::Result<()> {
                 "container_monitor".into(),
                 Some("Containerized process execution detected".into()),
                 Some("container::exec".into()),
-                Some(vec![
-                    "container".into(),
-                    "exec".into(),
-                    container_event.comm.clone(),
-                ]),
+                Some(vec!["container".into(), "exec".into(), comm_tag_value]),
                 Some(7.0),
             );
             submit_trust_event(trust_event);

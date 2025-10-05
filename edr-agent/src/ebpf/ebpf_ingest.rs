@@ -10,8 +10,12 @@ use forensic_hooks::modules::net_watch;
 use forensic_hooks::telemetry::TelemetryRecord;
 use forensic_hooks::telemetry_types::TelemetryOutput; // ok if unused
 use forensic_hooks::telemetry_writer::{write_telemetry_record, TelemetryWriter};
+use forensic_hooks::utils::strnorm::{cbytes_to_string_lossy, sanitize_tag_value};
 
-use crate::ebpf::ebpf_bridge::{edr_event_to_output, edr_event_to_record, EdREvent};
+use crate::ebpf::ebpf_bridge::{
+    edr_event_to_output, edr_event_to_record, populate_proc_fields, EdREvent,
+};
+use crate::pb_adapter;
 
 /// Legacy syscall event wire-size we still see in the wild (v0).
 const V0_WIRE_SIZE: usize = 312;
@@ -41,16 +45,11 @@ fn read_u64_le(b: &[u8], off: usize) -> Option<u64> {
 #[inline]
 fn cstr_from(buf: &[u8], start: usize) -> Option<String> {
     let s = buf.get(start..)?;
-    let end = s.iter().position(|&b| b == 0).unwrap_or(s.len());
-    Some(String::from_utf8_lossy(&s[..end]).to_string())
+    Some(cbytes_to_string_lossy(s))
 }
 #[inline]
 fn trim_cbuf(buf: &[u8]) -> String {
-    if let Some(pos) = buf.iter().position(|&b| b == 0) {
-        String::from_utf8_lossy(&buf[..pos]).to_string()
-    } else {
-        String::from_utf8_lossy(buf).to_string()
-    }
+    cbytes_to_string_lossy(buf)
 }
 
 /// ---------- NEW: generic counting wrapper (no direct dependency on crate statics) ----------
@@ -112,7 +111,11 @@ pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Optio
             // Fast path: exact match with host struct
             let mut e: EdREvent = unsafe { std::mem::zeroed() };
             unsafe {
-                std::ptr::copy_nonoverlapping(bytes.as_ptr(), &mut e as *mut EdREvent as *mut u8, want);
+                std::ptr::copy_nonoverlapping(
+                    bytes.as_ptr(),
+                    &mut e as *mut EdREvent as *mut u8,
+                    want,
+                );
             }
 
             // Build TelemetryOutput robustly.
@@ -129,6 +132,8 @@ pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Optio
                     return None;
                 }
             };
+
+            pb_adapter::emit_adapter_facts(&out);
 
             // Normalize a few common signal name variants
             let normalized_signal = match out.signal.as_str() {
@@ -162,12 +167,13 @@ pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Optio
         // IMPORTANT: parse by offsets; don't depend on a local struct size.
         n if n == V0_WIRE_SIZE => {
             // Layout: pid(0..4) ppid(4..8) uid(8..12) pad(12..16) ts(16..24) comm(24..40) filename(40..296) trailing(296..312)
-            let pid  = read_u32_le(bytes, 0).unwrap_or(0);
+            let pid = read_u32_le(bytes, 0).unwrap_or(0);
             let ppid = read_u32_le(bytes, 4).unwrap_or(0);
-            let uid  = read_u32_le(bytes, 8).unwrap_or(0);
-            let ts   = read_u64_le(bytes, 16).unwrap_or(0);
-            let comm = String::from_utf8_lossy(&bytes[24..40]).trim_end_matches('\0').to_string();
-            let filename = String::from_utf8_lossy(&bytes[40..296]).trim_end_matches('\0').to_string();
+            let uid = read_u32_le(bytes, 8).unwrap_or(0);
+            let ts = read_u64_le(bytes, 16).unwrap_or(0);
+            let comm = cbytes_to_string_lossy(&bytes[24..40]);
+            let filename = cbytes_to_string_lossy(&bytes[40..296]);
+            let comm_tag = format!("comm:{}", sanitize_tag_value(&comm));
 
             let mut m: HashMap<String, String> = HashMap::new();
             m.insert("pid".into(), pid.to_string());
@@ -181,10 +187,18 @@ pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Optio
             m.insert("confidence".into(), format!("{:.2}", 0.50));
             m.insert("tag0".into(), "process_exec_v0".into());
 
+            let adapter_out = TelemetryOutput {
+                category: "process".into(),
+                signal: "process::exec".into(),
+                confidence: 0.50,
+                data: m.clone(),
+            };
+            pb_adapter::emit_adapter_facts(&adapter_out);
+
             write_telemetry_record(m.clone());
             push_to_gnn_vector_log(m);
 
-            Some(TelemetryRecord {
+            let mut record = TelemetryRecord {
                 timestamp: ts,
                 pid: pid as i32,
                 ppid: ppid as i32,
@@ -193,15 +207,14 @@ pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Optio
                 command_line: String::new(),
                 cwd: String::new(),
                 env_vars: None,
-                tags: vec!["process".into(), "process::exec".into(), format!("comm:{comm}")],
+                tags: vec!["process".into(), "process::exec".into(), comm_tag],
                 risk_score: None,
-            })
-        }
+            };
 
-        // Fallback demux for frames that still arrive on edr_events_rb:
-        // 48B → network/tcp_state; 332B/376B → file_access.
-        other if other == 48 => on_edr_event_net_only(bytes, writer),
-        other if other == 332 || other == 376 => on_edr_event_file_only(bytes, writer),
+            populate_proc_fields(&mut record);
+
+            Some(record)
+        }
 
         other => {
             let n = MISMATCH_WARNED.fetch_add(1, Ordering::Relaxed);
@@ -211,7 +224,42 @@ pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Optio
                     other, want
                 );
             }
-            None
+            use std::time::{SystemTime, UNIX_EPOCH};
+            let ts: u64 = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map(|d| d.as_secs())
+                .unwrap_or(0);
+
+            let mut m: HashMap<String, String> = HashMap::new();
+            m.insert("category".into(), "process".into());
+            m.insert("signal".into(), "ebpf_unknown_frame".into());
+            m.insert("wire_len".into(), other.to_string());
+            let adapter_out = TelemetryOutput {
+                category: "process".into(),
+                signal: "ebpf_unknown_frame".into(),
+                confidence: 0.0,
+                data: m.clone(),
+            };
+            pb_adapter::emit_adapter_facts(&adapter_out);
+            write_telemetry_record(m.clone());
+            push_to_gnn_vector_log(m);
+
+            let mut record = TelemetryRecord {
+                timestamp: ts,
+                pid: 0,
+                ppid: 0,
+                uid: 0,
+                binary_path: String::new(),
+                command_line: String::new(),
+                cwd: String::new(),
+                env_vars: None,
+                tags: vec!["process".into(), "ebpf_unknown_frame".into()],
+                risk_score: None,
+            };
+
+            populate_proc_fields(&mut record);
+
+            Some(record)
         }
     }
 }
@@ -222,7 +270,10 @@ pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Optio
 /// instances so `writer.append(rec)` will bump EVENTS_ACCEPTED.
 
 /// net_events (ringbuf): commonly ~48B tcp_state frames.
-pub fn on_edr_event_net_only(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Option<TelemetryRecord> {
+pub fn on_edr_event_net_only(
+    bytes: &[u8],
+    writer: &Arc<Mutex<TelemetryWriter>>,
+) -> Option<TelemetryRecord> {
     if bytes.len() < 32 {
         return None;
     }
@@ -253,6 +304,14 @@ pub fn on_edr_event_net_only(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>)
     m.insert("confidence".into(), format!("{:.2}", 0.95));
     m.insert("tag0".into(), "tcp_state".into());
 
+    let adapter_out = TelemetryOutput {
+        category: "network".into(),
+        signal: "tcp_state".into(),
+        confidence: 0.95,
+        data: m.clone(),
+    };
+    pb_adapter::emit_adapter_facts(&adapter_out);
+
     write_telemetry_record(m.clone());
     push_to_gnn_vector_log(m);
 
@@ -262,7 +321,7 @@ pub fn on_edr_event_net_only(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>)
     }
 
     // Build TelemetryRecord (best-effort mapping)
-    Some(TelemetryRecord {
+    let mut record = TelemetryRecord {
         timestamp: ts_ns,
         pid: pid as i32,
         ppid: 0,
@@ -278,11 +337,18 @@ pub fn on_edr_event_net_only(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>)
             format!("fam:{fam}"),
         ],
         risk_score: None,
-    })
+    };
+
+    populate_proc_fields(&mut record);
+
+    Some(record)
 }
 
 /// wx_events (ringbuf): write/exec stream; sizes vary, path as trailing C string.
-pub fn on_edr_event_wx_only(bytes: &[u8], _writer: &Arc<Mutex<TelemetryWriter>>) -> Option<TelemetryRecord> {
+pub fn on_edr_event_wx_only(
+    bytes: &[u8],
+    _writer: &Arc<Mutex<TelemetryWriter>>,
+) -> Option<TelemetryRecord> {
     if bytes.len() < 24 {
         return None;
     }
@@ -294,7 +360,11 @@ pub fn on_edr_event_wx_only(bytes: &[u8], _writer: &Arc<Mutex<TelemetryWriter>>)
     let flags = read_u32_le(bytes, 20).unwrap_or(0);
     let path = cstr_from(bytes, 24).unwrap_or_default();
 
-    let (category, signal) = if kind == 2 { ("exec", "execve") } else { ("file", "write") };
+    let (category, signal) = if kind == 2 {
+        ("exec", "execve")
+    } else {
+        ("file", "write")
+    };
 
     // emit JSON for existing sinks
     let mut m: HashMap<String, String> = HashMap::new();
@@ -308,11 +378,19 @@ pub fn on_edr_event_wx_only(bytes: &[u8], _writer: &Arc<Mutex<TelemetryWriter>>)
     m.insert("confidence".into(), format!("{:.2}", 0.90));
     m.insert("tag0".into(), signal.into());
 
+    let adapter_out = TelemetryOutput {
+        category: category.into(),
+        signal: signal.into(),
+        confidence: 0.90,
+        data: m.clone(),
+    };
+    pb_adapter::emit_adapter_facts(&adapter_out);
+
     write_telemetry_record(m.clone());
     push_to_gnn_vector_log(m);
 
     // Build TelemetryRecord
-    Some(TelemetryRecord {
+    let mut record = TelemetryRecord {
         timestamp: ts_ns,
         pid: pid as i32,
         ppid: 0, // unknown without extra fields
@@ -323,11 +401,18 @@ pub fn on_edr_event_wx_only(bytes: &[u8], _writer: &Arc<Mutex<TelemetryWriter>>)
         env_vars: None,
         tags: vec![category.into(), signal.into()],
         risk_score: None,
-    })
+    };
+
+    populate_proc_fields(&mut record);
+
+    Some(record)
 }
 
 /// events (PERF_EVENT_ARRAY): file access samples, often ~332/376B with fixed path buffer.
-pub fn on_edr_event_file_only(bytes: &[u8], _writer: &Arc<Mutex<TelemetryWriter>>) -> Option<TelemetryRecord> {
+pub fn on_edr_event_file_only(
+    bytes: &[u8],
+    _writer: &Arc<Mutex<TelemetryWriter>>,
+) -> Option<TelemetryRecord> {
     if bytes.len() < 40 {
         return None;
     }
@@ -356,11 +441,19 @@ pub fn on_edr_event_file_only(bytes: &[u8], _writer: &Arc<Mutex<TelemetryWriter>
     m.insert("confidence".into(), format!("{:.2}", 0.85));
     m.insert("tag0".into(), "file_access".into());
 
+    let adapter_out = TelemetryOutput {
+        category: "file".into(),
+        signal: "file_access".into(),
+        confidence: 0.85,
+        data: m.clone(),
+    };
+    pb_adapter::emit_adapter_facts(&adapter_out);
+
     write_telemetry_record(m.clone());
     push_to_gnn_vector_log(m);
 
     // Build TelemetryRecord
-    Some(TelemetryRecord {
+    let mut record = TelemetryRecord {
         timestamp: ts_ns,
         pid: pid as i32,
         ppid: 0, // not present in this minimal header
@@ -376,5 +469,9 @@ pub fn on_edr_event_file_only(bytes: &[u8], _writer: &Arc<Mutex<TelemetryWriter>
             format!("ret:{ret}"),
         ],
         risk_score: None,
-    })
+    };
+
+    populate_proc_fields(&mut record);
+
+    Some(record)
 }

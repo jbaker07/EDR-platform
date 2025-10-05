@@ -15,6 +15,8 @@
   const statNodes   = document.getElementById('statNodes');
   const statEdges   = document.getElementById('statEdges');
   const statDrops   = document.getElementById('statDrops');
+  const publishRibbonEl = document.getElementById('publishRibbon');
+  const publishTargetsEl = document.getElementById('publishTargets');
 
   // Tabs / screens (optional)
   const screenDash  = document.getElementById('screenDash');
@@ -141,6 +143,134 @@
     return e;
   }
 
+  const queryTemplates = {
+    opensearch: (cgrp) => `edr.correlation_group_id:"${cgrp}" OR correlation_group_id:"${cgrp}"`,
+    splunk:     (cgrp) => `index=edr_correlated_v2 correlation_group_id="${cgrp}" OR Cgrp_s="${cgrp}"`,
+    sentinel:   (cgrp) => `EDR_CorrelatedV2_CL | where Cgrp_s == "${cgrp}"`
+  };
+
+  const openCopyMenus = new Set();
+
+  function truncateId(id) {
+    if (!id) return '—';
+    return id.length > 8 ? `${id.slice(0, 4)}…${id.slice(-2)}` : id;
+  }
+
+  function buildSequenceLane(multistage = [], activeIdx = 0) {
+    if (!multistage.length) return el('span', 'text-slate-500', '—');
+    const wrap = el('div', 'flex gap-0.5 items-center');
+    multistage.forEach((stage, idx) => {
+      const block = el('span', 'text-xs', '▮');
+      if (idx === activeIdx) {
+        block.classList.add('text-sky-300');
+      } else {
+        block.classList.add('text-slate-500');
+      }
+      block.title = `${stage.stage} · score ${stage.score ?? 0}`;
+      wrap.appendChild(block);
+    });
+    return wrap;
+  }
+
+  function renderSinks(sinks = {}) {
+    const wrap = el('div', 'flex gap-1 mt-1');
+    const defs = [
+      { key: 'opensearch', label: 'OSD', tip: 'OpenSearch index' },
+      { key: 'splunk', label: 'SPL', tip: 'Splunk HEC event' },
+      { key: 'sentinel', label: 'SENT', tip: 'Microsoft Sentinel custom table' },
+      { key: 'thehive', label: 'HIVE', tip: 'TheHive alert' }
+    ];
+    defs.forEach((def) => {
+      if (sinks[def.key] == null) return;
+      const pill = el('span', 'px-1.5 py-0.5 rounded text-[10px] border border-slate-700/60');
+      pill.textContent = def.label;
+      pill.title = def.tip;
+      if (sinks[def.key]) {
+        pill.classList.add('bg-emerald-600/40', 'text-emerald-200');
+      } else {
+        pill.classList.add('bg-slate-800/40', 'text-slate-400');
+      }
+      wrap.appendChild(pill);
+    });
+    if (!wrap.children.length) {
+      wrap.appendChild(el('span', 'text-[11px] text-slate-500', 'no sinks'));
+    }
+    return wrap;
+  }
+
+  function copyQuery(target, cgrp) {
+    const builder = queryTemplates[target];
+    if (!builder) return;
+    const query = builder(cgrp);
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(query).catch(() => {
+        window.prompt('Copy query', query); // eslint-disable-line no-alert
+      });
+    } else {
+      window.prompt('Copy query', query); // eslint-disable-line no-alert
+    }
+  }
+
+  function closeAllCopyMenus() {
+    openCopyMenus.forEach((menu) => {
+      menu.classList.add('hidden');
+    });
+    openCopyMenus.clear();
+  }
+
+  function createCopyMenu(cgrp) {
+    const wrap = el('div', 'relative inline-block text-xs');
+    if (!cgrp) {
+      wrap.appendChild(el('span', 'text-slate-500', '—'));
+      return wrap;
+    }
+    const toggle = el('button', 'px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700', 'Copy');
+    const menu = el('div', 'hidden absolute right-0 mt-1 min-w-[120px] rounded border border-slate-700 bg-slate-900 shadow-lg z-10');
+    ['opensearch', 'splunk', 'sentinel'].forEach((target) => {
+      const item = el('button', 'block w-full text-left px-3 py-1 hover:bg-slate-800', target);
+      item.onclick = (evt) => {
+        evt.stopPropagation();
+        copyQuery(target, cgrp);
+        closeAllCopyMenus();
+      };
+      menu.appendChild(item);
+    });
+    toggle.onclick = (evt) => {
+      evt.stopPropagation();
+      if (menu.classList.contains('hidden')) {
+        closeAllCopyMenus();
+        menu.classList.remove('hidden');
+        openCopyMenus.add(menu);
+        document.addEventListener('click', closeAllCopyMenus, { once: true });
+      } else {
+        menu.classList.add('hidden');
+        openCopyMenus.delete(menu);
+      }
+    };
+    wrap.appendChild(toggle);
+    wrap.appendChild(menu);
+    return wrap;
+  }
+
+  function renderInlineEdges(edges) {
+    const graphDiv = document.getElementById('ex_graph');
+    if (!graphDiv) return;
+    if (!edges || !edges.length) {
+      graphDiv.innerHTML = '<div class="text-xs text-slate-500">Select an alert to view correlation edges.</div>';
+      return;
+    }
+    const list = document.createElement('ul');
+    list.className = 'text-xs space-y-1';
+    edges.forEach((edge) => {
+      const item = document.createElement('li');
+      item.textContent = `${edge.kind || 'edge'} ${edge.src || '?'} → ${edge.dst || '?'}`;
+      item.title = edge.vendor_source || '';
+      list.appendChild(item);
+    });
+    graphDiv.innerHTML = '';
+    graphDiv.appendChild(list);
+  }
+
   // ---------- Tabs ----------
   function activateTab(which) {
     if (!screenDash || !screenInt || !tabDash || !tabInt) return;
@@ -238,6 +368,35 @@
     } catch { /* ignore */ }
   }
   setInterval(pollMetrics, 5000); pollMetrics();
+
+  async function refreshPublishStatus() {
+    if (!publishTargetsEl) return;
+    try {
+      const res = await fetch('/api/connectors/status', { cache: 'no-store' });
+      if (!res.ok) throw new Error(`${res.status}`);
+      const body = await res.json();
+      const list = Array.isArray(body.connectors) ? body.connectors : [];
+      const enabled = list.filter((c) => c.enabled);
+      if (!enabled.length) {
+        publishTargetsEl.textContent = 'none';
+        publishRibbonEl?.classList.add('opacity-60');
+        publishRibbonEl?.classList.remove('text-rose-300');
+      } else {
+        publishTargetsEl.textContent = enabled
+          .map((c) => c.name || c.id || c.type)
+          .join(', ');
+        publishRibbonEl?.classList.remove('opacity-60');
+        publishRibbonEl?.classList.remove('text-rose-300');
+      }
+    } catch (err) {
+      publishTargetsEl.textContent = 'offline';
+      publishRibbonEl?.classList.remove('opacity-60');
+      publishRibbonEl?.classList.add('text-rose-300');
+    }
+  }
+
+  setInterval(refreshPublishStatus, 30000);
+  refreshPublishStatus();
 
   // ---------- Alerts table ----------
   if (sevEl)   sevEl.onchange   = renderTable;
@@ -664,4 +823,125 @@
       document.head.appendChild(s);
     });
   }
+})();
+
+// ===================== Integration Filters & OpenSearch helpers =====================
+(function () {
+  // Point this to your OpenSearch or to your backend proxy (recommended in browsers).
+  // If you expose a proxy like /api/os/*, set OS_BASE = "" and call fetch("/api/os/_search", ...).
+  const OS_BASE = "http://127.0.0.1:9200";
+  const INDEX   = "events-all-*"; // single, normalized stream (deduped, no overlap)
+
+  function minutesAgoISO(mins) {
+    const d = new Date(Date.now() - mins * 60 * 1000);
+    return d.toISOString();
+  }
+  function selectedSources() {
+    return Array.from(document.querySelectorAll('input[name="source"]:checked')).map(cb => cb.value);
+  }
+  function selectedMinutes() {
+    const v = parseInt(document.getElementById("minutes")?.value || "60", 10);
+    return isFinite(v) && v > 0 ? v : 60;
+  }
+
+  // Build a reusable bool.filter array for any OpenSearch query
+  function buildMustFilters(extra = []) {
+    const mins = selectedMinutes();
+    const sources = selectedSources();
+
+    const base = [
+      { range: { "@timestamp": { gte: minutesAgoISO(mins) } } }
+    ];
+    if (sources.length) {
+      base.push({ terms: { "fields.source": sources } });
+    }
+    return base.concat(extra || []);
+  }
+
+  // Convenience: wrap POST to _search
+  async function osSearch(body, path = `/${INDEX}/_search`) {
+    const res = await fetch(`${OS_BASE}${path}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`${res.status} ${res.statusText} ${text}`);
+    }
+    return res.json();
+  }
+
+  // Optional: tiny demo queries you can call from existing code
+  async function searchRecentSample(limit = 25) {
+    const body = {
+      size: limit,
+      sort: [{ "@timestamp": { order: "desc" } }],
+      query: { bool: { filter: buildMustFilters() } },
+      _source: ["@timestamp","fields.source","rule.name","source.ip","destination.ip","event.severity","risk.score"]
+    };
+    return osSearch(body);
+  }
+  async function topAlertNames(size = 10) {
+    const body = {
+      size: 0,
+      query: { bool: { filter: buildMustFilters() } },
+      aggs: { top_names: { terms: { field: "rule.name.keyword", size, missing: "(missing)" } } }
+    };
+    return osSearch(body);
+  }
+
+  function setStatus(msg) {
+    const el = document.getElementById("osStatus");
+    if (el) el.textContent = msg || "";
+  }
+
+  async function refreshHookIfPresent() {
+    // If your existing app exposes a global refresh, call it so the new filters apply.
+    // Otherwise, we don't do anything intrusive here.
+    try {
+      if (typeof window.refreshData === "function") {
+        setStatus("updating…");
+        await window.refreshData(); // your page’s existing fetch/render
+        setStatus(`updated ${new Date().toLocaleTimeString()}`);
+      }
+    } catch (e) {
+      console.error(e);
+      setStatus(`error: ${e.message}`);
+    }
+  }
+
+  // Wire up events
+  function wireUI() {
+    const btn = document.getElementById("refreshBtn");
+    if (btn && !btn.dataset.wired) {
+      btn.addEventListener("click", refreshHookIfPresent);
+      btn.dataset.wired = "1";
+    }
+    // Optional: refresh when checkboxes/time change
+    document.querySelectorAll('input[name="source"]').forEach(cb => {
+      if (!cb.dataset.wired) {
+        cb.addEventListener("change", refreshHookIfPresent);
+        cb.dataset.wired = "1";
+      }
+    });
+    const mins = document.getElementById("minutes");
+    if (mins && !mins.dataset.wired) {
+      mins.addEventListener("change", refreshHookIfPresent);
+      mins.dataset.wired = "1";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", wireUI);
+
+  // Expose a small, stable API for the rest of the app
+  window.integrationFilters = {
+    getIndexPattern: () => INDEX,
+    getSelectedSources: selectedSources,
+    getSelectedMinutes: selectedMinutes,
+    buildMustFilters,          // -> use inside your existing OpenSearch queries
+    osSearch,                  // -> optional direct search helper
+    searchRecentSample,        // -> optional demo
+    topAlertNames,             // -> optional demo
+  };
 })();

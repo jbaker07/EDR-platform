@@ -30,6 +30,7 @@ use crate::telemetry_writer::{push_memory_telemetry, write_telemetry_record};
 use crate::trust_hook::{
     generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
 };
+use crate::utils::strnorm::cbytes_to_string_lossy;
 use crate::utils::time::now_ts;
 
 lazy_static! {
@@ -280,8 +281,7 @@ pub async fn start_privilege_monitor() -> Result<()> {
 
 #[cfg(target_os = "linux")]
 fn trim_nul(buf: &[u8]) -> String {
-    let s = String::from_utf8_lossy(buf);
-    s.trim_end_matches('\0').to_string()
+    cbytes_to_string_lossy(buf)
 }
 
 #[cfg(target_os = "linux")]
@@ -496,7 +496,7 @@ pub fn scan_privilege_activity() -> Vec<TelemetryOutput> {
 /// Context-aware gating logic for cred dump events
 pub fn cred_dump_context_gater(evt: &CredDumpEvent) -> bool {
     // Add real logic here as needed
-    let summary_str = String::from_utf8_lossy(&evt.summary).to_lowercase();
+    let summary_str = cbytes_to_string_lossy(&evt.summary).to_lowercase();
 
     // Example: bypass known benign openat on temp dirs
     if summary_str.contains("/tmp/") || summary_str.contains("ld.so.cache") {
@@ -518,6 +518,16 @@ pub fn spawn_cred_dump_monitor() {
             StdMutex::new(StdHashMap::new());
     }
 
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return;
+    }
+
+    #[cfg(feature = "embed_bpf")]
     thread::spawn(move || {
         // Load and leak so child reader threads can safely borrow maps
         let mut tmp = match Ebpf::load(include_bytes_aligned!("../ebpf/cred_dump_monitor.bpf.o")) {
@@ -590,8 +600,7 @@ pub fn spawn_cred_dump_monitor() {
                                                 continue;
                                             }
 
-                                            let summary =
-                                                String::from_utf8_lossy(&evt.summary).to_string();
+                                            let summary = cbytes_to_string_lossy(&evt.summary);
                                             let ts = now_ts();
                                             let risk_score = 85.0;
 

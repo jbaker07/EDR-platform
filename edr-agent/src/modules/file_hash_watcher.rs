@@ -28,6 +28,7 @@ use crate::telemetry::TelemetryRecord;
 use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::{write_telemetry_record, TelemetryWriter};
 use crate::trust_hook::{submit_trust_event, TrustEvent};
+use crate::utils::strnorm::cbytes_to_string_lossy;
 use crate::utils::time::now_ts;
 
 static FILE_HASH_FOUND: AtomicBool = AtomicBool::new(false);
@@ -561,9 +562,7 @@ fn parse_file_access_event(buf: &[u8]) -> Option<TelemetryOutput> {
         _ => "unknown",
     };
 
-    let file_path = String::from_utf8_lossy(&evt.file_path)
-        .trim_end_matches(char::from(0))
-        .to_string();
+    let file_path = cbytes_to_string_lossy(&evt.file_path);
 
     let mut data = HashMap::new();
     data.insert("timestamp".into(), evt.timestamp.to_string());

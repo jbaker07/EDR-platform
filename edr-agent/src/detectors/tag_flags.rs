@@ -2,8 +2,8 @@
 use serde_json::json;
 use serde_json::Value;
 
-use forensic_hooks::detect::{Detector, Finding};
-use forensic_hooks::detect::types::NormalizedAlert;
+use crate::detect::types::NormalizedAlert;
+use crate::detect::{Detector, Finding};
 
 pub struct TagFlagsDetector;
 
@@ -38,7 +38,9 @@ fn has_flag(attrs: &Value, key: &str) -> bool {
 }
 
 impl Detector for TagFlagsDetector {
-    fn name(&self) -> &'static str { "tag_flags" }
+    fn name(&self) -> &'static str {
+        "tag_flags"
+    }
 
     // NormalizedAlert is the event type the Detector trait expects in your codebase
     fn score(&self, e: &NormalizedAlert, _features: &[f64]) -> Vec<Finding> {

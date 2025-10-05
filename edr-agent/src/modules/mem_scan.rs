@@ -26,6 +26,7 @@ use crate::telemetry::mark_memory_anomaly_detected;
 use crate::telemetry_types::{MemoryAnomalyType, TelemetryEvent, TelemetryOutput};
 use crate::telemetry_writer::write_telemetry_record;
 use crate::trust_hook::{submit_trust_event, TrustEvent};
+use crate::utils::strnorm::cbytes_to_string_lossy;
 use crate::utils::time::now_ts;
 use crate::utils::utils::{parse_proc_maps, parse_proc_maps_for_addr};
 
@@ -46,229 +47,241 @@ pub struct MemEvent {
 
 #[cfg(target_os = "linux")]
 pub async fn start_ebpf_mem_scan() -> Result<()> {
-    // Load and leak to satisfy 'static in spawned tasks (perf readers borrow from map/bpf)
-    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mem_scan.bpf.o"))
-        .map_err(|e| anyhow!("load mem_scan.bpf.o: {e:?}"))?;
-    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
-
-    // mmap
+    #[cfg(not(feature = "embed_bpf"))]
     {
-        let prog: &mut TracePoint = bpf
-            .program_mut("trace_mmap")
-            .ok_or_else(|| anyhow!("program not found: trace_mmap"))?
-            .try_into()?;
-        prog.load()?;
-        prog.attach("syscalls", "sys_enter_mmap")?;
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return Ok(());
     }
 
-    // execve
+    #[cfg(feature = "embed_bpf")]
     {
-        let prog: &mut TracePoint = bpf
-            .program_mut("trace_execve_mem")
-            .ok_or_else(|| anyhow!("program not found: trace_execve_mem"))?
-            .try_into()?;
-        prog.load()?;
-        prog.attach("syscalls", "sys_enter_execve")?;
-    }
+        // Load and leak to satisfy 'static in spawned tasks (perf readers borrow from map/bpf)
+        let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/mem_scan.bpf.o"))
+            .map_err(|e| anyhow!("load mem_scan.bpf.o: {e:?}"))?;
+        let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
-    // Open perf array used by the eBPF program
-    let map = bpf
-        .map_mut("events")
-        .ok_or_else(|| anyhow!("map 'events' not found"))?;
-    let mut perf_array =
-        AsyncPerfEventArray::try_from(map).context("AsyncPerfEventArray init for 'events'")?;
+        // mmap
+        {
+            let prog: &mut TracePoint = bpf
+                .program_mut("trace_mmap")
+                .ok_or_else(|| anyhow!("program not found: trace_mmap"))?
+                .try_into()?;
+            prog.load()?;
+            prog.attach("syscalls", "sys_enter_mmap")?;
+        }
 
-    // Preload fingerprints once (shared by tasks)
-    let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
+        // execve
+        {
+            let prog: &mut TracePoint = bpf
+                .program_mut("trace_execve_mem")
+                .ok_or_else(|| anyhow!("program not found: trace_execve_mem"))?
+                .try_into()?;
+            prog.load()?;
+            prog.attach("syscalls", "sys_enter_execve")?;
+        }
 
-    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
-    for cpu_id in cpus {
-        let mut buf = perf_array.open(cpu_id, None)?;
-        let fingerprints = fingerprints.clone();
+        // Open perf array used by the eBPF program
+        let map = bpf
+            .map_mut("events")
+            .ok_or_else(|| anyhow!("map 'events' not found"))?;
+        let mut perf_array =
+            AsyncPerfEventArray::try_from(map).context("AsyncPerfEventArray init for 'events'")?;
 
-        task::spawn(async move {
-            // prealloc a few slots for perf batches
-            let mut event_buf = vec![BytesMut::with_capacity(1024); 8];
+        // Preload fingerprints once (shared by tasks)
+        let fingerprints = load_fingerprints_from_disk("src/modules/telemetry_fingerprint.json");
 
-            loop {
-                match buf.read_events(&mut event_buf).await {
-                    Ok(events) if events.read > 0 => {
-                        for i in 0..events.read {
-                            let slot = &event_buf[i];
-                            if slot.len() < std::mem::size_of::<MemEvent>() {
-                                continue;
-                            }
-                            // Safe due to size check; kernel writes packed struct
-                            let evt = unsafe {
-                                std::ptr::read_unaligned(slot.as_ptr() as *const MemEvent)
-                            };
+        let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+        for cpu_id in cpus {
+            let mut buf = perf_array.open(cpu_id, None)?;
+            let fingerprints = fingerprints.clone();
 
-                            let comm = String::from_utf8_lossy(&evt.comm)
-                                .trim_end_matches('\0')
-                                .to_string();
-                            let details = String::from_utf8_lossy(&evt.details)
-                                .trim_end_matches('\0')
-                                .to_string();
+            task::spawn(async move {
+                // prealloc a few slots for perf batches
+                let mut event_buf = vec![BytesMut::with_capacity(1024); 8];
 
-                            let pid = evt.pid as i32;
-                            let addr = evt.addr;
+                loop {
+                    match buf.read_events(&mut event_buf).await {
+                        Ok(events) if events.read > 0 => {
+                            for i in 0..events.read {
+                                let slot = &event_buf[i];
+                                if slot.len() < std::mem::size_of::<MemEvent>() {
+                                    continue;
+                                }
+                                // Safe due to size check; kernel writes packed struct
+                                let evt = unsafe {
+                                    std::ptr::read_unaligned(slot.as_ptr() as *const MemEvent)
+                                };
 
-                            // Enrich memory region by address (best effort)
-                            let region = parse_proc_maps_for_addr(pid, addr as u64);
+                                let comm = cbytes_to_string_lossy(&evt.comm);
+                                let details = cbytes_to_string_lossy(&evt.details);
 
-                            // Build a suppression probe map using matched fields
-                            let mut fp_map = HashMap::new();
-                            if let Some(FingerprintEntry::MemoryRegion { path, perms, .. }) =
-                                region.as_ref()
-                            {
-                                fp_map.insert("path".into(), path.clone());
-                                fp_map.insert("perms".into(), perms.clone());
-                            } else {
-                                fp_map.insert("path".into(), "[anon]".into());
-                                fp_map.insert("perms".into(), "---".into());
-                            }
-                            fp_map.insert("pid".into(), pid.to_string());
-                            fp_map.insert("category".into(), "mem_scan".into());
+                                let pid = evt.pid as i32;
+                                let addr = evt.addr;
 
-                            if is_known_good(&fp_map, &fingerprints) {
-                                log(&format!(
+                                // Enrich memory region by address (best effort)
+                                let region = parse_proc_maps_for_addr(pid, addr as u64);
+
+                                // Build a suppression probe map using matched fields
+                                let mut fp_map = HashMap::new();
+                                if let Some(FingerprintEntry::MemoryRegion {
+                                    path, perms, ..
+                                }) = region.as_ref()
+                                {
+                                    fp_map.insert("path".into(), path.clone());
+                                    fp_map.insert("perms".into(), perms.clone());
+                                } else {
+                                    fp_map.insert("path".into(), "[anon]".into());
+                                    fp_map.insert("perms".into(), "---".into());
+                                }
+                                fp_map.insert("pid".into(), pid.to_string());
+                                fp_map.insert("category".into(), "mem_scan".into());
+
+                                if is_known_good(&fp_map, &fingerprints) {
+                                    log(&format!(
                                     "[🧠 mem_scan] Suppressed fingerprinted region for PID {pid}: {}",
                                     fp_map.get("path").cloned().unwrap_or_default()
                                 ));
-                                continue;
-                            }
+                                    continue;
+                                }
 
-                            // Telemetry record
-                            let mut data = HashMap::new();
-                            data.insert("pid".into(), pid.to_string());
-                            data.insert("uid".into(), evt.uid.to_string());
-                            data.insert("ppid".into(), evt.ppid.to_string());
-                            data.insert("addr".into(), format!("0x{:x}", addr));
-                            data.insert("comm".into(), comm.clone());
-                            data.insert("description".into(), details.clone());
+                                // Telemetry record
+                                let mut data = HashMap::new();
+                                data.insert("pid".into(), pid.to_string());
+                                data.insert("uid".into(), evt.uid.to_string());
+                                data.insert("ppid".into(), evt.ppid.to_string());
+                                data.insert("addr".into(), format!("0x{:x}", addr));
+                                data.insert("comm".into(), comm.clone());
+                                data.insert("description".into(), details.clone());
 
-                            if let Some(FingerprintEntry::MemoryRegion {
-                                path,
-                                perms,
-                                offset,
-                                size,
-                                entropy,
-                                exec_capable,
-                                trusted_uid,
-                                category,
-                                ..
-                            }) = &region
-                            {
-                                data.insert("path".into(), path.clone());
-                                data.insert("perms".into(), perms.clone());
-                                // NOTE: these are &Option<T>; deref first, then unwrap_or(...)
-                                data.insert("offset".into(), (*offset).unwrap_or(0).to_string());
-                                data.insert("size".into(), (*size).unwrap_or(0).to_string());
-                                data.insert(
-                                    "entropy".into(),
-                                    format!("{:.2}", (*entropy).unwrap_or(0.0)),
-                                );
-                                data.insert(
-                                    "exec_capable".into(),
-                                    (*exec_capable).unwrap_or(false).to_string(),
-                                );
-                                // trusted_uid is a plain u32 in your fingerprint struct
-                                data.insert("trusted_uid".into(), (*trusted_uid).to_string());
-                                data.insert("category".into(), category.clone());
-                            } else {
-                                data.insert("path".into(), "[unknown]".into());
-                                data.insert("perms".into(), "---".into());
-                                data.insert("category".into(), "memory".into());
-                            }
+                                if let Some(FingerprintEntry::MemoryRegion {
+                                    path,
+                                    perms,
+                                    offset,
+                                    size,
+                                    entropy,
+                                    exec_capable,
+                                    trusted_uid,
+                                    category,
+                                    ..
+                                }) = &region
+                                {
+                                    data.insert("path".into(), path.clone());
+                                    data.insert("perms".into(), perms.clone());
+                                    // NOTE: these are &Option<T>; deref first, then unwrap_or(...)
+                                    data.insert(
+                                        "offset".into(),
+                                        (*offset).unwrap_or(0).to_string(),
+                                    );
+                                    data.insert("size".into(), (*size).unwrap_or(0).to_string());
+                                    data.insert(
+                                        "entropy".into(),
+                                        format!("{:.2}", (*entropy).unwrap_or(0.0)),
+                                    );
+                                    data.insert(
+                                        "exec_capable".into(),
+                                        (*exec_capable).unwrap_or(false).to_string(),
+                                    );
+                                    // trusted_uid is a plain u32 in your fingerprint struct
+                                    data.insert("trusted_uid".into(), (*trusted_uid).to_string());
+                                    data.insert("category".into(), category.clone());
+                                } else {
+                                    data.insert("path".into(), "[unknown]".into());
+                                    data.insert("perms".into(), "---".into());
+                                    data.insert("category".into(), "memory".into());
+                                }
 
-                            // Side effects
-                            let mut gnn = data.clone();
-                            gnn.insert("signal".into(), "ebpf_mem_trace".into());
-                            gnn.insert("gnn_escalate".into(), "true".into());
-                            gnn.insert("replay_tag".into(), "mem_rwx".into());
-                            gnn.insert("confidence".into(), "0.45".into());
-                            push_to_gnn_vector_log(gnn.clone());
-                            let _ = store_replay_event(gnn);
+                                // Side effects
+                                let mut gnn = data.clone();
+                                gnn.insert("signal".into(), "ebpf_mem_trace".into());
+                                gnn.insert("gnn_escalate".into(), "true".into());
+                                gnn.insert("replay_tag".into(), "mem_rwx".into());
+                                gnn.insert("confidence".into(), "0.45".into());
+                                push_to_gnn_vector_log(gnn.clone());
+                                let _ = store_replay_event(gnn);
 
-                            let mut wtr = data.clone();
-                            wtr.insert("timestamp".into(), now_ts().to_string());
-                            wtr.insert("event_type".into(), "ebpf_mem_trace".into());
-                            write_telemetry_record(wtr);
+                                let mut wtr = data.clone();
+                                wtr.insert("timestamp".into(), now_ts().to_string());
+                                wtr.insert("event_type".into(), "ebpf_mem_trace".into());
+                                write_telemetry_record(wtr);
 
-                            // Choose anomaly based on matched fields
-                            let anomaly = if let Some(FingerprintEntry::MemoryRegion {
-                                exec_capable,
-                                perms,
-                                path,
-                                ..
-                            }) = region.as_ref()
-                            {
-                                if (*exec_capable).unwrap_or(false) && perms.contains('w') {
-                                    MemoryAnomalyType::RWXMapping
-                                } else if path.contains("[anon]") {
-                                    MemoryAnomalyType::AnonymousExec
+                                // Choose anomaly based on matched fields
+                                let anomaly = if let Some(FingerprintEntry::MemoryRegion {
+                                    exec_capable,
+                                    perms,
+                                    path,
+                                    ..
+                                }) = region.as_ref()
+                                {
+                                    if (*exec_capable).unwrap_or(false) && perms.contains('w') {
+                                        MemoryAnomalyType::RWXMapping
+                                    } else if path.contains("[anon]") {
+                                        MemoryAnomalyType::AnonymousExec
+                                    } else {
+                                        MemoryAnomalyType::HighEntropy
+                                    }
                                 } else {
                                     MemoryAnomalyType::HighEntropy
-                                }
-                            } else {
-                                MemoryAnomalyType::HighEntropy
-                            };
+                                };
 
-                            let binary_for_event = region
-                                .as_ref()
-                                .and_then(|r| match r {
-                                    FingerprintEntry::MemoryRegion { path, .. } => {
-                                        Some(path.clone())
-                                    }
-                                    _ => None,
-                                })
-                                .unwrap_or_else(|| "[unknown]".into());
+                                let binary_for_event = region
+                                    .as_ref()
+                                    .and_then(|r| match r {
+                                        FingerprintEntry::MemoryRegion { path, .. } => {
+                                            Some(path.clone())
+                                        }
+                                        _ => None,
+                                    })
+                                    .unwrap_or_else(|| "[unknown]".into());
 
-                            let trust_event = TrustEvent {
-                                timestamp: now_ts(),
-                                pid,
-                                ppid: evt.ppid as i32,
-                                uid: evt.uid,
-                                binary_path: binary_for_event,
-                                command_line: comm.clone(),
-                                cwd: "/".into(),
-                                anomaly_type: format!("{anomaly:?}"),
-                                component: "memory".into(),
-                                metadata: data.clone(),
-                                risk_score: 6.0,
-                                source_module: "mem_scan".into(),
-                                decay_context: Some("memory_behavior".into()),
-                                module: Some("mem_scan".into()),
-                                signal: Some("ebpf_mem_trace".into()),
-                                signal_type: Some("memory::ebpf".into()),
-                                score: Some(6.0),
-                                raw_score: Some(6.0),
-                                tags: Some(vec![
-                                    "memory".into(),
-                                    "ebpf".into(),
-                                    "rwx_mapping".into(),
-                                ]),
-                                description: Some(details.clone()),
-                            };
-                            submit_trust_event(trust_event);
+                                let trust_event = TrustEvent {
+                                    timestamp: now_ts(),
+                                    pid,
+                                    ppid: evt.ppid as i32,
+                                    uid: evt.uid,
+                                    binary_path: binary_for_event,
+                                    command_line: comm.clone(),
+                                    cwd: "/".into(),
+                                    anomaly_type: format!("{anomaly:?}"),
+                                    component: "memory".into(),
+                                    metadata: data.clone(),
+                                    risk_score: 6.0,
+                                    source_module: "mem_scan".into(),
+                                    decay_context: Some("memory_behavior".into()),
+                                    module: Some("mem_scan".into()),
+                                    signal: Some("ebpf_mem_trace".into()),
+                                    signal_type: Some("memory::ebpf".into()),
+                                    score: Some(6.0),
+                                    raw_score: Some(6.0),
+                                    tags: Some(vec![
+                                        "memory".into(),
+                                        "ebpf".into(),
+                                        "rwx_mapping".into(),
+                                    ]),
+                                    description: Some(details.clone()),
+                                };
+                                submit_trust_event(trust_event);
 
-                            MEMORY_ANOMALY_FOUND.store(true, Ordering::Relaxed);
-                            mark_memory_anomaly_detected();
+                                MEMORY_ANOMALY_FOUND.store(true, Ordering::Relaxed);
+                                mark_memory_anomaly_detected();
 
-                            log(&format!(
-                                "[📦 Memory eBPF] PID={} UID={} ADDR=0x{:x} DESC='{}'",
-                                pid, evt.uid, addr, details
-                            ));
+                                log(&format!(
+                                    "[📦 Memory eBPF] PID={} UID={} ADDR=0x{:x} DESC='{}'",
+                                    pid, evt.uid, addr, details
+                                ));
+                            }
+                        }
+                        Ok(_) => continue,
+                        Err(e) => {
+                            eprintln!("Error reading memory perf events (CPU {cpu_id}): {:?}", e);
+                            break;
                         }
                     }
-                    Ok(_) => continue,
-                    Err(e) => {
-                        eprintln!("Error reading memory perf events (CPU {cpu_id}): {:?}", e);
-                        break;
-                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     Ok(())
@@ -573,139 +586,152 @@ struct HollowEvent {
 
 #[cfg(target_os = "linux")]
 pub async fn start_ebpf_proc_hollow_scan() -> Result<()> {
-    // Load and leak as above to satisfy spawned task lifetimes
-    let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/proc_hollow_monitor.bpf.o"))
-        .map_err(|e| anyhow!("load proc_hollow_monitor.bpf.o: {e:?}"))?;
-    let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return Ok(());
+    }
 
-    let prog: &mut TracePoint = bpf
-        .program_mut("trace_proc_hollow")
-        .ok_or_else(|| anyhow!("Missing program: trace_proc_hollow"))?
-        .try_into()?;
-    prog.load()?;
-    prog.attach("syscalls", "sys_enter_mmap")?;
+    #[cfg(feature = "embed_bpf")]
+    {
+        // Load and leak as above to satisfy spawned task lifetimes
+        let mut tmp = Ebpf::load(include_bytes_aligned!("../ebpf/proc_hollow_monitor.bpf.o"))
+            .map_err(|e| anyhow!("load proc_hollow_monitor.bpf.o: {e:?}"))?;
+        let bpf: &'static mut Ebpf = Box::leak(Box::new(tmp));
 
-    let map = bpf
-        .map_mut("EVENTS")
-        .ok_or_else(|| anyhow!("map 'EVENTS' not found"))?;
-    let mut perf_array =
-        AsyncPerfEventArray::try_from(map).context("AsyncPerfEventArray init for 'EVENTS'")?;
+        let prog: &mut TracePoint = bpf
+            .program_mut("trace_proc_hollow")
+            .ok_or_else(|| anyhow!("Missing program: trace_proc_hollow"))?
+            .try_into()?;
+        prog.load()?;
+        prog.attach("syscalls", "sys_enter_mmap")?;
 
-    let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
-    for cpu_id in cpus {
-        let mut buf = perf_array.open(cpu_id, None)?;
-        task::spawn(async move {
-            let mut event_buf = vec![BytesMut::with_capacity(1024); 8];
+        let map = bpf
+            .map_mut("EVENTS")
+            .ok_or_else(|| anyhow!("map 'EVENTS' not found"))?;
+        let mut perf_array =
+            AsyncPerfEventArray::try_from(map).context("AsyncPerfEventArray init for 'EVENTS'")?;
 
-            loop {
-                match buf.read_events(&mut event_buf).await {
-                    Ok(events) if events.read > 0 => {
-                        for i in 0..events.read {
-                            let slot = &event_buf[i];
-                            if slot.len() < std::mem::size_of::<HollowEvent>() {
-                                continue;
-                            }
-                            let event = unsafe {
-                                std::ptr::read_unaligned(slot.as_ptr() as *const HollowEvent)
-                            };
+        let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
+        for cpu_id in cpus {
+            let mut buf = perf_array.open(cpu_id, None)?;
+            task::spawn(async move {
+                let mut event_buf = vec![BytesMut::with_capacity(1024); 8];
 
-                            let pid = event.pid as i32;
-                            let binary_path =
-                                get_binary_path(pid).unwrap_or_else(|| "unknown".into());
-                            let command_line = get_cmdline(pid).unwrap_or_else(|| "unknown".into());
-                            let cwd = get_cwd(pid).unwrap_or_else(|| "unknown".into());
+                loop {
+                    match buf.read_events(&mut event_buf).await {
+                        Ok(events) if events.read > 0 => {
+                            for i in 0..events.read {
+                                let slot = &event_buf[i];
+                                if slot.len() < std::mem::size_of::<HollowEvent>() {
+                                    continue;
+                                }
+                                let event = unsafe {
+                                    std::ptr::read_unaligned(slot.as_ptr() as *const HollowEvent)
+                                };
 
-                            // fingerprint suppression (map form)
-                            let fingerprints = load_fingerprints_from_disk(
-                                "src/modules/telemetry_fingerprint.json",
-                            );
-                            let mut fp_map = HashMap::new();
-                            fp_map.insert("path".into(), binary_path.clone());
-                            fp_map.insert("category".into(), "proc_hollowing".into());
-                            fp_map.insert("pid".into(), pid.to_string());
-                            if is_known_good(&fp_map, &fingerprints) {
-                                log(&format!(
+                                let pid = event.pid as i32;
+                                let binary_path =
+                                    get_binary_path(pid).unwrap_or_else(|| "unknown".into());
+                                let command_line =
+                                    get_cmdline(pid).unwrap_or_else(|| "unknown".into());
+                                let cwd = get_cwd(pid).unwrap_or_else(|| "unknown".into());
+
+                                // fingerprint suppression (map form)
+                                let fingerprints = load_fingerprints_from_disk(
+                                    "src/modules/telemetry_fingerprint.json",
+                                );
+                                let mut fp_map = HashMap::new();
+                                fp_map.insert("path".into(), binary_path.clone());
+                                fp_map.insert("category".into(), "proc_hollowing".into());
+                                fp_map.insert("pid".into(), pid.to_string());
+                                if is_known_good(&fp_map, &fingerprints) {
+                                    log(&format!(
                                     "[💠 fingerprint] Suppressed hollowing event for known binary: {}",
                                     binary_path
                                 ));
-                                continue;
-                            }
+                                    continue;
+                                }
 
-                            let desc = format!(
-                                "Process hollowing attempt on PID {} (flags=0x{:x})",
-                                event.target_pid, event.flags
-                            );
+                                let desc = format!(
+                                    "Process hollowing attempt on PID {} (flags=0x{:x})",
+                                    event.target_pid, event.flags
+                                );
 
-                            // trust + telemetry
-                            let mut metadata = HashMap::new();
-                            metadata.insert("target_pid".into(), event.target_pid.to_string());
-                            metadata.insert("flags".into(), format!("0x{:x}", event.flags));
-                            metadata.insert(
-                                "risk_reason".into(),
-                                "Detected mmap-based hollowing of target PID".into(),
-                            );
+                                // trust + telemetry
+                                let mut metadata = HashMap::new();
+                                metadata.insert("target_pid".into(), event.target_pid.to_string());
+                                metadata.insert("flags".into(), format!("0x{:x}", event.flags));
+                                metadata.insert(
+                                    "risk_reason".into(),
+                                    "Detected mmap-based hollowing of target PID".into(),
+                                );
 
-                            let trust_event = TrustEvent {
-                                timestamp: now_ts(),
-                                pid,
-                                ppid: 0,
-                                uid: 0,
-                                binary_path: binary_path.clone(),
-                                command_line: command_line.clone(),
-                                cwd: cwd.clone(),
-                                anomaly_type: "ProcHollowing".into(),
-                                component: "memory".into(),
-                                metadata: metadata.clone(),
-                                risk_score: 7.5,
-                                source_module: "mem_scan".into(),
-                                decay_context: Some("memory_behavior".into()),
-                                module: Some("mem_scan".into()),
-                                signal: Some("ProcHollowing".into()),
-                                signal_type: Some("memory::proc_hollowing".into()),
-                                score: Some(7.5),
-                                raw_score: Some(7.5),
-                                tags: Some(vec!["process_hollowing".into(), "memory".into()]),
-                                description: Some(desc.clone()),
-                            };
-                            submit_trust_event(trust_event);
+                                let trust_event = TrustEvent {
+                                    timestamp: now_ts(),
+                                    pid,
+                                    ppid: 0,
+                                    uid: 0,
+                                    binary_path: binary_path.clone(),
+                                    command_line: command_line.clone(),
+                                    cwd: cwd.clone(),
+                                    anomaly_type: "ProcHollowing".into(),
+                                    component: "memory".into(),
+                                    metadata: metadata.clone(),
+                                    risk_score: 7.5,
+                                    source_module: "mem_scan".into(),
+                                    decay_context: Some("memory_behavior".into()),
+                                    module: Some("mem_scan".into()),
+                                    signal: Some("ProcHollowing".into()),
+                                    signal_type: Some("memory::proc_hollowing".into()),
+                                    score: Some(7.5),
+                                    raw_score: Some(7.5),
+                                    tags: Some(vec!["process_hollowing".into(), "memory".into()]),
+                                    description: Some(desc.clone()),
+                                };
+                                submit_trust_event(trust_event);
 
-                            let mut gnn_data = HashMap::new();
-                            gnn_data.insert(
-                                "vector".into(),
-                                format!(
-                                    "{{\"pid\":{},\"target_pid\":{},\"flags\":\"0x{:x}\"}}",
+                                let mut gnn_data = HashMap::new();
+                                gnn_data.insert(
+                                    "vector".into(),
+                                    format!(
+                                        "{{\"pid\":{},\"target_pid\":{},\"flags\":\"0x{:x}\"}}",
+                                        event.pid, event.target_pid, event.flags
+                                    ),
+                                );
+                                gnn_data.insert("category".into(), "memory".into());
+                                gnn_data.insert("signal".into(), "proc_hollowing".into());
+                                gnn_data.insert("confidence".into(), "0.4".into());
+                                gnn_data.insert("gnn_escalate".into(), "true".into());
+                                gnn_data.insert("summary".into(), desc.clone());
+                                gnn_data.insert("replay_tag".into(), "proc_hollow".into());
+                                gnn_data.insert("source_pid".into(), event.pid.to_string());
+                                gnn_data.insert("target_pid".into(), event.target_pid.to_string());
+
+                                push_to_gnn_vector_log(gnn_data.clone());
+                                let _ = store_replay_event(gnn_data);
+
+                                MEMORY_ANOMALY_FOUND.store(true, Ordering::Relaxed);
+                                mark_memory_anomaly_detected();
+
+                                log(&format!(
+                                    "[🕳️ Hollowing] PID={} ➝ Target={} FLAGS=0x{:x}",
                                     event.pid, event.target_pid, event.flags
-                                ),
-                            );
-                            gnn_data.insert("category".into(), "memory".into());
-                            gnn_data.insert("signal".into(), "proc_hollowing".into());
-                            gnn_data.insert("confidence".into(), "0.4".into());
-                            gnn_data.insert("gnn_escalate".into(), "true".into());
-                            gnn_data.insert("summary".into(), desc.clone());
-                            gnn_data.insert("replay_tag".into(), "proc_hollow".into());
-                            gnn_data.insert("source_pid".into(), event.pid.to_string());
-                            gnn_data.insert("target_pid".into(), event.target_pid.to_string());
-
-                            push_to_gnn_vector_log(gnn_data.clone());
-                            let _ = store_replay_event(gnn_data);
-
-                            MEMORY_ANOMALY_FOUND.store(true, Ordering::Relaxed);
-                            mark_memory_anomaly_detected();
-
-                            log(&format!(
-                                "[🕳️ Hollowing] PID={} ➝ Target={} FLAGS=0x{:x}",
-                                event.pid, event.target_pid, event.flags
-                            ));
+                                ));
+                            }
+                        }
+                        Ok(_) => continue,
+                        Err(e) => {
+                            eprintln!("Error reading proc hollow event (CPU {cpu_id}): {:?}", e);
+                            break;
                         }
                     }
-                    Ok(_) => continue,
-                    Err(e) => {
-                        eprintln!("Error reading proc hollow event (CPU {cpu_id}): {:?}", e);
-                        break;
-                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     Ok(())

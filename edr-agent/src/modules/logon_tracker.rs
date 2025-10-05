@@ -16,6 +16,7 @@ use crate::telemetry_writer::TelemetryWriter;
 use crate::trust_hook::{
     generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
 };
+use crate::utils::strnorm::cbytes_to_string_lossy;
 use crate::utils::time::now_ts;
 
 lazy_static! {
@@ -41,12 +42,28 @@ static START_EBPF: Once = Once::new();
 
 #[cfg(target_os = "linux")]
 pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
+    #[cfg(not(feature = "embed_bpf"))]
+    {
+        let _ = writer;
+        log::warn!(
+            "[{}] embed_bpf disabled or .bpf.o missing; skipping live BPF attach.",
+            module_path!()
+        );
+        return;
+    }
+
+    #[cfg(feature = "embed_bpf")]
     use aya::maps::perf::PerfEventArray;
+    #[cfg(feature = "embed_bpf")]
     use aya::programs::TracePoint;
+    #[cfg(feature = "embed_bpf")]
     use aya::util::online_cpus;
+    #[cfg(feature = "embed_bpf")]
     use aya::{include_bytes_aligned, Bpf};
+    #[cfg(feature = "embed_bpf")]
     use std::convert::TryInto;
 
+    #[cfg(feature = "embed_bpf")]
     START_EBPF.call_once(|| {
         thread::spawn(move || {
             // Leak BPF so perf buffers and spawned threads can outlive this scope ('static)
@@ -124,9 +141,7 @@ pub fn start_logon_tracker(writer: Arc<Mutex<TelemetryWriter>>) {
                                             )
                                         };
 
-                                        let comm = String::from_utf8_lossy(&evt.comm)
-                                            .trim_end_matches(char::from(0))
-                                            .to_string();
+                                        let comm = cbytes_to_string_lossy(&evt.comm);
 
                                         // Dedup per PID (bounded)
                                         {

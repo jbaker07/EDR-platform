@@ -5,6 +5,7 @@ pub mod calibration;
 pub mod config;
 pub mod decision;
 pub mod detect;
+pub mod detectors;
 pub mod ecs_sink; // main.rs referenced this name     // only if you plan to call it
 pub mod elastic_bulk;
 pub mod elliptic_envelope;
@@ -24,8 +25,10 @@ pub mod ioc;
 pub mod logger;
 pub mod mahalanobis;
 pub mod memory_priv;
+pub mod metrics;
 pub mod modules;
 pub mod net_cadence;
+pub mod pb_adapter;
 pub mod pb_api;
 pub mod pb_engine;
 pub mod pb_introspect;
