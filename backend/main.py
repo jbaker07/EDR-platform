@@ -169,27 +169,79 @@ def add_ioc(ioc: Dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# ML prediction endpoint. Resolve the model path relative to this file so it
-# loads regardless of the process CWD (it was a CWD-relative path before, which
-# silently failed when the app was started from backend/).
+# ML prediction endpoint.
+#
+# Loads a small DEMO classifier so /api/predict returns a real prediction
+# out-of-the-box on a fresh clone. The model is a scikit-learn Pipeline
+# (StandardScaler + LogisticRegression) trained on a TRANSPARENT SYNTHETIC
+# dataset by backend/ml/train.py — it is NOT a real-incident detector. See
+# that file's header for the honesty notice + the feature contract.
+#
+# Feature contract: the client sends {"features": [cpu_percent, memory, pid]}
+# (the column order from the historical labeled telemetry CSV); the list is fed
+# straight into model.predict([features]). FEATURE_ORDER is imported from the
+# trainer so the serving vector and the training vector can never drift apart.
+#
+# Path is resolved relative to this file (not the process CWD) and overridable
+# via PREDICT_MODEL_PATH. Loading is defensive: any failure leaves the endpoint
+# returning a clear 503 instead of crashing app import.
 try:
-    MODEL_PATH = Path(__file__).resolve().parent / "llm_core" / "llm_pipeline_formation" / "models" / "mlp_model.joblib"
-    mlp_model = joblib.load(MODEL_PATH)
+    from ml.train import FEATURE_ORDER as PREDICT_FEATURE_ORDER
+except Exception:
+    # Fallback that still documents the contract if the trainer can't import.
+    PREDICT_FEATURE_ORDER = ["cpu_percent", "memory", "pid"]
+
+_DEFAULT_MODEL_PATH = (
+    Path(__file__).resolve().parent / "ml" / "models" / "demo_classifier.joblib"
+)
+MODEL_PATH = Path(os.environ.get("PREDICT_MODEL_PATH", str(_DEFAULT_MODEL_PATH)))
+
+try:
+    predict_model = joblib.load(MODEL_PATH)
 except Exception as e:
-    print(f"❌ Failed to load model: {e}")
-    mlp_model = None
+    print(f"Failed to load predict model from {MODEL_PATH}: {e}")
+    print("Train it with: python backend/ml/train.py")
+    predict_model = None
 
 class PredictionRequest(BaseModel):
+    # Ordered numeric feature vector; see PREDICT_FEATURE_ORDER for the meaning
+    # of each slot. Example: {"features": [3.2, 50000000, 412]}.
     features: List[float]
 
 @app.post("/api/predict")
 async def predict(request: PredictionRequest):
-    if mlp_model is None:
-        raise HTTPException(status_code=500, detail="Model not loaded.")
+    if predict_model is None:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Predict model not loaded. Generate it with "
+                "`python backend/ml/train.py` (or set PREDICT_MODEL_PATH)."
+            ),
+        )
+    expected = len(PREDICT_FEATURE_ORDER)
+    if len(request.features) != expected:
+        raise HTTPException(
+            status_code=422,
+            detail=(
+                f"Expected {expected} features in order {PREDICT_FEATURE_ORDER}, "
+                f"got {len(request.features)}."
+            ),
+        )
     try:
-        prediction = mlp_model.predict([request.features])
-        label = "malicious" if prediction[0] == 1 else "benign"
-        return {"prediction": label}
+        # 2D row, matching how train.py shapes X for .fit()/.predict().
+        prediction = predict_model.predict([request.features])
+        label = "malicious" if int(prediction[0]) == 1 else "benign"
+        result = {"prediction": label, "label": label}
+        # Surface a probability when the estimator exposes one (LogisticRegression
+        # does), so callers can see confidence — best-effort, never fatal.
+        try:
+            proba = predict_model.predict_proba([request.features])[0]
+            result["confidence"] = round(float(max(proba)), 4)
+        except Exception:
+            pass
+        return result
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

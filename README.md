@@ -24,12 +24,23 @@ live alongside it.
 ## What genuinely works
 
 - **`GET /api/health`** → `{"status": "ok"}`.
-- **`POST /api/predict`** — serves the committed scikit-learn `MLPClassifier`
-  (`backend/llm_core/llm_pipeline_formation/models/mlp_model.joblib`). Verified end to
-  end: the shipped model expects a **2-feature** vector, e.g.
-  `{"features": [0.1, 0.5]}` → `{"prediction": "malicious"}`.
-  (Passing the wrong number of features returns a 500 from the model — that is the
-  model's input contract, not a boot bug.)
+- **`POST /api/predict`** — serves a committed scikit-learn `Pipeline`
+  (`StandardScaler` + `LogisticRegression`) at
+  `backend/ml/models/demo_classifier.joblib`. It returns a real prediction
+  **out-of-the-box on a fresh clone** — the tiny model (~1.4 KB) is committed, so no
+  training step is required. **It is a DEMO model trained on a transparent
+  *synthetic* dataset (high CPU + memory ⇒ malicious), NOT a real-incident
+  detector.** Feature contract — a **3-feature** vector in the order
+  `[cpu_percent, memory_bytes, pid]` (the column order of the historical labeled
+  telemetry CSV):
+
+  ```json
+  {"features": [92.0, 3200000000, 731]}  →  {"prediction": "malicious", "label": "malicious", "confidence": 1.0}
+  {"features": [2.0, 80000000, 501]}     →  {"prediction": "benign",    "label": "benign",    "confidence": 0.999}
+  ```
+
+  Sending the wrong number of features returns a clear `422`. Override the model
+  path with `PREDICT_MODEL_PATH`.
 - **`POST /api/analyze`** and **`POST /api/telemetry`** — JSON rule matching via the
   stateless rules engine (`backend/app/rules/`).
 - **`/api/iocs`, `/api/trustlog`, `/api/feedback`, `/api/collaboration`,
@@ -65,10 +76,15 @@ Then:
 
 ```bash
 curl localhost:8000/api/health
+# 3 features in order [cpu_percent, memory_bytes, pid]:
 curl -X POST localhost:8000/api/predict \
   -H 'Content-Type: application/json' \
-  -d '{"features": [0.1, 0.5]}'
+  -d '{"features": [92.0, 3200000000, 731]}'
+# → {"prediction":"malicious","label":"malicious","confidence":1.0}
 ```
+
+The DEMO model ships in the repo, so this works on a clean clone with no
+training step. (To regenerate it: `python backend/ml/train.py`.)
 
 `requirements.txt` installs only the light/core stack. The optional subsystems above
 have their install lines documented at the bottom of `backend/requirements.txt`.
@@ -83,14 +99,29 @@ docker compose up --build
 
 The backend container runs `uvicorn main:app` on port 8000.
 
-## Retraining the scikit-learn model
+## The /api/predict demo model
 
-Training scripts live under `backend/llm_core/llm_pipeline_formation/` and
-`backend/ml/` (e.g. `train_mlp.py`, `train_model.py`). They use
-`sklearn.neural_network.MLPClassifier`. Note: not all training scripts write to the
-exact path the API serves from — confirm the output path matches
-`backend/llm_core/llm_pipeline_formation/models/mlp_model.joblib` before relying on a
-retrained model.
+The model served by `/api/predict` is produced by **`backend/ml/train.py`** and saved
+to **`backend/ml/models/demo_classifier.joblib`**. It is a small scikit-learn
+`Pipeline(StandardScaler + LogisticRegression)` trained on a **transparent synthetic
+dataset** — two clearly-separated clusters (low CPU+memory ⇒ benign, high CPU+memory ⇒
+malicious), with `pid` included only to satisfy the feature contract. It is a
+demonstration that the serving path works end-to-end; **it is not a real-incident
+detector and makes no security claims.**
+
+Regenerate it any time:
+
+```bash
+python backend/ml/train.py   # rewrites backend/ml/models/demo_classifier.joblib (~1.4 KB)
+```
+
+The single source of truth for feature order is `FEATURE_ORDER` in `train.py`, which
+`backend/main.py` imports so the training vector and the serving vector can never
+drift apart.
+
+> Other training scripts under `backend/llm_core/llm_pipeline_formation/` and
+> `backend/ml/` (`train_mlp.py`, `train_model.py`, `train_from_real.py`) are legacy
+> experiments and are **not** what `/api/predict` serves.
 
 ## Configuration & secrets
 
