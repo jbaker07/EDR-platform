@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request
-from backend.app.rules.rules_engine import load_rules, apply_rules
+from app.rules.rules_engine import load_rules, apply_rules
 
 router = APIRouter()
 

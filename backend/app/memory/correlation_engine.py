@@ -1,8 +1,8 @@
-from backend.app.memory.memory_manager import MemoryManager
+from app.memory.memory_manager import MemoryManager
 import json
 import os 
-from backend.app.rules.rule_validator import validate_multi_endpoint_rules
-from backend.app.logs.logger import rules_logger
+from app.rules.rule_validator import validate_multi_endpoint_rules
+from app.logs.logger import rules_logger
 
 MULTI_ENDPOINT_RULES_PATH = "backend/app/memory/multi_endpoint_rules.json"
 loaded_multi_endpoint_rules = []

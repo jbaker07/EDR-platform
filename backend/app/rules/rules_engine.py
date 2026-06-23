@@ -6,7 +6,10 @@ from app.rules.rule_validator import validate_stateless_rules
 from app.logs.logger import rules_logger
 import math
 
-RULES_PATH = "backend/app/rules/default_rules.json"
+# Resolve relative to this module so the rules load regardless of the
+# process CWD (previously hardcoded as a CWD-relative path, which broke
+# import when the app was started from backend/).
+RULES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "default_rules.json")
 loaded_rules = []  
 # Operator functions
 def evaluate_condition(field_value, operator_type, expected_value):

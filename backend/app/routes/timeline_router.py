@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.app.memory.memory_manager import memory_manager  # We'll make it global for now
+from app.memory.memory_manager import memory_manager  # We'll make it global for now
 
 router = APIRouter()
 
