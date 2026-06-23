@@ -1,3 +1,13 @@
+# Secrets — never commit real env files, private keys, or certs.
+# Use .env.example as the documented template; copy it to .env locally.
+.env
+*.env
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
 # OS/editor
 .DS_Store
 .vscode/
