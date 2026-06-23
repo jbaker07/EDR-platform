@@ -3,11 +3,25 @@
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
-import shap
 import joblib
 import numpy as np
 from pathlib import Path
 import json
+
+# shap is a heavy, optional dependency. Guard the import so the app still
+# boots without it; the /explain handlers return 503 if it is missing.
+try:
+    import shap
+except ImportError:  # pragma: no cover
+    shap = None
+
+
+def _require_shap():
+    if shap is None:
+        raise HTTPException(
+            status_code=503,
+            detail="SHAP explainability not available (the 'shap' package is not installed).",
+        )
 
 router = APIRouter()
 
@@ -25,6 +39,7 @@ class ExplainRequest(BaseModel):
 
 @router.post("/explain")
 def explain_prediction(data: ExplainRequest):
+    _require_shap()
     if model is None:
         raise HTTPException(status_code=500, detail="Model not available.")
 
@@ -44,6 +59,7 @@ def explain_prediction(data: ExplainRequest):
 
 @router.get("/explain")
 def explain_for_alert(alert_id: Optional[int] = Query(None)):
+    _require_shap()
     from app.services.feature_store import get_features
 
     if alert_id is None:
@@ -79,6 +95,7 @@ def get_rule_logs():
 
 @router.get("/explain")
 def explain_sample():
+    _require_shap()
     if model is None:
         raise HTTPException(status_code=500, detail="Model not available.")
 

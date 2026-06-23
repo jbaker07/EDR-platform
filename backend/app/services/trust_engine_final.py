@@ -36,15 +36,38 @@ from graph_output.trust_retrainer import retrain_if_needed
 from graph_output.replay_sync_validator import validate_and_sync_replay
 
 import networkx as nx
-from gnn_score_engine import score_node_with_gnn
-from gnn_node_updater import update_node_score
-from gnn_hook import run_gnn_hook
-from trust_hook import evaluate_trust_payload
 
-# Load telemetry graph
-telemetry_graph = nx.read_gpickle("backend/gnn_pipeline/data/processed/telemetry_graph.gpickle")
+# === EXPERIMENTAL GNN node-scoring path (guarded — NOT on the live trust path) ===
+# This block depends on modules that are not present in the repo (gnn_hook,
+# trust_hook), on a `.gpickle` graph file that is not shipped, and on
+# nx.read_gpickle() which was REMOVED in networkx 3.0. None of it is used by
+# calculate_trust_score() (the function trust_router actually calls), so it is
+# guarded here to keep import working. process_node() raises clearly if invoked.
+try:
+    from gnn_score_engine import score_node_with_gnn
+    from gnn_node_updater import update_node_score
+    from gnn_hook import run_gnn_hook
+    from trust_hook import evaluate_trust_payload
+
+    # nx.read_gpickle was removed in networkx>=3.0; pickle.load is the migration path.
+    import pickle as _pickle
+    with open("backend/gnn_pipeline/data/processed/telemetry_graph.gpickle", "rb") as _gf:
+        telemetry_graph = _pickle.load(_gf)
+    _GNN_NODE_PATH_AVAILABLE = True
+except Exception as _e:  # missing modules / missing graph file / removed API
+    logging.getLogger("edr.trust").info(
+        "Experimental GNN node-scoring path disabled (%s).", _e
+    )
+    score_node_with_gnn = update_node_score = run_gnn_hook = evaluate_trust_payload = None
+    telemetry_graph = None
+    _GNN_NODE_PATH_AVAILABLE = False
 
 def process_node(node_id: str, telemetry_data: dict):
+    if not _GNN_NODE_PATH_AVAILABLE:
+        raise RuntimeError(
+            "Experimental GNN node-scoring path is unavailable "
+            "(missing gnn_hook/trust_hook modules and/or telemetry_graph.gpickle)."
+        )
     node_score = score_node_with_gnn(telemetry_graph, node_id)
     update_node_score(telemetry_graph, node_id, node_score)
     gnn_summary = run_gnn_hook(node_score)
@@ -90,7 +113,7 @@ threat_patterns = match_threat_patterns()
 unknown_profiles = match_unknown_risk_profiles()
 
 # ——— CONFIGURATION ———
-RULE_FILE_PATH = "backend/app/services/expanded_rules_combined.json"
+RULE_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "expanded_rules_combined.json")
 rule_parser = TrustRuleParser(RULE_FILE_PATH)
 
 RULES_PATH = os.path.join(os.path.dirname(__file__), "expanded_rules_combined.json")
@@ -142,52 +165,32 @@ def load_rules() -> Dict[str, Dict[str, Any]]:
 
 RULES = load_rules()
 
-RULE_FILE_PATH = "backend/app/services/expanded_rules_combined.json"
+RULE_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "expanded_rules_combined.json")
 rule_parser = TrustRuleParser(RULE_FILE_PATH)
 
 
-# Initialize anchor engine
-with open("anchor_definitions.json", "r") as f:
-    anchor_definitions = json.load(f)
+# Initialize anchor engine. The definitions live in ontology/ at the repo root,
+# not the process CWD; resolve the path explicitly and degrade gracefully if the
+# file is missing so a data-file gap does not take down app import.
+_ANCHOR_DEFS_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..", "..", "..", "ontology", "anchor_definitions.json",
+)
+try:
+    with open(_ANCHOR_DEFS_PATH, "r") as f:
+        anchor_definitions = json.load(f)
+except Exception as _e:
+    logging.getLogger("edr.trust").info(
+        "anchor_definitions.json unavailable (%s); using empty anchor set.", _e
+    )
+    anchor_definitions = {}
 anchor_engine = anchor_definitions  # You may later wrap this in a class if needed
 
-# Simulated event (replace with actual logic that reads/ingests a telemetry event)
-event = {
-    "timestamp": time.time(),
-    "tags": ["privilege_escalation", "persistence"],
-    "exe": "privilege_escalation_tool",
-    "cmdline": "--gain-root",
-    "platform": "macos",
-    "session_id": "abc123"
-}
-
-# Now call functions safely
-tagged_event = tag_event(event)
-updated_event = apply_detection_rules(tagged_event)
-matched_anchors = check_anchor_trigger(event, anchor_engine)
-trust_delta = apply_decay(updated_event)
-retrain_if_needed()
-validate_and_sync_replay(event)
-
-# === Integrated Function Calls ===
-
-# Tag the event using semantic tags
-event = tag_event(event)
-
-# Apply detection rules to the event
-rule_matches = apply_detection_rules(event)
-
-# Check for anchor triggers
-anchor_matches = check_anchor_trigger(event, anchor_engine)
-
-# Apply trust decay based on current rule matches
-event = apply_decay(event, rule_matches)
-
-# Validate and sync replay queue if required
-validate_and_sync_replay(event)
-
-# Retrain model if conditions are met
-retrain_if_needed(event)
+# NOTE: a block of import-time "Simulated event" demo/scratch code lived here.
+# It ran the tagging/detection/decay pipeline against a hardcoded fake event at
+# module import, with mismatched call signatures, and crashed the app on import.
+# It produced only unused module-level variables, so it was removed. The real
+# entry points are evaluate_trust_from_input() and calculate_trust_score() below.
 
 def evaluate_trust_from_input(input_text, mode="minimal_mode"):
     matches = rule_parser.match_rules(input_text, mode=mode)

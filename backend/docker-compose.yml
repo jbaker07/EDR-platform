@@ -16,10 +16,10 @@ services:
     restart: unless-stopped
 
   backend:
-    build: ./backend
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     volumes:
-      - ./backend:/app
+      - .:/app
     environment:
       DATABASE_URL: postgres://edr:supersecure@postgres:5432/edr_db
       REDIS_URL: redis://redis:6379/0

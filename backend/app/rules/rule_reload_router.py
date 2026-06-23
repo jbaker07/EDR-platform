@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from backend.app.rules.rule_validator import validate_stateless_rules, validate_multi_endpoint_rules
-from backend.app.rules.rules_engine import load_rules
-from backend.app.memory.correlation_engine import load_multi_endpoint_rules
+from app.rules.rule_validator import validate_stateless_rules, validate_multi_endpoint_rules
+from app.rules.rules_engine import load_rules
+from app.memory.correlation_engine import load_multi_endpoint_rules
 
 router = APIRouter()
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.app.memory.memory_manager import memory_manager
-from backend.app.memory.correlation_engine import find_multi_endpoint_correlation
+from app.memory.memory_manager import memory_manager
+from app.memory.correlation_engine import find_multi_endpoint_correlation
 
 router = APIRouter()
 

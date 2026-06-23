@@ -1,13 +1,27 @@
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
-import torch
 import pickle
 import numpy as np
-from torch_geometric.data import Data
+
+# EXPERIMENTAL / NOT WIRED INTO THE APP.
+# This router is excluded from main.py's include list: it needs torch +
+# torch_geometric (heavy, optional) plus per-wave .pt model weights that are not
+# shipped, AND it references symbols that do not exist in this codebase
+# (app.models.gnn_model exposes `GNNTrustModel`, not `GCN`, and
+# trust_engine_final has no `adjust_trust_from_gnn`). Imports are guarded so the
+# module can still be imported for development without crashing.
 from app.memory.memory_manager import memory_manager
-from app.services.trust_engine_final import adjust_trust_from_gnn
-from app.models.gnn_model import GCN
-from app.services.trust_engine_final import adjust_trust_from_gnn
+
+try:
+    import torch
+    from torch_geometric.data import Data
+    from app.models.gnn_model import GNNTrustModel  # NOTE: was `GCN` (undefined)
+    _GNN_PREDICT_AVAILABLE = True
+except ImportError:  # pragma: no cover
+    torch = None
+    Data = None
+    GNNTrustModel = None
+    _GNN_PREDICT_AVAILABLE = False
 
 router = APIRouter()
 
@@ -36,12 +50,15 @@ MODEL_PATHS = {
 
 @router.post("/api/gnn/predict")
 def predict_telemetry(data: TelemetryInput, version: str = Query("wave2")):
+    if not _GNN_PREDICT_AVAILABLE:
+        return {"error": "GNN prediction unavailable (install torch + torch_geometric)."}
+
     model_path = MODEL_PATHS.get(version)
     if not model_path:
         return {"error": f"Invalid model version: {version}"}
 
     try:
-        model = GCN(in_channels=6, hidden_channels=16, out_channels=2)
+        model = GNNTrustModel(in_channels=6, hidden_channels=16, out_channels=2)
         model.load_state_dict(torch.load(model_path))
         model.eval()
     except Exception as e:
@@ -80,8 +97,10 @@ def predict_telemetry(data: TelemetryInput, version: str = Query("wave2")):
         # Cache this node’s embedding
         memory_manager.store_embedding(data.hostname, current_node)
 
-        # Adjust trust
-        trust_score = adjust_trust_from_gnn(data.hostname, pred, confidence)
+        # NOTE: trust_engine_final has no `adjust_trust_from_gnn` (it was never
+        # implemented). Report the raw confidence instead of calling a missing
+        # symbol; wire a real trust adjustment here if/when this router ships.
+        trust_score = round(confidence, 4)
 
         return {
             "hostname": data.hostname,

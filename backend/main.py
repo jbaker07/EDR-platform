@@ -1,5 +1,16 @@
 # backend/main.py
 
+# Make the repo root importable so sibling top-level packages (replay_engine,
+# ontology, ...) resolve regardless of the launch CWD. The canonical run is
+# `cd backend && uvicorn main:app`, which puts backend/ — but not its parent —
+# on sys.path; these packages live one level up.
+import os
+import sys
+
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -37,14 +48,18 @@ from app.routes.root_cause_router import router as root_cause_router
 from app.routes.action_router import router as action_router
 from app.routes.gnn_replay_router import router as replay_router
 from app.routes.gnn_archive_router import router as gnn_archive_router
-from app.routes.gnn_router import router as gnn_router
+# NOTE: app.routes.gnn_router is EXCLUDED on purpose — it is experimental and
+# non-functional: it requires torch + torch_geometric (heavy, optional) plus
+# unshipped per-wave .pt weights, and referenced symbols that don't exist
+# (GCN / adjust_trust_from_gnn). See that file's header for details.
 
-# Services
-from app.services.trust_gnn_engine import get_trust_shift_justification
-from app.services.trust_digest_engine import compute_digest_signature
-from app.services.adaptive_threshold_engine import evaluate_dynamic_thresholds
-from app.services.update_manifest_checker import compare_update_manifests
-from app.services.intel_pack_signer import sign_intel_pack
+# NOTE: a block of top-level "Services" imports lived here
+# (get_trust_shift_justification, compute_digest_signature,
+# evaluate_dynamic_thresholds, compare_update_manifests, sign_intel_pack).
+# None were referenced anywhere in this module, and two of them pointed at
+# modules that do not exist (trust_digest_engine, adaptive_threshold_engine),
+# which crashed app import. Removed as dead imports. The service modules that
+# do exist are still importable directly by the routers that use them.
 
 # App setup
 app = FastAPI()
@@ -88,14 +103,19 @@ routers = [
     global_trust_router,
     replay_router,
     gnn_archive_router,
-    gnn_router,
+    # gnn_router intentionally excluded (experimental; see import note above).
 ]
 
 for r in routers:
     app.include_router(r, prefix="/api")
 
+# Anchor runtime-written files to this file's directory so they don't depend on
+# the process CWD (the previous "backend/..." paths created stray backend/backend/
+# trees when the app was launched from backend/).
+_BACKEND_DIR = Path(__file__).resolve().parent
+
 # Trust log persistence
-TRUST_LOG_FILE = Path("backend/app/logs/trust_log.json")
+TRUST_LOG_FILE = _BACKEND_DIR / "app" / "logs" / "trust_log.json"
 TRUST_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
 if not TRUST_LOG_FILE.exists():
     TRUST_LOG_FILE.write_text("[]")
@@ -111,7 +131,7 @@ async def receive_trust_log(payload: Dict):
         raise HTTPException(status_code=500, detail=str(e))
 
 # Alert analyzer
-ALERT_LOG_FILE = Path("backend/app/logs/alert_log.json")
+ALERT_LOG_FILE = _BACKEND_DIR / "app" / "logs" / "alert_log.json"
 ALERT_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
 if not ALERT_LOG_FILE.exists():
     ALERT_LOG_FILE.write_text("[]")
@@ -127,7 +147,7 @@ async def analyze_telemetry(request: Request):
     return {"alerts": alerts}
 
 # IOC storage
-IOC_FILE = Path("logs/iocs.json")
+IOC_FILE = _BACKEND_DIR / "logs" / "iocs.json"
 IOC_FILE.parent.mkdir(parents=True, exist_ok=True)
 if not IOC_FILE.exists():
     IOC_FILE.write_text(json.dumps([]))
@@ -149,9 +169,11 @@ def add_ioc(ioc: Dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# ML prediction endpoint
+# ML prediction endpoint. Resolve the model path relative to this file so it
+# loads regardless of the process CWD (it was a CWD-relative path before, which
+# silently failed when the app was started from backend/).
 try:
-    MODEL_PATH = Path("backend/llm_core/llm_pipeline_formation/models/mlp_model.joblib")
+    MODEL_PATH = Path(__file__).resolve().parent / "llm_core" / "llm_pipeline_formation" / "models" / "mlp_model.joblib"
     mlp_model = joblib.load(MODEL_PATH)
 except Exception as e:
     print(f"❌ Failed to load model: {e}")
