@@ -42,6 +42,11 @@ _bpf_build/
 *.pkl
 *.pt
 *.pth
+# Exception: the tiny synthetic DEMO classifier is committed on purpose so
+# POST /api/predict returns a real prediction on a fresh clone (no train step
+# required). Regenerate with `python backend/ml/train.py`. Stays < 200 KB.
+!backend/ml/models/
+!backend/ml/models/demo_classifier.joblib
 
 # ── Vendored binaries ───────────────────────────────────────
 splunkd
