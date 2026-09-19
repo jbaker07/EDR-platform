@@ -32,7 +32,7 @@ from .store import Store
 class Case:
     id: str
     game: str
-    kind: str  # "positive" | "control"
+    kind: str  # "positive" | "control" | "witness"
     description: str
     configuration: dict[str, Any]
     expect_findings: list[str] = dataclasses.field(default_factory=list)
@@ -40,6 +40,17 @@ class Case:
     max_errors: int | None = None
     measures: str = ""
     path: Path | None = None
+    # A witness proves a specific `detectable: yes` failure record is really
+    # detected: it names the failure, and asserts not just that a code was
+    # emitted but that it was emitted about the right artifact and target.
+    witness_for: str | None = None
+    expect_subject: str | None = None
+    expect_target: str | None = None
+    expect_summary_contains: str | None = None
+    # Artifacts a case needs built before it can run. Cases carrying these can
+    # only run where a builder registry is supplied; elsewhere they are SKIPPED,
+    # and a skipped witness never counts as a pass.
+    artifacts: list[dict[str, Any]] = dataclasses.field(default_factory=list)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any], path: Path | None = None) -> "Case":
@@ -47,12 +58,17 @@ class Case:
         return cls(
             id=data["id"], game=data["game"], kind=data.get("kind", "positive"),
             description=data.get("description", ""),
-            configuration=data["configuration"],
+            configuration=data.get("configuration") or {},
             expect_findings=list(expect.get("findings") or []),
             expect_absent=list(expect.get("absent") or []),
             max_errors=expect.get("max_errors"),
             measures=data.get("measures", ""),
-            path=path)
+            path=path,
+            witness_for=data.get("witness_for"),
+            expect_subject=expect.get("subject"),
+            expect_target=expect.get("target"),
+            expect_summary_contains=expect.get("summary_contains"),
+            artifacts=list(data.get("artifacts") or []))
 
 
 @dataclasses.dataclass
@@ -66,6 +82,7 @@ class CaseResult:
     unresolved_count: int
     seconds: float
     notes: list[str] = dataclasses.field(default_factory=list)
+    skipped: bool = False
 
 
 def load_cases(directory: Path) -> list[Case]:
@@ -75,6 +92,17 @@ def load_cases(directory: Path) -> list[Case]:
         for entry in (data if isinstance(data, list) else [data]):
             cases.append(Case.from_dict(entry, path))
     return cases
+
+
+def _build_artifacts(case: Case, builders, workdir: Path) -> list[str]:
+    """Materialise the artifacts a case declares, using the supplied builders."""
+    paths = []
+    for spec in case.artifacts:
+        builder = builders[spec["builder"]]
+        target = workdir / spec["name"]
+        builder(target, **(spec.get("args") or {}))
+        paths.append(str(target))
+    return paths
 
 
 def _installation(case: Case) -> Installation:
@@ -99,10 +127,29 @@ def _installation(case: Case) -> Installation:
     return inst
 
 
-def run_case(case: Case, store: Store) -> CaseResult:
-    installation = _installation(case)
+def run_case(case: Case, store: Store, builders=None,
+             workdir: Path | None = None) -> CaseResult:
+    if case.artifacts and builders is None:
+        # Not runnable here. Reported as skipped and counted separately: a
+        # witness that did not run has established nothing.
+        return CaseResult(case=case, passed=False, produced=[], missed=[],
+                          unexpected_present=[], error_count=0, unresolved_count=0,
+                          seconds=0.0, skipped=True,
+                          notes=["needs built artifacts; no builder registry supplied"])
+
+    if case.artifacts:
+        paths = _build_artifacts(case, builders, workdir)
+        installation = Installation.from_paths(
+            case.game, paths,
+            game_version=case.configuration.get("game_version"),
+            files_known_complete=case.configuration.get("files_known_complete", True))
+        for key, value in (case.configuration.get("loader_versions") or {}).items():
+            installation.loader_versions[key] = value
+    else:
+        installation = _installation(case)
+
     begin = time.perf_counter()
-    report = analyze_installation(installation, store)
+    report = analyze_installation(installation, store, deep=case.configuration.get("deep", False))
     seconds = time.perf_counter() - begin
 
     produced = sorted({f.code for f in report.findings})
@@ -113,6 +160,36 @@ def run_case(case: Case, store: Store) -> CaseResult:
 
     passed = not missed and not unexpected
     notes = []
+
+    # A witness must show the finding was about the right thing, not merely that
+    # the code appeared somewhere in the report.
+    if case.witness_for:
+        target_code = case.expect_findings[0] if case.expect_findings else None
+        matching = [f for f in report.findings if f.code == target_code]
+        if not matching:
+            passed = False
+            notes.append(f"witness for {case.witness_for}: {target_code} was not emitted")
+        else:
+            if case.expect_subject and not any(
+                    case.expect_subject in (f.subject or "") for f in matching):
+                passed = False
+                notes.append(
+                    f"witness for {case.witness_for}: {target_code} was emitted but not "
+                    f"about {case.expect_subject!r} (subjects: "
+                    f"{[f.subject for f in matching]})")
+            if case.expect_target and not any(
+                    any(case.expect_target in str(t.get("id", "")) for t in f.targets)
+                    for f in matching):
+                passed = False
+                notes.append(
+                    f"witness for {case.witness_for}: no finding targets "
+                    f"{case.expect_target!r}")
+            if case.expect_summary_contains and not any(
+                    case.expect_summary_contains in f.summary for f in matching):
+                passed = False
+                notes.append(
+                    f"witness for {case.witness_for}: no finding explains "
+                    f"{case.expect_summary_contains!r}")
     if case.max_errors is not None and errors > case.max_errors:
         passed = False
         notes.append(f"{errors} error-level findings, expected at most {case.max_errors}")
@@ -126,16 +203,17 @@ def run_case(case: Case, store: Store) -> CaseResult:
                       unresolved_count=unresolved, seconds=seconds, notes=notes)
 
 
-def run(directory: Path, store: Store | None = None,
-        game: str | None = None) -> list[CaseResult]:
+def run(directory: Path, store: Store | None = None, game: str | None = None,
+        builders=None, workdir: Path | None = None) -> list[CaseResult]:
     store = store or Store()
     cases = [c for c in load_cases(directory) if game is None or c.game == game]
-    return [run_case(case, store) for case in cases]
+    return [run_case(case, store, builders=builders, workdir=workdir) for case in cases]
 
 
 def summarize(results: list[CaseResult]) -> dict[str, Any]:
-    positives = [r for r in results if r.case.kind == "positive"]
-    controls = [r for r in results if r.case.kind == "control"]
+    positives = [r for r in results if r.case.kind == "positive" and not r.skipped]
+    controls = [r for r in results if r.case.kind == "control" and not r.skipped]
+    witnesses = [r for r in results if r.case.witness_for]
     expected_total = sum(len(r.case.expect_findings) for r in positives)
     missed_total = sum(len(r.missed) for r in positives)
     false_warnings = sum(len(r.unexpected_present) for r in results)
@@ -144,7 +222,11 @@ def summarize(results: list[CaseResult]) -> dict[str, Any]:
     return {
         "cases": len(results),
         "passed": sum(1 for r in results if r.passed),
-        "failed": sum(1 for r in results if not r.passed),
+        "failed": sum(1 for r in results if not r.passed and not r.skipped),
+        "skipped": sum(1 for r in results if r.skipped),
+        "witness_cases": len(witnesses),
+        "witnesses_passed": sum(1 for r in witnesses if r.passed),
+        "witnesses_skipped": sum(1 for r in witnesses if r.skipped),
         "positive_cases": len(positives),
         "control_cases": len(controls),
         "expected_findings": expected_total,
@@ -171,7 +253,7 @@ NOT_YET_MEASURED = [
 def render(results: list[CaseResult], summary: dict[str, Any]) -> str:
     lines = ["Evaluation", ""]
     for result in results:
-        mark = "PASS" if result.passed else "FAIL"
+        mark = "SKIP" if result.skipped else ("PASS" if result.passed else "FAIL")
         lines.append(f"[{mark}] {result.case.kind:8} {result.case.id}")
         lines.append(f"         {result.case.description}")
         if result.missed:
@@ -190,6 +272,14 @@ def render(results: list[CaseResult], summary: dict[str, Any]) -> str:
     lines.append("  configuration. Where the rule comes from an upstream database, this")
     lines.append("  is not evidence that ModCheck would have predicted the failure")
     lines.append("  before that rule existed.")
+    lines.append("")
+    lines.append("-- skipped cases establish nothing --")
+    skipped = [r for r in results if r.skipped]
+    if skipped:
+        for result in skipped:
+            lines.append(f"  {result.case.id}: {'; '.join(result.notes)}")
+    else:
+        lines.append("  none skipped in this run")
     lines.append("")
     lines.append("-- not yet measured --")
     for item in NOT_YET_MEASURED:

@@ -95,15 +95,24 @@ capabilities:
     tests:
     - tests/test_inspect.py::test_rimworld_about_and_layout
   dependency_analysis:
-    status: documented_only
+    status: partial
     note: >-
-      modDependencies entries become dependency edges and the game-agnostic resolver in
-      src/modcheck/analyze/requirements.py would emit dependency.missing and
-      dependency.duplicate_mod_id over them. We do not claim it for this game: no test
-      exercises that path on RimWorld artifacts, alternativePackageIds (new in 1.6) and
-      modDependenciesByVersion are not modelled at all, and the load-order fields
-      (loadAfter, loadBefore, forceLoadBefore) are extracted but nothing orders anything.
-      The RimSort community rules database is held as data and is read by no check.
+      modDependencies AND modDependenciesByVersion become dependency edges,
+      resolved against a configuration for a missing dependency and for duplicate
+      packageIds. The per-version variant was added after a real mod (Pick Up And
+      Haul) was found to declare its only dependency that way and be reported as
+      having none; each such edge keeps the game version it applies to. Presence
+      only: packageIds carry no version constraints. Still not modelled:
+      alternativePackageIds (1.6). Load order is handled separately under
+      interaction_analysis, not here.
+    implemented_by:
+      - src/modcheck/analyze/requirements.py
+      - src/modcheck/inspect/rimworld.py
+    tests:
+      - tests/test_dependency_per_game.py::test_rimworld_missing_dependency_is_detected
+      - tests/test_dependency_per_game.py::test_control_rimworld_satisfied_dependency_is_silent
+      - tests/test_dependency_per_game.py::test_rimworld_duplicate_package_id_is_detected
+      - tests/test_real_corpus.py::test_real_mod_declaring_dependencies_only_per_version_is_not_reported_as_having_none
   interaction_analysis:
     status: partial
     note: >-

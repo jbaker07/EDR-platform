@@ -303,6 +303,42 @@ def ts4script(path: Path, magic: int = 3394, count: int = 2) -> Path:
 
 
 # --- Bethesda ------------------------------------------------------------
+def bethesda_plugin_with_record(path: Path, *, light: bool = True,
+                                object_index: int = 0x000123,
+                                masters: list[str] | None = None) -> Path:
+    """A plugin carrying one real GLOB record, so record-level checks can run.
+
+    esplugin returns "valid as light" for any plugin whose records were not
+    parsed (RecordIds::None), so a light-plugin FormID-range check is only
+    meaningful against a plugin that actually contains a record. `object_index`
+    is the low 24 bits of the record's FormID: a light plugin may only use
+    0x000-0xFFF, so a larger value makes the plugin invalid as light.
+    """
+    masters = masters if masters is not None else ["Skyrim.esm"]
+
+    def zstr(text: str) -> bytes:
+        return text.encode("cp1252") + b"\x00"
+
+    subs = struct.pack("<4sH", b"HEDR", 12) + struct.pack("<fiI", 1.71, 1, 0x800)
+    subs += struct.pack("<4sH", b"CNAM", len(zstr("modcheck"))) + zstr("modcheck")
+    for master in masters:
+        subs += struct.pack("<4sH", b"MAST", len(zstr(master))) + zstr(master)
+        subs += struct.pack("<4sH", b"DATA", 8) + struct.pack("<Q", 0)
+    header = struct.pack("<4sIIIII", b"TES4", len(subs),
+                         0x200 if light else 0, 0, 0, 0) + subs
+
+    form_id = (len(masters) << 24) | (object_index & 0xFFFFFF)
+    data = struct.pack("<4sH", b"EDID", len(zstr("mcTest"))) + zstr("mcTest")
+    data += struct.pack("<4sH", b"FNAM", 1) + b"s"
+    data += struct.pack("<4sH", b"FLTV", 4) + struct.pack("<f", 1.0)
+    record = struct.pack("<4sIIIII", b"GLOB", len(data), 0, form_id, 0, 0) + data
+    group = struct.pack("<4sI4sIII", b"GRUP", 24 + len(record), b"GLOB", 0, 0, 0) + record
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(header + group)
+    return path
+
+
 def bethesda_plugin(path: Path, masters: list[str] | None = None, light: bool = False,
                     master_flag: bool = False, author: str = "modcheck",
                     record_count: int = 42, next_object_id: int = 0x800,

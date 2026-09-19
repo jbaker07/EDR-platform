@@ -41,9 +41,16 @@ conditions:
       Script mods must be enabled in the game's options; a disabled setting produces the same "does
       nothing" symptom from an entirely different cause and should be ruled out first.
 detector:
-  detectable: yes
+  detectable: partial
   check_id: inspection.warning
   signal: >-
+    Lowered from `yes` because the code emitted is the generic inspection.warning,
+    and what it reports is not the failure claimed here. Two narrower conditions
+    ARE caught outright from the artifact: bytecode whose magic number is not in
+    the table, and a mod mixing several Python versions. "Compiled for a version
+    the game will not load" is NOT caught, because it needs the game's own
+    interpreter version, which we do not have.
+
     Our Sims 4 inspector opens each .pyc in the .ts4script, reads the little-endian u16 magic number at
     offset 0, and maps it through a table of CPython magic numbers (3.6 through 3.13). It reports
     bytecode_python_versions as a count per version, warns "unrecognised .pyc magic numbers: [...]; the

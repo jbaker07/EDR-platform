@@ -112,11 +112,16 @@ capabilities:
       Implemented and tested, with one honest hole. For a distributed zip we read info.json or
       meta.lsx and extract the module identity - UUID, Name, Folder, Version/Version64, Author -
       and the declared dependency UUIDs, plus the list of .pak files shipped. For a bare .pak we
-      parse only the LSPK header (format version, priority, part count). We do NOT read the
-      package file list: it is LZ4-compressed and the optional `lz4` dependency is absent in this
-      environment, so a bare .pak yields header facts only and the inspector warns that "module
-      UUID and dependencies live inside it and were not read". We also do not read stats, scripts
-      or assets inside the package, and we do not verify the declared MD5 against the shipped .pak.
+      parse the LSPK header (format version, priority, part count) and, when the optional `lz4`
+      extra is installed, the package file list: entry names, offsets, archive part, flags and
+      both sizes. The layout follows LSLib, not our inference - a 272-byte FileEntry18, with the
+      list stored as numFiles:i32 plus an LZ4 block that must decompress to exactly
+      numFiles * 272, which is checked because lz4 treats the size argument as a buffer bound
+      rather than an assertion. With `lz4` absent the file list is reported NOT read, with the
+      install command, and never as an empty package. Entry counts and sizes are bounded before
+      allocation and entry names are path-sanitised; nothing is extracted and nothing is executed.
+      We still do not read the meta.lsx inside a .pak, so a bare .pak yields no module identity,
+      nor stats, scripts or assets, and we do not verify the declared MD5 against the shipped .pak.
       Note that identity read from info.json is `declared` evidence, not extracted - a mod can
       declare a UUID that does not match what is inside its .pak, and we would not catch that.
     implemented_by:
@@ -243,13 +248,22 @@ toolchain:
     source: bg3_multitool_readme_unreachable
 
 gaps:
-  - what: The contents of any bare .pak - its file list, the meta.lsx inside it, its stats entries and scripts.
+  - what: The meta.lsx inside a bare .pak, and its stats entries and scripts.
     why: >-
-      The LSPK file list is LZ4-compressed and the optional `lz4` Python package is not installed in this
-      environment, so our inspector reads the header and stops. Installing packages is out of scope here.
+      The file list itself is now read: `lz4` is an optional `bg3` extra and the LSPK entry layout follows
+      LSLib. What remains unread is the content of the entries. Reading meta.lsx means decompressing the
+      named entry and parsing LSX, which is not implemented.
     unblocks: >-
-      The `lz4` dependency would turn a bare .pak from header-only facts into a real module identity plus
-      a file list, which is the single largest improvement available to this pack.
+      Module identity (UUID, Folder, Version) for a bare .pak, which is how most BG3 mods are distributed,
+      and with it a real check that a declared info.json UUID matches what the .pak actually contains.
+  - what: Whether an obtainable real BG3 .pak exists to validate the reader against.
+    why: >-
+      Published mods are on hosts this environment cannot reach, and LSLib is C# with no .NET runtime
+      available here, so it cannot be run as a reference implementation. The entry layout is asserted
+      against LSLib's declared structures instead, which is external evidence but not a real artifact.
+    unblocks: >-
+      Moving BG3 package inspection from structure-validated to artifact-validated, as Sims 4 was moved
+      by cross-checking against S4TK.
   - what: Everything about the BG3 Modder's Multitool.
     why: raw.githubusercontent.com returns HTTP 404 for the repository on every branch tried, and github.com is HTTP 403 here.
     unblocks: Access to github.com, or a mirror of that repository.

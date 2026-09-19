@@ -1,0 +1,131 @@
+# Detection witnesses.
+#
+# A failure record claiming `detectable: yes` asserts ModCheck finds that
+# specific failure. A finding code appearing somewhere in a report does not
+# establish that. Each witness below supplies an exact input, invokes the real
+# analyzer, and requires the expected code to be emitted ABOUT the right
+# artifact and the right target -- so a generic warning cannot satisfy a
+# specific claim.
+#
+# Cases declaring `artifacts` need a builder registry and are SKIPPED, never
+# passed, where one is not supplied (the `modcheck evaluate` CLI). The pytest
+# suite supplies builders and runs them.
+
+- id: witness_minecraft_missing_required_dependency
+  game: minecraft
+  kind: witness
+  witness_for: missing_required_dependency_prevents_launch
+  description: A Fabric mod whose required dependency is absent from a complete listing
+  measures: that dependency.missing names the dependent mod and the missing id
+  configuration:
+    game_version: "26.3"
+    loader: fabric
+    loader_versions: {fabric: "0.19.5", java: "25"}
+    files_known_complete: true
+    artifacts:
+      - name: dependent.jar
+        mod_id: dependent
+        version: "1.0.0"
+        dependencies:
+          - {id: somelib, versions: ">=2.0.0", required: true}
+  expect:
+    findings: [dependency.missing]
+    subject: dependent.jar
+    target: somelib
+    summary_contains: "not installed"
+
+- id: witness_skyrimse_missing_master
+  game: skyrimse
+  kind: witness
+  witness_for: missing_master
+  description: A plugin whose declared master is not present in a complete load order
+  measures: that dependency.missing names the plugin and the absent master
+  configuration:
+    files_known_complete: true
+    loader: bethesda_plugin
+    artifacts:
+      - name: MyMod.esp
+        mod_id: MyMod.esp
+        dependencies:
+          - {id: "Unofficial Skyrim Special Edition Patch.esp", kind: content_mod, required: true}
+  expect:
+    findings: [dependency.missing]
+    subject: MyMod.esp
+    target: "Unofficial Skyrim Special Edition Patch.esp"
+
+- id: witness_fallout4_missing_master
+  game: fallout4
+  kind: witness
+  witness_for: missing_master
+  description: A Fallout 4 plugin whose declared master is absent
+  measures: that dependency.missing names the plugin and the absent master
+  configuration:
+    files_known_complete: true
+    loader: bethesda_plugin
+    artifacts:
+      - name: MyFO4Mod.esp
+        mod_id: MyFO4Mod.esp
+        dependencies:
+          - {id: "DLCRobot.esm", kind: content_mod, required: true}
+  expect:
+    findings: [dependency.missing]
+    subject: MyFO4Mod.esp
+    target: "DLCRobot.esm"
+
+- id: witness_falloutnv_missing_master
+  game: falloutnv
+  kind: witness
+  witness_for: missing_master
+  description: A New Vegas plugin whose declared master is absent
+  measures: that dependency.missing names the plugin and the absent master
+  configuration:
+    files_known_complete: true
+    loader: bethesda_plugin
+    artifacts:
+      - name: MyFNVMod.esp
+        mod_id: MyFNVMod.esp
+        dependencies:
+          - {id: "DeadMoney.esm", kind: content_mod, required: true}
+  expect:
+    findings: [dependency.missing]
+    subject: MyFNVMod.esp
+    target: "DeadMoney.esm"
+
+- id: witness_skyrimse_light_plugin_formid_overflow
+  game: skyrimse
+  kind: witness
+  witness_for: light_plugin_formid_overflow
+  description: >-
+    A light-flagged plugin containing a record whose object index is outside the
+    range a light plugin may use
+  measures: >-
+    that esplugin.invalid_light_plugin is emitted about that specific plugin.
+    Needs a built artifact and record-level parsing, so it is skipped where
+    either is unavailable rather than counted as a pass.
+  configuration:
+    files_known_complete: true
+    deep: true
+  artifacts:
+    - builder: bethesda_plugin_with_record
+      name: Overflowing.esp
+      args: {light: true, object_index: 20480}
+  expect:
+    findings: [esplugin.invalid_light_plugin]
+    subject: Overflowing.esp
+    summary_contains: "outside the range"
+
+- id: control_skyrimse_light_plugin_within_range
+  game: skyrimse
+  kind: control
+  description: A light plugin whose record IS inside the permitted range
+  measures: that a valid light plugin is not flagged
+  configuration:
+    files_known_complete: true
+    deep: true
+  artifacts:
+    - builder: bethesda_plugin_with_record
+      name: Fine.esp
+      args: {light: true, object_index: 291}
+  expect:
+    absent: [esplugin.invalid_light_plugin]
+    max_errors: 0

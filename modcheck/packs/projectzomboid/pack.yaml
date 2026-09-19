@@ -92,15 +92,21 @@ capabilities:
     tests:
     - tests/test_inspect.py::test_pz_mod_info_and_lua_paths
   dependency_analysis:
-    status: documented_only
+    status: partial
     note: >-
-      require= becomes dependency edges of kind content_mod, which the game-agnostic
-      resolver in src/modcheck/analyze/requirements.py could resolve
-      (dependency.missing, dependency.duplicate_mod_id). We do not claim it here: no test
-      exercises that path on PZ artifacts, mod.info carries no version constraints on
-      requirements so every edge is unversioned, and the ordering keys loadModAfter /
-      loadModBefore and the negative key incompatible are not in the inspector's
-      KNOWN_KEYS at all - they are reported as unrecognised rather than parsed.
+      require= becomes dependency edges that the resolver checks against a
+      configuration, reporting a missing required mod and duplicate mod ids.
+      Presence only: mod.info carries no version constraints on requirements, so
+      no edge can ever be version-checked. Still not parsed: the ordering keys
+      loadModAfter / loadModBefore and the negative key incompatible are not in
+      the inspector's KNOWN_KEYS and are reported as unrecognised.
+    implemented_by:
+      - src/modcheck/analyze/requirements.py
+      - src/modcheck/inspect/projectzomboid.py
+    tests:
+      - tests/test_dependency_per_game.py::test_projectzomboid_missing_required_mod_is_detected
+      - tests/test_dependency_per_game.py::test_control_projectzomboid_satisfied_requirement_is_silent
+      - tests/test_dependency_per_game.py::test_projectzomboid_duplicate_mod_id_is_detected
   interaction_analysis:
     status: partial
     note: >-

@@ -90,14 +90,24 @@ capabilities:
     - tests/test_inspect.py::test_smapi_code_mod
     - tests/test_inspect.py::test_content_patcher_targets_are_extracted
   dependency_analysis:
-    status: documented_only
+    status: supported
     note: >-
-      The inspector turns Dependencies and ContentPackFor into dependency edges with
-      version constraints, and the game-agnostic resolver in
-      src/modcheck/analyze/requirements.py would consume them (dependency.missing,
-      dependency.duplicate_mod_id, dependency.version_mismatch). No test in this repo
-      exercises that path for Stardew Valley, and nothing consults SMAPI.metadata.json,
-      so we do not claim executable dependency analysis for this game.
+      Dependencies and ContentPackFor become dependency edges with version
+      constraints, resolved by src/modcheck/analyze/requirements.py against a
+      configuration: a missing required dependency is reported, an optional one
+      absent is not, and ContentPackFor is treated as the real dependency edge it
+      is even though it does not appear under Dependencies. Limits: this resolves
+      what the manifest declares, not what the assembly actually needs, and a
+      configuration that is not a complete listing yields
+      dependency.presence_unresolved rather than a missing-dependency claim.
+    implemented_by:
+      - src/modcheck/analyze/requirements.py
+      - src/modcheck/inspect/smapi.py
+    tests:
+      - tests/test_dependency_per_game.py::test_stardew_missing_smapi_dependency_is_detected
+      - tests/test_dependency_per_game.py::test_control_stardew_satisfied_dependency_is_silent
+      - tests/test_dependency_per_game.py::test_stardew_content_pack_for_becomes_a_real_dependency_edge
+      - tests/test_real_corpus.py::test_our_extraction_matches_the_real_manifests_fields
   interaction_analysis:
     status: partial
     note: >-
