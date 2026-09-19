@@ -26,6 +26,7 @@ from .store import Store
 
 LOOT_GAMES = {"skyrimse", "fallout4", "falloutnv"}
 RIMSORT_SOURCE_ID = "rimsort_community_rules"
+SMAPI_SOURCE_ID = "smapi_metadata"
 
 
 def _loot_findings(installation: Installation, store: Store,
@@ -86,6 +87,36 @@ def _rimworld_findings(installation: Installation, store: Store,
     return findings
 
 
+def _smapi_findings(installation: Installation, store: Store,
+                    report: Report) -> list[Finding]:
+    """SMAPI's own per-version compatibility status, when we have it cached."""
+    if installation.game != "stardewvalley":
+        return []
+    from .integrations import smapi as sm
+
+    findings: list[Finding] = []
+    available = False
+    source = store.pack("stardewvalley").sources.get(SMAPI_SOURCE_ID)
+    if source is None:
+        report.not_checked.append(
+            f"SMAPI compatibility status: no source record {SMAPI_SOURCE_ID!r}")
+    else:
+        try:
+            raw = read_cached(source)
+        except FetchError as exc:
+            report.not_checked.append(f"SMAPI compatibility status: {exc}")
+        else:
+            metadata = sm.SmapiMetadata.cached(raw, source_id=SMAPI_SOURCE_ID)
+            findings += metadata.analyze(installation)
+            report.sources_used.append(SMAPI_SOURCE_ID)
+            available = True
+
+    checked, not_checked = sm.coverage(available)
+    report.checked += checked
+    report.not_checked += not_checked
+    return findings
+
+
 def analyze_installation(installation: Installation, store: Store | None = None) -> Report:
     """The player path: what applies to this exact configuration."""
     store = store or Store()
@@ -99,6 +130,7 @@ def analyze_installation(installation: Installation, store: Store | None = None)
 
     findings += _loot_findings(installation, store, report)
     findings += _rimworld_findings(installation, store, report)
+    findings += _smapi_findings(installation, store, report)
 
     for artifact in installation.artifacts:
         ins = artifact.inspection

@@ -1,0 +1,34 @@
+{
+    /**
+     * Synthetic fixture in the format of SMAPI's own metadata file. The real
+     * file lives in an LGPL-3.0 repository and is not reproduced here; only
+     * the structure and key grammar are, which is what the parser must handle.
+     * The // inside this URL is deliberate: https://example.invalid/a//b
+     */
+    "ModData": {
+        "Always Obsolete Mod": {
+            "Id": "example.alwaysobsolete",
+            "~ | Status": "Obsolete",
+            "~ | StatusReasonPhrase": "the game does this natively now. You can delete this mod."
+        },
+        "Broken Below Version": {
+            "Id": "example.brokenbelow",
+            "FormerIds": "example.oldid | example.olderid",
+            "~0.3.10 | Status": "AssumeBroken",
+            "~0.3.10 | StatusReasonDetails": "it breaks on newer game versions",
+            "Default | UpdateKey": "Nexus:1"
+        },
+        "Exactly One Version": {
+            "Id": "example.exact",
+            "1.2.0 | Status": "AssumeBroken"
+        },
+        "Assumed Fine": {
+            "Id": "example.fine",
+            "~ | Status": "AssumeCompatible"
+        },
+        "No Status At All": {
+            "Id": "example.nostatus",
+            "Default | UpdateKey": "Nexus:2"
+        }
+    }
+}
