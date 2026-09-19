@@ -1,0 +1,232 @@
+# Stardew Valley game pack.
+#
+# Support is declared per capability. Only package_inspection is executable and
+# test-backed here; everything else is documentation we hold, not code we run.
+game: stardewvalley
+name: Stardew Valley
+pack_version: 0.1.0
+summary: >-
+  SMAPI-loaded C# mods and JSON content packs (chiefly Content Patcher). The real
+  compatibility surface is the asset-level Target/Action list inside content.json
+  plus the manifest dependency graph, both of which we extract mechanically.
+
+ecosystem:
+  languages:
+  - C#
+  - JSON
+  loaders:
+  - id: smapi
+    name: SMAPI (Stardew Modding API)
+    manifest: manifest.json
+    versions: '>=4.4.0'
+    source: smapi_manifest_json_schema
+  - id: content_patcher
+    name: Content Patcher (content-pack framework, UniqueID Pathoschild.ContentPatcher)
+    manifest: content.json
+    versions: 'content.json Format >=2.9.0 (Content Patcher 2.9.x, requires SMAPI >=4.4.0)'
+    source: content_patcher_json_schema
+  artifact_formats:
+  - mod folder under Mods/ containing manifest.json
+  - zip archive of that mod folder (the release layout produced by Pathoschild.Stardew.ModBuildConfig)
+  - C# assembly named by the manifest EntryDll field (*.dll)
+  - Content Patcher content pack (manifest.json with ContentPackFor + content.json + assets/)
+  composition: >-
+    SMAPI loads each folder under Mods/ by its manifest.json; a manifest may declare
+    Dependencies, and SMAPI loads a declared dependency before the mod that names it.
+    Content Patcher then applies patches per asset: every "Action": "Load" patch is
+    resolved before any Edit* action, and the remaining patches run sequentially, each
+    seeing the previous result as its input. Within one content pack the order is the
+    order of the Changes list; across content packs it is SMAPI's load order, which an
+    author changes by declaring a manifest dependency on the pack it must run after.
+    Load patches additionally carry a Priority whose default is "Exclusive", which is
+    all-or-nothing rather than last-wins.
+  platforms:
+  - windows
+  - linux
+  - macos
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold the SMAPI manifest JSON Schema, the Content Patcher JSON Schema, the
+      Content Patcher author guide (including tokens, EditData, Load and
+      troubleshooting), the ModBuildConfig documentation and three Stardew Valley Wiki
+      modder pages, all fetched and hashed. Guidance is limited to what those documents
+      say: we have not exercised any of it against a running game, and none of the C#
+      API surface (StardewModdingAPI interfaces, game classes) is covered by any source
+      in this pack.
+    implemented_by:
+    - packs/stardewvalley/sources.yaml
+  project_setup:
+    status: documented_only
+    note: >-
+      Recipes describe the on-disk layout of a Content Patcher pack and of a
+      ModBuildConfig C# project, but modcheck ships no generator for them:
+      src/modcheck/creator/scaffold.py registers only ("minecraft", "fabric") in
+      GENERATORS and raises ScaffoldError for stardewvalley. The creator must create
+      the files by hand from the recipe.
+    implemented_by:
+    - packs/stardewvalley/recipes/
+  source_edit:
+    status: unsupported
+    note: >-
+      ModCheck has no editor, refactoring or code-generation path for C# mod sources or
+      for content.json. Nothing in this repo writes into a Stardew mod project.
+  package_inspection:
+    status: supported
+    note: >-
+      Reads manifest.json from a zip or unpacked folder and reports UniqueID, Version,
+      Author, MinimumApiVersion, EntryDll, UpdateKeys, ContentPackFor and Dependencies
+      as declared facts; classifies the artifact as smapi_code_mod or content_pack; and,
+      when content.json is present, extracts each Changes entry's Action, Target, Fields,
+      Entries keys and When conditions plus the de-duplicated Target list as extracted
+      facts. It does NOT read the C# assembly, does not resolve tokens (which only have
+      values at runtime), does not check that a Target exists in the installed game
+      version, and does not read the Priority field of Load patches.
+    implemented_by:
+    - src/modcheck/inspect/smapi.py
+    tests:
+    - tests/test_inspect.py::test_smapi_code_mod
+    - tests/test_inspect.py::test_content_patcher_targets_are_extracted
+  dependency_analysis:
+    status: documented_only
+    note: >-
+      The inspector turns Dependencies and ContentPackFor into dependency edges with
+      version constraints, and the game-agnostic resolver in
+      src/modcheck/analyze/requirements.py would consume them (dependency.missing,
+      dependency.duplicate_mod_id, dependency.version_mismatch). No test in this repo
+      exercises that path for Stardew Valley, and nothing consults SMAPI.metadata.json,
+      so we do not claim executable dependency analysis for this game.
+  interaction_analysis:
+    status: documented_only
+    note: >-
+      Per-artifact Target/Action pairs are extracted, which is the input an asset-level
+      overlap analysis needs, but no cross-artifact comparison is implemented: two packs
+      that Load the same Target, or that EditData the same entry keys, are not compared
+      and no interaction record is produced. Load Priority, which decides the outcome, is
+      not extracted at all.
+  build_execution:
+    status: blocked
+    note: >-
+      Building a SMAPI C# mod needs the .NET SDK and a Stardew Valley installation for
+      ModBuildConfig to resolve game and SMAPI references against.
+    blocker: >-
+      No .NET SDK and no Stardew Valley installation in this environment, and the task
+      forbids installing packages. A Content Patcher pack has no build step at all, so
+      "build" for content packs means validation only.
+  runtime_testing:
+    status: blocked
+    note: >-
+      The only authoritative checks (SMAPI's console log, Content Patcher's `patch
+      summary`) run inside the game process.
+    blocker: >-
+      Stardew Valley is a paid, non-redistributable game and is not installed here; no
+      mod in this pack has been loaded by SMAPI.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We document the release shape (ModBuildConfig's bin zip), manifest UpdateKeys for
+      update checks, and SMAPI's own mod metadata database including its AssumeBroken /
+      Obsolete status overrides. ModCheck performs no update check, no version bumping
+      and no compatibility-list lookup.
+
+toolchain:
+- id: smapi_json_schemas
+  name: SMAPI JSON Schemas (manifest.json, content-patcher.json)
+  url: https://smapi.io/schemas/manifest.json
+  purpose: Machine-readable validation of manifest.json and Content Patcher content.json.
+  status: verified_available
+  runs_on:
+  - any JSON Schema draft-07 validator
+  license: LGPL-3.0-or-later (the schema files are served from the SMAPI repository, whose LICENSE.txt is the GNU LGPL v3)
+  integration: data_only
+  note: >-
+    Both schemas were fetched (HTTP 200) and hashed; they declare
+    "$schema": "http://json-schema.org/draft-07/schema#". They use the non-standard
+    keywords allowComments, allowTrailingCommas, @documentationUrl and @errorMessages,
+    which a plain validator ignores. Not yet wired into any modcheck check.
+  source: smapi_manifest_json_schema
+- id: smapi_metadata_db
+  name: SMAPI.metadata.json (SMAPI's internal mod compatibility database)
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/src/SMAPI.Web/wwwroot/SMAPI.metadata.json
+  purpose: Per-mod compatibility overrides (Status AssumeBroken / Obsolete / AssumeCompatible), FormerIds and update keys.
+  status: verified_available
+  license: LGPL-3.0-or-later (SMAPI repository LICENSE.txt)
+  integration: data_only
+  note: >-
+    Fetched and hashed. It is a JSON-with-comments file (leading BOM, /* */ comments),
+    so json.loads on the raw bytes fails; a comment-stripping reader is required. No
+    modcheck check reads it today.
+  source: smapi_mod_metadata_db
+- id: modbuildconfig
+  name: Pathoschild.Stardew.ModBuildConfig
+  url: https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig
+  purpose: MSBuild package that finds the game, references SMAPI and game assemblies, installs the built mod and produces the release zip.
+  status: verified_available
+  runs_on:
+  - MSBuild / .NET SDK
+  license: MIT
+  integration: reference_only
+  note: >-
+    Verified through the NuGet registration index (fetched, HTTP 200): latest version
+    4.4.0, published 2025-04-13, licenseExpression "MIT", authors "Pathoschild". We did
+    not download or execute the package; there is no .NET SDK here.
+  source: modbuildconfig_nuget
+- id: content_patcher
+  name: Content Patcher
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide.md
+  purpose: The content-pack framework nearly all JSON-only Stardew mods target.
+  status: candidate
+  license: MIT (Pathoschild/StardewMods LICENSE, "Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)")
+  integration: reference_only
+  note: >-
+    Its documentation, JSON Schema and release notes were fetched; the mod binary itself
+    was not, and cannot be loaded without the game. Release notes record 2.9.1 released
+    14 March 2026 for SMAPI 4.4.0 or later.
+  source: content_patcher_author_guide
+- id: patch_summary_command
+  name: Content Patcher "patch summary" console command
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/troubleshooting.md
+  purpose: In-game report of which patches loaded, which conditions matched and which assets were changed.
+  status: unverified
+  integration: none
+  note: >-
+    Documented in the troubleshooting guide, but it only exists inside a running game
+    with Content Patcher loaded. We have never run it, so every recipe treats it as the
+    step ModCheck cannot perform.
+  source: content_patcher_troubleshooting
+
+gaps:
+- what: The C# modding API surface (StardewModdingAPI interfaces, IModHelper, event names, game classes).
+  why: >-
+    No source in this pack documents it. smapi.io's API reference and the wiki's
+    Modding:Modder_Guide/APIs sub-pages other than Manifest and Content were not fetched.
+  unblocks: Recipes that name a concrete event or helper method, and any static analysis of a mod assembly.
+- what: Which Stardew Valley game version a given asset Target exists in.
+  why: >-
+    Asset names come from the game's Content folder, which is not redistributable and is
+    not present here; no source in this pack lists valid asset names per game version.
+  unblocks: Detecting a content pack that targets an asset removed or renamed by a game update.
+- what: The live SMAPI mod compatibility list as structured data.
+  why: >-
+    https://smapi.io/mods was fetched but returns a small HTML shell; the SMAPI release
+    notes additionally record that the web mod compatibility list has been deprecated.
+    We therefore have SMAPI's internal metadata file but not a per-mod compatibility
+    verdict feed.
+  unblocks: Telling a player whether a specific installed mod is currently known-broken.
+- what: Content Patcher Load Priority values in shipped packs.
+  why: >-
+    src/modcheck/inspect/smapi.py extracts Action, Target, Fields, Entries and When but
+    not Priority, so the field that decides a Load collision is not in our extracted data.
+  unblocks: Mechanically detecting the Exclusive-priority Load collision documented in failures/.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - smapi_manifest_json_schema
+  - content_patcher_json_schema
+  - content_patcher_author_guide
+  - smapi_mod_metadata_db
+  - smapi_mod_build_config

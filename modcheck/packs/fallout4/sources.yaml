@@ -27,6 +27,11 @@ sources:
   games:
   - fallout4
   publisher: Bethesda Game Studios (creationkit.com)
+  license: unknown
+  notes: 'Fetched with HTTP 200 but the body is not documentation: creationkit.com serves ''This wiki
+    is currently down for backend maintenance. Any news will be posted in the official Bethesda Game Studios
+    discord , in the #modding-news channel.'' We therefore hold NO Fallout 4 Creation Kit documentation.
+    Treat as a gap despite the 200.'
 - id: esplugin_license
   title: esplugin LICENSE
   url: https://raw.githubusercontent.com/Ortham/esplugin/master/LICENSE
@@ -35,9 +40,9 @@ sources:
   retrieved_at: '2026-09-19T13:42:27+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903
   bytes: 35147
   content_type: text/plain
@@ -48,6 +53,8 @@ sources:
   - fallout4
   - falloutnv
   publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: Verbatim GNU GPL v3 text.
 - id: esplugin_readme
   title: 'esplugin: Bethesda plugin file parsing library README'
   url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
@@ -56,9 +63,10 @@ sources:
   retrieved_at: '2026-09-19T13:42:26+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: esplugin LICENSE (fetched as esplugin_license) is the GNU GPL v3 text.
   sha256: b0cdf36cb9cad942d51a02e5abfd18515b042f19ea0a12ad67bd384736a69ecf
   bytes: 1189
   content_type: text/plain
@@ -69,6 +77,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: The plugin-parsing library behind LOOT and libloadorder. Lists the games it parses. A candidate
+    for real record-level parsing; not integrated here (Rust, would need a build we do not run).
 - id: f4se_home
   title: Fallout 4 Script Extender (F4SE) home page
   url: https://f4se.silverlock.org/
@@ -77,9 +88,10 @@ sources:
   retrieved_at: '2026-09-19T13:44:06+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
+    redistribute: 'no'
     commercial: unknown
-    derive: unknown
+    derive: 'no'
+    note: 'The F4SE readme states: ''Can I redistribute or make modified versions of F4SE? - No.'''
   sha256: 415e3a29d4b059fe985c5f8afb175fe6f166bdb73c50c08c83a6da0e4b55b217
   bytes: 3904
   content_type: text/html
@@ -88,6 +100,8 @@ sources:
   games:
   - fallout4
   publisher: F4SE team
+  license: proprietary
+  notes: Current F4SE builds mapped to Fallout 4 runtime versions (e.g. 0.7.9 for runtime 1.11.240).
 - id: f4se_readme
   title: F4SE readme (installation, runtime version rules, plugin loading)
   url: https://raw.githubusercontent.com/ianpatt/f4se/master/f4se_readme.txt
@@ -96,9 +110,11 @@ sources:
   retrieved_at: '2026-09-19T13:44:07+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
+    redistribute: 'no'
     commercial: unknown
-    derive: unknown
+    derive: 'no'
+    note: Readme forbids redistribution and modified versions; plugins must have their source publicly
+      available.
   sha256: 4ba319feb9ac4a1a11239f6064c631eeae977375582d0c97eb796f654b3b13b3
   bytes: 3295
   content_type: text/plain
@@ -107,6 +123,9 @@ sources:
   games:
   - fallout4
   publisher: Ian Patterson, Stephen Abel (F4SE team)
+  license: proprietary
+  notes: 'Installation and the plugin-authoring pointer: PluginAPI.h, no example plugin, API not locked
+    down.'
 - id: f4se_repo_readme
   title: f4se source repository README
   url: https://raw.githubusercontent.com/ianpatt/f4se/master/README.md
@@ -115,9 +134,10 @@ sources:
   retrieved_at: '2026-09-19T13:44:07+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
+    redistribute: 'no'
     commercial: unknown
-    derive: unknown
+    derive: 'no'
+    note: No LICENSE file in the repository root; the readme forbids redistribution and modified versions.
   sha256: 6006c5ec22d798d8415cb73a29237ce6c4c3a59dbd6b752a957458602c090cf8
   bytes: 474
   content_type: text/plain
@@ -126,6 +146,9 @@ sources:
   games:
   - fallout4
   publisher: Ian Patterson, Stephen Abel (F4SE team)
+  license: proprietary
+  notes: 'Only build instructions: clone ianpatt/common and ianpatt/f4se, configure with CMake, build
+    umbrella.sln. Windows/MSVC toolchain, which we do not have here.'
 - id: libloadorder_active_plugins
   title: 'libloadorder documentation: Active Plugins'
   url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/active_plugins.md
@@ -134,9 +157,9 @@ sources:
   retrieved_at: '2026-09-19T13:48:42+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 1d2022076e451bae85b63134461dcbaf72258e9b6de4c4283a9165d4f0848544
   bytes: 1273
   content_type: text/plain
@@ -147,6 +170,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: 255 active plugin limit, plugins.txt location and encoding, and the separate 4096 light-plugin
+    limit for Skyrim SE and Fallout 4.
 - id: libloadorder_conflict_resolution
   title: 'libloadorder documentation: Conflict Resolution'
   url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/conflict_resolution.md
@@ -155,9 +181,9 @@ sources:
   retrieved_at: '2026-09-19T13:48:26+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 8658183547a99175f7ae2f7241f3528a416c97afe297c81a466c50f64b53b60f
   bytes: 1524
   content_type: text/plain
@@ -168,6 +194,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: 'The ''rule of one'': the last loaded plugin''s change to an entry wins. The composition model
+    for all three games.'
 - id: libloadorder_license
   title: libloadorder LICENSE
   url: https://raw.githubusercontent.com/Ortham/libloadorder/master/LICENSE
@@ -176,9 +205,9 @@ sources:
   retrieved_at: '2026-09-19T13:48:26+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: c53a65c2fd561c87eaabf1072ef5dcab8653042bc15308465f52413585eb6271
   bytes: 35146
   content_type: text/plain
@@ -189,6 +218,8 @@ sources:
   - fallout4
   - falloutnv
   publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: Verbatim GNU GPL v3 text; evidence for the libloadorder documentation licence.
 - id: libloadorder_load_order_mechanisms
   title: 'libloadorder documentation: Load Order Mechanisms'
   url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/load_order_mechanisms.md
@@ -197,9 +228,10 @@ sources:
   retrieved_at: '2026-09-19T13:48:25+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: libloadorder repository LICENSE is the GNU GPL v3 text (fetched as libloadorder_license).
   sha256: 0a67e5ca3f33e9abe6af5e10b6fcc18fc8212c9b54ea84ef290d9aed205faf16
   bytes: 2350
   content_type: text/plain
@@ -210,6 +242,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: 'States per game how load order is decided: timestamps for Fallout: New Vegas, plugins.txt order
+    for Skyrim SE and Fallout 4, plus the hardcoded master/light rules.'
 - id: libloadorder_plugin_types
   title: 'libloadorder documentation: Plugin Types'
   url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/plugin_types.md
@@ -218,9 +253,9 @@ sources:
   retrieved_at: '2026-09-19T13:48:25+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: ee2022aa3ce8a5a94c8a328d17c56aaecbdccbda4f27ab1ad95398874963aa8e
   bytes: 2053
   content_type: text/plain
@@ -231,6 +266,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: Defines master / non-master / light master / light non-master and how extension and header flags
+    combine per game. Backs our inspector's separate light_flag_set and loads_in_light_slot facts.
 - id: libloot_license
   title: libloot LICENSE (covers the metadata syntax documentation)
   url: https://raw.githubusercontent.com/loot/libloot/master/LICENSE
@@ -239,9 +277,9 @@ sources:
   retrieved_at: '2026-09-19T13:49:16+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903
   bytes: 35147
   content_type: text/plain
@@ -252,6 +290,8 @@ sources:
   - fallout4
   - falloutnv
   publisher: LOOT team
+  license: GPL-3.0
+  notes: Verbatim GNU GPL v3 text; evidence for the licence of the libloot metadata documentation we cite.
 - id: loot_masterlist_fallout4
   title: LOOT masterlist for fallout4
   url: https://raw.githubusercontent.com/loot/fallout4/master/masterlist.yaml
@@ -260,9 +300,11 @@ sources:
   retrieved_at: '2026-09-19T13:27:54+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: 'Verified from the repository LICENSE file, fetched as loot_masterlist_fallout4_license: ''CC0
+      1.0 Universal''.'
   sha256: b018c8c92de4fe0c4cb19476ee41a7cc0b37d40e1922e3810b0cc33526d65c06
   bytes: 315210
   content_type: text/plain
@@ -271,6 +313,9 @@ sources:
   games:
   - fallout4
   publisher: LOOT team
+  license: CC0-1.0
+  notes: Hand-maintained load-order, requirement, incompatibility and dirty-edit metadata for Fallout
+    4. Read by src/modcheck/integrations/loot.py; we do not redistribute it, we re-fetch it.
 - id: loot_masterlist_fallout4_license
   title: LOOT fallout4 masterlist repository LICENSE
   url: https://raw.githubusercontent.com/loot/fallout4/master/LICENSE
@@ -279,9 +324,9 @@ sources:
   retrieved_at: '2026-09-19T13:44:03+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
   sha256: a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499
   bytes: 7048
   content_type: text/plain
@@ -290,6 +335,8 @@ sources:
   games:
   - fallout4
   publisher: LOOT team
+  license: CC0-1.0
+  notes: Verbatim CC0 1.0 Universal text; the evidence for the fallout4 masterlist licence.
 - id: loot_masterlist_prelude
   title: LOOT masterlist prelude (shared anchors and common messages)
   url: https://raw.githubusercontent.com/loot/prelude/master/prelude.yaml
@@ -298,9 +345,10 @@ sources:
   retrieved_at: '2026-09-19T13:42:26+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: loot/prelude LICENSE is CC0 1.0 Universal (checked at https://raw.githubusercontent.com/loot/prelude/master/LICENSE).
   sha256: d766b2d98565c2147bfeedf8df8385aae1c32731fc0b14b1bdb1ee54d1729711
   bytes: 173654
   content_type: text/plain
@@ -311,6 +359,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: LOOT team
+  license: CC0-1.0
+  notes: Shared YAML anchors and common messages that masterlists reference. Our LOOT integration reads
+    masterlists only; prelude anchors are not expanded by us, which is a limit on message coverage.
 - id: loot_metadata_conditions_spec
   title: 'libloot metadata syntax: condition strings'
   url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/conditions.rst
@@ -319,9 +370,11 @@ sources:
   retrieved_at: '2026-09-19T13:44:04+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: Documentation lives in the loot/libloot repository, whose LICENSE (fetched as libloot_license)
+      is GNU GPL v3.
   sha256: 3d0ff9dd50c0e6784b3edb55d0596e8fc1df0f1a8520713dc81d4cb245bd7794
   bytes: 13686
   content_type: text/plain
@@ -332,6 +385,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: LOOT team
+  license: GPL-3.0
+  notes: The condition-function grammar our loot_conditions evaluator implements. Functions we cannot
+    decide are reported unresolved, never assumed.
 - id: loot_metadata_file_spec
   title: 'libloot metadata syntax: File data structure'
   url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/data_structures/file.rst
@@ -340,9 +396,10 @@ sources:
   retrieved_at: '2026-09-19T13:44:05+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: loot/libloot repository, GNU GPL v3 (see libloot_license).
   sha256: a3020fc1e6d69891a7456d727416dff658023164a33b622d215c086da6556bb9
   bytes: 1959
   content_type: text/plain
@@ -353,6 +410,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: LOOT team
+  license: GPL-3.0
+  notes: Defines the File data structure used by req/inc/after entries, including the scalar shorthand
+    our _as_file() handles.
 - id: loot_metadata_plugin_spec
   title: 'libloot metadata syntax: Plugin data structure'
   url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/data_structures/plugin.rst
@@ -361,9 +421,10 @@ sources:
   retrieved_at: '2026-09-19T13:44:04+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: loot/libloot repository, GNU GPL v3 (see libloot_license).
   sha256: d4e306452ca6d1db17fbac8bcb58c704489f6fd3ebfdcd34ecd319be43f80cee
   bytes: 6832
   content_type: text/plain
@@ -374,6 +435,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: LOOT team
+  license: GPL-3.0
+  notes: Defines the plugin entry fields (name regex rules, req/inc/after, tag, dirty/clean, msg) the
+    integration consumes.
 - id: midnight_ride_guide
   title: 'The Midnight Ride: Fallout 4 modding guide'
   url: https://themidnightride.moddinglinked.com/
@@ -385,6 +449,7 @@ sources:
     redistribute: unknown
     commercial: unknown
     derive: unknown
+    note: No licence statement on the site; footer reads 'ModdingLinked 2026'.
   sha256: feada2f1d661bcb31b37f7d8e9c6a8b74c063854fda3b50e15adb1b4c82c9b7c
   bytes: 4587
   content_type: text/html
@@ -393,6 +458,8 @@ sources:
   games:
   - fallout4
   publisher: The Midnight Ride authors
+  license: unknown
+  notes: 'Landing page only: navigation, no substantive content. The substance is on intro.html and esl.html.'
 - id: midnight_ride_intro
   title: 'The Midnight Ride: Introduction and setup requirements'
   url: https://themidnightride.moddinglinked.com/intro.html
@@ -404,6 +471,7 @@ sources:
     redistribute: unknown
     commercial: unknown
     derive: unknown
+    note: No licence statement on the site.
   sha256: 8b46f4dfa72a606711680ed4c9d6c29e68f4febba8d369cbbc54f9c5884f8037
   bytes: 16344
   content_type: text/html
@@ -412,6 +480,9 @@ sources:
   games:
   - fallout4
   publisher: The Midnight Ride authors
+  license: unknown
+  notes: 'Community Fallout 4 setup guide. Community consensus, not a specification: use it for practice,
+    not for mechanism claims.'
 - id: midnight_ride_light_plugins
   title: 'The Midnight Ride: Light Plugins (ESL) reference'
   url: https://themidnightride.moddinglinked.com/esl.html
@@ -423,6 +494,7 @@ sources:
     redistribute: unknown
     commercial: unknown
     derive: unknown
+    note: No licence statement on the site.
   sha256: b6a8ac5f1af72342745a4df51bc330e47dce1cfadce2a55214b8b2bf4805f152
   bytes: 12472
   content_type: text/html
@@ -431,6 +503,9 @@ sources:
   games:
   - fallout4
   publisher: The Midnight Ride authors
+  license: unknown
+  notes: States the ESL new-record ceilings (4095 records, 001->FFF; 2048 for header version 0.95) and
+    the xEdit -PseudoESL / SetESL batch-flagging workflow.
 - id: mutagen_docs_home
   title: Mutagen documentation home
   url: https://mutagen-modding.github.io/Mutagen/
@@ -439,9 +514,11 @@ sources:
   retrieved_at: '2026-09-19T13:44:08+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: Mutagen repository LICENSE.txt (fetched as mutagen_license) is the GNU GPL v3 text; the documentation
+      site carries no separate statement.
   sha256: 27fb5ac272c4644d8e8622eeae02ad5fc43b7b47a87619ed602dc6e7c2ebf962
   bytes: 60851
   content_type: text/html
@@ -451,6 +528,9 @@ sources:
   - skyrimse
   - fallout4
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: 'C# library for reading and writing Bethesda plugins. Documentation nav shows Oblivion, Skyrim
+    and Fallout 4 record suites; no Fallout: New Vegas suite is documented.'
 - id: mutagen_itpo_avoidance
   title: 'Mutagen best practices: ITPO Avoidance'
   url: https://mutagen-modding.github.io/Mutagen/best-practices/ITPO-Avoidance/
@@ -459,9 +539,9 @@ sources:
   retrieved_at: '2026-09-19T13:44:08+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 567e644c0e9b0e20173aa89fe2a4185c45e275d3d19c4849d15c53e8fd527e1b
   bytes: 57619
   content_type: text/html
@@ -471,6 +551,9 @@ sources:
   - skyrimse
   - fallout4
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: Why a patcher must not write records identical to the previous override (ITPO/ITM), which is
+    the same defect xEdit's cleaning chapter describes.
 - id: mutagen_license
   title: Mutagen LICENSE.txt
   url: https://raw.githubusercontent.com/Mutagen-Modding/Mutagen/dev/LICENSE.txt
@@ -479,9 +562,9 @@ sources:
   retrieved_at: '2026-09-19T13:44:08+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 230184f60bae2feaf244f10a8bac053c8ff33a183bcc365b4d8b876d2b7f4809
   bytes: 35823
   content_type: text/plain
@@ -491,6 +574,8 @@ sources:
   - skyrimse
   - fallout4
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: Verbatim GNU GPL v3 text.
 - id: mutagen_winning_overrides
   title: 'Mutagen: Load Order and Winning Overrides'
   url: https://mutagen-modding.github.io/Mutagen/loadorder/Winning-Overrides/
@@ -499,9 +584,9 @@ sources:
   retrieved_at: '2026-09-19T13:47:10+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: d40c34b22d053e4f66689ae3a7e201e3b99f15cec9966d38c38f496072dc91cb
   bytes: 56410
   content_type: text/html
@@ -511,6 +596,9 @@ sources:
   - skyrimse
   - fallout4
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: The WinningOverrides()/PriorityOrder API that resolves the last-loaded version of a record. The
+    library-level expression of the rule of one.
 - id: nexusmods_site
   title: Nexus Mods Fallout 4 section (mod distribution and per-mod metadata)
   url: https://www.nexusmods.com/fallout4
@@ -529,6 +617,9 @@ sources:
   gap: 'Nexus Mods returns HTTP 403 to us, so we hold no mod-level metadata for Fallout 4: no per-mod
     version histories, no author-declared requirements, no file lists, no download counts. Claims about
     what a specific Nexus mod contains or requires are out of scope for this pack.'
+  license: unknown
+  notes: HTTP 403. Recorded so that the absence of any Nexus-derived claim in this pack is visible and
+    deliberate.
 - id: synthesis_coding_a_patcher
   title: 'Synthesis: Coding a Patcher'
   url: https://mutagen-modding.github.io/Synthesis/devs/Coding-a-Patcher/
@@ -537,9 +628,9 @@ sources:
   retrieved_at: '2026-09-19T13:47:10+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: cd86b79a4adf6b726fd89b8f89bbd45277218a1926390c241bf3119f70830753
   bytes: 38471
   content_type: text/html
@@ -549,6 +640,8 @@ sources:
   - skyrimse
   - fallout4
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: 'The RunPatch/state model: iterate WinningOverrides, GetOrAddAsOverride into state.PatchMod.'
 - id: synthesis_create_a_patcher
   title: 'Synthesis: Create a Patcher'
   url: https://mutagen-modding.github.io/Synthesis/devs/Create-a-Patcher/
@@ -557,9 +650,10 @@ sources:
   retrieved_at: '2026-09-19T13:44:09+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: Synthesis repository LICENSE.md (fetched as synthesis_license) is the GNU GPL v3 text.
   sha256: 710af482038e592d2ea8968dbaf248da8791a08cf627db369f7d568fa7546f10
   bytes: 38935
   content_type: text/html
@@ -569,6 +663,8 @@ sources:
   - skyrimse
   - fallout4
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: Bootstrapping a Local Solution patcher and the generated Program.cs entry point.
 - id: synthesis_license
   title: Synthesis LICENSE.md
   url: https://raw.githubusercontent.com/Mutagen-Modding/Synthesis/dev/LICENSE.md
@@ -577,9 +673,9 @@ sources:
   retrieved_at: '2026-09-19T13:44:10+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 8646559c866597b7bf28d110cde63de18f6d97354bf22559053301bc3ca492c5
   bytes: 35142
   content_type: text/plain
@@ -589,6 +685,8 @@ sources:
   - skyrimse
   - fallout4
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: Verbatim GNU GPL v3 text.
 - id: synthesis_supporting_multiple_games
   title: 'Synthesis: Supporting Multiple Games'
   url: https://mutagen-modding.github.io/Synthesis/devs/Supporting-Multiple-Games/
@@ -597,9 +695,9 @@ sources:
   retrieved_at: '2026-09-19T13:44:09+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: d799cce7b3274d67483902c622d78e82a5766758f18467a892bf44d68588329c
   bytes: 35739
   content_type: text/html
@@ -610,6 +708,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: Mutagen-Modding
+  license: GPL-3.0
+  notes: 'Shows AddPatch<ISkyrimMod,...> and AddPatch<IFallout4Mod,...>. No Fallout: New Vegas mod type
+    appears anywhere in the Synthesis or Mutagen documentation we fetched.'
 - id: uesp_fallout4_mod_file_format
   title: 'UESP: Fallout4Mod Mod File Format (record/subrecord specification)'
   url: https://en.uesp.net/wiki/Fallout4Mod:Mod_File_Format
@@ -628,6 +729,8 @@ sources:
   gap: 'UESP returns HTTP 403 to us, so we hold no record- or field-level specification of the Fallout
     4 plugin format beyond the TES4 header our own inspector parses: no per-record subrecord layouts,
     no field types, no BA2 archive layout. Record-level conflict claims cannot be made from our own parsing.'
+  license: unknown
+  notes: HTTP 403 from the origin. Same block as the Skyrim page.
 - id: wrye_bash_license
   title: Wrye Bash LICENSE.md
   url: https://raw.githubusercontent.com/wrye-bash/wrye-bash/dev/LICENSE.md
@@ -636,9 +739,9 @@ sources:
   retrieved_at: '2026-09-19T13:49:16+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 33bc26d4498c183b703d1760ee45b8774d21d6e0178ca393dc715271840c7a21
   bytes: 34916
   content_type: text/plain
@@ -649,6 +752,8 @@ sources:
   - fallout4
   - falloutnv
   publisher: Wrye Bash team
+  license: GPL-3.0
+  notes: Verbatim GNU GPL v3 text from the wrye-bash repository.
 - id: wrye_bash_readme
   title: Wrye Bash General Readme
   url: https://wrye-bash.github.io/docs/Wrye%20Bash%20General%20Readme.html
@@ -660,6 +765,9 @@ sources:
     redistribute: unknown
     commercial: unknown
     derive: unknown
+    note: The published readme page carries no licence statement; the wrye-bash repository LICENSE.md
+      (fetched as wrye_bash_license) is the GNU GPL v3 text, but we did not verify that it covers this
+      published page.
   sha256: 89365cec3dae94635141b313413c30333d4050aa3a654bf6512751faf95357e4
   bytes: 201533
   content_type: text/html
@@ -670,6 +778,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: Wrye Bash team
+  license: unknown
+  notes: Documents plugin status colours (missing master, plugin loading before its masters), ESL/ESM/.esl
+    semantics, the 255 plugin limit and the Bashed Patch.
 - id: xedit_conflict_detection
   title: 'Tome of xEdit: Conflict Detection and Resolution'
   url: https://tes5edit.github.io/docs/5-conflict-detection-and-resolution.html
@@ -681,6 +792,7 @@ sources:
     redistribute: unknown
     commercial: unknown
     derive: unknown
+    note: No licence statement on the documentation site.
   sha256: 30874e62196e28a8784c79a71f720e7bc7e6cdd006921004db59570cd33b91b5
   bytes: 51276
   content_type: text/html
@@ -691,6 +803,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: xEdit documentation team
+  license: unknown
+  notes: Chapter 5. The source for how record overrides and conflicts actually resolve, and for the manual
+    patch-plugin workflow ('Copy as override' into a new file).
 - id: xedit_docs_tome
   title: Tome of xEdit - xEdit documentation home
   url: https://tes5edit.github.io/docs/
@@ -702,6 +817,9 @@ sources:
     redistribute: unknown
     commercial: unknown
     derive: unknown
+    note: The docs site carries no licence statement; its footer reads 'docs is maintained by TES5Edit.'
+      The xEdit program itself is MPL 1.1 (see xedit_license), which does not automatically cover the
+      documentation.
   sha256: c35a4dbe91f9ba88ff895f2ec86f5d4fb9c209d30c139e1a6181db10a8d993ae
   bytes: 13633
   content_type: text/html
@@ -712,6 +830,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: xEdit documentation team
+  license: unknown
+  notes: Index of the Tome of xEdit. Note its own 'Unofficial Elder Scrolls Pages' links point at UESP,
+    which is blocked to us.
 - id: xedit_license
   title: xEdit (TES5Edit) LICENSE.txt
   url: https://raw.githubusercontent.com/TES5Edit/TES5Edit/dev/LICENSE.txt
@@ -720,9 +841,9 @@ sources:
   retrieved_at: '2026-09-19T13:42:26+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: c444f9b2a50e1a095bf368fd5edfa69b08e0f4e431955c97fa0584671cfe5d9a
   bytes: 25753
   content_type: text/plain
@@ -733,6 +854,9 @@ sources:
   - fallout4
   - falloutnv
   publisher: xEdit team
+  license: MPL-1.1
+  notes: Mozilla Public License Version 1.1, verbatim, from the xEdit source repository. Covers the program,
+    not the documentation site.
 - id: xedit_mod_cleaning
   title: 'Tome of xEdit: Mod Cleaning and Error Checking'
   url: https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html
@@ -744,6 +868,7 @@ sources:
     redistribute: unknown
     commercial: unknown
     derive: unknown
+    note: No licence statement on the documentation site.
   sha256: 2e58f3b729a898c6594dcf36a9a2e3e5c4d068385be4832b4e15e53d24b29178
   bytes: 50782
   content_type: text/html
@@ -754,3 +879,6 @@ sources:
   - fallout4
   - falloutnv
   publisher: xEdit documentation team
+  license: unknown
+  notes: Chapter 7. Defines ITM (identical to master) and deleted-reference dirty edits and the Quick
+    Auto Clean workflow that removes them.

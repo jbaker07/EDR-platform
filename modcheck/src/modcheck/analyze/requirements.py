@@ -134,6 +134,19 @@ def _resolve_one(artifact: InstalledArtifact, dep: dict[str, Any],
     if not candidates:
         if not required:
             return []
+        if not installation.files_known_complete:
+            # We were not given a complete view of the installation, so the
+            # dependency's absence from our list is not evidence of its absence.
+            return [Finding(
+                code="dependency.presence_unresolved",
+                severity="unresolved",
+                subject=subject,
+                summary=f"{subject} requires {dep_id} {constraint}; it is not in the "
+                        "configuration we were given, which is not a complete listing",
+                evidence_class="unresolved",
+                targets=[{"kind": "registry_key", "id": dep_id}],
+                not_established="whether the dependency is installed",
+            )]
         return [Finding(
             code="dependency.missing",
             severity="error",

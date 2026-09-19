@@ -28,6 +28,9 @@ sources:
     master, develop) and github.com is 403 here, so we could not read the Multitool's README or its LICENSE.
     We therefore do not know its licence, its supported BG3 versions, or the exact pak-building command
     line it exposes.
+  license: unknown
+  notes: 'Recorded only to make the hole explicit: HTTP 404 from raw.githubusercontent.com on main/master/develop,
+    and github.com is 403 here. Nothing was retrieved; the Multitool may only be cited as ''unresolved''.'
 - id: bg3_wiki_creating_meta
   title: 'BG3 Community Wiki: Creating meta.lsx'
   url: https://wiki.bg3.community/Tutorials/General/creating_meta
@@ -46,6 +49,11 @@ sources:
   games:
   - bg3
   publisher: BG3 Community Wiki
+  license: unknown
+  notes: 'Community-run wiki (wiki.bg3.community). No licence statement appears on the pages we retrieved,
+    so reuse terms are unknown; we quote short passages for audit only. Primary evidence for meta.lsx:
+    the ModuleInfo attributes, the requirement that Folder match the mod''s folder name, that UUID must
+    be unique or it overrides another mod, and that Version64 is an Int64 encoding.'
 - id: bg3_wiki_load_order
   title: 'BG3 Community Wiki: General load order'
   url: https://wiki.bg3.community/Tutorials/Mod-Use/general-load-order
@@ -64,6 +72,11 @@ sources:
   games:
   - bg3
   publisher: BG3 Community Wiki
+  license: unknown
+  notes: Community-run wiki (wiki.bg3.community). No licence statement appears on the pages we retrieved,
+    so reuse terms are unknown; we quote short passages for audit only. Used for the community's documented
+    ordering convention (libraries and SE mods first, late loaders and Compatibility Framework last).
+    This is a convention, not an engine rule.
 - id: bg3_wiki_mod_types
   title: 'BG3 Community Wiki: BG3 mod types and how to install them'
   url: https://wiki.bg3.community/Tutorials/Mod-Use/BG3-Mod-Types-and-how-to-install-them
@@ -82,6 +95,10 @@ sources:
   games:
   - bg3
   publisher: BG3 Community Wiki
+  license: unknown
+  notes: Community-run wiki (wiki.bg3.community). No licence statement appears on the pages we retrieved,
+    so reuse terms are unknown; we quote short passages for audit only. Used for the shipped mod shapes
+    (.pak, loose files, native .dll, Script Extender) and the Mods folder location.
 - id: bg3_wiki_script_extender
   title: 'BG3 Community Wiki: Script Extender tutorials index'
   url: https://wiki.bg3.community/Tutorials/ScriptExtender
@@ -100,6 +117,10 @@ sources:
   games:
   - bg3
   publisher: BG3 Community Wiki
+  license: unknown
+  notes: Community-run wiki (wiki.bg3.community). No licence statement appears on the pages we retrieved,
+    so reuse terms are unknown; we quote short passages for audit only. Index of the wiki's Script Extender
+    material; used as a navigation source, not for specific API claims.
 - id: bg3mm_repo_license
   title: BG3 Mod Manager LICENSE (LaughingLeader/BG3ModManager)
   url: https://raw.githubusercontent.com/LaughingLeader/BG3ModManager/master/LICENSE
@@ -108,9 +129,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:53+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: b47f17cd17ddc11ce6504a3f1eab10c9f32721812e6f4bb3cb98b0ec0eafbdaa
   bytes: 1070
   content_type: text/plain
@@ -119,6 +140,8 @@ sources:
   games:
   - bg3
   publisher: LaughingLeader
+  license: MIT
+  notes: 'The actual LICENSE file: ''MIT License'' / ''Copyright (c) 2019 LaughingLeader''.'
 - id: bg3mm_repo_readme
   title: BG3 Mod Manager README (LaughingLeader/BG3ModManager)
   url: https://raw.githubusercontent.com/LaughingLeader/BG3ModManager/master/README.md
@@ -127,9 +150,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:52+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 61b7bce9336633bce6b7c04fa3baa3b0a4d8d84ffb5398bdc90dd934dda3f1e2
   bytes: 5148
   content_type: text/plain
@@ -138,6 +161,8 @@ sources:
   games:
   - bg3
   publisher: LaughingLeader
+  license: MIT
+  notes: Upstream README for the mod manager the community standardises on. Licence verified via bg3mm_repo_license.
 - id: bg3se_api_docs
   title: BG3 Script Extender Lua API documentation
   url: https://raw.githubusercontent.com/Norbyte/bg3se/main/Docs/API.md
@@ -146,9 +171,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:51+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'no'
+    derive: 'yes'
+    note: MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
+      right to Sell the Software; any notice must reproduce that condition.
   sha256: f9ccc305c27a3adf3920101fc28af474c4f274767239053bbc53b91dbdabd90a
   bytes: 81007
   content_type: text/plain
@@ -157,6 +184,9 @@ sources:
   games:
   - bg3
   publisher: Norbyte
+  license: MIT AND Commons-Clause
+  notes: The extender's own Lua/Osiris API documentation, from the same repository and therefore under
+    the same LICENSE. The largest machine-readable BG3 scripting reference we hold.
 - id: bg3se_repo_license
   title: BG3 Script Extender LICENSE (Norbyte/bg3se)
   url: https://raw.githubusercontent.com/Norbyte/bg3se/main/LICENSE
@@ -165,9 +195,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:51+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'no'
+    derive: 'yes'
+    note: MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
+      right to Sell the Software; any notice must reproduce that condition.
   sha256: 2f1d1ceb35e996019341ffae8e0b3d0a18d555847b3c2a585d69344cf86ca84a
   bytes: 1946
   content_type: text/plain
@@ -176,6 +208,10 @@ sources:
   games:
   - bg3
   publisher: Norbyte
+  license: MIT AND Commons-Clause
+  notes: The actual LICENSE file. It opens with the '“Commons Clause” License Condition v1.0' and then
+    an MIT License, 'Copyright (c) 2021-2025 Norbyte'. Commercial resale is withheld, so this pack integrates
+    it reference_only.
 - id: bg3se_repo_readme
   title: BG3 Script Extender README (Norbyte/bg3se)
   url: https://raw.githubusercontent.com/Norbyte/bg3se/main/README.md
@@ -184,9 +220,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:50+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'no'
+    derive: 'yes'
+    note: MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
+      right to Sell the Software; any notice must reproduce that condition.
   sha256: 16da9cbe5a3eb78573bb7626578cb69a9289a10518f00abcaf392ba703eedd08
   bytes: 2289
   content_type: text/plain
@@ -195,6 +233,9 @@ sources:
   games:
   - bg3
   publisher: Norbyte
+  license: MIT AND Commons-Clause
+  notes: 'Upstream README. Licence verified by fetching the LICENSE file (bg3se_repo_license): MIT plus
+    the Commons Clause. Used for the ScriptExtenderSettings.json configuration surface.'
 - id: larian_docs_creating_a_new_mod
   title: 'Larian BG3 modding docs: Getting Started - Creating a New Mod'
   url: https://docs.baldursgate3.game/index.php?title=Getting_Started:_Creating_a_New_Mod
@@ -214,6 +255,11 @@ sources:
   games:
   - bg3
   publisher: Larian Studios
+  license: unknown
+  notes: MediaWiki instance published by Larian Studios for the official Baldur's Gate 3 Toolkit. No licence
+    statement appears on the pages we retrieved, so reuse terms are unknown; we quote short passages for
+    audit only. Used for the five Data/ folders a Toolkit mod project is split across and which of them
+    are packed.
 - id: larian_docs_osiris_intro
   title: 'Larian BG3 modding docs: Introduction to Osiris'
   url: https://docs.baldursgate3.game/index.php?title=Scripting:_Introduction_to_Osiris
@@ -233,6 +279,10 @@ sources:
   games:
   - bg3
   publisher: Larian Studios
+  license: unknown
+  notes: MediaWiki instance published by Larian Studios for the official Baldur's Gate 3 Toolkit. No licence
+    statement appears on the pages we retrieved, so reuse terms are unknown; we quote short passages for
+    audit only. Used for what Osiris is and how story scripting is structured.
 - id: larian_docs_publishing_a_mod
   title: 'Larian BG3 modding docs: Getting Started - Publishing a Mod'
   url: https://docs.baldursgate3.game/index.php?title=Getting_Started:_Publishing_a_Mod
@@ -252,6 +302,10 @@ sources:
   games:
   - bg3
   publisher: Larian Studios
+  license: unknown
+  notes: MediaWiki instance published by Larian Studios for the official Baldur's Gate 3 Toolkit. No licence
+    statement appears on the pages we retrieved, so reuse terms are unknown; we quote short passages for
+    audit only. Used for the official publishing route and what the Toolkit produces.
 - id: lslib_repo_license
   title: LSLib LICENSE (Norbyte/lslib)
   url: https://raw.githubusercontent.com/Norbyte/lslib/master/LICENSE
@@ -260,9 +314,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:52+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: ff536e6222ab893aa15a9ade208c81b1b0406c462e36b7fd97e6099ced308409
   bytes: 1075
   content_type: text/plain
@@ -271,6 +325,8 @@ sources:
   games:
   - bg3
   publisher: Norbyte
+  license: MIT
+  notes: 'The actual LICENSE file: ''The MIT License (MIT)'' / ''Copyright (c) 2015 Norbyte''.'
 - id: lslib_repo_readme
   title: LSLib README (Norbyte/lslib)
   url: https://raw.githubusercontent.com/Norbyte/lslib/master/README.md
@@ -279,9 +335,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:51+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 19696261544d61a66d484fddaf052aae899b4a1386b25f39ed1dafc1c7e0471e
   bytes: 1033
   content_type: text/plain
@@ -290,6 +346,10 @@ sources:
   games:
   - bg3
   publisher: Norbyte
+  license: MIT
+  notes: Upstream README. Licence verified via lslib_repo_license. Establishes that LSLib extracts and
+    creates PAK packages and converts LSB/LSF/LSX/LSJ resources - the library behind most BG3 packing
+    tools.
 - id: nexusmods_bg3_blocked
   title: 'Nexus Mods: Baldur''s Gate 3 (not retrievable here)'
   url: https://www.nexusmods.com/baldursgate3
@@ -308,3 +368,6 @@ sources:
   gap: 'Nexus Mods returns HTTP 403 to this environment. We therefore have no BG3 mod-level data: no declared
     requirements, no version compatibility tags, no changelogs and no prevalence figures for any specific
     mod.'
+  license: unknown
+  notes: Recorded only to make the hole explicit. HTTP 403 in this environment; nothing retrieved, nothing
+    citable except as 'unresolved'.

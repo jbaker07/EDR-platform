@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from functools import lru_cache
 from typing import Any, Iterable
 
 
@@ -152,6 +153,12 @@ class LootMasterlist:
     plugins: list[dict]
     exact: dict[str, list[dict]]
     regexes: list[tuple[re.Pattern[str], dict]]
+
+    @classmethod
+    def cached(cls, raw: bytes, *, game: str, source_id: str) -> "LootMasterlist":
+        """Parse once per (content, game). A masterlist is ~1MB of YAML and
+        analysing several configurations should not re-parse it each time."""
+        return _cached_masterlist(raw, game, source_id)
 
     @classmethod
     def from_bytes(cls, raw: bytes, *, game: str, source_id: str) -> "LootMasterlist":
@@ -402,3 +409,8 @@ def coverage() -> tuple[list[str], list[str]]:
         "anything about meshes, textures, scripts or other loose files",
     ]
     return checked, not_checked
+
+
+@lru_cache(maxsize=8)
+def _cached_masterlist(raw: bytes, game: str, source_id: str) -> LootMasterlist:
+    return LootMasterlist.from_bytes(raw, game=game, source_id=source_id)

@@ -1,0 +1,139 @@
+# Evaluation cases for Minecraft dependency resolution.
+#
+# Each positive case has a control alongside it. The control is the more
+# important half: it is what distinguishes analysis from noise.
+- id: mc_version_mismatch_detected
+  game: minecraft
+  kind: positive
+  description: A mod built for Minecraft 26.3 installed on 1.21.4
+  measures: version constraint resolution against the platform version
+  configuration:
+    game_version: "1.21.4"
+    loader: fabric
+    loader_versions: {fabric: "0.16.9", java: "21"}
+    files_known_complete: true
+    artifacts:
+      - name: newmod.jar
+        mod_id: newmod
+        version: "1.0.0"
+        dependencies:
+          - {id: minecraft, versions: "~26.3", required: true}
+          - {id: java, versions: ">=25", required: true}
+  expect:
+    findings: [dependency.version_mismatch]
+
+- id: mc_matching_configuration_is_silent
+  game: minecraft
+  kind: control
+  description: The same mod on the version it was built for
+  measures: that a satisfied constraint produces nothing at all
+  configuration:
+    game_version: "26.3"
+    loader: fabric
+    loader_versions: {fabric: "0.19.5", java: "25"}
+    files_known_complete: true
+    artifacts:
+      - name: newmod.jar
+        mod_id: newmod
+        version: "1.0.0"
+        dependencies:
+          - {id: minecraft, versions: "~26.3", required: true}
+          - {id: java, versions: ">=25", required: true}
+  expect:
+    absent: [dependency.version_mismatch, dependency.missing]
+    max_errors: 0
+
+- id: mc_missing_required_dependency_detected
+  game: minecraft
+  kind: positive
+  description: A required dependency that is not installed
+  measures: dependency resolution against what is present
+  configuration:
+    game_version: "26.3"
+    loader: fabric
+    loader_versions: {fabric: "0.19.5", java: "25"}
+    files_known_complete: true
+    artifacts:
+      - name: dependent.jar
+        mod_id: dependent
+        version: "1.0.0"
+        dependencies:
+          - {id: somelib, versions: ">=2.0.0", required: true}
+  expect:
+    findings: [dependency.missing]
+
+- id: mc_optional_dependency_absent_is_silent
+  game: minecraft
+  kind: control
+  description: An optional dependency that is not installed
+  measures: that `recommends` is not treated as `depends`
+  configuration:
+    game_version: "26.3"
+    loader: fabric
+    loader_versions: {fabric: "0.19.5", java: "25"}
+    files_known_complete: true
+    artifacts:
+      - name: dependent.jar
+        mod_id: dependent
+        version: "1.0.0"
+        dependencies:
+          - {id: jei, versions: "*", required: false}
+  expect:
+    absent: [dependency.missing, dependency.version_mismatch]
+    max_errors: 0
+
+- id: mc_two_mods_coexisting_is_not_a_conflict
+  game: minecraft
+  kind: control
+  description: Two unrelated mods installed together
+  measures: that co-presence alone is never reported as a problem
+  configuration:
+    game_version: "26.3"
+    loader: fabric
+    loader_versions: {fabric: "0.19.5", java: "25"}
+    files_known_complete: true
+    artifacts:
+      - {name: a.jar, mod_id: alpha, version: "1.0.0"}
+      - {name: b.jar, mod_id: beta, version: "2.0.0"}
+  expect:
+    max_errors: 0
+
+- id: mc_duplicate_mod_id_detected
+  game: minecraft
+  kind: positive
+  description: Two installed artifacts declaring the same mod id
+  measures: identity collision detection
+  configuration:
+    game_version: "26.3"
+    loader: fabric
+    loader_versions: {fabric: "0.19.5", java: "25"}
+    files_known_complete: true
+    artifacts:
+      - {name: mod-1.0.jar, mod_id: samemod, version: "1.0.0"}
+      - {name: mod-2.0.jar, mod_id: samemod, version: "2.0.0"}
+  expect:
+    findings: [dependency.duplicate_mod_id]
+
+- id: mc_incomplete_view_does_not_claim_a_missing_dependency
+  game: minecraft
+  kind: control
+  description: A partial configuration where a dependency is not listed
+  measures: >-
+    that absence is not treated as evidence when the view is incomplete: the
+    same configuration marked complete reports a missing dependency, this one
+    reports it unresolved
+  configuration:
+    game_version: "26.3"
+    loader: fabric
+    loader_versions: {fabric: "0.19.5", java: "25"}
+    files_known_complete: false
+    artifacts:
+      - name: dependent.jar
+        mod_id: dependent
+        version: "1.0.0"
+        dependencies:
+          - {id: somelib, versions: ">=2.0.0", required: true}
+  expect:
+    findings: [dependency.presence_unresolved]
+    absent: [dependency.missing]
+    max_errors: 0

@@ -17,8 +17,9 @@ from modcheck.report import analyze_artifact, analyze_installation, render_text
 
 
 def config(game="minecraft", loader="fabric", **kwargs) -> Installation:
-    inst = Installation(game=game, loader=loader, **kwargs)
-    return inst
+    """A configuration we are told is complete, unless a test says otherwise."""
+    kwargs.setdefault("files_known_complete", True)
+    return Installation(game=game, loader=loader, **kwargs)
 
 
 def artifact(name, mod_id, version, deps=None, **kwargs) -> InstalledArtifact:
@@ -195,3 +196,17 @@ def test_partial_file_view_is_flagged_so_absence_is_not_read_as_evidence(tmp_pat
     jar = build.fabric_jar(tmp_path / "a.jar")
     report = analyze_artifact(jar, game="minecraft")
     assert [f for f in report.findings if f.code == "coverage.partial_file_view"]
+
+
+def test_incomplete_configuration_does_not_claim_a_dependency_is_missing():
+    """Absence from a partial listing is not evidence of absence."""
+    deps = [{"id": "somelib", "versions": ">=2.0.0", "required": True}]
+    partial = config(files_known_complete=False)
+    partial.artifacts = [artifact("a.jar", "a", "1.0", deps)]
+    codes = [f.code for f in requirements.analyze(partial)]
+    assert codes == ["dependency.presence_unresolved"]
+
+    complete = config(files_known_complete=True)
+    complete.artifacts = [artifact("a.jar", "a", "1.0", deps)]
+    codes = [f.code for f in requirements.analyze(complete)]
+    assert codes == ["dependency.missing"]

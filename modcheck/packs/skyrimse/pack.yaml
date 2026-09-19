@@ -1,0 +1,276 @@
+game: skyrimse
+name: "The Elder Scrolls V: Skyrim Special Edition"
+pack_version: 0.1.0
+summary: >-
+  Bethesda plugin ecosystem pack. What runs here: TES4-header inspection of .esp/.esm/.esl
+  plugins, and LOOT-masterlist interaction analysis applied to a specific configuration.
+  Everything that needs the retail game, the Creation Kit, xEdit or a .NET/MSVC toolchain is
+  documented only, because none of those exist in this environment.
+
+ecosystem:
+  languages:
+    - Papyrus (game scripting; .psc sources compiled to .pex, shipped under Data/Scripts)
+    - C++ (SKSE plugin DLLs)
+    - C# (Mutagen / Synthesis patchers)
+  loaders:
+    - id: bethesda_plugin
+      name: Game plugin loading via plugins.txt
+      manifest: plugins.txt
+      source: libloadorder_load_order_mechanisms
+    - id: skse64
+      name: Skyrim Script Extender 64 (skse64_loader.exe)
+      manifest: Data/SKSE/Plugins/<plugin>.dll
+      versions: >-
+        skse.silverlock.org lists AE build 2.3.1 for game version 1.7.104 and SE build history
+        alongside it; the bundled readme we fetched is 2.2.6 beta for Steam/GOG 1.6.1170
+      source: skse_home
+  artifact_formats:
+    - .esm / .esp / .esl plugin files (TES4 header record followed by record groups)
+    - .bsa archives shipped beside plugins
+    - Papyrus .pex compiled scripts and .psc sources under Data/Scripts
+    - SKSE plugin DLLs under Data/SKSE/Plugins
+  composition: >-
+    Rule of one, resolved by load order. libloadorder states: "The game can only apply one
+    version of any one entry (this is known as the rule of one). Therefore, when more than one
+    plugin changes the same entry, the load order is used to decide which plugin's changes are
+    applied. Put simply, the last loaded plugin's changes are applied." The exception it names is
+    cell contents, which several plugins may add to. Load order itself is the order of plugins in
+    plugins.txt (not file timestamps, which is the pre-Skyrim mechanism), with masters forced
+    before non-masters, official Bethesda plugins hardcoded first, and light plugins moved to the
+    FE slot at the end without that movement affecting conflict resolution. Up to 255 plugins may
+    be active, plus a separate limit of up to 4096 active light plugins. A record present in
+    several plugins is therefore not by itself a conflict: xEdit's documentation puts it as
+    "To get a conflict you need to have the same FormID defined in at least 3 modules, a master,
+    and 2 overrides", and overrides that carry all earlier changes forward are benign.
+  platforms:
+    - Windows (Steam and GOG runtimes; SKSE states the Epic Store and Windows Store releases are not supported)
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold fetched, hashed documentation for the plugin format's load-order and type rules
+      (libloadorder), conflict resolution and cleaning (xEdit), SKSE, Mutagen/Synthesis and Wrye
+      Bash, plus one community setup guide. We hold NO Creation Kit documentation: creationkit.com
+      answers every URL with a backend-maintenance notice, and UESP's plugin-format pages answer
+      403. So Papyrus language reference, Creation Kit workflow and record/field layouts are gaps,
+      not guidance.
+  project_setup:
+    status: unsupported
+    note: >-
+      No scaffold generator exists for this game; modcheck scaffold covers other ecosystems only.
+      A creator must start from the upstream templates recorded in examples/.
+  source_edit:
+    status: documented_only
+    note: >-
+      Record edits are made in xEdit or the Creation Kit, neither of which runs here. We hold the
+      xEdit procedure (Copy as override into a new file, drag the conflicting subrecords, Alt-S to
+      save) but execute none of it, and we cannot write plugin records ourselves.
+  package_inspection:
+    status: supported
+    note: >-
+      Reads the TES4 header record only: master list (MAST), ESM/ESL/localised flags, author,
+      description and the HEDR counts (header version, record count, next object id). It does not
+      read records or fields below the header, does not resolve whether the masters are installed
+      or at compatible versions, and does not look at scripts, meshes or textures shipped with the
+      plugin. A clean inspection is therefore not a clean plugin.
+    implemented_by:
+      - src/modcheck/inspect/bethesda.py
+    tests:
+      - tests/test_inspect.py::test_bethesda_masters_and_light_flag
+      - tests/test_inspect.py::test_bethesda_game_inferred_per_master
+  dependency_analysis:
+    status: partial
+    note: >-
+      Master dependency edges are extracted mechanically from the TES4 header and fed to the
+      requirement resolver, so a master absent from a supplied configuration is reported as
+      dependency.missing. Limits, all real: masters are matched by filename only, there is no
+      version constraint in a MAST entry so "present" never means "compatible", the master order
+      recorded in the header is not checked against the actual load order, and a configuration
+      that is not a complete file listing cannot turn an absence into evidence (the report says so
+      with coverage.partial_file_view).
+    implemented_by:
+      - src/modcheck/inspect/bethesda.py
+      - src/modcheck/analyze/requirements.py
+    tests:
+      - tests/test_inspect.py::test_bethesda_masters_and_light_flag
+      - tests/test_analysis.py::test_detects_missing_dependency
+  interaction_analysis:
+    status: supported
+    note: >-
+      Covers LOOT-recorded rules only, applied to a specific configuration: requirements,
+      incompatibilities, load-order rules, dirty/clean records matched by exact CRC, and messages
+      whose conditions we can decide. It does NOT do record-level conflict detection - that is
+      xEdit's job and it is not implemented here. A plugin with no masterlist entry yields no
+      findings, and the absence of a rule is not evidence of safety. Conditions we cannot decide
+      (file versions, checksums we were not given) are reported as unresolved rather than assumed
+      true or false.
+    implemented_by:
+      - src/modcheck/integrations/loot.py
+    tests:
+      - tests/test_loot.py::test_detects_a_real_recorded_incompatibility
+      - tests/test_loot.py::test_detects_dirty_edits_only_for_the_exact_matching_copy
+      - tests/test_loot.py::test_control_unrelated_plugins_produce_nothing
+  build_execution:
+    status: blocked
+    note: >-
+      Nothing in this ecosystem builds here. Plugins are authored in the Creation Kit or xEdit
+      (Windows GUI), SKSE plugins need MSVC/vcpkg, and Synthesis patchers need the .NET SDK.
+    blocker: >-
+      No Windows runtime, no MSVC, no .NET SDK (dotnet is absent from this environment) and no
+      Creation Kit or xEdit binary; installing them is out of scope for this pack.
+  runtime_testing:
+    status: blocked
+    note: >-
+      Whether a plugin behaves in game - script latency, precombine/previs breakage, save-game
+      effects - can only be established by running the retail game with the plugin installed.
+    blocker: >-
+      The retail Skyrim Special Edition installation is not present and cannot be obtained here,
+      so no finding in this pack is game_tested.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We hold the upstream statements that govern releases - SKSE's per-runtime build table and
+      its no-rehosting rule, Wrye Bash's plugin-status semantics - but implement no release check
+      for this game. Nexus Mods, where releases actually live, answers 403, so we can read no
+      version history or file list from it.
+
+toolchain:
+  - id: loot_masterlist
+    name: LOOT masterlist (skyrimse)
+    url: https://raw.githubusercontent.com/loot/skyrimse/master/masterlist.yaml
+    purpose: Hand-curated requirements, incompatibilities, load-order rules and dirty-edit records.
+    status: integrated
+    runs_on: [any]
+    license: CC0-1.0
+    integration: data_only
+    note: >-
+      Fetched with provenance and read from the evidence cache by src/modcheck/integrations/loot.py;
+      we do not redistribute it. Licence verified from the repository LICENSE file.
+    source: loot_masterlist_skyrimse
+  - id: xedit
+    name: xEdit / SSEEdit
+    url: https://tes5edit.github.io/docs/
+    purpose: Record- and field-level conflict detection, patch plugins, cleaning, ESL flagging.
+    status: unavailable_here
+    runs_on: [windows]
+    license: MPL-1.1
+    integration: reference_only
+    note: >-
+      A Windows Delphi GUI application. Not present here and not runnable here, so every xEdit step
+      in this pack is documented, never executed. Licence read from the repository LICENSE.txt; the
+      documentation site itself carries no licence statement.
+    source: xedit_license
+  - id: skse64
+    name: Skyrim Script Extender 64
+    url: https://skse.silverlock.org/
+    purpose: Loads C++ plugin DLLs and extends Papyrus at runtime.
+    status: unavailable_here
+    runs_on: [windows]
+    license: proprietary
+    integration: reference_only
+    note: >-
+      Version-locked to the game runtime. The readme forbids rehosting and modified releases, so a
+      mod may only link to skse.silverlock.org. We do not ship or build it.
+    source: skse_home
+  - id: commonlibsse_ng
+    name: CommonLibSSE-NG
+    url: https://raw.githubusercontent.com/CharmedBaryon/CommonLibSSE-NG/main/README.md
+    purpose: C++ library for SKSE plugins targeting SE, AE and VR from one DLL.
+    status: candidate
+    runs_on: [windows]
+    license: MIT
+    integration: reference_only
+    note: >-
+      MIT licence verified from the repository LICENSE. Requires vcpkg, CMake and MSVC; MSVC is not
+      present here, so we have not built it.
+    source: commonlibsse_ng_license
+  - id: mutagen
+    name: Mutagen (Mutagen.Bethesda)
+    url: https://mutagen-modding.github.io/Mutagen/
+    purpose: C# library that reads and writes plugin records, with winning-override resolution.
+    status: unavailable_here
+    runs_on: [windows, linux]
+    license: GPL-3.0
+    integration: reference_only
+    note: >-
+      dotnet is absent from this environment, so nothing Mutagen-based was run. Its documentation
+      shows Skyrim and Fallout 4 record suites. GPL-3.0 means a derivative of ours would be
+      copyleft, which is a real constraint on integrating it rather than shelling out to it.
+    source: mutagen_license
+  - id: synthesis
+    name: Synthesis
+    url: https://mutagen-modding.github.io/Synthesis/
+    purpose: Patcher pipeline over Mutagen that generates a patch plugin from a load order.
+    status: unavailable_here
+    runs_on: [windows, linux]
+    license: GPL-3.0
+    integration: reference_only
+    note: Same blocker as Mutagen - no .NET SDK here. Licence verified from the repository LICENSE.md.
+    source: synthesis_license
+  - id: esplugin
+    name: esplugin
+    url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
+    purpose: Rust library that parses .esp/.esm/.esl beyond the header, as used by LOOT.
+    status: candidate
+    runs_on: [windows, linux, macos]
+    license: GPL-3.0
+    integration: subprocess
+    note: >-
+      The most credible route to record-level facts we currently lack. Rust 1.94.1 is present here
+      and its stated MSRV is 1.81, but we did not build it (no builds in this task) and GPL-3.0
+      would make library linkage copyleft, so a subprocess boundary is the realistic integration.
+    source: esplugin_readme
+  - id: wrye_bash
+    name: Wrye Bash
+    url: https://wrye-bash.github.io/docs/Wrye%20Bash%20General%20Readme.html
+    purpose: Load-order management, plugin status checks and the Bashed Patch.
+    status: unavailable_here
+    runs_on: [windows, linux]
+    license: GPL-3.0
+    integration: reference_only
+    note: >-
+      Used here as documentation for plugin status semantics (missing master, plugin loading before
+      its masters) and ESL handling. Licence taken from the repository LICENSE.md; the published
+      readme page carries no licence statement of its own.
+    source: wrye_bash_license
+
+gaps:
+  - what: Creation Kit documentation of any kind (Papyrus language reference, editor workflow, record semantics).
+    why: >-
+      creationkit.com returns HTTP 200 but serves only "This wiki is currently down for backend
+      maintenance. Any news will be posted in the official Bethesda Game Studios discord , in the
+      #modding-news channel." for every URL we tried, so no content was acquired.
+    unblocks: Papyrus scripting recipes and any claim about Creation Kit behaviour.
+  - what: The TES5/Skyrim record and subrecord format below the TES4 header.
+    why: UESP (en.uesp.net) answers 403 to us at the origin, for every user agent we tried.
+    unblocks: Our own record-level conflict detection instead of deferring entirely to xEdit.
+  - what: Mod-level metadata for released mods (versions, author-declared requirements, file lists).
+    why: nexusmods.com answers 403 to us.
+    unblocks: Checking a real mod's declared requirements against what is installed.
+  - what: Whether xEdit's documentation, and the community guides we cite, may be redistributed.
+    why: Neither site carries a licence statement; the xEdit MPL-1.1 licence covers the program only.
+    unblocks: Quoting more than short excerpts in generated reports.
+  - what: Everything about in-game behaviour.
+    why: No retail game installation here.
+    unblocks: Any game_tested verification state.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - libloadorder_load_order_mechanisms
+    - libloadorder_conflict_resolution
+    - libloadorder_active_plugins
+    - libloadorder_plugin_types
+    - xedit_conflict_detection
+    - xedit_mod_cleaning
+    - skse_home
+    - skse64_readme
+    - commonlibsse_ng_license
+    - mutagen_license
+    - synthesis_license
+    - esplugin_readme
+    - wrye_bash_readme
+    - loot_masterlist_skyrimse
+    - ck_wiki_maintenance_notice

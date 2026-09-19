@@ -47,7 +47,7 @@ def _loot_findings(installation: Installation, store: Store,
         report.not_checked.append(f"LOOT masterlist rules: {exc}")
         return []
 
-    masterlist = LootMasterlist.from_bytes(raw, game=installation.game, source_id=source_id)
+    masterlist = LootMasterlist.cached(raw, game=installation.game, source_id=source_id)
     checked, not_checked = loot_coverage()
     report.checked += checked
     report.not_checked += not_checked

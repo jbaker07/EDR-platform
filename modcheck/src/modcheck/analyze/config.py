@@ -76,6 +76,15 @@ class Installation:
     platform: str | None = None
     notes: list[str] = dataclasses.field(default_factory=list)
 
+    def __post_init__(self) -> None:
+        # Normalise once, here, so no caller can populate `files` in a form
+        # that lookups will then miss. Getting this wrong silently defeats
+        # every check that depends on a file being present.
+        self.files = {normalize_path(f) for f in self.files}
+
+    def add_file(self, path: str) -> None:
+        self.files.add(normalize_path(path))
+
     # -- lookups ---------------------------------------------------------
     def artifact_names(self) -> set[str]:
         return {normalize_path(a.name) for a in self.artifacts}
@@ -179,7 +188,7 @@ class Installation:
             game_version=data.get("game_version"),
             loader=data.get("loader"),
             loader_versions=data.get("loader_versions", {}),
-            files=set(normalize_path(f) for f in data.get("files", [])),
+            files=set(data.get("files", [])),
             files_known_complete=data.get("files_known_complete", False),
             platform=data.get("platform"),
             notes=data.get("notes", []),

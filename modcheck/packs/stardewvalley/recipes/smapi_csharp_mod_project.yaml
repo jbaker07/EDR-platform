@@ -1,0 +1,198 @@
+id: sdv-smapi-csharp-mod-project
+game: stardewvalley
+title: Set up a SMAPI C# mod project that builds, installs and packages itself
+category: extend_system
+intent: >-
+  A C# class library project that compiles to the assembly named in manifest.json's
+  EntryDll, is copied into the game's Mods folder on every build, and produces a release
+  zip in the project's bin folder in the layout mod sites expect.
+applies_to:
+  game_versions: '>=1.6.14'
+  loader: smapi
+  loader_versions: '>=4.5.2'
+  toolchain:
+  - modbuildconfig
+  platforms:
+  - windows
+  - linux
+  - macos
+inputs:
+- a Stardew Valley installation on the build machine (ModBuildConfig resolves game and SMAPI references against it)
+- the .NET SDK and an IDE or `dotnet build`
+- a unique mod id in the form Username.ModName
+dependencies:
+- id: Pathoschild.Stardew.ModBuildConfig
+  kind: tool
+  versions: '>=4.4.0'
+  required: true
+- id: SMAPI
+  kind: loader
+  versions: '>=4.5.2'
+  required: true
+template:
+  name: Mod build package (Pathoschild.Stardew.ModBuildConfig)
+  url: https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig
+  license: MIT
+extension_points:
+- kind: file_path
+  id: manifest.json
+  label: the manifest SMAPI reads to decide whether and how to load the mod
+- kind: config_key
+  id: EntryDll
+  container: manifest.json
+  label: the DLL filename SMAPI loads; mutually exclusive with ContentPackFor
+- kind: config_key
+  id: Version
+  container: manifest.json
+  field: '%ProjectVersion%'
+  label: manifest token replaced with the csproj <Version> by ModBuildConfig
+- kind: archive_entry
+  id: bin/<Configuration>/<ModName> <Version>.zip
+  label: the release zip ModBuildConfig writes on rebuild
+steps:
+- step: Create an empty library project and reference the build package
+  detail: >-
+    The documented basic usage is exactly four setup steps: create an empty library
+    project, reference the Pathoschild.Stardew.ModBuildConfig NuGet package, write your
+    code, and compile on any platform. The package finds the game folder by scanning the
+    default install paths and the Windows registry and sets the project up to reference
+    SMAPI and game code.
+  command: dotnet new classlib && dotnet add package Pathoschild.Stardew.ModBuildConfig
+- step: Point the package at the game only if auto-detection fails
+  detail: >-
+    If the package cannot find the game, or there are several installs, create a
+    stardewvalley.targets file in your home folder setting the GamePath property to the
+    folder containing the Stardew Valley executable.
+  file: ~/stardewvalley.targets
+  code: |
+    <Project>
+       <PropertyGroup>
+          <GamePath>PATH_HERE</GamePath>
+       </PropertyGroup>
+    </Project>
+- step: Write manifest.json with EntryDll and no ContentPackFor
+  detail: >-
+    UniqueID is the identifier other mods and SMAPI use for update checks, dependencies
+    and compatibility overrides; the recommended format is "Username.ModName" with no
+    spaces or special characters. EntryDll must be a filename ending in .dll and cannot
+    be combined with ContentPackFor. MinimumApiVersion is the lowest SMAPI version that
+    may load the mod and doubles as a proxy for the minimum game version.
+  file: manifest.json
+  code: |
+    {
+        "Name": "Your Mod Name",
+        "Author": "Your Name",
+        "Version": "%ProjectVersion%",
+        "Description": "One or two sentences about the mod.",
+        "UniqueID": "YourName.YourModName",
+        "EntryDll": "YourModName.dll",
+        "MinimumApiVersion": "4.4.0",
+        "UpdateKeys": []
+    }
+- step: Set the version once, in the project file
+  detail: >-
+    Set <Version> in the .csproj and put %ProjectVersion% in the manifest's Version
+    field; the package substitutes the project version into the manifest it copies to
+    the game folder and into the release zip. The manifest schema accepts the literal
+    string "%ProjectVersion%" as an alternative to a semantic version for exactly this.
+  file: YourModName.csproj
+  code: |
+    <PropertyGroup>
+        <Version>1.0.0</Version>
+    </PropertyGroup>
+- step: Build, which also installs and packages
+  detail: >-
+    Rebuilding copies the mod files into the game's Mods folder and writes a zip into the
+    project's bin folder in the format recommended for uploading to mod sites. On Windows
+    the package also sets the project up so the IDE can launch the game with a debugger
+    attached; debugging is disabled on Linux and macOS because of the Mono wrapper.
+  command: dotnet build
+- step: Bundle any content packs that ship with the mod
+  detail: >-
+    Add a ContentPacks item for each bundled pack, with the required Include path and
+    Version. The package groups them with the main mod into a parent folder, copies that
+    to the Mods folder and includes it in the release zip, and validates that the bundled
+    pack's manifest version matches unless ValidateManifest is set to false.
+  file: YourModName.csproj
+  code: |
+    <ItemGroup>
+        <ContentPacks Include="content packs/[CP] SomeContentPack" Version="$(Version)" />
+    </ItemGroup>
+interactions:
+- 'A required dependency listed in Dependencies is loaded first; if it is absent the mod is not loaded at all and the player is shown a message naming what to install.'
+- 'UniqueID is the join key SMAPI uses for update checks, dependency resolution and its compatibility overrides, so changing it after release breaks all three.'
+- 'MinimumApiVersion gates loading on the SMAPI version and therefore indirectly on the game version; raising it strands players on older SMAPI builds.'
+build:
+  commands:
+  - dotnet build
+  produces: the mod folder inside the game's Mods folder plus a release zip under bin/
+  requires_network: true
+  requires_game_install: true
+validation:
+- method: Inspect the built mod folder or the release zip with ModCheck
+  command: .venv/bin/modcheck inspect "bin/Debug/YourModName 1.0.0.zip" --json
+  limits: >-
+    Reports the declared manifest fields, classifies the artifact as smapi_code_mod and
+    lists declared dependency edges. It does not open the assembly, so it cannot tell you
+    whether the code compiles against the installed SMAPI, which events it subscribes to,
+    or whether it Harmony-patches anything.
+- method: Resolve declared dependencies against a known installation
+  modcheck_check: dependency.missing
+  limits: >-
+    Only decides ids that are actually present in the configuration supplied to it. It
+    reports unresolved rather than satisfied when a version or a constraint cannot be
+    decided, and it knows nothing about SMAPI's own compatibility overrides.
+- method: Read SMAPI's console output when the game starts
+  limits: >-
+    Requires the game. NOT performed here; no assembly in this recipe has ever been built
+    or loaded by SMAPI in this environment.
+acceptance:
+- The build writes the mod into the game's Mods folder and a correctly named zip into bin/.
+- SMAPI's console lists the mod under your UniqueID with the version taken from the project file.
+- 'modcheck inspect reports mod_type smapi_code_mod, the entry_dll you declared, and every dependency you declared.'
+references:
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: section "Basic usage"
+  quote: >-
+    1. Create an empty library project. 2. Reference the [`Pathoschild.Stardew.ModBuildConfig` NuGet
+    package]. 3. Write your code. 4. Compile on any platform. 5. Run the game to play with your mod.
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: section "Release zip"
+  quote: >-
+    The package adds a zip file in your project's `bin` folder when you rebuild the code, in the format
+    recommended for uploading to mod sites like Nexus Mods.
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: section "Detect game path"
+  quote: >-
+    finds your game folder by scanning the default install paths and Windows registry; sets up your
+    project so the code can reference SMAPI and game code
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.EntryDll, properties.UniqueID, properties.MinimumApiVersion, properties.Version
+  quote: 'The mod''s semantic version, or ''%ProjectVersion%'' to use the current project''s assembly version.'
+- source: smapi_release_notes
+  evidence_class: declared
+  locator: heading "## 4.5.2"
+  quote: Released 14 March 2026 for Stardew Valley 1.6.14 or later.
+- source: modbuildconfig_nuget
+  evidence_class: extracted
+  locator: items[-1].items[-1].catalogEntry
+  quote: '"version": "4.4.0", "licenseExpression": "MIT", "authors": "Pathoschild"'
+verification_state: documented
+verification_note: >-
+  Written from the fetched ModBuildConfig documentation, the SMAPI manifest JSON Schema,
+  the SMAPI release notes and the NuGet registration index. Nothing was compiled: there
+  is no .NET SDK and no Stardew Valley installation in this environment. Deliberately
+  omitted: the entry-point class and method signature SMAPI calls, and any named event or
+  helper API, because no source in this pack documents them.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - smapi_mod_build_config
+  - smapi_manifest_json_schema
+  - modbuildconfig_nuget
+  - smapi_release_notes

@@ -28,6 +28,14 @@ sources:
   games:
   - sims4
   publisher: Mod The Sims
+  license: unknown
+  notes: SimsWiki page (simswiki.info), also mirrored under modthesims.info. The page footer states 'Game
+    content and materials copyright Electronic Arts Inc. and its licensors' and the wiki itself carries
+    no reuse licence we retrieved, so reuse terms are unknown; we quote short passages for audit only.
+    Mod The Sims' upload rules. Load-bearing because they are the ecosystem's own statement that a mod
+    must declare its Mod Type ('resource override (aka default replacement) ... XML tuning, or a full
+    script mod'), must 'list out any known conflicts', must 'clearly state what you've overriden', and
+    must state the 'Built with Game Version'. That is community practice, not an engine rule.
 - id: mts_write_script_mod_tutorial
   title: 'Mod The Sims: Tutorial - Write The Sims 4 Script Mod with Python'
   url: https://modthesims.info/showthread.php?t=665197
@@ -46,6 +54,11 @@ sources:
   games:
   - sims4
   publisher: Mod The Sims
+  license: unknown
+  notes: 'Forum thread on Mod The Sims. Our only retrieved source that names the Python version a Sims
+    4 script mod must be compiled with: ''Install Python 3.7 ... Recommend version 3.7 or 3.8. Because
+    the decompile tool we are using is only supported up to 3.8.'' Note the stated reason is decompiler
+    support, so the exact interpreter the shipped game embeds is NOT established by this source.'
 - id: nexusmods_sims4_blocked
   title: 'Nexus Mods: The Sims 4 (not retrievable here)'
   url: https://www.nexusmods.com/thesims4
@@ -64,6 +77,9 @@ sources:
   gap: 'Nexus Mods returns HTTP 403 to this environment. We therefore have no Sims 4 mod-level data from
     it: no per-mod declared game-patch compatibility, no changelogs, no download counts, and no evidence
     about which specific packages override which tuning resources in the wild.'
+  license: unknown
+  notes: Recorded only to make the hole explicit. HTTP 403 in this environment; nothing retrieved, nothing
+    citable except as 'unresolved'.
 - id: s4_scripting_template_license
   title: Sims4ScriptingTemplate LICENSE (mycroftjr)
   url: https://raw.githubusercontent.com/mycroftjr/Sims4ScriptingTemplate/master/LICENSE
@@ -72,9 +88,9 @@ sources:
   retrieved_at: '2026-09-19T13:47:33+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 88046bf22d5b4f4b8cc85079ae6aae5424a3a1999db952ed152828ff325b2c6d
   bytes: 10317
   content_type: text/plain
@@ -83,6 +99,8 @@ sources:
   games:
   - sims4
   publisher: mycroftjr
+  license: Apache-2.0
+  notes: 'The actual LICENSE file: ''Apache License, Version 2.0, January 2004''.'
 - id: s4_scripting_template_readme
   title: Sims4ScriptingTemplate README (mycroftjr)
   url: https://raw.githubusercontent.com/mycroftjr/Sims4ScriptingTemplate/master/README.md
@@ -91,9 +109,9 @@ sources:
   retrieved_at: '2026-09-19T13:47:33+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: ee62560bc8d93a8419b8df5a39e09db41a5d0c89855651424834fdc3108eb580
   bytes: 11454
   content_type: text/plain
@@ -102,6 +120,11 @@ sources:
   games:
   - sims4
   publisher: mycroftjr
+  license: Apache-2.0
+  notes: 'Upstream README for a maintained fork of junebug12851''s Sims 4 scripting boilerplate. Licence
+    verified via s4_scripting_template_license. Used for the build layout: compile.py packages src/ and
+    installs to ''Mods/YourName_ProjectName/YourName_ProjectName.ts4script'', and it states that shipping
+    only compiled python is ''highly discouraged''.'
 - id: s4pe_repo_readme
   title: Sims4Tools / s4pe README (s4ptacle)
   url: https://raw.githubusercontent.com/s4ptacle/Sims4Tools/develop/README.md
@@ -121,6 +144,10 @@ sources:
   games:
   - sims4
   publisher: s4ptacle / Sims4Tools contributors
+  license: unknown
+  notes: Upstream README for s4pe/s4pi, the long-standing .package editor. We probed LICENSE, LICENSE.txt,
+    License.txt and COPYING on the develop branch and all returned HTTP 404, and the README states no
+    licence, so s4pe's licence is UNKNOWN here and it must not be vendored on an assumption.
 - id: s4studio_python_scripting_tutorial
   title: 'Sims 4 Studio: Getting started with Python scripting/modding (not retrievable here)'
   url: https://sims4studio.com/thread/15145/started-python-scripting-modding
@@ -139,6 +166,9 @@ sources:
     Sims 4 Studio scripting tutorial is not in our evidence cache. We therefore cannot cite Sims 4 Studio's
     own statement of the required Python version, of the starter-project layout, or of its decompile/compile
     helper scripts.
+  license: unknown
+  notes: Recorded only to make the hole explicit. sims4studio.com answers our fetcher with HTTP 406; nothing
+    was retrieved and it may only be cited as 'unresolved'.
 - id: s4tk_models_license
   title: Sims 4 Toolkit @s4tk/models LICENSE
   url: https://raw.githubusercontent.com/sims4toolkit/models/main/LICENSE
@@ -147,9 +177,9 @@ sources:
   retrieved_at: '2026-09-19T13:47:35+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: bb2f19391f29d86f033f59c8f0fe6781ebb12d24e050422a89b56250cc5b96f3
   bytes: 1067
   content_type: text/plain
@@ -158,6 +188,8 @@ sources:
   games:
   - sims4
   publisher: Sims 4 Toolkit
+  license: MIT
+  notes: 'The actual LICENSE file: ''MIT License'' / ''Copyright (c) 2022 Frank Kulak''.'
 - id: s4tk_models_package_json
   title: Sims 4 Toolkit @s4tk/models package.json
   url: https://raw.githubusercontent.com/sims4toolkit/models/main/package.json
@@ -166,9 +198,9 @@ sources:
   retrieved_at: '2026-09-19T13:47:35+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 8bab8f17fc9bcaf299532ac40c67ab0d38033fb5c3ed06a5f5000c70c2cead04
   bytes: 1800
   content_type: text/plain
@@ -177,6 +209,10 @@ sources:
   games:
   - sims4
   publisher: Sims 4 Toolkit
+  license: MIT
+  notes: 'The published npm manifest. Machine-readable: it pins the version we saw (0.6.14), declares
+    ''"license": "MIT"'', and lists the @s4tk/compression, @s4tk/hashing and @s4tk/xml-dom dependencies
+    that would come with any library_import integration.'
 - id: s4tk_models_readme
   title: Sims 4 Toolkit @s4tk/models README
   url: https://raw.githubusercontent.com/sims4toolkit/models/main/README.md
@@ -185,9 +221,9 @@ sources:
   retrieved_at: '2026-09-19T13:47:34+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 97eacd2cc8e9dfc238ed85d6be3cb318f4abb8f99f5fc76f7cadff472baa8280
   bytes: 1071
   content_type: text/plain
@@ -196,6 +232,10 @@ sources:
   games:
   - sims4
   publisher: Sims 4 Toolkit
+  license: MIT
+  notes: Upstream README for @s4tk/models. Licence verified via s4tk_models_license and corroborated by
+    the package.json 'license' field. The README's own disclaimer states all S4TK software 'is currently
+    considered to be in its pre-release stage'.
 - id: simswiki_dbpf_general
   title: 'SimsWiki: DatabasePackedFile (DBPF) archive format'
   url: https://simswiki.info/wiki.php?title=DBPF
@@ -215,6 +255,12 @@ sources:
   games:
   - sims4
   publisher: SimsWiki
+  license: unknown
+  notes: SimsWiki page (simswiki.info), also mirrored under modthesims.info. The page footer states 'Game
+    content and materials copyright Electronic Arts Inc. and its licensors' and the wiki itself carries
+    no reuse licence we retrieved, so reuse terms are unknown; we quote short passages for audit only.
+    The general DatabasePackedFile page (Sims 2 / SimCity 4 / Spore lineage). Used only for the family-level
+    statement that a .package is an archive of resources with no filenames, addressed by a numeric key.
 - id: simswiki_dbpf_v2_format
   title: 'SimsWiki: DBPF 2.0 package header and index format'
   url: https://simswiki.info/wiki.php?title=Sims_3:DBPF
@@ -234,6 +280,15 @@ sources:
   games:
   - sims4
   publisher: SimsWiki
+  license: unknown
+  notes: 'SimsWiki page (simswiki.info), also mirrored under modthesims.info. The page footer states ''Game
+    content and materials copyright Electronic Arts Inc. and its licensors'' and the wiki itself carries
+    no reuse licence we retrieved, so reuse terms are unknown; we quote short passages for audit only.
+    Written for Sims 3 but documents the DBPF 2.0 layout our Sims 4 inspector actually parses: the 96-byte
+    header, the index position/size fields, the Index Type bitfield that hoists constant Type/Group/InstanceHi
+    out of every entry, and the per-entry ResourceType/ResourceGroup/InstanceHi/InstanceLo/offset/filesize/memsize/compressed
+    fields. Note it says nothing about Sims 4-specific index versions, so anything Sims-4-only is NOT
+    established by it.'
 - id: simswiki_sims4_modding_index
   title: 'SimsWiki: Sims 4 Modding index'
   url: https://simswiki.info/wiki.php?title=Sims_4:Modding
@@ -253,6 +308,12 @@ sources:
   games:
   - sims4
   publisher: SimsWiki
+  license: unknown
+  notes: SimsWiki page (simswiki.info), also mirrored under modthesims.info. The page footer states 'Game
+    content and materials copyright Electronic Arts Inc. and its licensors' and the wiki itself carries
+    no reuse licence we retrieved, so reuse terms are unknown; we quote short passages for audit only.
+    Top-level index of the Sims 4 modding material; used as a navigation source. Last modified 15 October
+    2014 according to the page, so it is old and must not be cited for anything version-sensitive.
 - id: simswiki_ts4_advanced_coding
   title: 'SimsWiki: Sims 4 Advanced Modding Reference'
   url: https://simswiki.info/wiki.php?title=Tutorials:TS4_Advanced_Coding_Tutorials
@@ -272,6 +333,12 @@ sources:
   games:
   - sims4
   publisher: SimsWiki
+  license: unknown
+  notes: SimsWiki page (simswiki.info), also mirrored under modthesims.info. The page footer states 'Game
+    content and materials copyright Electronic Arts Inc. and its licensors' and the wiki itself carries
+    no reuse licence we retrieved, so reuse terms are unknown; we quote short passages for audit only.
+    Used for the existence of the decompiled-script and tuning-name reference material. Again, the targets
+    are off-site links we did not fetch.
 - id: simswiki_ts4_cas_tutorials
   title: 'SimsWiki: Sims 4 CAS Creation Tutorials index'
   url: https://simswiki.info/wiki.php?title=Tutorials:TS4_CAS_Tutorials
@@ -291,6 +358,12 @@ sources:
   games:
   - sims4
   publisher: SimsWiki
+  license: unknown
+  notes: SimsWiki page (simswiki.info), also mirrored under modthesims.info. The page footer states 'Game
+    content and materials copyright Electronic Arts Inc. and its licensors' and the wiki itself carries
+    no reuse licence we retrieved, so reuse terms are unknown; we quote short passages for audit only.
+    Index of CAS (Create-A-Sim) content tutorials; used to ground that CAS content authoring is a Sims
+    4 Studio-centred workflow rather than a raw package-editing one.
 - id: simswiki_ts4_general_modding
   title: 'SimsWiki: Sims 4 General Modding Tutorials (XML tuning, Python, file formats)'
   url: https://simswiki.info/wiki.php?title=Tutorials:TS4_General_Modding
@@ -310,3 +383,10 @@ sources:
   games:
   - sims4
   publisher: SimsWiki
+  license: unknown
+  notes: SimsWiki page (simswiki.info), also mirrored under modthesims.info. The page footer states 'Game
+    content and materials copyright Electronic Arts Inc. and its licensors' and the wiki itself carries
+    no reuse licence we retrieved, so reuse terms are unknown; we quote short passages for audit only.
+    Used for the dated record that 'Script mods now support .ts4script extention' (July 2015) and for
+    the catalogue of reverse-engineered resource formats and TDESC drops. Almost every entry is an off-site
+    forum link we did NOT fetch.

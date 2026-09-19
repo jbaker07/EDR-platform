@@ -28,6 +28,9 @@ sources:
   games:
   - cyberpunk2077
   publisher: psiberx
+  license: unknown
+  notes: Upstream README. We did NOT fetch this repository's LICENSE file, so ArchiveXL's licence is not
+    established here and must not be stated as MIT on the strength of its sibling project.
 - id: cdpr_redmod_modding_support
   title: 'CD PROJEKT RED: Cyberpunk 2077 modding support (REDmod)'
   url: https://www.cyberpunk.net/en/modding-support
@@ -46,6 +49,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: CD PROJEKT RED
+  license: unknown
+  notes: CD PROJEKT RED's own modding landing page. Establishes that REDmod is the officially supported
+    creation route and that CDPR directs players to Nexus Mods + Vortex for installation. The page itself
+    states 'Cyberpunk 2077 mods are created by the community and not reviewed by CD PROJEKT RED.' and
+    points at a separate REDmod Licence Agreement which we did NOT fetch, so the terms governing REDmod
+    itself are unknown here.
 - id: cet_repo_readme
   title: Cyber Engine Tweaks README
   url: https://raw.githubusercontent.com/maximegmd/CyberEngineTweaks/master/README.md
@@ -65,6 +74,9 @@ sources:
   games:
   - cyberpunk2077
   publisher: maximegmd / CET contributors
+  license: unknown
+  notes: Upstream README. It carries a shields.io badge reading 'MIT license', but we did NOT fetch the
+    repository LICENSE file, so we record the licence as unknown rather than asserting MIT from a badge.
 - id: cp_wiki_archive_load_order
   title: 'Cyberpunk 2077 modding wiki: Archive files Load Order'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-users/users-modding-cyberpunk-2077/load-order.md
@@ -83,6 +95,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook. Every page is served as Markdown by appending `.md` to
+    its URL; that Markdown form is what we cached, so quotes are verbatim source text rather than rendered
+    HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
+    for audit and do not redistribute the text. Used for the composition rule: .archive files load in
+    ASCII order, first writer of a file wins, and REDmod folders load strictly after archive/pc/mod.'
 - id: cp_wiki_archivexl
   title: 'Cyberpunk 2077 modding wiki: ArchiveXL'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/core-mods-explained/archivexl.md
@@ -101,6 +119,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook. Every page is served as Markdown by appending `.md` to
+    its URL; that Markdown form is what we cached, so quotes are verbatim source text rather than rendered
+    HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
+    for audit and do not redistribute the text. Used for the non-destructive resource-extension model
+    that avoids .archive file collisions.'
 - id: cp_wiki_redmod_for_mod_devs
   title: 'Cyberpunk 2077 modding wiki: REDmod for mod devs'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/modding-tools/redmod.md
@@ -119,6 +143,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook. Every page is served as Markdown by appending `.md` to
+    its URL; that Markdown form is what we cached, so quotes are verbatim source text rather than rendered
+    HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
+    for audit and do not redistribute the text. Used for the REDmod folder layout and the required info.json
+    fields.'
 - id: cp_wiki_redmod_script_modding
   title: 'Cyberpunk 2077 modding wiki: REDmod Script Modding'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/modding-tools/redmod/script-modding.md
@@ -137,6 +167,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook. Every page is served as Markdown by appending `.md` to
+    its URL; that Markdown form is what we cached, so quotes are verbatim source text rather than rendered
+    HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
+    for audit and do not redistribute the text. Used for the REDmod script-mod layout and the info.json
+    example.'
 - id: cp_wiki_troubleshooting_after_update
   title: 'Cyberpunk 2077 modding wiki: Troubleshooting after a game update'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-users/user-guide-troubleshooting/users-troubleshooting-after-a-game-update.md
@@ -155,6 +191,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook. Every page is served as Markdown by appending `.md` to
+    its URL; that Markdown form is what we cached, so quotes are verbatim source text rather than rendered
+    HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
+    for audit and do not redistribute the text. Used for the documented game-update breakage mode and
+    its version-compatibility requirement.'
 - id: cp_wiki_tweakxl
   title: 'Cyberpunk 2077 modding wiki: TweakXL'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/core-mods-explained/tweakxl.md
@@ -173,6 +215,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook. Every page is served as Markdown by appending `.md` to
+    its URL; that Markdown form is what we cached, so quotes are verbatim source text rather than rendered
+    HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
+    for audit and do not redistribute the text. Used for where TweakXL files live and which syntaxes it
+    accepts.'
 - id: cp_wiki_tweakxl_changing_records
   title: 'Cyberpunk 2077 modding wiki: TweakXL - Changing game records'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/core-mods-explained/tweakxl/tweakxl-changing-game-records.md
@@ -191,6 +239,12 @@ sources:
   games:
   - cyberpunk2077
   publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook. Every page is served as Markdown by appending `.md` to
+    its URL; that Markdown form is what we cached, so quotes are verbatim source text rather than rendered
+    HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
+    for audit and do not redistribute the text. Used for the three competing ways to edit tweaks and for
+    the None-deletes-a-property rule.'
 - id: nexusmods_cyberpunk_blocked
   title: 'Nexus Mods: Cyberpunk 2077 (not retrievable here)'
   url: https://www.nexusmods.com/cyberpunk2077
@@ -209,6 +263,9 @@ sources:
   gap: 'Nexus Mods returns HTTP 403 to this environment, so we have no mod-level data for Cyberpunk 2077:
     no download counts, no per-mod requirement declarations, no changelogs and no per-file game-build
     tags. Every real-world prevalence or popularity claim about Cyberpunk mods is therefore unavailable.'
+  license: unknown
+  notes: Recorded only to make the hole explicit. HTTP 403 in this environment; nothing was retrieved
+    and nothing may be cited from it except as 'unresolved'.
 - id: redscript_repo_license
   title: redscript LICENSE (jac3km4/redscript)
   url: https://raw.githubusercontent.com/jac3km4/redscript/master/LICENSE
@@ -217,9 +274,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:20+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 97ff751dcd16a2ae8e3184910e4e4924b27ee8651b1564765a2cc1ccdbabebea
   bytes: 1064
   content_type: text/plain
@@ -228,6 +285,8 @@ sources:
   games:
   - cyberpunk2077
   publisher: jac3km4
+  license: MIT
+  notes: 'The actual LICENSE file. Verbatim opening: ''MIT License'' / ''Copyright (c) 2021 jac3km4''.'
 - id: redscript_repo_readme
   title: redscript README (jac3km4/redscript)
   url: https://raw.githubusercontent.com/jac3km4/redscript/master/README.md
@@ -236,9 +295,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:20+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: e5d5f1434fb82fc0184708312e6e7bed06b88af0ba4f6ddec248d47763cf64dc
   bytes: 4263
   content_type: text/plain
@@ -247,6 +306,9 @@ sources:
   games:
   - cyberpunk2077
   publisher: jac3km4
+  license: MIT
+  notes: Upstream README. Licence verified separately via redscript_repo_license. Describes the compiler/decompiler
+    crate layout and the on-startup compilation model.
 - id: tweakxl_repo_license
   title: TweakXL LICENSE (psiberx/cp2077-tweak-xl)
   url: https://raw.githubusercontent.com/psiberx/cp2077-tweak-xl/master/LICENSE
@@ -255,9 +317,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:19+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: ebfd5f05db59b0d8d233c10967a546a3ee7635ff339be7a6688154cbf6215855
   bytes: 1069
   content_type: text/plain
@@ -266,6 +328,9 @@ sources:
   games:
   - cyberpunk2077
   publisher: psiberx
+  license: MIT
+  notes: 'The actual LICENSE file. Verbatim opening: ''MIT License'' / ''Copyright (c) 2021 Pavel Siberx''.
+    This is what backs every MIT claim we make about TweakXL.'
 - id: tweakxl_repo_readme
   title: TweakXL README (psiberx/cp2077-tweak-xl)
   url: https://raw.githubusercontent.com/psiberx/cp2077-tweak-xl/master/README.md
@@ -274,9 +339,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:19+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: e47c6f7d991fcd389fac546de04da612431b1e04b9e87be6cccd2914fb6bf775
   bytes: 1495
   content_type: text/plain
@@ -285,6 +350,10 @@ sources:
   games:
   - cyberpunk2077
   publisher: psiberx
+  license: MIT
+  notes: 'Upstream README. Licence verified by fetching the repository LICENSE separately (source tweakxl_repo_license):
+    MIT, Copyright (c) 2021 Pavel Siberx. States the declared compatible game and dependency versions
+    at the revision we fetched.'
 - id: wolvenkit_repo_license
   title: WolvenKit LICENSE
   url: https://raw.githubusercontent.com/WolvenKit/WolvenKit/main/LICENSE
@@ -293,9 +362,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:21+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2
   bytes: 35141
   content_type: text/plain
@@ -304,6 +373,10 @@ sources:
   games:
   - cyberpunk2077
   publisher: WolvenKit contributors
+  license: GPL-3.0
+  notes: 'The actual LICENSE file: ''GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007''. Copyleft: anything
+    we distributed that linked WolvenKit code would inherit GPL-3.0, which is why our pack treats it as
+    reference_only.'
 - id: wolvenkit_repo_readme
   title: WolvenKit README
   url: https://raw.githubusercontent.com/WolvenKit/WolvenKit/main/README.md
@@ -312,9 +385,9 @@ sources:
   retrieved_at: '2026-09-19T13:45:21+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 11f8f05f7c4b3cdbde5d4a5f5e2154dd6fbf978a33a517b9ee48a232a6374323
   bytes: 7523
   content_type: text/plain
@@ -323,3 +396,5 @@ sources:
   games:
   - cyberpunk2077
   publisher: WolvenKit contributors
+  license: GPL-3.0
+  notes: Upstream README for the community editing suite. Licence verified separately via wolvenkit_repo_license.

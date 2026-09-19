@@ -1,0 +1,88 @@
+# Evaluation cases for the LOOT masterlist integration.
+#
+# These run against the live masterlist in the evidence cache, so they measure
+# whether ModCheck applies real upstream rules correctly to a configuration.
+# They do NOT measure whether ModCheck could have predicted these
+# incompatibilities before LOOT recorded them.
+- id: skyrim_recorded_incompatibility_detected
+  game: skyrimse
+  kind: positive
+  description: Two plugins LOOT records as incompatible, both installed
+  measures: applying a recorded incompatibility to a configuration
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: "WM Flora Fixes.esp", load_index: 0}
+      - {name: "FloraRespawnFix.esp", load_index: 1}
+  expect:
+    findings: [loot.incompatible_present]
+
+- id: skyrim_unrelated_plugins_are_silent
+  game: skyrimse
+  kind: control
+  description: Plugins with no masterlist rules between them
+  measures: that the integration stays silent without a recorded rule
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: "SomeModNobodyHasHeardOf.esp", load_index: 0}
+      - {name: "AnotherUnknownMod.esp", load_index: 1}
+  expect:
+    absent: [loot.incompatible_present, loot.dirty_edits, loot.load_order]
+    max_errors: 0
+
+- id: skyrim_dirty_edits_matched_by_exact_crc
+  game: skyrimse
+  kind: positive
+  description: A copy of Update.esm whose CRC matches a recorded dirty entry
+  measures: matching a record to an exact artifact rather than to a filename
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: "Update.esm", crc32: "17AB5E20", load_index: 0}
+  expect:
+    findings: [loot.dirty_edits]
+
+- id: skyrim_same_name_different_copy_is_not_dirty
+  game: skyrimse
+  kind: control
+  description: A differently-hashed copy of the same plugin filename
+  measures: that a same-named file does not inherit another copy's record
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: "Update.esm", crc32: "DEADBEEF", load_index: 0}
+  expect:
+    absent: [loot.dirty_edits]
+
+- id: skyrim_wrong_load_order_detected
+  game: skyrimse
+  kind: positive
+  description: A plugin loading before one LOOT says it must load after
+  measures: load-order rule evaluation against the actual order
+  configuration:
+    files_known_complete: true
+    # CACO requires the script extender; listing it keeps this case about
+    # ordering rather than about a missing requirement.
+    files: ["../skse64_loader.exe"]
+    artifacts:
+      - {name: "ButterfliesUnchained.esp", load_index: 0}
+      - {name: "Complete Alchemy & Cooking Overhaul.esp", load_index: 1}
+  expect:
+    findings: [loot.load_order]
+
+- id: skyrim_correct_load_order_is_silent
+  game: skyrimse
+  kind: control
+  description: The same two plugins in the order LOOT specifies, with their
+    requirements satisfied
+  measures: that a correctly ordered, fully satisfied configuration is silent
+  configuration:
+    files_known_complete: true
+    files: ["../skse64_loader.exe"]
+    artifacts:
+      - {name: "Complete Alchemy & Cooking Overhaul.esp", load_index: 0}
+      - {name: "ButterfliesUnchained.esp", load_index: 1}
+  expect:
+    absent: [loot.load_order, loot.requirement_missing]
+    max_errors: 0

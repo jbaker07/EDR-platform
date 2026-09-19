@@ -10,6 +10,7 @@ import json
 import sys
 from pathlib import Path
 
+from . import evaluate as evaluate_mod
 from . import report as report_mod
 from . import sources_io
 from .acquire import FetchError, fetch, verify
@@ -18,7 +19,7 @@ from .creator.apply import ApplyError, GENERATORS, apply as apply_change
 from .creator.build import BuildRefused, run_build, write_attestation
 from .creator.scaffold import ScaffoldError, scaffold as run_scaffold
 from .inspect import inspect_path
-from .paths import CAPABILITIES, packs_dir, workspaces_dir
+from .paths import CAPABILITIES, packs_dir, project_root, workspaces_dir
 from .store import RECORD_DIRS, Store
 from .validate import summarize, validate_store
 
@@ -325,6 +326,27 @@ def cmd_release_report(args) -> int:
     return 0
 
 
+def cmd_evaluate(args) -> int:
+    store = _store(args)
+    directory = Path(args.cases) if args.cases else project_root() / "evaluation" / "cases"
+    results = evaluate_mod.run(directory, store, game=args.game)
+    if not results:
+        print(f"no evaluation cases found in {directory}", file=sys.stderr)
+        return 2
+    summary = evaluate_mod.summarize(results)
+    if args.json:
+        print(json.dumps({"summary": summary,
+                          "results": [{"id": r.case.id, "kind": r.case.kind,
+                                       "passed": r.passed, "missed": r.missed,
+                                       "false_warnings": r.unexpected_present,
+                                       "produced": r.produced,
+                                       "seconds": round(r.seconds, 4)}
+                                      for r in results]}, indent=2))
+    else:
+        print(evaluate_mod.render(results, summary))
+    return 0 if summary["failed"] == 0 else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="modcheck", description=__doc__)
     p.add_argument("--packs", help="override the packs/ directory")
@@ -407,6 +429,12 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--out")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_release_report)
+
+    sp = sub.add_parser("evaluate", help="run the evaluation cases")
+    sp.add_argument("--game")
+    sp.add_argument("--cases", help="cases directory (default: evaluation/cases)")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_evaluate)
 
     sources = sub.add_parser("sources", help="knowledge acquisition")
     ssub = sources.add_subparsers(dest="sources_command", required=True)
