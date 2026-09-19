@@ -121,7 +121,10 @@ def content_patcher_pack(path: Path, unique_id: str = "Example.CPPack",
         change["When"] = when
     changes = [change]
     for extra in (targets or [])[1:]:
-        changes.append({"Action": "Load", "Target": extra, "FromFile": "assets/x.png"})
+        load: dict = {"Action": "Load", "Target": extra, "FromFile": "assets/x.png"}
+        if when:
+            load["When"] = when
+        changes.append(load)
     content = {"Format": "2.0.0", "Changes": changes}
     return _zip(path, {f"{unique_id}/manifest.json": json.dumps(manifest, indent=2),
                        f"{unique_id}/content.json": json.dumps(content, indent=2)})

@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from .acquire import FetchError, read_cached
-from .analyze import requirements
+from .analyze import collisions, requirements
 from .analyze.config import Installation
 from .analyze.findings import SEVERITY, Finding, Report
 from .inspect import inspect_path
@@ -131,6 +131,11 @@ def analyze_installation(installation: Installation, store: Store | None = None)
     findings += _loot_findings(installation, store, report)
     findings += _rimworld_findings(installation, store, report)
     findings += _smapi_findings(installation, store, report)
+
+    findings += collisions.analyze(installation)
+    checked, not_checked = collisions.coverage(installation.game)
+    report.checked += checked
+    report.not_checked += not_checked
 
     for artifact in installation.artifacts:
         ins = artifact.inspection
