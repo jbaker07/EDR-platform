@@ -1,0 +1,19 @@
+{
+  "timestamp": 1758240000,
+  "_note": "Synthetic fixture in the RimSort Community Rules Database format. The real database carries no licence file, so its reuse terms are unknown and none of its content is reproduced here. Only the shape is copied, which is what the parser must handle.",
+  "rules": {
+    "example.core": {
+      "loadAfter": {"ludeon.rimworld": {"name": ["RimWorld"]}}
+    },
+    "example.patch": {
+      "loadAfter": {"example.core": {"name": ["Example Core"]}},
+      "loadBefore": {"example.late": {"name": ["Example Late"]}}
+    },
+    "example.rival": {
+      "incompatibleWith": {"example.core": {"name": ["Example Core"]}}
+    },
+    "example.bottom": {
+      "loadBottom": {"value": "True"}
+    }
+  }
+}

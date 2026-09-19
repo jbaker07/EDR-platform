@@ -25,6 +25,7 @@ from .inspect import inspect_path
 from .store import Store
 
 LOOT_GAMES = {"skyrimse", "fallout4", "falloutnv"}
+RIMSORT_SOURCE_ID = "rimsort_community_rules"
 
 
 def _loot_findings(installation: Installation, store: Store,
@@ -55,6 +56,36 @@ def _loot_findings(installation: Installation, store: Store,
     return masterlist.analyze(installation)
 
 
+def _rimworld_findings(installation: Installation, store: Store,
+                       report: Report) -> list[Finding]:
+    """Declared About.xml rules always; the community database when cached."""
+    if installation.game != "rimworld":
+        return []
+    from .integrations import rimworld as rw
+
+    findings = rw.analyze_declared(installation)
+    source = store.pack("rimworld").sources.get(RIMSORT_SOURCE_ID)
+    with_community = False
+    if source is not None:
+        try:
+            raw = read_cached(source)
+        except FetchError as exc:
+            report.not_checked.append(f"RimWorld community rules: {exc}")
+        else:
+            rules = rw.CommunityRules.cached(raw, source_id=RIMSORT_SOURCE_ID)
+            findings += rules.analyze(installation)
+            report.sources_used.append(RIMSORT_SOURCE_ID)
+            with_community = True
+    else:
+        report.not_checked.append(
+            f"RimWorld community rules: no source record {RIMSORT_SOURCE_ID!r}")
+
+    checked, not_checked = rw.coverage(with_community)
+    report.checked += checked
+    report.not_checked += not_checked
+    return findings
+
+
 def analyze_installation(installation: Installation, store: Store | None = None) -> Report:
     """The player path: what applies to this exact configuration."""
     store = store or Store()
@@ -67,6 +98,7 @@ def analyze_installation(installation: Installation, store: Store | None = None)
     report.not_checked += not_checked
 
     findings += _loot_findings(installation, store, report)
+    findings += _rimworld_findings(installation, store, report)
 
     for artifact in installation.artifacts:
         ins = artifact.inspection
