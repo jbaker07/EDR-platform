@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modcheck.dev/schemas/common.schema.json",
+  "title": "ModCheck shared definitions",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$",
+      "maxLength": 120
+    },
+    "game_id": {
+      "type": "string",
+      "enum": ["minecraft", "sims4", "skyrimse", "fallout4", "cyberpunk2077",
+               "bg3", "falloutnv", "stardewvalley", "projectzomboid", "rimworld"]
+    },
+    "capability": {
+      "type": "string",
+      "description": "The nine tracked support capabilities. Support is per-capability, never global.",
+      "enum": ["docs_guidance", "project_setup", "source_edit", "package_inspection",
+               "dependency_analysis", "interaction_analysis", "build_execution",
+               "runtime_testing", "release_maintenance"]
+    },
+    "capability_status": {
+      "type": "string",
+      "description": "supported = implemented and exercised by a test in this repo. partial = implemented for a subset, limits stated. documented_only = we hold references but no executable support. unsupported = not implemented. blocked = cannot be implemented here, blocker recorded.",
+      "enum": ["supported", "partial", "documented_only", "unsupported", "blocked"]
+    },
+    "evidence_class": {
+      "type": "string",
+      "description": "Kept separate in every report. declared = stated by an author/manifest. extracted = read mechanically from an artifact. derived = produced by our analysis. observed = seen in an executed run. unresolved = insufficient evidence.",
+      "enum": ["declared", "extracted", "derived", "observed", "unresolved"]
+    },
+    "verification_state": {
+      "type": "string",
+      "description": "documented = written from sources only. build_tested = its build/validation commands ran here and passed. game_tested = executed against the running game.",
+      "enum": ["documented", "build_tested", "game_tested"]
+    },
+    "operation": {
+      "type": "string",
+      "description": "What a modification does to a target. Determines composition, not merely overlap.",
+      "enum": ["add_record", "override_record", "patch_field", "remove_record",
+               "replace_file", "append_file", "wrap_method", "replace_method",
+               "inject_into_method", "subscribe_event", "require", "provide",
+               "load_before", "load_after", "add_asset", "replace_asset", "unknown"]
+    },
+    "version_range": {
+      "type": "string",
+      "description": "Version constraint in the ecosystem's own syntax where one exists, otherwise a comma-separated set of comparators.",
+      "maxLength": 200
+    },
+    "target": {
+      "type": "object",
+      "description": "A precise modification target. A semantic label alone never establishes an interaction.",
+      "required": ["kind", "id"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["record", "field", "file_path", "method", "event", "asset",
+                   "config_key", "def", "tuning", "archive_entry", "recipe_id", "registry_key"]
+        },
+        "id": {"type": "string", "minLength": 1, "maxLength": 400},
+        "container": {"type": "string", "description": "File or package the target lives in."},
+        "field": {"type": "string"},
+        "signature": {"type": "string", "description": "Method descriptor / signature where applicable."},
+        "label": {"type": "string", "description": "Navigation aid only. Never sufficient evidence."}
+      }
+    },
+    "condition": {
+      "type": "object",
+      "description": "A precondition that must hold for a statement to apply.",
+      "required": ["kind", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"type": "string", "enum": ["setting", "version", "load_order", "environment", "state", "platform", "other"]},
+        "description": {"type": "string", "minLength": 3},
+        "expression": {"type": "string", "description": "Machine-checkable form when one exists."}
+      }
+    },
+    "evidence_ref": {
+      "type": "object",
+      "required": ["source", "evidence_class"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {"$ref": "common.schema.json#/$defs/id", "description": "id of a record in sources.yaml"},
+        "evidence_class": {"$ref": "common.schema.json#/$defs/evidence_class"},
+        "locator": {"type": "string", "description": "Anchor, line range, selector, or quoted phrase inside the source."},
+        "quote": {"type": "string", "maxLength": 1200, "description": "Verbatim supporting text, for audit."}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["added", "last_verified"],
+      "additionalProperties": false,
+      "properties": {
+        "added": {"type": "string", "format": "date"},
+        "last_verified": {"type": "string", "format": "date"},
+        "verified_against": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/id"}},
+        "stale": {"type": "boolean", "default": false},
+        "stale_reason": {"type": "string"}
+      }
+    },
+    "analysis_coverage": {
+      "type": "object",
+      "description": "What an analysis actually looked at, and what it could not look at. Required so a clean result is never read as a guarantee.",
+      "required": ["checked", "not_checked"],
+      "additionalProperties": false,
+      "properties": {
+        "checked": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "not_checked": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

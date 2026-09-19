@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modcheck.dev/schemas/gamepack.schema.json",
+  "title": "Game Pack manifest",
+  "description": "Versioned, per-game support declaration. Support is tracked per capability; there is no global 'supported' flag.",
+  "type": "object",
+  "required": ["game", "name", "pack_version", "ecosystem", "capabilities", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "game": {"$ref": "common.schema.json#/$defs/game_id"},
+    "name": {"type": "string"},
+    "pack_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "summary": {"type": "string"},
+    "ecosystem": {
+      "type": "object",
+      "required": ["loaders", "artifact_formats"],
+      "additionalProperties": false,
+      "properties": {
+        "engine": {"type": "string"},
+        "languages": {"type": "array", "items": {"type": "string"}},
+        "loaders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string"},
+              "name": {"type": "string"},
+              "manifest": {"type": "string", "description": "Manifest file this loader reads."},
+              "versions": {"$ref": "common.schema.json#/$defs/version_range"},
+              "source": {"$ref": "common.schema.json#/$defs/id"}
+            }
+          }
+        },
+        "artifact_formats": {"type": "array", "items": {"type": "string"}},
+        "composition": {
+          "type": "string",
+          "description": "How modifications are actually ordered and combined in this ecosystem."
+        },
+        "platforms": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "description": "Every capability must be declared. Omission is not allowed.",
+      "required": ["docs_guidance", "project_setup", "source_edit", "package_inspection",
+                   "dependency_analysis", "interaction_analysis", "build_execution",
+                   "runtime_testing", "release_maintenance"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "type": "object",
+          "required": ["status", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "status": {"$ref": "common.schema.json#/$defs/capability_status"},
+            "note": {"type": "string", "minLength": 5, "description": "What works, and the limits of what works."},
+            "implemented_by": {"type": "array", "items": {"type": "string"},
+                               "description": "Module/check ids in this repo backing the claim."},
+            "tests": {"type": "array", "items": {"type": "string"},
+                      "description": "Test node ids that exercise it. 'supported' requires at least one."},
+            "blocker": {"type": "string"}
+          }
+        }
+      }
+    },
+    "toolchain": {
+      "type": "array",
+      "description": "Upstream tools investigated, with their real state. Research leads are not assertions.",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "url": {"type": "string"},
+          "purpose": {"type": "string"},
+          "status": {"type": "string", "enum": ["integrated", "verified_available", "candidate", "unavailable_here", "rejected", "unverified"]},
+          "runs_on": {"type": "array", "items": {"type": "string"}},
+          "license": {"type": "string"},
+          "integration": {"type": "string", "enum": ["subprocess", "library_import", "data_only", "reference_only", "none"]},
+          "note": {"type": "string"},
+          "source": {"$ref": "common.schema.json#/$defs/id"}
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Explicitly unknown or unreachable material. A gap is never presented as coverage.",
+      "items": {
+        "type": "object",
+        "required": ["what", "why"],
+        "additionalProperties": false,
+        "properties": {
+          "what": {"type": "string"},
+          "why": {"type": "string"},
+          "unblocks": {"type": "string"}
+        }
+      }
+    },
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modcheck.dev/schemas/example.schema.json",
+  "title": "Reusable example / template / library record",
+  "type": "object",
+  "required": ["id", "game", "title", "url", "demonstrates", "license", "reuse", "maintenance", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"$ref": "common.schema.json#/$defs/id"},
+    "game": {"$ref": "common.schema.json#/$defs/game_id"},
+    "title": {"type": "string"},
+    "url": {"type": "string", "format": "uri"},
+    "kind": {"type": "string", "enum": ["template", "example_mod", "library", "analyzer", "patcher", "tool", "schema"]},
+    "demonstrates": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "license": {"type": "string"},
+    "reuse": {
+      "type": "object",
+      "required": ["integration"],
+      "additionalProperties": false,
+      "properties": {
+        "integration": {"type": "string", "enum": ["subprocess", "library_import", "reference_only", "vendored", "not_reusable"]},
+        "constraints": {"type": "string"}
+      }
+    },
+    "maintenance": {
+      "type": "object",
+      "required": ["state"],
+      "additionalProperties": false,
+      "properties": {
+        "state": {"type": "string", "enum": ["active", "maintained", "dormant", "archived", "unknown"]},
+        "last_release": {"type": "string"},
+        "checked_at": {"type": "string", "format": "date"},
+        "supported_versions": {"$ref": "common.schema.json#/$defs/version_range"}
+      }
+    },
+    "evidence": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/evidence_ref"}},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

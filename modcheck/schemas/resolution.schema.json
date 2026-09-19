@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modcheck.dev/schemas/resolution.schema.json",
+  "title": "Resolution record",
+  "type": "object",
+  "required": ["id", "game", "title", "method", "steps", "verification", "evidence", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"$ref": "common.schema.json#/$defs/id"},
+    "game": {"$ref": "common.schema.json#/$defs/game_id"},
+    "title": {"type": "string", "minLength": 5},
+    "addresses": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/id"},
+                  "description": "failure or interaction ids."},
+    "method": {
+      "type": "string",
+      "enum": ["version_change", "configuration_change", "known_patch", "alternative_extension_point",
+               "load_order_change", "implementation_pattern", "remove_conflict", "upstream_fix"]
+    },
+    "steps": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "applies_to": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "game_versions": {"$ref": "common.schema.json#/$defs/version_range"},
+        "artifact_versions": {"$ref": "common.schema.json#/$defs/version_range"}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["scope", "evidence_class"],
+      "additionalProperties": false,
+      "properties": {
+        "scope": {"type": "string", "minLength": 10, "description": "Exactly what was confirmed, and under what conditions."},
+        "evidence_class": {"$ref": "common.schema.json#/$defs/evidence_class"},
+        "confirmed_by": {"type": "string"}
+      }
+    },
+    "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "common.schema.json#/$defs/evidence_ref"}},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modcheck.dev/schemas/interaction.schema.json",
+  "title": "Known interaction rule",
+  "description": "A precise, evidence-backed statement about how two or more modifications compose. Overlap alone is not an interaction.",
+  "type": "object",
+  "required": ["id", "game", "title", "participants", "outcome", "evidence", "analysis_coverage", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"$ref": "common.schema.json#/$defs/id"},
+    "game": {"$ref": "common.schema.json#/$defs/game_id"},
+    "title": {"type": "string", "minLength": 5},
+    "participants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["artifact", "operation", "target"],
+        "additionalProperties": false,
+        "properties": {
+          "artifact": {
+            "type": "object",
+            "required": ["id"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string", "description": "Mod identity as declared in its manifest."},
+              "name": {"type": "string"},
+              "versions": {"$ref": "common.schema.json#/$defs/version_range"},
+              "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$",
+                         "description": "Exact artifact identity where we have it. A version string alone does not establish artifact identity."},
+              "any_version": {"type": "boolean", "default": false,
+                              "description": "true only when evidence covers all versions, not merely the tested one."}
+            }
+          },
+          "operation": {"$ref": "common.schema.json#/$defs/operation"},
+          "target": {"$ref": "common.schema.json#/$defs/target"}
+        }
+      }
+    },
+    "conditions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/condition"}},
+    "composition": {
+      "type": "string",
+      "description": "How the ecosystem actually composes these operations.",
+      "enum": ["last_wins", "merged_by_field", "merged_by_record", "ordered_patch_chain",
+               "first_wins", "all_applied", "undefined_order", "mutually_exclusive", "unknown"]
+    },
+    "outcome": {
+      "type": "object",
+      "required": ["kind", "description", "evidence_class"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"type": "string", "enum": ["conflict", "conditional_conflict", "requires", "incompatible",
+                                            "safe_composition", "degraded", "needs_patch", "unresolved"]},
+        "description": {"type": "string", "minLength": 15},
+        "evidence_class": {"$ref": "common.schema.json#/$defs/evidence_class"},
+        "symptom": {"type": "string"}
+      }
+    },
+    "resolutions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/id"}},
+    "detector": {
+      "type": "object",
+      "description": "How ModCheck can mechanically detect this, if at all.",
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {"type": "string"},
+        "detectable": {"type": "string", "enum": ["yes", "partial", "no"]},
+        "why_not": {"type": "string"}
+      }
+    },
+    "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "common.schema.json#/$defs/evidence_ref"}},
+    "analysis_coverage": {"$ref": "common.schema.json#/$defs/analysis_coverage"},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

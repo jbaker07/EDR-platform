@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# Cached upstream evidence: large, re-fetchable, and often not redistributable.
+# Provenance (URL, sha256, retrieved_at) is committed in packs/*/sources.yaml.
+evidence_cache/
+build_workspaces/
+*.egg-info/
