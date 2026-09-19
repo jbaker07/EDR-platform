@@ -1,0 +1,56 @@
+# Evaluation cases for the RimWorld community rules integration.
+#
+# These use real packageIds and a real rule from the RimSort Community Rules
+# Database in the evidence cache.
+- id: rw_community_load_order_violation_detected
+  game: rimworld
+  kind: positive
+  description: Two mods in an order the community database says is wrong
+  measures: applying a recorded ordering rule to the actual load order
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: cgtwaa.zip, mod_id: 3tes.cgtwaa, load_index: 0}
+      - {name: glittertech.zip, mod_id: gt.sam.glittertech, load_index: 1}
+  expect:
+    findings: [rimworld.load_order]
+
+- id: rw_correct_order_is_silent
+  game: rimworld
+  kind: control
+  description: The same two mods in the order the rule requires
+  measures: that a satisfied ordering rule produces nothing
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: glittertech.zip, mod_id: gt.sam.glittertech, load_index: 0}
+      - {name: cgtwaa.zip, mod_id: 3tes.cgtwaa, load_index: 1}
+  expect:
+    absent: [rimworld.load_order]
+    max_errors: 0
+
+- id: rw_rule_naming_an_absent_mod_is_silent
+  game: rimworld
+  kind: control
+  description: A mod whose ordering rule names a mod that is not installed
+  measures: that a rule about an absent mod is not reported
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: cgtwaa.zip, mod_id: 3tes.cgtwaa, load_index: 0}
+  expect:
+    absent: [rimworld.load_order]
+    max_errors: 0
+
+- id: rw_unknown_mods_are_silent
+  game: rimworld
+  kind: control
+  description: Mods with no declared and no recorded rules
+  measures: that absence of a rule is never reported as safety or as a problem
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: a.zip, mod_id: nobody.knows.this, load_index: 0}
+      - {name: b.zip, mod_id: nor.this.one, load_index: 1}
+  expect:
+    max_errors: 0

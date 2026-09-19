@@ -1,0 +1,42 @@
+# Evaluation cases for the SMAPI metadata integration.
+#
+# These run against SMAPI's own metadata file in the evidence cache. They
+# measure whether ModCheck applies SMAPI's recorded per-version status to a
+# configuration; they do not measure whether ModCheck could have worked out
+# that a mod was broken before SMAPI recorded it.
+- id: sdv_obsolete_mod_detected
+  game: stardewvalley
+  kind: positive
+  description: A mod SMAPI records as obsolete for every version
+  measures: applying an unbounded recorded status to an installed mod
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: AnimalMoodFix.zip, mod_id: GPeters-AnimalMoodFix, version: "1.0.0"}
+  expect:
+    findings: [smapi.status_obsolete]
+
+- id: sdv_unknown_mod_is_silent
+  game: stardewvalley
+  kind: control
+  description: A mod SMAPI has no metadata entry for
+  measures: that an absent entry produces nothing, and is not read as approval
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: SomeoneElsesMod.zip, mod_id: Nobody.HasThisMod, version: "1.0.0"}
+  expect:
+    absent: [smapi.status_obsolete, smapi.status_assumebroken, smapi.status_unresolved]
+    max_errors: 0
+
+- id: sdv_unknown_version_is_unresolved
+  game: stardewvalley
+  kind: positive
+  description: A mod with a version-ranged status whose installed version is unknown
+  measures: that an undecidable version yields unresolved, not a silent pass
+  configuration:
+    files_known_complete: true
+    artifacts:
+      - {name: AnimalMoodFix.zip, mod_id: GPeters-AnimalMoodFix}
+  expect:
+    findings: [smapi.status_obsolete]

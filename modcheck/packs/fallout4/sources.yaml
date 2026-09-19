@@ -14,16 +14,17 @@ sources:
   url: https://www.creationkit.com/fallout4/index.php?title=Main_Page
   kind: official_docs
   access: public
-  retrieved_at: '2026-09-19T13:44:05+00:00'
+  retrieved_at: '2026-09-19T14:15:57+00:00'
   http_status: 200
   reuse:
     redistribute: unknown
     commercial: unknown
     derive: unknown
-  sha256: a9913e5585eb71e78a7e3e33b448a0114eece172dc815c4122c21e5903e131df
+  sha256: c5d752cdc4aad7d7db9f8c85c2bc5c0059616a68f9273f38f86345de7bc7c21e
   bytes: 58325
+  content_sha256: a75c5e99e642873856b71ce086e3ed5a7d8787b5e1439328ff388eba46d51c11
   content_type: text/html
-  evidence_path: a9/a9913e5585eb71e78a7e3e33b448a0114eece172dc815c4122c21e5903e131df.html
+  evidence_path: c5/c5d752cdc4aad7d7db9f8c85c2bc5c0059616a68f9273f38f86345de7bc7c21e.html
   games:
   - fallout4
   publisher: Bethesda Game Studios (creationkit.com)
@@ -31,7 +32,9 @@ sources:
   notes: 'Fetched with HTTP 200 but the body is not documentation: creationkit.com serves ''This wiki
     is currently down for backend maintenance. Any news will be posted in the official Bethesda Game Studios
     discord , in the #modding-news channel.'' We therefore hold NO Fallout 4 Creation Kit documentation.
-    Treat as a gap despite the 200.'
+    Treat as a gap despite the 200. Re-verification note: the raw bytes differ on every fetch because
+    the markup carries a randomly generated XWiki element id; the maintenance notice itself is unchanged,
+    which the recorded content_sha256 lets `modcheck sources verify` establish.'
 - id: esplugin_changelog
   title: esplugin CHANGELOG (release history with dates)
   url: https://raw.githubusercontent.com/Ortham/esplugin/master/CHANGELOG.md

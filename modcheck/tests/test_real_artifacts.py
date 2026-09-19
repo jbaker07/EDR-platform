@@ -88,8 +88,16 @@ def test_verify_detects_unchanged_source(fabric_api_jar):
 
 @offline
 def test_verify_detects_a_changed_source(fabric_api_jar):
+    """A binary artifact has no injected nonce: changed bytes are a real change."""
     from modcheck.acquire import verify
     record = fabric_api_jar.source_record("x", "Fabric API release jar", "release_artifact")
     record["sha256"] = "0" * 64
     ok, why = verify(record)
     assert not ok and "changed" in why
+
+
+def test_binary_sources_get_no_volatility_tolerance(fabric_api_jar):
+    from modcheck.acquire import content_digest
+    assert fabric_api_jar.content_sha256 == "", \
+        "a jar must not carry a content hash; softening binary comparison hides drift"
+    assert content_digest(b"\x00\x01binary", "application/java-archive") == ""

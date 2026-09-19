@@ -65,7 +65,8 @@ projects and releases, not to rediscover it.
 
 | Upstream | Used for | Licence |
 |---|---|---|
-| LOOT masterlists (Skyrim SE, Fallout 4, Fallout: New Vegas) | requirements, incompatibilities, load order, CRC-matched dirty edits | CC0-1.0, verified |
+| LOOT masterlists (Skyrim SE, Fallout 4) | requirements, incompatibilities, load order, CRC-matched dirty edits | CC0-1.0, verified |
+| LOOT masterlist (Fallout: New Vegas) | the same, for FNV | **GPL-3.0**, verified — not CC0 like the other two |
 | SMAPI metadata (Stardew Valley) | per-version Obsolete / AssumeBroken / AssumeCompatible status | LGPL-3.0 repo; read as data, not redistributed |
 | RimSort Community Rules (RimWorld) | load order and incompatibility rules | no licence file — reuse unknown, not redistributed |
 | Fabric Loom, Gradle | actually building Minecraft mods | MIT, verified |

@@ -6,9 +6,13 @@ would be pointless. What ModCheck adds is applying it to a *specific*
 configuration and being explicit about which of its rules we could and could
 not decide.
 
-The masterlists are CC0 1.0, so reuse is unrestricted; we still do not
-redistribute them -- we fetch them with provenance and read them from the
-evidence cache, so the analysis always reflects the current upstream data.
+Licensing differs per masterlist and was checked per repository, not assumed
+from one of them: the Skyrim SE and Fallout 4 masterlists are CC0-1.0, but the
+**Fallout: New Vegas masterlist is GPL-3.0**. ModCheck does not redistribute
+any of them -- each is fetched with provenance and read from the evidence
+cache at analysis time, so the analysis reflects current upstream data. If
+ModCheck ever ships masterlist content, the FNV one carries share-alike
+obligations the other two do not.
 
 Semantics preserved from the libloot metadata documentation:
 

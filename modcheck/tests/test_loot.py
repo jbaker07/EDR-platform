@@ -183,3 +183,18 @@ def test_path_regex_only_applies_to_the_filename():
 def test_malformed_condition_is_an_error_not_a_silent_true():
     with pytest.raises(ConditionError):
         evaluate("file(", lambda call: True)
+
+
+def test_licensing_is_stated_per_masterlist_not_generalised():
+    """The FNV masterlist is GPL-3.0 while the other two are CC0-1.0.
+
+    This test exists because the module previously claimed all three were CC0,
+    which was wrong for Fallout: New Vegas. Licence terms differ per repository
+    and must not be generalised from one of them.
+    """
+    import modcheck.integrations.loot as loot_module
+
+    doc = loot_module.__doc__
+    assert "GPL-3.0" in doc, "the FNV masterlist's differing licence must be stated"
+    assert "CC0-1.0" in doc
+    assert "The masterlists are CC0" not in doc

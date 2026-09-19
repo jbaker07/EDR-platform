@@ -18,6 +18,7 @@ import datetime as dt
 import gzip
 import hashlib
 import json
+import re
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
@@ -44,6 +45,8 @@ class Fetched:
     content_type: str
     retrieved_at: str
     path: Path | None
+    content_sha256: str = ""
+    path_bytes: bytes = b""
     upstream_revision: str | None = None
     headers: dict[str, str] = field(default_factory=dict)
 
@@ -62,6 +65,8 @@ class Fetched:
         if self.sha256:
             rec["sha256"] = self.sha256
             rec["bytes"] = self.bytes
+        if self.content_sha256:
+            rec["content_sha256"] = self.content_sha256
         if self.content_type:
             rec["content_type"] = self.content_type
         if self.upstream_revision:
@@ -70,6 +75,60 @@ class Fetched:
             rec["evidence_path"] = str(self.path.relative_to(evidence_cache()))
         rec.update(extra)
         return rec
+
+
+# Many documentation sites inject a per-request token: a bot-management nonce,
+# an analytics script id, a signed asset URL, a MediaWiki parser timing comment.
+# Those change on every fetch while the documentation does not. Hashing raw
+# bytes therefore reports permanent drift for such pages, which would mark every
+# record depending on them stale forever and destroy the signal we need.
+#
+# So every source carries two hashes: the raw bytes, and a *content* hash over
+# the meaningful text with volatile markup removed. Drift that moves only the
+# raw hash is reported as volatile, not as an upstream change.
+_SCRIPT_OR_STYLE = re.compile(rb"<(script|style)\b[^>]*>.*?</\1>",
+                              re.IGNORECASE | re.DOTALL)
+_HTML_COMMENT = re.compile(rb"<!--.*?-->", re.DOTALL)
+_TAG = re.compile(rb"<[^>]+>")
+_WHITESPACE = re.compile(rb"\s+")
+
+TEXTUAL_TYPES = ("text/", "application/json", "application/xml", "application/x-yaml",
+                 "application/javascript", "+json", "+xml")
+
+
+def is_textual(content_type: str, raw: bytes = b"") -> bool:
+    ct = (content_type or "").lower()
+    if any(marker in ct for marker in TEXTUAL_TYPES):
+        return True
+    if ct:
+        return False
+    # No content type: treat as text only if it decodes cleanly.
+    try:
+        raw[:8192].decode("utf-8")
+        return True
+    except UnicodeDecodeError:
+        return False
+
+
+def content_digest(raw: bytes, content_type: str = "") -> str:
+    """Hash of the meaningful content, ignoring per-request volatile markup.
+
+    For HTML this strips script and style blocks, comments and tags, then
+    collapses whitespace. For other text it collapses whitespace only.
+
+    Returns "" for binary content. A release artifact has no injected nonce, so
+    if its bytes change it has genuinely changed, and softening that comparison
+    would hide exactly the drift we most need to catch.
+    """
+    if not is_textual(content_type, raw):
+        return ""
+    text = raw
+    if b"<html" in raw[:4096].lower() or "html" in (content_type or "").lower():
+        text = _SCRIPT_OR_STYLE.sub(b" ", text)
+        text = _HTML_COMMENT.sub(b" ", text)
+        text = _TAG.sub(b" ", text)
+    text = _WHITESPACE.sub(b" ", text).strip()
+    return hashlib.sha256(text).hexdigest()
 
 
 def cache_path_for(sha256: str, suffix: str = "") -> Path:
@@ -90,7 +149,7 @@ def fetch(url: str, *, timeout: int = DEFAULT_TIMEOUT, store: bool = True,
             status = resp.status
             resp_headers = {k.lower(): v for k, v in resp.headers.items()}
     except urllib.error.HTTPError as exc:
-        return Fetched(url=url, status=exc.code, sha256="", bytes=0,
+        return Fetched(url=url, status=exc.code, sha256="", bytes=0, content_sha256="",
                        content_type=exc.headers.get("Content-Type", "") if exc.headers else "",
                        retrieved_at=now, path=None,
                        headers={k.lower(): v for k, v in (exc.headers or {}).items()})
@@ -118,17 +177,21 @@ def fetch(url: str, *, timeout: int = DEFAULT_TIMEOUT, store: bool = True,
     if revision:
         revision = revision.strip('"')
 
+    content_type = resp_headers.get("content-type", "").split(";")[0]
     return Fetched(url=url, status=status, sha256=digest, bytes=len(raw),
-                   content_type=resp_headers.get("content-type", "").split(";")[0],
+                   content_type=content_type, path_bytes=raw,
+                   content_sha256=content_digest(raw, content_type),
                    retrieved_at=now, path=path, upstream_revision=revision,
                    headers=resp_headers)
 
 
 def verify(source: dict) -> tuple[bool, str]:
-    """Re-fetch a source and report whether its content still hashes the same.
+    """Re-fetch a source and report whether its *content* still matches.
 
-    This is the invalidation primitive: when upstream changes, everything that
-    cited it must be revalidated rather than silently kept.
+    This is the invalidation primitive: when upstream really changes, everything
+    that cited it must be revalidated. A page whose raw bytes move on every
+    fetch because of an injected nonce has not changed, and saying it has would
+    make the signal worthless.
     """
     try:
         result = fetch(source["url"], store=False)
@@ -136,12 +199,67 @@ def verify(source: dict) -> tuple[bool, str]:
         return False, f"unreachable: {exc}"
     if result.status != 200:
         return False, f"http {result.status}"
+
     recorded = source.get("sha256")
     if not recorded:
         return False, "no recorded hash to compare against"
     if result.sha256 == recorded:
         return True, "unchanged"
-    return False, f"changed: {recorded[:12]} -> {result.sha256[:12]}"
+
+    # Raw bytes moved. Compare the meaningful content before calling it a change.
+    recorded_content = source.get("content_sha256")
+    if not recorded_content:
+        try:
+            recorded_content = content_digest(read_cached(source),
+                                              source.get("content_type", ""))
+        except FetchError:
+            recorded_content = None
+    if recorded_content and result.content_sha256 == recorded_content:
+        return True, ("volatile: raw bytes differ on every fetch (injected token or "
+                      "timestamp) but the content is unchanged")
+
+    detail = f"changed: {recorded[:12]} -> {result.sha256[:12]}"
+    # Say WHAT changed where we can, so whoever revalidates knows where to look.
+    # This never suppresses the change -- invalidation stays conservative,
+    # because "only the numbers moved" also describes "Java 21 -> Java 25".
+    hint = _numeric_only_hint(source, result)
+    return False, f"{detail}{hint}"
+
+
+_DIGITS = re.compile(rb"[0-9][0-9,.]*")
+
+
+def _numeric_only_hint(source: dict, result: "Fetched") -> str:
+    """If the only differences are numeric, say so. Still a change."""
+    try:
+        old = read_cached(source)
+    except FetchError:
+        return ""
+    try:
+        fresh = fetch(source["url"], store=False)
+        if fresh.status != 200 or not fresh.path_bytes:
+            return ""
+        new = fresh.path_bytes
+    except (FetchError, AttributeError):
+        return ""
+    content_type = source.get("content_type", "")
+
+    def masked(raw: bytes) -> str:
+        if not is_textual(content_type, raw):
+            return ""
+        stripped = raw
+        if b"<html" in raw[:4096].lower() or "html" in content_type.lower():
+            stripped = _SCRIPT_OR_STYLE.sub(b" ", stripped)
+            stripped = _HTML_COMMENT.sub(b" ", stripped)
+            stripped = _TAG.sub(b" ", stripped)
+        stripped = _DIGITS.sub(b"#", stripped)
+        return hashlib.sha256(_WHITESPACE.sub(b" ", stripped).strip()).hexdigest()
+
+    old_masked, new_masked = masked(old), masked(new)
+    if old_masked and old_masked == new_masked:
+        return (" -- the only differences are numeric (often a view or download "
+                "counter); still treated as changed, revalidate to confirm")
+    return ""
 
 
 def read_cached(source: dict) -> bytes:

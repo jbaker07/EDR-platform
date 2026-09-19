@@ -84,6 +84,11 @@ interactions:
   - >-
     The xNVSE repository carries no licence file at any conventional path, so the terms for reusing
     its headers and example code are genuinely unknown. Do not assume permissive.
+  - >-
+    Script extenders for this game are version-locked like the others: the original NVSE site states
+    it supports only the latest Steam build (1.4.0.525 at the time we read it) and GECK 1.4.0.518.
+    We could not read the equivalent statement for the xNVSE fork, so state in your release which
+    build you tested rather than inferring one.
 build:
   produces: A Win32 DLL placed in the Fallout New Vegas folder by the solution's post-build step
   requires_network: true
@@ -139,6 +144,12 @@ references:
     locator: Installation
     quote: >-
       Do not copy these files to the Data folder or install it with MO2 as with a normal mod.
+  - source: nvse_home
+    evidence_class: declared
+    locator: Compatibility
+    quote: >-
+      NVSE will support the latest version of Fallout available on Steam, and only this version
+      (currently 1.4.0.525). We also support the 1.4.0.518 version of the NV GECK.
   - source: geckwiki_main
     evidence_class: unresolved
     locator: >-

@@ -108,13 +108,21 @@ capabilities:
       require a shared library mod) but they are prose on the download page, and the download pages we
       would need are HTTP 403 here. There is nothing to analyse, so we claim nothing.
   interaction_analysis:
-    status: documented_only
+    status: partial
     note: >-
-      The two real Sims 4 interactions are documented here as failure records: two packages claiming the
-      same resource key, and a script mod compiled for the wrong Python version. The first is in principle
-      computable by intersecting the resource_keys our inspector already extracts across a set of packages;
-      no such check exists in this repo. The second is already visible in a single inspection, but comparing
-      it against the version the installed game embeds needs a game install we do not have.
+      Two packages claiming the same DBPF resource key are now compared and reported:
+      Sims 4 keys resources by type, group and instance, so the same key in two packages
+      overrides the same game resource. Which package the game loads last is NOT
+      established, so the finding names the collision and deliberately refuses to name a
+      winner, and it does not establish that the two resources actually differ. Resource
+      payloads are not decoded, so a tuning-level comparison is not possible. The other
+      documented interaction - a script mod compiled for the wrong Python version - is
+      visible in a single inspection, but the version the installed game embeds is not
+      established by any source we hold.
+    implemented_by: [src/modcheck/analyze/collisions.py]
+    tests:
+      - tests/test_collisions.py::test_sims4_same_resource_key_is_a_collision
+      - tests/test_collisions.py::test_control_sims4_different_resource_keys_are_not_a_collision
   build_execution:
     status: blocked
     note: >-

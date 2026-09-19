@@ -37,15 +37,18 @@ conditions:
     description: The plugin allocates new records whose object index is above 0xFFF.
     expression: next_object_id > 0xFFF
 detector:
-  detectable: partial
-  check_id: inspection.warning
+  detectable: "yes"
+  check_id: esplugin.invalid_light_plugin
   signal: >-
-    src/modcheck/inspect/bethesda.py reads the HEDR subrecord and, when the light flag is set and
-    nextObjectID exceeds 0xFFF, warns that "new FormIDs may fall outside the light FormID range";
-    src/modcheck/report.py surfaces inspector warnings as inspection.warning findings. It is partial
-    on purpose: nextObjectID is the next id to allocate, not proof that an out-of-range record
-    exists, and we do not read the records themselves, so we can neither confirm an overflow nor
-    rule one out. The lower 0.95-header ceiling of 0x800 is not implemented at all.
+    Two layers. The real check is esplugin.invalid_light_plugin in
+    src/modcheck/integrations/esplugin.py: with --deep, the helper parses the plugin's new records
+    and reports it as an error when their FormIDs fall outside the range a light plugin may use.
+    That needs the optional helper to be built; when it is not, the report says record-level analysis
+    was unavailable rather than passing the plugin silently. The fallback layer is a heuristic:
+    src/modcheck/inspect/bethesda.py warns (as inspection.warning) when the light flag is set and
+    the HEDR nextObjectID exceeds 0xFFF. That heuristic is weaker than it looks - nextObjectID is
+    the next id to allocate, not proof an out-of-range record exists - and the lower 0x800 ceiling
+    for header version 0.95 is not implemented in either layer.
 evidence:
   - source: midnight_ride_light_plugins
     evidence_class: declared

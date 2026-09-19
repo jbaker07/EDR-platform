@@ -137,14 +137,19 @@ capabilities:
       verify - ArchiveXL's README declares RED4ext 1.29.0+ and redscript 0.5.31+, TweakXL's
       declares RED4ext 1.28.0+ and redscript 0.5.27+ - but we resolve nothing automatically.
   interaction_analysis:
-    status: documented_only
+    status: partial
     note: >-
-      The dominant Cyberpunk interaction - two mods shipping the same install path, resolved
-      first-wins in ASCII order - is documented here as a failure record and is in principle
-      computable from the install_paths our inspector already extracts. No such check is
-      implemented in this repo, so nothing runs. TweakDB record collisions and redscript
-      method collisions are not computable from what we extract at all, and the wiki itself
-      states "There currently is no tool to check tweak conflicts".
+      The dominant Cyberpunk interaction - two mods shipping the same install path - is now
+      compared across artifacts and reported, since the install path is the loader contract
+      and two mods cannot both occupy one. Limits: whether the colliding files are identical,
+      and which was installed last, are not established. TweakDB record collisions and
+      redscript method collisions remain out of reach because .archive contents, redscript
+      targets and TweakXL record targets are not decoded; the modding wiki itself states
+      there is no tool to check tweak conflicts.
+    implemented_by: [src/modcheck/analyze/collisions.py]
+    tests:
+      - tests/test_collisions.py::test_cyberpunk_same_install_path_is_a_collision
+      - tests/test_collisions.py::test_control_cyberpunk_different_paths_are_not_a_collision
   build_execution:
     status: blocked
     note: >-

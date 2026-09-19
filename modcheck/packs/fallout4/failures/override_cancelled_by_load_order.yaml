@@ -34,13 +34,16 @@ conditions:
       The later plugin's version of the record does not itself carry the earlier plugin's change.
 detector:
   detectable: partial
-  check_id: loot.load_order
+  check_id: esplugin.record_overlap
   signal: >-
-    src/modcheck/integrations/loot.py reports a load-order finding when the masterlist records an
-    "after" rule for a plugin and the supplied configuration orders it the other way. That covers
-    only pairs LOOT has already curated a rule for. The general case - any two plugins overriding the
-    same record - is invisible to us: it needs record-level comparison, which xEdit does and we do
-    not. Silence from our analysis therefore means "no recorded rule", never "no lost change".
+    With --deep, src/modcheck/integrations/esplugin.py reports every pair of plugins that touch at
+    least one of the same records, which is where a lost change can hide. It is deliberately a note,
+    not an error: overlap is normal and usually intentional, the finding names no record, and it
+    compares no field values, so it cannot tell you whether anything was actually lost.
+    src/modcheck/integrations/loot.py adds loot.load_order, which fires only where the masterlist has
+    already curated an "after" rule and the configuration orders the pair the other way. Neither
+    layer decides the question xEdit's conflict filter decides. Silence still means "no recorded
+    rule and no overlap found", never "no lost change".
 evidence:
   - source: xedit_conflict_detection
     evidence_class: declared

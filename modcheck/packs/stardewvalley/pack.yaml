@@ -99,13 +99,26 @@ capabilities:
       exercises that path for Stardew Valley, and nothing consults SMAPI.metadata.json,
       so we do not claim executable dependency analysis for this game.
   interaction_analysis:
-    status: documented_only
+    status: partial
     note: >-
-      Per-artifact Target/Action pairs are extracted, which is the input an asset-level
-      overlap analysis needs, but no cross-artifact comparison is implemented: two packs
-      that Load the same Target, or that EditData the same entry keys, are not compared
-      and no interaction record is produced. Load Priority, which decides the outcome, is
-      not extracted at all.
+      Two sources of interaction knowledge now run. Content Patcher packs are compared
+      across artifacts: two packs that Load the same asset are reported as a conflict,
+      because only one can supply it, while two packs that EditData different entries of
+      one asset are correctly NOT reported, since that is the supported way packs coexist.
+      A Load guarded by a When condition is not treated as an unconditional conflict.
+      Separately, SMAPI's own metadata is applied per installed mod and version, giving
+      Obsolete / AssumeBroken / AssumeCompatible status with its recorded reason. Limits:
+      Load Priority, which decides the outcome between two conflicting packs, is not
+      extracted; C# behaviour and Harmony patches are not analysed; and a mod with no
+      SMAPI metadata entry yields nothing, which is not evidence of compatibility.
+    implemented_by:
+      - src/modcheck/analyze/collisions.py
+      - src/modcheck/integrations/smapi.py
+    tests:
+      - tests/test_collisions.py::test_two_packs_loading_the_same_asset_conflict
+      - tests/test_collisions.py::test_control_editing_different_entries_of_one_asset_is_silent
+      - tests/test_smapi.py::test_bounded_status_applies_only_inside_the_range
+      - tests/test_smapi.py::test_control_mod_not_in_the_database_is_silent
   build_execution:
     status: blocked
     note: >-

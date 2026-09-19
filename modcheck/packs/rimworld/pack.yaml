@@ -105,13 +105,23 @@ capabilities:
       (loadAfter, loadBefore, forceLoadBefore) are extracted but nothing orders anything.
       The RimSort community rules database is held as data and is read by no check.
   interaction_analysis:
-    status: documented_only
+    status: partial
     note: >-
-      The three things that actually decide RimWorld interactions - which mod owns a
-      defName, which xpath a PatchOperation selects, and which method a Harmony patch
-      attaches to - are all explicitly in the inspector's not_checked list. We record
-      file lists, not targets, so overlapping Patches/ files cannot be compared and no
-      interaction record is derivable from an artifact today.
+      Load-order and incompatibility rules are now evaluated from two independent sources:
+      each mod's own About.xml (loadAfter, loadBefore, incompatibleWith), which needs
+      nothing external, and the RimSort Community Rules Database. packageIds are matched
+      case-insensitively, as the game treats them. Limits: the three things that decide
+      deeper RimWorld interactions - which mod owns a defName, which xpath a PatchOperation
+      selects, and which method a Harmony patch attaches to - are still not extracted, so
+      Def-level conflicts are not detected. A mod with no declared and no recorded rule
+      yields nothing, which is not evidence of safety.
+    implemented_by:
+      - src/modcheck/integrations/rimworld.py
+    tests:
+      - tests/test_rimworld.py::test_detects_wrong_order_from_the_community_database
+      - tests/test_rimworld.py::test_control_correct_order_is_silent
+      - tests/test_rimworld.py::test_declared_load_after_is_checked_without_any_external_database
+      - tests/test_rimworld.py::test_rule_for_an_absent_mod_is_not_reported
   build_execution:
     status: blocked
     note: >-

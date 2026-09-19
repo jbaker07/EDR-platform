@@ -82,6 +82,32 @@ sources:
   license: GPL-3.0
   notes: The plugin-parsing library behind LOOT and libloadorder. Lists the games it parses. A candidate
     for real record-level parsing; not integrated here (Rust, would need a build we do not run).
+- id: geck_bethsoft_redirect
+  title: 'Bethesda GECK wiki (geck.bethsoft.com): redirects to a Bethesda wiki maintenance page'
+  url: http://geck.bethsoft.com/index.php?title=Main_Page
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T14:17:30+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+    note: Maintenance placeholder page; no content, no terms.
+  sha256: a6a3d48437cf7b2c3b6894cac3b4614a55ed689979e7f39cdbd1270a05e51888
+  bytes: 58325
+  content_sha256: a75c5e99e642873856b71ce086e3ed5a7d8787b5e1439328ff388eba46d51c11
+  content_type: text/html
+  evidence_path: a6/a6a3d48437cf7b2c3b6894cac3b4614a55ed689979e7f39cdbd1270a05e51888.html
+  games:
+  - falloutnv
+  publisher: Bethesda Softworks
+  license: unknown
+  notes: 'Fetched to check whether Bethesda''s own GECK wiki still serves documentation. It does not:
+    geck.bethsoft.com answers 302 to https://wiki.bethesda.net/Main/Maintenance/ and the body we received
+    is an XWiki ''Maintenance'' page. Together with the 403 from geckwiki.com, this means no GECK documentation
+    of any kind is available to us - including the NVSE function reference that both the NVSE site and
+    the xNVSE readme point to.'
 - id: geckwiki_main
   title: 'GECKWiki (Fallout: New Vegas GECK documentation)'
   url: https://geckwiki.com/index.php/Main_Page
@@ -437,6 +463,34 @@ sources:
   license: unknown
   notes: HTTP 403. Recorded so that the absence of any Nexus-derived claim in this pack is visible and
     deliberate.
+- id: nvse_home
+  title: New Vegas Script Extender (NVSE) home page, silverlock.org
+  url: http://nvse.silverlock.org/
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T14:17:29+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+    note: The page states no reuse terms. Note it is the original NVSE, a separate lineage from the community
+      xNVSE fork documented elsewhere in this pack.
+  sha256: 2432373492ea846138d15c5070078c3520374221d7edc66c2bf2b8dee32271b0
+  bytes: 7866
+  content_sha256: c26e86fe0c63e5ca115e6ddcb908b4b0c9f7646105d975a17b1715a300d23482
+  content_type: text/html
+  upstream_revision: 1eba-5fc87eea1a45e-gzip
+  evidence_path: 24/2432373492ea846138d15c5070078c3520374221d7edc66c2bf2b8dee32271b0.html
+  games:
+  - falloutnv
+  publisher: NVSE team
+  license: unknown
+  notes: 'The only place we could read a New Vegas script-extender version: header ''New Vegas Script
+    Extender (NVSE) v5.0'', stable download 5.1b4, and a compatibility statement naming game 1.4.0.525
+    and GECK 1.4.0.518. Reachable only over plain HTTP: the https URL fails TLS verification (self-signed
+    certificate) from here. Its own Documentation link points at geck.bethsoft.com, which now redirects
+    to a Bethesda wiki maintenance page.'
 - id: synthesis_supporting_multiple_games
   title: 'Synthesis: Supporting Multiple Games'
   url: https://mutagen-modding.github.io/Synthesis/devs/Supporting-Multiple-Games/
@@ -466,25 +520,28 @@ sources:
   url: https://taleoftwowastelands.com/
   kind: community_wiki
   access: public
-  retrieved_at: '2026-09-19T13:44:36+00:00'
+  retrieved_at: '2026-09-19T14:15:59+00:00'
   http_status: 200
   reuse:
     redistribute: unknown
     commercial: unknown
     derive: unknown
-    note: No licence statement found on the site.
-  sha256: bda415f5394c6a84242b746cb6f58dcba78e439b5f8476a7e6a57efbb1736c02
+  sha256: 07cde77b7f71ac978310a2df431989ad9b1bac0d4a9adfe00293e935d4b28b6c
   bytes: 37321
+  content_sha256: dd0936734859cf050e901208c4d86a6bef43a244e7959a1c14ea82a70f9195de
   content_type: text/html
   upstream_revision: Thu, 10 Sep 2026 06:08:16 GMT
-  evidence_path: bd/bda415f5394c6a84242b746cb6f58dcba78e439b5f8476a7e6a57efbb1736c02.html
+  evidence_path: 07/07cde77b7f71ac978310a2df431989ad9b1bac0d4a9adfe00293e935d4b28b6c.html
   games:
   - falloutnv
   publisher: TTW team
   license: unknown
   notes: 'What we actually retrieved is the project''s phpBB forum index, which states: ''The forum has
     been set to read-only mode.'' and points support at Discord. We therefore hold no TTW installation
-    documentation: treat TTW support as a gap, not as coverage.'
+    documentation: treat TTW support as a gap, not as coverage. Re-verification note: the raw bytes differ
+    on every fetch because of the Cloudflare challenge token embedded in the page (__CF$cv$params); the
+    forum index content is unchanged, which the recorded content_sha256 lets `modcheck sources verify`
+    establish.'
 - id: uesp_falloutnv_mod_file_format
   title: 'UESP: FalloutNVMod Mod File Format (record/subrecord specification)'
   url: https://en.uesp.net/wiki/FalloutNVMod:Mod_File_Format

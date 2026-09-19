@@ -289,4 +289,11 @@ provenance:
     - esplugin_readme
     - wrye_bash_readme
     - loot_masterlist_skyrimse
+    - loot_masterlist_skyrimse_license
+    - loot_metadata_plugin_spec
+    - loot_metadata_conditions_spec
+    - xedit_docs_tome
+    - best_of_times_intro
     - ck_wiki_maintenance_notice
+    - uesp_tes5_mod_file_format
+    - nexusmods_site

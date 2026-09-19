@@ -25,8 +25,8 @@ from .inspect import inspect_path
 from .store import Store
 
 LOOT_GAMES = {"skyrimse", "fallout4", "falloutnv"}
-RIMSORT_SOURCE_ID = "rimsort_community_rules"
-SMAPI_SOURCE_ID = "smapi_metadata"
+RIMSORT_SOURCE_ID = "rimsort_community_rules_db"
+SMAPI_SOURCE_ID = "smapi_mod_metadata_db"
 
 
 def _loot_findings(installation: Installation, store: Store,

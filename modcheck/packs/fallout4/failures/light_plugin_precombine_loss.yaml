@@ -30,13 +30,13 @@ conditions:
 detector:
   detectable: "no"
   why_not: >-
-    Deciding this needs the records: whether the plugin originates a CELL rather than overriding one,
-    and whether it overrides voiced dialogue. Our inspector reads the TES4 header only and stops
-    there, and the LOOT masterlist encodes no rule of this shape, so neither of our two working
-    analyses can see it. Our inspector will happily report such a plugin as a healthy light plugin -
-    which is precisely why this record exists. Detecting it would need a record-level parser
-    (esplugin is the candidate in our toolchain list), and confirming the symptom would need the
-    retail game.
+    Deciding this needs record semantics: whether the plugin originates a CELL rather than overriding
+    one, and whether it overrides voiced dialogue. None of our three layers answers that. Our own
+    inspector reads the TES4 header and stops. The LOOT masterlist encodes no rule of this shape. The
+    esplugin integration does parse records with --deep, but what it reports is identity-level -
+    light-plugin FormID validity, override counts and which plugin pairs overlap - not record types
+    or dialogue audio. A plugin with this defect will be reported by us as a healthy light plugin,
+    which is precisely why this record exists. Confirming the symptom needs the retail game.
 evidence:
   - source: midnight_ride_light_plugins
     evidence_class: declared

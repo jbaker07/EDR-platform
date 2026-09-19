@@ -20,8 +20,8 @@ ecosystem:
       name: New Vegas Script Extender (nvse_loader.exe)
       manifest: .dll and .exe placed beside FalloutNV.exe, never in Data
       versions: >-
-        Not stated in the sources we fetched; the readme points at GitHub releases, which we cannot
-        read (github.com is blocked to us and the Nexus listing answers 403)
+        xNVSE fork: unknown (releases on blocked hosts). Original NVSE, per silverlock.org: v5.0,
+        stable 5.1b4, game 1.4.0.525, GECK 1.4.0.518
       source: xnvse_readme
   artifact_formats:
     - .esm / .esp plugin files (TES4 header record followed by record groups)
@@ -66,8 +66,9 @@ capabilities:
       Reads the TES4 header record only: master list (MAST), ESM flag, author, description and HEDR
       counts (header version, record count, next object id). It does not read records or fields
       below the header, does not check whether masters are installed or compatible, and does not
-      look at .bsa contents or scripts. Note for this game specifically: the light-plugin facts the
-      inspector reports are meaningless here, because light plugins do not exist in Fallout: New
+      look at .bsa contents or scripts. Record-level facts come from the separate optional esplugin
+      integration, not from this inspector. Note for this game specifically: the light-plugin facts
+      the inspector reports are meaningless here, because light plugins do not exist in Fallout: New
       Vegas.
     implemented_by:
       - src/modcheck/inspect/bethesda.py
@@ -91,19 +92,27 @@ capabilities:
   interaction_analysis:
     status: supported
     note: >-
-      Covers LOOT-recorded rules only, applied to a specific configuration: requirements,
-      incompatibilities, load-order rules, dirty/clean records matched by exact CRC, and messages
-      whose conditions we can decide. It does NOT perform record-level conflict detection - that is
-      xEdit's job and is not implemented here. A plugin with no masterlist entry produces no
-      findings; absence of a rule is not evidence of safety. Undecidable conditions are reported as
-      unresolved. The Fallout: New Vegas masterlist is the smallest of the three we hold, so
-      coverage of this game's mods is correspondingly thinner.
+      Two separate things, with separate limits. (1) The LOOT-backed part covers LOOT-recorded rules
+      only, applied to a specific configuration: requirements, incompatibilities, load-order rules,
+      dirty/clean records matched by exact CRC, and messages whose conditions we can decide. It does
+      NOT do record-level conflict detection, a plugin with no masterlist entry yields no findings,
+      and the absence of a rule is not evidence of safety; undecidable conditions are reported as
+      unresolved rather than assumed. (2) With --deep, an optional helper around esplugin reports
+      which pairs of plugins touch at least one of the same records, plus override counts and
+      light-plugin FormID validity. That is overlap, not conflict: the later plugin wins for a shared
+      record and that is usually deliberate, the finding names no record and compares no field
+      values, and when the helper is not built the report says record-level analysis was unavailable
+      rather than quietly skipping it. Deciding whether an overlap is harmful is still xEdit's job.
+      Note for this game: the Fallout: New Vegas masterlist is the smallest of the three we hold, so
+      LOOT coverage of this game's mods is correspondingly thinner than for the other two.
     implemented_by:
       - src/modcheck/integrations/loot.py
+      - src/modcheck/integrations/esplugin.py
     tests:
       - tests/test_loot.py::test_detects_a_real_recorded_incompatibility
       - tests/test_loot.py::test_detects_dirty_edits_only_for_the_exact_matching_copy
       - tests/test_loot.py::test_control_unrelated_plugins_produce_nothing
+      - tests/test_esplugin.py::test_analysis_reports_overlap_as_a_place_to_look_not_a_conflict
   build_execution:
     status: blocked
     note: >-
@@ -169,13 +178,15 @@ toolchain:
     url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
     purpose: >-
       Rust plugin parser used by LOOT; its README lists Fallout: New Vegas among parsed games.
-    status: candidate
+    status: integrated
     runs_on: [windows, linux, macos]
     license: GPL-3.0
     integration: subprocess
     note: >-
-      Rust 1.94.1 is present here and esplugin's MSRV is 1.81, but we ran no build. GPL-3.0 makes a
-      subprocess boundary the realistic integration.
+      Integrated through an optional helper binary (helpers/esplugin-cli) that ModCheck invokes as a
+      subprocess; it is built in this environment, so its tests run and --deep record-level analysis
+      works. The subprocess boundary is deliberate: esplugin is GPL-3.0, so linking it would make
+      ModCheck copyleft, and shipping the helper would carry GPL obligations of its own.
     source: esplugin_readme
   - id: wrye_bash
     name: Wrye Bash (Wrye Flash for this game's tags)
@@ -209,17 +220,24 @@ toolchain:
 gaps:
   - what: GECK documentation - Obscript reference, NVSE function reference, editor workflow.
     why: >-
-      geckwiki.com answers HTTP 403 to us, and it is the site xNVSE's own readme names as the place
-      to find NVSE scripting documentation.
+      Both routes are closed. geckwiki.com answers HTTP 403, and it is the site xNVSE's own readme
+      names as the place to find NVSE scripting documentation. Bethesda's own geck.bethsoft.com -
+      which the NVSE site links as its documentation - now redirects to
+      https://wiki.bethesda.net/Main/Maintenance/ and serves a maintenance placeholder, the same
+      state as the Creation Kit wikis for the other two games.
     unblocks: Any scripting recipe for this game beyond the C++ plugin route.
   - what: >-
-      The Fallout: New Vegas record and subrecord format below the TES4 header.
+      What the records and fields below the TES4 header mean. esplugin gives us record identity and
+      overlap; it does not tell us what a field is or which value is preferable.
     why: UESP answers 403 at the origin.
-    unblocks: Record-level conflict detection of our own.
+    unblocks: >-
+      Field-level conflict reporting, rather than only that two plugins touch the same record.
   - what: xNVSE version numbers, release artefacts and its licence.
     why: >-
       Releases live on github.com (blocked) and Nexus Mods (403); the repository has no licence file
-      at any of the four conventional paths.
+      at any of the four conventional paths. We do hold version data for the original NVSE
+      (v5.0/5.1b4, game 1.4.0.525) from silverlock.org, but that is a different lineage from the
+      xNVSE fork most mods now require, so it cannot stand in for it.
     unblocks: Version-compatibility claims and any statement about reusing xNVSE code.
   - what: Tale of Two Wastelands installation requirements.
     why: >-
@@ -251,4 +269,13 @@ provenance:
     - loot_masterlist_falloutnv
     - loot_masterlist_falloutnv_license
     - synthesis_supporting_multiple_games
+    - loot_metadata_plugin_spec
+    - loot_metadata_conditions_spec
+    - viva_new_vegas_intro
+    - viva_new_vegas_safe_modding
+    - tale_of_two_wastelands
     - geckwiki_main
+    - geck_bethsoft_redirect
+    - nvse_home
+    - uesp_falloutnv_mod_file_format
+    - nexusmods_site

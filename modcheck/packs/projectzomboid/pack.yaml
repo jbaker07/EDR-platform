@@ -102,13 +102,18 @@ capabilities:
       loadModBefore and the negative key incompatible are not in the inspector's
       KNOWN_KEYS at all - they are reported as unrecognised rather than parsed.
   interaction_analysis:
-    status: documented_only
+    status: partial
     note: >-
-      The media/-relative Lua path list is extracted per artifact and is exactly the signal
-      a collision analysis needs, but nothing compares two artifacts' lists, and we hold no
-      inventory of vanilla media/lua paths to compare a mod against. Zedscript block ids
-      (module.itemId) are not parsed at all, so soft-override collisions between two mods'
-      item scripts are invisible.
+      Two mods shipping the same media/-relative Lua path are now compared and reported,
+      which is the ecosystem's real last-one-wins collision. Limits: we hold no inventory
+      of vanilla media/lua paths, so a mod colliding with the base game is invisible;
+      whether the two files actually differ, and which the game loads last, are not
+      established; and Zedscript block ids (module.itemId) are not parsed, so soft-override
+      collisions between two mods' item scripts remain invisible.
+    implemented_by: [src/modcheck/analyze/collisions.py]
+    tests:
+      - tests/test_collisions.py::test_pz_same_lua_path_is_a_collision
+      - tests/test_collisions.py::test_control_pz_different_lua_paths_are_not_a_collision
   build_execution:
     status: unsupported
     note: >-

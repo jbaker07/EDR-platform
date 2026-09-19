@@ -71,7 +71,8 @@ capabilities:
       description and HEDR counts (header version, record count, next object id). It does not read
       records or fields below the header, does not check whether the masters are installed or
       compatible, and does not look at .ba2 contents, scripts or precombine data. A clean
-      inspection is not a clean plugin.
+      inspection is not a clean plugin. Record-level facts come from the separate optional esplugin
+      integration, not from this inspector.
     implemented_by:
       - src/modcheck/inspect/bethesda.py
     tests:
@@ -95,18 +96,25 @@ capabilities:
   interaction_analysis:
     status: supported
     note: >-
-      Covers LOOT-recorded rules only, applied to a specific configuration: requirements,
-      incompatibilities, load-order rules, dirty/clean records matched by exact CRC, and messages
-      whose conditions we can decide. It does NOT perform record-level conflict detection - that is
-      xEdit's job and is not implemented here. A plugin with no masterlist entry produces no
-      findings, and the absence of a rule is not evidence of safety. Undecidable conditions are
-      reported as unresolved rather than assumed.
+      Two separate things, with separate limits. (1) The LOOT-backed part covers LOOT-recorded rules
+      only, applied to a specific configuration: requirements, incompatibilities, load-order rules,
+      dirty/clean records matched by exact CRC, and messages whose conditions we can decide. It does
+      NOT do record-level conflict detection, a plugin with no masterlist entry yields no findings,
+      and the absence of a rule is not evidence of safety; undecidable conditions are reported as
+      unresolved rather than assumed. (2) With --deep, an optional helper around esplugin reports
+      which pairs of plugins touch at least one of the same records, plus override counts and
+      light-plugin FormID validity. That is overlap, not conflict: the later plugin wins for a shared
+      record and that is usually deliberate, the finding names no record and compares no field
+      values, and when the helper is not built the report says record-level analysis was unavailable
+      rather than quietly skipping it. Deciding whether an overlap is harmful is still xEdit's job.
     implemented_by:
       - src/modcheck/integrations/loot.py
+      - src/modcheck/integrations/esplugin.py
     tests:
       - tests/test_loot.py::test_detects_a_real_recorded_incompatibility
       - tests/test_loot.py::test_detects_dirty_edits_only_for_the_exact_matching_copy
       - tests/test_loot.py::test_control_unrelated_plugins_produce_nothing
+      - tests/test_esplugin.py::test_analysis_reports_overlap_as_a_place_to_look_not_a_conflict
   build_execution:
     status: blocked
     note: >-
@@ -189,13 +197,15 @@ toolchain:
     name: esplugin
     url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
     purpose: Rust plugin parser used by LOOT; parses Fallout 4 (including VR) beyond the header.
-    status: candidate
+    status: integrated
     runs_on: [windows, linux, macos]
     license: GPL-3.0
     integration: subprocess
     note: >-
-      Rust 1.94.1 is present here and esplugin's stated MSRV is 1.81, but we ran no build. GPL-3.0
-      makes a subprocess boundary the realistic integration.
+      Integrated through an optional helper binary (helpers/esplugin-cli) that ModCheck invokes as a
+      subprocess; it is built in this environment, so its tests run and --deep record-level analysis
+      works. The subprocess boundary is deliberate: esplugin is GPL-3.0, so linking it would make
+      ModCheck copyleft, and shipping the helper would carry GPL obligations of its own.
     source: esplugin_readme
   - id: wrye_bash
     name: Wrye Bash
@@ -217,9 +227,13 @@ gaps:
       for backend maintenance. Any news will be posted in the official Bethesda Game Studios discord
       , in the #modding-news channel."
     unblocks: Papyrus recipes, precombine/previs generation workflow, Creation Kit behaviour claims.
-  - what: The Fallout 4 record and subrecord format below the TES4 header.
+  - what: >-
+      What the records and fields below the TES4 header mean. esplugin gives us record identity and
+      overlap between plugins; it does not tell us what a field is or which value is preferable.
     why: UESP answers 403 at the origin.
-    unblocks: Record-level conflict detection of our own rather than deferring to xEdit.
+    unblocks: >-
+      Field-level conflict reporting - which field two plugins disagree about, rather than only that
+      they touch the same record.
   - what: Precombine and previs mechanics beyond the single sentence a community guide gives us.
     why: >-
       The only statement we hold is The Midnight Ride's "Cells originating in a light plugin cannot
@@ -250,5 +264,13 @@ provenance:
     - esplugin_readme
     - wrye_bash_readme
     - loot_masterlist_fallout4
+    - loot_masterlist_fallout4_license
+    - loot_metadata_plugin_spec
+    - loot_metadata_conditions_spec
     - midnight_ride_light_plugins
+    - midnight_ride_intro
+    - mutagen_docs_home
+    - synthesis_create_a_patcher
     - ck_wiki_fallout4_maintenance_notice
+    - uesp_fallout4_mod_file_format
+    - nexusmods_site

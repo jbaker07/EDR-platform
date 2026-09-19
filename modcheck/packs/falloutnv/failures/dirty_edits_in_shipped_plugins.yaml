@@ -44,8 +44,9 @@ detector:
     src/modcheck/integrations/loot.py compares each plugin's CRC32 with the masterlist's dirty
     entries and reports the recorded ITM/UDR/NAV counts only on an exact match, so a same-named but
     different build is never flagged. It detects only what has already been recorded for that exact
-    copy: we do not compute ITMs ourselves, because that needs record-level comparison against the
-    masters, which xEdit does and we do not implement. A plugin nobody has audited produces no
+    copy: we do not compute ITMs ourselves, because that needs field-by-field comparison against the
+    masters - xEdit does that, and our record-level layer does not (esplugin reports overlap and
+    override counts, never whether the values are identical). A plugin nobody has audited produces no
     finding at all.
 evidence:
   - source: xedit_mod_cleaning

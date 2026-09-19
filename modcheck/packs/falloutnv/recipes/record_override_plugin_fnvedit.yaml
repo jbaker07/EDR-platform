@@ -67,6 +67,10 @@ interactions:
   - >-
     There are no light plugins in this game, so every plugin you ship consumes one of the 255 active
     slots. A mod distributed as several optional plugins is spending a scarce resource.
+  - >-
+    Community practice for this game expects a plugin to have been conflict-checked against the rest
+    of a list before release, and expects breakage to be isolated by bisecting the load order rather
+    than guessing - neither of which our tooling does for you.
 build:
   produces: A single .esp in the game's Data folder
   requires_network: false
@@ -104,6 +108,18 @@ references:
     quote: >-
       In Morrowind, Oblivion, Fallout 3 and Fallout: New Vegas, load order is decided by the relative
       timestamps of plugins in the game's Data directory.
+  - source: viva_new_vegas_safe_modding
+    evidence_class: declared
+    locator: Gaining Independence
+    quote: >-
+      When installing mods with a plugin, use FNVEdit and The Method to check for conflicts between it
+      and the rest of your list.
+  - source: viva_new_vegas_safe_modding
+    evidence_class: declared
+    locator: Gaining Independence
+    quote: >-
+      If something breaks, troubleshoot using a binary search : disable mods in groups to isolate the
+      problematic section, then narrow it down by splitting that group into smaller parts.
   - source: libloadorder_plugin_types
     evidence_class: declared
     locator: 'Oblivion, Skyrim, Fallout 3, Fallout: New Vegas'

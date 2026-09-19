@@ -36,16 +36,17 @@ sources:
   url: https://www.creationkit.com/index.php?title=Main_Page
   kind: official_docs
   access: public
-  retrieved_at: '2026-09-19T13:45:28+00:00'
+  retrieved_at: '2026-09-19T14:15:56+00:00'
   http_status: 200
   reuse:
     redistribute: unknown
     commercial: unknown
     derive: unknown
-  sha256: 996a844fbcdf7a5327c26e1beb128cf21ccd0411fc1e7a9e2cdc0741aeb5cf60
+  sha256: 036b7e5db0c39fd445bf13efd7b7bd1ab54cb5c30570eda58749245de8325641
   bytes: 58325
+  content_sha256: a75c5e99e642873856b71ce086e3ed5a7d8787b5e1439328ff388eba46d51c11
   content_type: text/html
-  evidence_path: 99/996a844fbcdf7a5327c26e1beb128cf21ccd0411fc1e7a9e2cdc0741aeb5cf60.html
+  evidence_path: 03/036b7e5db0c39fd445bf13efd7b7bd1ab54cb5c30570eda58749245de8325641.html
   games:
   - skyrimse
   publisher: Bethesda Game Studios (creationkit.com)
@@ -54,7 +55,10 @@ sources:
     is currently down for backend maintenance. Any news will be posted in the official Bethesda Game Studios
     discord , in the #modding-news channel.'' Every Creation Kit wiki URL we tried returned this same
     page, so we hold NO Creation Kit documentation for Skyrim: no Papyrus reference, no Form ID page,
-    no editor workflow. Treat as a gap despite the 200.'
+    no editor workflow. Treat as a gap despite the 200. Re-verification note: the raw bytes differ on
+    every fetch because the markup carries a randomly generated XWiki element id (xwiki-select-<random>);
+    the maintenance notice itself is unchanged. The record therefore carries a content_sha256, and `modcheck
+    sources verify` reports it as volatile rather than changed.'
 - id: commonlibsse_ng_license
   title: CommonLibSSE-NG LICENSE
   url: https://raw.githubusercontent.com/CharmedBaryon/CommonLibSSE-NG/main/LICENSE

@@ -45,8 +45,9 @@ detector:
     entries and reports the recorded ITM/UDR/NAV counts only when the CRC matches exactly, so a
     same-named but different build is never flagged. Partial, and the partiality matters: this
     detects only dirty edits somebody has already recorded for that exact copy. We do not compute
-    ITMs ourselves - that needs record-level comparison against the masters, which is xEdit's job
-    and is not implemented here - so an unrecorded dirty plugin produces no finding at all.
+    ITMs ourselves: that needs field-by-field comparison against the masters, which xEdit does and
+    which our record-level layer does not - esplugin reports overlap and override counts, never
+    whether the overriding values are identical. An unrecorded dirty plugin produces no finding.
 evidence:
   - source: xedit_mod_cleaning
     evidence_class: declared

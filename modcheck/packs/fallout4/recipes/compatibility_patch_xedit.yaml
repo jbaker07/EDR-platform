@@ -79,8 +79,9 @@ validation:
     command: modcheck analyze --game fallout4 --artifact Data/ModA.esp --artifact Data/ModB.esp --artifact Data/YourPatch.esp
     limits: >-
       Reports only LOOT-recorded requirements, incompatibilities, load-order rules and CRC-matched
-      dirty records for those plugin names, plus missing masters. It performs no record-level
-      conflict detection, so it cannot confirm your patch resolved anything.
+      dirty records for those plugin names, plus missing masters. Adding --deep also lists which
+      plugin pairs touch the same records, but that is overlap, not resolution: no field values are
+      compared, so it cannot confirm your patch resolved anything.
 acceptance:
   - The patch lists both conflicting mods as masters and nothing else.
   - Re-filtering in FO4Edit shows the patch as conflict winner for every record you touched, with no new conflict losers introduced.
