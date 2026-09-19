@@ -30,12 +30,15 @@ conditions:
       Applies when the target Minecraft version is one that ships
       non-obfuscated, and the build script still declares mappings.
 detector:
-  detectable: partial
-  check_id: creator.scaffold.fabric_build_style
-  signal: >-
-    ModCheck resolves the build style from the upstream example mod's own build
-    script for the target version, so a generated project never carries the
-    wrong form. It does not yet scan an existing project's build.gradle and warn.
+  detectable: no
+  why_not: >-
+    ModCheck prevents this in projects it generates -- the scaffold resolves the
+    build style from the upstream example mod's own build script for the target
+    version, so a generated project never carries the wrong form. But prevention
+    is not detection: no analyzer scans an existing project's build.gradle, and
+    no finding code is emitted for it. Detecting it would mean reading a
+    project's build script and comparing its mappings declaration against the
+    target version's upstream template.
 resolutions: [remove_mappings_for_non_obfuscated_minecraft]
 evidence:
   - source: fabric_example_mod_build_1_21

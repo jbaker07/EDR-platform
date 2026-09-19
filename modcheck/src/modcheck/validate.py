@@ -26,6 +26,7 @@ from typing import Any, Iterable
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
+from .analyze.findings import CODES
 from .paths import CAPABILITIES, schemas_dir
 from .store import RECORD_DIRS, Pack, Record, RecordError, Store
 
@@ -230,6 +231,13 @@ def _record_integrity(pack: Pack, rec: Record, where: str) -> list[Issue]:
         if det.get("detectable") in ("yes", "partial") and not det.get("check_id"):
             issues.append(Issue("warning", "undetected_failure", where,
                                 "marked detectable but names no implemented check"))
+        check_id = det.get("check_id")
+        if check_id and check_id not in CODES:
+            issues.append(Issue(
+                "error", "unknown_check_id", where,
+                f"detector.check_id {check_id!r} is not a finding code any analyzer "
+                "emits. A detectable failure must name a real code; see "
+                "modcheck.analyze.findings.CODES"))
         if det.get("detectable") == "no" and not det.get("why_not"):
             issues.append(Issue("warning", "unexplained_undetectable", where,
                                 "detectable=no should say why"))

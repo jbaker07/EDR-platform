@@ -30,13 +30,13 @@ conditions:
   - kind: state
     description: The Folder value and the module's directory name differ, including by case or by a trailing character.
 detector:
-  detectable: partial
-  check_id: modcheck.inspect.bg3.inspect:folder
+  detectable: no
   signal: >-
     Our BG3 inspector extracts the declared `folder` value alongside mod_id, name and version. When a mod is
     distributed as a zip that also exposes its directory layout, the declared folder can be compared against
     the directory names actually present, and a mismatch is a direct finding.
   why_not: >-
+    Not detectable in this repo today: no check compares the declared folder against the directory layout; the `folder` fact is extracted and nothing acts on it.
     The comparison only works when both halves are visible. For a bare .pak neither is: we read the LSPK
     header only, because the file list is LZ4-compressed and the optional lz4 dependency is absent here, so
     we see neither the meta.lsx nor the directory structure it describes. And no such comparison check is

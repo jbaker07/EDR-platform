@@ -36,14 +36,14 @@ conditions:
       The override is intentional in some mods. A duplicate UUID is only a failure when the creator did not
       mean to replace the other module.
 detector:
-  detectable: partial
-  check_id: modcheck.inspect.bg3.inspect:mod_id
+  detectable: no
   signal: >-
     Our BG3 inspector extracts mod_id (the UUID), name, folder and version from info.json or meta.lsx when
     a mod is distributed as a zip carrying that metadata. Inspecting a set of mods and grouping by mod_id
     finds duplicate UUIDs directly, and comparing the declared `folder` value against the module folder
     catches the Folder mismatch in the same pass.
   why_not: >-
+    Not detectable in this repo today: no check groups artifacts by UUID, and for the bare .pak most BG3 mods ship as, the UUID is not readable at all without the LZ4 file list.
     Two hard limits. First, most BG3 mods are distributed as a bare .pak, and for a bare .pak we read only
     the LSPK header - the file list is LZ4-compressed and the optional lz4 dependency is absent here, so
     the meta.lsx inside is never read and the UUID is simply unavailable. The inspector says so rather than

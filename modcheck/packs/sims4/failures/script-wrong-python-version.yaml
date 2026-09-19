@@ -42,7 +42,7 @@ conditions:
       nothing" symptom from an entirely different cause and should be ruled out first.
 detector:
   detectable: yes
-  check_id: modcheck.inspect.sims4.inspect_script:bytecode_python_versions
+  check_id: inspection.warning
   signal: >-
     Our Sims 4 inspector opens each .pyc in the .ts4script, reads the little-endian u16 magic number at
     offset 0, and maps it through a table of CPython magic numbers (3.6 through 3.13). It reports

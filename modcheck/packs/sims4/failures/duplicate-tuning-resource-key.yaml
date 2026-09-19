@@ -37,7 +37,7 @@ conditions:
       at all. The collision is what matters, not the presence of two mods.
 detector:
   detectable: partial
-  check_id: modcheck.inspect.sims4.inspect_package:resource_keys
+  check_id: collision.sims4_resource_key
   signal: >-
     Our Sims 4 inspector parses the DBPF index - including the Index Type bitfield that hoists constant
     Type, Group and InstanceHi values out of the per-entry records - and emits resource_keys, the full list
@@ -45,8 +45,9 @@ detector:
     those key lists across a set of installed packages finds the collision exactly, from the artifacts
     alone, with no game install needed.
   why_not: >-
-    Three limits. The intersection check is not implemented in this repo - the keys are extracted, nothing
-    compares them across packages. We do not decode resource payloads, so we can name the key in conflict
+    Three limits. The intersection is implemented (analyze/collisions.py) but only compares packages we
+    were actually given, so a collision with a package outside the set is invisible. We do not decode
+    resource payloads, so we can name the key in conflict
     but not what either mod did to it, and we cannot map a key to the game tuning it corresponds to (we
     hold no Sims 4 resource-type table). And even a confirmed collision does not tell anyone which package
     wins, because no source we retrieved states the resolution rule.

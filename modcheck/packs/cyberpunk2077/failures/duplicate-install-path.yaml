@@ -38,14 +38,16 @@ conditions:
     expression: "exists(archive/pc/mod/modlist.txt)"
 detector:
   detectable: partial
-  check_id: modcheck.inspect.cyberpunk.inspect:install_paths
+  check_id: collision.cyberpunk_install_path
   signal: >-
     Our Cyberpunk inspector extracts the normalised install path of every file in a mod archive
     (install_paths, plus archive_files/redscript_files/tweak_files). Inspecting two mods and intersecting
     their install_paths sets finds an exact path collision directly, and ASCII-sorting the two names
     predicts which one wins.
   why_not: >-
-    Only exact path collisions are found this way, and only when both artifacts are inspected. The deeper
+    Only exact path collisions are found this way, and only when both artifacts are inspected; the
+    analyzer names the collision but does not name a winner, because which mod was installed last is not
+    established from the artifacts. The deeper
     case - two mods shipping DIFFERENT .archive filenames that both replace the same game resource inside -
     is invisible to us, because we do not decode .archive contents. A clean intersection therefore means
     "no identical install paths", never "no conflict". No such comparison check is implemented in this

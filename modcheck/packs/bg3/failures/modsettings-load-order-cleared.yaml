@@ -41,14 +41,14 @@ conditions:
       A module declares a conflict with another enabled module, in which case the game disables it and its
       dependents deliberately - the same symptom with a different, intended cause.
 detector:
-  detectable: partial
-  check_id: modcheck.inspect.bg3.inspect:pak_files
+  detectable: no
   signal: >-
     The packaging half is checkable from the artifact. Our inspector lists the .pak files a distributed
     archive contains together with the full entry list, so an archive whose .pak files sit inside nested
     directories - the shape that puts subfolders into a player's Mods folder when unzipped there - is
     visible before release.
   why_not: >-
+    Not detectable in this repo today: no check inspects .pak nesting, and which module errors at load is a runtime fact we cannot observe.
     Only the packaging cause is artifact-visible. Which module errors at load is a runtime fact: it happens
     inside the running game, it is not declared anywhere in any artifact, and we have no game to observe.
     The conflict-cascade cause requires reading the Toolkit's declared conflicts, which live inside the .pak
