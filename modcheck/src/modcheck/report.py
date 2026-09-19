@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from .acquire import FetchError, read_cached
-from .analyze import collisions, requirements
+from .analyze import collisions, impact as impact_mod, requirements
 from .analyze.config import Installation
 from .analyze.findings import SEVERITY, Finding, Report
 from .inspect import inspect_path
@@ -305,3 +305,12 @@ def render_text(report: Report) -> str:
 
 def render_json(report: Report) -> str:
     return json.dumps(report.as_dict(), indent=2, default=str)
+
+
+def impact_of(before: Installation, after: Installation,
+              store: Store | None = None) -> impact_mod.Impact:
+    """What changes between two configurations, as a diff of findings."""
+    store = store or Store()
+    before_report = analyze_installation(before, store)
+    after_report = analyze_installation(after, store)
+    return impact_mod.compare(before, after, before_report.findings, after_report.findings)

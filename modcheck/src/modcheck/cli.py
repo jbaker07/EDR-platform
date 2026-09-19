@@ -326,6 +326,24 @@ def cmd_release_report(args) -> int:
     return 0
 
 
+def cmd_impact(args) -> int:
+    from .analyze import impact as impact_mod
+
+    store = _store(args)
+    before = Installation.from_json(args.before)
+    if args.after:
+        after = Installation.from_json(args.after)
+    elif args.install:
+        after = impact_mod.with_artifact(before, args.install)
+    else:
+        print("give --after <config.json> or --install <artifact>", file=sys.stderr)
+        return 2
+    result = report_mod.impact_of(before, after, store)
+    print(json.dumps(result.as_dict(), indent=2, default=str) if args.json
+          else impact_mod.render(result))
+    return 0
+
+
 def cmd_evaluate(args) -> int:
     store = _store(args)
     directory = Path(args.cases) if args.cases else project_root() / "evaluation" / "cases"
@@ -429,6 +447,13 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--out")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_release_report)
+
+    sp = sub.add_parser("impact", help="what an install or update would change")
+    sp.add_argument("--before", required=True, help="current configuration JSON")
+    sp.add_argument("--after", help="proposed configuration JSON")
+    sp.add_argument("--install", help="an artifact to add to the current configuration")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_impact)
 
     sp = sub.add_parser("evaluate", help="run the evaluation cases")
     sp.add_argument("--game")
