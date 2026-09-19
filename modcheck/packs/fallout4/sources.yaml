@@ -1,0 +1,30 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: loot_masterlist_fallout4
+  title: LOOT masterlist for fallout4
+  url: https://raw.githubusercontent.com/loot/fallout4/master/masterlist.yaml
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:27:54+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: b018c8c92de4fe0c4cb19476ee41a7cc0b37d40e1922e3810b0cc33526d65c06
+  bytes: 315210
+  content_type: text/plain
+  upstream_revision: W/"030cd09d3b32226e52c4b7fb43cc803ddb17ca84d3abac8f69274015c1f65212
+  evidence_path: b0/b018c8c92de4fe0c4cb19476ee41a7cc0b37d40e1922e3810b0cc33526d65c06.yaml
+  games:
+  - fallout4
+  publisher: LOOT team

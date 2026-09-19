@@ -1,0 +1,72 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: loot_masterlist_skyrimse
+  title: LOOT masterlist for skyrimse
+  url: https://raw.githubusercontent.com/loot/skyrimse/master/masterlist.yaml
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:27:53+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 95caf8492923b77386fc725150d38c635a581a16bf0e546c3a44eec85afbe484
+  bytes: 1119090
+  content_type: text/plain
+  upstream_revision: W/"b38a19d1f168176360c54e9da4ed524b6474e294839e1e463044e7a19590a4c4
+  evidence_path: 95/95caf8492923b77386fc725150d38c635a581a16bf0e546c3a44eec85afbe484.yaml
+  games:
+  - skyrimse
+  publisher: LOOT team
+- id: loot_metadata_conditions_spec
+  title: 'libloot metadata syntax: condition strings'
+  url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/conditions.rst
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:27:55+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3d0ff9dd50c0e6784b3edb55d0596e8fc1df0f1a8520713dc81d4cb245bd7794
+  bytes: 13686
+  content_type: text/plain
+  upstream_revision: W/"5eedf14749c38cb43cce73309373cfe10df01b96681cd386449bb63b8e61ec57
+  evidence_path: 3d/3d0ff9dd50c0e6784b3edb55d0596e8fc1df0f1a8520713dc81d4cb245bd7794.rst
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: LOOT team
+- id: loot_metadata_plugin_spec
+  title: 'libloot metadata syntax: Plugin data structure'
+  url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/data_structures/plugin.rst
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:27:55+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: d4e306452ca6d1db17fbac8bcb58c704489f6fd3ebfdcd34ecd319be43f80cee
+  bytes: 6832
+  content_type: text/plain
+  upstream_revision: W/"a661edebf469ed67f666dade9647fd3a87c2f923d0e9420c605e8843fe606f62
+  evidence_path: d4/d4e306452ca6d1db17fbac8bcb58c704489f6fd3ebfdcd34ecd319be43f80cee.rst
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: LOOT team

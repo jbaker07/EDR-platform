@@ -1,0 +1,30 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: loot_masterlist_falloutnv
+  title: LOOT masterlist for falloutnv
+  url: https://raw.githubusercontent.com/loot/falloutnv/master/masterlist.yaml
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:27:55+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 96d0730ec5bb34f78ffad16c4fde1fe0db6d02842c4f51b4beb47b432dff9a1f
+  bytes: 107815
+  content_type: text/plain
+  upstream_revision: W/"6d97cd9a1c4c408fea8482d8fd94fec85e68858ead6492e2f952009f3a49ba1b
+  evidence_path: 96/96d0730ec5bb34f78ffad16c4fde1fe0db6d02842c4f51b4beb47b432dff9a1f.yaml
+  games:
+  - falloutnv
+  publisher: LOOT team

@@ -1,0 +1,270 @@
+# Excerpt from the LOOT masterlist for Skyrim Special Edition.
+#
+# Source:   https://raw.githubusercontent.com/loot/skyrimse/master/masterlist.yaml
+# Retrieved: 2026-09-19T13:27:53+00:00
+# sha256 of the full masterlist: 95caf8492923b77386fc725150d38c635a581a16bf0e546c3a44eec85afbe484
+# Licence:  CC0 1.0 Universal (public domain dedication), so this excerpt is
+#           reproduced here lawfully as a test fixture.
+#
+# These are REAL upstream entries, not invented ones: the tests assert that
+# ModCheck reproduces LOOT's own semantics against genuine data, including the
+# cases where it must stay silent.
+plugins:
+- name: Update.esm
+  group: Main Plugins
+  tag:
+  - C.Location
+  - C.Regions
+  - C.Water
+  - Delev
+  - Invent.Add
+  - Invent.Change
+  - Keywords
+  dirty:
+  - util: '[SSEEdit v4.0.4](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 397106720
+    itm: 334
+    udr: 92
+    nav: 3
+  - util: '[SSEEdit v4.0.4c](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 262082816
+    itm: 384
+    udr: 92
+    nav: 3
+  - util: '[SSEEdit v4.1.5 EXPERIMENTAL](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 720504961
+    itm: 385
+    udr: 93
+    nav: 3
+  - util: '[SSEEdit v4.1.5d](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 3870984379
+    itm: 386
+    udr: 93
+    nav: 3
+  - util: '[SSEEdit v4.1.5p](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 2789580842
+    itm: 476
+    udr: 93
+    nav: 6
+  - util: '[SSEEdit v4.0.4c](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 3286291812
+    itm: 384
+    udr: 92
+    nav: 3
+  - util: '[SSEEdit v4.1.5m](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 1323779519
+    itm: 415
+    udr: 93
+    nav: 3
+  - util: '[SSEEdit v4.0.4](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 91407208
+    itm: 384
+    udr: 92
+    nav: 3
+  - util: '[TES5VREdit v4.1.5n](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 3729927202
+    itm: 232
+    udr: 91
+- name: Dawnguard.esm
+  group: Main Plugins
+  tag:
+  - C.Location
+  - C.Regions
+  - Delev
+  - Invent.Add
+  - Invent.Remove
+  - Relev
+  msg:
+  - type: say
+    content: This plugin contains [wild edits](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#WildEdits)
+      and may require additional manual cleaning to not interfere with other mods. {0}
+    subs:
+    - '[**Dawnguard.esm** Wild Edits Cleaning Guide](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#AppendixBManuallyCleaningDawnguard)'
+    condition: (checksum("Dawnguard.esm", ADFC1487) or checksum("Dawnguard.esm", 2FE9FD3B) or checksum("Dawnguard.esm", 4B45E434)
+      or checksum("Dawnguard.esm", 63B4EBD1) or checksum("Dawnguard.esm", B07A8F39)) and not active("unofficial skyrim special
+      edition patch.esp")
+  dirty:
+  - util: '[SSEEdit v4.0.4](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 3431065048
+    itm: 766
+    udr: 82
+    nav: 57
+  - util: '[SSEEdit v4.0.4c](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 1678787838
+    itm: 849
+    udr: 82
+    nav: 59
+  - util: '[SSEEdit v4.1.5 EXPERIMENTAL](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 1553256579
+    itm: 840
+    udr: 82
+    nav: 59
+  - util: '[SSEEdit v4.1.5d](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 3550041162
+    itm: 842
+    udr: 82
+    nav: 59
+  - util: '[SSEEdit v4.1.5p](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 1062112831
+    itm: 853
+    udr: 82
+    nav: 59
+  - util: '[SSEEdit v4.0.4c](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 3361063804
+    itm: 849
+    udr: 82
+    nav: 59
+  - util: '[SSEEdit v4.1.5m](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 2260075817
+    itm: 846
+    udr: 82
+    nav: 59
+  - util: '[SSEEdit v4.0.4](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 44337089
+    itm: 849
+    udr: 82
+    nav: 59
+  - util: '[TES5VREdit v4.1.5n](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+    detail: A guide to cleaning plugins using xEdit can be found [here](https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html#ThreeEasyStepstocleanMods).
+    crc: 2246373693
+    itm: 770
+    udr: 82
+    nav: 57
+- name: ButterfliesUnchained.esp
+  url:
+  - https://www.nexusmods.com/skyrimspecialedition/mods/29538/
+  after:
+  - Complete Alchemy & Cooking Overhaul.esp
+  msg:
+  - type: error
+    content: Delete. Already included in {0}.
+    subs:
+    - Unofficial Skyrim Modder's Patch
+    condition: active("Unofficial Skyrim Modders Patch.esp")
+  - type: say
+    content: You seem to be using **{0}**, but you have not enabled a compatibility patch for this mod. A compatibility patch
+      is provided on this plugin's mod page.
+    subs:
+    - Complete Alchemy & Cooking Overhaul
+    condition: active("Complete Alchemy & Cooking Overhaul.esp") and not active("ButterfliesUnchained - CACO Patch.esp") and
+      not active("ButterfliesUnchained(ESL) - CACO Patch.esp")
+  clean:
+  - crc: 2608280840
+    util: SSEEdit v4.0.3
+  - crc: 1766261137
+    util: SSEEdit v4.0.3
+- name: FloraRespawnFix.esp
+  url:
+  - https://www.nexusmods.com/skyrimspecialedition/mods/13186/
+  inc:
+  - name: scripts/foxHarvestFix.pex
+    display: '[Brutal Flora Harvest Fix](https://www.nexusmods.com/skyrimspecialedition/mods/27781/)'
+  msg:
+  - type: say
+    content: Delete. Already included or otherwise fixed in {0}.
+    subs:
+    - Scrambled Bugs
+    condition: file("SKSE/Plugins/ScrambledBugs.dll")
+  - type: say
+    content: '{0} patcher script available here: {1}'
+    subs:
+    - '[SSEEdit](https://www.nexusmods.com/skyrimspecialedition/mods/164/)'
+    - '[Flora Respawn Fix](https://www.nexusmods.com/skyrimspecialedition/mods/13186/)'
+  clean:
+  - crc: 2681493071
+    util: SSEEdit v4.0.3f
+- name: Skyrim Project Optimization - (No Homes - )?Full( ESL)? Version\.esm
+  url:
+  - link: https://www.nexusmods.com/skyrimspecialedition/mods/14084/
+    name: Skyrim Project Optimization SE
+  group: Fixes
+  after:
+  - unofficial skyrim special edition patch.esp
+  msg:
+  - type: error
+    content: Use only one {0}.
+    subs:
+    - Skyrim Project Optimization
+    condition: many("Skyrim Project Optimization - (No Homes - )?Full( ESL)? Version\.esm")
+- name: Unofficial Skyrim Modders Patch.esp
+  url:
+  - https://www.nexusmods.com/skyrimspecialedition/mods/49616/
+  after:
+  - ScriptFixesCompilation.esp
+  inc:
+  - Unofficial Skyrim Modders Patch VR.esp
+  clean:
+  - crc: 36114760
+    util: SSEEdit v4.0.3h (Hotfix 1)
+- name: Unofficial Skyrim Modders Patch VR.esp
+  url:
+  - https://www.nexusmods.com/skyrimspecialedition/mods/51236/
+  inc:
+  - Unofficial Skyrim Modders Patch.esp
+- name: WM Flora Fixes.esp
+  url:
+  - https://www.nexusmods.com/skyrimspecialedition/mods/28197/
+  req:
+  - name: ../skse64_loader.exe
+    display: '[Skyrim Script Extender](https://skse.silverlock.org)'
+    condition: not file("../SkyrimVR.exe")
+  - name: ../sksevr_loader.exe
+    display: '[Skyrim Script Extender VR](https://skse.silverlock.org)'
+    condition: file("../SkyrimVR.exe")
+  inc:
+  - name: scripts/foxHarvestFix.pex
+    display: Brutal Flora Harvest Fix
+  - FloraRespawnFix.esp
+  msg:
+  - type: warn
+    content: When using **{0}**, it's recommended that you deactivate or delete this ESP file but keep the resources (e.g.
+      meshes, textures) installed with this mod.
+    subs:
+    - Complete Alchemy and Cooking Overhaul
+    condition: active("Complete Alchemy & Cooking Overhaul.esp") and active("WM Flora Fixes.esp")
+  - type: say
+    content: Use {0} version.
+    subs:
+    - No Scripts
+    condition: file("SKSE/Plugins/ScrambledBugs.dll")
+  clean:
+  - crc: 2344671556
+    util: SSEEdit v4.0.3
+- name: Better Dynamic Snow SE.esp
+  inc:
+  - name: SKSE/Plugins/ShaderTools.dll
+    display: SSE Parallax Shader Fix
+    condition: file("skse/plugins/shaders/03[\dA-F]{6}_Parallax_Vc\w*_Snow(_Aam)?\.ps\.hlsl")
+  - name: SKSE/Plugins/SSEShaderTools.dll
+    display: SSE Parallax Shader Fix AE
+    condition: file("skse/plugins/shaders/03[\dA-F]{6}_Parallax_Vc\w*_Snow(_Aam)?\.ps\.hlsl")
+  msg:
+  - type: error
+    content: Use {0} version.
+    subs:
+    - '2.11'
+    condition: file("skse/plugins/(SSE)?ShaderTools\.dll") and file("skse/plugins/shaders/03[\dA-F]{6}_Parallax_Vc\w*_Snow(_Aam)?\.ps\.hlsl")
+  clean:
+  - crc: 3847600145
+    util: SSEEdit v4.0.4c
+  - crc: 3627859568
+    util: SSEEdit v4.0.4c
+  - crc: 3627859568
+    util: SSEEdit v4.0.4c
