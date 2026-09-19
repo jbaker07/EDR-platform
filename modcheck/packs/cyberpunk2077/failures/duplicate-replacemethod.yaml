@@ -1,0 +1,66 @@
+id: duplicate-replacemethod
+game: cyberpunk2077
+title: Two redscript mods @replaceMethod the same method and only one of them works
+symptom: >-
+  Two script mods each change the same game behaviour. Installed separately each works. Installed together,
+  one of them appears to have no effect, and the scripts still compile - so there is no error to point at.
+  Which one survives is not something the player can influence by renaming anything.
+mechanism: >-
+  redscript's hook annotations have two different composition models and only one of them is additive.
+  @wrapMethod chains: "this annotation can be applied multiple times to chain multiple functions that
+  modify the same method. Each function in the chain wraps around the previous one. This helps to keep mods
+  compatible even if they alter the same methods." @replaceMethod does not chain - it substitutes the
+  method body outright, and the documentation is explicit about what happens when two mods do it: "You can
+  only use one `@replaceMethod` for each method. If you define more than one, only one of them will work."
+  The two annotations also interact asymmetrically: a replace "will always overwrite the original method
+  and it will not affect the functions that wrap around it", so wrappers survive a replace while the
+  original behaviour the wrappers expected does not. The failure is therefore a design choice made in each
+  mod's source, invisible in the shipped files, and it compiles cleanly.
+applies_to:
+  loader: redscript
+  toolchain:
+    - redscript
+targets:
+  - kind: method
+    id: "<Class>.<Method>"
+    container: r6/scripts/**/*.reds
+    label: The method both mods annotate with @replaceMethod.
+conditions:
+  - kind: state
+    description: Both mods are installed and both use @replaceMethod on the same class and method.
+  - kind: state
+    description: >-
+      A single mod using @replaceMethod is not a failure in itself; it becomes one only when a second mod
+      replaces the same method, or when another mod's @wrapMethod depended on the original behaviour.
+detector:
+  detectable: no
+  why_not: >-
+    modcheck does not parse redscript. Our Cyberpunk inspector lists the .reds files an artifact ships
+    (redscript_files) and their install paths, and stops there - it never opens them, so it cannot see an
+    annotation, cannot tell @wrapMethod from @replaceMethod, and cannot know which class and method either
+    one targets. Detecting this needs a redscript parser that extracts (annotation, class, method) triples
+    from each mod and intersects them across an installation. That is a tractable check and it is not
+    implemented here. Note also that the conflict is invisible at compile time, so "it compiled" is not
+    evidence against it.
+evidence:
+  - source: cp_wiki_redscript_hook_annotations
+    evidence_class: declared
+    locator: "@replaceMethod(class) > warning hint"
+    quote: "You can only use one `@replaceMethod` for each method. If you define more than one, only one of them will work. If you want to combine multiple changes to the same method, you should use the `@wrapMethod` annotation instead."
+  - source: cp_wiki_redscript_hook_annotations
+    evidence_class: declared
+    locator: "@wrapMethod(class)"
+    quote: "Furthermore, this annotation can be applied multiple times to chain multiple functions that modify the same method. Each function in the chain wraps around the previous one. This helps to keep mods compatible even if they alter the same methods."
+  - source: cp_wiki_redscript_hook_annotations
+    evidence_class: declared
+    locator: "@replaceMethod(class) > info hint"
+    quote: "This annotation is compatible with `@wrapMethod`. It will always overwrite the original method and it will not affect the functions that wrap around it."
+  - source: cp_wiki_redscript_hook_annotations
+    evidence_class: declared
+    locator: "@replaceMethod(class)"
+    quote: "If possible you should prefer to use [#wrapmethod-class](#wrapmethod-class \"mention\") for compatibility."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - cp_wiki_redscript_hook_annotations

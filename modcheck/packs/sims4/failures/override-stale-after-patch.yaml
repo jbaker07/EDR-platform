@@ -1,0 +1,74 @@
+id: override-stale-after-patch
+game: sims4
+title: An override package silently reverts whatever a later game patch changed
+symptom: >-
+  After a game update, a behaviour the patch notes say was changed or fixed is still the old behaviour for
+  this player. Nothing crashes, nothing is logged, and the mod responsible looks healthy - it is still
+  installed, still loads, and still does the one thing it advertises. The player has no reason to connect
+  the two.
+mechanism: >-
+  A Sims 4 override replaces a whole resource, not a field inside it. The creator extracted the game's
+  resource at some patch level, changed one value, and shipped the entire result under the same
+  Type/Group/Instance key. From then on the game reads the creator's snapshot of that resource instead of
+  its own - including every value the creator never touched. When a later patch changes anything else in
+  that same resource, the patched version is the one being shadowed, so the fix silently does not reach
+  players who have the mod. Nothing about this is exceptional or detectable from behaviour; it is the
+  normal consequence of whole-resource overriding, and it is why Mod The Sims makes uploaders state the
+  build they worked against: "Please state the related base game version you built your mod with in your
+  upload post! People need to know if they can run your mod in their game." The wider Sims 4 documentation
+  record shows how fast this moves - SimsWiki's own changelog tracks per-patch TDESC drops and resource
+  format revisions release by release.
+applies_to:
+  loader: sims4_package
+targets:
+  - kind: tuning
+    id: "<Type>:<Group>:<Instance>"
+    label: The overridden resource, now frozen at the patch level the creator extracted it from.
+  - kind: config_key
+    id: built_with_game_version
+    label: The build the mod was made against - a mod-page claim, never a fact stored in the package.
+conditions:
+  - kind: version
+    description: The installed game is newer than the build the override was extracted from.
+  - kind: state
+    description: >-
+      The overridden resource was actually changed by the patch. An override of a resource the patch did
+      not touch stays correct, which is why this failure is intermittent and hard to attribute.
+detector:
+  detectable: no
+  why_not: >-
+    Two facts are needed and we have neither. A .package carries no version metadata at all - the DBPF
+    index stores resource keys, offsets and sizes, and nothing that says which game build a resource came
+    from - so the artifact cannot tell us what it was built against. And we have no game installation, so
+    there is no current build to compare against even if it could. We can list the keys a package claims
+    (resource_keys), which narrows "what might be stale" to a precise set, but deciding staleness needs a
+    per-patch baseline of the game's own resources, which is exactly the material a retail install would
+    provide. This stays a documentation-level warning, not a check.
+evidence:
+  - source: mts_sims4_game_mod_guidelines
+    evidence_class: declared
+    locator: "Information > Built with Game Version"
+    quote: "Please state the related base game version you built your mod with in your upload post! People need to know if they can run your mod in their game."
+  - source: mts_sims4_game_mod_guidelines
+    evidence_class: declared
+    locator: "Information > Overrides - Overriden Resources"
+    quote: "If you have overriden (default replaced) an item, make sure to clearly state what you've overriden."
+  - source: simswiki_ts4_general_modding
+    evidence_class: declared
+    locator: TDESCs
+    quote: "1.48.90 : TDESCs https://forums.thesims.com/en_US/discussion/953069"
+  - source: simswiki_dbpf_v2_format
+    evidence_class: declared
+    locator: "The Index > Index Entry"
+    quote: "Chunkoffset"
+  - source: nexusmods_sims4_blocked
+    evidence_class: unresolved
+    locator: mod listing pages
+    quote: ""
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - mts_sims4_game_mod_guidelines
+    - simswiki_ts4_general_modding
+    - simswiki_dbpf_v2_format

@@ -1,0 +1,48 @@
+id: sdv-example-smapi-json-schemas
+game: stardewvalley
+title: SMAPI-published JSON Schemas for manifest.json and content.json
+url: https://smapi.io/schemas/manifest.json
+kind: schema
+demonstrates:
+- a machine-readable definition of every manifest field, including the SemanticVersion and ModID patterns
+- the mutual exclusivity of EntryDll and ContentPackFor, stated in the schema itself rather than only in prose
+- a second schema covering the whole Content Patcher content.json surface
+- a validation path an editor or a CI job can run without the game
+license: LGPL-3.0-or-later
+reuse:
+  integration: reference_only
+  constraints: >-
+    The schema files are served from the SMAPI repository, whose LICENSE.txt is the GNU
+    Lesser General Public License v3. We fetch and read them; they are not copied into
+    this repository, and the evidence cache is gitignored. Note they use the non-standard
+    keywords allowComments, allowTrailingCommas, @documentationUrl and @errorMessages,
+    which a strict draft-07 validator ignores rather than rejects.
+maintenance:
+  state: active
+  last_release: 'served live by smapi.io; the copy in the SMAPI repo tracks SMAPI development (4.5.2, released 14 March 2026)'
+  checked_at: '2026-09-19'
+  supported_versions: 'manifest schema for SMAPI 4.x; content-patcher schema for content.json Format 2.9.x'
+evidence:
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: '$schema and $id'
+  quote: '"$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://smapi.io/schemas/manifest.json"'
+- source: smapi_license
+  evidence_class: extracted
+  locator: line 1-2
+  quote: GNU LESSER GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+- source: content_patcher_troubleshooting
+  evidence_class: declared
+  locator: section "Schema validator"
+  quote: 'To validate online: 1. Go to [smapi.io/json].'
+- source: smapi_release_notes
+  evidence_class: declared
+  locator: heading "## 4.5.2"
+  quote: Released 14 March 2026 for Stardew Valley 1.6.14 or later.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - smapi_manifest_json_schema
+  - content_patcher_json_schema
+  - smapi_license

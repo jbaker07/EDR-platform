@@ -1,0 +1,141 @@
+id: bashed_patch_leveled_lists
+game: falloutnv
+title: Reconcile leveled-list conflicts with a Wrye Bash Bashed Patch
+category: compatibility_patch
+intent: >-
+  A player or list-maintainer ends up with a Bashed Patch at the end of the load order that merges
+  every mod's leveled-list additions instead of letting the last-loaded mod's version win, and
+  optionally absorbs mergeable plugins so they can be deactivated.
+applies_to:
+  game_versions: >-
+    Fallout: New Vegas; Wrye Bash's supported-games table lists it for the Epic Games Store, GOG,
+    Steam and the Windows Store
+  loader: bethesda_plugin
+  toolchain:
+    - Wrye Bash
+inputs:
+  - Wrye Bash installed and pointed at the Fallout New Vegas installation
+  - A load order you have already sorted (LOOT or by hand)
+extension_points:
+  - kind: record
+    id: leveled list records changed by more than one plugin
+    label: what the Leveled Lists patcher merges
+  - kind: config_key
+    id: Rebuild Patch...
+    container: the Bashed Patch plugin's context menu
+    label: the configuration dialog where sections and items are selected
+  - kind: config_key
+    id: Bash Tags
+    label: >-
+      per-plugin tags that tell Wrye Bash which kinds of change to import; the LOOT falloutnv
+      masterlist README documents Deflst, Destructible and WeaponMods as specific to this game
+dependencies:
+  - id: wrye_bash
+    kind: tool
+    required: true
+steps:
+  - step: Sort the load order first
+    detail: >-
+      Build the patch against the order you will actually play. Wrye Bash's own guidance is that
+      LOOT can position thousands of plugins automatically and that some will still need manual
+      placement.
+  - step: Leave mergeable plugins inactive if you intend to merge them
+    detail: >-
+      Plugins that contain only certain kinds of record can be merged into the patch and then
+      deactivated, which frees ordinary load-order slots - the only relief available in this game,
+      since it has no light plugins. Wrye Bash will deactivate them for you during the build.
+  - step: Open the Bashed Patch configuration
+    detail: >-
+      Right-click the Bashed Patch plugin and choose "Rebuild Patch...". Sections and items each
+      have checkboxes; italicised items have no active sources and will not run.
+  - step: Enable Leveled Lists
+    detail: >-
+      Check the Leveled Lists patcher. Wrye Bash describes it as merging changes made to leveled
+      lists by mods to increase compatibility between them, and marks it as applicable to all games -
+      if no mod touches leveled lists it simply does nothing.
+  - step: Enable the Import sections your tags call for
+    detail: >-
+      Bash Tags on a plugin declare which types of change should be preserved even when another mod
+      changes the same thing; the Import sections are where you act on them. For this game, the
+      masterlist README documents Deflst (FormID removals, as for repair lists), Destructible and
+      WeaponMods.
+  - step: Build, and put it last
+    detail: >-
+      Build the patch and keep it at the end of the load order unless a plugin explicitly demands to
+      load last. Rebuild it every time the load order changes, before playing.
+interactions:
+  - >-
+    The Bashed Patch wins over everything it overrides, so a mod change you wanted can be replaced by
+    the patch's merged version. Review the result rather than assuming the merge is always what you
+    meant.
+  - >-
+    A save game that has been played with a Bashed Patch has a dependency on it. Wrye Bash's readme
+    warns that removing it later may be near-impossible to do cleanly.
+  - >-
+    Merging a plugin into the patch and deactivating it changes which files are active, which changes
+    what our own analysis sees: a deactivated plugin's LOOT rules stop being evaluated.
+build:
+  produces: 'Bashed Patch, 0.esp at the end of the load order'
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Inspect the built patch's header
+    command: modcheck inspect "Data/Bashed Patch, 0.esp" --game falloutnv
+    limits: >-
+      Reads the TES4 header only: it shows which plugins the patch took as masters and the record
+      counts, and nothing about whether the merged leveled lists are correct.
+  - method: Re-run the configuration analysis with the patch present
+    command: modcheck analyze --game falloutnv --config loadorder.json
+    limits: >-
+      Reports LOOT-recorded rules and missing masters for the configuration as given. The Bashed
+      Patch itself has no masterlist entry, and plugins you deactivated after merging are no longer
+      evaluated at all, so a quieter report after merging is not evidence of a healthier setup.
+acceptance:
+  - The patch is the last plugin in the load order (or last but for plugins that demand otherwise).
+  - Plugins merged into the patch are inactive, and the active plugin count is below 255.
+  - The patch was rebuilt after the most recent load-order change.
+references:
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Setting Up A Bashed Patch, Overview
+    quote: >-
+      Merging plugins into itself. Merged plugins can be deactivated, avoiding the 255 plugin limit.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Bash Configuration
+    quote: >-
+      You should rebuild your Bashed Patch every time you change your load order, before playing the
+      game. The Bashed Patch should be last in your load order, unless you have plugins that
+      explicitly state that they must load last.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Leveled Lists patcher
+    quote: >-
+      Merges changes made to leveled lists by mods to increase compatibility between them.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Merging Plugins
+    quote: >-
+      Plugins that contain only certain types of data records can be merged into the Bashed Patch.
+      This then allows these plugins to be deactivated, freeing up space in your load order.
+  - source: loot_masterlist_falloutnv_readme
+    evidence_class: declared
+    locator: Bash Tags Reference
+    quote: >-
+      `Deflst`: Mod over-rides FormID changes, works a little like the `Delev` tag. Required for mods
+      that remove items from repair lists, amongst other things.
+  - source: libloadorder_active_plugins
+    evidence_class: declared
+    quote: Up to 255 plugins can be active at any one time.
+verification_state: documented
+verification_note: >-
+  Written from fetched documentation only. Wrye Bash was not run: there is no game installation here
+  and no load order to patch. The Leveled Lists description and the Bash Tag meanings are upstream's
+  own wording, not our observation.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - wrye_bash_readme
+    - loot_masterlist_falloutnv_readme
+    - libloadorder_active_plugins

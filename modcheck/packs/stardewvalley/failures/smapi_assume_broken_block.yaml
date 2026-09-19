@@ -1,0 +1,75 @@
+id: sdv-smapi-assume-broken-block
+game: stardewvalley
+title: SMAPI refuses to load a mod version marked AssumeBroken in its metadata database
+symptom: >-
+  A mod that is installed and whose files look correct does not appear in game, and
+  SMAPI's console reports it as skipped with a message saying it is not compatible -
+  often with no error from the mod itself, because the mod's code never runs.
+mechanism: >-
+  SMAPI ships SMAPI.metadata.json, a database of per-mod metadata used in compatibility,
+  update and dependency checks. Each record is keyed by the mod's ID and may carry a
+  Status field scoped to a version range; the documented values are Obsolete (SMAPI will
+  not load it because the mod should no longer be used), AssumeBroken (SMAPI will not
+  load it because the specified version is not compatible) and AssumeCompatible (SMAPI
+  will try to load it even if it detects incompatible code). A version-scoped key such as
+  "~1.3.0 | Status" applies the override up to that version. StatusReasonPhrase supplies
+  the player-facing explanation and StatusReasonDetails a technical reason shown only in
+  TRACE logs. So the refusal originates in SMAPI's own data, not in the installed mod.
+applies_to:
+  game_versions: '>=1.6.14'
+  loader: smapi
+  loader_versions: '>=4.4.0'
+targets:
+- kind: registry_key
+  id: mizzion.artifactdigger
+  container: SMAPI.metadata.json
+  label: 'real entry: "Artifact Digger" with "~1.3.0 | Status": "AssumeBroken"'
+- kind: config_key
+  id: ModData.<mod name>.Status
+  container: SMAPI.metadata.json
+conditions:
+- kind: version
+  description: The installed mod version falls inside the version range prefixed to the Status key.
+  expression: '~1.3.0'
+- kind: version
+  description: The player is running a SMAPI build whose bundled metadata already contains the override.
+detector:
+  detectable: 'no'
+  signal: >-
+    The inspector extracts mod_id and version from manifest.json, which together are the
+    exact join key into SMAPI.metadata.json; the metadata file itself is a recorded,
+    hashed source in this pack.
+  why_not: >-
+    No check in this repository reads SMAPI.metadata.json. Two things would be needed
+    first: a reader that tolerates the file's JSON-with-comments syntax (leading BOM and
+    /* */ blocks, which json.loads rejects), and an implementation of its version-range
+    key grammar ("min~max | Default | Field"). Neither exists, so a mod SMAPI will refuse
+    to load is currently reported by ModCheck as an ordinary, clean artifact.
+evidence:
+- source: smapi_mod_metadata_db
+  evidence_class: extracted
+  locator: 'header comment, "Status" bullet'
+  quote: >-
+    Status: overrides compatibility checks. The possible values are Obsolete (SMAPI won't load
+    it because the mod should no longer be used), AssumeBroken (SMAPI won't load it because
+    the specified version isn't compatible), or AssumeCompatible (SMAPI will try to load it
+    even if it detects incompatible code).
+- source: smapi_mod_metadata_db
+  evidence_class: extracted
+  locator: 'ModData -> "Artifact Digger"'
+  quote: '"Artifact Digger": { "Id": "mizzion.artifactdigger", "~1.3.0 | Status": "AssumeBroken", "~1.3.0 | StatusReasonDetails": "content loads fail at runtime" }'
+- source: smapi_mod_metadata_db
+  evidence_class: extracted
+  locator: 'header comment, "Versioned metadata"'
+  quote: >-
+    Each key consists of a field name prefixed with any combination of version range and 'Default',
+    separated by pipes (whitespace trimmed).
+- source: smapi_release_notes
+  evidence_class: declared
+  locator: '"Upcoming release", For players'
+  quote: Updated internal mod blacklist.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - smapi_mod_metadata_db

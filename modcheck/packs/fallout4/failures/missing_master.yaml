@@ -1,0 +1,61 @@
+id: missing_master
+game: fallout4
+title: A plugin whose master is not installed crashes the game at startup
+symptom: >-
+  Fallout 4 exits to the desktop during startup once the plugin is activated, with no in-game error.
+  Wrye Bash and mod managers mark the plugin as having a missing master instead of loading it.
+mechanism: >-
+  A plugin's TES4 header lists the files it depends on as MAST entries, and its records address
+  those files positionally: the first two hexadecimal digits of a FormID are the load-order index of
+  the file the record belongs to. A missing master leaves those references unresolvable, so the load
+  fails rather than degrading. Wrye Bash states the consequence directly: one or more missing
+  masters "will generally cause the game to crash on startup, and must be corrected". The dependency
+  is by filename only - a MAST entry carries no version - so a renamed or differently versioned
+  master satisfies nothing and a present-but-incompatible master is not detectable this way at all.
+applies_to:
+  game_versions: All Fallout 4 builds; the mechanism is a property of the plugin format
+  loader: bethesda_plugin
+targets:
+  - kind: file_path
+    id: the MAST entries in the plugin's TES4 header
+    label: master file list
+conditions:
+  - kind: state
+    description: A named master file is absent from the Data folder, or present under a different filename.
+  - kind: load_order
+    description: >-
+      A present master that loads after the dependent plugin is a related defect: Wrye Bash
+      describes that case as crashing the game or making mods load in unexpected ways.
+detector:
+  detectable: "yes"
+  check_id: dependency.missing
+  signal: >-
+    src/modcheck/inspect/bethesda.py turns every MAST entry into a declared dependency
+    (kind content_mod, required true); src/modcheck/analyze/requirements.py resolves them against
+    the supplied configuration and emits dependency.missing when nothing provides the file. Matching
+    is by filename, and on a configuration that is not a complete listing the report also emits
+    coverage.partial_file_view, because absence there is not evidence.
+evidence:
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Mods tab, checkbox colours
+    quote: >-
+      One or more of the plugin's masters is missing. This will generally cause the game to crash on
+      startup, and must be corrected.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Setting Up Load Order
+    quote: >-
+      The load order of plugins is given in hexadecimal digits, from 00 to FE, which is 0 to 254 in
+      decimal. (This number also forms the first two digits of a record's Form ID.)
+  - source: libloadorder_load_order_mechanisms
+    evidence_class: declared
+    quote: >-
+      Official Bethesda plugins are all hardcoded to always load in a certain order before other
+      plugins.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - wrye_bash_readme
+    - libloadorder_load_order_mechanisms

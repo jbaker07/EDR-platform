@@ -99,6 +99,31 @@ sources:
   license: MIT
   notes: 'Multi-runtime (SE/AE/VR) SKSE plugin library: vcpkg registry setup and add_commonlibsse_plugin()
     CMake function that generates the SKSE plugin declaration.'
+- id: esplugin_changelog
+  title: esplugin CHANGELOG (release history with dates)
+  url: https://raw.githubusercontent.com/Ortham/esplugin/master/CHANGELOG.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T14:04:41+00:00'
+  http_status: 200
+  reuse:
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: esplugin LICENSE (fetched as esplugin_license) is the GNU GPL v3 text.
+  sha256: 26ac0afc1e87b53fbd781a412383d6be373cfe1e2ae980abc7720f86b0516856
+  bytes: 12249
+  content_type: text/plain
+  upstream_revision: W/"f1ff3b8467bedf2c622b6e9796187b0ee8a43bfda659231fba284afd0bf70fc0
+  evidence_path: 26/26ac0afc1e87b53fbd781a412383d6be373cfe1e2ae980abc7720f86b0516856.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: 'Dated release history, used to check the project''s maintenance state without github.com or
+    crates.io, both of which are blocked to us. Newest entry in the copy we fetched: [6.1.4] - 2025-09-29.'
 - id: esplugin_license
   title: esplugin LICENSE
   url: https://raw.githubusercontent.com/Ortham/esplugin/master/LICENSE
@@ -436,6 +461,32 @@ sources:
   license: GPL-3.0
   notes: Defines the plugin entry fields (name regex rules, req/inc/after, tag, dirty/clean, msg) the
     integration consumes.
+- id: midnight_ride_light_plugins
+  title: 'The Midnight Ride: Light Plugins (ESL) reference'
+  url: https://themidnightride.moddinglinked.com/esl.html
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:58:56+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+    note: No licence statement on the site.
+  sha256: b6a8ac5f1af72342745a4df51bc330e47dce1cfadce2a55214b8b2bf4805f152
+  bytes: 12472
+  content_type: text/html
+  upstream_revision: W/"6a77462e-30b8
+  evidence_path: b6/b6a8ac5f1af72342745a4df51bc330e47dce1cfadce2a55214b8b2bf4805f152.html
+  games:
+  - fallout4
+  - skyrimse
+  publisher: The Midnight Ride authors
+  license: unknown
+  notes: States the ESL new-record ceilings (4095 records, 001->FFF; 2048 for header version 0.95) and
+    the xEdit -PseudoESL / SetESL batch-flagging workflow. Its own text says ESLs are 'a type of plugin
+    used in Fallout 4 and Skyrim Special Edition', which is why it is recorded in both packs; it is a
+    community guide, not a specification.
 - id: mutagen_docs_home
   title: Mutagen documentation home
   url: https://mutagen-modding.github.io/Mutagen/
@@ -552,6 +603,57 @@ sources:
   license: unknown
   notes: HTTP 403. Recorded so that the absence of any Nexus-derived claim in this pack is visible and
     deliberate.
+- id: nuget_mutagen_bethesda_registration
+  title: NuGet registration page for Mutagen.Bethesda (latest versions, publish dates, licence expression)
+  url: https://api.nuget.org/v3/registration5-gz-semver2/mutagen.bethesda/page/0.54.0-alpha.86/23.4.0.json
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T14:01:20+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+    note: The NuGet feed's own terms were not fetched; the package metadata inside it declares licenseExpression
+      GPL-3.0-only for Mutagen.Bethesda.
+  sha256: c824a508e5bd8d9d52f9786feac404d6ad9de0ad69d9432af8cacbd9bd40c98e
+  bytes: 271974
+  content_type: application/json
+  upstream_revision: '0x8DF165603BA2235'
+  evidence_path: c8/c824a508e5bd8d9d52f9786feac404d6ad9de0ad69d9432af8cacbd9bd40c98e.json
+  games:
+  - skyrimse
+  - fallout4
+  publisher: NuGet (Microsoft)
+  license: unknown
+  notes: Machine-readable release history. The newest listed (non-unlisted) version in this snapshot is
+    0.55.0-alpha.54, published 2026-09-19T13:52:44.46+00:00, licenseExpression GPL-3.0-only. This is how
+    the maintenance state in examples/ was checked, since github.com is blocked to us.
+- id: nuget_synthesis_registration
+  title: NuGet registration page for Mutagen.Bethesda.Synthesis (latest versions, publish dates, licence
+    expression)
+  url: https://api.nuget.org/v3/registration5-gz-semver2/mutagen.bethesda.synthesis/page/0.35.0-alpha.2/5.1.0.json
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T14:01:21+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+    note: Feed terms not fetched; the package metadata declares licenseExpression GPL-3.0-only for Mutagen.Bethesda.Synthesis.
+  sha256: 355207ec93790f07fd57f6bcacbef9aa0b2b643aa87d8f0dd5c1a5cdbd5c7483
+  bytes: 131991
+  content_type: application/json
+  upstream_revision: '0x8DEF571DB1C82EC'
+  evidence_path: 35/355207ec93790f07fd57f6bcacbef9aa0b2b643aa87d8f0dd5c1a5cdbd5c7483.json
+  games:
+  - skyrimse
+  - fallout4
+  publisher: NuGet (Microsoft)
+  license: unknown
+  notes: Machine-readable release history. The newest listed version in this snapshot is 0.36.6, published
+    2026-08-08T17:19:29.203+00:00, licenseExpression GPL-3.0-only.
 - id: skse64_readme
   title: SKSE64 readme (installation, plugin loading, version rules)
   url: https://skse.silverlock.org/skse64_readme.txt

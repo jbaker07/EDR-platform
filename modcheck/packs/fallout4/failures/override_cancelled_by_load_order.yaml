@@ -1,0 +1,72 @@
+id: override_cancelled_by_load_order
+game: fallout4
+title: A mod's change stops applying because another plugin overrides the same record later
+symptom: >-
+  A mod is installed and active, yet one of its changes has no effect in game - the value it was
+  supposed to set is the old one, or another mod's. Nothing reports an error, and reinstalling the
+  mod changes nothing.
+mechanism: >-
+  The engine applies one version of any entry, chosen by load order: the last loaded plugin's version
+  wins wholesale. Two plugins that change different fields of the same record do not merge; the later
+  one supplies every field, including the ones it never meant to change, so the earlier plugin's
+  intent disappears. xEdit's manual gives the canonical illustration: one mod changes a lantern's
+  colour, another changes its radius, "If ModA loads before ModB, the changes made to the lantern by
+  ModA get over-written by ModB (which still thinks the lantern has a Neutral color)". This is
+  ordinary override behaviour, not corruption, which is why it produces no error and why the fix is
+  either a load-order change or a patch plugin that carries both sets of values.
+applies_to:
+  game_versions: All Fallout 4 builds
+  loader: bethesda_plugin
+  toolchain:
+    - xEdit
+targets:
+  - kind: record
+    id: any record overridden by more than one plugin
+  - kind: field
+    id: the specific field whose value is lost
+conditions:
+  - kind: load_order
+    description: >-
+      Two or more active plugins override the same record, and the one whose change matters does not
+      load last.
+  - kind: state
+    description: >-
+      The later plugin's version of the record does not itself carry the earlier plugin's change.
+detector:
+  detectable: partial
+  check_id: loot.load_order
+  signal: >-
+    src/modcheck/integrations/loot.py reports a load-order finding when the masterlist records an
+    "after" rule for a plugin and the supplied configuration orders it the other way. That covers
+    only pairs LOOT has already curated a rule for. The general case - any two plugins overriding the
+    same record - is invisible to us: it needs record-level comparison, which xEdit does and we do
+    not. Silence from our analysis therefore means "no recorded rule", never "no lost change".
+evidence:
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.1 Overview
+    quote: >-
+      If ModA loads before ModB, the changes made to the lantern by ModA get over-written by ModB
+      (which still thinks the lantern has a Neutral color).
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.2 Differences between Conflicts and Overrides
+    quote: >-
+      In all this it's important to say, it's perfectly possible for 10 modules to override the same
+      record without a single conflict, as long as the last loaded version of that record includes
+      all the changes from the 10 other modules.
+  - source: libloadorder_conflict_resolution
+    evidence_class: declared
+    quote: >-
+      The game can only apply one version of any one entry (this is known as the *rule of one*).
+  - source: libloadorder_conflict_resolution
+    evidence_class: declared
+    quote: >-
+      You cannot actually reduce how much is overridden through load order alone, but it is often the
+      case that some overrides are acceptable while others cause problems in game.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xedit_conflict_detection
+    - libloadorder_conflict_resolution

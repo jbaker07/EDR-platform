@@ -1,0 +1,259 @@
+# The Sims 4 game pack.
+#
+# Support is per capability. Only package_inspection is `supported`, because only
+# it is exercised by tests in this repo.
+game: sims4
+name: The Sims 4
+pack_version: 0.1.0
+summary: >-
+  The Sims 4 has two unrelated mod shapes. A .package is a DBPF archive of resources
+  with no filenames, addressed by a numeric Type/Group/Instance key - so an override is
+  literally "ship a resource under the key the game already uses", and two mods claiming
+  the same key is the ecosystem's real conflict. A .ts4script is a zip of Python loaded
+  by the interpreter the game embeds, so it breaks hard when compiled for the wrong
+  Python version. Both of those are mechanically checkable from the artifact alone, and
+  both are what our inspector reads.
+
+ecosystem:
+  engine: Maxis/EA internal (Sims 4)
+  languages:
+    - Python
+    - XML (tuning)
+  platforms:
+    - windows
+    - macos
+  loaders:
+    - id: sims4_package
+      name: Sims 4 .package (DBPF) loaded from the Mods folder
+      source: simswiki_dbpf_v2_format
+    - id: sims4_script
+      name: Sims 4 script mod (.ts4script)
+      source: simswiki_ts4_general_modding
+  artifact_formats:
+    - .package (DBPF 2.x archive; resources addressed by Type/Group/Instance, no filenames)
+    - .ts4script (zip archive of .py and .pyc)
+    - XML tuning resource carried inside a .package
+    - Resource.cfg in the Mods directory
+  composition: >-
+    There is no load order and no manifest. A .package is a DBPF archive whose index maps a
+    numeric key - ResourceType, ResourceGroup, InstanceHi and InstanceLo - to one resource
+    each, with no filenames anywhere in the container. Composition is therefore by key
+    collision: a mod changes the game by shipping a resource under a key the game already
+    uses, which the community calls exactly that - Mod The Sims requires an uploader to state
+    whether their mod is "a resource override (aka default replacement), recategorizer or
+    hider, slider, XML tuning, or a full script mod", to "list out any known conflicts", and,
+    for overrides, to "clearly state what you've overriden". When two packages ship the same
+    key, they are asserting different contents for the same game resource; which of the two
+    the running game resolves to is NOT established by any source we retrieved, so this pack
+    records the collision as the conflict and refuses to state a winner. Script mods compose
+    on a different axis entirely: each .ts4script is a zip of Python loaded by the interpreter
+    the game embeds, installed as a file in the Mods folder (the maintained community template
+    installs to `Mods/YourName_ProjectName/YourName_ProjectName.ts4script`), and two script
+    mods conflict only if they patch the same game function at runtime - which is invisible in
+    the artifact and not something we can read. Folder scanning of the Mods directory is
+    governed by a Resource.cfg in the mod directory, which the SimsWiki changelog records as
+    having changed in September 2015; we did not fetch its syntax, so we assert nothing further
+    about it.
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold the DBPF format documentation, six SimsWiki/Mod The Sims pages, the scripting
+      tutorial that names the required Python version, and two tool repositories, plus three
+      recipes written from them. Nothing here executes or checks that guidance. Note that the
+      SimsWiki Sims 4 index page states it was last modified in October 2014, so it must not be
+      relied on for anything version-sensitive.
+    implemented_by:
+      - packs/sims4/recipes
+      - packs/sims4/sources.yaml
+  project_setup:
+    status: documented_only
+    note: >-
+      The script-mod project shape is documented from the maintained community template (a src/
+      tree, a compile step, a build/ output, installation into the Mods folder). We ship no
+      generator - modcheck.creator.scaffold.GENERATORS holds only minecraft/fabric - and package
+      authoring has no project shape at all, because a .package is produced by a GUI tool.
+    implemented_by:
+      - packs/sims4/recipes/sims4-python-script-mod.yaml
+  source_edit:
+    status: unsupported
+    note: >-
+      No tuning XML parsing or editing and no Python rewriting is implemented here. We can tell you
+      that a package contains resources of a given type, not what any of them says.
+  package_inspection:
+    status: supported
+    note: >-
+      Implemented and tested, for both artifact shapes. For a .package we parse the DBPF header and
+      walk the resource index - including the Index Type bitfield that hoists constant Type, Group
+      and InstanceHi values out of the per-entry records - and report the package version, the
+      declared resource count, the full list of Type:Group:Instance resource keys, and a count per
+      resource type. For a .ts4script we read the archive layout and the CPython magic number at the
+      start of every .pyc, and report which Python version(s) the bytecode was compiled for, warning
+      when a magic number is unrecognised or when one mod mixes several versions. What we do NOT do:
+      we do not decode resource payloads, so tuning XML, SimData and meshes are opaque to us and we
+      cannot say which game tuning an overridden instance corresponds to; we do not read the Python
+      source or bytecode bodies, so what a script injects or overrides is unknown; and we do not
+      check either artifact against the installed game patch.
+    implemented_by:
+      - src/modcheck/inspect/sims4.py
+    tests:
+      - tests/test_inspect.py::test_dbpf_resource_keys
+      - tests/test_inspect.py::test_ts4script_bytecode_version
+  dependency_analysis:
+    status: unsupported
+    note: >-
+      Sims 4 mods declare no dependencies anywhere. A .package has no manifest - the container has no
+      filenames at all - and a .ts4script is a bare zip. Real dependencies exist (script mods commonly
+      require a shared library mod) but they are prose on the download page, and the download pages we
+      would need are HTTP 403 here. There is nothing to analyse, so we claim nothing.
+  interaction_analysis:
+    status: documented_only
+    note: >-
+      The two real Sims 4 interactions are documented here as failure records: two packages claiming the
+      same resource key, and a script mod compiled for the wrong Python version. The first is in principle
+      computable by intersecting the resource_keys our inspector already extracts across a set of packages;
+      no such check exists in this repo. The second is already visible in a single inspection, but comparing
+      it against the version the installed game embeds needs a game install we do not have.
+  build_execution:
+    status: blocked
+    note: >-
+      Neither artifact can be produced here. A .package is authored in Sims 4 Studio or s4pe, both Windows
+      desktop applications; a .ts4script needs bytecode compiled by the same CPython the game embeds.
+    blocker: >-
+      No retail The Sims 4 installation, no Windows desktop environment, and no CPython 3.7 interpreter -
+      this environment has 3.10 through 3.13 only, and installing one is out of scope. A .ts4script built
+      here would carry 3.10+ magic numbers and would be exactly the artifact our own failure record
+      describes as broken. No Sims 4 recipe here is therefore build_tested.
+  runtime_testing:
+    status: blocked
+    note: >-
+      Nothing in this pack has been observed running; every claim is declared or extracted.
+    blocker: >-
+      Runtime testing requires the retail game. It is also the only way to establish which package wins when
+      two claim the same resource key, which is why this pack records that collision without naming a winner.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We hold the ecosystem's own release expectations - Mod The Sims requires an uploader to "state the
+      related base game version you built your mod with" - and a failure record for the patch-breaks-scripts
+      case. We cannot watch releases: the Sims 4 distribution sites we would need are HTTP 403 here, and we
+      have no game build to compare a mod against. `modcheck sources verify` detects drift in the documents
+      we cited, nothing more.
+
+toolchain:
+  - id: sims4studio
+    name: Sims 4 Studio
+    url: https://sims4studio.com/
+    purpose: The community's main GUI tool for authoring .package files - CAS parts, objects and tuning overrides.
+    status: unverified
+    runs_on:
+      - windows
+      - macos
+    license: unknown
+    integration: none
+    note: >-
+      We could not retrieve anything from sims4studio.com: it answers this fetcher with HTTP 406. Its central
+      role is known to us only at second hand, from SimsWiki tutorial indexes that describe CAS and tuning
+      workflows as Sims 4 Studio workflows. We do not know its licence, its current version or its
+      capabilities first-hand, and it must not be recommended as if we had checked it.
+    source: s4studio_python_scripting_tutorial
+  - id: s4pe
+    name: s4pe / s4pi (Sims4Tools)
+    url: https://github.com/s4ptacle/Sims4Tools
+    purpose: Open-source .package editor and the s4pi interface library beneath it.
+    status: verified_available
+    runs_on:
+      - windows
+    license: unknown
+    integration: reference_only
+    note: >-
+      README retrieved and read; it states .NET 4.0 and Visual Studio are required, and names 0.4.3 as the most
+      recent version at that revision. We probed LICENSE, LICENSE.txt, License.txt and COPYING on the develop
+      branch and every one returned HTTP 404, and the README states no licence, so its licence is UNKNOWN here.
+      That alone rules out vendoring any of it.
+    source: s4pe_repo_readme
+  - id: s4tk_models
+    name: Sims 4 Toolkit - @s4tk/models
+    url: https://github.com/sims4toolkit/models
+    purpose: TypeScript models for reading and writing Sims 4 package files and the resources inside them.
+    status: verified_available
+    runs_on:
+      - node
+    license: MIT
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file (MIT, Copyright (c) 2022 Frank Kulak) and corroborated by
+      the package.json "license" field. Version 0.6.14 at the revision fetched. MIT would permit real reuse,
+      but it is a Node/TypeScript library and modcheck's inspector is Python, so it is reference only here -
+      it is nevertheless the best machine-readable cross-check for our own DBPF parsing. Its own README warns
+      that all S4TK software "is currently considered to be in its pre-release stage".
+    source: s4tk_models_readme
+  - id: s4_scripting_template
+    name: Sims4ScriptingTemplate (mycroftjr fork of Sims4ScriptingBPProj)
+    url: https://github.com/mycroftjr/Sims4ScriptingTemplate
+    purpose: Project template that decompiles the game's Python libraries and compiles/packages a .ts4script.
+    status: verified_available
+    runs_on:
+      - windows
+      - macos
+      - linux
+    license: Apache-2.0
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file (Apache License 2.0). Its compile step requires an installed
+      game to decompile against, so we could not run it; we cite it for the build layout and for its statement
+      that shipping only compiled Python is "highly discouraged".
+    source: s4_scripting_template_readme
+  - id: uncompyle6
+    name: uncompyle6
+    url: https://pypi.org/project/uncompyle6/
+    purpose: Python bytecode decompiler used by the community to read the game's shipped scripts.
+    status: unverified
+    license: unknown
+    integration: none
+    note: >-
+      Named by the scripting tutorial we fetched as the decompiler the workflow depends on, and the reason that
+      tutorial pins Python to 3.7 or 3.8. We did not fetch its project page and we did not install or run it, so
+      its licence and its current Python support are unknown here.
+    source: mts_write_script_mod_tutorial
+
+gaps:
+  - what: Which CPython version the shipped game actually embeds, stated by EA or by a primary source.
+    why: >-
+      Our only retrieved evidence is a community tutorial that says "Install Python 3.7 ... Recommend version 3.7
+      or 3.8", and its stated reason is decompiler support, not the game's interpreter. Sims 4 Studio, which would
+      be the authoritative community source, answers this fetcher with HTTP 406.
+    unblocks: >-
+      A primary statement would let the inspector's bytecode_python_versions fact be compared against an expected
+      value automatically, turning our wrong-Python-version failure record from documented into checkable.
+  - what: The mapping from Sims 4 resource Type ids to what they mean (tuning, SimData, CAS part, and so on).
+    why: >-
+      We hold the DBPF container format but no retrieved table of Sims 4 resource types. The SimsWiki page that
+      catalogues them links out to forum threads we did not fetch.
+    unblocks: >-
+      With a type table, our extracted resource_types counts would become "this package overrides N tuning
+      resources" instead of "this package contains N resources of type 0x545AC67A".
+  - what: Which package wins when two packages ship the same resource key.
+    why: No source we retrieved states the resolution rule, and we have no game to observe it with.
+    unblocks: A primary statement or an observed run; until then the collision is recorded without a winner.
+  - what: Mod-level data for real Sims 4 mods - declared game-patch compatibility, changelogs, prevalence.
+    why: Nexus Mods returns HTTP 403 here, and sims4studio.com returns HTTP 406.
+    unblocks: An allowed egress path to those hosts.
+  - what: Sims 4 Studio itself - licence, version, capabilities.
+    why: HTTP 406 from sims4studio.com to this fetcher. Everything we know about it is second-hand.
+    unblocks: A fetch that the site accepts.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - simswiki_dbpf_v2_format
+    - simswiki_dbpf_general
+    - simswiki_ts4_general_modding
+    - mts_sims4_game_mod_guidelines
+    - mts_write_script_mod_tutorial
+    - s4_scripting_template_readme
+    - s4pe_repo_readme
+    - s4tk_models_readme
+    - s4tk_models_package_json

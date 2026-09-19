@@ -1,0 +1,84 @@
+id: light_plugin_formid_overflow
+game: skyrimse
+title: An ESL-flagged plugin with new records outside the light FormID range
+symptom: >-
+  Records added by the plugin do not appear in game, or appear as the wrong object; in the worst
+  case the plugin's new content silently collides with another light plugin's records. The plugin
+  itself loads without an error message, which is what makes this one hard to notice.
+mechanism: >-
+  A light plugin does not occupy an ordinary load-order slot. All light plugins share the FE index
+  and are distinguished by a small per-plugin range inside it, so a light plugin's new records must
+  fit in the low three hexadecimal digits: the community reference states "To be flagged ESL, a
+  plugin can't have more than 4095 new records (the range is from 001->FFF)", and for a plugin whose
+  header version is 0.95 the usable range is smaller still, "the max amount of new records is 2048
+  (800->FFF)". Adding records in the Creation Kit does not respect that range - the same reference
+  notes the editor "totally ignor[es] ESL space when creating new records" - so new FormIDs land
+  outside the light range and must be compacted before the flag is set. The flag itself is a header
+  bit, which is why an .esp can be light and why nothing about the filename tells you whether it is.
+applies_to:
+  game_versions: >-
+    Skyrim Special Edition (and Fallout 4); light plugins do not exist in the pre-Skyrim games
+  loader: bethesda_plugin
+  toolchain:
+    - xEdit
+targets:
+  - kind: field
+    id: HEDR nextObjectID
+    container: the plugin's TES4 header record
+    label: next FormID the plugin will allocate
+  - kind: field
+    id: TES4 header flag 0x200
+    label: light plugin flag
+conditions:
+  - kind: state
+    description: The plugin's light flag is set (or its extension is .esl, which implies it).
+    expression: light_flag_set == true or extension == ".esl"
+  - kind: state
+    description: The plugin allocates new records whose object index is above 0xFFF.
+    expression: next_object_id > 0xFFF
+detector:
+  detectable: partial
+  check_id: inspection.warning
+  signal: >-
+    src/modcheck/inspect/bethesda.py reads the HEDR subrecord and, when the light flag is set and
+    nextObjectID exceeds 0xFFF, warns that "new FormIDs may fall outside the light FormID range";
+    src/modcheck/report.py surfaces inspector warnings as inspection.warning findings. It is partial
+    on purpose: nextObjectID is the next id to allocate, not proof that an out-of-range record
+    exists, and we do not read the records themselves, so we can neither confirm an overflow nor
+    rule one out. The lower 0.95-header ceiling of 0x800 is not implemented at all.
+evidence:
+  - source: midnight_ride_light_plugins
+    evidence_class: declared
+    locator: Limitations
+    quote: >-
+      To be flagged ESL, a plugin can't have more than 4095 new records (the range is from
+      001->FFF).
+  - source: midnight_ride_light_plugins
+    evidence_class: declared
+    locator: Limitations
+    quote: >-
+      If a plugin's header is version 0.95, the max amount of new records is 2048 (800->FFF).
+  - source: midnight_ride_light_plugins
+    evidence_class: declared
+    locator: Limitations
+    quote: >-
+      Working with ESL plugins in Creation Kit might result in more work due to the CK totally
+      ignoring ESL space when creating new records. This means that after making new records in CK
+      you'll have to compact forms in xEdit.
+  - source: libloadorder_load_order_mechanisms
+    evidence_class: declared
+    quote: >-
+      Light plugins load amongst other plugins, but they all then get moved to the end of the load
+      order so that in-game they all take up the `FE` load order slot.
+  - source: libloadorder_plugin_types
+    evidence_class: declared
+    quote: >-
+      A plugin is a light non-master plugin if its file extension is `.esp` and it has its light
+      plugin flag set.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - midnight_ride_light_plugins
+    - libloadorder_load_order_mechanisms
+    - libloadorder_plugin_types

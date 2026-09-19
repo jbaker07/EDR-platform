@@ -1,0 +1,158 @@
+id: redscript-wrap-method
+game: cyberpunk2077
+title: Extend a game method from redscript with @wrapMethod instead of replacing it
+category: event_behavior
+intent: >-
+  A creator ends up with a .reds source file under r6/scripts/ that adds behaviour to an existing game
+  method while leaving the original behaviour intact, so that several mods can modify the same method and
+  still all work - which is not true of the replace annotation.
+applies_to:
+  game_versions: "not established; redscript compiles against the scripts shipped with whatever build is installed, and the wiki does not pin a game version for the annotations"
+  loader: redscript
+  loader_versions: "any redscript version that supports the hook annotations; the wiki page does not state a minimum"
+  toolchain:
+    - redscript
+  platforms:
+    - windows
+    - macos
+inputs:
+  - The class and method you want to extend, with its exact name and parameter list
+  - The behaviour you want to add before or after the original
+dependencies:
+  - id: redscript
+    kind: framework
+    required: true
+extension_points:
+  - kind: method
+    id: "<Class>.<Method>"
+    container: r6/scripts/<yourmod>/<yourmod>.reds
+    signature: "must match the name AND the parameters of the method being hooked"
+    label: The base-game method you are wrapping. Annotations cannot be applied to modded or native methods.
+  - kind: method
+    id: wrappedMethod
+    container: r6/scripts/<yourmod>/<yourmod>.reds
+    label: >-
+      The identifier that calls the next function in the wrap chain - the previous wrapper, or the
+      original method if yours is first.
+  - kind: file_path
+    id: r6/scripts/<yourmod>/<yourmod>.reds
+    label: The install path your mod claims. Give it its own subfolder so it cannot collide with another mod's file.
+steps:
+  - step: Choose wrap, not replace
+    detail: >-
+      @wrapMethod "can be applied multiple times to chain multiple functions that modify the same method.
+      Each function in the chain wraps around the previous one. This helps to keep mods compatible even if
+      they alter the same methods." @replaceMethod cannot: "You can only use one `@replaceMethod` for each
+      method. If you define more than one, only one of them will work." Reach for replace only when you
+      genuinely must discard the original behaviour, and say so on your mod page.
+  - step: Check the method is hookable at all
+    detail: >-
+      The wiki warns that annotations "can't be used on modded methods or classes and native functions
+      (those are marked as native and defined outside of scripts)". If your target is native, redscript is
+      the wrong tool - the wiki notes CET can hook native methods where redscript cannot.
+  - step: Put the file in its own folder under r6/scripts
+    detail: >-
+      redscript compiles the whole r6/scripts tree, so a folder per mod is what keeps your file from being
+      overwritten by another mod shipping the same filename. The install path is the only identity a
+      non-REDmod Cyberpunk mod has.
+    file: r6/scripts/<yourmod>/<yourmod>.reds
+  - step: Write the wrapper with the exact signature of the target
+    detail: >-
+      Declare a function with the same name and parameters as the method on the class you name in the
+      annotation, then call wrappedMethod(...) inside it.
+    file: r6/scripts/<yourmod>/<yourmod>.reds
+    code: |
+      @wrapMethod(SingleplayerMenuGameController)
+      private func PopulateMenuItemList() {
+        wrappedMethod(); // This will call the original PopulateMenuItemList
+        this.AddMenuItem("BUTTON 1", n"OnDebug");
+      }
+  - step: Forward the arguments unchanged unless you mean to change them
+    detail: >-
+      The documented default is to "invoke the wrapped method in your newly defined function and forward
+      all the arguments unchanged to preserve it's original behavior", modifying arguments or the return
+      value only deliberately. When calling wrappedMethod(...), match the arguments of the correct
+      overload - the wiki shows passing an extra argument as a worked example of wrong code.
+  - step: Only skip wrappedMethod deliberately
+    detail: >-
+      You may guard the wrappedMethod call with a conditional, but every path that does not call it
+      silently disables every other mod further down the chain as well as the original behaviour.
+  - step: Confirm the compile succeeded after a game launch
+    detail: >-
+      redscript compiles scripts on game startup on Windows; its README says "successful setup can be
+      confirmed with logs appearing in `Cyberpunk 2077/r6/logs/redscript_rCURRENT.log`". On macOS the
+      README notes the game does not compile scripts on startup and the bundled launch_modded.sh must be
+      used instead.
+interactions:
+  - >-
+    @replaceMethod and @wrapMethod are compatible with each other: the wiki states replace "will always
+    overwrite the original method and it will not affect the functions that wrap around it". So a replace
+    by another mod does not remove your wrapper, but it does discard whatever the original method did.
+  - >-
+    A compile error anywhere in r6/scripts is a whole-tree failure, not a your-mod failure: every script
+    mod goes through the same compiler at startup.
+  - >-
+    This is source-level composition and it is invisible to modcheck. Our inspector lists the .reds files
+    an artifact ships; it does not parse them, so it cannot tell you that two mods wrap or replace the
+    same method.
+build:
+  produces: One or more .reds source files; redscript compiles them in place at game startup.
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Confirm the packaged artifact ships its scripts under its own folder in r6/scripts and nothing else.
+    command: .venv/bin/modcheck inspect dist/<yourmod>.zip --game cyberpunk2077 --json
+    modcheck_check: modcheck.inspect.cyberpunk.inspect:redscript_files
+    limits: >-
+      Layout only. It lists .reds paths and will show you if you are about to ship a file directly in
+      r6/scripts where collisions happen. It does NOT parse redscript, so it cannot see your annotations,
+      cannot tell wrap from replace, and cannot detect that another mod targets the same method.
+  - method: Compile the scripts with the redscript CLI before shipping.
+    command: redscript-cli compile -s r6/scripts
+    limits: >-
+      Not run here: redscript is a Rust CLI we did not obtain, and compiling needs the game's own script
+      sources as input, which ship inside the game install. Even a clean compile proves only that your code
+      is well-formed against that build's scripts - it does not prove the hook does what you intended, and
+      it says nothing about the next game patch.
+  - method: Read redscript's startup log after launching the game.
+    command: type "Cyberpunk 2077\\r6\\logs\\redscript_rCURRENT.log"
+    limits: >-
+      Requires the retail game. Shows compilation success or failure, not behavioural correctness.
+acceptance:
+  - The mod uses @wrapMethod wherever the original behaviour should survive, and any use of @replaceMethod is deliberate and documented on the mod page.
+  - The wrapper's name and parameters match the target method exactly, and wrappedMethod(...) is called with the arguments of the correct overload.
+  - The target is a script method, not a native one.
+  - Scripts ship under r6/scripts/<yourmod>/ rather than directly in r6/scripts.
+  - The scripts compile against the game build the mod is released for, and the log was checked.
+references:
+  - source: cp_wiki_redscript_hook_annotations
+    evidence_class: declared
+    locator: "@wrapMethod(class)"
+    quote: "Furthermore, this annotation can be applied multiple times to chain multiple functions that modify the same method. Each function in the chain wraps around the previous one. This helps to keep mods compatible even if they alter the same methods."
+  - source: cp_wiki_redscript_hook_annotations
+    evidence_class: declared
+    locator: "@replaceMethod(class)"
+    quote: "You can only use one `@replaceMethod` for each method. If you define more than one, only one of them will work. If you want to combine multiple changes to the same method, you should use the `@wrapMethod` annotation instead."
+  - source: cp_wiki_redscript_hook_annotations
+    evidence_class: declared
+    locator: warning hint near the top of the page
+    quote: "Annotations **can't** be used on modded methods or classes and native functions (those are marked as native and defined outside of scripts)."
+  - source: redscript_repo_readme
+    evidence_class: declared
+    locator: "Installation > Windows"
+    quote: "When you start the game, successful setup can be confirmed with logs appearing in `Cyberpunk 2077/r6/logs/redscript_rCURRENT.log`."
+  - source: redscript_repo_readme
+    evidence_class: declared
+    locator: header
+    quote: "REDscript is a statically-typed, object-oriented programming language designed for developing scripts for the REDengine, CD Projekt's game engine used in Cyberpunk 2077."
+verification_state: documented
+verification_note: >-
+  Written from sources only. The code block in the steps is the wiki's own worked example, reproduced
+  verbatim; it was never compiled here, because redscript needs the game's script sources and we have no
+  game install.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - cp_wiki_redscript_hook_annotations
+    - redscript_repo_readme

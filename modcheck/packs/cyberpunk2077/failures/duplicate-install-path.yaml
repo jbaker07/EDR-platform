@@ -1,0 +1,78 @@
+id: duplicate-install-path
+game: cyberpunk2077
+title: Two mods ship the same install path and the later one silently does nothing
+symptom: >-
+  A player installs two mods that both work on their own. With both installed, one of them behaves as if it
+  were not there at all - no error, no warning, no log entry naming the other mod. Removing the other mod
+  makes it work again. Which of the two "loses" changes if the player renames a file or a folder.
+mechanism: >-
+  Cyberpunk resolves conflicting content per file, and the FIRST loaded writer of a given file wins - the
+  opposite of the last-writer-wins model of Bethesda-style games. The REDmodding wiki states it directly:
+  "In Cyberpunk, conflicts inside `.archive` mods are one per-file basis, whatever mod modifies a file
+  **first** will win - unlike e.g. Skyrim, where esps may overwrite each other." Load position is decided
+  purely by name: all .archive files in Cyberpunk 2077/archive/pc/mod load in ASCII-alphabetical order by
+  file name, and "Folders in `Cyberpunk 2077/mods` are loaded strictly **after** `/archive/pc/mod` in
+  ASCII-alphabetical order". Because the ordering key is the file or folder name and because ASCII order
+  puts capitals before lower case and punctuation before letters, two mods that happen to claim the same
+  install path produce a deterministic but entirely accidental winner. No manifest is consulted, because a
+  raw .archive mod has no manifest at all - its identity IS the set of paths it ships.
+applies_to:
+  loader: archive
+  toolchain:
+    - redmod
+    - wolvenkit
+targets:
+  - kind: file_path
+    id: archive/pc/mod/<name>.archive
+    label: The claimed install path; identical paths between two mods are the collision.
+  - kind: file_path
+    id: mods/<ModName>/
+    label: REDmod module folders collide the same way, and always after archive mods.
+conditions:
+  - kind: load_order
+    description: Both mods are installed at the same time and both claim at least one identical path or modify the same game file.
+  - kind: state
+    description: >-
+      A modlist.txt inside archive/pc/mod changes the ordering rule entirely - the game then follows the
+      order inside that file rather than ASCII order - so the winner can differ from what filenames predict.
+    expression: "exists(archive/pc/mod/modlist.txt)"
+detector:
+  detectable: partial
+  check_id: modcheck.inspect.cyberpunk.inspect:install_paths
+  signal: >-
+    Our Cyberpunk inspector extracts the normalised install path of every file in a mod archive
+    (install_paths, plus archive_files/redscript_files/tweak_files). Inspecting two mods and intersecting
+    their install_paths sets finds an exact path collision directly, and ASCII-sorting the two names
+    predicts which one wins.
+  why_not: >-
+    Only exact path collisions are found this way, and only when both artifacts are inspected. The deeper
+    case - two mods shipping DIFFERENT .archive filenames that both replace the same game resource inside -
+    is invisible to us, because we do not decode .archive contents. A clean intersection therefore means
+    "no identical install paths", never "no conflict". No such comparison check is implemented in this
+    repo today; the facts exist, the check does not.
+evidence:
+  - source: cp_wiki_archive_load_order
+    evidence_class: declared
+    locator: "What is Load Order?"
+    quote: "In Cyberpunk, conflicts inside `.archive` mods are one per-file basis, whatever mod modifies a file **first** will win – unlike e.g. Skyrim, where esps may overwrite each other."
+  - source: cp_wiki_archive_load_order
+    evidence_class: declared
+    locator: "How are mods ordered? > 1. .archive mods"
+    quote: "All .archive files in `Cyberpunk 2077/archive/pc/mod` in [ASCII-alphabetical order](#load-order-ascii-sort)."
+  - source: cp_wiki_archive_load_order
+    evidence_class: declared
+    locator: "Load order: ASCII sort"
+    quote: "The game reads mods in ASCII-alphabetical order (REDmods by **folder name**, .archive files by **archive file name**)."
+  - source: cp_wiki_archive_load_order
+    evidence_class: declared
+    locator: "How are mods ordered? > danger hint"
+    quote: "**Note: If a file called `modlist.txt` is found inside `archive/pc/mod` then the game will load archives according to the order inside that file. Delete this file and save yourself from a world of pain.**"
+  - source: cp_wiki_archive_load_order
+    evidence_class: declared
+    locator: "More Examples"
+    quote: "If you are creating a **compatibility mod** (something that modifies the files of another installed mod), then yours needs to load **first**."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - cp_wiki_archive_load_order

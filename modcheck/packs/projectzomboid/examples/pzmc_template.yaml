@@ -1,0 +1,46 @@
+id: pz-example-pzmc-template
+game: projectzomboid
+title: Project Zomboid Community Modding template (pzmc-template)
+url: https://github.com/Project-Zomboid-Community-Modding/pzmc-template
+kind: template
+demonstrates:
+- a ready-made mod folder skeleton staged for a hybrid Build 41 / Build 42 layout in one repository
+- keeping raw assets in a non-standard images/ folder that is excluded from Steam Workshop uploads
+- using the Workshop folder as the git repository root, so .git and IDE folders sit outside Contents/ and are never uploaded
+- the structure PZwiki itself points modders at as the community default
+license: GPL-3.0
+reuse:
+  integration: reference_only
+  constraints: >-
+    LICENSE in the repository is the GNU General Public License v3. That matters more than
+    usual for a template: a mod built by copying it inherits the obligation. We cite it as
+    a starting structure and do not copy it into this repository or into any generated
+    project. Note the README's own caveat that the images/ folder "is not a standard folder,
+    and can be named anything".
+maintenance:
+  state: unknown
+  checked_at: '2026-09-19'
+  supported_versions: 'staged for both Build 41 and Build 42 layouts, per its README'
+evidence:
+- source: pzmc_template_license
+  evidence_class: extracted
+  locator: line 1-2
+  quote: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+- source: pzmc_template_readme
+  evidence_class: declared
+  locator: heading and images note
+  quote: >-
+    This template is staged for a hybrid B41/B42 setup. In other words, you are working on a mod for
+    both versions of the game.
+- source: pzwiki_mod_structure
+  evidence_class: declared
+  locator: introduction
+  quote: >-
+    [[Project Zomboid Community Modding template]] - a template mod structure to use as a base for your
+    own mods.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pzmc_template_readme
+  - pzmc_template_license

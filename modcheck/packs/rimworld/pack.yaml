@@ -1,0 +1,244 @@
+# RimWorld game pack.
+#
+# Support is declared per capability. Only package_inspection is executable and
+# test-backed here; everything else is documentation we hold, not code we run.
+game: rimworld
+name: RimWorld
+pack_version: 0.1.0
+summary: >-
+  Mods are plain folders identified by About/About.xml. Content is XML Defs merged into
+  one document, modified after the fact by xpath-targeted PatchOperations, with optional
+  compiled assemblies using Harmony to patch methods at runtime. The compatibility
+  surface is therefore three separate things - defName ownership, xpath targets, and
+  patched methods - and only the first is even visible in file metadata.
+
+ecosystem:
+  engine: Unity (mod assemblies are .NET/Mono DLLs loaded from the Assemblies folder)
+  languages:
+  - XML
+  - C#
+  loaders:
+  - id: rimworld
+    name: RimWorld's built-in mod loader
+    manifest: About/About.xml
+    versions: '1.6 (the version the current wiki guidance and Krafs.Rimworld.Ref 1.6.x target)'
+    source: rw_wiki_about_xml
+  - id: harmony
+    name: Harmony (brrainz.harmony) - runtime method patching library
+    manifest: About/About.xml modDependencies entry with packageId brrainz.harmony
+    versions: 'Lib.Harmony 2.4.2 (latest on NuGet, published 2025-11-13)'
+    source: harmony_readme
+  artifact_formats:
+  - mod folder under the game's Mods folder, named freely; identity comes from About/About.xml
+  - 'About/About.xml (root element ModMetaData) with packageId, name, author, description, supportedVersions'
+  - Defs/**/*.xml - XML Defs, folder and file names irrelevant
+  - Patches/**/*.xml - files whose root element is <Patch>, containing <Operation Class="PatchOperation..."> nodes
+  - Assemblies/*.dll - compiled mod code, loaded automatically
+  - per-version subfolders (1.5/, 1.6/) and an optional LoadFolders.xml that overrides the default versioned-folder rules
+  composition: >-
+    Every enabled mod's Defs are read into one in-memory document in mod-list order.
+    Two mods that define the same defName do not merge: the later one in the load order
+    replaces the earlier, which is why the wiki's advice for both core and mod Defs is
+    "Don't" overwrite and use xpath instead. PatchOperations then run against that merged
+    document, selecting nodes by XPath rooted at Defs/, so several mods can modify the
+    same Def without any of them owning it. MayRequire / MayRequireAnyOf attributes drop
+    individual XML nodes when the listed packageIds are not loaded. LoadFolders.xml
+    decides which folders are read for which game version and can make a folder
+    conditional on another mod via IfModActive. Compiled assemblies compose separately:
+    Harmony prefixes, postfixes and transpilers attach to methods at runtime, and a
+    destructive prefix returning false skips the original method and may prevent other
+    prefixes from running.
+  platforms:
+  - windows
+  - linux
+  - macos
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold seven rimworldwiki.com modding pages as wikitext (About.xml,
+      PatchOperations, XML Defs, Mod Folder Structure, MayRequire, Compatibility with
+      defs, Harmony), the Harmony README, LICENSE and its official patching article, and
+      two NuGet registration indexes. Guidance is bounded by those pages: there is no
+      official Ludeon modding documentation in this pack, and nothing here documents the
+      RimWorld C# API surface (class and method names) beyond the handful of examples the
+      wiki quotes.
+    implemented_by:
+    - packs/rimworld/sources.yaml
+  project_setup:
+    status: documented_only
+    note: >-
+      Recipes describe the About/Defs/Patches/Assemblies layout and the Krafs.Rimworld.Ref
+      reference-assembly package, but modcheck ships no generator: GENERATORS in
+      src/modcheck/creator/scaffold.py contains only ("minecraft", "fabric") and
+      scaffold() raises ScaffoldError for rimworld.
+    implemented_by:
+    - packs/rimworld/recipes/
+  source_edit:
+    status: unsupported
+    note: >-
+      Nothing in this repository writes or rewrites XML Defs, Patch files or C# sources.
+      There is no xpath evaluator and no Def parser here.
+  package_inspection:
+    status: supported
+    note: >-
+      Reads About.xml from a zip or unpacked folder and reports packageId, name, author,
+      supportedVersions, modVersion, modDependencies, loadAfter, loadBefore and
+      incompatibleWith as declared facts, plus version folders, presence of assemblies,
+      the Defs file list, the Patches file list and whether LoadFolders.xml exists as
+      extracted facts. It does NOT parse Def contents (so it never learns a defName), does
+      not read the xpath of any PatchOperation, does not open shipped assemblies, and
+      cannot tell whether supportedVersions matches what the code actually does.
+    implemented_by:
+    - src/modcheck/inspect/rimworld.py
+    tests:
+    - tests/test_inspect.py::test_rimworld_about_and_layout
+  dependency_analysis:
+    status: documented_only
+    note: >-
+      modDependencies entries become dependency edges and the game-agnostic resolver in
+      src/modcheck/analyze/requirements.py would emit dependency.missing and
+      dependency.duplicate_mod_id over them. We do not claim it for this game: no test
+      exercises that path on RimWorld artifacts, alternativePackageIds (new in 1.6) and
+      modDependenciesByVersion are not modelled at all, and the load-order fields
+      (loadAfter, loadBefore, forceLoadBefore) are extracted but nothing orders anything.
+      The RimSort community rules database is held as data and is read by no check.
+  interaction_analysis:
+    status: documented_only
+    note: >-
+      The three things that actually decide RimWorld interactions - which mod owns a
+      defName, which xpath a PatchOperation selects, and which method a Harmony patch
+      attaches to - are all explicitly in the inspector's not_checked list. We record
+      file lists, not targets, so overlapping Patches/ files cannot be compared and no
+      interaction record is derivable from an artifact today.
+  build_execution:
+    status: blocked
+    note: >-
+      An XML-only mod needs no build. A mod with an Assemblies folder needs a .NET
+      toolchain and RimWorld reference assemblies (for example the Krafs.Rimworld.Ref
+      NuGet package) to compile against.
+    blocker: >-
+      No .NET SDK in this environment and the task forbids installing packages; RimWorld
+      itself is not installed, so assemblies cannot be compiled or verified here.
+  runtime_testing:
+    status: blocked
+    note: >-
+      The authoritative signals - the game's Def cross-reference resolution, ConfigErrors,
+      the red error log, and whether a PatchOperation matched any node - only exist while
+      RimWorld is running.
+    blocker: >-
+      RimWorld is a paid, non-redistributable game and is not installed here. No mod
+      described in this pack has been loaded by the game.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We document supportedVersions, per-version folders, LoadFolders.xml and the
+      IgnoreIfNoMatchingField attribute used to keep newer About.xml tags from erroring on
+      older game versions. ModCheck performs no version bumping, no Workshop upload and no
+      compatibility sweep across a mod list.
+
+toolchain:
+- id: harmony
+  name: Harmony (pardeike/Harmony, Lib.Harmony)
+  url: https://raw.githubusercontent.com/pardeike/Harmony/master/README.md
+  purpose: Runtime patching of .NET and Mono methods - prefixes, postfixes and transpilers - which is how RimWorld mods change compiled game behaviour.
+  status: verified_available
+  runs_on:
+  - .NET / Mono
+  license: MIT
+  integration: reference_only
+  note: >-
+    README, LICENSE and the official patching article were all fetched (HTTP 200). The
+    NuGet registration index for Lib.Harmony gives the latest version as 2.4.2, published
+    2025-11-13. In RimWorld it is consumed as a mod dependency on packageId
+    brrainz.harmony, not by shipping 0Harmony.dll.
+  source: harmony_readme
+- id: krafs_rimworld_ref
+  name: Krafs.Rimworld.Ref (RimWorld reference assemblies)
+  url: https://api.nuget.org/v3/registration5-gz-semver2/krafs.rimworld.ref/index.json
+  purpose: Publicly available reference assemblies so a RimWorld mod can be compiled without shipping or owning the game's DLLs.
+  status: verified_available
+  runs_on:
+  - .NET SDK / NuGet
+  integration: reference_only
+  note: >-
+    Verified through the NuGet registration index (fetched, HTTP 200): six registration
+    pages, highest version 1.6.4871, root commit timestamp 2026-07-01. The index root does
+    not inline catalog entries, so the package licence was NOT read and is recorded as
+    unknown rather than guessed.
+  source: krafs_rimworld_ref_nuget
+- id: rimsort
+  name: RimSort
+  url: https://raw.githubusercontent.com/RimSort/RimSort/main/README.md
+  purpose: Open-source RimWorld mod manager that sorts a mod list using About.xml load rules plus a community-maintained rules database.
+  status: verified_available
+  license: GPL-3.0
+  integration: reference_only
+  note: >-
+    README and LICENSE.md fetched; LICENSE.md is the GNU General Public License v3. We do
+    not run it and do not link against it - GPL-3.0 would impose obligations on any
+    derivative.
+  source: rimsort_readme
+- id: rimsort_community_rules
+  name: RimSort Community Rules Database (communityRules.json)
+  url: https://raw.githubusercontent.com/RimSort/Community-Rules-Database/main/communityRules.json
+  purpose: 'Crowd-maintained load-order rules keyed by packageId, of the shape {packageId: {loadAfter: {otherId: {name: [...]}}}}.'
+  status: verified_available
+  integration: reference_only
+  license: unknown
+  note: >-
+    Fetched and hashed - 394716 bytes, a top-level object with "timestamp" 1789239946
+    (2026-09-12) and 631 entries under "rules". There is NO LICENSE file at the repository
+    root (the probe returned HTTP 404 and is recorded as a gap), so redistribution and
+    derivative terms are unknown and the file is treated as reference-only. No modcheck
+    check reads it.
+  source: rimsort_community_rules_db
+- id: harmony_debug_log
+  name: Harmony DEBUG log (HarmonyInstance.DEBUG)
+  url: https://harmony.pardeike.net/articles/patching.html
+  purpose: Diagnosing a patch that silently does not apply.
+  status: unverified
+  integration: none
+  note: >-
+    The wiki instructs setting HarmonyInstance.DEBUG = true and reading the text file
+    Harmony writes to the desktop. This only exists in a running game; we have never
+    produced or read such a file.
+  source: rw_wiki_harmony
+
+gaps:
+- what: Official Ludeon-published modding documentation.
+  why: >-
+    No official source was located or fetched. Everything in this pack about About.xml,
+    Defs, PatchOperations and load order comes from rimworldwiki.com, a community wiki
+    licensed CC BY-SA 3.0.
+  unblocks: Authoritative statements about loader behaviour rather than community-documented behaviour.
+- what: The RimWorld C# API surface (class, method and field names available to patch).
+  why: >-
+    Decompiling the game is the documented route and the game is not installed here;
+    Krafs.Rimworld.Ref was confirmed to exist on NuGet but was not downloaded.
+  unblocks: Naming a real method in a Harmony recipe, and any static check that a patch target still exists in a given game version.
+- what: defNames and PatchOperation xpaths inside real mods.
+  why: >-
+    src/modcheck/inspect/rimworld.py lists Defs and Patches files but never opens them;
+    the module's own not_checked list says so.
+  unblocks: Detecting two mods that replace the same Def, or two patches that select the same node.
+- what: Redistribution terms for communityRules.json.
+  why: 'RimSort/Community-Rules-Database has no LICENSE file at the root of branch main (HTTP 404, recorded as source rimsort_rules_db_license_probe).'
+  unblocks: Shipping or deriving a load-order ruleset from it rather than merely reading it.
+- what: Whether a mod's supportedVersions list is truthful.
+  why: >-
+    It is a declared value with no mechanical relationship to the mod's contents; the
+    wiki notes the game only warns the player and does not prevent loading.
+  unblocks: Telling a player that an old mod will actually break, rather than that it is merely untested.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - rw_wiki_about_xml
+  - rw_wiki_patchoperations
+  - rw_wiki_mod_folder_structure
+  - rw_wiki_harmony
+  - harmony_license
+  - rimsort_community_rules_db

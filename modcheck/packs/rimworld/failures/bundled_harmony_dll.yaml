@@ -1,0 +1,79 @@
+id: rw-bundled-harmony-dll
+game: rimworld
+title: A mod ships its own 0Harmony.dll and an outdated Harmony ends up in the process
+symptom: >-
+  Harmony patches from unrelated mods start misbehaving or failing to apply once a
+  particular mod is enabled, and the problem follows that mod rather than the mods whose
+  patches broke. Removing it restores the other mods.
+mechanism: >-
+  Harmony is a shared, process-wide patching library: it works across assemblies and
+  re-applies every registered patch whenever anyone patches the same original, which is why
+  patch methods must be static and are stored only as method pointers. RimWorld
+  automatically loads any properly compiled DLL from a mod's Assemblies folder, so a mod
+  that bundles 0Harmony.dll puts its own copy of that shared library into the process. The
+  RimWorld modding guidance is therefore explicit: do not include 0Harmony.dll in your
+  mod's Assemblies folder, because outdated versions of Harmony can cause issues; declare
+  a dependency on the Harmony mod (packageId brrainz.harmony) instead.
+applies_to:
+  game_versions: '1.6'
+  loader: rimworld
+  loader_versions: 'Harmony 2.x'
+targets:
+- kind: file_path
+  id: Assemblies/0Harmony.dll
+  label: the bundled copy of the shared patching library
+- kind: config_key
+  id: modDependencies
+  container: About/About.xml
+  field: brrainz.harmony
+  label: the declaration that should replace the bundled DLL
+conditions:
+- kind: state
+  description: The mod's Assemblies folder contains 0Harmony.dll.
+- kind: version
+  description: The bundled Harmony version differs from the one the Harmony mod provides.
+detector:
+  detectable: 'no'
+  signal: >-
+    src/modcheck/inspect/rimworld.py keeps the full archive entry list and sets
+    has_assemblies when any entry ends in .dll, so the filename 0Harmony.dll is present in
+    the data it already holds.
+  why_not: >-
+    has_assemblies is only a boolean and no check inspects entry names for this filename,
+    so nothing flags it today. Even with such a check the result would stay partial: the
+    inspector does not open assemblies, so it cannot read the bundled Harmony's version,
+    and the module's own not_checked list includes "Harmony patches inside any shipped
+    assembly". Distinguishing a harmful old copy from a harmless current one would require
+    assembly metadata reading that this repository does not implement.
+evidence:
+- source: rw_wiki_harmony
+  evidence_class: declared
+  locator: introduction
+  quote: >-
+    Please '''''do not''''' include the dll (0Harmony.dll) in your mod's assemblies folder! Outdated
+    versions of Harmony can cause issues. Simply add Harmony as a dependency on Steam instead.
+- source: rw_wiki_mod_folder_structure
+  evidence_class: declared
+  locator: section "Assemblies"
+  quote: >-
+    The <code>Assemblies</code> folder can be used to add custom code to RimWorld in the form of compiled
+    dynamic-link library or DLL files. Properly compiled assemblies will be automatically loaded by
+    RimWorld.
+- source: harmony_patching_docs
+  evidence_class: declared
+  locator: section "Patches need to be static"
+  quote: >-
+    Patch methods need to be static because Harmony works with multiple users in different assemblies in
+    mind. In order to guarantee the correct patching order, patches are always re-applied as soon as
+    someone wants to change the original.
+- source: harmony_nuget_registration
+  evidence_class: extracted
+  locator: items[-1].items[-1].catalogEntry
+  quote: '"version": "2.4.2", "published": "2025-11-13T00:25:02.94+00:00"'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - rw_wiki_harmony
+  - harmony_patching_docs
+  - rw_wiki_mod_folder_structure

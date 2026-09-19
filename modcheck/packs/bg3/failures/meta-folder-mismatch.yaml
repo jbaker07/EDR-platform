@@ -1,0 +1,62 @@
+id: meta-folder-mismatch
+game: bg3
+title: The Folder attribute in meta.lsx does not match the module's real folder name
+symptom: >-
+  The mod appears in the mod manager with the right name and version and can be enabled, but its content
+  does not appear in game - or appears only partially, with some assets or stats present and others
+  missing. Nothing in the manager indicates a problem, because the mod's identity is intact; only its data
+  is unreachable.
+mechanism: >-
+  meta.lsx carries two different kinds of value. UUID, Name, Author and Version64 are identity - what mod
+  managers display and sort. Folder is a path: it names the directory inside the package under which the
+  module's own data lives, so the game can find that data. The community wiki spells out the requirement
+  and the consequence of getting it wrong: Folder "needs to match the name of the new folder that we
+  referred to earlier as the YourShared folder. If you don't enter this correctly, stuff in your mod will
+  break." The mismatch is easy to introduce and hard to see - renaming a project folder, copying a meta.lsx
+  from another mod, or generating one with a tool and then reorganising the workspace all produce it, and
+  the resulting package is structurally valid.
+applies_to:
+  loader: bg3_module
+targets:
+  - kind: config_key
+    id: Folder
+    container: Mods/<YourMod>/meta.lsx
+    field: Folder
+    label: The LSString that must equal the module's folder name inside the package.
+  - kind: file_path
+    id: Mods/<YourMod>/
+    label: The actual folder, and its sibling Public/<YourMod>/, that Folder has to name.
+conditions:
+  - kind: state
+    description: The Folder value and the module's directory name differ, including by case or by a trailing character.
+detector:
+  detectable: partial
+  check_id: modcheck.inspect.bg3.inspect:folder
+  signal: >-
+    Our BG3 inspector extracts the declared `folder` value alongside mod_id, name and version. When a mod is
+    distributed as a zip that also exposes its directory layout, the declared folder can be compared against
+    the directory names actually present, and a mismatch is a direct finding.
+  why_not: >-
+    The comparison only works when both halves are visible. For a bare .pak neither is: we read the LSPK
+    header only, because the file list is LZ4-compressed and the optional lz4 dependency is absent here, so
+    we see neither the meta.lsx nor the directory structure it describes. And no such comparison check is
+    implemented in this repo today - the `folder` fact is extracted, nothing checks it.
+evidence:
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: "Let's go over the lines you want to edit > Folder"
+    quote: "This needs to match the name of the new folder that we referred to earlier as the YourShared folder. If you don’t enter this correctly, stuff in your mod will break."
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: "Creating your meta.lsx with bg3 mini tool by Padme4000"
+    quote: "Shared Folder - you want this line to be the same name you give your secondary folders."
+  - source: larian_docs_creating_a_new_mod
+    evidence_class: declared
+    locator: "Understanding the Mod Folders"
+    quote: "Currently, files related to your mod project are stored in five different folders inside the Baldur's Gate 3 /Data/ folder, depending on what kind of file they are."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3_wiki_creating_meta
+    - larian_docs_creating_a_new_mod

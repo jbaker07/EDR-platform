@@ -1,0 +1,207 @@
+id: bg3-script-extender-osiris-listener
+game: bg3
+title: React to an Osiris event from Lua with the BG3 Script Extender
+category: event_behavior
+intent: >-
+  A creator ends up with a module that runs its own Lua on the server side and reacts to an Osiris game
+  event - turn ended, status applied, and so on - without touching or overriding any game data file, so
+  the mod adds behaviour instead of competing for ownership of a record.
+applies_to:
+  game_versions: "not established; the extender pins itself to its own API version, not to a game version"
+  loader: bg3se
+  loader_versions: "the API document we fetched is 'BG3SE Lua API v30' and its example Config.json uses RequiredVersion 29"
+  toolchain:
+    - bg3se
+  platforms:
+    - windows
+    - linux
+inputs:
+  - The Osiris call, event or database you want to listen to, and its arity
+  - A globally unique mod table name for your mod
+dependencies:
+  - id: bg3se
+    kind: framework
+    versions: ">= the RequiredVersion you declare in Config.json"
+    required: true
+  - id: bg3_module
+    kind: loader
+    required: true
+extension_points:
+  - kind: config_key
+    id: RequiredVersion
+    container: Mods/<YourMod>/ScriptExtender/Config.json
+    field: RequiredVersion
+    label: The extender version your mod is written against.
+  - kind: config_key
+    id: ModTable
+    container: Mods/<YourMod>/ScriptExtender/Config.json
+    field: ModTable
+    label: >-
+      "Name of the mod in the global mod table (`Mods`) when using Lua. This name is required to use Lua
+      scripting, and must be unique." It is NOT the Folder value from meta.lsx.
+  - kind: config_key
+    id: FeatureFlags
+    container: Mods/<YourMod>/ScriptExtender/Config.json
+    field: FeatureFlags
+    label: The feature list; ["Lua"] enables Lua scripting.
+  - kind: file_path
+    id: Mods/<YourMod>/ScriptExtender/Lua/BootstrapServer.lua
+    label: The server-side entry point the extender loads automatically.
+  - kind: event
+    id: "<Osiris call/event/database name>"
+    label: What you subscribe to via Ext.Osiris.RegisterListener, with its arity and before/after phase.
+  - kind: method
+    id: Ext.Osiris.RegisterListener
+    signature: "(name, arity, event, handler)"
+    label: The subscription API itself.
+steps:
+  - step: Create the extender config for your mod
+    detail: >-
+      "To start using the extension in your mod, a configuration file must be created that describes what
+      features are utilized by your mod. Create a file at `Mods\YourMod\ScriptExtender\Config.json`".
+      Keep FeatureFlags minimal - the documentation says "For performance reasons it is recommended to
+      only list features that are actually in use."
+    file: Mods/<YourMod>/ScriptExtender/Config.json
+    code: |
+      {
+          "RequiredVersion": 29,
+          "ModTable": "YOUR_MOD_NAME_HERE",
+          "FeatureFlags": ["Lua"]
+      }
+  - step: Pick a ModTable name that cannot collide
+    detail: >-
+      The documentation requires it to be unique, and warns that it "has no relation with the `Folder`
+      value from your meta.lsx". A generic ModTable is a silent cross-mod collision in the global Mods
+      table, which no artifact inspection can catch.
+  - step: Set RequiredVersion to the extender you actually developed against
+    detail: >-
+      "It is recommended to use the version number of the Script Extender you used for developing the mod
+      since the behavior of new features and backwards compatibility functions depends on this version
+      number." Declaring a higher version than you tested is how a mod silently changes behaviour on
+      someone else's install.
+  - step: Add the bootstrap script on the correct side
+    detail: >-
+      "If Lua is enabled for the mod, the extender will attempt to load `BootstrapServer.lua` on the
+      server side, and `BootstrapClient.lua` on the client side. These scripts should be created in the
+      `Mods\<YOURMOD>\ScriptExtender\Lua\` folder." Osiris work is server-side: "Osiris and behavior
+      scripts (gamescripts) always run on the server", and the two Lua states "are completely separated
+      from each other and cannot access the internal state of each other".
+    file: Mods/<YourMod>/ScriptExtender/Lua/BootstrapServer.lua
+  - step: Load your other files at startup only
+    detail: >-
+      Use Ext.Require from the bootstrap script, with paths relative to the Lua folder. The documentation
+      is explicit that it "should only be called during module startup ... Loading Lua files after module
+      startup is deprecated." Script loading only needs to happen once.
+    code: |
+      Ext.Require("Server/SkillMechanics.lua")
+  - step: Subscribe to the Osiris event
+    detail: >-
+      Register a listener with the event's name, its arity, the phase, and a handler that receives the
+      original parameters. Arity "is the number of columns for DBs or the number of parameters (both IN
+      and OUT) for functions", and the phase is one of before, after, beforeDelete or afterDelete - the
+      delete phases being databases only.
+    file: Mods/<YourMod>/ScriptExtender/Lua/Server/SkillMechanics.lua
+    code: |
+      Ext.Osiris.RegisterListener("TurnEnded", 1, "after", function (characterGuid)
+          _P("TurnEnded- " .. characterGuid)
+      end)
+  - step: Do not keep state in Lua locals
+    detail: >-
+      "The Lua state and all local variables are reset after each game reload. To persist data across
+      multiple play sessions, use ModVars, UserVars, or MCMVars. PersistentVars are deprecated and should
+      not be used".
+  - step: Tell players the extender is required
+    detail: >-
+      The community wiki's install guidance is worth repeating on your mod page: download the Script
+      Extender "only from Norbyte's official GitHub or via the BG3 Mod Manager. Any other source is
+      unofficial and unsafe."
+interactions:
+  - >-
+    Listeners are additive - several mods can listen to the same Osiris event - so this is the compatible
+    way to change behaviour, in contrast to overriding a stats entry or a root template where only one
+    mod can win.
+  - >-
+    Events are synchronous. The documentation notes an Osiris event "is triggered synchronously, i.e. the
+    function call returns when every Osiris rule that handles the event has finished", so slow handlers
+    are felt by every other handler.
+  - >-
+    Nothing in a shipped artifact reveals which events a mod listens to. modcheck can read the module's
+    declared identity; it cannot read the .pak that contains the Lua, so cross-mod listener behaviour is
+    outside what we can analyse.
+  - >-
+    Using the extender changes the achievement situation: the community wiki states modding disables all
+    achievements and that "They are automatically re-enabled when using Script Extender."
+build:
+  produces: Config.json plus Lua scripts inside the module, packed into the mod's .pak.
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Validate Config.json as JSON before packing.
+    command: python -m json.tool Mods/<YourMod>/ScriptExtender/Config.json
+    limits: >-
+      Well-formedness only. It does not check that ModTable is unique across the player's installed mods,
+      that RequiredVersion matches an extender you actually tested against, or that FeatureFlags is minimal.
+  - method: Inspect the shipped artifact for its declared module identity.
+    command: .venv/bin/modcheck inspect dist/<YourMod>.zip --game bg3 --json
+    modcheck_check: modcheck.inspect.bg3.inspect:dependencies
+    limits: >-
+      Reads info.json or meta.lsx only. It cannot see Config.json or any Lua at all, because those live
+      inside the .pak whose LZ4-compressed file list we do not read here. A clean inspection says nothing
+      whatsoever about your scripts.
+  - method: Exercise the listener from the extender console in a running game.
+    command: "<in the SE console, select the server context and call the Osiris function your listener subscribes to>"
+    limits: >-
+      Requires the retail game and the extender installed, neither of which exists here, so this was never
+      run. The console "has full access to the underlying Lua state", which makes it the right place to
+      test - but a console call proves the handler fires, not that it behaves correctly during real play.
+acceptance:
+  - Mods/<YourMod>/ScriptExtender/Config.json exists, is valid JSON, and declares RequiredVersion, a unique ModTable and a minimal FeatureFlags.
+  - BootstrapServer.lua exists under Mods/<YourMod>/ScriptExtender/Lua/ and every other script is pulled in from it with Ext.Require at startup.
+  - The listener's arity matches the real parameter count of the Osiris call or database.
+  - Persistent state uses ModVars or UserVars, not Lua locals and not PersistentVars.
+  - The mod page states that the Script Extender is required and links only to its official source.
+references:
+  - source: bg3se_api_docs
+    evidence_class: declared
+    locator: "Getting Started"
+    quote: "To start using the extension in your mod, a configuration file must be created that describes what features are utilized by your mod.\n\nCreate a file at `Mods\\YourMod\\ScriptExtender\\Config.json` with the following contents, then tweak the values as desired:"
+  - source: bg3se_api_docs
+    evidence_class: declared
+    locator: "Getting Started > Meaning of configuration keys"
+    quote: "Name of the mod in the global mod table (`Mods`) when using Lua. This name is required to use Lua scripting, and must be unique.<br/>It has no relation with the `Folder` value from your meta.lsx."
+  - source: bg3se_api_docs
+    evidence_class: declared
+    locator: "Bootstrap Scripts"
+    quote: "If Lua is enabled for the mod, the extender will attempt to load `BootstrapServer.lua` on the server side, and `BootstrapClient.lua` on the client side. These scripts should be created in the `Mods\\<YOURMOD>\\ScriptExtender\\Lua\\` folder."
+  - source: bg3se_api_docs
+    evidence_class: declared
+    locator: "Capturing Events/Calls"
+    quote: "Ext.Osiris.RegisterListener(\"TurnEnded\", 1, \"after\", function (characterGuid)\n    _P(\"TurnEnded- \" .. characterGuid)\nend)"
+  - source: bg3se_api_docs
+    evidence_class: declared
+    locator: "Persistence"
+    quote: "The Lua state and all local variables are reset after each game reload. To persist data across multiple play sessions, use ModVars, UserVars, or [MCMVars](https://wiki.bg3.community/Tutorials/Mod-Frameworks/mod-configuration-menu#mcm-api-functions). PersistentVars are deprecated and should not be used; prefer one of the aforementioned alternatives instead."
+  - source: bg3se_api_docs
+    evidence_class: declared
+    locator: "Client / Server States"
+    quote: "Osiris and behavior scripts (gamescripts) always run on the server."
+  - source: larian_docs_osiris_intro
+    evidence_class: declared
+    locator: page title
+    quote: "Scripting: Introduction to Osiris"
+  - source: bg3_wiki_mod_types
+    evidence_class: declared
+    locator: "Mod types and how to install them > SCRIPT EXTENDER"
+    quote: "Download SE only from Norbyte’s official GitHub or via the BG3 Mod Manager. Any other source is unofficial and unsafe."
+verification_state: documented
+verification_note: >-
+  Written from sources only. The Config.json and the RegisterListener call are the extender's own
+  documented examples, reproduced verbatim. Nothing was run: the extender needs the retail game.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3se_api_docs
+    - bg3se_repo_readme
+    - bg3_wiki_mod_types
+    - larian_docs_osiris_intro

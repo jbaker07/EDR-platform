@@ -1,0 +1,73 @@
+id: pz-lua-path-overwrite
+game: projectzomboid
+title: A mod Lua file silently replaces a vanilla or another mod's file with the same relative path
+symptom: >-
+  A feature from the base game or from another mod stops working as soon as a particular
+  mod is enabled, with no error in the console - the replaced code simply never runs.
+  Disabling the mod restores it, and changing the mod order can change which of two mods
+  appears to "win".
+mechanism: >-
+  Lua is loaded by its path relative to media/lua, not by any module or namespace. Files
+  with the same relative path as a vanilla file overwrite it, and the same applies between
+  mods, resolved by the mod load order. The load sequence is fixed - shared vanilla, then
+  shared mod files, then client vanilla, then client mod files, with the server folder
+  loaded separately when a save is launched - so a mod file always loads after the vanilla
+  file it shadows. Nothing reports the replacement, which is why the documented mitigation
+  is purely conventional: put your Lua inside a subfolder named after your mod.
+applies_to:
+  game_versions: 'Build 41 and Build 42'
+  loader: projectzomboid
+targets:
+- kind: file_path
+  id: media/lua/client/<some vanilla path>.lua
+  label: any path under media/lua shared with a vanilla file or another mod's file
+- kind: file_path
+  id: media/lua/shared/
+  label: shared files load before client files, so a shared-scope collision shadows earliest
+conditions:
+- kind: load_order
+  description: Between two mods, the one loaded later wins; against vanilla, the mod always wins.
+- kind: environment
+  description: A collision inside media/lua/client does not occur on a multiplayer server, because the client folder is not loaded there.
+detector:
+  detectable: 'no'
+  signal: >-
+    src/modcheck/inspect/projectzomboid.py already normalises every .lua entry to its
+    media/-relative path and exposes it as the lua_files fact, plus lua_scopes - precisely
+    the key two artifacts would be joined on.
+  why_not: >-
+    Two things are missing and neither exists in this repository. There is no cross-artifact
+    check that intersects two mods' lua_files lists. And there is no inventory of vanilla
+    media/lua paths to compare a single mod against - that inventory lives inside the
+    installed game, which is not redistributable and is not present here - so the far more
+    common mod-versus-vanilla case cannot be detected at all, only the mod-versus-mod case
+    could be once a comparison check is written.
+evidence:
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Folder structure"
+  quote: >-
+    Files with the same relative path to the <code>lua</code> as vanilla files will overwrite them, so
+    make sure to use unique names and relative paths. This applies to other mod files too and is
+    impacted by the load order between mods.
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Folder structure", note
+  quote: >-
+    A good trick to not have your Lua files clash with other mods or vanilla files is to put your Lua
+    files inside subfolders named after your mod.
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Load order"
+  quote: '# Shared - vanilla files # Shared - mod files # Client - vanilla files # Client - mod files'
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Load order", closing note
+  quote: >-
+    It is not recommended to overwrite existing files if not needed for compatibility reasons. Instead,
+    overwrite specific functions or hook them when possible.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pzwiki_lua_api

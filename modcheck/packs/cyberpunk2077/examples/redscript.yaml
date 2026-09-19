@@ -1,0 +1,46 @@
+id: redscript
+game: cyberpunk2077
+title: redscript - compiler, decompiler and formatter for REDengine's scripting language
+url: https://github.com/jac3km4/redscript
+kind: tool
+demonstrates:
+  - "The compile-at-startup model that makes script mods composable: the whole r6/scripts tree is compiled together when the game launches, so conflicts are resolved by a compiler rather than by file order."
+  - A modular compiler codebase - separate frontend, backend, decompiler, parser and formatter crates - which is what a real static-analysis integration would have to be built against if we ever wanted to read @wrapMethod/@replaceMethod targets.
+  - A named, checkable success signal for a mod install - a log file the creator and the player can both read.
+license: MIT
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified by fetching the repository LICENSE file: "MIT License" / "Copyright (c) 2021 jac3km4".
+    MIT would permit real reuse, and the repository does expose exactly the component a future modcheck
+    check would want - a parser and a compiler frontend for the language. It stays reference_only here
+    because it is a Rust toolchain we did not obtain or build, and because compiling anything meaningful
+    requires the game's own script sources, which ship inside a retail install we do not have.
+maintenance:
+  state: unknown
+  last_release: "not established - the releases list is on github.com, which returns HTTP 403 here, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+  supported_versions: "not declared in the README; TweakXL's README at the revision fetched requires redscript 0.5.27+ and ArchiveXL's requires 0.5.31+"
+evidence:
+  - source: redscript_repo_readme
+    evidence_class: extracted
+    locator: header
+    quote: "REDscript is a statically-typed, object-oriented programming language designed for developing scripts for the REDengine, CD Projekt's game engine used in Cyberpunk 2077."
+  - source: redscript_repo_readme
+    evidence_class: extracted
+    locator: "Project Structure"
+    quote: "This project includes various tools for working with REDscript, such as a compiler, a decompiler, and a formatter. These are organized as modular Rust crates located in the `crates` directory:"
+  - source: redscript_repo_readme
+    evidence_class: extracted
+    locator: "Installation > Windows"
+    quote: "When you start the game, successful setup can be confirmed with logs appearing in `Cyberpunk 2077/r6/logs/redscript_rCURRENT.log`."
+  - source: redscript_repo_license
+    evidence_class: extracted
+    locator: first two lines
+    quote: "MIT License\n\nCopyright (c) 2021 jac3km4"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - redscript_repo_readme
+    - redscript_repo_license

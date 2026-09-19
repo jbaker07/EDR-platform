@@ -1,0 +1,42 @@
+id: synthesis_fallout4_patcher_template
+game: fallout4
+title: Synthesis patcher targeting Fallout 4 - generated project template
+url: https://mutagen-modding.github.io/Synthesis/devs/Supporting-Multiple-Games/
+kind: template
+demonstrates:
+  - Registering a Fallout 4 patch entry point with AddPatch<IFallout4Mod, IFallout4ModGetter>
+  - Supporting more than one game from one patcher by adding a second AddPatch call and RunPatch overload
+  - Generating a patch plugin against the player's own load order instead of shipping a fixed patch
+license: GPL-3.0-only
+reuse:
+  integration: vendored
+  constraints: >-
+    The template is generated into your own solution, so your patcher is a derivative of Synthesis and
+    Mutagen, both GPL-3.0-only per the NuGet package metadata we fetched. It needs the .NET SDK,
+    which is absent here, so nothing was generated or built.
+maintenance:
+  state: active
+  last_release: 0.36.6, published 2026-08-08T17:19:29.203+00:00 (newest listed Mutagen.Bethesda.Synthesis version in the NuGet registration page we fetched)
+  checked_at: '2026-09-19'
+  supported_versions: >-
+    Documented patch types are ISkyrimMod/ISkyrimModGetter and IFallout4Mod/IFallout4ModGetter
+evidence:
+  - source: synthesis_supporting_multiple_games
+    evidence_class: declared
+    quote: >-
+      . AddPatch < IFallout4Mod , IFallout4ModGetter > ( RunPatch )
+  - source: synthesis_supporting_multiple_games
+    evidence_class: declared
+    quote: >-
+      At this point, your patcher supports multiple game types, and can respond accordingly when it is
+      run with either game.
+  - source: nuget_synthesis_registration
+    evidence_class: extracted
+    locator: newest non-unlisted catalogEntry in the fetched page
+    quote: '"version":"0.36.6"'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - synthesis_supporting_multiple_games
+    - nuget_synthesis_registration

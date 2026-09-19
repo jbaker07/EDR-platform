@@ -1,0 +1,43 @@
+id: pz-example-pz-scriptsdocs
+game: projectzomboid
+title: PZ ScriptsDocs - generated reference for zedscript blocks and root files
+url: https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/root_files/modinfo.html
+kind: schema
+demonstrates:
+- a per-parameter reference for mod.info giving each parameter's type and meaning, including ones PZwiki's own page does not list
+- block metadata a validator could consume directly - "Is Root", "No comma", "Soft Override" and a root file-name pattern (mod\.info$)
+- the documented mod.info parameters ModCheck does not yet parse - incompatible, loadModAfter, loadModBefore
+- version-stamped documentation ("PZ API Documentation 42.20.4"), so a claim can be tied to a game build
+license: unknown
+reuse:
+  integration: reference_only
+  constraints: >-
+    No licence statement was located on the site and none was fetched, so redistribution and
+    derivative terms are unknown rather than permissive. It is community-generated, not
+    published by The Indie Stone. We read it and cite it; nothing from it is copied into
+    this repository. Note the pages are JavaScript redirect shells at their /scripts/<name>.html
+    URLs - the content lives under /scripts/root_files/<name>.html, which is the URL recorded here.
+maintenance:
+  state: active
+  last_release: 'site header reads "PZ API Documentation 42.20.4"'
+  checked_at: '2026-09-19'
+  supported_versions: 'Build 42, stamped 42.20.4'
+evidence:
+- source: pz_scriptsdocs_modinfo
+  evidence_class: extracted
+  locator: page header and block metadata
+  quote: 'ROOT-ModInfo Soft Override : Unknown Is Root : True No comma : True Root patterns : mod\.info$'
+- source: pz_scriptsdocs_modinfo
+  evidence_class: declared
+  locator: 'Parameters, loadModAfter and loadModBefore'
+  quote: 'loadModAfter Type : string Loads the mod only after the set of mods listed.'
+- source: pzwiki_mod_info
+  evidence_class: declared
+  locator: section "Parameters"
+  quote: You can find a full list of parameters in the ScriptsDocs.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pz_scriptsdocs_modinfo
+  - pzwiki_mod_info

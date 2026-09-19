@@ -1,0 +1,42 @@
+id: loot_masterlist_dataset
+game: fallout4
+title: LOOT Fallout 4 masterlist - machine-readable compatibility data
+url: https://raw.githubusercontent.com/loot/fallout4/master/masterlist.yaml
+kind: schema
+demonstrates:
+  - A curated, machine-readable encoding of requirements, incompatibilities, load-order rules and dirty-edit records
+  - Identifying a specific file build by CRC rather than by name, so a rule applies to the copy it was written for
+  - Conditional metadata, where a rule only applies when a stated condition about the installation holds
+license: CC0-1.0
+reuse:
+  integration: reference_only
+  constraints: >-
+    CC0-1.0, verified from the repository LICENSE file, so redistribution and derivation are
+    unrestricted. We still do not redistribute it: src/modcheck/integrations/loot.py fetches it with
+    provenance and reads it from the evidence cache, so an analysis always reflects current upstream
+    data rather than a stale copy of ours.
+maintenance:
+  state: active
+  checked_at: '2026-09-19'
+  supported_versions: Fallout 4, as curated by the LOOT team
+evidence:
+  - source: loot_metadata_plugin_spec
+    evidence_class: declared
+    locator: the name field
+    quote: >-
+      This is the structure that brings all the others together, and forms the main component of a
+      metadata file.
+  - source: loot_masterlist_fallout4_license
+    evidence_class: extracted
+    quote: CC0 1.0 Universal
+  - source: loot_masterlist_fallout4
+    evidence_class: extracted
+    locator: file identity
+    quote: 'plugins:'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - loot_masterlist_fallout4
+    - loot_masterlist_fallout4_license
+    - loot_metadata_plugin_spec

@@ -1,0 +1,41 @@
+id: commonlibsse_ng
+game: skyrimse
+title: CommonLibSSE-NG - C++ library for multi-runtime SKSE plugins
+url: https://raw.githubusercontent.com/CharmedBaryon/CommonLibSSE-NG/main/README.md
+kind: library
+demonstrates:
+  - Building one SKSE plugin DLL that loads under Skyrim SE, AE (both pre- and post-1.6.629 struct layouts) and VR
+  - Declaring an SKSE plugin through CMake with add_commonlibsse_plugin() instead of hand-written export boilerplate
+  - Consuming a third-party vcpkg registry (colorglass) with a pinned baseline commit
+license: MIT
+reuse:
+  integration: library_import
+  constraints: >-
+    MIT, so attribution is required and commercial use is allowed. Practical constraints are
+    technical rather than legal: Windows, MSVC (or Clang for the MSVC ABI), CMake and vcpkg, none of
+    which exist in this environment, so we could not build against it.
+maintenance:
+  state: unknown
+  checked_at: '2026-09-19'
+  supported_versions: Skyrim SE, AE and VR runtimes, per the README's Multiple Runtime Targets section
+evidence:
+  - source: commonlibsse_ng_readme
+    evidence_class: declared
+    quote: >-
+      CommonLibSSE NG is a fork of CommonLibSSE which tracks upstream updates but adds a number of
+      enhancements.
+  - source: commonlibsse_ng_license
+    evidence_class: extracted
+    quote: MIT License
+  - source: nexusmods_site
+    evidence_class: unresolved
+    locator: >-
+      Stand-in for the release channels we cannot read. github.com is blocked to us and Nexus Mods
+      answers 403, so we could not read this project's commit history or release dates, which is why
+      its maintenance state is recorded as unknown rather than active.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - commonlibsse_ng_readme
+    - commonlibsse_ng_license

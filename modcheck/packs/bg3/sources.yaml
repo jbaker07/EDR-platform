@@ -54,6 +54,30 @@ sources:
     so reuse terms are unknown; we quote short passages for audit only. Primary evidence for meta.lsx:
     the ModuleInfo attributes, the requirement that Folder match the mod''s folder name, that UUID must
     be unique or it overrides another mod, and that Version64 is an Int64 encoding.'
+- id: bg3_wiki_editing_equipment_txt
+  title: 'BG3 Community Wiki: Editing Equipment.txt (stats entries)'
+  url: https://wiki.bg3.community/Tutorials/General/Editing-Equipment-txt
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T14:01:02+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ca9b33d01742b5592c39ed335b2b02414f439a7a468f08ac4a77ca54bff19762
+  bytes: 21995
+  content_type: text/html
+  evidence_path: ca/ca9b33d01742b5592c39ed335b2b02414f439a7a468f08ac4a77ca54bff19762.html
+  games:
+  - bg3
+  publisher: BG3 Community Wiki
+  license: unknown
+  notes: Community-run wiki (wiki.bg3.community). No licence statement appears on the page we retrieved,
+    so reuse terms are unknown; we quote short passages for audit only. Our only retrieved source that
+    shows the actual stats-entry grammar ('new equipment "..."', 'add equipmentgroup', 'add equipment
+    entry "..."') and the override path Data\Public\Shared\Stats\Generated\Equipment.txt. It documents
+    a whole-file override of a base-game stats file, which is the least compatible form of stats edit.
 - id: bg3_wiki_load_order
   title: 'BG3 Community Wiki: General load order'
   url: https://wiki.bg3.community/Tutorials/Mod-Use/general-load-order

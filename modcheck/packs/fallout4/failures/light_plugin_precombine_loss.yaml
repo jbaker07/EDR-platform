@@ -1,0 +1,67 @@
+id: light_plugin_precombine_loss
+game: fallout4
+title: Cells originating in a light plugin lose precombines, and voiced dialogue overrides can go silent
+symptom: >-
+  Frame rate collapses in and around an area a light-flagged mod adds, far beyond what the mod's
+  content would suggest; separately, dialogue lines that the mod overrides play with no audio.
+mechanism: >-
+  The light (ESL) flag is not purely a load-order device in Fallout 4. The community reference we
+  hold states two behavioural consequences as facts of this game: "Cells originating in a light
+  plugin cannot use the PreVis/Precombine system ." and "Voiced dialogue overrides in a light plugin
+  might result in silent dialogue audio ." Both are properties of flagging a plugin light, not of
+  anything wrong with the records inside it, which is why a mod can pass every structural check and
+  still produce these symptoms once flagged. The blast radius is a function of how the flag is
+  applied: batch-flagging everything that can be flagged, as the same guide recommends for freeing
+  load-order slots, will flag cell-adding plugins too unless they are excluded deliberately.
+applies_to:
+  game_versions: Fallout 4
+  loader: bethesda_plugin
+targets:
+  - kind: record
+    id: cells originating in the light-flagged plugin
+    label: new CELL records, not overrides of existing ones
+  - kind: record
+    id: voiced dialogue records overridden by the light-flagged plugin
+conditions:
+  - kind: state
+    description: The plugin carries the light flag (or has the .esl extension, which implies it).
+  - kind: state
+    description: The plugin originates cells, or overrides voiced dialogue.
+detector:
+  detectable: "no"
+  why_not: >-
+    Deciding this needs the records: whether the plugin originates a CELL rather than overriding one,
+    and whether it overrides voiced dialogue. Our inspector reads the TES4 header only and stops
+    there, and the LOOT masterlist encodes no rule of this shape, so neither of our two working
+    analyses can see it. Our inspector will happily report such a plugin as a healthy light plugin -
+    which is precisely why this record exists. Detecting it would need a record-level parser
+    (esplugin is the candidate in our toolchain list), and confirming the symptom would need the
+    retail game.
+evidence:
+  - source: midnight_ride_light_plugins
+    evidence_class: declared
+    locator: Limitations
+    quote: >-
+      Cells originating in a light plugin cannot use the PreVis/Precombine system .
+  - source: midnight_ride_light_plugins
+    evidence_class: declared
+    locator: Limitations
+    quote: >-
+      Voiced dialogue overrides in a light plugin might result in silent dialogue audio .
+  - source: midnight_ride_light_plugins
+    evidence_class: declared
+    locator: Batch Flagging
+    quote: >-
+      In order to have more space for non-ESL plugins in your load order, you'll have to make sure
+      everything that can be flagged ESL, is.
+  - source: ck_wiki_fallout4_maintenance_notice
+    evidence_class: declared
+    locator: the page body served in place of documentation
+    quote: >-
+      This wiki is currently down for backend maintenance.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - midnight_ride_light_plugins
+    - ck_wiki_fallout4_maintenance_notice

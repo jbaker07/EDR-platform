@@ -1,0 +1,159 @@
+id: xnvse_plugin
+game: falloutnv
+title: Build an xNVSE plugin from the Example Plugin in the xNVSE source release
+category: extend_system
+intent: >-
+  A creator ends up with a DLL that xNVSE loads, built from the Example Plugin solution shipped in
+  an xNVSE source release, with a declared minimum xNVSE version and a build configuration chosen
+  deliberately for the game, the GECK, or both.
+applies_to:
+  game_versions: >-
+    Fallout: New Vegas on Steam or GOG; no xNVSE version number could be read (releases are on
+    blocked hosts)
+  loader: xnvse
+  toolchain:
+    - Visual Studio 2022 with Desktop development with C++
+inputs:
+  - >-
+    xNVSE's readme states the German No Gore, Xbox Gamepass and Bethesda.net versions of the game are
+    not supported, and that Epic Games Store users need a separate patcher
+  - Windows with Visual Studio 2022 (older versions may work, per the development guide)
+  - The source code from an xNVSE release, not a clone of the in-progress branch
+  - A Fallout New Vegas installation to point FalloutNVPath at
+extension_points:
+  - kind: file_path
+    id: nvse_plugin_example/nvse_plugin_example.sln
+    container: the xNVSE source release
+    label: the solution the development guide tells you to compile first
+  - kind: config_key
+    id: NVSE_VERSION_INTEGER
+    container: nvse_version.h
+    label: >-
+      with NVSE_VERSION_INTEGER_MINOR, NVSE_VERSION_INTEGER_BETA and NVSE_VERSION_VERSTRING, sets the
+      minimum xNVSE version the plugin requires
+  - kind: config_key
+    id: FalloutNVPath
+    label: environment variable the plugin solutions use to find the game folder for built DLLs
+  - kind: config_key
+    id: RUNTIME / EDITOR
+    label: preprocessor macros selecting game-time versus GECK-time compilation
+dependencies:
+  - id: xnvse
+    kind: loader
+    required: true
+steps:
+  - step: Take the source from a release, not from master
+    detail: >-
+      The development guide says to download the source code from the latest release so you avoid
+      in-progress changes. This matters here more than usual, because we could not read the release
+      list ourselves and neither will your users.
+  - step: Set the FalloutNVPath environment variable
+    detail: >-
+      Define FalloutNVPath as a system environment variable pointing at the Fallout New Vegas
+      install folder, so the plugin solution knows where to place the built DLLs.
+  - step: Open and build the Example Plugin first
+    detail: >-
+      Open nvse_plugin_example/nvse_plugin_example.sln and compile it unmodified. The solution
+      contains the example project plus the common_vc9 project, and four Win32 configurations. Get a
+      clean build before you change anything.
+    file: nvse_plugin_example/nvse_plugin_example.sln
+  - step: Choose your build configuration on purpose
+    detail: >-
+      Debug and Release build the game-time plugin; the "GECK" configurations build a plugin that
+      runs only while the GECK is open. For one DLL that works in both, avoid #if EDITOR blocks and
+      build a non-GECK configuration.
+  - step: Declare your minimum xNVSE version
+    detail: >-
+      Edit the macros in nvse_version.h so that the plugin refuses to load against an older xNVSE
+      than it needs.
+    file: nvse_version.h
+  - step: Prefer script over plugin where you can
+    detail: >-
+      The development guide's own advice: if the feature can be done in the game's script language,
+      a plugin is not needed - plugins are harder to maintain and can corrupt data if written
+      carelessly.
+interactions:
+  - >-
+    An xNVSE plugin is C++ compiled against the game's memory layout; it is not covered by any
+    plugin-level tool. LOOT, Wrye Bash and FNVEdit reason about .esm/.esp files and will never warn
+    about a stale or incompatible DLL.
+  - >-
+    xNVSE is installed beside FalloutNV.exe, not in Data, and the game must be started via
+    nvse_loader.exe (or the patched FalloutNV.exe). A user who launches through the stock executable
+    loads none of it.
+  - >-
+    The xNVSE repository carries no licence file at any conventional path, so the terms for reusing
+    its headers and example code are genuinely unknown. Do not assume permissive.
+build:
+  produces: A Win32 DLL placed in the Fallout New Vegas folder by the solution's post-build step
+  requires_network: true
+  requires_game_install: true
+validation:
+  - method: Record the identity of the DLL you ship
+    command: modcheck inspect dist/YourPlugin.dll --game falloutnv
+    limits: >-
+      Reports path, size and sha256 only. Our inspector reads Bethesda plugin headers, not PE
+      binaries: it cannot see exports, the xNVSE version you targeted, or whether the DLL loads.
+  - method: Re-check the upstream guidance before release
+    command: modcheck sources verify --game falloutnv
+    limits: >-
+      Only reports whether our recorded copies of the xNVSE readme and development guide changed
+      since we hashed them. It says nothing about your plugin, and it cannot see releases at all.
+acceptance:
+  - The unmodified Example Plugin builds cleanly before any of your code is added.
+  - The plugin declares a minimum xNVSE version in nvse_version.h.
+  - The release states which xNVSE version and game store build it was tested against, and links to the official download rather than bundling it.
+references:
+  - source: xnvse_development_guide
+    evidence_class: declared
+    locator: Making an xNVSE Plugin
+    quote: >-
+      You'll want to open and try compiling the Example Plugin included in the xNVSE source code
+      first; afterwards, you can modify it and release it out into the wild.
+  - source: xnvse_development_guide
+    evidence_class: declared
+    locator: Setup
+    quote: >-
+      define a variable called `FalloutNVPath` with the path to your `Fallout New Vegas` folder
+      (where the game is installed).
+  - source: xnvse_development_guide
+    evidence_class: declared
+    locator: Building an xNVSE Project
+    quote: >-
+      "(...) GECK" build configurations are for compiling a separate plugin that will run exclusively
+      when the GECK is open.
+  - source: xnvse_development_guide
+    evidence_class: declared
+    locator: Making an xNVSE Plugin
+    quote: >-
+      To change the minimum (x)NVSE version required for the plugin to run, go to the `nvse_version.h`
+      file and modify the `NVSE_VERSION_INTEGER`, `NVSE_VERSION_INTEGER_MINOR`,
+      `NVSE_VERSION_INTEGER_BETA`, and `NVSE_VERSION_VERSTRING` macro definitions, as needed.
+  - source: xnvse_plugin_example_solution
+    evidence_class: extracted
+    locator: solution configurations
+    quote: >-
+      Debug GECK|Win32 = Debug GECK|Win32
+  - source: xnvse_readme
+    evidence_class: declared
+    locator: Installation
+    quote: >-
+      Do not copy these files to the Data folder or install it with MO2 as with a normal mod.
+  - source: geckwiki_main
+    evidence_class: unresolved
+    locator: >-
+      xNVSE's readme sends plugin and script authors to GECKWiki for the function reference; that
+      site answers 403 to us, so we hold none of it and this recipe deliberately says nothing about
+      specific NVSE functions.
+verification_state: documented
+verification_note: >-
+  Written from fetched documentation only. Nothing was built: no Windows, no Visual Studio, no game
+  installation, and we do not run builds. No xNVSE version number appears anywhere in this recipe
+  because we could not read one.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xnvse_development_guide
+    - xnvse_plugin_example_solution
+    - xnvse_readme

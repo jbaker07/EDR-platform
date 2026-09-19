@@ -1,0 +1,66 @@
+id: active_plugin_limit
+game: falloutnv
+title: More than 255 active plugins, with no light-plugin escape hatch in this game
+symptom: >-
+  With a large load order the game starts misbehaving in ways that do not map to any single mod:
+  content from plugins near the end of the order does not appear, or the game fails to start. Adding
+  one more mod is what triggers it, but the mod itself is not at fault.
+mechanism: >-
+  The active plugin list has a hard ceiling: "Up to 255 plugins can be active at any one time.
+  Listing more than 255 plugins in the active plugins file will result in weirdness and broken
+  things, as will listing a plugin more than once." The ceiling is structural - a plugin's index is
+  the top byte of every FormID it owns, so there are only 00 to FE to hand out. Skyrim Special
+  Edition and Fallout 4 relieve this with light plugins, which share the FE slot and have their own
+  4096 limit; that mechanism does not exist in Fallout: New Vegas, where light plugins are simply
+  not a plugin type. The only relief available here is reducing the count: merging mergeable plugins
+  into a Bashed Patch and deactivating them, or merging content by hand.
+applies_to:
+  game_versions: All Fallout New Vegas builds
+  loader: bethesda_plugin
+  toolchain:
+    - Wrye Bash
+targets:
+  - kind: file_path
+    id: plugins.txt
+    label: the active plugins file whose length is capped
+conditions:
+  - kind: state
+    description: More than 255 plugins are listed as active, or a plugin is listed more than once.
+detector:
+  detectable: "no"
+  why_not: >-
+    We never see the active plugin list. Our analysis works from a configuration that is handed to
+    us - a set of artifacts or an exported JSON description - and nothing in the pipeline reads
+    plugins.txt, counts active plugins or compares that count with the limit. No check for this
+    exists in the repository, so we would be inventing one to claim otherwise. Counting the entries
+    of a supplied configuration would also be misleading, since a partial listing is not the load
+    order. Wrye Bash shows the count natively in its status bar; that is the tool for this today.
+evidence:
+  - source: libloadorder_active_plugins
+    evidence_class: declared
+    quote: >-
+      Up to 255 plugins can be active at any one time. Listing more than 255 plugins in the active
+      plugins file will result in weirdness and broken things, as will listing a plugin more than
+      once.
+  - source: libloadorder_plugin_types
+    evidence_class: declared
+    quote: >-
+      Light plugins only exist for Skyrim Special Edition, Skyrim VR, Fallout 4 and Fallout 4 VR.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Setting Up Load Order
+    quote: >-
+      Note that you can only have a maximum of 255 plugins active at any one time, including your
+      game's master file.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Setting Up A Bashed Patch, Overview
+    quote: >-
+      Merging plugins into itself. Merged plugins can be deactivated, avoiding the 255 plugin limit.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - libloadorder_active_plugins
+    - libloadorder_plugin_types
+    - wrye_bash_readme

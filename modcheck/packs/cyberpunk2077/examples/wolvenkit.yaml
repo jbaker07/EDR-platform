@@ -1,0 +1,42 @@
+id: wolvenkit
+game: cyberpunk2077
+title: WolvenKit - community game editing suite for Cyberpunk 2077
+url: https://github.com/WolvenKit/WolvenKit
+kind: tool
+demonstrates:
+  - Packing and installing archive mods, which is the step our own REDmod/archive recipe cannot execute here.
+  - How a mod's load-order position is really chosen - by the name of the project, because installing with WolvenKit produces an archive mod subject to plain ASCII filename ordering.
+  - A worked example of why licence checking matters before integration - this is the one tool in the Cyberpunk pack whose licence rules out code reuse rather than permitting it.
+license: GPL-3.0
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified by fetching the repository LICENSE file, which is the GNU General Public License
+    version 3 verbatim. GPL-3.0 is copyleft: importing WolvenKit code into modcheck would put modcheck
+    under GPL-3.0, so we do not, and this record exists partly to make that decision explicit rather than
+    accidental. It is also a Windows .NET desktop application, so it could not run in this environment in
+    any case. Reference only, deliberately.
+maintenance:
+  state: unknown
+  last_release: "not established - the releases list is on github.com, which returns HTTP 403 here, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+evidence:
+  - source: wolvenkit_repo_license
+    evidence_class: extracted
+    locator: first lines
+    quote: "GNU GENERAL PUBLIC LICENSE\n                       Version 3, 29 June 2007"
+  - source: cp_wiki_archive_load_order
+    evidence_class: declared
+    locator: "Load order and Wolvenkit"
+    quote: "By default, [installing a mod with Wolvenkit](https://wiki.redmodding.org/wolvenkit/wolvenkit-app/menu/toolbar#install) will create an [archive mod](#id-1.-.archive-mods) which is subject to the rules above"
+  - source: cp_wiki_archive_load_order
+    evidence_class: declared
+    locator: "More Examples"
+    quote: "If you are creating a **compatibility mod** (something that modifies the files of another installed mod), then yours needs to load **first**."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - wolvenkit_repo_license
+    - wolvenkit_repo_readme
+    - cp_wiki_archive_load_order

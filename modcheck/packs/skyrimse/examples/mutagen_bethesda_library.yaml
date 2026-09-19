@@ -1,0 +1,50 @@
+id: mutagen_bethesda_library
+game: skyrimse
+title: Mutagen.Bethesda - C# library for reading and writing Skyrim plugins
+url: https://mutagen-modding.github.io/Mutagen/
+kind: library
+demonstrates:
+  - Strongly typed access to plugin records instead of hand-rolled binary parsing
+  - Resolving the record the game would actually apply, via LoadOrder.PriorityOrder and WinningOverrides()
+  - Avoiding identical-to-previous-override output by delaying GetOrAddAsOverride until a real change is made
+license: GPL-3.0-only
+reuse:
+  integration: library_import
+  constraints: >-
+    GPL-3.0-only, declared both by the repository LICENSE.txt and by the licenseExpression in the
+    NuGet package metadata we fetched. Linking it into ModCheck would make the result copyleft, so
+    it is recorded here as a creator's tool rather than something we plan to import. It also needs
+    the .NET SDK, which is absent here.
+maintenance:
+  state: active
+  last_release: 0.55.0-alpha.54, published 2026-09-19T13:52:44.46+00:00 (newest listed version in the NuGet registration page we fetched)
+  checked_at: '2026-09-19'
+  supported_versions: >-
+    Documentation shows Oblivion, Skyrim and Fallout 4 record suites; Skyrim SE is selected with
+    GameRelease.SkyrimSE
+evidence:
+  - source: nuget_mutagen_bethesda_registration
+    evidence_class: extracted
+    locator: newest non-unlisted catalogEntry in the fetched page
+    quote: '"version":"0.55.0-alpha.54"'
+  - source: nuget_mutagen_bethesda_registration
+    evidence_class: declared
+    locator: catalogEntry.licenseExpression
+    quote: '"licenseExpression":"GPL-3.0-only"'
+  - source: mutagen_docs_home
+    evidence_class: declared
+    quote: >-
+      Mutagen is a C# library for analyzing, modifying, and creating Bethesda mods.
+  - source: mutagen_winning_overrides
+    evidence_class: declared
+    quote: >-
+      You can also iterate over Mod Context objects, which give more information and have more
+      features that just looping the raw records.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - nuget_mutagen_bethesda_registration
+    - mutagen_docs_home
+    - mutagen_winning_overrides
+    - mutagen_license

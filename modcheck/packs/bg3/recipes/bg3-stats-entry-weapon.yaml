@@ -1,0 +1,172 @@
+id: bg3-stats-entry-weapon
+game: bg3
+title: Change a game stats entry by shipping a stats .txt in your own module
+category: modify_data_record
+intent: >-
+  A creator ends up with a stats text file inside their own module that changes a game stats entry - for
+  example the starting equipment a class spawns with - and understands exactly how much of the base game
+  they have just taken ownership of by doing it.
+applies_to:
+  game_versions: "not established; stats entry ids and fields change between patches and we retrieved no version-tagged reference"
+  loader: bg3_module
+  toolchain:
+    - bg3_multitool
+    - lslib
+  platforms:
+    - windows
+inputs:
+  - The stats file that holds the entry you want to change, extracted from the game's own .pak files
+  - The entry name inside that file (for example EQP_CC_Barbarian)
+dependencies:
+  - id: bg3_module
+    kind: loader
+    required: true
+extension_points:
+  - kind: record
+    id: "<stats entry name>"
+    container: Public/<YourMod>/Stats/Generated/<StatsFile>.txt
+    label: >-
+      One entry inside a stats file, introduced by a `new <type> "<name>"` line and continued by the
+      `add ...` lines beneath it.
+  - kind: field
+    id: "<stats entry name>.<add line>"
+    container: Public/<YourMod>/Stats/Generated/<StatsFile>.txt
+    field: "add equipment entry / add equipmentgroup / add initialweaponset"
+    label: One statement within the entry.
+  - kind: file_path
+    id: Public/Shared/Stats/Generated/Equipment.txt
+    label: >-
+      The base-game path a whole-file override claims. Claiming this path puts you in direct competition
+      with every other mod that overrides the same file.
+  - kind: file_path
+    id: Public/<YourMod>/Stats/Generated/
+    label: The path inside your own module, which is where Larian's documentation says stats files live.
+steps:
+  - step: Find and extract the stats file you want to change
+    detail: >-
+      Stats files live inside the game's own .pak files. The community tutorial's route is the Modder's
+      Multitool's Search Index - "Search for Equipment.txt. Scroll down to
+      Shared\Public\Shared\Stats\Generated\Equipment.txt and open the file folder." We could not retrieve
+      the Multitool at all in this environment (HTTP 404 on raw.githubusercontent.com, and github.com is
+      403 here), so treat the tool itself as unverified; LSLib, whose README says it extracts PAK
+      packages, is the alternative we did verify exists.
+  - step: Decide between a whole-file override and a scoped change
+    detail: >-
+      The tutorial's route is a whole-file override - it has you create
+      `Data\Public\Shared\Stats\Generated` and copy the file there, and states plainly "This new
+      Equipment.txt will overwrite the base game settings for equipment." That works, and it also means
+      your mod now owns the entire file: every entry in it, including ones you never touched, and
+      including whatever a future patch adds. Where the change can live under your own module's
+      Public/<YourMod>/Stats/Generated path instead, prefer that.
+  - step: Keep a pristine copy before editing
+    detail: >-
+      "Before making any changes, we recommend making a copy of the Equipment.txt and naming it something
+      like 'Equipment - OG Copy.txt'." Without it you cannot tell your edits from the base game's after a
+      patch changes the file underneath you.
+  - step: Edit the entry, preserving the file's statement grammar
+    detail: >-
+      Entries are introduced with `new equipment "<name>"` and built from `add ...` statements. The
+      tutorial's worked example renames the original entry rather than deleting it, so the change can be
+      reverted by deleting the new entry and renaming the old one back.
+    file: Public/<YourMod>/Stats/Generated/Equipment.txt
+    code: |
+      new equipment "_PC_Equipment"
+      new equipment "EQP_Unarmed"
+      add initialweaponset "Melee"
+      new equipment "EQP_CC_Barbarian"
+      add initialweaponset "Melee"
+      new equipment "EQP_CC_Barbarian2"
+      add initialweaponset "Melee"
+      add equipmentgroup
+      add equipment entry "WPN_Greataxe"
+  - step: Put the file where Larian says packed data goes
+    detail: >-
+      Larian's own documentation lists Data/Public/<YourMod> as one of the three folders whose contents
+      get packed, and names its contents as "stats files, root templates, UUID tables, any created
+      Resources (VisualResources, AnimationResource, etc.) and their corresponding assets, texture
+      atlases". Data/Editor/Mods/<YourMod> is explicitly "Not packed".
+  - step: Declare the consequences on your mod page
+    detail: >-
+      Larian's publishing documentation describes conflict declarations with a worked example of exactly
+      this situation: two mods that "both override the same spell" means "only one of them will work". If
+      your mod overrides a whole base-game stats file, every other mod that does the same is a conflict,
+      and the Toolkit's Conflicts tab is where you say so.
+interactions:
+  - >-
+    A whole-file override is the least compatible form of this change. Two mods that both ship
+    Public/Shared/Stats/Generated/Equipment.txt are asserting different contents for the same game file,
+    and by Larian's own statement about overriding the same thing, only one of them will work.
+  - >-
+    Because subclasses carry their own entries, changing one class entry is often not the whole job - the
+    tutorial notes "some classes have subclasses that each have their own unique equipment set, such as
+    Sorcerer and Paladin".
+  - >-
+    We retrieved no authoritative reference for which stats entry types exist and which fields each
+    accepts. This recipe describes the mechanism and the location, not a validated field vocabulary; that
+    gap is recorded in pack.yaml.
+build:
+  produces: A stats .txt inside the module's Public/<YourMod>/Stats/Generated folder, to be packed into the mod's .pak.
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Inspect the shipped artifact to confirm the module's declared identity before looking at its contents.
+    command: .venv/bin/modcheck inspect dist/<YourMod>.zip --game bg3 --json
+    modcheck_check: modcheck.inspect.bg3.inspect:mod_id
+    limits: >-
+      This reads info.json or meta.lsx for identity and lists the .pak files shipped. It does NOT open the
+      .pak - the LSPK file list is LZ4-compressed and the optional lz4 dependency is absent here - so it
+      cannot see your stats file at all, cannot tell you which entries you changed, and cannot detect that
+      another mod ships the same stats path.
+  - method: Diff your stats file against the pristine copy you kept.
+    command: diff -u "Equipment - OG Copy.txt" Public/<YourMod>/Stats/Generated/Equipment.txt
+    limits: >-
+      Shows exactly what you changed relative to the build you extracted from, which is the only reliable
+      way to review a whole-file override. It says nothing about whether the entry names still exist in
+      the current game patch, and nothing about interaction with other mods.
+  - method: Load the mod and check the entry in game.
+    command: "<launch Baldur's Gate 3 with the mod enabled and start a new character of the affected class>"
+    limits: >-
+      Requires the retail game, which we do not have, so this was never run. It is nevertheless the only
+      check that establishes the edit took effect, because nothing in the artifact proves it.
+acceptance:
+  - The stats file ships inside the module under a Stats/Generated path, and the module packs it (it is not under an Editor-only folder).
+  - A pristine copy of the extracted original exists outside the shipped mod, and a diff against it shows only intended changes.
+  - If the mod overrides a base-game stats file wholesale, the mod page says so and lists it as a conflict class.
+  - The edit was checked against every subclass or variant entry that shares the behaviour, not just the first one found.
+references:
+  - source: bg3_wiki_editing_equipment_txt
+    evidence_class: declared
+    locator: "Extracting and Placing Equipment.txt"
+    quote: "Now, in your Baldur's Gate 3 Data folder, create this file path: Data\\Public\\Shared\\Stats\\Generated\nCopy the Equipment.txt from the first Generated folder to this newly created one. This new Equipment.txt will overwrite the base game settings for equipment."
+  - source: bg3_wiki_editing_equipment_txt
+    evidence_class: declared
+    locator: "Editing Equipment.txt - Removing equipment"
+    quote: "Before making any changes, we recommend making a copy of the Equipment.txt and naming it something like \"Equipment - OG Copy.txt\". This is so you can easily revert back to the default later if you so choose."
+  - source: larian_docs_creating_a_new_mod
+    evidence_class: declared
+    locator: "Understanding the Mod Folders > 4. Data/Public/<YourMod>"
+    quote: "Mod data that will be packed. \nExamples: stats files, root templates, UUID tables, any created Resources (VisualResources, AnimationResource, etc.) and their corresponding assets, texture atlases."
+  - source: larian_docs_publishing_a_mod
+    evidence_class: declared
+    locator: "Conflicts"
+    quote: "Because both mods override the same spell, only one of them will work."
+  - source: lslib_repo_readme
+    evidence_class: declared
+    locator: "LSLib"
+    quote: "This package provides utilities for manipulating Divinity Original Sin 1, Enhanced Edition, Original Sin 2 and Baldur's Gate 3 EA files:\n\n - Extracting/creating PAK packages"
+  - source: bg3_multitool_readme_unreachable
+    evidence_class: unresolved
+    locator: repository README
+    quote: ""
+verification_state: documented
+verification_note: >-
+  Written from sources only. The stats block in the steps is the community wiki's own worked example,
+  reproduced verbatim and truncated. Nothing was packed or loaded: there is no BG3 installation here.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3_wiki_editing_equipment_txt
+    - larian_docs_creating_a_new_mod
+    - larian_docs_publishing_a_mod
+    - lslib_repo_readme

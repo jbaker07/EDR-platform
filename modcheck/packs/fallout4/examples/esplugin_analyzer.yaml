@@ -1,0 +1,48 @@
+id: esplugin_analyzer
+game: fallout4
+title: esplugin - Rust library that parses Bethesda plugins past the header
+url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
+kind: analyzer
+demonstrates:
+  - Reading .esp/.esm/.esl content for Fallout 4 (including VR) beyond the TES4 header we parse ourselves
+  - The parser LOOT and libloadorder themselves depend on, rather than a re-implementation
+  - Defensive parsing of malformed plugins (errors instead of panics; masters past 256 ignored)
+license: GPL-3.0
+reuse:
+  integration: subprocess
+  constraints: >-
+    GPL-3.0 (verbatim GPL v3 text in the repository LICENSE). Linking it as a library would make the
+    result copyleft, so a subprocess boundary is the realistic integration for us. Rust 1.94.1 is
+    present in this environment and esplugin's stated minimum is 1.81, but we did not build it - no
+    builds were run for this pack.
+maintenance:
+  state: maintained
+  last_release: '[6.1.4] - 2025-09-29, the newest entry in the CHANGELOG we fetched'
+  checked_at: '2026-09-19'
+  supported_versions: >-
+    Parses Morrowind, Oblivion (incl. Remastered), Skyrim (incl. SE/AE/VR), Fallout 3,
+    Fallout: New Vegas, Fallout 4 (incl. VR) and Starfield
+evidence:
+  - source: esplugin_readme
+    evidence_class: declared
+    quote: >-
+      A free software library for reading Elder Scrolls Plugin (`.esp`), Elder Scrolls Master
+      (`.esm`) and Elder Scrolls Light (`.esl`) files.
+  - source: esplugin_readme
+    evidence_class: declared
+    quote: >-
+      The minimum supported Rust version is `1.81`.
+  - source: esplugin_changelog
+    evidence_class: extracted
+    locator: newest release heading
+    quote: '## [6.1.4] - 2025-09-29'
+  - source: esplugin_license
+    evidence_class: extracted
+    quote: GNU GENERAL PUBLIC LICENSE
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - esplugin_readme
+    - esplugin_changelog
+    - esplugin_license

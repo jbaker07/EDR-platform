@@ -1,0 +1,180 @@
+id: pz-item-script
+game: projectzomboid
+title: Define a new item with a zedscript item block
+category: add_content
+intent: >-
+  A new item registered under the mod's own module, with a display name from the
+  translation files, defined in a zedscript file under media/scripts in a way that does not
+  soft-override anyone else's item.
+applies_to:
+  game_versions: 'Build 42 (PZwiki Item (scripts) page version 42.20.4, Scripts page version 42.20.3)'
+  loader: projectzomboid
+  platforms:
+  - windows
+  - linux
+  - macos
+inputs:
+- a module name, conventionally your mod's name rather than the vanilla Base module
+- an item id unique within that module
+- the ItemType the item should be, which determines which parameters are available
+dependencies: []
+extension_points:
+- kind: file_path
+  id: media/scripts/<YourModId>/items.txt
+  label: script files must end in .txt; subfolder layout is free and a mod-named subfolder reduces clashes
+- kind: record
+  id: module <YourModule>
+  container: media/scripts/<YourModId>/items.txt
+  label: 'required wrapper block; the base game module is Base, giving full ids like Base.ItemName'
+- kind: record
+  id: item <YourItemId>
+  container: media/scripts/<YourModId>/items.txt
+  label: the item block; its full id is <module>.<itemId>
+- kind: config_key
+  id: ItemType
+  container: media/scripts/<YourModId>/items.txt
+  field: base:normal
+  label: decides which parameter set applies to the block
+steps:
+- step: Create the script file
+  detail: >-
+    Script files live under media/scripts and must end with .txt. There is no required
+    organisation beyond that, and blocks may be spread across several files and subfolders;
+    the documented preference is a subfolder named after your mod to reduce clashes.
+  file: media/scripts/MyMod/items.txt
+- step: Open a module block
+  detail: >-
+    Every script file except sandbox options must begin with a module block. The base game
+    module is Base, which is why most vanilla entries have full ids of the form
+    Base.ItemName. Declaring your own module namespaces your entries; if you deliberately
+    use Base, unique naming with a mod-specific prefix is what stops a clash.
+  file: media/scripts/MyMod/items.txt
+  code: |
+    module MyModule
+    {
+    }
+- step: Add the item block and set ItemType first
+  detail: >-
+    Inside the module, an item block is named by its id. ItemType decides which parameters
+    apply to the block, so set it before adding anything else and then add parameters as
+    needed. The documented advice is to model your script on similar vanilla or existing
+    mod items.
+  file: media/scripts/MyMod/items.txt
+  code: |
+    module MyModule
+    {
+      item yourID
+      {
+        ItemType = base:normal,
+      }
+    }
+- step: Respect zedscript syntax rules
+  detail: >-
+    Blocks are delimited by braces, key/value pairs are written "Key = Value," and the
+    trailing comma is mandatory on every line including the last in a block - a missing
+    comma stops the script parsing correctly. Comments use the Java multi-line form
+    /* ... */ anywhere, including inside blocks; single-line // comments do not work.
+  file: media/scripts/MyMod/items.txt
+- step: Give the item a display name through the translation files
+  detail: >-
+    An item has no name until its full type - module.id - is given an entry in the ItemName
+    translation file. Without it the item shows its raw id.
+  file: media/lua/shared/Translate/EN/ItemName_EN.txt
+- step: Do not use unrecognised parameters as storage
+  detail: >-
+    Any parameter the game does not recognise is written as a key/value into the item's
+    ModData, readable from Lua as item:getModData().MyCustomOption. The wiki flags this as
+    something that should not be used: the value is attached to every single instance of
+    the item in the world and bloats save files, and a Lua lookup table keyed on the item
+    Type or FullType is the correct alternative.
+  file: media/scripts/MyMod/items.txt
+interactions:
+- 'Item blocks support soft overrides: re-declaring an existing item merges your definition into the existing one and only the keys you restate change, rather than replacing the whole block. That is a feature for compatibility patches and a hazard for accidental id collisions.'
+- 'Two mods defining the same module.id therefore do not conflict loudly - they merge, and the result depends on mod load order.'
+- 'Using the vanilla Base module puts your items in the same namespace as the game''s, so the prefix convention is the only thing separating them.'
+- 'Custom parameters silently become ModData on every instance of the item, which is a save-size problem rather than an error.'
+validation:
+- method: Confirm every script file ends in .txt and sits under media/scripts
+  command: 'find media/scripts -type f ! -name "*.txt"'
+  limits: >-
+    Only checks placement and extension. It says nothing about the contents - it will not
+    catch a missing trailing comma, an unknown ItemType, or a parameter that does not exist
+    for the ItemType you chose.
+- method: Inspect the packaged mod and read back the extracted script file list
+  command: .venv/bin/modcheck inspect Zomboid/Workshop/MyModWorkshop/Contents/mods/MyMod --json
+  limits: >-
+    The inspector lists .txt files under a scripts folder but does not parse them, so it
+    never learns your module name or item id and cannot tell you whether another mod
+    defines the same full id. There is no zedscript parser in this repository.
+- method: Load the game and check that the item exists with its translated name
+  limits: >-
+    Requires Project Zomboid. NOT performed here. A parse failure caused by a missing comma
+    surfaces only at this step.
+acceptance:
+- The item can be spawned or obtained in game and shows its translated name rather than a raw id.
+- Nothing in the console reports a script parse failure for your file.
+- 'modcheck inspect lists your file under script_files at its media/scripts/... path.'
+references:
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Folder structure"
+  quote: >-
+    The only rule is that the script files must end with the extension <code>.txt</code>. Various script
+    blocks can be used and spread across multiple script files in different subfolders.
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Scripts syntax"
+  quote: >-
+    Key value pairs are used to define the parameters of the script elements, with the syntax
+    Key = Value,. The comma at the end of each key value pair line is mandatory, even for the last line
+    in a block.
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Module block"
+  quote: >-
+    A module block needs to be defined at the start of the script files, unless it is a [[sandbox
+    options]] script. The base game module is <code>Base</code>, which means most entries will have the
+    full ID <code>Base.ItemName</code>.
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Soft overrides"
+  quote: >-
+    When defining a script block which already exists, such as an item or a craftRecipe, based on the
+    type of script, the game will either override the whole block, or merge the new definition with the
+    existing one. This process is called a ''soft override''.
+- source: pzwiki_item_scripts
+  evidence_class: declared
+  locator: introduction and Infobox
+  quote: >-
+    The item block is used to create items in the game, from weapons to food and clothing. The parameters
+    available in this block mostly depend on the type of item you are creating, set with ItemType.
+- source: pzwiki_item_scripts
+  evidence_class: declared
+  locator: 'section "Other parameters"'
+  quote: >-
+    Any other parameter not in the list will be written as a key-value in the item's ModData.
+- source: pzwiki_item_scripts
+  evidence_class: declared
+  locator: section "Display name"
+  quote: >-
+    To add a name to display for your item, you need to add the item full type, that is its
+    <code>module.id</code>, inside the ItemName translation file.
+- source: pz_api_script_manager
+  evidence_class: extracted
+  locator: class zombie.scripting.ScriptManager
+- source: pz_api_script_item
+  evidence_class: extracted
+  locator: class zombie.scripting.objects.Item
+verification_state: documented
+verification_note: >-
+  Written from the fetched PZwiki Scripts and Item (scripts) pages and the two Javadoc
+  class pages. The example item block carries only ItemType because the full per-ItemType
+  parameter tables live in the ScriptsDocs item page, which this pack has NOT fetched -
+  only its mod.info page was retrieved. Nothing was parsed or run by the game.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pzwiki_scripts
+  - pzwiki_item_scripts
+  - pz_api_script_manager

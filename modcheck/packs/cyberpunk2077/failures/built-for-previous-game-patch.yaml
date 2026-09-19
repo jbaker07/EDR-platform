@@ -1,0 +1,81 @@
+id: built-for-previous-game-patch
+game: cyberpunk2077
+title: A mod built for a previous game patch crashes the game after an update
+symptom: >-
+  A modded installation that worked yesterday crashes on launch or shortly into play after the game
+  auto-updates. Nothing the player changed caused it. Framework logs show version mismatch warnings, and
+  removing all mods makes the game start again.
+mechanism: >-
+  Cyberpunk mods are not isolated from the game build. The script mods among them are compiled against the
+  game's own script sources at startup by redscript; the framework plugins hook engine internals that move
+  between builds; and TweakXL and ArchiveXL each declare a specific game version they target - TweakXL's
+  README declares "Cyberpunk 2077 2.3" and ArchiveXL's declares "Cyberpunk 2077 2.31" at the revisions we
+  fetched, along with minimum RED4ext and redscript versions. When the game updates underneath that stack,
+  the frameworks are the first thing to break and everything built on them follows. The REDmodding wiki
+  treats this as the normal state of affairs - "game updates break mods" - and prescribes a specific order
+  of repair: update the core frameworks first, because "Your game and the core frameworks need to be
+  **version-compatible**", and if the frameworks have not been updated yet the only real options are to
+  remove all mods or downgrade the game.
+applies_to:
+  game_versions: "any game update that moves past the build a mod or its frameworks were built for"
+  toolchain:
+    - redscript
+    - tweakxl
+    - archivexl
+    - red4ext
+targets:
+  - kind: config_key
+    id: game_build
+    label: The installed Cyberpunk 2077 build, against which every framework version must be compatible.
+  - kind: file_path
+    id: r6/logs/redscript_rCURRENT.log
+    label: Where redscript reports its own startup result; a compile failure after a patch shows here.
+conditions:
+  - kind: version
+    description: The installed game build is newer than the build the mod's frameworks were released for.
+  - kind: environment
+    description: >-
+      Auto-updating is enabled, so the game can move without the player choosing to. The wiki's
+      counter-measure is to prevent auto-updates or to downgrade.
+detector:
+  detectable: no
+  why_not: >-
+    We cannot detect this, for two independent reasons. First, we have no game installation, so there is no
+    build number to compare anything against - "the installed build" is not a fact available to us.
+    Second, a Cyberpunk mod artifact does not declare which build it targets: a REDmod info.json carries
+    name, description, version and customSounds and nothing about the game version, and a raw .archive
+    carries no metadata at all. The version floors we DO hold (TweakXL, ArchiveXL) are framework README
+    claims about the frameworks themselves, not about any mod that uses them. Detecting this would need
+    both a way to read the installed build and a per-mod declaration of a target build; neither exists.
+evidence:
+  - source: cp_wiki_troubleshooting_after_update
+    evidence_class: declared
+    locator: Summary
+    quote: "Who doesn't know it? Your modded game is working, then there's an update, and from one moment to the next everything is a smoking crater. Unfortunately, that's normal: as long as you're living on earth, things fall down when you let go of them, and game updates break mods."
+  - source: cp_wiki_troubleshooting_after_update
+    evidence_class: declared
+    locator: "What can I do?"
+    quote: "The first step is to update your core frameworks. Check every mod on [this page](/cyberpunk-2077-modding/for-mod-creators-theory/core-mods-explained.md) — make sure that you have a version from **after the update**."
+  - source: cp_wiki_troubleshooting_after_update
+    evidence_class: declared
+    locator: "I updated my frameworks, but the game is still crashing!"
+    quote: "Your game and the core frameworks need to be **version-compatible**."
+  - source: cp_wiki_troubleshooting_after_update
+    evidence_class: declared
+    locator: "There are no framework updates!"
+    quote: "You're too fast, choomba: modders haven't gotten around to updating the frameworks yet."
+  - source: tweakxl_repo_readme
+    evidence_class: declared
+    locator: "Getting Started > Compatibility"
+    quote: "- Cyberpunk 2077 2.3"
+  - source: archivexl_repo_readme
+    evidence_class: declared
+    locator: "Getting Started > Compatibility"
+    quote: "- Cyberpunk 2077 2.31"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - cp_wiki_troubleshooting_after_update
+    - tweakxl_repo_readme
+    - archivexl_repo_readme

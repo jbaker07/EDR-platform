@@ -1,0 +1,214 @@
+id: bg3-package-pak-with-meta
+game: bg3
+title: Package a BG3 mod as a .pak with a correct meta.lsx identity
+category: content_pack
+intent: >-
+  A creator ends up with a single .pak whose meta.lsx declares a unique UUID, a Folder that matches the
+  module's own folder, a name and an Int64 version - the four values every mod manager and the game itself
+  use to tell this mod apart from every other one and to place it in the load order.
+applies_to:
+  game_versions: "not established; meta.lsx attributes have been stable across the patches the sources describe, but no version floor was retrieved"
+  loader: bg3_module
+  toolchain:
+    - bg3_toolkit
+    - lslib
+    - bg3_multitool
+  platforms:
+    - windows
+inputs:
+  - The mod's content, laid out under Mods/<YourMod> and Public/<YourMod>
+  - A freshly generated UUID
+  - A version number to encode as Int64
+dependencies:
+  - id: bg3_module
+    kind: loader
+    required: true
+extension_points:
+  - kind: config_key
+    id: UUID
+    container: Mods/<YourMod>/meta.lsx
+    field: UUID
+    label: >-
+      FixedString. "This is how Mod Manager tells mods apart, so this UUID must be unique, unless you want
+      it to override another mod."
+  - kind: config_key
+    id: Folder
+    container: Mods/<YourMod>/meta.lsx
+    field: Folder
+    label: >-
+      LSString. "This needs to match the name of the new folder ... If you don't enter this correctly,
+      stuff in your mod will break."
+  - kind: config_key
+    id: Name
+    container: Mods/<YourMod>/meta.lsx
+    field: Name
+    label: LSString shown by mod managers.
+  - kind: config_key
+    id: Version64
+    container: Mods/<YourMod>/meta.lsx
+    field: Version64
+    label: int64. The version encoded as an Int64; 36028797018963968 reads as 1.0.0.0.
+  - kind: config_key
+    id: Dependencies
+    container: Mods/<YourMod>/meta.lsx
+    field: Dependencies
+    label: The ModuleShortDesc entries naming modules that must load before this one.
+  - kind: file_path
+    id: "<YourMod>.pak"
+    label: The distributed artifact; it goes into the player's Mods folder as a bare .pak.
+steps:
+  - step: Lay out the module folders
+    detail: >-
+      Larian's documentation splits a Toolkit project across five folders and says which are packed:
+      Data/Mods/<YourMod> (packed - UI assets, localisation, Osiris scripts, some level data, Thoth
+      scripts), Data/Public/<YourMod> (packed - stats files, root templates, UUID tables, Resources),
+      Data/Generated/Public/<YourMod> (packed - virtual textures and .dds), while Data/Projects/<YourMod>
+      is Toolkit project data and Data/Editor/Mods/<YourMod> is explicitly "Not packed".
+  - step: Write meta.lsx
+    detail: >-
+      "A meta.lsx file is a necessity if you plan on making .pak mods." It is an LSX XML document whose
+      ModuleInfo node carries the attributes below. Generate a fresh UUID; do not copy one from another
+      mod unless you deliberately intend to override that mod.
+    file: Mods/<YourMod>/meta.lsx
+    code: |
+      <attribute id="Author" type="LSString" value="AUTHOR NAME HERE"/>
+      <attribute id="Description" type="LSString" value="DESCRIPTION HERE"/>
+      <attribute id="Folder" type="LSString" value="MOD FOLDER NAME HERE"/>
+      <attribute id="Name" type="LSString" value="MOD NAME HERE"/>
+      <attribute id="UUID" type="FixedString" value="UUID HERE"/>
+      <attribute id="Version64" type="int64" value="36028797018963968"/>
+  - step: Make Folder match the real folder name
+    detail: >-
+      Folder is not decoration - it is how the game finds this module's data. The wiki warns that if it
+      does not match, "stuff in your mod will break". Our own inspector reads this value back out of
+      info.json or meta.lsx, so a mismatch is visible in an inspection of the distributed zip even though
+      it is not visible inside a bare .pak.
+  - step: Encode the version as Int64
+    detail: >-
+      "Version numbers in the meta.lsx are in a Int64 format. When read by BG3 Mod Manager, this line
+      reads as 1.0.0.0." Generate it with a tool rather than by hand - BG3 Mod Manager has a version
+      generator (Tools > Toggle Version Generator Window, or Ctrl + G). Bump it on every release; a
+      release that ships unchanged Version64 is indistinguishable from the previous one to a mod manager.
+  - step: Declare dependencies rather than assuming load order
+    detail: >-
+      The Toolkit's Dependencies tab makes the relationship explicit, and Larian states the effect: "The
+      game will ensure that MyClass is loaded before MySubclass when players start a new game session with
+      the MySubclass mod enabled." Setting a dependency in the Toolkit is separate from setting it on
+      mod.io - Larian's guide says you need to do both.
+  - step: Declare conflicts where you know them
+    detail: >-
+      "Defining conflicts for your mod allows the game to automatically disable your mod when one of the
+      listed conflicts is detected." Note the cascade before you use it: "not only will MyConflictB be
+      disabled, but all of its dependencies will be disabled as well, as long as other mods aren't also
+      dependent on them."
+  - step: Pack the .pak
+    detail: >-
+      The official route is the Toolkit's Project Settings: "The Publish Local button will create a .pak
+      file for you, without uploading it to mod.io. It requires no authentication. After the packing
+      process is complete, you will be asked where to save the .pak file." The community routes are LSLib,
+      whose README lists "Extracting/creating PAK packages", and the Modder's Multitool, which we could
+      not retrieve here and therefore cannot describe first-hand.
+  - step: Distribute the .pak alone
+    detail: >-
+      Players drop the .pak into %LOCALAPPDATA%\Larian Studios\Baldur's Gate 3\Mods. The community wiki
+      warns to "Make sure that there aren't any subfolders or files other than .pak in the mod folder",
+      and BG3 Mod Manager's README says subfolders in that directory cause the game to reset
+      modsettings.lsx - so shipping a nested archive layout actively breaks players' load orders.
+interactions:
+  - >-
+    A duplicated UUID is an override, not an error. The wiki states the UUID "must be unique, unless you
+    want it to override another mod", so a copy-pasted template UUID silently takes another mod's place.
+  - >-
+    Load order is declared in modsettings.lsx, which a mod manager writes. BG3 Mod Manager's README warns
+    that if a mod errors, "the game is clearing the load order" - one broken module can discard everyone's
+    ordering.
+  - >-
+    A bare .pak hides everything from us. Our inspector reads the LSPK header and stops, because the file
+    list is LZ4-compressed and the optional lz4 dependency is absent here. That is exactly why shipping a
+    zip containing info.json or meta.lsx beside the .pak makes a mod far more inspectable.
+build:
+  produces: One .pak file, optionally distributed inside a zip alongside its meta/info metadata.
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Inspect the distributed artifact and read back the identity it declares.
+    command: .venv/bin/modcheck inspect dist/<YourMod>.zip --game bg3 --json
+    modcheck_check: modcheck.inspect.bg3.inspect:mod_id
+    limits: >-
+      This works only if the distributed artifact exposes info.json or meta.lsx outside the .pak. Against a
+      bare .pak it reports the LSPK format version, priority and part count and warns that "module UUID and
+      dependencies live inside it and were not read". Even when identity is read, it is `declared` evidence:
+      we do not verify that the meta.lsx inside the .pak agrees with the one beside it, and we do not check
+      the declared MD5 against the shipped .pak.
+  - method: Confirm meta.lsx is well-formed XML and carries the four identity attributes.
+    command: python -c "import sys,xml.etree.ElementTree as E;r=E.parse(sys.argv[1]).getroot();print(sorted(a.get('id') for n in r.iter('node') if n.get('id')=='ModuleInfo' for a in n.findall('attribute')))" Mods/<YourMod>/meta.lsx
+    limits: >-
+      Checks structure and attribute presence, not correctness. It cannot tell you the UUID is unique across
+      the player's installed mods, cannot tell you Folder matches your real folder name, and cannot decode
+      Version64 into the version you meant.
+  - method: Load the mod through BG3 Mod Manager and confirm it appears with the right name and version.
+    command: "<run BG3ModManager.exe, refresh, and check the mod's row>"
+    limits: >-
+      Requires Windows, .NET 8.0 and the retail game - none of which exist here, so this was never run. It
+      confirms the manager can read your identity; it does not confirm the mod's content works.
+acceptance:
+  - meta.lsx exists, is well-formed LSX XML, and its ModuleInfo declares UUID, Folder, Name and Version64.
+  - The UUID was newly generated for this mod and is not shared with any other mod.
+  - Folder is character-for-character the module's folder name.
+  - Version64 was regenerated for this release and decodes to the version on the mod page.
+  - Dependencies are declared in the Toolkit (and on mod.io, if publishing there) rather than left to load order advice.
+  - The distributed archive contains the .pak with no stray subfolders that would end up in the player's Mods directory.
+references:
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: "Let's go over the lines you want to edit"
+    quote: "Generate a unique UUID for this line. This is how Mod Manager tells mods apart, so this UUID must be unique, unless you want it to override another mod."
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: "Let's go over the lines you want to edit"
+    quote: "This needs to match the name of the new folder that we referred to earlier as the YourShared folder. If you don’t enter this correctly, stuff in your mod will break."
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: "Version64"
+    quote: "Version numbers in the meta.lsx are in a Int64 format. When read by BG3 Mod Manager, this line reads as 1.0.0.0."
+  - source: larian_docs_creating_a_new_mod
+    evidence_class: declared
+    locator: "Understanding the Mod Folders"
+    quote: "Currently, files related to your mod project are stored in five different folders inside the Baldur's Gate 3 /Data/ folder, depending on what kind of file they are."
+  - source: larian_docs_publishing_a_mod
+    evidence_class: declared
+    locator: "Publishing Locally"
+    quote: "The Publish Local button will create a .pak file for you, without uploading it to mod.io. It requires no authentication."
+  - source: larian_docs_publishing_a_mod
+    evidence_class: declared
+    locator: Dependencies
+    quote: "The game will ensure that MyClass is loaded before MySubclass when players start a new game session with the MySubclass mod enabled."
+  - source: larian_docs_publishing_a_mod
+    evidence_class: declared
+    locator: Conflicts
+    quote: "Defining conflicts for your mod allows the game to automatically disable your mod when one of the listed conflicts is detected."
+  - source: bg3mm_repo_readme
+    evidence_class: declared
+    locator: "Important Tips"
+    quote: "Make sure you don't have any subfolders in your mods folder (`%LOCALAPPDATA%\\Larian Studios\\Baldur's Gate 3\\Mods`). This causes the game to reset your `modsettings.lsx`!"
+  - source: lslib_repo_readme
+    evidence_class: declared
+    locator: feature list
+    quote: " - Extracting/creating PAK packages"
+  - source: bg3_multitool_readme_unreachable
+    evidence_class: unresolved
+    locator: repository README
+    quote: ""
+verification_state: documented
+verification_note: >-
+  Written from sources only. The meta.lsx attribute block is the community wiki's own template, reproduced
+  verbatim and reduced to the identity attributes. No .pak was built: no Toolkit, no Windows, no game.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3_wiki_creating_meta
+    - larian_docs_creating_a_new_mod
+    - larian_docs_publishing_a_mod
+    - bg3mm_repo_readme
+    - lslib_repo_readme

@@ -253,5 +253,8 @@ def bethesda_plugin(path: Path, masters: list[str] | None = None, light: bool = 
     flags = (0x200 if light else 0) | (0x01 if master_flag else 0)
     record = struct.pack("<4sIIIII", b"TES4", len(subs), flags, 0, 0, 0) + subs
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(record + b"\x00" * 32)
+    # No trailing bytes: a plugin is the TES4 header record followed by valid
+    # groups, so padding would make the file header-valid but not a valid
+    # plugin. esplugin's full parse rejects that, which is how we found it.
+    path.write_bytes(record)
     return path

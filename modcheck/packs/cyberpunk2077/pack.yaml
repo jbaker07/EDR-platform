@@ -1,0 +1,298 @@
+# Cyberpunk 2077 game pack.
+#
+# Support is per capability. Only package_inspection is `supported`, because only
+# it is exercised by tests in this repo. Everything else says plainly what we
+# hold (documentation) versus what we can execute (nothing).
+game: cyberpunk2077
+name: Cyberpunk 2077
+pack_version: 0.1.0
+summary: >-
+  Cyberpunk 2077 has no single mod loader. Five independent layers coexist under the
+  game directory and each has its own contract: raw .archive files, REDmod module
+  folders, redscript sources, TweakXL/ArchiveXL data files and CET Lua. The install
+  path is the loader contract, so what a mod ships and where is its compatibility
+  surface. We can read that surface mechanically; we cannot read what is inside the
+  binary resources, and we cannot run the game.
+
+ecosystem:
+  engine: REDengine 4
+  languages:
+    - redscript
+    - Lua
+    - C++
+    - YAML
+  platforms:
+    - windows
+    - linux-proton
+    - macos
+  loaders:
+    - id: redmod
+      name: REDmod
+      manifest: info.json
+      source: cp_wiki_redmod_for_mod_devs
+    - id: archive
+      name: Raw .archive mods (archive/pc/mod)
+      source: cp_wiki_archive_load_order
+    - id: redscript
+      name: redscript
+      manifest: .redscript
+      source: redscript_repo_readme
+    - id: tweakxl
+      name: TweakXL
+      versions: "declared compatible with Cyberpunk 2077 2.3 and redscript 0.5.27+ at the revision fetched"
+      source: tweakxl_repo_readme
+    - id: archivexl
+      name: ArchiveXL
+      versions: "declared compatible with Cyberpunk 2077 2.31 and redscript 0.5.31+ at the revision fetched"
+      source: archivexl_repo_readme
+    - id: red4ext
+      name: RED4ext
+      versions: ">=1.29.0 as required by ArchiveXL at the revision fetched"
+      source: archivexl_repo_readme
+    - id: cet
+      name: Cyber Engine Tweaks
+      source: cet_repo_readme
+  artifact_formats:
+    - .archive (RDAR container under archive/pc/mod or archive/pc/patch)
+    - REDmod module directory under mods/<name>/ carrying info.json
+    - .reds redscript sources under r6/scripts/
+    - .yaml / .tweak TweakXL files under r6/tweaks/
+    - .xl ArchiveXL/TweakXL files under archive/pc/mod/
+    - .lua CET mod under bin/x64/plugins/cyber_engine_tweaks/mods/
+    - .dll RED4ext plugin under red4ext/plugins/
+  composition: >-
+    Ordering is by file/folder name, not by any declared priority, and the FIRST writer
+    of a given game file wins rather than the last. The wiki states it directly: "in
+    Cyberpunk, conflicts inside `.archive` mods are one per-file basis, whatever mod
+    modifies a file **first** will win - unlike e.g. Skyrim, where esps may overwrite
+    each other." Concretely: (1) all .archive files in Cyberpunk 2077/archive/pc/mod load
+    in ASCII-alphabetical order by archive file name, unless a modlist.txt is present in
+    that folder, in which case the game follows the order inside that file; (2) "Folders
+    in `Cyberpunk 2077/mods` are loaded strictly **after** `/archive/pc/mod` in
+    ASCII-alphabetical order", by folder name. ASCII order means capitalisation and
+    leading punctuation decide position ("M comes before m", "! comes before A").
+    Because ordering is filename-based and resolution is first-wins, two mods that ship
+    the same install path collide deterministically at install time, before the game
+    ever runs - which is why the install-path layout is the thing worth inspecting.
+    The data layers compose differently: TweakXL applies declarative record edits to
+    TweakDB from files in r6/tweaks (or .xl files in archive/pc/mod), and two mods editing
+    the same record still conflict because "tweakDB is a database of static values";
+    ArchiveXL exists precisely to avoid the first-wins file collision by letting mods
+    "load custom resources without touching original game files, thus allowing multiple
+    mods to expand same resources without conflicts". redscript composes at the source
+    level instead: its compiler runs over r6/scripts at game startup, so two mods that
+    modify the same method are reconciled (or rejected) by the compiler, not by file order.
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold CD PROJEKT RED's own modding-support page plus seven pages of the community
+      REDmodding wiki in their Markdown form, and three recipes written from them. There is
+      no executable guidance surface in this repo: nothing validates that advice against a
+      particular game build, and the wiki pages are dated community documents, not a spec.
+    implemented_by:
+      - packs/cyberpunk2077/recipes
+      - packs/cyberpunk2077/sources.yaml
+  project_setup:
+    status: documented_only
+    note: >-
+      The REDmod folder layout and its required info.json fields are documented and written
+      into recipes, but this repo ships no project generator for Cyberpunk. modcheck's only
+      scaffold generator is minecraft/fabric (modcheck.creator.scaffold.GENERATORS), so a
+      creator gets a described layout from us, not a created one.
+    implemented_by:
+      - packs/cyberpunk2077/recipes/redmod-archive-content-mod.yaml
+  source_edit:
+    status: unsupported
+    note: >-
+      No redscript, Lua or TweakXL parsing, editing or refactoring is implemented here. We
+      can tell you which .reds and .yaml files an artifact ships; we cannot read or change
+      what is in them.
+  package_inspection:
+    status: supported
+    note: >-
+      Implemented and tested. We read a Cyberpunk mod archive's install-path layout, classify
+      it into the known layers (redmod, archive, archive_patch, redscript, tweakxl, cet,
+      red4ext, input, config), list its .archive/.reds/.yaml members and their install paths,
+      and parse any REDmod mods/<folder>/info.json for name and version. What we do NOT do:
+      we do not decode the contents of .archive files, so we cannot say which game resources
+      they replace; we do not parse redscript, so @wrapMethod/@replaceMethod targets are
+      unknown to us; we do not parse TweakXL YAML, so the TweakDB records it touches are
+      unknown to us; and we do not check the mod against the installed game build. An archive
+      with no REDmod info.json has no declared id at all, and the inspector says so rather
+      than inventing one.
+    implemented_by:
+      - src/modcheck/inspect/cyberpunk.py
+    tests:
+      - tests/test_inspect.py::test_cyberpunk_layers
+      - tests/test_inspect.py::test_cyberpunk_redmod_declares_identity
+  dependency_analysis:
+    status: documented_only
+    note: >-
+      Cyberpunk mods carry no machine-readable dependency declaration. REDmod's info.json has
+      name, description, version and customSounds and no requires field; .archive mods have no
+      manifest at all. Framework requirements are prose on the distribution page, and the
+      distribution page (Nexus Mods) is HTTP 403 here. We document the framework chain we did
+      verify - ArchiveXL's README declares RED4ext 1.29.0+ and redscript 0.5.31+, TweakXL's
+      declares RED4ext 1.28.0+ and redscript 0.5.27+ - but we resolve nothing automatically.
+  interaction_analysis:
+    status: documented_only
+    note: >-
+      The dominant Cyberpunk interaction - two mods shipping the same install path, resolved
+      first-wins in ASCII order - is documented here as a failure record and is in principle
+      computable from the install_paths our inspector already extracts. No such check is
+      implemented in this repo, so nothing runs. TweakDB record collisions and redscript
+      method collisions are not computable from what we extract at all, and the wiki itself
+      states "There currently is no tool to check tweak conflicts".
+  build_execution:
+    status: blocked
+    note: >-
+      Building a REDmod or packing an .archive means running CDPR's redmod.exe or WolvenKit
+      against an installed copy of the game's depot. We have neither.
+    blocker: >-
+      No retail Cyberpunk 2077 installation and no Windows toolchain in this environment.
+      redmod.exe ships inside the game directory under tools/redmod and is not separately
+      downloadable; WolvenKit is a Windows .NET desktop application. Nothing we could run
+      would produce a real artifact, so no recipe here is build_tested.
+  runtime_testing:
+    status: blocked
+    note: >-
+      Nothing in this pack has been observed running. Every claim is declared or extracted,
+      never observed.
+    blocker: >-
+      Runtime testing requires the retail game, which we do not have. In-game verification is
+      also the only way to establish whether a TweakXL edit or a redscript wrap actually takes
+      effect, so those recipes stay verification_state=documented.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We hold the community documentation of the actual maintenance burden - game updates break
+      mods, frameworks must be updated first, and game and frameworks must be version-compatible -
+      and a failure record for it. We cannot watch for it: Nexus Mods, where Cyberpunk mods and
+      their per-file game-build tags live, is HTTP 403 here, and we have no game build to compare
+      against. `modcheck sources verify` can tell us when an upstream document we cited changed;
+      it cannot tell us when a mod broke.
+
+toolchain:
+  - id: redmod
+    name: REDmod
+    url: https://www.cyberpunk.net/en/modding-support
+    purpose: CDPR's official command-line tool for importing/exporting resources and building mod modules.
+    status: unavailable_here
+    runs_on:
+      - windows
+    license: unknown
+    integration: reference_only
+    note: >-
+      Ships inside the game directory (tools/redmod) and is governed by a separate Licence
+      Agreement that CDPR's page links but which we did not fetch. Without the game we cannot
+      obtain or run it, and we do not know its redistribution terms.
+    source: cdpr_redmod_modding_support
+  - id: redscript
+    name: redscript
+    url: https://github.com/jac3km4/redscript
+    purpose: Compiler, decompiler and formatter for REDengine's scripting language; compiles r6/scripts at game startup.
+    status: verified_available
+    runs_on:
+      - windows
+      - macos
+    license: MIT
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file (MIT, Copyright (c) 2021 jac3km4). Verified
+      available as a project, NOT verified as runnable here: the release artifacts are
+      game-directory drop-ins and we never executed it.
+    source: redscript_repo_readme
+  - id: tweakxl
+    name: TweakXL
+    url: https://github.com/psiberx/cp2077-tweak-xl
+    purpose: Framework for declarative edits to TweakDB via YAML/RED files, built for mod compatibility.
+    status: verified_available
+    runs_on:
+      - windows
+    license: MIT
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file (MIT, Copyright (c) 2021 Pavel Siberx). Its
+      README declares compatibility with Cyberpunk 2077 2.3 and redscript 0.5.27+ at the revision
+      we fetched; we did not verify that against a game install.
+    source: tweakxl_repo_readme
+  - id: archivexl
+    name: ArchiveXL
+    url: https://github.com/psiberx/cp2077-archive-xl
+    purpose: Loads custom resources without touching original game files, so several mods can extend the same resource.
+    status: verified_available
+    runs_on:
+      - windows
+    license: unknown
+    integration: reference_only
+    note: >-
+      We fetched the README but NOT the LICENSE file, so its licence is unknown here and must not
+      be assumed to match its sibling project TweakXL.
+    source: archivexl_repo_readme
+  - id: cet
+    name: Cyber Engine Tweaks
+    url: https://github.com/maximegmd/CyberEngineTweaks
+    purpose: Lua scripting framework with an ImGui console and a TweakDB editor.
+    status: verified_available
+    runs_on:
+      - windows
+    license: unknown
+    integration: reference_only
+    note: >-
+      The README carries a badge reading "MIT license" but we did not fetch the LICENSE file, so we
+      record the licence as unknown rather than asserting it from a badge. We also did not retrieve
+      documentation of the per-mod entry file CET loads out of its mods/ directory.
+    source: cet_repo_readme
+  - id: wolvenkit
+    name: WolvenKit
+    url: https://github.com/WolvenKit/WolvenKit
+    purpose: Community editing suite; packs and installs archive mods and converts REDengine resources.
+    status: unavailable_here
+    runs_on:
+      - windows
+    license: GPL-3.0
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file (GNU GPL version 3). A Windows .NET desktop
+      application, so it cannot run here; and because GPL-3.0 is copyleft, importing its code into
+      modcheck would impose GPL-3.0 on modcheck. Reference only, deliberately.
+    source: wolvenkit_repo_license
+
+gaps:
+  - what: Every mod-level fact about real Cyberpunk mods - declared requirements, supported game builds, changelogs, popularity.
+    why: Nexus Mods, which CDPR's own page directs players to, returns HTTP 403 to this environment.
+    unblocks: An allowed egress path to nexusmods.com, or an equivalent mirror with machine-readable mod metadata.
+  - what: The .archive (RDAR) container format and the CR2W resource format inside it.
+    why: >-
+      We retrieved no format specification for either. Our inspector detects the RDAR magic on a bare
+      .archive and stops there; it cannot list the resources inside, so "these two mods touch the same
+      game file" is not computable from an .archive today.
+    unblocks: A fetched specification of the archive index, or an LGPL/MIT-compatible reader we could import.
+  - what: TweakXL's own YAML/RED tweak syntax reference and ArchiveXL's resource-extension reference.
+    why: >-
+      Both live on github.com wikis, which return HTTP 403 here. We have the wiki's prose description
+      of where the files go and what they do, but not the authoritative field-by-field syntax.
+    unblocks: Access to github.com wiki pages, or a mirror of those wiki pages.
+  - what: Which entry file Cyber Engine Tweaks loads from each mod folder, and CET's licence.
+    why: The README describes the framework but neither the entry-point convention nor the LICENSE file was retrieved.
+    unblocks: Fetching the CET LICENSE file and its mod-authoring documentation.
+  - what: Whether any recipe in this pack actually works in game.
+    why: No retail Cyberpunk 2077 installation here.
+    unblocks: A licensed game install plus a Windows environment; until then every recipe stays verification_state=documented.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - cdpr_redmod_modding_support
+    - cp_wiki_redmod_for_mod_devs
+    - cp_wiki_archive_load_order
+    - cp_wiki_tweakxl
+    - cp_wiki_archivexl
+    - tweakxl_repo_readme
+    - archivexl_repo_readme
+    - redscript_repo_readme
+    - wolvenkit_repo_license
+    - cet_repo_readme

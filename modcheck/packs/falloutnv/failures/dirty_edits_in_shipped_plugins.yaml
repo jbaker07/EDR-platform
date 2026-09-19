@@ -1,0 +1,82 @@
+id: dirty_edits_in_shipped_plugins
+game: falloutnv
+title: Dirty edits in shipped plugins, including the official DLC, cancel other mods' changes
+symptom: >-
+  A mod's intentional change silently stops applying although both mods are installed and ordered as
+  intended; or the game crashes near a location where one plugin deleted a reference another plugin
+  still edits. No tool reports an error during play.
+mechanism: >-
+  An identical-to-master record overrides the master with the master's own values. Because the last
+  loaded version of an entry is the one applied, that empty override still wins and cancels an
+  earlier plugin's deliberate change - xEdit puts it as a mod having "overwritten something in the
+  game without making an actual change", whose effect is to cancel out the earlier intentional
+  change. Deleted references are the other kind: a mod that deletes a reference another mod still
+  edits leaves that mod unable to find it, which xEdit calls a significant cause of crashes and game
+  bugs. This is not a hypothetical in this game: LOOT's Fallout: New Vegas masterlist records dirty
+  edits for the official DLC itself - DeadMoney.esm at CRC 0xd70f165b with 403 ITM records and 51
+  undeleted references - which is why cleaning guidance for this game starts with the DLC rather
+  than with third-party mods.
+applies_to:
+  game_versions: All Fallout New Vegas builds
+  loader: bethesda_plugin
+  toolchain:
+    - FNVEdit (xEdit)
+targets:
+  - kind: record
+    id: records overridden with values identical to their master
+    label: ITM
+  - kind: record
+    id: reference records marked deleted rather than disabled
+    label: UDR
+conditions:
+  - kind: state
+    description: >-
+      The installed copy is the exact file the record was written for - dirty edits are a property of
+      one build, identified in the masterlist by CRC.
+  - kind: load_order
+    description: >-
+      Harm from an ITM needs another plugin that intentionally changed the same record and loads
+      earlier.
+detector:
+  detectable: partial
+  check_id: loot.dirty_edits
+  signal: >-
+    src/modcheck/integrations/loot.py compares each plugin's CRC32 with the masterlist's dirty
+    entries and reports the recorded ITM/UDR/NAV counts only on an exact match, so a same-named but
+    different build is never flagged. It detects only what has already been recorded for that exact
+    copy: we do not compute ITMs ourselves, because that needs record-level comparison against the
+    masters, which xEdit does and we do not implement. A plugin nobody has audited produces no
+    finding at all.
+evidence:
+  - source: xedit_mod_cleaning
+    evidence_class: declared
+    locator: 7.5.2 Identical To Master
+    quote: >-
+      Identical to Master (ITM) edits are the most common type of dirty edit. They're where a mod has
+      overwritten something in the game without making an actual change.
+  - source: xedit_mod_cleaning
+    evidence_class: declared
+    locator: 7.5.3 Deleted Reference
+    quote: >-
+      Deleted references are a significant cause of crashes and game bugs.
+  - source: loot_masterlist_falloutnv
+    evidence_class: declared
+    locator: DeadMoney.esm entry
+    quote: |-
+      - name: 'DeadMoney.esm'
+        priority: -400999000
+        dirty:
+          - util: *dirtyUtil
+            crc: 0xd70f165b
+            itm: 403
+            udr: 51
+  - source: libloadorder_conflict_resolution
+    evidence_class: declared
+    quote: Put simply, the last loaded plugin's changes are applied.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xedit_mod_cleaning
+    - loot_masterlist_falloutnv
+    - libloadorder_conflict_resolution

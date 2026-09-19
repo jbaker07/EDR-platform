@@ -1,0 +1,75 @@
+id: nonunique-module-uuid
+game: bg3
+title: A reused or template meta.lsx UUID makes one mod silently take another's place
+symptom: >-
+  A player installs two mods and only one of them appears in the mod manager, or one mod's content shows up
+  under the other's name. The manager does not warn, and nothing errors. For a creator, the same defect
+  looks like "my mod works on my machine but disappears for anyone who also uses that other mod".
+mechanism: >-
+  A BG3 module's identity is the UUID attribute in its meta.lsx ModuleInfo node, and that identity is what
+  distinguishes one module from another: the community wiki states "Generate a unique UUID for this line.
+  This is how Mod Manager tells mods apart, so this UUID must be unique, unless you want it to override
+  another mod." The second half of that sentence is the whole failure: a duplicate UUID is not an error
+  condition, it is the documented way to deliberately replace another module. So a UUID copied from a
+  tutorial, kept from a template, or carried over from a mod the creator forked produces a silent override
+  rather than a diagnostic. The same meta.lsx also carries Folder, which must match the module's own folder
+  name, and Version64, which is an Int64 encoding ("36028797018963968" reading as 1.0.0.0) - all three are
+  declared values that nothing validates at build time.
+applies_to:
+  loader: bg3_module
+targets:
+  - kind: config_key
+    id: UUID
+    container: Mods/<YourMod>/meta.lsx
+    field: UUID
+    label: The FixedString attribute whose uniqueness is the mod's identity.
+  - kind: config_key
+    id: Folder
+    container: Mods/<YourMod>/meta.lsx
+    field: Folder
+    label: Must match the module folder name; a mismatch is the sibling defect in the same file.
+conditions:
+  - kind: state
+    description: Two installed modules declare the same UUID, whether by copying a template or by forking another mod.
+  - kind: state
+    description: >-
+      The override is intentional in some mods. A duplicate UUID is only a failure when the creator did not
+      mean to replace the other module.
+detector:
+  detectable: partial
+  check_id: modcheck.inspect.bg3.inspect:mod_id
+  signal: >-
+    Our BG3 inspector extracts mod_id (the UUID), name, folder and version from info.json or meta.lsx when
+    a mod is distributed as a zip carrying that metadata. Inspecting a set of mods and grouping by mod_id
+    finds duplicate UUIDs directly, and comparing the declared `folder` value against the module folder
+    catches the Folder mismatch in the same pass.
+  why_not: >-
+    Two hard limits. First, most BG3 mods are distributed as a bare .pak, and for a bare .pak we read only
+    the LSPK header - the file list is LZ4-compressed and the optional lz4 dependency is absent here, so
+    the meta.lsx inside is never read and the UUID is simply unavailable. The inspector says so rather than
+    guessing. Second, even when we do read a UUID it is `declared` evidence from metadata shipped beside the
+    .pak; we do not verify it against the meta.lsx actually inside the package. No duplicate-UUID check is
+    implemented in this repo; the extraction exists, the comparison does not.
+evidence:
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: "Let's go over the lines you want to edit > UUID"
+    quote: "Generate a unique UUID for this line. This is how Mod Manager tells mods apart, so this UUID must be unique, unless you want it to override another mod."
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: intro
+    quote: "A meta.lsx file is a necessity if you plan on making .pak mods. Here’s how to set one up."
+  - source: bg3_wiki_creating_meta
+    evidence_class: declared
+    locator: "Version64"
+    quote: "Version numbers in the meta.lsx are in a Int64 format. When read by BG3 Mod Manager, this line reads as 1.0.0.0."
+  - source: larian_docs_publishing_a_mod
+    evidence_class: declared
+    locator: Conflicts
+    quote: "Because both mods override the same spell, only one of them will work."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3_wiki_creating_meta
+    - larian_docs_publishing_a_mod

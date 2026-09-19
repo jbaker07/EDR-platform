@@ -1,0 +1,47 @@
+id: tweakxl
+game: cyberpunk2077
+title: TweakXL - declarative TweakDB record editing framework
+url: https://github.com/psiberx/cp2077-tweak-xl
+kind: library
+demonstrates:
+  - Editing an existing game database record from a plain YAML/JSON file instead of replacing a game resource, which is what makes several data mods coexist.
+  - A framework declaring its own compatibility surface in its README - a game version plus minimum versions of RED4ext and redscript - which is the only machine-adjacent version declaration we found anywhere in the Cyberpunk ecosystem.
+  - The install-path contract our inspector keys on - r6/tweaks for .yaml/.tweak files, archive/pc/mod for .xl files.
+license: MIT
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified by fetching the repository LICENSE file, which reads "MIT License" / "Copyright (c)
+    2021 Pavel Siberx" - so reuse is permitted with attribution. We keep it reference_only anyway: it is a
+    RED4ext plugin that only does anything inside a running Cyberpunk 2077, so there is nothing for modcheck
+    to import or invoke. Its authoritative YAML/RED syntax reference lives on a github.com wiki, which is
+    HTTP 403 in this environment, so we hold its purpose and install contract but not its field grammar.
+maintenance:
+  state: unknown
+  last_release: "not established - the releases list is on github.com, which returns HTTP 403 here, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+  supported_versions: "README at the revision fetched declares Cyberpunk 2077 2.3, redscript 0.5.27+ and RED4ext 1.28.0+"
+evidence:
+  - source: tweakxl_repo_readme
+    evidence_class: extracted
+    locator: "# TweakXL"
+    quote: "TweakXL is a modding tool and a framework to create mods that modify TweakDB, \na proprietary database of REDengine 4, \ncontaining essential information about game entities and behavior."
+  - source: tweakxl_repo_readme
+    evidence_class: extracted
+    locator: "Getting Started > Compatibility / Installation"
+    quote: "- Cyberpunk 2077 2.3\n- [redscript](https://github.com/jac3km4/redscript) 0.5.27+"
+  - source: tweakxl_repo_license
+    evidence_class: extracted
+    locator: first two lines
+    quote: "MIT License\n\nCopyright (c) 2021 Pavel Siberx"
+  - source: cp_wiki_tweakxl
+    evidence_class: declared
+    locator: "How do I use it?"
+    quote: "By placing `.yaml` or `.tweak` files in Cyberpunk `2077/r6/tweaks`, or .xl files in `Cyberpunk 2077/archive/pc/mod`."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - tweakxl_repo_readme
+    - tweakxl_repo_license
+    - cp_wiki_tweakxl

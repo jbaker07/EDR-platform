@@ -344,12 +344,12 @@ def cmd_analyze(args) -> int:
     store = _store(args)
     if args.config:
         installation = Installation.from_json(args.config)
-        rep = report_mod.analyze_installation(installation, store)
+        rep = report_mod.analyze_installation(installation, store, deep=args.deep)
     elif args.artifact:
         installation = Installation.from_paths(
             args.game, args.artifact, game_version=args.game_version,
             files_known_complete=args.complete_file_list)
-        rep = report_mod.analyze_installation(installation, store)
+        rep = report_mod.analyze_installation(installation, store, deep=args.deep)
     else:
         print("give --config or one or more --artifact paths", file=sys.stderr)
         return 2
@@ -491,6 +491,8 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--game-version")
     sp.add_argument("--complete-file-list", action="store_true",
                     help="assert the artifact list is complete, so absence is evidence")
+    sp.add_argument("--deep", action="store_true",
+                    help="parse plugin records (Bethesda games; needs the esplugin helper)")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_analyze)
 

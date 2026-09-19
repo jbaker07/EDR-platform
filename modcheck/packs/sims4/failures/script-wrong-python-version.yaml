@@ -1,0 +1,84 @@
+id: script-wrong-python-version
+game: sims4
+title: A script mod compiled for the wrong Python version never loads
+symptom: >-
+  A .ts4script sits in the player's Mods folder, script mods are enabled, and the mod simply does nothing -
+  its cheat commands are unrecognised, its settings never appear, and no in-game message names it. The same
+  mod worked before a game patch, or works for other players and not this one. Removing and reinstalling
+  changes nothing.
+mechanism: >-
+  A .ts4script is a zip of Python loaded by the CPython interpreter the game embeds, and compiled Python is
+  version-locked at the byte level: the first two bytes of every .pyc are a magic number that identifies
+  the exact interpreter that produced it, and an interpreter refuses bytecode whose magic it does not
+  recognise. So a mod compiled by the wrong Python does not degrade or warn - it is rejected before any of
+  its code runs. The version therefore has to be chosen deliberately: the scripting tutorial we retrieved
+  instructs creators to "Install Python 3.7 ... Recommend version 3.7 or 3.8", and the maintained project
+  template ships .py sources alongside the .pyc precisely because compiled-only mods are fragile - "it's
+  highly discouraged to only include compiled python files". The same mechanism is why a Sims 4 patch that
+  moves the embedded interpreter invalidates every compiled script mod at once, and why a mod that mixes
+  bytecode from several Python versions is partially broken rather than cleanly broken.
+applies_to:
+  loader: sims4_script
+  toolchain:
+    - s4_scripting_template
+targets:
+  - kind: archive_entry
+    id: "*.pyc"
+    container: <mod>.ts4script
+    label: The compiled modules whose 2-byte CPython magic number decides whether the game will load them.
+  - kind: registry_key
+    id: pyc_magic_number
+    label: The little-endian u16 at offset 0 of each .pyc.
+conditions:
+  - kind: version
+    description: The .pyc bytecode was produced by a CPython version other than the one the running game embeds.
+  - kind: version
+    description: >-
+      Or the mod ships bytecode from several Python versions at once, in which case only part of it can
+      ever load.
+  - kind: environment
+    description: >-
+      Script mods must be enabled in the game's options; a disabled setting produces the same "does
+      nothing" symptom from an entirely different cause and should be ruled out first.
+detector:
+  detectable: yes
+  check_id: modcheck.inspect.sims4.inspect_script:bytecode_python_versions
+  signal: >-
+    Our Sims 4 inspector opens each .pyc in the .ts4script, reads the little-endian u16 magic number at
+    offset 0, and maps it through a table of CPython magic numbers (3.6 through 3.13). It reports
+    bytecode_python_versions as a count per version, warns "unrecognised .pyc magic numbers: [...]; the
+    compiled Python version could not be established" when a magic is outside that table, and warns
+    "script mod mixes bytecode from several Python versions: [...]" when more than one version appears.
+    Both the mixed-version case and the unknown-magic case are caught outright from the artifact alone,
+    with no game install needed.
+  why_not: >-
+    What the check establishes is which Python compiled the mod - not whether that Python matches the
+    installed game. We hold no primary source for the interpreter the shipped game embeds (our only
+    evidence is a community tutorial whose stated reason for pinning 3.7/3.8 is decompiler support), and
+    we have no game to read it from. So a mod reporting a single, recognised version is "internally
+    consistent", not "will load". Closing that last step needs one fact we do not have: the game's own
+    Python version.
+evidence:
+  - source: mts_write_script_mod_tutorial
+    evidence_class: declared
+    locator: Prerequisites
+    quote: "- Install Python 3.7: https://www.python.org/downloads/release/python-370/ . Recommend version 3.7 or 3.8. Because the decompile tool we are using is only supported up to 3.8. Therefore, other versions of Python might cause an unforeseeable issue."
+  - source: s4_scripting_template_readme
+    evidence_class: declared
+    locator: "What can it do > compile.py > Update"
+    quote: "The reason why is new information was learned about The Sims 4 loading process and it's\nhighly discouraged to only include compiled python files."
+  - source: simswiki_ts4_general_modding
+    evidence_class: declared
+    locator: "EA Core Mod Support"
+    quote: "July 2015 : Script mods now support .ts4script extention - http://forums.thesims.com/en_US/discussion/comment/13838037"
+  - source: s4studio_python_scripting_tutorial
+    evidence_class: unresolved
+    locator: sims4studio.com
+    quote: ""
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - mts_write_script_mod_tutorial
+    - s4_scripting_template_readme
+    - simswiki_ts4_general_modding

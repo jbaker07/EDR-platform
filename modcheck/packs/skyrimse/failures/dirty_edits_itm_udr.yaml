@@ -1,0 +1,87 @@
+id: dirty_edits_itm_udr
+game: skyrimse
+title: Dirty edits (identical-to-master records and deleted references) in a released plugin
+symptom: >-
+  Another mod's intentional change stops working even though both mods are installed and ordered as
+  their authors intended; or the game crashes near a location where one mod deleted an object that
+  another mod still edits. Neither symptom points at the plugin that carries the dirty records.
+mechanism: >-
+  An identical-to-master record is an override that changes nothing: the plugin re-states the
+  master's data verbatim. Because the last loaded plugin's version of an entry is the one applied,
+  that do-nothing override still wins, and it cancels the change made by an earlier plugin that did
+  mean something by it. xEdit's cleaning chapter puts it as: an ITM is "where a mod has overwritten
+  something in the game without making an actual change. If another mod higher up in the load order
+  makes an intentional change to that thing, it will have its effect cancelled out by the ITM
+  record". Deleted references are the second kind: "if one mod tries to modify a reference that
+  another mod has deleted, then the first mod cannot find the reference, and this then causes
+  problems". Both are artefacts of editing, not of design - which is why LOOT records them per file
+  copy, by CRC, together with the counts to expect.
+applies_to:
+  game_versions: All Skyrim Special Edition builds
+  loader: bethesda_plugin
+  toolchain:
+    - xEdit
+targets:
+  - kind: record
+    id: any record overridden with values identical to its master
+    label: ITM
+  - kind: record
+    id: any reference record marked deleted rather than disabled
+    label: UDR
+conditions:
+  - kind: state
+    description: >-
+      The installed copy is the exact file LOOT recorded - dirty records are a property of one build
+      of a plugin, so a later release may be clean.
+  - kind: load_order
+    description: >-
+      The harm from an ITM requires another plugin that intentionally changed the same record and
+      loads earlier.
+detector:
+  detectable: partial
+  check_id: loot.dirty_edits
+  signal: >-
+    src/modcheck/integrations/loot.py matches a plugin's CRC32 against the masterlist's dirty
+    entries and reports the recorded ITM/UDR/NAV counts only when the CRC matches exactly, so a
+    same-named but different build is never flagged. Partial, and the partiality matters: this
+    detects only dirty edits somebody has already recorded for that exact copy. We do not compute
+    ITMs ourselves - that needs record-level comparison against the masters, which is xEdit's job
+    and is not implemented here - so an unrecorded dirty plugin produces no finding at all.
+evidence:
+  - source: xedit_mod_cleaning
+    evidence_class: declared
+    locator: 7.5.2 Identical To Master
+    quote: >-
+      Identical to Master (ITM) edits are the most common type of dirty edit. They're where a mod has
+      overwritten something in the game without making an actual change. If another mod higher up in
+      the load order makes an intentional change to that thing, it will have its effect cancelled out
+      by the ITM record, which can cause problems.
+  - source: xedit_mod_cleaning
+    evidence_class: declared
+    locator: 7.5.3 Deleted Reference
+    quote: >-
+      Deleted references are a significant cause of crashes and game bugs. This is because if one mod
+      tries to modify a reference that another mod has deleted, then the first mod cannot find the
+      reference, and this then causes problems.
+  - source: loot_masterlist_skyrimse
+    evidence_class: declared
+    locator: a dirty entry in the masterlist
+    quote: |-
+      dirty:
+        # v1.5.97
+        - <<: *quickClean
+          crc: 0x17AB5E20
+          util: '[SSEEdit v4.0.4](https://www.nexusmods.com/skyrimspecialedition/mods/164)'
+          itm: 334
+          udr: 92
+  - source: libloadorder_conflict_resolution
+    evidence_class: declared
+    quote: >-
+      Put simply, the last loaded plugin's changes are applied.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xedit_mod_cleaning
+    - loot_masterlist_skyrimse
+    - libloadorder_conflict_resolution

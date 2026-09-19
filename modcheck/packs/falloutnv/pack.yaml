@@ -1,0 +1,254 @@
+game: falloutnv
+name: "Fallout: New Vegas"
+pack_version: 0.1.0
+summary: >-
+  Bethesda plugin ecosystem pack for the pre-Skyrim engine generation: timestamp-based load order,
+  no light plugins, a hard 255-plugin ceiling. What runs here: TES4-header inspection and
+  LOOT-masterlist interaction analysis. The GECK, FNVEdit and the retail game are all absent, and
+  the GECK's documentation wiki is blocked to us, so editor-side knowledge is a gap, not coverage.
+
+ecosystem:
+  languages:
+    - Obscript (the game's own script language, per the xNVSE development guide)
+    - C++ (xNVSE plugin DLLs)
+  loaders:
+    - id: bethesda_plugin
+      name: Game plugin loading, ordered by plugin file timestamps
+      manifest: plugins.txt (active plugins) with load order taken from Data file timestamps
+      source: libloadorder_load_order_mechanisms
+    - id: xnvse
+      name: New Vegas Script Extender (nvse_loader.exe)
+      manifest: .dll and .exe placed beside FalloutNV.exe, never in Data
+      versions: >-
+        Not stated in the sources we fetched; the readme points at GitHub releases, which we cannot
+        read (github.com is blocked to us and the Nexus listing answers 403)
+      source: xnvse_readme
+  artifact_formats:
+    - .esm / .esp plugin files (TES4 header record followed by record groups)
+    - .bsa archives shipped beside plugins
+    - xNVSE plugin DLLs beside the game executable
+  composition: >-
+    Rule of one, resolved by load order. libloadorder states: "The game can only apply one version
+    of any one entry (this is known as the rule of one). Therefore, when more than one plugin
+    changes the same entry, the load order is used to decide which plugin's changes are applied.
+    Put simply, the last loaded plugin's changes are applied." - the exception being cell contents.
+    Unlike Skyrim SE and Fallout 4, load order here is NOT plugins.txt order: "In Morrowind,
+    Oblivion, Fallout 3 and Fallout: New Vegas, load order is decided by the relative timestamps of
+    plugins in the game's Data directory", so a plugin's position is an intrinsic property of the
+    installed file. Master plugins load before non-masters, and plugin type is decided by the
+    header's master flag alone - the extension is ignored, so a false-flagged plugin is possible.
+    There are no light plugins in this game, so all 255 active-plugin slots are ordinary slots.
+  platforms:
+    - Windows (xNVSE states Steam and GOG are supported; German No Gore, Xbox Gamepass and Bethesda.net are not)
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold load-order and plugin-type specifications (libloadorder), xEdit's conflict and
+      cleaning chapters, Wrye Bash's plugin status semantics, the xNVSE readme and development
+      guide, and two community guides. We hold NO GECK documentation: geckwiki.com answers 403, and
+      it is exactly where xNVSE's own readme sends you for scripting reference. Obscript and
+      NVSE function reference are therefore gaps.
+  project_setup:
+    status: unsupported
+    note: >-
+      No scaffold generator exists for this game. The one real starting point we can name is the
+      Example Plugin inside the xNVSE source release, recorded in examples/.
+  source_edit:
+    status: documented_only
+    note: >-
+      Record edits happen in FNVEdit or the GECK, neither of which runs here, and the GECK's
+      documentation is blocked. We hold the xEdit procedure and execute none of it.
+  package_inspection:
+    status: supported
+    note: >-
+      Reads the TES4 header record only: master list (MAST), ESM flag, author, description and HEDR
+      counts (header version, record count, next object id). It does not read records or fields
+      below the header, does not check whether masters are installed or compatible, and does not
+      look at .bsa contents or scripts. Note for this game specifically: the light-plugin facts the
+      inspector reports are meaningless here, because light plugins do not exist in Fallout: New
+      Vegas.
+    implemented_by:
+      - src/modcheck/inspect/bethesda.py
+    tests:
+      - tests/test_inspect.py::test_bethesda_masters_and_light_flag
+      - tests/test_inspect.py::test_bethesda_game_inferred_per_master
+  dependency_analysis:
+    status: partial
+    note: >-
+      Master dependency edges are extracted from the TES4 header and resolved against a supplied
+      configuration, so a missing master is reported as dependency.missing. Limits: masters matched
+      by filename only; no version information exists in a MAST entry, so "present" never means
+      "compatible"; and because load order here is timestamp-based, nothing we read from the file
+      tells us where the plugin will actually load relative to its masters.
+    implemented_by:
+      - src/modcheck/inspect/bethesda.py
+      - src/modcheck/analyze/requirements.py
+    tests:
+      - tests/test_inspect.py::test_bethesda_game_inferred_per_master
+      - tests/test_analysis.py::test_detects_missing_dependency
+  interaction_analysis:
+    status: supported
+    note: >-
+      Covers LOOT-recorded rules only, applied to a specific configuration: requirements,
+      incompatibilities, load-order rules, dirty/clean records matched by exact CRC, and messages
+      whose conditions we can decide. It does NOT perform record-level conflict detection - that is
+      xEdit's job and is not implemented here. A plugin with no masterlist entry produces no
+      findings; absence of a rule is not evidence of safety. Undecidable conditions are reported as
+      unresolved. The Fallout: New Vegas masterlist is the smallest of the three we hold, so
+      coverage of this game's mods is correspondingly thinner.
+    implemented_by:
+      - src/modcheck/integrations/loot.py
+    tests:
+      - tests/test_loot.py::test_detects_a_real_recorded_incompatibility
+      - tests/test_loot.py::test_detects_dirty_edits_only_for_the_exact_matching_copy
+      - tests/test_loot.py::test_control_unrelated_plugins_produce_nothing
+  build_execution:
+    status: blocked
+    note: >-
+      Plugins are authored in the GECK or FNVEdit; xNVSE plugins are Visual Studio 2022 C++
+      projects that expect a FalloutNVPath environment variable pointing at a real game install.
+    blocker: >-
+      No Windows runtime, no MSVC/Visual Studio, no GECK or FNVEdit binary, and no game installation
+      in this environment.
+  runtime_testing:
+    status: blocked
+    note: >-
+      Stability, script behaviour and save-game effects can only be established by running the
+      retail game.
+    blocker: >-
+      The retail Fallout: New Vegas installation is not present and cannot be obtained here.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We can state xNVSE's installation contract and the community guides' practice, but we
+      implement no release check, and we could not read a single xNVSE version number: its releases
+      live on github.com and Nexus Mods, both of which are blocked to us.
+
+toolchain:
+  - id: loot_masterlist
+    name: LOOT masterlist (falloutnv)
+    url: https://raw.githubusercontent.com/loot/falloutnv/master/masterlist.yaml
+    purpose: Hand-curated requirements, incompatibilities, load-order rules and dirty-edit records.
+    status: integrated
+    runs_on: [any]
+    license: GPL-3.0
+    integration: data_only
+    note: >-
+      Licence differs from the other two masterlists we use: the loot/falloutnv repository LICENSE
+      file is the GNU GPL v3 text, not CC0. We read it from the evidence cache and do not
+      redistribute it, so this does not change what we do - but a product that shipped the data
+      would need to honour it.
+    source: loot_masterlist_falloutnv_license
+  - id: xedit
+    name: xEdit / FNVEdit
+    url: https://tes5edit.github.io/docs/
+    purpose: Conflict detection, patch plugins, cleaning. The Tome of xEdit began as the FNVEdit and FO3Edit training manuals.
+    status: unavailable_here
+    runs_on: [windows]
+    license: MPL-1.1
+    integration: reference_only
+    note: Windows GUI application; not present and not runnable here. Licence from the repository LICENSE.txt.
+    source: xedit_license
+  - id: xnvse
+    name: New Vegas Script Extender (xNVSE)
+    url: https://raw.githubusercontent.com/xNVSE/NVSE/master/README.md
+    purpose: Extends the engine and scripting; loads C++ plugin DLLs.
+    status: unavailable_here
+    runs_on: [windows]
+    license: unknown
+    integration: reference_only
+    note: >-
+      No LICENSE, LICENSE.md, LICENSE.txt or COPYING file exists at the repository root (all four
+      answer 404) and the readme states no terms, so reuse terms are genuinely unknown - not
+      permissive by default. We could not read a version number either.
+    source: xnvse_readme
+  - id: esplugin
+    name: esplugin
+    url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
+    purpose: >-
+      Rust plugin parser used by LOOT; its README lists Fallout: New Vegas among parsed games.
+    status: candidate
+    runs_on: [windows, linux, macos]
+    license: GPL-3.0
+    integration: subprocess
+    note: >-
+      Rust 1.94.1 is present here and esplugin's MSRV is 1.81, but we ran no build. GPL-3.0 makes a
+      subprocess boundary the realistic integration.
+    source: esplugin_readme
+  - id: wrye_bash
+    name: Wrye Bash (Wrye Flash for this game's tags)
+    url: https://wrye-bash.github.io/docs/Wrye%20Bash%20General%20Readme.html
+    purpose: Load-order management, plugin status checks, Bashed Patch with leveled-list merging.
+    status: unavailable_here
+    runs_on: [windows, linux]
+    license: GPL-3.0
+    integration: reference_only
+    note: >-
+      Its supported-games table lists Fallout: New Vegas for the Epic Games Store, GOG, Steam and
+      the Windows Store. The LOOT falloutnv masterlist README documents three Bash Tags that are
+      specific to this game (Deflst, Destructible, WeaponMods).
+    source: wrye_bash_readme
+  - id: mutagen
+    name: Mutagen / Synthesis
+    url: https://mutagen-modding.github.io/Synthesis/devs/Supporting-Multiple-Games/
+    purpose: C# patcher framework - listed here only to record that it does not appear to cover this game.
+    status: unverified
+    runs_on: [windows, linux]
+    license: GPL-3.0
+    integration: none
+    note: >-
+      The Synthesis multi-game page documents AddPatch<ISkyrimMod, ISkyrimModGetter> and
+      AddPatch<IFallout4Mod, IFallout4ModGetter>, and no Fallout: New Vegas mod type appears in any
+      Mutagen or Synthesis page we fetched. That is absence of evidence, not a documented refusal:
+      we did not find a support matrix stating the full list of games, so this is unverified rather
+      than "unsupported".
+    source: synthesis_supporting_multiple_games
+
+gaps:
+  - what: GECK documentation - Obscript reference, NVSE function reference, editor workflow.
+    why: >-
+      geckwiki.com answers HTTP 403 to us, and it is the site xNVSE's own readme names as the place
+      to find NVSE scripting documentation.
+    unblocks: Any scripting recipe for this game beyond the C++ plugin route.
+  - what: >-
+      The Fallout: New Vegas record and subrecord format below the TES4 header.
+    why: UESP answers 403 at the origin.
+    unblocks: Record-level conflict detection of our own.
+  - what: xNVSE version numbers, release artefacts and its licence.
+    why: >-
+      Releases live on github.com (blocked) and Nexus Mods (403); the repository has no licence file
+      at any of the four conventional paths.
+    unblocks: Version-compatibility claims and any statement about reusing xNVSE code.
+  - what: Tale of Two Wastelands installation requirements.
+    why: >-
+      taleoftwowastelands.com serves a phpBB index that states "The forum has been set to read-only
+      mode." and redirects community support to Discord; the wiki path we tried redirected back to
+      that index. TTW is a major FNV configuration and we hold nothing usable about it.
+    unblocks: Any claim about TTW-specific compatibility.
+  - what: Whether Mutagen/Synthesis can target this game at all.
+    why: No support matrix was found in the documentation we fetched; only Skyrim and Fallout 4 patch types are shown.
+    unblocks: A patcher recipe for this game equivalent to the Skyrim and Fallout 4 ones.
+  - what: Everything about in-game behaviour.
+    why: No retail game installation here.
+    unblocks: Any game_tested verification state.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - libloadorder_load_order_mechanisms
+    - libloadorder_conflict_resolution
+    - libloadorder_active_plugins
+    - libloadorder_plugin_types
+    - xedit_conflict_detection
+    - xedit_mod_cleaning
+    - xnvse_readme
+    - xnvse_development_guide
+    - esplugin_readme
+    - wrye_bash_readme
+    - loot_masterlist_falloutnv
+    - loot_masterlist_falloutnv_license
+    - synthesis_supporting_multiple_games
+    - geckwiki_main

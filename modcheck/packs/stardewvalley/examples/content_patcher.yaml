@@ -1,0 +1,46 @@
+id: sdv-example-content-patcher
+game: stardewvalley
+title: Content Patcher (Pathoschild/StardewMods)
+url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide.md
+kind: library
+demonstrates:
+- the content-pack contract almost every JSON-only Stardew mod targets (manifest.json with ContentPackFor plus content.json)
+- asset-level actions - Load, EditData, EditImage, EditMap - and the composition rules between them
+- a token and condition language whose values only resolve at runtime
+- Priority as the explicit tie-break for two patches loading the same asset
+- an in-game troubleshooting surface (patch summary, update, reload, export, parse, dump, invalidate)
+license: MIT
+reuse:
+  integration: reference_only
+  constraints: >-
+    The repository LICENSE is the MIT licence, "Copyright 2016-2025 Jesse
+    Plamondon-Willard (Pathoschild)", so the documentation and code may be reused with the
+    copyright and permission notice retained. We use it as a reference only: nothing from
+    it is vendored into this repository, and the mod binary itself was never fetched.
+maintenance:
+  state: active
+  last_release: '2.9.1, released 14 March 2026 for SMAPI 4.4.0 or later'
+  checked_at: '2026-09-19'
+  supported_versions: 'content.json Format 2.9.0; requires SMAPI >=4.4.0'
+evidence:
+- source: pathoschild_stardewmods_license
+  evidence_class: extracted
+  locator: line 1-3
+  quote: 'The MIT License (MIT) Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)'
+- source: content_patcher_release_notes
+  evidence_class: declared
+  locator: heading "## 2.9.1"
+  quote: Released 14 March 2026 for SMAPI 4.4.0 or later.
+- source: content_patcher_author_guide
+  evidence_class: declared
+  locator: section "Format version"
+  quote: You should always use the latest format version (currently `2.9.0`) to enable the latest features, avoid obsolete behavior, and reduce startup time.
+- source: content_patcher_json_schema
+  evidence_class: extracted
+  locator: the JSON Schema served for content.json
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pathoschild_stardewmods_license
+  - content_patcher_release_notes

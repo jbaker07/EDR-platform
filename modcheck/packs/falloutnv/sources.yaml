@@ -9,6 +9,31 @@
 # Written by `modcheck sources add`; edit by hand only to add licensing, reuse
 # terms and notes.
 sources:
+- id: esplugin_changelog
+  title: esplugin CHANGELOG (release history with dates)
+  url: https://raw.githubusercontent.com/Ortham/esplugin/master/CHANGELOG.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T14:04:42+00:00'
+  http_status: 200
+  reuse:
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: esplugin LICENSE (fetched as esplugin_license) is the GNU GPL v3 text.
+  sha256: 26ac0afc1e87b53fbd781a412383d6be373cfe1e2ae980abc7720f86b0516856
+  bytes: 12249
+  content_type: text/plain
+  upstream_revision: W/"f1ff3b8467bedf2c622b6e9796187b0ee8a43bfda659231fba284afd0bf70fc0
+  evidence_path: 26/26ac0afc1e87b53fbd781a412383d6be373cfe1e2ae980abc7720f86b0516856.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+  license: GPL-3.0
+  notes: 'Dated release history, used to check the project''s maintenance state without github.com or
+    crates.io, both of which are blocked to us. Newest entry in the copy we fetched: [6.1.4] - 2025-09-29.'
 - id: esplugin_license
   title: esplugin LICENSE
   url: https://raw.githubusercontent.com/Ortham/esplugin/master/LICENSE
@@ -720,6 +745,30 @@ sources:
   license: unknown
   notes: 'How an xNVSE plugin is built: Visual Studio 2022, the FalloutNVPath environment variable, nvse_plugin_example.sln,
     and the RUNTIME vs EDITOR build configurations.'
+- id: xnvse_plugin_example_solution
+  title: xNVSE Example Plugin Visual Studio solution file
+  url: https://raw.githubusercontent.com/xNVSE/NVSE/master/nvse_plugin_example/nvse_plugin_example.sln
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T14:01:57+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+    note: Same repository as xnvse_readme, which has no licence file at any conventional path.
+  sha256: a134942f6ef57b797ec6092e7d29290631c19a0baebd865de267cf24dd34003f
+  bytes: 2338
+  content_type: text/plain
+  upstream_revision: W/"4ffbeeaf8ec80ba54f0f75d7f0dec367bc473fcbbb8d36c3f070070412877f17
+  evidence_path: a1/a134942f6ef57b797ec6092e7d29290631c19a0baebd865de267cf24dd34003f.sln
+  games:
+  - falloutnv
+  publisher: xNVSE team
+  license: unknown
+  notes: The Example Plugin solution the xNVSE development guide tells plugin authors to compile first.
+    Confirms the projects (nvse_plugin_example plus common_vc9) and the four build configurations, all
+    Win32.
 - id: xnvse_readme
   title: xNVSE README (New Vegas Script Extender, community-maintained fork)
   url: https://raw.githubusercontent.com/xNVSE/NVSE/master/README.md

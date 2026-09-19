@@ -1,0 +1,84 @@
+id: modsettings-load-order-cleared
+game: bg3
+title: One broken module clears the whole declared load order in modsettings.lsx
+symptom: >-
+  A player exports a carefully ordered mod list, launches the game, and finds that mods are inactive or the
+  order has reverted. Re-exporting from the mod manager and launching again produces the same result. The
+  problem is not with the mod the player was last adding - it is with some other module entirely, and the
+  symptom names none of them.
+mechanism: >-
+  BG3's load order is declared, not derived: the mod manager writes the player's chosen order into
+  modsettings.lsx, which BG3 Mod Manager's README describes as "the `modsettings.lsx` file that the game
+  reads". That file is a single shared document, so failure in it is collective rather than per-mod. The
+  README records two distinct causes. One is a module that errors on load: "If your `modsettings.lsx` still
+  resets when loading into the game, this means that one or more of your mods are encountering an error,
+  and the game is clearing the load order." The other is a packaging mistake on the player's side that
+  creators regularly cause by shipping nested archives: "Make sure you don't have any subfolders in your
+  mods folder (`%LOCALAPPDATA%\Larian Studios\Baldur's Gate 3\Mods`). This causes the game to reset your
+  `modsettings.lsx`!" The community install guidance repeats it - the .pak must go into the Mods folder
+  with no subfolders or other files beside it. A related third mechanism is documented by Larian and
+  produces a similar "my mod is gone" symptom by design: a declared conflict disables the mod, and "not
+  only will MyConflictB be disabled, but all of its dependencies will be disabled as well".
+applies_to:
+  loader: modsettings
+  toolchain:
+    - bg3mm
+targets:
+  - kind: config_key
+    id: modsettings.lsx
+    container: "%LOCALAPPDATA%/Larian Studios/Baldur's Gate 3/PlayerProfiles/<profile>"
+    label: The shared, game-read declaration of which modules are enabled and in what order.
+  - kind: file_path
+    id: "%LOCALAPPDATA%/Larian Studios/Baldur's Gate 3/Mods"
+    label: The Mods directory, which must contain .pak files and no subfolders.
+conditions:
+  - kind: state
+    description: At least one enabled module errors during load, clearing the whole declared order.
+  - kind: state
+    description: The player's Mods folder contains subfolders, typically because a mod was distributed as a nested archive.
+  - kind: state
+    description: >-
+      A module declares a conflict with another enabled module, in which case the game disables it and its
+      dependents deliberately - the same symptom with a different, intended cause.
+detector:
+  detectable: partial
+  check_id: modcheck.inspect.bg3.inspect:pak_files
+  signal: >-
+    The packaging half is checkable from the artifact. Our inspector lists the .pak files a distributed
+    archive contains together with the full entry list, so an archive whose .pak files sit inside nested
+    directories - the shape that puts subfolders into a player's Mods folder when unzipped there - is
+    visible before release.
+  why_not: >-
+    Only the packaging cause is artifact-visible. Which module errors at load is a runtime fact: it happens
+    inside the running game, it is not declared anywhere in any artifact, and we have no game to observe.
+    The conflict-cascade cause requires reading the Toolkit's declared conflicts, which live inside the .pak
+    behind the LZ4 file list we do not read here. And no packaging-shape check is implemented in this repo
+    today; the entry list is extracted, nothing evaluates it.
+evidence:
+  - source: bg3mm_repo_readme
+    evidence_class: declared
+    locator: "Important Tips"
+    quote: "If your `modsettings.lsx` still resets when loading into the game, this means that one or more of your mods are encountering an error, and the game is clearing the load order."
+  - source: bg3mm_repo_readme
+    evidence_class: declared
+    locator: "Important Tips"
+    quote: "Make sure you don't have any subfolders in your mods folder (`%LOCALAPPDATA%\\Larian Studios\\Baldur's Gate 3\\Mods`). This causes the game to reset your `modsettings.lsx`!"
+  - source: bg3mm_repo_readme
+    evidence_class: declared
+    locator: Setup
+    quote: "This updates the `modsettings.lsx` file that the game reads."
+  - source: bg3_wiki_mod_types
+    evidence_class: declared
+    locator: "Mod types and how to install them > PAK"
+    quote: "Open the archive and drag or copy the .pak into your Mods Folder*. Make sure that there aren’t any subfolders or files other than .pak in the mod folder."
+  - source: larian_docs_publishing_a_mod
+    evidence_class: declared
+    locator: Conflicts
+    quote: "Not only will MyConflictB be disabled, but all of its dependencies will be disabled as well, as long as other mods aren’t also dependent on them."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3mm_repo_readme
+    - bg3_wiki_mod_types
+    - larian_docs_publishing_a_mod

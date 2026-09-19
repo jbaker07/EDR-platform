@@ -1,0 +1,64 @@
+id: missing_master
+game: falloutnv
+title: A plugin whose master is not installed crashes the game at startup
+symptom: >-
+  The game exits to the desktop during startup once the plugin is active. Wrye Bash marks the plugin
+  as having a missing master; nothing in game names the offending file.
+mechanism: >-
+  A plugin's TES4 header lists its dependencies as MAST entries, and its records address them
+  positionally - the first two hexadecimal digits of a FormID are the load-order index of the file
+  the record belongs to. If a listed master is absent, those references resolve to nothing and the
+  load fails outright rather than degrading. Wrye Bash states it plainly: one or more missing
+  masters "will generally cause the game to crash on startup, and must be corrected". Two details
+  make this worse in this game than in Skyrim SE or Fallout 4: the dependency is by filename with no
+  version, and because load order is decided by file timestamps rather than a text file, a master
+  that exists but is dated after its dependant produces the related "loads before its masters"
+  defect without anyone editing a list.
+applies_to:
+  game_versions: All Fallout New Vegas builds; the mechanism is a property of the plugin format
+  loader: bethesda_plugin
+targets:
+  - kind: file_path
+    id: the MAST entries in the plugin's TES4 header
+    label: master file list
+conditions:
+  - kind: state
+    description: A named master file is absent from the Data folder, or present under a different filename.
+  - kind: load_order
+    description: >-
+      A present master whose timestamp places it after the dependent plugin produces the related
+      defect Wrye Bash describes as crashing the game or making mods load in unexpected ways.
+detector:
+  detectable: "yes"
+  check_id: dependency.missing
+  signal: >-
+    src/modcheck/inspect/bethesda.py extracts each MAST entry as a declared dependency (kind
+    content_mod, required true); src/modcheck/analyze/requirements.py resolves them against the
+    supplied configuration and emits dependency.missing when nothing provides the file. Matching is
+    by filename only. On a configuration that is not a complete file listing the report also emits
+    coverage.partial_file_view, because an absence there proves nothing. The ordering variant is NOT
+    detected: we do not read file timestamps, so we cannot tell you where a plugin will load.
+evidence:
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Mods tab, checkbox colours
+    quote: >-
+      One or more of the plugin's masters is missing. This will generally cause the game to crash on
+      startup, and must be corrected.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Setting Up Load Order
+    quote: >-
+      The load order of plugins is given in hexadecimal digits, from 00 to FE, which is 0 to 254 in
+      decimal. (This number also forms the first two digits of a record's Form ID.)
+  - source: libloadorder_load_order_mechanisms
+    evidence_class: declared
+    quote: >-
+      In Morrowind, Oblivion, Fallout 3 and Fallout: New Vegas, load order is decided by the relative
+      timestamps of plugins in the game's Data directory.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - wrye_bash_readme
+    - libloadorder_load_order_mechanisms

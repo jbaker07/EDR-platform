@@ -1,0 +1,47 @@
+id: rw-example-rimsort-community-rules
+game: rimworld
+title: RimSort Community Rules Database (communityRules.json)
+url: https://raw.githubusercontent.com/RimSort/Community-Rules-Database/main/communityRules.json
+kind: schema
+demonstrates:
+- a machine-readable load-order ruleset keyed by RimWorld packageId, independent of any one mod manager's internals
+- 'the record shape {packageId: {loadAfter: {otherId: {name: [display names]}}}}, carrying a human-readable name alongside each id'
+- a crowd-maintained layer of ordering knowledge that About.xml's own loadAfter/loadBefore fields do not capture
+- an explicit freshness signal - a top-level Unix "timestamp" field
+license: unknown
+reuse:
+  integration: reference_only
+  constraints: >-
+    There is NO LICENSE file at the root of the repository on branch main - the probe
+    returned HTTP 404 and is recorded in this pack as the gap source
+    rimsort_rules_db_license_probe. Redistribution, commercial use and derivative terms are
+    therefore unknown, not permissive. We read it; we do not vendor, republish or derive a
+    ruleset from it. The RimSort application itself is separately licensed GPL-3.0, which
+    says nothing about this data repository.
+maintenance:
+  state: active
+  last_release: 'data timestamp 1789239946 = 2026-09-12T19:05:46Z, seven days before this check'
+  checked_at: '2026-09-19'
+  supported_versions: 'not version-scoped; rules are keyed by packageId, not by RimWorld version'
+evidence:
+- source: rimsort_community_rules_db
+  evidence_class: extracted
+  locator: top-level object
+  quote: '"timestamp": 1789239946'
+- source: rimsort_community_rules_db
+  evidence_class: extracted
+  locator: 'rules -> first entry'
+  quote: '"3tes.cgtwaa": {"loadAfter": {"gt.sam.glittertech": {"name": ["Glitter Tech"]}}}'
+- source: rimsort_rules_db_license_probe
+  evidence_class: unresolved
+  locator: repository root LICENSE on branch main
+- source: rimsort_license
+  evidence_class: extracted
+  locator: line 1-2
+  quote: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - rimsort_community_rules_db
+  - rimsort_rules_db_license_probe

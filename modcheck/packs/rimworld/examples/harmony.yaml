@@ -1,0 +1,51 @@
+id: rw-example-harmony
+game: rimworld
+title: Harmony (pardeike/Harmony, NuGet Lib.Harmony)
+url: https://raw.githubusercontent.com/pardeike/Harmony/master/README.md
+kind: library
+demonstrates:
+- runtime patching of .NET and Mono methods as prefixes, postfixes, transpilers, finalizers and reverse patches
+- the annotation model - a class carrying at least one [HarmonyPatch] attribute, with static patch methods found by name or attribute
+- altering a method's return value by taking __result by ref
+- why a destructive prefix (returning false) is the main source of mod-vs-mod breakage in RimWorld
+- the documented failure mode where an inlined method simply cannot be patched
+license: MIT
+reuse:
+  integration: reference_only
+  constraints: >-
+    LICENSE is the MIT licence, "Copyright (c) 2017 Andreas Pardeike", so reuse requires
+    only that the notice be retained. In RimWorld it is consumed as a mod dependency on
+    packageId brrainz.harmony rather than vendored - the wiki explicitly warns against
+    shipping 0Harmony.dll inside a mod's Assemblies folder. Nothing from it is copied into
+    this repository.
+maintenance:
+  state: active
+  last_release: 'Lib.Harmony 2.4.2, published 2025-11-13 (NuGet registration index)'
+  checked_at: '2026-09-19'
+  supported_versions: 'Harmony 2.x; the RimWorld wiki page and its examples are written for Harmony 2'
+evidence:
+- source: harmony_license
+  evidence_class: extracted
+  locator: line 1-3
+  quote: MIT License Copyright (c) 2017 Andreas Pardeike
+- source: harmony_nuget_registration
+  evidence_class: extracted
+  locator: items[-1].items[-1].catalogEntry
+  quote: '"version": "2.4.2", "published": "2025-11-13T00:25:02.94+00:00"'
+- source: harmony_patching_docs
+  evidence_class: declared
+  locator: section "Types of patches"
+  quote: >-
+    Two of them, the Prefix patch and the Postfix patch are easy to understand and you can write them as
+    simple static methods.
+- source: rw_wiki_harmony
+  evidence_class: declared
+  locator: section "Summary"
+  quote: 'Harmony can alter the workings of any method. It offers three ways of doing this: prefixes, postfixes, and transpilers.'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - harmony_license
+  - harmony_nuget_registration
+  - harmony_patching_docs

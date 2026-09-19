@@ -1,0 +1,41 @@
+id: pz-example-pz-zdoc
+game: projectzomboid
+title: pz-zdoc - Lua API documentation generator for Project Zomboid
+url: https://github.com/cocolabs/pz-zdoc
+kind: tool
+demonstrates:
+- deriving the Lua-facing API from the game's own Java classes rather than from prose documentation
+- the general approach for closing the gap PZwiki names, that the Javadoc does not say which classes are exposed to Lua
+- a command-line tool a build or analysis pipeline could invoke as a subprocess, given a game installation
+license: GPL-3.0
+reuse:
+  integration: subprocess
+  constraints: >-
+    LICENSE.txt is the GNU General Public License v3, so invoking it as a separate process
+    is the appropriate integration - linking it into this repository would impose GPL
+    obligations here. It requires a Project Zomboid installation to read classes from; we
+    have not run it and cannot, since the game is not installed in this environment.
+maintenance:
+  state: unknown
+  checked_at: '2026-09-19'
+evidence:
+- source: pz_zdoc_license
+  evidence_class: extracted
+  locator: line 1-2
+  quote: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+- source: pz_zdoc_readme
+  evidence_class: declared
+  locator: repository README
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Exposed elements"
+  quote: >-
+    Not all the Java classes and methods are exposed to the Lua API. In the [[JavaDocs]], there is no
+    indication of which classes are exposed but for the classes that are, it shows only the methods that
+    are exposed.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pz_zdoc_readme
+  - pz_zdoc_license

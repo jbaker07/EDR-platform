@@ -1,0 +1,68 @@
+id: missing_master
+game: skyrimse
+title: A plugin whose master is not installed crashes the game at startup
+symptom: >-
+  The game closes to the desktop during startup, before or at the main menu, as soon as the plugin
+  is activated. Mod managers and Wrye Bash mark the plugin with a missing-master status rather than
+  loading it.
+mechanism: >-
+  Every plugin records the files it depends on as MAST entries in its TES4 header, and its record
+  data addresses those masters by their position in that list: the first two hexadecimal digits of
+  a FormID are the load-order index of the file the record belongs to. If a listed master is absent
+  the plugin's FormIDs cannot be resolved against anything, so the load fails. Wrye Bash states the
+  consequence plainly: a plugin with one or more missing masters "will generally cause the game to
+  crash on startup, and must be corrected". This is a hard dependency, not a soft one: there is no
+  version constraint in a MAST entry, only a filename.
+applies_to:
+  game_versions: All Skyrim Special Edition builds; the mechanism is a property of the plugin format
+  loader: bethesda_plugin
+targets:
+  - kind: file_path
+    id: the MAST entries in the plugin's TES4 header
+    label: master file list
+conditions:
+  - kind: state
+    description: The named master file is not present in the game's Data folder (or is present under a different filename).
+  - kind: load_order
+    description: >-
+      A master that is present but loads after the dependent plugin is a different defect with a
+      similar outcome - Wrye Bash describes that case as either crashing the game or making mods
+      load in unexpected ways.
+detector:
+  detectable: "yes"
+  check_id: dependency.missing
+  signal: >-
+    src/modcheck/inspect/bethesda.py extracts each MAST entry as a declared dependency
+    (kind content_mod, required true); src/modcheck/analyze/requirements.py resolves those against
+    the artifacts in the supplied configuration and emits dependency.missing when nothing provides
+    the named file. Caveats that are part of the check, not excuses for it: matching is by filename,
+    and if the configuration is not a complete file listing the report also emits
+    coverage.partial_file_view, because an absence in a partial view is not evidence of absence.
+evidence:
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Mods tab, checkbox colours
+    quote: >-
+      One or more of the plugin's masters is missing. This will generally cause the game to crash on
+      startup, and must be corrected.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Mods tab, checkbox colours
+    quote: >-
+      This plugin loads before one or more of its masters. This will either cause the game to crash
+      or cause mods to load in unexpected ways and must be corrected.
+  - source: wrye_bash_readme
+    evidence_class: declared
+    locator: Setting Up Load Order
+    quote: >-
+      The load order of plugins is given in hexadecimal digits, from 00 to FE, which is 0 to 254 in
+      decimal. (This number also forms the first two digits of a record's Form ID.)
+  - source: libloadorder_load_order_mechanisms
+    evidence_class: declared
+    quote: Master plugins almost always load before non-master plugins.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - wrye_bash_readme
+    - libloadorder_load_order_mechanisms

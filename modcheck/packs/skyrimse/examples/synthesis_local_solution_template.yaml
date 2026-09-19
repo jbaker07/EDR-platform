@@ -1,0 +1,48 @@
+id: synthesis_local_solution_template
+game: skyrimse
+title: Synthesis Local Solution patcher - generated project template
+url: https://mutagen-modding.github.io/Synthesis/devs/Create-a-Patcher/
+kind: template
+demonstrates:
+  - A ready-made C# project wired into the Synthesis pipeline, with Mutagen referenced and nullability enabled
+  - The Program.cs entry point that registers a patch for a game type and names the output plugin
+  - Generating a patch against the player's own load order rather than shipping a fixed patch plugin
+license: GPL-3.0-only
+reuse:
+  integration: vendored
+  constraints: >-
+    The template is generated into your own solution, so what you ship is a derivative of Synthesis
+    and Mutagen - both GPL-3.0-only per the NuGet package metadata and the repository LICENSE files.
+    Building it needs the .NET SDK, which is absent here, so we generated nothing.
+maintenance:
+  state: active
+  last_release: 0.36.6, published 2026-08-08T17:19:29.203+00:00 (newest listed Mutagen.Bethesda.Synthesis version in the NuGet registration page we fetched)
+  checked_at: '2026-09-19'
+  supported_versions: >-
+    Documented patch types are ISkyrimMod/ISkyrimModGetter and IFallout4Mod/IFallout4ModGetter
+evidence:
+  - source: synthesis_create_a_patcher
+    evidence_class: declared
+    locator: Solution Patcher
+    quote: >-
+      Creates a project, with both Synthesis and Mutagen imported
+  - source: synthesis_create_a_patcher
+    evidence_class: declared
+    locator: Locating the Code
+    quote: >-
+      A patcher project should have a Program.cs file with the initial Synthesis bootstrapping code
+      already in place.
+  - source: nuget_synthesis_registration
+    evidence_class: extracted
+    locator: newest non-unlisted catalogEntry in the fetched page
+    quote: '"version":"0.36.6"'
+  - source: nuget_synthesis_registration
+    evidence_class: declared
+    locator: catalogEntry.licenseExpression
+    quote: '"licenseExpression":"GPL-3.0-only"'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - synthesis_create_a_patcher
+    - nuget_synthesis_registration

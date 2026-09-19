@@ -1,0 +1,41 @@
+id: rw-example-krafs-rimworld-ref
+game: rimworld
+title: Krafs.Rimworld.Ref - RimWorld reference assemblies on NuGet
+url: https://api.nuget.org/v3/registration5-gz-semver2/krafs.rimworld.ref/index.json
+kind: tool
+demonstrates:
+- compiling a RimWorld mod assembly without owning, shipping or pointing at the player's game files
+- version-tracked reference assemblies whose package versions follow the game's own version line (1.2.x through 1.6.x)
+- a dependency a project file can declare, making the build reproducible on a machine with no game installed
+license: unknown
+reuse:
+  integration: reference_only
+  constraints: >-
+    The NuGet registration index root we fetched does not inline catalog entries, so the
+    package's licence metadata was NOT read and is recorded as unknown rather than guessed.
+    Resolving it would need a second fetch of one of the six registration pages. We
+    reference the package in a recipe; we have not downloaded or executed it, and there is
+    no .NET SDK here.
+maintenance:
+  state: active
+  last_release: '1.6.4871 (highest version on the final registration page); registration root commit timestamp 2026-07-01'
+  checked_at: '2026-09-19'
+  supported_versions: '1.2.x - 1.6.x, matching RimWorld''s own version line'
+evidence:
+- source: krafs_rimworld_ref_nuget
+  evidence_class: extracted
+  locator: root object
+  quote: '"commitTimeStamp": "2026-07-01T02:43:53.5830285+00:00", "count": 6'
+- source: krafs_rimworld_ref_nuget
+  evidence_class: extracted
+  locator: items[-1]
+  quote: '"lower": "1.6.4494-beta", "upper": "1.6.4871"'
+- source: rw_wiki_mod_folder_structure
+  evidence_class: declared
+  locator: section "Assemblies"
+  quote: Properly compiled assemblies will be automatically loaded by RimWorld.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - krafs_rimworld_ref_nuget

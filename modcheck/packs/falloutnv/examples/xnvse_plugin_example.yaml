@@ -1,0 +1,47 @@
+id: xnvse_plugin_example
+game: falloutnv
+title: xNVSE Example Plugin - the starting project for a New Vegas script-extender plugin
+url: https://raw.githubusercontent.com/xNVSE/NVSE/master/nvse_plugin_example/nvse_plugin_example.sln
+kind: template
+demonstrates:
+  - A compilable starting point for an xNVSE plugin, referencing the common_vc9 project the loader expects
+  - The four build configurations that separate game-time from GECK-time plugins (Debug, Release, Debug GECK, Release GECK)
+  - Declaring the minimum xNVSE version a plugin needs, via the macros in nvse_version.h
+license: unknown
+reuse:
+  integration: vendored
+  constraints: >-
+    Genuinely unknown, and that is the finding: the xNVSE repository has no LICENSE, LICENSE.md,
+    LICENSE.txt or COPYING file at its root (all four return HTTP 404) and the readme states no
+    terms. Treat copying this code as unlicensed until the authors say otherwise. Technically it is
+    Win32/Visual Studio only, so nothing about it could be built here.
+maintenance:
+  state: unknown
+  checked_at: '2026-09-19'
+  supported_versions: >-
+    Not determinable by us: xNVSE releases are published on github.com and Nexus Mods, both of which
+    are blocked to us, so we could not read a single version number or release date
+evidence:
+  - source: xnvse_development_guide
+    evidence_class: declared
+    quote: >-
+      To do so, open up the project by opening `nvse_plugin_example.sln` in the `nvse_plugin_example`
+      folder, then hit compile.
+  - source: xnvse_plugin_example_solution
+    evidence_class: extracted
+    locator: project entries
+    quote: >-
+      Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nvse_plugin_example",
+      "nvse_plugin_example.vcxproj", "{AE7CFEE7-4058-4E3C-ADC2-AE7480EE2028}"
+  - source: xnvse_readme
+    evidence_class: declared
+    quote: >-
+      For documentation on how to write scripts utilizing NVSE, see [GECK
+      Wiki](https://geckwiki.com/index.php?title=Main_Page).
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xnvse_plugin_example_solution
+    - xnvse_development_guide
+    - xnvse_readme

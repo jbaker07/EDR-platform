@@ -1,0 +1,48 @@
+id: loot_masterlist_dataset
+game: falloutnv
+title: LOOT Fallout New Vegas masterlist - machine-readable compatibility data
+url: https://raw.githubusercontent.com/loot/falloutnv/master/masterlist.yaml
+kind: schema
+demonstrates:
+  - Curated requirements, incompatibilities, load-order rules and dirty-edit records in machine-readable YAML
+  - Per-copy identification by CRC, so a dirty-edit record applies only to the build it was written for
+  - Game-specific Bash Tags (Deflst, Destructible, WeaponMods) that drive Wrye Bash's import patchers
+license: GPL-3.0
+reuse:
+  integration: reference_only
+  constraints: >-
+    Note the difference from the other two masterlists we use: the loot/falloutnv repository LICENSE
+    file is the GNU GPL v3 text, not CC0-1.0. We fetch it with provenance and read it from the
+    evidence cache rather than redistributing it, so our use is unaffected, but anything that shipped
+    this data would have to honour the GPL.
+maintenance:
+  state: active
+  checked_at: '2026-09-19'
+  supported_versions: Fallout New Vegas, as curated by the LOOT team
+evidence:
+  - source: loot_masterlist_falloutnv_license
+    evidence_class: extracted
+    quote: GNU GENERAL PUBLIC LICENSE
+  - source: loot_masterlist_falloutnv_readme
+    evidence_class: declared
+    quote: >-
+      This repository holds the LOOT masterlist for Fallout: New Vegas.
+  - source: loot_masterlist_falloutnv
+    evidence_class: extracted
+    locator: common anchors at the head of the file
+    quote: |-
+      - &NVSE
+        name: '..\nvse_loader.exe'
+  - source: loot_metadata_plugin_spec
+    evidence_class: declared
+    locator: the name field
+    quote: >-
+      This is the structure that brings all the others together, and forms the main component of a
+      metadata file.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - loot_masterlist_falloutnv
+    - loot_masterlist_falloutnv_license
+    - loot_masterlist_falloutnv_readme

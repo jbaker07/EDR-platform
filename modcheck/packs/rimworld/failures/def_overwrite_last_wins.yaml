@@ -1,0 +1,71 @@
+id: rw-def-overwrite-last-wins
+game: rimworld
+title: Two mods define the same defName and only the last one in the load order survives
+symptom: >-
+  With both mods enabled, one mod's changes to a thing, recipe or building are completely
+  absent while the other's are present, with no error in the log. Reordering the mod list
+  swaps which mod appears to work, which is the tell-tale sign: neither mod is broken on
+  its own.
+mechanism: >-
+  Defs are not merged per field. Before alpha 17 the only way to change a Def was to define
+  a replacement, and where more than one mod overwrote the same Def only the last mod in
+  the load order succeeded, because the earlier ones were themselves overwritten. That
+  replacement behaviour still exists - it is why PatchOperations were introduced, and why
+  the community guidance for overwriting both core Defs and other mods' Defs is a one-word
+  "Don't". The same last-one-wins rule applies inside a single mod when LoadFolders.xml
+  resolves two XML files to the same path.
+applies_to:
+  game_versions: '1.6'
+  loader: rimworld
+targets:
+- kind: def
+  id: <defName>
+  container: Defs/**/*.xml
+  label: any Def defined by two mods; ownership is decided purely by load order
+- kind: file_path
+  id: LoadFolders.xml
+  label: versioned entries can resolve two files to the same path, where the last loaded also wins
+conditions:
+- kind: load_order
+  description: Both mods are enabled and one loads after the other; the later definition replaces the earlier.
+- kind: state
+  description: Both mods define the Def outright rather than modifying it with a PatchOperation.
+detector:
+  detectable: 'no'
+  signal: >-
+    src/modcheck/inspect/rimworld.py records def_files - the list of XML files under a
+    Defs folder - so it knows a mod ships Defs, and how many.
+  why_not: >-
+    Nothing here parses a Def file, so ModCheck never learns a single defName; the module's
+    own not_checked list states "Def contents and xpath targets of individual
+    PatchOperations". Two mods shipping Defs/ThingDefs/Weapons.xml is not evidence of a
+    collision, and two mods colliding on a defName inside differently named files is
+    invisible. Detecting this needs a Def parser plus a cross-artifact defName index -
+    neither exists.
+evidence:
+- source: rw_wiki_patchoperations
+  evidence_class: declared
+  locator: section "Basics"
+  quote: >-
+    Prior to RimWorld alpha 17, modders could only modify Defs by creating new ones that overwrote the
+    original; this often resulted in compatibility issues as if more than one mod tried to overwrite the
+    same Def, only the last mod in the load order would succeed as prior ones would themselves be
+    overwritten.
+- source: rw_wiki_compatibility_defs
+  evidence_class: declared
+  locator: 'section "Overwriting defs"'
+  quote: "=Overwriting defs= ===Core defs=== '''Don't.''' Use xpath instead. ===Mod defs=== '''Don't.'''"
+- source: rw_wiki_mod_folder_structure
+  evidence_class: declared
+  locator: 'section "Defs"'
+  quote: >-
+    The one exception to this is if you are using versioned <code>LoadFolders.xml</code> entries: XML
+    files with the same resolved path will overwrite each other, with the last one to be loaded taking
+    precedence.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - rw_wiki_patchoperations
+  - rw_wiki_compatibility_defs
+  - rw_wiki_mod_folder_structure

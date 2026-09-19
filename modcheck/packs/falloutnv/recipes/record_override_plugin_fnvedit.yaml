@@ -1,0 +1,125 @@
+id: record_override_plugin_fnvedit
+game: falloutnv
+title: Change a record and ship the change as an override plugin with FNVEdit
+category: modify_data_record
+intent: >-
+  A creator ends up with a small .esp that overrides existing records with FalloutNV.esm (or another
+  mod) as master, free of identical-to-master filler, and with a load position the player can
+  actually achieve - which in this game means a file timestamp, not a line in a text file.
+applies_to:
+  game_versions: >-
+    Fallout: New Vegas; the plugin-format work is independent of the executable build, though NVSE
+    users should launch through the loader as usual
+  loader: bethesda_plugin
+  toolchain:
+    - FNVEdit (xEdit)
+inputs:
+  - A Fallout New Vegas installation with the plugin you want to override installed
+  - FNVEdit, launched through the mod manager so it sees the same load order the game will
+extension_points:
+  - kind: record
+    id: any existing record reachable in the xEdit navigation tree
+    container: FalloutNV.esm or another plugin you take as master
+  - kind: field
+    id: the subrecord/field you change on that record
+  - kind: field
+    id: TES4 header master flag
+    label: >-
+      in this game the header's master flag alone decides whether a file is a master; the extension
+      is ignored, so a mismatched pair is a false-flagged plugin
+dependencies:
+  - id: xedit
+    kind: tool
+    required: true
+steps:
+  - step: Load the plugin and its masters, and nothing else
+    detail: >-
+      Start FNVEdit with a minimal selection. xEdit's cleaning chapter is explicit that unrelated
+      plugins in the session defeat identical-to-master calculation.
+  - step: Apply the conflict filter before editing
+    detail: >-
+      Right-click in the Navigation Tree and choose "Apply Filter to show Conflicts" so you can see
+      who already overrides the record you are about to touch.
+  - step: Copy as override into a new plugin
+    detail: >-
+      Right-click the record, choose "Copy as override", select <new file> and name your plugin.
+      xEdit adds the source plugin as a master, which is what makes the copied record resolvable.
+  - step: Edit only the field you mean to change
+    detail: >-
+      Right-click the value in your plugin and choose Edit. Leave everything else inherited: a field
+      set back to its original value is an identical-to-master edit and will cancel another mod's
+      intentional change.
+  - step: Save only your own plugin
+    detail: >-
+      Press Alt-S and confirm that only your file is checked in the Save Changed Files dialog.
+  - step: Tell the player where it must load
+    detail: >-
+      Load order here is decided by the plugins' file timestamps in the Data directory, not by
+      plugins.txt order, so "load after X" is achieved with a load-order manager that redates files
+      (LOOT or Wrye Bash) rather than by dragging a line in a text file.
+interactions:
+  - >-
+    Your override wins only where it loads last. Because ordering is timestamp-based, anything that
+    rewrites timestamps - reinstalling, some archive tools, some mod managers - can silently change
+    the outcome without touching the plugin.
+  - >-
+    Taking a mod as master makes your plugin fail to load if that mod is absent.
+  - >-
+    There are no light plugins in this game, so every plugin you ship consumes one of the 255 active
+    slots. A mod distributed as several optional plugins is spending a scarce resource.
+build:
+  produces: A single .esp in the game's Data folder
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Inspect the saved plugin's header
+    command: modcheck inspect Data/YourPatch.esp --game falloutnv
+    limits: >-
+      Reads the TES4 header only: masters, the master flag and HEDR counts. It does not read your
+      edited record, cannot detect identical-to-master edits, and the light-plugin facts it reports
+      are meaningless for this game because light plugins do not exist here.
+  - method: Run the LOOT-backed analysis across the plugins involved
+    command: modcheck analyze --game falloutnv --artifact Data/YourPatch.esp --artifact Data/TheModYouOverride.esp
+    limits: >-
+      Reports only rules LOOT has recorded for those plugin names, plus missing masters. Your new
+      plugin has no masterlist entry, so silence is expected and means nothing about correctness.
+acceptance:
+  - The plugin's master list contains exactly the files whose records you copied.
+  - The only differences from the master are the fields you changed deliberately.
+  - Re-opened in FNVEdit with the conflict filter, your record is the winner in the order you documented.
+references:
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.8 Creating a Patch Plugin (Manual Method)
+    quote: >-
+      To create the new patch Plugin, you right-click on a conflicted record (A) and select, "Copy as
+      override" (B).
+  - source: xedit_mod_cleaning
+    evidence_class: declared
+    locator: 7.4.1 There are no intentional ITMs
+    quote: >-
+      Cleaning with all your mods loaded would be like looking for someone through a crowd of people.
+  - source: libloadorder_load_order_mechanisms
+    evidence_class: declared
+    quote: >-
+      In Morrowind, Oblivion, Fallout 3 and Fallout: New Vegas, load order is decided by the relative
+      timestamps of plugins in the game's Data directory.
+  - source: libloadorder_plugin_types
+    evidence_class: declared
+    locator: 'Oblivion, Skyrim, Fallout 3, Fallout: New Vegas'
+    quote: >-
+      Plugin files have an internal setting known as their *master flag*. If this is set, the plugin
+      is a master plugin. If it is not set, the plugin is a non-master plugin. File extension is
+      ignored.
+verification_state: documented
+verification_note: >-
+  Written from fetched documentation only. FNVEdit is a Windows GUI application, absent here, and
+  there is no game installation, so nothing was executed.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xedit_conflict_detection
+    - xedit_mod_cleaning
+    - libloadorder_load_order_mechanisms
+    - libloadorder_plugin_types

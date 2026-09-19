@@ -17,9 +17,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:57+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 3aeebe44f7d4a741ee02e9fa7f60e99af0f4135f37d0af8ce62ca72efadf8a12
   bytes: 18831
   content_type: text/plain
@@ -28,6 +28,11 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild
+  license: MIT
+  notes: 'The primary Content Patcher reference: pack layout, format version, every action type, the FAQ
+    on how multiple patches interact, and the known-limitations table. Fetched from the Pathoschild/StardewMods
+    repository, whose LICENSE was fetched separately (source pathoschild_stardewmods_license) and reads
+    ''The MIT License (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)''.'
 - id: content_patcher_editdata
   title: 'Content Patcher author guide: EditData action'
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/action-editdata.md
@@ -36,9 +41,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:58+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: e71559aa3d1f1659950c50ae09bbd90a5a118f3faea113bfa3c20d25b004f522
   bytes: 18214
   content_type: text/plain
@@ -47,6 +52,10 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild
+  license: MIT
+  notes: Reference for the EditData action, the composable way to change a data asset. Fetched from the
+    Pathoschild/StardewMods repository, whose LICENSE was fetched separately (source pathoschild_stardewmods_license)
+    and reads 'The MIT License (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)'.
 - id: content_patcher_json_schema
   title: Content Patcher JSON Schema for content.json
   url: https://smapi.io/schemas/content-patcher.json
@@ -66,6 +75,10 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: unknown (smapi.io serves no licence statement with the file; Content Patcher itself is MIT
+    per pathoschild_stardewmods_license)
+  notes: Draft-07 JSON Schema for a Content Patcher content.json. Machine-readable counterpart to the
+    author guide; used to bound what a patch may legally contain without running the game.
 - id: content_patcher_load
   title: 'Content Patcher author guide: Load action'
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/action-load.md
@@ -74,9 +87,9 @@ sources:
   retrieved_at: '2026-09-19T13:49:25+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 7643630f79f1ed4c4a57792e558c65803a4c97cc680f366c9bac1613b3f50434
   bytes: 5507
   content_type: text/plain
@@ -85,6 +98,11 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild
+  license: MIT
+  notes: Reference for the Load action, including the Priority field whose default value Exclusive produces
+    the collision documented in failures/. Fetched from the Pathoschild/StardewMods repository, whose
+    LICENSE was fetched separately (source pathoschild_stardewmods_license) and reads 'The MIT License
+    (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)'.
 - id: content_patcher_release_notes
   title: Content Patcher release notes (version history)
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/release-notes.md
@@ -93,9 +111,9 @@ sources:
   retrieved_at: '2026-09-19T13:48:10+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: f534a12ec293c32997a1efc40c19055b3d3c81b299244c7cd1c0808d31f9d94d
   bytes: 61470
   content_type: text/plain
@@ -104,6 +122,11 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild
+  license: MIT
+  notes: Version history with release dates; the basis for the maintenance state recorded in examples/content_patcher.yaml.
+    Fetched from the Pathoschild/StardewMods repository, whose LICENSE was fetched separately (source
+    pathoschild_stardewmods_license) and reads 'The MIT License (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard
+    (Pathoschild)'.
 - id: content_patcher_tokens
   title: 'Content Patcher author guide: tokens and conditions'
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/tokens.md
@@ -112,9 +135,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:58+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 32f10e6059807434eba19a26c63e662bd1d24f0d31edb6dd6d326d94887d7b7b
   bytes: 60588
   content_type: text/plain
@@ -123,6 +146,11 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild
+  license: MIT
+  notes: Token and condition reference for content.json. Fetched from the Pathoschild/StardewMods repository,
+    whose LICENSE was fetched separately (source pathoschild_stardewmods_license) and reads 'The MIT License
+    (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)'. Every token value resolves only
+    at runtime, which is why no static check in this pack evaluates a When condition.
 - id: content_patcher_troubleshooting
   title: 'Content Patcher author guide: troubleshooting patches'
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/troubleshooting.md
@@ -131,9 +159,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:58+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 62249b207b37b2c5d3a8a9c0f6e2f1d56d85b12a8d68caa37cc07085a884ff2d
   bytes: 10024
   content_type: text/plain
@@ -142,6 +170,10 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild
+  license: MIT
+  notes: Documents the schema validator at smapi.io/json and the in-game 'patch' console commands. Fetched
+    from the Pathoschild/StardewMods repository, whose LICENSE was fetched separately (source pathoschild_stardewmods_license)
+    and reads 'The MIT License (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)'.
 - id: modbuildconfig_nuget
   title: NuGet registration index for Pathoschild.Stardew.ModBuildConfig
   url: https://api.nuget.org/v3/registration5-gz-semver2/pathoschild.stardew.modbuildconfig/index.json
@@ -161,6 +193,10 @@ sources:
   games:
   - stardewvalley
   publisher: NuGet / Pathoschild
+  license: unknown
+  notes: 'NuGet v3 registration index. The service metadata itself carries no licence; the package it
+    describes declares licenseExpression ''MIT''. Used for one fact only: latest version 4.4.0, published
+    2025-04-13, authors Pathoschild.'
 - id: pathoschild_stardewmods_license
   title: Pathoschild/StardewMods repository LICENSE
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/LICENSE
@@ -169,9 +205,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:45+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 6780840a743713f47a6cff9a4aeee5059a4b8f68fbefa6734f9924c7c7d6282d
   bytes: 1107
   content_type: text/plain
@@ -180,6 +216,11 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild
+  license: MIT
+  notes: 'The Pathoschild/StardewMods licence text, verbatim: ''The MIT License (MIT) / Copyright 2016-2025
+    Jesse Plamondon-Willard (Pathoschild)''. Content Patcher lives in this repository, so this is the
+    source every MIT claim about Content Patcher documentation in this pack rests on. Note LICENSE.txt
+    does not exist in this repository - the file is LICENSE with no extension.'
 - id: sdv_wiki_copyrights
   title: Stardew Valley Wiki:Copyrights - content licence statement
   url: https://stardewvalleywiki.com/Stardew_Valley_Wiki:Copyrights
@@ -188,9 +229,9 @@ sources:
   retrieved_at: '2026-09-19T13:46:16+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: 0ef81796d0d9f41829450d10e6a867b2a27702574f0681495e40086dc58bf11d
   bytes: 22404
   content_type: text/html
@@ -199,6 +240,10 @@ sources:
   games:
   - stardewvalley
   publisher: Stardew Valley Wiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'The wiki''s own copyright statement, fetched so that every CC BY-NC-SA claim about stardewvalleywiki.com
+    sources in this pack is traceable. It reads: ''This sites content is protected under Creative Commons
+    license - Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)''.'
 - id: sdv_wiki_get_started
   title: 'Stardew Valley Wiki: Modder Guide - Get Started'
   url: https://stardewvalleywiki.com/Modding:Modder_Guide/Get_Started
@@ -207,9 +252,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:00+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: ee346dc1a9aa1ea4856f9e38c4e0d489dad2d313bd0ee3c0682c3fe2e0f6d148
   bytes: 62741
   content_type: text/html
@@ -218,6 +263,10 @@ sources:
   games:
   - stardewvalley
   publisher: Stardew Valley Wiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'The wiki''s entry point for new mod authors. stardewvalleywiki.com. Its Stardew Valley Wiki:Copyrights
+    page (source sdv_wiki_copyrights) states the site''s content is under CC BY-NC-SA 3.0 Unported: share
+    and remix with attribution, no commercial use, share alike.'
 - id: sdv_wiki_manifest
   title: 'Stardew Valley Wiki: Modder Guide - manifest.json'
   url: https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Manifest
@@ -226,9 +275,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:59+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: 02bf144e16496c8ccb3cba93ed75595b14cd4f1045994e8c8c324c74488cda4c
   bytes: 38245
   content_type: text/html
@@ -237,6 +286,10 @@ sources:
   games:
   - stardewvalley
   publisher: Stardew Valley Wiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'The wiki''s prose companion to the manifest JSON Schema. stardewvalleywiki.com. Its Stardew
+    Valley Wiki:Copyrights page (source sdv_wiki_copyrights) states the site''s content is under CC BY-NC-SA
+    3.0 Unported: share and remix with attribution, no commercial use, share alike.'
 - id: sdv_wiki_modding_index
   title: 'Stardew Valley Wiki: Modding:Index'
   url: https://stardewvalleywiki.com/Modding:Index
@@ -245,9 +298,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:59+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: 0684bf38493109884fbeb15f15bb0c16164d764a4a52c397bdbc91e59e7ea637
   bytes: 37433
   content_type: text/html
@@ -256,6 +309,10 @@ sources:
   games:
   - stardewvalley
   publisher: Stardew Valley Wiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'Index of the wiki''s modding documentation. stardewvalleywiki.com. Its Stardew Valley Wiki:Copyrights
+    page (source sdv_wiki_copyrights) states the site''s content is under CC BY-NC-SA 3.0 Unported: share
+    and remix with attribution, no commercial use, share alike.'
 - id: smapi_license
   title: SMAPI repository LICENSE.txt
   url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/LICENSE.txt
@@ -264,9 +321,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:45+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: ea8af5e789cb2d4e9b10bce3874982ade163b749b6bfbdb32e2df21c4d106de1
   bytes: 7650
   content_type: text/plain
@@ -275,6 +332,10 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: LGPL-3.0-or-later
+  notes: 'The SMAPI repository''s own licence text: ''GNU LESSER GENERAL PUBLIC LICENSE Version 3, 29
+    June 2007''. This is the source every LGPL-3.0 claim about SMAPI repository files in this pack rests
+    on.'
 - id: smapi_manifest_json_schema
   title: SMAPI JSON Schema for manifest.json
   url: https://smapi.io/schemas/manifest.json
@@ -294,6 +355,13 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: unknown (smapi.io serves no licence statement with the file; the SMAPI repository that publishes
+    these schemas is LGPL-3.0-or-later per its LICENSE.txt)
+  notes: Draft-07 JSON Schema, $id https://smapi.io/schemas/manifest.json. The same schema is published
+    in the SMAPI repository at src/SMAPI.Web/wwwroot/schemas/manifest.json; we did not verify the two
+    copies are byte-identical (the repository copy is 8173 bytes against 8334 here), so the repository
+    licence is recorded as context rather than asserted over this file. Uses the non-standard keywords
+    allowComments, allowTrailingCommas, @documentationUrl and @errorMessages.
 - id: smapi_mod_build_config
   title: Mod build package (Pathoschild.Stardew.ModBuildConfig) documentation
   url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/docs/technical/mod-package.md
@@ -302,9 +370,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:46+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: ba1ee7f8a28b3fa42fc3553a82a14f1e62fbede90cdee2788b44562dcc339bbb
   bytes: 14477
   content_type: text/plain
@@ -313,6 +381,12 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: LGPL-3.0-or-later
+  notes: Documents the Pathoschild.Stardew.ModBuildConfig NuGet package. Fetched from the Pathoschild/SMAPI
+    repository, whose LICENSE.txt was fetched separately (source smapi_license) and is the GNU Lesser
+    General Public License v3. The package it describes is separately MIT per its NuGet licenseExpression
+    (source modbuildconfig_nuget) - the licence on this documentation file and the licence on the package
+    are not the same thing.
 - id: smapi_mod_compatibility_list
   title: SMAPI mod compatibility list (smapi.io/mods)
   url: https://smapi.io/mods
@@ -331,6 +405,14 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: unknown
+  notes: 'Fetched successfully (HTTP 200) but the response is a 7.7 KB HTML shell, not the compatibility
+    data itself - the list is rendered client-side. The SMAPI release notes additionally record that the
+    web mod compatibility list has been deprecated. Recorded so the attempt is on the record; no claim
+    in this pack rests on it. Re-verification note: `modcheck sources verify` reports drift on every re-fetch.
+    We diffed two copies: the only difference is a time-limited signed Azure blob URL (fetchUri, with
+    an `se=` expiry and a fresh `sig=`) that the page uses to load the list client-side. The shell itself
+    is unchanged, and it still contains no compatibility data.'
 - id: smapi_mod_metadata_db
   title: 'SMAPI.metadata.json: SMAPI''s internal mod compatibility database'
   url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/src/SMAPI.Web/wwwroot/SMAPI.metadata.json
@@ -339,9 +421,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:45+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: e134b4f73f0c572792f4a5d4a972a69ae0ed5c9edbebf1dc61629e8e15a33682
   bytes: 44996
   content_type: text/plain
@@ -350,6 +432,12 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: LGPL-3.0-or-later
+  notes: SMAPI's own per-mod compatibility database. Fetched from the Pathoschild/SMAPI repository, whose
+    LICENSE.txt was fetched separately (source smapi_license) and is the GNU Lesser General Public License
+    v3. It is JSON-with-comments with a leading BOM and /* */ blocks, so json.loads on the raw bytes fails;
+    read it with a comment-stripping reader. Keys may be prefixed with a version range and 'Default',
+    e.g. '~1.3.0 | Status'.
 - id: smapi_release_notes
   title: SMAPI release notes (version history)
   url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/docs/release-notes.md
@@ -358,9 +446,9 @@ sources:
   retrieved_at: '2026-09-19T13:48:10+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 3d1fe1644ffc7518aee6d87ac5ee44d1863c32a8910c35dc0c8b8a5dfebf4469
   bytes: 26867
   content_type: text/plain
@@ -369,6 +457,10 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: LGPL-3.0-or-later
+  notes: SMAPI version history with release dates and the game version each release targets. Fetched from
+    the Pathoschild/SMAPI repository, whose LICENSE.txt was fetched separately (source smapi_license)
+    and is the GNU Lesser General Public License v3.
 - id: smapi_technical_docs
   title: SMAPI technical documentation (loading, API, mod lifecycle)
   url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/docs/technical/smapi.md
@@ -377,9 +469,9 @@ sources:
   retrieved_at: '2026-09-19T13:39:46+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 78e3ef292c63e21b5f32b225343ced36267bffbfa2ce023ec4bf7b673885ab63
   bytes: 9601
   content_type: text/plain
@@ -388,3 +480,8 @@ sources:
   games:
   - stardewvalley
   publisher: Pathoschild / SMAPI
+  license: LGPL-3.0-or-later
+  notes: Documentation about SMAPI itself (configuration, compile flags, version format, release process)
+    rather than about writing mods. Fetched from the Pathoschild/SMAPI repository, whose LICENSE.txt was
+    fetched separately (source smapi_license) and is the GNU Lesser General Public License v3. Used here
+    only for SMAPI's semantic versioning format.

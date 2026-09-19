@@ -173,6 +173,31 @@ sources:
     HTML. The page carries no licence statement, so reuse terms are unknown: we cite and quote short passages
     for audit and do not redistribute the text. Used for the REDmod script-mod layout and the info.json
     example.'
+- id: cp_wiki_redscript_hook_annotations
+  title: 'Scripting Cyberpunk wiki: redscript Hook Annotations'
+  url: https://wiki.redmodding.org/scripting-cyberpunk/redscript/language-reference/hook-annotations.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:58:18+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 69536b5bbbc9df7565279ea37ce9dfa5da00b0ad1bb3e1bc58da82ab1443f85b
+  bytes: 6621
+  content_type: text/markdown
+  evidence_path: 69/69536b5bbbc9df7565279ea37ce9dfa5da00b0ad1bb3e1bc58da82ab1443f85b.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+  license: unknown
+  notes: 'Community wiki published with GitBook, in its Markdown form (append `.md` to any page URL).
+    This is the current ''Scripting Cyberpunk'' wiki: the older wiki.redmodding.org/redscript space carries
+    a Deprecation Notice saying ''This wiki has moved!'' and redirects here, so the older space must not
+    be cited. No licence statement appears on the page, so reuse terms are unknown. Primary evidence for
+    @wrapMethod/@replaceMethod/@addMethod/@replaceGlobal semantics, including the compatibility rules
+    that wraps chain but only one @replaceMethod per method can work.'
 - id: cp_wiki_troubleshooting_after_update
   title: 'Cyberpunk 2077 modding wiki: Troubleshooting after a game update'
   url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-users/user-guide-troubleshooting/users-troubleshooting-after-a-game-update.md

@@ -1,0 +1,208 @@
+id: rw-harmony-postfix-patch
+game: rimworld
+title: Change compiled game behaviour with a Harmony postfix
+category: event_behavior
+intent: >-
+  A compiled mod assembly that attaches a Harmony postfix to an existing RimWorld method
+  so the method's behaviour or result changes at runtime, without replacing the method and
+  without blocking other mods' patches on it.
+applies_to:
+  game_versions: '1.6'
+  loader: rimworld
+  loader_versions: 'Harmony 2.x (Lib.Harmony 2.4.2 is the latest on NuGet, published 2025-11-13)'
+  toolchain:
+  - krafs_rimworld_ref
+  - harmony
+  platforms:
+  - windows
+  - linux
+  - macos
+inputs:
+- the exact type and method to patch, including argument types for an overloaded method
+- a .NET toolchain and RimWorld reference assemblies to compile against
+dependencies:
+- id: brrainz.harmony
+  kind: library
+  versions: '2.x'
+  required: true
+- id: Krafs.Rimworld.Ref
+  kind: tool
+  versions: '1.6.x'
+  required: false
+extension_points:
+- kind: method
+  id: Building_Trap.KnowsOfTrap
+  signature: 'bool KnowsOfTrap(...)'
+  label: 'the wiki''s own worked example of a patched method; substitute your real target'
+- kind: config_key
+  id: modDependencies
+  container: About/About.xml
+  field: brrainz.harmony
+  label: declares Harmony as a dependency instead of shipping 0Harmony.dll
+- kind: file_path
+  id: Assemblies/MyMod.dll
+  label: compiled output; RimWorld loads properly compiled assemblies automatically
+- kind: method
+  id: 'MyMod.Patches.Building_Trap_KnowsOfTrap_Patch.Postfix'
+  label: 'a static patch method inside a class carrying at least one [HarmonyPatch] attribute'
+steps:
+- step: Declare Harmony as a dependency; do not ship its DLL
+  detail: >-
+    Add brrainz.harmony to modDependencies in About.xml and reference Harmony in your C#
+    project. The wiki is explicit that you should not put 0Harmony.dll in your mod's
+    Assemblies folder because outdated copies of Harmony cause problems - depend on the
+    Harmony mod instead. It also advises against pulling in HugsLib purely to get a
+    Harmony instance.
+  file: About/About.xml
+  code: |
+    <modDependencies>
+      <li>
+        <packageId>brrainz.harmony</packageId>
+        <displayName>Harmony</displayName>
+        <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      </li>
+    </modDependencies>
+- step: Prefer a postfix to a prefix
+  detail: >-
+    A postfix runs after the original and is guaranteed to run; it can also alter the
+    result. A prefix runs before the original, and one that returns false skips the
+    original entirely and may also prevent other prefixes from running - the wiki calls
+    this out as a compatibility problem. Transpilers rewrite the IL and are hard to debug
+    and maintain. Postfixes are the documented choice for greatest compatibility.
+- step: Write the patch class
+  detail: >-
+    Harmony finds a patch class by its [HarmonyPatch] attribute - the class may be static
+    or not, public or private, but it must carry at least one such attribute. Patch
+    methods must be static, because Harmony stores only a method pointer so it can
+    re-apply patches whenever someone else patches the same original. Harmony identifies
+    patch methods by name (Prefix, Postfix, Transpiler) unless you use the corresponding
+    attribute to name them yourself. To change a return value, take __result by ref.
+  file: Source/Patches/MyPatch.cs
+  code: |
+    [HarmonyPatch(typeof(SomeGameType))]
+    [HarmonyPatch(nameof(SomeGameType.SomeMethod))]
+    static class SomeGameType_SomeMethod_Patch
+    {
+        static void Postfix(ref bool __result)
+        {
+            // adjust __result here; the original has already run
+        }
+    }
+- step: Bootstrap the Harmony instance once
+  detail: >-
+    Create the Harmony instance in a [StaticConstructorOnStartup] class and call PatchAll()
+    from it, or do manual patching there. If the method you patch runs during game loading
+    you may need a different bootstrap point.
+  file: Source/MyModStartup.cs
+- step: Pin the exact method when it is overloaded or awkward to name
+  detail: >-
+    AccessTools is the documented reflection wrapper; the most reliable way to specify the
+    target is to hand Patch() a MethodInfo, and you must supply argument types for
+    overloaded methods. If a patch silently does not apply, set HarmonyInstance.DEBUG =
+    true and read the text file Harmony writes; a small method may simply have been
+    inlined, and Harmony's own docs note that when a method is inlined your patches are
+    not called because there is no method to patch.
+- step: Compile against reference assemblies and place the DLL in Assemblies
+  detail: >-
+    RimWorld automatically loads properly compiled DLLs from the mod's Assemblies folder.
+    Compiling needs the game's types; the Krafs.Rimworld.Ref NuGet package exists for
+    exactly this (verified through the NuGet registration index, latest version 1.6.4871).
+  command: dotnet build -c Release
+interactions:
+- 'Because a postfix always runs and does not suppress the original, several mods can postfix the same method and all of them take effect, in Harmony''s own patch order.'
+- 'A destructive prefix (returning false) is the opposite: it can silently disable both the original and other mods'' prefixes, which is how "mod A breaks mod B" usually happens in practice.'
+- 'A patch aimed at an inlined method never runs and produces no error, so absence of an error is not evidence the patch applied.'
+- 'Shipping 0Harmony.dll inside Assemblies puts an arbitrary Harmony version into the process instead of the one the Harmony mod provides.'
+build:
+  commands:
+  - dotnet build -c Release
+  produces: Assemblies/MyMod.dll inside the mod folder
+  requires_network: true
+  requires_game_install: false
+validation:
+- method: Inspect the packaged mod and confirm what it declares and ships
+  command: .venv/bin/modcheck inspect Mods/MyModFolder --json
+  limits: >-
+    Reports has_assemblies and the declared modDependencies, so it can show that Harmony
+    is declared and that a DLL is present. It cannot open the assembly: which methods are
+    patched, and whether any patch is a destructive prefix, are both in the inspector's
+    not_checked list.
+- method: Resolve the declared Harmony dependency against a real mod list
+  modcheck_check: dependency.missing
+  limits: >-
+    Only decides ids present in the configuration handed to it, and RimWorld itself only
+    warns the player about a missing modDependency rather than refusing to load - so a
+    clean result here does not mean the mod will work, and a missing result does not mean
+    the game will stop.
+- method: Run the game with HarmonyInstance.DEBUG enabled and read Harmony's log
+  limits: >-
+    Requires RimWorld. NOT performed here. It is the only way to confirm a patch was
+    actually applied to a real method rather than silently skipped.
+acceptance:
+- The mod loads with no missing-dependency warning for brrainz.harmony and no 0Harmony.dll inside Assemblies.
+- The patched behaviour is observable in game, not merely absent from the error log.
+- Harmony's DEBUG output lists the patch attached to the intended method.
+references:
+- source: rw_wiki_harmony
+  evidence_class: declared
+  locator: 'introduction'
+  quote: >-
+    Please '''''do not''''' include the dll (0Harmony.dll) in your mod's assemblies folder! Outdated
+    versions of Harmony can cause issues. Simply add Harmony as a dependency on Steam instead.
+- source: rw_wiki_harmony
+  evidence_class: declared
+  locator: 'section "Summary", Prefix and Postfix'
+  quote: >-
+    A postfix is a method that runs after the original method. They are guaranteed to run. Postfixes can
+    also alter the result. Use these for greatest compatibility.
+- source: rw_wiki_harmony
+  evidence_class: declared
+  locator: 'section "Summary", Prefix'
+  quote: >-
+    If a bool returns false, the original method is skipped. This will cause compatibility issues if
+    you're not very careful. This type of prefix may also prevent other prefixes from running.
+- source: harmony_patching_docs
+  evidence_class: declared
+  locator: section "Patches need to be static"
+  quote: >-
+    Patch methods need to be static because Harmony works with multiple users in different assemblies in
+    mind. In order to guarantee the correct patching order, patches are always re-applied as soon as
+    someone wants to change the original.
+- source: harmony_patching_docs
+  evidence_class: declared
+  locator: section "Commonly unsupported use cases"
+  quote: >-
+    When a method is inlined and the code that tries to mark in for not inlining does not work, your
+    patches are not called because there is no method to patch.
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: 'section "Optional Tags", modDependencies'
+  quote: >-
+    Used to specify dependencies for your mod. Players will be warned if a dependency for your mod is not
+    loaded in their mod list, though players may choose to ignore it.
+- source: rw_wiki_mod_folder_structure
+  evidence_class: declared
+  locator: section "Assemblies"
+  quote: >-
+    The <code>Assemblies</code> folder can be used to add custom code to RimWorld in the form of compiled
+    dynamic-link library or DLL files. Properly compiled assemblies will be automatically loaded by RimWorld.
+- source: harmony_nuget_registration
+  evidence_class: extracted
+  locator: items[-1].items[-1].catalogEntry
+  quote: '"version": "2.4.2", "published": "2025-11-13T00:25:02.94+00:00"'
+verification_state: documented
+verification_note: >-
+  Written from the fetched RimWorld wiki Harmony page, Harmony's own patching article, the
+  About.xml page and the NuGet registration index. Nothing was compiled and nothing was
+  patched: there is no .NET SDK here and RimWorld is not installed. The example patch
+  targets a placeholder type on purpose - the only concrete RimWorld method any source in
+  this pack names is Building_Trap.KnowsOfTrap, and no source in this pack lets us confirm
+  that method still exists in 1.6.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - rw_wiki_harmony
+  - harmony_patching_docs
+  - rw_wiki_about_xml
+  - harmony_nuget_registration

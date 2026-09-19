@@ -1,0 +1,70 @@
+id: pz-incompatible-mod-unselectable
+game: projectzomboid
+title: A declared incompatibility makes mods unselectable in the mod manager
+symptom: >-
+  A mod cannot be ticked in the in-game mod manager: it is present, its files are intact,
+  but selecting it is refused. Disabling some other, apparently unrelated mod makes it
+  selectable again. Players usually read this as a broken install rather than as a declared
+  rule.
+mechanism: >-
+  mod.info supports an "incompatible" parameter listing mods that cannot be enabled at the
+  same time as this one. The relationship is symmetric in effect: when this mod is enabled
+  the listed mods become unselectable, and this mod itself becomes unselectable if any of
+  the listed mods is enabled. The list is of mod ids, and the game exposes it on the mod
+  record as ChooseGameInfo.Mod.getIncompatible(), returning an ArrayList<String>. So the
+  refusal is the loader honouring a declaration made by one of the two mods, not a fault in
+  either.
+applies_to:
+  game_versions: 'Build 42'
+  loader: projectzomboid
+targets:
+- kind: config_key
+  id: incompatible
+  container: mod.info
+  label: 'comma-separated mod ids, e.g. incompatible=theUnwantedMod,theOtherOne'
+- kind: method
+  id: zombie.gameStates.ChooseGameInfo.Mod.getIncompatible
+  signature: 'public ArrayList<String> getIncompatible()'
+conditions:
+- kind: state
+  description: Either mod declares the other in its incompatible list; only one of the two needs to declare it.
+- kind: state
+  description: The declaration is made against a mod id, so a mod that changed its id escapes an existing declaration.
+detector:
+  detectable: 'no'
+  signal: >-
+    The inspector reads mod.info as key=value with repeated keys accumulating, so the raw
+    "incompatible" line is present in its parsed fields dictionary.
+  why_not: >-
+    "incompatible" is not in KNOWN_KEYS in src/modcheck/inspect/projectzomboid.py, so
+    instead of becoming a conflict edge it is reported as an unrecognised mod.info key in
+    the inspection's warnings. Nothing downstream turns it into a fact, and the resolver in
+    src/modcheck/analyze/requirements.py models only positive dependency edges - it has no
+    representation for "must not be enabled together". The same applies to loadModAfter and
+    loadModBefore, which are recorded in this pack as a gap.
+evidence:
+- source: pz_scriptsdocs_modinfo
+  evidence_class: declared
+  locator: 'Parameters, incompatible'
+  quote: >-
+    Mods that cannot be enabled at the same time as this mod. When enabled, the other mods will be
+    unselectable. This mod will also become unselectable if any of the other mods are enabled.
+- source: pz_scriptsdocs_modinfo
+  evidence_class: declared
+  locator: 'Parameters, incompatible, example'
+  quote: 'incompatible = theUnwantedMod , theOtherOne'
+- source: pz_api_mod_info_class
+  evidence_class: extracted
+  locator: 'zombie.gameStates.ChooseGameInfo.Mod, method getIncompatible()'
+  quote: 'public ArrayList < String > getIncompatible ()'
+- source: pzwiki_mod_info
+  evidence_class: declared
+  locator: section "Parameters"
+  quote: >-
+    You can find a full list of parameters in the ScriptsDocs.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pz_scriptsdocs_modinfo
+  - pz_api_mod_info_class

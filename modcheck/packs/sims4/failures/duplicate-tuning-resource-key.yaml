@@ -1,0 +1,80 @@
+id: duplicate-tuning-resource-key
+game: sims4
+title: Two packages override the same tuning resource key and one of them is shadowed
+symptom: >-
+  Two mods that each change the same game behaviour are installed together. One of them stops having any
+  effect - its tuned values are simply not the ones in play - while both packages remain present and
+  neither produces an error. Removing either mod makes the other work. The player has no way to tell which
+  resource is being fought over.
+mechanism: >-
+  A .package is a DBPF archive with no filenames anywhere in it: "Header first, individual files following
+  with no filenames and a small file header area at the beginning of each followed by an index of all the
+  files in the archive." Every resource is addressed solely by a numeric key - ResourceType, ResourceGroup,
+  InstanceHi and InstanceLo - and the index maps each key to exactly one resource. Overriding a game value
+  therefore means shipping a resource under the key the game already uses; there is no other mechanism, no
+  merge, no priority field and no manifest. When two mods ship the same key they are asserting different
+  contents for the same game resource, and only one of those assertions can be the one in play. The
+  ecosystem treats this as THE Sims 4 conflict: Mod The Sims requires an uploader to declare whether their
+  mod is "a resource override (aka default replacement)", to "clearly state what you've overriden", and to
+  "list out any known conflicts", precisely because no tool does it for the player. What we deliberately do
+  NOT claim is which package wins - no source we retrieved states the resolution rule, and we have no game
+  to observe it with.
+applies_to:
+  loader: sims4_package
+targets:
+  - kind: tuning
+    id: "<Type>:<Group>:<Instance>"
+    label: The shared resource key. Two packages carrying this key is the conflict.
+  - kind: file_path
+    id: Mods/*.package
+    label: The installed packages whose key sets overlap.
+conditions:
+  - kind: state
+    description: Both packages are installed and both contain an index entry for the same Type/Group/Instance key.
+  - kind: state
+    description: >-
+      Additive content is not affected: two packages that ship only keys nobody else uses do not interact
+      at all. The collision is what matters, not the presence of two mods.
+detector:
+  detectable: partial
+  check_id: modcheck.inspect.sims4.inspect_package:resource_keys
+  signal: >-
+    Our Sims 4 inspector parses the DBPF index - including the Index Type bitfield that hoists constant
+    Type, Group and InstanceHi values out of the per-entry records - and emits resource_keys, the full list
+    of Type:Group:Instance triples the package claims, plus resource_types as a count per type. Intersecting
+    those key lists across a set of installed packages finds the collision exactly, from the artifacts
+    alone, with no game install needed.
+  why_not: >-
+    Three limits. The intersection check is not implemented in this repo - the keys are extracted, nothing
+    compares them across packages. We do not decode resource payloads, so we can name the key in conflict
+    but not what either mod did to it, and we cannot map a key to the game tuning it corresponds to (we
+    hold no Sims 4 resource-type table). And even a confirmed collision does not tell anyone which package
+    wins, because no source we retrieved states the resolution rule.
+evidence:
+  - source: simswiki_dbpf_general
+    evidence_class: declared
+    locator: "Format > Overview"
+    quote: "Header first, individual files following with no filenames and a small file header area at the beginning of each followed by an index of all the files in the archive."
+  - source: simswiki_dbpf_v2_format
+    evidence_class: declared
+    locator: "The Index > Index Type"
+    quote: "This is a bitfield that determines which DWORD fields exist in the Index Header and the Index Entries."
+  - source: mts_sims4_game_mod_guidelines
+    evidence_class: declared
+    locator: "Information > Overrides - Overriden Resources"
+    quote: "If you have overriden (default replaced) an item, make sure to clearly state what you've overriden."
+  - source: mts_sims4_game_mod_guidelines
+    evidence_class: declared
+    locator: "Information > Conflicts"
+    quote: "Please list out any known conflicts and state with what kind of other mods your mod may conflict."
+  - source: mts_sims4_game_mod_guidelines
+    evidence_class: declared
+    locator: "Information > Mod Type"
+    quote: "State clearly what kinda mod your mod is. Is it a resource override (aka default replacement), recategorizer or hider, slider, XML tuning, or a full script mod?"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - simswiki_dbpf_general
+    - simswiki_dbpf_v2_format
+    - mts_sims4_game_mod_guidelines

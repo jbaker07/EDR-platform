@@ -1,0 +1,80 @@
+id: sdv-cp-exclusive-load-collision
+game: stardewvalley
+title: Two content packs Load the same asset and neither patch is applied
+symptom: >-
+  The asset stays vanilla even though both content packs are installed and enabled, and
+  Content Patcher shows an error message about the conflicting patches. Disabling either
+  pack makes the other one work, which is what makes players conclude the mods are simply
+  "incompatible".
+mechanism: >-
+  A Content Patcher patch with "Action": "Load" replaces the whole asset, and each asset
+  can only be replaced by one patch. The tie-break is the patch's Priority field, whose
+  default value is Exclusive. Exclusive is documented as all-or-nothing: if exactly one
+  patch uses it that patch is applied and all other Load patches are ignored, but if more
+  than one patch uses it then no patch is applied at all and an error message is shown.
+  Because Exclusive is the default, two packs that each simply Load the same Target
+  collide by default rather than one of them winning.
+applies_to:
+  game_versions: '>=1.6.14'
+  loader: content_patcher
+  loader_versions: 'content.json Format 2.9.x'
+targets:
+- kind: asset
+  id: Portraits/Abigail
+  container: content.json
+  label: any asset targeted by two Load patches; this is the author guide's own example asset
+- kind: config_key
+  id: Changes[].Priority
+  container: content.json
+  field: Exclusive
+conditions:
+- kind: state
+  description: Both content packs are installed and enabled at the same time.
+- kind: setting
+  description: Both Load patches leave Priority at its default value of Exclusive.
+  expression: 'changes[].action == "Load" and "Priority" not in changes[]'
+- kind: state
+  description: Both patches' When conditions match simultaneously, so both are live for the same asset.
+detector:
+  detectable: 'no'
+  signal: >-
+    src/modcheck/inspect/smapi.py already extracts, per artifact, each patch's action and
+    target and the de-duplicated target list - which is the exact join key a collision
+    check would need.
+  why_not: >-
+    ModCheck implements no cross-artifact comparison: nothing joins the extracted target
+    lists of two installed packs. The Priority field is not extracted either, so even
+    within one artifact we cannot distinguish an Exclusive Load from a Low/Medium/High
+    one, and a Low/Medium/High collision resolves silently instead of failing. Detecting
+    this would need (a) Priority added to the inspector and (b) a new check over a whole
+    configuration.
+evidence:
+- source: content_patcher_load
+  evidence_class: declared
+  locator: section "Caveats"
+  quote: >-
+    `Load` is very simple, but each asset can only be replaced by one patch, so your content pack won't
+    be compatible with other content packs that `Load` the same one. (It'll work fine with content
+    packs that only edit the file, though.)
+- source: content_patcher_load
+  evidence_class: declared
+  locator: 'Advanced fields, Priority'
+  quote: >-
+    `Exclusive`: all or nothing. If one patch uses it, it's applied and all other load patches are
+    ignored. If multiple patches use it, then _no patches_ are applied and an error message is shown.
+- source: content_patcher_load
+  evidence_class: declared
+  locator: 'Advanced fields, Priority (default)'
+  quote: >-
+    _(optional)_ When multiple patches or mods load the same asset, the priority which decides which
+    one is applied. Default `Exclusive`.
+- source: content_patcher_author_guide
+  evidence_class: declared
+  locator: 'section "Actions", Load row'
+  quote: '`Load` replaces an entire asset with a version you provide. ... This isn''t recommended if you can use one of the `Edit*` actions instead.'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - content_patcher_load
+  - content_patcher_author_guide

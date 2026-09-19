@@ -7,3 +7,5 @@ __pycache__/
 evidence_cache/
 build_workspaces/
 *.egg-info/
+# Optional Rust helper build output (GPL-3.0 binary, built on demand)
+helpers/*/target/

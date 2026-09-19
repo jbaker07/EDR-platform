@@ -1,0 +1,86 @@
+id: pz-duplicate-mod-id-clash
+game: projectzomboid
+title: Two copies of a mod with the same id in different recognised folders clash
+symptom: >-
+  Changes a developer makes to their mod stop appearing in game - the old behaviour keeps
+  loading no matter how many times the files are edited - or a player sees a mod behave as
+  an older version than the one they installed. The symptom is invisible in the mod
+  manager, which shows one entry.
+mechanism: >-
+  The game recognises mods in more than one location: Zomboid/mods/, the
+  Zomboid/Workshop/<name>/Contents/mods/ development folder, and the Steam download folder
+  steamapps/workshop/content/108600/. Identity comes from the id in mod.info, which is the
+  unique identifier used to activate the mod, not the Workshop ID. Mods with the same id in
+  different recognised folders clash and overwrite each other, so the copy that ends up
+  loaded is decided by which folder wins rather than by which copy the developer edited.
+  The documented consequence is exactly this: confusion when debugging, and changes that
+  cannot be made to appear in game.
+applies_to:
+  game_versions: 'Build 41 and Build 42'
+  loader: projectzomboid
+targets:
+- kind: config_key
+  id: id
+  container: mod.info
+  label: the identifier the clash is keyed on
+- kind: file_path
+  id: Zomboid/mods/<ModId>/
+  label: manual-install folder
+- kind: file_path
+  id: Zomboid/Workshop/<Name>/Contents/mods/<ModId>/
+  label: development folder, the one the wiki recommends working from
+- kind: file_path
+  id: steamapps/workshop/content/108600/<WorkshopID>/
+  label: Steam's download folder - being subscribed to your own mod recreates the clash
+conditions:
+- kind: state
+  description: The same mod.info id exists in two or more folders the game reads.
+- kind: state
+  description: 'Common trigger: the developer is subscribed on Steam to a mod they also develop locally.'
+detector:
+  detectable: partial
+  check_id: dependency.duplicate_mod_id
+  signal: >-
+    src/modcheck/inspect/projectzomboid.py extracts the mod.info id as mod_id, and
+    Provision in src/modcheck/analyze/requirements.py groups artifacts by lowercased mod id
+    and raises dependency.duplicate_mod_id when more than one artifact claims the same id.
+  why_not: >-
+    Partial. The check can only see the artifacts it is given, and this failure is defined
+    by copies sitting in folders a user usually does not think to include - particularly
+    the Steam workshop content folder. The finding's own not_established field records that
+    it cannot say which copy the loader would pick, which is the question a developer
+    actually has. And no test in this repository exercises the resolver on Project Zomboid
+    artifacts, so the path is implemented but unproven for this game.
+evidence:
+- source: pzwiki_mod_structure
+  evidence_class: declared
+  locator: introduction
+  quote: >-
+    Mods with the same [[mod.info|Mod ID]] as mods in other recognized folders, so for example in the
+    online workshop folder and in the mods cache folder, will clash together and overwrite each others.
+    This can lead to confusion when debugging your mods and even make it impossible to load new changes
+    you applied to your mod when developing
+- source: pzwiki_mod_structure
+  evidence_class: declared
+  locator: 'section "Mods or workshop", warning note'
+  quote: >-
+    When developing mods, make sure to not be subscribed to your own mod on the Steam Workshop. Any
+    duplicated version of your mod on your computer which are loaded by the game, will mix and clash
+    together
+- source: pz_scriptsdocs_modinfo
+  evidence_class: declared
+  locator: 'Parameters, id'
+  quote: >-
+    The unique identifier of the mod, used in a mod list of the user or servers to activate the mod.
+    Make sure to use something unique which isn't shared between mods. Note: This is not the same as the
+    Workshop ID.
+- source: pz_api_mod_info_class
+  evidence_class: extracted
+  locator: 'zombie.gameStates.ChooseGameInfo.Mod, method getId()'
+  quote: 'public String getId()'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pzwiki_mod_structure
+  - pz_scriptsdocs_modinfo

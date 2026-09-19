@@ -1,0 +1,136 @@
+id: f4se_plugin
+game: fallout4
+title: Build an F4SE plugin DLL against a pinned game runtime
+category: extend_system
+intent: >-
+  A creator ends up with a DLL that F4SE loads at game startup, built against one specific Fallout 4
+  runtime, published with its source, and released with an explicit statement of which runtime it
+  matches.
+applies_to:
+  game_versions: >-
+    One runtime at a time. f4se.silverlock.org maps build 0.7.9 to runtime 1.11.240, 0.7.2 to
+    1.10.984, 0.6.23 to 1.10.163, and 0.6.21 to Fallout 4 VR 1.2.72
+  loader: f4se
+  toolchain:
+    - CMake
+    - MSVC (Windows)
+inputs:
+  - Windows with MSVC and CMake
+  - The F4SE source for the runtime you target, plus the ianpatt/common repository it expects
+  - A Fallout 4 installation at exactly that runtime version for testing
+extension_points:
+  - kind: file_path
+    id: PluginAPI.h
+    container: the F4SE source tree
+    label: >-
+      the header F4SE's readme names as the description of the high-level plugin interface; we did
+      not fetch it, so the entry-point signature must be read there rather than assumed
+  - kind: file_path
+    id: f4se_loader.exe
+    label: the loader that must be used to start the game for plugins to load
+dependencies:
+  - id: f4se
+    kind: loader
+    required: true
+steps:
+  - step: Pin the runtime before you write anything
+    detail: >-
+      Decide which Fallout 4 runtime you target and take the matching F4SE build. F4SE states it
+      supports the latest Steam and GOG versions only, and that MS Store/Gamepass and Epic are not
+      supported; a plugin built against the wrong runtime does not degrade gracefully.
+  - step: Get the sources side by side
+    detail: >-
+      Clone ianpatt/common and ianpatt/f4se next to each other. The repository README's build
+      sequence assumes that layout.
+  - step: Configure and build with CMake
+    detail: >-
+      Configure common with CMAKE_INSTALL_PREFIX=extern, build and install it, then configure and
+      build f4se the same way. The solution is generated at f4se/build/umbrella.sln.
+    command: >-
+      cmake -B common/build -S common -DCMAKE_INSTALL_PREFIX=extern common && cmake --build
+      common/build --config Release --target install && cmake -B f4se/build -S f4se
+      -DCMAKE_INSTALL_PREFIX=extern f4se && cmake --build f4se/build --config Release
+  - step: Write the plugin against PluginAPI.h
+    detail: >-
+      F4SE ships no example plugin, so PluginAPI.h is the interface description. Its readme also
+      warns the API is not locked down, so record which F4SE version you compiled against.
+  - step: Install and launch through the loader
+    detail: >-
+      Put the DLL where F4SE loads plugins from, alongside the files you copied into the Fallout 4
+      installation folder, and start the game with f4se_loader.exe. Launching Fallout4.exe directly
+      loads nothing.
+  - step: Publish your source
+    detail: >-
+      F4SE's readme requires plugins to have their source code publicly available. Treat that as a
+      release requirement, not a preference.
+interactions:
+  - >-
+    The DLL is valid for exactly one runtime. Every game update invalidates it and usually F4SE too;
+    this is the standard cause of "the game stopped launching after an update".
+  - >-
+    F4SE itself may not be redistributed or modified, so your release must link to
+    f4se.silverlock.org rather than bundle it.
+  - >-
+    An F4SE plugin is invisible to plugin-level tooling: LOOT, Wrye Bash and xEdit reason about
+    .esp/.esm/.esl files, so nothing in that toolchain will warn about a stale DLL.
+build:
+  produces: A Windows DLL loaded by f4se_loader.exe, plus published source
+  requires_network: true
+  requires_game_install: true
+validation:
+  - method: Record the identity of the artifact you ship
+    command: modcheck inspect dist/YourPlugin.dll --game fallout4
+    limits: >-
+      Reports path, size and sha256 only. Our inspector understands Bethesda plugin files, not
+      DLLs: it cannot read exports, cannot tell which runtime the DLL targets and cannot tell you it
+      loads.
+  - method: Re-check the F4SE build-to-runtime table before each release
+    command: modcheck sources verify --game fallout4
+    limits: >-
+      Only tells you whether our recorded copy of f4se.silverlock.org still hashes the same. A change
+      means re-read the page; it says nothing about your DLL.
+acceptance:
+  - The release names the exact Fallout 4 runtime and F4SE build the DLL was compiled against.
+  - The plugin's source is publicly available, as F4SE requires.
+  - The release links to f4se.silverlock.org instead of bundling F4SE.
+references:
+  - source: f4se_readme
+    evidence_class: declared
+    locator: Compatibility
+    quote: >-
+      This version is compatible with runtime 1.11.240. You can ignore any part of the version number
+      after those components; they're not relevant for compatibility purposes.
+  - source: f4se_readme
+    evidence_class: declared
+    locator: FAQ
+    quote: >-
+      There is no example plugin yet, so you'll need to look at PluginAPI.h for details on the
+      high-level interface. The API is not currently locked down due to the early state of the
+      project, so anything may change in later versions. Note that plugins must have their source
+      code publicly available.
+  - source: f4se_readme
+    evidence_class: declared
+    locator: FAQ
+    quote: >-
+      Can I redistribute or make modified versions of F4SE?
+  - source: f4se_repo_readme
+    evidence_class: declared
+    locator: Building
+    quote: >-
+      cmake -B f4se/build -S f4se -DCMAKE_INSTALL_PREFIX=extern f4se
+  - source: f4se_home
+    evidence_class: declared
+    quote: >-
+      Fallout 4 runtime 1.11.240 - build: 0.7.9 - nexus
+verification_state: documented
+verification_note: >-
+  Written from fetched documentation only. Nothing was built: there is no Windows runtime, no MSVC
+  and no Fallout 4 installation here, and we do not run builds. The build command reproduces the
+  repository README's own sequence; we did not execute it.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - f4se_readme
+    - f4se_repo_readme
+    - f4se_home

@@ -1,0 +1,77 @@
+id: sdv-missing-required-dependency
+game: stardewvalley
+title: A mod with an unsatisfied required dependency is not loaded at all
+symptom: >-
+  The mod is present in the Mods folder but nothing it adds appears in game. SMAPI shows
+  the player a message naming the mods that must be installed first, and the mod is
+  absent from the list of loaded mods.
+mechanism: >-
+  manifest.json's Dependencies array specifies other mods to load before this mod. The
+  manifest schema states that if a dependency is required and the player does not have it
+  installed, the mod is not loaded and the player is shown a message saying they need to
+  install it. IsRequired defaults to true when the field is omitted, so a dependency
+  written without IsRequired is a hard requirement. The same applies through
+  ContentPackFor, which names the framework mod that must be present to read the content
+  pack at all.
+applies_to:
+  game_versions: '>=1.6.14'
+  loader: smapi
+  loader_versions: '>=4.4.0'
+targets:
+- kind: config_key
+  id: Dependencies[].UniqueID
+  container: manifest.json
+- kind: config_key
+  id: ContentPackFor.UniqueID
+  container: manifest.json
+  label: for a content pack, the framework mod is an implicit required dependency
+conditions:
+- kind: state
+  description: The dependency's UniqueID is not present among the installed mods (or is present under a former id).
+- kind: version
+  description: A MinimumVersion on the dependency is higher than the installed version of that mod.
+detector:
+  detectable: partial
+  check_id: dependency.missing
+  signal: >-
+    src/modcheck/inspect/smapi.py turns each Dependencies entry into {id, versions,
+    required} and additionally synthesises a required edge from ContentPackFor; the
+    game-agnostic resolver in src/modcheck/analyze/requirements.py resolves those edges
+    against a supplied installation and emits dependency.missing, and
+    dependency.version_mismatch where a MinimumVersion is not met.
+  why_not: >-
+    Partial, for three reasons. The resolver only sees what is in the configuration handed
+    to it, so with an incomplete file list absence proves nothing and the honest result is
+    unresolved rather than missing. SMAPI's FormerIds mechanism means a dependency can be
+    satisfied by a mod that now publishes under a different id, which ModCheck does not
+    model because nothing here reads SMAPI.metadata.json. And no test in this repository
+    exercises the resolver on Stardew artifacts, so the path is implemented but unproven
+    for this game.
+evidence:
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.Dependencies.description
+  quote: >-
+    Specifies other mods to load before this mod. If a dependency is required and a player tries to use
+    the mod without the dependency installed, the mod won't be loaded and they'll see a friendly message
+    saying they need to install those.
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.Dependencies.items.properties.IsRequired.description
+  quote: Whether the dependency is required. Default true if not specified.
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.ContentPackFor.description
+  quote: Specifies the mod which can read this content pack.
+- source: smapi_mod_metadata_db
+  evidence_class: extracted
+  locator: 'header comment, "FormerIds" bullet'
+  quote: >-
+    FormerIds: uniquely identifies the mod across multiple versions, and supports matching
+    other fields if no ID was specified.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - smapi_manifest_json_schema
+  - smapi_mod_metadata_db

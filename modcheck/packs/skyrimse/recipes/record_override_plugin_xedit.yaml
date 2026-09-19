@@ -1,0 +1,126 @@
+id: record_override_plugin_xedit
+game: skyrimse
+title: Change a vanilla record and ship it as an override plugin with SSEEdit
+category: modify_data_record
+intent: >-
+  A creator ends up with a small .esp that overrides one or more existing records (say a weapon's
+  damage or an NPC's flags) with Skyrim.esm as its master, containing no identical-to-master
+  filler, and positioned so the change actually wins in the player's load order.
+applies_to:
+  game_versions: >-
+    Skyrim Special Edition; we did not verify a specific runtime, because the plugin format work
+    here is independent of the runtime build
+  toolchain:
+    - SSEEdit (xEdit)
+inputs:
+  - A Skyrim Special Edition installation with the plugin you want to override already installed
+  - SSEEdit, launched through a mod manager or directly
+extension_points:
+  - kind: record
+    id: any existing record reachable in the xEdit navigation tree
+    container: Skyrim.esm or another plugin you take as master
+    label: the record you intend to override
+  - kind: field
+    id: the specific subrecord/field you change on that record
+    label: only the field you change should differ from the master
+dependencies:
+  - id: xedit
+    kind: tool
+    required: true
+steps:
+  - step: Load only what you need
+    detail: >-
+      Start SSEEdit and load the plugin you want to override together with its masters. xEdit's
+      cleaning chapter is explicit that having unrelated plugins loaded defeats identical-to-master
+      calculation, so keep the selection minimal.
+  - step: Apply the conflict filter
+    detail: >-
+      Right-click in the Navigation Tree and select "Apply Filter to show Conflicts" so you can see
+      which records are overridden and by whom before you change anything.
+  - step: Copy the record as an override into a new plugin
+    detail: >-
+      Right-click the record and choose "Copy as override", then select <new file> and name your
+      plugin. xEdit adds the plugin you copied from as a master of your new file, which is what
+      makes the copied data resolvable at run time.
+  - step: Change only the field you mean to change
+    detail: >-
+      Right-click the value in your plugin and choose Edit. Every other field should remain exactly
+      as inherited - a field you touch and set back to the original value becomes an identical-to-
+      master edit, which is a defect, not a no-op.
+  - step: Save
+    detail: >-
+      Press Alt-S, confirm that only your own plugin is checked in the "Save Changed Files" dialog,
+      and click OK. Never save a plugin that is not yours.
+interactions:
+  - >-
+    Your plugin wins only where it loads last. Any plugin loading after yours that overrides the
+    same record replaces your value wholesale, because the game applies one version of an entry.
+  - >-
+    Taking a mod as master makes your plugin hard-require it: if the player does not have that
+    plugin installed, yours will not load.
+  - >-
+    Your override does not merge with anyone else's. If two mods change different fields of the
+    same record, someone has to build a patch that carries both.
+build:
+  produces: A single .esp (optionally ESL-flagged later) in the game's Data folder
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Inspect the saved plugin's header to confirm its masters and flags are what you intended
+    command: modcheck inspect Data/YourPatch.esp --game skyrimse
+    limits: >-
+      This reads the TES4 header only. It confirms the master list, the ESM/ESL flags and the HEDR
+      record counts; it does not read your edited record, does not tell you whether the value you
+      set is correct, and does not detect identical-to-master edits.
+  - method: Run the configuration through the LOOT-backed analysis to see recorded rules for the plugins involved
+    command: modcheck analyze --game skyrimse --artifact Data/YourPatch.esp --artifact Data/TheModYouOverride.esp
+    limits: >-
+      Only reports rules LOOT has recorded for those exact plugin names, plus missing masters. A new
+      plugin has no masterlist entry, so silence here says nothing about whether your override is
+      correct or whether it conflicts with anything at the record level.
+acceptance:
+  - >-
+    Re-opened in SSEEdit with "Apply Filter to show Conflicts", your record shows as the conflict
+    winner for the load order you tested (a manual check; nothing here can execute it).
+  - The plugin's master list contains exactly the plugins whose records you copied, and nothing else.
+  - The only differences from the master are the fields you deliberately changed.
+  - With the plugin loaded last among the mods that touch the record, xEdit shows your value as the winner.
+references:
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.1 Overview
+    quote: >-
+      The name of the game with Conflicts Resolution is load order, as the game will count the last
+      record loaded as the winner of any conflict between files.
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.8 Creating a Patch Plugin (Manual Method)
+    quote: >-
+      To create the new patch Plugin, you right-click on a conflicted record (A) and select, "Copy as
+      override" (B).
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.8, on master assignment
+    quote: >-
+      Once confirmed, xEdit will add FO3Phalanx as the master-file of your new patch plugin.
+  - source: xedit_mod_cleaning
+    evidence_class: declared
+    locator: 7.5.2 Identical To Master
+    quote: >-
+      Identical to Master (ITM) edits are the most common type of dirty edit. They're where a mod has
+      overwritten something in the game without making an actual change.
+  - source: libloadorder_conflict_resolution
+    evidence_class: declared
+    quote: >-
+      The game can only apply one version of any one entry (this is known as the *rule of one*).
+verification_state: documented
+verification_note: >-
+  Written from fetched documentation only. No step was executed: SSEEdit is a Windows GUI
+  application that is not present in this environment, and there is no game installation to load.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xedit_conflict_detection
+    - xedit_mod_cleaning
+    - libloadorder_conflict_resolution

@@ -1,0 +1,74 @@
+id: rw-duplicate-package-id
+game: rimworld
+title: Two installed mods share a packageId and only the first one is usable
+symptom: >-
+  RimWorld throws an error on startup and one of the two mods behaves as if it were not
+  installed - its content is missing and its settings page is absent - even though its
+  folder is present and it appears to be enabled. Players commonly hit this after
+  subscribing to a continuation or fork of a mod while still subscribed to the original.
+mechanism: >-
+  packageId in About/About.xml is the mod's global identity. If RimWorld encounters more
+  than one mod with the same packageId anywhere in the installed mods - explicitly
+  including mods that are not in the current mod list - an error is thrown and only the
+  first mod is usable. The comparison is case-insensitive because RimWorld lowercases
+  every id internally, so two ids differing only in capitalisation collide. The one case
+  where sharing a packageId is intended is a fork meant as a drop-in replacement, and even
+  then players must unsubscribe from the original.
+applies_to:
+  game_versions: '1.6'
+  loader: rimworld
+targets:
+- kind: registry_key
+  id: <packageId>
+  container: About/About.xml
+  label: the colliding global identifier
+- kind: config_key
+  id: packageId
+  container: About/About.xml
+conditions:
+- kind: state
+  description: Two mod folders reachable by the game declare the same packageId, whether or not both are enabled.
+- kind: state
+  description: 'Case is irrelevant: AuthorName.ModName and authorname.modname are the same id.'
+detector:
+  detectable: partial
+  check_id: dependency.duplicate_mod_id
+  signal: >-
+    src/modcheck/inspect/rimworld.py extracts packageId as mod_id from About.xml, and
+    Provision in src/modcheck/analyze/requirements.py groups artifacts by lowercased mod
+    id and raises dependency.duplicate_mod_id when more than one artifact claims the same
+    id - which matches RimWorld's own case-insensitive comparison.
+  why_not: >-
+    Partial for three reasons. The check only sees artifacts present in the configuration
+    handed to it, so it cannot see a disabled or unlisted mod that ModCheck was not given -
+    and those are exactly the ones that trigger this failure in practice. Its own
+    not_established field records that it cannot say which mod the loader would pick. And
+    no test in this repository exercises the resolver on RimWorld artifacts, so the path is
+    implemented but unproven for this game.
+evidence:
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: 'section "Required Tags", packageId'
+  quote: >-
+    '''packageId must be globally unique across all mods.''' If RimWorld encounters more than one mod
+    with the same packageId, ''even if they are not in your current mod list'', then an error will be
+    thrown and only the first mod will be usable.
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: 'section "Required Tags", packageId, case note'
+  quote: >-
+    Note: packageId is case-insensitive as RimWorld will internally convert all IDs to lowercase;
+    capitalization is done for readability, but two IDs that are identical other than case will resolve
+    as identical.
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: 'section "Required Tags", packageId, forks'
+  quote: >-
+    The only time that using the same packageId is recommended is if you are forking or continuing a mod
+    and want it to act as a drop-in replacement. In such cases, players must unsubscribe from the
+    original mod to be able to use yours.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - rw_wiki_about_xml

@@ -1,0 +1,171 @@
+id: pz-sandbox-option
+game: projectzomboid
+title: Add a configurable sandbox option to a mod
+category: optional_integration
+intent: >-
+  A mod-defined sandbox option that appears on its own page in the Sandbox Options menu
+  with a translated label and tooltip, and whose value the mod's Lua reads at runtime
+  through SandboxVars.
+applies_to:
+  game_versions: 'Build 42 (PZwiki Sandbox options page version 42.19.0)'
+  loader: projectzomboid
+  platforms:
+  - windows
+  - linux
+  - macos
+inputs:
+- a ModName and an OptionName, both without spaces
+- the option type and its default, and min/max for a numeric option
+- a language code for each translation you ship
+dependencies: []
+extension_points:
+- kind: file_path
+  id: media/sandbox-options.txt
+  label: the only place mod sandbox options may be declared; it sits directly under media/
+- kind: config_key
+  id: option ModName.OptionName
+  container: media/sandbox-options.txt
+  label: one block per option; the block name becomes the Lua accessor path
+- kind: config_key
+  id: SandboxVars.ModName.OptionName
+  label: how Lua reads the configured value at runtime
+- kind: file_path
+  id: media/lua/shared/Translate/<language code>/Sandbox.json
+  label: where the page name, option label and tooltip strings live
+steps:
+- step: Create media/sandbox-options.txt
+  detail: >-
+    The file lives directly under the mod's media folder - not under media/scripts - and
+    uses zedscript syntax. Unlike other script files it is not wrapped in a module block.
+  file: media/sandbox-options.txt
+- step: Start the file with the VERSION parameter
+  detail: >-
+    The first line is VERSION = 1, which tells the game which reader to use for the file.
+    The wiki's guidance is not to change it unless you know what you are doing.
+  file: media/sandbox-options.txt
+  code: |
+    VERSION = 1,
+- step: Declare one option block per setting
+  detail: >-
+    Each option is a block named "option ModName.OptionName". ModName and OptionName are
+    free of spaces and are conventionally your mod name and a descriptive option name,
+    because that pair becomes the Lua accessor SandboxVars.ModName.OptionName. page sets
+    which tab the option appears under and may be a new page name of your own; translation
+    is the key the translation file supplies the label for.
+  file: media/sandbox-options.txt
+  code: |
+    VERSION = 1,
+
+    option MyMod.MyOption
+    {
+        type = boolean,
+        default = true,
+        page = MyPage,
+        translation = MyMod_MyOption,
+    }
+- step: Pick the option type and give it the parameters that type requires
+  detail: >-
+    boolean takes default true or false. integer and double take default plus min and max.
+    string takes default, and an empty default is written as "default = ," with nothing
+    after the equals sign. enum takes default and numValues. Remember that zedscript
+    requires a trailing comma on every key/value line, including the last one in a block.
+  file: media/sandbox-options.txt
+- step: Add the translation entries
+  detail: >-
+    Sandbox strings go in media/lua/shared/Translate/<language code>/Sandbox.json. The page
+    key is "Sandbox_<pageName>", the label key is "Sandbox_<ModName>_<OptionName>" and the
+    optional tooltip key adds "_tooltip". Without the page and translation parameters the
+    strings cannot appear at all; with them but without a matching entry in the translation
+    file the option falls back to showing the raw key.
+  file: media/lua/shared/Translate/EN/Sandbox.json
+  code: |
+    {
+        "Sandbox_MyPage": "The page name",
+
+        "Sandbox_MyMod_MyOption": "The option name",
+        "Sandbox_MyMod_MyOption_tooltip": "This is the tooltip of the option."
+    }
+- step: Read the value from Lua
+  detail: >-
+    Read the option as SandboxVars.ModName.OptionName. Sandbox options apply to every
+    player on a server, which is what distinguishes them from the per-player ModOptions
+    API introduced in Build 42.
+  file: media/lua/shared/MyMod/MyModSettings.lua
+interactions:
+- 'A sandbox option is server-wide: every player in a multiplayer game gets the same value, so it is the wrong mechanism for a personal preference.'
+- 'Sandbox settings are stored with the save, so changing an option''s name or removing it affects existing saves.'
+- 'page values are shared across mods - two mods using the same page name deliberately share a tab, and two mods using the same page name accidentally produce a confusing mixed tab.'
+- 'A missing trailing comma anywhere in the file stops the script parsing correctly, and the failure is silent from the file''s point of view.'
+validation:
+- method: Confirm the file exists at media/sandbox-options.txt and every key/value line ends with a comma
+  command: 'grep -n -v -E "(^\s*$|^\s*(VERSION|option|\{|\})|,\s*$|^\s*/\*|\*/)" media/sandbox-options.txt'
+  limits: >-
+    A line-shape heuristic, not a parser. It does not validate that the type is one of the
+    five documented types, that a numeric option has min and max, that the translation key
+    matches the translation file, or that the page renders. ModCheck has no zedscript
+    parser at all.
+- method: Inspect the packaged mod with ModCheck
+  command: .venv/bin/modcheck inspect Zomboid/Workshop/MyModWorkshop/Contents/mods/MyMod --json
+  limits: >-
+    sandbox-options.txt is not under a scripts/ folder, so it is not even in the extracted
+    script_files list - the inspector's own not_checked list names "sandbox options and
+    tiledef contents". Inspection tells you nothing about this file.
+- method: Start a new game and confirm the option on its page in the Sandbox Options menu
+  limits: >-
+    Requires the game. NOT performed here. This is the only step that establishes the file
+    parsed, the page exists and the translation resolved.
+acceptance:
+- The Sandbox Options menu shows your page with your option on it, labelled from the translation file rather than as a raw key.
+- Changing the option changes the value SandboxVars.ModName.OptionName returns in Lua.
+- Nothing in the console reports a failure to parse media/sandbox-options.txt.
+references:
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction
+  quote: >-
+    Mods sandbox options are defined in a file named <code>sandbox-options.txt</code>
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction, VERSION paragraph
+  quote: >-
+    The file starts with the parameter <code>VERSION = 1,</code> which is used by the game to recognize
+    which method needs to be used to read the sandbox option file.
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction, naming paragraph
+  quote: >-
+    You can choose any name for <code>ModName</code> and <code>OptionName</code> without spaces...
+    Accessing the option value in Lua will be done with <code>SandboxVars.ModName.OptionName</code>.
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: section "Option types"
+  quote: 'boolean ... integer ... double ... string ... enum ... type = enum, default = <value>, numValues = <number>,'
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: section "Translations"
+  quote: '"Sandbox_<pageName>": "The page name", "Sandbox_<ModName>_<OptionName>": "The option name"'
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction, comparison with ModOptions
+  quote: >-
+    In comparison to [[ModOptions]], these settings apply to every player
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Scripts syntax"
+  quote: >-
+    The comma at the end of each key value pair line is mandatory, even for the last line in a block.
+- source: pz_api_sandbox_options
+  evidence_class: extracted
+  locator: class zombie.SandboxOptions
+verification_state: documented
+verification_note: >-
+  Written from the fetched PZwiki Sandbox options and Scripts pages plus the SandboxOptions
+  Javadoc. No option file was parsed by the game, no menu was rendered and no SandboxVars
+  value was read: Project Zomboid is not installed here.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pzwiki_sandbox_options
+  - pzwiki_scripts
+  - pz_api_sandbox_options

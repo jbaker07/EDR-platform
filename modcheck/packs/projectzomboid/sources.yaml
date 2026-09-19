@@ -27,6 +27,11 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: Machine-readable package index of the documented API. Official Javadoc published by The Indie
+    Stone at projectzomboid.com/modding. No licence statement is served with it and none was found, so
+    reuse terms are unknown; Project Zomboid content and materials are The Indie Stone's trademarks and
+    copyright. Cited as evidence only; the bytes are not redistributed (evidence_cache is gitignored).
 - id: pz_api_lua_event_manager
   title: 'PZ API: zombie.Lua.LuaEventManager (Lua event registration)'
   url: https://projectzomboid.com/modding/zombie/Lua/LuaEventManager.html
@@ -46,6 +51,16 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: 'zombie.Lua.LuaEventManager - the class behind Lua event registration. It does not enumerate
+    event names, which is recorded as a gap in pack.yaml. Official Javadoc published by The Indie Stone
+    at projectzomboid.com/modding. No licence statement is served with it and none was found, so reuse
+    terms are unknown; Project Zomboid content and materials are The Indie Stone''s trademarks and copyright.
+    Cited as evidence only; the bytes are not redistributed (evidence_cache is gitignored). Re-verification
+    note: `modcheck sources verify` reports this source as drifted on every re-fetch. We diffed an old
+    and a new copy: the only difference is a Cloudflare bot-management script carrying a per-request token
+    (window.__CF$cv$params r/t values). The documentation content is unchanged, so the sha256 is not a
+    stable identity for this URL.'
 - id: pz_api_lua_manager
   title: 'PZ API: zombie.Lua.LuaManager (Lua environment and exposed globals)'
   url: https://projectzomboid.com/modding/zombie/Lua/LuaManager.html
@@ -65,6 +80,16 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: 'zombie.Lua.LuaManager - the Lua environment and the globals exposed to it, including the GlobalObject
+    methods such as getPlayer(). Official Javadoc published by The Indie Stone at projectzomboid.com/modding.
+    No licence statement is served with it and none was found, so reuse terms are unknown; Project Zomboid
+    content and materials are The Indie Stone''s trademarks and copyright. Cited as evidence only; the
+    bytes are not redistributed (evidence_cache is gitignored). Re-verification note: `modcheck sources
+    verify` reports this source as drifted on every re-fetch. We diffed an old and a new copy: the only
+    difference is a Cloudflare bot-management script carrying a per-request token (window.__CF$cv$params
+    r/t values). The documentation content is unchanged, so the sha256 is not a stable identity for this
+    URL.'
 - id: pz_api_mod_info_class
   title: 'PZ API: zombie.gameStates.ChooseGameInfo.Mod (the class that reads mod.info)'
   url: https://projectzomboid.com/modding/zombie/gameStates/ChooseGameInfo.Mod.html
@@ -84,6 +109,17 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: 'zombie.gameStates.ChooseGameInfo.Mod - the class that reads mod.info. Its accessors (getId,
+    getRequire, getIncompatible, getVersionMin) are the authoritative confirmation that those mod.info
+    keys are real and how they are typed. Official Javadoc published by The Indie Stone at projectzomboid.com/modding.
+    No licence statement is served with it and none was found, so reuse terms are unknown; Project Zomboid
+    content and materials are The Indie Stone''s trademarks and copyright. Cited as evidence only; the
+    bytes are not redistributed (evidence_cache is gitignored). Re-verification note: `modcheck sources
+    verify` reports this source as drifted on every re-fetch. We diffed an old and a new copy: the only
+    difference is a Cloudflare bot-management script carrying a per-request token (window.__CF$cv$params
+    r/t values). The documentation content is unchanged, so the sha256 is not a stable identity for this
+    URL.'
 - id: pz_api_overview
   title: 'Project Zomboid official modding API reference: package overview'
   url: https://projectzomboid.com/modding/
@@ -103,6 +139,15 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: 'Package overview of the official API reference - the list of zombie.* packages that exist. Official
+    Javadoc published by The Indie Stone at projectzomboid.com/modding. No licence statement is served
+    with it and none was found, so reuse terms are unknown; Project Zomboid content and materials are
+    The Indie Stone''s trademarks and copyright. Cited as evidence only; the bytes are not redistributed
+    (evidence_cache is gitignored). Re-verification note: `modcheck sources verify` reports this source
+    as drifted on every re-fetch. We diffed an old and a new copy: the only difference is a Cloudflare
+    bot-management script carrying a per-request token (window.__CF$cv$params r/t values). The documentation
+    content is unchanged, so the sha256 is not a stable identity for this URL.'
 - id: pz_api_sandbox_options
   title: 'PZ API: zombie.SandboxOptions (sandbox option registration and types)'
   url: https://projectzomboid.com/modding/zombie/SandboxOptions.html
@@ -122,6 +167,15 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: 'zombie.SandboxOptions - the Java side of sandbox option registration and types. Official Javadoc
+    published by The Indie Stone at projectzomboid.com/modding. No licence statement is served with it
+    and none was found, so reuse terms are unknown; Project Zomboid content and materials are The Indie
+    Stone''s trademarks and copyright. Cited as evidence only; the bytes are not redistributed (evidence_cache
+    is gitignored). Re-verification note: `modcheck sources verify` reports this source as drifted on
+    every re-fetch. We diffed an old and a new copy: the only difference is a Cloudflare bot-management
+    script carrying a per-request token (window.__CF$cv$params r/t values). The documentation content
+    is unchanged, so the sha256 is not a stable identity for this URL.'
 - id: pz_api_script_item
   title: 'PZ API: zombie.scripting.objects.Item (item script fields)'
   url: https://projectzomboid.com/modding/zombie/scripting/objects/Item.html
@@ -141,6 +195,16 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: 'zombie.scripting.objects.Item - the Java side of an item script block. 718 KB; the largest single
+    source in this pack. Official Javadoc published by The Indie Stone at projectzomboid.com/modding.
+    No licence statement is served with it and none was found, so reuse terms are unknown; Project Zomboid
+    content and materials are The Indie Stone''s trademarks and copyright. Cited as evidence only; the
+    bytes are not redistributed (evidence_cache is gitignored). Re-verification note: `modcheck sources
+    verify` reports this source as drifted on every re-fetch. We diffed an old and a new copy: the only
+    difference is a Cloudflare bot-management script carrying a per-request token (window.__CF$cv$params
+    r/t values). The documentation content is unchanged, so the sha256 is not a stable identity for this
+    URL.'
 - id: pz_api_script_manager
   title: 'PZ API: zombie.scripting.ScriptManager (loading of media/scripts)'
   url: https://projectzomboid.com/modding/zombie/scripting/ScriptManager.html
@@ -160,6 +224,15 @@ sources:
   games:
   - projectzomboid
   publisher: The Indie Stone
+  license: unknown
+  notes: 'zombie.scripting.ScriptManager - the loader for media/scripts. Official Javadoc published by
+    The Indie Stone at projectzomboid.com/modding. No licence statement is served with it and none was
+    found, so reuse terms are unknown; Project Zomboid content and materials are The Indie Stone''s trademarks
+    and copyright. Cited as evidence only; the bytes are not redistributed (evidence_cache is gitignored).
+    Re-verification note: `modcheck sources verify` reports this source as drifted on every re-fetch.
+    We diffed an old and a new copy: the only difference is a Cloudflare bot-management script carrying
+    a per-request token (window.__CF$cv$params r/t values). The documentation content is unchanged, so
+    the sha256 is not a stable identity for this URL.'
 - id: pz_modding_guide_license_probe
   title: Probe for a LICENSE file in FWolfe/Zomboid-Modding-Guide
   url: https://raw.githubusercontent.com/FWolfe/Zomboid-Modding-Guide/master/LICENSE
@@ -177,6 +250,10 @@ sources:
   publisher: FWolfe
   gap: No LICENSE file at the root of FWolfe/Zomboid-Modding-Guide on branch master (HTTP 404); the guide's
     reuse terms are unknown, so it may be cited but not redistributed or vendored.
+  license: unknown
+  notes: A deliberate negative result. HTTP 404 proves there is no LICENSE file at the root of FWolfe/Zomboid-Modding-Guide
+    on branch master, which is why that guide's reuse terms are unknown. Recorded as access=blocked; it
+    may only back 'unresolved' evidence.
 - id: pz_modding_guide_readme
   title: 'Zomboid Modding Guide (FWolfe) README: mod layout and guide index'
   url: https://raw.githubusercontent.com/FWolfe/Zomboid-Modding-Guide/master/README.md
@@ -196,6 +273,10 @@ sources:
   games:
   - projectzomboid
   publisher: FWolfe
+  license: unknown
+  notes: 'FWolfe''s Zomboid Modding Guide README. Licence is genuinely unknown: the repository has no
+    LICENSE file at the root of branch master, probed and recorded as the gap source pz_modding_guide_license_probe.
+    Held as context only - no claim in this pack rests on it.'
 - id: pz_scriptsdocs_modinfo
   title: 'PZ ScriptsDocs: mod.info root parameter reference'
   url: https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/root_files/modinfo.html
@@ -215,6 +296,12 @@ sources:
   games:
   - projectzomboid
   publisher: PZ Wiki Modding (pz-wiki-modding.github.io)
+  license: unknown
+  notes: Generated per-parameter reference for mod.info, stamped 'PZ API Documentation 42.20.4'. It is
+    the only source in this pack that documents the incompatible, loadModAfter and loadModBefore keys,
+    which PZwiki's own mod.info page omits. Community-generated (pz-wiki-modding.github.io), not published
+    by The Indie Stone, and no licence statement was found, so reuse is unknown. The /scripts/<name>.html
+    URLs are JavaScript redirect shells; the content is at /scripts/root_files/<name>.html.
 - id: pz_zdoc_license
   title: pz-zdoc LICENSE.txt
   url: https://raw.githubusercontent.com/cocolabs/pz-zdoc/master/LICENSE.txt
@@ -223,9 +310,9 @@ sources:
   retrieved_at: '2026-09-19T13:41:03+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986
   bytes: 35149
   content_type: text/plain
@@ -234,6 +321,9 @@ sources:
   games:
   - projectzomboid
   publisher: cocolabs
+  license: GPL-3.0-or-later
+  notes: 'pz-zdoc''s licence text: ''GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007''. Recorded because
+    GPL-3.0 means any integration must be a subprocess, not a library import.'
 - id: pz_zdoc_readme
   title: 'pz-zdoc README: Lua API documentation generator for Project Zomboid'
   url: https://raw.githubusercontent.com/cocolabs/pz-zdoc/master/README.md
@@ -242,9 +332,9 @@ sources:
   retrieved_at: '2026-09-19T13:41:03+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: cc37d82be6cafbde7d86265cbae46c477c8f887f5ab9846bfacaf119fdd26382
   bytes: 9167
   content_type: text/plain
@@ -253,6 +343,9 @@ sources:
   games:
   - projectzomboid
   publisher: cocolabs
+  license: GPL-3.0-or-later
+  notes: pz-zdoc's repository README. Its LICENSE.txt was fetched separately (source pz_zdoc_license)
+    and is the GNU General Public License v3.
 - id: pzmc_template_license
   title: Project Zomboid Community Modding template LICENSE
   url: https://raw.githubusercontent.com/Project-Zomboid-Community-Modding/pzmc-template/main/LICENSE
@@ -261,9 +354,9 @@ sources:
   retrieved_at: '2026-09-19T13:50:37+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad
   bytes: 35129
   content_type: text/plain
@@ -272,6 +365,8 @@ sources:
   games:
   - projectzomboid
   publisher: PZ Modding Community
+  license: GPL-3.0-or-later
+  notes: 'The template''s licence text: ''GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007''.'
 - id: pzmc_template_readme
   title: Project Zomboid Community Modding template README
   url: https://raw.githubusercontent.com/Project-Zomboid-Community-Modding/pzmc-template/main/README.md
@@ -280,9 +375,9 @@ sources:
   retrieved_at: '2026-09-19T13:50:37+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: e3e73d4448e0a8b23b232224b40fd4120a4305a90744f684b8c8952e90372d0a
   bytes: 581
   content_type: text/plain
@@ -291,6 +386,10 @@ sources:
   games:
   - projectzomboid
   publisher: PZ Modding Community
+  license: GPL-3.0-or-later
+  notes: The community mod template's README. Its LICENSE was fetched separately (source pzmc_template_license)
+    and is the GNU General Public License v3 - which matters for a template, because the obligation propagates
+    to mods built by copying it.
 - id: pzwiki_copyrights
   title: PZwiki:Copyrights - content licence statement
   url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=PZwiki:Copyrights
@@ -299,9 +398,9 @@ sources:
   retrieved_at: '2026-09-19T13:46:06+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: 73a2ac3833364eb5f2ee810b0a57473ceb425d90e0faab0f2d4989211d4b708a
   bytes: 618
   content_type: application/json
@@ -309,6 +408,11 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki / The Indie Stone
+  license: CC-BY-NC-SA-3.0
+  notes: 'PZwiki''s own copyright statement, fetched so every CC BY-NC-SA claim about pzwiki.net sources
+    in this pack is traceable. It reads: ''All content on the PZwiki (except for developer-owned images,
+    art, and lore) is licensed under the Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA
+    3.0), unless otherwise stated.'''
 - id: pzwiki_item_scripts
   title: 'PZwiki: Item (scripts) - item script parameter reference'
   url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Item%20(scripts)
@@ -317,9 +421,9 @@ sources:
   retrieved_at: '2026-09-19T13:42:26+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: 1909cce98352f6f6ff2f8b8436c1fa21c93e00833d128b881758ce1fe6b9397e
   bytes: 13854
   content_type: application/json
@@ -327,6 +431,14 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'The item script block: ItemType, the ItemName translation requirement, and the warning that
+    unrecognised parameters silently become per-instance ModData. Reached by re-pointing an earlier fetch
+    that hit the ''Item scripts'' redirect at the real page title ''Item (scripts)''. pzwiki.net, which
+    its own Modding page describes as an official site of The Indie Stone maintained by volunteers. PZwiki:Copyrights
+    (source pzwiki_copyrights) states all content except developer-owned images, art and lore is under
+    CC BY-NC-SA 3.0. Note pzwiki.net returns HTTP 403 to a default curl user agent but 200 to the ModCheck
+    fetcher, so the fetch succeeded and this is knowledge, not a gap.'
 - id: pzwiki_lua_api
   title: 'PZwiki: Lua (API) - client/server Lua layout and events'
   url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Lua%20(API)
@@ -335,9 +447,9 @@ sources:
   retrieved_at: '2026-09-19T13:41:54+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: d1fce676c3fc574c1a85836ef0f306187f5a4ccb4eca158c91f159a2c8c839a1
   bytes: 15781
   content_type: application/json
@@ -345,6 +457,14 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'The Lua API page: Kahlua and Lua 5.1, the client/server/shared folders with the table of which
+    are loaded in which game mode, the fixed load order, and the same-relative-path overwrite rule. The
+    single most load-bearing PZ source in this pack. pzwiki.net, which its own Modding page describes
+    as an official site of The Indie Stone maintained by volunteers. PZwiki:Copyrights (source pzwiki_copyrights)
+    states all content except developer-owned images, art and lore is under CC BY-NC-SA 3.0. Note pzwiki.net
+    returns HTTP 403 to a default curl user agent but 200 to the ModCheck fetcher, so the fetch succeeded
+    and this is knowledge, not a gap.'
 - id: pzwiki_mod_info
   title: 'PZwiki: mod.info file reference (wikitext via MediaWiki API)'
   url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Mod.info
@@ -353,9 +473,9 @@ sources:
   retrieved_at: '2026-09-19T13:41:53+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: 9db39e4158d7a5c13753569dbd2fe0ee10f3a57752605ddc8022e7eb29726d32
   bytes: 1820
   content_type: application/json
@@ -363,6 +483,14 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'The mod.info page as wikitext. Short by design - it defers the full parameter list to the ScriptsDocs
+    (source pz_scriptsdocs_modinfo) - but it carries the two filesystem warnings: name the file in full
+    lowercase, and beware a hidden .txt extension. pzwiki.net, which its own Modding page describes as
+    an official site of The Indie Stone maintained by volunteers. PZwiki:Copyrights (source pzwiki_copyrights)
+    states all content except developer-owned images, art and lore is under CC BY-NC-SA 3.0. Note pzwiki.net
+    returns HTTP 403 to a default curl user agent but 200 to the ModCheck fetcher, so the fetch succeeded
+    and this is knowledge, not a gap.'
 - id: pzwiki_mod_structure
   title: 'PZwiki: Mod structure - folder layout and version folders'
   url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Mod%20structure
@@ -371,9 +499,9 @@ sources:
   retrieved_at: '2026-09-19T13:42:28+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: cdefb2ff23ebd1f3e85b98645c0a139869d2b4b5faa2de24e673a49b1577be88
   bytes: 22148
   content_type: application/json
@@ -381,6 +509,13 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki
+  license: CC-BY-NC-SA-3.0
+  notes: Folder layout for Build 41 and Build 42, the Workshop folder, the common and versioning folders
+    and their load order, and the same-mod-id clash between recognised folders. pzwiki.net, which its
+    own Modding page describes as an official site of The Indie Stone maintained by volunteers. PZwiki:Copyrights
+    (source pzwiki_copyrights) states all content except developer-owned images, art and lore is under
+    CC BY-NC-SA 3.0. Note pzwiki.net returns HTTP 403 to a default curl user agent but 200 to the ModCheck
+    fetcher, so the fetch succeeded and this is knowledge, not a gap.
 - id: pzwiki_modding_index
   title: 'PZwiki: Modding portal'
   url: https://pzwiki.net/wiki/Modding
@@ -389,9 +524,9 @@ sources:
   retrieved_at: '2026-09-19T13:41:02+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: c90b6ae44aae3da303f1075d59c3b830a2fcbae0ee4e1895b01b8a935896f7e3
   bytes: 108099
   content_type: text/html
@@ -400,6 +535,15 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'The Modding portal page, fetched as rendered HTML. pzwiki.net, which its own Modding page describes
+    as an official site of The Indie Stone maintained by volunteers. PZwiki:Copyrights (source pzwiki_copyrights)
+    states all content except developer-owned images, art and lore is under CC BY-NC-SA 3.0. Note pzwiki.net
+    returns HTTP 403 to a default curl user agent but 200 to the ModCheck fetcher, so the fetch succeeded
+    and this is knowledge, not a gap. Re-verification note: `modcheck sources verify` reports drift on
+    every re-fetch. We diffed two copies: the only difference is the MediaWiki wgPageParseReport block,
+    which embeds per-request parser timings, plus per-request skin/cache tokens. The page text is unchanged.
+    The api.php wikitext sources in this pack do not have this problem and re-verify cleanly.'
 - id: pzwiki_sandbox_options
   title: 'PZwiki: Sandbox options'
   url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Sandbox%20options
@@ -408,9 +552,9 @@ sources:
   retrieved_at: '2026-09-19T13:41:55+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: a74ce39025d954210363930193209c40601bd123f2ec2be18b65c23aad5d039b
   bytes: 7036
   content_type: application/json
@@ -418,6 +562,13 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'media/sandbox-options.txt: the VERSION parameter, the option block form, the five option types
+    with their parameters, and the Sandbox.json translation keys. pzwiki.net, which its own Modding page
+    describes as an official site of The Indie Stone maintained by volunteers. PZwiki:Copyrights (source
+    pzwiki_copyrights) states all content except developer-owned images, art and lore is under CC BY-NC-SA
+    3.0. Note pzwiki.net returns HTTP 403 to a default curl user agent but 200 to the ModCheck fetcher,
+    so the fetch succeeded and this is knowledge, not a gap.'
 - id: pzwiki_scripts
   title: 'PZwiki: Scripts (media/scripts format overview)'
   url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Scripts
@@ -426,9 +577,9 @@ sources:
   retrieved_at: '2026-09-19T13:41:56+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'no'
+    derive: share_alike
   sha256: 93bc27779e3e8d53bb576c33014c3f639f0f0abe0a0667cc03aed386cb7d3dc0
   bytes: 12047
   content_type: application/json
@@ -436,3 +587,10 @@ sources:
   games:
   - projectzomboid
   publisher: PZwiki
+  license: CC-BY-NC-SA-3.0
+  notes: 'zedscript syntax: the .txt rule, block structure, the mandatory trailing comma, /* */ comments
+    only, the module block, and soft overrides. pzwiki.net, which its own Modding page describes as an
+    official site of The Indie Stone maintained by volunteers. PZwiki:Copyrights (source pzwiki_copyrights)
+    states all content except developer-owned images, art and lore is under CC BY-NC-SA 3.0. Note pzwiki.net
+    returns HTTP 403 to a default curl user agent but 200 to the ModCheck fetcher, so the fetch succeeded
+    and this is knowledge, not a gap.'

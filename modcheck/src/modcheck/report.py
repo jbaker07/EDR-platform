@@ -117,7 +117,29 @@ def _smapi_findings(installation: Installation, store: Store,
     return findings
 
 
-def analyze_installation(installation: Installation, store: Store | None = None) -> Report:
+def _esplugin_findings(installation: Installation, report: Report,
+                       full: bool = False) -> list[Finding]:
+    """Record-level plugin analysis, when the optional helper is built."""
+    from .integrations import esplugin
+
+    if installation.game not in esplugin.GAMES:
+        return []
+    findings: list[Finding] = []
+    ran = False
+    if esplugin.available():
+        try:
+            findings = esplugin.analyze(installation, full=full)
+            ran = True
+        except (esplugin.HelperUnavailable, OSError, ValueError) as exc:
+            report.not_checked.append(f"record-level plugin analysis: {exc}")
+    checked, not_checked = esplugin.coverage(installation.game, ran, full)
+    report.checked += checked
+    report.not_checked += not_checked
+    return findings
+
+
+def analyze_installation(installation: Installation, store: Store | None = None,
+                         *, deep: bool = False) -> Report:
     """The player path: what applies to this exact configuration."""
     store = store or Store()
     report = Report(kind="player_configuration", game=installation.game,
@@ -130,6 +152,7 @@ def analyze_installation(installation: Installation, store: Store | None = None)
 
     findings += _loot_findings(installation, store, report)
     findings += _rimworld_findings(installation, store, report)
+    findings += _esplugin_findings(installation, report, full=deep)
     findings += _smapi_findings(installation, store, report)
 
     findings += collisions.analyze(installation)

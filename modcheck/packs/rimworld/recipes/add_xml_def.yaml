@@ -1,0 +1,202 @@
+id: rw-add-xml-def
+game: rimworld
+title: Add new content to RimWorld with an XML Def
+category: add_content
+intent: >-
+  A mod folder that RimWorld recognises and loads, which adds one or more new Defs of its
+  own without touching any existing Def - the composable baseline every other RimWorld
+  content technique builds on.
+applies_to:
+  game_versions: '1.6'
+  loader: rimworld
+  platforms:
+  - windows
+  - linux
+  - macos
+inputs:
+- a globally unique packageId in the form AuthorName.ModName, alphanumeric with at least one separating period and not ending in a period
+- a defName for each new Def, unique across every mod the player has enabled
+dependencies: []
+extension_points:
+- kind: file_path
+  id: About/About.xml
+  label: 'root element ModMetaData; the only file RimWorld requires in order to load a mod'
+- kind: config_key
+  id: packageId
+  container: About/About.xml
+  label: the mod's global identity, used for dependencies, load rules and MayRequire
+- kind: config_key
+  id: supportedVersions
+  container: About/About.xml
+  label: list of game versions; a mismatch warns the player but does not block loading
+- kind: def
+  id: <YourDefName>
+  container: Defs/**/*.xml
+  label: a new Def node under the <Defs> root element
+steps:
+- step: Create the mod folder and the About folder
+  detail: >-
+    Each mod gets its own subfolder under the game's Mods folder. The folder name is
+    free - identity comes from About.xml - but the About folder name is case-sensitive
+    and must be spelled exactly, and About.xml must sit directly inside it. Preview.png
+    belongs beside it; 640x360 is the default size and Steam Workshop rejects preview
+    files over 1MB.
+  file: Mods/MyModFolder/About/
+- step: Write About.xml
+  detail: >-
+    The root tag is ModMetaData. packageId, name, author (or authors), description and
+    supportedVersions are the required tags. packageId must be globally unique across all
+    mods; it is case-insensitive because RimWorld lowercases every id internally, so two
+    ids differing only in case resolve as identical. Only list versions you have actually
+    tested - the wiki is explicit that even XML-only mods are not guaranteed to work
+    across versions.
+  file: About/About.xml
+  code: |
+    <?xml version="1.0" encoding="utf-8"?>
+    <ModMetaData>
+      <packageId>AuthorName.ModName</packageId>
+      <name>My Mod Name</name>
+      <author>Author Name</author>
+      <description>This is the description of this mod.</description>
+      <supportedVersions>
+        <li>1.6</li>
+      </supportedVersions>
+    </ModMetaData>
+- step: Put the new Defs in a Defs folder
+  detail: >-
+    Defs are XML files in the mod's Defs folder. Subfolder and file names do not matter
+    for loading - every XML file is read into memory - so organise them for readability,
+    following vanilla conventions such as ThingDef_*** folders. The one exception is
+    versioned LoadFolders.xml entries, where XML files with the same resolved path
+    overwrite each other and the last one loaded wins.
+  file: Defs/ThingDefs/MyThings.xml
+  code: |
+    <?xml version="1.0" encoding="utf-8"?>
+    <Defs>
+      <ThingDef>
+        <defName>MyModAuthor_MyNewThing</defName>
+        <!-- remaining tags depend on the Def class; see the game's own Defs -->
+      </ThingDef>
+    </Defs>
+- step: Prefix your defNames
+  detail: >-
+    defName is a flat global namespace shared with the base game, DLCs and every other
+    enabled mod. Two mods defining the same defName do not merge - the later one in the
+    load order replaces the earlier. A prefix derived from your packageId is what keeps
+    that from happening.
+  file: Defs/ThingDefs/MyThings.xml
+- step: Reference existing content instead of patching it where the game offers a tag
+  detail: >-
+    RimWorld deliberately provides reverse-reference tags so a new Def can attach itself
+    to vanilla content: a RecipeDef's recipeUsers names the buildings it appears at, a
+    ThingDef's comps can declare linkableBuildings or linkableFacilities, and an animal's
+    race/wildBiomes names biomes by defName and the game resolves the cross-reference.
+    Using these means you add a Def instead of modifying one.
+  file: Defs/RecipeDefs/MyRecipes.xml
+  code: |
+    <Defs>
+      <RecipeDef>
+        <defName>MyModAuthor_BakeBread</defName>
+        <recipeUsers>
+          <li>ElectricStove</li>
+        </recipeUsers>
+      </RecipeDef>
+    </Defs>
+- step: Gate optional content on DLC or other mods with MayRequire
+  detail: >-
+    MayRequire is an XML attribute taking one or more comma-separated packageIds; the node
+    only loads if all of them are loaded. MayRequireAnyOf loads the node if any of them
+    is. Official DLC packageIds are Ludeon.RimWorld.Royalty, .Ideology, .Biotech, .Anomaly
+    and .Odyssey; a mod's packageId comes from its own About.xml.
+  file: Defs/ThingDefs/MyThings.xml
+  code: |
+    <li MayRequire="Ludeon.RimWorld.Biotech">SomeBiotechOnlyEntry</li>
+- step: Add IgnoreIfNoMatchingField when supporting older game versions
+  detail: >-
+    About.xml tags introduced in later versions - modVersion (1.4) and modIconPath
+    (1.5) - throw errors on older RimWorld versions unless the IgnoreIfNoMatchingField
+    attribute is set. Only add it if you actually intend to support those versions.
+  file: About/About.xml
+  code: |
+    <modVersion IgnoreIfNoMatchingField="True">1.0</modVersion>
+interactions:
+- 'A duplicate packageId anywhere in the player''s installed mods - even in mods that are not enabled - throws an error and leaves only the first mod usable.'
+- 'defName is global: your new Def silently replaces an identically named Def from another mod if yours loads later.'
+- 'supportedVersions only produces a warning; players can and do load mods on unlisted versions, so an untested version becomes a support burden rather than a hard stop.'
+- 'Cross-references such as recipeUsers or wildBiomes are resolved by the game at load; naming a defName that no loaded mod provides produces a load-time cross-reference error.'
+validation:
+- method: Check that About.xml is well-formed XML with ModMetaData as its root
+  command: 'python -c "import xml.etree.ElementTree as ET,sys; r=ET.parse(sys.argv[1]).getroot(); print(r.tag)" About/About.xml'
+  limits: >-
+    Proves only well-formedness and the root tag name. It does not check that packageId is
+    globally unique, that supportedVersions is truthful, or that any Def in the mod is
+    valid - RimWorld validates Defs itself at load time and reports ConfigErrors, which
+    this cannot see.
+- method: Inspect the packaged mod with ModCheck
+  command: .venv/bin/modcheck inspect Mods/MyModFolder --json
+  limits: >-
+    Reports the declared About.xml metadata and extracted layout (version folders,
+    assemblies present, Defs file list, Patches file list, LoadFolders.xml present). It
+    does not open a single Def file, so it never sees a defName and cannot tell you
+    whether your Def collides with anyone else's.
+- method: Load the mod in RimWorld and read the log for ConfigErrors and cross-reference failures
+  limits: >-
+    Requires the game. NOT performed here. This is the only step that establishes the Def
+    is actually valid.
+acceptance:
+- RimWorld's mod list shows the mod under the name from About.xml with no duplicate-packageId error.
+- The new content appears in game and the log contains no ConfigErrors or unresolved cross-references attributable to the mod.
+- 'modcheck inspect reports mod_id equal to your packageId, supported_versions as declared, and your Def file in the extracted def_files list.'
+references:
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: 'section "Required Tags", packageId'
+  quote: >-
+    '''packageId must be globally unique across all mods.''' If RimWorld encounters more than one mod
+    with the same packageId, ''even if they are not in your current mod list'', then an error will be
+    thrown and only the first mod will be usable.
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: 'section "Required Tags", supportedVersions'
+  quote: >-
+    A warning will be given to the player if attempting to load the mod under a version you have not
+    explicitly specified support for, but this does not prevent players from loading the mod if they
+    so choose.
+- source: rw_wiki_mod_folder_structure
+  evidence_class: declared
+  locator: 'section "Defs"'
+  quote: >-
+    Subfolders and even file names within the <code>Defs</code> does not matter as all XML files are
+    read into memory from each individual mod
+- source: rw_wiki_xml_defs
+  evidence_class: declared
+  locator: 'section "Folder Location"'
+  quote: >-
+    Defs are placed in XML files in the <code>Defs</code> folder of the standard mod folder structure.
+    The exact paths and file names do not matter except for LoadFolders loading within your own mod
+- source: rw_wiki_compatibility_defs
+  evidence_class: declared
+  locator: 'section "Referencing defs", RecipeDef'
+  quote: >-
+    the C# code base contains a tag which allows you to make your ''recipe'' choose which ''building''
+    to attach to (instead of the other way round)
+- source: rw_wiki_mayrequire
+  evidence_class: declared
+  locator: section "Details"
+  quote: >-
+    <code>MayRequire</code> is inserted as an XML attribute in a supported XML node with a value being
+    one or more <code>packageId</code> values separated by commas.
+verification_state: documented
+verification_note: >-
+  Written from fetched rimworldwiki.com wikitext. RimWorld is not installed here, so no
+  mod folder was loaded and no Def was validated by the game. The ThingDef body is left
+  as a comment on purpose: no source in this pack documents the tag set of any specific
+  Def class for any specific game version.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - rw_wiki_about_xml
+  - rw_wiki_mod_folder_structure
+  - rw_wiki_xml_defs
+  - rw_wiki_mayrequire

@@ -1,0 +1,281 @@
+# Baldur's Gate 3 game pack.
+#
+# Support is per capability. Only package_inspection is `supported`, because only
+# it is exercised by tests in this repo.
+game: bg3
+name: Baldur's Gate 3
+pack_version: 0.1.0
+summary: >-
+  A BG3 mod is an LSPK (.pak) package whose identity is the UUID and Folder declared in
+  its meta.lsx. The game reads an explicit ordered list of enabled modules from
+  modsettings.lsx, so ordering is declared rather than derived from filenames, and the
+  official Toolkit lets a mod declare dependencies and conflicts that the game acts on.
+  We can read a shipped mod's declared identity and its .pak header; we cannot read
+  inside a bare .pak here, because the file list is LZ4-compressed and the optional lz4
+  dependency is absent.
+
+ecosystem:
+  engine: Divinity 4.0 (Larian)
+  languages:
+    - Osiris
+    - Lua
+    - XML (LSX)
+  platforms:
+    - windows
+    - linux
+    - macos
+  loaders:
+    - id: bg3_module
+      name: BG3 module (.pak in the Mods folder)
+      manifest: meta.lsx
+      source: bg3_wiki_creating_meta
+    - id: modsettings
+      name: Game load order (modsettings.lsx)
+      manifest: modsettings.lsx
+      source: bg3mm_repo_readme
+    - id: loose_files
+      name: Loose file / replacer mods in the game Data folder
+      source: bg3_wiki_mod_types
+    - id: native_mod_loader
+      name: Native Mod Loader (.dll in the game bin folder)
+      source: bg3_wiki_mod_types
+    - id: bg3se
+      name: BG3 Script Extender
+      manifest: ScriptExtenderSettings.json
+      source: bg3se_repo_readme
+    - id: toolkit
+      name: Baldur's Gate 3 Toolkit (official editor)
+      source: larian_docs_creating_a_new_mod
+  artifact_formats:
+    - .pak (LSPK package; v18 header is the BG3 layout)
+    - meta.lsx (LSX XML declaring ModuleInfo UUID, Folder, Name, Version64 and Dependencies)
+    - modsettings.lsx (the game's own ordered list of enabled modules)
+    - .txt stats entries under Public/<Mod>/Stats/Generated/Data
+    - .lua Script Extender scripts
+    - Osiris story goals
+    - .dll native mod loaded by Native Mod Loader
+  composition: >-
+    Ordering is declared, not filename-derived. A mod manager writes the player's chosen
+    order into modsettings.lsx: BG3 Mod Manager's README says its export "updates the
+    `modsettings.lsx` file that the game reads", and that if a mod errors "the game is
+    clearing the load order" - so a single bad module can discard the whole declared order.
+    On top of that ordering, the official Toolkit gives modules two first-class relations
+    that the game itself enforces. Dependencies: "By giving your mod a dependency, you are
+    saying that your mod is dependent on something from the other mod in order to function,
+    and thus the other mod should be loaded before yours", and "The game will ensure that
+    MyClass is loaded before MySubclass". Conflicts: "Defining conflicts for your mod allows
+    the game to automatically disable your mod when one of the listed conflicts is detected",
+    and the disabling cascades - "not only will MyConflictB be disabled, but all of its
+    dependencies will be disabled as well, as long as other mods aren't also dependent on
+    them". Larian's own worked example states the underlying resolution rule for data
+    overrides: where two mods "both override the same spell, only one of them will work".
+    Identity is what makes any of this work: the meta.lsx UUID "is how Mod Manager tells mods
+    apart, so this UUID must be unique, unless you want it to override another mod", and
+    Folder "needs to match the name of the new folder" or "stuff in your mod will break".
+    Loose-file replacer mods sit outside this system entirely - they are dropped into the
+    game's Data folder, are not managed by a mod manager, and therefore compose by plain
+    file overwrite with no declared order at all. The community layers a convention on top
+    of the declared order (library and Script Extender mods first; late loaders and
+    Compatibility Framework last), but that is a convention, not an engine rule.
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold three pages of Larian's own Toolkit documentation, four pages of the BG3
+      community wiki, the Script Extender's full Lua/Osiris API document and LSLib's README,
+      plus three recipes written from them. Nothing in this repo executes or checks that
+      guidance, and the community-wiki load-order advice is convention rather than an
+      engine rule, which the records say explicitly.
+    implemented_by:
+      - packs/bg3/recipes
+      - packs/bg3/sources.yaml
+  project_setup:
+    status: documented_only
+    note: >-
+      The Toolkit's five-folder project layout (Data/Projects, Data/Editor/Mods, Data/Mods,
+      Data/Public, Data/Generated/Public, of which the last three are packed) is documented and
+      written into recipes. We ship no generator: modcheck.creator.scaffold.GENERATORS contains
+      only minecraft/fabric, so a creator gets a described layout, not a created one.
+    implemented_by:
+      - packs/bg3/recipes/bg3-stats-entry-weapon.yaml
+      - packs/bg3/recipes/bg3-package-pak-with-meta.yaml
+  source_edit:
+    status: unsupported
+    note: >-
+      No LSX/LSF editing, no stats .txt parsing, no Osiris or Lua analysis is implemented here.
+      We hold the Script Extender's API documentation as reference material only; nothing reads
+      or rewrites a creator's source.
+  package_inspection:
+    status: supported
+    note: >-
+      Implemented and tested, with one honest hole. For a distributed zip we read info.json or
+      meta.lsx and extract the module identity - UUID, Name, Folder, Version/Version64, Author -
+      and the declared dependency UUIDs, plus the list of .pak files shipped. For a bare .pak we
+      parse only the LSPK header (format version, priority, part count). We do NOT read the
+      package file list: it is LZ4-compressed and the optional `lz4` dependency is absent in this
+      environment, so a bare .pak yields header facts only and the inspector warns that "module
+      UUID and dependencies live inside it and were not read". We also do not read stats, scripts
+      or assets inside the package, and we do not verify the declared MD5 against the shipped .pak.
+      Note that identity read from info.json is `declared` evidence, not extracted - a mod can
+      declare a UUID that does not match what is inside its .pak, and we would not catch that.
+    implemented_by:
+      - src/modcheck/inspect/bg3.py
+    tests:
+      - tests/test_inspect.py::test_bg3_zip_identity
+      - tests/test_inspect.py::test_bg3_bare_pak_says_what_it_could_not_read
+  dependency_analysis:
+    status: documented_only
+    note: >-
+      BG3 is the one game of our three with real machine-readable dependencies: meta.lsx carries
+      ModuleShortDesc entries and the inspector extracts their UUIDs. But extraction is not
+      analysis - no check in this repo resolves those UUIDs against an installed set, orders them,
+      detects a missing dependency or evaluates the Toolkit's conflict declarations. And because
+      a bare .pak's file list is unreadable here, the dependencies of a mod distributed as a plain
+      .pak cannot be extracted at all.
+    implemented_by:
+      - src/modcheck/inspect/bg3.py
+  interaction_analysis:
+    status: documented_only
+    note: >-
+      We document the mechanisms - declared order from modsettings.lsx, engine-enforced dependency
+      ordering, engine-enforced conflict disabling, and "only one of them will work" for two mods
+      overriding the same record - and record failures for them. No interaction check is implemented
+      here, and the data we would need (stats entries and root templates inside the .pak) is behind
+      the LZ4 file list we cannot read.
+  build_execution:
+    status: blocked
+    note: >-
+      Packing a .pak is done by the Toolkit's Publish Local button, by LSLib's divine.exe, or by the
+      Modder's Multitool. None of them can run here.
+    blocker: >-
+      No retail Baldur's Gate 3 installation and no Windows/.NET desktop environment. The official
+      Toolkit is distributed through the game's launcher, BG3 Mod Manager requires .NET 8.0 desktop
+      on Windows, and LSLib is a Windows .NET project. Consequently no BG3 recipe here is build_tested.
+  runtime_testing:
+    status: blocked
+    note: >-
+      Nothing in this pack has been observed running; every claim is declared or extracted.
+    blocker: >-
+      Runtime testing requires the retail game. It is also the only way to confirm that the game
+      really disabled a conflicting module or really loaded a dependency first, so those claims stay
+      declared evidence from Larian's documentation rather than observed behaviour.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We hold Larian's official publishing route (Publish Local produces a .pak; publishing to mod.io
+      needs a linked Larian + mod.io account and passes an automation scan) and the meta.lsx Version64
+      convention that a creator bumps per release. We cannot watch releases: mod.io was not fetched
+      into this pack and Nexus Mods is HTTP 403 here. `modcheck sources verify` detects drift in the
+      documents we cited, not in anybody's mod.
+
+toolchain:
+  - id: bg3_toolkit
+    name: Baldur's Gate 3 Toolkit
+    url: https://docs.baldursgate3.game/index.php?title=Getting_Started:_Installing_the_Toolkit
+    purpose: Larian's official editor; creates mod projects, declares dependencies and conflicts, and packs/publishes .pak files.
+    status: unavailable_here
+    runs_on:
+      - windows
+    license: unknown
+    integration: reference_only
+    note: >-
+      Distributed through the game launcher and pointed at the installed game's Data folder, so it
+      cannot run in this environment. Larian's documentation pages carry no licence statement we
+      retrieved, so its terms are unknown here.
+    source: larian_docs_creating_a_new_mod
+  - id: lslib
+    name: LSLib
+    url: https://github.com/Norbyte/lslib
+    purpose: Library and tools for extracting/creating PAK packages and converting LSB/LSF/LSX/LSJ resources.
+    status: verified_available
+    runs_on:
+      - windows
+    license: MIT
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file (MIT, Copyright (c) 2015 Norbyte). MIT would permit
+      a deeper integration, but it is a .NET project we cannot build or run here, so it stays reference
+      only. It is the library most third-party BG3 packing tools are built on.
+    source: lslib_repo_readme
+  - id: bg3mm
+    name: BG3 Mod Manager
+    url: https://github.com/LaughingLeader/BG3ModManager
+    purpose: Orders enabled modules and exports that order into the modsettings.lsx the game reads.
+    status: verified_available
+    runs_on:
+      - windows
+    license: MIT
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file (MIT, Copyright (c) 2019 LaughingLeader). Requires
+      .NET 8.0 desktop on Windows. Its README is our source for modsettings.lsx being the file the game
+      actually reads, and for the load order being cleared when a mod errors.
+    source: bg3mm_repo_readme
+  - id: bg3se
+    name: BG3 Script Extender
+    url: https://github.com/Norbyte/bg3se
+    purpose: Adds Lua/Osiris scripting support to the game; also re-enables achievements for modded saves.
+    status: verified_available
+    runs_on:
+      - windows
+      - linux
+    license: MIT AND Commons-Clause
+    integration: reference_only
+    note: >-
+      Licence read from the repository LICENSE file - MIT terms plus the Commons Clause v1.0 condition,
+      which withholds the right to Sell the Software. That condition is why we keep it reference_only
+      and do not vendor any part of it. We hold its full Lua/Osiris API document as a source.
+    source: bg3se_repo_readme
+  - id: bg3_multitool
+    name: BG3 Modder's Multitool
+    url: https://github.com/ShinyHobo/BG3-Modders-Multitool
+    purpose: Community utility for generating mod .paks from an unpacked workspace, and for generating meta.lsx and Int64 version numbers.
+    status: unverified
+    integration: none
+    license: unknown
+    note: >-
+      We could not retrieve anything from this project. raw.githubusercontent.com returned HTTP 404 on
+      main, master and develop, and github.com is HTTP 403 here. Its role is known to us only at second
+      hand, from the BG3 community wiki's meta.lsx tutorial describing its Version Calculator and its
+      "Drop mod workspace folder or a mod.pak here" box. We do not know its licence, its supported game
+      versions or its command line, and it must not be recommended as if we had checked it.
+    source: bg3_multitool_readme_unreachable
+
+gaps:
+  - what: The contents of any bare .pak - its file list, the meta.lsx inside it, its stats entries and scripts.
+    why: >-
+      The LSPK file list is LZ4-compressed and the optional `lz4` Python package is not installed in this
+      environment, so our inspector reads the header and stops. Installing packages is out of scope here.
+    unblocks: >-
+      The `lz4` dependency would turn a bare .pak from header-only facts into a real module identity plus
+      a file list, which is the single largest improvement available to this pack.
+  - what: Everything about the BG3 Modder's Multitool.
+    why: raw.githubusercontent.com returns HTTP 404 for the repository on every branch tried, and github.com is HTTP 403 here.
+    unblocks: Access to github.com, or a mirror of that repository.
+  - what: Mod-level data for real BG3 mods - declared requirements, versions, changelogs, prevalence.
+    why: Nexus Mods returns HTTP 403 here, and mod.io's BG3 catalogue was not fetched into this pack.
+    unblocks: An allowed egress path to nexusmods.com, or fetching mod.io's public API.
+  - what: The authoritative field list for stats .txt entries (which entry types exist and which fields each accepts).
+    why: >-
+      Larian's documentation we retrieved covers the Toolkit workflow rather than the stats file grammar,
+      and the specific stats reference pages were not fetched. Our stats recipe therefore describes the
+      mechanism and the file location, not a validated field vocabulary.
+    unblocks: Fetching Larian's stats/entry reference pages or the community wiki's equivalent.
+  - what: Whether the engine behaviours Larian documents (dependency ordering, conflict auto-disabling) actually occur.
+    why: No retail game here, so these remain `declared` evidence from official documentation, never `observed`.
+    unblocks: A licensed game install.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - larian_docs_creating_a_new_mod
+    - larian_docs_publishing_a_mod
+    - larian_docs_osiris_intro
+    - bg3_wiki_creating_meta
+    - bg3_wiki_mod_types
+    - bg3_wiki_load_order
+    - bg3se_repo_readme
+    - lslib_repo_readme
+    - bg3mm_repo_readme

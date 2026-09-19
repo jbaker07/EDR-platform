@@ -1,0 +1,121 @@
+id: compatibility_patch_xedit
+game: fallout4
+title: Build a compatibility patch plugin in FO4Edit for two mods that fight over the same records
+category: compatibility_patch
+intent: >-
+  A creator ends up with a small patch plugin that takes both conflicting mods as masters, loads
+  after them, and carries the combination of their changes that neither mod alone can produce.
+applies_to:
+  game_versions: >-
+    Any Fallout 4 build; the procedure is a property of the plugin format, not of the runtime
+  loader: bethesda_plugin
+  toolchain:
+    - FO4Edit (xEdit)
+inputs:
+  - Both conflicting mods installed, with their own masters
+  - FO4Edit, launched through the mod manager so it sees the same load order the game will
+extension_points:
+  - kind: record
+    id: each record both mods override
+    label: the conflict losers you intend to reconcile
+  - kind: field
+    id: the individual subrecord rows you drag into the patch
+    label: only the fields that actually differ need carrying over
+dependencies:
+  - id: xedit
+    kind: tool
+    required: true
+steps:
+  - step: Load the real load order and apply the conflict filter
+    detail: >-
+      Start FO4Edit with the plugins the player will actually run, then right-click the Navigation
+      Tree and choose "Apply Filter to show Conflicts". Records that lose a conflict are shown in
+      red; overrides that are not conflicts are shown differently, and you should leave those alone.
+  - step: Check first whether load order alone fixes it
+    detail: >-
+      xEdit's own guidance is to prefer the cheapest fix: change the load order, or do nothing if
+      the conflict is harmless, and only build a patch where ordering cannot express the outcome you
+      want. A patch you did not need is still a plugin the player has to keep in sync.
+  - step: Create the patch plugin from a conflicted record
+    detail: >-
+      Right-click a conflicted record, choose "Copy as override", and pick <new file>. Name it. The
+      mod you copied from becomes a master of the new plugin, which is what lets the copied data
+      resolve at run time.
+  - step: Drag the winning values from each mod into the patch
+    detail: >-
+      With the patch plugin as the right-most column, drag the specific rows you want from each
+      contributing mod into it. Drag from the correct row level - xEdit only permits drops at the
+      level that makes structural sense.
+  - step: Verify the patch is the conflict winner, then save
+    detail: >-
+      Re-check the record view: text turning green means the conflict is resolved. Press Alt-S and
+      save only your patch plugin. Confirm in the save dialog that no other mod is checked.
+  - step: Position and declare it
+    detail: >-
+      The patch must load after both masters. Tell the player that in the release description, and
+      state exactly which versions of the two mods you patched - a MAST entry records only a
+      filename, never a version.
+interactions:
+  - >-
+    The patch hard-depends on both mods: remove either and the patch will not load, which is the
+    missing-master failure in this pack.
+  - >-
+    The patch only remains correct for the versions you patched. If either mod changes the records
+    involved, your merged values silently go stale while still winning.
+  - >-
+    Anything loading after the patch overrides it in turn, including automatically generated patches
+    such as a Synthesis output or a Bashed Patch.
+build:
+  produces: A single .esp patch plugin, optionally ESL-flagged afterwards
+  requires_network: false
+  requires_game_install: true
+validation:
+  - method: Inspect the patch header to confirm it took exactly the masters you intended
+    command: modcheck inspect Data/YourPatch.esp --game fallout4
+    limits: >-
+      Reads the TES4 header only. It shows the master list, flags and HEDR counts; it cannot tell
+      you whether the merged field values are right, nor whether you missed a conflicting record.
+  - method: Run the configuration through the LOOT-backed analysis
+    command: modcheck analyze --game fallout4 --artifact Data/ModA.esp --artifact Data/ModB.esp --artifact Data/YourPatch.esp
+    limits: >-
+      Reports only LOOT-recorded requirements, incompatibilities, load-order rules and CRC-matched
+      dirty records for those plugin names, plus missing masters. It performs no record-level
+      conflict detection, so it cannot confirm your patch resolved anything.
+acceptance:
+  - The patch lists both conflicting mods as masters and nothing else.
+  - Re-filtering in FO4Edit shows the patch as conflict winner for every record you touched, with no new conflict losers introduced.
+  - The release states the exact versions of both mods the patch was built against.
+references:
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.6 The Conflict Resolution Process
+    quote: >-
+      Overall the best thing to do is change your load order or nothing at all if the conflict isn't
+      concerning, as that require the least effort.
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.8 Creating a Patch Plugin (Manual Method)
+    quote: >-
+      To create the new patch Plugin, you right-click on a conflicted record (A) and select, "Copy as
+      override" (B).
+  - source: xedit_conflict_detection
+    evidence_class: declared
+    locator: 5.2 Differences between Conflicts and Overrides
+    quote: >-
+      To get a conflict you need to have the same FormID defined in at least 3 modules, a master, and
+      2 overrides.
+  - source: libloadorder_conflict_resolution
+    evidence_class: declared
+    quote: >-
+      Further compatibility between mods is then possible through the use of patches, which are made
+      to address incompatibilities between specific mods.
+verification_state: documented
+verification_note: >-
+  Written from fetched documentation only. FO4Edit is a Windows GUI application that is not present
+  here and there is no game installation, so no step was executed.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - xedit_conflict_detection
+    - libloadorder_conflict_resolution

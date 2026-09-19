@@ -1,0 +1,247 @@
+# Project Zomboid game pack.
+#
+# Support is declared per capability. Only package_inspection is executable and
+# test-backed here; everything else is documentation we hold, not code we run.
+game: projectzomboid
+name: Project Zomboid
+pack_version: 0.1.0
+summary: >-
+  Mods are folders identified by a line-based mod.info file. Content is Lua (a Kahlua
+  implementation of Lua 5.1 bridging to the game's Java classes) loaded by path from
+  media/lua/{client,server,shared}, plus zedscript .txt files under media/scripts and a
+  media/sandbox-options.txt. Because Lua files are loaded by relative path, the file list
+  under media/ - not the metadata - is the real collision surface.
+
+ecosystem:
+  engine: Java (the modding API is published as Javadoc for the zombie.* packages; Lua runs on Kahlua, a Java implementation of Lua)
+  languages:
+  - Lua
+  - zedscript
+  - Java
+  loaders:
+  - id: projectzomboid
+    name: Project Zomboid's built-in mod loader
+    manifest: mod.info
+    versions: 'Build 42 (ScriptsDocs 42.20.4; PZwiki Mod structure page version 42.20.0)'
+    source: pzwiki_mod_info
+  artifact_formats:
+  - 'Build 41 mod folder: <ModId>/mod.info + <ModId>/media/...'
+  - 'Build 42 mod folder: <ModId>/common/media/... plus one folder per game version (42/, 42.1/, 42.1.5/) each holding media/ and its own mod.info'
+  - Workshop upload layout <WorkshopFolder>/Contents/mods/<ModId>/ beside workshop.txt and preview.png
+  - media/lua/{client,server,shared}/**/*.lua
+  - media/scripts/**/*.txt (zedscript blocks - item, craftRecipe, entity, model, ...)
+  - media/sandbox-options.txt (option blocks, no module wrapper)
+  composition: >-
+    Enabled mods are loaded in the player's mod order. Lua is loaded by relative path
+    under media/lua in a fixed sequence - shared vanilla, shared mod, client vanilla,
+    client mod - with the server folder loaded separately only when a save is launched
+    (server vanilla, then server mod). A mod file whose path relative to media/lua matches
+    a vanilla file or another mod's file overwrites it, so the winner is decided by mod
+    load order, not by any declared rule; the documented mitigation is to put files in a
+    subfolder named after the mod. In multiplayer the client folder is not loaded server
+    side. Zedscript blocks compose differently: blocks that support "soft overrides"
+    (item is one) merge a re-declaration into the existing definition instead of replacing
+    it wholesale, so only the keys you restate change. mod.info carries loadModAfter,
+    loadModBefore, require and incompatible, and two mods with the same id in different
+    recognised folders clash and overwrite each other.
+  platforms:
+  - windows
+  - linux
+  - macos
+
+capabilities:
+  docs_guidance:
+    status: documented_only
+    note: >-
+      We hold the official Javadoc-style API reference from projectzomboid.com (package
+      overview, element-list, LuaEventManager, LuaManager, ChooseGameInfo.Mod,
+      scripting.ScriptManager, scripting.objects.Item, SandboxOptions), seven PZwiki pages
+      as wikitext, and the generated ScriptsDocs page for mod.info. Guidance is bounded by
+      those: the Javadoc marks no class as Lua-exposed, so we cannot tell from it which of
+      the documented methods a mod may actually call, and no source here enumerates the
+      Lua event names.
+    implemented_by:
+    - packs/projectzomboid/sources.yaml
+  project_setup:
+    status: documented_only
+    note: >-
+      Recipes describe the Build 41 and Build 42 folder layouts and the Workshop layout,
+      and we record a real community template repository, but modcheck ships no generator:
+      GENERATORS in src/modcheck/creator/scaffold.py holds only ("minecraft", "fabric") and
+      scaffold() raises ScaffoldError for projectzomboid.
+    implemented_by:
+    - packs/projectzomboid/recipes/
+  source_edit:
+    status: unsupported
+    note: >-
+      Nothing here writes Lua, zedscript or mod.info. There is no Lua parser and no
+      zedscript parser in this repository.
+  package_inspection:
+    status: supported
+    note: >-
+      Parses mod.info as line-based key=value with repeated keys accumulating, and reports
+      id, name, modversion, versionmin, versionmax, require (split on ';'), tiledef and
+      pack as declared facts; it warns on keys outside its KNOWN_KEYS set. It then extracts
+      the Lua file list normalised to its media/-relative path, the set of lua scopes
+      (client/server/shared), the .txt script file list under a scripts folder, and whether
+      any top-level numeric (Build 42 version) folder is present. It does NOT read the
+      contents of any Lua file, any script, or sandbox-options.txt, and does not know
+      whether required mod ids are installed.
+    implemented_by:
+    - src/modcheck/inspect/projectzomboid.py
+    tests:
+    - tests/test_inspect.py::test_pz_mod_info_and_lua_paths
+  dependency_analysis:
+    status: documented_only
+    note: >-
+      require= becomes dependency edges of kind content_mod, which the game-agnostic
+      resolver in src/modcheck/analyze/requirements.py could resolve
+      (dependency.missing, dependency.duplicate_mod_id). We do not claim it here: no test
+      exercises that path on PZ artifacts, mod.info carries no version constraints on
+      requirements so every edge is unversioned, and the ordering keys loadModAfter /
+      loadModBefore and the negative key incompatible are not in the inspector's
+      KNOWN_KEYS at all - they are reported as unrecognised rather than parsed.
+  interaction_analysis:
+    status: documented_only
+    note: >-
+      The media/-relative Lua path list is extracted per artifact and is exactly the signal
+      a collision analysis needs, but nothing compares two artifacts' lists, and we hold no
+      inventory of vanilla media/lua paths to compare a mod against. Zedscript block ids
+      (module.itemId) are not parsed at all, so soft-override collisions between two mods'
+      item scripts are invisible.
+  build_execution:
+    status: unsupported
+    note: >-
+      Lua, zedscript and sandbox options are interpreted from source; a Project Zomboid mod
+      has no compile step, so there is nothing to build. "Packaging" is copying the folder
+      into Zomboid/Workshop/<name>/Contents/mods/. ModCheck implements no packaging step,
+      which is why this is unsupported rather than blocked - nothing external prevents it.
+  runtime_testing:
+    status: blocked
+    note: >-
+      The authoritative signals are the in-game console, the Lua error log and the mod
+      manager's own selectable/unselectable state.
+    blocker: >-
+      Project Zomboid is a paid, non-redistributable game and is not installed here. No mod
+      described in this pack has been loaded, and no Lua in it has ever been executed.
+  release_maintenance:
+    status: documented_only
+    note: >-
+      We document versionMin/versionMax, the Build 42 common and versioning folders and
+      their load order (common first, then the closest versioning folder, which overwrites
+      files present in both), and the Workshop folder layout including which subfolders are
+      excluded from upload. ModCheck performs no packaging, no Workshop upload and no
+      version sweep.
+
+toolchain:
+- id: pz_api_docs
+  name: Project Zomboid API reference (projectzomboid.com/modding)
+  url: https://projectzomboid.com/modding/
+  purpose: Official Javadoc for the game's zombie.* Java packages - the classes and methods Lua code bridges to.
+  status: verified_available
+  integration: reference_only
+  license: unknown
+  note: >-
+    Fetched (HTTP 200) - package overview, element-list and six class pages. No licence is
+    stated on the site and none was located, so reuse terms are unknown; Project Zomboid
+    content and materials are The Indie Stone's trademarks and copyright. Caveat recorded
+    by PZwiki: the Javadoc gives no indication of which classes are exposed to Lua, only
+    which methods of an exposed class are.
+  source: pz_api_overview
+- id: pz_scriptsdocs
+  name: PZ API Documentation / ScriptsDocs (pz-wiki-modding.github.io)
+  url: https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/root_files/modinfo.html
+  purpose: Generated per-parameter reference for zedscript blocks and root files, including the full mod.info parameter list.
+  status: verified_available
+  integration: reference_only
+  license: unknown
+  note: >-
+    Fetched (HTTP 200); the page header reads "PZ API Documentation 42.20.4" and it is a
+    Sphinx/Furo site. It is the source PZwiki itself links to for the full mod.info
+    parameter list. Community-generated, not published by The Indie Stone; no licence
+    statement was read, so reuse is unknown.
+  source: pz_scriptsdocs_modinfo
+- id: pz_zdoc
+  name: pz-zdoc
+  url: https://raw.githubusercontent.com/cocolabs/pz-zdoc/master/README.md
+  purpose: Command-line tool that generates Lua API documentation for Project Zomboid from the game's Java classes.
+  status: verified_available
+  license: GPL-3.0
+  integration: reference_only
+  note: >-
+    README and LICENSE.txt fetched; LICENSE.txt is the GNU General Public License v3. Not
+    run here - it needs a Project Zomboid installation to read classes from, and there is
+    none. GPL-3.0 would impose obligations on any derivative.
+  source: pz_zdoc_readme
+- id: pzmc_template
+  name: Project Zomboid Community Modding template (pzmc-template)
+  url: https://raw.githubusercontent.com/Project-Zomboid-Community-Modding/pzmc-template/main/README.md
+  purpose: Ready-made mod folder skeleton staged for a hybrid Build 41 / Build 42 layout.
+  status: verified_available
+  license: GPL-3.0
+  integration: reference_only
+  note: >-
+    README and LICENSE fetched; LICENSE is the GNU General Public License v3, which matters
+    because a template's licence propagates to what is built from it. PZwiki links to it as
+    the community's default starting structure.
+  source: pzmc_template_readme
+- id: pz_debug_console
+  name: In-game console and Lua reload (debug mode)
+  url: https://pzwiki.net/wiki/Modding
+  purpose: The only place a Lua error, a failed script parse or a mod manager refusal actually surfaces.
+  status: unverified
+  integration: none
+  note: >-
+    PZwiki documents that Lua is loaded at launch, on exiting a save, or when manually
+    triggered in debug mode from the main menu. We have never run the game, so nothing in
+    this pack is backed by console output.
+  source: pzwiki_lua_api
+
+gaps:
+- what: The list of Lua event names a mod can subscribe to via Events.<Name>.Add.
+  why: >-
+    We fetched the LuaEventManager class page, but no source in this pack enumerates the
+    event names with their argument signatures. PZwiki's per-event pages (for example
+    OnZombieUpdate) were not fetched.
+  unblocks: A recipe that names a concrete event, and any check that a mod hooks an event that still exists.
+- what: Which Java classes and methods are actually exposed to Lua.
+  why: >-
+    PZwiki states plainly that the Javadoc gives no indication of which classes are exposed;
+    it only shows the exposed methods of classes that are. Determining exposure would need
+    the game's own files.
+  unblocks: Telling a creator whether a method they want to call is reachable from Lua at all.
+- what: An inventory of vanilla media/lua paths.
+  why: >-
+    It lives in the game's installed media folder, which is not redistributable and is not
+    present here.
+  unblocks: Detecting a mod file that silently overwrites a vanilla Lua file - the single most common PZ conflict.
+- what: 'mod.info keys incompatible, loadModAfter and loadModBefore.'
+  why: >-
+    They are documented in the ScriptsDocs parameter list but are absent from KNOWN_KEYS in
+    src/modcheck/inspect/projectzomboid.py, so the inspector reports them as unrecognised
+    keys instead of turning them into ordering or conflict edges.
+  unblocks: Modelling declared load order and declared incompatibility for this game.
+- what: A stable content identity for the projectzomboid.com API pages.
+  why: >-
+    Every response from projectzomboid.com carries a Cloudflare bot-management script with a
+    per-request token, so the sha256 of those seven sources changes on every fetch and
+    `modcheck sources verify` always reports drift. We diffed old against new and confirmed
+    the documentation content itself is unchanged, but the hash cannot distinguish a real
+    upstream edit from this noise.
+  unblocks: Automatic staleness detection for the official PZ API sources.
+- what: zedscript block identity (module.itemId) inside media/scripts files.
+  why: >-
+    The inspector lists script files but never parses them; there is no zedscript parser in
+    this repository.
+  unblocks: Detecting two mods that soft-override the same item, and mods that define items in the vanilla Base module.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - pzwiki_mod_info
+  - pzwiki_mod_structure
+  - pzwiki_lua_api
+  - pzwiki_scripts
+  - pz_scriptsdocs_modinfo
+  - pz_api_overview

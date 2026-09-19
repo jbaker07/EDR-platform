@@ -17,9 +17,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:31+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d
   bytes: 1073
   content_type: text/plain
@@ -28,6 +28,9 @@ sources:
   games:
   - rimworld
   publisher: Andreas Pardeike
+  license: MIT
+  notes: 'Harmony''s licence text, verbatim: ''MIT License / Copyright (c) 2017 Andreas Pardeike''. The
+    source every MIT claim about Harmony in this pack rests on.'
 - id: harmony_nuget_registration
   title: NuGet registration index for Lib.Harmony
   url: https://api.nuget.org/v3/registration5-gz-semver2/lib.harmony/index.json
@@ -47,6 +50,10 @@ sources:
   games:
   - rimworld
   publisher: NuGet / Andreas Pardeike
+  license: unknown
+  notes: 'NuGet v3 registration index for Lib.Harmony. The service metadata carries no licence; the package
+    it describes is Harmony, which is MIT per harmony_license. Used for one fact: latest version 2.4.2,
+    published 2025-11-13.'
 - id: harmony_patching_docs
   title: 'Harmony documentation: Patching'
   url: https://harmony.pardeike.net/articles/patching.html
@@ -66,6 +73,14 @@ sources:
   games:
   - rimworld
   publisher: Andreas Pardeike
+  license: unknown (harmony.pardeike.net serves no licence statement; the Harmony source repository is
+    MIT per harmony_license)
+  notes: 'Harmony''s own documentation site. Used for the authoritative statements that patch methods
+    must be static and that an inlined method cannot be patched. We did not establish whether the site''s
+    content is covered by the repository''s MIT licence, so reuse is recorded as unknown rather than assumed.
+    Re-verification note: `modcheck sources verify` reports drift on every re-fetch. We diffed two copies:
+    the only difference is the per-request nonce Cloudflare Rocket Loader writes into each <script type="...">
+    attribute. The article text is unchanged.'
 - id: harmony_readme
   title: Harmony (pardeike/Harmony) repository README
   url: https://raw.githubusercontent.com/pardeike/Harmony/master/README.md
@@ -74,9 +89,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:30+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
   sha256: 268f88d6646f4cfcb0f80a76aa036532453c388511ed90156027c53680592ac2
   bytes: 5000
   content_type: text/plain
@@ -85,6 +100,9 @@ sources:
   games:
   - rimworld
   publisher: Andreas Pardeike
+  license: MIT
+  notes: Harmony's repository README. Its LICENSE was fetched separately (source harmony_license) and
+    is the MIT licence, 'Copyright (c) 2017 Andreas Pardeike'.
 - id: krafs_rimworld_ref_nuget
   title: NuGet registration index for Krafs.Rimworld.Ref (RimWorld reference assemblies)
   url: https://api.nuget.org/v3/registration5-gz-semver2/krafs.rimworld.ref/index.json
@@ -104,6 +122,11 @@ sources:
   games:
   - rimworld
   publisher: NuGet / Krafs
+  license: unknown
+  notes: 'NuGet v3 registration index. The service metadata carries no licence, and this index root does
+    not inline catalog entries, so the package''s own licence was NOT read - resolving it would need a
+    second fetch of one of the six registration pages. Used for two facts only: highest version 1.6.4871
+    and root commit timestamp 2026-07-01.'
 - id: rimsort_community_rules_db
   title: RimSort Community Rules Database (load-order rules, JSON)
   url: https://raw.githubusercontent.com/RimSort/Community-Rules-Database/main/communityRules.json
@@ -123,6 +146,12 @@ sources:
   games:
   - rimworld
   publisher: RimSort
+  license: unknown
+  notes: '394716 bytes of load-order rules: a top-level object with ''timestamp'' 1789239946 (2026-09-12)
+    and 631 entries under ''rules'', each of the form {packageId: {loadAfter: {otherId: {name: [...]}}}}.
+    Licence is genuinely unknown: the repository has NO LICENSE file at the root of branch main, which
+    we probed and recorded as the gap source rimsort_rules_db_license_probe. Treated as reference-only;
+    nothing derived from it is redistributed.'
 - id: rimsort_license
   title: RimSort repository LICENSE.md
   url: https://raw.githubusercontent.com/RimSort/RimSort/main/LICENSE.md
@@ -131,9 +160,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:33+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986
   bytes: 35149
   content_type: text/plain
@@ -142,6 +171,10 @@ sources:
   games:
   - rimworld
   publisher: RimSort
+  license: GPL-3.0-or-later
+  notes: 'RimSort''s licence text: ''GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007''. Recorded because
+    GPL-3.0 rules out linking RimSort into this repository - any integration would have to be a separate
+    process.'
 - id: rimsort_readme
   title: RimSort repository README
   url: https://raw.githubusercontent.com/RimSort/RimSort/main/README.md
@@ -150,9 +183,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:32+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: cd428bcf467d26e8bd0979502dd6ce0cb611f3913305ff64eb5223a440f5145d
   bytes: 2487
   content_type: text/plain
@@ -161,6 +194,9 @@ sources:
   games:
   - rimworld
   publisher: RimSort
+  license: GPL-3.0-or-later
+  notes: RimSort's repository README. Its LICENSE.md was fetched separately (source rimsort_license) and
+    is the GNU General Public License v3.
 - id: rimsort_rules_db_license_probe
   title: Probe for a LICENSE file in RimSort/Community-Rules-Database
   url: https://raw.githubusercontent.com/RimSort/Community-Rules-Database/main/LICENSE
@@ -179,6 +215,10 @@ sources:
   gap: Community-Rules-Database has no LICENSE file at the repository root on branch main (HTTP 404),
     so the redistribution and derivative-work terms of communityRules.json are unknown; we must treat
     its contents as reference-only.
+  license: unknown
+  notes: A deliberate negative result. HTTP 404 proves there is no LICENSE file at the root of RimSort/Community-Rules-Database
+    on branch main, which is why the reuse terms of communityRules.json are unknown. It is recorded as
+    access=blocked and may only back 'unresolved' evidence.
 - id: rw_wiki_about_xml
   title: 'RimWorld Wiki: Modding Tutorials/About.xml (wikitext via MediaWiki API)'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/About.xml&prop=wikitext&format=json
@@ -187,9 +227,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:13+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: c621beff844a9b567fea444229d2955dae94c357faa7508eedbffcece7d42d97
   bytes: 12985
   content_type: application/json
@@ -197,6 +237,12 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki (Fandom-independent, rimworldwiki.com)
+  license: CC-BY-SA-3.0
+  notes: 'The reference for About/About.xml: required and optional tags, the globally-unique packageId
+    rule, modDependencies, loadAfter/loadBefore/forceLoadBefore and the IgnoreIfNoMatchingField attribute.
+    rimworldwiki.com, fetched as wikitext through the MediaWiki API so the evidence is the source text
+    rather than rendered HTML. Its RimWorld Wiki:Copyrights page (source rw_wiki_copyrights) states the
+    wiki uses the Creative Commons Attribution-ShareAlike 3.0 Unported license.'
 - id: rw_wiki_compatibility_defs
   title: 'RimWorld Wiki: Modding Tutorials/Compatibility with defs'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Compatibility%20with%20defs&prop=wikitext&format=json
@@ -205,9 +251,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:17+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 5c719ca1dc1cfb420c72d616583bf7eb6a28c25ac3653c30e05aaecffc91edd8
   bytes: 7012
   content_type: application/json
@@ -215,6 +261,12 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki
+  license: CC-BY-SA-3.0
+  notes: The 'don't overwrite Defs' guidance plus the reverse-reference tags (recipeUsers, linkableBuildings,
+    wildBiomes) that let a mod add content instead of modifying it. rimworldwiki.com, fetched as wikitext
+    through the MediaWiki API so the evidence is the source text rather than rendered HTML. Its RimWorld
+    Wiki:Copyrights page (source rw_wiki_copyrights) states the wiki uses the Creative Commons Attribution-ShareAlike
+    3.0 Unported license.
 - id: rw_wiki_copyrights
   title: RimWorld Wiki:Copyrights - content licence statement
   url: https://rimworldwiki.com/wiki/RimWorld_Wiki:Copyrights
@@ -223,9 +275,9 @@ sources:
   retrieved_at: '2026-09-19T13:46:17+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 5f4b21f4b8cd54a6d199d65e73154fb1978d739e66b93c763e4e7c7a358f6995
   bytes: 21671
   content_type: text/html
@@ -234,6 +286,13 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki
+  license: CC-BY-SA-3.0
+  notes: 'The wiki''s own copyright statement, fetched so every CC BY-SA claim about rimworldwiki.com
+    sources in this pack is traceable. It reads: ''The RimWorld wiki uses the Creative Commons Attribution-ShareAlike
+    3.0 Unported license.'' Re-verification note: `modcheck sources verify` reports drift on every re-fetch.
+    We diffed two copies: the only difference is the MediaWiki wgPageParseReport block, which embeds per-request
+    parser timings, plus per-request skin/cache tokens. The page text is unchanged. The api.php wikitext
+    sources in this pack do not have this problem and re-verify cleanly.'
 - id: rw_wiki_harmony
   title: 'RimWorld Wiki: Modding Tutorials/Harmony'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Harmony&prop=wikitext&format=json
@@ -242,9 +301,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:17+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 7ec5fa4eae65a2baccba1046804f8dbbb3539638d12210ed07bebb7ac3bf447d
   bytes: 6834
   content_type: application/json
@@ -252,6 +311,12 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki
+  license: CC-BY-SA-3.0
+  notes: 'RimWorld-specific Harmony guidance: prefer postfixes, the danger of destructive prefixes, and
+    the instruction not to ship 0Harmony.dll. rimworldwiki.com, fetched as wikitext through the MediaWiki
+    API so the evidence is the source text rather than rendered HTML. Its RimWorld Wiki:Copyrights page
+    (source rw_wiki_copyrights) states the wiki uses the Creative Commons Attribution-ShareAlike 3.0 Unported
+    license.'
 - id: rw_wiki_mayrequire
   title: 'RimWorld Wiki: Modding Tutorials/MayRequire (conditional Defs and patches)'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/MayRequire&prop=wikitext&format=json
@@ -260,9 +325,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:16+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: ad5159318a49a67b5faceb49c9ebf16240eaff70e4cff5d6097b61184ebb9d5f
   bytes: 20288
   content_type: application/json
@@ -270,6 +335,11 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki
+  license: CC-BY-SA-3.0
+  notes: MayRequire / MayRequireAnyOf conditional XML loading, including the packageIds of the official
+    DLCs. rimworldwiki.com, fetched as wikitext through the MediaWiki API so the evidence is the source
+    text rather than rendered HTML. Its RimWorld Wiki:Copyrights page (source rw_wiki_copyrights) states
+    the wiki uses the Creative Commons Attribution-ShareAlike 3.0 Unported license.
 - id: rw_wiki_mod_folder_structure
   title: 'RimWorld Wiki: Modding Tutorials/Mod Folder Structure'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Mod%20Folder%20Structure&prop=wikitext&format=json
@@ -278,9 +348,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:16+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: a0f2b9abed63cd333bfad60c7ea25ab3f9a37faa8114b6b6796860f0bd9d372e
   bytes: 18354
   content_type: application/json
@@ -288,6 +358,13 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki
+  license: CC-BY-SA-3.0
+  notes: 'Canonical folder layout (About, Assemblies, Defs, Languages, Patches, Sounds, Textures), Preview.png
+    constraints and the LoadFolders.xml rules. Reached through a redirect: ''Modding Tutorials/Mod folder
+    structure'' redirects to this capital-F/S title. rimworldwiki.com, fetched as wikitext through the
+    MediaWiki API so the evidence is the source text rather than rendered HTML. Its RimWorld Wiki:Copyrights
+    page (source rw_wiki_copyrights) states the wiki uses the Creative Commons Attribution-ShareAlike
+    3.0 Unported license.'
 - id: rw_wiki_patchoperations
   title: 'RimWorld Wiki: Modding Tutorials/PatchOperations (wikitext via MediaWiki API)'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/PatchOperations&prop=wikitext&format=json
@@ -296,9 +373,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:14+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 01463d0486961c22555ee00b003cd001a8b5492fe8c8428899a274357f43b4e5
   bytes: 28110
   content_type: application/json
@@ -306,6 +383,12 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki
+  license: CC-BY-SA-3.0
+  notes: The reference for xpath PatchOperations, including the pre-alpha-17 history that explains why
+    Def overwriting is last-one-wins. rimworldwiki.com, fetched as wikitext through the MediaWiki API
+    so the evidence is the source text rather than rendered HTML. Its RimWorld Wiki:Copyrights page (source
+    rw_wiki_copyrights) states the wiki uses the Creative Commons Attribution-ShareAlike 3.0 Unported
+    license.
 - id: rw_wiki_xml_defs
   title: 'RimWorld Wiki: Modding Tutorials/Defs (XML Defs)'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Defs&prop=wikitext&format=json
@@ -314,9 +397,9 @@ sources:
   retrieved_at: '2026-09-19T13:40:15+00:00'
   http_status: 200
   reuse:
-    redistribute: unknown
-    commercial: unknown
-    derive: unknown
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
   sha256: 5a824f8228542014d47da0d36195469a7d7dac15e892b0245f39e05fb09b2132
   bytes: 1864
   content_type: application/json
@@ -324,3 +407,9 @@ sources:
   games:
   - rimworld
   publisher: RimWorld Wiki
+  license: CC-BY-SA-3.0
+  notes: Short page on where Defs live and that file and folder names do not matter. Only 1864 bytes of
+    wikitext, and it carries the wiki's own Under_Review banner, so it is used for the folder rule and
+    nothing more. rimworldwiki.com, fetched as wikitext through the MediaWiki API so the evidence is the
+    source text rather than rendered HTML. Its RimWorld Wiki:Copyrights page (source rw_wiki_copyrights)
+    states the wiki uses the Creative Commons Attribution-ShareAlike 3.0 Unported license.

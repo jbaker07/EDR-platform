@@ -1,0 +1,45 @@
+id: sdv-example-modbuildconfig
+game: stardewvalley
+title: Pathoschild.Stardew.ModBuildConfig (SMAPI mod build package)
+url: https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig
+kind: tool
+demonstrates:
+- the canonical C# project setup for a SMAPI mod, replacing hand-written assembly references
+- automatic game-path detection, with a stardewvalley.targets override when it fails
+- install-on-build into the game's Mods folder and a release zip written to bin/
+- '%ProjectVersion% manifest token substitution so the version is set once in the .csproj'
+- bundling content packs with a main C# mod through a ContentPacks item group
+license: MIT
+reuse:
+  integration: subprocess
+  constraints: >-
+    The NuGet registration entry gives licenseExpression "MIT". It would be consumed as an
+    MSBuild dependency of a generated project, not vendored into this repository. We have
+    NOT executed it: there is no .NET SDK and no Stardew Valley installation here, and
+    ModBuildConfig requires a game installation to resolve references.
+maintenance:
+  state: maintained
+  last_release: '4.4.0, published 2025-04-13 (NuGet registration index, commit timestamp 2025-04-13)'
+  checked_at: '2026-09-19'
+  supported_versions: 'documented as compatible with Linux, macOS and Windows'
+evidence:
+- source: modbuildconfig_nuget
+  evidence_class: extracted
+  locator: items[-1].items[-1].catalogEntry
+  quote: '"version": "4.4.0", "published": "2025-04-13T23:13:48.303+00:00", "licenseExpression": "MIT", "authors": "Pathoschild"'
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: introduction
+  quote: >-
+    The **mod build package** is an open-source NuGet package which automates the MSBuild configuration
+    for SMAPI mods and related tools. The package is fully compatible with Linux, macOS, and Windows.
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: section "Release zip"
+  quote: The package adds a zip file in your project's `bin` folder when you rebuild the code.
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+  - modbuildconfig_nuget
+  - smapi_mod_build_config
