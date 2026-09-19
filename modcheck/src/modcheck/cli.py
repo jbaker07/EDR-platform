@@ -194,6 +194,16 @@ def cmd_show(args) -> int:
     return 1
 
 
+def cmd_guide(args) -> int:
+    from .creator.guide import guide, render
+
+    store = _store(args)
+    result = guide(store, args.idea, args.game, game_version=args.game_version,
+                   loader=args.loader, limit=args.limit)
+    print(json.dumps(result.as_dict(), indent=2) if args.json else render(result))
+    return 0 if result.applicable else 1
+
+
 def cmd_scaffold(args) -> int:
     root = Path(args.into) if args.into else workspaces_dir() / args.mod_id
     try:
@@ -396,6 +406,15 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--game")
     sp.add_argument("--kind")
     sp.set_defaults(func=cmd_show)
+
+    sp = sub.add_parser("guide", help="turn an idea into the recipes that apply")
+    sp.add_argument("idea", help="what you want to build, in your own words")
+    sp.add_argument("--game", required=True)
+    sp.add_argument("--game-version")
+    sp.add_argument("--loader")
+    sp.add_argument("--limit", type=int, default=5)
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_guide)
 
     sp = sub.add_parser("scaffold", help="create a real, buildable mod project")
     sp.add_argument("mod_id")
