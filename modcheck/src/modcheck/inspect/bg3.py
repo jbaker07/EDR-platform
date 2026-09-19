@@ -50,6 +50,17 @@ assert LSPK_FILE_ENTRY_V18.size == FILE_ENTRY_SIZE, (
 MAX_ENTRIES = 200_000
 MAX_FILE_LIST_BYTES = 64 << 20
 MAX_COMPRESSED_LIST_BYTES = 32 << 20
+# Only one small named entry is ever decoded (meta.lsx), never the whole package.
+MAX_ENTRY_DECODE_BYTES = 8 << 20
+
+# Low nibble of an entry's flags selects the compression method; the high nibble
+# is the level. LSLib's MakeCompressionFlags(method, level) packs them that way.
+# Method 2 was confirmed against a real published package: the meta.lsx entry of
+# CombatMod.pak carries flags 0x12 and decodes as an LZ4 block to exactly the
+# declared uncompressed size.
+COMPRESSION_NONE = 0
+COMPRESSION_ZLIB = 1
+COMPRESSION_LZ4 = 2
 
 
 class Lz4Unavailable(InspectionError):
@@ -122,7 +133,26 @@ def read_file_list(path: Path, header: dict) -> list[dict]:
             raise InspectionError(
                 f"file list would decompress to {expected} bytes, over the "
                 f"{MAX_FILE_LIST_BYTES} byte limit")
-        compressed = fh.read(list_size - 4)
+
+        # LSLib ReadCompressedFileList: from version 14 the count is followed by
+        # an explicit compressed size, and the block starts at offset + 8.
+        # Earlier versions have no size field and the block runs to the end of
+        # FileListSize. Reading the older branch for a v18 package leaves the
+        # size field at the head of the block and decompression fails -- which
+        # is how a real published package caught this.
+        if header["version"] > 13:
+            size_raw = fh.read(4)
+            if len(size_raw) < 4:
+                raise InspectionError("truncated file list size field")
+            compressed_size = struct.unpack("<i", size_raw)[0]
+            available = list_size - 8
+            if compressed_size < 0 or compressed_size > available:
+                raise InspectionError(
+                    f"file list declares {compressed_size} compressed bytes but only "
+                    f"{available} are present")
+            compressed = fh.read(compressed_size)
+        else:
+            compressed = fh.read(list_size - 4)
 
     if num_files == 0:
         return []
@@ -192,6 +222,59 @@ def parse_meta_lsx(raw: bytes) -> dict:
     return info
 
 
+def read_entry(path: Path, entry: dict) -> bytes:
+    """Decode one named entry. Never writes to disk and never executes anything.
+
+    The decoded length is checked against the entry's declared uncompressed
+    size: lz4's uncompressed_size is a buffer bound, so a short read would
+    otherwise pass silently.
+    """
+    declared = entry["uncompressed_size"]
+    method = entry["flags"] & 0x0F
+    size_on_disk = entry["size_on_disk"]
+    if declared > MAX_ENTRY_DECODE_BYTES or size_on_disk > MAX_ENTRY_DECODE_BYTES:
+        raise InspectionError(
+            f"entry {entry['name']!r} is {declared} bytes, over the "
+            f"{MAX_ENTRY_DECODE_BYTES} byte decode limit")
+    file_size = path.stat().st_size
+    if entry["offset"] + size_on_disk > file_size:
+        raise InspectionError(f"entry {entry['name']!r} runs past the end of the package")
+
+    with path.open("rb") as fh:
+        fh.seek(entry["offset"])
+        blob = fh.read(size_on_disk)
+
+    if method == COMPRESSION_NONE:
+        decoded = blob
+    elif method == COMPRESSION_ZLIB:
+        import zlib
+        try:
+            decoded = zlib.decompress(blob)
+        except zlib.error as exc:
+            raise InspectionError(f"entry {entry['name']!r} zlib decode failed: {exc}") from exc
+    elif method == COMPRESSION_LZ4:
+        try:
+            import lz4.block
+        except ImportError as exc:
+            raise Lz4Unavailable(
+                "decoding this entry needs the optional 'lz4' dependency: "
+                "pip install 'modcheck[bg3]'") from exc
+        try:
+            decoded = lz4.block.decompress(blob, uncompressed_size=declared)
+        except Exception as exc:
+            raise InspectionError(f"entry {entry['name']!r} lz4 decode failed: {exc}") from exc
+    else:
+        raise InspectionError(
+            f"entry {entry['name']!r} uses compression method {method}, which this "
+            "reader does not decode")
+
+    if declared and len(decoded) != declared:
+        raise InspectionError(
+            f"entry {entry['name']!r} decoded to {len(decoded)} bytes, expected "
+            f"exactly {declared}")
+    return decoded
+
+
 def inspect(artifact: Artifact) -> Inspection:
     ins = artifact.base_inspection("bg3_mod")
     ins.game = "bg3"
@@ -245,10 +328,10 @@ def inspect(artifact: Artifact) -> Inspection:
                     f"{len(unsafe)} entry name(s) are path-unsafe and were flagged: "
                     f"{unsafe[:3]}")
 
-        ins.warnings.append(
-            "inspected a bare .pak: module UUID and dependencies live in its meta.lsx, "
-            "which is not parsed")
+            _read_module_identity(artifact.path, entries, ins)
         return ins
+
+
 
     entries = zip_entries(artifact.path)
     ins.entries = entries
@@ -298,6 +381,41 @@ def inspect(artifact: Artifact) -> Inspection:
         "load order interaction with other modules",
     ]
     return ins
+
+
+def _read_module_identity(path: Path, entries: list[dict], ins: Inspection) -> None:
+    """Decode the package's meta.lsx, which is where a bare .pak's identity lives.
+
+    Most BG3 mods are distributed as a bare .pak, so without this a package has
+    no module identity at all. Exactly one entry is decoded.
+    """
+    meta = next((e for e in entries
+                 if e["name"].lower().endswith("/meta.lsx")
+                 or e["name"].lower() == "meta.lsx"), None)
+    if meta is None:
+        ins.not_checked.append("module identity: the package contains no meta.lsx")
+        ins.warnings.append(
+            "bare .pak with no meta.lsx: this package declares no module identity")
+        return
+    try:
+        raw = read_entry(path, meta)
+        info = parse_meta_lsx(raw)
+    except (InspectionError, Lz4Unavailable) as exc:
+        ins.not_checked.append(f"module identity from {meta['name']}: {exc}")
+        ins.warnings.append(f"module identity could not be read: {exc}")
+        return
+
+    loc = meta["name"]
+    ins.add("mod_id", info.get("UUID"), "extracted", loc)
+    ins.add("name", info.get("Name"), "extracted", loc)
+    ins.add("folder", info.get("Folder"), "extracted", loc)
+    ins.add("version", info.get("Version64") or info.get("Version"), "extracted", loc)
+    ins.add("author", info.get("Author"), "extracted", loc)
+    ins.add("dependencies",
+            [{"id": d.get("UUID"), "name": d.get("Name"), "required": True}
+             for d in info.get("dependencies", [])],
+            "extracted", loc)
+    ins.checked.append(f"module identity decoded from {loc}")
 
 
 def detect(path: Path) -> bool:

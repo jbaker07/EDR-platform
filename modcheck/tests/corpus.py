@@ -97,6 +97,25 @@ CORPUS: tuple[CorpusArtifact, ...] = (
         suffix=".json",
     ),
     CorpusArtifact(
+        id="bg3_combatmod_pak",
+        ecosystem="bg3",
+        url=("https://raw.githubusercontent.com/Hippo0o/bg3-mods/main/"
+             "Releases/CombatMod.pak"),
+        version="CombatMod (Trials of Tav) published release",
+        sha256="ab6ccfdbba64f0bab9068714cecb970cb0809dec1d221b4a71d756370ef302c4",
+        license="GPL-3.0 (repository LICENSE)",
+        redistributable=False,
+        reference=("LSLib source: PackageFormat.cs FileEntry18 and "
+                   "PackageReader.cs ReadCompressedFileList. LSLib itself could "
+                   "NOT be executed here -- its releases are on a host this "
+                   "environment cannot reach and it needs a .NET runtime -- so "
+                   "this is source-derived structure checked against a real "
+                   "package, not an executed reference comparison."),
+        note=("Real published bare .pak, 341059 bytes, LSPK v18, 63 entries. "
+              "Read only: never extracted to disk, never executed."),
+        suffix=".pak",
+    ),
+    CorpusArtifact(
         id="smapi_manifest_schema",
         ecosystem="stardewvalley",
         url="https://smapi.io/schemas/manifest.json",

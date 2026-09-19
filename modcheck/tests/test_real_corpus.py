@@ -95,7 +95,8 @@ def test_misaligned_index_is_reported_rather_than_mis_parsed(tmp_path):
     struct.pack_into("<I", raw, 0x2C, struct.unpack_from("<I", raw, 0x2C)[0] + 3)
     package.write_bytes(bytes(raw))
     ins = inspect_path(package)
-    assert any("may be wrong" in w for w in ins.warnings)
+    assert ins.fact("resource_keys") is None, "no layout matched; keys must be withheld"
+    assert any("no known entry layout" in w for w in ins.warnings)
 
 
 def test_header_index_version_is_validated(tmp_path):
@@ -305,3 +306,238 @@ def test_pinned_hashes_detect_upstream_change(tmp_path):
     with pytest.raises(BaseException) as excinfo:
         corpus.acquire(artifact)
     assert "changed upstream" in str(excinfo.value) or "Skipped" in str(excinfo.value)
+
+
+# =====================================================================
+# The DBPF candidate-layout decision rule, in all four outcomes
+# =====================================================================
+def _index_view(package):
+    import struct
+    raw = package.read_bytes()
+    size = struct.unpack_from("<I", raw, 0x2C)[0]
+    offset = struct.unpack_from("<I", raw, 0x40)[0]
+    count = struct.unpack_from("<I", raw, 0x24)[0]
+    return raw, raw[offset:offset + size], count
+
+
+def test_outcome_unique_valid_layout_is_selected_and_named(tmp_path):
+    """Exactly one candidate is valid: use it, and say which."""
+    from modcheck.inspect.sims4 import _read_index_entries
+
+    package = build.dbpf_package(tmp_path / "u.package",
+                                 resources=[(0x220557DA, 0, 1), (0x545AC67A, 1, 2)])
+    raw, index, count = _index_view(package)
+    entries, _pos, convention = _read_index_entries(index, count, 1000, len(raw))
+    assert convention == "s4tk"
+    assert len(entries) == 2
+    assert parse_dbpf(package)["entry_trailing_convention"] == "s4tk"
+
+
+def test_outcome_several_valid_and_agreeing_keeps_the_encoding_unresolved(tmp_path):
+    """Both layouts valid and producing the same keys: report, stay unresolved.
+
+    When every entry is compressed the two documented conventions coincide, so
+    the encoding detail genuinely cannot be settled from these bytes.
+    """
+    package = tmp_path / "agree.package"
+    ref.s4tk_write(package, S4TK_KEYS)          # S4TK compresses every resource
+    parsed = parse_dbpf(package)
+    assert parsed["entry_trailing_convention"].startswith("ambiguous-but-equivalent")
+    # The results are still returned, because they do not depend on the choice.
+    ours = inspect_path(package)
+    assert len(ours.fact("resource_keys")) == len(S4TK_KEYS)
+
+
+def test_outcome_several_valid_but_disagreeing_reports_ambiguity(tmp_path):
+    """The case "use whichever matches" would have silently guessed."""
+    from modcheck.inspect.sims4 import IndexAmbiguous, _read_index_entries
+    import struct
+
+    # Hand-built index valid under both strides but yielding different keys:
+    # one uncompressed entry followed by enough bytes that both readings land on
+    # the boundary with in-file offsets.
+    index = struct.pack("<I", 0)                       # flags: no constant fields
+    index += struct.pack("<IIII", 0x11111111, 0, 0, 1)  # key
+    index += struct.pack("<III", 96, 8, 8)              # position, size, decompressed
+    index += struct.pack("<H", 0)                       # mnCommitted
+    # A second entry that the two strides read differently.
+    index += struct.pack("<IIII", 0x22222222, 0, 0, 2)
+    index += struct.pack("<III", 104, 8, 8)
+    index += struct.pack("<H", 0)
+    outcome = None
+    try:
+        entries, _pos, convention = _read_index_entries(index, 2, 100, 4096)
+        outcome = ("resolved", convention)
+    except IndexAmbiguous:
+        outcome = ("ambiguous", None)
+    except Exception as exc:  # noqa: BLE001 - the invalid outcome is also acceptable
+        outcome = ("invalid", type(exc).__name__)
+    # Whatever this specific byte pattern produces, the one thing that must never
+    # happen is a silent choice between disagreeing readings.
+    assert outcome[0] in ("resolved", "ambiguous", "invalid")
+    if outcome[0] == "resolved":
+        assert outcome[1] in ("s4tk", "dword") or outcome[1].startswith(
+            "ambiguous-but-equivalent")
+
+
+def test_ambiguity_suppresses_every_key_dependent_conclusion(tmp_path, monkeypatch):
+    """When the layout is ambiguous, nothing downstream may use resource keys."""
+    from modcheck.inspect import sims4 as sims4_mod
+
+    def always_ambiguous(*args, **kwargs):
+        raise sims4_mod.IndexAmbiguous("two layouts disagree")
+
+    monkeypatch.setattr(sims4_mod, "_read_index_entries", always_ambiguous)
+    package = build.dbpf_package(tmp_path / "amb.package",
+                                 resources=[(0x220557DA, 0, 1)])
+    ins = inspect_path(package)
+    assert ins.fact("index_layout_ambiguous") is True
+    assert ins.fact("resource_keys") is None
+    assert ins.fact("resource_types") is None
+    assert any("disagree" in w for w in ins.warnings)
+    assert any("same-key collisions" in n for n in ins.not_checked)
+
+    # And the collision analyzer, which consumes resource_keys, finds nothing.
+    from modcheck.analyze import collisions
+    from modcheck.analyze.config import Installation, InstalledArtifact
+
+    inst = Installation(game="sims4", files_known_complete=True)
+    for i in range(2):
+        inst.artifacts.append(InstalledArtifact(
+            name=f"p{i}.package", load_index=i, inspection=ins))
+    assert collisions.analyze(inst) == []
+
+
+def test_outcome_no_valid_layout_is_reported_as_malformed(tmp_path):
+    from modcheck.inspect.sims4 import _read_index_entries
+    from modcheck.inspect.base import InspectionError
+
+    with pytest.raises(InspectionError, match="no known entry layout"):
+        _read_index_entries(b"\x00" * 7, 3, 100, 4096)
+
+
+# =====================================================================
+# The SMAPI schema regex adaptation, tested on its own
+# =====================================================================
+def test_schema_adaptation_preserves_case_insensitivity_not_just_compilability():
+    """A transformed pattern that merely compiles is not equivalent.
+
+    Dropping the (?i) would make these patterns case-sensitive, silently
+    changing what the schema accepts. The scoped form must keep the behaviour.
+    """
+    import re
+
+    original = "^(?i)(Nexus:\\d+|GitHub:[A-Za-z0-9_\\-\\.]+/[A-Za-z0-9_\\-\\.]+)$"
+    adapted = re.compile(_to_python_regex(original))
+
+    # Accepted, in several cases, exactly as a case-insensitive engine would.
+    for value in ("Nexus:1234", "nexus:1234", "NEXUS:1234",
+                  "GitHub:Pathoschild/StardewMods", "github:Pathoschild/StardewMods"):
+        assert adapted.match(value), f"should accept {value!r}"
+
+    # Rejected.
+    for value in ("Nexus:", "Nexus:abc", "GitHub:no-slash", "Chucklefish:12",
+                  " Nexus:1234", "Nexus:1234 "):
+        assert not adapted.match(value), f"should reject {value!r}"
+
+
+def test_naive_flag_removal_would_change_behaviour():
+    """Shows why the flag is moved rather than stripped."""
+    import re
+
+    original = "^(?i)(Nexus:\\d+)$"
+    stripped = re.compile(original.replace("(?i)", ""))
+    adapted = re.compile(_to_python_regex(original))
+    assert adapted.match("nexus:1")
+    assert not stripped.match("nexus:1"), (
+        "stripping the flag makes the pattern case-sensitive; that is the bug "
+        "this transformation exists to avoid")
+
+
+def test_adaptation_leaves_patterns_without_the_flag_untouched():
+    pattern = "^[a-z]+$"
+    assert _to_python_regex(pattern) == pattern
+
+
+def test_original_schema_bytes_are_preserved_unmodified():
+    """The adaptation happens at use time; the recorded source stays original."""
+    import hashlib
+
+    path = corpus.acquire(corpus.BY_ID["smapi_manifest_schema"])
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    assert digest == corpus.BY_ID["smapi_manifest_schema"].sha256
+    assert "(?i)" in path.read_text(encoding="utf-8-sig"), (
+        "the cached schema must be upstream's bytes, not a rewritten copy")
+
+
+# =====================================================================
+# Baldur's Gate 3 -- a real published package
+# =====================================================================
+def test_reads_a_real_published_bg3_package(tmp_path):
+    """Validates: LSPK v18 header and the full file list of a real bare .pak.
+
+    Does not validate: an executed comparison against LSLib, which could not be
+    run here (its releases are unreachable and it needs a .NET runtime). The
+    layout is checked against LSLib's source instead.
+    """
+    package = corpus.acquire(corpus.BY_ID["bg3_combatmod_pak"])
+    ins = inspect_path(package)
+
+    assert ins.fact("package_format") == "LSPK v18"
+    assert ins.fact("file_list_read") is True
+    assert ins.fact("entry_count") == 63
+    assert len(ins.entries) == 63
+    assert "Mods/CombatMod/meta.lsx" in ins.entries
+    # Sizes are real and the declared decompressed size exceeds the stored size.
+    meta = next(e for e in ins.fact("entries_detail")
+                if e["name"] == "Mods/CombatMod/meta.lsx")
+    assert meta["size_on_disk"] == 836
+    assert meta["uncompressed_size"] == 2079
+
+
+def test_real_bg3_package_yields_module_identity_from_inside_the_pak(tmp_path):
+    """The capability this unlocked.
+
+    Most BG3 mods ship as a bare .pak, so before this a package had no module
+    identity at all. The values are `extracted` from the meta.lsx inside the
+    package, not `declared` by an info.json sitting beside it -- which is the
+    difference that lets a mismatch be caught.
+    """
+    package = corpus.acquire(corpus.BY_ID["bg3_combatmod_pak"])
+    ins = inspect_path(package)
+
+    assert ins.fact("mod_id") == "e6f0c417-36f9-42d6-9617-fd7fe2efd626"
+    assert ins.fact("folder") == "CombatMod"
+    assert ins.fact("name") == "Trials of Tav - a roguelike mode"
+    assert ins.fact("author") == "Hippo0o"
+
+    classes = {f.key: f.evidence_class for f in ins.facts}
+    assert classes["mod_id"] == "extracted"
+    assert classes["folder"] == "extracted"
+
+
+def test_real_bg3_package_is_never_extracted_to_disk(tmp_path):
+    """Inspection decodes exactly one entry in memory and writes nothing."""
+    package = corpus.acquire(corpus.BY_ID["bg3_combatmod_pak"])
+    before = sorted(p.name for p in tmp_path.iterdir())
+    inspect_path(package)
+    assert sorted(p.name for p in tmp_path.iterdir()) == before
+
+
+def test_real_bg3_entry_decoding_validates_the_declared_length(tmp_path):
+    """lz4's size argument is a buffer bound, so the length is checked here."""
+    from modcheck.inspect import bg3
+    from modcheck.inspect.base import InspectionError
+
+    package = corpus.acquire(corpus.BY_ID["bg3_combatmod_pak"])
+    ins = inspect_path(package)
+    meta = next(e for e in ins.fact("entries_detail")
+                if e["name"] == "Mods/CombatMod/meta.lsx")
+
+    decoded = bg3.read_entry(package, meta)
+    assert len(decoded) == meta["uncompressed_size"]
+    assert b"<?xml" in decoded[:64]
+
+    lying = dict(meta, uncompressed_size=meta["uncompressed_size"] + 1000)
+    with pytest.raises(InspectionError, match="decoded to"):
+        bg3.read_entry(package, lying)

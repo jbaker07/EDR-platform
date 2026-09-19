@@ -92,6 +92,10 @@ capabilities:
   dependency_analysis:
     status: supported
     note: >-
+      Scope: declared-dependency analysis, for the manifest rules implemented and
+      tested. It is NOT a claim that Stardew compatibility is supported - schema
+      agreement establishes nothing about C# behaviour, Content Patcher
+      interactions, or save compatibility.
       Dependencies and ContentPackFor become dependency edges with version
       constraints, resolved by src/modcheck/analyze/requirements.py against a
       configuration: a missing required dependency is reported, an optional one

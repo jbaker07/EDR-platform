@@ -209,7 +209,12 @@ def bg3_pak(path: Path, entries: list[str] | None = None,
     if corrupt_list:
         compressed = b"\x00" * len(compressed)
     count = declared_count if declared_count is not None else len(entries)
-    list_block = struct.pack("<i", count) + compressed
+    # From LSPK version 14 the entry count is followed by an explicit compressed
+    # size and the block starts at offset + 8 (LSLib ReadCompressedFileList).
+    if version > 13:
+        list_block = struct.pack("<ii", count, len(compressed)) + compressed
+    else:
+        list_block = struct.pack("<i", count) + compressed
 
     file_list_offset = header_size + len(payload)
     body = lspk_bytes(version=version, file_list_offset=file_list_offset,

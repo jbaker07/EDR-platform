@@ -50,6 +50,44 @@ assumptions:
   injected `<script>` nonce. Fixed with a content hash; binaries deliberately
   get no such tolerance.
 
+### A.1a Evidence tiers
+
+Validation evidence is not one thing. These tiers are used throughout, because
+"validated" without a tier invites a later contributor to assume more was done
+than was:
+
+| # | Tier | Meaning |
+|---|---|---|
+| 1 | synthetic fixture | we wrote both the input and the expectation |
+| 2 | independently generated package | a reference implementation produced the input |
+| 3 | published metadata | a real upstream metadata file (manifest, About.xml) |
+| 4 | published complete package | a real released artifact, whole |
+| 5 | reference-source comparison | our structures checked against a reference implementation's source |
+| 6 | executed reference comparison | a reference tool actually run, outputs compared |
+| 7 | game/runtime evidence | observed in the running game |
+
+Current position per inspector:
+
+| Inspector | Tiers reached | Highest gap |
+|---|---|---|
+| minecraft (jvm) | 1, 4 | no reference implementation compared |
+| sims4 (DBPF) | 1, 2, 5, 6 | no **published** package (tier 4) |
+| bg3 (LSPK) | 1, 4, 5 | no **executed** LSLib comparison (tier 6) |
+| rimworld | 1, 3 | no published complete package (tier 4) |
+| smapi | 1, 3, 5 | no published content pack; schema compared, SMAPI not run |
+| cyberpunk | 1 | no external artifact at all |
+| projectzomboid | 1 | no external artifact at all |
+| bethesda | 1, 6 | no published plugin (tier 4) |
+
+**T2 status: implementation delivered; external-validation gate partially
+satisfied.** The outstanding cases are Cyberpunk and Project Zomboid artifact
+acquisition (tier 1 only), a published Sims 4 package, and an executed LSLib
+comparison for BG3. Nothing here is "complete".
+
+Evaluation counts are likewise scoped: 0 false warnings across the evaluation
+cases is a statement about those cases, not a population-wide false-warning
+rate.
+
 ### A.2 Implemented but tested ONLY against fixtures we wrote
 
 This is the honest weak spot. These inspectors parse formats correctly as we
@@ -57,12 +95,12 @@ understand them, and nothing independent has confirmed that understanding.
 
 | Component | Fixture basis | Risk |
 |---|---|---|
-| `inspect/sims4.py` | hand-built DBPF v2.1 index; `.pyc` magic table | no real `.package` has been parsed |
-| `inspect/bg3.py` | hand-built LSPK v18 header | v16 layout differs and is unhandled; `.pak` file list never read |
+| `inspect/sims4.py` | *superseded* — now tier 1, 2, 5 and 6 | no **published** `.package` has been parsed |
+| `inspect/bg3.py` | *superseded* — now tier 1, 4 and 5 | executed LSLib comparison still missing |
 | `inspect/cyberpunk.py` | synthesised archive layouts | `.archive` contents never decoded |
 | `inspect/projectzomboid.py` | synthesised `mod.info` + media tree | no real Workshop mod parsed |
-| `inspect/rimworld.py` | synthesised `About.xml` | no real mod parsed |
-| `inspect/smapi.py` | synthesised manifest + `content.json` | no real content pack parsed |
+| `inspect/rimworld.py` | *superseded* — now tier 1 and 3 | only `About.xml`; no packaged release |
+| `inspect/smapi.py` | *superseded* — now tier 1, 3 and 5 | no real content pack parsed |
 
 `inspect/bethesda.py` was in this category until `esplugin` cross-validation
 moved it into A.1. **That is the template for fixing the rest** (task T2).

@@ -113,8 +113,14 @@ capabilities:
       meta.lsx and extract the module identity - UUID, Name, Folder, Version/Version64, Author -
       and the declared dependency UUIDs, plus the list of .pak files shipped. For a bare .pak we
       parse the LSPK header (format version, priority, part count) and, when the optional `lz4`
-      extra is installed, the package file list: entry names, offsets, archive part, flags and
-      both sizes. The layout follows LSLib, not our inference - a 272-byte FileEntry18, with the
+      extra is installed, the package file list (entry names, offsets, archive part, flags and
+      both sizes) AND the module identity decoded from the meta.lsx inside the package - UUID,
+      Folder, Name, Version64, Author. That identity is `extracted` evidence, unlike the same
+      values read from an info.json sitting beside a .pak, which are only `declared`.
+      Validated against a real published package (Hippo0o/bg3-mods CombatMod.pak, LSPK v18,
+      63 entries) as well as synthetic fixtures. NOT validated by executing LSLib: its releases
+      are on a host this environment cannot reach and it requires a .NET runtime, so the layout
+      is checked against LSLib's source rather than against its running output. The layout follows LSLib, not our inference - a 272-byte FileEntry18, with the
       list stored as numFiles:i32 plus an LZ4 block that must decompress to exactly
       numFiles * 272, which is checked because lz4 treats the size argument as a buffer bound
       rather than an assertion. With `lz4` absent the file list is reported NOT read, with the
@@ -248,22 +254,20 @@ toolchain:
     source: bg3_multitool_readme_unreachable
 
 gaps:
-  - what: The meta.lsx inside a bare .pak, and its stats entries and scripts.
+  - what: Stats entries, scripts and assets inside a .pak.
     why: >-
-      The file list itself is now read: `lz4` is an optional `bg3` extra and the LSPK entry layout follows
-      LSLib. What remains unread is the content of the entries. Reading meta.lsx means decompressing the
-      named entry and parsing LSX, which is not implemented.
+      Exactly one entry is decoded - the meta.lsx that carries module identity. Decoding the rest would
+      mean reading arbitrary mod content, which inspection deliberately does not do.
     unblocks: >-
-      Module identity (UUID, Folder, Version) for a bare .pak, which is how most BG3 mods are distributed,
-      and with it a real check that a declared info.json UUID matches what the .pak actually contains.
-  - what: Whether an obtainable real BG3 .pak exists to validate the reader against.
+      Stats-level conflict analysis between two mods editing the same entry.
+  - what: An executed comparison against LSLib.
     why: >-
-      Published mods are on hosts this environment cannot reach, and LSLib is C# with no .NET runtime
-      available here, so it cannot be run as a reference implementation. The entry layout is asserted
-      against LSLib's declared structures instead, which is external evidence but not a real artifact.
+      LSLib release binaries are on github.com, which returns 403 here, and building it needs a .NET
+      runtime plus a native C++ project. The reader is instead checked against LSLib's source structures
+      and against a real published package, which agreed on entry count, names and sizes.
     unblocks: >-
-      Moving BG3 package inspection from structure-validated to artifact-validated, as Sims 4 was moved
-      by cross-checking against S4TK.
+      Moving BG3 from source-derived-plus-real-artifact evidence to an executed reference comparison,
+      the level Sims 4 reached with S4TK.
   - what: Everything about the BG3 Modder's Multitool.
     why: raw.githubusercontent.com returns HTTP 404 for the repository on every branch tried, and github.com is HTTP 403 here.
     unblocks: Access to github.com, or a mirror of that repository.

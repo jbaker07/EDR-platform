@@ -9,6 +9,52 @@
 # Written by `modcheck sources add`; edit by hand only to add licensing, reuse
 # terms and notes.
 sources:
+- id: bg3_combatmod_license
+  title: Hippo0o/bg3-mods LICENSE (GPL-3.0)
+  url: https://raw.githubusercontent.com/Hippo0o/bg3-mods/main/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T23:09:03+00:00'
+  http_status: 200
+  reuse:
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+  sha256: 3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986
+  bytes: 35149
+  content_sha256: 972a178adadacfbdddec346b16d45fd4ed9937ec5e4a5bb46d8685ba4e73a0b1
+  content_type: text/plain
+  upstream_revision: W/"acd3f442f5efb5b40d57d2b07a5254ffbc2023536eac1ade1e3de30db9ba8b25
+  evidence_path: 39/3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986.txt
+  games:
+  - bg3
+  publisher: Hippo0o
+  license: GPL-3.0
+- id: bg3_combatmod_pak_release
+  title: Hippo0o/bg3-mods CombatMod.pak published release (validation artifact)
+  url: https://raw.githubusercontent.com/Hippo0o/bg3-mods/main/Releases/CombatMod.pak
+  kind: release_artifact
+  access: public
+  retrieved_at: '2026-09-19T23:09:03+00:00'
+  http_status: 200
+  reuse:
+    redistribute: share_alike
+    commercial: 'yes'
+    derive: share_alike
+    note: 'Repository LICENSE is GPL-3.0 (fetched as bg3_combatmod_license). Used only as a read-only
+      validation artifact: fetched into the gitignored evidence cache, never redistributed, never executed,
+      and no mod content is extracted to disk.'
+  sha256: ab6ccfdbba64f0bab9068714cecb970cb0809dec1d221b4a71d756370ef302c4
+  bytes: 341059
+  content_type: application/octet-stream
+  upstream_revision: W/"2c76ca5dae312321e0803a3b5d7eea16cdb0db39fc93eab2606173946e295a12
+  evidence_path: ab/ab6ccfdbba64f0bab9068714cecb970cb0809dec1d221b4a71d756370ef302c4.pak
+  games:
+  - bg3
+  publisher: Hippo0o
+  license: GPL-3.0
+  notes: Real published BG3 package used to validate the LSPK reader. Acquired via raw.githubusercontent.com
+    at the pinned repository path.
 - id: bg3_multitool_readme_unreachable
   title: BG3 Modder's Multitool README (not retrievable here)
   url: https://raw.githubusercontent.com/ShinyHobo/BG3-Modders-Multitool/main/README.md

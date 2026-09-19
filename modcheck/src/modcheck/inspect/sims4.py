@@ -46,6 +46,7 @@ PYC_MAGIC = {
 def parse_dbpf(path: str | Path, max_entries: int = 20000) -> dict:
     """Parse a DBPF v2.x header and its resource index."""
     path = Path(path)
+    file_size = path.stat().st_size
     with path.open("rb") as fh:
         header = fh.read(96)
         if len(header) < 96 or header[:4] != DBPF_MAGIC:
@@ -71,7 +72,8 @@ def parse_dbpf(path: str | Path, max_entries: int = 20000) -> dict:
     if len(index) < 4:
         raise InspectionError("DBPF index truncated")
 
-    entries, pos, convention = _read_index_entries(index, index_count, max_entries)
+    entries, pos, convention = _read_index_entries(index, index_count, max_entries,
+                                                  file_size)
 
     return {"major": major, "minor": minor, "index_version": index_version,
             "entry_count": index_count, "entries": entries,
@@ -95,22 +97,87 @@ def parse_dbpf(path: str | Path, max_entries: int = 20000) -> dict:
 TRAILING_CONVENTIONS = ("s4tk", "dword")
 
 
-def _read_index_entries(index: bytes, index_count: int,
-                        max_entries: int) -> tuple[list[dict], int, str]:
-    best: tuple[list[dict], int, str] | None = None
+class IndexAmbiguous(InspectionError):
+    """More than one candidate layout is valid and they disagree.
+
+    Reported rather than resolved: picking one would manufacture certainty the
+    bytes do not support, and every downstream conclusion that needs a unique
+    interpretation is suppressed.
+    """
+
+
+def _entry_problems(entries: list[dict], declared_count: int,
+                    file_size: int | None) -> list[str]:
+    """Validity checks beyond "the stride consumed the index exactly".
+
+    Consuming the index is necessary but not sufficient: a wrong stride can
+    still land exactly on the boundary, as one does here for a two-entry
+    package. Only genuine invariants are asserted -- the declared entry count,
+    and every entry lying inside the file. Notably NOT asserted: that a
+    compressed entry is smaller than its decompressed size. Compressing ten
+    bytes can produce eighteen, and treating that as invalid rejected real
+    packages written by the reference implementation.
+    """
+    problems = []
+    if len(entries) != declared_count:
+        problems.append(f"read {len(entries)} entries, header declares {declared_count}")
+    for i, entry in enumerate(entries):
+        if file_size is not None:
+            if entry["offset"] <= 0 or entry["offset"] > file_size:
+                problems.append(f"entry {i} offset {entry['offset']} outside the file")
+            elif entry["offset"] + entry["size"] > file_size:
+                problems.append(f"entry {i} extends past the end of the file")
+    return problems
+
+
+def _read_index_entries(index: bytes, index_count: int, max_entries: int,
+                        file_size: int | None = None) -> tuple[list[dict], int, str]:
+    """Choose among bounded candidate layouts, explicitly.
+
+    Exactly one valid candidate  -> use it, naming the layout.
+    Several valid and agreeing   -> use them, keeping the encoding unresolved.
+    Several valid and disagreeing-> raise IndexAmbiguous; choose nothing.
+    None valid                   -> raise InspectionError; malformed or unsupported.
+    """
+    valid: list[tuple[list[dict], int, str]] = []
+    rejected: dict[str, str] = {}
     for convention in TRAILING_CONVENTIONS:
         try:
             entries, pos = _read_index_with(index, index_count, max_entries, convention)
-        except (struct.error, IndexError):
+        except (struct.error, IndexError) as exc:
+            rejected[convention] = f"could not be parsed ({exc})"
             continue
-        if pos == len(index):
-            return entries, pos, convention
-        if best is None:
-            best = (entries, pos, convention)
-    if best is None:
-        raise InspectionError("DBPF index could not be parsed under any known "
-                              "entry layout")
-    return best
+        if pos != len(index):
+            rejected[convention] = (
+                f"consumed {pos} of {len(index)} index bytes")
+            continue
+        problems = _entry_problems(entries, index_count, file_size)
+        if problems:
+            rejected[convention] = "; ".join(problems[:3])
+            continue
+        valid.append((entries, pos, convention))
+
+    if not valid:
+        detail = "; ".join(f"{k}: {v}" for k, v in rejected.items())
+        raise InspectionError(
+            f"DBPF index matches no known entry layout ({detail})")
+
+    if len(valid) == 1:
+        return valid[0]
+
+    # Several valid. Agreement is judged on what downstream actually uses: the
+    # resource keys.
+    def keys(entry_list: list[dict]) -> list[tuple[int, int, int]]:
+        return [(e["type"], e["group"], e["instance"]) for e in entry_list]
+
+    first_keys = keys(valid[0][0])
+    if all(keys(candidate[0]) == first_keys for candidate in valid[1:]):
+        names = "+".join(c[2] for c in valid)
+        return valid[0][0], valid[0][1], f"ambiguous-but-equivalent({names})"
+
+    raise IndexAmbiguous(
+        "DBPF index is valid under more than one entry layout and they disagree "
+        f"({', '.join(c[2] for c in valid)}); refusing to choose")
 
 
 def _read_index_with(index: bytes, index_count: int, max_entries: int,
@@ -156,7 +223,25 @@ def _resource_key(entry: dict) -> str:
 
 
 def inspect_package(artifact: Artifact) -> Inspection:
-    parsed = parse_dbpf(artifact.path)
+    try:
+        parsed = parse_dbpf(artifact.path)
+    except IndexAmbiguous as exc:
+        # Every conclusion that needs a unique interpretation is withheld: no
+        # resource keys means the collision analyzer has nothing to work from.
+        ins = artifact.base_inspection("sims4_package")
+        ins.game = "sims4"
+        ins.loader = "sims4_package"
+        ins.add("mod_id", artifact.path.name, "extracted", "filename")
+        ins.add("index_layout_ambiguous", True, "extracted", "DBPF index")
+        ins.warnings.append(str(exc))
+        ins.checked = ["DBPF header"]
+        ins.not_checked = [
+            "resource keys: the index is valid under more than one entry layout and "
+            "they disagree, so no key list is reported",
+            "anything derived from resource keys, including same-key collisions",
+        ]
+        return ins
+
     ins = artifact.base_inspection("sims4_package")
     ins.game = "sims4"
     ins.loader = "sims4_package"
