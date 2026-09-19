@@ -30,8 +30,7 @@ evidence:
   evidence_class: declared
   locator: heading and images note
   quote: >-
-    This template is staged for a hybrid B41/B42 setup. In other words, you are working on a mod for
-    both versions of the game.
+    This template is staged for a hybrid B41/B42 setup In other words, you are working on a mod for both versions of the game.
 - source: pzwiki_mod_structure
   evidence_class: declared
   locator: introduction

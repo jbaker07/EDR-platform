@@ -125,29 +125,22 @@ references:
   evidence_class: declared
   locator: section "Scripts syntax"
   quote: >-
-    Key value pairs are used to define the parameters of the script elements, with the syntax
-    Key = Value,. The comma at the end of each key value pair line is mandatory, even for the last line
-    in a block.
+    Key value pairs are used to define the parameters of the script elements, with the syntax {{Code|1=Key = Value,}}. The comma at the end of each key value pair line is mandatory, even for the last line in a block.
 - source: pzwiki_scripts
   evidence_class: declared
   locator: section "Module block"
   quote: >-
-    A module block needs to be defined at the start of the script files, unless it is a [[sandbox
-    options]] script. The base game module is <code>Base</code>, which means most entries will have the
-    full ID <code>Base.ItemName</code>.
+    A module block needs to be defined at the start of the script files, unless it is a [[sandbox options]] script. The base game module is {{Code|Base}}, which means most entries will have the full ID {{Code|Base.ItemName}}.
 - source: pzwiki_scripts
   evidence_class: declared
   locator: section "Soft overrides"
   quote: >-
-    When defining a script block which already exists, such as an item or a craftRecipe, based on the
-    type of script, the game will either override the whole block, or merge the new definition with the
-    existing one. This process is called a ''soft override''.
+    When defining a script block which already exists, such as an [[item (scripts)#Soft overrides|item]] or a [[craftRecipe]], based on the type of script, the game will either override the whole block, or merge the new definition with the existing one. This process is called a ''soft override''.
 - source: pzwiki_item_scripts
   evidence_class: declared
   locator: introduction and Infobox
   quote: >-
-    The item block is used to create items in the game, from weapons to food and clothing. The parameters
-    available in this block mostly depend on the type of item you are creating, set with ItemType.
+    The item block is used to create items in the game, from weapons to food and clothing. The parameters available in this block mostly depend on the type of item you are creating, set with [https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/item.html#item-itemtype ItemType].
 - source: pzwiki_item_scripts
   evidence_class: declared
   locator: 'section "Other parameters"'
@@ -157,8 +150,7 @@ references:
   evidence_class: declared
   locator: section "Display name"
   quote: >-
-    To add a name to display for your item, you need to add the item full type, that is its
-    <code>module.id</code>, inside the ItemName translation file.
+    To add a name to display for your item, you need to add the item full type, that is its <code>module.id</code>, inside the [https://pz-wiki-modding.github.io/PZ-API-Docs/translations/translation_files.html#itemname ItemName] translation file.
 - source: pz_api_script_manager
   evidence_class: extracted
   locator: class zombie.scripting.ScriptManager

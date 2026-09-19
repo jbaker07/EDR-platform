@@ -31,7 +31,7 @@ evidence:
 - source: harmony_nuget_registration
   evidence_class: extracted
   locator: items[-1].items[-1].catalogEntry
-  quote: '"version": "2.4.2", "published": "2025-11-13T00:25:02.94+00:00"'
+  quote: '"published":"2025-11-13T00:25:02.94+00:00" ... "version":"2.4.2"'
 - source: harmony_patching_docs
   evidence_class: declared
   locator: section "Types of patches"

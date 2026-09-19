@@ -1,0 +1,46 @@
+id: s4pe
+game: sims4
+title: s4pe / s4pi (Sims4Tools) - open-source .package editor and interface library
+url: https://github.com/s4ptacle/Sims4Tools
+kind: tool
+demonstrates:
+  - An open-source route to opening and editing a .package, as an alternative to the closed tooling the community's tutorials assume.
+  - A helper-tool interface pattern worth studying - a .helper text file that lets a third-party program be invoked on a single exported resource.
+  - A concrete reason to check a licence before reusing anything - this project is prominent and useful and we still could not establish its terms.
+license: unknown
+reuse:
+  integration: not_reusable
+  constraints: >-
+    We could NOT establish a licence. The README states none, and LICENSE, LICENSE.txt, License.txt and
+    COPYING all returned HTTP 404 on the develop branch; github.com, where the repository's licence badge
+    would be, returns HTTP 403 here. Without a licence we must treat the code as all rights reserved, so it
+    is recorded as not_reusable rather than reference_only - not because of a restriction we read, but
+    because of one we could not rule out. It is in any case a Windows .NET 4.0 application requiring Visual
+    Studio to build. This record exists to make the unknown explicit rather than to recommend the project.
+maintenance:
+  state: unknown
+  last_release: "README at the revision fetched names 0.4.3 as the most recent version and 0.4.4-beta as the most recent beta; no date was retrievable, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+  supported_versions: "README states .NET 4.0 is required and that Visual Studio is currently required to build"
+evidence:
+  - source: s4pe_repo_readme
+    evidence_class: extracted
+    locator: header
+    quote: "s4pe, based on the s4pi interface library, is an editing tool for the .package format used with [The Sims 4]. This is an open source project based on [s3pi and s3pe]."
+  - source: s4pe_repo_readme
+    evidence_class: extracted
+    locator: "Current Version"
+    quote: "[0.4.3] is the most recent version; [0.4.4-beta] is the most recent beta. The [repository we forked from] is not being maintained any more."
+  - source: s4pe_repo_readme
+    evidence_class: extracted
+    locator: "Helper Projects > Overview"
+    quote: "The interface between s4pe and your app is a .helper text file, which you edit to call your app in the appropriate way and provide with your tool."
+  - source: s4pe_repo_readme
+    evidence_class: extracted
+    locator: Requirements
+    quote: "* .NET 4.0"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - s4pe_repo_readme

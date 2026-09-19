@@ -152,9 +152,7 @@ references:
   evidence_class: declared
   locator: 'section "Required Tags", packageId'
   quote: >-
-    '''packageId must be globally unique across all mods.''' If RimWorld encounters more than one mod
-    with the same packageId, ''even if they are not in your current mod list'', then an error will be
-    thrown and only the first mod will be usable.
+    packageId</code> must be globally unique across all mods.''' If RimWorld encounters more than one mod with the same <code>packageId</code>, ''even if they are not in your current mod list'', then an error will be thrown and only the first mod will be usable.
 - source: rw_wiki_about_xml
   evidence_class: declared
   locator: 'section "Required Tags", supportedVersions'
@@ -172,8 +170,7 @@ references:
   evidence_class: declared
   locator: 'section "Folder Location"'
   quote: >-
-    Defs are placed in XML files in the <code>Defs</code> folder of the standard mod folder structure.
-    The exact paths and file names do not matter except for LoadFolders loading within your own mod
+    Defs are placed in XML files in the <code>Defs</code> folder of the [[Modding_Tutorials/Mod_Folder_Structure|standard mod folder structure]]. The exact paths and file names do not matter except for LoadFolders loading within your own mod
 - source: rw_wiki_compatibility_defs
   evidence_class: declared
   locator: 'section "Referencing defs", RecipeDef'

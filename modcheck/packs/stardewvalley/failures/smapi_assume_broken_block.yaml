@@ -50,10 +50,7 @@ evidence:
   evidence_class: extracted
   locator: 'header comment, "Status" bullet'
   quote: >-
-    Status: overrides compatibility checks. The possible values are Obsolete (SMAPI won't load
-    it because the mod should no longer be used), AssumeBroken (SMAPI won't load it because
-    the specified version isn't compatible), or AssumeCompatible (SMAPI will try to load it
-    even if it detects incompatible code).
+    Status: overrides compatibility checks. The possible values are Obsolete (SMAPI won't load * it because the mod should no longer be used), AssumeBroken (SMAPI won't load it because * the specified version isn't compatible), or AssumeCompatible (SMAPI will try to load it * even if it detects incompatible code).
 - source: smapi_mod_metadata_db
   evidence_class: extracted
   locator: 'ModData -> "Artifact Digger"'
@@ -62,8 +59,7 @@ evidence:
   evidence_class: extracted
   locator: 'header comment, "Versioned metadata"'
   quote: >-
-    Each key consists of a field name prefixed with any combination of version range and 'Default',
-    separated by pipes (whitespace trimmed).
+    Each key consists of a field name prefixed with any combination of version range and 'Default', * separated by pipes (whitespace trimmed).
 - source: smapi_release_notes
   evidence_class: declared
   locator: '"Upcoming release", For players'

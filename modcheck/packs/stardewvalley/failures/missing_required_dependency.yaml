@@ -67,8 +67,7 @@ evidence:
   evidence_class: extracted
   locator: 'header comment, "FormerIds" bullet'
   quote: >-
-    FormerIds: uniquely identifies the mod across multiple versions, and supports matching
-    other fields if no ID was specified.
+    FormerIds: uniquely identifies the mod across multiple versions, and supports matching * other fields if no ID was specified.
 provenance:
   added: '2026-09-19'
   last_verified: '2026-09-19'

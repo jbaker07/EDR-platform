@@ -123,14 +123,12 @@ references:
   evidence_class: declared
   locator: 'FAQ "How do multiple patches interact?"'
   quote: >-
-    When you have multiple content packs, each one is applied in the order they're loaded by SMAPI; if you
-    need to explicitly patch after another content pack, see [manifest dependencies].
+    When you have multiple content packs, each one is applied in the order they're loaded by SMAPI; if you need to explicitly patch after another content pack, see [manifest dependencies]
 - source: smapi_manifest_json_schema
   evidence_class: extracted
   locator: properties.UniqueID.description
   quote: >-
-    A unique identifier for your mod. The recommended format is "Username.ModName", with no spaces or
-    special characters. SMAPI uses this for update checks, mod dependencies, and compatibility blacklists.
+    A unique identifier for your mod. The recommended format is \"Username.ModName\", with no spaces or special characters. SMAPI uses this for update checks, mod dependencies, and compatibility blacklists
 - source: sdv_wiki_manifest
   evidence_class: declared
   locator: 'Stardew Valley Wiki, Modding:Modder_Guide/APIs/Manifest'

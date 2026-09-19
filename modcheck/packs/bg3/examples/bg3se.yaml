@@ -1,0 +1,55 @@
+id: bg3se
+game: bg3
+title: BG3 Script Extender - Lua and Osiris scripting for Baldur's Gate 3
+url: https://github.com/Norbyte/bg3se
+kind: library
+demonstrates:
+  - The additive way to change BG3 behaviour - registering listeners on Osiris calls and databases, so several mods can react to the same event instead of competing to own a record.
+  - A per-mod configuration contract worth copying - Config.json declaring a RequiredVersion, a globally unique ModTable and an explicitly minimal FeatureFlags list.
+  - The client/server split that decides where a script may run, and the bootstrap file naming convention that follows from it.
+  - A licence shape that has to be read rather than assumed, since a Commons Clause condition sits on top of otherwise permissive MIT terms.
+license: MIT AND Commons-Clause
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified by fetching the repository LICENSE file. It carries the "Commons Clause" License
+    Condition v1.0 followed by an MIT License, "Copyright (c) 2021-2025 Norbyte". The Commons Clause
+    withholds the right to Sell the Software - defined to include providing, for a fee, a product or
+    service whose value derives substantially from its functionality - and requires that any licence notice
+    reproduce the condition. That makes vendoring it into a commercial product a legal question rather than
+    a technical one, so we keep it reference_only and do not copy any part of it. Its API documentation is
+    held as a source and cited, not redistributed.
+maintenance:
+  state: unknown
+  last_release: "not established - the releases list is on github.com, which returns HTTP 403 here, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+  supported_versions: "the API document we fetched identifies itself as 'BG3SE Lua API v30' and its example Config.json declares RequiredVersion 29"
+evidence:
+  - source: bg3se_repo_readme
+    evidence_class: extracted
+    locator: intro
+    quote: "The Script Extender adds Lua/Osiris scripting support to the game."
+  - source: bg3se_api_docs
+    evidence_class: extracted
+    locator: title
+    quote: "# BG3SE Lua API v30 Documentation"
+  - source: bg3se_api_docs
+    evidence_class: extracted
+    locator: "Capturing Events/Calls"
+    quote: "Ext.Osiris.RegisterListener(\"TurnEnded\", 1, \"after\", function (characterGuid)\n    _P(\"TurnEnded- \" .. characterGuid)\nend)"
+  - source: bg3se_repo_license
+    evidence_class: extracted
+    locator: header
+    quote: "## “Commons Clause” License Condition v1.0"
+  - source: bg3_wiki_mod_types
+    evidence_class: declared
+    locator: "Modding and Achievements"
+    quote: "Modding Baldur’s Gate 3 disables all achievements. They are automatically re-enabled when using Script Extender."
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3se_repo_readme
+    - bg3se_repo_license
+    - bg3se_api_docs
+    - bg3_wiki_mod_types

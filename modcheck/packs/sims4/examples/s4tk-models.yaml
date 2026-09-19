@@ -1,0 +1,48 @@
+id: s4tk-models
+game: sims4
+title: "@s4tk/models - TypeScript models for reading and writing Sims 4 packages"
+url: https://github.com/sims4toolkit/models
+kind: library
+demonstrates:
+  - An independent, permissively licensed implementation of the same DBPF reading our Sims 4 inspector does, which makes it the best available cross-check on our resource-key extraction.
+  - A machine-readable manifest for a modding library - package.json pinning the version, declaring the licence and naming its compression, hashing and xml-dom dependencies.
+  - A pre-release library being honest about it in its own README, which is the maintenance signal we could actually verify rather than infer.
+license: MIT
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified two ways - the repository LICENSE file reads "MIT License" / "Copyright (c) 2022 Frank
+    Kulak", and package.json declares "license": "MIT". Reuse with attribution is therefore permitted. It
+    stays reference_only because modcheck's inspector is Python and this is a Node/TypeScript package;
+    adopting it would mean a Node runtime dependency for one game. Note the README's own caveat that all
+    S4TK software is in a pre-release stage with breaking changes likely, which is a reason to compare
+    against it rather than depend on it.
+maintenance:
+  state: unknown
+  last_release: "version 0.6.14 as declared in the package.json we fetched on 2026-09-19; the npm and GitHub release histories were not retrievable here"
+  checked_at: '2026-09-19'
+  supported_versions: "0.6.14 at the revision fetched; depends on @s4tk/compression ^0.2.0, @s4tk/encoding ^0.1.4, @s4tk/hashing ^0.2.1, @s4tk/images ^0.2.4 and @s4tk/xml-dom ^0.2.6"
+evidence:
+  - source: s4tk_models_readme
+    evidence_class: extracted
+    locator: Overview
+    quote: "This project contains the models, enums, and other structures required for reading and writing Sims 4 package files and the resources they contain."
+  - source: s4tk_models_readme
+    evidence_class: extracted
+    locator: Disclaimers
+    quote: "All S4TK software is currently considered to be in its pre-release stage. Use at your own risk, knowing that breaking changes are likely to happen."
+  - source: s4tk_models_package_json
+    evidence_class: extracted
+    locator: top-level fields
+    quote: "\"version\": \"0.6.14\","
+  - source: s4tk_models_license
+    evidence_class: extracted
+    locator: first two lines
+    quote: "MIT License\n\nCopyright (c) 2022 Frank Kulak"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - s4tk_models_readme
+    - s4tk_models_license
+    - s4tk_models_package_json

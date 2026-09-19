@@ -31,7 +31,7 @@ evidence:
 - source: rimsort_community_rules_db
   evidence_class: extracted
   locator: 'rules -> first entry'
-  quote: '"3tes.cgtwaa": {"loadAfter": {"gt.sam.glittertech": {"name": ["Glitter Tech"]}}}'
+  quote: '"3tes.cgtwaa": { "loadAfter": { "gt.sam.glittertech": { "name": [ "Glitter Tech" ] } } }'
 - source: rimsort_rules_db_license_probe
   evidence_class: unresolved
   locator: repository root LICENSE on branch main

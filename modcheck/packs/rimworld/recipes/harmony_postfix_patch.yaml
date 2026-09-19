@@ -184,12 +184,11 @@ references:
   evidence_class: declared
   locator: section "Assemblies"
   quote: >-
-    The <code>Assemblies</code> folder can be used to add custom code to RimWorld in the form of compiled
-    dynamic-link library or DLL files. Properly compiled assemblies will be automatically loaded by RimWorld.
+    The <code>Assemblies</code> folder can be used to add custom code to RimWorld in the form of compiled [https://en.wikipedia.org/wiki/Dynamic-link_library dynamic-link library] or DLL files. Properly compiled assemblies will be automatically loaded by RimWorld.
 - source: harmony_nuget_registration
   evidence_class: extracted
   locator: items[-1].items[-1].catalogEntry
-  quote: '"version": "2.4.2", "published": "2025-11-13T00:25:02.94+00:00"'
+  quote: '"published":"2025-11-13T00:25:02.94+00:00" ... "version":"2.4.2"'
 verification_state: documented
 verification_note: >-
   Written from the fetched RimWorld wiki Harmony page, Harmony's own patching article, the

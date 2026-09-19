@@ -168,14 +168,12 @@ references:
   evidence_class: declared
   locator: 'Parameters, id and versionMin'
   quote: >-
-    The unique identifier of the mod, used in a mod list of the user or servers to activate the mod.
-    Note: This is not the same as the Workshop ID.
+    The unique identifier of the mod, used in a mod list of the user or servers to activate the mod. Make sure to use something unique which isn’t shared between mods. Note: This is not the same as the Workshop ID
 - source: pzwiki_mod_structure
   evidence_class: declared
   locator: 'section "Mod folder", Build 41 and Build 42'
   quote: >-
-    The main difference is the position of the media folder and the lack of versioning and common
-    folders for Build 41.
+    The main difference is the position of the [[#Media folder|media folder]] and the lack of versioning and common folders for Build 41.}}
 - source: pz_api_lua_event_manager
   evidence_class: extracted
   locator: 'class zombie.Lua.LuaEventManager'

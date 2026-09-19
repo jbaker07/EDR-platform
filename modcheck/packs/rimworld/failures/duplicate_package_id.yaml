@@ -50,23 +50,17 @@ evidence:
   evidence_class: declared
   locator: 'section "Required Tags", packageId'
   quote: >-
-    '''packageId must be globally unique across all mods.''' If RimWorld encounters more than one mod
-    with the same packageId, ''even if they are not in your current mod list'', then an error will be
-    thrown and only the first mod will be usable.
+    packageId</code> must be globally unique across all mods.''' If RimWorld encounters more than one mod with the same <code>packageId</code>, ''even if they are not in your current mod list'', then an error will be thrown and only the first mod will be usable.
 - source: rw_wiki_about_xml
   evidence_class: declared
   locator: 'section "Required Tags", packageId, case note'
   quote: >-
-    Note: packageId is case-insensitive as RimWorld will internally convert all IDs to lowercase;
-    capitalization is done for readability, but two IDs that are identical other than case will resolve
-    as identical.
+    Note: <code>packageId</code> is case-insensitive as RimWorld will internally convert all IDs to lowercase; capitalization is done for readability, but two IDs that are identical other than case will resolve as identical.
 - source: rw_wiki_about_xml
   evidence_class: declared
   locator: 'section "Required Tags", packageId, forks'
   quote: >-
-    The only time that using the same packageId is recommended is if you are forking or continuing a mod
-    and want it to act as a drop-in replacement. In such cases, players must unsubscribe from the
-    original mod to be able to use yours.
+    The only time that using the same <code>packageId</code> is recommended is if you are forking or continuing a mod and want it to act as a drop-in replacement. In such cases, players must unsubscribe from the original mod to be able to use yours.
 provenance:
   added: '2026-09-19'
   last_verified: '2026-09-19'

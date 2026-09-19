@@ -26,7 +26,7 @@ evidence:
 - source: pz_scriptsdocs_modinfo
   evidence_class: extracted
   locator: page header and block metadata
-  quote: 'ROOT-ModInfo Soft Override : Unknown Is Root : True No comma : True Root patterns : mod\.info$'
+  quote: 'ROOT-ModInfo ¶ Soft Override : Unknown Is Root : True No comma : True Root patterns : mod\.info$'
 - source: pz_scriptsdocs_modinfo
   evidence_class: declared
   locator: 'Parameters, loadModAfter and loadModBefore'
@@ -34,7 +34,7 @@ evidence:
 - source: pzwiki_mod_info
   evidence_class: declared
   locator: section "Parameters"
-  quote: You can find a full list of parameters in the ScriptsDocs.
+  quote: You can find a full list of parameters in the [https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/root-modinfo.html#root-modinfo-id ScriptsDocs].
 provenance:
   added: '2026-09-19'
   last_verified: '2026-09-19'

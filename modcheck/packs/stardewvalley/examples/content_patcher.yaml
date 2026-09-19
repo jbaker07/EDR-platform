@@ -26,7 +26,7 @@ evidence:
 - source: pathoschild_stardewmods_license
   evidence_class: extracted
   locator: line 1-3
-  quote: 'The MIT License (MIT) Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)'
+  quote: 'The MIT License (MIT) Copyright 2016–2025 Jesse Plamondon-Willard (Pathoschild)'
 - source: content_patcher_release_notes
   evidence_class: declared
   locator: heading "## 2.9.1"

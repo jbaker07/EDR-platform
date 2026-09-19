@@ -1,0 +1,38 @@
+id: lslib
+game: bg3
+title: LSLib - library and tools for Larian package and resource formats
+url: https://github.com/Norbyte/lslib
+kind: library
+demonstrates:
+  - Creating and extracting .pak packages, which is the build step every BG3 recipe in this pack needs and none of them can run here.
+  - Converting between the LSB, LSF, LSX and LSJ forms of the same resource, which is why meta.lsx can be authored as readable XML and still ship inside a package.
+  - The practical route to the one thing our own inspector cannot do - reading what is actually inside a .pak, rather than only its LSPK header.
+license: MIT
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified by fetching the repository LICENSE file, which reads "The MIT License (MIT)" /
+    "Copyright (c) 2015 Norbyte" - permissive, so reuse with attribution would be allowed. It stays
+    reference_only here because it is a .NET project that we did not build or run in this environment. It
+    is worth noting as the practical alternative to the BG3 Modder's Multitool, which we could not retrieve
+    at all.
+maintenance:
+  state: unknown
+  last_release: "not established - the releases list is on github.com, which returns HTTP 403 here, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+  supported_versions: "README states it covers Divinity Original Sin 1, Enhanced Edition, Original Sin 2 and Baldur's Gate 3 EA files"
+evidence:
+  - source: lslib_repo_readme
+    evidence_class: extracted
+    locator: intro and feature list
+    quote: "This package provides utilities for manipulating Divinity Original Sin 1, Enhanced Edition, Original Sin 2 and Baldur's Gate 3 EA files:\n\n - Extracting/creating PAK packages\n - Extracting/creating LSV savegame packages\n - Converting LSB, LSF, LSX, LSJ resource files"
+  - source: lslib_repo_license
+    evidence_class: extracted
+    locator: first two lines
+    quote: "The MIT License (MIT)\n\nCopyright (c) 2015 Norbyte"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - lslib_repo_readme
+    - lslib_repo_license

@@ -26,7 +26,7 @@ evidence:
 - source: modbuildconfig_nuget
   evidence_class: extracted
   locator: items[-1].items[-1].catalogEntry
-  quote: '"version": "4.4.0", "published": "2025-04-13T23:13:48.303+00:00", "licenseExpression": "MIT", "authors": "Pathoschild"'
+  quote: '"published":"2025-04-13T23:13:48.303+00:00" ... "title":"Build package for SMAPI mods","version":"4.4.0"'
 - source: smapi_mod_build_config
   evidence_class: declared
   locator: introduction
@@ -36,7 +36,7 @@ evidence:
 - source: smapi_mod_build_config
   evidence_class: declared
   locator: section "Release zip"
-  quote: The package adds a zip file in your project's `bin` folder when you rebuild the code.
+  quote: The package adds a zip file in your project's `bin` folder when you rebuild the code
 provenance:
   added: '2026-09-19'
   last_verified: '2026-09-19'

@@ -25,11 +25,11 @@ evidence:
 - source: krafs_rimworld_ref_nuget
   evidence_class: extracted
   locator: root object
-  quote: '"commitTimeStamp": "2026-07-01T02:43:53.5830285+00:00", "count": 6'
+  quote: '"commitTimeStamp":"2026-07-01T02:43:53.5830285+00:00","count":6'
 - source: krafs_rimworld_ref_nuget
   evidence_class: extracted
   locator: items[-1]
-  quote: '"lower": "1.6.4494-beta", "upper": "1.6.4871"'
+  quote: '"lower":"1.6.4494-beta","upper":"1.6.4871"'
 - source: rw_wiki_mod_folder_structure
   evidence_class: declared
   locator: section "Assemblies"

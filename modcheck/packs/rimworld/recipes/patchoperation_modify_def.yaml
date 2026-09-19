@@ -172,18 +172,16 @@ references:
   evidence_class: declared
   locator: 'section "PatchOperation Types", conditional operations'
   quote: >-
-    '''PatchOperationFindMod''' tests for the presence of another mod, and can do different operations
-    depending on the result.
+    PatchOperationFindMod|PatchOperationFindMod]]''' tests for the presence of another mod, and can do different operations depending on the result.
 - source: rw_wiki_compatibility_defs
   evidence_class: declared
   locator: 'section "Overwriting defs"'
-  quote: "===Core defs=== '''Don't.''' Use xpath instead."
+  quote: "===Core defs=== '''Don't.''' Use [[Modding Tutorials/PatchOperations| xpath]] instead."
 - source: rw_wiki_about_xml
   evidence_class: declared
   locator: 'section "Required Tags", name'
   quote: >-
-    PatchOperationFindMod still uses mod names and thus you should avoid changing the name of your mod
-    unless absolutely necessary.
+    PatchOperationFindMod|PatchOperationFindMod]] still uses mod names and thus you should avoid changing the name of your mod unless absolutely necessary.
 verification_state: documented
 verification_note: >-
   Written from the fetched rimworldwiki.com PatchOperations, Compatibility-with-defs and

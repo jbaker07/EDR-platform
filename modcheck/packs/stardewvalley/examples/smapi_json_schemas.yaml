@@ -34,7 +34,7 @@ evidence:
 - source: content_patcher_troubleshooting
   evidence_class: declared
   locator: section "Schema validator"
-  quote: 'To validate online: 1. Go to [smapi.io/json].'
+  quote: 'To validate online: 1. Go to [smapi.io/json]'
 - source: smapi_release_notes
   evidence_class: declared
   locator: heading "## 4.5.2"

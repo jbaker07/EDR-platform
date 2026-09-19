@@ -1,0 +1,47 @@
+id: sims4-scripting-template
+game: sims4
+title: Sims4ScriptingTemplate - project template for building a .ts4script
+url: https://github.com/mycroftjr/Sims4ScriptingTemplate
+kind: template
+demonstrates:
+  - The full script-mod build shape - a src tree, a compile step, a build output, and installation to Mods/CreatorName_ProjectName/CreatorName_ProjectName.ts4script.
+  - Generating run-time Python type stubs from the game's decompiled sources, which is what makes an editor able to check calls into game code at all.
+  - A distribution convention that avoids a real player-side failure - nesting build artifacts in one self-contained folder, so unzipping into the Mods folder cannot scatter files.
+  - A reversal worth reading before shipping - the template dropped its compiled-only build variant because shipping only .pyc is discouraged.
+license: Apache-2.0
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified by fetching the repository LICENSE file, which is the Apache License, Version 2.0
+    verbatim - permissive with attribution and a patent grant, and it requires that changes be marked if
+    the work is redistributed modified. We do not vendor or run it: its decompile step needs an installed
+    game, and its compile step needs the CPython version the game expects, which this environment does not
+    have. It is a fork of junebug12851/Sims4ScriptingBPProj, which its own README credits.
+maintenance:
+  state: unknown
+  last_release: "not established - the releases list is on github.com, which returns HTTP 403 here, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+  supported_versions: "not declared in the README; the tutorial workflow it descends from pins Python to 3.7 or 3.8"
+evidence:
+  - source: s4_scripting_template_readme
+    evidence_class: extracted
+    locator: intro
+    quote: "This is my update of https://github.com/junebug12851/Sims4ScriptingBPProj, a Sims 4 Script mod template project."
+  - source: s4_scripting_template_readme
+    evidence_class: extracted
+    locator: "What can it do > compile.py"
+    quote: "It then copies your packaged mod to the games Mods folder under it's own sub-folder \n`Mods/YourName_ProjectName/YourName_ProjectName.ts4script`."
+  - source: s4_scripting_template_readme
+    evidence_class: extracted
+    locator: intro
+    quote: "The second major change is the addition of type_hints.py, which generates run-time python type stubs for the\ndecompiled source files!"
+  - source: s4_scripting_template_license
+    evidence_class: extracted
+    locator: first lines
+    quote: "Apache License\n                           Version 2.0, January 2004"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - s4_scripting_template_readme
+    - s4_scripting_template_license

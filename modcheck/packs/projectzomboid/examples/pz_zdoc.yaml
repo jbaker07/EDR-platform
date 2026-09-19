@@ -30,9 +30,7 @@ evidence:
   evidence_class: declared
   locator: section "Exposed elements"
   quote: >-
-    Not all the Java classes and methods are exposed to the Lua API. In the [[JavaDocs]], there is no
-    indication of which classes are exposed but for the classes that are, it shows only the methods that
-    are exposed.
+    Not all the Java classes and methods are exposed to the Lua API. In the [[JavaDocs]], there is no indication of which classes are exposed but for the classes that are exposed, it shows only the methods that are exposed.
 provenance:
   added: '2026-09-19'
   last_verified: '2026-09-19'

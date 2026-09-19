@@ -64,8 +64,7 @@ evidence:
   evidence_class: declared
   locator: section "Load order", closing note
   quote: >-
-    It is not recommended to overwrite existing files if not needed for compatibility reasons. Instead,
-    overwrite specific functions or hook them when possible.
+    It is not recommended to overwrite existing files if not needed for compatibility reasons. Instead, overwrite specific functions or [[Lua (language)#Decoration|hook]] them when possible.}}
 provenance:
   added: '2026-09-19'
   last_verified: '2026-09-19'

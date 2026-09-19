@@ -1,0 +1,47 @@
+id: bg3-mod-manager
+game: bg3
+title: BG3 Mod Manager - orders modules and writes the game's modsettings.lsx
+url: https://github.com/LaughingLeader/BG3ModManager
+kind: tool
+demonstrates:
+  - Where BG3's load order actually lives - a single modsettings.lsx the game reads, written by the manager rather than derived from filenames.
+  - The two documented ways that file gets wiped, which is the mechanism behind our modsettings-load-order-cleared failure record.
+  - Reading a module's identity and declared dependencies out of the artifact, which is the same job our BG3 inspector does and a useful cross-check on it.
+  - Exporting a load order to a shareable file, which is the closest thing BG3 has to a reproducible configuration.
+license: MIT
+reuse:
+  integration: reference_only
+  constraints: >-
+    Licence verified by fetching the repository LICENSE file, which reads "MIT License" / "Copyright (c)
+    2019 LaughingLeader". Permissive, but it is a Windows .NET 8.0 desktop application, so there is nothing
+    runnable here; we cite it for the facts it documents about modsettings.lsx. Its README also states it
+    is the only official source for the tool - worth repeating to players, since mod managers are a common
+    malware vector.
+maintenance:
+  state: unknown
+  last_release: "not established - the releases list is on github.com, which returns HTTP 403 here, and the GitHub API in this session is restricted to the workspace's own repository"
+  checked_at: '2026-09-19'
+  supported_versions: "README at the revision fetched requires .NET 8.0 desktop runtime and the latest C++ redistributable on Windows"
+evidence:
+  - source: bg3mm_repo_readme
+    evidence_class: extracted
+    locator: Setup step 6
+    quote: "This updates the `modsettings.lsx` file that the game reads."
+  - source: bg3mm_repo_readme
+    evidence_class: extracted
+    locator: intro
+    quote: "**This is the only official source for the BG3 Mod Manager.** There is no \"official website\" beyond this repository."
+  - source: bg3mm_repo_readme
+    evidence_class: extracted
+    locator: "Current Features"
+    quote: "View details about each mod, including the description and dependencies."
+  - source: bg3mm_repo_license
+    evidence_class: extracted
+    locator: first two lines
+    quote: "MIT License\n\nCopyright (c) 2019 LaughingLeader"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - bg3mm_repo_readme
+    - bg3mm_repo_license

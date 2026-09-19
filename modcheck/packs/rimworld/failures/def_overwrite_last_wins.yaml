@@ -54,7 +54,7 @@ evidence:
 - source: rw_wiki_compatibility_defs
   evidence_class: declared
   locator: 'section "Overwriting defs"'
-  quote: "=Overwriting defs= ===Core defs=== '''Don't.''' Use xpath instead. ===Mod defs=== '''Don't.'''"
+  quote: "=Overwriting defs= ===Core defs=== '''Don't.''' Use [[Modding Tutorials/PatchOperations| xpath]] instead. ===Mod defs=== {{Main|Modding Tutorials/PatchOperations#PatchOperationFindMod}} '''Don't.'''"
 - source: rw_wiki_mod_folder_structure
   evidence_class: declared
   locator: 'section "Defs"'

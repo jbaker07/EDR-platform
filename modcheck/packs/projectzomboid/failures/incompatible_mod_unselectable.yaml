@@ -61,7 +61,7 @@ evidence:
   evidence_class: declared
   locator: section "Parameters"
   quote: >-
-    You can find a full list of parameters in the ScriptsDocs.
+    You can find a full list of parameters in the [https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/root-modinfo.html#root-modinfo-id ScriptsDocs].
 provenance:
   added: '2026-09-19'
   last_verified: '2026-09-19'
