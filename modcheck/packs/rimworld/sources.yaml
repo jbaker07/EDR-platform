@@ -219,6 +219,26 @@ sources:
   notes: A deliberate negative result. HTTP 404 proves there is no LICENSE file at the root of RimSort/Community-Rules-Database
     on branch main, which is why the reuse terms of communityRules.json are unknown. It is recorded as
     access=blocked and may only back 'unresolved' evidence.
+- id: rimworld_wiki_about_xml_fields
+  title: 'RimWorld wiki: About.xml field reference (incl. per-version variants)'
+  url: https://rimworldwiki.com/wiki/About.xml
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T22:37:21+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: c2c621d21213b3281dd9b9b1b182a217e9b57d590d195a9acb84286010847f78
+  bytes: 39234
+  content_sha256: 29b8458c072229d861f827cfd694b02e69321f772ce48a85688ec919943689e5
+  content_type: text/html
+  upstream_revision: Sat, 19 Sep 2026 22:37:22 GMT
+  evidence_path: c2/c2c621d21213b3281dd9b9b1b182a217e9b57d590d195a9acb84286010847f78.html
+  games:
+  - rimworld
+  publisher: RimWorld Wiki
 - id: rw_wiki_about_xml
   title: 'RimWorld Wiki: Modding Tutorials/About.xml (wikitext via MediaWiki API)'
   url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/About.xml&prop=wikitext&format=json

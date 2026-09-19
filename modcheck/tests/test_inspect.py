@@ -122,12 +122,22 @@ def test_bg3_zip_identity(tmp_path):
     assert ins.fact("dependencies")[0]["id"] == "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
 
 
-def test_bg3_bare_pak_says_what_it_could_not_read(tmp_path):
-    pak = build.bg3_pak(tmp_path / "Example.pak")
+def test_bg3_pak_file_list_is_read(tmp_path):
+    pak = build.bg3_pak(tmp_path / "Example.pak",
+                        entries=["Mods/Demo/meta.lsx", "Public/Demo/x.txt"])
     ins = inspect_path(pak)
     assert ins.fact("package_format") == "LSPK v18"
-    assert any("not read" in w for w in ins.warnings)
-    assert any("LZ4" in n for n in ins.not_checked)
+    assert ins.fact("file_list_read") is True
+    assert ins.fact("entry_count") == 2
+    assert ins.entries == ["Mods/Demo/meta.lsx", "Public/Demo/x.txt"]
+    # Reading the list does not mean we read what is inside the files.
+    assert any("meta.lsx module identity" in n for n in ins.not_checked)
+
+
+def test_bg3_bare_pak_still_says_the_module_identity_was_not_read(tmp_path):
+    pak = build.bg3_pak(tmp_path / "Example.pak")
+    ins = inspect_path(pak)
+    assert any("meta.lsx" in w for w in ins.warnings)
 
 
 # --- Cyberpunk 2077 ------------------------------------------------------

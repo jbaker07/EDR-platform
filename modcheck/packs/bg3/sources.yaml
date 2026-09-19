@@ -330,6 +330,46 @@ sources:
   notes: MediaWiki instance published by Larian Studios for the official Baldur's Gate 3 Toolkit. No licence
     statement appears on the pages we retrieved, so reuse terms are unknown; we quote short passages for
     audit only. Used for the official publishing route and what the Toolkit produces.
+- id: lslib_package_format
+  title: 'LSLib PackageFormat.cs: LSPK header and file entry layout'
+  url: https://raw.githubusercontent.com/Norbyte/lslib/master/LSLib/LS/PackageFormat.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T22:34:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 67feac0c2b9cef312f546a9289d5986eebc759c2efe2882b8004d651001b4f65
+  bytes: 13235
+  content_sha256: b24a91370a4f8c1bfd4cace1d0156e50a12167742a5ae1139116783ae0fca45f
+  content_type: text/plain
+  upstream_revision: W/"ebd4d7edd470764ea30bde4b266a4b6a3085eab5d46b751eeb119ab56c609998
+  evidence_path: 67/67feac0c2b9cef312f546a9289d5986eebc759c2efe2882b8004d651001b4f65.cs
+  games:
+  - bg3
+  publisher: Norbyte (LSLib)
+- id: lslib_package_reader
+  title: 'LSLib PackageReader.cs: file list framing and LZ4 decompression'
+  url: https://raw.githubusercontent.com/Norbyte/lslib/master/LSLib/LS/PackageReader.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T22:34:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 0832b222409e4eff8fd9c8151c430ff5001c584adaee6fe286d5a68afec68a0e
+  bytes: 9273
+  content_sha256: 56c9beaa62339c749179e4f4f9feb444da220466947b34af13ea9a62aa4f5e6c
+  content_type: text/plain
+  upstream_revision: W/"586d78bd063d7b30061b4d0a9095998786c60325a7c5f07774ae5b03740f8561
+  evidence_path: 08/0832b222409e4eff8fd9c8151c430ff5001c584adaee6fe286d5a68afec68a0e.cs
+  games:
+  - bg3
+  publisher: Norbyte (LSLib)
 - id: lslib_repo_license
   title: LSLib LICENSE (Norbyte/lslib)
   url: https://raw.githubusercontent.com/Norbyte/lslib/master/LICENSE
@@ -395,3 +435,23 @@ sources:
   license: unknown
   notes: Recorded only to make the hole explicit. HTTP 403 in this environment; nothing retrieved, nothing
     citable except as 'unresolved'.
+- id: python_lz4_package_metadata
+  title: python-lz4 4.4.4 package metadata (licence classifier)
+  url: https://pypi.org/pypi/lz4/4.4.4/json
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T22:34:36+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: f7e95132032b70b0e5e5a677f688758a7375ce84ae8812ed47a77350a2bc3af4
+  bytes: 39454
+  content_sha256: 73cae5b8c75724fed5fdee404d6323f12d0205994df8d2def5cb47dd25615c05
+  content_type: application/json
+  upstream_revision: xETU23qbi5+k95nMXmAAiw
+  evidence_path: f7/f7e95132032b70b0e5e5a677f688758a7375ce84ae8812ed47a77350a2bc3af4.json
+  games:
+  - bg3
+  publisher: python-lz4

@@ -9,3 +9,6 @@ build_workspaces/
 *.egg-info/
 # Optional Rust helper build output (GPL-3.0 binary, built on demand)
 helpers/*/target/
+# Reference implementations installed on demand for cross-validation
+helpers/*/node_modules/
+helpers/*/package-lock.json

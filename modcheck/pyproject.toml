@@ -10,7 +10,14 @@ requires-python = ">=3.11"
 dependencies = ["PyYAML>=6.0", "jsonschema>=4.20"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+# BG3 .pak file lists are stored as an LZ4 block. Optional for the core: without
+# it, BG3 package inspection reports the file list as NOT read and says how to
+# install it -- it never reports an empty package. Pinned to the version the
+# test suite exercises.
+# python-lz4 is BSD 3-Clause ("License :: OSI Approved :: BSD License" in its
+# published metadata); it wraps the upstream LZ4 library.
+bg3 = ["lz4==4.4.4"]
+dev = ["pytest>=8.0", "lz4==4.4.4"]
 
 [project.scripts]
 modcheck = "modcheck.cli:main"

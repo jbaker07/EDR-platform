@@ -43,20 +43,26 @@ PYC_MAGIC = {
 }
 
 
-def parse_dbpf(path: Path, max_entries: int = 20000) -> dict:
+def parse_dbpf(path: str | Path, max_entries: int = 20000) -> dict:
     """Parse a DBPF v2.x header and its resource index."""
+    path = Path(path)
     with path.open("rb") as fh:
         header = fh.read(96)
         if len(header) < 96 or header[:4] != DBPF_MAGIC:
             raise InspectionError(f"not a DBPF package: magic is {header[:4]!r}")
+        # Offsets per the SimsWiki DBPF 2.0 header table:
+        #   0x24 index entry count, 0x2C index size, 0x3C index_version ("always
+        #   3"), 0x40 index position.
         major, minor = struct.unpack_from("<II", header, 4)
         index_count, = struct.unpack_from("<I", header, 0x24)
         index_size, = struct.unpack_from("<I", header, 0x2C)
+        index_version, = struct.unpack_from("<I", header, 0x3C)
         index_offset, = struct.unpack_from("<I", header, 0x40)
         if major != 2:
             raise InspectionError(f"DBPF major version {major} is not the Sims 3/4 layout")
         if index_count == 0:
-            return {"major": major, "minor": minor, "entry_count": 0, "entries": []}
+            return {"major": major, "minor": minor, "index_version": index_version,
+                    "entry_count": 0, "entries": []}
         if index_offset == 0 or index_size == 0:
             raise InspectionError("DBPF index offset/size is zero")
 
@@ -65,20 +71,61 @@ def parse_dbpf(path: Path, max_entries: int = 20000) -> dict:
     if len(index) < 4:
         raise InspectionError("DBPF index truncated")
 
+    entries, pos, convention = _read_index_entries(index, index_count, max_entries)
+
+    return {"major": major, "minor": minor, "index_version": index_version,
+            "entry_count": index_count, "entries": entries,
+            "index_bytes": len(index), "index_bytes_consumed": pos,
+            "index_fully_consumed": pos == len(index),
+            "entry_trailing_convention": convention}
+
+
+# The last index-entry field is documented two ways, and they differ only for
+# UNCOMPRESSED entries:
+#
+#   "dword"  -- the SimsWiki DBPF description gives field 7 as a full DWORD in
+#               every entry: compression type (low word) + committed (high word).
+#   "s4tk"   -- S4TK, the maintained Sims 4 implementation, reads the compression
+#               type only when the size high bit is set, then always 2 more bytes.
+#
+# Real Sims 4 resources are compressed, where both agree on 4 bytes, so no
+# artifact we can obtain settles it. Rather than pick one and silently misread
+# packages following the other, both are attempted and the one that consumes the
+# index exactly is used. Which one matched is reported.
+TRAILING_CONVENTIONS = ("s4tk", "dword")
+
+
+def _read_index_entries(index: bytes, index_count: int,
+                        max_entries: int) -> tuple[list[dict], int, str]:
+    best: tuple[list[dict], int, str] | None = None
+    for convention in TRAILING_CONVENTIONS:
+        try:
+            entries, pos = _read_index_with(index, index_count, max_entries, convention)
+        except (struct.error, IndexError):
+            continue
+        if pos == len(index):
+            return entries, pos, convention
+        if best is None:
+            best = (entries, pos, convention)
+    if best is None:
+        raise InspectionError("DBPF index could not be parsed under any known "
+                              "entry layout")
+    return best
+
+
+def _read_index_with(index: bytes, index_count: int, max_entries: int,
+                     convention: str) -> tuple[list[dict], int]:
     flags, = struct.unpack_from("<I", index, 0)
     pos = 4
-    # Bits 0..2 hoist constant Type/Group/InstanceHi out of every entry.
+    # Bits 0..2 hoist a constant Type/Group/InstanceHi out of every entry.
     constants: dict[str, int] = {}
     for bit, name in ((0x1, "type"), (0x2, "group"), (0x4, "instance_hi")):
         if flags & bit:
             constants[name], = struct.unpack_from("<I", index, pos)
             pos += 4
 
-    entries = []
-    per_entry = (6 - len(constants)) * 4  # remaining key fields + position + size + decompressed
+    entries: list[dict] = []
     for _ in range(min(index_count, max_entries)):
-        if pos + per_entry > len(index):
-            break
         fields = {}
         for name in ("type", "group", "instance_hi"):
             if name in constants:
@@ -91,8 +138,7 @@ def parse_dbpf(path: Path, max_entries: int = 20000) -> dict:
         position, raw_size, decompressed = struct.unpack_from("<III", index, pos)
         pos += 12
         compressed = bool(raw_size & 0x80000000)
-        if compressed:
-            pos += 4  # compression type (u16) + committed (u16)
+        pos += 4 if (convention == "dword" or compressed) else 2
         entries.append({
             "type": fields["type"],
             "group": fields["group"],
@@ -102,7 +148,7 @@ def parse_dbpf(path: Path, max_entries: int = 20000) -> dict:
             "compressed": compressed,
             "offset": position,
         })
-    return {"major": major, "minor": minor, "entry_count": index_count, "entries": entries}
+    return entries, pos
 
 
 def _resource_key(entry: dict) -> str:
@@ -117,6 +163,14 @@ def inspect_package(artifact: Artifact) -> Inspection:
     loc = "DBPF index"
     ins.add("mod_id", artifact.path.name, "extracted", "filename")
     ins.add("package_version", f"{parsed['major']}.{parsed['minor']}", "extracted", "DBPF header")
+    ins.add("index_version", parsed["index_version"], "extracted", "DBPF header")
+    ins.add("entry_trailing_convention", parsed["entry_trailing_convention"],
+            "extracted", "DBPF index")
+    if parsed["index_version"] != 3:
+        ins.warnings.append(
+            f"DBPF index_version is {parsed['index_version']}, not 3. The format "
+            "specification gives this field as always 3, and other readers reject "
+            "packages where it is not, so this package may be malformed.")
     ins.add("resource_count", parsed["entry_count"], "extracted", "DBPF header")
     keys = [_resource_key(e) for e in parsed["entries"]]
     ins.add("resource_keys", keys[:20000], "extracted", loc)
@@ -128,6 +182,13 @@ def inspect_package(artifact: Artifact) -> Inspection:
     if parsed["entry_count"] > len(parsed["entries"]):
         ins.warnings.append(
             f"index declares {parsed['entry_count']} resources; read {len(parsed['entries'])}")
+    if not parsed["index_fully_consumed"]:
+        # Entry stride did not account for the whole index. Reported rather than
+        # ignored: it means the keys after the first may be misaligned.
+        ins.warnings.append(
+            f"DBPF index is {parsed['index_bytes']} bytes but parsing consumed "
+            f"{parsed['index_bytes_consumed']}; the entry layout does not match this "
+            "package, so resource keys beyond the first may be wrong")
 
     ins.checked = ["DBPF header", "resource index: type/group/instance keys and sizes"]
     ins.not_checked = [

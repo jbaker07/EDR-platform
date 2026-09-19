@@ -177,13 +177,45 @@ def bg3_zip(path: Path, uuid: str = "11111111-2222-3333-4444-555555555555",
                        f"{folder}.pak": lspk_bytes()})
 
 
-def lspk_bytes(version: int = 18) -> bytes:
-    return b"LSPK" + struct.pack("<IQIBB16sH", version, 4096, 128, 0, 0, b"\x00" * 16, 1)
+def lspk_bytes(version: int = 18, file_list_offset: int = 4096,
+               file_list_size: int = 128) -> bytes:
+    return b"LSPK" + struct.pack("<IQIBB16sH", version, file_list_offset,
+                                 file_list_size, 0, 0, b"\x00" * 16, 1)
 
 
-def bg3_pak(path: Path) -> Path:
+FILE_ENTRY = struct.Struct("<256sIHBBII")  # FileEntry18, Pack = 1, 272 bytes
+
+
+def bg3_pak(path: Path, entries: list[str] | None = None,
+            version: int = 18, corrupt_list: bool = False,
+            declared_count: int | None = None) -> Path:
+    """Build a valid LSPK v18 package with a real LZ4-compressed file list.
+
+    The layout follows LSLib's FileEntry18 / PackageReader: a 256-byte
+    null-terminated name, then offset/part/flags/sizes, Pack = 1, with the list
+    stored as numFiles:i32 followed by an LZ4 block.
+    """
+    import lz4.block
+
+    entries = entries if entries is not None else [
+        "Mods/ExampleMod/meta.lsx", "Public/ExampleMod/Stats/Generated/Data/Weapon.txt"]
+    header_size = 4 + struct.calcsize("<IQIBB16sH")
+    payload = b"\x00" * 64
+    blob = b""
+    for index, name in enumerate(entries):
+        blob += FILE_ENTRY.pack(name.encode("utf-8"), header_size + index * 8, 0, 0, 0,
+                                8, 8)
+    compressed = lz4.block.compress(blob, store_size=False)
+    if corrupt_list:
+        compressed = b"\x00" * len(compressed)
+    count = declared_count if declared_count is not None else len(entries)
+    list_block = struct.pack("<i", count) + compressed
+
+    file_list_offset = header_size + len(payload)
+    body = lspk_bytes(version=version, file_list_offset=file_list_offset,
+                      file_list_size=len(list_block)) + payload + list_block
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(lspk_bytes() + b"\x00" * 64)
+    path.write_bytes(body)
     return path
 
 
@@ -207,19 +239,53 @@ def cyberpunk_zip(path: Path, mod_id: str = "examplemod", layers: tuple[str, ...
 
 
 # --- The Sims 4 ----------------------------------------------------------
-def dbpf_package(path: Path, resources: list[tuple[int, int, int]] | None = None) -> Path:
-    """Write a minimal DBPF v2.1 package with an uncompressed, unconstant index."""
+def dbpf_package(path: Path, resources: list[tuple[int, int, int]] | None = None,
+                 constant_fields: bool = False) -> Path:
+    """Write a minimal DBPF v2.1 package.
+
+    ``constant_fields`` sets the index-type bitfield that hoists a shared Type,
+    Group and InstanceHi out of every entry -- an optimisation real game
+    packages use and that S4TK does not emit, so it is exercised from this side
+    instead.
+    """
     resources = resources or [(0x220557DA, 0x00000000, 0x0123456789ABCDEF)]
+    if constant_fields:
+        types = {r[0] for r in resources}
+        groups = {r[1] for r in resources}
+        his = {(r[2] >> 32) & 0xFFFFFFFF for r in resources}
+        if not (len(types) == 1 and len(groups) == 1 and len(his) == 1):
+            raise ValueError("constant_fields needs one shared type, group and "
+                             "instance-high across all resources")
+        index = struct.pack("<I", 0x1 | 0x2 | 0x4)
+        index += struct.pack("<III", types.pop(), groups.pop(), his.pop())
+        for _type_id, _group, instance in resources:
+            index += struct.pack("<I", instance & 0xFFFFFFFF)
+            index += struct.pack("<III", 96, 16, 16)
+            index += struct.pack("<H", 0)  # mnCommitted, always present
+        header = bytearray(96)
+        header[0:4] = b"DBPF"
+        struct.pack_into("<II", header, 4, 2, 1)
+        struct.pack_into("<I", header, 0x24, len(resources))
+        struct.pack_into("<I", header, 0x2C, len(index))
+        struct.pack_into("<I", header, 0x3C, 3)  # index_version, "always 3"
+        payload = b"\x00" * 16 * len(resources)
+        struct.pack_into("<I", header, 0x40, 96 + len(payload))
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(bytes(header) + payload + index)
+        return path
+
     index = struct.pack("<I", 0)  # flags: no constant fields
     for type_id, group, instance in resources:
         index += struct.pack("<IIII", type_id, group, (instance >> 32) & 0xFFFFFFFF,
                              instance & 0xFFFFFFFF)
         index += struct.pack("<III", 96, 16, 16)  # position, size, decompressed size
+        index += struct.pack("<H", 0)  # mnCommitted, always present
     header = bytearray(96)
     header[0:4] = b"DBPF"
     struct.pack_into("<II", header, 4, 2, 1)
     struct.pack_into("<I", header, 0x24, len(resources))
     struct.pack_into("<I", header, 0x2C, len(index))
+    struct.pack_into("<I", header, 0x3C, 3)  # index_version, "always 3"
     payload = b"\x00" * 16 * len(resources)
     index_offset = 96 + len(payload)
     struct.pack_into("<I", header, 0x40, index_offset)

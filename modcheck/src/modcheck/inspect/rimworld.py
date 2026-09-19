@@ -17,6 +17,27 @@ def _text(node: ET.Element | None) -> str | None:
     return node.text.strip() if node is not None and node.text else None
 
 
+def _by_version(root: ET.Element, tag: str, child: str | None = None) -> list[dict]:
+    """Read a ``<somethingByVersion><v1.4><li>...`` block.
+
+    RimWorld's About.xml has per-version variants of several fields
+    (modDependenciesByVersion, loadAfterByVersion). A real mod can declare its
+    only dependency this way, so an inspector that reads just the flat field
+    reports no dependencies for it. The game version each entry applies to is
+    kept, because a dependency that applies only to 1.4 is not a dependency on
+    1.6.
+    """
+    node = root.find(tag)
+    if node is None:
+        return []
+    out: list[dict] = []
+    for version_node in node:
+        version = version_node.tag.lstrip("vV")
+        for value in _li_list(version_node, child):
+            out.append({"value": value, "game_version": version})
+    return out
+
+
 def _li_list(parent: ET.Element | None, child: str | None = None) -> list[str]:
     if parent is None:
         return []
@@ -68,8 +89,21 @@ def inspect(artifact: Artifact) -> Inspection:
 
     deps = [{"id": pid, "required": True}
             for pid in _li_list(root.find("modDependencies"), "packageId")]
+    versioned_deps = _by_version(root, "modDependenciesByVersion", "packageId")
+    for entry in versioned_deps:
+        deps.append({"id": entry["value"], "required": True,
+                     "game_version": entry["game_version"],
+                     "declared_by": "modDependenciesByVersion"})
     ins.add("dependencies", deps, "declared", loc)
-    ins.add("load_after", _li_list(root.find("loadAfter")), "declared", loc)
+    ins.add("dependencies_by_version", versioned_deps, "declared", loc)
+
+    load_after = _li_list(root.find("loadAfter"))
+    # forceLoadAfter is the same ordering statement, enforced rather than warned.
+    force_load_after = _li_list(root.find("forceLoadAfter"))
+    ins.add("load_after", load_after + force_load_after, "declared", loc)
+    ins.add("force_load_after", force_load_after, "declared", loc)
+    ins.add("load_after_by_version", _by_version(root, "loadAfterByVersion"),
+            "declared", loc)
     ins.add("load_before", _li_list(root.find("loadBefore")), "declared", loc)
     ins.add("incompatible_with", _li_list(root.find("incompatibleWith")), "declared", loc)
 
@@ -86,7 +120,10 @@ def inspect(artifact: Artifact) -> Inspection:
     ins.add("has_load_folders", any(m.split("/")[-1] == "LoadFolders.xml" for m in all_names),
             "extracted", "archive layout")
 
-    ins.checked = ["About.xml metadata and declared load rules", "file layout",
+    ins.checked = ["About.xml metadata and declared load rules, including the "
+                   "per-version variants (modDependenciesByVersion, "
+                   "loadAfterByVersion) and forceLoadAfter",
+                   "file layout",
                    "presence of Defs, Patches, assemblies and version folders"]
     ins.not_checked = [
         "Def contents and xpath targets of individual PatchOperations",

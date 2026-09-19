@@ -84,6 +84,8 @@ class Artifact:
         p = Path(path)
         if not p.exists():
             raise InspectionError(f"no such artifact: {p}")
+        if p.is_dir():
+            return cls._of_directory(p)
         h = hashlib.sha256()
         size = 0
         with p.open("rb") as fh:
@@ -91,6 +93,35 @@ class Artifact:
                 h.update(chunk)
                 size += len(chunk)
         return cls(path=p, sha256=h.hexdigest(), size=size)
+
+    @classmethod
+    def _of_directory(cls, root: Path, max_files: int = 50_000) -> "Artifact":
+        """Content identity for an unpacked mod.
+
+        Several ecosystems install mods as a folder, and creators work on them
+        unpacked, so a directory has to have a stable identity like any other
+        artifact. It is the hash of every file's relative path and content hash,
+        in sorted order, so it does not depend on filesystem iteration order or
+        on timestamps.
+        """
+        digest = hashlib.sha256()
+        size = 0
+        count = 0
+        for file_path in sorted(q for q in root.rglob("*") if q.is_file()):
+            count += 1
+            if count > max_files:
+                raise InspectionError(
+                    f"{root} contains more than {max_files} files; refusing to hash it")
+            rel = file_path.relative_to(root).as_posix()
+            file_hash = hashlib.sha256()
+            with file_path.open("rb") as fh:
+                for chunk in iter(lambda: fh.read(1 << 20), b""):
+                    file_hash.update(chunk)
+                    size += len(chunk)
+            digest.update(rel.encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(file_hash.digest())
+        return cls(path=root, sha256=digest.hexdigest(), size=size)
 
     def base_inspection(self, kind: str) -> Inspection:
         return Inspection(path=str(self.path), sha256=self.sha256, bytes=self.size, kind=kind)

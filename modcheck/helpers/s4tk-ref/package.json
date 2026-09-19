@@ -1,0 +1,10 @@
+{
+  "name": "modcheck-s4tk-ref",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reference DBPF reader/writer for cross-validating ModCheck's Sims 4 inspector, using S4TK.",
+  "type": "commonjs",
+  "dependencies": {
+    "@s4tk/models": "0.6.14"
+  }
+}
