@@ -178,6 +178,13 @@ def validate_pack(pack: Pack, store: Store | None = None) -> list[Issue]:
                         issues.append(Issue("error", "dangling_reference", where,
                                             f"{field} -> {ref_id!r} does not resolve"))
 
+            provenance = rec.get("provenance") or {}
+            if provenance.get("stale"):
+                issues.append(Issue(
+                    "warning", "stale_record", where,
+                    provenance.get("stale_reason",
+                                   "marked stale; a source it depends on changed")))
+
             issues += _record_integrity(pack, rec, where)
 
     return issues

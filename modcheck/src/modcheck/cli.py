@@ -132,12 +132,15 @@ def cmd_sources_add(args) -> int:
 
 
 def cmd_sources_verify(args) -> int:
+    from . import staleness
+
     store = _store(args)
     games = [args.game] if args.game else store.games
     drifted = 0
     total = 0
     for game in games:
         pack = store.pack(game)
+        changed: dict[str, str] = {}
         for sid, source in sorted(pack.sources.items()):
             if source.get("access") != "public" or not source.get("sha256"):
                 continue
@@ -145,13 +148,47 @@ def cmd_sources_verify(args) -> int:
             ok, why = verify(source)
             if not ok:
                 drifted += 1
+                changed[sid] = why
                 print(f"[drift] {game}/{sid}: {why}")
-                if args.mark_stale:
-                    print(f"         -> dependent records must be revalidated")
             elif args.verbose:
                 print(f"[ok]    {game}/{sid}")
+        if changed:
+            marks = staleness.mark_stale(pack, changed, reasons=changed,
+                                         write=args.mark_stale)
+            verb = "marked stale" if args.mark_stale else "would be marked stale"
+            for mark in marks:
+                print(f"         {verb}: {mark.record_kind} {mark.record_id}"
+                      f" (cites {', '.join(mark.sources)})")
+            if marks and not args.mark_stale:
+                print("         re-run with --mark-stale to record this in the files")
     print(f"\n{total} source(s) checked, {drifted} changed or unreachable")
     return 1 if drifted else 0
+
+
+def cmd_sources_revalidate(args) -> int:
+    from . import staleness
+
+    store = _store(args)
+    pack = store.pack(args.game)
+    cleared = staleness.clear_stale(pack, args.record,
+                                    verified_against=args.verified_against)
+    if not cleared:
+        print("nothing cleared: no matching record was marked stale", file=sys.stderr)
+        return 1
+    print("revalidated: " + ", ".join(cleared))
+    return 0
+
+
+def cmd_stale(args) -> int:
+    from . import staleness
+
+    store = _store(args)
+    records = staleness.stale_records(store, args.game)
+    for record in records:
+        reason = (record.get("provenance") or {}).get("stale_reason", "")
+        print(f"{record.game:16} {record.kind:12} {record.id:42} {reason}")
+    print(f"\n{len(records)} record(s) awaiting revalidation")
+    return 1 if records else 0
 
 
 def cmd_sources_list(args) -> int:
@@ -467,6 +504,10 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_release_report)
 
+    sp = sub.add_parser("stale", help="records awaiting revalidation")
+    sp.add_argument("--game")
+    sp.set_defaults(func=cmd_stale)
+
     sp = sub.add_parser("impact", help="what an install or update would change")
     sp.add_argument("--before", required=True, help="current configuration JSON")
     sp.add_argument("--after", help="proposed configuration JSON")
@@ -503,6 +544,12 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--verbose", action="store_true")
     sp.add_argument("--mark-stale", action="store_true")
     sp.set_defaults(func=cmd_sources_verify)
+
+    sp = ssub.add_parser("revalidate", help="clear the stale flag after rechecking")
+    sp.add_argument("--game", required=True)
+    sp.add_argument("--record", action="append", required=True)
+    sp.add_argument("--verified-against", action="append")
+    sp.set_defaults(func=cmd_sources_revalidate)
 
     sp = ssub.add_parser("list", help="list recorded sources")
     sp.add_argument("--game")
