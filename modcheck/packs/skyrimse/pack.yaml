@@ -73,12 +73,16 @@ capabilities:
       description and the HEDR counts (header version, record count, next object id). It does not
       read records or fields below the header, does not resolve whether the masters are installed
       or at compatible versions, and does not look at scripts, meshes or textures shipped with the
-      plugin. A clean inspection is therefore not a clean plugin.
+      plugin. A clean inspection is therefore not a clean plugin. Record-level facts do exist in
+      this repo, but they come from a separate optional integration that shells out to esplugin, not
+      from this inspector; where both read the same file a test asserts they agree, which is what
+      keeps our own parser honest.
     implemented_by:
       - src/modcheck/inspect/bethesda.py
     tests:
       - tests/test_inspect.py::test_bethesda_masters_and_light_flag
       - tests/test_inspect.py::test_bethesda_game_inferred_per_master
+      - tests/test_esplugin.py::test_our_header_parser_agrees_with_esplugin
   dependency_analysis:
     status: partial
     note: >-
@@ -98,19 +102,25 @@ capabilities:
   interaction_analysis:
     status: supported
     note: >-
-      Covers LOOT-recorded rules only, applied to a specific configuration: requirements,
-      incompatibilities, load-order rules, dirty/clean records matched by exact CRC, and messages
-      whose conditions we can decide. It does NOT do record-level conflict detection - that is
-      xEdit's job and it is not implemented here. A plugin with no masterlist entry yields no
-      findings, and the absence of a rule is not evidence of safety. Conditions we cannot decide
-      (file versions, checksums we were not given) are reported as unresolved rather than assumed
-      true or false.
+      Two separate things, with separate limits. (1) The LOOT-backed part covers LOOT-recorded rules
+      only, applied to a specific configuration: requirements, incompatibilities, load-order rules,
+      dirty/clean records matched by exact CRC, and messages whose conditions we can decide. It does
+      NOT do record-level conflict detection, a plugin with no masterlist entry yields no findings,
+      and the absence of a rule is not evidence of safety; undecidable conditions are reported as
+      unresolved rather than assumed. (2) With --deep, an optional helper around esplugin reports
+      which pairs of plugins touch at least one of the same records, plus override counts and
+      light-plugin FormID validity. That is overlap, not conflict: the later plugin wins for a shared
+      record and that is usually deliberate, the finding names no record and compares no field
+      values, and when the helper is not built the report says record-level analysis was unavailable
+      rather than quietly skipping it. Deciding whether an overlap is harmful is still xEdit's job.
     implemented_by:
       - src/modcheck/integrations/loot.py
+      - src/modcheck/integrations/esplugin.py
     tests:
       - tests/test_loot.py::test_detects_a_real_recorded_incompatibility
       - tests/test_loot.py::test_detects_dirty_edits_only_for_the_exact_matching_copy
       - tests/test_loot.py::test_control_unrelated_plugins_produce_nothing
+      - tests/test_esplugin.py::test_analysis_reports_overlap_as_a_place_to_look_not_a_conflict
   build_execution:
     status: blocked
     note: >-
@@ -212,14 +222,15 @@ toolchain:
     name: esplugin
     url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
     purpose: Rust library that parses .esp/.esm/.esl beyond the header, as used by LOOT.
-    status: candidate
+    status: integrated
     runs_on: [windows, linux, macos]
     license: GPL-3.0
     integration: subprocess
     note: >-
-      The most credible route to record-level facts we currently lack. Rust 1.94.1 is present here
-      and its stated MSRV is 1.81, but we did not build it (no builds in this task) and GPL-3.0
-      would make library linkage copyleft, so a subprocess boundary is the realistic integration.
+      Integrated through an optional helper binary (helpers/esplugin-cli) that ModCheck invokes as a
+      subprocess; it is built here, so its tests run and --deep record-level analysis works. The
+      subprocess boundary is deliberate: esplugin is GPL-3.0, so linking it would make ModCheck
+      copyleft, and shipping the helper would carry GPL obligations of its own.
     source: esplugin_readme
   - id: wrye_bash
     name: Wrye Bash
@@ -242,9 +253,14 @@ gaps:
       maintenance. Any news will be posted in the official Bethesda Game Studios discord , in the
       #modding-news channel." for every URL we tried, so no content was acquired.
     unblocks: Papyrus scripting recipes and any claim about Creation Kit behaviour.
-  - what: The TES5/Skyrim record and subrecord format below the TES4 header.
+  - what: >-
+      What the records and fields below the TES4 header actually mean. esplugin gives us record
+      identity and overlap; it does not tell us what a field is or whether one value is worse than
+      another.
     why: UESP (en.uesp.net) answers 403 to us at the origin, for every user agent we tried.
-    unblocks: Our own record-level conflict detection instead of deferring entirely to xEdit.
+    unblocks: >-
+      Field-level conflict reporting - saying which field two plugins disagree about, not merely
+      that they touch the same record.
   - what: Mod-level metadata for released mods (versions, author-declared requirements, file lists).
     why: nexusmods.com answers 403 to us.
     unblocks: Checking a real mod's declared requirements against what is installed.
