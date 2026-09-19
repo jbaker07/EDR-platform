@@ -1,0 +1,33 @@
+id: fabric_example_mod
+game: minecraft
+title: FabricMC/fabric-example-mod
+url: https://github.com/FabricMC/fabric-example-mod
+kind: template
+demonstrates:
+  - the minimal file layout of a Fabric mod project
+  - which toolchain versions go together for a given Minecraft version
+  - how the build script changes between obfuscated and non-obfuscated Minecraft
+license: CC0-1.0
+reuse:
+  integration: reference_only
+  constraints: >-
+    CC0 1.0, verified by fetching the repository's LICENSE file, so reuse is
+    unrestricted. ModCheck reads this repository's gradle.properties and
+    build.gradle at scaffold time to resolve versions and build style rather
+    than copying the template, so generated projects track upstream.
+maintenance:
+  state: active
+  supported_versions: ">=1.14"
+  checked_at: '2026-09-19'
+  last_release: "branch 26.3 present and readable on 2026-09-19"
+evidence:
+  - source: fabric_example_mod_versions_26_3
+    evidence_class: extracted
+    locator: gradle.properties
+  - source: fabric_example_mod_license
+    evidence_class: extracted
+    locator: LICENSE
+    quote: "CC0 1.0 Universal"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'

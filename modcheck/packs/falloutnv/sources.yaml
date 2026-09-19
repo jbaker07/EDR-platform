@@ -9,6 +9,192 @@
 # Written by `modcheck sources add`; edit by hand only to add licensing, reuse
 # terms and notes.
 sources:
+- id: esplugin_license
+  title: esplugin LICENSE
+  url: https://raw.githubusercontent.com/Ortham/esplugin/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:42:30+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903
+  bytes: 35147
+  content_type: text/plain
+  upstream_revision: W/"ae69d069e23ba5ce4f2f6361d9b339f890c73182da4acce9b4272233b01aa1cf
+  evidence_path: 8c/8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903.txt
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+- id: esplugin_readme
+  title: 'esplugin: Bethesda plugin file parsing library README'
+  url: https://raw.githubusercontent.com/Ortham/esplugin/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:42:29+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: b0cdf36cb9cad942d51a02e5abfd18515b042f19ea0a12ad67bd384736a69ecf
+  bytes: 1189
+  content_type: text/plain
+  upstream_revision: W/"59de9865404ff0e3435ccdeedbcb5359f669a1c3203bb80924f8e531d52c27d9
+  evidence_path: b0/b0cdf36cb9cad942d51a02e5abfd18515b042f19ea0a12ad67bd384736a69ecf.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+- id: geckwiki_main
+  title: 'GECKWiki (Fallout: New Vegas GECK documentation)'
+  url: https://geckwiki.com/index.php/Main_Page
+  kind: community_wiki
+  access: blocked
+  retrieved_at: '2026-09-19T13:44:37+00:00'
+  http_status: 403
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/html; charset=UTF-8
+  games:
+  - falloutnv
+  publisher: GECKWiki
+  gap: 'GECKWiki returns HTTP 403 to us, so we hold no GECK editor documentation for Fallout: New Vegas:
+    no scripting (GECK script / NVSE function) reference, no editor workflow documentation, no FNV-specific
+    record documentation. Anything we say about the GECK itself is therefore out of scope for this pack.'
+- id: libloadorder_active_plugins
+  title: 'libloadorder documentation: Active Plugins'
+  url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/active_plugins.md
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:48:42+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 1d2022076e451bae85b63134461dcbaf72258e9b6de4c4283a9165d4f0848544
+  bytes: 1273
+  content_type: text/plain
+  upstream_revision: W/"52766610f960dd26b3c6b08e0c9dc48f6ea182f3443a3eac0194126439ec3153
+  evidence_path: 1d/1d2022076e451bae85b63134461dcbaf72258e9b6de4c4283a9165d4f0848544.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+- id: libloadorder_conflict_resolution
+  title: 'libloadorder documentation: Conflict Resolution'
+  url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/conflict_resolution.md
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:48:27+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 8658183547a99175f7ae2f7241f3528a416c97afe297c81a466c50f64b53b60f
+  bytes: 1524
+  content_type: text/plain
+  upstream_revision: W/"459f7c51b868a1af285f2c756e2d7aef4a012b5b6fc442b19c266b202ee8109d
+  evidence_path: 86/8658183547a99175f7ae2f7241f3528a416c97afe297c81a466c50f64b53b60f.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+- id: libloadorder_license
+  title: libloadorder LICENSE
+  url: https://raw.githubusercontent.com/Ortham/libloadorder/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:48:28+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: c53a65c2fd561c87eaabf1072ef5dcab8653042bc15308465f52413585eb6271
+  bytes: 35146
+  content_type: text/plain
+  upstream_revision: W/"85f1ddb30d349cd37c8cf6836f2ab2f255a99f3a44207b2357e01a79eca5c139
+  evidence_path: c5/c53a65c2fd561c87eaabf1072ef5dcab8653042bc15308465f52413585eb6271.txt
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+- id: libloadorder_load_order_mechanisms
+  title: 'libloadorder documentation: Load Order Mechanisms'
+  url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/load_order_mechanisms.md
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:48:27+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 0a67e5ca3f33e9abe6af5e10b6fcc18fc8212c9b54ea84ef290d9aed205faf16
+  bytes: 2350
+  content_type: text/plain
+  upstream_revision: W/"1ecdfdfc9ad726fb269cfef984dfbc37e317a6d823c26889dbf7edbb06a1520f
+  evidence_path: 0a/0a67e5ca3f33e9abe6af5e10b6fcc18fc8212c9b54ea84ef290d9aed205faf16.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+- id: libloadorder_plugin_types
+  title: 'libloadorder documentation: Plugin Types'
+  url: https://raw.githubusercontent.com/Ortham/libloadorder/master/doc/src/plugin_types.md
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:48:27+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ee2022aa3ce8a5a94c8a328d17c56aaecbdccbda4f27ab1ad95398874963aa8e
+  bytes: 2053
+  content_type: text/plain
+  upstream_revision: W/"6a6fc8434269295b4466927151960d5e9e878d3b3fabe4fe1ebd422ec9104bae
+  evidence_path: ee/ee2022aa3ce8a5a94c8a328d17c56aaecbdccbda4f27ab1ad95398874963aa8e.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Oliver Hamlet (Ortham)
+- id: libloot_license
+  title: libloot LICENSE (covers the metadata syntax documentation)
+  url: https://raw.githubusercontent.com/loot/libloot/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:49:17+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903
+  bytes: 35147
+  content_type: text/plain
+  upstream_revision: W/"ae69d069e23ba5ce4f2f6361d9b339f890c73182da4acce9b4272233b01aa1cf
+  evidence_path: 8c/8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903.txt
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: LOOT team
 - id: loot_masterlist_falloutnv
   title: LOOT masterlist for falloutnv
   url: https://raw.githubusercontent.com/loot/falloutnv/master/masterlist.yaml
@@ -28,3 +214,441 @@ sources:
   games:
   - falloutnv
   publisher: LOOT team
+- id: loot_masterlist_falloutnv_license
+  title: LOOT falloutnv masterlist repository LICENSE
+  url: https://raw.githubusercontent.com/loot/falloutnv/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:44:33+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 1faefc5d8847ed78e085f595e7088ec6ce2746ea00081ac2a192afdb6b96ed0a
+  bytes: 35119
+  content_type: text/plain
+  upstream_revision: W/"499286ce35faf36f3c5e191373d5e18df16d4be7c19c62c4cf9561af71ff9e90
+  evidence_path: 1f/1faefc5d8847ed78e085f595e7088ec6ce2746ea00081ac2a192afdb6b96ed0a.txt
+  games:
+  - falloutnv
+  publisher: LOOT team
+- id: loot_masterlist_falloutnv_readme
+  title: 'LOOT falloutnv masterlist README (Bash Tags reference for Fallout: New Vegas)'
+  url: https://raw.githubusercontent.com/loot/falloutnv/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:44:34+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 30260317da72f0ac38c8dd225c1510e0294208d2f8a42def092ebf48be62980b
+  bytes: 893
+  content_type: text/plain
+  upstream_revision: W/"0462a3a96218f96cc7c4596fdcfe66852aafb3aff7f9e19eb2313a8d948ae3b6
+  evidence_path: 30/30260317da72f0ac38c8dd225c1510e0294208d2f8a42def092ebf48be62980b.md
+  games:
+  - falloutnv
+  publisher: LOOT team
+- id: loot_masterlist_prelude
+  title: LOOT masterlist prelude (shared anchors and common messages)
+  url: https://raw.githubusercontent.com/loot/prelude/master/prelude.yaml
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:42:29+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: d766b2d98565c2147bfeedf8df8385aae1c32731fc0b14b1bdb1ee54d1729711
+  bytes: 173654
+  content_type: text/plain
+  upstream_revision: W/"79763fc359651d3d8db08ee930a48906863163b03b2b774400bed9133d7878bb
+  evidence_path: d7/d766b2d98565c2147bfeedf8df8385aae1c32731fc0b14b1bdb1ee54d1729711.yaml
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: LOOT team
+- id: loot_metadata_conditions_spec
+  title: 'libloot metadata syntax: condition strings'
+  url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/conditions.rst
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:44:34+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3d0ff9dd50c0e6784b3edb55d0596e8fc1df0f1a8520713dc81d4cb245bd7794
+  bytes: 13686
+  content_type: text/plain
+  upstream_revision: W/"5eedf14749c38cb43cce73309373cfe10df01b96681cd386449bb63b8e61ec57
+  evidence_path: 3d/3d0ff9dd50c0e6784b3edb55d0596e8fc1df0f1a8520713dc81d4cb245bd7794.rst
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: LOOT team
+- id: loot_metadata_file_spec
+  title: 'libloot metadata syntax: File data structure'
+  url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/data_structures/file.rst
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:44:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: a3020fc1e6d69891a7456d727416dff658023164a33b622d215c086da6556bb9
+  bytes: 1959
+  content_type: text/plain
+  upstream_revision: W/"9ea31058131797cb6a31d43d342d0c83e8618b94d1376040ebc09788e6247074
+  evidence_path: a3/a3020fc1e6d69891a7456d727416dff658023164a33b622d215c086da6556bb9.rst
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: LOOT team
+- id: loot_metadata_plugin_spec
+  title: 'libloot metadata syntax: Plugin data structure'
+  url: https://raw.githubusercontent.com/loot/libloot/master/docs/metadata/data_structures/plugin.rst
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:44:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: d4e306452ca6d1db17fbac8bcb58c704489f6fd3ebfdcd34ecd319be43f80cee
+  bytes: 6832
+  content_type: text/plain
+  upstream_revision: W/"a661edebf469ed67f666dade9647fd3a87c2f923d0e9420c605e8843fe606f62
+  evidence_path: d4/d4e306452ca6d1db17fbac8bcb58c704489f6fd3ebfdcd34ecd319be43f80cee.rst
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: LOOT team
+- id: nexusmods_site
+  title: 'Nexus Mods Fallout: New Vegas section (mod distribution and per-mod metadata)'
+  url: https://www.nexusmods.com/newvegas
+  kind: api
+  access: blocked
+  retrieved_at: '2026-09-19T13:44:38+00:00'
+  http_status: 403
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/html; charset=UTF-8
+  games:
+  - falloutnv
+  publisher: Nexus Mods
+  gap: 'Nexus Mods returns HTTP 403 to us, so we hold no mod-level metadata for Fallout: New Vegas: no
+    per-mod version histories, no author-declared requirements, no file lists, no download counts. Claims
+    about what a specific Nexus mod contains or requires are out of scope for this pack.'
+- id: synthesis_supporting_multiple_games
+  title: 'Synthesis: Supporting Multiple Games'
+  url: https://mutagen-modding.github.io/Synthesis/devs/Supporting-Multiple-Games/
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:44:37+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: d799cce7b3274d67483902c622d78e82a5766758f18467a892bf44d68588329c
+  bytes: 35739
+  content_type: text/html
+  upstream_revision: W/"6a87e967-8b9b
+  evidence_path: d7/d799cce7b3274d67483902c622d78e82a5766758f18467a892bf44d68588329c.html
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Mutagen-Modding
+- id: tale_of_two_wastelands
+  title: Tale of Two Wastelands project site
+  url: https://taleoftwowastelands.com/
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:44:36+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: bda415f5394c6a84242b746cb6f58dcba78e439b5f8476a7e6a57efbb1736c02
+  bytes: 37321
+  content_type: text/html
+  upstream_revision: Thu, 10 Sep 2026 06:08:16 GMT
+  evidence_path: bd/bda415f5394c6a84242b746cb6f58dcba78e439b5f8476a7e6a57efbb1736c02.html
+  games:
+  - falloutnv
+  publisher: TTW team
+- id: ttw_get_started
+  title: 'Tale of Two Wastelands: Get Started (installation requirements)'
+  url: https://taleoftwowastelands.com/wiki_ttw/get-started/
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:05+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 53ace3d6a4ac18d1dd012db6abb61047b1ae711853377cd7f9a046ac88889cec
+  bytes: 37321
+  content_type: text/html
+  upstream_revision: Sat, 19 Sep 2026 13:44:58 GMT
+  evidence_path: 53/53ace3d6a4ac18d1dd012db6abb61047b1ae711853377cd7f9a046ac88889cec.html
+  games:
+  - falloutnv
+  publisher: TTW team
+- id: uesp_falloutnv_mod_file_format
+  title: 'UESP: FalloutNVMod Mod File Format (record/subrecord specification)'
+  url: https://en.uesp.net/wiki/FalloutNVMod:Mod_File_Format
+  kind: community_wiki
+  access: blocked
+  retrieved_at: '2026-09-19T13:44:38+00:00'
+  http_status: 403
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/html; charset=UTF-8
+  games:
+  - falloutnv
+  publisher: UESP
+  gap: 'UESP returns HTTP 403 to us, so we hold no record- or field-level specification of the Fallout:
+    New Vegas plugin format beyond the TES4 header our own inspector parses: no per-record subrecord layouts,
+    no field types. Record-level conflict claims cannot be made from our own parsing.'
+- id: viva_new_vegas_guide
+  title: 'Viva New Vegas: Fallout New Vegas modding guide'
+  url: https://vivanewvegas.moddinglinked.com/
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:44:36+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 33b02808a865d9d0a3c7e4989f60a660d42002ce7826dbbfa994fc27deb3fd99
+  bytes: 4581
+  content_type: text/html
+  upstream_revision: W/"6a89ec92-11e5
+  evidence_path: 33/33b02808a865d9d0a3c7e4989f60a660d42002ce7826dbbfa994fc27deb3fd99.html
+  games:
+  - falloutnv
+  publisher: Viva New Vegas authors
+- id: viva_new_vegas_intro
+  title: 'Viva New Vegas: Introduction and setup requirements'
+  url: https://vivanewvegas.moddinglinked.com/intro.html
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:04+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 64b6ab1abf68513c0754a2e0668b3529707470b1021097099e39f3c65970f123
+  bytes: 15991
+  content_type: text/html
+  upstream_revision: W/"6a89ec92-3e77
+  evidence_path: 64/64b6ab1abf68513c0754a2e0668b3529707470b1021097099e39f3c65970f123.html
+  games:
+  - falloutnv
+  publisher: Viva New Vegas authors
+- id: viva_new_vegas_safe_modding
+  title: 'Viva New Vegas: Safe Modding practices'
+  url: https://vivanewvegas.moddinglinked.com/safe-modding.html
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:27+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 78cb51fde3a26508597c94dbe87f5d0e869082c5606fc8b9ee25e5b03230aa72
+  bytes: 39401
+  content_type: text/html
+  upstream_revision: W/"6a89ec92-99e9
+  evidence_path: 78/78cb51fde3a26508597c94dbe87f5d0e869082c5606fc8b9ee25e5b03230aa72.html
+  games:
+  - falloutnv
+  publisher: Viva New Vegas authors
+- id: wrye_bash_license
+  title: Wrye Bash LICENSE.md
+  url: https://raw.githubusercontent.com/wrye-bash/wrye-bash/dev/LICENSE.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:49:17+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 33bc26d4498c183b703d1760ee45b8774d21d6e0178ca393dc715271840c7a21
+  bytes: 34916
+  content_type: text/plain
+  upstream_revision: W/"a29b4aaa1bd4a7c7458848f0ca50123d12fb89d523e50fa5c3060586ba6dfac0
+  evidence_path: 33/33bc26d4498c183b703d1760ee45b8774d21d6e0178ca393dc715271840c7a21.md
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Wrye Bash team
+- id: wrye_bash_readme
+  title: Wrye Bash General Readme
+  url: https://wrye-bash.github.io/docs/Wrye%20Bash%20General%20Readme.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:42:30+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 89365cec3dae94635141b313413c30333d4050aa3a654bf6512751faf95357e4
+  bytes: 201533
+  content_type: text/html
+  upstream_revision: W/"6aa7cd73-3133d
+  evidence_path: 89/89365cec3dae94635141b313413c30333d4050aa3a654bf6512751faf95357e4.html
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: Wrye Bash team
+- id: xedit_conflict_detection
+  title: 'Tome of xEdit: Conflict Detection and Resolution'
+  url: https://tes5edit.github.io/docs/5-conflict-detection-and-resolution.html
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:42:28+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 30874e62196e28a8784c79a71f720e7bc7e6cdd006921004db59570cd33b91b5
+  bytes: 51276
+  content_type: text/html
+  upstream_revision: W/"68983bf6-c84c
+  evidence_path: 30/30874e62196e28a8784c79a71f720e7bc7e6cdd006921004db59570cd33b91b5.html
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: xEdit documentation team
+- id: xedit_docs_tome
+  title: Tome of xEdit - xEdit documentation home
+  url: https://tes5edit.github.io/docs/
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:42:28+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: c35a4dbe91f9ba88ff895f2ec86f5d4fb9c209d30c139e1a6181db10a8d993ae
+  bytes: 13633
+  content_type: text/html
+  upstream_revision: W/"68983bf6-3541
+  evidence_path: c3/c35a4dbe91f9ba88ff895f2ec86f5d4fb9c209d30c139e1a6181db10a8d993ae.html
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: xEdit documentation team
+- id: xedit_license
+  title: xEdit (TES5Edit) LICENSE.txt
+  url: https://raw.githubusercontent.com/TES5Edit/TES5Edit/dev/LICENSE.txt
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:42:29+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: c444f9b2a50e1a095bf368fd5edfa69b08e0f4e431955c97fa0584671cfe5d9a
+  bytes: 25753
+  content_type: text/plain
+  upstream_revision: W/"e985b76c4b304d4f49a8ea4696a9f7cd6f0bfa242dd89b6fcc9f442675d25a03
+  evidence_path: c4/c444f9b2a50e1a095bf368fd5edfa69b08e0f4e431955c97fa0584671cfe5d9a.txt
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: xEdit team
+- id: xedit_mod_cleaning
+  title: 'Tome of xEdit: Mod Cleaning and Error Checking'
+  url: https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:42:28+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 2e58f3b729a898c6594dcf36a9a2e3e5c4d068385be4832b4e15e53d24b29178
+  bytes: 50782
+  content_type: text/html
+  upstream_revision: W/"68983bf6-c65e
+  evidence_path: 2e/2e58f3b729a898c6594dcf36a9a2e3e5c4d068385be4832b4e15e53d24b29178.html
+  games:
+  - skyrimse
+  - fallout4
+  - falloutnv
+  publisher: xEdit documentation team
+- id: xnvse_development_guide
+  title: xNVSE DEVELOPMENT.md (building NVSE and writing NVSE plugins)
+  url: https://raw.githubusercontent.com/xNVSE/NVSE/master/DEVELOPMENT.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:46:43+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 7407abd4f57a10d998364c21dcd71137480954b67dcad6b3ce85e649e784c0e6
+  bytes: 5381
+  content_type: text/plain
+  upstream_revision: W/"fce5df1c3614671ff90b1ab6efb2d94d5789956476f7b24c2d4ecd6993cc6aad
+  evidence_path: 74/7407abd4f57a10d998364c21dcd71137480954b67dcad6b3ce85e649e784c0e6.md
+  games:
+  - falloutnv
+  publisher: xNVSE team
+- id: xnvse_readme
+  title: xNVSE README (New Vegas Script Extender, community-maintained fork)
+  url: https://raw.githubusercontent.com/xNVSE/NVSE/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:44:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 630c8614bce23137756c195e7d6479419da1f61959e685c8ee5f1294f3cfc70c
+  bytes: 2870
+  content_type: text/plain
+  upstream_revision: W/"6bf7537c46d5d6ac0c57c3f7ac29bf8728868f05c285226d72466682e8402c83
+  evidence_path: 63/630c8614bce23137756c195e7d6479419da1f61959e685c8ee5f1294f3cfc70c.md
+  games:
+  - falloutnv
+  publisher: xNVSE team

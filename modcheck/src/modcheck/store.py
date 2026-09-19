@@ -20,6 +20,7 @@ from typing import Any, Iterator
 
 import yaml
 
+from . import yamlio
 from .paths import GAMES, packs_dir
 
 RECORD_DIRS = {
@@ -48,9 +49,15 @@ class Record:
         return self.data.get(key, default)
 
 
+class RecordError(Exception):
+    """A record file on disk could not be read."""
+
+
 def _load_yaml(path: Path) -> Any:
-    with path.open("r", encoding="utf-8") as fh:
-        return yaml.safe_load(fh)
+    try:
+        return yamlio.load_path(path)
+    except yaml.YAMLError as exc:
+        raise RecordError(f"{path}: not valid YAML: {exc}") from exc
 
 
 class Pack:

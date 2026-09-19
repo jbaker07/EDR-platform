@@ -1,0 +1,201 @@
+game: minecraft
+name: Minecraft (Java Edition)
+pack_version: 0.1.0
+summary: >-
+  Fabric is the loader ModCheck currently implements end to end: project setup,
+  reviewable changes, builds and inspection. Forge and NeoForge artifacts are
+  inspected but no project workflow exists for them yet.
+
+ecosystem:
+  engine: Minecraft Java Edition
+  languages: [Java, JSON, Gradle]
+  loaders:
+    - id: fabric
+      name: Fabric Loader
+      manifest: fabric.mod.json
+      source: fabric_mod_json_spec
+    - id: quilt
+      name: Quilt Loader
+      manifest: quilt.mod.json
+    - id: forge
+      name: Minecraft Forge
+      manifest: META-INF/mods.toml
+    - id: neoforge
+      name: NeoForge
+      manifest: META-INF/neoforge.mods.toml
+      source: neoforge_docs_getting_started
+  artifact_formats: [jar]
+  composition: >-
+    Mods are jars loaded side by side. Dependencies are declared in the loader
+    manifest and enforced at load time by id and version range. A jar may embed
+    other mod jars under META-INF/jars/ (jar-in-jar), and those satisfy
+    dependencies, so resolution that ignores them reports false missing
+    dependencies. Behavioural composition happens through mixins, which rewrite
+    the same classes at load time: additive injections coexist, while
+    @Overwrite and cancelling injections on the same method do not.
+  platforms: [Windows, macOS, Linux]
+
+capabilities:
+  docs_guidance:
+    status: partial
+    note: >-
+      Sources are recorded with provenance and recipes are retrievable by
+      `modcheck search`. There is no natural-language guidance layer; a creator
+      gets recipes and the sources behind them, not prose answers.
+    implemented_by: [src/modcheck/store.py, src/modcheck/cli.py]
+  project_setup:
+    status: supported
+    note: >-
+      Generates a real, buildable Fabric project. All toolchain versions are
+      resolved live from upstream at generation time, including whether the
+      target version still needs Mojang mappings. Fabric only; Forge, NeoForge
+      and Quilt have no generator.
+    implemented_by: [src/modcheck/creator/scaffold.py, src/modcheck/creator/versions.py]
+    tests:
+      - tests/test_creator.py::test_scaffold_produces_a_complete_fabric_project
+      - tests/test_creator.py::test_scaffold_tracks_upstream_build_style_instead_of_hardcoding_it
+  source_edit:
+    status: partial
+    note: >-
+      Three Fabric change generators produce reviewable unified diffs and write
+      nothing unless asked: declare a dependency, add and register a mixin, add
+      and register an entrypoint. These are the version-stable wiring changes.
+      Content changes that depend on a specific version's registries are not
+      generated, because a generator for those would rot silently.
+    implemented_by: [src/modcheck/creator/apply.py]
+    tests:
+      - tests/test_creator.py::test_add_mixin_registers_the_class_and_creates_the_source
+      - tests/test_creator.py::test_apply_writes_only_when_asked
+  package_inspection:
+    status: supported
+    note: >-
+      Reads fabric.mod.json, quilt.mod.json, mods.toml and neoforge.mods.toml,
+      the mixin configs a jar registers, and jar-in-jar modules one level deep.
+      Manifest values are the author's declarations; the mixin class list and
+      nested module list are extracted from the jar. Bytecode is not analysed,
+      so what a mixin actually does to a method is not established.
+    implemented_by: [src/modcheck/inspect/jvm.py]
+    tests:
+      - tests/test_inspect.py::test_fabric_jar_reads_manifest_and_mixin_targets
+      - tests/test_inspect.py::test_forge_and_neoforge_dependency_requiredness
+      - tests/test_real_artifacts.py::test_reads_jar_in_jar_modules_of_a_real_mod
+  dependency_analysis:
+    status: supported
+    note: >-
+      Resolves declared dependencies against a configuration using each
+      loader's own constraint syntax (the Fabric semver superset; Maven ranges
+      for Forge and NeoForge), counting jar-in-jar modules as providers. An
+      undecidable version or constraint is reported unresolved, never assumed.
+      It does not establish whether the code needs what the manifest declares.
+    implemented_by: [src/modcheck/analyze/requirements.py, src/modcheck/analyze/versions.py]
+    tests:
+      - tests/test_analysis.py::test_jar_in_jar_module_satisfies_a_dependency
+      - tests/test_analysis.py::test_detects_version_mismatch_and_says_what_it_does_not_establish
+      - tests/test_analysis.py::test_control_present_dependency_is_not_reported
+  interaction_analysis:
+    status: documented_only
+    note: >-
+      No maintained machine-readable interaction database for Minecraft has
+      been integrated. Mixin target classes and jar entries are extracted, but
+      two mods mixing into the same class is an overlap, not a conflict, and
+      ModCheck will not report it as one without evidence of the operation and
+      composition.
+  build_execution:
+    status: supported
+    note: >-
+      Runs the project's own Gradle build in a scrubbed environment with no
+      credentials, and records the toolchain and artifact hashes. Verified here
+      against Minecraft 26.3 with Gradle 9.5.1 and JDK 25. The backing tests are
+      opt-in (MODCHECK_BUILD_TESTS=1) because they need network and minutes; they
+      were executed. A successful build establishes compilation and packaging
+      only.
+    implemented_by: [src/modcheck/creator/build.py]
+    tests:
+      - tests/test_creator.py::test_scaffolded_fabric_project_really_builds
+      - tests/test_creator.py::test_applied_change_still_builds
+  runtime_testing:
+    status: blocked
+    note: >-
+      Not implemented. Fabric provides a gametest harness, but running it needs
+      the game's own files.
+    blocker: >-
+      The Minecraft client and server jars are not present and are not ours to
+      download and run here. Nothing in ModCheck has observed this game running.
+  release_maintenance:
+    status: partial
+    note: >-
+      `modcheck release-report` ties a source description, a build record, the
+      artifact hash and the findings together, and `modcheck sources verify`
+      re-fetches every source and reports drift. There is no automatic
+      revalidation of dependent records when a source changes, and no
+      subscription to upstream game or mod releases.
+    implemented_by: [src/modcheck/report.py, src/modcheck/acquire.py]
+
+toolchain:
+  - id: fabric_loom
+    name: Fabric Loom
+    url: https://maven.fabricmc.net/
+    purpose: Gradle plugin that sets up the Minecraft dependency and packaging
+    status: integrated
+    runs_on: [Linux, macOS, Windows]
+    integration: subprocess
+    note: >-
+      Invoked through the project's Gradle build. Version is taken from the
+      upstream example mod for the target Minecraft version.
+    source: fabric_example_mod_versions_26_3
+  - id: fabric_meta
+    name: Fabric meta API
+    url: https://meta.fabricmc.net/v2/versions/loader
+    purpose: Authoritative loader version list
+    status: integrated
+    integration: data_only
+    license: unknown
+    source: fabric_loader_meta
+  - id: mojang_version_manifest
+    name: Mojang version manifest
+    url: https://launchermeta.mojang.com/mc/game/version_manifest_v2.json
+    purpose: Current Minecraft release version
+    status: integrated
+    integration: data_only
+    source: mojang_version_manifest
+  - id: modrinth_api
+    name: Modrinth API
+    url: https://api.modrinth.com/v2/
+    purpose: Mod metadata, versions and licences
+    status: verified_available
+    integration: data_only
+    note: >-
+      Reachable and returns project metadata. Not yet used by any analysis.
+    source: modrinth_fabric_api
+
+gaps:
+  - what: Nexus Mods content for Minecraft
+    why: >-
+      nexusmods.com returns HTTP 403 to unauthenticated automated requests, so
+      mod pages, changelogs and file metadata hosted only there were not
+      retrieved.
+    unblocks: An API key and terms review would be needed.
+  - what: GitHub repository metadata (stars, releases, archived state)
+    why: >-
+      api.github.com is restricted in this environment to a single repository,
+      so maintenance state of upstream projects cannot be read from the API.
+      raw.githubusercontent.com works, so file contents are available.
+    unblocks: Broader GitHub API access, or reading release metadata from each
+      project's own site.
+  - what: Any maintained mod-to-mod interaction database
+    why: Nothing equivalent to the LOOT masterlists was found for Minecraft.
+    unblocks: Would make interaction_analysis implementable rather than
+      documented-only.
+  - what: Forge and NeoForge project setup and builds
+    why: Only the Fabric generator is implemented; their artifacts are inspected
+      but no project workflow exists.
+    unblocks: A generator per loader, following the same live-version approach.
+
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against:
+    - mojang_version_manifest
+    - fabric_loader_meta
+    - fabric_example_mod_versions_26_3
+    - fabric_example_mod_build_26_3

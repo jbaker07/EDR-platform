@@ -1,0 +1,28 @@
+id: remove_mappings_for_non_obfuscated_minecraft
+game: minecraft
+title: Drop the mappings declaration and use plain implementation
+addresses: [mojang_mappings_in_non_obfuscated_environment]
+method: configuration_change
+steps:
+  - Remove the `mappings loom.officialMojangMappings()` line from the
+    dependencies block of build.gradle.
+  - Replace `modImplementation` with `implementation` for mod dependencies.
+  - Re-run the build.
+applies_to:
+  game_versions: ">=26.1"
+verification:
+  scope: >-
+    Observed in this environment on 2026-09-19: a generated Fabric project for
+    Minecraft 26.3 failed with this exact error while declaring mappings, and
+    built successfully with Gradle 9.5.1 and JDK 25 once the mappings
+    declaration was removed and implementation used. This was observed for a
+    generated project, not for an arbitrary existing project.
+  evidence_class: observed
+  confirmed_by: modcheck build (see packs/minecraft/attestations/)
+evidence:
+  - source: fabric_example_mod_build_26_3
+    evidence_class: extracted
+    locator: dependencies block
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'

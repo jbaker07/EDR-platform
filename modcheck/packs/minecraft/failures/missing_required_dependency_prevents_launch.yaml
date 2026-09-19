@@ -1,0 +1,45 @@
+id: missing_required_dependency_prevents_launch
+game: minecraft
+title: A declared required dependency that is not installed stops the game launching
+symptom: >-
+  The game does not reach the main menu. Fabric Loader reports the mod and the
+  dependency it required, and refuses to continue.
+mechanism: >-
+  fabric.mod.json distinguishes `depends` from `recommends`. `depends` is
+  enforced by the loader at load time: the declared id must resolve to a loaded
+  mod whose version satisfies the declared range. `recommends` is advisory and
+  does not stop loading. A dependency can be satisfied by a module embedded in
+  another mod's jar under META-INF/jars/, so a dependency that looks absent from
+  the mods folder may in fact be present.
+applies_to:
+  game_versions: ">=1.14"
+  loader: fabric
+targets:
+  - kind: config_key
+    id: depends
+    container: fabric.mod.json
+conditions:
+  - kind: state
+    description: >-
+      The declared id does not resolve to any loaded mod, counting jar-in-jar
+      modules and `provides` aliases.
+detector:
+  detectable: yes
+  check_id: dependency.missing
+  signal: >-
+    Declared dependencies are resolved against everything the configuration
+    provides, including jar-in-jar modules and `provides` aliases. Optional
+    dependencies are not reported. If the configuration is not a complete
+    listing, the result is reported unresolved rather than missing.
+evidence:
+  - source: fabric_mod_json_spec
+    evidence_class: declared
+    locator: VersionRange and dependency fields
+    quote: "Multiple space separated ranges within the same string follow an “AND” relationship - they must all be satisfied."
+  - source: fabric_api_jar_manifest
+    evidence_class: extracted
+    locator: fabric.mod.json depends
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against: [fabric_mod_json_spec]

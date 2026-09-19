@@ -1,0 +1,312 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: mts_sims4_game_mod_guidelines
+  title: 'Mod The Sims: Sims 4 Game Mod Upload Guidelines (overrides, conflicts, game version)'
+  url: https://simswiki.info/wiki.php?title=MTS2:Creator_Guidelines/Sims_4_Game_Mods
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:50:41+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3725e6e98d66bde6209c3bb0eee6e6019620ec8e687f8b1fc1874eae4d514e17
+  bytes: 39496
+  content_type: text/html
+  upstream_revision: Thu, 30 Apr 2026 14:05:48 GMT
+  evidence_path: 37/3725e6e98d66bde6209c3bb0eee6e6019620ec8e687f8b1fc1874eae4d514e17.html
+  games:
+  - sims4
+  publisher: Mod The Sims
+- id: mts_write_script_mod_tutorial
+  title: 'Mod The Sims: Tutorial - Write The Sims 4 Script Mod with Python'
+  url: https://modthesims.info/showthread.php?t=665197
+  kind: forum_post
+  access: public
+  retrieved_at: '2026-09-19T13:46:23+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 2cfbf69da008600f178c51fc84c2de827ee07178e4b750052e86480a641b9667
+  bytes: 58466
+  content_type: text/html
+  evidence_path: 2c/2cfbf69da008600f178c51fc84c2de827ee07178e4b750052e86480a641b9667.html
+  games:
+  - sims4
+  publisher: Mod The Sims
+- id: nexusmods_sims4_blocked
+  title: 'Nexus Mods: The Sims 4 (not retrievable here)'
+  url: https://www.nexusmods.com/thesims4
+  kind: forum_post
+  access: blocked
+  retrieved_at: '2026-09-19T13:47:35+00:00'
+  http_status: 403
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/html; charset=UTF-8
+  games:
+  - sims4
+  publisher: Nexus Mods
+  gap: 'Nexus Mods returns HTTP 403 to this environment. We therefore have no Sims 4 mod-level data from
+    it: no per-mod declared game-patch compatibility, no changelogs, no download counts, and no evidence
+    about which specific packages override which tuning resources in the wild.'
+- id: s4_scripting_template_license
+  title: Sims4ScriptingTemplate LICENSE (mycroftjr)
+  url: https://raw.githubusercontent.com/mycroftjr/Sims4ScriptingTemplate/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:47:33+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 88046bf22d5b4f4b8cc85079ae6aae5424a3a1999db952ed152828ff325b2c6d
+  bytes: 10317
+  content_type: text/plain
+  upstream_revision: W/"c8cbc04e5d6d8685e1d04dc4e06616392fa2fb7c230d2ad364132072c6ad880a
+  evidence_path: 88/88046bf22d5b4f4b8cc85079ae6aae5424a3a1999db952ed152828ff325b2c6d.txt
+  games:
+  - sims4
+  publisher: mycroftjr
+- id: s4_scripting_template_readme
+  title: Sims4ScriptingTemplate README (mycroftjr)
+  url: https://raw.githubusercontent.com/mycroftjr/Sims4ScriptingTemplate/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:47:33+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ee62560bc8d93a8419b8df5a39e09db41a5d0c89855651424834fdc3108eb580
+  bytes: 11454
+  content_type: text/plain
+  upstream_revision: W/"6b468e0b101dabd09746e5db41ec3b1ff42d3930ff92f96a39c5cca4682c81cd
+  evidence_path: ee/ee62560bc8d93a8419b8df5a39e09db41a5d0c89855651424834fdc3108eb580.md
+  games:
+  - sims4
+  publisher: mycroftjr
+- id: s4pe_repo_readme
+  title: Sims4Tools / s4pe README (s4ptacle)
+  url: https://raw.githubusercontent.com/s4ptacle/Sims4Tools/develop/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:47:34+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3004a5a90cf4bcc54e4485cf02ac6208b51a346e16f9b5350b783a3ce4f4dfd8
+  bytes: 5413
+  content_type: text/plain
+  upstream_revision: W/"3627fe2f5447439d3704cb2c7cb0911f9663ac95657cc374fc3c689df67a2d41
+  evidence_path: 30/3004a5a90cf4bcc54e4485cf02ac6208b51a346e16f9b5350b783a3ce4f4dfd8.md
+  games:
+  - sims4
+  publisher: s4ptacle / Sims4Tools contributors
+- id: s4studio_python_scripting_tutorial
+  title: 'Sims 4 Studio: Getting started with Python scripting/modding (not retrievable here)'
+  url: https://sims4studio.com/thread/15145/started-python-scripting-modding
+  kind: forum_post
+  access: blocked
+  retrieved_at: '2026-09-19T13:47:18+00:00'
+  http_status: 406
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  games:
+  - sims4
+  publisher: Sims 4 Studio
+  gap: sims4studio.com answers this fetcher with HTTP 406 (its User-Agent is refused), so Andrew's canonical
+    Sims 4 Studio scripting tutorial is not in our evidence cache. We therefore cannot cite Sims 4 Studio's
+    own statement of the required Python version, of the starter-project layout, or of its decompile/compile
+    helper scripts.
+- id: s4tk_models_license
+  title: Sims 4 Toolkit @s4tk/models LICENSE
+  url: https://raw.githubusercontent.com/sims4toolkit/models/main/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:47:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: bb2f19391f29d86f033f59c8f0fe6781ebb12d24e050422a89b56250cc5b96f3
+  bytes: 1067
+  content_type: text/plain
+  upstream_revision: W/"b4be9a508d781e2f714d0e3635430ae19de1ccacb9aba606633d3f33c9bbb3ab
+  evidence_path: bb/bb2f19391f29d86f033f59c8f0fe6781ebb12d24e050422a89b56250cc5b96f3.txt
+  games:
+  - sims4
+  publisher: Sims 4 Toolkit
+- id: s4tk_models_package_json
+  title: Sims 4 Toolkit @s4tk/models package.json
+  url: https://raw.githubusercontent.com/sims4toolkit/models/main/package.json
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:47:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 8bab8f17fc9bcaf299532ac40c67ab0d38033fb5c3ed06a5f5000c70c2cead04
+  bytes: 1800
+  content_type: text/plain
+  upstream_revision: W/"abe3ea17199b442ad10027f964bd059a0dd9918dda2042624a9176fb49ab55d6
+  evidence_path: 8b/8bab8f17fc9bcaf299532ac40c67ab0d38033fb5c3ed06a5f5000c70c2cead04.json
+  games:
+  - sims4
+  publisher: Sims 4 Toolkit
+- id: s4tk_models_readme
+  title: Sims 4 Toolkit @s4tk/models README
+  url: https://raw.githubusercontent.com/sims4toolkit/models/main/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:47:34+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 97eacd2cc8e9dfc238ed85d6be3cb318f4abb8f99f5fc76f7cadff472baa8280
+  bytes: 1071
+  content_type: text/plain
+  upstream_revision: W/"5a429889968ae618907fb731293d74a540dfa706e5800a77d79475d05a8c419f
+  evidence_path: 97/97eacd2cc8e9dfc238ed85d6be3cb318f4abb8f99f5fc76f7cadff472baa8280.md
+  games:
+  - sims4
+  publisher: Sims 4 Toolkit
+- id: simswiki_dbpf_general
+  title: 'SimsWiki: DatabasePackedFile (DBPF) archive format'
+  url: https://simswiki.info/wiki.php?title=DBPF
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:46:05+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 011e6bfd71d001294c2b77fa7a8877b21e3bb64f5068cc244cd54f2ac6e9f95d
+  bytes: 30169
+  content_type: text/html
+  upstream_revision: Thu, 10 Apr 2025 13:28:40 GMT
+  evidence_path: 01/011e6bfd71d001294c2b77fa7a8877b21e3bb64f5068cc244cd54f2ac6e9f95d.html
+  games:
+  - sims4
+  publisher: SimsWiki
+- id: simswiki_dbpf_v2_format
+  title: 'SimsWiki: DBPF 2.0 package header and index format'
+  url: https://simswiki.info/wiki.php?title=Sims_3:DBPF
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:46:04+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: e644d5934b61af5c1a1cefead6a22c7bfb44a952b567eb1c3049ddefbba8e582
+  bytes: 22052
+  content_type: text/html
+  upstream_revision: Mon, 27 Apr 2026 21:40:28 GMT
+  evidence_path: e6/e644d5934b61af5c1a1cefead6a22c7bfb44a952b567eb1c3049ddefbba8e582.html
+  games:
+  - sims4
+  publisher: SimsWiki
+- id: simswiki_sims4_modding_index
+  title: 'SimsWiki: Sims 4 Modding index'
+  url: https://simswiki.info/wiki.php?title=Sims_4:Modding
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:46:05+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: f14e7f77715e37c3bc4522e3e08d4b72b94c5aafd1144aec23aeea0404ec92a3
+  bytes: 20815
+  content_type: text/html
+  upstream_revision: Mon, 27 Apr 2026 19:29:30 GMT
+  evidence_path: f1/f14e7f77715e37c3bc4522e3e08d4b72b94c5aafd1144aec23aeea0404ec92a3.html
+  games:
+  - sims4
+  publisher: SimsWiki
+- id: simswiki_ts4_advanced_coding
+  title: 'SimsWiki: Sims 4 Advanced Modding Reference'
+  url: https://simswiki.info/wiki.php?title=Tutorials:TS4_Advanced_Coding_Tutorials
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:46:07+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 08acfef157b0bf073fb03d9e23cc17e521a130c719d64b78c345da8fe4635f6c
+  bytes: 21233
+  content_type: text/html
+  upstream_revision: Mon, 27 Apr 2026 20:04:46 GMT
+  evidence_path: 08/08acfef157b0bf073fb03d9e23cc17e521a130c719d64b78c345da8fe4635f6c.html
+  games:
+  - sims4
+  publisher: SimsWiki
+- id: simswiki_ts4_cas_tutorials
+  title: 'SimsWiki: Sims 4 CAS Creation Tutorials index'
+  url: https://simswiki.info/wiki.php?title=Tutorials:TS4_CAS_Tutorials
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:50:41+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 6b3d47a78bec5c1aa920e82ef302b4c8ce3c0f7c2cf8a36f50de275e94e93976
+  bytes: 23450
+  content_type: text/html
+  upstream_revision: Thu, 30 Apr 2026 02:11:14 GMT
+  evidence_path: 6b/6b3d47a78bec5c1aa920e82ef302b4c8ce3c0f7c2cf8a36f50de275e94e93976.html
+  games:
+  - sims4
+  publisher: SimsWiki
+- id: simswiki_ts4_general_modding
+  title: 'SimsWiki: Sims 4 General Modding Tutorials (XML tuning, Python, file formats)'
+  url: https://simswiki.info/wiki.php?title=Tutorials:TS4_General_Modding
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:46:06+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 7cb3cd558f76a9964484ffecd9e00e1db5f50c50f65432abb7057fbd5f4b6bb9
+  bytes: 40199
+  content_type: text/html
+  upstream_revision: Mon, 27 Apr 2026 18:42:31 GMT
+  evidence_path: 7c/7cb3cd558f76a9964484ffecd9e00e1db5f50c50f65432abb7057fbd5f4b6bb9.html
+  games:
+  - sims4
+  publisher: SimsWiki

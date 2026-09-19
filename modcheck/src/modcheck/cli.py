@@ -10,10 +10,15 @@ import json
 import sys
 from pathlib import Path
 
+from . import report as report_mod
 from . import sources_io
 from .acquire import FetchError, fetch, verify
+from .analyze.config import Installation
+from .creator.apply import ApplyError, GENERATORS, apply as apply_change
+from .creator.build import BuildRefused, run_build, write_attestation
+from .creator.scaffold import ScaffoldError, scaffold as run_scaffold
 from .inspect import inspect_path
-from .paths import CAPABILITIES, packs_dir
+from .paths import CAPABILITIES, packs_dir, workspaces_dir
 from .store import RECORD_DIRS, Store
 from .validate import summarize, validate_store
 
@@ -188,6 +193,138 @@ def cmd_show(args) -> int:
     return 1
 
 
+def cmd_scaffold(args) -> int:
+    root = Path(args.into) if args.into else workspaces_dir() / args.mod_id
+    try:
+        result = run_scaffold(args.game, args.loader, root, args.mod_id,
+                              package=args.package, minecraft_version=args.game_version,
+                              mod_name=args.name)
+    except (ScaffoldError, FetchError) as exc:
+        print(f"scaffold failed: {exc}", file=sys.stderr)
+        return 1
+    if args.json:
+        print(json.dumps(result.as_dict(), indent=2))
+        return 0
+    print(f"created {result.game}/{result.loader} project at {result.root}")
+    for rel in result.files:
+        print(f"  {rel}")
+    print("\nversions resolved live from upstream:")
+    for key, value in result.versions.items():
+        print(f"  {key:22} {value}")
+        if result.version_sources.get(key):
+            print(f"  {'':22} from {result.version_sources[key]}")
+    print("\nnotes:")
+    for note in result.notes:
+        print(f"  - {note}")
+    print("\nbuild with:")
+    for command in result.build_commands:
+        print(f"  modcheck build {result.root} --allow-execute")
+    return 0
+
+
+def cmd_apply(args) -> int:
+    kwargs = {}
+    for item in args.set or []:
+        if "=" not in item:
+            print(f"--set expects key=value, got {item!r}", file=sys.stderr)
+            return 2
+        key, _, value = item.partition("=")
+        if value.lower() in ("true", "false"):
+            kwargs[key] = value.lower() == "true"
+        else:
+            kwargs[key] = value
+    try:
+        changeset = apply_change(args.generator, Path(args.project), **kwargs)
+    except (ApplyError, TypeError) as exc:
+        print(f"apply failed: {exc}", file=sys.stderr)
+        return 1
+    if args.json:
+        print(json.dumps(changeset.as_dict(), indent=2))
+    else:
+        print(f"# {changeset.description}\n")
+        print(changeset.diff())
+        if changeset.notes:
+            print("\nnotes:")
+            for note in changeset.notes:
+                print(f"  - {note}")
+        if changeset.follow_up:
+            print("\nfollow up:")
+            for item in changeset.follow_up:
+                print(f"  - {item}")
+    if args.write:
+        written = changeset.write(Path(args.project))
+        print(f"\nwrote {len(written)} file(s): " + ", ".join(written))
+    else:
+        print("\n(nothing written; pass --write to apply this change)")
+    return 0
+
+
+def cmd_build(args) -> int:
+    commands = args.command_line or ["gradle build"]
+    try:
+        result = run_build(Path(args.project), commands, allow_execute=args.allow_execute,
+                           timeout=args.timeout)
+    except (BuildRefused, FileNotFoundError) as exc:
+        print(f"{exc}", file=sys.stderr)
+        return 2
+    if args.json:
+        print(json.dumps(result.as_dict(), indent=2))
+    else:
+        print(f"build {'succeeded' if result.ok else 'FAILED'} in {args.project}")
+        for run in result.runs:
+            print(f"  $ {run.command}  -> exit {run.returncode} ({run.duration_seconds}s)")
+            if not run.ok:
+                print("\n".join(f"    {line}" for line in run.stderr_tail.splitlines()[-15:]))
+                print("\n".join(f"    {line}" for line in run.stdout_tail.splitlines()[-15:]))
+        for artifact in result.artifacts:
+            print(f"  artifact {artifact.path}")
+            print(f"           sha256 {artifact.sha256}  ({artifact.bytes} bytes)")
+        print("\n  this build establishes:")
+        for item in result.establishes:
+            print(f"    + {item}")
+        print("  it does NOT establish:")
+        for item in result.does_not_establish:
+            print(f"    - {item}")
+    if args.attest and args.game:
+        path = packs_dir() / args.game / "attestations" / f"{args.attest}.json"
+        write_attestation(path, recipe_id=args.attest, game=args.game, result=result)
+        print(f"\nattestation written to {path}")
+    return 0 if result.ok else 1
+
+
+def cmd_analyze(args) -> int:
+    store = _store(args)
+    if args.config:
+        installation = Installation.from_json(args.config)
+        rep = report_mod.analyze_installation(installation, store)
+    elif args.artifact:
+        installation = Installation.from_paths(
+            args.game, args.artifact, game_version=args.game_version,
+            files_known_complete=args.complete_file_list)
+        rep = report_mod.analyze_installation(installation, store)
+    else:
+        print("give --config or one or more --artifact paths", file=sys.stderr)
+        return 2
+    print(report_mod.render_json(rep) if args.json else report_mod.render_text(rep))
+    return 1 if rep.by_severity("error") or rep.by_severity("blocker") else 0
+
+
+def cmd_release_report(args) -> int:
+    store = _store(args)
+    build = json.loads(Path(args.build).read_text()) if args.build else None
+    source = json.loads(args.source) if args.source else None
+    rep = report_mod.release_report(artifact_path=args.artifact, game=args.game, store=store,
+                                    build=(build or {}).get("build", build),
+                                    source=source, recipes=args.recipe or [])
+    text = report_mod.render_json(rep) if args.json else report_mod.render_text(rep)
+    if args.out:
+        Path(args.out).write_text(text, encoding="utf-8")
+        print(f"wrote {args.out}")
+    else:
+        print(text)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="modcheck", description=__doc__)
     p.add_argument("--packs", help="override the packs/ directory")
@@ -219,6 +356,57 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--game")
     sp.add_argument("--kind")
     sp.set_defaults(func=cmd_show)
+
+    sp = sub.add_parser("scaffold", help="create a real, buildable mod project")
+    sp.add_argument("mod_id")
+    sp.add_argument("--game", required=True)
+    sp.add_argument("--loader", required=True)
+    sp.add_argument("--into", help="target directory (default: build_workspaces/<mod_id>)")
+    sp.add_argument("--package", help="Java package, where applicable")
+    sp.add_argument("--game-version", help="target game version (default: current release)")
+    sp.add_argument("--name", help="display name")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_scaffold)
+
+    sp = sub.add_parser("apply", help="generate a reviewable change to a project")
+    sp.add_argument("generator", choices=sorted(GENERATORS))
+    sp.add_argument("project")
+    sp.add_argument("--set", action="append", metavar="KEY=VALUE",
+                    help="generator argument (repeatable)")
+    sp.add_argument("--write", action="store_true", help="apply the change to disk")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_apply)
+
+    sp = sub.add_parser("build", help="run a project's own build (executes untrusted code)")
+    sp.add_argument("project")
+    sp.add_argument("command_line", nargs="*", help="commands (default: 'gradle build')")
+    sp.add_argument("--allow-execute", action="store_true",
+                    help="required: authorises executing the project's build script")
+    sp.add_argument("--timeout", type=int, default=1800)
+    sp.add_argument("--attest", help="recipe id to write a build attestation for")
+    sp.add_argument("--game")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_build)
+
+    sp = sub.add_parser("analyze", help="analyse a configuration or set of artifacts")
+    sp.add_argument("--game", required=True)
+    sp.add_argument("--artifact", action="append", help="artifact path (repeatable)")
+    sp.add_argument("--config", help="a configuration JSON file")
+    sp.add_argument("--game-version")
+    sp.add_argument("--complete-file-list", action="store_true",
+                    help="assert the artifact list is complete, so absence is evidence")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_analyze)
+
+    sp = sub.add_parser("release-report", help="produce a creator release report")
+    sp.add_argument("artifact")
+    sp.add_argument("--game", required=True)
+    sp.add_argument("--build", help="build result JSON from `modcheck build --json`")
+    sp.add_argument("--source", help="source metadata as a JSON string (commit, repo)")
+    sp.add_argument("--recipe", action="append")
+    sp.add_argument("--out")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_release_report)
 
     sources = sub.add_parser("sources", help="knowledge acquisition")
     ssub = sources.add_subparsers(dest="sources_command", required=True)

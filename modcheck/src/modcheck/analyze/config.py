@@ -68,6 +68,7 @@ class Installation:
 
     game: str
     game_version: str | None = None
+    loader: str | None = None
     loader_versions: dict[str, str] = dataclasses.field(default_factory=dict)
     artifacts: list[InstalledArtifact] = dataclasses.field(default_factory=list)
     files: set[str] = dataclasses.field(default_factory=set)
@@ -107,10 +108,28 @@ class Installation:
     def known_paths(self) -> set[str]:
         return self.files | self.artifact_names()
 
+    def infer_loader(self) -> str | None:
+        """The loader whose version-constraint syntax applies to this configuration.
+
+        Taken from an explicit `loader`, else from the loader versions supplied
+        (``java`` is a runtime, not a loader), else from whatever the inspected
+        artifacts identified themselves as.
+        """
+        if self.loader:
+            return self.loader
+        for name in self.loader_versions:
+            if name.lower() != "java":
+                return name.lower()
+        for artifact in self.artifacts:
+            if artifact.inspection is not None and artifact.inspection.loader:
+                return artifact.inspection.loader
+        return None
+
     def as_dict(self) -> dict[str, Any]:
         return {
             "game": self.game,
             "game_version": self.game_version,
+            "loader": self.infer_loader(),
             "loader_versions": self.loader_versions,
             "platform": self.platform,
             "artifacts": [a.as_dict() for a in self.artifacts],
@@ -158,6 +177,7 @@ class Installation:
         inst = cls(
             game=data["game"],
             game_version=data.get("game_version"),
+            loader=data.get("loader"),
             loader_versions=data.get("loader_versions", {}),
             files=set(normalize_path(f) for f in data.get("files", [])),
             files_known_complete=data.get("files_known_complete", False),

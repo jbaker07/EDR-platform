@@ -1,0 +1,310 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: fabric_api_jar_manifest
+  title: Fabric API 0.161.0+26.3 release jar
+  url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar
+  kind: release_artifact
+  access: public
+  retrieved_at: '2026-09-19T13:49:52+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
+    note: Verified from the repository LICENSE file (fabric_api_license). Cached in the gitignored evidence
+      cache; not redistributed by ModCheck.
+  sha256: 86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6
+  bytes: 2620967
+  content_type: application/java-archive
+  upstream_revision: 6aad7667-27fe27
+  evidence_path: 86/86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6.jar
+  games:
+  - minecraft
+  publisher: FabricMC
+  license: Apache-2.0
+- id: fabric_api_license
+  title: Fabric API LICENSE
+  url: https://raw.githubusercontent.com/FabricMC/fabric/1.21/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:49:50+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
+  sha256: b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1
+  bytes: 11357
+  content_type: text/plain
+  upstream_revision: W/"05b846504301be7a88be773bdf877cbc2eb94f8d01c8e7f3a6e95269df387b06
+  evidence_path: b4/b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1.txt
+  games:
+  - minecraft
+  publisher: FabricMC
+  license: Apache-2.0
+- id: fabric_api_maven_metadata
+  title: Fabric API published version list
+  url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/maven-metadata.xml
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:49:51+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: fb87aa320acc4c6c676bc9c8e715937fcee9cd88c82d323943243ebfc82ada9a
+  bytes: 47198
+  content_type: text/xml
+  upstream_revision: 6aad768f-b85e
+  evidence_path: fb/fb87aa320acc4c6c676bc9c8e715937fcee9cd88c82d323943243ebfc82ada9a.xml
+  games:
+  - minecraft
+  publisher: FabricMC
+  notes: Published version list read as data; not redistributed.
+- id: fabric_docs_home
+  title: Fabric official developer documentation
+  url: https://docs.fabricmc.net/
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:35:05+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 5abb5786fb61d1228944276b96f170abf3f718a7f873290435b37ea4a352f150
+  bytes: 25579
+  content_type: text/html
+  upstream_revision: W/"6aa96339-63eb
+  evidence_path: 5a/5abb5786fb61d1228944276b96f170abf3f718a7f873290435b37ea4a352f150.html
+  games:
+  - minecraft
+  publisher: FabricMC
+  notes: Documentation text; reuse terms not stated on the page itself, so treated as unknown. Used as
+    a reference, never copied.
+- id: fabric_example_mod_build_1_21
+  title: Fabric example mod build script for Minecraft 1.21 (pre-deobfuscation)
+  url: https://raw.githubusercontent.com/FabricMC/fabric-example-mod/1.21/build.gradle
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:35:08+00:00'
+  http_status: 200
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Verified from the repository LICENSE file.
+  sha256: 344c8f3dbf852d84d3f8e71b5a4a435d9b3309f7dfb2162feee85898f091f060
+  bytes: 2192
+  content_type: text/plain
+  upstream_revision: W/"e1eb1a924f4a213e8496fceabcdae12b2350cd9ae98b385ac5aaa8283152ef9d
+  evidence_path: 34/344c8f3dbf852d84d3f8e71b5a4a435d9b3309f7dfb2162feee85898f091f060.gradle
+  games:
+  - minecraft
+  publisher: FabricMC
+  license: CC0-1.0
+- id: fabric_example_mod_build_26_3
+  title: Fabric example mod build script for Minecraft 26.3
+  url: https://raw.githubusercontent.com/FabricMC/fabric-example-mod/26.3/build.gradle
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:35:08+00:00'
+  http_status: 200
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Verified from the repository LICENSE file.
+  sha256: 57c9264059d1721d276416aaf506555954acf78ba3aa64cab3ecad3171da844d
+  bytes: 2140
+  content_type: text/plain
+  upstream_revision: W/"64c3e894fd45acf578a74c953fed49082955229d580716fd1a502a838bc4cd0e
+  evidence_path: 57/57c9264059d1721d276416aaf506555954acf78ba3aa64cab3ecad3171da844d.gradle
+  games:
+  - minecraft
+  publisher: FabricMC
+  license: CC0-1.0
+- id: fabric_example_mod_license
+  title: Fabric example mod LICENSE
+  url: https://raw.githubusercontent.com/FabricMC/fabric-example-mod/26.3/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:49:51+00:00'
+  http_status: 200
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+  sha256: 6d489af6292662d9e36d34ce49423784984a5f6e41d7b58f49b01264df59fa03
+  bytes: 7047
+  content_type: text/plain
+  upstream_revision: W/"99a0f448ed41800b19dd1bfa3432c6b4eebf59f7ed0f9444b271e36c4bc34037
+  evidence_path: 6d/6d489af6292662d9e36d34ce49423784984a5f6e41d7b58f49b01264df59fa03.txt
+  games:
+  - minecraft
+  publisher: FabricMC
+  license: CC0-1.0
+- id: fabric_example_mod_versions_26_3
+  title: Fabric example mod toolchain versions for Minecraft 26.3
+  url: https://raw.githubusercontent.com/FabricMC/fabric-example-mod/26.3/gradle.properties
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:35:08+00:00'
+  http_status: 200
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Verified from the repository LICENSE file (fabric_example_mod_license).
+  sha256: dbf7aead8bcfbc71a1068fd1132b9e53b60cfb51d31da5dc79ce951824f2279c
+  bytes: 504
+  content_type: text/plain
+  upstream_revision: W/"4f88be5ea6aa73da4f6b124136bb8f8c749025de8f0b71037331076f0405da58
+  evidence_path: db/dbf7aead8bcfbc71a1068fd1132b9e53b60cfb51d31da5dc79ce951824f2279c.properties
+  games:
+  - minecraft
+  publisher: FabricMC
+  license: CC0-1.0
+- id: fabric_loader_meta
+  title: Fabric loader version metadata API
+  url: https://meta.fabricmc.net/v2/versions/loader
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:35:07+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 957c3e8eab0d8ccd9538dd62a667916fd1aa82f899c1788ee85c02bb16eff9ff
+  bytes: 38900
+  content_type: application/json
+  upstream_revision: Sat, 19 Sep 2026 13:34:41 GMT
+  evidence_path: 95/957c3e8eab0d8ccd9538dd62a667916fd1aa82f899c1788ee85c02bb16eff9ff.json
+  games:
+  - minecraft
+  publisher: FabricMC
+  notes: FabricMC metadata endpoint. Read as data; not redistributed.
+- id: fabric_loom_license
+  title: Fabric Loom LICENSE
+  url: https://raw.githubusercontent.com/FabricMC/fabric-loom/dev/1.17/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:49:50+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: 'yes'
+  sha256: a4c4e3a93dd8d73c067dbd99d5aaf9c3a19469d2a2526c04212d0cb7e2a6125a
+  bytes: 1065
+  content_type: text/plain
+  upstream_revision: W/"9ceaec56bce2237adab13117a753bf76153a72635243826ea19fe47eb840f430
+  evidence_path: a4/a4c4e3a93dd8d73c067dbd99d5aaf9c3a19469d2a2526c04212d0cb7e2a6125a.txt
+  games:
+  - minecraft
+  publisher: FabricMC
+  license: MIT
+- id: fabric_mod_json_spec
+  title: fabric.mod.json specification
+  url: https://wiki.fabricmc.net/documentation:fabric_mod_json_spec
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:35:06+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 9d8f15dac1afe91ffa058b385e63d7a024d3a214aec189577f5585d5222f0832
+  bytes: 32858
+  content_type: text/html
+  evidence_path: 9d/9d8f15dac1afe91ffa058b385e63d7a024d3a214aec189577f5585d5222f0832.html
+  games:
+  - minecraft
+  publisher: FabricMC
+  notes: Community wiki page. Reuse terms not established; quoted only in short verbatim excerpts for
+    audit.
+- id: modrinth_fabric_api
+  title: Modrinth project metadata for Fabric API
+  url: https://api.modrinth.com/v2/project/fabric-api
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:35:09+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 5491ee546bc6b888ed8c523d10056a460473d0a2f4e57e35bbd9b3f8faee1896
+  bytes: 19892
+  content_type: application/json
+  upstream_revision: Sat, 19 Sep 2026 13:34:18 GMT
+  evidence_path: 54/5491ee546bc6b888ed8c523d10056a460473d0a2f4e57e35bbd9b3f8faee1896.json
+  games:
+  - minecraft
+  publisher: Modrinth
+- id: mojang_version_manifest
+  title: Mojang Minecraft version manifest v2
+  url: https://launchermeta.mojang.com/mc/game/version_manifest_v2.json
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:35:07+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: b62da92edd237708855a26d3f84da09123f53eb02a62f2119c3f90493e4b6476
+  bytes: 276542
+  content_type: application/json
+  upstream_revision: Tue, 15 Sep 2026 15:03:18 GMT
+  evidence_path: b6/b62da92edd237708855a26d3f84da09123f53eb02a62f2119c3f90493e4b6476.json
+  games:
+  - minecraft
+  publisher: Mojang
+  notes: Mojang metadata endpoint. Read as data to resolve the current release; not redistributed.
+- id: neoforge_docs_getting_started
+  title: NeoForge getting started documentation
+  url: https://docs.neoforged.net/docs/gettingstarted/
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:35:09+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 4647e0c2485d4f6f4b809a756b810c7a13d4a18d679032aaa39f3e098760d95e
+  bytes: 31366
+  content_type: text/html
+  evidence_path: 46/4647e0c2485d4f6f4b809a756b810c7a13d4a18d679032aaa39f3e098760d95e.html
+  games:
+  - minecraft
+  publisher: NeoForged
+  notes: Documentation text; reuse terms not stated on the page, treated as unknown.
+- id: nexusmods_web
+  title: Nexus Mods website
+  url: https://www.nexusmods.com/
+  kind: community_wiki
+  access: blocked
+  retrieved_at: '2026-09-19T13:35:09+00:00'
+  http_status: 403
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/html; charset=UTF-8
+  publisher: Nexus Mods
+  gap: Nexus Mods blocks unauthenticated automated requests (HTTP 403). Mod pages, changelogs and file
+    metadata hosted only there are NOT acquired. An API key would be needed.

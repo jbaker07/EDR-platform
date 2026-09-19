@@ -1,0 +1,310 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: bg3_multitool_readme_unreachable
+  title: BG3 Modder's Multitool README (not retrievable here)
+  url: https://raw.githubusercontent.com/ShinyHobo/BG3-Modders-Multitool/main/README.md
+  kind: source_repo
+  access: blocked
+  retrieved_at: '2026-09-19T13:45:53+00:00'
+  http_status: 404
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/plain; charset=utf-8
+  games:
+  - bg3
+  publisher: ShinyHobo
+  gap: raw.githubusercontent.com returns HTTP 404 for this repository on every branch we tried (main,
+    master, develop) and github.com is 403 here, so we could not read the Multitool's README or its LICENSE.
+    We therefore do not know its licence, its supported BG3 versions, or the exact pak-building command
+    line it exposes.
+- id: bg3_wiki_creating_meta
+  title: 'BG3 Community Wiki: Creating meta.lsx'
+  url: https://wiki.bg3.community/Tutorials/General/creating_meta
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 4aa95007cd4addce97062903aeb60ec0c5fe7d617d6ec082021d4a6024884d44
+  bytes: 28717
+  content_type: text/html
+  evidence_path: 4a/4aa95007cd4addce97062903aeb60ec0c5fe7d617d6ec082021d4a6024884d44.html
+  games:
+  - bg3
+  publisher: BG3 Community Wiki
+- id: bg3_wiki_load_order
+  title: 'BG3 Community Wiki: General load order'
+  url: https://wiki.bg3.community/Tutorials/Mod-Use/general-load-order
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:35+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 91898f2e38a3130108beaf4d47373ce2c2f7a48d08b16fc99dde9c01f9532651
+  bytes: 23488
+  content_type: text/html
+  evidence_path: 91/91898f2e38a3130108beaf4d47373ce2c2f7a48d08b16fc99dde9c01f9532651.html
+  games:
+  - bg3
+  publisher: BG3 Community Wiki
+- id: bg3_wiki_mod_types
+  title: 'BG3 Community Wiki: BG3 mod types and how to install them'
+  url: https://wiki.bg3.community/Tutorials/Mod-Use/BG3-Mod-Types-and-how-to-install-them
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:36+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 1416018533cdbea1b4ee1c00e09289997047ee25069c681908c5fde097b61e08
+  bytes: 26198
+  content_type: text/html
+  evidence_path: 14/1416018533cdbea1b4ee1c00e09289997047ee25069c681908c5fde097b61e08.html
+  games:
+  - bg3
+  publisher: BG3 Community Wiki
+- id: bg3_wiki_script_extender
+  title: 'BG3 Community Wiki: Script Extender tutorials index'
+  url: https://wiki.bg3.community/Tutorials/ScriptExtender
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:36+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 415767a58a6c392a5a7d68119275a31ff125ed649fbe355eab0849a18d119548
+  bytes: 16611
+  content_type: text/html
+  evidence_path: 41/415767a58a6c392a5a7d68119275a31ff125ed649fbe355eab0849a18d119548.html
+  games:
+  - bg3
+  publisher: BG3 Community Wiki
+- id: bg3mm_repo_license
+  title: BG3 Mod Manager LICENSE (LaughingLeader/BG3ModManager)
+  url: https://raw.githubusercontent.com/LaughingLeader/BG3ModManager/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:53+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: b47f17cd17ddc11ce6504a3f1eab10c9f32721812e6f4bb3cb98b0ec0eafbdaa
+  bytes: 1070
+  content_type: text/plain
+  upstream_revision: W/"0ae07bd22e07b0d6b2265944aa1ecb24cc727b5a2e561ed114a274be789e3c31
+  evidence_path: b4/b47f17cd17ddc11ce6504a3f1eab10c9f32721812e6f4bb3cb98b0ec0eafbdaa.txt
+  games:
+  - bg3
+  publisher: LaughingLeader
+- id: bg3mm_repo_readme
+  title: BG3 Mod Manager README (LaughingLeader/BG3ModManager)
+  url: https://raw.githubusercontent.com/LaughingLeader/BG3ModManager/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:52+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 61b7bce9336633bce6b7c04fa3baa3b0a4d8d84ffb5398bdc90dd934dda3f1e2
+  bytes: 5148
+  content_type: text/plain
+  upstream_revision: W/"1b3e45255db319a6ce8384f85c277946abbccf764ec3a3d4f978c1538fa64c84
+  evidence_path: 61/61b7bce9336633bce6b7c04fa3baa3b0a4d8d84ffb5398bdc90dd934dda3f1e2.md
+  games:
+  - bg3
+  publisher: LaughingLeader
+- id: bg3se_api_docs
+  title: BG3 Script Extender Lua API documentation
+  url: https://raw.githubusercontent.com/Norbyte/bg3se/main/Docs/API.md
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:45:51+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: f9ccc305c27a3adf3920101fc28af474c4f274767239053bbc53b91dbdabd90a
+  bytes: 81007
+  content_type: text/plain
+  upstream_revision: W/"5ea2998f796fc44ffc70444035c9726412216fd738baf4a14fb2f1bf4ca6607f
+  evidence_path: f9/f9ccc305c27a3adf3920101fc28af474c4f274767239053bbc53b91dbdabd90a.md
+  games:
+  - bg3
+  publisher: Norbyte
+- id: bg3se_repo_license
+  title: BG3 Script Extender LICENSE (Norbyte/bg3se)
+  url: https://raw.githubusercontent.com/Norbyte/bg3se/main/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:51+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 2f1d1ceb35e996019341ffae8e0b3d0a18d555847b3c2a585d69344cf86ca84a
+  bytes: 1946
+  content_type: text/plain
+  upstream_revision: W/"befc13ad56e943cff7b1ba660e66f01c2d4bc6acd217d2bc50c2ceb708d88e7f
+  evidence_path: 2f/2f1d1ceb35e996019341ffae8e0b3d0a18d555847b3c2a585d69344cf86ca84a.txt
+  games:
+  - bg3
+  publisher: Norbyte
+- id: bg3se_repo_readme
+  title: BG3 Script Extender README (Norbyte/bg3se)
+  url: https://raw.githubusercontent.com/Norbyte/bg3se/main/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:50+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 16da9cbe5a3eb78573bb7626578cb69a9289a10518f00abcaf392ba703eedd08
+  bytes: 2289
+  content_type: text/plain
+  upstream_revision: W/"21a19193150abd038a9e97d292fb5985f13e7969742eba46b4aac2fef8752111
+  evidence_path: 16/16da9cbe5a3eb78573bb7626578cb69a9289a10518f00abcaf392ba703eedd08.md
+  games:
+  - bg3
+  publisher: Norbyte
+- id: larian_docs_creating_a_new_mod
+  title: 'Larian BG3 modding docs: Getting Started - Creating a New Mod'
+  url: https://docs.baldursgate3.game/index.php?title=Getting_Started:_Creating_a_New_Mod
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:45:33+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: b55a84e86ef640c449eda19ca4747ab0480544fcecfbfd932317df9d9cd566df
+  bytes: 33437
+  content_type: text/html
+  upstream_revision: Mon, 14 Jul 2025 10:32:29 GMT
+  evidence_path: b5/b55a84e86ef640c449eda19ca4747ab0480544fcecfbfd932317df9d9cd566df.html
+  games:
+  - bg3
+  publisher: Larian Studios
+- id: larian_docs_osiris_intro
+  title: 'Larian BG3 modding docs: Introduction to Osiris'
+  url: https://docs.baldursgate3.game/index.php?title=Scripting:_Introduction_to_Osiris
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:45:34+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 4b92784bf946f18edaf2d652ab007fec999bcdb9025cb42d1ec41a9e0c99dbd4
+  bytes: 34333
+  content_type: text/html
+  upstream_revision: Mon, 14 Jul 2025 10:32:29 GMT
+  evidence_path: 4b/4b92784bf946f18edaf2d652ab007fec999bcdb9025cb42d1ec41a9e0c99dbd4.html
+  games:
+  - bg3
+  publisher: Larian Studios
+- id: larian_docs_publishing_a_mod
+  title: 'Larian BG3 modding docs: Getting Started - Publishing a Mod'
+  url: https://docs.baldursgate3.game/index.php?title=Getting_Started:_Publishing_a_Mod
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:45:34+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 75b0f638fc0c9242a0b76d5919cd33d1200d3980faa5f0c7ddf44bc66ca8598d
+  bytes: 42476
+  content_type: text/html
+  upstream_revision: Wed, 06 Aug 2025 09:57:52 GMT
+  evidence_path: 75/75b0f638fc0c9242a0b76d5919cd33d1200d3980faa5f0c7ddf44bc66ca8598d.html
+  games:
+  - bg3
+  publisher: Larian Studios
+- id: lslib_repo_license
+  title: LSLib LICENSE (Norbyte/lslib)
+  url: https://raw.githubusercontent.com/Norbyte/lslib/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:52+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ff536e6222ab893aa15a9ade208c81b1b0406c462e36b7fd97e6099ced308409
+  bytes: 1075
+  content_type: text/plain
+  upstream_revision: W/"cb378bb5f633b9ea6addbd5e33f608b81411221d362cbc49d21fd7440bbe4b39
+  evidence_path: ff/ff536e6222ab893aa15a9ade208c81b1b0406c462e36b7fd97e6099ced308409.txt
+  games:
+  - bg3
+  publisher: Norbyte
+- id: lslib_repo_readme
+  title: LSLib README (Norbyte/lslib)
+  url: https://raw.githubusercontent.com/Norbyte/lslib/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:51+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 19696261544d61a66d484fddaf052aae899b4a1386b25f39ed1dafc1c7e0471e
+  bytes: 1033
+  content_type: text/plain
+  upstream_revision: W/"fb002c2176464f644909b0c231a95f089db9f9dfbf99c3a09c2ac8611482e4d7
+  evidence_path: 19/19696261544d61a66d484fddaf052aae899b4a1386b25f39ed1dafc1c7e0471e.md
+  games:
+  - bg3
+  publisher: Norbyte
+- id: nexusmods_bg3_blocked
+  title: 'Nexus Mods: Baldur''s Gate 3 (not retrievable here)'
+  url: https://www.nexusmods.com/baldursgate3
+  kind: forum_post
+  access: blocked
+  retrieved_at: '2026-09-19T13:45:53+00:00'
+  http_status: 403
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/html; charset=UTF-8
+  games:
+  - bg3
+  publisher: Nexus Mods
+  gap: 'Nexus Mods returns HTTP 403 to this environment. We therefore have no BG3 mod-level data: no declared
+    requirements, no version compatibility tags, no changelogs and no prevalence figures for any specific
+    mod.'

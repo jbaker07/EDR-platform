@@ -1,0 +1,390 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: content_patcher_author_guide
+  title: Content Patcher author guide
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:39:57+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3aeebe44f7d4a741ee02e9fa7f60e99af0f4135f37d0af8ce62ca72efadf8a12
+  bytes: 18831
+  content_type: text/plain
+  upstream_revision: W/"e69f775189c3f5f41416bc93f4a430dc36bbe262d330aaf7e31b3978aad71d1c
+  evidence_path: 3a/3aeebe44f7d4a741ee02e9fa7f60e99af0f4135f37d0af8ce62ca72efadf8a12.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild
+- id: content_patcher_editdata
+  title: 'Content Patcher author guide: EditData action'
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/action-editdata.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:39:58+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: e71559aa3d1f1659950c50ae09bbd90a5a118f3faea113bfa3c20d25b004f522
+  bytes: 18214
+  content_type: text/plain
+  upstream_revision: W/"9fbfb6723d19b38c14d2099d9ef0e726e3841f9cccccaa69ce074302c6c2d383
+  evidence_path: e7/e71559aa3d1f1659950c50ae09bbd90a5a118f3faea113bfa3c20d25b004f522.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild
+- id: content_patcher_json_schema
+  title: Content Patcher JSON Schema for content.json
+  url: https://smapi.io/schemas/content-patcher.json
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:39:44+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: de081b8718e4b38c627c748d81eaf58ec86db8504c788fd0e39a242fe9d962ce
+  bytes: 39808
+  content_type: application/json
+  upstream_revision: 1dc9498ac3e3180
+  evidence_path: de/de081b8718e4b38c627c748d81eaf58ec86db8504c788fd0e39a242fe9d962ce.json
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI
+- id: content_patcher_load
+  title: 'Content Patcher author guide: Load action'
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/action-load.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:49:25+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 7643630f79f1ed4c4a57792e558c65803a4c97cc680f366c9bac1613b3f50434
+  bytes: 5507
+  content_type: text/plain
+  upstream_revision: W/"71a6be8cc9041d8aab5a40a26dbee4a8a71c4fa224161e9c1d88e1f6f6729555
+  evidence_path: 76/7643630f79f1ed4c4a57792e558c65803a4c97cc680f366c9bac1613b3f50434.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild
+- id: content_patcher_release_notes
+  title: Content Patcher release notes (version history)
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/release-notes.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:48:10+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: f534a12ec293c32997a1efc40c19055b3d3c81b299244c7cd1c0808d31f9d94d
+  bytes: 61470
+  content_type: text/plain
+  upstream_revision: W/"19d69be0b2a1d1eee60f109215604939a51d8ef05240e76b1ab9bc6f117a77c0
+  evidence_path: f5/f534a12ec293c32997a1efc40c19055b3d3c81b299244c7cd1c0808d31f9d94d.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild
+- id: content_patcher_tokens
+  title: 'Content Patcher author guide: tokens and conditions'
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/tokens.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:39:58+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 32f10e6059807434eba19a26c63e662bd1d24f0d31edb6dd6d326d94887d7b7b
+  bytes: 60588
+  content_type: text/plain
+  upstream_revision: W/"81956699c38ed87453d27d5930184c5a123de0cd5b80440d7af54158da6ccc6b
+  evidence_path: 32/32f10e6059807434eba19a26c63e662bd1d24f0d31edb6dd6d326d94887d7b7b.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild
+- id: content_patcher_troubleshooting
+  title: 'Content Patcher author guide: troubleshooting patches'
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/troubleshooting.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:39:58+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 62249b207b37b2c5d3a8a9c0f6e2f1d56d85b12a8d68caa37cc07085a884ff2d
+  bytes: 10024
+  content_type: text/plain
+  upstream_revision: W/"8368bae7f1d3df9714210994ab90684e8acacb4f4499ddd1efe0045b71bc0ca4
+  evidence_path: 62/62249b207b37b2c5d3a8a9c0f6e2f1d56d85b12a8d68caa37cc07085a884ff2d.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild
+- id: modbuildconfig_nuget
+  title: NuGet registration index for Pathoschild.Stardew.ModBuildConfig
+  url: https://api.nuget.org/v3/registration5-gz-semver2/pathoschild.stardew.modbuildconfig/index.json
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:49:26+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: f77e9ce279d66700cb509c88d8b04fa25d8099a188ae57a6479950e5cd98d1b3
+  bytes: 90569
+  content_type: application/json
+  upstream_revision: '0x8DD7AE172A478B2'
+  evidence_path: f7/f77e9ce279d66700cb509c88d8b04fa25d8099a188ae57a6479950e5cd98d1b3.json
+  games:
+  - stardewvalley
+  publisher: NuGet / Pathoschild
+- id: pathoschild_stardewmods_license
+  title: Pathoschild/StardewMods repository LICENSE
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:39:45+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 6780840a743713f47a6cff9a4aeee5059a4b8f68fbefa6734f9924c7c7d6282d
+  bytes: 1107
+  content_type: text/plain
+  upstream_revision: W/"15b4ec7de17d36be70197ee78b67fc69636a8b00ae15cc299ee236605eb38019
+  evidence_path: 67/6780840a743713f47a6cff9a4aeee5059a4b8f68fbefa6734f9924c7c7d6282d.txt
+  games:
+  - stardewvalley
+  publisher: Pathoschild
+- id: sdv_wiki_copyrights
+  title: Stardew Valley Wiki:Copyrights - content licence statement
+  url: https://stardewvalleywiki.com/Stardew_Valley_Wiki:Copyrights
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:46:16+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 0ef81796d0d9f41829450d10e6a867b2a27702574f0681495e40086dc58bf11d
+  bytes: 22404
+  content_type: text/html
+  upstream_revision: Wed, 16 Sep 2026 02:42:01 GMT
+  evidence_path: 0e/0ef81796d0d9f41829450d10e6a867b2a27702574f0681495e40086dc58bf11d.html
+  games:
+  - stardewvalley
+  publisher: Stardew Valley Wiki
+- id: sdv_wiki_get_started
+  title: 'Stardew Valley Wiki: Modder Guide - Get Started'
+  url: https://stardewvalleywiki.com/Modding:Modder_Guide/Get_Started
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:00+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ee346dc1a9aa1ea4856f9e38c4e0d489dad2d313bd0ee3c0682c3fe2e0f6d148
+  bytes: 62741
+  content_type: text/html
+  upstream_revision: Fri, 18 Sep 2026 03:45:41 GMT
+  evidence_path: ee/ee346dc1a9aa1ea4856f9e38c4e0d489dad2d313bd0ee3c0682c3fe2e0f6d148.html
+  games:
+  - stardewvalley
+  publisher: Stardew Valley Wiki
+- id: sdv_wiki_manifest
+  title: 'Stardew Valley Wiki: Modder Guide - manifest.json'
+  url: https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Manifest
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:39:59+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 02bf144e16496c8ccb3cba93ed75595b14cd4f1045994e8c8c324c74488cda4c
+  bytes: 38245
+  content_type: text/html
+  upstream_revision: Sun, 13 Sep 2026 00:07:46 GMT
+  evidence_path: 02/02bf144e16496c8ccb3cba93ed75595b14cd4f1045994e8c8c324c74488cda4c.html
+  games:
+  - stardewvalley
+  publisher: Stardew Valley Wiki
+- id: sdv_wiki_modding_index
+  title: 'Stardew Valley Wiki: Modding:Index'
+  url: https://stardewvalleywiki.com/Modding:Index
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:39:59+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 0684bf38493109884fbeb15f15bb0c16164d764a4a52c397bdbc91e59e7ea637
+  bytes: 37433
+  content_type: text/html
+  upstream_revision: Tue, 15 Sep 2026 00:07:33 GMT
+  evidence_path: 06/0684bf38493109884fbeb15f15bb0c16164d764a4a52c397bdbc91e59e7ea637.html
+  games:
+  - stardewvalley
+  publisher: Stardew Valley Wiki
+- id: smapi_license
+  title: SMAPI repository LICENSE.txt
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/LICENSE.txt
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:39:45+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ea8af5e789cb2d4e9b10bce3874982ade163b749b6bfbdb32e2df21c4d106de1
+  bytes: 7650
+  content_type: text/plain
+  upstream_revision: W/"8341ecd6cc8b8af4da0dc9cae0cca717114b0028a57b0eec3516aa674ec254f7
+  evidence_path: ea/ea8af5e789cb2d4e9b10bce3874982ade163b749b6bfbdb32e2df21c4d106de1.txt
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI
+- id: smapi_manifest_json_schema
+  title: SMAPI JSON Schema for manifest.json
+  url: https://smapi.io/schemas/manifest.json
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:39:44+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: b995813e6b9b84f276a6a73c9d8604bacf171c7b5d8b90ce26164b6a0123b9fc
+  bytes: 8334
+  content_type: application/json
+  upstream_revision: 1dc766418d9948e
+  evidence_path: b9/b995813e6b9b84f276a6a73c9d8604bacf171c7b5d8b90ce26164b6a0123b9fc.json
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI
+- id: smapi_mod_build_config
+  title: Mod build package (Pathoschild.Stardew.ModBuildConfig) documentation
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/docs/technical/mod-package.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:39:46+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ba1ee7f8a28b3fa42fc3553a82a14f1e62fbede90cdee2788b44562dcc339bbb
+  bytes: 14477
+  content_type: text/plain
+  upstream_revision: W/"fa16ab82bb1c13f159224c2068143e2cf4a518ff47eff6f65f3e4c59db9154e3
+  evidence_path: ba/ba1ee7f8a28b3fa42fc3553a82a14f1e62fbede90cdee2788b44562dcc339bbb.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI
+- id: smapi_mod_compatibility_list
+  title: SMAPI mod compatibility list (smapi.io/mods)
+  url: https://smapi.io/mods
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:00+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ab3eda6a8ca7f0ea1d0200dafe7ea1c91cd33087ce697308b05346fc68a45f97
+  bytes: 7731
+  content_type: text/html
+  evidence_path: ab/ab3eda6a8ca7f0ea1d0200dafe7ea1c91cd33087ce697308b05346fc68a45f97.html
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI
+- id: smapi_mod_metadata_db
+  title: 'SMAPI.metadata.json: SMAPI''s internal mod compatibility database'
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/src/SMAPI.Web/wwwroot/SMAPI.metadata.json
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:39:45+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: e134b4f73f0c572792f4a5d4a972a69ae0ed5c9edbebf1dc61629e8e15a33682
+  bytes: 44996
+  content_type: text/plain
+  upstream_revision: W/"9db29710ef6dff22b4a2f50bd45521a78efb2d7a6fec556059c041bc487aa395
+  evidence_path: e1/e134b4f73f0c572792f4a5d4a972a69ae0ed5c9edbebf1dc61629e8e15a33682.json
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI
+- id: smapi_release_notes
+  title: SMAPI release notes (version history)
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/docs/release-notes.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:48:10+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3d1fe1644ffc7518aee6d87ac5ee44d1863c32a8910c35dc0c8b8a5dfebf4469
+  bytes: 26867
+  content_type: text/plain
+  upstream_revision: W/"615d7dec6552c35bb25052069fd5cfdd71572b17a775fbcc7914dffa91565243
+  evidence_path: 3d/3d1fe1644ffc7518aee6d87ac5ee44d1863c32a8910c35dc0c8b8a5dfebf4469.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI
+- id: smapi_technical_docs
+  title: SMAPI technical documentation (loading, API, mod lifecycle)
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/docs/technical/smapi.md
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:39:46+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 78e3ef292c63e21b5f32b225343ced36267bffbfa2ce023ec4bf7b673885ab63
+  bytes: 9601
+  content_type: text/plain
+  upstream_revision: W/"906c6c0997384d3f329369aa3f8fcb6ed4adc4d959b74df7b7a3a4f81c2022f7
+  evidence_path: 78/78e3ef292c63e21b5f32b225343ced36267bffbfa2ce023ec4bf7b673885ab63.md
+  games:
+  - stardewvalley
+  publisher: Pathoschild / SMAPI

@@ -1,0 +1,52 @@
+id: mojang_mappings_in_non_obfuscated_environment
+game: minecraft
+title: Build fails after updating to a non-obfuscated Minecraft version
+symptom: >-
+  Gradle fails while evaluating build.gradle with "Cannot use Mojang mappings in
+  a non-obfuscated environment". No compilation happens.
+mechanism: >-
+  Minecraft shipped obfuscated for most of its history, so Fabric builds
+  declared a mappings dependency (loom.officialMojangMappings()) and used the
+  remapping configuration modImplementation for mod dependencies. From the 26.x
+  line the game is no longer obfuscated, so there is nothing to remap: Loom
+  rejects a mappings declaration, and mod dependencies use plain implementation.
+  A build script carried forward from a 1.21.x project therefore fails at
+  configuration time. The upstream example mod's build script differs in exactly
+  these two ways between its 1.21 and 26.3 branches.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  toolchain: ["Fabric Loom"]
+targets:
+  - kind: file_path
+    id: build.gradle
+    label: Gradle build script
+  - kind: config_key
+    id: dependencies.mappings
+    container: build.gradle
+conditions:
+  - kind: version
+    description: >-
+      Applies when the target Minecraft version is one that ships
+      non-obfuscated, and the build script still declares mappings.
+detector:
+  detectable: partial
+  check_id: creator.scaffold.fabric_build_style
+  signal: >-
+    ModCheck resolves the build style from the upstream example mod's own build
+    script for the target version, so a generated project never carries the
+    wrong form. It does not yet scan an existing project's build.gradle and warn.
+resolutions: [remove_mappings_for_non_obfuscated_minecraft]
+evidence:
+  - source: fabric_example_mod_build_1_21
+    evidence_class: extracted
+    locator: dependencies block
+    quote: "mappings loom.officialMojangMappings()"
+  - source: fabric_example_mod_build_26_3
+    evidence_class: extracted
+    locator: dependencies block
+    quote: 'implementation "net.fabricmc:fabric-loader:${project.loader_version}"'
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against: [fabric_example_mod_build_26_3, fabric_example_mod_build_1_21]

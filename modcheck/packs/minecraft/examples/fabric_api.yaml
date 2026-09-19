@@ -1,0 +1,35 @@
+id: fabric_api
+game: minecraft
+title: Fabric API
+url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/
+kind: library
+demonstrates:
+  - the jar-in-jar packaging pattern, shipping 44 modules inside one jar
+  - how a large mod declares loader, game and Java requirements
+  - a real published artifact to test inspection against
+license: Apache-2.0
+reuse:
+  integration: reference_only
+  constraints: >-
+    Apache-2.0, verified by fetching the repository's LICENSE file. ModCheck
+    does not redistribute it; the release jar is fetched into the gitignored
+    evidence cache and used as a real-artifact test case.
+maintenance:
+  state: active
+  supported_versions: "tracks current Minecraft releases"
+  checked_at: '2026-09-19'
+  last_release: "0.161.0+26.3"
+evidence:
+  - source: fabric_api_jar_manifest
+    evidence_class: extracted
+    locator: fabric.mod.json
+    quote: '"java": ">=25"'
+  - source: fabric_api_maven_metadata
+    evidence_class: extracted
+    locator: maven-metadata.xml latest
+  - source: fabric_api_license
+    evidence_class: extracted
+    locator: LICENSE
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'

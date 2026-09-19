@@ -1,0 +1,438 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: pz_api_element_list
+  title: 'PZ API: element-list (full package index of the documented API)'
+  url: https://projectzomboid.com/modding/element-list
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:40:50+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: bc945266e8a26d3029a93f8239e4760d66f998ee551e83cd59db1e9e77a121c9
+  bytes: 3958
+  upstream_revision: f76-6596b9a2a4089
+  evidence_path: bc/bc945266e8a26d3029a93f8239e4760d66f998ee551e83cd59db1e9e77a121c9.txt
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_api_lua_event_manager
+  title: 'PZ API: zombie.Lua.LuaEventManager (Lua event registration)'
+  url: https://projectzomboid.com/modding/zombie/Lua/LuaEventManager.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:46+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 7fe56563b2e789f5ea936eeb9877dca2488b6b83dbe60de8ca72d9973d8683ed
+  bytes: 112067
+  content_type: text/html
+  upstream_revision: Wed, 19 Aug 2026 19:42:21 GMT
+  evidence_path: 7f/7fe56563b2e789f5ea936eeb9877dca2488b6b83dbe60de8ca72d9973d8683ed.html
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_api_lua_manager
+  title: 'PZ API: zombie.Lua.LuaManager (Lua environment and exposed globals)'
+  url: https://projectzomboid.com/modding/zombie/Lua/LuaManager.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:46+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: db232afdcd2e0c17c325c452a2050e4cb92e10657b88abd6a81863b9cd08018e
+  bytes: 86620
+  content_type: text/html
+  upstream_revision: Wed, 19 Aug 2026 19:42:21 GMT
+  evidence_path: db/db232afdcd2e0c17c325c452a2050e4cb92e10657b88abd6a81863b9cd08018e.html
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_api_mod_info_class
+  title: 'PZ API: zombie.gameStates.ChooseGameInfo.Mod (the class that reads mod.info)'
+  url: https://projectzomboid.com/modding/zombie/gameStates/ChooseGameInfo.Mod.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:47+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: fed6768d70c225a4c4aa079f670e95cd30fbf94f0b4ec06cf9e0c6997edb1818
+  bytes: 93909
+  content_type: text/html
+  upstream_revision: Wed, 19 Aug 2026 19:42:17 GMT
+  evidence_path: fe/fed6768d70c225a4c4aa079f670e95cd30fbf94f0b4ec06cf9e0c6997edb1818.html
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_api_overview
+  title: 'Project Zomboid official modding API reference: package overview'
+  url: https://projectzomboid.com/modding/
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:45+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 7ef7db91f8a390bb498ba450eb3783e187edce5ff1fce5fb2e2a5cd7be60b689
+  bytes: 46073
+  content_type: text/html
+  upstream_revision: Wed, 19 Aug 2026 19:42:23 GMT
+  evidence_path: 7e/7ef7db91f8a390bb498ba450eb3783e187edce5ff1fce5fb2e2a5cd7be60b689.html
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_api_sandbox_options
+  title: 'PZ API: zombie.SandboxOptions (sandbox option registration and types)'
+  url: https://projectzomboid.com/modding/zombie/SandboxOptions.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:49+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: f78bb2ce6622ce9dcce89d1853fe9cf29daa26c7cfb2efabe25aba7bf0d066ae
+  bytes: 278473
+  content_type: text/html
+  upstream_revision: Wed, 19 Aug 2026 19:42:22 GMT
+  evidence_path: f7/f78bb2ce6622ce9dcce89d1853fe9cf29daa26c7cfb2efabe25aba7bf0d066ae.html
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_api_script_item
+  title: 'PZ API: zombie.scripting.objects.Item (item script fields)'
+  url: https://projectzomboid.com/modding/zombie/scripting/objects/Item.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:48+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: a2babf0f93eea2561284fe6cdd60e491aac22136ace8b8dfcb4e4e8159499441
+  bytes: 718606
+  content_type: text/html
+  upstream_revision: Wed, 19 Aug 2026 19:42:21 GMT
+  evidence_path: a2/a2babf0f93eea2561284fe6cdd60e491aac22136ace8b8dfcb4e4e8159499441.html
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_api_script_manager
+  title: 'PZ API: zombie.scripting.ScriptManager (loading of media/scripts)'
+  url: https://projectzomboid.com/modding/zombie/scripting/ScriptManager.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:49+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: f40316618a37b7e84079ca1c0bcd3f996c37376982af7dcde905cdb46ce0d993
+  bytes: 262981
+  content_type: text/html
+  upstream_revision: Wed, 19 Aug 2026 19:42:22 GMT
+  evidence_path: f4/f40316618a37b7e84079ca1c0bcd3f996c37376982af7dcde905cdb46ce0d993.html
+  games:
+  - projectzomboid
+  publisher: The Indie Stone
+- id: pz_modding_guide_license_probe
+  title: Probe for a LICENSE file in FWolfe/Zomboid-Modding-Guide
+  url: https://raw.githubusercontent.com/FWolfe/Zomboid-Modding-Guide/master/LICENSE
+  kind: source_repo
+  access: blocked
+  retrieved_at: '2026-09-19T13:41:04+00:00'
+  http_status: 404
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/plain; charset=utf-8
+  games:
+  - projectzomboid
+  publisher: FWolfe
+  gap: No LICENSE file at the root of FWolfe/Zomboid-Modding-Guide on branch master (HTTP 404); the guide's
+    reuse terms are unknown, so it may be cited but not redistributed or vendored.
+- id: pz_modding_guide_readme
+  title: 'Zomboid Modding Guide (FWolfe) README: mod layout and guide index'
+  url: https://raw.githubusercontent.com/FWolfe/Zomboid-Modding-Guide/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:41:02+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 2b2d120bb32517e7cc52588b60b5d698bbb3057830568daaf7f64dbff3316a26
+  bytes: 4348
+  content_type: text/plain
+  upstream_revision: W/"1a072062dbb1273af4198dc81c147c76d67d7f8de7eb8126e421e5f0557e9cd9
+  evidence_path: 2b/2b2d120bb32517e7cc52588b60b5d698bbb3057830568daaf7f64dbff3316a26.md
+  games:
+  - projectzomboid
+  publisher: FWolfe
+- id: pz_scriptsdocs_modinfo
+  title: 'PZ ScriptsDocs: mod.info root parameter reference'
+  url: https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/root_files/modinfo.html
+  kind: spec
+  access: public
+  retrieved_at: '2026-09-19T13:43:03+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 58f5c1a912572fca0f9cdf5036b7f94183ecf1e7066a7ac8d29f0e193cd3e17e
+  bytes: 45536
+  content_type: text/html
+  upstream_revision: W/"6aadea26-b1e0
+  evidence_path: 58/58f5c1a912572fca0f9cdf5036b7f94183ecf1e7066a7ac8d29f0e193cd3e17e.html
+  games:
+  - projectzomboid
+  publisher: PZ Wiki Modding (pz-wiki-modding.github.io)
+- id: pz_zdoc_license
+  title: pz-zdoc LICENSE.txt
+  url: https://raw.githubusercontent.com/cocolabs/pz-zdoc/master/LICENSE.txt
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:41:03+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986
+  bytes: 35149
+  content_type: text/plain
+  upstream_revision: W/"acd3f442f5efb5b40d57d2b07a5254ffbc2023536eac1ade1e3de30db9ba8b25
+  evidence_path: 39/3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986.txt
+  games:
+  - projectzomboid
+  publisher: cocolabs
+- id: pz_zdoc_readme
+  title: 'pz-zdoc README: Lua API documentation generator for Project Zomboid'
+  url: https://raw.githubusercontent.com/cocolabs/pz-zdoc/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:41:03+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: cc37d82be6cafbde7d86265cbae46c477c8f887f5ab9846bfacaf119fdd26382
+  bytes: 9167
+  content_type: text/plain
+  upstream_revision: W/"0a5f9c093c5e559616b16f357a34df85fa324eb3f393152f6dfe403cdcda835c
+  evidence_path: cc/cc37d82be6cafbde7d86265cbae46c477c8f887f5ab9846bfacaf119fdd26382.md
+  games:
+  - projectzomboid
+  publisher: cocolabs
+- id: pzmc_template_license
+  title: Project Zomboid Community Modding template LICENSE
+  url: https://raw.githubusercontent.com/Project-Zomboid-Community-Modding/pzmc-template/main/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:50:37+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad
+  bytes: 35129
+  content_type: text/plain
+  upstream_revision: W/"0f070a97db0d194dd8185a59b00027885cea873dec7944cd4770c1707a7f9d49
+  evidence_path: 60/605e9047a563c5c8396ffb18232aa4304ec56586aee537c45064c6fb425e44ad.txt
+  games:
+  - projectzomboid
+  publisher: PZ Modding Community
+- id: pzmc_template_readme
+  title: Project Zomboid Community Modding template README
+  url: https://raw.githubusercontent.com/Project-Zomboid-Community-Modding/pzmc-template/main/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:50:37+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: e3e73d4448e0a8b23b232224b40fd4120a4305a90744f684b8c8952e90372d0a
+  bytes: 581
+  content_type: text/plain
+  upstream_revision: W/"8ecfc338703441695c87a3729dc1050e2166e35f75abe094e2afd2e3bce051dc
+  evidence_path: e3/e3e73d4448e0a8b23b232224b40fd4120a4305a90744f684b8c8952e90372d0a.md
+  games:
+  - projectzomboid
+  publisher: PZ Modding Community
+- id: pzwiki_copyrights
+  title: PZwiki:Copyrights - content licence statement
+  url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=PZwiki:Copyrights
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:46:06+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 73a2ac3833364eb5f2ee810b0a57473ceb425d90e0faab0f2d4989211d4b708a
+  bytes: 618
+  content_type: application/json
+  evidence_path: 73/73a2ac3833364eb5f2ee810b0a57473ceb425d90e0faab0f2d4989211d4b708a.json
+  games:
+  - projectzomboid
+  publisher: PZwiki / The Indie Stone
+- id: pzwiki_item_scripts
+  title: 'PZwiki: Item (scripts) - item script parameter reference'
+  url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Item%20(scripts)
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:42:26+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 1909cce98352f6f6ff2f8b8436c1fa21c93e00833d128b881758ce1fe6b9397e
+  bytes: 13854
+  content_type: application/json
+  evidence_path: 19/1909cce98352f6f6ff2f8b8436c1fa21c93e00833d128b881758ce1fe6b9397e.json
+  games:
+  - projectzomboid
+  publisher: PZwiki
+- id: pzwiki_lua_api
+  title: 'PZwiki: Lua (API) - client/server Lua layout and events'
+  url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Lua%20(API)
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:41:54+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: d1fce676c3fc574c1a85836ef0f306187f5a4ccb4eca158c91f159a2c8c839a1
+  bytes: 15781
+  content_type: application/json
+  evidence_path: d1/d1fce676c3fc574c1a85836ef0f306187f5a4ccb4eca158c91f159a2c8c839a1.json
+  games:
+  - projectzomboid
+  publisher: PZwiki
+- id: pzwiki_mod_info
+  title: 'PZwiki: mod.info file reference (wikitext via MediaWiki API)'
+  url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Mod.info
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:41:53+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 9db39e4158d7a5c13753569dbd2fe0ee10f3a57752605ddc8022e7eb29726d32
+  bytes: 1820
+  content_type: application/json
+  evidence_path: 9d/9db39e4158d7a5c13753569dbd2fe0ee10f3a57752605ddc8022e7eb29726d32.json
+  games:
+  - projectzomboid
+  publisher: PZwiki
+- id: pzwiki_mod_structure
+  title: 'PZwiki: Mod structure - folder layout and version folders'
+  url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Mod%20structure
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:42:28+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: cdefb2ff23ebd1f3e85b98645c0a139869d2b4b5faa2de24e673a49b1577be88
+  bytes: 22148
+  content_type: application/json
+  evidence_path: cd/cdefb2ff23ebd1f3e85b98645c0a139869d2b4b5faa2de24e673a49b1577be88.json
+  games:
+  - projectzomboid
+  publisher: PZwiki
+- id: pzwiki_modding_index
+  title: 'PZwiki: Modding portal'
+  url: https://pzwiki.net/wiki/Modding
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:41:02+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: c90b6ae44aae3da303f1075d59c3b830a2fcbae0ee4e1895b01b8a935896f7e3
+  bytes: 108099
+  content_type: text/html
+  upstream_revision: Sat, 19 Sep 2026 08:41:02 GMT
+  evidence_path: c9/c90b6ae44aae3da303f1075d59c3b830a2fcbae0ee4e1895b01b8a935896f7e3.html
+  games:
+  - projectzomboid
+  publisher: PZwiki
+- id: pzwiki_sandbox_options
+  title: 'PZwiki: Sandbox options'
+  url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Sandbox%20options
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:41:55+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: a74ce39025d954210363930193209c40601bd123f2ec2be18b65c23aad5d039b
+  bytes: 7036
+  content_type: application/json
+  evidence_path: a7/a74ce39025d954210363930193209c40601bd123f2ec2be18b65c23aad5d039b.json
+  games:
+  - projectzomboid
+  publisher: PZwiki
+- id: pzwiki_scripts
+  title: 'PZwiki: Scripts (media/scripts format overview)'
+  url: https://pzwiki.net/w/api.php?action=parse&prop=wikitext&format=json&page=Scripts
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:41:56+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 93bc27779e3e8d53bb576c33014c3f639f0f0abe0a0667cc03aed386cb7d3dc0
+  bytes: 12047
+  content_type: application/json
+  evidence_path: 93/93bc27779e3e8d53bb576c33014c3f639f0f0abe0a0667cc03aed386cb7d3dc0.json
+  games:
+  - projectzomboid
+  publisher: PZwiki

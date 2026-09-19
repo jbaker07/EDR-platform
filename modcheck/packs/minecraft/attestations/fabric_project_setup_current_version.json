@@ -1,0 +1,45 @@
+{
+  "recipe": "fabric_project_setup_current_version",
+  "game": "minecraft",
+  "verification_state": "build_tested",
+  "build": {
+    "project": "/home/user/EDR-platform/modcheck/build_workspaces/attest1",
+    "ok": true,
+    "started_at": "2026-09-19T13:47:06+00:00",
+    "toolchain": {
+      "java": "openjdk version \"25.0.4.1\" 2026-08-18 LTS",
+      "gradle": "Gradle 9.5.1"
+    },
+    "commands": [
+      {
+        "command": "gradle build --no-daemon --console=plain",
+        "returncode": 0,
+        "duration_seconds": 12.04,
+        "stdout_tail": "To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \n\n> Configure project :\nFabric Loom: 1.17.21\n\n> Task :compileJava\n> Task :processResources\n> Task :classes\n> Task :processIncludeJars\n> Task :jar\n> Task :sourcesJar\n> Task :assemble\n> Task :compileTestJava NO-SOURCE\n> Task :processTestResources NO-SOURCE\n> Task :testClasses UP-TO-DATE\n> Task :test NO-SOURCE\n> Task :validateAccessWidener NO-SOURCE\n> Task :check UP-TO-DATE\n> Task :build\n\n[Incubating] Problems report is available at: file:///home/user/EDR-platform/modcheck/build_workspaces/attest1/build/reports/problems/problems-report.html\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 10.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/9.5.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD SUCCESSFUL in 11s\n5 actionable tasks: 5 executed",
+        "stderr_tail": "Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/root/.ccr/java-truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=45851 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes="
+      }
+    ],
+    "artifacts": [
+      {
+        "path": "/home/user/EDR-platform/modcheck/build_workspaces/attest1/build/libs/attestone-1.0.0-sources.jar",
+        "sha256": "6a753ffbe547ec43627f926fddac9f45d20d83ddb622ca1a7b01293f4cd877db",
+        "bytes": 1551
+      },
+      {
+        "path": "/home/user/EDR-platform/modcheck/build_workspaces/attest1/build/libs/attestone-1.0.0.jar",
+        "sha256": "84cbc829e670614e7cc1f4906653a369f3d53c33583b51cf6f8c6c64c1111061",
+        "bytes": 2073
+      }
+    ],
+    "establishes": [
+      "the project compiles with the declared toolchain",
+      "the build produced the listed artifacts, identified by sha256"
+    ],
+    "does_not_establish": [
+      "that the mod loads or behaves correctly in game",
+      "that it is compatible with any other mod",
+      "that its declared versions match what the code requires",
+      "anything about assets or data the build merely copies"
+    ]
+  }
+}

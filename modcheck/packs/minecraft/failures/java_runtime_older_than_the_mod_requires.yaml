@@ -1,0 +1,50 @@
+id: java_runtime_older_than_the_mod_requires
+game: minecraft
+title: Mods for current Minecraft versions do not load on an older Java runtime
+symptom: >-
+  The mod fails to load, or the game refuses to start, on a Java runtime older
+  than the one the mod's class files target.
+mechanism: >-
+  A mod's class files are compiled to a specific Java class-file version and its
+  mixins declare a compatibilityLevel. The Minecraft 26.x toolchain targets Java
+  25: the upstream Fabric example mod for 26.3 sets the mixin compatibility
+  level to JAVA_25, and Fabric API 0.161.0+26.3 declares a dependency on
+  java >=25. An older runtime cannot load those classes. This is a real break
+  point for players and creators who updated the game but not the Java runtime.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  toolchain: ["JDK 25"]
+targets:
+  - kind: config_key
+    id: depends.java
+    container: fabric.mod.json
+  - kind: config_key
+    id: compatibilityLevel
+    container: "<modid>.mixins.json"
+conditions:
+  - kind: environment
+    description: The installed Java runtime is older than the declared requirement.
+    expression: java < 25
+detector:
+  detectable: partial
+  check_id: dependency.version_mismatch
+  signal: >-
+    The `java` dependency declared in fabric.mod.json is resolved against the
+    java version supplied in the configuration. If the configuration does not
+    state its Java version, the result is `dependency.platform_unknown`, not a
+    pass. The class-file version inside the jar is not read, so a mod that
+    compiles to a newer target than it declares is not caught.
+evidence:
+  - source: fabric_api_jar_manifest
+    evidence_class: extracted
+    locator: fabric.mod.json depends
+    quote: '"java": ">=25"'
+  - source: fabric_example_mod_versions_26_3
+    evidence_class: extracted
+    locator: gradle.properties
+    quote: "minecraft_version=26.3"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'
+  verified_against: [fabric_example_mod_versions_26_3]

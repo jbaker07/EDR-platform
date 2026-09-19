@@ -26,8 +26,8 @@ import re
 from dataclasses import dataclass
 from typing import Any, Iterable
 
-import yaml
 
+from .. import yamlio
 from ..analyze.config import Installation, normalize_path
 from ..analyze.findings import Finding
 from .loot_conditions import (Call, ConditionError, Tri, compile_path_regex, evaluate,
@@ -155,7 +155,7 @@ class LootMasterlist:
 
     @classmethod
     def from_bytes(cls, raw: bytes, *, game: str, source_id: str) -> "LootMasterlist":
-        data = yaml.safe_load(raw)
+        data = yamlio.safe_load(raw)
         if not isinstance(data, dict) or "plugins" not in data:
             raise ValueError("not a LOOT masterlist: no 'plugins' key")
         exact: dict[str, list[dict]] = {}

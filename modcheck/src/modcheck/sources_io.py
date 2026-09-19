@@ -6,6 +6,8 @@ from typing import Any
 
 import yaml
 
+from . import yamlio
+
 HEADER = """\
 # Source records for this game pack.
 #
@@ -23,8 +25,7 @@ HEADER = """\
 def load(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
-    with path.open("r", encoding="utf-8") as fh:
-        raw = yaml.safe_load(fh)
+    raw = yamlio.load_path(path)
     if not raw:
         return []
     return raw.get("sources", []) if isinstance(raw, dict) else list(raw)

@@ -1,0 +1,325 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: archivexl_repo_readme
+  title: ArchiveXL README (psiberx/cp2077-archive-xl)
+  url: https://raw.githubusercontent.com/psiberx/cp2077-archive-xl/main/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:19+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: d8cf266a3dc9212c8f89388f9fda801b981e7fe9c902f3e5e5f2f97f034f3347
+  bytes: 1474
+  content_type: text/plain
+  upstream_revision: W/"ed35615d8e35a9428f506d956b30188d4c43e3e24697b59bd2b66331bdd2604e
+  evidence_path: d8/d8cf266a3dc9212c8f89388f9fda801b981e7fe9c902f3e5e5f2f97f034f3347.md
+  games:
+  - cyberpunk2077
+  publisher: psiberx
+- id: cdpr_redmod_modding_support
+  title: 'CD PROJEKT RED: Cyberpunk 2077 modding support (REDmod)'
+  url: https://www.cyberpunk.net/en/modding-support
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:45:00+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 47ccab33b31493dcca54f8b520a42efe7a1b8ad67b65670c09d8381e005c4ec0
+  bytes: 47414
+  content_type: text/html
+  evidence_path: 47/47ccab33b31493dcca54f8b520a42efe7a1b8ad67b65670c09d8381e005c4ec0.html
+  games:
+  - cyberpunk2077
+  publisher: CD PROJEKT RED
+- id: cet_repo_readme
+  title: Cyber Engine Tweaks README
+  url: https://raw.githubusercontent.com/maximegmd/CyberEngineTweaks/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:21+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ddbcdcf27bd2ef872a4a9072d89696ff1cd67a302e4101dd3b0f54fb653ab86d
+  bytes: 3528
+  content_type: text/plain
+  upstream_revision: W/"88cfcdc14b25a2160acdb10803615e8915e177a3ebcd1d04741e4602cdec9e4e
+  evidence_path: dd/ddbcdcf27bd2ef872a4a9072d89696ff1cd67a302e4101dd3b0f54fb653ab86d.md
+  games:
+  - cyberpunk2077
+  publisher: maximegmd / CET contributors
+- id: cp_wiki_archive_load_order
+  title: 'Cyberpunk 2077 modding wiki: Archive files Load Order'
+  url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-users/users-modding-cyberpunk-2077/load-order.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:01+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: be73264d0bb638eeed1c355bba3819e40234f73bb6cf6584107bdffde7bb2adb
+  bytes: 8030
+  content_type: text/markdown
+  evidence_path: be/be73264d0bb638eeed1c355bba3819e40234f73bb6cf6584107bdffde7bb2adb.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+- id: cp_wiki_archivexl
+  title: 'Cyberpunk 2077 modding wiki: ArchiveXL'
+  url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/core-mods-explained/archivexl.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:02+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 8cdc072d110a62ae6f2c5f39b01c957756e9af9fe7702e5a55f31ec0924b1e6e
+  bytes: 6940
+  content_type: text/markdown
+  evidence_path: 8c/8cdc072d110a62ae6f2c5f39b01c957756e9af9fe7702e5a55f31ec0924b1e6e.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+- id: cp_wiki_redmod_for_mod_devs
+  title: 'Cyberpunk 2077 modding wiki: REDmod for mod devs'
+  url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/modding-tools/redmod.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:00+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3ed949baae1a01f4f4ffced68c332ebf83ec4d5822d047f8091e73768cbb2f2a
+  bytes: 5382
+  content_type: text/markdown
+  evidence_path: 3e/3ed949baae1a01f4f4ffced68c332ebf83ec4d5822d047f8091e73768cbb2f2a.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+- id: cp_wiki_redmod_script_modding
+  title: 'Cyberpunk 2077 modding wiki: REDmod Script Modding'
+  url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/modding-tools/redmod/script-modding.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:04+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 5c716ab8156de59b7bcea7a8d8866aaf2e54b01fe2fa67ff7d4dd949568e3036
+  bytes: 2255
+  content_type: text/markdown
+  evidence_path: 5c/5c716ab8156de59b7bcea7a8d8866aaf2e54b01fe2fa67ff7d4dd949568e3036.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+- id: cp_wiki_troubleshooting_after_update
+  title: 'Cyberpunk 2077 modding wiki: Troubleshooting after a game update'
+  url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-users/user-guide-troubleshooting/users-troubleshooting-after-a-game-update.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:03+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ecb49a38e1041907cdb86fa4331a5b90cc34d99bf22b7f9ce603c40e6a64a52e
+  bytes: 6173
+  content_type: text/markdown
+  evidence_path: ec/ecb49a38e1041907cdb86fa4331a5b90cc34d99bf22b7f9ce603c40e6a64a52e.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+- id: cp_wiki_tweakxl
+  title: 'Cyberpunk 2077 modding wiki: TweakXL'
+  url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/core-mods-explained/tweakxl.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:01+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: fb0e9a16c4bf5be6fcc83e9caef1562ae38f6f802d6e2b43cc8de4fb658406ea
+  bytes: 3055
+  content_type: text/markdown
+  evidence_path: fb/fb0e9a16c4bf5be6fcc83e9caef1562ae38f6f802d6e2b43cc8de4fb658406ea.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+- id: cp_wiki_tweakxl_changing_records
+  title: 'Cyberpunk 2077 modding wiki: TweakXL - Changing game records'
+  url: https://wiki.redmodding.org/cyberpunk-2077-modding/for-mod-creators-theory/core-mods-explained/tweakxl/tweakxl-changing-game-records.md
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:45:02+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: e96d1b697dba6d09c0d5a83a1fc680da9a54cb544200247a94225cccf9a68c3e
+  bytes: 4889
+  content_type: text/markdown
+  evidence_path: e9/e96d1b697dba6d09c0d5a83a1fc680da9a54cb544200247a94225cccf9a68c3e.md
+  games:
+  - cyberpunk2077
+  publisher: REDmodding wiki
+- id: nexusmods_cyberpunk_blocked
+  title: 'Nexus Mods: Cyberpunk 2077 (not retrievable here)'
+  url: https://www.nexusmods.com/cyberpunk2077
+  kind: forum_post
+  access: blocked
+  retrieved_at: '2026-09-19T13:45:22+00:00'
+  http_status: 403
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/html; charset=UTF-8
+  games:
+  - cyberpunk2077
+  publisher: Nexus Mods
+  gap: 'Nexus Mods returns HTTP 403 to this environment, so we have no mod-level data for Cyberpunk 2077:
+    no download counts, no per-mod requirement declarations, no changelogs and no per-file game-build
+    tags. Every real-world prevalence or popularity claim about Cyberpunk mods is therefore unavailable.'
+- id: redscript_repo_license
+  title: redscript LICENSE (jac3km4/redscript)
+  url: https://raw.githubusercontent.com/jac3km4/redscript/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:20+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 97ff751dcd16a2ae8e3184910e4e4924b27ee8651b1564765a2cc1ccdbabebea
+  bytes: 1064
+  content_type: text/plain
+  upstream_revision: W/"5060994ff58e9bbb7f8d60bfd045eb1b8722cf4899382d6a5524a93ebf071e72
+  evidence_path: 97/97ff751dcd16a2ae8e3184910e4e4924b27ee8651b1564765a2cc1ccdbabebea.txt
+  games:
+  - cyberpunk2077
+  publisher: jac3km4
+- id: redscript_repo_readme
+  title: redscript README (jac3km4/redscript)
+  url: https://raw.githubusercontent.com/jac3km4/redscript/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:20+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: e5d5f1434fb82fc0184708312e6e7bed06b88af0ba4f6ddec248d47763cf64dc
+  bytes: 4263
+  content_type: text/plain
+  upstream_revision: W/"4383c22b45bfe9ff43697ef2505df58834f42f440dd67ca1f8bfe7e4ab0c050c
+  evidence_path: e5/e5d5f1434fb82fc0184708312e6e7bed06b88af0ba4f6ddec248d47763cf64dc.md
+  games:
+  - cyberpunk2077
+  publisher: jac3km4
+- id: tweakxl_repo_license
+  title: TweakXL LICENSE (psiberx/cp2077-tweak-xl)
+  url: https://raw.githubusercontent.com/psiberx/cp2077-tweak-xl/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:19+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ebfd5f05db59b0d8d233c10967a546a3ee7635ff339be7a6688154cbf6215855
+  bytes: 1069
+  content_type: text/plain
+  upstream_revision: W/"d2e94bbc87ef302a7bf890232d8432fdbd6cda128a4fb2a7293e30957a465d84
+  evidence_path: eb/ebfd5f05db59b0d8d233c10967a546a3ee7635ff339be7a6688154cbf6215855.txt
+  games:
+  - cyberpunk2077
+  publisher: psiberx
+- id: tweakxl_repo_readme
+  title: TweakXL README (psiberx/cp2077-tweak-xl)
+  url: https://raw.githubusercontent.com/psiberx/cp2077-tweak-xl/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:19+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: e47c6f7d991fcd389fac546de04da612431b1e04b9e87be6cccd2914fb6bf775
+  bytes: 1495
+  content_type: text/plain
+  upstream_revision: W/"51f67878290f042559a974120032be51792adea5f02c546452dcd2c7c6eab776
+  evidence_path: e4/e47c6f7d991fcd389fac546de04da612431b1e04b9e87be6cccd2914fb6bf775.md
+  games:
+  - cyberpunk2077
+  publisher: psiberx
+- id: wolvenkit_repo_license
+  title: WolvenKit LICENSE
+  url: https://raw.githubusercontent.com/WolvenKit/WolvenKit/main/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:21+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2
+  bytes: 35141
+  content_type: text/plain
+  upstream_revision: W/"bce6046d81bd0c182ba723b1da1f3ff0c0ac4c056a518e8bee82a4ad1bf5ce66
+  evidence_path: 58/589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2.txt
+  games:
+  - cyberpunk2077
+  publisher: WolvenKit contributors
+- id: wolvenkit_repo_readme
+  title: WolvenKit README
+  url: https://raw.githubusercontent.com/WolvenKit/WolvenKit/main/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:45:21+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 11f8f05f7c4b3cdbde5d4a5f5e2154dd6fbf978a33a517b9ee48a232a6374323
+  bytes: 7523
+  content_type: text/plain
+  upstream_revision: W/"08fdf782d00063949999597aac79fe6115c59086ccf930aeba86ef16f8a2a8b5
+  evidence_path: 11/11f8f05f7c4b3cdbde5d4a5f5e2154dd6fbf978a33a517b9ee48a232a6374323.md
+  games:
+  - cyberpunk2077
+  publisher: WolvenKit contributors

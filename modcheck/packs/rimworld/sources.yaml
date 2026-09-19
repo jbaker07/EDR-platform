@@ -1,0 +1,326 @@
+# Source records for this game pack.
+#
+# Every source is something we actually retrieved. `sha256` is the hash of the
+# bytes we read, so any claim citing this source can be re-verified with
+# `modcheck sources verify`. Sources whose access is blocked/deleted/discord_only
+# are GAPS: they record what we could NOT read, and may only back `unresolved`
+# evidence.
+#
+# Written by `modcheck sources add`; edit by hand only to add licensing, reuse
+# terms and notes.
+sources:
+- id: harmony_license
+  title: Harmony repository LICENSE
+  url: https://raw.githubusercontent.com/pardeike/Harmony/master/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:40:31+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d
+  bytes: 1073
+  content_type: text/plain
+  upstream_revision: W/"0c9bb9b15ad6dd8c11344722a9806d16bc63d617685035b0098cd189ab927eac
+  evidence_path: a5/a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d.txt
+  games:
+  - rimworld
+  publisher: Andreas Pardeike
+- id: harmony_nuget_registration
+  title: NuGet registration index for Lib.Harmony
+  url: https://api.nuget.org/v3/registration5-gz-semver2/lib.harmony/index.json
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:48:10+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 25f6f5fb95ca656c210f846c831e11a4251c6cc5b03ca6a1984c7a6e16afec1a
+  bytes: 193812
+  content_type: application/json
+  upstream_revision: '0x8DE224C876F455B'
+  evidence_path: 25/25f6f5fb95ca656c210f846c831e11a4251c6cc5b03ca6a1984c7a6e16afec1a.json
+  games:
+  - rimworld
+  publisher: NuGet / Andreas Pardeike
+- id: harmony_patching_docs
+  title: 'Harmony documentation: Patching'
+  url: https://harmony.pardeike.net/articles/patching.html
+  kind: official_docs
+  access: public
+  retrieved_at: '2026-09-19T13:40:31+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 01533af0d463bdc2f017a90a81af7b4f2caa2bf16193158058f7b8eead0bc11d
+  bytes: 12140
+  content_type: text/html
+  upstream_revision: Tue, 08 Sep 2026 19:26:59 GMT
+  evidence_path: 01/01533af0d463bdc2f017a90a81af7b4f2caa2bf16193158058f7b8eead0bc11d.html
+  games:
+  - rimworld
+  publisher: Andreas Pardeike
+- id: harmony_readme
+  title: Harmony (pardeike/Harmony) repository README
+  url: https://raw.githubusercontent.com/pardeike/Harmony/master/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:40:30+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 268f88d6646f4cfcb0f80a76aa036532453c388511ed90156027c53680592ac2
+  bytes: 5000
+  content_type: text/plain
+  upstream_revision: W/"fbf2bfea636a618ee1c163e605dac20bea26082913c2d422653712d44b5b75a1
+  evidence_path: 26/268f88d6646f4cfcb0f80a76aa036532453c388511ed90156027c53680592ac2.md
+  games:
+  - rimworld
+  publisher: Andreas Pardeike
+- id: krafs_rimworld_ref_nuget
+  title: NuGet registration index for Krafs.Rimworld.Ref (RimWorld reference assemblies)
+  url: https://api.nuget.org/v3/registration5-gz-semver2/krafs.rimworld.ref/index.json
+  kind: api
+  access: public
+  retrieved_at: '2026-09-19T13:40:33+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: da77fdadf195616f3450ca6fdc7fedb2a4bfc44bad8df91ee59938f086a1238e
+  bytes: 2868
+  content_type: application/json
+  upstream_revision: '0x8DED71A97872E23'
+  evidence_path: da/da77fdadf195616f3450ca6fdc7fedb2a4bfc44bad8df91ee59938f086a1238e.json
+  games:
+  - rimworld
+  publisher: NuGet / Krafs
+- id: rimsort_community_rules_db
+  title: RimSort Community Rules Database (load-order rules, JSON)
+  url: https://raw.githubusercontent.com/RimSort/Community-Rules-Database/main/communityRules.json
+  kind: schema
+  access: public
+  retrieved_at: '2026-09-19T13:40:32+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 924486d0f0d3c8be25661f32302d588275250e1bd5b8cbc88d0e4763a6791094
+  bytes: 394716
+  content_type: text/plain
+  upstream_revision: W/"b60ef72113885134f227ebdcc8b2f15b5d95a2dcc91db00c7406f8e28f2d0f46
+  evidence_path: 92/924486d0f0d3c8be25661f32302d588275250e1bd5b8cbc88d0e4763a6791094.json
+  games:
+  - rimworld
+  publisher: RimSort
+- id: rimsort_license
+  title: RimSort repository LICENSE.md
+  url: https://raw.githubusercontent.com/RimSort/RimSort/main/LICENSE.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:40:33+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986
+  bytes: 35149
+  content_type: text/plain
+  upstream_revision: W/"acd3f442f5efb5b40d57d2b07a5254ffbc2023536eac1ade1e3de30db9ba8b25
+  evidence_path: 39/3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986.md
+  games:
+  - rimworld
+  publisher: RimSort
+- id: rimsort_readme
+  title: RimSort repository README
+  url: https://raw.githubusercontent.com/RimSort/RimSort/main/README.md
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-19T13:40:32+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: cd428bcf467d26e8bd0979502dd6ce0cb611f3913305ff64eb5223a440f5145d
+  bytes: 2487
+  content_type: text/plain
+  upstream_revision: W/"4319236a044dab6e2a99e1e5c4c8af0734d19be1f43a1221be69d4a7212571b3
+  evidence_path: cd/cd428bcf467d26e8bd0979502dd6ce0cb611f3913305ff64eb5223a440f5145d.md
+  games:
+  - rimworld
+  publisher: RimSort
+- id: rimsort_rules_db_license_probe
+  title: Probe for a LICENSE file in RimSort/Community-Rules-Database
+  url: https://raw.githubusercontent.com/RimSort/Community-Rules-Database/main/LICENSE
+  kind: source_repo
+  access: blocked
+  retrieved_at: '2026-09-19T13:40:33+00:00'
+  http_status: 404
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  content_type: text/plain; charset=utf-8
+  games:
+  - rimworld
+  publisher: RimSort
+  gap: Community-Rules-Database has no LICENSE file at the repository root on branch main (HTTP 404),
+    so the redistribution and derivative-work terms of communityRules.json are unknown; we must treat
+    its contents as reference-only.
+- id: rw_wiki_about_xml
+  title: 'RimWorld Wiki: Modding Tutorials/About.xml (wikitext via MediaWiki API)'
+  url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/About.xml&prop=wikitext&format=json
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:13+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: c621beff844a9b567fea444229d2955dae94c357faa7508eedbffcece7d42d97
+  bytes: 12985
+  content_type: application/json
+  evidence_path: c6/c621beff844a9b567fea444229d2955dae94c357faa7508eedbffcece7d42d97.json
+  games:
+  - rimworld
+  publisher: RimWorld Wiki (Fandom-independent, rimworldwiki.com)
+- id: rw_wiki_compatibility_defs
+  title: 'RimWorld Wiki: Modding Tutorials/Compatibility with defs'
+  url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Compatibility%20with%20defs&prop=wikitext&format=json
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:17+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 5c719ca1dc1cfb420c72d616583bf7eb6a28c25ac3653c30e05aaecffc91edd8
+  bytes: 7012
+  content_type: application/json
+  evidence_path: 5c/5c719ca1dc1cfb420c72d616583bf7eb6a28c25ac3653c30e05aaecffc91edd8.json
+  games:
+  - rimworld
+  publisher: RimWorld Wiki
+- id: rw_wiki_copyrights
+  title: RimWorld Wiki:Copyrights - content licence statement
+  url: https://rimworldwiki.com/wiki/RimWorld_Wiki:Copyrights
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:46:17+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 5f4b21f4b8cd54a6d199d65e73154fb1978d739e66b93c763e4e7c7a358f6995
+  bytes: 21671
+  content_type: text/html
+  upstream_revision: Sat, 19 Sep 2026 13:46:17 GMT
+  evidence_path: 5f/5f4b21f4b8cd54a6d199d65e73154fb1978d739e66b93c763e4e7c7a358f6995.html
+  games:
+  - rimworld
+  publisher: RimWorld Wiki
+- id: rw_wiki_harmony
+  title: 'RimWorld Wiki: Modding Tutorials/Harmony'
+  url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Harmony&prop=wikitext&format=json
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:17+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 7ec5fa4eae65a2baccba1046804f8dbbb3539638d12210ed07bebb7ac3bf447d
+  bytes: 6834
+  content_type: application/json
+  evidence_path: 7e/7ec5fa4eae65a2baccba1046804f8dbbb3539638d12210ed07bebb7ac3bf447d.json
+  games:
+  - rimworld
+  publisher: RimWorld Wiki
+- id: rw_wiki_mayrequire
+  title: 'RimWorld Wiki: Modding Tutorials/MayRequire (conditional Defs and patches)'
+  url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/MayRequire&prop=wikitext&format=json
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:16+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: ad5159318a49a67b5faceb49c9ebf16240eaff70e4cff5d6097b61184ebb9d5f
+  bytes: 20288
+  content_type: application/json
+  evidence_path: ad/ad5159318a49a67b5faceb49c9ebf16240eaff70e4cff5d6097b61184ebb9d5f.json
+  games:
+  - rimworld
+  publisher: RimWorld Wiki
+- id: rw_wiki_mod_folder_structure
+  title: 'RimWorld Wiki: Modding Tutorials/Mod Folder Structure'
+  url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Mod%20Folder%20Structure&prop=wikitext&format=json
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:16+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: a0f2b9abed63cd333bfad60c7ea25ab3f9a37faa8114b6b6796860f0bd9d372e
+  bytes: 18354
+  content_type: application/json
+  evidence_path: a0/a0f2b9abed63cd333bfad60c7ea25ab3f9a37faa8114b6b6796860f0bd9d372e.json
+  games:
+  - rimworld
+  publisher: RimWorld Wiki
+- id: rw_wiki_patchoperations
+  title: 'RimWorld Wiki: Modding Tutorials/PatchOperations (wikitext via MediaWiki API)'
+  url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/PatchOperations&prop=wikitext&format=json
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:14+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 01463d0486961c22555ee00b003cd001a8b5492fe8c8428899a274357f43b4e5
+  bytes: 28110
+  content_type: application/json
+  evidence_path: 01/01463d0486961c22555ee00b003cd001a8b5492fe8c8428899a274357f43b4e5.json
+  games:
+  - rimworld
+  publisher: RimWorld Wiki
+- id: rw_wiki_xml_defs
+  title: 'RimWorld Wiki: Modding Tutorials/Defs (XML Defs)'
+  url: https://rimworldwiki.com/api.php?action=parse&page=Modding%20Tutorials/Defs&prop=wikitext&format=json
+  kind: community_wiki
+  access: public
+  retrieved_at: '2026-09-19T13:40:15+00:00'
+  http_status: 200
+  reuse:
+    redistribute: unknown
+    commercial: unknown
+    derive: unknown
+  sha256: 5a824f8228542014d47da0d36195469a7d7dac15e892b0245f39e05fb09b2132
+  bytes: 1864
+  content_type: application/json
+  evidence_path: 5a/5a824f8228542014d47da0d36195469a7d7dac15e892b0245f39e05fb09b2132.json
+  games:
+  - rimworld
+  publisher: RimWorld Wiki

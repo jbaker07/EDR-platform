@@ -1,0 +1,31 @@
+id: fabric_loom
+game: minecraft
+title: Fabric Loom
+url: https://maven.fabricmc.net/
+kind: tool
+demonstrates:
+  - setting up the Minecraft dependency, decompilation and mod packaging in Gradle
+  - the build-time difference between obfuscated and non-obfuscated Minecraft
+license: MIT
+reuse:
+  integration: subprocess
+  constraints: >-
+    MIT, verified by fetching the repository's LICENSE file. Invoked as a Gradle
+    plugin inside the creator's own build, not vendored or linked into ModCheck.
+maintenance:
+  state: active
+  supported_versions: "1.17-SNAPSHOT is what upstream pins for Minecraft 26.3"
+  checked_at: '2026-09-19'
+  last_release: "1.17.21 reported by the build on 2026-09-19"
+evidence:
+  - source: fabric_example_mod_versions_26_3
+    evidence_class: extracted
+    locator: gradle.properties
+    quote: "loom_version=1.17-SNAPSHOT"
+  - source: fabric_loom_license
+    evidence_class: extracted
+    locator: LICENSE
+    quote: "MIT License"
+provenance:
+  added: '2026-09-19'
+  last_verified: '2026-09-19'

@@ -27,7 +27,7 @@ from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
 from .paths import CAPABILITIES, schemas_dir
-from .store import RECORD_DIRS, Pack, Record, Store
+from .store import RECORD_DIRS, Pack, Record, RecordError, Store
 
 SEVERITIES = ("error", "warning")
 
@@ -89,6 +89,12 @@ def _evidence_refs(obj: Any) -> Iterable[dict[str, Any]]:
 
 def validate_pack(pack: Pack, store: Store | None = None) -> list[Issue]:
     issues: list[Issue] = []
+    try:
+        pack.manifest, pack.sources
+        for kind in RECORD_DIRS:
+            pack.records(kind)
+    except RecordError as exc:
+        return [Issue("error", "unreadable_record", pack.game, str(exc))]
     rel = lambda p: str(p).split("/packs/")[-1]  # noqa: E731
 
     # ---- manifest ------------------------------------------------------
