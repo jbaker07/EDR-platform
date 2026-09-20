@@ -43,9 +43,10 @@ Ranked by how much of the research it unblocks.
      zero-cost path and gives avg monthly searches, competition, top-of-page bids and 12
      months of history. Accounts without spend see bucketed volumes ("1K-10K") unless the
      account has run ads; the importer stores the bucket midpoint and the raw string.
-   - *API.* A Google Ads developer token (Basic access is applied for and reviewed by
-     Google), an OAuth client, a refresh token and the customer id, set as environment
-     variables. This gives exact rounded volumes for up to 10,000 keywords per request
+   - *API.* Since 9 September 2026 Google Ads API access is granted per Google Cloud
+     project (developer tokens are sunset) and Basic access requires brand verification of
+     the project, per Google's documentation fetched 2026-09-20. That is a heavier
+     process than the UI export for an individual; the adapter stays for when it exists. This gives exact rounded volumes for up to 10,000 keywords per request
      via `KeywordPlanIdeaService.GenerateKeywordHistoricalMetrics`. Documented (fetched
      2026-09-20): 1 request per second per customer id; returns approximate average monthly
      searches, twelve monthly volumes, competition and index, 20th/80th-percentile
@@ -54,10 +55,11 @@ Ranked by how much of the research it unblocks.
      (written, untested: no credentials).
 2. **A SERP source for real Google results (required for Phase 6 at scale).** Either a
    DataForSEO login (pay-as-you-go; SERP and Google Ads volume endpoints) or a SerpApi
-   key. DataForSEO's Google Ads search-volume endpoint, per its documentation fetched
-   2026-09-20: up to 1,000 keywords per request, 12 requests per minute, priced per
-   request (the example shows $0.075 per request whether it holds 1 or 1,000 keywords),
-   so 300,000 keywords would be about 300 requests. That is also a fallback for item 1. Without one, Phase 6 uses the `WebSearch` tool and Bing as labelled proxies and
+   key. DataForSEO, per its pricing pages fetched 2026-09-20: $50 minimum deposit,
+   Google Ads search volume $0.06 per task of up to 1,000 keywords in queued mode
+   ($0.09 live), so 300,000 keywords cost about $18 and 900,000 about $54. SerpApi,
+   per its pricing page fetched 2026-09-20: 250 free searches a month, then $25 for
+   1,000 and $75 for 5,000 a month, cancellable monthly. Either is also a fallback for item 1. Without one, Phase 6 uses the `WebSearch` tool and Bing as labelled proxies and
    is limited to a few hundred clusters checked by hand.
 3. **Reddit API credentials** (a script app: client id and secret; free tier). Unblocks
    community evidence per cluster: thread counts, recency, whether answers were marked
