@@ -1,0 +1,129 @@
+# Content Patcher competing-patch resolution.
+#
+# These run against actual content-pack instructions (Priority, When, LogName,
+# patch order out of content.json), not manifests. The governing rule is
+# Content Patcher's own, recorded as source content_patcher_load.
+#
+# Evidence tier: the packs are synthetic fixtures written in the documented
+# shape; the rule they are checked against is upstream documentation. No
+# published content pack was obtained.
+#
+# These cases declare `artifacts`, so the CLI skips them and the pytest suite
+# (which supplies builders) runs them. A skipped case never counts as a pass.
+
+- id: cp_exclusive_conflict_detected
+  game: stardewvalley
+  kind: positive
+  description: Two packs load the same asset at the default Exclusive priority
+  measures: >-
+    that the documented all-or-nothing outcome is reported as a confirmed
+    problem, with the asset named
+  configuration:
+    files_known_complete: true
+  artifacts:
+    - builder: smapi_mod
+      name: ContentPatcher.zip
+      args: {unique_id: Pathoschild.ContentPatcher, version: "2.9.0"}
+    - builder: content_patcher_pack_with_changes
+      name: AriaPortraits.zip
+      args:
+        unique_id: Aria.Portraits
+        changes:
+          - {Action: Load, Target: Portraits/Abigail, FromFile: assets/abigail.png, LogName: Abigail portrait}
+    - builder: content_patcher_pack_with_changes
+      name: BexPortraits.zip
+      args:
+        unique_id: Bex.Portraits
+        changes:
+          - {Action: Load, Target: Portraits/Abigail, FromFile: assets/abby2.png, LogName: Abigail alternate}
+  expect:
+    findings: [contentpatcher.exclusive_conflict]
+    target: Portraits/Abigail
+
+- id: cp_priority_selection_is_not_a_conflict
+  game: stardewvalley
+  kind: control
+  description: One pack declares High, the other Medium, for the same asset
+  measures: >-
+    that a deliberate priority choice is reported for information and NOT as a
+    conflict - the case a naive overlap check gets wrong
+  configuration:
+    files_known_complete: true
+  artifacts:
+    - builder: smapi_mod
+      name: ContentPatcher.zip
+      args: {unique_id: Pathoschild.ContentPatcher, version: "2.9.0"}
+    - builder: content_patcher_pack_with_changes
+      name: AriaBase.zip
+      args:
+        unique_id: Aria.Base
+        changes:
+          - {Action: Load, Target: Portraits/Abigail, FromFile: assets/abigail.png, Priority: Medium}
+    - builder: content_patcher_pack_with_changes
+      name: BexOverride.zip
+      args:
+        unique_id: Bex.Override
+        changes:
+          - {Action: Load, Target: Portraits/Abigail, FromFile: assets/abby_hd.png, Priority: High}
+  expect:
+    findings: [contentpatcher.priority_selection]
+    absent: [contentpatcher.exclusive_conflict]
+    max_errors: 0
+
+- id: cp_equal_priority_is_unresolved
+  game: stardewvalley
+  kind: positive
+  description: Two packs load the same asset at the same declared priority
+  measures: >-
+    that the tie is reported unresolved, naming the mod load order as the input
+    that would decide it, rather than guessing a winner
+  configuration:
+    files_known_complete: true
+  artifacts:
+    - builder: smapi_mod
+      name: ContentPatcher.zip
+      args: {unique_id: Pathoschild.ContentPatcher, version: "2.9.0"}
+    - builder: content_patcher_pack_with_changes
+      name: AriaTie.zip
+      args:
+        unique_id: Aria.Tie
+        changes:
+          - {Action: Load, Target: Portraits/Abigail, FromFile: assets/a.png, Priority: High}
+    - builder: content_patcher_pack_with_changes
+      name: BexTie.zip
+      args:
+        unique_id: Bex.Tie
+        changes:
+          - {Action: Load, Target: Portraits/Abigail, FromFile: assets/b.png, Priority: High}
+  expect:
+    findings: [contentpatcher.competition_unresolved]
+    absent: [contentpatcher.exclusive_conflict, contentpatcher.priority_selection]
+    max_errors: 0
+
+- id: cp_different_assets_are_silent
+  game: stardewvalley
+  kind: control
+  description: Two packs load different assets
+  measures: that touching different assets is never reported
+  configuration:
+    files_known_complete: true
+  artifacts:
+    - builder: smapi_mod
+      name: ContentPatcher.zip
+      args: {unique_id: Pathoschild.ContentPatcher, version: "2.9.0"}
+    - builder: content_patcher_pack_with_changes
+      name: AriaAbby.zip
+      args:
+        unique_id: Aria.Abby
+        changes:
+          - {Action: Load, Target: Portraits/Abigail, FromFile: assets/a.png}
+    - builder: content_patcher_pack_with_changes
+      name: BexPenny.zip
+      args:
+        unique_id: Bex.Penny
+        changes:
+          - {Action: Load, Target: Portraits/Penny, FromFile: assets/p.png}
+  expect:
+    absent: [contentpatcher.exclusive_conflict, contentpatcher.priority_selection,
+             contentpatcher.competition_unresolved]
+    max_errors: 0

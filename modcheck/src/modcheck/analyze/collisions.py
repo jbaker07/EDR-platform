@@ -120,46 +120,153 @@ def cyberpunk2077(installation: Installation) -> list[Finding]:
 
 
 def stardewvalley(installation: Installation) -> list[Finding]:
-    """Content Patcher: Load actions conflict; EditData usually does not."""
-    loads: dict[str, list[str]] = defaultdict(list)
-    edits: dict[tuple[str, str], list[str]] = defaultdict(list)
+    """Content Patcher: resolve competing Load patches by the documented rule.
 
+    Load patches are exclusive by default, so two packs loading one asset is a
+    real failure -- neither applies. But a pack that sets an explicit priority
+    has deliberately chosen to compete and win, which is a selection, not a
+    conflict, and must not be reported as one. Where the rule's tiebreak needs
+    the mod load order, or where conditions decide whether the patches are ever
+    live together, the result is reported unresolved with the missing input
+    named.
+
+    EditData patches compose, so they are only reported where two packs touch
+    the same entry.
+    """
+    from . import contentpatcher as cp
+
+    findings: list[Finding] = []
+
+    for target, patches in sorted(cp.competing_patches(installation, "Load").items()):
+        # Two patches from one pack are that author's own ordering, not a
+        # cross-mod interaction.
+        if len({p.artifact for p in patches}) < 2:
+            continue
+        resolution = cp.resolve_load(target, patches)
+        finding = _load_finding(resolution)
+        if finding is not None:
+            findings.append(finding)
+
+    findings += _edit_findings(installation)
+    return findings
+
+
+def _patch_lines(patches) -> str:
+    return "; ".join(f"{p.location} priority={p.priority.raw}" for p in patches)
+
+
+def _load_finding(resolution):
+    """Turn one resolved competition into a finding, or None when there is none."""
+    from . import contentpatcher as cp
+
+    target = resolution.target
+    targets = [{"kind": "asset", "id": target}]
+    packs = sorted({p.artifact for p in resolution.patches})
+
+    if resolution.outcome == "no_competition":
+        return None
+
+    if resolution.outcome == "exclusive_conflict":
+        return Finding(
+            code="contentpatcher.exclusive_conflict",
+            severity="error",
+            subject=", ".join(packs),
+            summary=(f"{len(resolution.patches)} patches load {target} at Exclusive "
+                     "priority, so Content Patcher applies NONE of them"),
+            detail=(f"{cp.GOVERNING_RULE_LOAD} Competing patches: "
+                    f"{_patch_lines(resolution.patches)}. Exclusive is the default, so "
+                    "a patch that sets no Priority is exclusive."),
+            evidence_class="derived",
+            targets=targets,
+            sources=[cp.RULE_SOURCE],
+            resolutions=[
+                {"method": "configuration_change",
+                 "step": ("Give one patch an explicit Priority (for example \"High\") "
+                          "and the other a lower one. Both packs keep working and the "
+                          "chosen one wins, instead of both being dropped.")},
+                {"method": "alternative_extension_point",
+                 "step": ("If a pack only changes part of the asset, use an Edit action "
+                          "instead of Load. Edit patches compose, so both authors' "
+                          "intent survives.")},
+            ],
+            not_established=("which pack the player wants to win, and whether either "
+                             "pack's asset would look correct layered over the other"),
+        )
+
+    if resolution.outcome == "exclusive_supersedes":
+        winner = resolution.winner
+        return Finding(
+            code="contentpatcher.exclusive_supersedes",
+            severity="warning",
+            subject=", ".join(packs),
+            summary=(f"{winner.artifact} loads {target} at Exclusive priority, so the "
+                     f"{len(resolution.ignored)} other patch(es) for it are ignored"),
+            detail=(f"{cp.GOVERNING_RULE_LOAD} Applied: {winner.location}. Ignored: "
+                    f"{_patch_lines(resolution.ignored)}."),
+            evidence_class="derived",
+            targets=targets,
+            sources=[cp.RULE_SOURCE],
+            resolutions=[
+                {"method": "configuration_change",
+                 "step": (f"If you wanted the other pack's version, ask its author for a "
+                          f"Priority above Exclusive-holder {winner.artifact}, or remove "
+                          "that pack's competing patch.")},
+            ],
+            not_established="whether the ignored patches were meant to be overridden",
+        )
+
+    if resolution.outcome == "priority_selection":
+        winner = resolution.winner
+        return Finding(
+            code="contentpatcher.priority_selection",
+            severity="note",
+            subject=", ".join(packs),
+            summary=(f"{len(resolution.patches)} patches load {target}; "
+                     f"{winner.artifact} wins by declared priority "
+                     f"{winner.priority.raw}"),
+            detail=(f"{cp.GOVERNING_RULE_LOAD} Applied: {winner.location} "
+                    f"(priority {winner.priority.raw}). Not applied: "
+                    f"{_patch_lines(resolution.ignored)}. This is the documented "
+                    "outcome of priorities the authors set deliberately, not a "
+                    "conflict."),
+            evidence_class="derived",
+            targets=targets,
+            sources=[cp.RULE_SOURCE],
+            not_established=("whether the winning asset is the one the player prefers"),
+        )
+
+    return Finding(
+        code="contentpatcher.competition_unresolved",
+        severity="unresolved",
+        subject=", ".join(packs),
+        summary=(f"{len(resolution.patches)} patches load {target} and which one "
+                 "applies cannot be decided from what was supplied"),
+        detail=(f"{resolution.unresolved_because}. Competing patches: "
+                f"{_patch_lines(resolution.patches)}."),
+        evidence_class="unresolved",
+        targets=targets,
+        conditions=resolution.conditions,
+        sources=[cp.RULE_SOURCE],
+        not_established="; ".join(resolution.missing_inputs) or "the winning patch",
+    )
+
+
+def _edit_findings(installation: Installation) -> list[Finding]:
+    """Edit patches compose; only the same entry in one asset is worth reporting."""
+    edits: dict[tuple[str, str], list[str]] = defaultdict(list)
     for artifact in installation.artifacts:
         ins = artifact.inspection
         if ins is None:
             continue
         for change in ins.fact("content_changes") or []:
-            target = change.get("target")
-            if not target:
-                continue
             action = str(change.get("action") or "").lower()
-            conditioned = bool(change.get("when"))
-            if action == "load" and not conditioned:
-                loads[target].append(artifact.name)
-            elif action in ("editdata", "editimage", "editmap"):
+            if action not in ("editdata", "editimage", "editmap"):
+                continue
+            for target in change.get("targets") or []:
                 for entry in (change.get("entries") or []) + (change.get("fields") or []):
                     edits[(target, str(entry))].append(artifact.name)
 
     findings = []
-    for target, owners in sorted(loads.items()):
-        unique = sorted(set(owners))
-        if len(unique) < 2:
-            continue
-        findings.append(Finding(
-            code="collision.contentpatcher_load",
-            severity="error",
-            subject=_pairs(unique),
-            summary=f"{len(unique)} content packs both Load the asset {target}",
-            detail="Only one pack can supply an asset with Load. Content Patcher "
-                   "reports this as a conflict and one of the packs will not apply.",
-            evidence_class="extracted",
-            targets=[{"kind": "asset", "id": target}],
-            resolutions=[{"method": "known_patch",
-                          "step": "Keep one pack, or use versions that Edit the asset "
-                                  "instead of Loading it."}],
-            not_established="which pack wins, and whether either provides a patch for "
-                            "the other",
-        ))
     for (target, entry), owners in sorted(edits.items()):
         unique = sorted(set(owners))
         if len(unique) < 2:
@@ -172,7 +279,8 @@ def stardewvalley(installation: Installation) -> list[Finding]:
                     f"{target}",
             detail="Content packs editing different entries of the same asset coexist "
                    "normally. These edit the same entry, so the later one overrides the "
-                   "earlier.",
+                   "earlier. Edit order is by Priority (Early/Default/Late), then mod "
+                   "load order, then patch order.",
             evidence_class="extracted",
             targets=[{"kind": "field", "id": entry, "container": target}],
             not_established="whether the two edits set the same value, and the order "

@@ -353,7 +353,8 @@ def cmd_analyze(args) -> int:
     else:
         print("give --config or one or more --artifact paths", file=sys.stderr)
         return 2
-    print(report_mod.render_json(rep) if args.json else report_mod.render_text(rep))
+    print(report_mod.render_json(rep) if args.json
+          else report_mod.render(rep, args.audience))
     return 1 if rep.by_severity("error") or rep.by_severity("blocker") else 0
 
 
@@ -493,6 +494,8 @@ def build_parser() -> argparse.ArgumentParser:
                     help="assert the artifact list is complete, so absence is evidence")
     sp.add_argument("--deep", action="store_true",
                     help="parse plugin records (Bethesda games; needs the esplugin helper)")
+    sp.add_argument("--audience", choices=["player", "creator", "full"], default="full",
+                    help="present the same findings for a player, a creator, or in full")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_analyze)
 

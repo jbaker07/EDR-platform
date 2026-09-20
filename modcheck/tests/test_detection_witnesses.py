@@ -33,6 +33,8 @@ BUILDERS = {
     "ts4script": build.ts4script,
     "rimworld_mod": build.rimworld_mod,
     "pz_mod": build.pz_mod,
+    "content_patcher_pack_with_changes": build.content_patcher_pack_with_changes,
+    "smapi_mod": build.smapi_mod,
 }
 
 

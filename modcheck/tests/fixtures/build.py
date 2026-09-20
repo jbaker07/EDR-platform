@@ -85,11 +85,12 @@ side = "CLIENT"
 
 
 # --- Stardew Valley ------------------------------------------------------
-def smapi_mod(path: Path, unique_id: str = "Example.CodeMod", deps: list[dict] | None = None) -> Path:
+def smapi_mod(path: Path, unique_id: str = "Example.CodeMod", deps: list[dict] | None = None,
+              version: str = "1.2.0") -> Path:
     manifest = {
         "Name": "Example Code Mod",
         "Author": "example",
-        "Version": "1.2.0",
+        "Version": version,
         "Description": "Example.",
         "UniqueID": unique_id,
         "EntryDll": "ExampleMod.dll",
@@ -99,6 +100,24 @@ def smapi_mod(path: Path, unique_id: str = "Example.CodeMod", deps: list[dict] |
     }
     return _zip(path, {f"{unique_id}/manifest.json": json.dumps(manifest, indent=2),
                        f"{unique_id}/ExampleMod.dll": b"MZ\x90\x00"})
+
+
+def content_patcher_pack_with_changes(path: Path, unique_id: str,
+                                      changes: list[dict]) -> Path:
+    """A content pack carrying exact patch instructions.
+
+    Used where the analysis turns on the content.json itself -- Priority, When,
+    LogName, patch order -- rather than on the manifest.
+    """
+    manifest = {
+        "Name": unique_id, "Author": "example", "Version": "1.0.0",
+        "Description": "Example.", "UniqueID": unique_id,
+        "ContentPackFor": {"UniqueID": "Pathoschild.ContentPatcher",
+                           "MinimumVersion": "2.0.0"},
+    }
+    content = {"Format": "2.9.0", "Changes": changes}
+    return _zip(path, {f"{unique_id}/manifest.json": json.dumps(manifest, indent=2),
+                       f"{unique_id}/content.json": json.dumps(content, indent=2)})
 
 
 def content_patcher_pack(path: Path, unique_id: str = "Example.CPPack",

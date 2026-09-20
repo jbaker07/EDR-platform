@@ -123,6 +123,11 @@
     files_known_complete: true
     deep: true
   artifacts:
+    # The master is supplied so this control is about light-plugin validity and
+    # nothing else; without it the (correct) missing-master finding fires.
+    - builder: bethesda_plugin
+      name: Skyrim.esm
+      args: {masters: [], master_flag: true}
     - builder: bethesda_plugin_with_record
       name: Fine.esp
       args: {light: true, object_index: 291}

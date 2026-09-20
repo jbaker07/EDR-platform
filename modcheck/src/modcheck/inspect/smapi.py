@@ -89,20 +89,35 @@ def inspect(artifact: Artifact) -> Inspection:
             for i, change in enumerate(content.get("Changes", []) or []):
                 if not isinstance(change, dict):
                     continue
+                # Target may be a comma-separated list of assets.
+                targets = [t.strip() for t in str(change.get("Target") or "").split(",")
+                           if t.strip()]
                 changes.append({
                     "action": change.get("Action"),
-                    "target": change.get("Target"),
+                    "target": targets[0] if targets else None,
+                    "targets": targets,
                     "fields": sorted((change.get("Fields") or {}).keys()) or None,
                     "entries": sorted((change.get("Entries") or {}).keys())[:50] or None,
                     "when": change.get("When") or None,
+                    # Priority decides which patch wins when several touch one
+                    # asset, so it is the field the whole analysis turns on.
+                    "priority": change.get("Priority"),
+                    "log_name": change.get("LogName"),
+                    "from_file": change.get("FromFile"),
+                    "target_locale": change.get("TargetLocale"),
+                    "update": change.get("Update"),
+                    # Where a creator finds this patch again.
+                    "source_file": cp_member,
                     "index": i,
                 })
             ins.add("content_changes", changes, "extracted", cp_member)
-            ins.add("targets", sorted({c["target"] for c in changes if c.get("target")}),
+            ins.add("targets",
+                    sorted({t for c in changes for t in (c.get("targets") or [])}),
                     "extracted", cp_member)
 
     ins.checked = ["manifest.json", "declared dependencies"] + (
-        ["content.json Changes targets, actions and conditions"] if cp_member else [])
+        ["content.json Changes: action, targets, Priority, When conditions, LogName "
+         "and patch order"] if cp_member else [])
     ins.not_checked = [
         "C# assembly behaviour and Harmony patches in EntryDll",
         "whether declared targets exist in the installed game version",

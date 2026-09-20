@@ -37,11 +37,15 @@ CODES: frozenset[str] = frozenset({
     "dependency.version_mismatch",
     "dependency.version_unknown",
     # analyze/collisions.py
-    "collision.contentpatcher_load",
     "collision.contentpatcher_same_entry",
     "collision.cyberpunk_install_path",
     "collision.pz_lua_path",
     "collision.sims4_resource_key",
+    # analyze/contentpatcher.py, via collisions
+    "contentpatcher.competition_unresolved",
+    "contentpatcher.exclusive_conflict",
+    "contentpatcher.exclusive_supersedes",
+    "contentpatcher.priority_selection",
     # report.py
     "coverage.partial_file_view",
     "inspection.warning",

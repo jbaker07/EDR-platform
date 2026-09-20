@@ -115,24 +115,34 @@ capabilities:
   interaction_analysis:
     status: partial
     note: >-
-      Two sources of interaction knowledge now run. Content Patcher packs are compared
-      across artifacts: two packs that Load the same asset are reported as a conflict,
-      because only one can supply it, while two packs that EditData different entries of
-      one asset are correctly NOT reported, since that is the supported way packs coexist.
-      A Load guarded by a When condition is not treated as an unconditional conflict.
-      Separately, SMAPI's own metadata is applied per installed mod and version, giving
-      Obsolete / AssumeBroken / AssumeCompatible status with its recorded reason. Limits:
-      Load Priority, which decides the outcome between two conflicting packs, is not
-      extracted; C# behaviour and Harmony patches are not analysed; and a mod with no
-      SMAPI metadata entry yields nothing, which is not evidence of compatibility.
+      Competing Content Patcher Load patches are resolved by Content Patcher's own
+      documented Priority rule, read out of content.json rather than the manifest.
+      Priority is parsed to the published grammar (Low/Medium/High with optional
+      offsets, or Exclusive, which is the default), and the outcome is one of four,
+      each reported differently: two or more Exclusive patches means Content Patcher
+      applies NONE of them, reported as a confirmed problem with each patch's file,
+      index and LogName; one Exclusive patch supersedes the others, which are then
+      silently ignored; distinct priorities are a deliberate selection, reported for
+      information and NOT as a conflict; and an equal-priority tie, an unparsable
+      priority, or a When condition leaves the outcome unresolved, naming the missing
+      input rather than guessing. EditData patches compose and are reported only where
+      two packs touch the same entry. Separately, SMAPI's own metadata gives per-version
+      Obsolete / AssumeBroken / AssumeCompatible status. Limits: a tie is not decided,
+      because SMAPI's load order is dependency-sorted and was not supplied; conditions
+      are reported, never evaluated; C# behaviour and Harmony patches are not analysed;
+      and a mod with no SMAPI metadata entry yields nothing, which is not evidence of
+      compatibility.
     implemented_by:
+      - src/modcheck/analyze/contentpatcher.py
       - src/modcheck/analyze/collisions.py
       - src/modcheck/integrations/smapi.py
     tests:
-      - tests/test_collisions.py::test_two_packs_loading_the_same_asset_conflict
+      - tests/test_contentpatcher.py::test_two_exclusive_loads_are_a_confirmed_conflict_with_locations
+      - tests/test_contentpatcher.py::test_declared_priorities_are_a_selection_not_a_conflict
+      - tests/test_contentpatcher.py::test_equal_priority_is_unresolved_and_names_the_missing_input
+      - tests/test_contentpatcher.py::test_conditional_patches_are_unresolved_not_assumed_to_collide
       - tests/test_collisions.py::test_control_editing_different_entries_of_one_asset_is_silent
       - tests/test_smapi.py::test_bounded_status_applies_only_inside_the_range
-      - tests/test_smapi.py::test_control_mod_not_in_the_database_is_silent
   build_execution:
     status: blocked
     note: >-

@@ -326,6 +326,78 @@ def render_text(report: Report) -> str:
     return "\n".join(lines)
 
 
+def render_player(report: Report) -> str:
+    """What competes, what the rule establishes, and the choices available.
+
+    Same findings as the creator view; what changes is what is foregrounded. A
+    player needs the outcome and their options, not a patch index.
+    """
+    lines = [f"What this configuration does  [{report.game}]", ""]
+    ordered = [f for f in report.findings if f.severity != "note"] + \
+              [f for f in report.findings if f.severity == "note"]
+    if not ordered:
+        lines.append("  No issue detected within the checks listed below.")
+    for finding in ordered:
+        label = {"error": "Problem", "blocker": "Problem", "warning": "Worth knowing",
+                 "note": "For information", "unresolved": "Cannot tell"}.get(
+                     finding.severity, finding.severity)
+        lines.append(f"  [{label}] {finding.summary}")
+        for condition in finding.conditions:
+            lines.append(f"      only when: {condition.get('description')}")
+        if finding.resolutions:
+            lines.append("      your options:")
+            for resolution in finding.resolutions:
+                lines.append(f"        - {resolution.get('step')}")
+        if finding.not_established:
+            lines.append(f"      not established: {finding.not_established}")
+        lines.append("")
+    lines.append("-- what was NOT checked (a clean result here is not a guarantee) --")
+    for item in dict.fromkeys(report.not_checked):
+        lines.append(f"  - {item}")
+    return "\n".join(lines)
+
+
+def render_creator(report: Report) -> str:
+    """Where the competing change is, the rule that governs it, and alternatives."""
+    lines = [f"Release / interaction review  [{report.game}]", ""]
+    subject = report.subject or {}
+    artifact = subject.get("artifact") or {}
+    if artifact.get("sha256"):
+        lines.append(f"artifact {artifact.get('mod_id') or artifact.get('path')} "
+                     f"{artifact.get('version') or ''}")
+        lines.append(f"sha256   {artifact['sha256']}")
+        lines.append("")
+    for finding in report.findings:
+        lines.append(f"  [{finding.severity}] {finding.code}")
+        lines.append(f"    {finding.summary}")
+        if finding.detail:
+            lines.append(f"    governing rule and locations: {finding.detail}")
+        for target in finding.targets:
+            lines.append(f"    target: {target.get('kind')} {target.get('id')}")
+        for condition in finding.conditions:
+            lines.append(f"    condition: {condition.get('description')}")
+        if finding.resolutions:
+            lines.append("    implementation alternatives:")
+            for resolution in finding.resolutions:
+                lines.append(f"      - ({resolution.get('method')}) {resolution.get('step')}")
+        lines.append(f"    evidence: {finding.evidence_class}"
+                     + (f"; source {', '.join(finding.sources)}" if finding.sources else ""))
+        if finding.not_established:
+            lines.append(f"    not established: {finding.not_established}")
+        lines.append("")
+    lines.append("-- what was NOT checked --")
+    for item in dict.fromkeys(report.not_checked):
+        lines.append(f"  - {item}")
+    return "\n".join(lines)
+
+
+RENDERERS = {"player": render_player, "creator": render_creator, "full": render_text}
+
+
+def render(report: Report, audience: str = "full") -> str:
+    return RENDERERS.get(audience, render_text)(report)
+
+
 def render_json(report: Report) -> str:
     return json.dumps(report.as_dict(), indent=2, default=str)
 

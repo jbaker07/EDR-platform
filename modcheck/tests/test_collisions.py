@@ -77,7 +77,7 @@ def test_two_packs_loading_the_same_asset_conflict(tmp_path):
     b = build.content_patcher_pack(tmp_path / "b.zip", unique_id="B.Pack",
                                    targets=["Data/Objects", "Portraits/Abigail"])
     findings = collisions.analyze(install("stardewvalley", a, b))
-    loads = [f for f in findings if f.code == "collision.contentpatcher_load"]
+    loads = [f for f in findings if f.code == "contentpatcher.exclusive_conflict"]
     assert len(loads) == 1
     assert loads[0].severity == "error"
     assert loads[0].targets[0]["id"] == "Portraits/Abigail"
@@ -111,7 +111,7 @@ def test_conditional_load_is_not_treated_as_an_unconditional_conflict(tmp_path):
     b = build.content_patcher_pack(tmp_path / "b.zip", unique_id="B.Pack",
                                    targets=["Data/Objects", "Portraits/Abigail"])
     findings = collisions.analyze(install("stardewvalley", a, b))
-    assert not [f for f in findings if f.code == "collision.contentpatcher_load"]
+    assert not [f for f in findings if f.code == "contentpatcher.exclusive_conflict"]
 
 
 # --- ecosystems we deliberately do not analyse ---------------------------
