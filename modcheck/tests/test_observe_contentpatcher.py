@@ -26,14 +26,21 @@ from modcheck.paths import project_root
 PREDICTIONS = project_root() / "evaluation" / "runtime" / "predictions"
 
 
-def _summary(mod: str, rows: list[dict], changes: dict[str, list[str]] | None = None) -> str:
-    """Reproduce the `patch summary` tables, padding included."""
+def _summary(mod: str, rows: list[dict], changes: dict[str, list[str]] | None = None,
+             asset_filter: str | None = None, mod_filter: str | None = None) -> str:
+    """Reproduce the `patch summary` tables, padding and filter banners included."""
     width = max(len("priority"), max((len(r.get("priority") or "") for r in rows), default=0))
     out = [
         "=====================",
         "== Content patches ==",
         "=====================",
         "The following patches were loaded. For each patch:",
+    ]
+    if mod_filter:
+        out += ["", f"(Filtered to content pack ID: {mod_filter}.)"]
+    if asset_filter:
+        out += ["", f"(Filtered to asset name: {asset_filter}.)"]
+    out += [
         "",
         f"{mod}:",
         "-" * (len(mod) + 1),
@@ -47,8 +54,14 @@ def _summary(mod: str, rows: list[dict], changes: dict[str, list[str]] | None = 
         line = (f"      [{box('loaded')}]     | [{box('conditions')}]        | "
                 f"[{box('applied')}]     | {(row.get('priority') or '').ljust(width)} | "
                 f"{row['name']}")
-        if row.get("resolved"):
-            line += f" ({row.get('raw', '')} => {row['resolved']})".replace("( =>", "(=>")
+        # SummaryCommand prints "(<PatchType> <raw> => <parsed>)" when the patch
+        # name does not already contain the target. `raw` here is that whole
+        # "Load Animals/horse" string, exactly as the C# builds it.
+        if row.get("resolved") or row.get("raw"):
+            inner = row.get("raw", "")
+            if row.get("resolved"):
+                inner = f"{inner} => {row['resolved']}" if inner else f"=> {row['resolved']}"
+            line += f" ({inner})"
         if row.get("locale"):
             line += f" (locale: {row['locale']} only)"
         if row.get("reason"):
@@ -74,13 +87,14 @@ BASELINE_ROWS = [
     {"name": "entry #1 > The Bear", "loaded": True, "conditions": True, "applied": True,
      "priority": "Exclusive", "raw": "Load Animals/horse", "resolved": "Animals/horse"},
     {"name": "entry #2 > Spirit's Eve Special", "loaded": True, "conditions": False,
-     "applied": False, "priority": "Default"},
+     "applied": False, "priority": "Default", "raw": "EditImage Animals/horse"},
     {"name": "entry #3 > Saddle Overlay", "loaded": True, "conditions": False,
-     "applied": False, "priority": "Default"},
+     "applied": False, "priority": "Default", "raw": "EditImage Animals/horse"},
     {"name": "entry #5 > Male Farmer Reins", "loaded": True, "conditions": True,
-     "applied": True, "priority": "Default"},
+     "applied": True, "priority": "Default",
+     "raw": "EditImage Characters/Farmer/farmer_base"},
     {"name": "entry #12 > Stable overlay", "loaded": True, "conditions": True,
-     "applied": True, "priority": "Default"},
+     "applied": True, "priority": "Default", "raw": "EditImage Buildings/Stable"},
 ]
 
 
@@ -159,10 +173,22 @@ Buildings/Stable
 def test_dump_applied_groups_by_target_in_apply_order():
     dump = parse_dump_applied(DUMP_APPLIED)
     assert list(dump.by_target) == ["Animals/horse", "Buildings/Stable"]
-    assert dump.order_for("Animals/horse") == [
+    # Listed order is the expected apply order for the group; the checkbox says
+    # which of them actually applied. Those are different questions.
+    assert dump.order_for("Animals/horse", applied_only=False) == [
         "Bear Mounts > entry #1 > The Bear", "Bear Mounts > entry #3 > Saddle Overlay"]
-    assert dump.applied_for("Animals/horse") == ["Bear Mounts > entry #1 > The Bear"]
-    assert dump.by_target["Animals/horse"][0][1] == "Load"
+    assert dump.order_for("Animals/horse") == ["Bear Mounts > entry #1 > The Bear"]
+    assert dump.by_target["Animals/horse"][0].action == "Load"
+    assert dump.by_target["Animals/horse"][0].role == "load"
+    assert dump.by_target["Animals/horse"][1].role == "edit"
+
+
+def test_dump_applied_distinguishes_an_unreported_target_from_an_empty_one():
+    dump = parse_dump_applied(DUMP_APPLIED)
+    assert dump.rows_for("Animals/horse") is not None
+    assert dump.rows_for("Animals/horseFancy") is None, (
+        "a similarly named asset must not resolve to another asset's group")
+    assert dump.order_for("Data/Objects") is None
 
 
 DUMP_ORDER = """Here's the global patch definition order across all loaded content packs.
@@ -183,10 +209,102 @@ def test_dump_order_is_read_as_a_sequence():
     assert dump.position_of("nothing here") is None
 
 
+
+# -- coverage: a negative needs affirmative evidence ------------------------
+#
+# These close the path by which "the parser found nothing" became "we confirmed
+# nothing applied". An empty parse result and an empty game are identical at the
+# call site, so the difference has to come from a record of what was read.
+
+def test_an_empty_transcript_has_no_coverage():
+    coverage = parse_summary("").coverage
+    assert coverage.usable is False
+    assert "no '== Content patches ==' section" in (coverage.why_unusable() or "")
+
+
+def test_a_transcript_of_the_wrong_command_has_no_coverage():
+    coverage = parse_summary(DUMP_APPLIED).coverage
+    assert coverage.usable is False
+
+
+def test_a_banner_without_a_patch_table_has_no_coverage():
+    text = "=====================\n== Content patches ==\n=====================\n"
+    coverage = parse_summary(text).coverage
+    assert coverage.usable is False
+    assert "no 'Patches:' table" in (coverage.why_unusable() or "")
+
+
+def test_an_unreadable_row_inside_a_table_spoils_coverage():
+    """A row we could not parse means the enumeration is incomplete."""
+    text = _summary("Bear Mounts", BASELINE_ROWS)
+    lines = text.splitlines()
+    index = next(i for i, line in enumerate(lines) if "The Bear" in line)
+    lines.insert(index, "      [?]     | [X]        | [X]     | Weird    | entry #0 > ???")
+    coverage = parse_summary("\n".join(lines)).coverage
+    assert coverage.usable is False
+    assert "not recognised" in (coverage.why_unusable() or "")
+
+
+def test_an_asset_filter_is_coverage_for_that_asset_only():
+    coverage = parse_summary(
+        _summary("Bear Mounts", BASELINE_ROWS, asset_filter="Animals/horse")).coverage
+    assert coverage.usable is True
+    covered, why = coverage.covers_asset("Animals/horse")
+    assert covered, why
+    covered, why = coverage.covers_asset("Buildings/Stable")
+    assert not covered
+    assert "filtered to" in why
+
+
+def test_an_unfiltered_summary_is_coverage_for_every_asset():
+    coverage = parse_summary(_summary("Bear Mounts", BASELINE_ROWS)).coverage
+    assert coverage.covers_asset("Data/Objects")[0] is True
+
+
+# -- exact identity ---------------------------------------------------------
+
+def test_a_similarly_named_asset_does_not_satisfy_a_claim_about_another():
+    summary = parse_summary(_summary("M", [
+        {"name": "entry #1 > Fancy", "loaded": True, "conditions": True, "applied": True,
+         "priority": "Exclusive", "raw": "Load Animals/horseFancy"}]))
+    assert summary.for_target("Animals/horseFancy")
+    assert summary.for_target("Animals/horse") == [], (
+        "substring matching would make horseFancy answer for horse")
+
+
+def test_asset_identity_ignores_separator_and_case_but_nothing_else():
+    from modcheck.observe import normalise_asset
+    assert normalise_asset("Animals\\horse") == normalise_asset("animals/HORSE")
+    assert normalise_asset("/Animals/horse/") == "animals/horse"
+    assert normalise_asset("Animals/horse2") != normalise_asset("Animals/horse")
+
+
+def test_a_row_with_no_reported_target_is_not_attributed_to_one():
+    summary = parse_summary(_summary("M", [
+        {"name": "entry #1 > Mystery", "loaded": True, "conditions": True,
+         "applied": True, "priority": "Exclusive"}]))
+    assert summary.patches[0].target is None
+    assert summary.patches[0].role == "unknown"
+    assert summary.for_target("Animals/horse") == []
+
+
 # -- judging predictions ----------------------------------------------------
 
 def _prediction(case_id: str):
     return next(p for p in load_predictions(PREDICTIONS) if p.id == case_id)
+
+
+BASELINE_DUMP = """Here are the active patches grouped by their current target value.
+
+Animals/horse
+-------------
+   [X] Load Bear Mounts > entry #1 > The Bear
+   [ ] EditImage Bear Mounts > entry #3 > Saddle Overlay
+
+Buildings/Stable
+----------------
+   [X] EditImage Bear Mounts > entry #12 > Stable overlay
+"""
 
 
 def test_every_prediction_is_still_unobserved():
@@ -199,7 +317,8 @@ def test_every_prediction_is_still_unobserved():
 
 def test_a_matching_transcript_matches():
     comparison = compare(_prediction("sv_baseline_bear_mounts"),
-                         parse_summary(_summary("Bear Mounts", BASELINE_ROWS)))
+                         parse_summary(_summary("Bear Mounts", BASELINE_ROWS)),
+                         applied=parse_dump_applied(BASELINE_DUMP))
     assert comparison.verdict == "matched", [
         (r.claim.describe(), r.verdict, r.observed) for r in comparison.results
         if not r.matched]
@@ -210,96 +329,245 @@ def test_a_transcript_that_disagrees_is_reported_as_contradicted():
     rows = [dict(row) for row in BASELINE_ROWS]
     rows[0]["priority"] = "High"  # the summary says High where we predicted Exclusive
     comparison = compare(_prediction("sv_baseline_bear_mounts"),
-                         parse_summary(_summary("Bear Mounts", rows)))
+                         parse_summary(_summary("Bear Mounts", rows)),
+                         applied=parse_dump_applied(BASELINE_DUMP))
     assert comparison.verdict == "contradicted"
     wrong = [r for r in comparison.results if r.verdict == "contradicted"]
-    assert any("patch_priority" in r.claim.kind for r in wrong)
+    assert any(r.claim.kind == "patch_priority" for r in wrong)
 
 
-def test_a_claim_the_transcript_cannot_answer_is_not_a_pass():
-    comparison = compare(_prediction("sv_conditional_behaviour"),
-                         parse_summary(_summary("Bear Mounts", [
-                             {"name": "entry #3 > Saddle Overlay", "loaded": True,
-                              "conditions": True, "applied": True, "priority": "Default"},
-                             {"name": "entry #1 > The Bear", "loaded": True,
-                              "conditions": True, "applied": True, "priority": "Exclusive"},
-                             {"name": "entry #2 > Spirit's Eve Special", "loaded": True,
-                              "conditions": False, "applied": False, "priority": "Default"},
-                         ])))
-    # Every summary-answerable claim matches, but apply_order needs a dump.
+def test_no_transcript_at_all_confirms_nothing():
+    """The headline regression: every claim unobserved, and not a pass."""
+    comparison = compare(_prediction("sv_deliberate_conflict"))
     assert comparison.verdict == "incomplete"
-    unobserved = [r for r in comparison.results if r.verdict == "unobserved"]
-    assert [r.claim.kind for r in unobserved] == ["apply_order"]
+    assert all(r.verdict == "unobserved" for r in comparison.results)
 
 
-def test_supplying_the_dump_completes_it():
-    comparison = compare(
-        _prediction("sv_conditional_behaviour"),
-        parse_summary(_summary("Bear Mounts", [
-            {"name": "entry #3 > Saddle Overlay", "loaded": True, "conditions": True,
-             "applied": True, "priority": "Default"},
-            {"name": "entry #1 > The Bear", "loaded": True, "conditions": True,
-             "applied": True, "priority": "Exclusive"},
-            {"name": "entry #2 > Spirit's Eve Special", "loaded": True,
-             "conditions": False, "applied": False, "priority": "Default"},
-        ])),
-        applied=parse_dump_applied(
-            "Animals/horse\n-------------\n"
-            "   [X] Load Bear Mounts > entry #1 > The Bear\n"
-            "   [X] EditImage Bear Mounts > entry #3 > Saddle Overlay\n"))
-    assert comparison.verdict == "matched"
+def test_an_empty_transcript_cannot_confirm_that_no_load_applied():
+    """Parsing nothing is not observing nothing."""
+    prediction = _prediction("sv_deliberate_conflict")
+    negative = next(c for c in prediction.claims if c.kind == "no_load_applied")
+    for text in ("", "   \n\n", "Nothing to see here.", "<html>404</html>"):
+        comparison = compare(prediction, parse_summary(text))
+        result = next(r for r in comparison.results if r.claim is negative)
+        assert result.verdict == "unobserved", (text, result.observed)
+    assert comparison.verdict != "matched"
+
+
+def test_a_summary_filtered_to_another_asset_cannot_confirm_the_negative():
+    prediction = _prediction("sv_deliberate_conflict")
+    negative = next(c for c in prediction.claims if c.kind == "no_load_applied")
+    summary = parse_summary(_summary("Bear Mounts", BASELINE_ROWS,
+                                     asset_filter="Buildings/Stable"))
+    result = next(r for r in compare(prediction, summary).results
+                  if r.claim is negative)
+    assert result.verdict == "unobserved"
+    assert "cannot confirm a negative" in result.observed
+
+
+def test_a_truncated_summary_cannot_confirm_the_negative():
+    prediction = _prediction("sv_deliberate_conflict")
+    negative = next(c for c in prediction.claims if c.kind == "no_load_applied")
+    full = _summary("Bear Mounts", BASELINE_ROWS)
+    truncated = "\n".join(full.splitlines()[:4])  # banner, no table
+    result = next(r for r in compare(prediction, parse_summary(truncated)).results
+                  if r.claim is negative)
+    assert result.verdict == "unobserved"
+
+
+def test_a_dump_with_no_group_for_the_target_cannot_confirm_the_negative():
+    """'Never requested' is not 'no load applied'."""
+    prediction = _prediction("sv_deliberate_conflict")
+    negative = next(c for c in prediction.claims if c.kind == "no_load_applied")
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Buildings/Stable\n----------------\n"
+        "   [X] EditImage Bear Mounts > entry #12 > Stable overlay\n")
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", BASELINE_ROWS)), applied=dump).results
+        if r.claim is negative)
+    assert result.verdict == "unobserved"
+    assert "never requested" in result.observed
+
+
+# -- a Load winning while an Edit composes ----------------------------------
+
+CONFLICT_ROWS = [
+    {"name": "entry #1 > The Bear", "loaded": True, "conditions": True, "applied": False,
+     "priority": "Exclusive", "raw": "Load Animals/horse"},
+    {"name": "entry #1 > Probe Horse", "loaded": True, "conditions": True,
+     "applied": False, "priority": "Exclusive", "raw": "Load Animals/horse"},
+]
+
+
+def test_an_edit_applying_over_a_winning_load_is_not_a_second_winner():
+    """The healthy case must not read as a failure.
+
+    A replacement loads, and the pack's own overlay applies on top of it. Two
+    applied patches against one asset -- but exactly one Load, which is what the
+    claim is about.
+    """
+    prediction = _prediction("sv_baseline_bear_mounts")
+    claim = next(c for c in prediction.claims if c.kind == "load_winner_for_target")
+    rows = [dict(row) for row in BASELINE_ROWS]
+    saddle = next(r for r in rows if "Saddle" in r["name"])
+    saddle["conditions"] = saddle["applied"] = True          # the overlay now applies
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Animals/horse\n-------------\n"
+        "   [X] Load Bear Mounts > entry #1 > The Bear\n"
+        "   [X] EditImage Bear Mounts > entry #3 > Saddle Overlay\n")
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", rows)), applied=dump).results if r.claim is claim)
+    assert result.verdict == "matched", result.observed
+    assert "The Bear" in result.observed
+
+
+def test_two_applied_loads_contradict_a_single_winner_claim():
+    prediction = _prediction("sv_baseline_bear_mounts")
+    claim = next(c for c in prediction.claims if c.kind == "load_winner_for_target")
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Animals/horse\n-------------\n"
+        "   [X] Load Bear Mounts > entry #1 > The Bear\n"
+        "   [X] Load Other Pack > entry #1 > Other Horse\n")
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", BASELINE_ROWS)), applied=dump).results
+        if r.claim is claim)
+    assert result.verdict == "contradicted"
+    assert "2 Load(s)" in result.observed
+
+
+def test_edits_applying_do_not_contradict_no_load_applied():
+    """The conflict case: loads suppressed, edits still composing."""
+    prediction = _prediction("sv_deliberate_conflict")
+    negative = next(c for c in prediction.claims if c.kind == "no_load_applied")
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Animals/horse\n-------------\n"
+        "   [ ] Load Bear Mounts > entry #1 > The Bear\n"
+        "   [ ] Load ModCheck Conflict Probe > entry #1 > Probe Horse\n"
+        "   [X] EditImage Bear Mounts > entry #3 > Saddle Overlay\n")
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", CONFLICT_ROWS)), applied=dump).results
+        if r.claim is negative)
+    assert result.verdict == "matched", result.observed
+
+
+def test_a_load_that_applied_contradicts_no_load_applied():
+    prediction = _prediction("sv_deliberate_conflict")
+    negative = next(c for c in prediction.claims if c.kind == "no_load_applied")
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Animals/horse\n-------------\n"
+        "   [X] Load Bear Mounts > entry #1 > The Bear\n")
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", CONFLICT_ROWS)), applied=dump).results
+        if r.claim is negative)
+    assert result.verdict == "contradicted"
+
+
+def test_an_unreported_action_leaves_a_role_claim_unresolved():
+    """No action printed means no role inferred."""
+    prediction = _prediction("sv_baseline_bear_mounts")
+    claim = next(c for c in prediction.claims if c.kind == "load_winner_for_target")
+    rows = [{"name": "entry #1 > Animals/horse replacement", "loaded": True,
+             "conditions": True, "applied": True, "priority": "Exclusive",
+             "resolved": "Animals/horse"}]  # resolved but no action prefix
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", rows))).results if r.claim is claim)
+    assert result.verdict == "unobserved"
+    assert "did not report an action" in result.observed
+
+
+# -- apply order is not definition order ------------------------------------
+
+DUMP_ORDER = """Here's the global patch definition order across all loaded content packs.
+
+   order   index path   patch
+   -----   ----------   -----
+   1       0/0          Bear Mounts > entry #1 > The Bear
+   2       0/1          Bear Mounts > entry #2 > Spirit's Eve Special
+   3       1/0          ModCheck Conflict Probe > entry #1 > Probe Horse
+"""
+
+
+def test_definition_order_cannot_answer_an_apply_order_claim():
+    """Issue 4: the two tables answer different questions."""
+    prediction = _prediction("sv_conditional_behaviour")
+    claim = next(c for c in prediction.claims if c.kind == "apply_order")
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", BASELINE_ROWS)),
+        order=parse_dump_order(DUMP_ORDER)).results if r.claim is claim)
+    assert result.verdict == "unobserved"
+    assert "definition order" in result.observed
+
+
+def test_apply_order_counts_only_patches_that_applied():
+    """A patch listed in the group but unchecked did not apply."""
+    prediction = _prediction("sv_conditional_behaviour")
+    claim = next(c for c in prediction.claims if c.kind == "apply_order")
+    # Saddle Overlay is listed after the load, but not applied.
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Animals/horse\n-------------\n"
+        "   [X] Load Bear Mounts > entry #1 > The Bear\n"
+        "   [ ] EditImage Bear Mounts > entry #3 > Saddle Overlay\n")
+    rows = [dict(r) for r in BASELINE_ROWS]
+    for row in rows:
+        if "Saddle" in row["name"]:
+            row["conditions"] = row["applied"] = True
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", rows)), applied=dump).results if r.claim is claim)
+    assert result.verdict == "contradicted"
+    assert "Saddle Overlay" in str(result.observed) or "does not appear" in result.observed
+
+
+def test_apply_order_matches_when_both_applied_in_order():
+    prediction = _prediction("sv_conditional_behaviour")
+    claim = next(c for c in prediction.claims if c.kind == "apply_order")
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Animals/horse\n-------------\n"
+        "   [X] Load Bear Mounts > entry #1 > The Bear\n"
+        "   [X] EditImage Bear Mounts > entry #3 > Saddle Overlay\n")
+    rows = [dict(r) for r in BASELINE_ROWS]
+    for row in rows:
+        if "Saddle" in row["name"]:
+            row["conditions"] = row["applied"] = True
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", rows)), applied=dump).results if r.claim is claim)
+    assert result.verdict == "matched", result.observed
 
 
 def test_a_reversed_apply_order_is_contradicted():
-    comparison = compare(
-        _prediction("sv_conditional_behaviour"),
-        parse_summary(_summary("Bear Mounts", [
-            {"name": "entry #3 > Saddle Overlay", "loaded": True, "conditions": True,
-             "applied": True, "priority": "Default"},
-            {"name": "entry #1 > The Bear", "loaded": True, "conditions": True,
-             "applied": True, "priority": "Exclusive"},
-            {"name": "entry #2 > Spirit's Eve Special", "loaded": True,
-             "conditions": False, "applied": False, "priority": "Default"},
-        ])),
-        applied=parse_dump_applied(
-            "Animals/horse\n-------------\n"
-            "   [X] EditImage Bear Mounts > entry #3 > Saddle Overlay\n"
-            "   [X] Load Bear Mounts > entry #1 > The Bear\n"))
-    assert comparison.verdict == "contradicted"
+    prediction = _prediction("sv_conditional_behaviour")
+    claim = next(c for c in prediction.claims if c.kind == "apply_order")
+    dump = parse_dump_applied(
+        "Here are the active patches grouped by their current target value.\n\n"
+        "Animals/horse\n-------------\n"
+        "   [X] EditImage Bear Mounts > entry #3 > Saddle Overlay\n"
+        "   [X] Load Bear Mounts > entry #1 > The Bear\n")
+    rows = [dict(r) for r in BASELINE_ROWS]
+    for row in rows:
+        if "Saddle" in row["name"]:
+            row["conditions"] = row["applied"] = True
+    result = next(r for r in compare(prediction, parse_summary(
+        _summary("Bear Mounts", rows)), applied=dump).results if r.claim is claim)
+    assert result.verdict == "contradicted"
 
 
-def test_the_conflict_prediction_needs_both_loads_unapplied():
-    """Predicting 'neither applies' must fail if either one does."""
-    prediction = _prediction("sv_deliberate_conflict")
-    neither = _summary("Bear Mounts", [
-        {"name": "entry #1 > The Bear", "loaded": True, "conditions": True,
-         "applied": False, "priority": "Exclusive"},
-        {"name": "entry #1 > Probe Horse", "loaded": True, "conditions": True,
-         "applied": False, "priority": "Exclusive"}])
-    assert compare(prediction, parse_summary(neither)).verdict == "matched"
-
-    one_won = neither.replace("[ ]     | Exclusive | entry #1 > The Bear",
-                              "[X]     | Exclusive | entry #1 > The Bear")
-    assert one_won != neither
-    assert compare(prediction, parse_summary(one_won)).verdict == "contradicted"
-
-
-def test_inputs_are_rehashed_before_a_prediction_is_judged():
-    """A prediction retargeted at different bytes is not the same prediction."""
-    prediction = _prediction("sv_baseline_bear_mounts")
-    problems = [item.verify(project_root()) for item in prediction.inputs]
-    for problem in problems:
-        assert problem is None or "not present" in problem, problem
-
-
-def test_the_priority_model_matches_the_priority_the_runtime_prints():
-    """Our analyzer's labels are the ones `patch summary` shows, or comparison lies."""
-    from modcheck.analyze import contentpatcher as analyze_cp
-    assert analyze_cp.parse_load_priority(None).raw == "Exclusive"
-    assert analyze_cp.parse_load_priority("High").value == 1000
-    assert analyze_cp.parse_edit_priority(None).raw == "Default"
-    assert analyze_cp.parse_edit_priority("Late + 5").value == 1005
-    # SMAPI's AssetLoadPriority.Exclusive is int.MaxValue, so no numeric priority
-    # can outrank it. Our resolver must treat Exclusive as a kind, never a number.
-    assert analyze_cp.parse_load_priority("Exclusive").value is None
-    assert analyze_cp.parse_load_priority("Exclusive").is_exclusive
+def test_an_ambiguous_patch_fragment_is_unresolved_not_guessed():
+    from modcheck.observe import Claim, Prediction
+    from modcheck.observe.prediction import compare as compare_one
+    prediction = Prediction(
+        id="x", case="c", game="stardewvalley", question="q", recorded_at="2026-09-20",
+        claims=[Claim(kind="patch_applied", patch="Overlay", expect=True)])
+    summary = parse_summary(_summary("M", [
+        {"name": "entry #1 > Saddle Overlay", "loaded": True, "conditions": True,
+         "applied": True, "priority": "Default", "raw": "EditImage Animals/horse"},
+        {"name": "entry #2 > Stable Overlay", "loaded": True, "conditions": True,
+         "applied": False, "priority": "Default", "raw": "EditImage Buildings/Stable"}]))
+    result = compare_one(prediction, summary).results[0]
+    assert result.verdict == "unobserved"
+    assert "matches 2 patches" in result.observed

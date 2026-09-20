@@ -27,6 +27,7 @@ from typing import Any
 
 from .. import yamlio
 from .contentpatcher import DumpApplied, DumpOrder, ObservedPatch, Summary
+from .contentpatcher import normalise_asset as cp_normalise
 
 # What a claim asserts. Each maps to one question the transcript can answer.
 CLAIM_KINDS = frozenset({
@@ -35,11 +36,24 @@ CLAIM_KINDS = frozenset({
     "conditions_match",    # a named patch's conditions do/do not match
     "patch_priority",      # a named patch displays this priority label
     "reason_not_loaded",   # the reported reason contains this text
-    "winner_for_target",   # exactly this patch is applied against a target
-    "no_patch_applied",    # nothing is applied against a target
-    "apply_order",         # these patch fragments appear in this order
+    "load_winner_for_target",  # exactly this Load supplies the asset
+    "no_load_applied",     # no Load supplies the asset (the Exclusive conflict)
+    "no_patch_applied",    # nothing at all is applied against the asset
+    "apply_order",         # applied patches for an asset, in apply order
+    "definition_order",    # `patch dump order` positions -- NOT apply order
     "current_change",      # `Current changes:` lists this target
 })
+
+# Claim kinds whose truth is a *negative*: the transcript must affirmatively
+# show it enumerated the thing being denied before the claim can be confirmed.
+# An empty parse result is otherwise indistinguishable from an empty game.
+NEGATIVE_KINDS = frozenset({"no_load_applied", "no_patch_applied"})
+
+# Claim kinds that turn on whether a patch is a Load or an Edit. Content Patcher
+# prints a patch's action only in `patch dump applied`, and in `patch summary`
+# only when the patch's name does not already contain its target -- so these
+# require action-typed evidence and stay unresolved without it.
+ROLE_KINDS = frozenset({"load_winner_for_target", "no_load_applied"})
 
 OBSERVATION_STATES = frozenset({"not_yet_observed", "blocked", "observed"})
 
@@ -178,17 +192,71 @@ def _find(summary: Summary, fragment: str) -> list[ObservedPatch]:
             if needle in p.name.lower() or needle in p.location.lower()]
 
 
-def _bool_claim(result_field: str, claim: Claim, summary: Summary) -> ClaimResult:
+def _one(summary: Summary, claim: Claim) -> tuple[ObservedPatch | None, str]:
+    """Resolve a claim's patch fragment to exactly one row, or explain why not.
+
+    Ambiguity is not resolved by picking a winner. Two rows matching a fragment
+    means we cannot say which patch the prediction meant, and answering about
+    either one would answer a different question than the one recorded.
+    """
     matches = _find(summary, claim.patch or "")
     if not matches:
+        return None, f"no patch matching {claim.patch!r} appears in the summary"
+    if len(matches) > 1:
+        return None, (f"{claim.patch!r} matches {len(matches)} patches "
+                      f"({[p.location for p in matches]}); the claim cannot be "
+                      "attributed to one of them")
+    return matches[0], ""
+
+
+def _bool_claim(field: str, claim: Claim, summary: Summary) -> ClaimResult:
+    patch, why = _one(summary, claim)
+    if patch is None:
+        return ClaimResult(claim, "unobserved", why)
+    actual = getattr(patch, field)
+    verdict = "matched" if actual is bool(claim.expect) else "contradicted"
+    return ClaimResult(claim, verdict, f"{patch.location}: {field}={actual}")
+
+
+def _needs(claim: Claim, summary: Summary | None, applied: DumpApplied | None,
+           order: DumpOrder | None) -> ClaimResult | None:
+    """Refuse a claim whose evidence was not supplied or is not usable."""
+    if claim.kind == "definition_order":
+        if order is None:
+            return ClaimResult(claim, "unobserved", "no `patch dump order` transcript supplied")
+        if not order.usable:
+            return ClaimResult(claim, "unobserved",
+                               "the `patch dump order` transcript lists no rows")
+        return None
+
+    if claim.kind == "apply_order":
+        # Definition order is NOT apply order, so there is no fallback here.
+        # Upstream says the definition order "affects the order that patches are
+        # applied" -- affects, not is -- and it includes patches that never
+        # applied at all.
+        if applied is None:
+            extra = ("; `patch dump order` reports the global definition order, which "
+                     "is a different fact and cannot stand in for it"
+                     if order is not None else "")
+            return ClaimResult(claim, "unobserved",
+                               "no `patch dump applied` transcript supplied" + extra)
+        if not applied.usable:
+            return ClaimResult(claim, "unobserved",
+                               applied.why_unusable() or "the dump is not usable")
+        return None
+
+    if summary is None:
+        return ClaimResult(claim, "unobserved", "no `patch summary` transcript supplied")
+    if not summary.coverage.usable:
         return ClaimResult(claim, "unobserved",
-                           f"no patch matching {claim.patch!r} appears in the summary")
-    actual = [getattr(p, result_field) for p in matches]
-    if all(a is bool(claim.expect) for a in actual):
-        return ClaimResult(claim, "matched", f"{result_field}={actual}")
-    return ClaimResult(claim, "contradicted",
-                       f"{result_field}={actual} for "
-                       f"{[p.name for p in matches]}")
+                           summary.coverage.why_unusable() or "the summary is not usable")
+    if claim.kind in NEGATIVE_KINDS:
+        covered, why = summary.coverage.covers_asset(claim.target or "")
+        if not covered:
+            return ClaimResult(
+                claim, "unobserved",
+                f"cannot confirm a negative here: {why}")
+    return None
 
 
 def compare(prediction: Prediction, summary: Summary | None = None,
@@ -196,9 +264,16 @@ def compare(prediction: Prediction, summary: Summary | None = None,
             order: DumpOrder | None = None) -> Comparison:
     """Judge a prediction against what the transcripts actually say.
 
-    A claim the supplied transcripts cannot speak to is ``unobserved``, never
-    ``matched``. Running fewer commands than the prediction names therefore
-    cannot turn into a better result.
+    Three rules hold for every claim, and they exist because a verifier that
+    overstates its own evidence is worse than no verifier:
+
+    * A claim the supplied transcripts cannot speak to is ``unobserved``, never
+      ``matched``. Running fewer commands cannot produce a better result.
+    * A *negative* claim needs affirmative evidence that the transcript
+      enumerated what is being denied. An empty parse and an empty game look
+      identical otherwise.
+    * A claim about loads-versus-edits needs evidence of each patch's action.
+      Content Patcher does not always print it, and it is never inferred.
     """
     comparison = Comparison(prediction=prediction)
     for claim in prediction.claims:
@@ -208,13 +283,9 @@ def compare(prediction: Prediction, summary: Summary | None = None,
 
 def _compare_one(claim: Claim, summary: Summary | None,
                  applied: DumpApplied | None, order: DumpOrder | None) -> ClaimResult:
-    needs_summary = claim.kind in {
-        "patch_applied", "patch_loaded", "conditions_match", "patch_priority",
-        "reason_not_loaded", "winner_for_target", "no_patch_applied", "current_change"}
-    if needs_summary and summary is None:
-        return ClaimResult(claim, "unobserved", "no `patch summary` transcript supplied")
-    if claim.kind == "apply_order" and applied is None and order is None:
-        return ClaimResult(claim, "unobserved", "no `patch dump` transcript supplied")
+    refusal = _needs(claim, summary, applied, order)
+    if refusal is not None:
+        return refusal
 
     if claim.kind == "patch_applied":
         return _bool_claim("applied", claim, summary)  # type: ignore[arg-type]
@@ -224,65 +295,164 @@ def _compare_one(claim: Claim, summary: Summary | None,
         return _bool_claim("conditions_match", claim, summary)  # type: ignore[arg-type]
 
     if claim.kind == "patch_priority":
-        matches = _find(summary, claim.patch or "")  # type: ignore[arg-type]
-        if not matches:
-            return ClaimResult(claim, "unobserved", f"no patch matching {claim.patch!r}")
-        actual = [p.priority for p in matches]
-        if all(a == claim.expect for a in actual):
-            return ClaimResult(claim, "matched", f"priority={actual}")
-        return ClaimResult(claim, "contradicted", f"priority={actual}")
+        patch, why = _one(summary, claim)  # type: ignore[arg-type]
+        if patch is None:
+            return ClaimResult(claim, "unobserved", why)
+        verdict = "matched" if patch.priority == claim.expect else "contradicted"
+        return ClaimResult(claim, verdict, f"{patch.location}: priority={patch.priority!r}")
 
     if claim.kind == "reason_not_loaded":
-        matches = _find(summary, claim.patch or "")  # type: ignore[arg-type]
-        if not matches:
-            return ClaimResult(claim, "unobserved", f"no patch matching {claim.patch!r}")
-        reasons = [p.reason_not_loaded for p in matches]
-        if any(r and str(claim.expect).lower() in r.lower() for r in reasons):
-            return ClaimResult(claim, "matched", f"reason={reasons}")
-        return ClaimResult(claim, "contradicted", f"reason={reasons}")
+        patch, why = _one(summary, claim)  # type: ignore[arg-type]
+        if patch is None:
+            return ClaimResult(claim, "unobserved", why)
+        reason = patch.reason_not_loaded
+        if reason is None:
+            return ClaimResult(claim, "contradicted",
+                               f"{patch.location}: no reason reported")
+        verdict = "matched" if str(claim.expect).lower() in reason.lower() else "contradicted"
+        return ClaimResult(claim, verdict, f"{patch.location}: reason={reason!r}")
 
-    if claim.kind == "winner_for_target":
-        hits = summary.applied_to(claim.target or "")  # type: ignore[union-attr]
-        names = [p.location for p in hits]
-        if len(hits) == 1 and str(claim.expect).lower() in hits[0].location.lower():
-            return ClaimResult(claim, "matched", f"applied={names}")
-        return ClaimResult(claim, "contradicted", f"applied={names}")
+    if claim.kind == "load_winner_for_target":
+        return _load_winner(claim, summary, applied)  # type: ignore[arg-type]
+    if claim.kind == "no_load_applied":
+        return _no_load(claim, summary, applied)  # type: ignore[arg-type]
 
     if claim.kind == "no_patch_applied":
         hits = summary.applied_to(claim.target or "")  # type: ignore[union-attr]
-        if not hits:
-            return ClaimResult(claim, "matched", "no applied patch against this target")
-        return ClaimResult(claim, "contradicted",
-                           f"applied={[p.location for p in hits]}")
+        if hits:
+            return ClaimResult(claim, "contradicted",
+                               f"applied={[p.location for p in hits]}")
+        return ClaimResult(claim, "matched",
+                           "no applied patch against this target, in a transcript "
+                           "that demonstrably enumerated it")
 
     if claim.kind == "current_change":
         for mod in summary.mods:  # type: ignore[union-attr]
             for target, labels in mod.current_changes.items():
-                if (claim.target or "").lower() in target.lower():
-                    if not claim.expect or str(claim.expect).lower() in "; ".join(labels).lower():
-                        return ClaimResult(claim, "matched", f"{target} | {'; '.join(labels)}")
-                    return ClaimResult(claim, "contradicted", f"{target} | {'; '.join(labels)}")
+                if cp_normalise(target) != cp_normalise(claim.target or ""):
+                    continue
+                joined = "; ".join(labels)
+                if not claim.expect or str(claim.expect).lower() in joined.lower():
+                    return ClaimResult(claim, "matched", f"{target} | {joined}")
+                return ClaimResult(claim, "contradicted", f"{target} | {joined}")
         return ClaimResult(claim, "contradicted",
                            f"no current change listed for {claim.target!r}")
 
     if claim.kind == "apply_order":
-        sequence = applied.order_for(claim.target or "") if applied else []
-        source = "patch dump applied"
-        if not sequence and order is not None:
-            sequence = [row[2] for row in order.rows]
-            source = "patch dump order"
-        if not sequence:
-            return ClaimResult(claim, "unobserved", f"no order reported for {claim.target!r}")
-        positions = []
-        for fragment in claim.order:
-            found = next((i for i, name in enumerate(sequence)
-                          if fragment.lower() in name.lower()), None)
-            if found is None:
-                return ClaimResult(claim, "contradicted",
-                                   f"{fragment!r} does not appear in {source}: {sequence}")
-            positions.append(found)
-        if positions == sorted(positions):
-            return ClaimResult(claim, "matched", f"{source}: {sequence}")
-        return ClaimResult(claim, "contradicted", f"{source}: {sequence}")
+        sequence = applied.order_for(claim.target or "")  # type: ignore[union-attr]
+        if sequence is None:
+            return ClaimResult(
+                claim, "unobserved",
+                f"`patch dump applied` reports no group for {claim.target!r}, which "
+                "is not the same as reporting an empty one")
+        return _ordered(claim, sequence, "patch dump applied (applied rows only)")
+
+    if claim.kind == "definition_order":
+        sequence = [row[2] for row in order.rows]  # type: ignore[union-attr]
+        return _ordered(claim, sequence, "patch dump order (DEFINITION order)")
 
     raise AssertionError(f"unhandled claim kind {claim.kind!r}")
+
+
+def _ordered(claim: Claim, sequence: list[str], source: str) -> ClaimResult:
+    positions = []
+    for fragment in claim.order:
+        hits = [i for i, name in enumerate(sequence) if fragment.lower() in name.lower()]
+        if not hits:
+            return ClaimResult(claim, "contradicted",
+                               f"{fragment!r} does not appear in {source}: {sequence}")
+        if len(hits) > 1:
+            return ClaimResult(claim, "unobserved",
+                               f"{fragment!r} matches {len(hits)} rows in {source}; "
+                               "the claim cannot be attributed to one of them")
+        positions.append(hits[0])
+    verdict = "matched" if positions == sorted(positions) else "contradicted"
+    return ClaimResult(claim, verdict, f"{source}: {sequence}")
+
+
+def _load_winner(claim: Claim, summary: Summary,
+                 applied: DumpApplied | None) -> ClaimResult:
+    """Exactly one Load supplies the asset, and it is the predicted one.
+
+    Edits that apply afterwards do not contradict this. That distinction is the
+    whole point: a replacement winning and an intentional overlay composing on
+    top of it is the normal, healthy case, and a verifier that counted the
+    overlay as a second winner would report it as a failure.
+    """
+    target = claim.target or ""
+    if applied is not None and applied.usable:
+        split = applied.applied_loads_for(target)
+        if split is None:
+            return ClaimResult(claim, "unobserved",
+                               f"`patch dump applied` reports no group for {target!r}")
+        loads, unknown = split
+        if unknown:
+            return ClaimResult(claim, "unobserved",
+                               f"{len(unknown)} applied row(s) have an action we do "
+                               f"not recognise: {[r.action for r in unknown]}")
+        names = [r.path for r in loads]
+        source = "patch dump applied"
+    else:
+        loads, unknown = summary.applied_loads_to(target)
+        if unknown:
+            return ClaimResult(
+                claim, "unobserved",
+                f"the summary did not report an action for {len(unknown)} applied "
+                f"patch(es) against {target!r} ({[p.location for p in unknown]}); "
+                "run `patch dump applied`, which always prints the action")
+        names = [p.location for p in loads]
+        source = "patch summary"
+    if len(loads) != 1:
+        return ClaimResult(claim, "contradicted",
+                           f"{source}: {len(loads)} Load(s) applied against {target}: {names}")
+    if str(claim.expect).lower() not in names[0].lower():
+        return ClaimResult(claim, "contradicted",
+                           f"{source}: the applied Load is {names[0]!r}, not {claim.expect!r}")
+    return ClaimResult(claim, "matched", f"{source}: the applied Load is {names[0]!r}")
+
+
+def _no_load(claim: Claim, summary: Summary, applied: DumpApplied | None) -> ClaimResult:
+    """No Load supplies the asset -- the Exclusive-conflict outcome.
+
+    Stated about loads specifically, because that is what the rule is about.
+    Edits still apply in this case; they compose onto the game's original asset,
+    and counting them would contradict a prediction that is correct.
+    """
+    target = claim.target or ""
+    if applied is not None and applied.usable:
+        split = applied.applied_loads_for(target)
+        if split is None:
+            return ClaimResult(
+                claim, "unobserved",
+                f"`patch dump applied` reports no group for {target!r}. That means "
+                "the asset was never requested, not that no Load applied -- summon "
+                "or open the thing that uses it, then capture again")
+        loads, unknown = split
+        if unknown:
+            return ClaimResult(claim, "unobserved",
+                               f"{len(unknown)} applied row(s) have an unrecognised "
+                               f"action: {[r.action for r in unknown]}")
+        if loads:
+            return ClaimResult(claim, "contradicted",
+                               f"a Load applied against {target}: {[r.path for r in loads]}")
+        return ClaimResult(claim, "matched",
+                           f"patch dump applied: no Load applied against {target}")
+
+    loads, unknown = summary.applied_loads_to(target)
+    if unknown:
+        return ClaimResult(
+            claim, "unobserved",
+            f"the summary did not report an action for {len(unknown)} applied "
+            f"patch(es) against {target!r}; run `patch dump applied`")
+    if loads:
+        return ClaimResult(claim, "contradicted",
+                           f"a Load applied against {target}: {[p.location for p in loads]}")
+    if not summary.for_target(target):
+        return ClaimResult(
+            claim, "unobserved",
+            f"the summary reports no patch at all targeting {target!r}. Content "
+            "Patcher prints a patch's resolved target only when it differs from "
+            "the patch name, so this may be a reporting gap rather than an "
+            "absence; run `patch dump applied`, which groups by target")
+    return ClaimResult(claim, "matched",
+                       f"patch summary: no Load applied against {target}")

@@ -14,8 +14,10 @@ Two rules hold throughout:
   observation. `prediction.py` exists to make that ordering checkable rather
   than asserted.
 """
+from .capture import (  # noqa: F401
+    Binding, Capture, CapturedFile, load_capture, render_binding, validate)
 from .contentpatcher import (  # noqa: F401
-    DumpApplied, DumpOrder, ObservedPatch, Summary,
-    parse_dump_applied, parse_dump_order, parse_summary)
+    Coverage, DumpApplied, DumpOrder, DumpRow, ObservedPatch, Summary,
+    normalise_asset, parse_dump_applied, parse_dump_order, parse_summary)
 from .prediction import (  # noqa: F401
     Claim, Comparison, Prediction, compare, load_predictions)

@@ -11,18 +11,32 @@ command per case:
 
 for example `sv_deliberate_conflict.summary.txt`.
 
-Judge a prediction against them with:
+Alongside them goes a **capture manifest** -- see `capture.template.yaml`. It is
+the binding between one prediction and one run: the prediction's id, the hashes
+of the files as they sat in the *game's* mod directory, the game, SMAPI and
+Content Patcher versions, and each transcript with its own hash.
 
-    modcheck runtime verify --id <prediction id>
+Judge a prediction with:
+
     modcheck runtime observe --id <prediction id> \
-        --summary evaluation/runtime/transcripts/<id>.summary.txt \
-        --dump-applied evaluation/runtime/transcripts/<id>.dump-applied.txt
+        --capture evaluation/runtime/transcripts/<id>.<run>.capture.yaml
 
-`verify` re-hashes the artifacts the prediction is pinned to and refuses the
-pairing if they have changed. That matters most for the probe pack, whose
-Exclusive and High variants differ by one field and produce opposite outcomes:
-without the hash check, a transcript could be filed against the wrong one and
-would appear to confirm a prediction it actually contradicts.
+`observe` validates the binding *before* reading anything, and issues no result
+at all if it fails -- not a contradiction and not a pass, because we cannot say
+what an unbound transcript is evidence of. It refuses when the manifest names a
+different prediction, when the game loaded bytes the prediction is not about,
+when a version is unrecorded, or when a transcript file no longer hashes to what
+was captured.
+
+`modcheck runtime verify` is a separate, weaker check: it re-hashes files in
+*our* cache, which says the prediction still describes the artifacts it was
+written for and nothing about what the game loaded. Passing it is not a
+substitute for the binding.
+
+This matters most for the probe pack, whose Exclusive and High variants differ
+by one field and produce opposite outcomes: without the binding, a transcript
+could be filed against the wrong variant and appear to confirm a prediction it
+actually contradicts.
 
 ## Rules for what may go here
 
@@ -32,9 +46,22 @@ would appear to confirm a prediction it actually contradicts.
   `tests/test_observe_contentpatcher.py` exist to test the parser against the
   format Content Patcher's source emits. They are fixtures. Copying one here
   would turn a parser test into a fabricated observation.
-* **Record the versions.** The game, SMAPI and Content Patcher versions belong
-  in the first lines of the capture (`patch summary` prints them), because a
-  prediction confirmed on one Content Patcher version is not confirmed on all.
+* **Record the versions** in the capture manifest. A prediction confirmed on one
+  Content Patcher version is not confirmed on all, and `observe` refuses a
+  manifest that omits them.
+* **Install the complete pack.** The static walkthrough reconstructs a folder
+  holding only `content.json`, `manifest.json` and `LICENSE`, which is enough to
+  parse and not enough to run: a `Load` whose `FromFile` is missing is skipped
+  with a warning, and would look like a resolution outcome. The runtime install
+  needs the referenced assets too.
+* **Capture the negative deliberately.** A negative claim ("no Load applied")
+  is only confirmed from a transcript that demonstrably enumerated the asset --
+  an unfiltered `patch summary`, or one filtered to that exact asset. A
+  truncated paste, or a summary filtered to a different asset, leaves the claim
+  unobserved rather than confirming it.
+* **`patch dump order` is not `patch dump applied`.** The first is the global
+  definition order and includes patches that never applied. An apply-order claim
+  is only answered by the second.
 * **Do not treat 'not applied' as a failure without requesting the asset.**
   Content Patcher reports `applied` as false for an asset the game has not
   loaded yet. Summon the horse, enter the farm, open the relevant screen --

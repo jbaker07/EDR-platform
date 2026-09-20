@@ -1,0 +1,59 @@
+# Capture manifest template -- copy to <prediction id>.<run id>.capture.yaml
+#
+# This file is the binding between one prediction and one real game run. Without
+# it, `modcheck runtime observe` refuses to issue any result, because a
+# transcript with nothing tying it to a run cannot be said to be evidence of
+# anything.
+#
+# Fill it AT CAPTURE TIME, not afterwards. Every hash here is checked.
+
+prediction: sv_deliberate_conflict      # must match the prediction being judged
+run_id: 2026-09-21T14-03Z-run1          # anything unique; two runs must be distinguishable
+captured_at: '2026-09-21T14:03:00Z'
+
+# All three are required. A prediction confirmed on one Content Patcher version
+# is not confirmed on all, so a capture without them confirms nothing.
+versions:
+  stardew_valley: '1.6.15'
+  smapi: '4.1.10'
+  content_patcher: '2.8.0'
+
+# The files as they sat in the GAME's directories -- what the game actually
+# loaded, not what is in our evidence cache. Hash them in place. `path` is for a
+# human to find them again; the binding matches on sha256, because the installed
+# path is not our cache path.
+#
+# Every artifact the prediction pins must appear here under the same hash, or
+# the binding is refused. List config.json too when a case turns on config: the
+# game read it, so it is part of what produced this output.
+installed:
+- path: Mods/[CP] Bear Mounts/content.json
+  sha256: 1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e
+- path: Mods/[CP] Bear Mounts/manifest.json
+  sha256: 0ebb1577ab1eadb414f98ed19b4a7a5946e49831f934804f551d09b970df5049
+- path: Mods/[CP] ModCheck Conflict Probe/content.json
+  sha256: b743cddab2e478acc0d569f292113577aee37309b601697a8e87c53d612148ce
+- path: Mods/[CP] ModCheck Conflict Probe/manifest.json
+  sha256: b929518f5410d00056ecdcc5f8ef81402c8add5ebca0c8384d62691a4b9d6cc8
+- path: Mods/[CP] ModCheck Conflict Probe/assets/probe_horse.png
+  sha256: c7fefcb5f1e1fd21788966fcd7af9d757206b12b97b666c81c9110da5fae782e
+
+# One entry per captured command. `command` must be the command as the
+# prediction spells it, or the claims needing it stay unobserved. `local_path`
+# is relative to the repository root; `sha256` is of that file, so a transcript
+# tidied up after capture is refused rather than judged.
+transcripts:
+- command: patch summary asset "Animals/horse" full
+  path: SMAPI console
+  local_path: evaluation/runtime/transcripts/sv_deliberate_conflict.summary.txt
+  sha256: <sha256 of the file you just saved>
+- command: patch dump applied
+  path: SMAPI console
+  local_path: evaluation/runtime/transcripts/sv_deliberate_conflict.dump-applied.txt
+  sha256: <sha256 of the file you just saved>
+
+notes: >-
+  Anything a later reader needs: which save, which in-game date, whether the
+  horse had been summoned, anything that looked odd. If the run disagreed with
+  the prediction, say so here -- the prediction stays as recorded and the
+  correction goes in a new commit.

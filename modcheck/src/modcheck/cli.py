@@ -468,29 +468,57 @@ def cmd_runtime(args) -> int:
         return 1 if problems else 0
 
     # observe
+    from .observe import capture as capture_mod
+
     prediction = predictions[0] if args.id else None
     if prediction is None:
         print("observe needs --id", file=sys.stderr)
         return 2
+
+    # The binding comes first. Reading the transcripts before deciding whether
+    # they may be used would let a refused pairing still print claim verdicts,
+    # and a printed "MATCH" is what a reader remembers.
+    root = project_root()
+    capture = capture_mod.load_capture(Path(args.capture))
+    binding = capture_mod.validate(capture, prediction, root)
+    if not binding.ok:
+        print(capture_mod.render_binding(binding))
+        if args.json:
+            print(json.dumps({"prediction": prediction.id, "verdict": "unbound",
+                              "problems": binding.problems}, indent=2))
+        return 1
+
+    # Transcripts are read from the capture manifest, not from loose flags, so
+    # the files judged are the files the binding just confirmed.
     summary = applied = order = None
-    if args.summary:
-        summary = cp_observe.parse_summary(Path(args.summary).read_text())
-    if args.dump_applied:
-        applied = cp_observe.parse_dump_applied(Path(args.dump_applied).read_text())
-    if args.dump_order:
-        order = cp_observe.parse_dump_order(Path(args.dump_order).read_text())
+    for entry in capture.transcripts:
+        text = (root / entry.local_path).read_text()
+        command = entry.command.lower()
+        if "dump applied" in command:
+            applied = cp_observe.parse_dump_applied(text)
+        elif "dump order" in command:
+            order = cp_observe.parse_dump_order(text)
+        elif "summary" in command:
+            # Several `patch summary` captures can bind to one prediction; the
+            # narrowest wins for coverage purposes, so keep the last and let the
+            # coverage check decide whether it answers a given claim.
+            summary = cp_observe.parse_summary(text)
     if summary is None and applied is None and order is None:
-        print("observe needs at least one transcript (--summary / --dump-applied / "
-              "--dump-order). Without one, every claim is unobserved -- which is "
-              "not a pass.", file=sys.stderr)
+        print("the capture carries no transcript this tool can read. Without one, "
+              "every claim is unobserved -- which is not a pass.", file=sys.stderr)
         return 2
+
     comparison = compare(prediction, summary, applied, order)
     if args.json:
         print(json.dumps({
             "prediction": prediction.id, "verdict": comparison.verdict,
+            "run_id": capture.run_id, "versions": capture.versions,
+            "missing_commands": binding.missing_commands,
             "claims": [{"claim": r.claim.describe(), "verdict": r.verdict,
                         "observed": r.observed} for r in comparison.results]}, indent=2))
     else:
+        print(capture_mod.render_binding(binding))
+        print()
         print(observe_render.render_comparison(comparison))
     return 0 if comparison.verdict == "matched" else 1
 
@@ -620,9 +648,12 @@ def build_parser() -> argparse.ArgumentParser:
         rp.add_argument("--id", help="a single prediction id")
         rp.add_argument("--predictions", help="predictions directory")
         if name == "observe":
-            rp.add_argument("--summary", help="captured `patch summary` output")
-            rp.add_argument("--dump-applied", help="captured `patch dump applied` output")
-            rp.add_argument("--dump-order", help="captured `patch dump order` output")
+            rp.add_argument("--capture", required=True,
+                            help="the capture manifest binding this prediction to one "
+                                 "real run: installed artifact hashes, game/SMAPI/"
+                                 "Content Patcher versions, and the transcripts. "
+                                 "Required -- a transcript with no binding cannot be "
+                                 "said to be evidence of anything")
             rp.add_argument("--json", action="store_true")
         rp.set_defaults(func=cmd_runtime)
 

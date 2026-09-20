@@ -82,14 +82,16 @@
     patch: Stable overlay
     expect: true
     because: it applies When ChangeStable is true, and the declared default is true
-  - kind: winner_for_target
+  - kind: load_winner_for_target
     target: Animals/horse
     expect: The Bear
     because: >-
       the decisive claim against misclassification. Our inspector reads eleven
       EditImage patches, three of which target Animals/horse. If we had read
       them as competing Load actions we would predict a conflict here instead of
-      a single applied load.
+      a single applied load. Stated about Loads specifically: edits applying on
+      top of the winning load is the normal case, and a check that counted them
+      as rival winners would fail a prediction that is right.
   observation:
     status: not_yet_observed
 
@@ -129,13 +131,17 @@
   - patch summary asset "Animals/horse" full
   - patch dump applied
   claims:
-  - kind: no_patch_applied
+  - kind: no_load_applied
     target: Animals/horse
     expect: true
     because: >-
       the rule says that where several Exclusive patches load one asset, none
       is applied. This is the claim that separates our model from the intuitive
-      wrong answer, which is that the later or higher pack wins.
+      wrong answer, which is that the later or higher pack wins. It is about
+      Loads, not about every patch: Content Patcher discards only the selected
+      loader, so Bear Mounts' edits still apply -- onto the game's original
+      horse, since no replacement supplied one. Predicting that nothing at all
+      applies would be a different claim, and a wrong one.
   - kind: patch_applied
     patch: The Bear
     expect: false
@@ -207,10 +213,10 @@
     patch: Probe Horse
     expect: true
     because: being ignored is not being unloaded
-  - kind: winner_for_target
+  - kind: load_winner_for_target
     target: Animals/horse
     expect: The Bear
-    because: exactly one load applies now, where the previous case had none
+    because: exactly one Load applies now, where the previous case had none
   observation:
     status: not_yet_observed
 
