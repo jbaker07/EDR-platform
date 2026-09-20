@@ -23,10 +23,16 @@ mechanism:
     signature: "static void attachElementAfter(Identifier, Identifier, HudElement)"
     container: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry
     label: position relative to a named vanilla element
-  - kind: type
-    id: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
+  - kind: method
+    id: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement.extractRenderState
+    signature: "void extractRenderState(GuiGraphicsExtractor, DeltaTracker)"
     container: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
-    label: the element interface a mod implements
+    label: the ONE method a mod implements; there is no render(GuiGraphics, ...)
+  - kind: method
+    id: net.minecraft.client.gui.GuiGraphicsExtractor.centeredText
+    signature: "void centeredText(Font, Component, int, int, int)"
+    container: net.minecraft.client.gui.GuiGraphicsExtractor
+    label: draw text; GuiGraphics does not exist in this version
   - kind: field
     id: net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements.HOTBAR
     container: net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements
@@ -85,6 +91,13 @@ evidence_note: >-
   for our own build (sha256 749427999b4845b1...), using javap. The older
   HudRenderCallback that most published tutorials use is not what this version
   exposes; a record written from those tutorials would not compile.
+
+  CORRECTED after a compile failure: this record named HudElement as a type
+  without recording its method, and an implementation written against the
+  familiar render(GuiGraphics, DeltaTracker) shape does not compile. Minecraft
+  26.3 has no GuiGraphics type at all -- the HUD extracts render state through
+  GuiGraphicsExtractor. Recording a type without its signature left exactly
+  the gap that a plausible guess fills.
 invalidated_by:
   - A Fabric API version bump; this HUD API replaced an earlier one.
   - A change to the resolved artifact's sha256.

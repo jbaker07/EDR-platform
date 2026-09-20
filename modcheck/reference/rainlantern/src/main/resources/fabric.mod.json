@@ -1,0 +1,24 @@
+{
+    "schemaVersion": 1,
+    "id": "rainlantern",
+    "version": "${version}",
+    "name": "Rainlantern",
+    "description": "A lantern that charges in the rain, keeps its own charge across a reload, and shows the charge of the one you are looking at.",
+    "authors": [],
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.example.rainlantern.Rainlantern"
+        ],
+        "client": [
+            "com.example.rainlantern.client.RainLanternClient"
+        ]
+    },
+    "depends": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": "~26.3",
+        "java": ">=25",
+        "fabric-api": "*"
+    }
+}

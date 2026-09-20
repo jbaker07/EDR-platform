@@ -29,10 +29,16 @@ mechanism:
     signature: "GameRuleBuilder<T> category(GameRuleCategory)"
     container: net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder
     label: which section of the world-creation screen it appears under
-  - kind: type
-    id: net.minecraft.world.level.gamerules.GameRules
+  - kind: method
+    id: net.minecraft.server.level.ServerLevel.getGameRules
+    signature: "GameRules getGameRules()"
+    container: net.minecraft.server.level.ServerLevel
+    label: the accessor -- declared on ServerLevel, NOT on Level
+  - kind: method
+    id: net.minecraft.world.level.gamerules.GameRules.get
+    signature: "<T> T get(GameRule<T>)"
     container: net.minecraft.world.level.gamerules.GameRules
-    label: the per-level rule map a registered rule is read from
+    label: a single generic accessor; there is no getInt
 requirements:
   - The fabric-game-rule-api-v1 module of the Fabric API.
   - >-
@@ -90,6 +96,11 @@ evidence_note: >-
   not exist in this version -- the api package contains only
   FabricGameRuleTypeVisitor, GameRuleBuilder and GameRuleEvents. Code written
   from those tutorials would not compile.
+
+  CORRECTED after a compile failure: the accessor is ServerLevel.getGameRules(),
+  not Level.getGameRules(). Reading the rule from a Level does not compile --
+  which is also the right constraint, since the value is read where the
+  behaviour runs, on the server.
 invalidated_by:
   - A Fabric API version bump; this API replaced GameRuleRegistry/GameRuleFactory.
   - A change to the resolved artifact's sha256.

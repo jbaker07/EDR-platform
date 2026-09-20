@@ -15,8 +15,8 @@ runs_on: both
 scope: player
 mechanism:
   - kind: method
-    id: net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playS2C
-    signature: "static PayloadTypeRegistry<RegistryFriendlyByteBuf> playS2C()"
+    id: net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay
+    signature: "static PayloadTypeRegistry<RegistryFriendlyByteBuf> clientboundPlay()"
     container: net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
     label: the registry for server-to-client play payloads
   - kind: method
@@ -82,7 +82,7 @@ references:
   - source: fabric_networking_api_v1_jar
     evidence_class: extracted
     locator: net/fabricmc/fabric/api/networking/v1/PayloadTypeRegistry.class
-    quote: "public static PayloadTypeRegistry<RegistryFriendlyByteBuf> playS2C()"
+    quote: "public static PayloadTypeRegistry<RegistryFriendlyByteBuf> clientboundPlay()"
   - source: fabric_networking_api_v1_jar
     evidence_class: extracted
     locator: net/fabricmc/fabric/api/networking/v1/PlayerLookup.class
@@ -95,6 +95,14 @@ evidence_note: >-
   one consuming on the client, with nothing between them. The modern payload
   API is what this version exposes; the older PacketByteBuf-and-Identifier
   send() overloads are not present.
+
+  CORRECTED after a compile failure: this record first said playS2C(). The
+  methods on PayloadTypeRegistry are clientboundPlay() and serverboundPlay();
+  playS2C()/playC2S() are the names from an older Fabric API. The field list
+  had again been read through a truncated terminal line, so the real names
+  were never seen. Registering a payload is also not synchronisation: the type
+  must be registered on both sides, a send must name recipients, and a
+  receiver must exist -- and the build succeeds with any of the three missing.
 invalidated_by:
   - A Fabric API version bump; the payload API replaced an earlier packet API.
   - A change to the resolved artifact's sha256.

@@ -72,3 +72,49 @@ requirements:
       Changing the configured rate and restarting the server changes the
       observed accumulation rate to match.
     notes: Unchanged from the first version.
+
+# ---------------------------------------------------------------------------
+# PROPOSED CONTRACT -- ours, not the creator's.
+#
+# The request leaves several details unstated. Implementing it requires
+# deciding them, and a decision we made must not be mistaken for something the
+# creator asked for. Each of these is a proposal: changing any one of them
+# changes no acceptance criterion above.
+#
+# Nothing here weakens a requirement. Where a proposal and a requirement
+# disagree, the requirement wins and the proposal is wrong.
+proposed_contract:
+  charge_units: >-
+    Charge is a non-negative integer, capped at 1000. The cap exists so the
+    value serialises and renders predictably; the request states no maximum.
+  charge_rate_units: >-
+    The gamerule value is charge points added per charging interval, not per
+    tick and not per second. Ticks are not wall-clock time on a loaded server,
+    so "per interval" is the only unit that is stable.
+  charging_interval: >-
+    Every 20 ticks. Once per second on an unloaded server, and less often on a
+    loaded one -- which is correct: the schedule is in game time.
+  exposure_test: >-
+    Level.isRainingAt(pos.above()) -- the position directly above the lantern.
+    Vanilla's isRainingAt already accounts for sky visibility, the heightmap
+    and whether the biome has rain at that temperature. Testing the position
+    above rather than the lantern's own means a lantern under a slab is
+    sheltered.
+  placement_and_removal: >-
+    A newly placed lantern starts at zero charge. Breaking a lantern discards
+    its charge; the item does not carry it. The request says nothing about
+    either, and both are the simplest behaviour consistent with it.
+  sync_recipients: >-
+    A charge change is sent to the players currently tracking the lantern's
+    chunk. Sending to everyone would work and waste bandwidth; sending to
+    nobody but the viewer would need a viewer-tracking mechanism the request
+    does not ask for.
+  stale_client_state: >-
+    A client entry older than 200 ticks is treated as unknown and the HUD shows
+    nothing rather than a stale number. The request does not mention staleness,
+    and showing a number the server has since changed would be worse than
+    showing none.
+  display_when_not_looking: >-
+    Looking at anything that is not a lantern shows nothing. This is the
+    request's own criterion ("looking away ... shows nothing") restated as a
+    contract because it also governs the not-yet-synced case.

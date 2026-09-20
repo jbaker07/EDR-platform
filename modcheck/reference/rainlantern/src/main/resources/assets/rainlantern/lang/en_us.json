@@ -1,0 +1,5 @@
+{
+  "block.rainlantern.rain_lantern": "Rain Lantern",
+  "gamerule.rainlantern.rain_lantern_charge_rate": "Rain lantern charge rate",
+  "gamerule.rainlantern.rain_lantern_charge_rate.description": "Charge points a rain lantern gains per charging interval while rain falls on it."
+}
