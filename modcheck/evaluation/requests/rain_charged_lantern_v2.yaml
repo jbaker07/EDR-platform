@@ -1,0 +1,74 @@
+# REVISION of rain_charged_lantern.
+#
+# What changed, and why it is not cosmetic: the creator has decided the charge
+# belongs to each lantern, not to the world. "The world's charge" was always a
+# simplification, and it shows as soon as a player places a second lantern --
+# both would read the same number.
+#
+# This changes an ACCEPTED requirement. retain_charge_across_reload previously
+# read "the stored charge survives a reload"; it now reads "each lantern's own
+# charge survives a reload, independently". The old acceptance criterion is not
+# rewritten to fit what was built -- it is replaced, deliberately, and the
+# difference is stated.
+id: rain_charged_lantern_v2
+game: minecraft
+game_version: "26.3"
+loader: fabric
+title: Per-lantern charge that survives a reload, shown for the one you look at
+description: >-
+  Revision of rain_charged_lantern. Charge is per lantern rather than per
+  world, and the HUD shows the charge of the lantern the player is looking at.
+  Everything else is unchanged.
+requirements:
+  - id: accumulate_while_raining
+    statement: >-
+      While it is raining at a lantern's position, THAT lantern's stored charge
+      increases on a fixed schedule.
+    capability: subscribe_event
+    side: server
+    acceptance: >-
+      Given two lanterns, one under rain and one sheltered, after N ticks only
+      the exposed one's charge has increased.
+    notes: >-
+      Unchanged in mechanism, changed in scope: the tick handler now iterates
+      lanterns rather than updating one world value.
+
+  - id: retain_charge_across_reload
+    statement: >-
+      Each lantern's own charge survives saving and reloading the world,
+      independently of every other lantern's.
+    capability: persist_state
+    side: server
+    # The whole point of the revision, stated in a field the gate can check.
+    scope: block
+    reads_from: [accumulate_while_raining]
+    acceptance: >-
+      Given two lanterns holding charges C1 != C2, after a save and reload they
+      still hold C1 and C2 respectively. The previous version's criterion --
+      "the stored charge reads exactly C" -- passed with a single shared value
+      and can no longer be used.
+    notes: >-
+      This is the substantive change. A single world-scoped value satisfied the
+      old criterion and cannot satisfy this one.
+
+  - id: show_remaining_charge
+    statement: >-
+      The player sees the charge of the lantern they are looking at.
+    capability: display_information
+    side: client
+    reads_from: [retain_charge_across_reload]
+    acceptance: >-
+      Looking at lantern A shows A's charge; looking away or at lantern B shows
+      B's or nothing. A single number that does not change between lanterns is
+      a failure.
+
+  - id: server_configurable_rate
+    statement: >-
+      A server operator can change the charge rate without editing or
+      rebuilding the mod.
+    capability: add_configuration
+    side: server
+    acceptance: >-
+      Changing the configured rate and restarting the server changes the
+      observed accumulation rate to match.
+    notes: Unchanged from the first version.

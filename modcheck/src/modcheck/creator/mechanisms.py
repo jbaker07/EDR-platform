@@ -44,6 +44,11 @@ class Emission:
     path: str
     content: str
     cites: list[str]
+    # The type this file declares. Other generators reference it by this name
+    # rather than by reconstructing it from a naming convention -- which broke
+    # the moment a revision selected a different persist_state mechanism and
+    # the ticker went on referring to a class that was no longer emitted.
+    class_name: str = ""
 
 
 def _package_of(root: Path) -> str:
@@ -144,7 +149,7 @@ public final class {class_name} {{
 }}
 """
     return Emission(_source_path(package, class_name), content,
-                    [f"{record.game}/{record.id}"])
+                    [f"{record.game}/{record.id}"], class_name=class_name)
 
 
 def saved_data(root: Path, record: Record, *, name: str,
@@ -207,24 +212,63 @@ public class {class_name} extends SavedData {{
 }}
 """
     return Emission(_source_path(package, class_name), content,
-                    [f"{record.game}/{record.id}"])
+                    [f"{record.game}/{record.id}"], class_name=class_name)
+
+
+TICK_NOTE = (
+    'END_LEVEL_TICK carries the ServerLevel, which per-level state and per-level\nweather both need; END_SERVER_TICK does not. The name is END_LEVEL_TICK in\nthis version, not the END_WORLD_TICK of older Fabric APIs. This runs on the\nserver thread: blocking here stalls the tick loop for every player.')
 
 
 def server_tick(root: Path, record: Record, *, name: str,
-                state_class: str, rule_class: str | None = None) -> Emission:
-    """subscribe_event via ServerTickEvents, with the creator's seam marked."""
+                state_class: str, rule_class: str | None = None,
+                state_scope: str = "level") -> Emission:
+    """subscribe_event via ServerTickEvents, with the creator's seam marked.
+
+    The body depends on the SCOPE of the state mechanism that was selected, not
+    on its capability. A level-scoped store has one instance the handler can
+    fetch; a block-scoped attachment does not -- there is no single target, and
+    finding the relevant ones is domain logic we have no recorded mechanism for.
+    Emitting the fetch anyway produced `int cannot be converted to
+    ...Attachment`: the generator asserting a shape it had never checked.
+    """
     package = _package_of(root)
     class_name = f"{_java_name(name)}Ticker"
-    rule_import = f"\n// rule: {rule_class}" if rule_class else ""
-    # GameRules exposes a single generic get(GameRule<T>); there is no getInt.
     rule_field = re.sub(r"(?<!^)(?=[A-Z])", "_", _java_name(name)).upper()
+    # GameRules exposes a single generic get(GameRule<T>); there is no getInt.
     rule_read = (f"int rate = {rule_class}.clamp(level.getGameRules().get({rule_class}."
                  f"{rule_field}));" if rule_class else "int rate = 1;")
-    content = f"""{_header(record, '''
-END_LEVEL_TICK carries the ServerLevel, which per-level state and per-level
-weather both need; END_SERVER_TICK does not. The name is END_LEVEL_TICK in this
-version, not the END_WORLD_TICK of older Fabric APIs. This runs on the server thread:
-blocking here stalls the tick loop for every player.''')}{rule_import}
+
+    note = TICK_NOTE
+    if state_scope in ("level", "world"):
+        body = "\n".join([
+            f"        {state_class} state = {state_class}.get(level);",
+            f"        {rule_read}",
+            "",
+            f"        {SEAM}",
+            "        // ModCheck generated the subscription, the level-scoped access",
+            "        // and the state lookup. What counts as a tick worth acting on --",
+            "        // and what the action is -- is yours: this method does nothing",
+            "        // with `state` or `rate` yet, and that is deliberate.",
+        ])
+    else:
+        note += (f"\n\nThe selected state mechanism is {state_scope}-scoped, so no state "
+                 "lookup is\ngenerated here. See the body.")
+        body = "\n".join([
+            f"        {rule_read}",
+            "",
+            f"        {SEAM}",
+            "        // ModCheck generated the subscription and the rule read. It did",
+            f"        // NOT generate a state lookup: {state_class} holds one value per",
+            f"        // {state_scope}, and this handler has a level, not a {state_scope}.",
+            "        //",
+            "        // Finding the relevant targets in this level is yours -- ModCheck",
+            "        // has no recorded mechanism for enumerating them, and generating a",
+            "        // plausible loop would be inventing one. Once you have a target:",
+            f"        //     int value = {state_class}.get(target);",
+            f"        //     {state_class}.set(target, value + rate);",
+        ])
+
+    content = f"""{_header(record, note)}
 package {package};
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -239,19 +283,12 @@ public final class {class_name} {{
     }}
 
     private static void onLevelTick(ServerLevel level) {{
-        {state_class} state = {state_class}.get(level);
-        {rule_read}
-
-        {SEAM}
-        // ModCheck generated the subscription, the level-scoped access and the
-        // state lookup. What counts as a tick worth acting on -- and what the
-        // action is -- is yours: this method currently does nothing with `state`
-        // or `rate`, and that is deliberate rather than an oversight.
+{body}
     }}
 }}
 """
     return Emission(_source_path(package, class_name), content,
-                    [f"{record.game}/{record.id}"])
+                    [f"{record.game}/{record.id}"], class_name=class_name)
 
 
 def sync_payload(root: Path, record: Record, *, name: str,
@@ -290,7 +327,7 @@ public record {class_name}(int {field_name}) implements CustomPacketPayload {{
 }}
 """
     return Emission(_source_path(package, class_name), content,
-                    [f"{record.game}/{record.id}"])
+                    [f"{record.game}/{record.id}"], class_name=class_name)
 
 
 def hud_element(root: Path, record: Record, *, name: str, payload_class: str,
@@ -340,20 +377,103 @@ public final class {class_name} {{
 }}
 """
     return Emission(_source_path(package, class_name), content,
-                    [f"{record.game}/{record.id}"])
+                    [f"{record.game}/{record.id}"], class_name=class_name)
 
 
-# Keyed by the capability the record answers, so a plan selects a generator by
-# the same id it used to select the mechanism. A capability with no entry here
-# is one the product can plan but not wire, and `for_capability` says so.
-BY_CAPABILITY = {
-    "add_configuration": gamerule,
-    "persist_state": saved_data,
-    "subscribe_event": server_tick,
-    "sync_state": sync_payload,
-    "display_information": hud_element,
+def attachment(root: Path, record: Record, *, name: str,
+               field_name: str = "charge") -> Emission:
+    """persist_state per target, via a persistent data attachment."""
+    package = _package_of(root)
+    mod_id = _mod_id(root)
+    class_name = f"{_java_name(name)}Attachment"
+    type_id = re.sub(r"[^a-z0-9_]+", "_", name.lower())
+    content = f"""{_header(record, '''
+createPersistent is what writes to the save. A type made with create() is
+in-memory only and is silently absent after a reload -- which looks exactly
+like a save bug.
+
+One value per TARGET, unlike SavedData's one per level. A bare Block does not
+implement AttachmentTarget: blocks are flyweights shared by every placement, so
+per-placement state needs a block entity.''')}
+package {package};
+
+import com.mojang.serialization.Codec;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.minecraft.resources.Identifier;
+
+public final class {class_name} {{
+    public static final AttachmentType<Integer> {field_name.upper()} =
+            AttachmentRegistry.createPersistent(
+                    Identifier.fromNamespaceAndPath("{mod_id}", "{type_id}"),
+                    Codec.INT);
+
+    private {class_name}() {{
+    }}
+
+    /** Each target holds its own value; two targets never share one. */
+    public static int get(AttachmentTarget target) {{
+        Integer value = target.getAttached({field_name.upper()});
+        return value == null ? 0 : value;
+    }}
+
+    public static void set(AttachmentTarget target, int value) {{
+        target.setAttached({field_name.upper()}, value);
+    }}
+
+    /** Touching the class runs the static initialiser that registers the type. */
+    public static void register() {{
+    }}
+}}
+"""
+    return Emission(_source_path(package, class_name), content,
+                    [f"{record.game}/{record.id}"], class_name=class_name)
+
+
+# Keyed by (game, loader, capability). The game and loader are load-bearing,
+# not decoration: every generator here emits Java against the Fabric API, and
+# keying on the capability alone once produced a Fabric gamerule class for a
+# Project Zomboid record -- which is a Lua ecosystem with no JVM at all. A
+# generator that does not declare what it targets will eventually be handed
+# something it cannot serve, and the output looks plausible.
+BY_MECHANISM: dict[tuple[str, str, str], Any] = {
+    ("minecraft", "fabric", "add_configuration"): gamerule,
+    ("minecraft", "fabric", "persist_state"): saved_data,
+    # Two persist_state mechanisms with different scopes need different
+    # generators; the record id is what tells them apart, so BY_RECORD wins
+    # where it has an entry.
+    ("minecraft", "fabric", "subscribe_event"): server_tick,
+    ("minecraft", "fabric", "sync_state"): sync_payload,
+    ("minecraft", "fabric", "display_information"): hud_element,
 }
 
 
+# Where one capability has several mechanisms, the record id selects the
+# generator. Keyed ahead of BY_MECHANISM so a scope-specific mechanism is never
+# wired by the general one.
+BY_RECORD: dict[tuple[str, str], Any] = {
+    ("minecraft", "persist_state.fabric_attachment"): attachment,
+    ("minecraft", "persist_state.fabric_saveddata"): saved_data,
+}
+
+
+def for_record(record: Record):
+    """The generator for this exact record, or None.
+
+    Resolved from the record's own game and declared loader rather than from
+    the request, so a record cannot be wired by a generator built for a
+    different ecosystem even if the request asked for one.
+    """
+    specific = BY_RECORD.get((record.game, record.id))
+    if specific is not None:
+        return specific
+    loader = str((record.get("applies_to") or {}).get("loader") or "").lower()
+    return BY_MECHANISM.get((record.game, loader, record.get("capability")))
+
+
 def for_capability(capability: str):
-    return BY_CAPABILITY.get(capability)
+    """Deprecated: kept only to fail loudly if anything still calls it."""
+    raise ApplyError(
+        "generators are selected per (game, loader, capability), not by "
+        "capability alone. Use for_record(record).")

@@ -28,7 +28,7 @@ def _request(**overrides):
         "id": "t", "game": "minecraft", "title": "T", "game_version": "26.3",
         "loader": "fabric",
         "requirements": [{"id": "r1", "statement": "s", "capability": "persist_state",
-                          "side": "server"}],
+                          "side": "server", "scope": "level"}],
     }
     data.update(overrides)
     return Request.from_dict(data)
@@ -135,7 +135,7 @@ def test_a_genuine_side_conflict_is_unsupported_not_investigate():
 def _cross_side_request(**overrides):
     return _request(requirements=[
         {"id": "store", "statement": "keep it", "capability": "persist_state",
-         "side": "server"},
+         "side": "server", "scope": "level"},
         {"id": "show", "statement": "show it", "capability": "display_information",
          "side": "client", "reads_from": ["store"]},
     ], **overrides)
@@ -156,7 +156,7 @@ def test_a_flow_is_only_checked_where_the_request_declares_it():
     """Inferring joins from wording would invent ones nobody asked for."""
     plan = build(_request(requirements=[
         {"id": "store", "statement": "keep it", "capability": "persist_state",
-         "side": "server"},
+         "side": "server", "scope": "level"},
         {"id": "show", "statement": "show it", "capability": "display_information",
          "side": "client"},
     ]), Store())
@@ -175,7 +175,7 @@ def test_same_side_flows_raise_no_issue():
         {"id": "tick", "statement": "t", "capability": "subscribe_event",
          "side": "server"},
         {"id": "store", "statement": "s", "capability": "persist_state",
-         "side": "server", "reads_from": ["tick"]}]), Store())
+         "side": "server", "scope": "level", "reads_from": ["tick"]}]), Store())
     assert plan.composition == []
 
 
@@ -205,3 +205,80 @@ def test_render_separates_grounded_from_tested():
     text = render(build(Request.load(REQUESTS / "rain_charged_lantern.yaml"), Store()))
     assert "does NOT mean the behaviour has been tested" in text
     assert "requirement to evidence" in text
+
+
+# -- scope: the revision's lesson ------------------------------------------
+#
+# A revision changed an accepted requirement from one charge per world to one
+# per lantern. Both are persist_state, and the gate could not tell them apart:
+# it selected the level-scoped SavedData and reported the plan ready. Code
+# written against it compiles, and every lantern reads the same number.
+
+def test_capability_alone_cannot_distinguish_world_from_per_object_state():
+    """Without scope, the wrong mechanism is selected and nothing objects."""
+    store = Store()
+    records = [r for r in store.pack("minecraft").records("capability")
+               if r.get("capability") == "persist_state"]
+    assert len(records) >= 2, "there must be more than one persist_state mechanism"
+    scopes = {r.get("scope") for r in records}
+    assert "level" in scopes and "block" in scopes, (
+        "the two mechanisms differ by scope, not by capability")
+
+
+def test_a_block_scoped_requirement_rejects_the_level_scoped_mechanism():
+    resolution = _only(_request(requirements=[
+        {"id": "r", "statement": "each lantern keeps its own", "side": "server",
+         "capability": "persist_state", "scope": "level"}]))
+    assert resolution.record.id == "persist_state.fabric_saveddata"
+
+    resolution = _only(_request(requirements=[
+        {"id": "r", "statement": "each lantern keeps its own", "side": "server",
+         "capability": "persist_state", "scope": "block"}]))
+    assert resolution.record.id == "persist_state.fabric_attachment"
+
+
+def test_an_unspecified_scope_over_differently_scoped_mechanisms_is_ambiguous():
+    """Two equally established mechanisms that are not interchangeable.
+
+    Picking one by declaration order would answer a question the creator never
+    answered -- and recording the block-scoped attachment would retroactively
+    have changed what the first lantern request planned against.
+    """
+    resolution = _only(_request(requirements=[
+        {"id": "r", "statement": "s", "capability": "persist_state",
+         "side": "server"}]))
+    assert resolution.status == REQUIRES_INVESTIGATION
+    assert "not\n                    \"interchangeable" in resolution.missing_fact or \
+           "interchangeable" in resolution.missing_fact
+    assert len(resolution.alternatives) == 2
+    assert "Declare `scope:`" in resolution.procedure
+
+
+def test_a_scope_conflict_explains_the_symptom_not_just_the_mismatch():
+    from modcheck.creator.plan import _scope_conflict
+    store = Store()
+    record = store.pack("minecraft").record("capability",
+                                            "persist_state.fabric_saveddata")
+    from modcheck.creator.plan import Requirement
+    requirement = Requirement(id="r", statement="s", capability="persist_state",
+                              side="server", scope="entity")
+    message = _scope_conflict(record, requirement)
+    assert "one value per entity" in message and "one per level" in message
+    assert "every entity reads the same number" in message
+
+
+def test_the_revision_plans_against_the_new_mechanism():
+    plan = build(Request.load(REQUESTS / "rain_charged_lantern_v2.yaml"), Store())
+    assert plan.ready
+    storage = next(r for r in plan.resolutions
+                   if r.requirement.id == "retain_charge_across_reload")
+    assert storage.record.id == "persist_state.fabric_attachment"
+    assert storage.requirement.scope == "block"
+
+
+def test_the_first_version_still_plans_against_the_old_one():
+    """The revision must not retroactively change what v1 asked for."""
+    plan = build(Request.load(REQUESTS / "rain_charged_lantern.yaml"), Store())
+    storage = next(r for r in plan.resolutions
+                   if r.requirement.id == "retain_charge_across_reload")
+    assert storage.record.id == "persist_state.fabric_saveddata"

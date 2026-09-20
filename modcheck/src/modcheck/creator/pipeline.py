@@ -31,7 +31,7 @@ from typing import Any
 from ..store import Store
 from .apply import ChangeSet, FileChange
 from .build import BuildResult, run_build
-from .mechanisms import Emission, for_capability
+from .mechanisms import Emission, for_record
 from .plan import GROUNDED, Plan, Request, build as build_plan
 
 
@@ -76,6 +76,23 @@ class Outcome:
 
 # Arguments each mechanism generator needs beyond the record, derived from the
 # request rather than hardcoded per demonstration.
+# Which naming slot each capability's emitted class fills, so a later
+# generator references a real class rather than a guessed name.
+_PROVIDES = {"persist_state": "state_class", "sync_state": "payload_class",
+             "add_configuration": "rule_class"}
+
+
+def _remember(naming: dict[str, str], capability: str, emission, record) -> None:
+    slot = _PROVIDES.get(capability)
+    if slot and emission.class_name:
+        naming[slot] = emission.class_name
+    if capability == "persist_state":
+        # The consumer's shape depends on the mechanism's scope, not its
+        # capability: a level store has one instance to fetch and a block
+        # attachment does not.
+        naming["state_scope"] = record.get("scope") or "level"
+
+
 def _arguments(request: Request, requirement_id: str, capability: str,
                naming: dict[str, str]) -> dict[str, Any]:
     name = naming.get("name", request.id.replace("_", " "))
@@ -87,9 +104,22 @@ def _arguments(request: Request, requirement_id: str, capability: str,
     if capability in ("persist_state", "sync_state"):
         args["field_name"] = naming.get("field", "charge")
     if capability == "subscribe_event":
+        # Required, not defaulted: a ticker that references a class nothing
+        # emitted is a compile error found late instead of a refusal found now.
+        if "state_class" not in naming:
+            raise KeyError(
+                "subscribe_event is wired after a persist_state mechanism, and "
+                "none was emitted. Its handler would reference a class that does "
+                "not exist.")
         args["state_class"] = naming["state_class"]
         args["rule_class"] = naming.get("rule_class")
+        args["state_scope"] = naming.get("state_scope", "level")
     if capability == "display_information":
+        if "payload_class" not in naming:
+            raise KeyError(
+                "display_information is wired after a sync_state mechanism, and "
+                "none was emitted. Its handler would reference a class that does "
+                "not exist.")
         args["payload_class"] = naming["payload_class"]
         # The accessor name must be the payload's field, not a word guessed
         # from the request title. Deriving it from the title produced
@@ -106,52 +136,26 @@ def run(request: Request, project: Path, *, store: Store | None = None,
     plan = build_plan(request, store)
     naming = dict(naming or {})
 
-    # Class names the later generators need are derived from the earlier ones,
-    # so the emitted files actually refer to each other rather than to names a
-    # caller had to guess.
-    from .mechanisms import _java_name
-    base = _java_name(naming.get("name", request.id.replace("_", " ")))
-    naming.setdefault("state_class", f"{base}State")
-    naming.setdefault("payload_class", f"{base}Payload")
-    naming.setdefault("rule_class", f"{base}Rules")
+    # Producers are wired before consumers, and a consumer references the class
+    # a producer ACTUALLY emitted rather than one reconstructed from a naming
+    # convention. The convention broke as soon as a revision selected a
+    # different persist_state mechanism: the ticker kept referring to a class
+    # that was no longer being generated, and only the build noticed.
+    PRODUCER_FIRST = {"add_configuration": 0, "persist_state": 1, "sync_state": 2,
+                      "subscribe_event": 3, "display_information": 4}
+    ordered = sorted(plan.resolutions,
+                     key=lambda r: PRODUCER_FIRST.get(r.requirement.capability, 9))
 
     steps: list[Step] = []
     emissions: list[Emission] = []
-    for resolution in plan.resolutions:
-        capability = resolution.requirement.capability
-        if resolution.status != GROUNDED:
-            steps.append(Step(
-                requirement=resolution.requirement.id, capability=capability,
-                status=resolution.status,
-                skipped_because=(
-                    resolution.conflict or resolution.missing_fact
-                    or "not grounded")))
-            continue
-        generator = for_capability(capability)
-        if generator is None:
-            steps.append(Step(
-                requirement=resolution.requirement.id, capability=capability,
-                status=resolution.status,
-                skipped_because=(
-                    f"{capability} is grounded, but no generator wires it. The "
-                    "mechanism is recorded and can be implemented by hand from "
-                    "the plan; ModCheck will not emit code for a mechanism it "
-                    "has no generator for.")))
-            continue
-        emission = generator(project, resolution.record,
-                             **_arguments(request, resolution.requirement.id,
-                                          capability, naming))
-        emissions.append(emission)
-        steps.append(Step(
-            requirement=resolution.requirement.id, capability=capability,
-            status=resolution.status, generator=generator.__name__,
-            files=[emission.path], cites=emission.cites))
-
     # A join the plan found is work the request implies but did not list. The
     # lantern asks for stored charge and a HUD and never mentions networking;
     # the composition check is what noticed, and wiring only the listed
     # requirements would reproduce exactly the gap it found.
-    seen = {s.capability for s in steps}
+    # Runs BEFORE the requirement loop: a join supplies a producer
+    # (sync_state feeds display_information), so wiring it afterwards
+    # would leave the consumer referencing a class not yet emitted.
+    seen: set[str] = set()
     for issue in plan.composition:
         capability = issue.needed_capability
         if not capability or capability in seen:
@@ -164,7 +168,7 @@ def run(request: Request, project: Path, *, store: Store | None = None,
             continue
         record = next((r for r in store.pack(request.game).records("capability")
                        if r.get("capability") == capability), None)
-        generator = for_capability(capability)
+        generator = for_record(record) if record is not None else None
         if record is None or generator is None:
             steps.append(Step(
                 requirement=f"{issue.consumer}<-{issue.producer}",
@@ -174,12 +178,55 @@ def run(request: Request, project: Path, *, store: Store | None = None,
         emission = generator(project, record,
                              **_arguments(request, issue.consumer, capability, naming))
         emissions.append(emission)
+        _remember(naming, capability, emission, record)
         seen.add(capability)
         steps.append(Step(
             requirement=f"{issue.consumer}<-{issue.producer}",
             capability=capability, status=issue.status,
             generator=generator.__name__, files=[emission.path],
             cites=emission.cites))
+
+
+    for resolution in ordered:
+        capability = resolution.requirement.capability
+        if resolution.status != GROUNDED:
+            steps.append(Step(
+                requirement=resolution.requirement.id, capability=capability,
+                status=resolution.status,
+                skipped_because=(
+                    resolution.conflict or resolution.missing_fact
+                    or "not grounded")))
+            continue
+        if capability in seen:
+            steps.append(Step(
+                requirement=resolution.requirement.id, capability=capability,
+                status=resolution.status,
+                skipped_because=f"already wired for this request as {capability}"))
+            continue
+        generator = for_record(resolution.record)
+        if generator is None:
+            steps.append(Step(
+                requirement=resolution.requirement.id, capability=capability,
+                status=resolution.status,
+                skipped_because=(
+                    f"{capability} is grounded for {resolution.record.id}, but no "
+                    f"generator targets {request.game}/"
+                    f"{(resolution.record.get('applies_to') or {}).get('loader')}. "
+                    "The mechanism is recorded and can be implemented by hand from "
+                    "the plan; ModCheck will not emit code for an ecosystem it has "
+                    "no generator for, because that output would look plausible and "
+                    "be wrong.")))
+            continue
+        emission = generator(project, resolution.record,
+                             **_arguments(request, resolution.requirement.id,
+                                          capability, naming))
+        emissions.append(emission)
+        seen.add(capability)
+        _remember(naming, capability, emission, resolution.record)
+        steps.append(Step(
+            requirement=resolution.requirement.id, capability=capability,
+            status=resolution.status, generator=generator.__name__,
+            files=[emission.path], cites=emission.cites))
 
     changeset = None
     if emissions:

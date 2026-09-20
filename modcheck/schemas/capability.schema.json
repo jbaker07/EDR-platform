@@ -189,6 +189,18 @@
         "both",
         "not_applicable"
       ]
+    },
+    "scope": {
+      "description": "What one instance of this mechanism attaches to. Structured because capability alone is too coarse: world-scoped and per-object persistence are both `persist_state`, and a plan that cannot tell them apart will happily select a single world value for a requirement about many objects. The resulting code compiles and every object reads the same number.",
+      "enum": [
+        "world",
+        "level",
+        "block",
+        "entity",
+        "player",
+        "item",
+        "not_applicable"
+      ]
     }
   }
 }

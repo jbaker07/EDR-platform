@@ -6,8 +6,7 @@ summary: A mod folder the game recognises whose Lua file runs on the client, reg
   a function against a game event, and is placed so that it cannot silently overwrite
   a vanilla file or another mod's file.
 applies_to:
-  game_versions: Build 42 (documentation checked against PZwiki page versions 42.20.0-42.20.3
-    and ScriptsDocs 42.20.4)
+  game_versions: '>=42 <43'
   loader: projectzomboid
   platforms:
   - windows
@@ -80,7 +79,12 @@ references:
 evidence_state: documented
 evidence_note: Derived from recipe pz-lua-client-script, which is the record that
   was actually verified. This capability record restates that recipe's extension points
-  under the shared taxonomy; it adds no evidence of its own.
+  under the shared taxonomy; it adds no evidence of its own. Version applicability
+  restated checkably as >=42 <43. The recipe stated it as prose -- 'Build 42 (documentation
+  checked against PZwiki page versions 42.20.0-42.20.3 and ScriptsDocs 42.20.4)' --
+  which conflates the game builds it applies to with the documentation revision we
+  read. Only the first is a constraint an eligibility check can evaluate; the second
+  is provenance and is preserved here.
 provenance:
   added: '2026-09-20'
   last_verified: '2026-09-20'

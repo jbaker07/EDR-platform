@@ -1,0 +1,97 @@
+id: persist_state.fabric_attachment
+game: minecraft
+capability: persist_state
+title: Attach persistent state to one block entity, entity or chunk
+summary: >-
+  Attach a typed, codec-serialised value to an individual target rather than to
+  the level. Each target holds its own value and the game saves it with that
+  target.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  loader_versions: ">=0.19.5"
+  toolchain: ["Gradle 9.5.1", "JDK 25"]
+runs_on: server
+scope: block
+mechanism:
+  - kind: method
+    id: net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry.createPersistent
+    signature: "static <A> AttachmentType<A> createPersistent(Identifier, Codec<A>)"
+    container: net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry
+    label: declare a type that is written to the save
+  - kind: method
+    id: net.fabricmc.fabric.api.attachment.v1.AttachmentTarget.getAttachedOrCreate
+    signature: "<A> A getAttachedOrCreate(AttachmentType<A>)"
+    container: net.fabricmc.fabric.api.attachment.v1.AttachmentTarget
+    label: read the target's own value, creating the default if absent
+  - kind: method
+    id: net.fabricmc.fabric.api.attachment.v1.AttachmentTarget.setAttached
+    signature: "<A> A setAttached(AttachmentType<A>, A)"
+    container: net.fabricmc.fabric.api.attachment.v1.AttachmentTarget
+    label: write the target's own value
+  - kind: type
+    id: net.fabricmc.fabric.api.attachment.v1.AttachmentTarget
+    container: net.fabricmc.fabric.api.attachment.v1.AttachmentTarget
+    label: implemented by block entities, entities, chunks and the world
+requirements:
+  - The fabric-data-attachment-api-v1 module of the Fabric API.
+  - A Codec for the attached value, as with SavedData.
+  - >-
+    A target that implements AttachmentTarget. A bare block does NOT: blocks
+    are flyweights shared by every placement, so per-placement state needs a
+    block entity.
+ordering:
+  - >-
+    createPersistent must run during initialisation. Registering a type after a
+    world has loaded does not retroactively attach it.
+  - >-
+    Only createPersistent is written to the save. A type made with create() is
+    in-memory and silently absent after a reload, which looks identical to a
+    save bug.
+limits:
+  - >-
+    Per target, not per level. This is the opposite trade-off from SavedData
+    and the reason both records exist: neither substitutes for the other.
+  - >-
+    Attachments are not automatically synchronised to clients. A client-side
+    display still needs sync_state.
+interactions:
+  - >-
+    The type id is an Identifier, so a mod-specific namespace avoids collision.
+build:
+  commands: ["gradle build"]
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+  - method: The project's own Gradle build
+    command: gradle build --no-daemon --console=plain
+    limits: >-
+      Establishes the code compiles against these signatures. Does NOT
+      establish that two targets hold independent values across a reload --
+      that is the behavioural test, and it needs the game.
+references:
+  - source: fabric_data_attachment_api_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/attachment/v1/AttachmentRegistry.class
+    quote: "public static <A> AttachmentType<A> createPersistent(Identifier, Codec<A>)"
+  - source: fabric_data_attachment_api_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/attachment/v1/AttachmentTarget.class
+    quote: "public default <A> A setAttached(AttachmentType<A>, A)"
+evidence_state: source_confirmed
+evidence_note: >-
+  Read from fabric-data-attachment-api-v1-2.2.30+3434d6d95d.jar as resolved for
+  our own build. This record exists because a revision changed an accepted
+  requirement from one charge per world to one per lantern, and the plan gate
+  could not tell the two apart: both are persist_state. A `scope` field was
+  added to capability records and requirements for exactly this, and the
+  revision then correctly reported the existing SavedData mechanism as
+  unsupported for the new requirement.
+invalidated_by:
+  - A Fabric API version bump.
+  - A change to the resolved artifact's sha256.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against: [fabric_data_attachment_api_v1_jar]

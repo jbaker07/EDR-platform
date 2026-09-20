@@ -1,0 +1,142 @@
+"""The pipeline: what it emits, what it refuses, and what a build proves.
+
+The refusals matter more than the emissions. A generator that produces
+plausible-looking code for a mechanism it does not target is how an invented
+API reaches someone's project, and it happened here: keyed by capability alone,
+the Fabric gamerule generator was handed a Project Zomboid record -- a Lua
+ecosystem with no JVM -- and emitted a Java class for it.
+"""
+from __future__ import annotations
+
+import pytest
+
+from modcheck.creator.mechanisms import BY_MECHANISM, SEAM, for_capability, for_record
+from modcheck.creator.plan import Request
+from modcheck.creator.pipeline import run
+from modcheck.paths import project_root
+from modcheck.store import Store
+
+REQUESTS = project_root() / "evaluation" / "requests"
+PROJECT = project_root() / "build_workspaces" / "lantern"
+
+needs_project = pytest.mark.skipif(
+    not (PROJECT / "src" / "main" / "resources" / "fabric.mod.json").exists(),
+    reason="the scaffolded Fabric project is not present (build_workspaces is gitignored)")
+
+
+# -- generator selection ----------------------------------------------------
+
+def test_a_generator_is_selected_by_game_loader_and_capability():
+    store = Store()
+    fabric = store.pack("minecraft").record(
+        "capability", "add_configuration.fabric_gamerule")
+    assert for_record(fabric) is BY_MECHANISM[("minecraft", "fabric", "add_configuration")]
+
+
+def test_a_record_from_another_ecosystem_gets_no_generator():
+    """The regression: a Fabric Java generator was emitting for Project Zomboid."""
+    store = Store()
+    pz = store.pack("projectzomboid").record(
+        "capability", "add_configuration.pz_sandbox_option")
+    assert pz is not None
+    assert pz.get("capability") == "add_configuration"
+    assert for_record(pz) is None, (
+        "a capability match is not an ecosystem match; PZ is Lua and has no JVM")
+
+
+def test_selecting_by_capability_alone_now_fails_loudly():
+    from modcheck.creator.apply import ApplyError
+    with pytest.raises(ApplyError, match="game, loader, capability"):
+        for_capability("add_configuration")
+
+
+def test_every_registered_generator_declares_a_game_and_loader():
+    for key in BY_MECHANISM:
+        game, loader, capability = key
+        assert game and loader and capability
+
+
+# -- what the pipeline refuses ---------------------------------------------
+
+@needs_project
+def test_an_ungrounded_requirement_produces_no_code():
+    """Emitting for an unestablished mechanism is how an invented API lands."""
+    request = Request.from_dict({
+        "id": "x", "game": "minecraft", "title": "X", "game_version": "26.3",
+        "loader": "fabric",
+        "requirements": [{"id": "r", "statement": "s", "capability": "compose_asset"}]})
+    outcome = run(request, PROJECT)
+    assert outcome.wired == []
+    assert outcome.skipped[0].status == "requires_investigation"
+    assert outcome.changeset is None
+
+
+@needs_project
+def test_a_grounded_mechanism_with_no_generator_is_declined_not_improvised():
+    outcome = run(Request.load(REQUESTS / "pz_generator_sandbox.yaml"), PROJECT)
+    assert outcome.plan.ready, "the plan itself must succeed for another game"
+    assert outcome.wired == [], "planning is not wiring"
+    for step in outcome.skipped:
+        assert "no generator targets" in step.skipped_because
+        assert "would look plausible and be wrong" in step.skipped_because
+
+
+@needs_project
+def test_a_conflicting_request_is_not_silently_reinterpreted():
+    outcome = run(Request.load(REQUESTS / "hud_reads_storage_directly.yaml"), PROJECT)
+    assert not outcome.plan.ready
+    unsupported = [r for r in outcome.plan.resolutions if r.status == "unsupported"]
+    assert unsupported
+    assert unsupported[0].alternatives, (
+        "a conflict must come with alternatives drawn from the library")
+    for alternative in unsupported[0].alternatives:
+        assert "." in alternative.split(" ")[0], "each alternative names a real record"
+
+
+# -- what it emits ----------------------------------------------------------
+
+@needs_project
+def test_the_lantern_request_wires_five_mechanisms_including_the_join():
+    outcome = run(Request.load(REQUESTS / "rain_charged_lantern.yaml"), PROJECT,
+                  naming={"name": "rain lantern", "field": "charge"})
+    capabilities = {s.capability for s in outcome.wired}
+    assert capabilities == {"subscribe_event", "persist_state", "display_information",
+                            "add_configuration", "sync_state"}
+    # sync_state is not a requirement of the request; the composition check found it.
+    assert "sync_state" not in {r.capability for r in outcome.request.requirements}
+
+
+@needs_project
+def test_every_generated_file_cites_the_record_that_justified_it():
+    outcome = run(Request.load(REQUESTS / "rain_charged_lantern.yaml"), PROJECT,
+                  naming={"name": "rain lantern", "field": "charge"})
+    for change in outcome.changeset.changes:
+        assert "Generated by ModCheck from capability record" in change.after
+        assert "modcheck show" in change.after, "a reader must be able to re-check it"
+
+
+@needs_project
+def test_generated_files_mark_the_seam_rather_than_faking_completion():
+    outcome = run(Request.load(REQUESTS / "rain_charged_lantern.yaml"), PROJECT,
+                  naming={"name": "rain lantern", "field": "charge"})
+    seams = [c for c in outcome.changeset.changes if SEAM in c.after]
+    assert seams, "the creator's own logic must be left explicitly unwritten"
+    for change in seams:
+        assert "deliberate" in change.after or "is yours" in change.after
+
+
+@needs_project
+def test_nothing_is_written_unless_asked():
+    outcome = run(Request.load(REQUESTS / "rain_charged_lantern.yaml"), PROJECT,
+                  naming={"name": "rain lantern", "field": "charge"})
+    assert outcome.written == []
+    assert outcome.build is None
+
+
+def test_the_request_files_all_parse_and_name_known_capabilities():
+    from modcheck.creator.capability import IDS
+    for path in sorted(REQUESTS.glob("*.yaml")):
+        request = Request.load(path)
+        assert request.requirements
+        for requirement in request.requirements:
+            assert requirement.capability in IDS

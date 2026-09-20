@@ -1,0 +1,35 @@
+# Creator request 2 -- requirements that cannot both be satisfied.
+#
+# The creator has read that networking is expensive and asks for the HUD to
+# read the stored value directly. That is a coherent thing to want and an
+# impossible thing to have: the value lives in the world save on the server and
+# the HUD runs on the client. The useful output is the specific conflict and
+# the alternatives, not a silent substitution of what we think they meant.
+id: hud_reads_storage_directly
+game: minecraft
+game_version: "26.3"
+loader: fabric
+title: A HUD that reads the stored charge directly, with no networking
+description: >-
+  The creator wants the charge displayed without any packets, on the grounds
+  that a per-tick packet for a single integer is wasteful.
+requirements:
+  - id: store_charge
+    statement: The charge is kept in the world save.
+    capability: persist_state
+    side: server
+    acceptance: The charge survives a save and reload.
+
+  - id: read_storage_from_hud
+    statement: >-
+      The HUD reads the stored charge directly from the world save, without any
+      packet being sent.
+    capability: persist_state
+    side: client
+    acceptance: >-
+      The HUD shows the stored value, and a packet capture during play shows no
+      custom payload for this mod.
+    notes: >-
+      This is the requirement that cannot be met. It is written as the creator
+      stated it rather than as we would prefer it, so the conflict is reported
+      against what was actually asked.

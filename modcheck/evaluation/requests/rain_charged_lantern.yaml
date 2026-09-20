@@ -29,6 +29,11 @@ requirements:
     statement: The stored charge survives saving and reloading the world.
     capability: persist_state
     side: server
+    # Stated explicitly after the revision exposed that it had been assumed.
+    # v1 always meant one charge for the world; it simply never said so, and
+    # while only one persist_state mechanism existed nothing forced the issue.
+    # Recording the block-scoped attachment made the omission material.
+    scope: level
     reads_from: [accumulate_while_raining]
     acceptance: >-
       Given a stored charge of C, after a save and reload the stored charge

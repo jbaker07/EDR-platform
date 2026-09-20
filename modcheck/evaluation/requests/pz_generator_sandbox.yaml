@@ -1,0 +1,41 @@
+# Creator request 3 -- a different game, to show one workflow rather than a
+# Minecraft product with nine placeholders.
+#
+# Project Zomboid has its own loader, its own file formats and no Java build.
+# The same plan gate runs over its capability records. Where no generator
+# exists for a mechanism, the pipeline says so and declines rather than
+# emitting something plausible.
+id: pz_generator_sandbox
+game: projectzomboid
+# A concrete build, not "Build 42": the gate cannot check applicability against
+# a phrase, and it declines rather than assuming. This is the caller-side half
+# of the same problem the capability records had.
+game_version: "42.20.4"
+title: A generator whose fuel burn rate a server can configure
+description: >-
+  A new item behaves like a generator, and the rate it consumes fuel is a
+  sandbox option a server operator sets when creating the world.
+requirements:
+  - id: define_the_item
+    statement: A new item exists with its own script definition and display name.
+    capability: register_content
+    side: either
+    acceptance: The item appears in game with its translated name.
+
+  - id: configurable_burn_rate
+    statement: >-
+      The fuel consumption rate is a sandbox option, settable per server.
+    capability: add_configuration
+    side: either
+    acceptance: >-
+      The option appears on its page in the Sandbox Options menu and the
+      observed burn rate follows it.
+
+  - id: apply_the_rate_each_tick
+    statement: Fuel is consumed on a schedule according to the configured rate.
+    capability: subscribe_event
+    side: either
+    reads_from: [configurable_burn_rate]
+    acceptance: >-
+      With the rate set to R, fuel decreases by R per in-game hour and by
+      nothing when the generator is off.

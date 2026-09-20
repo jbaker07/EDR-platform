@@ -6,7 +6,7 @@ summary: A mod-defined sandbox option that appears on its own page in the Sandbo
   Options menu with a translated label and tooltip, and whose value the mod's Lua
   reads at runtime through SandboxVars.
 applies_to:
-  game_versions: Build 42 (PZwiki Sandbox options page version 42.19.0)
+  game_versions: '>=42 <43'
   loader: projectzomboid
   platforms:
   - windows
@@ -70,7 +70,11 @@ references:
 evidence_state: documented
 evidence_note: Derived from recipe pz-sandbox-option, which is the record that was
   actually verified. This capability record restates that recipe's extension points
-  under the shared taxonomy; it adds no evidence of its own.
+  under the shared taxonomy; it adds no evidence of its own. Version applicability
+  restated checkably as >=42 <43. The recipe stated it as prose -- 'Build 42 (PZwiki
+  Sandbox options page version 42.19.0)' -- which conflates the game builds it applies
+  to with the documentation revision we read. Only the first is a constraint an eligibility
+  check can evaluate; the second is provenance and is preserved here.
 provenance:
   added: '2026-09-20'
   last_verified: '2026-09-20'

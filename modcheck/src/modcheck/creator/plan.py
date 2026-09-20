@@ -56,6 +56,10 @@ class Requirement:
     # what lets the composition be checked: two requirements can each be
     # perfectly grounded and still not work together.
     reads_from: list[str] = dataclasses.field(default_factory=list)
+    # What each instance of the behaviour attaches to. "One charge per lantern"
+    # and "one charge per world" are both persist_state, and only this tells
+    # them apart.
+    scope: str = "unspecified"
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "Requirement":
@@ -69,7 +73,8 @@ class Requirement:
         return cls(id=data["id"], statement=data["statement"],
                    capability=data["capability"], side=side,
                    acceptance=data.get("acceptance", ""), notes=data.get("notes", ""),
-                   reads_from=list(data.get("reads_from") or []))
+                   reads_from=list(data.get("reads_from") or []),
+                   scope=data.get("scope", "unspecified"))
 
 
 @dataclasses.dataclass
@@ -96,6 +101,27 @@ class Request:
         return cls.from_dict(yamlio.load_path(path))
 
 
+def _alternatives(pack, requirement: Requirement, request: Request,
+                  ecosystem_loaders: int) -> list[str]:
+    """Eligible mechanisms elsewhere in this pack that could serve this side.
+
+    Offered instead of silently reinterpreting the request. Each names a real
+    record, because an alternative nobody can look up is not an alternative.
+    """
+    out: list[str] = []
+    for record in pack.records("capability"):
+        if record.get("capability") == requirement.capability:
+            continue
+        if _eligible(record, request, ecosystem_loaders):
+            continue
+        runs_on = record.get("runs_on")
+        if runs_on not in (requirement.side, "both"):
+            continue
+        out.append(f"{record.id} ({record.get('capability')}): "
+                   f"{record.get('title')}")
+    return out
+
+
 @dataclasses.dataclass
 class Resolution:
     """One requirement, resolved against the library."""
@@ -109,6 +135,10 @@ class Resolution:
     missing_fact: str = ""
     procedure: str = ""
     conflict: str = ""
+    # Other mechanisms in this pack that COULD serve the requirement's side.
+    # Drawn from the library, never invented: an alternative we cannot name a
+    # record for is not an alternative, it is a guess.
+    alternatives: list[str] = dataclasses.field(default_factory=list)
     ineligible: list[str] = dataclasses.field(default_factory=list)
 
     @property
@@ -133,6 +163,24 @@ def _eligible(record: Record, request: Request, ecosystem_loaders: int) -> str |
     return None
 
 
+def _scope_fit(record: Record, requirement: Requirement) -> str:
+    """Whether this mechanism holds one value per thing the requirement means.
+
+    Three-valued like the others. A record that declares no scope has not been
+    established to hold anything in particular, and a requirement that declares
+    none is not asking for anything in particular -- neither is a match, and
+    neither is a conflict.
+    """
+    if requirement.scope == "unspecified":
+        return "fits"
+    declared = record.get("scope")
+    if not declared:
+        return "undeclared"
+    if declared == "not_applicable" or declared == requirement.scope:
+        return "fits"
+    return "conflicts"
+
+
 def _side_fit(record: Record, requirement: Requirement) -> str:
     """Whether this mechanism can serve the requirement's side.
 
@@ -149,6 +197,13 @@ def _side_fit(record: Record, requirement: Requirement) -> str:
     if runs_on in ("both", "not_applicable") or runs_on == requirement.side:
         return "fits"
     return "conflicts"
+
+
+def _scope_conflict(record: Record, requirement: Requirement) -> str:
+    return (f"the requirement needs one value per {requirement.scope}, but "
+            f"{record.id} holds one per {record.get('scope')}. The capability "
+            "matches and the scope does not: code written against it compiles, "
+            f"and every {requirement.scope} reads the same number.")
 
 
 def _side_conflict(record: Record, requirement: Requirement) -> str:
@@ -213,9 +268,17 @@ def resolve(request: Request, store: Store | None = None) -> list[Resolution]:
             state = record.get("evidence_state")
             return EVIDENCE_ORDER.index(state) if state in EVIDENCE_ORDER else -1
 
-        fits = [r for r in eligible if _side_fit(r, requirement) == "fits"]
-        undeclared = [r for r in eligible if _side_fit(r, requirement) == "undeclared"]
-        conflicting = [r for r in eligible if _side_fit(r, requirement) == "conflicts"]
+        def fit(record: Record) -> str:
+            side, scope = _side_fit(record, requirement), _scope_fit(record, requirement)
+            if "conflicts" in (side, scope):
+                return "conflicts"
+            if "undeclared" in (side, scope):
+                return "undeclared"
+            return "fits"
+
+        fits = [r for r in eligible if fit(r) == "fits"]
+        undeclared = [r for r in eligible if fit(r) == "undeclared"]
+        conflicting = [r for r in eligible if fit(r) == "conflicts"]
 
         if not fits and undeclared:
             names = ", ".join(r.id for r in undeclared)
@@ -225,8 +288,8 @@ def resolve(request: Request, store: Store | None = None) -> list[Resolution]:
                     f"{r.id}: does not declare runs_on, so it cannot be shown to "
                     f"serve a {requirement.side}-side requirement" for r in undeclared],
                 missing_fact=(
-                    f"which side these {requirement.capability} mechanisms run on: "
-                    f"{names}"),
+                    f"which side or scope these {requirement.capability} mechanisms "
+                    f"have: {names}"),
                 procedure=(
                     "Read the mechanism's own entry point -- for a Fabric "
                     "entrypoint, which entrypoint list it is registered under; for "
@@ -243,10 +306,40 @@ def resolve(request: Request, store: Store | None = None) -> list[Resolution]:
                 mechanism=list(record.get("mechanism") or []),
                 evidence=list(record.get("references") or []),
                 evidence_state=record.get("evidence_state"),
-                conflict=_side_conflict(record, requirement), ineligible=ineligible))
+                conflict=(_scope_conflict(record, requirement)
+                          if _scope_fit(record, requirement) == "conflicts"
+                          else _side_conflict(record, requirement)),
+                alternatives=_alternatives(pack, requirement, request,
+                                           ecosystem_loaders),
+                ineligible=ineligible))
             continue
 
         fits.sort(key=strength, reverse=True)
+        # Several mechanisms can fit equally well and still not be
+        # interchangeable. Where the tied ones differ in scope, picking one by
+        # declaration order silently answers a question the creator never
+        # answered -- and adding a mechanism would retroactively change an
+        # existing request's plan, which is exactly what happened when the
+        # block-scoped attachment was recorded.
+        top = strength(fits[0])
+        tied = [r for r in fits if strength(r) == top]
+        scopes = {r.get("scope") for r in tied if r.get("scope")}
+        if len(tied) > 1 and len(scopes) > 1:
+            out.append(Resolution(
+                requirement=requirement, status=REQUIRES_INVESTIGATION,
+                alternatives=[f"{r.id} (scope {r.get('scope')}): {r.get('title')}"
+                              for r in tied],
+                missing_fact=(
+                    f"what {requirement.capability} is scoped to for this "
+                    f"requirement: {', '.join(sorted(scopes))}. The mechanisms "
+                    "below are equally well established and are not "
+                    "interchangeable"),
+                procedure=(
+                    "Declare `scope:` on the requirement. One value per world and "
+                    "one per object are different behaviours, and code written "
+                    "against the wrong one compiles."),
+                ineligible=ineligible))
+            continue
         record = fits[0]
         ineligible = ineligible + [
             f"{r.id}: runs on the {r.get('runs_on') or 'undeclared'} side"
@@ -386,6 +479,7 @@ class Plan:
                     "evidence_state": r.evidence_state,
                     "mechanism": r.mechanism,
                     "evidence": r.evidence,
+                    "alternatives": r.alternatives,
                     "validation": r.validation,
                     "acceptance": r.requirement.acceptance,
                     "missing_fact": r.missing_fact,
@@ -447,6 +541,15 @@ def render(plan: Plan) -> str:
             lines.append(f"      acceptance: {requirement.acceptance.strip()}")
         if resolution.conflict:
             lines.append(f"      CONFLICT: {resolution.conflict}")
+            if resolution.alternatives:
+                lines.append("      what CAN serve this side instead:")
+                for alternative in resolution.alternatives:
+                    lines.append(f"        - {alternative}")
+                lines.append("        Choosing one of these changes what was asked.")
+                lines.append("        That is the creator's call, not ours.")
+            else:
+                lines.append("      no mechanism in this pack serves that side; the "
+                             "requirement cannot be met as written")
         if resolution.missing_fact:
             lines.append(f"      missing fact: {resolution.missing_fact}")
             lines.append(f"      to settle it: {resolution.procedure}")

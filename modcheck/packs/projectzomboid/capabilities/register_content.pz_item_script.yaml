@@ -6,8 +6,7 @@ summary: A new item registered under the mod's own module, with a display name f
   the translation files, defined in a zedscript file under media/scripts in a way
   that does not soft-override anyone else's item.
 applies_to:
-  game_versions: Build 42 (PZwiki Item (scripts) page version 42.20.4, Scripts page
-    version 42.20.3)
+  game_versions: '>=42 <43'
   loader: projectzomboid
   platforms:
   - windows
@@ -87,7 +86,12 @@ references:
 evidence_state: documented
 evidence_note: Derived from recipe pz-item-script, which is the record that was actually
   verified. This capability record restates that recipe's extension points under the
-  shared taxonomy; it adds no evidence of its own.
+  shared taxonomy; it adds no evidence of its own. Version applicability restated
+  checkably as >=42 <43. The recipe stated it as prose -- 'Build 42 (PZwiki Item (scripts)
+  page version 42.20.4, Scripts page version 42.20.3)' -- which conflates the game
+  builds it applies to with the documentation revision we read. Only the first is
+  a constraint an eligibility check can evaluate; the second is provenance and is
+  preserved here.
 provenance:
   added: '2026-09-20'
   last_verified: '2026-09-20'

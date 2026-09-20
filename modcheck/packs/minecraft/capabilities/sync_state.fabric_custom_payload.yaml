@@ -12,6 +12,7 @@ applies_to:
   loader_versions: ">=0.19.5"
   toolchain: ["Gradle 9.5.1", "JDK 25"]
 runs_on: both
+scope: player
 mechanism:
   - kind: method
     id: net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playS2C

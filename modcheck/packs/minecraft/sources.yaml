@@ -75,6 +75,26 @@ sources:
   - minecraft
   publisher: FabricMC
   notes: Published version list read as data; not redistributed.
+- id: fabric_data_attachment_api_v1_jar
+  title: fabric-data-attachment-api-v1, as resolved for the build
+  url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-data-attachment-api-v1/
+  kind: api
+  access: public
+  retrieved_at: '2026-09-20T03:22:18+00:00'
+  sha256: 916e1b1046113d5289920fb4058d26ac184e2581f2403b3a482848a2e1dcf7cc
+  bytes: 110925
+  license: Apache-2.0
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Apache-2.0. Read locally for signatures; not redistributed.
+  games:
+  - minecraft
+  notes: 'Resolved locally at /root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-data-attachment-api-v1/2.2.30+3434d6d95d/b31a17053b2113fde7011d5caa54871071f38fe/fabric-data-attachment-api-v1-2.2.30+3434d6d95d.jar.
+    Read to answer a missing fact the revision exposed: SavedData holds ONE value per level, and the revised
+    request needs one per block. AttachmentRegistry.createPersistent(Identifier, Codec) plus AttachmentTarget.getAttachedOrCreate()
+    is the per-target mechanism. The two are both `persist_state` and are not interchangeable.'
 - id: fabric_docs_home
   title: Fabric official developer documentation
   url: https://docs.fabricmc.net/
