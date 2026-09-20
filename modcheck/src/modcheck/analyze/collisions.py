@@ -181,13 +181,19 @@ def _load_finding(resolution):
             sources=[cp.RULE_SOURCE],
             resolutions=[
                 {"method": "configuration_change",
-                 "step": ("Give one patch an explicit Priority (for example \"High\") "
-                          "and the other a lower one. Both packs keep working and the "
-                          "chosen one wins, instead of both being dropped.")},
+                 "step": ("Changing priority selects which replacement is used. Choose "
+                          "the intended replacement, then check whether the other "
+                          "pack's remaining patches still work with that asset. "
+                          "Selecting a winner is not the same as both packs working: "
+                          "Content Patcher's own documentation says Exclusive is the "
+                          "default precisely because it cannot know whether a pack "
+                          "still works when a different replacement is selected.")},
                 {"method": "alternative_extension_point",
-                 "step": ("If a pack only changes part of the asset, use an Edit action "
-                          "instead of Load. Edit patches compose, so both authors' "
-                          "intent survives.")},
+                 "step": ("If a pack only changes part of the asset, an Edit action may "
+                          "be an alternative, since Edit patches compose instead of "
+                          "competing. This is not an automatic compatibility "
+                          "guarantee: the edit still has to make sense against "
+                          "whichever asset ends up loaded.")},
             ],
             not_established=("which pack the player wants to win, and whether either "
                              "pack's asset would look correct layered over the other"),
@@ -208,9 +214,11 @@ def _load_finding(resolution):
             sources=[cp.RULE_SOURCE],
             resolutions=[
                 {"method": "configuration_change",
-                 "step": (f"If you wanted the other pack's version, ask its author for a "
-                          f"Priority above Exclusive-holder {winner.artifact}, or remove "
-                          "that pack's competing patch.")},
+                 "step": (f"If you wanted the other pack's replacement, it must declare a "
+                          f"priority that outranks {winner.artifact}'s Exclusive patch, "
+                          "or that pack's competing Load must be removed. Either way, "
+                          "check that the superseded pack's remaining patches still "
+                          "work against the asset that is actually loaded.")},
             ],
             not_established="whether the ignored patches were meant to be overridden",
         )
@@ -226,13 +234,17 @@ def _load_finding(resolution):
                      f"{winner.priority.raw}"),
             detail=(f"{cp.GOVERNING_RULE_LOAD} Applied: {winner.location} "
                     f"(priority {winner.priority.raw}). Not applied: "
-                    f"{_patch_lines(resolution.ignored)}. This is the documented "
-                    "outcome of priorities the authors set deliberately, not a "
-                    "conflict."),
+                    f"{_patch_lines(resolution.ignored)}. This is the selection "
+                    "produced by the declared priorities. It records what the "
+                    "declarations resolve to; it does not establish what either "
+                    "author intended for cross-mod behaviour, nor that the "
+                    "not-applied pack still works."),
             evidence_class="derived",
             targets=targets,
             sources=[cp.RULE_SOURCE],
-            not_established=("whether the winning asset is the one the player prefers"),
+            not_established=("whether the selected asset is the one the player wants, "
+                             "and whether the packs whose Load did not apply still work "
+                             "against the asset that did"),
         )
 
     return Finding(

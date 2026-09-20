@@ -32,6 +32,7 @@ from typing import Any
 
 from ..analyze.config import Installation
 from ..analyze.findings import Finding
+from ..jsonc import strip_jsonc as _strip_jsonc
 from ..analyze.versions import Version
 
 STATUS_SEVERITY = {
@@ -41,44 +42,9 @@ STATUS_SEVERITY = {
 }
 
 
-def strip_jsonc(raw: bytes | str) -> str:
-    """Remove // and /* */ comments, respecting string literals.
-
-    A regex would corrupt any string containing `//`, such as a URL, so this
-    walks the text instead.
-    """
-    text = raw.decode("utf-8-sig") if isinstance(raw, bytes) else raw
-    out: list[str] = []
-    i, n, in_string = 0, len(text), False
-    while i < n:
-        char = text[i]
-        if in_string:
-            out.append(char)
-            if char == "\\" and i + 1 < n:
-                out.append(text[i + 1])
-                i += 2
-                continue
-            if char == '"':
-                in_string = False
-            i += 1
-            continue
-        if char == '"':
-            in_string = True
-            out.append(char)
-            i += 1
-            continue
-        if text.startswith("/*", i):
-            end = text.find("*/", i + 2)
-            i = end + 2 if end >= 0 else n
-            continue
-        if text.startswith("//", i):
-            end = text.find("\n", i)
-            i = end if end >= 0 else n
-            continue
-        out.append(char)
-        i += 1
-    # trailing commas are legal in this file but not in JSON
-    return re.sub(r",(\s*[}\]])", r"\1", "".join(out))
+# Re-exported: content packs and this metadata file share the same dialect, so
+# there is one implementation, in modcheck.jsonc.
+strip_jsonc = _strip_jsonc
 
 
 @dataclass(frozen=True)

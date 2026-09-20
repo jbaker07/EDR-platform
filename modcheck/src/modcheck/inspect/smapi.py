@@ -9,12 +9,18 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from ..jsonc import strip_jsonc
 from .base import Artifact, Inspection, InspectionError, find_member, read_zip_member, zip_entries
 
 
 def _load_json(raw: bytes, what: str) -> dict:
+    """Parse a SMAPI JSON file, tolerating comments and trailing commas.
+
+    Real published packs use both. Parsing strictly makes a pack full of
+    patches look like a pack with none.
+    """
     try:
-        return json.loads(raw.decode("utf-8-sig"))
+        return json.loads(strip_jsonc(raw))
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise InspectionError(f"{what} is not valid JSON: {exc}") from exc
 

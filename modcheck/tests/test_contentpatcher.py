@@ -100,10 +100,15 @@ def test_conflict_recommendations_preserve_intent_rather_than_suppress(tmp_path)
     finding = cp_findings(install(a, b))[0]
 
     steps = " ".join(r["step"] for r in finding.resolutions)
-    assert "Priority" in steps, "must offer the priority route"
-    assert "Edit action instead of Load" in steps, "must offer the composing route"
-    assert "both authors' intent survives" in steps
+    assert "priority selects which replacement" in steps, "must offer the priority route"
+    assert "Edit action may" in steps, "must offer the composing route"
     assert not any(word in steps.lower() for word in ("delete the", "uninstall"))
+
+    # Neither route may be sold as making both packs work. Content Patcher's own
+    # docs say Exclusive is the default because it cannot know that.
+    assert "still work with that asset" in steps
+    assert "not an automatic compatibility" in steps
+    assert "both packs keep working" not in steps
 
 
 def test_default_priority_is_exclusive_so_an_unset_priority_still_conflicts(tmp_path):
@@ -125,8 +130,10 @@ def test_declared_priorities_are_a_selection_not_a_conflict(tmp_path):
     finding = findings[0]
     assert finding.severity == "note", "a deliberate priority must not read as a failure"
     assert "Bex.Override" in finding.summary and "High" in finding.summary
-    assert "not a\n" in finding.detail or "not a conflict" in finding.detail
-    assert finding.resolutions == [], "a working selection needs no remedy"
+    assert "selection produced by the declared priorities" in finding.detail
+    # We can establish the declarations and the rule; not the authors' intent.
+    assert "does not establish what either" in finding.detail
+    assert finding.resolutions == [], "a resolved selection needs no remedy"
 
 
 def test_offset_priority_decides_the_winner(tmp_path):

@@ -9,6 +9,80 @@
 # Written by `modcheck sources add`; edit by hand only to add licensing, reuse
 # terms and notes.
 sources:
+- id: bear_mounts_content_json
+  title: Bear Mounts [CP] content.json at pinned commit (external validation artifact)
+  url: https://raw.githubusercontent.com/MouseyPounds/stardew-mods/b3b227790164b68c8877544121092670ac71f644/Bear%20Mounts/Mods/%5BCP%5D%20Bear%20Mounts/content.json
+  kind: release_artifact
+  access: public
+  retrieved_at: '2026-09-20T00:52:17+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: MIT per the repository LICENSE (bear_mounts_license). Preserve the notice.
+  sha256: 1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e
+  bytes: 3820
+  content_sha256: a9651593d8aba582fc6421d303a4cb274a3b05d24f79e5b7a867315d53fa6a07
+  content_type: text/plain
+  upstream_revision: W/"1e9857b51c18e125a8c9164d3453a0f377a2d0bf9d70a75e771800ec4a067dd3
+  evidence_path: 17/1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e.json
+  games:
+  - stardewvalley
+  publisher: MouseyPounds
+  license: MIT
+  notes: 'Pinned to commit b3b227790164b68c8877544121092670ac71f644 of MouseyPounds/stardew-mods, path
+    ''Bear Mounts/Mods/[CP] Bear Mounts''. Used as a read-only external validation artifact: fetched into
+    the gitignored evidence cache, never redistributed, never executed. Artwork assets were NOT fetched;
+    their provenance would need separate review before any redistribution.'
+- id: bear_mounts_license
+  title: MouseyPounds/stardew-mods LICENSE (MIT)
+  url: https://raw.githubusercontent.com/MouseyPounds/stardew-mods/b3b227790164b68c8877544121092670ac71f644/LICENSE
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T00:52:18+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: MIT per the repository LICENSE (bear_mounts_license). Preserve the notice.
+  sha256: f8b2baeeab8ddb1a7810ff51ea21f08d089525967d7f90b2a6a2fab7ac12df2a
+  bytes: 1069
+  content_sha256: a2cb2a88fec93315c9fbef835770da3d8da599d18c76e3a000f5fbe2c8a56b60
+  content_type: text/plain
+  upstream_revision: W/"cb178f632944ab9119ad3bf68ddfd19a36e725648f191d40f03a1b19b9269bd0
+  evidence_path: f8/f8b2baeeab8ddb1a7810ff51ea21f08d089525967d7f90b2a6a2fab7ac12df2a.txt
+  games:
+  - stardewvalley
+  publisher: MouseyPounds
+  license: MIT
+- id: bear_mounts_manifest_json
+  title: Bear Mounts [CP] manifest.json at pinned commit
+  url: https://raw.githubusercontent.com/MouseyPounds/stardew-mods/b3b227790164b68c8877544121092670ac71f644/Bear%20Mounts/Mods/%5BCP%5D%20Bear%20Mounts/manifest.json
+  kind: release_artifact
+  access: public
+  retrieved_at: '2026-09-20T00:52:17+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: MIT per the repository LICENSE (bear_mounts_license). Preserve the notice.
+  sha256: 0ebb1577ab1eadb414f98ed19b4a7a5946e49831f934804f551d09b970df5049
+  bytes: 366
+  content_sha256: f2a8d67ac58140c910cdefb9bf7ef7d162f64fc12f9eb989213c1b2efa6199a6
+  content_type: text/plain
+  upstream_revision: W/"4337f7e8522da3aa6c3a0fe81e8d494fc1410cf7141d1941238da06216c5a48d
+  evidence_path: 0e/0ebb1577ab1eadb414f98ed19b4a7a5946e49831f934804f551d09b970df5049.json
+  games:
+  - stardewvalley
+  publisher: MouseyPounds
+  license: MIT
+  notes: 'Pinned to commit b3b227790164b68c8877544121092670ac71f644 of MouseyPounds/stardew-mods, path
+    ''Bear Mounts/Mods/[CP] Bear Mounts''. Used as a read-only external validation artifact: fetched into
+    the gitignored evidence cache, never redistributed, never executed. Artwork assets were NOT fetched;
+    their provenance would need separate review before any redistribution.'
 - id: content_patcher_author_guide
   title: Content Patcher author guide
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide.md
