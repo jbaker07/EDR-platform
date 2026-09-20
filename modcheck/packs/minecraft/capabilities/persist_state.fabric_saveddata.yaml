@@ -1,0 +1,113 @@
+id: persist_state.fabric_saveddata
+game: minecraft
+capability: persist_state
+title: Store and restore custom state across a world reload (SavedData)
+summary: >-
+  Keep mod data in the world save, so it survives a reload. Minecraft's own
+  per-level store handles the serialisation, file layout and data fixing; a mod
+  supplies a codec and a type.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  loader_versions: ">=0.19.5"
+  toolchain: ["Gradle 9.5.1", "JDK 25"]
+mechanism:
+  - kind: method
+    id: net.minecraft.world.level.storage.SavedDataStorage.computeIfAbsent
+    signature: "<T extends SavedData> T computeIfAbsent(SavedDataType<T>)"
+    container: net.minecraft.world.level.storage.SavedDataStorage
+    label: get the instance, creating it from the type's supplier if absent
+  - kind: method
+    id: net.minecraft.server.level.ServerLevel.getDataStorage
+    signature: "SavedDataStorage getDataStorage()"
+    container: net.minecraft.server.level.ServerLevel
+    label: the per-level store; note the return type is SavedDataStorage
+  - kind: type
+    id: net.minecraft.world.level.saveddata.SavedDataType
+    signature: >-
+      SavedDataType(Identifier, Supplier<T>, Codec<T>, DataFixTypes)
+    container: net.minecraft.world.level.saveddata.SavedDataType
+    label: the record binding an id, a constructor and a codec
+  - kind: method
+    id: net.minecraft.world.level.saveddata.SavedData.setDirty
+    signature: "void setDirty()"
+    container: net.minecraft.world.level.saveddata.SavedData
+    label: marks the instance for writing; without it a change is not saved
+requirements:
+  - >-
+    A Codec<T> for the state. This version serialises through a codec, not
+    through load/save(CompoundTag) methods on the SavedData subclass.
+  - >-
+    A ServerLevel. The store is reached from the server side; there is no
+    client-side equivalent, so client code needs the value synchronised to it.
+ordering:
+  - >-
+    setDirty() must be called after every mutation. SavedDataStorage writes only
+    instances marked dirty, so a change that skips it is lost on reload with no
+    error at any point.
+  - >-
+    computeIfAbsent runs the type's supplier when no data exists yet, so first
+    access on a new world constructs the default rather than returning null.
+  - >-
+    The store is per level (per dimension). Data attached to the overworld is
+    not visible from the nether unless the mod reads the overworld's store
+    explicitly.
+limits:
+  - >-
+    Server-side only. A HUD element cannot read this directly; the value has to
+    be sent to the client.
+  - >-
+    Nothing here establishes that a given codec round-trips correctly. That is
+    a property of the codec the mod writes, and needs its own test.
+interactions:
+  - >-
+    Two mods using the same SavedDataType id would share one instance. The id is
+    an Identifier, so a mod-specific namespace avoids it.
+build:
+  commands: ["gradle build"]
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+  - method: The project's own Gradle build
+    command: gradle build --no-daemon --console=plain
+    limits: >-
+      Establishes the code compiles against these exact signatures. Does NOT
+      establish that state survives a reload -- that needs the game.
+  - method: Save/reload behavioural test
+    limits: >-
+      Not available here: no Minecraft installation. The test is defined in the
+      recipe and remains unrun.
+references:
+  - source: minecraft_26_3_merged_jar
+    evidence_class: extracted
+    locator: net/minecraft/world/level/storage/SavedDataStorage.class
+    quote: "public <T extends SavedData> T computeIfAbsent(SavedDataType<T>)"
+  - source: minecraft_26_3_merged_jar
+    evidence_class: extracted
+    locator: net/minecraft/server/level/ServerLevel.class
+    quote: "public SavedDataStorage getDataStorage()"
+  - source: minecraft_26_3_merged_jar
+    evidence_class: extracted
+    locator: net/minecraft/world/level/saveddata/SavedDataType.class
+    quote: "SavedDataType(Identifier, Supplier<T>, Codec<T>, DataFixTypes)"
+  - source: minecraft_26_3_merged_jar
+    evidence_class: extracted
+    locator: net/minecraft/world/level/saveddata/SavedData.class
+    quote: "public void setDirty()"
+evidence_state: source_confirmed
+evidence_note: >-
+  Every signature was read from the Minecraft 26.3 merged jar that Fabric Loom
+  resolved for our own build (sha256 5918174887871ab0d484d4fa9462a4c5f91d90b3b93
+  dd301e3bfa4c109bc4cde), using javap. This matters: written from documentation
+  or memory, this record would have described the older load/save(CompoundTag)
+  API and named DimensionDataStorage, neither of which exists in this version.
+  It is source_confirmed and not build_tested -- no project here has yet
+  compiled against it -- and certainly not game_tested.
+invalidated_by:
+  - A Minecraft version bump; these types moved and were renamed within recent versions.
+  - A change to the resolved artifact's sha256.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against: [minecraft_26_3_merged_jar]

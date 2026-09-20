@@ -6,6 +6,7 @@ creator workflow use; it is not a separate product surface.
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 import sys
 import tempfile
@@ -541,6 +542,64 @@ def cmd_coverage(args) -> int:
     return 0
 
 
+def cmd_lookup(args) -> int:
+    """Exact retrieval over what we already fetched: symbols and text."""
+    from .sourceindex import EvidenceIndex, JarIndex
+
+    if args.jar:
+        javap = None
+        if args.javap:
+            javap = Path(args.javap)
+        else:
+            from .creator.toolchain import find_java
+            java = find_java()
+            if java.path:
+                javap = java.path / "bin" / "javap"
+        index = JarIndex(Path(args.jar), javap=javap)
+        if args.classes:
+            names = index.find_classes(args.query)
+            if args.json:
+                print(json.dumps({"artifact_sha256": index.sha256,
+                                  "classes": names}, indent=2))
+            else:
+                print(f"{Path(args.jar).name}  sha256 {index.sha256}")
+                for name in names:
+                    print(f"  {name}")
+                if not names:
+                    print(f"  no class matching {args.query!r}")
+            return 0
+        hits = (index.member(args.query, args.member) if args.member
+                else index.symbol(args.query))
+        if args.json:
+            print(json.dumps([dataclasses.asdict(h) for h in hits], indent=2))
+        else:
+            if not hits:
+                print(f"no such class in this artifact: {args.query}", file=sys.stderr)
+                return 1
+            print(f"{args.query}")
+            print(f"  from {Path(args.jar).name} sha256 {index.sha256}")
+            print(f"  entry {hits[0].entry} sha256 {hits[0].entry_sha256}")
+            print()
+            for hit in hits:
+                print(f"  [{hit.kind}] {hit.signature}")
+        return 0
+
+    hits = EvidenceIndex(_store(args)).search(
+        args.query, game=args.game, limit=args.limit, regex=args.regex)
+    if args.json:
+        print(json.dumps([dataclasses.asdict(h) for h in hits], indent=2))
+    else:
+        if not hits:
+            print(f"no cached source contains {args.query!r}"
+                  + (f" for {args.game}" if args.game else ""))
+            print("That means it is not in what we fetched -- not that it does not exist.")
+            return 1
+        for hit in hits:
+            print(f"  {hit.citation()}")
+            print(f"    {hit.text}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="modcheck", description=__doc__)
     p.add_argument("--packs", help="override the packs/ directory")
@@ -653,6 +712,22 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--cases", help="cases directory (default: evaluation/cases)")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_evaluate)
+
+    sp = sub.add_parser(
+        "lookup",
+        help="exact retrieval over fetched sources: symbols in a compiled "
+             "artifact, or text in the evidence cache")
+    sp.add_argument("query", help="a class name (with --jar) or exact text")
+    sp.add_argument("--jar", help="look the symbol up in this compiled artifact")
+    sp.add_argument("--member", help="only members whose signature mentions this")
+    sp.add_argument("--classes", action="store_true",
+                    help="treat the query as a regex over class names")
+    sp.add_argument("--javap", help="path to javap (default: the resolved JDK)")
+    sp.add_argument("--game", help="restrict a text search to one game's sources")
+    sp.add_argument("--regex", action="store_true", help="treat the query as a regex")
+    sp.add_argument("--limit", type=int, default=30)
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_lookup)
 
     sp = sub.add_parser(
         "coverage",

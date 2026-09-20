@@ -179,6 +179,25 @@ sources:
   - minecraft
   publisher: FabricMC
   license: CC0-1.0
+- id: fabric_lifecycle_events_v1_jar
+  title: fabric-lifecycle-events-v1, as resolved for the build
+  url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-lifecycle-events-v1/
+  kind: api
+  access: public
+  retrieved_at: '2026-09-20T03:02:37+00:00'
+  sha256: b9ba49109cf21f968d0b44c26b2c930af74d54e2f71d9fdf505e1359275842e2
+  bytes: 97913
+  license: Apache-2.0
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Apache-2.0. Read locally for signatures; not redistributed.
+  games:
+  - minecraft
+  notes: 'Resolved locally at /root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-lifecycle-events-v1/4.1.9+ffef5f675d/4184b98a6c1dbfcf6c63dab29cf7f5812d9eaf73/fabric-lifecycle-events-v1-4.1.9+ffef5f675d.jar
+    (version 4.1.9+ffef5f675d). Read for the exact server tick events: ServerTickEvents.END_SERVER_TICK
+    and END_WORLD_TICK, both typed Event<...> with their own callback interfaces.'
 - id: fabric_loader_meta
   title: Fabric loader version metadata API
   url: https://meta.fabricmc.net/v2/versions/loader
@@ -241,6 +260,51 @@ sources:
   publisher: FabricMC
   notes: Community wiki page. Reuse terms not established; quoted only in short verbatim excerpts for
     audit.
+- id: fabric_rendering_v1_jar
+  title: fabric-rendering-v1, as resolved for the build
+  url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-rendering-v1/
+  kind: api
+  access: public
+  retrieved_at: '2026-09-20T03:02:37+00:00'
+  sha256: 749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0
+  bytes: 202164
+  license: Apache-2.0
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Apache-2.0. Read locally for signatures; not redistributed.
+  games:
+  - minecraft
+  notes: 'Resolved locally at /root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-rendering-v1/27.0.14+901a437c5d/b7b356249f2c16fa58410e8c7694c75f0468a403/fabric-rendering-v1-27.0.14+901a437c5d.jar
+    (version 27.0.14+901a437c5d). Read for the exact HUD extension point in this Fabric API version: HudElementRegistry.addLast(Identifier,
+    HudElement) and the VanillaHudElements identifiers a custom element can attach before or after. The
+    older HudRenderCallback is not what this version exposes.'
+- id: minecraft_26_3_merged_jar
+  title: Minecraft 26.3 merged jar, as Fabric Loom resolved it
+  url: https://piston-data.mojang.com/ (resolved by fabric-loom into .gradle/caches/fabric-loom/26.3/minecraft-merged.jar)
+  kind: api
+  access: public
+  retrieved_at: '2026-09-20T03:02:37+00:00'
+  sha256: 5918174887871ab0d484d4fa9462a4c5f91d90b3b93dd301e3bfa4c109bc4cde
+  bytes: 37945266
+  license: Proprietary (Minecraft EULA)
+  reuse:
+    redistribute: 'no'
+    commercial: unknown
+    derive: 'no'
+    note: Minecraft is proprietary. Read locally for signatures only; the artifact is never copied, redistributed,
+      or included in any output.
+  games:
+  - minecraft
+  notes: 'Resolved locally at /root/.gradle/caches/fabric-loom/26.3/minecraft-merged.jar (version 26.3).
+    The artifact our Fabric builds compile against. Read ONLY for exact type and method signatures via
+    javap, which is the JDK''s own class reader. Minecraft 26.3 ships non-obfuscated, so signatures are
+    readable directly. Nothing is copied into the evidence cache and nothing is redistributed: the record
+    carries the sha256 of the bytes read so a signature citation can be re-checked against the same artifact.
+    This establishes what the API IS, which documentation alone does not: the 26.3 SavedData API is Codec-based
+    (SavedDataType(Identifier, Supplier, Codec, DataFixTypes)) and the accessor is ServerLevel.getDataStorage()
+    returning SavedDataStorage -- not the DimensionDataStorage of older versions.'
 - id: modrinth_fabric_api
   title: Modrinth project metadata for Fabric API
   url: https://api.modrinth.com/v2/project/fabric-api

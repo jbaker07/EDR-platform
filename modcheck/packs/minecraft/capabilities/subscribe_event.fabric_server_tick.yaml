@@ -1,0 +1,73 @@
+id: subscribe_event.fabric_server_tick
+game: minecraft
+capability: subscribe_event
+title: Run code every server tick, or every tick of one level
+summary: >-
+  Fabric's lifecycle events expose the server tick loop. A mod registers a
+  callback and it runs on the server thread, twenty times a second.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  loader_versions: ">=0.19.5"
+  toolchain: ["Gradle 9.5.1", "JDK 25"]
+mechanism:
+  - kind: field
+    id: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK
+    signature: "Event<ServerTickEvents.EndTick> END_SERVER_TICK"
+    container: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
+    label: fires once per tick for the whole server
+  - kind: field
+    id: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_WORLD_TICK
+    signature: "Event<ServerTickEvents.EndLevelTick> END_WORLD_TICK"
+    container: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
+    label: fires once per tick per level, with the ServerLevel
+  - kind: type
+    id: net.fabricmc.fabric.api.event.Event
+    container: net.fabricmc.fabric.api.event.Event
+    label: the event object; callbacks are added through its register method
+requirements:
+  - The fabric-lifecycle-events-v1 module of the Fabric API.
+  - A main (server-side or common) entrypoint to register from.
+ordering:
+  - >-
+    Callbacks run on the server thread. Blocking work inside one stalls the
+    tick loop for every player, so anything slow belongs elsewhere.
+  - >-
+    END_WORLD_TICK receives the ServerLevel, which is what per-level state and
+    per-level weather need; END_SERVER_TICK does not.
+limits:
+  - >-
+    Twenty ticks per second is the server's target rate, not a guarantee. A
+    loaded server ticks more slowly, so a tick counter measures ticks, not
+    wall-clock time.
+  - >-
+    Nothing here establishes a callback runs at all. That needs the game.
+build:
+  commands: ["gradle build"]
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+  - method: The project's own Gradle build
+    command: gradle build --no-daemon --console=plain
+    limits: Establishes compilation against these signatures only.
+references:
+  - source: fabric_lifecycle_events_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/event/lifecycle/v1/ServerTickEvents.class
+    quote: "public static final Event<ServerTickEvents$EndTick> END_SERVER_TICK"
+  - source: fabric_lifecycle_events_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/event/lifecycle/v1/ServerTickEvents.class
+    quote: "public static final Event<ServerTickEvents$EndLevelTick> END_WORLD_TICK"
+evidence_state: source_confirmed
+evidence_note: >-
+  Read from fabric-lifecycle-events-v1-4.1.9+ffef5f675d.jar as resolved for our
+  own build (sha256 b9ba49109cf21f96...), using javap.
+invalidated_by:
+  - A Fabric API version bump.
+  - A change to the resolved artifact's sha256.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against: [fabric_lifecycle_events_v1_jar]

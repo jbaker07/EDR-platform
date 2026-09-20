@@ -1,0 +1,92 @@
+id: display_information.fabric_hud_element
+game: minecraft
+capability: display_information
+title: Draw a custom element on the in-game HUD
+summary: >-
+  Register a HUD element that renders alongside the vanilla ones, positioned
+  relative to a named vanilla element rather than at a hardcoded offset.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  loader_versions: ">=0.19.5"
+  toolchain: ["Gradle 9.5.1", "JDK 25"]
+mechanism:
+  - kind: method
+    id: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.addLast
+    signature: "static void addLast(Identifier, HudElement)"
+    container: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry
+    label: register an element after all existing ones
+  - kind: method
+    id: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.attachElementAfter
+    signature: "static void attachElementAfter(Identifier, Identifier, HudElement)"
+    container: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry
+    label: position relative to a named vanilla element
+  - kind: type
+    id: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
+    container: net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
+    label: the element interface a mod implements
+  - kind: field
+    id: net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements.HOTBAR
+    container: net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements
+    label: identifiers for the vanilla elements, for relative placement
+requirements:
+  - >-
+    A client entrypoint. HUD registration is client-only code and must not run
+    on a dedicated server, which has no HUD and no rendering classes loaded.
+  - The fabric-rendering-v1 module of the Fabric API.
+ordering:
+  - >-
+    Registration happens during client initialisation. Registering later, from
+    a render callback or a tick, is not the documented path.
+  - >-
+    addLast places the element after everything currently registered, which
+    depends on what other mods have registered. attachElementBefore/After
+    against a VanillaHudElements identifier is stable regardless.
+limits:
+  - >-
+    Client-side only. Whatever the element displays must already be on the
+    client; a HUD element cannot read server-side SavedData.
+  - >-
+    Nothing here establishes the element is legible, correctly positioned, or
+    visible at any particular GUI scale. That is a visual property and needs
+    the game.
+interactions:
+  - >-
+    Two mods attaching after the same vanilla element both render; the order
+    between them is the order they registered, which is mod load order.
+build:
+  commands: ["gradle build"]
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+  - method: The project's own Gradle build
+    command: gradle build --no-daemon --console=plain
+    limits: >-
+      Establishes the client code compiles against these signatures. Does NOT
+      establish that anything appears on screen.
+references:
+  - source: fabric_rendering_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/client/rendering/v1/hud/HudElementRegistry.class
+    quote: "public static void addLast(net.minecraft.resources.Identifier, HudElement)"
+  - source: fabric_rendering_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/client/rendering/v1/hud/VanillaHudElements.class
+    quote: "public static final net.minecraft.resources.Identifier HOTBAR"
+  - source: fabric_mod_json_spec
+    evidence_class: declared
+    locator: entrypoints
+evidence_state: source_confirmed
+evidence_note: >-
+  Signatures read from fabric-rendering-v1-27.0.14+901a437c5d.jar as resolved
+  for our own build (sha256 749427999b4845b1...), using javap. The older
+  HudRenderCallback that most published tutorials use is not what this version
+  exposes; a record written from those tutorials would not compile.
+invalidated_by:
+  - A Fabric API version bump; this HUD API replaced an earlier one.
+  - A change to the resolved artifact's sha256.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against: [fabric_rendering_v1_jar]
