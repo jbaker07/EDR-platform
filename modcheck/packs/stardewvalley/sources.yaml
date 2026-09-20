@@ -508,6 +508,60 @@ sources:
     of ours that told a creator to declare a priority outranking an Exclusive patch, which is impossible:
     the only nearby move, a second Exclusive, makes both patches fail rather than one win. Read as data
     to establish the enum''s values; no SMAPI code is copied or linked.'
+- id: smapi_case_insensitive_file_lookup
+  title: SMAPI CaseInsensitiveFileLookup (how a content pack's FromFile resolves)
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/fa45e7de7214709bb8cf327b831408a25a72a0ac/src/SMAPI.Toolkit/Utilities/PathLookups/CaseInsensitiveFileLookup.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T02:06:27+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: LGPL-3.0 per SMAPI's own LICENSE.txt. Read as data to establish behaviour; no SMAPI code is
+      copied or linked.
+  sha256: 3880655afe07add5cf2b2d95e72fc10063dfa85f38c3cb34c4a052a1ca57125d
+  bytes: 4209
+  content_sha256: 03ae8466e85f2b7e0958c5d9ee06ce3c7e6b78882a4504ff35ead8a63fc7c23e
+  content_type: text/plain
+  upstream_revision: W/"f603b974358acf06a32c52d9f071d257312a03ef1e2569dcc0bc786944d27841
+  evidence_path: 38/3880655afe07add5cf2b2d95e72fc10063dfa85f38c3cb34c4a052a1ca57125d.cs
+  publisher: Pathoschild
+  license: LGPL-3.0
+  notes: 'The lookup SMAPI uses when UseCaseInsensitivePaths is on: it caches every relative path under
+    the content pack root in both path and asset-name form and matches case-insensitively. This is what
+    makes a content pack''s FromFile resolve despite a case mismatch, and it is why a static check for
+    ''missing FromFile'' must be case-insensitive rather than reporting a problem that does not occur.'
+- id: smapi_case_insensitive_paths
+  title: SMAPI SConfig.UseCaseInsensitivePaths default (Android/Linux only)
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/fa45e7de7214709bb8cf327b831408a25a72a0ac/src/SMAPI/Framework/Models/SConfig.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T02:06:27+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: LGPL-3.0 per SMAPI's own LICENSE.txt. Read as data to establish behaviour; no SMAPI code is
+      copied or linked.
+  sha256: c0e5beff2fd31d174baa0d290e61e63c323d432ca334d10d13bff2724019a673
+  bytes: 13085
+  content_sha256: 73d4b3f2a964bc69b93c2c8b88a35728b7ce265e3c8753e84a95061d4f0231ea
+  content_type: text/plain
+  upstream_revision: W/"5f853d83a10eaeace21dfa2a0a62326c3b9a74f1c722bc7ac1dd2be93538eb84
+  evidence_path: c0/c0e5beff2fd31d174baa0d290e61e63c323d432ca334d10d13bff2724019a673.cs
+  publisher: Pathoschild
+  license: LGPL-3.0
+  notes: 'UseCaseInsensitivePaths defaults to true on Android and Linux only; elsewhere SMAPI uses MinimalFileLookup.
+    Read to settle a real question about the pinned Bear Mounts pack: its ConfigSchema declares WhichBear
+    values in lower case (brown, black, panda, polar, skeleton) while the shipped assets are capitalised
+    (BearMount_Brown.png), so {{WhichBear}} expands to a FromFile whose case does not match any file.
+    That is NOT a defect on any supported platform: Windows (NTFS) and macOS (APFS, case-insensitive by
+    default) resolve it in the filesystem, and on Linux and Android SMAPI resolves it itself. Recorded
+    so nobody ''fixes'' the published pack''s filenames while assembling a runtime install and then tests
+    something the author never shipped.'
 - id: smapi_license
   title: SMAPI repository LICENSE.txt
   url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/LICENSE.txt
