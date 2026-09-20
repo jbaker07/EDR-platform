@@ -1,0 +1,121 @@
+id: subscribe_event.pz_lua_client_script
+game: projectzomboid
+capability: subscribe_event
+title: Add client-side behaviour with a Lua script under media/lua/client
+summary: A mod folder the game recognises whose Lua file runs on the client, registers
+  a function against a game event, and is placed so that it cannot silently overwrite
+  a vanilla file or another mod's file.
+applies_to:
+  game_versions: Build 42 (documentation checked against PZwiki page versions 42.20.0-42.20.3
+    and ScriptsDocs 42.20.4)
+  loader: projectzomboid
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: file_path
+  id: mod.info
+  label: line-based key=value file; its presence is what makes a folder a mod
+- kind: file_path
+  id: media/lua/client/<YourModId>/YourFile.lua
+  label: loaded by relative path; the mod-named subfolder is what prevents a path
+    collision
+- kind: event
+  id: Events.<EventName>.Add
+  container: media/lua/client/<YourModId>/YourFile.lua
+  label: the documented registration form; the wiki's worked example is Events.OnZombieUpdate.Add
+- kind: config_key
+  id: id
+  container: mod.info
+  label: the unique identifier used in the player's mod list and by other mods' require=
+recipes:
+- pz-lua-client-script
+references:
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Folder structure"
+  quote: '''''''Lua'''''' scripts, with the file extension <code>.lua</code> need
+    to be inside three subfolders inside the <code>media/lua</code> folder, and are
+    used to determine the loading of files in singleplayer and multiplayer'
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Folder structure", paragraph after the load table
+  quote: Files with the same relative path to the <code>lua</code> as vanilla files
+    will overwrite them, so make sure to use unique names and relative paths. This
+    applies to other mod files too and is impacted by the load order between mods.
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Load order"
+  quote: '# Shared - vanilla files # Shared - mod files # Client - vanilla files #
+    Client - mod files'
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "How do Java classes work in the Lua API"
+  quote: The usual way is to utilize [[Lua event]]s which will output the various
+    class objects they refer to.
+- source: pzwiki_lua_api
+  evidence_class: declared
+  locator: section "Hooking to Java methods"
+  quote: This has the disadvantage that your hook will not be called if the method
+    is called Java side
+- source: pzwiki_mod_info
+  evidence_class: declared
+  locator: introduction and warnings
+  quote: Make sure to name the file in full lowercase for Linux and macOS compatibility.
+- source: pz_scriptsdocs_modinfo
+  evidence_class: declared
+  locator: Parameters, id and versionMin
+  quote: 'The unique identifier of the mod, used in a mod list of the user or servers
+    to activate the mod. Make sure to use something unique which isn’t shared between
+    mods. Note: This is not the same as the Workshop ID'
+- source: pzwiki_mod_structure
+  evidence_class: declared
+  locator: section "Mod folder", Build 41 and Build 42
+  quote: The main difference is the position of the [[#Media folder|media folder]]
+    and the lack of versioning and common folders for Build 41.}}
+- source: pz_api_lua_event_manager
+  evidence_class: extracted
+  locator: class zombie.Lua.LuaEventManager
+evidence_state: documented
+evidence_note: Derived from recipe pz-lua-client-script, which is the record that
+  was actually verified. This capability record restates that recipe's extension points
+  under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - pz-lua-client-script
+requirements:
+- a mod id that is unique across everything the player has installed, including Steam
+  Workshop subscriptions
+- the event name to hook and the objects it passes, taken from the game's own documentation
+interactions:
+- 'Load order is fixed: shared vanilla, shared mod, client vanilla, client mod - so
+  a mod file always loads after the vanilla file with the same path, which is why
+  a path collision silently wins rather than erroring.'
+- The server subfolder is loaded only when a save is launched and is unloaded whenever
+  Lua reloads, so code there cannot assume it ran at startup.
+- Two mods with the same id in different recognised folders - for example a local
+  copy and a Workshop subscription - clash and overwrite each other.
+- Lua is Kahlua, a Java implementation based on Lua 5.1 with differences, so plain
+  Lua 5.1 idioms are a starting point rather than a guarantee.
+validation:
+- method: Inspect the packaged mod and read back the normalised Lua paths and scopes
+  command: .venv/bin/modcheck inspect Zomboid/Workshop/MyModWorkshop/Contents/mods/MyMod
+    --json
+  limits: Reports mod.info fields, the media/-relative Lua file list, the set of scopes
+    and any unrecognised mod.info keys. It does not read a single line of Lua, so
+    it cannot tell you which events you hooked, whether the event name exists, or
+    whether your file overwrites a vanilla path - we hold no inventory of vanilla
+    media/lua paths.
+- method: Confirm mod.info parses as key=value and that id and name are present
+  command: python -c "import sys;d=[l.split('=',1) for l in open('mod.info') if '='
+    in l];print({k.strip().lower():v.strip() for k,v in d})"
+  limits: Confirms only the shape of the file. It does not check that the id is unique
+    across the player's installed mods, and it cannot see a hidden .txt extension
+    on the file, which is one of the two problems the wiki warns about.
+- method: Launch the game, enable the mod and read the console
+  limits: Requires Project Zomboid. NOT performed here. No Lua in this recipe has
+    ever been executed; a syntax error or a wrong event name would surface only at
+    this step.

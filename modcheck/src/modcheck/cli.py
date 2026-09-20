@@ -523,6 +523,24 @@ def cmd_runtime(args) -> int:
     return 0 if comparison.verdict == "matched" else 1
 
 
+def cmd_coverage(args) -> int:
+    from .creator.coverage import build_map, render
+    coverage = build_map(_store(args))
+    if args.json:
+        print(json.dumps({
+            "summary": coverage.summary(),
+            "cells": [{"game": c.game, "capability": c.capability,
+                       "evidence_state": c.evidence_state,
+                       "records": c.records, "recipes": c.recipes}
+                      for c in sorted(coverage.cells.values(),
+                                      key=lambda c: (c.game, c.capability))],
+            "gaps": [{"game": g, "capability": c} for g, c in coverage.gaps()],
+        }, indent=2))
+    else:
+        print(render(coverage))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="modcheck", description=__doc__)
     p.add_argument("--packs", help="override the packs/ directory")
@@ -635,6 +653,12 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--cases", help="cases directory (default: evaluation/cases)")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_evaluate)
+
+    sp = sub.add_parser(
+        "coverage",
+        help="which creator capabilities each game pack has a recorded mechanism for")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_coverage)
 
     runtime = sub.add_parser(
         "runtime",

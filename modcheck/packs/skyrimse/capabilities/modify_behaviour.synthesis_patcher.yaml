@@ -1,0 +1,94 @@
+id: modify_behaviour.synthesis_patcher
+game: skyrimse
+capability: modify_behaviour
+title: Write a Synthesis patcher that rewrites winning overrides at patch time
+summary: A creator ends up with a C# patcher that Synthesis runs against the player's
+  own load order and that emits a patch plugin tailored to it, instead of a hand-built
+  patch that only fits one specific mod list.
+applies_to:
+  game_versions: Skyrim SE via GameRelease.SkyrimSE as shown in the Synthesis documentation
+  loader: bethesda_plugin
+  toolchain:
+  - Synthesis
+  - Mutagen
+  - .NET SDK
+mechanism:
+- kind: method
+  id: RunPatch
+  signature: public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter>
+    state)
+  container: Program.cs
+  label: callback Synthesis invokes with the pipeline state
+- kind: method
+  id: SynthesisPipeline.Instance.AddPatch<ISkyrimMod, ISkyrimModGetter>
+  container: Program.cs
+  label: registers the patch entry point for this game type
+- kind: record
+  id: state.PatchMod
+  label: the output mod object; every change must be applied here
+recipes:
+- synthesis_patcher
+references:
+- source: synthesis_create_a_patcher
+  evidence_class: declared
+  locator: Solution Patcher
+  quote: Synthesis provides bootstrapping functionality to get new Mutagen patchers
+    off the ground fairly easily.
+- source: synthesis_coding_a_patcher
+  evidence_class: declared
+  locator: Run Patch Method
+  quote: Whatever changes you want to be made should be applied to the state.PatchMod
+    object.
+- source: synthesis_coding_a_patcher
+  evidence_class: declared
+  locator: Typical Simple Code
+  quote: Typical code for a Synthesis patcher consists of locating Winning Overrides
+    for a record type, and adding them to the output patch mod with some changes.
+- source: mutagen_itpo_avoidance
+  evidence_class: declared
+  locator: What is an ITPO
+  quote: A very typical thing that can happen during processing mods is exporting
+    a record that doesn't have any changes compared to the original. This is known
+    as an ITPO (Identical to Previous Override), or sometimes ITM (Idential to Master).
+- source: mutagen_winning_overrides
+  evidence_class: declared
+  quote: You can also iterate over Mod Context objects, which give more information
+    and have more features that just looping the raw records.
+- source: mutagen_license
+  evidence_class: extracted
+  quote: GNU GENERAL PUBLIC LICENSE
+evidence_state: documented
+evidence_note: Derived from recipe synthesis_patcher, which is the record that was
+  actually verified. This capability record restates that recipe's extension points
+  under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - synthesis_patcher
+requirements:
+- An IDE for C# (Visual Studio Community or Rider) and the DotNet SDK
+- Synthesis, used once to bootstrap a Local Solution patcher
+interactions:
+- The generated patch plugin takes the plugins it draws records from as masters, so
+  it inherits their presence requirements and must load after them.
+- 'A patcher that touches the same records as another patcher in the pipeline still
+  resolves by order: the later output wins, exactly as with hand-made plugins.'
+- Mutagen and Synthesis are GPL-3.0. A patcher built on them is a derivative work
+  and inherits that obligation, which matters if you intended to ship it under other
+  terms.
+build:
+  produces: A .NET project whose output Synthesis runs to generate a patch plugin
+  requires_network: true
+  requires_game_install: true
+validation:
+- method: Inspect the generated patch plugin's header for unexpected masters
+  command: modcheck inspect Data/YourPatcher.esp --game skyrimse
+  limits: 'Reads the TES4 header only: it shows which plugins became masters of the
+    generated patch and the record counts, but says nothing about whether the patched
+    records are correct, and cannot detect ITPOs - those live below the header.'
+- method: Run the LOOT-backed analysis over the resulting load order
+  command: modcheck analyze --game skyrimse --config loadorder.json
+  limits: Reports only LOOT-recorded requirements, incompatibilities, load-order rules
+    and CRC-matched dirty records. A freshly generated patch has no masterlist entry,
+    so it will produce no findings of its own; that is not evidence it is sound.

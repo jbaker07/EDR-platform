@@ -1,0 +1,131 @@
+id: build_and_test.sims4_python_script_mod
+game: sims4
+capability: build_and_test
+title: Build and package a Sims 4 Python script mod as a .ts4script
+summary: A creator ends up with a .ts4script - a zip of their Python, compiled for
+  the version of Python the game expects - installed in the player's Mods folder,
+  adding behaviour the game did not have, with the one failure mode that silently
+  kills every script mod (wrong bytecode version) deliberately checked before release.
+applies_to:
+  game_versions: must be stated per release; the game's Python libraries are re-decompiled
+    after each patch, so a script mod is built against one patch
+  loader: sims4_script
+  loader_versions: n/a - the game loads .ts4script files directly; there is no loader
+    version
+  toolchain:
+  - s4_scripting_template
+  - uncompyle6
+  platforms:
+  - windows
+  - macos
+mechanism:
+- kind: method
+  id: <game module>.<function you hook or extend>
+  container: src/<yourmod>/<module>.py
+  label: What your Python actually changes at runtime. Nothing in the packaged artifact
+    reveals this.
+- kind: file_path
+  id: Mods/<CreatorName>_<ProjectName>/<CreatorName>_<ProjectName>.ts4script
+  label: 'The install path the maintained community template produces: "Mods/YourName_ProjectName/YourName_ProjectName.ts4script".'
+- kind: archive_entry
+  id: '*.pyc'
+  container: <CreatorName>_<ProjectName>.ts4script
+  label: The compiled bytecode. Its first two bytes are the CPython magic number,
+    which is what our inspector reads and what the game matches against its own interpreter.
+- kind: archive_entry
+  id: '*.py'
+  container: <CreatorName>_<ProjectName>.ts4script
+  label: The sources. The maintained template ships these alongside the .pyc and says
+    shipping only compiled python is "highly discouraged".
+recipes:
+- sims4-python-script-mod
+references:
+- source: mts_write_script_mod_tutorial
+  evidence_class: declared
+  locator: Prerequisites
+  quote: '- Install Python 3.7: https://www.python.org/downloads/release/python-370/
+    . Recommend version 3.7 or 3.8. Because the decompile tool we are using is only
+    supported up to 3.8.'
+- source: mts_write_script_mod_tutorial
+  evidence_class: declared
+  locator: Prerequisites
+  quote: '- Install Uncompyle6: https://pypi.org/project/uncompyle6/ . You can run
+    ‘pip install uncompyle6’ after Python is installed. This is the decompiler to
+    decompile the Sims4 game source code.'
+- source: s4_scripting_template_readme
+  evidence_class: declared
+  locator: What can it do > compile.py
+  quote: "This compiles and packages your `src` folder and creates a `build` folder\
+    \ containing your packaged mod ready for \ndeployment. It then copies your packaged\
+    \ mod to the games Mods folder under it's own sub-folder \n`Mods/YourName_ProjectName/YourName_ProjectName.ts4script`."
+- source: s4_scripting_template_readme
+  evidence_class: declared
+  locator: What can it do > compile.py > Update
+  quote: 'The reason why is new information was learned about The Sims 4 loading process
+    and it''s
+
+    highly discouraged to only include compiled python files.'
+- source: s4_scripting_template_readme
+  evidence_class: declared
+  locator: What can it do > bundle_build.py
+  quote: "Zips up the build artifacts in a way that can be sent to Sims 4 Players\
+    \ or Mod Websites. It nests all the build \nartifacts in a subfolder named `CreatorName_ProjectName`.\
+    \ This way the player can directly unzip your mod into the Mods\nfolder and it\
+    \ will all be self-contained in it's own folder."
+- source: simswiki_ts4_general_modding
+  evidence_class: declared
+  locator: EA Core Mod Support
+  quote: 'July 2015 : Script mods now support .ts4script extention - http://forums.thesims.com/en_US/discussion/comment/13838037'
+- source: s4_scripting_template_license
+  evidence_class: extracted
+  locator: first lines
+  quote: "Apache License\n                           Version 2.0, January 2004"
+evidence_state: documented
+evidence_note: Derived from recipe sims4-python-script-mod, which is the record that
+  was actually verified. This capability record restates that recipe's extension points
+  under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - sims4-python-script-mod
+requirements:
+- The game's decompiled Python libraries, to write and type-check against
+- A CPython interpreter of the version the game expects
+interactions:
+- A Sims 4 patch that changes the embedded Python version invalidates every compiled
+  script mod at once; the community has lived through exactly that. Your mod's .pyc
+  magic is a hard match, not a preference.
+- Script mods declare no dependencies. If your mod needs a shared library mod, the
+  only place that can be said is the mod page - so say it there.
+- Two script mods that patch the same game function conflict at runtime, and nothing
+  in either artifact shows it. modcheck reads archive layout and bytecode versions,
+  not what your code does.
+- Script mods must be enabled in the game's own options; a mod that "does nothing"
+  is often a settings problem rather than a build problem.
+build:
+  produces: A .ts4script zip containing .py and .pyc files.
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Read the bytecode version out of the finished artifact.
+  command: .venv/bin/modcheck inspect dist/<CreatorName>_<ProjectName>.ts4script --game
+    sims4 --json
+  modcheck_check: modcheck.inspect.sims4.inspect_script:bytecode_python_versions
+  limits: This reads the archive layout and the CPython magic number at the head of
+    each .pyc, reports the version(s) found, and warns when a magic is unrecognised
+    or when several versions are mixed. It does NOT know which version the installed
+    game expects - we hold no primary source for that - so it tells you what you built,
+    not whether the game will accept it. It also does not read the code, so it says
+    nothing about what your mod does or which game functions it touches.
+- method: Confirm sources ship alongside bytecode.
+  command: python -c "import sys,zipfile;n=zipfile.ZipFile(sys.argv[1]).namelist();print(sum(x.endswith('.py')
+    for x in n),'py',sum(x.endswith('.pyc') for x in n),'pyc')" dist/<CreatorName>_<ProjectName>.ts4script
+  limits: Counts file types only. It does not check that the .py and .pyc files correspond
+    to each other or that the .pyc is current with respect to the .py beside it.
+- method: Load the mod in game with script mods enabled and exercise it.
+  command: <start The Sims 4 with script mods enabled and a Mods folder containing
+    only this mod>
+  limits: Requires the retail game, which we do not have, so this was never run. It
+    is the only check that establishes the mod loads and behaves; a correct bytecode
+    version only establishes it is not rejected out of hand.

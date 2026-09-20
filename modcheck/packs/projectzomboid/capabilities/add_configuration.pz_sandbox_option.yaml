@@ -1,0 +1,110 @@
+id: add_configuration.pz_sandbox_option
+game: projectzomboid
+capability: add_configuration
+title: Add a configurable sandbox option to a mod
+summary: A mod-defined sandbox option that appears on its own page in the Sandbox
+  Options menu with a translated label and tooltip, and whose value the mod's Lua
+  reads at runtime through SandboxVars.
+applies_to:
+  game_versions: Build 42 (PZwiki Sandbox options page version 42.19.0)
+  loader: projectzomboid
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: file_path
+  id: media/sandbox-options.txt
+  label: the only place mod sandbox options may be declared; it sits directly under
+    media/
+- kind: config_key
+  id: option ModName.OptionName
+  container: media/sandbox-options.txt
+  label: one block per option; the block name becomes the Lua accessor path
+- kind: config_key
+  id: SandboxVars.ModName.OptionName
+  label: how Lua reads the configured value at runtime
+- kind: file_path
+  id: media/lua/shared/Translate/<language code>/Sandbox.json
+  label: where the page name, option label and tooltip strings live
+recipes:
+- pz-sandbox-option
+references:
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction
+  quote: Mods sandbox options are defined in a file named <code>sandbox-options.txt</code>
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction, VERSION paragraph
+  quote: The file starts with the parameter <code>VERSION = 1,</code> which is used
+    by the game to recognize which method needs to be used to read the sandbox option
+    file.
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction, naming paragraph
+  quote: You can choose any name for <code>ModName</code> and <code>OptionName</code>
+    without spaces... Accessing the option value in Lua will be done with <code>SandboxVars.ModName.OptionName</code>.
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: section "Option types"
+  quote: boolean ... integer ... double ... string ... enum ... type = enum, default
+    = <value>, numValues = <number>,
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: section "Translations"
+  quote: '"Sandbox_<pageName>": "The page name", "Sandbox_<ModName>_<OptionName>":
+    "The option name"'
+- source: pzwiki_sandbox_options
+  evidence_class: declared
+  locator: introduction, comparison with ModOptions
+  quote: In comparison to [[ModOptions]], these settings apply to every player
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Scripts syntax"
+  quote: The comma at the end of each key value pair line is mandatory, even for the
+    last line in a block.
+- source: pz_api_sandbox_options
+  evidence_class: extracted
+  locator: class zombie.SandboxOptions
+evidence_state: documented
+evidence_note: Derived from recipe pz-sandbox-option, which is the record that was
+  actually verified. This capability record restates that recipe's extension points
+  under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - pz-sandbox-option
+requirements:
+- a ModName and an OptionName, both without spaces
+- the option type and its default, and min/max for a numeric option
+- a language code for each translation you ship
+interactions:
+- 'A sandbox option is server-wide: every player in a multiplayer game gets the same
+  value, so it is the wrong mechanism for a personal preference.'
+- Sandbox settings are stored with the save, so changing an option's name or removing
+  it affects existing saves.
+- page values are shared across mods - two mods using the same page name deliberately
+  share a tab, and two mods using the same page name accidentally produce a confusing
+  mixed tab.
+- A missing trailing comma anywhere in the file stops the script parsing correctly,
+  and the failure is silent from the file's point of view.
+validation:
+- method: Confirm the file exists at media/sandbox-options.txt and every key/value
+    line ends with a comma
+  command: grep -n -v -E "(^\s*$|^\s*(VERSION|option|\{|\})|,\s*$|^\s*/\*|\*/)" media/sandbox-options.txt
+  limits: A line-shape heuristic, not a parser. It does not validate that the type
+    is one of the five documented types, that a numeric option has min and max, that
+    the translation key matches the translation file, or that the page renders. ModCheck
+    has no zedscript parser at all.
+- method: Inspect the packaged mod with ModCheck
+  command: .venv/bin/modcheck inspect Zomboid/Workshop/MyModWorkshop/Contents/mods/MyMod
+    --json
+  limits: sandbox-options.txt is not under a scripts/ folder, so it is not even in
+    the extracted script_files list - the inspector's own not_checked list names "sandbox
+    options and tiledef contents". Inspection tells you nothing about this file.
+- method: Start a new game and confirm the option on its page in the Sandbox Options
+    menu
+  limits: Requires the game. NOT performed here. This is the only step that establishes
+    the file parsed, the page exists and the translation resolved.

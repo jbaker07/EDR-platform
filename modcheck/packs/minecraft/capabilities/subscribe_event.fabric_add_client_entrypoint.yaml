@@ -1,0 +1,61 @@
+id: subscribe_event.fabric_add_client_entrypoint
+game: minecraft
+capability: subscribe_event
+title: Add client-only behaviour with a client entrypoint
+summary: A creator adds behaviour that runs only on the game client, wired through
+  a second entrypoint, without making the whole mod client-only.
+applies_to:
+  game_versions: '>=26.1'
+  loader: fabric
+  loader_versions: '>=0.19.5'
+  toolchain:
+  - Gradle 9.5.1
+  - JDK 25
+mechanism:
+- kind: config_key
+  id: entrypoints.client
+  container: fabric.mod.json
+  label: client entrypoint list
+- kind: method
+  id: onInitializeClient
+  signature: void onInitializeClient()
+  container: net.fabricmc.api.ClientModInitializer
+recipes:
+- fabric_add_client_entrypoint
+references:
+- source: fabric_mod_json_spec
+  evidence_class: declared
+  locator: entrypoints
+- source: fabric_docs_home
+  evidence_class: declared
+  locator: developer documentation index
+evidence_state: build_tested
+evidence_note: Derived from recipe fabric_add_client_entrypoint, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - fabric_add_client_entrypoint
+requirements:
+- an existing Fabric project with a declared main entrypoint
+interactions:
+- Adding an entrypoint does not change any other mod's behaviour; entrypoints are
+  additive and the loader calls each mod's own.
+- Assumes the project declares a main entrypoint, which is how the package is inferred.
+build:
+  commands:
+  - gradle build
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+- method: The project's own Gradle build
+  command: gradle build --no-daemon --console=plain
+  limits: Establishes the class compiles and the jar packages. Does not establish
+    that the entrypoint runs, since that needs the game.
+- method: Read the entrypoint back out of the built jar
+  modcheck_check: inspect
+  limits: Confirms the manifest registers the client entrypoint. Does not establish
+    what the entrypoint does.

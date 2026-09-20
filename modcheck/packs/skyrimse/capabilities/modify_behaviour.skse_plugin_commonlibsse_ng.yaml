@@ -1,0 +1,102 @@
+id: modify_behaviour.skse_plugin_commonlibsse_ng
+game: skyrimse
+capability: modify_behaviour
+title: Build an SKSE plugin DLL with CommonLibSSE-NG
+summary: A creator ends up with a single SKSE plugin DLL under Data/SKSE/Plugins that
+  loads under Skyrim SE, AE and VR runtimes, built from a CMake project that pulls
+  CommonLibSSE-NG through vcpkg.
+applies_to:
+  game_versions: Skyrim SE/AE runtimes supported by the SKSE build you target; skse.silverlock.org
+    lists AE build 2.3.1 for game version 1.7.104, and the readme we fetched documents
+    2.2.6 beta for 1.6.1170
+  loader: skse64
+  toolchain:
+  - CMake
+  - vcpkg
+  - MSVC (Windows)
+mechanism:
+- kind: file_path
+  id: PluginAPI.h
+  container: the SKSE64 source archive
+  label: the header SKSE's readme names as the instructions for the plugin interface;
+    we did not fetch it, so the entry-point signature must be read there, not assumed
+- kind: file_path
+  id: Data/SKSE/Plugins/<yourplugin>.dll
+  label: where the script extender loads plugin DLLs from
+- kind: config_key
+  id: add_commonlibsse_plugin
+  container: CMakeLists.txt
+  label: CMake function that generates the plugin declaration
+recipes:
+- skse_plugin_commonlibsse_ng
+references:
+- source: commonlibsse_ng_readme
+  evidence_class: declared
+  locator: Simplified Plugin Declaration
+  quote: Just replace `add_library` with `add_commonlibsse_plugin` in `CMakeLists.txt`
+    and CMake will create your shared library target, configure CommonLibSSE linkage,
+    and auto-generate this content and inject it into the plugin.
+- source: commonlibsse_ng_readme
+  evidence_class: declared
+  locator: Multiple Runtime Targets
+  quote: CommonLibSSE NG has support for Skyrim SE, AE, and VR, and is able to create
+    builds for any combination of these runtimes, including all three.
+- source: skse64_readme
+  evidence_class: declared
+  locator: Troubleshooting / FAQ
+  quote: See PluginAPI.h for instructions, as well as the example plugin project included
+    with the rest of the source code. If you include any of the SKSE source code,
+    you are required to make your source code available.
+- source: skse64_readme
+  evidence_class: declared
+  locator: Installation, step 4
+  quote: Run skse64_loader.exe to launch the game. You or your mod manager must continue
+    to use the loader for SKSE64 to work.
+- source: skse_home
+  evidence_class: declared
+  locator: Contact the SKSE Team
+  quote: Having crashes on startup after a game patch? Remove the files from Data/SKSE/Plugins
+    and try again. Mods using plugins probably need to be updated.
+- source: commonlibsse_ng_license
+  evidence_class: extracted
+  quote: MIT License
+evidence_state: documented
+evidence_note: Derived from recipe skse_plugin_commonlibsse_ng, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - skse_plugin_commonlibsse_ng
+requirements:
+- Windows with MSVC and CMake
+- vcpkg, with the colorglass registry added for the commonlibsse-ng port
+- The matching SKSE64 build installed in the game folder for testing
+interactions:
+- An SKSE plugin is bound to the game runtime version it was built for. When the game
+  updates, the plugin and usually SKSE itself must be rebuilt; that is the single
+  most common cause of startup crashes after a patch.
+- SKSE may not be redistributed with your mod. Its readme requires linking to https://skse.silverlock.org/
+  instead, so your release must not bundle it.
+- If you include SKSE source code in your plugin, the readme requires you to make
+  your own source available; CommonLibSSE-NG is MIT, which is a different and more
+  permissive obligation.
+build:
+  produces: A Windows DLL for Data/SKSE/Plugins
+  requires_network: true
+  requires_game_install: true
+validation:
+- method: Confirm the artifact you ship is the DLL and not a plugin file the game
+    would try to load as a record container
+  command: modcheck inspect dist/YourPlugin.dll --game skyrimse
+  limits: Our inspector only identifies Bethesda plugin files by their TES4 header;
+    for a DLL it reports identity (path, size, sha256) and nothing about its exports,
+    its SKSE version requirements or whether it loads. It cannot tell you the plugin
+    works.
+- method: Check the runtime version you targeted against the SKSE build table before
+    release
+  command: modcheck sources verify --game skyrimse
+  limits: This only re-fetches our recorded copy of skse.silverlock.org and reports
+    whether it changed since we hashed it. It does not check your DLL, and a changed
+    page means "re-read it", not "your plugin is broken".

@@ -17,10 +17,12 @@ sources:
   retrieved_at: '2026-09-20T00:52:17+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: MIT per the repository LICENSE (bear_mounts_license). Preserve the notice.
+    derive: 'yes'
+    note: 'MIT per the repository LICENSE (bear_mounts_license). Preserve the notice. Redistribution and
+      derivation are permitted under MIT, but the licence and attribution must be preserved: `yes` here
+      means permitted-with-conditions, not unconditional.'
   sha256: 1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e
   bytes: 3820
   content_sha256: a9651593d8aba582fc6421d303a4cb274a3b05d24f79e5b7a867315d53fa6a07
@@ -43,10 +45,12 @@ sources:
   retrieved_at: '2026-09-20T00:52:18+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: MIT per the repository LICENSE (bear_mounts_license). Preserve the notice.
+    derive: 'yes'
+    note: 'MIT per the repository LICENSE (bear_mounts_license). Preserve the notice. Redistribution and
+      derivation are permitted under MIT, but the licence and attribution must be preserved: `yes` here
+      means permitted-with-conditions, not unconditional.'
   sha256: f8b2baeeab8ddb1a7810ff51ea21f08d089525967d7f90b2a6a2fab7ac12df2a
   bytes: 1069
   content_sha256: a2cb2a88fec93315c9fbef835770da3d8da599d18c76e3a000f5fbe2c8a56b60
@@ -65,10 +69,12 @@ sources:
   retrieved_at: '2026-09-20T00:52:17+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: MIT per the repository LICENSE (bear_mounts_license). Preserve the notice.
+    derive: 'yes'
+    note: 'MIT per the repository LICENSE (bear_mounts_license). Preserve the notice. Redistribution and
+      derivation are permitted under MIT, but the licence and attribution must be preserved: `yes` here
+      means permitted-with-conditions, not unconditional.'
   sha256: 0ebb1577ab1eadb414f98ed19b4a7a5946e49831f934804f551d09b970df5049
   bytes: 366
   content_sha256: f2a8d67ac58140c910cdefb9bf7ef7d162f64fc12f9eb989213c1b2efa6199a6
@@ -91,9 +97,11 @@ sources:
   retrieved_at: '2026-09-19T13:39:57+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 3aeebe44f7d4a741ee02e9fa7f60e99af0f4135f37d0af8ce62ca72efadf8a12
   bytes: 18831
   content_type: text/plain
@@ -115,10 +123,12 @@ sources:
   retrieved_at: '2026-09-20T01:08:07+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license).
+    derive: 'yes'
+    note: 'MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license). Redistribution
+      and derivation are permitted under MIT, but the licence and attribution must be preserved: `yes`
+      here means permitted-with-conditions, not unconditional.'
   sha256: fdb67c404113c16652b7a4be3ee4a84055b6daeb5eeef6dc8642871a654bbe24
   bytes: 4976
   content_sha256: b9be466aca5aaabba3f435e2ae58856c1e2418010213ce6b30bbcfc3267b1d7d
@@ -138,9 +148,11 @@ sources:
   retrieved_at: '2026-09-19T13:39:58+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: e71559aa3d1f1659950c50ae09bbd90a5a118f3faea113bfa3c20d25b004f522
   bytes: 18214
   content_type: text/plain
@@ -184,9 +196,11 @@ sources:
   retrieved_at: '2026-09-19T13:49:25+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 7643630f79f1ed4c4a57792e558c65803a4c97cc680f366c9bac1613b3f50434
   bytes: 5507
   content_type: text/plain
@@ -208,10 +222,12 @@ sources:
   retrieved_at: '2026-09-20T01:08:07+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license).
+    derive: 'yes'
+    note: 'MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license). Redistribution
+      and derivation are permitted under MIT, but the licence and attribution must be preserved: `yes`
+      here means permitted-with-conditions, not unconditional.'
   sha256: 5f884c792742985c65879d763a84475721af1242bd2c48a164e66c2937310b73
   bytes: 34889
   content_sha256: 35f95544c5b03398402ecd4afb1e010239d16bfc0cd0562d5ac3964a732a357c
@@ -233,9 +249,11 @@ sources:
   retrieved_at: '2026-09-19T13:48:10+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: f534a12ec293c32997a1efc40c19055b3d3c81b299244c7cd1c0808d31f9d94d
   bytes: 61470
   content_type: text/plain
@@ -257,10 +275,12 @@ sources:
   retrieved_at: '2026-09-20T01:07:54+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license).
+    derive: 'yes'
+    note: 'MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license). Redistribution
+      and derivation are permitted under MIT, but the licence and attribution must be preserved: `yes`
+      here means permitted-with-conditions, not unconditional.'
   sha256: d307375f5be445355b5408aa1954c7afee11a56795264c732b4b636ac7d60c80
   bytes: 28337
   content_sha256: 3e531e9bf00ab5b9b65b573436859342c693d6a29c45bf8ff10f48327928f182
@@ -282,9 +302,11 @@ sources:
   retrieved_at: '2026-09-19T13:39:58+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 32f10e6059807434eba19a26c63e662bd1d24f0d31edb6dd6d326d94887d7b7b
   bytes: 60588
   content_type: text/plain
@@ -306,9 +328,11 @@ sources:
   retrieved_at: '2026-09-19T13:39:58+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 62249b207b37b2c5d3a8a9c0f6e2f1d56d85b12a8d68caa37cc07085a884ff2d
   bytes: 10024
   content_type: text/plain
@@ -352,9 +376,11 @@ sources:
   retrieved_at: '2026-09-19T13:39:45+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 6780840a743713f47a6cff9a4aeee5059a4b8f68fbefa6734f9924c7c7d6282d
   bytes: 1107
   content_type: text/plain
@@ -468,11 +494,13 @@ sources:
   retrieved_at: '2026-09-20T01:08:08+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
+    derive: 'yes'
     note: 'LGPL-3.0 per SMAPI''s own LICENSE.txt, read at the same time. Recorded because it differs from
-      StardewMods'' MIT: the two repositories are not under the same terms.'
+      StardewMods'' MIT: the two repositories are not under the same terms. Redistribution and derivation
+      are permitted under LGPL-3.0, but the licence and attribution must be preserved: `yes` here means
+      permitted-with-conditions, not unconditional.'
   sha256: ec8df0c274416048250acaebf3d9218d826fcd8e1f5b3f2d43646c9e031b3339
   bytes: 599
   content_sha256: cb672c269a0118cad264ae1753168050ca7441626d5bcc6bf0d440c71d2c0f9e
@@ -491,11 +519,13 @@ sources:
   retrieved_at: '2026-09-20T01:08:08+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
+    derive: 'yes'
     note: 'LGPL-3.0 per SMAPI''s own LICENSE.txt, read at the same time. Recorded because it differs from
-      StardewMods'' MIT: the two repositories are not under the same terms.'
+      StardewMods'' MIT: the two repositories are not under the same terms. Redistribution and derivation
+      are permitted under LGPL-3.0, but the licence and attribution must be preserved: `yes` here means
+      permitted-with-conditions, not unconditional.'
   sha256: a7c8d8676a737a7b935c06ac1b302aea675553a8f8865372cbbaccf313eb494f
   bytes: 1145
   content_sha256: 83dd0050e330b5d91d13dde0bc3f158c974269aabb941b6d2ce7c39d477a34f1
@@ -516,11 +546,12 @@ sources:
   retrieved_at: '2026-09-20T02:06:27+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: LGPL-3.0 per SMAPI's own LICENSE.txt. Read as data to establish behaviour; no SMAPI code is
-      copied or linked.
+    derive: 'yes'
+    note: 'LGPL-3.0 per SMAPI''s own LICENSE.txt. Read as data to establish behaviour; no SMAPI code is
+      copied or linked. Redistribution and derivation are permitted under LGPL-3.0, but the licence and
+      attribution must be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 3880655afe07add5cf2b2d95e72fc10063dfa85f38c3cb34c4a052a1ca57125d
   bytes: 4209
   content_sha256: 03ae8466e85f2b7e0958c5d9ee06ce3c7e6b78882a4504ff35ead8a63fc7c23e
@@ -541,11 +572,12 @@ sources:
   retrieved_at: '2026-09-20T02:06:27+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
-    derive: attribution_required
-    note: LGPL-3.0 per SMAPI's own LICENSE.txt. Read as data to establish behaviour; no SMAPI code is
-      copied or linked.
+    derive: 'yes'
+    note: 'LGPL-3.0 per SMAPI''s own LICENSE.txt. Read as data to establish behaviour; no SMAPI code is
+      copied or linked. Redistribution and derivation are permitted under LGPL-3.0, but the licence and
+      attribution must be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: c0e5beff2fd31d174baa0d290e61e63c323d432ca334d10d13bff2724019a673
   bytes: 13085
   content_sha256: 73d4b3f2a964bc69b93c2c8b88a35728b7ce265e3c8753e84a95061d4f0231ea

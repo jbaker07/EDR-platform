@@ -67,9 +67,11 @@ sources:
   retrieved_at: '2026-09-19T13:43:01+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: f8f983d0d1e2bb361f117487465f21f5f4047acca3610f7aba3482d524c83ce4
   bytes: 1074
   content_type: text/plain
@@ -88,10 +90,12 @@ sources:
   retrieved_at: '2026-09-19T13:43:00+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
-    note: LICENSE fetched as commonlibsse_ng_license is the MIT licence, (c) 2018 Ryan-rsm-McKenzie.
+    note: 'LICENSE fetched as commonlibsse_ng_license is the MIT licence, (c) 2018 Ryan-rsm-McKenzie.
+      Redistribution and derivation are permitted under MIT, but the licence and attribution must be preserved:
+      `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 1e005d64aef4ee0f1f0aeb5e2770ab038c8fd221beb75235c6d96b64d5b71fc8
   bytes: 10612
   content_type: text/plain

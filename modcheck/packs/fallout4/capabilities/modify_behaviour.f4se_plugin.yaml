@@ -1,0 +1,87 @@
+id: modify_behaviour.f4se_plugin
+game: fallout4
+capability: modify_behaviour
+title: Build an F4SE plugin DLL against a pinned game runtime
+summary: A creator ends up with a DLL that F4SE loads at game startup, built against
+  one specific Fallout 4 runtime, published with its source, and released with an
+  explicit statement of which runtime it matches.
+applies_to:
+  game_versions: One runtime at a time. f4se.silverlock.org maps build 0.7.9 to runtime
+    1.11.240, 0.7.2 to 1.10.984, 0.6.23 to 1.10.163, and 0.6.21 to Fallout 4 VR 1.2.72
+  loader: f4se
+  toolchain:
+  - CMake
+  - MSVC (Windows)
+mechanism:
+- kind: file_path
+  id: PluginAPI.h
+  container: the F4SE source tree
+  label: the header F4SE's readme names as the description of the high-level plugin
+    interface; we did not fetch it, so the entry-point signature must be read there
+    rather than assumed
+- kind: file_path
+  id: f4se_loader.exe
+  label: the loader that must be used to start the game for plugins to load
+recipes:
+- f4se_plugin
+references:
+- source: f4se_readme
+  evidence_class: declared
+  locator: Compatibility
+  quote: This version is compatible with runtime 1.11.240. You can ignore any part
+    of the version number after those components; they're not relevant for compatibility
+    purposes.
+- source: f4se_readme
+  evidence_class: declared
+  locator: FAQ
+  quote: There is no example plugin yet, so you'll need to look at PluginAPI.h for
+    details on the high-level interface. The API is not currently locked down due
+    to the early state of the project, so anything may change in later versions. Note
+    that plugins must have their source code publicly available.
+- source: f4se_readme
+  evidence_class: declared
+  locator: FAQ
+  quote: Can I redistribute or make modified versions of F4SE?
+- source: f4se_repo_readme
+  evidence_class: declared
+  locator: Building
+  quote: cmake -B f4se/build -S f4se -DCMAKE_INSTALL_PREFIX=extern f4se
+- source: f4se_home
+  evidence_class: declared
+  quote: 'Fallout 4 runtime 1.11.240 - build: 0.7.9 - nexus'
+evidence_state: documented
+evidence_note: Derived from recipe f4se_plugin, which is the record that was actually
+  verified. This capability record restates that recipe's extension points under the
+  shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - f4se_plugin
+requirements:
+- Windows with MSVC and CMake
+- The F4SE source for the runtime you target, plus the ianpatt/common repository it
+  expects
+- A Fallout 4 installation at exactly that runtime version for testing
+interactions:
+- The DLL is valid for exactly one runtime. Every game update invalidates it and usually
+  F4SE too; this is the standard cause of "the game stopped launching after an update".
+- F4SE itself may not be redistributed or modified, so your release must link to f4se.silverlock.org
+  rather than bundle it.
+- 'An F4SE plugin is invisible to plugin-level tooling: LOOT, Wrye Bash and xEdit
+  reason about .esp/.esm/.esl files, so nothing in that toolchain will warn about
+  a stale DLL.'
+build:
+  produces: A Windows DLL loaded by f4se_loader.exe, plus published source
+  requires_network: true
+  requires_game_install: true
+validation:
+- method: Record the identity of the artifact you ship
+  command: modcheck inspect dist/YourPlugin.dll --game fallout4
+  limits: 'Reports path, size and sha256 only. Our inspector understands Bethesda
+    plugin files, not DLLs: it cannot read exports, cannot tell which runtime the
+    DLL targets and cannot tell you it loads.'
+- method: Re-check the F4SE build-to-runtime table before each release
+  command: modcheck sources verify --game fallout4
+  limits: Only tells you whether our recorded copy of f4se.silverlock.org still hashes
+    the same. A change means re-read the page; it says nothing about your DLL.

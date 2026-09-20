@@ -1,0 +1,116 @@
+id: modify_behaviour.rw_patchoperation_modify_def
+game: rimworld
+capability: modify_behaviour
+title: Modify an existing Def with an xpath PatchOperation instead of overwriting
+  it
+summary: A Patches file that changes a vanilla, DLC or other-mod Def in place by selecting
+  nodes with XPath, so that other mods touching the same Def still work - and that
+  only applies when the mod it targets is actually present.
+applies_to:
+  game_versions: '1.6'
+  loader: rimworld
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: file_path
+  id: Patches/MyPatchFile.xml
+  label: root element <Patch>; folder and file names are free
+- kind: field
+  id: Defs/ThingDef[defName="Wall"]/statBases
+  container: Patches/MyPatchFile.xml
+  field: xpath
+  label: the XPath is evaluated against the merged Def document, not against file
+    paths
+- kind: record
+  id: PatchOperationAdd
+  container: Patches/MyPatchFile.xml
+  label: Operation Class; also Insert, Remove, Replace, AttributeAdd/Set/Remove, Sequence,
+    AddModExtension, SetName
+- kind: record
+  id: PatchOperationFindMod
+  container: Patches/MyPatchFile.xml
+  label: conditional wrapper that tests for the presence of another mod
+recipes:
+- rw-patchoperation-modify-def
+references:
+- source: rw_wiki_patchoperations
+  evidence_class: declared
+  locator: section "Basics"
+  quote: PatchOperations are a feature that allows you to modify the content of XML
+    Defs. Prior to RimWorld alpha 17, modders could only modify Defs by creating new
+    ones that overwrote the original; this often resulted in compatibility issues
+    as if more than one mod tried to overwrite the same Def, only the last mod in
+    the load order would succeed as prior ones would themselves be overwritten.
+- source: rw_wiki_patchoperations
+  evidence_class: declared
+  locator: section "XPath"
+  quote: Note that an XPath is targeting the structure of the XML document after it's
+    been parsed by RimWorld's parser, thus it has nothing to do with the actual file
+    or folder paths.
+- source: rw_wiki_patchoperations
+  evidence_class: declared
+  locator: section "PatchOperationAdd"
+  quote: 'Note: PatchOperationAdd will not overwrite any existing tags. If one of
+    your <code>value</code>s overlaps with an existing node and you are not targeting
+    a list node, then it will cause an error on game load.'
+- source: rw_wiki_patchoperations
+  evidence_class: declared
+  locator: section "PatchOperation Types", conditional operations
+  quote: '''''''[[#PatchOperationFindMod|PatchOperationFindMod]]'''''' tests for the
+    presence of another mod, and can do different operations depending on the result.'
+- source: rw_wiki_compatibility_defs
+  evidence_class: declared
+  locator: section "Overwriting defs"
+  quote: ===Core defs=== '''Don't.''' Use [[Modding Tutorials/PatchOperations| xpath]]
+    instead.
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: section "Required Tags", name
+  quote: '[[Modding_Tutorials/PatchOperations#PatchOperationFindMod|PatchOperationFindMod]]
+    still uses mod names and thus you should avoid changing the name of your mod unless
+    absolutely necessary'
+evidence_state: documented
+evidence_note: Derived from recipe rw-patchoperation-modify-def, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - rw-patchoperation-modify-def
+requirements:
+- the defName (or the Name/ParentName attribute) of the Def to modify
+- for a cross-mod patch, the target mod's name as it appears in its About.xml, because
+  PatchOperationFindMod matches on mod names
+interactions:
+- Two mods patching the same node are applied in mod-list order; the later Replace
+  wins, while two Adds both apply and accumulate.
+- A patch whose XPath matches nothing is a silent no-op unless it is inside a PatchOperationSequence,
+  where a failure aborts the whole sequence.
+- PatchOperationFindMod matches on mod names from About.xml, not packageIds, so it
+  is sensitive to a rename in a way that modDependencies is not.
+- Patching a Def that a DLC provides requires the DLC to be enabled; combine with
+  MayRequire or FindMod rather than assuming it.
+build:
+  produces: the mod folder itself; a Patches-only mod has no compile step
+  requires_network: false
+  requires_game_install: false
+validation:
+- method: Check each patch file is well-formed XML with <Patch> as the root element
+  command: python -c "import xml.etree.ElementTree as ET,sys,glob; [print(p, ET.parse(p).getroot().tag)
+    for p in glob.glob('Patches/**/*.xml', recursive=True)]"
+  limits: Well-formedness and root tag only. It does not evaluate the XPath, does
+    not know whether the targeted Def exists in the player's configuration, and cannot
+    distinguish a correct patch from one that silently matches nothing.
+- method: Inspect the mod with ModCheck and confirm the patch files are where you
+    think they are
+  command: .venv/bin/modcheck inspect Mods/MyModFolder --json
+  limits: The inspector lists files under Patches/ but does not open them; "Def contents
+    and xpath targets of individual PatchOperations" is in its own not_checked list.
+    So it can tell you a mod patches something, never what.
+- method: Load the game and check the log for patch errors
+  limits: Requires RimWorld. NOT performed here. A patch that matches no node produces
+    no error at all, so even the game's log does not prove the patch did anything
+    - only observing the changed value in game does.

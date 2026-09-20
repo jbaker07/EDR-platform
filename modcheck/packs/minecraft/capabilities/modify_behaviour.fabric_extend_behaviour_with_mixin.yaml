@@ -1,0 +1,69 @@
+id: modify_behaviour.fabric_extend_behaviour_with_mixin
+game: minecraft
+capability: modify_behaviour
+title: Extend an existing game behaviour with a mixin instead of replacing it
+summary: A creator adds behaviour to an existing Minecraft method in a way that still
+  allows other mods to add theirs to the same method, rather than taking the method
+  over.
+applies_to:
+  game_versions: '>=26.1'
+  loader: fabric
+  loader_versions: '>=0.19.5'
+  toolchain:
+  - Gradle 9.5.1
+  - JDK 25
+mechanism:
+- kind: method
+  id: <target method>
+  container: <target class>
+  label: injection point
+- kind: config_key
+  id: mixins
+  container: <modid>.mixins.json
+  label: registered mixin class list
+recipes:
+- fabric_extend_behaviour_with_mixin
+references:
+- source: fabric_mod_json_spec
+  evidence_class: declared
+  locator: mixins
+- source: fabric_docs_home
+  evidence_class: declared
+  locator: developer documentation index
+evidence_state: documented
+evidence_note: Derived from recipe fabric_extend_behaviour_with_mixin, which is the
+  record that was actually verified. This capability record restates that recipe's
+  extension points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - fabric_extend_behaviour_with_mixin
+requirements:
+- an existing Fabric project with a mixin config registered in fabric.mod.json
+- the fully qualified name of the class to mix into
+- the name of the method to inject at
+interactions:
+- Two mods injecting additively into the same method is an overlap, not a conflict;
+  both run, in an order the loader decides.
+- Two mods with @Overwrite or a cancelling injection on the same method is a real
+  conflict, because only one result survives.
+- ModCheck extracts the registered mixin class list from a jar but does not read bytecode,
+  so it cannot tell which of these two cases a jar is in.
+build:
+  commands:
+  - gradle build
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+- method: The project's own Gradle build
+  command: gradle build --no-daemon --console=plain
+  limits: A mixin that names a method which does not exist fails the build, so a successful
+    build establishes the target resolves. It establishes nothing about whether the
+    injected behaviour is correct, nor about interaction with other mods mixing into
+    the same method.
+- method: Read the registered mixin classes back out of the jar
+  modcheck_check: inspect
+  limits: Reports which classes the jar registers as mixins. Does not report which
+    methods they rewrite or with what operation, because bytecode is not analysed.

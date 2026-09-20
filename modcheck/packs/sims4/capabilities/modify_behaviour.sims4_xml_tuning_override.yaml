@@ -1,0 +1,129 @@
+id: modify_behaviour.sims4_xml_tuning_override
+game: sims4
+capability: modify_behaviour
+title: Override a game XML tuning resource in your own .package
+summary: A creator ends up with a .package containing one resource stored under the
+  same Type/Group/Instance key the game already uses for a tuning resource, so the
+  game's value is replaced by theirs - and with a written record of exactly which
+  keys they have taken over, because nothing in the artifact will tell a player that
+  later.
+applies_to:
+  game_versions: must be stated per release; Mod The Sims requires uploaders to state
+    the base game version the mod was built with
+  loader: sims4_package
+  toolchain:
+  - sims4studio
+  - s4pe
+  - s4tk_models
+  platforms:
+  - windows
+  - macos
+mechanism:
+- kind: tuning
+  id: <Type>:<Group>:<Instance>
+  container: <YourMod>.package
+  label: The resource key you are claiming. This is the whole identity of the override
+    - a DBPF package has no filenames, only keys.
+- kind: field
+  id: <tuning element you are changing>
+  container: <YourMod>.package
+  field: <XML element or attribute>
+  label: One value inside the tuning document.
+- kind: registry_key
+  id: ResourceType
+  label: The numeric type half of the key. SimsWiki records "Binary Tuning / Sim Data
+    resources (0x545ac67a and 0x62e94d38)"; we retrieved no complete Sims 4 type table,
+    so verify the type of the resource you are actually editing rather than trusting
+    a remembered constant.
+- kind: file_path
+  id: Mods/<YourMod>.package
+  label: Where the finished package is installed.
+recipes:
+- sims4-xml-tuning-override
+references:
+- source: simswiki_dbpf_general
+  evidence_class: declared
+  locator: Format > Overview
+  quote: Header first, individual files following with no filenames and a small file
+    header area at the beginning of each followed by an index of all the files in
+    the archive.
+- source: simswiki_dbpf_v2_format
+  evidence_class: declared
+  locator: The Index > Index Entry fields
+  quote: ResourceType
+- source: simswiki_ts4_general_modding
+  evidence_class: declared
+  locator: File Formats
+  quote: 'April 2015 : Binary Tuning / Sim Data resources (0x545ac67a and 0x62e94d38)'
+- source: mts_sims4_game_mod_guidelines
+  evidence_class: declared
+  locator: Information > Mod Type
+  quote: State clearly what kinda mod your mod is. Is it a resource override (aka
+    default replacement), recategorizer or hider, slider, XML tuning, or a full script
+    mod?
+- source: mts_sims4_game_mod_guidelines
+  evidence_class: declared
+  locator: Information > Overrides - Overriden Resources
+  quote: If you have overriden (default replaced) an item, make sure to clearly state
+    what you've overriden.
+- source: mts_sims4_game_mod_guidelines
+  evidence_class: declared
+  locator: Quality > Tuning Mods - Versions
+  quote: Whenever possible, tuning mods should be done in different flavours. For
+    example, don't just double a value, but offer it half, tripled, and none.
+- source: s4tk_models_readme
+  evidence_class: declared
+  locator: Overview
+  quote: This project contains the models, enums, and other structures required for
+    reading and writing Sims 4 package files and the resources they contain.
+- source: s4studio_python_scripting_tutorial
+  evidence_class: unresolved
+  locator: sims4studio.com
+  quote: ''
+evidence_state: documented
+evidence_note: Derived from recipe sims4-xml-tuning-override, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - sims4-xml-tuning-override
+requirements:
+- The tuning resource you want to change, extracted from the game's own packages
+- Its resource key - ResourceType, ResourceGroup and the 64-bit Instance
+interactions:
+- 'Two packages shipping the same resource key are the canonical Sims 4 conflict:
+  both claim the same game resource. We retrieved no source stating which one the
+  running game resolves to, so this pack records the collision and deliberately does
+  not name a winner.'
+- A tuning override and a Python script mod can both change the same behaviour by
+  different routes. The package override is visible in the artifact as a resource
+  key; the script route is not visible at all.
+- A game patch that changes the overridden tuning leaves your copy in place, silently
+  reverting whatever the patch changed for players who have your mod installed.
+build:
+  produces: A single .package file.
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Read back the exact resource keys your finished package claims.
+  command: .venv/bin/modcheck inspect dist/<YourMod>.package --game sims4 --json
+  modcheck_check: modcheck.inspect.sims4.inspect_package:resource_keys
+  limits: This parses the DBPF header and resource index and gives you every Type:Group:Instance
+    key plus a count per type. It does NOT decode the payloads, so it cannot show
+    you the tuning XML, cannot tell you which game tuning an instance corresponds
+    to, and cannot tell you whether your edit is correct. It also does not know about
+    any other mod - to find a collision you must inspect the other package too and
+    intersect the key lists yourself.
+- method: Compare the key list against the keys you intended to override.
+  command: .venv/bin/modcheck inspect dist/<YourMod>.package --game sims4 --json >
+    keys.json
+  limits: Catches the common accident of a package carrying extra resources you did
+    not mean to ship. It cannot catch the opposite error - a key that is present and
+    intended but simply wrong.
+- method: Load the game with only this mod installed and confirm the changed behaviour.
+  command: <start The Sims 4 with a Mods folder containing only this package>
+  limits: Requires the retail game, which we do not have, so this was never run. It
+    is the only check that establishes the override took effect, and even then only
+    against that one game patch.

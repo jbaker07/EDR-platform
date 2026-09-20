@@ -1,0 +1,127 @@
+id: modify_behaviour.sdv_content_patcher_editdata_pack
+game: stardewvalley
+capability: modify_behaviour
+title: Add or change data entries with a Content Patcher EditData pack
+summary: A JSON-only mod folder that SMAPI loads as a Content Patcher content pack
+  and that adds or edits entries in a data asset (for example Data/Objects) without
+  replacing the asset, so that any number of other packs can edit the same asset alongside
+  it.
+applies_to:
+  game_versions: '>=1.6.14'
+  loader: content_patcher
+  loader_versions: content.json Format 2.9.0 (Content Patcher 2.9.x, which requires
+    SMAPI >=4.4.0)
+  toolchain:
+  - smapi_json_schemas
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: file_path
+  id: manifest.json
+  label: SMAPI manifest; ContentPackFor makes this a Content Patcher pack rather than
+    a code mod
+- kind: file_path
+  id: content.json
+  label: the Changes list Content Patcher reads
+- kind: asset
+  id: Data/Objects
+  container: content.json
+  label: example data asset edited by the EditData action
+- kind: config_key
+  id: Changes[].Action
+  container: content.json
+  field: EditData
+recipes:
+- sdv-content-patcher-editdata-pack
+references:
+- source: content_patcher_author_guide
+  evidence_class: declared
+  locator: sections "What does a content pack look like?", "Create the content pack",
+    "Format version", "Actions"
+  quote: 'A content pack is just a folder with two text files in it: `manifest.json`
+    (which has info like your mod name) and `content.json` (which tells Content Patcher
+    what you want to change).'
+- source: content_patcher_author_guide
+  evidence_class: declared
+  locator: section "Actions", EditData row
+  quote: '`EditData` changes the data read from a data asset. This supports simple
+    lookup assets like `Data/Achievements`, or full data model assets like `Data/Objects`.
+    Any number of content packs can edit the same asset.'
+- source: content_patcher_author_guide
+  evidence_class: declared
+  locator: FAQ "How do multiple patches interact?"
+  quote: 'Any number of patches can be applied to the same asset. `Action: Load` always
+    happens before other action types, but otherwise each patch is applied sequentially.'
+- source: content_patcher_load
+  evidence_class: declared
+  locator: section "Caveats"
+  quote: '`Load` is very simple, but each asset can only be replaced by one patch,
+    so your content pack won''t be compatible with other content packs that `Load`
+    the same one.'
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.EntryDll.description and properties.ContentPackFor
+  quote: The DLL filename SMAPI should load for this mod. Mutually exclusive with
+    ContentPackFor.
+- source: content_patcher_json_schema
+  evidence_class: extracted
+  locator: root schema for content.json
+- source: content_patcher_troubleshooting
+  evidence_class: declared
+  locator: section "Schema validator"
+  quote: You can validate your `content.json` and `manifest.json` automatically to
+    detect some common issues. (You should still test your content pack in-game before
+    releasing it, since the validator won't detect all issues.)
+- source: content_patcher_release_notes
+  evidence_class: declared
+  locator: heading "## 2.9.1"
+  quote: Released 14 March 2026 for SMAPI 4.4.0 or later.
+evidence_state: documented
+evidence_note: Derived from recipe sdv-content-patcher-editdata-pack, which is the
+  record that was actually verified. This capability record restates that recipe's
+  extension points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - sdv-content-patcher-editdata-pack
+requirements:
+- a unique mod id in the form Username.ModName
+- the exact asset name to edit, without the "Content" prefix, without a language code
+  and without a file extension
+- any images or other files the pack loads, conventionally under assets/
+interactions:
+- Any number of packs may EditData the same asset; each patch sees the result of the
+  previous one, so a later pack can silently undo an earlier pack's field edit without
+  either pack being wrong.
+- Across content packs the apply order is SMAPI's load order. To be applied after
+  a specific other pack, declare that pack as a manifest dependency.
+- Action Load is resolved before every Edit* action for the same asset, regardless
+  of pack order.
+- Entry keys are a shared namespace; prefixing new keys with your UniqueID is what
+  keeps two packs from colliding on the same key.
+build:
+  produces: the mod folder itself; a Content Patcher content pack has no compile step
+  requires_network: false
+  requires_game_install: false
+validation:
+- method: Validate manifest.json and content.json against the SMAPI-published JSON
+    Schemas
+  command: python -c "import json,sys; json.load(open(sys.argv[1]))" content.json
+  limits: Parsing only proves the file is well-formed JSON. It does not check the
+    file against the schema, does not prove the Target names an asset that exists
+    in the installed game version, does not resolve tokens, and the Content Patcher
+    troubleshooting guide itself warns that even full schema validation "won't detect
+    all issues".
+- method: Inspect the packaged pack with ModCheck and read back the extracted targets
+  command: .venv/bin/modcheck inspect "Mods/[CP] YourModName" --json
+  limits: This reports the declared manifest fields and the extracted Action/Target/When
+    list for each patch. It does not evaluate conditions, does not compare your targets
+    against other installed packs, does not read Load Priority, and says nothing about
+    whether the game will render the result correctly.
+- method: In-game "patch summary" console command
+  limits: Only possible inside a running game with Content Patcher loaded. It was
+    NOT run for this recipe; the recipe's verification_state is documented for that
+    reason.

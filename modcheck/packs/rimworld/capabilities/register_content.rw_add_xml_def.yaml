@@ -1,0 +1,110 @@
+id: register_content.rw_add_xml_def
+game: rimworld
+capability: register_content
+title: Add new content to RimWorld with an XML Def
+summary: A mod folder that RimWorld recognises and loads, which adds one or more new
+  Defs of its own without touching any existing Def - the composable baseline every
+  other RimWorld content technique builds on.
+applies_to:
+  game_versions: '1.6'
+  loader: rimworld
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: file_path
+  id: About/About.xml
+  label: root element ModMetaData; the only file RimWorld requires in order to load
+    a mod
+- kind: config_key
+  id: packageId
+  container: About/About.xml
+  label: the mod's global identity, used for dependencies, load rules and MayRequire
+- kind: config_key
+  id: supportedVersions
+  container: About/About.xml
+  label: list of game versions; a mismatch warns the player but does not block loading
+- kind: def
+  id: <YourDefName>
+  container: Defs/**/*.xml
+  label: a new Def node under the <Defs> root element
+recipes:
+- rw-add-xml-def
+references:
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: section "Required Tags", packageId
+  quote: packageId</code> must be globally unique across all mods.''' If RimWorld
+    encounters more than one mod with the same <code>packageId</code>, ''even if they
+    are not in your current mod list'', then an error will be thrown and only the
+    first mod will be usable.
+- source: rw_wiki_about_xml
+  evidence_class: declared
+  locator: section "Required Tags", supportedVersions
+  quote: A warning will be given to the player if attempting to load the mod under
+    a version you have not explicitly specified support for, but this does not prevent
+    players from loading the mod if they so choose.
+- source: rw_wiki_mod_folder_structure
+  evidence_class: declared
+  locator: section "Defs"
+  quote: Subfolders and even file names within the <code>Defs</code> does not matter
+    as all XML files are read into memory from each individual mod
+- source: rw_wiki_xml_defs
+  evidence_class: declared
+  locator: section "Folder Location"
+  quote: Defs are placed in XML files in the <code>Defs</code> folder of the [[Modding_Tutorials/Mod_Folder_Structure|standard
+    mod folder structure]]. The exact paths and file names do not matter except for
+    LoadFolders loading within your own mod
+- source: rw_wiki_compatibility_defs
+  evidence_class: declared
+  locator: section "Referencing defs", RecipeDef
+  quote: the C# code base contains a tag which allows you to make your ''recipe''
+    choose which ''building'' to attach to (instead of the other way round)
+- source: rw_wiki_mayrequire
+  evidence_class: declared
+  locator: section "Details"
+  quote: <code>MayRequire</code> is inserted as an XML attribute in a supported XML
+    node with a value being one or more <code>packageId</code> values separated by
+    commas.
+evidence_state: documented
+evidence_note: Derived from recipe rw-add-xml-def, which is the record that was actually
+  verified. This capability record restates that recipe's extension points under the
+  shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - rw-add-xml-def
+requirements:
+- a globally unique packageId in the form AuthorName.ModName, alphanumeric with at
+  least one separating period and not ending in a period
+- a defName for each new Def, unique across every mod the player has enabled
+interactions:
+- A duplicate packageId anywhere in the player's installed mods - even in mods that
+  are not enabled - throws an error and leaves only the first mod usable.
+- 'defName is global: your new Def silently replaces an identically named Def from
+  another mod if yours loads later.'
+- supportedVersions only produces a warning; players can and do load mods on unlisted
+  versions, so an untested version becomes a support burden rather than a hard stop.
+- Cross-references such as recipeUsers or wildBiomes are resolved by the game at load;
+  naming a defName that no loaded mod provides produces a load-time cross-reference
+  error.
+validation:
+- method: Check that About.xml is well-formed XML with ModMetaData as its root
+  command: python -c "import xml.etree.ElementTree as ET,sys; r=ET.parse(sys.argv[1]).getroot();
+    print(r.tag)" About/About.xml
+  limits: Proves only well-formedness and the root tag name. It does not check that
+    packageId is globally unique, that supportedVersions is truthful, or that any
+    Def in the mod is valid - RimWorld validates Defs itself at load time and reports
+    ConfigErrors, which this cannot see.
+- method: Inspect the packaged mod with ModCheck
+  command: .venv/bin/modcheck inspect Mods/MyModFolder --json
+  limits: Reports the declared About.xml metadata and extracted layout (version folders,
+    assemblies present, Defs file list, Patches file list, LoadFolders.xml present).
+    It does not open a single Def file, so it never sees a defName and cannot tell
+    you whether your Def collides with anyone else's.
+- method: Load the mod in RimWorld and read the log for ConfigErrors and cross-reference
+    failures
+  limits: Requires the game. NOT performed here. This is the only step that establishes
+    the Def is actually valid.

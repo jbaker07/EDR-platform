@@ -299,9 +299,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:20+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 97ff751dcd16a2ae8e3184910e4e4924b27ee8651b1564765a2cc1ccdbabebea
   bytes: 1064
   content_type: text/plain
@@ -320,9 +322,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:20+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: e5d5f1434fb82fc0184708312e6e7bed06b88af0ba4f6ddec248d47763cf64dc
   bytes: 4263
   content_type: text/plain
@@ -342,9 +346,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:19+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: ebfd5f05db59b0d8d233c10967a546a3ee7635ff339be7a6688154cbf6215855
   bytes: 1069
   content_type: text/plain
@@ -364,9 +370,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:19+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: e47c6f7d991fcd389fac546de04da612431b1e04b9e87be6cccd2914fb6bf775
   bytes: 1495
   content_type: text/plain

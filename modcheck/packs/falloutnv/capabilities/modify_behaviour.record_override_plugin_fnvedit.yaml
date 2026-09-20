@@ -1,0 +1,100 @@
+id: modify_behaviour.record_override_plugin_fnvedit
+game: falloutnv
+capability: modify_behaviour
+title: Change a record and ship the change as an override plugin with FNVEdit
+summary: A creator ends up with a small .esp that overrides existing records with
+  FalloutNV.esm (or another mod) as master, free of identical-to-master filler, and
+  with a load position the player can actually achieve - which in this game means
+  a file timestamp, not a line in a text file.
+applies_to:
+  game_versions: 'Fallout: New Vegas; the plugin-format work is independent of the
+    executable build, though NVSE users should launch through the loader as usual'
+  loader: bethesda_plugin
+  toolchain:
+  - FNVEdit (xEdit)
+mechanism:
+- kind: record
+  id: any existing record reachable in the xEdit navigation tree
+  container: FalloutNV.esm or another plugin you take as master
+- kind: field
+  id: the subrecord/field you change on that record
+- kind: field
+  id: TES4 header master flag
+  label: in this game the header's master flag alone decides whether a file is a master;
+    the extension is ignored, so a mismatched pair is a false-flagged plugin
+recipes:
+- record_override_plugin_fnvedit
+references:
+- source: xedit_conflict_detection
+  evidence_class: declared
+  locator: 5.8 Creating a Patch Plugin (Manual Method)
+  quote: To create the new patch Plugin, you right-click on a conflicted record (A)
+    and select, "Copy as override" (B).
+- source: xedit_mod_cleaning
+  evidence_class: declared
+  locator: 7.4.1 There are no intentional ITMs
+  quote: Cleaning with all your mods loaded would be like looking for someone through
+    a crowd of people.
+- source: libloadorder_load_order_mechanisms
+  evidence_class: declared
+  quote: 'In Morrowind, Oblivion, Fallout 3 and Fallout: New Vegas, load order is
+    decided by the relative timestamps of plugins in the game''s Data directory.'
+- source: viva_new_vegas_safe_modding
+  evidence_class: declared
+  locator: Gaining Independence
+  quote: When installing mods with a plugin, use FNVEdit and The Method to check for
+    conflicts between it and the rest of your list.
+- source: viva_new_vegas_safe_modding
+  evidence_class: declared
+  locator: Gaining Independence
+  quote: 'If something breaks, troubleshoot using a binary search : disable mods in
+    groups to isolate the problematic section, then narrow it down by splitting that
+    group into smaller parts.'
+- source: libloadorder_plugin_types
+  evidence_class: declared
+  locator: 'Oblivion, Skyrim, Fallout 3, Fallout: New Vegas'
+  quote: Plugin files have an internal setting known as their *master flag*. If this
+    is set, the plugin is a master plugin. If it is not set, the plugin is a non-master
+    plugin. File extension is ignored.
+evidence_state: documented
+evidence_note: Derived from recipe record_override_plugin_fnvedit, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - record_override_plugin_fnvedit
+requirements:
+- A Fallout New Vegas installation with the plugin you want to override installed
+- FNVEdit, launched through the mod manager so it sees the same load order the game
+  will
+interactions:
+- Your override wins only where it loads last. Because ordering is timestamp-based,
+  anything that rewrites timestamps - reinstalling, some archive tools, some mod managers
+  - can silently change the outcome without touching the plugin.
+- Taking a mod as master makes your plugin fail to load if that mod is absent.
+- There are no light plugins in this game, so every plugin you ship consumes one of
+  the 255 active slots. A mod distributed as several optional plugins is spending
+  a scarce resource.
+- Community practice for this game expects a plugin to have been conflict-checked
+  against the rest of a list before release, and expects breakage to be isolated by
+  bisecting the load order rather than guessing - neither of which our tooling does
+  for you.
+build:
+  produces: A single .esp in the game's Data folder
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Inspect the saved plugin's header
+  command: modcheck inspect Data/YourPatch.esp --game falloutnv
+  limits: 'Reads the TES4 header only: masters, the master flag and HEDR counts. It
+    does not read your edited record, cannot detect identical-to-master edits, and
+    the light-plugin facts it reports are meaningless for this game because light
+    plugins do not exist here.'
+- method: Run the LOOT-backed analysis across the plugins involved
+  command: modcheck analyze --game falloutnv --artifact Data/YourPatch.esp --artifact
+    Data/TheModYouOverride.esp
+  limits: Reports only rules LOOT has recorded for those plugin names, plus missing
+    masters. Your new plugin has no masterlist entry, so silence is expected and means
+    nothing about correctness.

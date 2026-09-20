@@ -1,0 +1,111 @@
+id: modify_behaviour.tweakxl_record_tweak
+game: cyberpunk2077
+capability: modify_behaviour
+title: Change an existing TweakDB record with a TweakXL YAML tweak
+summary: A creator ends up with a single text file, shipped under r6/tweaks/, that
+  changes properties of an existing game database record - an item's stats, an NPC's
+  archetype, a vendor's inventory - without touching or replacing any game resource
+  file, and therefore without colliding on install with any other mod.
+applies_to:
+  game_versions: TweakXL's README declares Cyberpunk 2077 2.3 at the revision we fetched;
+    not verified against a game install
+  loader: tweakxl
+  loader_versions: TweakXL requiring RED4ext 1.28.0+ and redscript 0.5.27+, per its
+    README at the revision fetched
+  toolchain:
+  - tweakxl
+  platforms:
+  - windows
+mechanism:
+- kind: record
+  id: <TweakDB record id>
+  container: r6/tweaks/<yourmod>.yaml
+  label: The TweakDB entry whose properties you are changing.
+- kind: field
+  id: <TweakDB record id>.<property>
+  container: r6/tweaks/<yourmod>.yaml
+  field: <property>
+  label: One property on that record. Setting it to None deletes the property.
+- kind: file_path
+  id: r6/tweaks/<yourmod>.yaml
+  label: The install path your mod claims. TweakXL reads every file here, so two mods
+    can coexist in this folder - but only if they do not use the same filename.
+recipes:
+- tweakxl-record-tweak
+references:
+- source: cp_wiki_tweakxl
+  evidence_class: declared
+  locator: How do I use it?
+  quote: By placing `.yaml` or `.tweak` files in Cyberpunk `2077/r6/tweaks`, or .xl
+    files in `Cyberpunk 2077/archive/pc/mod`.
+- source: cp_wiki_tweakxl
+  evidence_class: declared
+  locator: hint after "How do I use it?"
+  quote: No matter the file extension, the file `contents` must be in `.yaml` or `.json`  syntax.
+- source: cp_wiki_tweakxl_changing_records
+  evidence_class: declared
+  locator: Removing properties
+  quote: If you want to **safely delete** a record property, set its value to **None**.
+- source: cp_wiki_tweakxl_changing_records
+  evidence_class: declared
+  locator: How to edit tweaks?
+  quote: If possible, you should stick to TweakXL for editing tweaks.
+- source: tweakxl_repo_readme
+  evidence_class: declared
+  locator: Getting Started > Compatibility
+  quote: '- Cyberpunk 2077 2.3
+
+    - [redscript](https://github.com/jac3km4/redscript) 0.5.27+'
+- source: cp_wiki_archive_load_order
+  evidence_class: declared
+  locator: TL;DR
+  quote: There currently is no tool to check tweak conflicts
+evidence_state: documented
+evidence_note: Derived from recipe tweakxl-record-tweak, which is the record that
+  was actually verified. This capability record restates that recipe's extension points
+  under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - tweakxl-record-tweak
+requirements:
+- The TweakDB record id you intend to change (for example a weapon's Items.* record)
+- The property names on that record and the values you want them to have
+interactions:
+- 'TweakDB is a database of static values, so two mods that set the same property
+  on the same record conflict by definition. The wiki says so directly and adds that
+  "There currently is no tool to check tweak conflicts" - including this one: modcheck
+  lists your tweak files but does not parse them.'
+- Choosing TweakXL over REDmod tweaks or CET is itself a compatibility decision. The
+  wiki's advice is "If possible, you should stick to TweakXL for editing tweaks",
+  and psiberx's quoted reasons include proper record creation and cloning and a hot
+  reload that rolls back to the initial state instead of reapplying changes on top
+  of the previous run.
+- This recipe changes data only. It cannot add behaviour; if you need behaviour, you
+  need redscript or CET, and those have their own compatibility rules.
+build:
+  produces: A single YAML/tweak text file plus whatever archive shape you distribute
+    it in.
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Confirm the packaged artifact ships the tweak at the right install path
+    and ships nothing else.
+  command: .venv/bin/modcheck inspect dist/<yourmod>.zip --game cyberpunk2077 --json
+  modcheck_check: modcheck.inspect.cyberpunk.inspect:tweak_files
+  limits: This reads the archive layout only. It confirms the path is under r6/tweaks/
+    and lists the file; it does NOT open the file, does not check that it is valid
+    YAML, does not know which TweakDB record it targets, and therefore cannot tell
+    you whether another installed mod edits the same record.
+- method: Parse the file as YAML locally before shipping it.
+  command: python -c "import sys,yaml;yaml.safe_load(open(sys.argv[1]))" r6/tweaks/<yourmod>.yaml
+  limits: Establishes only that the bytes are well-formed YAML. It says nothing about
+    whether the record id exists in TweakDB, whether the property names are real,
+    or whether the values are of the right type - all three are only discoverable
+    in a running game, which we do not have.
+- method: Read the framework log after a game launch.
+  command: type "Cyberpunk 2077\\r6\\logs\\redscript_rCURRENT.log"
+  limits: Requires the retail game, which we do not have. redscript's README names
+    this log as where its own startup result appears; we did not retrieve documentation
+    of TweakXL's log file, so treat the specific file name for TweakXL as unverified.

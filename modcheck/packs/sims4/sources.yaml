@@ -88,9 +88,11 @@ sources:
   retrieved_at: '2026-09-19T13:47:33+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under Apache-2.0, but the licence and attribution
+      must be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 88046bf22d5b4f4b8cc85079ae6aae5424a3a1999db952ed152828ff325b2c6d
   bytes: 10317
   content_type: text/plain
@@ -109,9 +111,11 @@ sources:
   retrieved_at: '2026-09-19T13:47:33+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under Apache-2.0, but the licence and attribution
+      must be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: ee62560bc8d93a8419b8df5a39e09db41a5d0c89855651424834fdc3108eb580
   bytes: 11454
   content_type: text/plain
@@ -177,9 +181,11 @@ sources:
   retrieved_at: '2026-09-19T13:47:35+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: bb2f19391f29d86f033f59c8f0fe6781ebb12d24e050422a89b56250cc5b96f3
   bytes: 1067
   content_type: text/plain
@@ -198,9 +204,11 @@ sources:
   retrieved_at: '2026-09-19T13:47:35+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 8bab8f17fc9bcaf299532ac40c67ab0d38033fb5c3ed06a5f5000c70c2cead04
   bytes: 1800
   content_type: text/plain
@@ -221,9 +229,11 @@ sources:
   retrieved_at: '2026-09-19T13:47:34+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 97eacd2cc8e9dfc238ed85d6be3cb318f4abb8f99f5fc76f7cadff472baa8280
   bytes: 1071
   content_type: text/plain

@@ -1,0 +1,81 @@
+id: modify_behaviour.compatibility_patch_xedit
+game: fallout4
+capability: modify_behaviour
+title: Build a compatibility patch plugin in FO4Edit for two mods that fight over
+  the same records
+summary: A creator ends up with a small patch plugin that takes both conflicting mods
+  as masters, loads after them, and carries the combination of their changes that
+  neither mod alone can produce.
+applies_to:
+  game_versions: Any Fallout 4 build; the procedure is a property of the plugin format,
+    not of the runtime
+  loader: bethesda_plugin
+  toolchain:
+  - FO4Edit (xEdit)
+mechanism:
+- kind: record
+  id: each record both mods override
+  label: the conflict losers you intend to reconcile
+- kind: field
+  id: the individual subrecord rows you drag into the patch
+  label: only the fields that actually differ need carrying over
+recipes:
+- compatibility_patch_xedit
+references:
+- source: xedit_conflict_detection
+  evidence_class: declared
+  locator: 5.6 The Conflict Resolution Process
+  quote: Overall the best thing to do is change your load order or nothing at all
+    if the conflict isn't concerning, as that require the least effort.
+- source: xedit_conflict_detection
+  evidence_class: declared
+  locator: 5.8 Creating a Patch Plugin (Manual Method)
+  quote: To create the new patch Plugin, you right-click on a conflicted record (A)
+    and select, "Copy as override" (B).
+- source: xedit_conflict_detection
+  evidence_class: declared
+  locator: 5.2 Differences between Conflicts and Overrides
+  quote: To get a conflict you need to have the same FormID defined in at least 3
+    modules, a master, and 2 overrides.
+- source: libloadorder_conflict_resolution
+  evidence_class: declared
+  quote: Further compatibility between mods is then possible through the use of patches,
+    which are made to address incompatibilities between specific mods.
+evidence_state: documented
+evidence_note: Derived from recipe compatibility_patch_xedit, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - compatibility_patch_xedit
+requirements:
+- Both conflicting mods installed, with their own masters
+- FO4Edit, launched through the mod manager so it sees the same load order the game
+  will
+interactions:
+- 'The patch hard-depends on both mods: remove either and the patch will not load,
+  which is the missing-master failure in this pack.'
+- The patch only remains correct for the versions you patched. If either mod changes
+  the records involved, your merged values silently go stale while still winning.
+- Anything loading after the patch overrides it in turn, including automatically generated
+  patches such as a Synthesis output or a Bashed Patch.
+build:
+  produces: A single .esp patch plugin, optionally ESL-flagged afterwards
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Inspect the patch header to confirm it took exactly the masters you intended
+  command: modcheck inspect Data/YourPatch.esp --game fallout4
+  limits: Reads the TES4 header only. It shows the master list, flags and HEDR counts;
+    it cannot tell you whether the merged field values are right, nor whether you
+    missed a conflicting record.
+- method: Run the configuration through the LOOT-backed analysis
+  command: modcheck analyze --game fallout4 --artifact Data/ModA.esp --artifact Data/ModB.esp
+    --artifact Data/YourPatch.esp
+  limits: 'Reports only LOOT-recorded requirements, incompatibilities, load-order
+    rules and CRC-matched dirty records for those plugin names, plus missing masters.
+    Adding --deep also lists which plugin pairs touch the same records, but that is
+    overlap, not resolution: no field values are compared, so it cannot confirm your
+    patch resolved anything.'

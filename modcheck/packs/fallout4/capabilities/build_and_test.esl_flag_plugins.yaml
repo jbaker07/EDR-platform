@@ -1,0 +1,94 @@
+id: build_and_test.esl_flag_plugins
+game: fallout4
+capability: build_and_test
+title: Flag eligible plugins as light (ESL) to free ordinary load-order slots
+summary: A creator or a player ends up with the plugins that qualify carrying the
+  light flag, so they move out of the 255 ordinary slots into the shared FE slot -
+  with the plugins that do not qualify left alone rather than force-flagged.
+applies_to:
+  game_versions: Fallout 4 (the mechanism also exists in Skyrim Special Edition; it
+    does not exist in the pre-Skyrim games)
+  loader: bethesda_plugin
+  toolchain:
+  - xEdit (FO4Edit) with the SetESL script
+mechanism:
+- kind: field
+  id: TES4 header flag 0x200
+  label: the light plugin flag; setting it is the whole operation
+- kind: config_key
+  id: -PseudoESL
+  container: the xEdit launcher arguments
+  label: makes xEdit assess which plugins could be light
+- kind: recipe_id
+  id: SetESL
+  container: xEdit Apply Script dialog
+  label: the script that applies the flag where it is safe
+recipes:
+- esl_flag_plugins
+references:
+- source: midnight_ride_light_plugins
+  evidence_class: declared
+  locator: Introduction to ESLs
+  quote: ESLs ( Elder Scrolls Light Plugin) are a type of plugin used in Fallout 4
+    and Skyrim Special Edition, they allow plugins within a certain size to have an
+    index limited to 4096 instead of 256 .
+- source: midnight_ride_light_plugins
+  evidence_class: declared
+  locator: Batch Flagging
+  quote: Add -PseudoESL to the arguments field of xEdit in MO2.
+- source: midnight_ride_light_plugins
+  evidence_class: declared
+  locator: Batch Flagging
+  quote: Type SetESL in the filter and the script will automatically be selected.
+- source: midnight_ride_light_plugins
+  evidence_class: declared
+  locator: Limitations
+  quote: Cells originating in a light plugin cannot use the PreVis/Precombine system
+    .
+- source: libloadorder_active_plugins
+  evidence_class: declared
+  quote: In Skyrim Special Edition and Fallout 4, light plugins do not count towards
+    the 255 active plugin limit, and instead have a separate limit of up to 4096 active
+    light plugins.
+- source: libloadorder_plugin_types
+  evidence_class: declared
+  quote: A plugin is a light non-master plugin if its file extension is `.esp` and
+    it has its light plugin flag set.
+evidence_state: documented
+evidence_note: Derived from recipe esl_flag_plugins, which is the record that was
+  actually verified. This capability record restates that recipe's extension points
+  under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - esl_flag_plugins
+requirements:
+- A mod manager from which xEdit can be launched with arguments
+- The full plugin set you want assessed
+interactions:
+- Flagging a plugin changes its header, so its CRC changes. Any LOOT dirty/clean record
+  keyed to the old CRC no longer matches - including in our own analysis, which matches
+  by exact CRC.
+- Flagging a mod you did not author produces a file that differs from the author's
+  release, which complicates support and breaks any checksum-based condition the masterlist
+  carries for it.
+- A plugin that other plugins take as a master keeps working when flagged, but its
+  records move to the FE space, so dependent plugins built against the old indices
+  must be rebuilt or re-saved.
+build:
+  produces: Modified plugin headers in place; no new artifact
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Confirm the flag and the FormID headroom on each plugin you flagged
+  command: modcheck inspect Data/YourPlugin.esp --game fallout4
+  limits: 'Reads the TES4 header: it reports light_flag_set, loads_in_light_slot and
+    the HEDR nextObjectID, and warns when a light plugin''s nextObjectID is above
+    0xFFF. It does not scan the records, so it cannot confirm that every new record
+    is inside the light range, and it knows nothing about precombines or dialogue.'
+- method: Re-run the configuration analysis after flagging
+  command: modcheck analyze --game fallout4 --artifact Data/YourPlugin.esp
+  limits: LOOT records keyed to the pre-flagging CRC will no longer match, so previously
+    reported dirty or clean status silently disappears. Absence of a dirty-edit finding
+    after flagging is not evidence the plugin is clean.

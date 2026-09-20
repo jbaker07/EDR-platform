@@ -1,0 +1,98 @@
+id: integrate_optional_dependency.sdv_manifest_dependency_patch_order
+game: stardewvalley
+capability: integrate_optional_dependency
+title: Order a compatibility patch after another mod using manifest dependencies
+summary: A small content pack or code mod whose manifest declares the mod it patches,
+  so SMAPI loads that mod first and the patch's Content Patcher edits are applied
+  on top of the other pack's result instead of underneath it - and whose dependency
+  is declared optional where the patch should simply do nothing if the other mod is
+  absent.
+applies_to:
+  game_versions: '>=1.6.14'
+  loader: smapi
+  loader_versions: '>=4.4.0'
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: config_key
+  id: Dependencies
+  container: manifest.json
+  label: array of {UniqueID, MinimumVersion, IsRequired}; SMAPI loads each listed
+    mod first
+- kind: config_key
+  id: Dependencies[].IsRequired
+  container: manifest.json
+  field: 'false'
+  label: makes the dependency an ordering hint instead of a hard requirement
+- kind: config_key
+  id: ContentPackFor.MinimumVersion
+  container: manifest.json
+  label: minimum version of the framework that may read this content pack
+recipes:
+- sdv-manifest-dependency-patch-order
+references:
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.Dependencies.description
+  quote: Specifies other mods to load before this mod. If a dependency is required
+    and a player tries to use the mod without the dependency installed, the mod won't
+    be loaded and they'll see a friendly message saying they need to install those.
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.Dependencies.items.properties.IsRequired.description
+  quote: Whether the dependency is required. Default true if not specified.
+- source: content_patcher_author_guide
+  evidence_class: declared
+  locator: FAQ "How do multiple patches interact?"
+  quote: When you have multiple content packs, each one is applied in the order they're
+    loaded by SMAPI; if you need to explicitly patch after another content pack, see
+    [manifest dependencies]
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.UniqueID.description
+  quote: A unique identifier for your mod. The recommended format is \"Username.ModName\",
+    with no spaces or special characters. SMAPI uses this for update checks, mod dependencies,
+    and compatibility blacklists
+- source: sdv_wiki_manifest
+  evidence_class: declared
+  locator: Stardew Valley Wiki, Modding:Modder_Guide/APIs/Manifest
+evidence_state: documented
+evidence_note: Derived from recipe sdv-manifest-dependency-patch-order, which is the
+  record that was actually verified. This capability record restates that recipe's
+  extension points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - sdv-manifest-dependency-patch-order
+requirements:
+- the exact UniqueID of the mod being patched, read from its manifest.json
+- the minimum version of that mod your patch assumes, if any
+interactions:
+- Declaring a dependency changes load order for every consumer of that mod, not only
+  for your patch.
+- Two patches that both declare a dependency on the same base mod are ordered relative
+  to each other only by SMAPI's own load order; neither can be guaranteed to run last
+  without depending on the other.
+- An optional dependency (IsRequired false) still orders the load but produces no
+  player-facing message when the mod is absent, so a patch that silently does nothing
+  is the expected outcome and must be acceptable.
+validation:
+- method: Inspect both artifacts and compare the declared dependency edge to the other
+    mod's declared UniqueID
+  command: .venv/bin/modcheck inspect "Mods/[CP] YourPatch" --json
+  limits: Confirms only what the manifests declare. It does not prove that SMAPI actually
+    ordered the two mods as intended at runtime, and it cannot see whether the other
+    mod renamed its UniqueID in a later release (SMAPI tracks that through FormerIds
+    in its own metadata file, which ModCheck does not read).
+- method: Resolve the declared dependency against a real installed configuration
+  modcheck_check: dependency.missing
+  limits: Reports a missing or version-mismatched dependency only for ids present
+    in the configuration handed to it; where a version or constraint cannot be decided
+    it returns unresolved rather than a verdict, and it does not model load order
+    at all.
+- method: Confirm ordering in-game with "patch summary"
+  limits: Requires a running game with Content Patcher. NOT performed here. Nothing
+    in this repository can observe SMAPI's actual load order.

@@ -1,0 +1,132 @@
+id: compose_asset.sims4_cas_content_package
+game: sims4
+capability: compose_asset
+title: Ship new CAS or build/buy content as an additive .package
+summary: A creator ends up with a .package that ADDS a new Create-A-Sim or build/buy
+  item under resource keys nobody else owns, rather than replacing an existing one
+  - so the content appears alongside the game's own items and cannot silently collide
+  with another creator's work.
+applies_to:
+  game_versions: must be stated per release; Mod The Sims requires uploaders to state
+    the base game version the mod was built with
+  loader: sims4_package
+  toolchain:
+  - sims4studio
+  - s4pe
+  - s4tk_models
+  platforms:
+  - windows
+  - macos
+mechanism:
+- kind: asset
+  id: <mesh resource key>
+  container: <YourMod>.package
+  label: The geometry resource for the new item.
+- kind: asset
+  id: <texture resource key>
+  container: <YourMod>.package
+  label: The DDS texture resource(s).
+- kind: tuning
+  id: <catalogue/CAS part resource key>
+  container: <YourMod>.package
+  label: The resource that makes the item appear in the catalogue or in CAS. Whether
+    this is additive or an override is decided entirely by whether its key is new.
+- kind: file_path
+  id: Mods/<YourMod>.package
+  label: Where the finished package is installed.
+recipes:
+- sims4-cas-content-package
+references:
+- source: simswiki_ts4_cas_tutorials
+  evidence_class: declared
+  locator: 3D Modeling Programs
+  quote: Blender 3D is a free 3D editor that is well supported within the Sims community.
+    It is extremely powerful and is the most commonly used editor for making things
+    for Sims 4.
+- source: simswiki_ts4_cas_tutorials
+  evidence_class: declared
+  locator: DDS Plug-Ins and Converters
+  quote: In order to get your textures to open in your paint program, you will need
+    to install the proper DDS plugin for it or convert them.
+- source: simswiki_dbpf_general
+  evidence_class: declared
+  locator: Format > Overview
+  quote: Header first, individual files following with no filenames and a small file
+    header area at the beginning of each followed by an index of all the files in
+    the archive.
+- source: mts_sims4_game_mod_guidelines
+  evidence_class: declared
+  locator: Information > Mod Type
+  quote: State clearly what kinda mod your mod is. Is it a resource override (aka
+    default replacement), recategorizer or hider, slider, XML tuning, or a full script
+    mod?
+- source: mts_sims4_game_mod_guidelines
+  evidence_class: declared
+  locator: Information > Built with Game Version
+  quote: Please state the related base game version you built your mod with in your
+    upload post! People need to know if they can run your mod in their game.
+- source: s4pe_repo_readme
+  evidence_class: declared
+  locator: header
+  quote: s4pe, based on the s4pi interface library, is an editing tool for the .package
+    format used with [The Sims 4].
+- source: s4tk_models_readme
+  evidence_class: declared
+  locator: Overview
+  quote: This project contains the models, enums, and other structures required for
+    reading and writing Sims 4 package files and the resources they contain.
+- source: s4studio_python_scripting_tutorial
+  evidence_class: unresolved
+  locator: sims4studio.com
+  quote: ''
+evidence_state: documented
+evidence_note: Derived from recipe sims4-cas-content-package, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - sims4-cas-content-package
+requirements:
+- The mesh and textures for the item
+- A base game item to clone as the starting point for the resource set
+interactions:
+- Additive content and override content behave completely differently under collision.
+  Two additive packages are independent unless they happen to share a generated key;
+  two overrides of the same key are a direct conflict.
+- A key collision between two "new" items is possible when generated instance ids
+  are not truly unique, and it is invisible in game - both items exist in the catalogue,
+  but one resource is shadowed. A key listing of both packages is the only way to
+  see it.
+- This recipe is the least well-sourced of the three in this pack. We hold the container
+  format, the community's tooling landscape and the ecosystem's declaration rules;
+  we do NOT hold a resource-type table for Sims 4, so we cannot tell you which type
+  ids a CAS part or a catalogue entry actually uses. That gap is recorded in pack.yaml.
+build:
+  produces: A single .package file containing the new item's resources.
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: List the resource keys the package claims and check none belongs to the
+    base game.
+  command: .venv/bin/modcheck inspect dist/<YourMod>.package --game sims4 --json
+  modcheck_check: modcheck.inspect.sims4.inspect_package:resource_keys
+  limits: Gives you every Type:Group:Instance key and a count per type, which is exactly
+    what this check needs - but it does not know which keys the base game uses, so
+    you must compare against a key list you obtain yourself. It does not decode payloads,
+    so it cannot confirm the mesh or textures are valid, and it cannot confirm the
+    item will appear in the right catalogue category.
+- method: Check the package's resource type distribution against a known-good clone
+    of the same item kind.
+  command: .venv/bin/modcheck inspect reference/<KnownGoodItem>.package --game sims4
+    --json
+  limits: Comparing type counts catches a missing resource class (for instance a package
+    with geometry but no catalogue entry). It proves nothing about content, and a
+    matching distribution can still be wrong.
+- method: Install the package alone and find the item in game.
+  command: <start The Sims 4 with a Mods folder containing only this package and look
+    for the item in CAS or build mode>
+  limits: Requires the retail game, which we do not have, so this was never run. It
+    is the only check that establishes the item exists, is categorised correctly and
+    renders.

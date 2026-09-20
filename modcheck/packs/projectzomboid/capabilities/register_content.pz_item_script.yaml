@@ -1,0 +1,125 @@
+id: register_content.pz_item_script
+game: projectzomboid
+capability: register_content
+title: Define a new item with a zedscript item block
+summary: A new item registered under the mod's own module, with a display name from
+  the translation files, defined in a zedscript file under media/scripts in a way
+  that does not soft-override anyone else's item.
+applies_to:
+  game_versions: Build 42 (PZwiki Item (scripts) page version 42.20.4, Scripts page
+    version 42.20.3)
+  loader: projectzomboid
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: file_path
+  id: media/scripts/<YourModId>/items.txt
+  label: script files must end in .txt; subfolder layout is free and a mod-named subfolder
+    reduces clashes
+- kind: record
+  id: module <YourModule>
+  container: media/scripts/<YourModId>/items.txt
+  label: required wrapper block; the base game module is Base, giving full ids like
+    Base.ItemName
+- kind: record
+  id: item <YourItemId>
+  container: media/scripts/<YourModId>/items.txt
+  label: the item block; its full id is <module>.<itemId>
+- kind: config_key
+  id: ItemType
+  container: media/scripts/<YourModId>/items.txt
+  field: base:normal
+  label: decides which parameter set applies to the block
+recipes:
+- pz-item-script
+references:
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Folder structure"
+  quote: The only rule is that the script files must end with the extension <code>.txt</code>.
+    Various script blocks can be used and spread across multiple script files in different
+    subfolders.
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Scripts syntax"
+  quote: Key value pairs are used to define the parameters of the script elements,
+    with the syntax {{Code|1=Key = Value,}}. The comma at the end of each key value
+    pair line is mandatory, even for the last line in a block.
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Module block"
+  quote: A module block needs to be defined at the start of the script files, unless
+    it is a [[sandbox options]] script. The base game module is {{Code|Base}}, which
+    means most entries will have the full ID {{Code|Base.ItemName}}.
+- source: pzwiki_scripts
+  evidence_class: declared
+  locator: section "Soft overrides"
+  quote: When defining a script block which already exists, such as an [[item (scripts)#Soft
+    overrides|item]] or a [[craftRecipe]], based on the type of script, the game will
+    either override the whole block, or merge the new definition with the existing
+    one. This process is called a ''soft override''.
+- source: pzwiki_item_scripts
+  evidence_class: declared
+  locator: introduction and Infobox
+  quote: The item block is used to create items in the game, from weapons to food
+    and clothing. The parameters available in this block mostly depend on the type
+    of item you are creating, set with [https://pz-wiki-modding.github.io/PZ-API-Docs/scripts/item.html#item-itemtype
+    ItemType].
+- source: pzwiki_item_scripts
+  evidence_class: declared
+  locator: section "Other parameters"
+  quote: Any other parameter not in the list will be written as a key-value in the
+    item's ModData.
+- source: pzwiki_item_scripts
+  evidence_class: declared
+  locator: section "Display name"
+  quote: To add a name to display for your item, you need to add the item full type,
+    that is its <code>module.id</code>, inside the [https://pz-wiki-modding.github.io/PZ-API-Docs/translations/translation_files.html#itemname
+    ItemName] translation file.
+- source: pz_api_script_manager
+  evidence_class: extracted
+  locator: class zombie.scripting.ScriptManager
+- source: pz_api_script_item
+  evidence_class: extracted
+  locator: class zombie.scripting.objects.Item
+evidence_state: documented
+evidence_note: Derived from recipe pz-item-script, which is the record that was actually
+  verified. This capability record restates that recipe's extension points under the
+  shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - pz-item-script
+requirements:
+- a module name, conventionally your mod's name rather than the vanilla Base module
+- an item id unique within that module
+- the ItemType the item should be, which determines which parameters are available
+interactions:
+- 'Item blocks support soft overrides: re-declaring an existing item merges your definition
+  into the existing one and only the keys you restate change, rather than replacing
+  the whole block. That is a feature for compatibility patches and a hazard for accidental
+  id collisions.'
+- Two mods defining the same module.id therefore do not conflict loudly - they merge,
+  and the result depends on mod load order.
+- Using the vanilla Base module puts your items in the same namespace as the game's,
+  so the prefix convention is the only thing separating them.
+- Custom parameters silently become ModData on every instance of the item, which is
+  a save-size problem rather than an error.
+validation:
+- method: Confirm every script file ends in .txt and sits under media/scripts
+  command: find media/scripts -type f ! -name "*.txt"
+  limits: Only checks placement and extension. It says nothing about the contents
+    - it will not catch a missing trailing comma, an unknown ItemType, or a parameter
+    that does not exist for the ItemType you chose.
+- method: Inspect the packaged mod and read back the extracted script file list
+  command: .venv/bin/modcheck inspect Zomboid/Workshop/MyModWorkshop/Contents/mods/MyMod
+    --json
+  limits: The inspector lists .txt files under a scripts folder but does not parse
+    them, so it never learns your module name or item id and cannot tell you whether
+    another mod defines the same full id. There is no zedscript parser in this repository.
+- method: Load the game and check that the item exists with its translated name
+  limits: Requires Project Zomboid. NOT performed here. A parse failure caused by
+    a missing comma surfaces only at this step.

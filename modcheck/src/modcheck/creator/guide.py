@@ -56,7 +56,12 @@ class Match:
     record: Record
     score: float
     reasons: list[str]
-    applies_to_version: bool | None  # None = undecidable
+    # Three-valued, both of them. None means undecidable, and an undecidable
+    # applicability is never rendered as applicable.
+    applies_to_version: bool | None = None
+    applies_to_loader: bool | None = None
+    # Why applicability could not be decided, when it could not.
+    undecided_because: str = ""
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -72,13 +77,64 @@ class Match:
         }
 
 
-def _version_applies(record: Record, game_version: str | None) -> bool | None:
-    if game_version is None:
-        return None
+# Why a version check could not be decided. Kept apart because they are
+# different pieces of work: the caller can supply a version, but a constraint
+# written as prose can only be fixed in the record.
+VERSION_UNDECIDED_NO_INPUT = "no game version was given"
+VERSION_UNDECIDED_NO_CONSTRAINT = "the recipe declares no game version constraint"
+VERSION_UNDECIDED_PROSE = (
+    "the recipe's game_versions is prose, not a machine-checkable range, so "
+    "applicability cannot be decided from it")
+
+
+def _version_applies(record: Record, game_version: str | None) -> tuple[bool | None, str]:
+    """Whether a record applies to a game version, and where the answer came from.
+
+    Returning the reason matters: "you did not tell us the version" and "this
+    record's constraint is a sentence rather than a range" both come out as
+    undecided, and only one of them is the caller's to fix.
+    """
     constraint = (record.get("applies_to") or {}).get("game_versions")
     if not constraint:
+        return None, VERSION_UNDECIDED_NO_CONSTRAINT
+    if game_version is None:
+        return None, VERSION_UNDECIDED_NO_INPUT
+    result = fabric_satisfies(game_version, constraint)
+    if result is None:
+        return None, VERSION_UNDECIDED_PROSE
+    return result, ""
+
+
+def _loader_applies(record: Record, loader: str | None,
+                    ecosystem_loaders: int = 0) -> bool | None:
+    """Whether a record applies to the requested loader.
+
+    Three-valued on purpose, and the third value follows the ecosystem's own
+    rules rather than a single policy.
+
+    * Caller names a loader that differs from the record's -> False. A Fabric
+      recipe answering a Forge question is not a weaker answer; it is the wrong
+      answer, and merely ranking it lower still puts it first when nothing else
+      matches.
+    * Caller names no loader, and the game HAS competing loaders -> None. For
+      Minecraft, whose pack declares fabric, quilt, forge and neoforge, not
+      naming one leaves the question genuinely open.
+    * Caller names no loader, and the game has ONE -> True. Project Zomboid has
+      a single loader; demanding it be named would manufacture an ambiguity
+      that does not exist in that ecosystem.
+
+    `ecosystem_loaders` is the count the pack itself declares under
+    `ecosystem.loaders`, so this rule comes from the game rather than from what
+    our recipe inventory happens to contain.
+    """
+    declared = (record.get("applies_to") or {}).get("loader")
+    if loader is None:
+        if ecosystem_loaders <= 1:
+            return True
         return None
-    return fabric_satisfies(game_version, constraint)
+    if not declared:
+        return None
+    return str(declared).lower() == loader.lower()
 
 
 def _score(record: Record, query_tokens: set[str], loader: str | None) -> tuple[float, list[str]]:
@@ -116,10 +172,6 @@ def _score(record: Record, query_tokens: set[str], loader: str | None) -> tuple[
     if score <= 0:
         return 0.0, []
 
-    if loader and str((record.get("applies_to") or {}).get("loader") or "").lower() == loader.lower():
-        score += 1.0
-        reasons.append(f"targets the {loader} loader")
-
     # Among relevant recipes, one whose build actually ran here ranks higher.
     state = record.get("verification_state")
     if state == "game_tested":
@@ -139,6 +191,8 @@ class Guidance:
     applicable: list[Match]
     wrong_version: list[Match]
     related_failures: list[Record]
+    wrong_loader: list[Match] = dataclasses.field(default_factory=list)
+    unknown_applicability: list[Match] = dataclasses.field(default_factory=list)
     notes: list[str] = dataclasses.field(default_factory=list)
 
     def as_dict(self) -> dict[str, Any]:
@@ -147,6 +201,8 @@ class Guidance:
             "game": self.game,
             "applicable": [m.as_dict() for m in self.applicable],
             "not_applicable_to_this_version": [m.as_dict() for m in self.wrong_version],
+            "not_applicable_to_this_loader": [m.as_dict() for m in self.wrong_loader],
+            "applicability_unknown": [m.as_dict() for m in self.unknown_applicability],
             "related_failures": [{"id": r.id, "title": r.get("title"),
                                   "symptom": r.get("symptom")}
                                  for r in self.related_failures],
@@ -157,6 +213,9 @@ class Guidance:
 def guide(store: Store, query: str, game: str, *, game_version: str | None = None,
           loader: str | None = None, limit: int = 5) -> Guidance:
     pack = store.pack(game)
+    # How many loaders this ecosystem actually has. One means an unnamed loader
+    # is not ambiguous; several means it is.
+    ecosystem_loaders = len(((pack.manifest or {}).get("ecosystem") or {}).get("loaders") or [])
     query_tokens = tokenize(query)
     if not query_tokens:
         return Guidance(query=query, game=game, applicable=[], wrong_version=[],
@@ -165,17 +224,31 @@ def guide(store: Store, query: str, game: str, *, game_version: str | None = Non
 
     applicable: list[Match] = []
     wrong_version: list[Match] = []
+    wrong_loader: list[Match] = []
+    unknown_applicability: list[Match] = []
     for record in pack.records("recipe"):
         score, reasons = _score(record, query_tokens, loader)
         if score <= 0:
             continue
-        version_ok = _version_applies(record, game_version)
+        version_ok, version_why = _version_applies(record, game_version)
+        loader_ok = _loader_applies(record, loader, ecosystem_loaders)
         match = Match(record=record, score=score, reasons=reasons,
-                      applies_to_version=version_ok)
-        (wrong_version if version_ok is False else applicable).append(match)
+                      applies_to_version=version_ok, applies_to_loader=loader_ok,
+                      undecided_because=version_why)
+        # Eligibility first, ranking second. A recipe that does not apply is not
+        # a lower-ranked answer, and unknown applicability is not applicable:
+        # both get their own list so nothing silently reads as "use this".
+        if loader_ok is False:
+            wrong_loader.append(match)
+        elif version_ok is False:
+            wrong_version.append(match)
+        elif version_ok is None or loader_ok is None:
+            unknown_applicability.append(match)
+        else:
+            applicable.append(match)
 
-    applicable.sort(key=lambda m: -m.score)
-    wrong_version.sort(key=lambda m: -m.score)
+    for bucket in (applicable, wrong_version, wrong_loader, unknown_applicability):
+        bucket.sort(key=lambda m: -m.score)
 
     failures = []
     for record in pack.records("failure"):
@@ -185,7 +258,7 @@ def guide(store: Store, query: str, game: str, *, game_version: str | None = Non
             failures.append(record)
 
     notes: list[str] = []
-    if not applicable and not wrong_version:
+    if not applicable and not wrong_version and not wrong_loader and not unknown_applicability:
         notes.append(
             f"No recipe in the {game} pack matches this description. That means we "
             "have no recorded approach for it, not that the task is impossible.")
@@ -193,13 +266,35 @@ def guide(store: Store, query: str, game: str, *, game_version: str | None = Non
         notes.append(
             f"{len(wrong_version)} recipe(s) matched but do not apply to {game_version}; "
             "they are listed separately rather than dropped.")
-    if game_version is None and (applicable or wrong_version):
+    if wrong_loader:
         notes.append(
-            "No game version was given, so version applicability was not checked.")
+            f"{len(wrong_loader)} recipe(s) matched the description but target a "
+            f"different loader than {loader!r}. They are listed separately: a recipe "
+            "for another loader is the wrong answer, not a weaker one.")
+    if unknown_applicability:
+        reasons_seen: list[str] = []
+        for match in unknown_applicability:
+            if match.undecided_because and match.undecided_because not in reasons_seen:
+                reasons_seen.append(match.undecided_because)
+        if loader is None and ecosystem_loaders > 1:
+            reasons_seen.append(
+                f"no loader was given and {game} has {ecosystem_loaders} of them")
+        detail = "; ".join(reasons_seen) or "applicability is not declared"
+        notes.append(
+            f"{len(unknown_applicability)} recipe(s) matched but applicability could "
+            f"not be checked ({detail}). Unknown is not applicable -- supply the "
+            "missing detail, or check the recipe's own applies_to before using it.")
+        if any(m.undecided_because == VERSION_UNDECIDED_PROSE
+               for m in unknown_applicability):
+            notes.append(
+                "A prose game_versions cannot be fixed by supplying a version: the "
+                "record has to state a checkable range before this check can run.")
 
     return Guidance(query=query, game=game, applicable=applicable[:limit],
-                    wrong_version=wrong_version[:limit], related_failures=failures[:limit],
-                    notes=notes)
+                    wrong_version=wrong_version[:limit],
+                    wrong_loader=wrong_loader[:limit],
+                    unknown_applicability=unknown_applicability[:limit],
+                    related_failures=failures[:limit], notes=notes)
 
 
 def render(guidance: Guidance) -> str:
@@ -216,11 +311,28 @@ def render(guidance: Guidance) -> str:
                          + (f", loader {applies['loader']}" if applies.get("loader") else ""))
             lines.append(f"    show it with: modcheck show {record.id} --game {guidance.game}")
             lines.append("")
+    if not guidance.applicable:
+        lines.append("  Nothing in the library applies here as asked.")
+        lines.append("")
     if guidance.wrong_version:
         lines.append("  -- matched, but not for this game version --")
         for match in guidance.wrong_version:
             applies = (match.record.get("applies_to") or {}).get("game_versions", "?")
             lines.append(f"    {match.record.id}  (applies to {applies})")
+        lines.append("")
+    if guidance.wrong_loader:
+        lines.append("  -- matched, but written for a different loader --")
+        for match in guidance.wrong_loader:
+            declared = (match.record.get("applies_to") or {}).get("loader", "?")
+            lines.append(f"    {match.record.id}  (targets {declared})")
+        lines.append("")
+    if guidance.unknown_applicability:
+        lines.append("  -- matched, applicability NOT established --")
+        for match in guidance.unknown_applicability:
+            applies = match.record.get("applies_to") or {}
+            lines.append(f"    {match.record.id}  (declares versions "
+                         f"{applies.get('game_versions', '?')}, loader "
+                         f"{applies.get('loader', 'none')})")
         lines.append("")
     if guidance.related_failures:
         lines.append("  -- documented failures worth knowing about first --")

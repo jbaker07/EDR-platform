@@ -1,0 +1,79 @@
+id: build_and_test.fabric_project_setup_current_version
+game: minecraft
+capability: build_and_test
+title: Start a Fabric mod project for the current Minecraft release
+summary: A creator ends up with a Fabric mod project that compiles and packages a
+  jar against the current Minecraft release, with every toolchain version taken from
+  upstream rather than from memory.
+applies_to:
+  game_versions: '>=26.1'
+  loader: fabric
+  loader_versions: '>=0.19.5'
+  toolchain:
+  - Gradle 9.5.1
+  - JDK 25
+  - Fabric Loom 1.17-SNAPSHOT
+  platforms:
+  - Linux
+  - macOS
+  - Windows
+mechanism:
+- kind: file_path
+  id: src/main/resources/fabric.mod.json
+  label: loader manifest
+- kind: method
+  id: onInitialize
+  signature: void onInitialize()
+  container: net.fabricmc.api.ModInitializer
+  label: main entrypoint
+recipes:
+- fabric_project_setup_current_version
+references:
+- source: fabric_example_mod_versions_26_3
+  evidence_class: extracted
+  locator: gradle.properties
+  quote: minecraft_version=26.3
+- source: fabric_example_mod_build_26_3
+  evidence_class: extracted
+  locator: dependencies block
+  quote: implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+- source: fabric_example_mod_build_1_21
+  evidence_class: extracted
+  locator: dependencies block
+  quote: mappings loom.officialMojangMappings()
+- source: mojang_version_manifest
+  evidence_class: extracted
+  locator: latest.release
+- source: fabric_mod_json_spec
+  evidence_class: declared
+  locator: Mandatory fields
+  quote: 'id : Contains the mod identifier - a string value matching the ^[a-z][a-z0-9-_]{1,63}$
+    pattern.'
+evidence_state: build_tested
+evidence_note: Derived from recipe fabric_project_setup_current_version, which is
+  the record that was actually verified. This capability record restates that recipe's
+  extension points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - fabric_project_setup_current_version
+requirements:
+- a mod id matching ^[a-z][a-z0-9-_]{1,63}$
+- a Java package name
+build:
+  commands:
+  - gradle build
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+- method: The project's own Gradle build
+  command: gradle build --no-daemon --console=plain
+  limits: Establishes that the project compiles and packages. Establishes nothing
+    about whether the mod loads, behaves correctly, or is compatible with any other
+    mod.
+- method: Read the built jar back with ModCheck
+  modcheck_check: inspect
+  limits: Confirms the jar declares the mod id, version and dependencies expected.
+    Does not analyse bytecode.

@@ -1,0 +1,89 @@
+id: modify_behaviour.record_override_plugin_xedit
+game: skyrimse
+capability: modify_behaviour
+title: Change a vanilla record and ship it as an override plugin with SSEEdit
+summary: A creator ends up with a small .esp that overrides one or more existing records
+  (say a weapon's damage or an NPC's flags) with Skyrim.esm as its master, containing
+  no identical-to-master filler, and positioned so the change actually wins in the
+  player's load order.
+applies_to:
+  game_versions: Skyrim Special Edition; we did not verify a specific runtime, because
+    the plugin format work here is independent of the runtime build
+  toolchain:
+  - SSEEdit (xEdit)
+mechanism:
+- kind: record
+  id: any existing record reachable in the xEdit navigation tree
+  container: Skyrim.esm or another plugin you take as master
+  label: the record you intend to override
+- kind: field
+  id: the specific subrecord/field you change on that record
+  label: only the field you change should differ from the master
+recipes:
+- record_override_plugin_xedit
+references:
+- source: xedit_conflict_detection
+  evidence_class: declared
+  locator: 5.1 Overview
+  quote: The name of the game with Conflicts Resolution is load order, as the game
+    will count the last record loaded as the winner of any conflict between files.
+- source: xedit_conflict_detection
+  evidence_class: declared
+  locator: 5.8 Creating a Patch Plugin (Manual Method)
+  quote: To create the new patch Plugin, you right-click on a conflicted record (A)
+    and select, "Copy as override" (B).
+- source: xedit_conflict_detection
+  evidence_class: declared
+  locator: 5.8, on master assignment
+  quote: Once confirmed, xEdit will add FO3Phalanx as the master-file of your new
+    patch plugin.
+- source: xedit_mod_cleaning
+  evidence_class: declared
+  locator: 7.5.2 Identical To Master
+  quote: Identical to Master (ITM) edits are the most common type of dirty edit. They're
+    where a mod has overwritten something in the game without making an actual change.
+- source: libloadorder_conflict_resolution
+  evidence_class: declared
+  quote: The game can only apply one version of any one entry (this is known as the
+    *rule of one*).
+evidence_state: documented
+evidence_note: Derived from recipe record_override_plugin_xedit, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - record_override_plugin_xedit
+requirements:
+- A Skyrim Special Edition installation with the plugin you want to override already
+  installed
+- SSEEdit, launched through a mod manager or directly
+interactions:
+- Your plugin wins only where it loads last. Any plugin loading after yours that overrides
+  the same record replaces your value wholesale, because the game applies one version
+  of an entry.
+- 'Taking a mod as master makes your plugin hard-require it: if the player does not
+  have that plugin installed, yours will not load.'
+- Your override does not merge with anyone else's. If two mods change different fields
+  of the same record, someone has to build a patch that carries both.
+build:
+  produces: A single .esp (optionally ESL-flagged later) in the game's Data folder
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Inspect the saved plugin's header to confirm its masters and flags are what
+    you intended
+  command: modcheck inspect Data/YourPatch.esp --game skyrimse
+  limits: This reads the TES4 header only. It confirms the master list, the ESM/ESL
+    flags and the HEDR record counts; it does not read your edited record, does not
+    tell you whether the value you set is correct, and does not detect identical-to-master
+    edits.
+- method: Run the configuration through the LOOT-backed analysis to see recorded rules
+    for the plugins involved
+  command: modcheck analyze --game skyrimse --artifact Data/YourPatch.esp --artifact
+    Data/TheModYouOverride.esp
+  limits: Only reports rules LOOT has recorded for those exact plugin names, plus
+    missing masters. A new plugin has no masterlist entry, so silence here says nothing
+    about whether your override is correct or whether it conflicts with anything at
+    the record level.

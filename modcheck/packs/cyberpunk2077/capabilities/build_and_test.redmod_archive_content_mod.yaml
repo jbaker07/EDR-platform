@@ -1,0 +1,138 @@
+id: build_and_test.redmod_archive_content_mod
+game: cyberpunk2077
+capability: build_and_test
+title: Package a content mod as a REDmod module with a declared identity
+summary: A creator ends up with a self-describing mod folder - mods/<ModName>/ containing
+  an info.json and one or more content subfolders - so the mod has a name and a version
+  that tools and players can read, rather than being an anonymous .archive file whose
+  only identity is the paths it happens to ship.
+applies_to:
+  game_versions: REDmod is CDPR's official modding support for Cyberpunk 2077; we
+    did not retrieve a version floor
+  loader: redmod
+  toolchain:
+  - redmod
+  - wolvenkit
+  platforms:
+  - windows
+mechanism:
+- kind: config_key
+  id: name
+  container: mods/<ModName>/info.json
+  field: name
+  label: Required. "should generally be the same as the folder the `info.json` file
+    sits in".
+- kind: config_key
+  id: version
+  container: mods/<ModName>/info.json
+  field: version
+  label: Required. Semantic MAJOR.MINOR.PATCH.
+- kind: config_key
+  id: customSounds
+  container: mods/<ModName>/info.json
+  field: customSounds
+  label: Semi-optional - required for audio modding.
+- kind: file_path
+  id: mods/<ModName>/
+  label: The module folder. Its name is also this mod's position in load order, because
+    REDmod folders load in ASCII-alphabetical order by folder name.
+- kind: archive_entry
+  id: mods/<ModName>/archives/
+  label: Where packed content goes inside the module.
+recipes:
+- redmod-archive-content-mod
+references:
+- source: cp_wiki_redmod_for_mod_devs
+  evidence_class: declared
+  locator: Folder Structure
+  quote: When creating a REDmod, there is a certain file structure that you need to
+    follow to ensure that it can be used by others. You will want to have a folder
+    that is the name of the mod and in this folder you will have a file named `info.json.`
+- source: cp_wiki_redmod_for_mod_devs
+  evidence_class: declared
+  locator: info.json
+  quote: For a REDmod to be recognized and loaded by the game engine, you must include
+    an `info.json` file. This file sits in the root folder of the mod's folder at
+    the same level as the subfolders containing your modded files. There are two required
+    entries and a few optional entries that can be in this json file. At minimum a
+    `name` field and a `version` field are needed
+- source: cp_wiki_redmod_script_modding
+  evidence_class: declared
+  locator: Script Modding
+  quote: '1. make a new mod and create a new folder here: `<Cyberpunk 2077>/mods/MODNAME/scripts`'
+- source: cp_wiki_archive_load_order
+  evidence_class: declared
+  locator: How are mods ordered? > 2. REDmods
+  quote: Folders in `Cyberpunk 2077/mods` are loaded strictly **after** `/archive/pc/mod`
+    in [ASCII-alphabetical order](#load-order-ascii-sort).
+- source: cp_wiki_archive_load_order
+  evidence_class: declared
+  locator: What is Load Order?
+  quote: In Cyberpunk, conflicts inside `.archive` mods are one per-file basis, whatever
+    mod modifies a file **first** will win
+- source: cp_wiki_archivexl
+  evidence_class: declared
+  locator: page header
+  quote: Adding stuff to the game, for the major-leagues
+- source: archivexl_repo_readme
+  evidence_class: declared
+  locator: '# ArchiveXL'
+  quote: 'ArchiveXL is a modding tool that allows you to load custom resources without
+    touching original game files,
+
+    thus allowing multiple mods to expand same resources without conflicts.'
+- source: cdpr_redmod_modding_support
+  evidence_class: declared
+  locator: Modify and create your own experiences in the world of Cyberpunk 2077
+  quote: Access the same powerful tools as CD PROJEKT RED developers — including custom
+    sounds, animations, scripts, and more — to create custom content within the world
+    of Cyberpunk 2077 .
+evidence_state: documented
+evidence_note: Derived from recipe redmod-archive-content-mod, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - redmod-archive-content-mod
+requirements:
+- The content you are shipping (archived resources, scripts, tweaks, or custom sounds)
+- A mod name that is also usable as a folder name
+- A semantic version string for this release
+interactions:
+- 'Collisions here are install-time and path-based: two mods shipping the same file
+  path under mods/ or archive/pc/mod collide before the game ever runs, and the first
+  loaded wins.'
+- A module folder name that sorts early (leading punctuation, a leading capital) wins
+  file conflicts against later-sorting mods. The wiki notes that prefixing archive
+  names with non-alphanumeric characters "works fine in case of Cyberpunk, but is
+  a terrible habit".
+- A modlist.txt inside archive/pc/mod overrides the ASCII order for .archive files.
+  The wiki's advice is blunt - "Delete this file and save yourself from a world of
+  pain" - so do not ship one.
+build:
+  produces: A mods/<ModName>/ directory tree containing info.json and at least one
+    content subfolder.
+  requires_network: false
+  requires_game_install: true
+validation:
+- method: Inspect the packaged artifact and confirm it declares an identity and claims
+    only its own paths.
+  command: .venv/bin/modcheck inspect dist/<ModName>.zip --game cyberpunk2077 --json
+  modcheck_check: modcheck.inspect.cyberpunk.inspect:redmod_modules
+  limits: This reads the archive layout and parses mods/<folder>/info.json, so it
+    confirms the module declares a name and version and shows every install path you
+    claim. It does NOT open .archive contents, so it cannot say which game resources
+    you replace; it does not parse scripts or tweaks; and it cannot compare your paths
+    against another mod's without you inspecting that mod too.
+- method: Validate info.json as JSON before shipping.
+  command: python -m json.tool mods/<ModName>/info.json
+  limits: Establishes only that the file is well-formed JSON. It does not check that
+    name matches the folder name, that version is semantic, or that customSounds is
+    present when the mod ships audio.
+- method: Deploy with REDmod and check the tool's output.
+  command: tools\\redmod\\bin\\redMod.exe deploy
+  limits: Requires the retail game - redMod.exe ships inside the game directory and
+    was not run here. A successful deploy establishes that the module was accepted,
+    not that its content behaves correctly.

@@ -1,0 +1,111 @@
+id: build_and_test.sdv_smapi_csharp_mod_project
+game: stardewvalley
+capability: build_and_test
+title: Set up a SMAPI C# mod project that builds, installs and packages itself
+summary: A C# class library project that compiles to the assembly named in manifest.json's
+  EntryDll, is copied into the game's Mods folder on every build, and produces a release
+  zip in the project's bin folder in the layout mod sites expect.
+applies_to:
+  game_versions: '>=1.6.14'
+  loader: smapi
+  loader_versions: '>=4.5.2'
+  toolchain:
+  - modbuildconfig
+  platforms:
+  - windows
+  - linux
+  - macos
+mechanism:
+- kind: file_path
+  id: manifest.json
+  label: the manifest SMAPI reads to decide whether and how to load the mod
+- kind: config_key
+  id: EntryDll
+  container: manifest.json
+  label: the DLL filename SMAPI loads; mutually exclusive with ContentPackFor
+- kind: config_key
+  id: Version
+  container: manifest.json
+  field: '%ProjectVersion%'
+  label: manifest token replaced with the csproj <Version> by ModBuildConfig
+- kind: archive_entry
+  id: bin/<Configuration>/<ModName> <Version>.zip
+  label: the release zip ModBuildConfig writes on rebuild
+recipes:
+- sdv-smapi-csharp-mod-project
+references:
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: section "Basic usage"
+  quote: 1. Create an empty library project. 2. Reference the [`Pathoschild.Stardew.ModBuildConfig`
+    NuGet package](https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig).
+    3. [Write your code](https://stardewvalleywiki.com/Modding:Creating_a_SMAPI_mod).
+    4. Compile on any platform. 5. Run the game to play with your mod.
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: section "Release zip"
+  quote: The package adds a zip file in your project's `bin` folder when you rebuild
+    the code, in the format recommended for uploading to mod sites like Nexus Mods.
+- source: smapi_mod_build_config
+  evidence_class: declared
+  locator: section "Detect game path"
+  quote: finds your game folder by scanning the default install paths and Windows
+    registry; - sets up your project so the code can reference SMAPI and game code
+- source: smapi_manifest_json_schema
+  evidence_class: extracted
+  locator: properties.EntryDll, properties.UniqueID, properties.MinimumApiVersion,
+    properties.Version
+  quote: The mod's semantic version, or '%ProjectVersion%' to use the current project's
+    assembly version.
+- source: smapi_release_notes
+  evidence_class: declared
+  locator: heading "## 4.5.2"
+  quote: Released 14 March 2026 for Stardew Valley 1.6.14 or later.
+- source: modbuildconfig_nuget
+  evidence_class: extracted
+  locator: items[-1].items[-1].catalogEntry
+  quote: '"id":"Pathoschild.Stardew.ModBuildConfig","language":"","licenseExpression":"MIT"
+    ... "title":"Build package for SMAPI mods","version":"4.4.0"'
+evidence_state: documented
+evidence_note: Derived from recipe sdv-smapi-csharp-mod-project, which is the record
+  that was actually verified. This capability record restates that recipe's extension
+  points under the shared taxonomy; it adds no evidence of its own.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against:
+  - sdv-smapi-csharp-mod-project
+requirements:
+- a Stardew Valley installation on the build machine (ModBuildConfig resolves game
+  and SMAPI references against it)
+- the .NET SDK and an IDE or `dotnet build`
+- a unique mod id in the form Username.ModName
+interactions:
+- A required dependency listed in Dependencies is loaded first; if it is absent the
+  mod is not loaded at all and the player is shown a message naming what to install.
+- UniqueID is the join key SMAPI uses for update checks, dependency resolution and
+  its compatibility overrides, so changing it after release breaks all three.
+- MinimumApiVersion gates loading on the SMAPI version and therefore indirectly on
+  the game version; raising it strands players on older SMAPI builds.
+build:
+  commands:
+  - dotnet build
+  produces: the mod folder inside the game's Mods folder plus a release zip under
+    bin/
+  requires_network: true
+  requires_game_install: true
+validation:
+- method: Inspect the built mod folder or the release zip with ModCheck
+  command: .venv/bin/modcheck inspect "bin/Debug/YourModName 1.0.0.zip" --json
+  limits: Reports the declared manifest fields, classifies the artifact as smapi_code_mod
+    and lists declared dependency edges. It does not open the assembly, so it cannot
+    tell you whether the code compiles against the installed SMAPI, which events it
+    subscribes to, or whether it Harmony-patches anything.
+- method: Resolve declared dependencies against a known installation
+  modcheck_check: dependency.missing
+  limits: Only decides ids that are actually present in the configuration supplied
+    to it. It reports unresolved rather than satisfied when a version or a constraint
+    cannot be decided, and it knows nothing about SMAPI's own compatibility overrides.
+- method: Read SMAPI's console output when the game starts
+  limits: Requires the game. NOT performed here; no assembly in this recipe has ever
+    been built or loaded by SMAPI in this environment.

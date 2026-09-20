@@ -199,9 +199,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:53+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: b47f17cd17ddc11ce6504a3f1eab10c9f32721812e6f4bb3cb98b0ec0eafbdaa
   bytes: 1070
   content_type: text/plain
@@ -220,9 +222,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:52+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 61b7bce9336633bce6b7c04fa3baa3b0a4d8d84ffb5398bdc90dd934dda3f1e2
   bytes: 5148
   content_type: text/plain
@@ -241,11 +245,13 @@ sources:
   retrieved_at: '2026-09-19T13:45:51+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'no'
     derive: 'yes'
-    note: MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
-      right to Sell the Software; any notice must reproduce that condition.
+    note: 'MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
+      right to Sell the Software; any notice must reproduce that condition. Redistribution and derivation
+      are permitted under MIT AND Commons-Clause, but the licence and attribution must be preserved: `yes`
+      here means permitted-with-conditions, not unconditional.'
   sha256: f9ccc305c27a3adf3920101fc28af474c4f274767239053bbc53b91dbdabd90a
   bytes: 81007
   content_type: text/plain
@@ -265,11 +271,13 @@ sources:
   retrieved_at: '2026-09-19T13:45:51+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'no'
     derive: 'yes'
-    note: MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
-      right to Sell the Software; any notice must reproduce that condition.
+    note: 'MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
+      right to Sell the Software; any notice must reproduce that condition. Redistribution and derivation
+      are permitted under MIT AND Commons-Clause, but the licence and attribution must be preserved: `yes`
+      here means permitted-with-conditions, not unconditional.'
   sha256: 2f1d1ceb35e996019341ffae8e0b3d0a18d555847b3c2a585d69344cf86ca84a
   bytes: 1946
   content_type: text/plain
@@ -290,11 +298,13 @@ sources:
   retrieved_at: '2026-09-19T13:45:50+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'no'
     derive: 'yes'
-    note: MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
-      right to Sell the Software; any notice must reproduce that condition.
+    note: 'MIT terms, but the file also carries the Commons Clause v1.0 condition, which withholds the
+      right to Sell the Software; any notice must reproduce that condition. Redistribution and derivation
+      are permitted under MIT AND Commons-Clause, but the licence and attribution must be preserved: `yes`
+      here means permitted-with-conditions, not unconditional.'
   sha256: 16da9cbe5a3eb78573bb7626578cb69a9289a10518f00abcaf392ba703eedd08
   bytes: 2289
   content_type: text/plain
@@ -424,9 +434,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:52+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: ff536e6222ab893aa15a9ade208c81b1b0406c462e36b7fd97e6099ced308409
   bytes: 1075
   content_type: text/plain
@@ -445,9 +457,11 @@ sources:
   retrieved_at: '2026-09-19T13:45:51+00:00'
   http_status: 200
   reuse:
-    redistribute: attribution_required
+    redistribute: 'yes'
     commercial: 'yes'
     derive: 'yes'
+    note: 'Redistribution and derivation are permitted under MIT, but the licence and attribution must
+      be preserved: `yes` here means permitted-with-conditions, not unconditional.'
   sha256: 19696261544d61a66d484fddaf052aae899b4a1386b25f39ed1dafc1c7e0471e
   bytes: 1033
   content_type: text/plain
