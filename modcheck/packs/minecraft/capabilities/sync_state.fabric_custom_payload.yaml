@@ -1,0 +1,103 @@
+id: sync_state.fabric_custom_payload
+game: minecraft
+capability: sync_state
+title: Send a server-side value to the clients that need it
+summary: >-
+  Define a typed payload, register it for the server-to-client direction, and
+  send it to chosen players. This is what carries a value the server owns to
+  code that runs on the client.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  loader_versions: ">=0.19.5"
+  toolchain: ["Gradle 9.5.1", "JDK 25"]
+runs_on: both
+mechanism:
+  - kind: method
+    id: net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.playS2C
+    signature: "static PayloadTypeRegistry<RegistryFriendlyByteBuf> playS2C()"
+    container: net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
+    label: the registry for server-to-client play payloads
+  - kind: method
+    id: net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send
+    signature: "static void send(ServerPlayer, CustomPacketPayload)"
+    container: net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
+    label: send one payload to one player
+  - kind: method
+    id: net.fabricmc.fabric.api.networking.v1.PlayerLookup.tracking
+    signature: "static Collection<ServerPlayer> tracking(ServerLevel, ...)"
+    container: net.fabricmc.fabric.api.networking.v1.PlayerLookup
+    label: the players who can actually see a position or entity
+  - kind: type
+    id: net.minecraft.network.protocol.common.custom.CustomPacketPayload
+    container: net.minecraft.network.protocol.common.custom.CustomPacketPayload
+    label: the payload interface, carrying its own Type and codec
+requirements:
+  - The fabric-networking-api-v1 module of the Fabric API.
+  - >-
+    The payload type must be registered on BOTH sides, from code that runs on
+    each. A payload registered only on the server is not decodable by a client.
+  - A StreamCodec for the payload, which is how it is written and read.
+ordering:
+  - >-
+    Registration happens at initialisation, before any player connects. A type
+    registered after a client has joined is not known to that connection.
+  - >-
+    Sending happens on the server thread; the handler runs on the network
+    thread and must hand work to the client thread before touching game state.
+limits:
+  - >-
+    A send reaches only the players passed to it. PlayerLookup.tracking picks
+    the ones in range; sending to everyone is a choice with a bandwidth cost.
+  - >-
+    This carries a value. It does not make the value correct, and it does not
+    make the client's copy update when the server's changes -- something has to
+    send again.
+  - >-
+    ServerPlayNetworking.canSend reports whether a client has the type
+    registered. A client without the mod does not, and sending anyway is an
+    error rather than a no-op.
+interactions:
+  - >-
+    The payload id is an Identifier, so a mod-specific namespace avoids
+    collision. Two mods registering the same id is a hard failure at
+    registration, not a silent merge.
+build:
+  commands: ["gradle build"]
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+  - method: The project's own Gradle build
+    command: gradle build --no-daemon --console=plain
+    limits: >-
+      Establishes both sides compile against these signatures. Does NOT
+      establish that a packet is sent, received, or decoded correctly.
+references:
+  - source: fabric_networking_api_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/networking/v1/ServerPlayNetworking.class
+    quote: "public static void send(ServerPlayer, CustomPacketPayload)"
+  - source: fabric_networking_api_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/networking/v1/PayloadTypeRegistry.class
+    quote: "public static PayloadTypeRegistry<RegistryFriendlyByteBuf> playS2C()"
+  - source: fabric_networking_api_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/networking/v1/PlayerLookup.class
+    quote: "public static Collection<ServerPlayer> tracking(ServerLevel, ...)"
+evidence_state: source_confirmed
+evidence_note: >-
+  Read from fabric-networking-api-v1-6.3.8+fcdff87f5d.jar as resolved for our
+  own build. This record exists because the plan's composition check named the
+  gap: two individually grounded requirements, one producing on the server and
+  one consuming on the client, with nothing between them. The modern payload
+  API is what this version exposes; the older PacketByteBuf-and-Identifier
+  send() overloads are not present.
+invalidated_by:
+  - A Fabric API version bump; the payload API replaced an earlier packet API.
+  - A change to the resolved artifact's sha256.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against: [fabric_networking_api_v1_jar]

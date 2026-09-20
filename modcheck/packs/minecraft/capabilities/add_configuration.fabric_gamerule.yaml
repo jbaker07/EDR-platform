@@ -1,0 +1,98 @@
+id: add_configuration.fabric_gamerule
+game: minecraft
+capability: add_configuration
+title: Let a server operator change a value, as a custom gamerule
+summary: >-
+  Register a gamerule. Operators change it with the vanilla /gamerule command,
+  it is stored per world, and it needs no config file, no file watching and no
+  restart.
+applies_to:
+  game_versions: ">=26.1"
+  loader: fabric
+  loader_versions: ">=0.19.5"
+  toolchain: ["Gradle 9.5.1", "JDK 25"]
+runs_on: server
+mechanism:
+  - kind: method
+    id: net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder.forInteger
+    signature: "static GameRuleBuilder.IntegerRuleBuilder forInteger(int)"
+    container: net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder
+    label: start an integer rule with its default value
+  - kind: method
+    id: net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder.buildAndRegister
+    signature: "GameRule<T> buildAndRegister(Identifier)"
+    container: net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder
+    label: register under a namespaced id; returns the handle used to read it
+  - kind: method
+    id: net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder.category
+    signature: "GameRuleBuilder<T> category(GameRuleCategory)"
+    container: net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder
+    label: which section of the world-creation screen it appears under
+  - kind: type
+    id: net.minecraft.world.level.gamerules.GameRules
+    container: net.minecraft.world.level.gamerules.GameRules
+    label: the per-level rule map a registered rule is read from
+requirements:
+  - The fabric-game-rule-api-v1 module of the Fabric API.
+  - >-
+    Registration at mod initialisation, before any world loads. A rule
+    registered later is not present in worlds already running.
+ordering:
+  - >-
+    Gamerules are per world, not per server. Two worlds on one server hold
+    independent values.
+  - >-
+    The value is read from the level's GameRules on the server. Client code
+    does not have it unless it is sent.
+limits:
+  - >-
+    A gamerule suits a scalar an operator would plausibly tune. It is not a
+    general configuration file: there is no structured data, no list, and no
+    per-player value.
+  - >-
+    Only integer, boolean, double and enum rules are offered by this builder.
+    Anything else needs a different mechanism.
+interactions:
+  - >-
+    The id is an Identifier, so a mod-specific namespace avoids collision with
+    another mod's rule of the same name.
+build:
+  commands: ["gradle build"]
+  produces: build/libs/<modid>-<version>.jar
+  requires_network: true
+  requires_game_install: false
+validation:
+  - method: The project's own Gradle build
+    command: gradle build --no-daemon --console=plain
+    limits: >-
+      Establishes the registration compiles against these signatures. Does NOT
+      establish that /gamerule lists or accepts the rule.
+references:
+  - source: fabric_game_rule_api_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/gamerule/v1/GameRuleBuilder.class
+    quote: "public static GameRuleBuilder$IntegerRuleBuilder forInteger(int)"
+  - source: fabric_game_rule_api_v1_jar
+    evidence_class: extracted
+    locator: net/fabricmc/fabric/api/gamerule/v1/GameRuleBuilder.class
+    quote: "public GameRule<T> buildAndRegister(net.minecraft.resources.Identifier)"
+  - source: minecraft_26_3_merged_jar
+    evidence_class: extracted
+    locator: net/minecraft/world/level/gamerules/GameRules.class
+evidence_state: source_confirmed
+evidence_note: >-
+  Read from fabric-game-rule-api-v1-4.0.10+3434d6d95d.jar as resolved for our
+  own build. This record exists because the plan gate named the missing fact
+  ("which exact mechanism provides add_configuration in Minecraft") and the
+  answer was then retrieved rather than assumed. Worth stating plainly: the
+  GameRuleRegistry and GameRuleFactory classes that published tutorials use do
+  not exist in this version -- the api package contains only
+  FabricGameRuleTypeVisitor, GameRuleBuilder and GameRuleEvents. Code written
+  from those tutorials would not compile.
+invalidated_by:
+  - A Fabric API version bump; this API replaced GameRuleRegistry/GameRuleFactory.
+  - A change to the resolved artifact's sha256.
+provenance:
+  added: '2026-09-20'
+  last_verified: '2026-09-20'
+  verified_against: [fabric_game_rule_api_v1_jar, minecraft_26_3_merged_jar]

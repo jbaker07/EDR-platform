@@ -180,6 +180,15 @@
     },
     "provenance": {
       "$ref": "common.schema.json#/$defs/provenance"
+    },
+    "runs_on": {
+      "description": "Which side this mechanism executes on. Structured rather than left to prose in `limits`, because it is the commonest source of a requirement conflict: a value held server-side cannot be read by a client-side display without a synchronisation step, and a plan that does not notice compiles fine and shows nothing.",
+      "enum": [
+        "server",
+        "client",
+        "both",
+        "not_applicable"
+      ]
     }
   }
 }

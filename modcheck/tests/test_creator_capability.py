@@ -42,12 +42,21 @@ def test_suggest_returns_the_words_that_caused_each_hit():
 
 
 def test_a_suggestion_is_not_evidence():
-    """Wording about a capability says nothing about whether a game offers it."""
-    hits = {cid for cid, _ in suggest("synchronise the value to every client")}
-    assert "sync_state" in hits
+    """Wording about a capability says nothing about whether a game offers it.
+
+    Stated as a property rather than against a particular empty cell, so that
+    filling a gap -- which this batch did for Minecraft sync_state -- does not
+    make the test pass for the wrong reason.
+    """
+    hits = {cid for cid, _ in suggest("synchronise the stored value to every client")}
+    assert "sync_state" in hits, "the wording must suggest the capability"
     coverage = build_map()
-    # Suggested for the request, recorded for no game. The gap must survive.
-    assert all(not coverage.cell(g, "sync_state").covered for g in coverage.games)
+    gaps = [(g, c) for g, c in coverage.gaps() if c in hits]
+    assert gaps, "some game must still lack a record for a suggested capability"
+    for game, capability in gaps:
+        assert not coverage.cell(game, capability).covered, (
+            "a capability suggested by the request's wording must not become "
+            "covered by having been suggested")
 
 
 def test_every_capability_record_names_a_known_capability():

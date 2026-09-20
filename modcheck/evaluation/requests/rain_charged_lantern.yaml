@@ -1,0 +1,56 @@
+# Creator request 1 -- deliberately has NO matching recipe in the library.
+#
+# The library has three Minecraft recipes: project setup, a client entrypoint,
+# and a mixin. None of them is "a block that accumulates a value from weather
+# and shows it". If a missing recipe meant a missing answer, this request would
+# be refused. Instead it decomposes into capabilities the library CAN answer,
+# and the parts it cannot are named rather than guessed.
+id: rain_charged_lantern
+game: minecraft
+game_version: "26.3"
+loader: fabric
+title: A lantern that charges in the rain and shows its charge
+description: >-
+  A lantern accumulates charge while it is raining on it, keeps that charge
+  across a world reload, and shows the remaining charge to the player. A server
+  operator can change how fast it charges.
+requirements:
+  - id: accumulate_while_raining
+    statement: >-
+      While it is raining at the lantern's position, its stored charge increases
+      on a fixed schedule.
+    capability: subscribe_event
+    side: server
+    acceptance: >-
+      Given rain at the lantern's position, after N ticks the stored charge has
+      increased by exactly N/rate, and does not increase while it is not raining.
+
+  - id: retain_charge_across_reload
+    statement: The stored charge survives saving and reloading the world.
+    capability: persist_state
+    side: server
+    reads_from: [accumulate_while_raining]
+    acceptance: >-
+      Given a stored charge of C, after a save and reload the stored charge
+      reads exactly C -- not zero, and not a default.
+
+  - id: show_remaining_charge
+    statement: The player can see how much charge remains.
+    capability: display_information
+    side: client
+    # The value shown is the one the server stores. Declaring the flow is what
+    # lets the plan check the join rather than assume it.
+    reads_from: [retain_charge_across_reload]
+    acceptance: >-
+      With a charge of C out of the maximum, the HUD shows a value derived from
+      C that changes when C changes.
+
+  - id: server_configurable_rate
+    statement: >-
+      A server operator can change the charge rate without editing or rebuilding
+      the mod.
+    capability: add_configuration
+    side: server
+    acceptance: >-
+      Changing the configured rate and restarting the server changes the
+      observed accumulation rate to match.

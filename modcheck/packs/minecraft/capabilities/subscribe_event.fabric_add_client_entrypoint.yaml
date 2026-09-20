@@ -11,6 +11,9 @@ applies_to:
   toolchain:
   - Gradle 9.5.1
   - JDK 25
+# A client entrypoint runs only on the client; the loader calls it from the
+# client initialisation path and it is absent on a dedicated server.
+runs_on: client
 mechanism:
 - kind: config_key
   id: entrypoints.client

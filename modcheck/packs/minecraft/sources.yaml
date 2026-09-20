@@ -179,6 +179,28 @@ sources:
   - minecraft
   publisher: FabricMC
   license: CC0-1.0
+- id: fabric_game_rule_api_v1_jar
+  title: fabric-game-rule-api-v1, as resolved for the build
+  url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-game-rule-api-v1/
+  kind: api
+  access: public
+  retrieved_at: '2026-09-20T03:09:15+00:00'
+  sha256: 58266b2e28d20444584f22f1940b99656437728bd45e1b226c4869637e704638
+  bytes: 51223
+  license: Apache-2.0
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Apache-2.0. Read locally for signatures; not redistributed.
+  games:
+  - minecraft
+  notes: 'Resolved locally at /root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-game-rule-api-v1/4.0.10+3434d6d95d/3f73b9e94995f6f8a0d38955b98b67ac8d6bb089/fabric-game-rule-api-v1-4.0.10+3434d6d95d.jar.
+    Read to settle a named missing fact: which Fabric mechanism lets a server operator change a value
+    without editing the mod. The answer is a custom gamerule, built with GameRuleBuilder and registered
+    by buildAndRegister(Identifier). Notably, the GameRuleRegistry and GameRuleFactory classes that published
+    tutorials use DO NOT EXIST in this version -- the jar contains only FabricGameRuleTypeVisitor, GameRuleBuilder
+    and GameRuleEvents in its api package. Code written from those tutorials would not compile.'
 - id: fabric_lifecycle_events_v1_jar
   title: fabric-lifecycle-events-v1, as resolved for the build
   url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-lifecycle-events-v1/
@@ -260,6 +282,28 @@ sources:
   publisher: FabricMC
   notes: Community wiki page. Reuse terms not established; quoted only in short verbatim excerpts for
     audit.
+- id: fabric_networking_api_v1_jar
+  title: fabric-networking-api-v1, as resolved for the build
+  url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-networking-api-v1/
+  kind: api
+  access: public
+  retrieved_at: '2026-09-20T03:10:36+00:00'
+  sha256: dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544
+  bytes: 227081
+  license: Apache-2.0
+  reuse:
+    redistribute: 'yes'
+    commercial: 'yes'
+    derive: 'yes'
+    note: Apache-2.0. Read locally for signatures; not redistributed.
+  games:
+  - minecraft
+  notes: 'Resolved locally at /root/.gradle/caches/modules-2/files-2.1/net.fabricmc.fabric-api/fabric-networking-api-v1/6.3.8+fcdff87f5d/1487018aa4c0cc74d0e32b89c5b2da9b1c00ebb8/fabric-networking-api-v1-6.3.8+fcdff87f5d.jar.
+    Read to settle the missing fact the composition check named: what carries a server-side value to the
+    client. The answer is a CustomPacketPayload registered with PayloadTypeRegistry.playS2C() and sent
+    with ServerPlayNetworking.send(ServerPlayer, CustomPacketPayload), with PlayerLookup.tracking() to
+    choose recipients. This is the modern payload API; the older PacketByteBuf-and-Identifier send() overloads
+    are not what this version exposes.'
 - id: fabric_rendering_v1_jar
   title: fabric-rendering-v1, as resolved for the build
   url: https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-rendering-v1/

@@ -10,6 +10,7 @@ applies_to:
   loader: fabric
   loader_versions: ">=0.19.5"
   toolchain: ["Gradle 9.5.1", "JDK 25"]
+runs_on: server
 mechanism:
   - kind: field
     id: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK

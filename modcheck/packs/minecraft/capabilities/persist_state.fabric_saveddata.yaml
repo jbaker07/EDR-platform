@@ -11,6 +11,7 @@ applies_to:
   loader: fabric
   loader_versions: ">=0.19.5"
   toolchain: ["Gradle 9.5.1", "JDK 25"]
+runs_on: server
 mechanism:
   - kind: method
     id: net.minecraft.world.level.storage.SavedDataStorage.computeIfAbsent

@@ -600,6 +600,19 @@ def cmd_lookup(args) -> int:
     return 0
 
 
+def cmd_plan(args) -> int:
+    from .creator.plan import Request, build, render
+    request = Request.load(Path(args.request))
+    plan = build(request, _store(args))
+    if args.json:
+        print(json.dumps(plan.as_dict(), indent=2, default=str))
+    else:
+        print(render(plan))
+    # A plan that is not ready exits non-zero: every requirement grounded AND
+    # every declared join sound. Individually grounded parts are not a whole.
+    return 0 if plan.ready else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="modcheck", description=__doc__)
     p.add_argument("--packs", help="override the packs/ directory")
@@ -712,6 +725,13 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--cases", help="cases directory (default: evaluation/cases)")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_evaluate)
+
+    sp = sub.add_parser(
+        "plan",
+        help="resolve a creator request into a requirement-to-evidence map")
+    sp.add_argument("request", help="a request YAML file")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_plan)
 
     sp = sub.add_parser(
         "lookup",
