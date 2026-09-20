@@ -15,9 +15,9 @@ fabric-loader 0.19.5 -- kind: interface
 public static final int COMPONENT_WILDCARD
 public abstract int getVersionComponentCount()
 public abstract int getVersionComponent(int)
-public abstract java.util.Optional<java.lang.String> getPrereleaseKey()
-public abstract java.util.Optional<java.lang.String> getBuildKey()
+public abstract java.util.Optional getPrereleaseKey()
+public abstract java.util.Optional getBuildKey()
 public abstract boolean hasWildcard()
-public default int compareTo(net.fabricmc.loader.api.SemanticVersion)
-public static net.fabricmc.loader.api.SemanticVersion parse(java.lang.String) throws net.fabricmc.loader.api.VersionParsingException
+public int compareTo(net.fabricmc.loader.api.SemanticVersion)
+public static net.fabricmc.loader.api.SemanticVersion parse(java.lang.String)
 ```

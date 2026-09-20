@@ -11,22 +11,22 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/render/pip/PictureInPictureRenderer`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `()V` | exact | invokespecial@4 in `PictureInPictureRendererRegistryImpl.lambda$registerVanillaFactories$1 | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (0 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.render.pip.GuiSkinRenderer extends net.minecraft.client.gui.render.pip.PictureInPictureRenderer<net.minecraft.client.renderer.state.gui.pip.GuiSkinRenderState> {
-    public net.minecraft.client.gui.render.pip.GuiSkinRenderer();
-    public java.lang.Class<net.minecraft.client.renderer.state.gui.pip.GuiSkinRenderState> getRenderStateClass();
-    protected void renderToTexture(net.minecraft.client.renderer.state.gui.pip.GuiSkinRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector);
-    protected java.lang.String getTextureLabel();
-    protected void renderToTexture(net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector);
-}
+```
+public <init>()V
+public getRenderStateClass()Ljava/lang/Class;
+protected renderToTexture(Lnet/minecraft/client/renderer/state/gui/pip/GuiSkinRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V
+protected getTextureLabel()Ljava/lang/String;
+protected synthetic renderToTexture(Lnet/minecraft/client/renderer/state/gui/pip/PictureInPictureRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V
 ```

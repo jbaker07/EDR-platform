@@ -20,24 +20,31 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `["fabric-object-builder-v1.mixins.json", {"config": "fabric-object-builder-v1.client.mixins.json", "environment": "client"}]`
 - access widener: `fabric-object-builder-api-v1.classtweaker`
+- mixin classes: 14 found by annotation, 14 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - [[50-Interactions/events/net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.MODIFY|FabricDefaultAttributeRegistry.MODIFY]]
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.core.registries.BuiltInRegistries|BuiltInRegistries]] | `freeze` | injects_into `@Inject at HEAD` | both | `BuiltInRegistriesMixin.modifyAttributes` |
-| [[40-Interfaces/net.minecraft.network.syncher.EntityDataSerializers|EntityDataSerializers]] | `<clinit>` | injects_into `@Inject at TAIL` | both | `EntityDataSerializersMixin.storeVanillaHandlers` |
-| [[40-Interfaces/net.minecraft.network.syncher.EntityDataSerializers|EntityDataSerializers]] | `registerSerializer(Lnet/minecraft/network/syncher/EntityDataSerializer;)V` | injects_into `@Inject at HEAD` | both | `EntityDataSerializersMixin.onHeadRegister` |
-| [[40-Interfaces/net.minecraft.world.entity.EntityType|EntityType]] | `onlyOpCanSetNbt` | injects_into `@Inject at HEAD` | both | `EntityTypeMixin.onCanPotentiallyExecuteCommands` |
-| [[40-Interfaces/net.minecraft.world.entity.EntityType|EntityType]] | `trackDeltas` | injects_into `@Inject at HEAD` | both | `EntityTypeMixin.onAlwaysUpdateVelocity` |
-| [[40-Interfaces/net.minecraft.world.entity.EntityType_Builder|EntityType$Builder]] | `build` | injects_into `@Inject at RETURN` | both | `EntityTypeBuilderMixin.applyChildBuilders` |
-| [[40-Interfaces/net.minecraft.world.entity.ai.attributes.DefaultAttributes|DefaultAttributes]] | `<clinit>*` | injects_into `@Inject at TAIL` | both | `DefaultAttributesMixin.injectAttributes` |
-| [[40-Interfaces/net.minecraft.world.level.block.DetectorRailBlock|DetectorRailBlock]] | `getAnalogOutputSignal` | injects_into `@Inject at HEAD` | both | `DetectorRailBlockMixin.getCustomComparatorOutput` |
-| [[40-Interfaces/net.minecraft.world.level.block.entity.BlockEntityType|BlockEntityType]] | `<init>` | injects_into `@Inject at RETURN` | both | `BlockEntityTypeMixin.mutableBlocks` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.gui.screens.inventory.HangingSignEditScreen|HangingSignEditScreen]].`<init>` | `(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraft/world/level/block/entity/SignTextSlot;Z)V` | name_only | @WrapOperation | INVOKE `Lnet/minecraft/resources/Identifier;withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` (exact) | client | 1000 (default) | `HangingSignEditScreenMixin.init` |
+| [[40-Interfaces/net.minecraft.client.gui.screens.inventory.SignEditScreen|SignEditScreen]].`<init>` | `(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraft/world/level/block/entity/SignTextSlot;Z)V` | name_only | @WrapOperation | INVOKE `Lnet/minecraft/resources/Identifier;withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` (exact) | client | 1000 (default) | `SignEditScreenMixin.init` |
+| [[40-Interfaces/net.minecraft.core.registries.BuiltInRegistries|BuiltInRegistries]].`freeze` | `()V` | name_only | @Inject | HEAD | both | 1000 (default) | `BuiltInRegistriesMixin.modifyAttributes` |
+| [[40-Interfaces/net.minecraft.network.syncher.EntityDataSerializers|EntityDataSerializers]].`<clinit>` | `()V` | exact | @Inject | TAIL | both | 1000 (default) | `EntityDataSerializersMixin.storeVanillaHandlers` |
+| [[40-Interfaces/net.minecraft.network.syncher.EntityDataSerializers|EntityDataSerializers]].`registerSerializer` | `(Lnet/minecraft/network/syncher/EntityDataSerializer;)V` | exact | @Inject | HEAD | both | 1000 (default) | `EntityDataSerializersMixin.onHeadRegister` |
+| [[40-Interfaces/net.minecraft.world.entity.EntityType|EntityType]].`onlyOpCanSetNbt` | `()Z` | name_only | @Inject | HEAD | both | 1000 (default) | `EntityTypeMixin.onCanPotentiallyExecuteCommands` |
+| [[40-Interfaces/net.minecraft.world.entity.EntityType|EntityType]].`trackDeltas` | `()Z` | name_only | @Inject | HEAD | both | 1000 (default) | `EntityTypeMixin.onAlwaysUpdateVelocity` |
+| [[40-Interfaces/net.minecraft.world.entity.EntityType_Builder|EntityType$Builder]].`build` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/entity/EntityType;` | name_only | @Inject | RETURN | both | 1000 (default) | `EntityTypeBuilderMixin.applyChildBuilders` |
+| [[40-Interfaces/net.minecraft.world.entity.EntityType_Builder|EntityType$Builder]].`build` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/entity/EntityType;` | name_only | @WrapOperation | INVOKE `Lnet/minecraft/util/Util;fetchChoiceType(Lcom/mojang/datafixers/DSL$TypeReference;Ljava/lang/String;)Lcom/mojang/datafixers/types/Type;` (exact) | both | 1000 (default) | `EntityTypeBuilderMixin.allowNoModdedDatafixers` |
+| [[40-Interfaces/net.minecraft.world.entity.ai.attributes.DefaultAttributes|DefaultAttributes]].`<clinit>` | `?` | selector_unsupported | @Inject | TAIL | both | 1000 (default) | `DefaultAttributesMixin.injectAttributes` |
+| [[40-Interfaces/net.minecraft.world.level.block.DetectorRailBlock|DetectorRailBlock]].`getAnalogOutputSignal` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I` | name_only | @Inject | HEAD | both | 1000 (default) | `DetectorRailBlockMixin.getCustomComparatorOutput` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.BlockEntityType|BlockEntityType]].`<init>` | `(Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V` | name_only | @Inject | RETURN | both | 1000 (default) | `BlockEntityTypeMixin.mutableBlocks` |
+| [[40-Interfaces/net.minecraft.world.level.storage.SavedDataStorage|SavedDataStorage]].`readTagFromDisk` | `(Ljava/nio/file/Path;Lnet/minecraft/util/datafix/DataFixTypes;I)Lnet/minecraft/nbt/CompoundTag;` | name_only | @WrapOperation | INVOKE `Lnet/minecraft/util/datafix/DataFixTypes;update(Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/nbt/CompoundTag;II)Lnet/minecraft/nbt/CompoundTag;` (exact) | both | 1000 (default) | `SavedDataStorageMixin.handleNullDataFixType` |
 
 ## API surface
 
@@ -45,14 +52,16 @@ lifecycle: "stable"
 - [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder|FabricBlockEntityTypeBuilder]] (class, 7 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder|BlockSetTypeBuilder]] (class, 18 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder|WoodTypeBuilder]] (class, 9 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry|FabricDefaultAttributeRegistry]] (class, 4 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry|FabricDefaultAttributeRegistry]] (class, 3 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry|FabricEntityDataRegistry]] (class, 3 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType|FabricEntityType]] (interface, 0 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogic|MinecartComparatorLogic]] (interface, 1 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry|MinecartComparatorLogicRegistry]] (class, 3 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry|MinecartComparatorLogicRegistry]] (class, 2 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.object.builder.v1.world.poi.PoiHelper|PoiHelper]] (class, 2 members)
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

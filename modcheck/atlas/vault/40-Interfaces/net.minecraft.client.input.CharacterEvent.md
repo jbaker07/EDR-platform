@@ -11,25 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.input|net.minecraft.client.input]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(I)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(I)V` | exact | invokespecial@19 in `TestInputImpl.lambda$typeChars$1` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `<init>` | `(I)V` | exact | invokespecial@19 in `TestInputImpl.lambda$typeChar$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (1 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.input.CharacterEvent extends java.lang.Record {
-    private final int codepoint;
-    public net.minecraft.client.input.CharacterEvent(int);
-    public java.lang.String codepointAsString();
-    public boolean isAllowedChatCharacter();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public int codepoint();
-}
+```
+private final codepoint : I
+public <init>(I)V
+public codepointAsString()Ljava/lang/String;
+public isAllowedChatCharacter()Z
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public codepoint()I
 ```

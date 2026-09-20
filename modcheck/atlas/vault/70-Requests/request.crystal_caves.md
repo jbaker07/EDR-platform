@@ -1,6 +1,8 @@
 ---
 type: "request"
 id: "request.crystal_caves"
+canonical: "exercise.crystal_caves"
+kind: "analyst_exercise"
 family: "workflow:wf.world.features_biomes"
 ---
 
@@ -9,11 +11,16 @@ family: "workflow:wf.world.features_biomes"
 
 # Crystal caves -- crystal-lined cave pockets in mountain biomes
 
+**Canonical request.** `exercise.crystal_caves` (analyst_exercise)
+
+> [!note] Analyst exercise
+> No creator wrote this request. Nothing in it is approved intent.
+
 ## Request
 
 Analyst-authored exercise request (not from a creator): in mountain biomes, generate occasional cave pockets whose walls are studded with a new crystal block; the crystals glow faintly and drop shards; existing worlds get them in new chunks only.
 
-## Approved behaviour and constraints
+## Approved behaviour (the request's own words or acceptance criteria)
 
 - Provisional (no creator): mountain biomes by tag; rarity roughly one pocket per several chunks; new chunks only.
 
@@ -75,3 +82,8 @@ Analyst-authored exercise request (not from a creator): in mountain biomes, gene
 - `extracted/fabric_api.json#fabric-biome-api-v1`
 - `extracted/edges.json#publishes_event`
 
+## Status
+
+- analysed: True
+- implemented: none
+- validated_scope: none

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerLevelMixin.startLevelTick` | `ServerLevel.tick` @Inject at FIELD Lnet/minecraft/server/level/ServerLevel;handlingTick:Z | both | static_inference |
+| `ServerLevelMixin.startLevelTick` @13 | [[40-Interfaces/net.minecraft.server.level.ServerLevel|ServerLevel]].`tick` @Inject FIELD `Lnet/minecraft/server/level/ServerLevel;handlingTick:Z` | unknown | static_inference |
 
 ## Contract
 

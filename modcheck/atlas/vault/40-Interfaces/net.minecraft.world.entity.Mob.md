@@ -11,226 +11,226 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/entity/LivingEntity`; implements `net/minecraft/world/entity/Targeting`, `net/minecraft/world/entity/EquipmentUser`, `net/minecraft/world/entity/Leashable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `convertTo(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ConversionParams;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/ConversionParams$AfterConversion;)Lnet/minecraft/world/entity/Mob;` | `@ModifyArg at INVOKE Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| injects_into | `registerDebugValues` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `convertTo` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/Co` | exact | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| injects_into | `registerDebugValues` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/debug/Deb` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
 
-## Declared members (208, all visibilities)
+## Declared members (45 fields, 163 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.entity.Mob extends net.minecraft.world.entity.LivingEntity implements net.minecraft.world.entity.Targeting,net.minecraft.world.entity.EquipmentUser,net.minecraft.world.entity.Leashable {
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Byte> DATA_MOB_FLAGS_ID;
-    private static final int MOB_FLAG_NO_AI;
-    private static final int MOB_FLAG_LEFTHANDED;
-    private static final int MOB_FLAG_AGGRESSIVE;
-    protected static final int PICKUP_REACH;
-    private static final net.minecraft.core.Vec3i ITEM_PICKUP_REACH;
-    private static final java.util.List<net.minecraft.world.entity.EquipmentSlot> EQUIPMENT_POPULATION_ORDER;
-    public static final float MAX_WEARING_ARMOR_CHANCE;
-    public static final float WEARING_ARMOR_UPGRADE_MATERIAL_CHANCE;
-    public static final float WEARING_ARMOR_UPGRADE_MATERIAL_ATTEMPTS;
-    public static final float MAX_PICKUP_LOOT_CHANCE;
-    public static final float MAX_ENCHANTED_ARMOR_CHANCE;
-    public static final float MAX_ENCHANTED_WEAPON_CHANCE;
-    public static final int UPDATE_GOAL_SELECTOR_EVERY_N_TICKS;
-    private static final double DEFAULT_ATTACK_REACH;
-    private static final boolean DEFAULT_CAN_PICK_UP_LOOT;
-    private static final boolean DEFAULT_PERSISTENCE_REQUIRED;
-    private static final boolean DEFAULT_LEFT_HANDED;
-    private static final boolean DEFAULT_NO_AI;
-    protected static final net.minecraft.resources.Identifier RANDOM_SPAWN_BONUS_ID;
-    public static final java.lang.String TAG_DROP_CHANCES;
-    public static final java.lang.String TAG_LEFT_HANDED;
-    public static final java.lang.String TAG_CAN_PICK_UP_LOOT;
-    public static final java.lang.String TAG_NO_AI;
-    public static final java.lang.String TAG_PERSISTENCE_REQUIRED;
-    public int ambientSoundTime;
-    protected int xpReward;
-    protected net.minecraft.world.entity.ai.control.LookControl lookControl;
-    protected net.minecraft.world.entity.ai.control.MoveControl moveControl;
-    protected net.minecraft.world.entity.ai.control.JumpControl jumpControl;
-    private final net.minecraft.world.entity.ai.control.BodyRotationControl bodyRotationControl;
-    protected net.minecraft.world.entity.ai.navigation.PathNavigation navigation;
-    protected final net.minecraft.world.entity.ai.goal.GoalSelector goalSelector;
-    protected final net.minecraft.world.entity.ai.goal.GoalSelector targetSelector;
-    private net.minecraft.world.entity.LivingEntity target;
-    private final net.minecraft.world.entity.ai.sensing.Sensing sensing;
-    private net.minecraft.world.entity.DropChances dropChances;
-    private boolean canPickUpLoot;
-    private boolean persistenceRequired;
-    private final java.util.Map<net.minecraft.world.level.pathfinder.PathType, java.lang.Float> pathfindingMalus;
-    private java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> lootTable;
-    private long lootTableSeed;
-    private net.minecraft.world.entity.Leashable$LeashData leashData;
-    private net.minecraft.core.BlockPos homePosition;
-    private int homeRadius;
-    protected net.minecraft.world.entity.Mob(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob>, net.minecraft.world.level.Level);
-    protected void registerGoals();
-    public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createMobAttributes();
-    protected net.minecraft.world.entity.ai.navigation.PathNavigation createNavigation(net.minecraft.world.level.Level);
-    protected boolean shouldPassengersInheritMalus();
-    public float getPathfindingMalus(net.minecraft.world.level.pathfinder.PathType);
-    public void setPathfindingMalus(net.minecraft.world.level.pathfinder.PathType, float);
-    public void onPathfindingStart();
-    public void onPathfindingDone();
-    protected net.minecraft.world.entity.ai.control.BodyRotationControl createBodyControl();
-    public net.minecraft.world.entity.ai.control.LookControl getLookControl();
-    public net.minecraft.world.entity.ai.control.MoveControl getMoveControl();
-    public net.minecraft.world.entity.ai.control.JumpControl getJumpControl();
-    public net.minecraft.world.entity.ai.navigation.PathNavigation getNavigation();
-    public net.minecraft.world.entity.LivingEntity getControllingPassenger();
-    public net.minecraft.world.entity.ai.sensing.Sensing getSensing();
-    public net.minecraft.world.entity.LivingEntity getTarget();
-    public net.minecraft.world.entity.LivingEntity getTargetUnchecked();
-    protected net.minecraft.world.entity.LivingEntity asValidTarget(net.minecraft.world.entity.LivingEntity);
-    protected final net.minecraft.world.entity.LivingEntity getTargetFromBrain();
-    public void setTarget(net.minecraft.world.entity.LivingEntity);
-    public boolean canAttack(net.minecraft.world.entity.LivingEntity);
-    public boolean canUseNonMeleeWeapon(net.minecraft.world.item.ItemStack);
-    public void ate();
-    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData$Builder);
-    public int getAmbientSoundInterval();
-    public void playAmbientSound();
-    public void baseTick();
-    protected void playHurtSound(net.minecraft.world.damagesource.DamageSource);
-    private void resetAmbientSoundTime();
-    protected int getBaseExperienceReward(net.minecraft.server.level.ServerLevel);
-    public void spawnAnim();
-    public void handleEntityEvent(byte);
-    public void tick();
-    protected void updateControlFlags();
-    protected void tickHeadTurn(float);
-    protected net.minecraft.sounds.SoundEvent getAmbientSound();
-    protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput);
-    protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput);
-    protected void dropFromLootTable(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, boolean);
-    public final java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> getLootTable();
-    public long getLootTableSeed();
-    public void setZza(float);
-    public void setYya(float);
-    public void setXxa(float);
-    public void setSpeed(float);
-    public void stopInPlace();
-    public void aiStep();
-    protected net.minecraft.world.entity.EquipmentSlot sunProtectionSlot();
-    private void burnUndead();
-    private boolean isSunBurnTick();
-    protected net.minecraft.core.Vec3i getPickupReach();
-    protected void pickUpItem(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.item.ItemEntity);
-    public net.minecraft.world.item.ItemStack equipItemIfPossible(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    protected void setItemSlotAndDropWhenKilled(net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack);
-    protected boolean canShearEquipment(net.minecraft.world.entity.player.Player);
-    protected boolean attemptToShearEquipment(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.item.ItemStack);
-    protected void shearItem(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack);
-    public void setGuaranteedDrop(net.minecraft.world.entity.EquipmentSlot);
-    protected boolean canReplaceCurrentItem(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.EquipmentSlot);
-    private boolean compareArmor(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.EquipmentSlot);
-    private boolean compareWeapons(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.EquipmentSlot);
-    private double getApproximateAttributeWith(net.minecraft.world.item.ItemStack, net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>, net.minecraft.world.entity.EquipmentSlot);
-    public boolean canReplaceEqualItem(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
-    public boolean canHoldItem(net.minecraft.world.item.ItemStack);
-    public boolean wantsToPickUp(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    public net.minecraft.tags.TagKey<net.minecraft.world.item.Item> getPreferredWeaponType();
-    public boolean removeWhenFarAway(double);
-    public boolean requiresCustomPersistence();
-    public void checkDespawn();
-    protected final void serverAiStep();
-    protected void customServerAiStep(net.minecraft.server.level.ServerLevel);
-    public int getMaxHeadXRot();
-    public int getMaxHeadYRot();
-    public void clampHeadRotationToBody();
-    public int getHeadRotSpeed();
-    public void lookAt(net.minecraft.world.entity.Entity, float, float);
-    private float rotlerp(float, float, float);
-    public static boolean checkMobSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public boolean checkSpawnRules(net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason);
-    public boolean checkSpawnObstruction(net.minecraft.world.level.LevelReader);
-    public int getMaxSpawnClusterSize();
-    public boolean isMaxGroupSizeReached(int);
-    public int getMaxFallDistance();
-    public net.minecraft.world.item.ItemStack getBodyArmorItem();
-    public boolean isSaddled();
-    public boolean isWearingBodyArmor();
-    private boolean hasValidEquippableItemForSlot(net.minecraft.world.entity.EquipmentSlot);
-    public net.minecraft.world.Container createEquipmentSlotContainer(net.minecraft.world.entity.EquipmentSlot);
-    protected void dropCustomDeathLoot(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, boolean);
-    public net.minecraft.world.entity.DropChances getDropChances();
-    public void dropPreservedEquipment(net.minecraft.server.level.ServerLevel);
-    public java.util.Set<net.minecraft.world.entity.EquipmentSlot> dropPreservedEquipment(net.minecraft.server.level.ServerLevel, java.util.function.Predicate<net.minecraft.world.item.ItemStack>);
-    private net.minecraft.world.level.storage.loot.LootParams createEquipmentParams(net.minecraft.server.level.ServerLevel);
-    public void equip(net.minecraft.world.entity.EquipmentTable);
-    public void equip(net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, java.util.Map<net.minecraft.world.entity.EquipmentSlot, java.lang.Float>);
-    protected void populateDefaultEquipmentSlots(net.minecraft.util.RandomSource, net.minecraft.world.DifficultyInstance);
-    public static net.minecraft.world.item.Item getEquipmentForSlot(net.minecraft.world.entity.EquipmentSlot, int);
-    protected void populateDefaultEquipmentEnchantments(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.util.RandomSource, net.minecraft.world.DifficultyInstance);
-    protected void enchantSpawnedWeapon(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.util.RandomSource, net.minecraft.world.DifficultyInstance);
-    protected void enchantSpawnedArmor(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.util.RandomSource, net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.DifficultyInstance);
-    private void enchantSpawnedEquipment(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.entity.EquipmentSlot, net.minecraft.util.RandomSource, float, net.minecraft.world.DifficultyInstance);
-    public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.DifficultyInstance, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.SpawnGroupData);
-    public void setPersistenceRequired();
-    public void setDropChance(net.minecraft.world.entity.EquipmentSlot, float);
-    public boolean canPickUpLoot();
-    public void setCanPickUpLoot(boolean);
-    protected boolean canDispenserEquipIntoSlot(net.minecraft.world.entity.EquipmentSlot);
-    public boolean isPersistenceRequired();
-    public net.minecraft.world.InteractionResult interact(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.phys.Vec3);
-    private net.minecraft.world.InteractionResult checkAndHandleImportantInteractions(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
-    protected void onOffspringSpawnedFromEgg(net.minecraft.world.entity.player.Player, net.minecraft.world.entity.Mob);
-    protected net.minecraft.world.InteractionResult mobInteract(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
-    protected void usePlayerItem(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.item.ItemStack);
-    public boolean isWithinHome();
-    public boolean isWithinHome(net.minecraft.core.BlockPos);
-    public boolean isWithinHome(net.minecraft.world.phys.Vec3);
-    public void setHomeTo(net.minecraft.core.BlockPos, int);
-    public net.minecraft.core.BlockPos getHomePosition();
-    public int getHomeRadius();
-    public void clearHome();
-    public boolean hasHome();
-    public <T extends net.minecraft.world.entity.Mob> T convertTo(net.minecraft.world.entity.EntityType<T>, net.minecraft.world.entity.ConversionParams, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.ConversionParams$AfterConversion<T>);
-    public <T extends net.minecraft.world.entity.Mob> T convertTo(net.minecraft.world.entity.EntityType<T>, net.minecraft.world.entity.ConversionParams, net.minecraft.world.entity.ConversionParams$AfterConversion<T>);
-    public net.minecraft.world.entity.Leashable$LeashData getLeashData();
-    private void resetAngularLeashMomentum();
-    public void setLeashData(net.minecraft.world.entity.Leashable$LeashData);
-    public void onLeashRemoved();
-    public void leashTooFarBehaviour();
-    public boolean canBeLeashed();
-    public boolean startRiding(net.minecraft.world.entity.Entity, boolean, boolean);
-    public boolean isEffectiveAi();
-    public void setNoAi(boolean);
-    public void setLeftHanded(boolean);
-    public void setAggressive(boolean);
-    public boolean isNoAi();
-    public boolean isLeftHanded();
-    public boolean isAggressive();
-    public void setBaby(boolean);
-    public net.minecraft.world.entity.HumanoidArm getMainArm();
-    public boolean isWithinMeleeAttackRange(net.minecraft.world.entity.LivingEntity);
-    protected net.minecraft.world.phys.AABB getAttackBoundingBox(double);
-    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
-    protected void jumpInLiquid(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>);
-    public void removeFreeWill();
-    public net.minecraft.world.entity.ai.goal.GoalSelector getGoalSelector();
-    public void removeAllGoals(java.util.function.Predicate<net.minecraft.world.entity.ai.goal.Goal>);
-    protected void removeAfterChangingDimensions();
-    public net.minecraft.world.item.ItemStack getPickResult();
-    protected void onAttributeUpdated(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>);
-    public void registerDebugValues(net.minecraft.server.level.ServerLevel, net.minecraft.util.debug.DebugValueSource$Registration);
-    public float chargeSpeedModifier();
-    public void swingForAttack(net.minecraft.world.InteractionHand);
-    public void swing(net.minecraft.world.InteractionHand, net.minecraft.world.item.component.SwingAnimation);
-    private net.minecraft.util.debug.DebugBrainDump lambda$registerDebugValues$3(net.minecraft.server.level.ServerLevel);
-    private net.minecraft.util.debug.DebugGoalInfo lambda$registerDebugValues$1();
-    private static void lambda$registerDebugValues$2(java.util.List, net.minecraft.world.entity.ai.goal.WrappedGoal);
-    private net.minecraft.util.debug.DebugPathInfo lambda$registerDebugValues$0();
-    private static boolean lambda$removeFreeWill$0(net.minecraft.world.entity.ai.goal.Goal);
-    private void lambda$checkAndHandleImportantInteractions$0(net.minecraft.world.entity.player.Player, net.minecraft.world.entity.Mob);
-    private static boolean lambda$dropPreservedEquipment$0(net.minecraft.world.item.ItemStack);
-    private static void lambda$addAdditionalSaveData$0(net.minecraft.world.level.storage.ValueOutput, net.minecraft.resources.ResourceKey);
-    static {};
-}
+```
+private static final DATA_MOB_FLAGS_ID : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final MOB_FLAG_NO_AI : I
+private static final MOB_FLAG_LEFTHANDED : I
+private static final MOB_FLAG_AGGRESSIVE : I
+protected static final PICKUP_REACH : I
+private static final ITEM_PICKUP_REACH : Lnet/minecraft/core/Vec3i;
+private static final EQUIPMENT_POPULATION_ORDER : Ljava/util/List;
+public static final MAX_WEARING_ARMOR_CHANCE : F
+public static final WEARING_ARMOR_UPGRADE_MATERIAL_CHANCE : F
+public static final WEARING_ARMOR_UPGRADE_MATERIAL_ATTEMPTS : F
+public static final MAX_PICKUP_LOOT_CHANCE : F
+public static final MAX_ENCHANTED_ARMOR_CHANCE : F
+public static final MAX_ENCHANTED_WEAPON_CHANCE : F
+public static final UPDATE_GOAL_SELECTOR_EVERY_N_TICKS : I
+private static final DEFAULT_ATTACK_REACH : D
+private static final DEFAULT_CAN_PICK_UP_LOOT : Z
+private static final DEFAULT_PERSISTENCE_REQUIRED : Z
+private static final DEFAULT_LEFT_HANDED : Z
+private static final DEFAULT_NO_AI : Z
+protected static final RANDOM_SPAWN_BONUS_ID : Lnet/minecraft/resources/Identifier;
+public static final TAG_DROP_CHANCES : Ljava/lang/String;
+public static final TAG_LEFT_HANDED : Ljava/lang/String;
+public static final TAG_CAN_PICK_UP_LOOT : Ljava/lang/String;
+public static final TAG_NO_AI : Ljava/lang/String;
+public static final TAG_PERSISTENCE_REQUIRED : Ljava/lang/String;
+public ambientSoundTime : I
+protected xpReward : I
+protected lookControl : Lnet/minecraft/world/entity/ai/control/LookControl;
+protected moveControl : Lnet/minecraft/world/entity/ai/control/MoveControl;
+protected jumpControl : Lnet/minecraft/world/entity/ai/control/JumpControl;
+private final bodyRotationControl : Lnet/minecraft/world/entity/ai/control/BodyRotationControl;
+protected navigation : Lnet/minecraft/world/entity/ai/navigation/PathNavigation;
+protected final goalSelector : Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+protected final targetSelector : Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+private target : Lnet/minecraft/world/entity/LivingEntity;
+private final sensing : Lnet/minecraft/world/entity/ai/sensing/Sensing;
+private dropChances : Lnet/minecraft/world/entity/DropChances;
+private canPickUpLoot : Z
+private persistenceRequired : Z
+private final pathfindingMalus : Ljava/util/Map;
+private lootTable : Ljava/util/Optional;
+private lootTableSeed : J
+private leashData : Lnet/minecraft/world/entity/Leashable$LeashData;
+private homePosition : Lnet/minecraft/core/BlockPos;
+private homeRadius : I
+protected <init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V
+protected registerGoals()V
+public static createMobAttributes()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;
+protected createNavigation(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/entity/ai/navigation/PathNavigation;
+protected shouldPassengersInheritMalus()Z
+public getPathfindingMalus(Lnet/minecraft/world/level/pathfinder/PathType;)F
+public setPathfindingMalus(Lnet/minecraft/world/level/pathfinder/PathType;F)V
+public onPathfindingStart()V
+public onPathfindingDone()V
+protected createBodyControl()Lnet/minecraft/world/entity/ai/control/BodyRotationControl;
+public getLookControl()Lnet/minecraft/world/entity/ai/control/LookControl;
+public getMoveControl()Lnet/minecraft/world/entity/ai/control/MoveControl;
+public getJumpControl()Lnet/minecraft/world/entity/ai/control/JumpControl;
+public getNavigation()Lnet/minecraft/world/entity/ai/navigation/PathNavigation;
+public getControllingPassenger()Lnet/minecraft/world/entity/LivingEntity;
+public getSensing()Lnet/minecraft/world/entity/ai/sensing/Sensing;
+public getTarget()Lnet/minecraft/world/entity/LivingEntity;
+public getTargetUnchecked()Lnet/minecraft/world/entity/LivingEntity;
+protected asValidTarget(Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/entity/LivingEntity;
+protected final getTargetFromBrain()Lnet/minecraft/world/entity/LivingEntity;
+public setTarget(Lnet/minecraft/world/entity/LivingEntity;)V
+public canAttack(Lnet/minecraft/world/entity/LivingEntity;)Z
+public canUseNonMeleeWeapon(Lnet/minecraft/world/item/ItemStack;)Z
+public ate()V
+protected defineSynchedData(Lnet/minecraft/network/syncher/SynchedEntityData$Builder;)V
+public getAmbientSoundInterval()I
+public playAmbientSound()V
+public baseTick()V
+protected playHurtSound(Lnet/minecraft/world/damagesource/DamageSource;)V
+private resetAmbientSoundTime()V
+protected getBaseExperienceReward(Lnet/minecraft/server/level/ServerLevel;)I
+public spawnAnim()V
+public handleEntityEvent(B)V
+public tick()V
+protected updateControlFlags()V
+protected tickHeadTurn(F)V
+protected getAmbientSound()Lnet/minecraft/sounds/SoundEvent;
+protected addAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueOutput;)V
+protected readAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected dropFromLootTable(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;Z)V
+public final getLootTable()Ljava/util/Optional;
+public getLootTableSeed()J
+public setZza(F)V
+public setYya(F)V
+public setXxa(F)V
+public setSpeed(F)V
+public stopInPlace()V
+public aiStep()V
+protected sunProtectionSlot()Lnet/minecraft/world/entity/EquipmentSlot;
+private burnUndead()V
+private isSunBurnTick()Z
+protected getPickupReach()Lnet/minecraft/core/Vec3i;
+protected pickUpItem(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/item/ItemEntity;)V
+public equipItemIfPossible(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+protected setItemSlotAndDropWhenKilled(Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/world/item/ItemStack;)V
+protected canShearEquipment(Lnet/minecraft/world/entity/player/Player;)Z
+protected attemptToShearEquipment(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/ItemStack;)Z
+protected shearItem(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/world/item/ItemStack;)V
+public setGuaranteedDrop(Lnet/minecraft/world/entity/EquipmentSlot;)V
+protected canReplaceCurrentItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;)Z
+private compareArmor(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;)Z
+private compareWeapons(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;)Z
+private getApproximateAttributeWith(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/EquipmentSlot;)D
+public canReplaceEqualItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z
+public canHoldItem(Lnet/minecraft/world/item/ItemStack;)Z
+public wantsToPickUp(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)Z
+public getPreferredWeaponType()Lnet/minecraft/tags/TagKey;
+public removeWhenFarAway(D)Z
+public requiresCustomPersistence()Z
+public checkDespawn()V
+protected final serverAiStep()V
+protected customServerAiStep(Lnet/minecraft/server/level/ServerLevel;)V
+public getMaxHeadXRot()I
+public getMaxHeadYRot()I
+public clampHeadRotationToBody()V
+public getHeadRotSpeed()I
+public lookAt(Lnet/minecraft/world/entity/Entity;FF)V
+private rotlerp(FFF)F
+public static checkMobSpawnRules(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Z
+public checkSpawnRules(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/entity/EntitySpawnReason;)Z
+public checkSpawnObstruction(Lnet/minecraft/world/level/LevelReader;)Z
+public getMaxSpawnClusterSize()I
+public isMaxGroupSizeReached(I)Z
+public getMaxFallDistance()I
+public getBodyArmorItem()Lnet/minecraft/world/item/ItemStack;
+public isSaddled()Z
+public isWearingBodyArmor()Z
+private hasValidEquippableItemForSlot(Lnet/minecraft/world/entity/EquipmentSlot;)Z
+public createEquipmentSlotContainer(Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/world/Container;
+protected dropCustomDeathLoot(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;Z)V
+public getDropChances()Lnet/minecraft/world/entity/DropChances;
+public dropPreservedEquipment(Lnet/minecraft/server/level/ServerLevel;)V
+public dropPreservedEquipment(Lnet/minecraft/server/level/ServerLevel;Ljava/util/function/Predicate;)Ljava/util/Set;
+private createEquipmentParams(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/world/level/storage/loot/LootParams;
+public equip(Lnet/minecraft/world/entity/EquipmentTable;)V
+public equip(Lnet/minecraft/resources/ResourceKey;Ljava/util/Map;)V
+protected populateDefaultEquipmentSlots(Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/DifficultyInstance;)V
+public static getEquipmentForSlot(Lnet/minecraft/world/entity/EquipmentSlot;I)Lnet/minecraft/world/item/Item;
+protected populateDefaultEquipmentEnchantments(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/DifficultyInstance;)V
+protected enchantSpawnedWeapon(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/DifficultyInstance;)V
+protected enchantSpawnedArmor(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/world/DifficultyInstance;)V
+private enchantSpawnedEquipment(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/util/RandomSource;FLnet/minecraft/world/DifficultyInstance;)V
+public finalizeSpawn(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/DifficultyInstance;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/SpawnGroupData;)Lnet/minecraft/world/entity/SpawnGroupData;
+public setPersistenceRequired()V
+public setDropChance(Lnet/minecraft/world/entity/EquipmentSlot;F)V
+public canPickUpLoot()Z
+public setCanPickUpLoot(Z)V
+protected canDispenserEquipIntoSlot(Lnet/minecraft/world/entity/EquipmentSlot;)Z
+public isPersistenceRequired()Z
+public interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;
+private checkAndHandleImportantInteractions(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;
+protected onOffspringSpawnedFromEgg(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Mob;)V
+protected mobInteract(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;
+protected usePlayerItem(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/ItemStack;)V
+public isWithinHome()Z
+public isWithinHome(Lnet/minecraft/core/BlockPos;)Z
+public isWithinHome(Lnet/minecraft/world/phys/Vec3;)Z
+public setHomeTo(Lnet/minecraft/core/BlockPos;I)V
+public getHomePosition()Lnet/minecraft/core/BlockPos;
+public getHomeRadius()I
+public clearHome()V
+public hasHome()Z
+public convertTo(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ConversionParams;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/ConversionParams$AfterConversion;)Lnet/minecraft/world/entity/Mob;
+public convertTo(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ConversionParams;Lnet/minecraft/world/entity/ConversionParams$AfterConversion;)Lnet/minecraft/world/entity/Mob;
+public getLeashData()Lnet/minecraft/world/entity/Leashable$LeashData;
+private resetAngularLeashMomentum()V
+public setLeashData(Lnet/minecraft/world/entity/Leashable$LeashData;)V
+public onLeashRemoved()V
+public leashTooFarBehaviour()V
+public canBeLeashed()Z
+public startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z
+public isEffectiveAi()Z
+public setNoAi(Z)V
+public setLeftHanded(Z)V
+public setAggressive(Z)V
+public isNoAi()Z
+public isLeftHanded()Z
+public isAggressive()Z
+public setBaby(Z)V
+public getMainArm()Lnet/minecraft/world/entity/HumanoidArm;
+public isWithinMeleeAttackRange(Lnet/minecraft/world/entity/LivingEntity;)Z
+protected getAttackBoundingBox(D)Lnet/minecraft/world/phys/AABB;
+public doHurtTarget(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)Z
+protected jumpInLiquid(Lnet/minecraft/tags/TagKey;)V
+public removeFreeWill()V
+public getGoalSelector()Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+public removeAllGoals(Ljava/util/function/Predicate;)V
+protected removeAfterChangingDimensions()V
+public getPickResult()Lnet/minecraft/world/item/ItemStack;
+protected onAttributeUpdated(Lnet/minecraft/core/Holder;)V
+public registerDebugValues(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/debug/DebugValueSource$Registration;)V
+public chargeSpeedModifier()F
+public swingForAttack(Lnet/minecraft/world/InteractionHand;)V
+public swing(Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/component/SwingAnimation;)V
+private synthetic lambda$registerDebugValues$3(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/util/debug/DebugBrainDump;
+private synthetic lambda$registerDebugValues$1()Lnet/minecraft/util/debug/DebugGoalInfo;
+private static synthetic lambda$registerDebugValues$2(Ljava/util/List;Lnet/minecraft/world/entity/ai/goal/WrappedGoal;)V
+private synthetic lambda$registerDebugValues$0()Lnet/minecraft/util/debug/DebugPathInfo;
+private static synthetic lambda$removeFreeWill$0(Lnet/minecraft/world/entity/ai/goal/Goal;)Z
+private synthetic lambda$checkAndHandleImportantInteractions$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Mob;)V
+private static synthetic lambda$dropPreservedEquipment$0(Lnet/minecraft/world/item/ItemStack;)Z
+private static synthetic lambda$addAdditionalSaveData$0(Lnet/minecraft/world/level/storage/ValueOutput;Lnet/minecraft/resources/ResourceKey;)V
+static <clinit>()V
 ```

@@ -11,47 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/server/packs/resources/ResourceManagerReloadListener`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `onResourceManagerReload` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `onResourceManagerReload` | `(Lnet/minecraft/server/packs/resources/ResourceManager;)V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (30, all visibilities)
+## Declared members (16 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.entity.EntityRenderDispatcher implements net.minecraft.server.packs.resources.ResourceManagerReloadListener {
-    private java.util.Map<net.minecraft.world.entity.EntityType<?>, net.minecraft.client.renderer.entity.EntityRenderer<?, ?>> renderers;
-    private java.util.Map<net.minecraft.world.entity.player.PlayerModelType, net.minecraft.client.renderer.entity.player.AvatarRenderer<net.minecraft.client.player.AbstractClientPlayer>> playerRenderers;
-    private java.util.Map<net.minecraft.world.entity.player.PlayerModelType, net.minecraft.client.renderer.entity.player.AvatarRenderer<net.minecraft.client.entity.ClientMannequin>> mannequinRenderers;
-    public final net.minecraft.client.renderer.texture.TextureManager textureManager;
-    public net.minecraft.client.Camera camera;
-    public net.minecraft.world.entity.Entity crosshairPickEntity;
-    private final net.minecraft.client.renderer.block.BlockModelResolver blockModelResolver;
-    private final net.minecraft.client.renderer.item.ItemModelResolver itemModelResolver;
-    private final net.minecraft.client.renderer.MapRenderer mapRenderer;
-    private final net.minecraft.client.resources.model.sprite.AtlasManager atlasManager;
-    private final net.minecraft.client.gui.Font font;
-    public final net.minecraft.client.Options options;
-    private final java.util.function.Supplier<net.minecraft.client.model.geom.EntityModelSet> entityModels;
-    private final net.minecraft.client.resources.model.EquipmentAssetManager equipmentAssets;
-    private final net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache;
-    private final net.minecraft.client.resources.palette.PalettedTextureManager palettedTextures;
-    public <E extends net.minecraft.world.entity.Entity> int getPackedLightCoords(E, float);
-    public net.minecraft.client.renderer.entity.EntityRenderDispatcher(net.minecraft.client.renderer.texture.TextureManager, net.minecraft.client.renderer.block.BlockModelResolver, net.minecraft.client.renderer.item.ItemModelResolver, net.minecraft.client.renderer.MapRenderer, net.minecraft.client.resources.model.sprite.AtlasManager, net.minecraft.client.gui.Font, net.minecraft.client.Options, java.util.function.Supplier<net.minecraft.client.model.geom.EntityModelSet>, net.minecraft.client.resources.model.EquipmentAssetManager, net.minecraft.client.renderer.PlayerSkinRenderCache, net.minecraft.client.resources.palette.PalettedTextureManager);
-    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
-    private <T extends net.minecraft.world.entity.Avatar & net.minecraft.client.entity.ClientAvatarEntity> net.minecraft.client.renderer.entity.player.AvatarRenderer<T> getAvatarRenderer(java.util.Map<net.minecraft.world.entity.player.PlayerModelType, net.minecraft.client.renderer.entity.player.AvatarRenderer<T>>, T);
-    public net.minecraft.client.renderer.entity.player.AvatarRenderer<?> getRenderer(net.minecraft.client.renderer.entity.state.AvatarRenderState);
-    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
-    public void prepare(net.minecraft.client.Camera, net.minecraft.world.entity.Entity);
-    public <E extends net.minecraft.world.entity.Entity> boolean shouldRender(E, net.minecraft.client.renderer.culling.Frustum, double, double, double, float);
-    public <E extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.state.EntityRenderState extractEntity(E, float);
-    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> void submit(S, net.minecraft.client.renderer.state.level.CameraRenderState, double, double, double, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector);
-    private <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.CrashReportCategory fillRendererDetails(net.minecraft.client.renderer.entity.EntityRenderer<?, S>, net.minecraft.CrashReport);
-    public void resetCamera();
-    public double distanceToSqr(net.minecraft.world.entity.Entity);
-    public void onResourceManagerReload(net.minecraft.server.packs.resources.ResourceManager);
-}
+```
+private renderers : Ljava/util/Map;
+private playerRenderers : Ljava/util/Map;
+private mannequinRenderers : Ljava/util/Map;
+public final textureManager : Lnet/minecraft/client/renderer/texture/TextureManager;
+public camera : Lnet/minecraft/client/Camera;
+public crosshairPickEntity : Lnet/minecraft/world/entity/Entity;
+private final blockModelResolver : Lnet/minecraft/client/renderer/block/BlockModelResolver;
+private final itemModelResolver : Lnet/minecraft/client/renderer/item/ItemModelResolver;
+private final mapRenderer : Lnet/minecraft/client/renderer/MapRenderer;
+private final atlasManager : Lnet/minecraft/client/resources/model/sprite/AtlasManager;
+private final font : Lnet/minecraft/client/gui/Font;
+public final options : Lnet/minecraft/client/Options;
+private final entityModels : Ljava/util/function/Supplier;
+private final equipmentAssets : Lnet/minecraft/client/resources/model/EquipmentAssetManager;
+private final playerSkinRenderCache : Lnet/minecraft/client/renderer/PlayerSkinRenderCache;
+private final palettedTextures : Lnet/minecraft/client/resources/palette/PalettedTextureManager;
+public getPackedLightCoords(Lnet/minecraft/world/entity/Entity;F)I
+public <init>(Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/client/renderer/block/BlockModelResolver;Lnet/minecraft/client/renderer/item/ItemModelResolver;Lnet/minecraft/client/renderer/MapRenderer;Lnet/minecraft/client/resources/model/sprite/AtlasManager;Lnet/minecraft/client/gui/Font;Lnet/minecraft/client/Options;Ljava/util/function/Supplier;Lnet/minecraft/client/resources/model/EquipmentAssetManager;Lnet/minecraft/client/renderer/PlayerSkinRenderCache;Lnet/minecraft/client/resources/palette/PalettedTextureManager;)V
+public getRenderer(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/client/renderer/entity/EntityRenderer;
+private getAvatarRenderer(Ljava/util/Map;Lnet/minecraft/world/entity/Avatar;)Lnet/minecraft/client/renderer/entity/player/AvatarRenderer;
+public getRenderer(Lnet/minecraft/client/renderer/entity/state/AvatarRenderState;)Lnet/minecraft/client/renderer/entity/player/AvatarRenderer;
+public getRenderer(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;)Lnet/minecraft/client/renderer/entity/EntityRenderer;
+public prepare(Lnet/minecraft/client/Camera;Lnet/minecraft/world/entity/Entity;)V
+public shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDDF)Z
+public extractEntity(Lnet/minecraft/world/entity/Entity;F)Lnet/minecraft/client/renderer/entity/state/EntityRenderState;
+public submit(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;Lnet/minecraft/client/renderer/state/level/CameraRenderState;DDDLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V
+private fillRendererDetails(Lnet/minecraft/client/renderer/entity/EntityRenderer;Lnet/minecraft/CrashReport;)Lnet/minecraft/CrashReportCategory;
+public resetCamera()V
+public distanceToSqr(Lnet/minecraft/world/entity/Entity;)D
+public onResourceManagerReload(Lnet/minecraft/server/packs/resources/ResourceManager;)V
 ```

@@ -11,22 +11,22 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `lookup()Lnet/minecraft/core/HolderLookup$Provider;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `lookup` | `()Lnet/minecraft/core/HolderLookup$Provider;` | exact | invokevirtual@7 in `LootUtil.getEntryOrDirect` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (1 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.ReloadableServerRegistries$Holder {
-    private final net.minecraft.core.HolderLookup$Provider registries;
-    public net.minecraft.server.ReloadableServerRegistries$Holder(net.minecraft.core.HolderLookup$Provider);
-    public net.minecraft.core.HolderLookup$Provider lookup();
-    public net.minecraft.world.level.storage.loot.LootTable getLootTable(net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>);
-    private static java.util.Optional lambda$getLootTable$0(net.minecraft.resources.ResourceKey, net.minecraft.core.HolderLookup$RegistryLookup);
-}
+```
+private final registries : Lnet/minecraft/core/HolderLookup$Provider;
+public <init>(Lnet/minecraft/core/HolderLookup$Provider;)V
+public lookup()Lnet/minecraft/core/HolderLookup$Provider;
+public getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;
+private static synthetic lambda$getLootTable$0(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/HolderLookup$RegistryLookup;)Ljava/util/Optional;
 ```

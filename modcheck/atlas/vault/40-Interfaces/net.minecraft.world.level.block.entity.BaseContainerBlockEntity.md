@@ -11,44 +11,45 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/level/block/entity/BlockEntity`; implements `net/minecraft/world/Container`, `net/minecraft/world/MenuProvider`, `net/minecraft/world/Nameable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lne` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraf` | exact | invokespecial@4 in `AbstractFurnaceBlockEntityMixin.<init>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| wraps | `setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | exact | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (2 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.level.block.entity.BaseContainerBlockEntity extends net.minecraft.world.level.block.entity.BlockEntity implements net.minecraft.world.Container,net.minecraft.world.MenuProvider,net.minecraft.world.Nameable {
-    private net.minecraft.world.LockCode lockKey;
-    private net.minecraft.network.chat.Component name;
-    protected net.minecraft.world.level.block.entity.BaseContainerBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?>, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput);
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput);
-    public net.minecraft.network.chat.Component getName();
-    public net.minecraft.network.chat.Component getDisplayName();
-    public net.minecraft.network.chat.Component getCustomName();
-    protected abstract net.minecraft.network.chat.Component getDefaultName();
-    public boolean canOpen(net.minecraft.world.entity.player.Player);
-    public static void sendChestLockedNotifications(net.minecraft.world.phys.Vec3, net.minecraft.world.entity.player.Player, net.minecraft.network.chat.Component);
-    public boolean isLocked();
-    protected abstract net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getItems();
-    protected abstract void setItems(net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack>);
-    public boolean isEmpty();
-    public net.minecraft.world.item.ItemStack getItem(int);
-    public net.minecraft.world.item.ItemStack removeItem(int, int);
-    public net.minecraft.world.item.ItemStack removeItemNoUpdate(int);
-    public void setItem(int, net.minecraft.world.item.ItemStack);
-    public boolean stillValid(net.minecraft.world.entity.player.Player);
-    public void clearContent();
-    public net.minecraft.world.inventory.AbstractContainerMenu createMenu(int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.entity.player.Player);
-    protected abstract net.minecraft.world.inventory.AbstractContainerMenu createMenu(int, net.minecraft.world.entity.player.Inventory);
-    protected void applyImplicitComponents(net.minecraft.core.component.DataComponentGetter);
-    protected void collectImplicitComponents(net.minecraft.core.component.DataComponentMap$Builder);
-    public void removeComponentsFromTag(net.minecraft.world.level.storage.ValueOutput);
-    protected net.minecraft.world.level.storage.loot.LootContext getLootContext(net.minecraft.server.level.ServerLevel);
-}
+```
+private lockKey : Lnet/minecraft/world/LockCode;
+private name : Lnet/minecraft/network/chat/Component;
+protected <init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected loadAdditional(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected saveAdditional(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public getName()Lnet/minecraft/network/chat/Component;
+public getDisplayName()Lnet/minecraft/network/chat/Component;
+public getCustomName()Lnet/minecraft/network/chat/Component;
+protected abstract getDefaultName()Lnet/minecraft/network/chat/Component;
+public canOpen(Lnet/minecraft/world/entity/player/Player;)Z
+public static sendChestLockedNotifications(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/network/chat/Component;)V
+public isLocked()Z
+protected abstract getItems()Lnet/minecraft/core/NonNullList;
+protected abstract setItems(Lnet/minecraft/core/NonNullList;)V
+public isEmpty()Z
+public getItem(I)Lnet/minecraft/world/item/ItemStack;
+public removeItem(II)Lnet/minecraft/world/item/ItemStack;
+public removeItemNoUpdate(I)Lnet/minecraft/world/item/ItemStack;
+public setItem(ILnet/minecraft/world/item/ItemStack;)V
+public stillValid(Lnet/minecraft/world/entity/player/Player;)Z
+public clearContent()V
+public createMenu(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/inventory/AbstractContainerMenu;
+protected abstract createMenu(ILnet/minecraft/world/entity/player/Inventory;)Lnet/minecraft/world/inventory/AbstractContainerMenu;
+protected applyImplicitComponents(Lnet/minecraft/core/component/DataComponentGetter;)V
+protected collectImplicitComponents(Lnet/minecraft/core/component/DataComponentMap$Builder;)V
+public removeComponentsFromTag(Lnet/minecraft/world/level/storage/ValueOutput;)V
+protected getLootContext(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/world/level/storage/loot/LootContext;
 ```

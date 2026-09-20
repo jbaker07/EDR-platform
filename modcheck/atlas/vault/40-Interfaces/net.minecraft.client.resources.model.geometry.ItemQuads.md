@@ -11,33 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.resources|net.minecraft.client.resources]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `all()Ljava/util/List;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `solid()Ljava/util/List;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `translucent()Ljava/util/List;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `all` | `()Ljava/util/List;` | exact | invokevirtual@168 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `solid` | `()Ljava/util/List;` | exact | invokevirtual@81 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `solid` | `()Ljava/util/List;` | exact | invokevirtual@124 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `translucent` | `()Ljava/util/List;` | exact | invokevirtual@18 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `translucent` | `()Ljava/util/List;` | exact | invokevirtual@61 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (4 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.resources.model.geometry.ItemQuads extends java.lang.Record {
-    private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> all;
-    private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> solid;
-    private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> translucent;
-    public static final net.minecraft.client.resources.model.geometry.ItemQuads EMPTY;
-    public net.minecraft.client.resources.model.geometry.ItemQuads(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>);
-    public static net.minecraft.client.resources.model.geometry.ItemQuads split(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>);
-    public boolean isEmpty();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> all();
-    public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> solid();
-    public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> translucent();
-    static {};
-}
+```
+private final all : Ljava/util/List;
+private final solid : Ljava/util/List;
+private final translucent : Ljava/util/List;
+public static final EMPTY : Lnet/minecraft/client/resources/model/geometry/ItemQuads;
+public <init>(Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+public static split(Ljava/util/List;)Lnet/minecraft/client/resources/model/geometry/ItemQuads;
+public isEmpty()Z
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public all()Ljava/util/List;
+public solid()Ljava/util/List;
+public translucent()Ljava/util/List;
+static <clinit>()V
 ```

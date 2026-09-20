@@ -11,28 +11,29 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/components/ContainerObjectSelectionList`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `lambda$static$0` | `@Redirect at INVOKE Lnet/minecraft/resources/Identifier;compareTo(Lnet/minecraft` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `lambda$static$0` | `(Ljava/util/Map$Entry;Ljava/util/Map$Entry;)I` | name_only | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `updateSearch` | `(Ljava/lang/String;)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (3 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.debug.DebugOptionsScreen$OptionList extends net.minecraft.client.gui.components.ContainerObjectSelectionList<net.minecraft.client.gui.screens.debug.DebugOptionsScreen$AbstractOptionEntry> {
-    private static final java.util.Comparator<java.util.Map$Entry<net.minecraft.resources.Identifier, net.minecraft.client.gui.components.debug.DebugScreenEntry>> COMPARATOR;
-    private static final int ITEM_HEIGHT;
-    final net.minecraft.client.gui.screens.debug.DebugOptionsScreen this$0;
-    public net.minecraft.client.gui.screens.debug.DebugOptionsScreen$OptionList(net.minecraft.client.gui.screens.debug.DebugOptionsScreen);
-    public void extractWidgetRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    public int getRowWidth();
-    public void refreshEntries();
-    public void updateSearch(java.lang.String);
-    private void notifyListUpdated();
-    private static int lambda$static$0(java.util.Map$Entry, java.util.Map$Entry);
-    static {};
-}
+```
+private static final COMPARATOR : Ljava/util/Comparator;
+private static final ITEM_HEIGHT : I
+final synthetic this$0 : Lnet/minecraft/client/gui/screens/debug/DebugOptionsScreen;
+public <init>(Lnet/minecraft/client/gui/screens/debug/DebugOptionsScreen;)V
+public extractWidgetRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+public getRowWidth()I
+public refreshEntries()V
+public updateSearch(Ljava/lang/String;)V
+private notifyListUpdated()V
+private static synthetic lambda$static$0(Ljava/util/Map$Entry;Ljava/util/Map$Entry;)I
+static <clinit>()V
 ```

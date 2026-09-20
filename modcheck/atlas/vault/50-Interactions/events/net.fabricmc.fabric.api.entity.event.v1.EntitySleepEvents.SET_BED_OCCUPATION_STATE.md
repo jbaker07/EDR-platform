@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.setOccupiedState` | `LivingEntity.lambda$stopSleeping$0` @Redirect at INVOKE Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z; `LivingEntity.startSleeping` @Redirect at INVOKE Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z | both | static_inference |
+| `LivingEntityMixin.setOccupiedState` @40 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`lambda$stopSleeping$0` @Redirect INVOKE `Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z`; [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`startSleeping` @Redirect INVOKE `Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z` | unknown | static_inference |
 
 ## Contract
 

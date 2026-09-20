@@ -13,5 +13,5 @@ sha256: "916e1b1046113d5289920fb4058d26ac184e2581f2403b3a482848a2e1dcf7cc"
 Module: [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] -- kind: interface
 
 ```java
-public default net.fabricmc.fabric.api.attachment.v1.GlobalAttachments globalAttachments()
+public net.fabricmc.fabric.api.attachment.v1.GlobalAttachments globalAttachments()
 ```

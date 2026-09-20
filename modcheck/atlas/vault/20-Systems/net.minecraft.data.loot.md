@@ -8,7 +8,20 @@ package: "net.minecraft.data.loot"
 
 # net.minecraft.data.loot
 
-26 classes in the jar. Hooked types: 2
+26 classes (21 top-level) across 2 packages in the processed jar; 2 changed by Loom processing; 2 hooked by Fabric API.
 
-- [[40-Interfaces/net.minecraft.data.loot.BlockLootSubProvider|BlockLootSubProvider]] -- calls:2 -- by fabric-data-generation-api-v1
-- [[40-Interfaces/net.minecraft.data.loot.EntityLootSubProvider|EntityLootSubProvider]] -- calls:2 -- by fabric-data-generation-api-v1
+## Hooked types
+
+- [[40-Interfaces/net.minecraft.data.loot.BlockLootSubProvider|BlockLootSubProvider]] -- calls:3, injects_into:1 -- by fabric-data-generation-api-v1
+- [[40-Interfaces/net.minecraft.data.loot.EntityLootSubProvider|EntityLootSubProvider]] -- calls:3, injects_into:1 -- by fabric-data-generation-api-v1
+
+## Declared inventory
+
+### `net.minecraft.data.loot` (5 top-level)
+
+[[40-Interfaces/net.minecraft.data.loot.BlockLootSubProvider|BlockLootSubProvider]], [[40-Interfaces/net.minecraft.data.loot.EntityLootSubProvider|EntityLootSubProvider]], `LootTableProvider`, `LootTableSubProvider`, `package-info`
+
+### `net.minecraft.data.loot.packs` (16 top-level)
+
+`TradeRebalanceChestLoot`, `TradeRebalanceLootTableProvider`, `VanillaArchaeologyLoot`, `VanillaBlockInteractLoot`, `VanillaBlockLoot`, `VanillaChargedCreeperExplosionLoot`, `VanillaChestLoot`, `VanillaEntityInteractLoot`, `VanillaEntityLoot`, `VanillaEquipmentLoot`, `VanillaFishingLoot`, `VanillaGiftLoot`, `VanillaLootTableProvider`, `VanillaPiglinBarterLoot`, `VanillaShearingLoot`, `package-info`
+

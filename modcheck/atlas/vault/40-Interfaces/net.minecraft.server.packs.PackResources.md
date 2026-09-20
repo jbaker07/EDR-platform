@@ -11,27 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/server/packs/PackMetadataResources`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `close()V` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `close()V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `close()V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `location()Lnet/minecraft/server/packs/PackLocationInfo;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `close` | `()V` | inherited_exact | invokeinterface@75 in `DefaultResourcePackStorage.updateTrackedPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `close` | `()V` | inherited_exact | invokeinterface@92 in `DefaultResourcePackStorage.updateTrackedPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `close` | `()V` | inherited_exact | invokeinterface@35 in `ModPackResourcesUtil.isEnabledByDefault` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `close` | `()V` | inherited_exact | invokeinterface@48 in `ModPackResourcesUtil.isEnabledByDefault` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `close` | `()V` | inherited_exact | invokeinterface@135 in `MinecraftServerMixin.onCheckDisabled` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `close` | `()V` | inherited_exact | invokeinterface@152 in `MinecraftServerMixin.onCheckDisabled` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `location` | `()Lnet/minecraft/server/packs/PackLocationInfo;` | inherited_exact | invokeinterface@1 in `MinecraftServerMixin.lambda$init$0` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (2 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.packs.PackResources extends net.minecraft.server.packs.PackMetadataResources {
-    public static final java.lang.String METADATA_EXTENSION;
-    public static final java.lang.String PACK_META;
-    public abstract net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream> getResource(net.minecraft.server.packs.PackType, net.minecraft.resources.Identifier);
-    public abstract void listResources(net.minecraft.server.packs.PackType, java.lang.String, java.lang.String, net.minecraft.server.packs.PackResources$ResourceOutput);
-    public abstract java.util.Set<java.lang.String> getNamespaces(net.minecraft.server.packs.PackType);
-    public default java.lang.String packId();
-    public default java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo();
-}
+```
+public static final METADATA_EXTENSION : Ljava/lang/String;
+public static final PACK_META : Ljava/lang/String;
+public abstract getResource(Lnet/minecraft/server/packs/PackType;Lnet/minecraft/resources/Identifier;)Lnet/minecraft/server/packs/resources/IoSupplier;
+public abstract listResources(Lnet/minecraft/server/packs/PackType;Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/server/packs/PackResources$ResourceOutput;)V
+public abstract getNamespaces(Lnet/minecraft/server/packs/PackType;)Ljava/util/Set;
+public packId()Ljava/lang/String;
+public knownPackInfo()Ljava/util/Optional;
 ```

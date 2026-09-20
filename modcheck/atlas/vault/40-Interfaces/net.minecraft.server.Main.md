@@ -11,33 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `main([Ljava/lang/String;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| injects_into | `main` | `@Inject at NEW net/minecraft/server/dedicated/DedicatedServerSettings` | server | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| injects_into | `main` | `@Inject at INVOKE_ASSIGN Lnet/minecraft/server/packs/repository/ServerPacksSourc` | server | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
-| injects_into | `main` | `@Inject at INVOKE Lorg/slf4j/Logger;error(Lorg/slf4j/Marker;Ljava/lang/String;Lj` | server | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
-| injects_into | `main` | `@Inject at INVOKE Lnet/minecraft/util/Util;startTimerHackThread()V` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `main` | `([Ljava/lang/String;)V` | exact | invokestatic@4 in `DedicatedServerImplUtil.lambda$start$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| injects_into | `main` | `([Ljava/lang/String;)V` | name_only | @Inject at ['NEW'] | server | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `main` | `([Ljava/lang/String;)V` | name_only | @ModifyExpressionValue at ['INVOKE'] | server | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| injects_into | `main` | `([Ljava/lang/String;)V` | name_only | @Inject at ['INVOKE_ASSIGN'] | server | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| injects_into | `main` | `([Ljava/lang/String;)V` | name_only | @Inject at ['INVOKE'] | server | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| injects_into | `main` | `([Ljava/lang/String;)V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `LOGGER` | `Lorg/slf4j/Logger;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| wraps | `main` | `([Ljava/lang/String;)V` | name_only | @WrapWithCondition at ['INVOKE'] | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (1 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.Main {
-    private static final org.slf4j.Logger LOGGER;
-    public net.minecraft.server.Main();
-    public static void main(java.lang.String[]);
-    private static net.minecraft.server.WorldLoader$DataLoadOutput<net.minecraft.world.level.storage.LevelDataAndDimensions$WorldDataAndGenSettings> createNewWorldData(net.minecraft.server.dedicated.DedicatedServerSettings, net.minecraft.server.WorldLoader$DataLoadContext, net.minecraft.core.Registry<net.minecraft.world.level.dimension.LevelStem>, boolean, boolean);
-    private static void writePidFile(java.nio.file.Path);
-    private static net.minecraft.server.WorldLoader$InitConfig loadOrCreateConfig(net.minecraft.server.dedicated.DedicatedServerProperties, com.mojang.serialization.Dynamic<?>, boolean, net.minecraft.server.packs.repository.PackRepository);
-    private static void forceUpgrade(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.datafixers.DataFixer, boolean, java.util.function.BooleanSupplier, net.minecraft.core.RegistryAccess, boolean);
-    private static net.minecraft.server.dedicated.DedicatedServer lambda$main$3(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.packs.repository.PackRepository, net.minecraft.server.WorldStem, net.minecraft.server.dedicated.DedicatedServerSettings, net.minecraft.server.Services, net.minecraft.server.jsonrpc.ManagementServer, net.minecraft.server.notifications.NotificationManager, joptsimple.OptionSet, joptsimple.OptionSpec, joptsimple.OptionSpec, joptsimple.OptionSpec, joptsimple.OptionSpec, joptsimple.OptionSpec, java.lang.Thread);
-    private static boolean lambda$main$2();
-    private static java.util.concurrent.CompletableFuture lambda$main$0(net.minecraft.server.WorldLoader$InitConfig, com.mojang.serialization.Dynamic, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.dedicated.DedicatedServerSettings, joptsimple.OptionSet, joptsimple.OptionSpec, joptsimple.OptionSpec, java.util.concurrent.Executor);
-    private static net.minecraft.server.WorldLoader$DataLoadOutput lambda$main$1(com.mojang.serialization.Dynamic, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.dedicated.DedicatedServerSettings, joptsimple.OptionSet, joptsimple.OptionSpec, joptsimple.OptionSpec, net.minecraft.server.WorldLoader$DataLoadContext);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public <init>()V
+public static main([Ljava/lang/String;)V
+private static createNewWorldData(Lnet/minecraft/server/dedicated/DedicatedServerSettings;Lnet/minecraft/server/WorldLoader$DataLoadContext;Lnet/minecraft/core/Registry;ZZ)Lnet/minecraft/server/WorldLoader$DataLoadOutput;
+private static writePidFile(Ljava/nio/file/Path;)V
+private static loadOrCreateConfig(Lnet/minecraft/server/dedicated/DedicatedServerProperties;Lcom/mojang/serialization/Dynamic;ZLnet/minecraft/server/packs/repository/PackRepository;)Lnet/minecraft/server/WorldLoader$InitConfig;
+private static forceUpgrade(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/datafixers/DataFixer;ZLjava/util/function/BooleanSupplier;Lnet/minecraft/core/RegistryAccess;Z)V
+private static synthetic lambda$main$3(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/packs/repository/PackRepository;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/dedicated/DedicatedServerSettings;Lnet/minecraft/server/Services;Lnet/minecraft/server/jsonrpc/ManagementServer;Lnet/minecraft/server/notifications/NotificationManager;Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;Ljoptsimple/OptionSpec;Ljoptsimple/OptionSpec;Ljoptsimple/OptionSpec;Ljoptsimple/OptionSpec;Ljava/lang/Thread;)Lnet/minecraft/server/dedicated/DedicatedServer;
+private static synthetic lambda$main$2()Z
+private static synthetic lambda$main$0(Lnet/minecraft/server/WorldLoader$InitConfig;Lcom/mojang/serialization/Dynamic;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/dedicated/DedicatedServerSettings;Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;Ljoptsimple/OptionSpec;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$main$1(Lcom/mojang/serialization/Dynamic;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/dedicated/DedicatedServerSettings;Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;Ljoptsimple/OptionSpec;Lnet/minecraft/server/WorldLoader$DataLoadContext;)Lnet/minecraft/server/WorldLoader$DataLoadOutput;
+static <clinit>()V
 ```

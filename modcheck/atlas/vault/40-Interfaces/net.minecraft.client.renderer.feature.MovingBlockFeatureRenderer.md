@@ -11,26 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `net/minecraft/client/renderer/feature/RenderTypeFeatureRenderer`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `buildGroup` | `@Inject at INVOKE net/minecraft/client/renderer/block/ModelBlockRenderer.<init>(` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| wraps | `buildGroup` | `@Redirect at INVOKE net/minecraft/client/renderer/block/ModelBlockRenderer.tesse` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `buildGroup` | `(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;Ljava/util` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `poseStack` | `Lcom/mojang/blaze3d/vertex/PoseStack;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| wraps | `buildGroup` | `(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;Ljava/util` | name_only | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer extends net.minecraft.client.renderer.feature.RenderTypeFeatureRenderer<net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit> {
-    public static final net.minecraft.client.renderer.feature.FeatureRendererType<net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit> TYPE;
-    private final com.mojang.blaze3d.vertex.PoseStack poseStack;
-    public net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer();
-    protected void buildGroup(net.minecraft.client.renderer.feature.FeatureFrameContext, java.util.List<net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit>);
-    private void putBakedQuad(com.mojang.blaze3d.vertex.PoseStack, float, float, float, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance, net.minecraft.client.renderer.chunk.ChunkSectionLayer, int);
-    private void lambda$buildGroup$1(net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit, float, float, float, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance);
-    private void lambda$buildGroup$0(net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit, float, float, float, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance);
-    static {};
-}
+```
+public static final TYPE : Lnet/minecraft/client/renderer/feature/FeatureRendererType;
+private final poseStack : Lcom/mojang/blaze3d/vertex/PoseStack;
+public <init>()V
+protected buildGroup(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;Ljava/util/List;)V
+private putBakedQuad(Lcom/mojang/blaze3d/vertex/PoseStack;FFFLnet/minecraft/client/resources/model/geometry/BakedQuad;Lcom/mojang/blaze3d/vertex/QuadInstance;Lnet/minecraft/client/renderer/chunk/ChunkSectionLayer;I)V
+private synthetic lambda$buildGroup$1(Lnet/minecraft/client/renderer/feature/MovingBlockFeatureRenderer$Submit;FFFLnet/minecraft/client/resources/model/geometry/BakedQuad;Lcom/mojang/blaze3d/vertex/QuadInstance;)V
+private synthetic lambda$buildGroup$0(Lnet/minecraft/client/renderer/feature/MovingBlockFeatureRenderer$Submit;FFFLnet/minecraft/client/resources/model/geometry/BakedQuad;Lcom/mojang/blaze3d/vertex/QuadInstance;)V
+static <clinit>()V
 ```

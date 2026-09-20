@@ -11,23 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `create(Ljava/nio/file/Path;)Lnet/minecraft/server/packs/resources/` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `get()Ljava/lang/Object;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `create` | `(Ljava/nio/file/Path;)Lnet/minecraft/server/packs/resources/IoSupplier` | exact | invokestatic@85 in `ModNioPackResources$1.visitFile` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `create` | `(Ljava/nio/file/Path;)Lnet/minecraft/server/packs/resources/IoSupplier` | exact | invokestatic@19 in `ModNioPackResources.getResource` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `get` | `()Ljava/lang/Object;` | exact | invokeinterface@13 in `ModNioPackResources.getMetadataSection` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (0 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.packs.resources.IoSupplier<T> {
-    public static net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream> create(java.nio.file.Path);
-    public static net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream> create(java.util.zip.ZipFile, java.util.zip.ZipEntry);
-    public abstract T get() throws java.io.IOException;
-    private static java.io.InputStream lambda$create$1(java.util.zip.ZipFile, java.util.zip.ZipEntry) throws java.io.IOException;
-    private static java.io.InputStream lambda$create$0(java.nio.file.Path) throws java.io.IOException;
-}
+```
+public static create(Ljava/nio/file/Path;)Lnet/minecraft/server/packs/resources/IoSupplier;
+public static create(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;)Lnet/minecraft/server/packs/resources/IoSupplier;
+public abstract get()Ljava/lang/Object;
+private static synthetic lambda$create$1(Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;
+private static synthetic lambda$create$0(Ljava/nio/file/Path;)Ljava/io/InputStream;
 ```

@@ -13,11 +13,11 @@ sha256: "e83273ce3a8d06e08c00f31bdc38497d653f678af3693a2fc3ba094537fa8879"
 Module: [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] -- kind: interface
 
 ```java
-public abstract V get(net.minecraft.world.level.block.Block)
-public abstract void add(net.minecraft.world.level.block.Block, V)
-public abstract void add(net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>, V)
+public abstract java.lang.Object get(net.minecraft.world.level.block.Block)
+public abstract void add(net.minecraft.world.level.block.Block, java.lang.Object)
+public abstract void add(net.minecraft.tags.TagKey, java.lang.Object)
 public abstract void remove(net.minecraft.world.level.block.Block)
-public abstract void remove(net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>)
+public abstract void remove(net.minecraft.tags.TagKey)
 public abstract void clear(net.minecraft.world.level.block.Block)
-public abstract void clear(net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>)
+public abstract void clear(net.minecraft.tags.TagKey)
 ```

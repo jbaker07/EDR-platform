@@ -11,38 +11,41 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.particle|net.minecraft.client.particle]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/server/packs/resources/PreparableReloadListener`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `registerProviders` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `()V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `registerProviders` | `()V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| reads | `providers` | `Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;` | exact | getfield@4 in `ParticleProviderRegistryImpl$DirectParticleProviderRegistry.register` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| reads | `providers` | `Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| reads | `spriteSets` | `Ljava/util/Map;` | exact | getfield@22 in `ParticleProviderRegistryImpl$DirectParticleProviderRegistry.register` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
 
-## Declared members (20, all visibilities)
+## Declared members (5 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.particle.ParticleResources implements net.minecraft.server.packs.resources.PreparableReloadListener {
-    private static final org.slf4j.Logger LOGGER;
-    private static final net.minecraft.resources.FileToIdConverter PARTICLE_LISTER;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.particle.ParticleResources$MutableSpriteSet> spriteSets;
-    private final it.unimi.dsi.fastutil.ints.Int2ObjectMap<net.minecraft.client.particle.ParticleProvider<?>> providers;
-    private java.lang.Runnable onReload;
-    public net.minecraft.client.particle.ParticleResources();
-    public void onReload(java.lang.Runnable);
-    private void registerProviders();
-    private <T extends net.minecraft.core.particles.ParticleOptions> void register(net.minecraft.core.particles.ParticleType<T>, net.minecraft.client.particle.ParticleProvider<T>);
-    private <T extends net.minecraft.core.particles.ParticleOptions> void register(net.minecraft.core.particles.ParticleType<T>, net.minecraft.client.particle.ParticleResources$SpriteParticleRegistration<T>);
-    public java.util.concurrent.CompletableFuture<java.lang.Void> reload(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor, net.minecraft.server.packs.resources.PreparableReloadListener$PreparationBarrier, java.util.concurrent.Executor);
-    private java.util.Optional<java.util.List<net.minecraft.resources.Identifier>> loadParticleDescription(net.minecraft.resources.Identifier, net.minecraft.server.packs.resources.Resource);
-    public it.unimi.dsi.fastutil.ints.Int2ObjectMap<net.minecraft.client.particle.ParticleProvider<?>> getProviders();
-    private void lambda$reload$4(java.util.concurrent.CompletableFuture, java.util.concurrent.CompletableFuture, java.lang.Void);
-    private void lambda$reload$5(net.minecraft.client.renderer.texture.SpriteLoader$Preparations, java.util.Set, net.minecraft.client.renderer.texture.TextureAtlasSprite, net.minecraft.client.particle.ParticleResources$1ParticleDefinition);
-    private java.util.concurrent.CompletionStage lambda$reload$1(java.util.concurrent.Executor, java.util.Map);
-    private void lambda$reload$2(java.util.List, java.util.concurrent.Executor, net.minecraft.resources.Identifier, net.minecraft.server.packs.resources.Resource);
-    private net.minecraft.client.particle.ParticleResources$1ParticleDefinition lambda$reload$3(net.minecraft.resources.Identifier, net.minecraft.server.packs.resources.Resource);
-    private static java.util.Map lambda$reload$0(net.minecraft.server.packs.resources.ResourceManager);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final PARTICLE_LISTER : Lnet/minecraft/resources/FileToIdConverter;
+private final spriteSets : Ljava/util/Map;
+private final providers : Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+private onReload : Ljava/lang/Runnable;
+public <init>()V
+public onReload(Ljava/lang/Runnable;)V
+private registerProviders()V
+private register(Lnet/minecraft/core/particles/ParticleType;Lnet/minecraft/client/particle/ParticleProvider;)V
+private register(Lnet/minecraft/core/particles/ParticleType;Lnet/minecraft/client/particle/ParticleResources$SpriteParticleRegistration;)V
+public reload(Lnet/minecraft/server/packs/resources/PreparableReloadListener$SharedState;Ljava/util/concurrent/Executor;Lnet/minecraft/server/packs/resources/PreparableReloadListener$PreparationBarrier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private loadParticleDescription(Lnet/minecraft/resources/Identifier;Lnet/minecraft/server/packs/resources/Resource;)Ljava/util/Optional;
+public getProviders()Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+private synthetic lambda$reload$4(Ljava/util/concurrent/CompletableFuture;Ljava/util/concurrent/CompletableFuture;Ljava/lang/Void;)V
+private synthetic lambda$reload$5(Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;Ljava/util/Set;Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;Lnet/minecraft/client/particle/ParticleResources$1ParticleDefinition;)V
+private synthetic lambda$reload$1(Ljava/util/concurrent/Executor;Ljava/util/Map;)Ljava/util/concurrent/CompletionStage;
+private synthetic lambda$reload$2(Ljava/util/List;Ljava/util/concurrent/Executor;Lnet/minecraft/resources/Identifier;Lnet/minecraft/server/packs/resources/Resource;)V
+private synthetic lambda$reload$3(Lnet/minecraft/resources/Identifier;Lnet/minecraft/server/packs/resources/Resource;)Lnet/minecraft/client/particle/ParticleResources$1ParticleDefinition;
+private static synthetic lambda$reload$0(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map;
+static <clinit>()V
 ```

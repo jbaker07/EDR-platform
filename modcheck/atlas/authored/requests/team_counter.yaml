@@ -1,12 +1,21 @@
 - id: request.team_counter
   title: Team resource counter shown on every player's HUD
+  analyst_exercise: true
+  canonical_request:
+    id: exercise.team_counter
+    kind: analyst_exercise
+    requirement_ids: []
   family: workflow:wf.multiplayer.networking
   request: >-
     Analyst-authored exercise request: each team accumulates a count of gathered
     resources (say, ores mined); every member sees their team's count on the HUD; the
     count persists with the world and survives players leaving and rejoining.
   approved_behaviour:
-    - "Provisional: team means the vanilla scoreboard team (open: question:q.team_counter_scope); counts persist per world; HUD shows own team only."
+    - "None approved: there is no creator. The exercise carries two explicit team definitions below; neither is chosen."
+  analyst_assumptions:
+    - "Definition T1 -- team = the vanilla scoreboard team (operator-managed with /team; can be dissolved; membership changes fire no Fabric event in extracted:edges.json#callback_of)."
+    - "Definition T2 -- team = a mod-defined group with its own commands and persistence (more work; independent of operators)."
+    - "Counts persist per world under either definition; the HUD shows the viewer's own team only."
   preserve:
     - Scoreboard teams as operators manage them.
     - No count is ever decided by the client.

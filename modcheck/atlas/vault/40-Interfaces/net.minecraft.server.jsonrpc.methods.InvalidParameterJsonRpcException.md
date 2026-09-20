@@ -11,18 +11,18 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.jsonrpc|net.minecraft.server.jsonrpc]]
 
+`class` public; extends `java/lang/RuntimeException`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/lang/String;)V` | `` | both | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/String;)V` | exact | invokespecial@36 in `GameRulesServiceGameRuleUpdateMixin.fabric_checkType` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
 
-## Declared members (1, all visibilities)
+## Declared members (0 fields, 1 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.jsonrpc.methods.InvalidParameterJsonRpcException extends java.lang.RuntimeException {
-    public net.minecraft.server.jsonrpc.methods.InvalidParameterJsonRpcException(java.lang.String);
-}
+```
+public <init>(Ljava/lang/String;)V
 ```

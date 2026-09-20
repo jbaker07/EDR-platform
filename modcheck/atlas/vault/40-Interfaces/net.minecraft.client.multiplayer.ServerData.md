@@ -11,52 +11,52 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/m` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/multiplayer` | exact | invokespecial@13 in `TestDedicatedServerContextImpl.lambda$connect$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (35, all visibilities)
+## Declared members (16 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.multiplayer.ServerData {
-    private static final org.slf4j.Logger LOGGER;
-    private static final int MAX_ICON_SIZE;
-    public java.lang.String name;
-    public java.lang.String ip;
-    public net.minecraft.network.chat.Component status;
-    public net.minecraft.network.chat.Component motd;
-    public net.minecraft.network.protocol.status.ServerStatus$Players players;
-    public long ping;
-    public int protocol;
-    public net.minecraft.network.chat.Component version;
-    public java.util.List<net.minecraft.network.chat.Component> playerList;
-    private net.minecraft.client.multiplayer.ServerData$ServerPackStatus packStatus;
-    private byte[] iconBytes;
-    private net.minecraft.client.multiplayer.ServerData$Type type;
-    private int acceptedCodeOfConduct;
-    private net.minecraft.client.multiplayer.ServerData$State state;
-    public net.minecraft.client.multiplayer.ServerData(java.lang.String, java.lang.String, net.minecraft.client.multiplayer.ServerData$Type);
-    public net.minecraft.nbt.CompoundTag write();
-    public net.minecraft.client.multiplayer.ServerData$ServerPackStatus getResourcePackStatus();
-    public void setResourcePackStatus(net.minecraft.client.multiplayer.ServerData$ServerPackStatus);
-    public static net.minecraft.client.multiplayer.ServerData read(net.minecraft.nbt.CompoundTag);
-    public byte[] getIconBytes();
-    public void setIconBytes(byte[]);
-    public boolean isLan();
-    public boolean isRealm();
-    public net.minecraft.client.multiplayer.ServerData$Type type();
-    public boolean hasAcceptedCodeOfConduct(java.lang.String);
-    public void acceptCodeOfConduct(java.lang.String);
-    public void clearCodeOfConduct();
-    public void copyNameIconFrom(net.minecraft.client.multiplayer.ServerData);
-    public void copyFrom(net.minecraft.client.multiplayer.ServerData);
-    public net.minecraft.client.multiplayer.ServerData$State state();
-    public void setState(net.minecraft.client.multiplayer.ServerData$State);
-    public static byte[] validateIcon(byte[]);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final MAX_ICON_SIZE : I
+public name : Ljava/lang/String;
+public ip : Ljava/lang/String;
+public status : Lnet/minecraft/network/chat/Component;
+public motd : Lnet/minecraft/network/chat/Component;
+public players : Lnet/minecraft/network/protocol/status/ServerStatus$Players;
+public ping : J
+public protocol : I
+public version : Lnet/minecraft/network/chat/Component;
+public playerList : Ljava/util/List;
+private packStatus : Lnet/minecraft/client/multiplayer/ServerData$ServerPackStatus;
+private iconBytes : [B
+private type : Lnet/minecraft/client/multiplayer/ServerData$Type;
+private acceptedCodeOfConduct : I
+private state : Lnet/minecraft/client/multiplayer/ServerData$State;
+public <init>(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/multiplayer/ServerData$Type;)V
+public write()Lnet/minecraft/nbt/CompoundTag;
+public getResourcePackStatus()Lnet/minecraft/client/multiplayer/ServerData$ServerPackStatus;
+public setResourcePackStatus(Lnet/minecraft/client/multiplayer/ServerData$ServerPackStatus;)V
+public static read(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/client/multiplayer/ServerData;
+public getIconBytes()[B
+public setIconBytes([B)V
+public isLan()Z
+public isRealm()Z
+public type()Lnet/minecraft/client/multiplayer/ServerData$Type;
+public hasAcceptedCodeOfConduct(Ljava/lang/String;)Z
+public acceptCodeOfConduct(Ljava/lang/String;)V
+public clearCodeOfConduct()V
+public copyNameIconFrom(Lnet/minecraft/client/multiplayer/ServerData;)V
+public copyFrom(Lnet/minecraft/client/multiplayer/ServerData;)V
+public state()Lnet/minecraft/client/multiplayer/ServerData$State;
+public setState(Lnet/minecraft/client/multiplayer/ServerData$State;)V
+public static validateIcon([B)[B
+static <clinit>()V
 ```

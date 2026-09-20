@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.dedicated|net.minecraft.server.dedicated]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/Runnable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `createWatchdogCrashReport(Ljava/lang/String;J)Lnet/minecraft/CrashReport;` | `@ModifyArg at INVOKE Ljava/lang/StringBuilder;append(Ljava/lang/Object;)Ljava/la` | both | [[30-Mechanisms/fabric-crash-report-info-v1|fabric-crash-report-info-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `createWatchdogCrashReport` | `(Ljava/lang/String;J)Lnet/minecraft/CrashReport;` | exact | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-crash-report-info-v1|fabric-crash-report-info-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (6 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.dedicated.ServerWatchdog implements java.lang.Runnable {
-    private static final org.slf4j.Logger LOGGER;
-    private static final long MAX_SHUTDOWN_TIME;
-    private static final int SHUTDOWN_STATUS;
-    private static final java.util.Comparator<java.lang.management.ThreadInfo> THREAD_INFO_COMPARATOR;
-    private final net.minecraft.server.dedicated.DedicatedServer server;
-    private final long maxTickTimeNanos;
-    public net.minecraft.server.dedicated.ServerWatchdog(net.minecraft.server.dedicated.DedicatedServer);
-    public void run();
-    public static net.minecraft.CrashReport createWatchdogCrashReport(java.lang.String, long);
-    private void exit();
-    private java.lang.String lambda$run$1() throws java.lang.Exception;
-    private static java.lang.String lambda$run$2(net.minecraft.server.level.ServerLevel);
-    private java.lang.String lambda$run$0() throws java.lang.Exception;
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final MAX_SHUTDOWN_TIME : J
+private static final SHUTDOWN_STATUS : I
+private static final THREAD_INFO_COMPARATOR : Ljava/util/Comparator;
+private final server : Lnet/minecraft/server/dedicated/DedicatedServer;
+private final maxTickTimeNanos : J
+public <init>(Lnet/minecraft/server/dedicated/DedicatedServer;)V
+public run()V
+public static createWatchdogCrashReport(Ljava/lang/String;J)Lnet/minecraft/CrashReport;
+private exit()V
+private synthetic lambda$run$1()Ljava/lang/String;
+private static synthetic lambda$run$2(Lnet/minecraft/server/level/ServerLevel;)Ljava/lang/String;
+private synthetic lambda$run$0()Ljava/lang/String;
+static <clinit>()V
 ```

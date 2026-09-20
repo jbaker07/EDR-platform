@@ -13,6 +13,6 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: interface
 
 ```java
-public default void appendTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, java.util.List<net.minecraft.network.chat.Component>, net.minecraft.world.item.TooltipFlag)
-public default int getColor(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos)
+public void appendTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, java.util.List, net.minecraft.world.item.TooltipFlag)
+public int getColor(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos)
 ```

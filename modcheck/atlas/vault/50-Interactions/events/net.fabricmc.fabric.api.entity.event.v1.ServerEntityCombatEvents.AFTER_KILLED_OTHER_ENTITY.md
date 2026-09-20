@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.onEntityKilledOther` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
-| `ServerPlayerMixin.callOnKillForPlayer` | `ServerPlayer.die` @Inject at INVOKE Lnet/minecraft/server/level/ServerPlayer;getKillCredit()Lnet/minecraft/world/entity/LivingEntity; | both | static_inference |
+| `LivingEntityMixin.onEntityKilledOther` @50 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`die` @WrapOperation INVOKE `Lnet/minecraft/world/entity/Entity;killedEntity(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/damagesource/DamageSource;)Z` | unknown | static_inference |
+| `ServerPlayerMixin.callOnKillForPlayer` @42 | [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`die` @Inject INVOKE `Lnet/minecraft/server/level/ServerPlayer;getKillCredit()Lnet/minecraft/world/entity/LivingEntity;` | unknown | static_inference |
 
 ## Contract
 

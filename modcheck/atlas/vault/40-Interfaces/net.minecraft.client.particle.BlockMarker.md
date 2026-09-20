@@ -11,21 +11,21 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.particle|net.minecraft.client.particle]]
 
+`class` public; extends `net/minecraft/client/particle/SingleQuadParticle`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `<init>(Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/world/level/block/state/BlockState;)V` | `@Redirect at INVOKE Lnet/minecraft/client/renderer/block/BlockStateModelSet;getP` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `<init>` | `(Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/world` | exact | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (4, all visibilities)
+## Declared members (1 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.particle.BlockMarker extends net.minecraft.client.particle.SingleQuadParticle {
-    private final net.minecraft.client.particle.SingleQuadParticle$Layer layer;
-    private net.minecraft.client.particle.BlockMarker(net.minecraft.client.multiplayer.ClientLevel, double, double, double, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.client.particle.SingleQuadParticle$Layer getLayer();
-    public float getQuadSize(float);
-}
+```
+private final layer : Lnet/minecraft/client/particle/SingleQuadParticle$Layer;
+private <init>(Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/world/level/block/state/BlockState;)V
+public getLayer()Lnet/minecraft/client/particle/SingleQuadParticle$Layer;
+public getQuadSize(F)F
 ```

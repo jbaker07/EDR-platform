@@ -11,197 +11,205 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.player|net.minecraft.client.player]]
 
+`class` public; extends `net/minecraft/client/player/AbstractClientPlayer`; implements `net/fabricmc/fabric/api/networking/v1/context/PacketContextProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getAbilities()Lnet/minecraft/world/entity/player/Abilities;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getMainHandItem()Lnet/minecraft/world/item/ItemStack;` | `` | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `getMainHandItem()Lnet/minecraft/world/item/ItemStack;` | `` | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `getOffhandItem()Lnet/minecraft/world/item/ItemStack;` | `` | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `isShiftKeyDown()Z` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `isSpectator()Z` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `lookAt(Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anch` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `setXRot(F)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `setYRot(F)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `swing(Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/i` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getAbilities` | `()Lnet/minecraft/world/entity/player/Abilities;` | inherited_exact | invokevirtual@7 in `MultiPlayerGameModeMixin.method_2902` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getMainHandItem` | `()Lnet/minecraft/world/item/ItemStack;` | inherited_exact | invokevirtual@1 in `FirstPersonHandsAndItemsMixin.modifyProgressAnimation` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `getMainHandItem` | `()Lnet/minecraft/world/item/ItemStack;` | inherited_exact | invokevirtual@26 in `MultiPlayerGameModeMixin.fabricItemContinueBlockBreakingInject` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `getOffhandItem` | `()Lnet/minecraft/world/item/ItemStack;` | inherited_exact | invokevirtual@47 in `FirstPersonHandsAndItemsMixin.modifyProgressAnimation` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `getRotationVector` | `()Lnet/minecraft/world/phys/Vec2;` | inherited_exact | invokevirtual@6 in `FabricClientCommandSource.getRotation` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `isShiftKeyDown` | `()Z` | exact | invokevirtual@95 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `isSpectator` | `()Z` | inherited_exact | invokevirtual@1 in `MultiPlayerGameModeMixin.interactBlock` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@17 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@19 in `MultiPlayerGameModeMixin.interactBlock` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@51 in `MultiPlayerGameModeMixin.interactBlock` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@7 in `LevelExtractorMixin.getParticleMaterialProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `lookAt` | `(Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;Lnet/mi` | inherited_exact | invokevirtual@29 in `TestInputImpl.lambda$lookAt$1` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `position` | `()Lnet/minecraft/world/phys/Vec3;` | inherited_exact | invokevirtual@6 in `FabricClientCommandSource.getPosition` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `setXRot` | `(F)V` | inherited_exact | invokevirtual@31 in `TestInputImpl.lambda$lookAt$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `setYRot` | `(F)V` | inherited_exact | invokevirtual@23 in `TestInputImpl.lambda$lookAt$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `swing` | `(Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/compon` | inherited_exact | invokevirtual@137 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| injects_into | `aiStep` | `()V` | name_only | @ModifyExpressionValue at ['INVOKE'] | client | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `isSprintingPossible` | `(Z)Z` | name_only | @ModifyExpressionValue at ['INVOKE'] | client | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `shouldStopSwimSprinting` | `()Z` | name_only | @ModifyExpressionValue at ['INVOKE'] | client | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/client/multiplayer/ClientPacketListener;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
+| reads | `connection` | `Lnet/minecraft/client/multiplayer/ClientPacketListener;` | exact | getfield@96 in `RecipeSyncImplClient.onRecipeSyncPacket` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (168, all visibilities)
+## Declared members (55 fields, 113 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.player.LocalPlayer extends net.minecraft.client.player.AbstractClientPlayer {
-    public static final org.slf4j.Logger LOGGER;
-    private static final int POSITION_REMINDER_INTERVAL;
-    private static final int WATER_VISION_MAX_TIME;
-    private static final int WATER_VISION_QUICK_TIME;
-    private static final float WATER_VISION_QUICK_PERCENT;
-    private static final double SUFFOCATING_COLLISION_CHECK_SCALE;
-    private static final double MINOR_COLLISION_ANGLE_THRESHOLD_RADIAN;
-    private static final float PORTAL_SPINNING_SPEED;
-    private static final float NAUSEA_SPINNING_SPEED;
-    public final net.minecraft.client.multiplayer.ClientPacketListener connection;
-    private final net.minecraft.stats.StatsCounter stats;
-    private final net.minecraft.client.ClientRecipeBook recipeBook;
-    private final net.minecraft.util.TickThrottler dropSpamThrottler;
-    private final java.util.List<net.minecraft.client.resources.sounds.AmbientSoundHandler> ambientSoundHandlers;
-    private net.minecraft.server.permissions.PermissionSet permissions;
-    private net.minecraft.client.multiplayer.chat.ChatAbilities chatAbilities;
-    private double xLast;
-    private double yLast;
-    private double zLast;
-    private float yRotLast;
-    private float xRotLast;
-    private boolean lastOnGround;
-    private boolean lastHorizontalCollision;
-    private boolean crouching;
-    private boolean wasSprinting;
-    private int positionReminder;
-    private boolean flashOnSetHealth;
-    public net.minecraft.client.player.ClientInput input;
-    private net.minecraft.world.entity.player.Input lastSentInput;
-    protected final net.minecraft.client.Minecraft minecraft;
-    protected int sprintTriggerTime;
-    private static final int EXPERIENCE_DISPLAY_UNREADY_TO_SET;
-    private static final int EXPERIENCE_DISPLAY_READY_TO_SET;
-    public int experienceDisplayStartTick;
-    public float yBob;
-    public float xBob;
-    public float yBobO;
-    public float xBobO;
-    private int jumpRidingTicks;
-    private float jumpRidingScale;
-    public float portalEffectIntensity;
-    public float oPortalEffectIntensity;
-    private float spinningEffectTime;
-    private float spinningEffectSpeed;
-    private final net.minecraft.client.player.ItemActivation itemActivation;
-    private final net.minecraft.client.player.FirstPersonHandsAndItems firstPersonHandsAndItems;
-    private boolean startedUsingItem;
-    private net.minecraft.world.InteractionHand usingItemHand;
-    private boolean handsBusy;
-    private boolean autoJumpEnabled;
-    private int autoJumpTime;
-    private boolean wasFallFlying;
-    private int waterVisionTime;
-    private boolean showDeathScreen;
-    private boolean doLimitedCrafting;
-    public net.minecraft.client.player.LocalPlayer(net.minecraft.client.Minecraft, net.minecraft.client.multiplayer.ClientLevel, net.minecraft.client.multiplayer.ClientPacketListener, net.minecraft.stats.StatsCounter, net.minecraft.client.ClientRecipeBook, net.minecraft.world.entity.player.Input, boolean, net.minecraft.client.multiplayer.chat.ChatAbilities, net.minecraft.client.player.ItemActivation);
-    public void heal(float);
-    public boolean startRiding(net.minecraft.world.entity.Entity, boolean, boolean);
-    public void removeVehicle();
-    public float getViewYRot(float);
-    public void tick();
-    public void displayItemActivation(net.minecraft.world.item.ItemStack);
-    public void resetItemActivation();
-    public net.minecraft.client.player.ItemActivation itemActivation();
-    public void itemUsed(net.minecraft.world.InteractionHand);
-    public net.minecraft.client.player.FirstPersonHandsAndItems firstPersonHandsAndItems();
-    public void sendChanges();
-    public float getCurrentMood();
-    private void sendPosition();
-    private void sendIsSprintingIfNeeded();
-    public void respawn();
-    public void closeContainer();
-    public void clientSideCloseContainer();
-    public void hurtTo(float);
-    public void onUpdateAbilities();
-    public void setReducedDebugInfo(boolean);
-    public boolean isLocalPlayer();
-    public boolean isSuppressingSlidingDownLadder();
-    public boolean canSpawnSprintParticle();
-    protected void sendRidingJump();
-    public void sendOpenInventory();
-    public net.minecraft.stats.StatsCounter getStats();
-    public net.minecraft.client.ClientRecipeBook getRecipeBook();
-    public void removeRecipeHighlight(net.minecraft.world.item.crafting.display.RecipeDisplayId);
-    public net.minecraft.server.permissions.PermissionSet permissions();
-    public void setPermissions(net.minecraft.server.permissions.PermissionSet);
-    public net.minecraft.client.multiplayer.chat.ChatAbilities chatAbilities();
-    public void refreshChatAbilities();
-    public void sendSystemMessage(net.minecraft.network.chat.Component);
-    public void sendOverlayMessage(net.minecraft.network.chat.Component);
-    private void moveTowardsClosestSpace(double, double);
-    private boolean suffocatesAt(net.minecraft.core.BlockPos);
-    public void setExperienceValues(float, int, int);
-    private void setExperienceDisplayStartTickToTickCount();
-    public void handleEntityEvent(byte);
-    public void setShowDeathScreen(boolean);
-    public boolean shouldShowDeathScreen();
-    public void setDoLimitedCrafting(boolean);
-    public boolean getDoLimitedCrafting();
-    public void playSound(net.minecraft.sounds.SoundEvent, float, float);
-    public void startUsingItem(net.minecraft.world.InteractionHand);
-    public boolean isUsingItem();
-    private boolean isSlowDueToUsingItem();
-    private float itemUseSpeedMultiplier();
-    public void stopUsingItem();
-    public net.minecraft.world.InteractionHand getUsedItemHand();
-    public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
-    public net.minecraft.world.entity.PlayerRideableJumping jumpableVehicle();
-    public float getJumpRidingScale();
-    public boolean isTextFilteringEnabled();
-    public void openTextEdit(net.minecraft.world.level.block.entity.SignBlockEntity, net.minecraft.world.level.block.entity.SignTextSlot);
-    public void openMinecartCommandBlock(net.minecraft.world.entity.vehicle.minecart.MinecartCommandBlock);
-    public void openCommandBlock(net.minecraft.world.level.block.entity.CommandBlockEntity);
-    public void openStructureBlock(net.minecraft.world.level.block.entity.StructureBlockEntity);
-    public void openTestBlock(net.minecraft.world.level.block.entity.TestBlockEntity);
-    public void openTestInstanceBlock(net.minecraft.world.level.block.entity.TestInstanceBlockEntity);
-    public void openJigsawBlock(net.minecraft.world.level.block.entity.JigsawBlockEntity);
-    public void openDialog(net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>);
-    public void openItemGui(net.minecraft.world.item.ItemStack, net.minecraft.world.InteractionHand);
-    public void crit(net.minecraft.world.entity.Entity);
-    public void magicCrit(net.minecraft.world.entity.Entity);
-    public boolean isShiftKeyDown();
-    public boolean isCrouching();
-    public boolean isMovingSlowly();
-    public void applyInput();
-    private net.minecraft.world.phys.Vec2 modifyInput(net.minecraft.world.phys.Vec2);
-    private static net.minecraft.world.phys.Vec2 modifyInputSpeedForSquareMovement(net.minecraft.world.phys.Vec2);
-    private static float distanceToUnitSquare(net.minecraft.world.phys.Vec2);
-    protected boolean isControlledCamera();
-    public void resetPos();
-    public void aiStep();
-    private boolean shouldStopRunSprinting();
-    private boolean shouldStopSwimSprinting();
-    public net.minecraft.world.level.block.Portal$Transition getActivePortalLocalTransition();
-    protected void tickDeath();
-    private void handlePortalTransitionEffect(boolean);
-    private void tickSpinningEffect();
-    public float getSpinningEffectAngle(float);
-    public void rideTick();
-    public boolean isHandsBusy();
-    public void move(net.minecraft.world.entity.MoverType, net.minecraft.world.phys.Vec3);
-    public boolean isAutoJumpEnabled();
-    public boolean shouldRotateWithMinecart();
-    protected void updateAutoJump(float, float);
-    protected boolean isHorizontalCollisionMinor(net.minecraft.world.phys.Vec3);
-    private boolean canAutoJump();
-    private boolean isMoving();
-    private boolean isSprintingPossible(boolean);
-    private boolean canStartSprinting();
-    private boolean vehicleCanSprint(net.minecraft.world.entity.Entity);
-    public float getWaterVision();
-    public void onGameModeChanged(net.minecraft.world.level.GameType);
-    public boolean isUnderWater();
-    protected boolean updateIsUnderwater();
-    public net.minecraft.world.phys.Vec3 getRopeHoldPosition(float);
-    public void updateTutorialInventoryAction(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack, net.minecraft.world.inventory.ClickAction);
-    public float getVisualRotationYInDegrees();
-    public void handleCreativeModeItemDrop(net.minecraft.world.item.ItemStack);
-    public boolean canDropItems();
-    public net.minecraft.util.TickThrottler getDropSpamThrottler();
-    public net.minecraft.world.entity.player.Input getLastSentInput();
-    public net.minecraft.world.phys.HitResult raycastHitResult(float, net.minecraft.world.entity.Entity);
-    private static net.minecraft.world.phys.HitResult pick(net.minecraft.world.entity.Entity, double, double, float);
-    private static net.minecraft.world.phys.HitResult filterHitResult(net.minecraft.world.phys.HitResult, net.minecraft.world.phys.Vec3, double);
-    public void setActivePostEffects(java.util.List<net.minecraft.resources.Identifier>);
-    public java.util.List<net.minecraft.resources.Identifier> getActivePostEffects();
-    private static java.util.stream.Stream lambda$updateAutoJump$0(net.minecraft.world.phys.shapes.VoxelShape);
-    static {};
-}
+```
+public static final LOGGER : Lorg/slf4j/Logger;
+private static final POSITION_REMINDER_INTERVAL : I
+private static final WATER_VISION_MAX_TIME : I
+private static final WATER_VISION_QUICK_TIME : I
+private static final WATER_VISION_QUICK_PERCENT : F
+private static final SUFFOCATING_COLLISION_CHECK_SCALE : D
+private static final MINOR_COLLISION_ANGLE_THRESHOLD_RADIAN : D
+private static final PORTAL_SPINNING_SPEED : F
+private static final NAUSEA_SPINNING_SPEED : F
+public final connection : Lnet/minecraft/client/multiplayer/ClientPacketListener;
+private final stats : Lnet/minecraft/stats/StatsCounter;
+private final recipeBook : Lnet/minecraft/client/ClientRecipeBook;
+private final dropSpamThrottler : Lnet/minecraft/util/TickThrottler;
+private final ambientSoundHandlers : Ljava/util/List;
+private permissions : Lnet/minecraft/server/permissions/PermissionSet;
+private chatAbilities : Lnet/minecraft/client/multiplayer/chat/ChatAbilities;
+private xLast : D
+private yLast : D
+private zLast : D
+private yRotLast : F
+private xRotLast : F
+private lastOnGround : Z
+private lastHorizontalCollision : Z
+private crouching : Z
+private wasSprinting : Z
+private positionReminder : I
+private flashOnSetHealth : Z
+public input : Lnet/minecraft/client/player/ClientInput;
+private lastSentInput : Lnet/minecraft/world/entity/player/Input;
+protected final minecraft : Lnet/minecraft/client/Minecraft;
+protected sprintTriggerTime : I
+private static final EXPERIENCE_DISPLAY_UNREADY_TO_SET : I
+private static final EXPERIENCE_DISPLAY_READY_TO_SET : I
+public experienceDisplayStartTick : I
+public yBob : F
+public xBob : F
+public yBobO : F
+public xBobO : F
+private jumpRidingTicks : I
+private jumpRidingScale : F
+public portalEffectIntensity : F
+public oPortalEffectIntensity : F
+private spinningEffectTime : F
+private spinningEffectSpeed : F
+private final itemActivation : Lnet/minecraft/client/player/ItemActivation;
+private final firstPersonHandsAndItems : Lnet/minecraft/client/player/FirstPersonHandsAndItems;
+private startedUsingItem : Z
+private usingItemHand : Lnet/minecraft/world/InteractionHand;
+private handsBusy : Z
+private autoJumpEnabled : Z
+private autoJumpTime : I
+private wasFallFlying : Z
+private waterVisionTime : I
+private showDeathScreen : Z
+private doLimitedCrafting : Z
+public <init>(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/client/multiplayer/ClientPacketListener;Lnet/minecraft/stats/StatsCounter;Lnet/minecraft/client/ClientRecipeBook;Lnet/minecraft/world/entity/player/Input;ZLnet/minecraft/client/multiplayer/chat/ChatAbilities;Lnet/minecraft/client/player/ItemActivation;)V
+public heal(F)V
+public startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z
+public removeVehicle()V
+public getViewYRot(F)F
+public tick()V
+public displayItemActivation(Lnet/minecraft/world/item/ItemStack;)V
+public resetItemActivation()V
+public itemActivation()Lnet/minecraft/client/player/ItemActivation;
+public itemUsed(Lnet/minecraft/world/InteractionHand;)V
+public firstPersonHandsAndItems()Lnet/minecraft/client/player/FirstPersonHandsAndItems;
+public sendChanges()V
+public getCurrentMood()F
+private sendPosition()V
+private sendIsSprintingIfNeeded()V
+public respawn()V
+public closeContainer()V
+public clientSideCloseContainer()V
+public hurtTo(F)V
+public onUpdateAbilities()V
+public setReducedDebugInfo(Z)V
+public isLocalPlayer()Z
+public isSuppressingSlidingDownLadder()Z
+public canSpawnSprintParticle()Z
+protected sendRidingJump()V
+public sendOpenInventory()V
+public getStats()Lnet/minecraft/stats/StatsCounter;
+public getRecipeBook()Lnet/minecraft/client/ClientRecipeBook;
+public removeRecipeHighlight(Lnet/minecraft/world/item/crafting/display/RecipeDisplayId;)V
+public permissions()Lnet/minecraft/server/permissions/PermissionSet;
+public setPermissions(Lnet/minecraft/server/permissions/PermissionSet;)V
+public chatAbilities()Lnet/minecraft/client/multiplayer/chat/ChatAbilities;
+public refreshChatAbilities()V
+public sendSystemMessage(Lnet/minecraft/network/chat/Component;)V
+public sendOverlayMessage(Lnet/minecraft/network/chat/Component;)V
+private moveTowardsClosestSpace(DD)V
+private suffocatesAt(Lnet/minecraft/core/BlockPos;)Z
+public setExperienceValues(FII)V
+private setExperienceDisplayStartTickToTickCount()V
+public handleEntityEvent(B)V
+public setShowDeathScreen(Z)V
+public shouldShowDeathScreen()Z
+public setDoLimitedCrafting(Z)V
+public getDoLimitedCrafting()Z
+public playSound(Lnet/minecraft/sounds/SoundEvent;FF)V
+public startUsingItem(Lnet/minecraft/world/InteractionHand;)V
+public isUsingItem()Z
+private isSlowDueToUsingItem()Z
+private itemUseSpeedMultiplier()F
+public stopUsingItem()V
+public getUsedItemHand()Lnet/minecraft/world/InteractionHand;
+public onSyncedDataUpdated(Lnet/minecraft/network/syncher/EntityDataAccessor;)V
+public jumpableVehicle()Lnet/minecraft/world/entity/PlayerRideableJumping;
+public getJumpRidingScale()F
+public isTextFilteringEnabled()Z
+public openTextEdit(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraft/world/level/block/entity/SignTextSlot;)V
+public openMinecartCommandBlock(Lnet/minecraft/world/entity/vehicle/minecart/MinecartCommandBlock;)V
+public openCommandBlock(Lnet/minecraft/world/level/block/entity/CommandBlockEntity;)V
+public openStructureBlock(Lnet/minecraft/world/level/block/entity/StructureBlockEntity;)V
+public openTestBlock(Lnet/minecraft/world/level/block/entity/TestBlockEntity;)V
+public openTestInstanceBlock(Lnet/minecraft/world/level/block/entity/TestInstanceBlockEntity;)V
+public openJigsawBlock(Lnet/minecraft/world/level/block/entity/JigsawBlockEntity;)V
+public openDialog(Lnet/minecraft/core/Holder;)V
+public openItemGui(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;)V
+public crit(Lnet/minecraft/world/entity/Entity;)V
+public magicCrit(Lnet/minecraft/world/entity/Entity;)V
+public isShiftKeyDown()Z
+public isCrouching()Z
+public isMovingSlowly()Z
+public applyInput()V
+private modifyInput(Lnet/minecraft/world/phys/Vec2;)Lnet/minecraft/world/phys/Vec2;
+private static modifyInputSpeedForSquareMovement(Lnet/minecraft/world/phys/Vec2;)Lnet/minecraft/world/phys/Vec2;
+private static distanceToUnitSquare(Lnet/minecraft/world/phys/Vec2;)F
+protected isControlledCamera()Z
+public resetPos()V
+public aiStep()V
+private shouldStopRunSprinting()Z
+private shouldStopSwimSprinting()Z
+public getActivePortalLocalTransition()Lnet/minecraft/world/level/block/Portal$Transition;
+protected tickDeath()V
+private handlePortalTransitionEffect(Z)V
+private tickSpinningEffect()V
+public getSpinningEffectAngle(F)F
+public rideTick()V
+public isHandsBusy()Z
+public move(Lnet/minecraft/world/entity/MoverType;Lnet/minecraft/world/phys/Vec3;)V
+public isAutoJumpEnabled()Z
+public shouldRotateWithMinecart()Z
+protected updateAutoJump(FF)V
+protected isHorizontalCollisionMinor(Lnet/minecraft/world/phys/Vec3;)Z
+private canAutoJump()Z
+private isMoving()Z
+private isSprintingPossible(Z)Z
+private canStartSprinting()Z
+private vehicleCanSprint(Lnet/minecraft/world/entity/Entity;)Z
+public getWaterVision()F
+public onGameModeChanged(Lnet/minecraft/world/level/GameType;)V
+public isUnderWater()Z
+protected updateIsUnderwater()Z
+public getRopeHoldPosition(F)Lnet/minecraft/world/phys/Vec3;
+public updateTutorialInventoryAction(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/inventory/ClickAction;)V
+public getVisualRotationYInDegrees()F
+public handleCreativeModeItemDrop(Lnet/minecraft/world/item/ItemStack;)V
+public canDropItems()Z
+public getDropSpamThrottler()Lnet/minecraft/util/TickThrottler;
+public getLastSentInput()Lnet/minecraft/world/entity/player/Input;
+public raycastHitResult(FLnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/phys/HitResult;
+private static pick(Lnet/minecraft/world/entity/Entity;DDF)Lnet/minecraft/world/phys/HitResult;
+private static filterHitResult(Lnet/minecraft/world/phys/HitResult;Lnet/minecraft/world/phys/Vec3;D)Lnet/minecraft/world/phys/HitResult;
+public setActivePostEffects(Ljava/util/List;)V
+public getActivePostEffects()Ljava/util/List;
+private static synthetic lambda$updateAutoJump$0(Lnet/minecraft/world/phys/shapes/VoxelShape;)Ljava/util/stream/Stream;
+static <clinit>()V
 ```

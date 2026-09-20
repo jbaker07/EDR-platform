@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/BaseEntityBlock`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `dispenseItem` | `@Inject at INVOKE Lnet/minecraft/world/item/ItemStack;isEmpty()Z` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `dispenseItem` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (7 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.CrafterBlock extends net.minecraft.world.level.block.BaseEntityBlock {
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty CRAFTING;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty TRIGGERED;
-    private static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.FrontAndTop> ORIENTATION;
-    private static final int MAX_CRAFTING_TICKS;
-    private static final int CRAFTING_TICK_DELAY;
-    private static final net.minecraft.world.item.crafting.RecipeCache RECIPE_CACHE;
-    private static final int CRAFTER_ADVANCEMENT_DIAMETER;
-    public net.minecraft.world.level.block.CrafterBlock(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    protected boolean hasAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState);
-    protected int getAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    protected void neighborChanged(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block, net.minecraft.world.level.redstone.Orientation, boolean);
-    protected void tick(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public <T extends net.minecraft.world.level.block.entity.BlockEntity> net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(net.minecraft.world.level.Level, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.BlockEntityType<T>);
-    private void setBlockEntityTriggered(net.minecraft.world.level.block.entity.BlockEntity, boolean);
-    public net.minecraft.world.level.block.entity.BlockEntity newBlockEntity(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext);
-    public void setPlacedBy(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.ItemStack);
-    protected void affectNeighborsAfterRemoval(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, boolean);
-    protected net.minecraft.world.InteractionResult useWithoutItem(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.entity.player.Player, net.minecraft.world.phys.BlockHitResult);
-    protected void dispenseFrom(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos);
-    public static java.util.Optional<net.minecraft.world.item.crafting.RecipeHolder<net.minecraft.world.item.crafting.CraftingRecipe>> getPotentialResults(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.crafting.CraftingInput);
-    private void dispenseItem(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.CrafterBlockEntity, net.minecraft.world.item.ItemStack, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.item.crafting.RecipeHolder<?>);
-    protected net.minecraft.world.level.block.state.BlockState rotate(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.Rotation);
-    protected net.minecraft.world.level.block.state.BlockState mirror(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.Mirror);
-    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
-    private static void lambda$dispenseFrom$0(net.minecraft.world.item.ItemStack);
-    static {};
-}
+```
+public static final CRAFTING : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final TRIGGERED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+private static final ORIENTATION : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+private static final MAX_CRAFTING_TICKS : I
+private static final CRAFTING_TICK_DELAY : I
+private static final RECIPE_CACHE : Lnet/minecraft/world/item/crafting/RecipeCache;
+private static final CRAFTER_ADVANCEMENT_DIAMETER : I
+public <init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+protected hasAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected getAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I
+protected neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;Z)V
+protected tick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V
+public getTicker(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntityType;)Lnet/minecraft/world/level/block/entity/BlockEntityTicker;
+private setBlockEntityTriggered(Lnet/minecraft/world/level/block/entity/BlockEntity;Z)V
+public newBlockEntity(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+public getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;
+public setPlacedBy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V
+protected affectNeighborsAfterRemoval(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Z)V
+protected useWithoutItem(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;
+protected dispenseFrom(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)V
+public static getPotentialResults(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/crafting/CraftingInput;)Ljava/util/Optional;
+private dispenseItem(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/CrafterBlockEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/crafting/RecipeHolder;)V
+protected rotate(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/Rotation;)Lnet/minecraft/world/level/block/state/BlockState;
+protected mirror(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/Mirror;)Lnet/minecraft/world/level/block/state/BlockState;
+protected createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+private static synthetic lambda$dispenseFrom$0(Lnet/minecraft/world/item/ItemStack;)V
+static <clinit>()V
 ```

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PlayerListMixin.firePlayerJoinEvent` | `PlayerList.placeNewPlayer` @Inject at RETURN | both | static_inference |
+| `PlayerListMixin.firePlayerJoinEvent` @10 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`placeNewPlayer` @Inject RETURN | unknown | static_inference |
 
 ## Contract
 

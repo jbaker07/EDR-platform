@@ -11,29 +11,29 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/core/Holder;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;)V` | exact | invokespecial@30 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (2 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry extends java.lang.Record {
-    private final net.minecraft.core.Holder<net.minecraft.world.level.levelgen.presets.WorldPreset> preset;
-    private static final net.minecraft.network.chat.Component CUSTOM_WORLD_DESCRIPTION;
-    public net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry(net.minecraft.core.Holder<net.minecraft.world.level.levelgen.presets.WorldPreset>);
-    public net.minecraft.network.chat.Component describePreset();
-    public boolean isAmplified();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.Holder<net.minecraft.world.level.levelgen.presets.WorldPreset> preset();
-    private static boolean lambda$isAmplified$0(net.minecraft.resources.ResourceKey);
-    private static net.minecraft.network.chat.Component lambda$describePreset$0(net.minecraft.resources.ResourceKey);
-    static {};
-}
+```
+private final preset : Lnet/minecraft/core/Holder;
+private static final CUSTOM_WORLD_DESCRIPTION : Lnet/minecraft/network/chat/Component;
+public <init>(Lnet/minecraft/core/Holder;)V
+public describePreset()Lnet/minecraft/network/chat/Component;
+public isAmplified()Z
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public preset()Lnet/minecraft/core/Holder;
+private static synthetic lambda$isAmplified$0(Lnet/minecraft/resources/ResourceKey;)Z
+private static synthetic lambda$describePreset$0(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/network/chat/Component;
+static <clinit>()V
 ```

@@ -11,26 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/world/Container`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getLevelX()D` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getLevelY()D` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getLevelZ()D` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getLevelX` | `()D` | exact | invokeinterface@6 in `HopperBlockEntityMixin.hookExtract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getLevelY` | `()D` | exact | invokeinterface@12 in `HopperBlockEntityMixin.hookExtract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getLevelZ` | `()D` | exact | invokeinterface@20 in `HopperBlockEntityMixin.hookExtract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (1 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.level.block.entity.Hopper extends net.minecraft.world.Container {
-    public static final net.minecraft.world.phys.AABB SUCK_AABB;
-    public default net.minecraft.world.phys.AABB getSuckAabb();
-    public abstract double getLevelX();
-    public abstract double getLevelY();
-    public abstract double getLevelZ();
-    public abstract boolean isGridAligned();
-    static {};
-}
+```
+public static final SUCK_AABB : Lnet/minecraft/world/phys/AABB;
+public getSuckAabb()Lnet/minecraft/world/phys/AABB;
+public abstract getLevelX()D
+public abstract getLevelY()D
+public abstract getLevelZ()D
+public abstract isGridAligned()Z
+static <clinit>()V
 ```

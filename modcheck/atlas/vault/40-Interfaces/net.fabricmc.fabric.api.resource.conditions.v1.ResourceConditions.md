@@ -15,20 +15,19 @@ Module: [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-condit
 ```java
 public static final java.lang.String CONDITIONS_KEY
 public static final java.lang.String OVERLAYS_KEY
-public static void register(net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType<?>)
-public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType<?> getConditionType(net.minecraft.resources.Identifier)
+public static void register(net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType)
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType getConditionType(net.minecraft.resources.Identifier)
 public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition alwaysTrue()
 public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition alwaysFalse()
 public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition not(net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition)
-public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition and(net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition...)
-public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition or(net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition...)
-public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition allModsLoaded(java.lang.String...)
-public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition anyModsLoaded(java.lang.String...)
-public static <T> net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition tagsPopulated(net.minecraft.tags.TagKey<T>...)
-public static <T> net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition tagsPopulated(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.tags.TagKey<T>...)
-public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition featuresEnabled(net.minecraft.resources.Identifier...)
-public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition featuresEnabled(net.minecraft.world.flag.FeatureFlag...)
-public static <T> net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition registryContains(net.minecraft.resources.ResourceKey<T>...)
-public static <T> net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition registryContains(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.resources.Identifier...)
-static {}
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition and(net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition or(net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition allModsLoaded(java.lang.String[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition anyModsLoaded(java.lang.String[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition tagsPopulated(net.minecraft.tags.TagKey[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition tagsPopulated(net.minecraft.resources.ResourceKey, net.minecraft.tags.TagKey[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition featuresEnabled(net.minecraft.resources.Identifier[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition featuresEnabled(net.minecraft.world.flag.FeatureFlag[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition registryContains(net.minecraft.resources.ResourceKey[])
+public static net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition registryContains(net.minecraft.resources.ResourceKey, net.minecraft.resources.Identifier[])
 ```

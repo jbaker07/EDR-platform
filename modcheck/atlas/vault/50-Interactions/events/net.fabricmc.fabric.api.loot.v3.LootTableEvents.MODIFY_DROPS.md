@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LootTableMixin.fabric$modifyDrops` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `LootTableMixin.fabric$modifyDrops` @77 | [[40-Interfaces/net.minecraft.world.level.storage.loot.LootTable|LootTable]].`getRandomItemsRaw` @WrapMethod  | unknown | static_inference |
 
 ## Contract
 

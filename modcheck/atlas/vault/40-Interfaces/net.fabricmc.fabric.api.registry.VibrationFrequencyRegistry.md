@@ -13,6 +13,5 @@ sha256: "e83273ce3a8d06e08c00f31bdc38497d653f678af3693a2fc3ba094537fa8879"
 Module: [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] -- kind: class
 
 ```java
-public static void register(net.minecraft.resources.ResourceKey<net.minecraft.world.level.gameevent.GameEvent>, int)
-static {}
+public static void register(net.minecraft.resources.ResourceKey, int)
 ```

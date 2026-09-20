@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.modifyWakeUpPosition` | `LivingEntity.lambda$stopSleeping$0` @Redirect at INVOKE Lnet/minecraft/world/level/block/AbstractBedBlock;findStandUpPosition(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;F)Ljava/util/Optional; | both | static_inference |
+| `LivingEntityMixin.modifyWakeUpPosition` @62 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`lambda$stopSleeping$0` @Redirect INVOKE `Lnet/minecraft/world/level/block/AbstractBedBlock;findStandUpPosition(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;F)Ljava/util/Optional;` | unknown | static_inference |
 
 ## Contract
 

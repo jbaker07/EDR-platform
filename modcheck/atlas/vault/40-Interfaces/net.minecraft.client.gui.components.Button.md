@@ -11,41 +11,43 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`abstract_class` public abstract; extends `net/minecraft/client/gui/components/AbstractButton`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `builder(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `builder(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `builder(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `getMessage()Lnet/minecraft/network/chat/Component;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `onPress(Lnet/minecraft/client/input/InputWithModifiers;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `setMessage(Lnet/minecraft/network/chat/Component;)V` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `setX(I)V` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `setY(I)V` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/c` | exact | invokespecial@22 in `FabricCreativeGuiComponents$CreativeModeTabButton.<init>` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `builder` | `(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/compo` | exact | invokestatic@71 in `EnumRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `builder` | `(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/compo` | exact | invokestatic@36 in `DetailedBackupConfirmScreen.init` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `builder` | `(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/compo` | exact | invokestatic@13 in `DetailsScreen.addFooter` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V` | inherited_exact | invokevirtual@47 in `EnumRuleEntry.extractContent` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `getMessage` | `()Lnet/minecraft/network/chat/Component;` | inherited_exact | invokevirtual@24 in `ClientGameTestContextImpl.pressMatchingButton` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `onPress` | `(Lnet/minecraft/client/input/InputWithModifiers;)V` | exact | invokevirtual@40 in `ClientGameTestContextImpl.pressMatchingButton` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `setMessage` | `(Lnet/minecraft/network/chat/Component;)V` | inherited_exact | invokevirtual@51 in `EnumRuleEntry.lambda$new$0` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `setX` | `(I)V` | inherited_exact | invokevirtual@24 in `EnumRuleEntry.extractContent` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `setY` | `(I)V` | inherited_exact | invokevirtual@35 in `EnumRuleEntry.extractContent` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| reads | `DEFAULT_NARRATION` | `Lnet/minecraft/client/gui/components/Button$CreateNarration;` | exact | getstatic@19 in `FabricCreativeGuiComponents$CreativeModeTabButton.<init>` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (8 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.gui.components.Button extends net.minecraft.client.gui.components.AbstractButton {
-    public static final int SMALL_WIDTH;
-    public static final int DEFAULT_WIDTH;
-    public static final int BIG_WIDTH;
-    public static final int DEFAULT_HEIGHT;
-    public static final int DEFAULT_SPACING;
-    protected static final net.minecraft.client.gui.components.Button$CreateNarration DEFAULT_NARRATION;
-    protected final net.minecraft.client.gui.components.Button$OnPress onPress;
-    protected final net.minecraft.client.gui.components.Button$CreateNarration createNarration;
-    public static net.minecraft.client.gui.components.Button$Builder builder(net.minecraft.network.chat.Component, net.minecraft.client.gui.components.Button$OnPress);
-    protected net.minecraft.client.gui.components.Button(int, int, int, int, net.minecraft.network.chat.Component, net.minecraft.client.gui.components.Button$OnPress, net.minecraft.client.gui.components.Button$CreateNarration);
-    public void onPress(net.minecraft.client.input.InputWithModifiers);
-    protected net.minecraft.network.chat.MutableComponent createNarrationMessage();
-    public void updateWidgetNarration(net.minecraft.client.gui.narration.NarrationElementOutput);
-    private net.minecraft.network.chat.MutableComponent lambda$createNarrationMessage$0();
-    private static net.minecraft.network.chat.MutableComponent lambda$static$0(java.util.function.Supplier);
-    static {};
-}
+```
+public static final SMALL_WIDTH : I
+public static final DEFAULT_WIDTH : I
+public static final BIG_WIDTH : I
+public static final DEFAULT_HEIGHT : I
+public static final DEFAULT_SPACING : I
+protected static final DEFAULT_NARRATION : Lnet/minecraft/client/gui/components/Button$CreateNarration;
+protected final onPress : Lnet/minecraft/client/gui/components/Button$OnPress;
+protected final createNarration : Lnet/minecraft/client/gui/components/Button$CreateNarration;
+public static builder(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;)Lnet/minecraft/client/gui/components/Button$Builder;
+protected <init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;Lnet/minecraft/client/gui/components/Button$CreateNarration;)V
+public onPress(Lnet/minecraft/client/input/InputWithModifiers;)V
+protected createNarrationMessage()Lnet/minecraft/network/chat/MutableComponent;
+public updateWidgetNarration(Lnet/minecraft/client/gui/narration/NarrationElementOutput;)V
+private synthetic lambda$createNarrationMessage$0()Lnet/minecraft/network/chat/MutableComponent;
+private static synthetic lambda$static$0(Ljava/util/function/Supplier;)Lnet/minecraft/network/chat/MutableComponent;
+static <clinit>()V
 ```

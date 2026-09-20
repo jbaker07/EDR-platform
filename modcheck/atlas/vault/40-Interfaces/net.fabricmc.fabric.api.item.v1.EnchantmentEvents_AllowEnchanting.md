@@ -13,5 +13,5 @@ sha256: "aff8cffc3d6da5475f21060e45cd28307676974674c4e10504c0fcc89c7746c4"
 Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] -- kind: interface
 
 ```java
-public abstract net.fabricmc.fabric.api.util.TriState allowEnchanting(net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>, net.minecraft.world.item.ItemStack, net.fabricmc.fabric.api.item.v1.EnchantingContext)
+public abstract net.fabricmc.fabric.api.util.TriState allowEnchanting(net.minecraft.core.Holder, net.minecraft.world.item.ItemStack, net.fabricmc.fabric.api.item.v1.EnchantingContext)
 ```

@@ -11,73 +11,75 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `openWorld(Ljava/lang/String;Ljava/lang/Runnable;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `openWorld` | `(Ljava/lang/String;Ljava/lang/Runnable;)V` | exact | invokevirtual@23 in `TestWorldSaveImpl.lambda$open$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| injects_into | `openWorldCheckWorldStemCompatibility` | `(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAcc` | name_only | @ModifyExpressionValue at ['INVOKE'] | client | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| wraps | `askForBackup` | `(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAcc` | name_only | @WrapOperation at ['NEW'] | client | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (56, all visibilities)
+## Declared members (4 fields, 52 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.worldselection.WorldOpenFlows {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.util.UUID WORLD_PACK_ID;
-    private final net.minecraft.client.Minecraft minecraft;
-    private final net.minecraft.world.level.storage.LevelStorageSource levelSource;
-    public net.minecraft.client.gui.screens.worldselection.WorldOpenFlows(net.minecraft.client.Minecraft, net.minecraft.world.level.storage.LevelStorageSource);
-    public void createFreshLevel(java.lang.String, net.minecraft.world.level.LevelSettings, net.minecraft.world.level.levelgen.WorldOptions, java.util.function.Function<net.minecraft.core.HolderLookup$Provider, net.minecraft.world.level.levelgen.WorldDimensions>, net.minecraft.client.gui.screens.Screen);
-    private net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess createWorldAccess(java.lang.String);
-    public void createLevelFromExistingSettings(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.ReloadableServerResources, net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>, net.minecraft.world.level.storage.LevelDataAndDimensions$WorldDataAndGenSettings, java.util.Optional<net.minecraft.world.level.gamerules.GameRules>);
-    public net.minecraft.server.WorldStem loadWorldStem(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic<?>, boolean, net.minecraft.server.packs.repository.PackRepository) throws java.lang.Exception;
-    public com.mojang.datafixers.util.Pair<net.minecraft.world.level.LevelSettings, net.minecraft.client.gui.screens.worldselection.WorldCreationContext> recreateWorldData(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess) throws java.lang.Exception;
-    private <D, R> R loadWorldDataBlocking(net.minecraft.server.WorldLoader$PackConfig, net.minecraft.server.WorldLoader$WorldDataSupplier<D>, net.minecraft.server.WorldLoader$ResultFactory<D, R>) throws java.lang.Exception;
-    private void askForBackup(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, boolean, java.lang.Runnable, java.lang.Runnable);
-    public static void confirmWorldCreation(net.minecraft.client.Minecraft, net.minecraft.client.gui.screens.worldselection.CreateWorldScreen, com.mojang.serialization.Lifecycle, java.lang.Runnable, boolean);
-    public void openWorld(java.lang.String, java.lang.Runnable);
-    private void openWorldLoadLevelData(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, java.lang.Runnable);
-    private void openWorldCheckVersionCompatibility(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.world.level.storage.LevelSummary, com.mojang.serialization.Dynamic<?>, java.lang.Runnable);
-    private void createBackupAndOpenWorld(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic<?>, java.lang.Runnable, boolean);
-    private void upgradeAndOpenWorld(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic<?>, java.lang.Runnable);
-    private com.mojang.serialization.Dynamic<?> tryFileFixAndReportErrors(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic<?>, net.minecraft.util.worldupdate.UpgradeProgress, java.lang.Runnable);
-    private void openWorldLoadLevelStem(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic<?>, boolean, java.lang.Runnable);
-    private void openWorldCheckWorldStemCompatibility(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.WorldStem, net.minecraft.server.packs.repository.PackRepository, java.lang.Runnable);
-    private void openWorldLoadBundledResourcePack(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.WorldStem, net.minecraft.server.packs.repository.PackRepository, java.lang.Runnable);
-    private void openWorldCheckDiskSpace(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.WorldStem, net.minecraft.client.resources.server.DownloadedPackSource, net.minecraft.server.packs.repository.PackRepository, java.lang.Runnable);
-    private void openWorldDoLoad(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.WorldStem, net.minecraft.server.packs.repository.PackRepository);
-    private java.util.concurrent.CompletableFuture<java.lang.Void> loadBundledResourcePack(net.minecraft.client.resources.server.DownloadedPackSource, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess);
-    private java.util.concurrent.CompletableFuture<java.lang.Boolean> promptBundledPackLoadFailure();
-    private void lambda$openWorldCheckDiskSpace$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.WorldStem, net.minecraft.server.packs.repository.PackRepository, net.minecraft.client.resources.server.DownloadedPackSource, java.lang.Runnable, boolean);
-    private java.lang.Void lambda$openWorldLoadBundledResourcePack$3(java.lang.Throwable);
-    private void lambda$openWorldLoadBundledResourcePack$2(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.WorldStem, net.minecraft.client.resources.server.DownloadedPackSource, net.minecraft.server.packs.repository.PackRepository, java.lang.Runnable, java.lang.Boolean);
-    private java.util.concurrent.CompletionStage lambda$openWorldLoadBundledResourcePack$1(java.lang.Throwable);
-    private static java.lang.Boolean lambda$openWorldLoadBundledResourcePack$0(java.lang.Void);
-    private static void lambda$openWorldCheckWorldStemCompatibility$1(net.minecraft.server.WorldStem, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, java.lang.Runnable);
-    private void lambda$openWorldCheckWorldStemCompatibility$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.WorldStem, net.minecraft.server.packs.repository.PackRepository, java.lang.Runnable);
-    private void lambda$openWorldLoadLevelStem$1(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, java.lang.Runnable);
-    private static void lambda$openWorldLoadLevelStem$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, java.lang.Runnable);
-    private void lambda$tryFileFixAndReportErrors$2(java.lang.Runnable, net.minecraft.util.filefix.FailedCleanupFileFixException);
-    private void lambda$tryFileFixAndReportErrors$1(net.minecraft.util.filefix.AbortedFileFixException, java.lang.Runnable);
-    private void lambda$tryFileFixAndReportErrors$0(java.lang.Runnable);
-    private void lambda$upgradeAndOpenWorld$1(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, net.minecraft.util.worldupdate.UpgradeProgress, java.lang.Runnable, boolean, java.lang.Runnable);
-    private void lambda$upgradeAndOpenWorld$2(boolean, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, java.lang.Runnable, java.lang.Runnable);
-    private void lambda$upgradeAndOpenWorld$3(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, java.lang.Runnable, java.lang.Runnable, boolean);
-    private static void lambda$upgradeAndOpenWorld$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, java.lang.Runnable);
-    private void lambda$createBackupAndOpenWorld$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, java.lang.Runnable, java.lang.Boolean);
-    private void lambda$openWorldCheckVersionCompatibility$1(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, java.lang.Runnable, boolean, boolean);
-    private static void lambda$openWorldCheckVersionCompatibility$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, java.lang.Runnable);
-    private void lambda$openWorldLoadLevelData$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, java.lang.Runnable, boolean);
-    private static void lambda$confirmWorldCreation$0(java.lang.Runnable, net.minecraft.client.Minecraft, net.minecraft.client.gui.screens.worldselection.CreateWorldScreen, boolean);
-    private void lambda$askForBackup$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, java.lang.Runnable, boolean, boolean);
-    private static void lambda$askForBackup$1(java.lang.Runnable, java.lang.Boolean);
-    private static com.mojang.datafixers.util.Pair lambda$recreateWorldData$1(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.packs.resources.CloseableResourceManager, net.minecraft.server.ReloadableServerResources, net.minecraft.core.LayeredRegistryAccess, net.minecraft.client.gui.screens.worldselection.WorldOpenFlows$1Data);
-    private static void lambda$recreateWorldData$2(com.mojang.serialization.DataResult$Error);
-    private static net.minecraft.server.WorldLoader$DataLoadOutput lambda$recreateWorldData$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, net.minecraft.server.WorldLoader$DataLoadContext);
-    private static net.minecraft.server.WorldLoader$DataLoadOutput lambda$loadWorldStem$0(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic, net.minecraft.server.WorldLoader$DataLoadContext);
-    private void lambda$createWorldAccess$0();
-    private static net.minecraft.server.WorldLoader$DataLoadOutput lambda$createFreshLevel$0(java.util.function.Function, net.minecraft.world.level.LevelSettings, net.minecraft.world.level.levelgen.WorldOptions, net.minecraft.server.WorldLoader$DataLoadContext);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final WORLD_PACK_ID : Ljava/util/UUID;
+private final minecraft : Lnet/minecraft/client/Minecraft;
+private final levelSource : Lnet/minecraft/world/level/storage/LevelStorageSource;
+public <init>(Lnet/minecraft/client/Minecraft;Lnet/minecraft/world/level/storage/LevelStorageSource;)V
+public createFreshLevel(Ljava/lang/String;Lnet/minecraft/world/level/LevelSettings;Lnet/minecraft/world/level/levelgen/WorldOptions;Ljava/util/function/Function;Lnet/minecraft/client/gui/screens/Screen;)V
+private createWorldAccess(Ljava/lang/String;)Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;
+public createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V
+public loadWorldStem(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;ZLnet/minecraft/server/packs/repository/PackRepository;)Lnet/minecraft/server/WorldStem;
+public recreateWorldData(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;)Lcom/mojang/datafixers/util/Pair;
+private loadWorldDataBlocking(Lnet/minecraft/server/WorldLoader$PackConfig;Lnet/minecraft/server/WorldLoader$WorldDataSupplier;Lnet/minecraft/server/WorldLoader$ResultFactory;)Ljava/lang/Object;
+private askForBackup(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;ZLjava/lang/Runnable;Ljava/lang/Runnable;)V
+public static confirmWorldCreation(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;Lcom/mojang/serialization/Lifecycle;Ljava/lang/Runnable;Z)V
+public openWorld(Ljava/lang/String;Ljava/lang/Runnable;)V
+private openWorldLoadLevelData(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;)V
+private openWorldCheckVersionCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/world/level/storage/LevelSummary;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;)V
+private createBackupAndOpenWorld(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;Z)V
+private upgradeAndOpenWorld(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;)V
+private tryFileFixAndReportErrors(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Lnet/minecraft/util/worldupdate/UpgradeProgress;Ljava/lang/Runnable;)Lcom/mojang/serialization/Dynamic;
+private openWorldLoadLevelStem(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;ZLjava/lang/Runnable;)V
+private openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V
+private openWorldLoadBundledResourcePack(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V
+private openWorldCheckDiskSpace(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/client/resources/server/DownloadedPackSource;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V
+private openWorldDoLoad(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;)V
+private loadBundledResourcePack(Lnet/minecraft/client/resources/server/DownloadedPackSource;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;)Ljava/util/concurrent/CompletableFuture;
+private promptBundledPackLoadFailure()Ljava/util/concurrent/CompletableFuture;
+private synthetic lambda$openWorldCheckDiskSpace$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Lnet/minecraft/client/resources/server/DownloadedPackSource;Ljava/lang/Runnable;Z)V
+private synthetic lambda$openWorldLoadBundledResourcePack$3(Ljava/lang/Throwable;)Ljava/lang/Void;
+private synthetic lambda$openWorldLoadBundledResourcePack$2(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/client/resources/server/DownloadedPackSource;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;Ljava/lang/Boolean;)V
+private synthetic lambda$openWorldLoadBundledResourcePack$1(Ljava/lang/Throwable;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$openWorldLoadBundledResourcePack$0(Ljava/lang/Void;)Ljava/lang/Boolean;
+private static synthetic lambda$openWorldCheckWorldStemCompatibility$1(Lnet/minecraft/server/WorldStem;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;)V
+private synthetic lambda$openWorldCheckWorldStemCompatibility$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V
+private synthetic lambda$openWorldLoadLevelStem$1(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;)V
+private static synthetic lambda$openWorldLoadLevelStem$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;)V
+private synthetic lambda$tryFileFixAndReportErrors$2(Ljava/lang/Runnable;Lnet/minecraft/util/filefix/FailedCleanupFileFixException;)V
+private synthetic lambda$tryFileFixAndReportErrors$1(Lnet/minecraft/util/filefix/AbortedFileFixException;Ljava/lang/Runnable;)V
+private synthetic lambda$tryFileFixAndReportErrors$0(Ljava/lang/Runnable;)V
+private synthetic lambda$upgradeAndOpenWorld$1(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Lnet/minecraft/util/worldupdate/UpgradeProgress;Ljava/lang/Runnable;ZLjava/lang/Runnable;)V
+private synthetic lambda$upgradeAndOpenWorld$2(ZLnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;Ljava/lang/Runnable;)V
+private synthetic lambda$upgradeAndOpenWorld$3(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;Ljava/lang/Runnable;Z)V
+private static synthetic lambda$upgradeAndOpenWorld$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;)V
+private synthetic lambda$createBackupAndOpenWorld$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;Ljava/lang/Boolean;)V
+private synthetic lambda$openWorldCheckVersionCompatibility$1(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;ZZ)V
+private static synthetic lambda$openWorldCheckVersionCompatibility$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;)V
+private synthetic lambda$openWorldLoadLevelData$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;Z)V
+private static synthetic lambda$confirmWorldCreation$0(Ljava/lang/Runnable;Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;Z)V
+private synthetic lambda$askForBackup$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Ljava/lang/Runnable;ZZ)V
+private static synthetic lambda$askForBackup$1(Ljava/lang/Runnable;Ljava/lang/Boolean;)V
+private static synthetic lambda$recreateWorldData$1(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/packs/resources/CloseableResourceManager;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows$1Data;)Lcom/mojang/datafixers/util/Pair;
+private static synthetic lambda$recreateWorldData$2(Lcom/mojang/serialization/DataResult$Error;)V
+private static synthetic lambda$recreateWorldData$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Lnet/minecraft/server/WorldLoader$DataLoadContext;)Lnet/minecraft/server/WorldLoader$DataLoadOutput;
+private static synthetic lambda$loadWorldStem$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Lnet/minecraft/server/WorldLoader$DataLoadContext;)Lnet/minecraft/server/WorldLoader$DataLoadOutput;
+private synthetic lambda$createWorldAccess$0()V
+private static synthetic lambda$createFreshLevel$0(Ljava/util/function/Function;Lnet/minecraft/world/level/LevelSettings;Lnet/minecraft/world/level/levelgen/WorldOptions;Lnet/minecraft/server/WorldLoader$DataLoadContext;)Lnet/minecraft/server/WorldLoader$DataLoadOutput;
+static <clinit>()V
 ```

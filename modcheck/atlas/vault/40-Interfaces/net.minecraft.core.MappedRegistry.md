@@ -11,99 +11,118 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/core/WritableRegistry`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Lifecycle;Z)V` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `containsKey(Lnet/minecraft/resources/Identifier;)Z` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `containsKey(Lnet/minecraft/resources/ResourceKey;)Z` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `get(Lnet/minecraft/resources/Identifier;)Ljava/util/Optional;` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `get(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `getOrCreateHolderOrThrow` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `getValue(Lnet/minecraft/resources/Identifier;)Ljava/lang/Object;` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `getValue(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/Object;` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `register` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `registrationInfo` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Lifecy` | exact | invokespecial@9 in `FabricRegistryBuilder.create` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `containsKey` | `(Lnet/minecraft/resources/Identifier;)Z` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| calls | `createTag` | `(Lnet/minecraft/tags/TagKey;)Lnet/minecraft/core/HolderSet$Named;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | declared |
+| calls | `getResourceKey` | `(Ljava/lang/Object;)Ljava/util/Optional;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| calls | `getValue` | `(Lnet/minecraft/resources/Identifier;)Ljava/lang/Object;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | declared |
+| calls | `refreshTagsInHolders` | `()V` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | declared |
+| calls | `toString` | `()Ljava/lang/String;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| calls | `validateWrite` | `()V` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| injects_into | `<init>` | `(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Lifecy` | exact | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `containsKey` | `(Lnet/minecraft/resources/Identifier;)Z` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `containsKey` | `(Lnet/minecraft/resources/ResourceKey;)Z` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `get` | `(Lnet/minecraft/resources/Identifier;)Ljava/util/Optional;` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `get` | `(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `getOrCreateHolderOrThrow` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Refe` | name_only | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `getValue` | `(Lnet/minecraft/resources/Identifier;)Ljava/lang/Object;` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `getValue` | `(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/Object;` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `register` | `?` | ambiguous | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `registrationInfo` | `(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;` | name_only | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `allTags` | `Lnet/minecraft/core/MappedRegistry$TagSet;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | declared |
+| reads | `byId` | `Lit/unimi/dsi/fastutil/objects/ObjectList;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| reads | `byKey` | `Ljava/util/Map;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| reads | `byLocation` | `Ljava/util/Map;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| reads | `key` | `Lnet/minecraft/resources/ResourceKey;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| reads | `key` | `Lnet/minecraft/resources/ResourceKey;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | declared |
+| reads | `registrationInfos` | `Ljava/util/Map;` | exact | getfield@307 in `BiomeModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `registrationInfos` | `Ljava/util/Map;` | exact | getfield@341 in `BiomeModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `toId` | `Lit/unimi/dsi/fastutil/objects/Reference2IntMap;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
 
-## Declared members (73, all visibilities)
+## Declared members (13 fields, 60 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.MappedRegistry<T> implements net.minecraft.core.WritableRegistry<T> {
-    private final net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key;
-    private final it.unimi.dsi.fastutil.objects.ObjectList<net.minecraft.core.Holder$Reference<T>> byId;
-    private final it.unimi.dsi.fastutil.objects.Reference2IntMap<T> toId;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.core.Holder$Reference<T>> byLocation;
-    private final java.util.Map<net.minecraft.resources.ResourceKey<T>, net.minecraft.core.Holder$Reference<T>> byKey;
-    private final java.util.Map<T, net.minecraft.core.Holder$Reference<T>> byValue;
-    private final java.util.Map<net.minecraft.resources.ResourceKey<T>, net.minecraft.core.RegistrationInfo> registrationInfos;
-    private com.mojang.serialization.Lifecycle registryLifecycle;
-    private final java.util.Map<net.minecraft.tags.TagKey<T>, net.minecraft.core.HolderSet$Named<T>> frozenTags;
-    private net.minecraft.core.MappedRegistry$TagSet<T> allTags;
-    private net.minecraft.core.component.DataComponentLookup<T> componentLookup;
-    private boolean frozen;
-    private java.util.Map<T, net.minecraft.core.Holder$Reference<T>> unregisteredIntrusiveHolders;
-    public java.util.stream.Stream<net.minecraft.core.HolderSet$Named<T>> listTags();
-    public net.minecraft.core.MappedRegistry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Lifecycle);
-    public net.minecraft.core.MappedRegistry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Lifecycle, boolean);
-    public net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key();
-    public java.lang.String toString();
-    private void validateWrite();
-    private void validateWrite(net.minecraft.resources.ResourceKey<T>);
-    public net.minecraft.core.Holder$Reference<T> register(net.minecraft.resources.ResourceKey<T>, T, net.minecraft.core.RegistrationInfo);
-    public net.minecraft.resources.Identifier getKey(T);
-    public java.util.Optional<net.minecraft.resources.ResourceKey<T>> getResourceKey(T);
-    public int getId(T);
-    public T getValue(net.minecraft.resources.ResourceKey<T>);
-    public T byId(int);
-    public java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(int);
-    public java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(net.minecraft.resources.Identifier);
-    public java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(net.minecraft.resources.ResourceKey<T>);
-    public java.util.Optional<net.minecraft.core.Holder$Reference<T>> getAny();
-    public net.minecraft.core.Holder<T> wrapAsHolder(T);
-    private net.minecraft.core.Holder$Reference<T> getOrCreateHolderOrThrow(net.minecraft.resources.ResourceKey<T>);
-    public int size();
-    public java.util.Optional<net.minecraft.core.RegistrationInfo> registrationInfo(net.minecraft.resources.ResourceKey<T>);
-    public com.mojang.serialization.Lifecycle registryLifecycle();
-    public java.util.Iterator<T> iterator();
-    public T getValue(net.minecraft.resources.Identifier);
-    private static <T> T getValueFromNullable(net.minecraft.core.Holder$Reference<T>);
-    public java.util.Set<net.minecraft.resources.Identifier> keySet();
-    public java.util.Set<net.minecraft.resources.ResourceKey<T>> registryKeySet();
-    public java.util.Set<java.util.Map$Entry<net.minecraft.resources.ResourceKey<T>, T>> entrySet();
-    public java.util.stream.Stream<net.minecraft.core.Holder$Reference<T>> listElements();
-    public java.util.stream.Stream<net.minecraft.core.HolderSet$Named<T>> getTags();
-    private net.minecraft.core.HolderSet$Named<T> getOrCreateTagForRegistration(net.minecraft.tags.TagKey<T>);
-    private net.minecraft.core.HolderSet$Named<T> createTag(net.minecraft.tags.TagKey<T>);
-    public boolean isEmpty();
-    public java.util.Optional<net.minecraft.core.Holder$Reference<T>> getRandom(net.minecraft.util.RandomSource);
-    public boolean containsKey(net.minecraft.resources.Identifier);
-    public boolean containsKey(net.minecraft.resources.ResourceKey<T>);
-    public net.minecraft.core.component.DataComponentLookup<T> componentLookup();
-    public net.minecraft.core.Registry<T> freeze();
-    public net.minecraft.core.Holder$Reference<T> createIntrusiveHolder(T);
-    public java.util.Optional<net.minecraft.core.HolderSet$Named<T>> get(net.minecraft.tags.TagKey<T>);
-    private net.minecraft.core.Holder$Reference<T> validateAndUnwrapTagElement(net.minecraft.tags.TagKey<T>, net.minecraft.core.Holder<T>);
-    public void bindTags(java.util.Map<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>>);
-    private void refreshTagsInHolders();
-    public void bindAllTagsToEmpty();
-    public net.minecraft.core.HolderGetter<T> createRegistrationLookup();
-    public net.minecraft.core.Registry$PendingTags<T> prepareTagReload(net.minecraft.tags.TagLoader$LoadResult<T>);
-    private void lambda$prepareTagReload$0(com.google.common.collect.ImmutableMap$Builder, java.util.Map, net.minecraft.tags.TagKey, java.util.List);
-    private static void lambda$bindAllTagsToEmpty$0(net.minecraft.core.HolderSet$Named);
-    private void lambda$refreshTagsInHolders$1(java.util.Map, net.minecraft.tags.TagKey, net.minecraft.core.HolderSet$Named);
-    private static void lambda$refreshTagsInHolders$0(java.util.Map, net.minecraft.core.Holder$Reference);
-    private void lambda$bindTags$0(net.minecraft.tags.TagKey, java.util.List);
-    private net.minecraft.core.Holder$Reference lambda$createIntrusiveHolder$0(java.lang.Object);
-    private static net.minecraft.resources.Identifier lambda$freeze$4(java.util.Map$Entry);
-    private static boolean lambda$freeze$3(java.util.Map$Entry);
-    private static net.minecraft.resources.Identifier lambda$freeze$2(java.util.Map$Entry);
-    private static boolean lambda$freeze$1(java.util.Map$Entry);
-    private static void lambda$freeze$0(java.lang.Object, net.minecraft.core.Holder$Reference);
-    private net.minecraft.core.Holder$Reference lambda$getOrCreateHolderOrThrow$0(net.minecraft.resources.ResourceKey);
-    private net.minecraft.core.Holder$Reference lambda$register$0(net.minecraft.resources.ResourceKey);
-    private static void lambda$new$0(it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap);
-}
+```
+private final key : Lnet/minecraft/resources/ResourceKey;
+private final byId : Lit/unimi/dsi/fastutil/objects/ObjectList;
+private final toId : Lit/unimi/dsi/fastutil/objects/Reference2IntMap;
+private final byLocation : Ljava/util/Map;
+private final byKey : Ljava/util/Map;
+private final byValue : Ljava/util/Map;
+private final registrationInfos : Ljava/util/Map;
+private registryLifecycle : Lcom/mojang/serialization/Lifecycle;
+private final frozenTags : Ljava/util/Map;
+private allTags : Lnet/minecraft/core/MappedRegistry$TagSet;
+private componentLookup : Lnet/minecraft/core/component/DataComponentLookup;
+private frozen : Z
+private unregisteredIntrusiveHolders : Ljava/util/Map;
+public listTags()Ljava/util/stream/Stream;
+public <init>(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Lifecycle;)V
+public <init>(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Lifecycle;Z)V
+public key()Lnet/minecraft/resources/ResourceKey;
+public toString()Ljava/lang/String;
+private validateWrite()V
+private validateWrite(Lnet/minecraft/resources/ResourceKey;)V
+public register(Lnet/minecraft/resources/ResourceKey;Ljava/lang/Object;Lnet/minecraft/core/RegistrationInfo;)Lnet/minecraft/core/Holder$Reference;
+public getKey(Ljava/lang/Object;)Lnet/minecraft/resources/Identifier;
+public getResourceKey(Ljava/lang/Object;)Ljava/util/Optional;
+public getId(Ljava/lang/Object;)I
+public getValue(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/Object;
+public byId(I)Ljava/lang/Object;
+public get(I)Ljava/util/Optional;
+public get(Lnet/minecraft/resources/Identifier;)Ljava/util/Optional;
+public get(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;
+public getAny()Ljava/util/Optional;
+public wrapAsHolder(Ljava/lang/Object;)Lnet/minecraft/core/Holder;
+private getOrCreateHolderOrThrow(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Reference;
+public size()I
+public registrationInfo(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;
+public registryLifecycle()Lcom/mojang/serialization/Lifecycle;
+public iterator()Ljava/util/Iterator;
+public getValue(Lnet/minecraft/resources/Identifier;)Ljava/lang/Object;
+private static getValueFromNullable(Lnet/minecraft/core/Holder$Reference;)Ljava/lang/Object;
+public keySet()Ljava/util/Set;
+public registryKeySet()Ljava/util/Set;
+public entrySet()Ljava/util/Set;
+public listElements()Ljava/util/stream/Stream;
+public getTags()Ljava/util/stream/Stream;
+private getOrCreateTagForRegistration(Lnet/minecraft/tags/TagKey;)Lnet/minecraft/core/HolderSet$Named;
+private createTag(Lnet/minecraft/tags/TagKey;)Lnet/minecraft/core/HolderSet$Named;
+public isEmpty()Z
+public getRandom(Lnet/minecraft/util/RandomSource;)Ljava/util/Optional;
+public containsKey(Lnet/minecraft/resources/Identifier;)Z
+public containsKey(Lnet/minecraft/resources/ResourceKey;)Z
+public componentLookup()Lnet/minecraft/core/component/DataComponentLookup;
+public freeze()Lnet/minecraft/core/Registry;
+public createIntrusiveHolder(Ljava/lang/Object;)Lnet/minecraft/core/Holder$Reference;
+public get(Lnet/minecraft/tags/TagKey;)Ljava/util/Optional;
+private validateAndUnwrapTagElement(Lnet/minecraft/tags/TagKey;Lnet/minecraft/core/Holder;)Lnet/minecraft/core/Holder$Reference;
+public bindTags(Ljava/util/Map;)V
+private refreshTagsInHolders()V
+public bindAllTagsToEmpty()V
+public createRegistrationLookup()Lnet/minecraft/core/HolderGetter;
+public prepareTagReload(Lnet/minecraft/tags/TagLoader$LoadResult;)Lnet/minecraft/core/Registry$PendingTags;
+private synthetic lambda$prepareTagReload$0(Lcom/google/common/collect/ImmutableMap$Builder;Ljava/util/Map;Lnet/minecraft/tags/TagKey;Ljava/util/List;)V
+private static synthetic lambda$bindAllTagsToEmpty$0(Lnet/minecraft/core/HolderSet$Named;)V
+private synthetic lambda$refreshTagsInHolders$1(Ljava/util/Map;Lnet/minecraft/tags/TagKey;Lnet/minecraft/core/HolderSet$Named;)V
+private static synthetic lambda$refreshTagsInHolders$0(Ljava/util/Map;Lnet/minecraft/core/Holder$Reference;)V
+private synthetic lambda$bindTags$0(Lnet/minecraft/tags/TagKey;Ljava/util/List;)V
+private synthetic lambda$createIntrusiveHolder$0(Ljava/lang/Object;)Lnet/minecraft/core/Holder$Reference;
+private static synthetic lambda$freeze$4(Ljava/util/Map$Entry;)Lnet/minecraft/resources/Identifier;
+private static synthetic lambda$freeze$3(Ljava/util/Map$Entry;)Z
+private static synthetic lambda$freeze$2(Ljava/util/Map$Entry;)Lnet/minecraft/resources/Identifier;
+private static synthetic lambda$freeze$1(Ljava/util/Map$Entry;)Z
+private static synthetic lambda$freeze$0(Ljava/lang/Object;Lnet/minecraft/core/Holder$Reference;)V
+private synthetic lambda$getOrCreateHolderOrThrow$0(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Reference;
+private synthetic lambda$register$0(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Reference;
+private static synthetic lambda$new$0(Lit/unimi/dsi/fastutil/objects/Reference2IntOpenHashMap;)V
 ```

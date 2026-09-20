@@ -10,7 +10,7 @@ status: "open"
 
 # q.mixin_collision_analyser
 
-**Question.** Given N mod jars, which pairs contain mixins that target the same vanilla method, and which of those pairs contain a Redirect, cancellable Inject at the same point, or Overwrite?
+**Question.** Given N mod jars, which pairs share an injection target, and -- only after exact resolution of both selectors, environment applicability of both mixins, and the transformer's composition rule for the pair of injectors -- which of those pairs actually conflict?
 
 **Kind.** `unimplemented_automation` -- **Status.** open
 
@@ -24,9 +24,9 @@ status: "open"
 
 **Best remaining source.** The existing extractor, applied to arbitrary jars.
 
-**Procedure.** Add `modcheck inspect --mixins` that runs mixin_facts over each jar's declared mixin classes, joins on (owner, method), and reports pairs with severity by injector kind; add a failure record for the Overwrite case with a detector id.
+**Procedure.** In this order: (1) shared-target index from mixin_facts over each jar, the same index edges.json already builds for Fabric API (`extracted/edges.json#shared_targets`); (2) exact resolution of every selector and point (atlas/extract/resolve.py); (3) applicability: both mixins active in the same environment; (4) the composition rule from `extracted/mixin_transformation_tests.json` for the pair of effects and priorities. Report potential interactions at (1) and conflicts only at (4). Never turn an overlap into a conflict.
 
-**Done when.** The command exists, has tests over the reference lantern jar plus one Fabric API module, and the coverage note counts it.
+**Done when.** `modcheck inspect --mixins` reports the shared-target index for arbitrary jars, and marks a conflict only when all four steps hold; tested over the reference lantern jar plus one Fabric API module.
 
 **Conclusions affected while open.**
 - 90-Coverage item 5 stays "NOT implemented".

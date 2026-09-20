@@ -9,14 +9,15 @@ side: "vanilla"
 
 # com.mojang.datafixers.types.templates.TaggedChoice$TaggedChoiceType
 
-System: [[20-Systems/com.mojang.datafixers.types|com.mojang.datafixers.types]]
+Package `com.mojang.datafixers.types`: a library outside the Minecraft jar (no system note).
 
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `getMapCodec` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `getMapCodec` | `(Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| reads | `types` | `Lit/unimi/dsi/fastutil/objects/Object2ObjectMap;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | declared |
 
 ## Members
 
-Not in the merged 26.3 jar: this type belongs to a library Minecraft depends on (DataFixerUpper, Brigadier or similar) that is outside the corpus. See [[00-Scope/Branches|branches]]; no artifact, no members.
+Not in the processed Minecraft jar: this type belongs to a library Minecraft depends on (see [[00-Scope/Corpus]], group minecraft_library) and its members were not extracted.

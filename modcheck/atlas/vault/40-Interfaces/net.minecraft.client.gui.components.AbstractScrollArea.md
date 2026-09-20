@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`abstract_class` public abstract; extends `net/minecraft/client/gui/components/AbstractWidget`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `defaultSettings(I)Lnet/minecraft/client/gui/components/AbstractScrollArea$S` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `defaultSettings` | `(I)Lnet/minecraft/client/gui/components/AbstractScrollArea$ScrollbarSe` | exact | invokestatic@30 in `OptimizedScrollableLayout.<init>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (7 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.gui.components.AbstractScrollArea extends net.minecraft.client.gui.components.AbstractWidget {
-    public static final int SCROLLBAR_WIDTH;
-    private static final int SCROLLBAR_MIN_HEIGHT;
-    private static final net.minecraft.resources.Identifier SCROLLER_SPRITE;
-    private static final net.minecraft.resources.Identifier SCROLLER_BACKGROUND_SPRITE;
-    private final net.minecraft.client.gui.components.AbstractScrollArea$ScrollbarSettings scrollbarSettings;
-    private double scrollAmount;
-    private boolean scrolling;
-    public net.minecraft.client.gui.components.AbstractScrollArea(int, int, int, int, net.minecraft.network.chat.Component, net.minecraft.client.gui.components.AbstractScrollArea$ScrollbarSettings);
-    public boolean mouseScrolled(double, double, double, double);
-    public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent, double, double);
-    public void onRelease(net.minecraft.client.input.MouseButtonEvent);
-    public double scrollAmount();
-    public void setScrollAmount(double);
-    public boolean updateScrolling(net.minecraft.client.input.MouseButtonEvent);
-    protected boolean isOverScrollbar(double, double);
-    public void refreshScrollAmount();
-    public int maxScrollAmount();
-    protected boolean scrollable();
-    public int scrollbarWidth();
-    protected int scrollerHeight();
-    protected int scrollBarX();
-    public int scrollBarY();
-    protected void extractScrollbar(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    protected abstract int contentHeight();
-    protected double scrollRate();
-    public static net.minecraft.client.gui.components.AbstractScrollArea$ScrollbarSettings defaultSettings(int);
-    static {};
-}
+```
+public static final SCROLLBAR_WIDTH : I
+private static final SCROLLBAR_MIN_HEIGHT : I
+private static final SCROLLER_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final SCROLLER_BACKGROUND_SPRITE : Lnet/minecraft/resources/Identifier;
+private final scrollbarSettings : Lnet/minecraft/client/gui/components/AbstractScrollArea$ScrollbarSettings;
+private scrollAmount : D
+private scrolling : Z
+public <init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/AbstractScrollArea$ScrollbarSettings;)V
+public mouseScrolled(DDDD)Z
+public mouseDragged(Lnet/minecraft/client/input/MouseButtonEvent;DD)Z
+public onRelease(Lnet/minecraft/client/input/MouseButtonEvent;)V
+public scrollAmount()D
+public setScrollAmount(D)V
+public updateScrolling(Lnet/minecraft/client/input/MouseButtonEvent;)Z
+protected isOverScrollbar(DD)Z
+public refreshScrollAmount()V
+public maxScrollAmount()I
+protected scrollable()Z
+public scrollbarWidth()I
+protected scrollerHeight()I
+protected scrollBarX()I
+public scrollBarY()I
+protected extractScrollbar(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+protected abstract contentHeight()I
+protected scrollRate()D
+public static defaultSettings(I)Lnet/minecraft/client/gui/components/AbstractScrollArea$ScrollbarSettings;
+static <clinit>()V
 ```

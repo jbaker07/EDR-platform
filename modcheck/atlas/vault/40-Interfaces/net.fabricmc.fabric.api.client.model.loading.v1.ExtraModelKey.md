@@ -13,7 +13,7 @@ sha256: "4889e5947bb2f9d899f72c17676b27aaef7d2594ecaaf75e89626e1eea169711"
 Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] -- kind: class
 
 ```java
-public static <T> net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey<T> create()
-public static <T> net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey<T> create(java.util.function.Supplier<java.lang.String>)
+public static net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey create()
+public static net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey create(java.util.function.Supplier)
 public java.lang.String toString()
 ```

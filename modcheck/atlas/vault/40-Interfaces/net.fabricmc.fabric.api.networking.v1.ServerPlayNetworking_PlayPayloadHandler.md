@@ -13,5 +13,5 @@ sha256: "dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544"
 Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- kind: interface
 
 ```java
-public abstract void receive(T, net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking$Context)
+public abstract void receive(net.minecraft.network.protocol.common.custom.CustomPacketPayload, net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking$Context)
 ```

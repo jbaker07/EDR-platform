@@ -11,37 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util.profiling|net.minecraft.util.profiling]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `pop()V` | `` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
-| calls | `push(Ljava/lang/String;)V` | `` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `pop` | `()V` | exact | invokeinterface@40 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `pop` | `()V` | exact | invokeinterface@61 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `pop` | `()V` | exact | invokeinterface@101 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `pop` | `()V` | exact | invokeinterface@137 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `pop` | `()V` | exact | invokeinterface@177 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `pop` | `()V` | exact | invokeinterface@190 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `push` | `(Ljava/lang/String;)V` | exact | invokeinterface@4 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (1 fields, 18 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.util.profiling.ProfilerFiller {
-    public static final java.lang.String ROOT;
-    public abstract void startTick();
-    public abstract void endTick();
-    public abstract void push(java.lang.String);
-    public abstract void push(java.util.function.Supplier<java.lang.String>);
-    public abstract void pop();
-    public abstract void popPush(java.lang.String);
-    public abstract void popPush(java.util.function.Supplier<java.lang.String>);
-    public default void addZoneText(java.lang.String);
-    public default void addZoneValue(long);
-    public default void setZoneColor(int);
-    public default net.minecraft.util.profiling.Zone zone(java.lang.String);
-    public default net.minecraft.util.profiling.Zone zone(java.util.function.Supplier<java.lang.String>);
-    public abstract void markForCharting(net.minecraft.util.profiling.metrics.MetricCategory);
-    public default void incrementCounter(java.lang.String);
-    public abstract void incrementCounter(java.lang.String, int);
-    public default void incrementCounter(java.util.function.Supplier<java.lang.String>);
-    public abstract void incrementCounter(java.util.function.Supplier<java.lang.String>, int);
-    public static net.minecraft.util.profiling.ProfilerFiller combine(net.minecraft.util.profiling.ProfilerFiller, net.minecraft.util.profiling.ProfilerFiller);
-}
+```
+public static final ROOT : Ljava/lang/String;
+public abstract startTick()V
+public abstract endTick()V
+public abstract push(Ljava/lang/String;)V
+public abstract push(Ljava/util/function/Supplier;)V
+public abstract pop()V
+public abstract popPush(Ljava/lang/String;)V
+public abstract popPush(Ljava/util/function/Supplier;)V
+public addZoneText(Ljava/lang/String;)V
+public addZoneValue(J)V
+public setZoneColor(I)V
+public zone(Ljava/lang/String;)Lnet/minecraft/util/profiling/Zone;
+public zone(Ljava/util/function/Supplier;)Lnet/minecraft/util/profiling/Zone;
+public abstract markForCharting(Lnet/minecraft/util/profiling/metrics/MetricCategory;)V
+public incrementCounter(Ljava/lang/String;)V
+public abstract incrementCounter(Ljava/lang/String;I)V
+public incrementCounter(Ljava/util/function/Supplier;)V
+public abstract incrementCounter(Ljava/util/function/Supplier;I)V
+public static combine(Lnet/minecraft/util/profiling/ProfilerFiller;Lnet/minecraft/util/profiling/ProfilerFiller;)Lnet/minecraft/util/profiling/ProfilerFiller;
 ```

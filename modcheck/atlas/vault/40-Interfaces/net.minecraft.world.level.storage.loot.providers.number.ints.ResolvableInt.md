@@ -11,24 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `get(Lnet/minecraft/world/level/storage/loot/LootContext;I)I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `get` | `(Lnet/minecraft/world/level/storage/loot/LootContext;I)I` | exact | invokeinterface@50 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (2 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt {
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt> STREAM_CODEC;
-    private static com.mojang.datafixers.util.Either<net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt$Constant, net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt$Reference> wrap(net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt);
-    public abstract int get(net.minecraft.world.level.storage.loot.LootContext, int);
-    public static net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt fromKey(net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>);
-    public static <T> int getFromItem(net.minecraft.world.item.ItemStack, net.minecraft.core.component.DataComponentType<T>, java.util.function.Function<T, net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt>, net.minecraft.world.level.storage.loot.LootContext, int);
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private static wrap(Lnet/minecraft/world/level/storage/loot/providers/number/ints/ResolvableInt;)Lcom/mojang/datafixers/util/Either;
+public abstract get(Lnet/minecraft/world/level/storage/loot/LootContext;I)I
+public static fromKey(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/providers/number/ints/ResolvableInt;
+public static getFromItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/component/DataComponentType;Ljava/util/function/Function;Lnet/minecraft/world/level/storage/loot/LootContext;I)I
+static <clinit>()V
 ```

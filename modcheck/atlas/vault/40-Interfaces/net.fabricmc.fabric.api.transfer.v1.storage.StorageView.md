@@ -13,10 +13,10 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: interface
 
 ```java
-public abstract long extract(T, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
+public abstract long extract(java.lang.Object, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
 public abstract boolean isResourceBlank()
-public abstract T getResource()
+public abstract java.lang.Object getResource()
 public abstract long getAmount()
 public abstract long getCapacity()
-public default net.fabricmc.fabric.api.transfer.v1.storage.StorageView<T> getUnderlyingView()
+public net.fabricmc.fabric.api.transfer.v1.storage.StorageView getUnderlyingView()
 ```

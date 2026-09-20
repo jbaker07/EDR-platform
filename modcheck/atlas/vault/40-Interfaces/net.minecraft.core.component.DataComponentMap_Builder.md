@@ -11,28 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core.component|net.minecraft.core.component]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/item/v1/FabricComponentMapBuilder`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `addAll(Lnet/minecraft/core/component/DataComponentMap;)Lnet/minecr` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `build()Lnet/minecraft/core/component/DataComponentMap;` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `addAll` | `(Lnet/minecraft/core/component/DataComponentMap;)Lnet/minecraft/core/c` | exact | invokevirtual@48 in `DefaultItemComponentImpl$ModifyContextImpl.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `addAll` | `(Lnet/minecraft/core/component/DataComponentMap;)Lnet/minecraft/core/c` | exact | invokevirtual@44 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/core/component/DataComponentMap;` | exact | invokevirtual@74 in `DefaultItemComponentImpl$ModifyContextImpl.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/core/component/DataComponentMap;` | exact | invokevirtual@166 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `get` | `(Lnet/minecraft/core/component/DataComponentType;)Ljava/lang/Object;` | inherited_exact | invokevirtual@5 in `FabricItem$Properties.lambda$modifyComponent$0` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ln` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | declared |
+| calls | `set` | `(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ln` | exact | invokevirtual@16 in `FabricItem$Properties.lambda$modifyComponent$0` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `map` | `Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | declared |
 
-## Declared members (10, all visibilities)
+## Declared members (2 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.component.DataComponentMap$Builder {
-    private final it.unimi.dsi.fastutil.objects.Reference2ObjectMap<net.minecraft.core.component.DataComponentType<?>, java.lang.Object> map;
-    private java.util.function.Consumer<net.minecraft.core.component.DataComponentMap> validator;
-    private net.minecraft.core.component.DataComponentMap$Builder();
-    public <T> net.minecraft.core.component.DataComponentMap$Builder set(net.minecraft.core.component.DataComponentType<T>, T);
-    <T> void setUnchecked(net.minecraft.core.component.DataComponentType<T>, java.lang.Object);
-    public net.minecraft.core.component.DataComponentMap$Builder addAll(net.minecraft.core.component.DataComponentMap);
-    public net.minecraft.core.component.DataComponentMap$Builder addValidator(java.util.function.Consumer<net.minecraft.core.component.DataComponentMap>);
-    public net.minecraft.core.component.DataComponentMap build();
-    private static net.minecraft.core.component.DataComponentMap buildFromMapTrusted(java.util.Map<net.minecraft.core.component.DataComponentType<?>, java.lang.Object>);
-    private static void lambda$new$0(net.minecraft.core.component.DataComponentMap);
-}
+```
+private final map : Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;
+private validator : Ljava/util/function/Consumer;
+private <init>()V
+public set(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Lnet/minecraft/core/component/DataComponentMap$Builder;
+ setUnchecked(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)V
+public addAll(Lnet/minecraft/core/component/DataComponentMap;)Lnet/minecraft/core/component/DataComponentMap$Builder;
+public addValidator(Ljava/util/function/Consumer;)Lnet/minecraft/core/component/DataComponentMap$Builder;
+public build()Lnet/minecraft/core/component/DataComponentMap;
+private static buildFromMapTrusted(Ljava/util/Map;)Lnet/minecraft/core/component/DataComponentMap;
+private static synthetic lambda$new$0(Lnet/minecraft/core/component/DataComponentMap;)V
 ```

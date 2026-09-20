@@ -11,162 +11,165 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `WATERLOGGEDLnet/minecraft/world/level/block/state/properties/BooleanPro` | `` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `WATERLOGGED` | `Lnet/minecraft/world/level/block/state/properties/BooleanProperty;` | exact | getstatic@17 in `FireBlockMixin.getFabricBurnChance` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `WATERLOGGED` | `Lnet/minecraft/world/level/block/state/properties/BooleanProperty;` | exact | getstatic@27 in `FireBlockMixin.getFabricBurnChance` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `WATERLOGGED` | `Lnet/minecraft/world/level/block/state/properties/BooleanProperty;` | exact | getstatic@17 in `FireBlockMixin.getFabricSpreadChance` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `WATERLOGGED` | `Lnet/minecraft/world/level/block/state/properties/BooleanProperty;` | exact | getstatic@27 in `FireBlockMixin.getFabricSpreadChance` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
 
-## Declared members (145, all visibilities)
+## Declared members (141 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.state.properties.BlockStateProperties {
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty ATTACHED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty BERRIES;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty BLOOM;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty BOTTOM;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty CAN_SUMMON;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty CONDITIONAL;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty DISARMED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty DRAG;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty ENABLED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty EXTENDED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty EYE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty FALLING;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty HANGING;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty HAS_BOTTLE_0;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty HAS_BOTTLE_1;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty HAS_BOTTLE_2;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty HAS_RECORD;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty HAS_BOOK;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty INVERTED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty IN_WALL;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty LIT;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty LOCKED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty NATURAL;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty OCCUPIED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty OPEN;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty PERSISTENT;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty POWERED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SHORT;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SHRIEKING;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SIGNAL_FIRE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SNOWY;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty TIP;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty TRIGGERED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty UNSTABLE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty WATERLOGGED;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.Direction$Axis> HORIZONTAL_AXIS;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.Direction$Axis> AXIS;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty UP;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty DOWN;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty NORTH;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty EAST;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SOUTH;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty WEST;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.Direction> FACING;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.Direction> FACING_HOPPER;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.Direction> HORIZONTAL_FACING;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty FLOWER_AMOUNT;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty SEGMENT_AMOUNT;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.FrontAndTop> ORIENTATION;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.AttachFace> ATTACH_FACE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.BellAttachType> BELL_ATTACHMENT;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.WallSide> EAST_WALL;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.WallSide> NORTH_WALL;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.WallSide> SOUTH_WALL;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.WallSide> WEST_WALL;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.RedstoneSide> EAST_REDSTONE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.RedstoneSide> NORTH_REDSTONE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.RedstoneSide> SOUTH_REDSTONE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.RedstoneSide> WEST_REDSTONE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.DoubleBlockHalf> DOUBLE_BLOCK_HALF;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.Half> HALF;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.SideChainPart> SIDE_CHAIN_PART;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.RailShape> RAIL_SHAPE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.RailShape> RAIL_SHAPE_STRAIGHT;
-    public static final int MAX_AGE_1;
-    public static final int MAX_AGE_2;
-    public static final int MAX_AGE_3;
-    public static final int MAX_AGE_4;
-    public static final int MAX_AGE_5;
-    public static final int MAX_AGE_7;
-    public static final int MAX_AGE_15;
-    public static final int MAX_AGE_25;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_1;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_2;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_3;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_4;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_5;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_7;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_15;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE_25;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty BITES;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty CANDLES;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty DELAY;
-    public static final int MAX_DISTANCE;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty DISTANCE;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty EGGS;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty HATCH;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LAYERS;
-    public static final int MIN_LEVEL;
-    public static final int MIN_LEVEL_CAULDRON;
-    public static final int MAX_LEVEL_3;
-    public static final int MAX_LEVEL_8;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LEVEL_CAULDRON;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LEVEL_COMPOSTER;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LEVEL_FLOWING;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LEVEL_HONEY;
-    public static final int MAX_LEVEL_15;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LEVEL;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty MOISTURE;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty NOTE;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty PICKLES;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty POWER;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty STAGE;
-    public static final int STABILITY_MAX_DISTANCE;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty STABILITY_DISTANCE;
-    public static final int MIN_RESPAWN_ANCHOR_CHARGES;
-    public static final int MAX_RESPAWN_ANCHOR_CHARGES;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty RESPAWN_ANCHOR_CHARGES;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty DRIED_GHAST_HYDRATION_LEVELS;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty ROTATION_16;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.BedPart> BED_PART;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.ChestType> CHEST_TYPE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.ComparatorMode> MODE_COMPARATOR;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.DoorHingeSide> DOOR_HINGE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.NoteBlockInstrument> NOTEBLOCK_INSTRUMENT;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.PistonType> PISTON_TYPE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.SlabType> SLAB_TYPE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.StairsShape> STAIRS_SHAPE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.StructureMode> STRUCTUREBLOCK_MODE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.BambooLeaves> BAMBOO_LEAVES;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.Tilt> TILT;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.Direction> VERTICAL_DIRECTION;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.SpeleothemThickness> SPELEOTHEM_THICKNESS;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.SculkSensorPhase> SCULK_SENSOR_PHASE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SLOT_0_OCCUPIED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SLOT_1_OCCUPIED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SLOT_2_OCCUPIED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SLOT_3_OCCUPIED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SLOT_4_OCCUPIED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SLOT_5_OCCUPIED;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty DUSTED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty CRACKED;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty CRAFTING;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerState> TRIAL_SPAWNER_STATE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.entity.vault.VaultState> VAULT_STATE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.CreakingHeartState> CREAKING_HEART_STATE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty OMINOUS;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.TestBlockMode> TEST_BLOCK_MODE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty MAP;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.CopperGolemStatueBlock$Pose> COPPER_GOLEM_POSE;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.PotentSulfurState> POTENT_SULFUR_STATE;
-    public net.minecraft.world.level.block.state.properties.BlockStateProperties();
-    private static boolean lambda$static$1(net.minecraft.world.level.block.state.properties.RailShape);
-    private static boolean lambda$static$0(net.minecraft.core.Direction);
-    static {};
-}
+```
+public static final ATTACHED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final BERRIES : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final BLOOM : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final BOTTOM : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final CAN_SUMMON : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final CONDITIONAL : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final DISARMED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final DRAG : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final ENABLED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final EXTENDED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final EYE : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final FALLING : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final HANGING : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final HAS_BOTTLE_0 : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final HAS_BOTTLE_1 : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final HAS_BOTTLE_2 : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final HAS_RECORD : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final HAS_BOOK : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final INVERTED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final IN_WALL : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final LIT : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final LOCKED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final NATURAL : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final OPEN : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final PERSISTENT : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final POWERED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SHORT : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SHRIEKING : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SIGNAL_FIRE : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SNOWY : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final TIP : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final TRIGGERED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final UNSTABLE : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final WATERLOGGED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final HORIZONTAL_AXIS : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final AXIS : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final UP : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final DOWN : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final NORTH : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final EAST : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SOUTH : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final WEST : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final FACING : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final FACING_HOPPER : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final HORIZONTAL_FACING : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final FLOWER_AMOUNT : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final SEGMENT_AMOUNT : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final ORIENTATION : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final ATTACH_FACE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final BELL_ATTACHMENT : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final EAST_WALL : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final NORTH_WALL : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final SOUTH_WALL : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final WEST_WALL : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final EAST_REDSTONE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final NORTH_REDSTONE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final SOUTH_REDSTONE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final WEST_REDSTONE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final DOUBLE_BLOCK_HALF : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final HALF : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final SIDE_CHAIN_PART : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final RAIL_SHAPE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final RAIL_SHAPE_STRAIGHT : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final MAX_AGE_1 : I
+public static final MAX_AGE_2 : I
+public static final MAX_AGE_3 : I
+public static final MAX_AGE_4 : I
+public static final MAX_AGE_5 : I
+public static final MAX_AGE_7 : I
+public static final MAX_AGE_15 : I
+public static final MAX_AGE_25 : I
+public static final AGE_1 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final AGE_2 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final AGE_3 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final AGE_4 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final AGE_5 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final AGE_7 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final AGE_15 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final AGE_25 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final BITES : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final CANDLES : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final DELAY : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final MAX_DISTANCE : I
+public static final DISTANCE : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final EGGS : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final HATCH : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final LAYERS : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final MIN_LEVEL : I
+public static final MIN_LEVEL_CAULDRON : I
+public static final MAX_LEVEL_3 : I
+public static final MAX_LEVEL_8 : I
+public static final LEVEL_CAULDRON : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final LEVEL_COMPOSTER : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final LEVEL_FLOWING : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final LEVEL_HONEY : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final MAX_LEVEL_15 : I
+public static final LEVEL : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final MOISTURE : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final NOTE : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final PICKLES : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final POWER : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final STAGE : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final STABILITY_MAX_DISTANCE : I
+public static final STABILITY_DISTANCE : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final MIN_RESPAWN_ANCHOR_CHARGES : I
+public static final MAX_RESPAWN_ANCHOR_CHARGES : I
+public static final RESPAWN_ANCHOR_CHARGES : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final DRIED_GHAST_HYDRATION_LEVELS : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final ROTATION_16 : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final BED_PART : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final CHEST_TYPE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final MODE_COMPARATOR : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final DOOR_HINGE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final NOTEBLOCK_INSTRUMENT : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final PISTON_TYPE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final SLAB_TYPE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final STAIRS_SHAPE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final STRUCTUREBLOCK_MODE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final BAMBOO_LEAVES : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final TILT : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final VERTICAL_DIRECTION : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final SPELEOTHEM_THICKNESS : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final SCULK_SENSOR_PHASE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final SLOT_0_OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SLOT_1_OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SLOT_2_OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SLOT_3_OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SLOT_4_OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SLOT_5_OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final DUSTED : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final CRACKED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final CRAFTING : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final TRIAL_SPAWNER_STATE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final VAULT_STATE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final CREAKING_HEART_STATE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final OMINOUS : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final TEST_BLOCK_MODE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final MAP : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final COPPER_GOLEM_POSE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final POTENT_SULFUR_STATE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public <init>()V
+private static synthetic lambda$static$1(Lnet/minecraft/world/level/block/state/properties/RailShape;)Z
+private static synthetic lambda$static$0(Lnet/minecraft/core/Direction;)Z
+static <clinit>()V
 ```

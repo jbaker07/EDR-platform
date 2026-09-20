@@ -13,9 +13,6 @@ sha256: "0bf0c29bd7f1803eac7c5d4aec1af51bb25790ba41583108a2320740043cd0c2"
 Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: class
 
 ```java
-final com.mojang.serialization.MapCodec val$codec
-final net.minecraft.network.codec.StreamCodec val$streamCodec
-net.fabricmc.fabric.api.particle.v1.FabricParticleTypes$2(boolean, com.mojang.serialization.MapCodec, net.minecraft.network.codec.StreamCodec)
-public com.mojang.serialization.MapCodec<T> codec()
-public net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, T> streamCodec()
+public com.mojang.serialization.MapCodec codec()
+public net.minecraft.network.codec.StreamCodec streamCodec()
 ```

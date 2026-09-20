@@ -11,30 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/core/HolderLookup`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `key()Lnet/minecraft/resources/ResourceKey;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `listElementIds()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `listElements()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| calls | `listElements()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `listElements()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `listTags()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| calls | `listTags()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `registryLifecycle()Lcom/mojang/serialization/Lifecycle;` | `` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| calls | `registryLifecycle()Lcom/mojang/serialization/Lifecycle;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getOrThrow` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Refe` | inherited_exact | invokeinterface@4 in `FabricDynamicRegistryProvider$Entries.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getOrThrow` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Refe` | inherited_exact | invokeinterface@4 in `FabricDynamicRegistryProvider$Entries.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokeinterface@59 in `RegistryCustomContentState.lambda$construct$1` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokeinterface@1 in `RegistryCustomContentState.lambda$construct$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `listElementIds` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@1 in `FabricDynamicRegistryProvider$Entries.addAll` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `listElementIds` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@9 in `RegistryCustomContentState.lambda$construct$1` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `listElements` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@11 in `AdvancementLookup.listElements` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| calls | `listElements` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@10 in `FabricRecipeProvider$FabricBootstrapContext.listContextElements` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `listElements` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@10 in `FabricLootTableContext.listContextElements` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `listElements` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@11 in `LootTableLookup.listElements` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `listTags` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@11 in `AdvancementLookup.listTags` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| calls | `listTags` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@11 in `LootTableLookup.listTags` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `registryLifecycle` | `()Lcom/mojang/serialization/Lifecycle;` | exact | invokeinterface@11 in `AdvancementLookup.registryLifecycle` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| calls | `registryLifecycle` | `()Lcom/mojang/serialization/Lifecycle;` | exact | invokeinterface@11 in `LootTableLookup.registryLifecycle` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (0 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.core.HolderLookup$RegistryLookup<T> extends net.minecraft.core.HolderLookup<T> {
-    public abstract net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends T>> key();
-    public abstract com.mojang.serialization.Lifecycle registryLifecycle();
-    public default net.minecraft.core.HolderLookup$RegistryLookup<T> filterFeatures(net.minecraft.world.flag.FeatureFlagSet);
-    public default net.minecraft.core.HolderLookup$RegistryLookup<T> filterElements(java.util.function.Predicate<T>);
-    private static boolean lambda$filterFeatures$0(net.minecraft.world.flag.FeatureFlagSet, java.lang.Object);
-}
+```
+public abstract key()Lnet/minecraft/resources/ResourceKey;
+public abstract registryLifecycle()Lcom/mojang/serialization/Lifecycle;
+public filterFeatures(Lnet/minecraft/world/flag/FeatureFlagSet;)Lnet/minecraft/core/HolderLookup$RegistryLookup;
+public filterElements(Ljava/util/function/Predicate;)Lnet/minecraft/core/HolderLookup$RegistryLookup;
+private static synthetic lambda$filterFeatures$0(Lnet/minecraft/world/flag/FeatureFlagSet;Ljava/lang/Object;)Z
 ```

@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PlayerMixin.onPlayerInteractEntity` | `Player.attack` @Inject at HEAD | both | static_inference |
-| `MultiPlayerGameModeMixin.attackEntity` | `MultiPlayerGameMode.attack` @Inject at INVOKE Lnet/minecraft/client/multiplayer/ClientPacketListener;send(Lnet/minecraft/network/protocol/Packet;)V | client | static_inference |
+| `PlayerMixin.onPlayerInteractEntity` @36 | [[40-Interfaces/net.minecraft.world.entity.player.Player|Player]].`attack` @Inject HEAD | unknown | static_inference |
+| `MultiPlayerGameModeMixin.attackEntity` @19 | [[40-Interfaces/net.minecraft.client.multiplayer.MultiPlayerGameMode|MultiPlayerGameMode]].`attack` @Inject INVOKE `Lnet/minecraft/client/multiplayer/ClientPacketListener;send(Lnet/minecraft/network/protocol/Packet;)V` | unknown | static_inference |
 
 ## Contract
 

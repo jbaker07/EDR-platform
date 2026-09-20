@@ -9,12 +9,11 @@ module: "fabric-loader"
 
 # net.fabricmc.api.EnvType
 
-fabric-loader 0.19.5 -- kind: class
+fabric-loader 0.19.5 -- kind: enum
 
 ```java
 public static final net.fabricmc.api.EnvType CLIENT
 public static final net.fabricmc.api.EnvType SERVER
 public static net.fabricmc.api.EnvType[] values()
 public static net.fabricmc.api.EnvType valueOf(java.lang.String)
-static {}
 ```

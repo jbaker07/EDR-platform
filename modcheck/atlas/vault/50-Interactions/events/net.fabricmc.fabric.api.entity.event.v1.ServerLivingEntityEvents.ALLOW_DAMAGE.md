@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.beforeDamage` | `LivingEntity.hurtServer` @Inject at INVOKE Lnet/minecraft/world/entity/LivingEntity;isSleeping()Z | both | static_inference |
+| `LivingEntityMixin.beforeDamage` @15 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`hurtServer` @Inject INVOKE `Lnet/minecraft/world/entity/LivingEntity;isSleeping()Z` | unknown | static_inference |
 
 ## Contract
 

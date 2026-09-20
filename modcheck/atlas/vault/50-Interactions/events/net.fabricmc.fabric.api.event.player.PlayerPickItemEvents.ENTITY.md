@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerGamePacketListenerImplMixin.onPickItemFromEntity` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `ServerGamePacketListenerImplMixin.onPickItemFromEntity` @18 | [[40-Interfaces/net.minecraft.server.network.ServerGamePacketListenerImpl|ServerGamePacketListenerImpl]].`handlePickItemFromEntity` @WrapOperation INVOKE `Lnet/minecraft/world/entity/Entity;getPickResult()Lnet/minecraft/world/item/ItemStack;` | unknown | static_inference |
 
 ## Contract
 

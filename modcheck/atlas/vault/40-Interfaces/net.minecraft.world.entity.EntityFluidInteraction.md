@@ -11,30 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `applyCurrentTo(Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/entity/Enti` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z` | `` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `isInFluid(Lnet/minecraft/tags/TagKey;)Z` | `` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `applyCurrentTo` | `(Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/entity/Entity;D)V` | exact | invokevirtual@12 in `SimpleConfiguredFluidBehavior.handleFluidInteractionUpdate` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `isEyeInFluid` | `(Lnet/minecraft/tags/TagKey;)Z` | exact | invokevirtual@54 in `EntityMixin.checkIfUnderSwimmableFluid` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `isInFluid` | `(Lnet/minecraft/tags/TagKey;)Z` | exact | invokevirtual@40 in `EntityMixin.handleCustomFluidInteractionUpdates` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `isInFluid` | `(Lnet/minecraft/tags/TagKey;)Z` | exact | invokevirtual@40 in `EntityMixin.checkIfInSwimmableFluid` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `isInFluid` | `(Lnet/minecraft/tags/TagKey;)Z` | exact | invokevirtual@40 in `EntityMixin.checkCustomFluids` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.entity.EntityFluidInteraction {
-    private final java.util.List<net.minecraft.world.entity.EntityFluidInteraction$Tracker> fluidTrackers;
-    private final it.unimi.dsi.fastutil.objects.Reference2ObjectMap<net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>, net.minecraft.world.entity.EntityFluidInteraction$CurrentAccumulator> currentAccumulators;
-    public net.minecraft.world.entity.EntityFluidInteraction(java.util.Set<net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>>);
-    public boolean update(net.minecraft.world.entity.Entity, boolean);
-    private static boolean hasFluidAndLoaded(net.minecraft.world.level.Level, int, int, int, int, int, int);
-    private net.minecraft.world.entity.EntityFluidInteraction$Tracker getOrCreateTrackerFor(net.minecraft.core.Holder<net.minecraft.world.level.material.Fluid>);
-    private net.minecraft.world.entity.EntityFluidInteraction$CurrentAccumulator getCurrentAccumulatorFor(net.minecraft.core.Holder<net.minecraft.world.level.material.Fluid>);
-    public void applyCurrentTo(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>, net.minecraft.world.entity.Entity, double);
-    public double getFluidHeight(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>);
-    public boolean isInFluid(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>);
-    public boolean isEyeInFluid(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>);
-}
+```
+private final fluidTrackers : Ljava/util/List;
+private final currentAccumulators : Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;
+public <init>(Ljava/util/Set;)V
+public update(Lnet/minecraft/world/entity/Entity;Z)Z
+private static hasFluidAndLoaded(Lnet/minecraft/world/level/Level;IIIIII)Z
+private getOrCreateTrackerFor(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/entity/EntityFluidInteraction$Tracker;
+private getCurrentAccumulatorFor(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/entity/EntityFluidInteraction$CurrentAccumulator;
+public applyCurrentTo(Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/entity/Entity;D)V
+public getFluidHeight(Lnet/minecraft/tags/TagKey;)D
+public isInFluid(Lnet/minecraft/tags/TagKey;)Z
+public isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z
 ```

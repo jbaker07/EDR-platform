@@ -13,10 +13,10 @@ sha256: "aff8cffc3d6da5475f21060e45cd28307676974674c4e10504c0fcc89c7746c4"
 Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] -- kind: interface
 
 ```java
-public default <T> net.minecraft.world.item.Item$Properties modifyComponent(net.minecraft.core.component.DataComponentType<T>, org.apache.commons.lang3.function.TriFunction<T, net.minecraft.core.HolderLookup$Provider, net.minecraft.resources.ResourceKey<net.minecraft.world.item.Item>, T>)
-public default net.minecraft.world.item.Item$Properties modifyComponents(net.minecraft.core.component.DataComponentInitializers$Initializer<net.minecraft.world.item.Item>)
-public default net.minecraft.world.item.Item$Properties equipmentSlot(net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider)
-public default net.minecraft.world.item.Item$Properties customDamage(net.fabricmc.fabric.api.item.v1.CustomDamageHandler)
-public default net.minecraft.world.item.Item$Properties modelId(net.minecraft.resources.Identifier)
-public default net.minecraft.resources.ResourceKey<net.minecraft.world.item.Item> itemId()
+public net.minecraft.world.item.Item$Properties modifyComponent(net.minecraft.core.component.DataComponentType, org.apache.commons.lang3.function.TriFunction)
+public net.minecraft.world.item.Item$Properties modifyComponents(net.minecraft.core.component.DataComponentInitializers$Initializer)
+public net.minecraft.world.item.Item$Properties equipmentSlot(net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider)
+public net.minecraft.world.item.Item$Properties customDamage(net.fabricmc.fabric.api.item.v1.CustomDamageHandler)
+public net.minecraft.world.item.Item$Properties modelId(net.minecraft.resources.Identifier)
+public net.minecraft.resources.ResourceKey itemId()
 ```

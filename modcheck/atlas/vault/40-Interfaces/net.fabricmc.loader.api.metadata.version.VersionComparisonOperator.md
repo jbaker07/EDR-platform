@@ -9,7 +9,7 @@ module: "fabric-loader"
 
 # net.fabricmc.loader.api.metadata.version.VersionComparisonOperator
 
-fabric-loader 0.19.5 -- kind: abstract_class
+fabric-loader 0.19.5 -- kind: enum
 
 ```java
 public static final net.fabricmc.loader.api.metadata.version.VersionComparisonOperator GREATER_EQUAL
@@ -28,6 +28,4 @@ public final boolean test(net.fabricmc.loader.api.Version, net.fabricmc.loader.a
 public abstract boolean test(net.fabricmc.loader.api.SemanticVersion, net.fabricmc.loader.api.SemanticVersion)
 public net.fabricmc.loader.api.SemanticVersion minVersion(net.fabricmc.loader.api.SemanticVersion)
 public net.fabricmc.loader.api.SemanticVersion maxVersion(net.fabricmc.loader.api.SemanticVersion)
-net.fabricmc.loader.api.metadata.version.VersionComparisonOperator(java.lang.String, int, java.lang.String, boolean, boolean, net.fabricmc.loader.api.metadata.version.VersionComparisonOperator$1)
-static {}
 ```

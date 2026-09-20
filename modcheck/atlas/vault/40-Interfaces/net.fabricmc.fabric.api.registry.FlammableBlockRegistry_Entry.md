@@ -13,7 +13,7 @@ sha256: "e83273ce3a8d06e08c00f31bdc38497d653f678af3693a2fc3ba094537fa8879"
 Module: [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.registry.FlammableBlockRegistry$Entry(int, int)
+public <init>(int, int)
 public int getIgniteOdds()
 public int getBurnOdds()
 public boolean equals(java.lang.Object)

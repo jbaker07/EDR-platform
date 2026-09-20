@@ -1,6 +1,8 @@
 ---
 type: "request"
 id: "request.lantern_moth"
+canonical: "exercise.lantern_moth"
+kind: "analyst_exercise"
 family: "workflow:wf.presentation.models_animation"
 ---
 
@@ -9,11 +11,16 @@ family: "workflow:wf.presentation.models_animation"
 
 # Lantern moth -- an animated flying entity that circles lit lanterns
 
+**Canonical request.** `exercise.lantern_moth` (analyst_exercise)
+
+> [!note] Analyst exercise
+> No creator wrote this request. Nothing in it is approved intent.
+
 ## Request
 
 Analyst-authored exercise request: a small moth entity with flapping wings that spawns near lit lanterns at night and circles them; it has no drops and takes no damage from players; the animation must look smooth in multiplayer.
 
-## Approved behaviour and constraints
+## Approved behaviour (the request's own words or acceptance criteria)
 
 - Provisional: spawns near lit lantern blocks after dark; despawns at dawn; wing flap animated on the client; passive.
 
@@ -69,5 +76,10 @@ Analyst-authored exercise request: a small moth entity with flapping wings that 
 
 - `extracted/corpus.json`
 - `extracted/fabric_api.json#fabric-rendering-v1`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 
+## Status
+
+- analysed: True
+- implemented: none
+- validated_scope: none

@@ -11,27 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `builder()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplie` | `` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `builder` | `()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;` | exact | invokestatic@0 in `FabricDefaultAttributeRegistryImpl.createFromExistingSupplier` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (1 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.entity.ai.attributes.AttributeSupplier {
-    private final java.util.Map<net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>, net.minecraft.world.entity.ai.attributes.AttributeInstance> instances;
-    private net.minecraft.world.entity.ai.attributes.AttributeSupplier(java.util.Map<net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>, net.minecraft.world.entity.ai.attributes.AttributeInstance>);
-    private net.minecraft.world.entity.ai.attributes.AttributeInstance getAttributeInstance(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>);
-    public double getValue(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>);
-    public double getBaseValue(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>);
-    public double getModifierValue(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>, net.minecraft.resources.Identifier);
-    public net.minecraft.world.entity.ai.attributes.AttributeInstance createInstance(java.util.function.Consumer<net.minecraft.world.entity.ai.attributes.AttributeInstance>, net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>);
-    public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder builder();
-    public boolean hasAttribute(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>);
-    public boolean hasModifier(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>, net.minecraft.resources.Identifier);
-}
+```
+private final instances : Ljava/util/Map;
+private <init>(Ljava/util/Map;)V
+private getAttributeInstance(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/entity/ai/attributes/AttributeInstance;
+public getValue(Lnet/minecraft/core/Holder;)D
+public getBaseValue(Lnet/minecraft/core/Holder;)D
+public getModifierValue(Lnet/minecraft/core/Holder;Lnet/minecraft/resources/Identifier;)D
+public createInstance(Ljava/util/function/Consumer;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/entity/ai/attributes/AttributeInstance;
+public static builder()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;
+public hasAttribute(Lnet/minecraft/core/Holder;)Z
+public hasModifier(Lnet/minecraft/core/Holder;Lnet/minecraft/resources/Identifier;)Z
 ```

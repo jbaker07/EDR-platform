@@ -11,32 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/client/renderer/feature/submit/TranslucentSubmit`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `forceTranslucent()Z` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `outlineColor()I` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `forceTranslucent` | `()Z` | exact | invokevirtual@17 in `MovingBlockFeatureRendererMixin.tesselateBlockProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `outlineColor` | `()I` | exact | invokevirtual@12 in `MovingBlockFeatureRendererMixin.tesselateBlockProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (4 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit extends java.lang.Record implements net.minecraft.client.renderer.feature.submit.TranslucentSubmit {
-    private final org.joml.Matrix4fc pose;
-    private final net.minecraft.client.renderer.block.MovingBlockRenderState movingBlockRenderState;
-    private final int outlineColor;
-    private final boolean forceTranslucent;
-    public net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit(org.joml.Matrix4fc, net.minecraft.client.renderer.block.MovingBlockRenderState, int, boolean);
-    public float distanceToCameraSq();
-    public net.minecraft.client.renderer.feature.FeatureRendererType<net.minecraft.client.renderer.feature.MovingBlockFeatureRenderer$Submit> featureType();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public org.joml.Matrix4fc pose();
-    public net.minecraft.client.renderer.block.MovingBlockRenderState movingBlockRenderState();
-    public int outlineColor();
-    public boolean forceTranslucent();
-}
+```
+private final pose : Lorg/joml/Matrix4fc;
+private final movingBlockRenderState : Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+private final outlineColor : I
+private final forceTranslucent : Z
+public <init>(Lorg/joml/Matrix4fc;Lnet/minecraft/client/renderer/block/MovingBlockRenderState;IZ)V
+public distanceToCameraSq()F
+public featureType()Lnet/minecraft/client/renderer/feature/FeatureRendererType;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public pose()Lorg/joml/Matrix4fc;
+public movingBlockRenderState()Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+public outlineColor()I
+public forceTranslucent()Z
 ```

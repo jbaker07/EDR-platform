@@ -13,8 +13,8 @@ sha256: "eb0799d38e825cb6e82fe40ce1dd80da2ed9f142d60952e04609ccbbba153691"
 Module: [[30-Mechanisms/fabric-serialization-api-v1|fabric-serialization-api-v1]] -- kind: interface
 
 ```java
-public default java.util.Collection<java.lang.String> keySet()
-public default boolean contains(java.lang.String)
-public default java.util.Optional<long[]> getOptionalLongArray(java.lang.String)
-public default java.util.Optional<byte[]> getOptionalByteArray(java.lang.String)
+public java.util.Collection keySet()
+public boolean contains(java.lang.String)
+public java.util.Optional getOptionalLongArray(java.lang.String)
+public java.util.Optional getOptionalByteArray(java.lang.String)
 ```

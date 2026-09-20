@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientPacketListenerMixin.fabric_allowSendChatMessage` | `ClientPacketListener.sendChat` @Inject at HEAD | client | static_inference |
+| `ClientPacketListenerMixin.fabric_allowSendChatMessage` @45 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`sendChat` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

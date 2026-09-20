@@ -9,7 +9,7 @@ side: "both"
 
 # Packets and protocol phases
 
-Package `net.minecraft.network.protocol` -- generated view: [[20-Systems/net.minecraft.network.protocol|hooked types]]
+Package `net.minecraft.network.protocol` -- generated view: [[20-Systems/net.minecraft.network.protocol|inventory and hooked types]]
 
 **Responsibility.** The wire protocol (368 classes): packet types for the handshake, login, configuration and play phases, and the clientbound/serverbound listener interfaces. Custom payloads travel inside the common CustomPayload packets.
 

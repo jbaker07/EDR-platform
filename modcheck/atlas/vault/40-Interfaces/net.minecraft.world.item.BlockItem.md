@@ -11,37 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`class` public; extends `net/minecraft/world/item/Item`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getBlock()Lnet/minecraft/world/level/block/Block;` | `` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `registerBlocks(Ljava/util/Map;Lnet/minecraft/world/item/Item;)V` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getBlock` | `()Lnet/minecraft/world/level/block/Block;` | exact | invokevirtual@19 in `ModelProviderItemInfoCollectorMixin.filterItemsForProcessingMod` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `registerBlocks` | `(Ljava/util/Map;Lnet/minecraft/world/item/Item;)V` | exact | invokevirtual@15 in `BlockItemTracker.onEntryAdded` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (1 fields, 18 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.item.BlockItem extends net.minecraft.world.item.Item {
-    private final net.minecraft.world.level.block.Block block;
-    public net.minecraft.world.item.BlockItem(net.minecraft.world.level.block.Block, net.minecraft.world.item.Item$Properties);
-    public net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext);
-    public net.minecraft.world.InteractionResult place(net.minecraft.world.item.context.BlockPlaceContext);
-    protected net.minecraft.sounds.SoundEvent getPlaceSound(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.item.context.BlockPlaceContext updatePlacementContext(net.minecraft.world.item.context.BlockPlaceContext);
-    private static void updateBlockEntityComponents(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.item.ItemStack);
-    protected net.minecraft.world.level.block.state.BlockState getPlacementState(net.minecraft.world.item.context.BlockPlaceContext);
-    private static net.minecraft.world.level.block.state.BlockState updateBlockStateFromTag(net.minecraft.core.BlockPos, net.minecraft.world.level.Level, net.minecraft.world.item.ItemStack, net.minecraft.world.level.block.state.BlockState);
-    protected boolean canPlace(net.minecraft.world.item.context.BlockPlaceContext, net.minecraft.world.level.block.state.BlockState);
-    protected boolean mustSurvive();
-    protected boolean placeBlock(net.minecraft.world.item.context.BlockPlaceContext, net.minecraft.world.level.block.state.BlockState);
-    public static boolean updateCustomBlockEntityTag(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.core.BlockPos, net.minecraft.world.item.ItemStack);
-    public boolean shouldPrintOpWarning(net.minecraft.world.item.ItemStack, net.minecraft.world.entity.player.Player);
-    public net.minecraft.world.level.block.Block getBlock();
-    public void registerBlocks(java.util.Map<net.minecraft.world.level.block.Block, net.minecraft.world.item.Item>, net.minecraft.world.item.Item);
-    public boolean canFitInsideContainerItems();
-    public void onDestroyed(net.minecraft.world.entity.item.ItemEntity);
-    public static void setBlockEntityData(net.minecraft.world.item.ItemStack, net.minecraft.world.level.block.entity.BlockEntityType<?>, net.minecraft.world.level.storage.TagValueOutput);
-}
+```
+private final block : Lnet/minecraft/world/level/block/Block;
+public <init>(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item$Properties;)V
+public useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;
+public place(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/InteractionResult;
+protected getPlaceSound(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/sounds/SoundEvent;
+public updatePlacementContext(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/item/context/BlockPlaceContext;
+private static updateBlockEntityComponents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V
+protected getPlacementState(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;
+private static updateBlockStateFromTag(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;
+protected canPlace(Lnet/minecraft/world/item/context/BlockPlaceContext;Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected mustSurvive()Z
+protected placeBlock(Lnet/minecraft/world/item/context/BlockPlaceContext;Lnet/minecraft/world/level/block/state/BlockState;)Z
+public static updateCustomBlockEntityTag(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)Z
+public shouldPrintOpWarning(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;)Z
+public getBlock()Lnet/minecraft/world/level/block/Block;
+public registerBlocks(Ljava/util/Map;Lnet/minecraft/world/item/Item;)V
+public canFitInsideContainerItems()Z
+public onDestroyed(Lnet/minecraft/world/entity/item/ItemEntity;)V
+public static setBlockEntityData(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/world/level/storage/TagValueOutput;)V
 ```

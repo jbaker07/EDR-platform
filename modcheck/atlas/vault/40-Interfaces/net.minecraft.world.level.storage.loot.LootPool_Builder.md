@@ -11,37 +11,41 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/level/storage/loot/functions/FunctionUserBuilder`, `net/minecraft/world/level/storage/loot/predicates/ConditionUserBuilder`, `net/fabricmc/fabric/api/loot/v3/FabricLootPoolBuilder`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `apply(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/stor` | `` | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `build()Lnet/minecraft/world/level/storage/loot/LootPool;` | `` | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `when(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/stor` | `` | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `add` | `(Ljava/util/Collection;)Lnet/minecraft/world/level/storage/loot/LootPo` | inherited_exact | invokevirtual@32 in `FabricLootPoolBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `apply` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/L` | exact | invokevirtual@8 in `LootPoolBuilderMixin.apply` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/world/level/storage/loot/LootPool;` | exact | invokevirtual@54 in `LootTableBuilderMixin.modifyPools` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `setBonusRolls` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/L` | exact | invokevirtual@23 in `FabricLootPoolBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `setRolls` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/L` | exact | invokevirtual@14 in `FabricLootPoolBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `when` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/L` | exact | invokevirtual@8 in `LootPoolBuilderMixin.when` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| reads | `entries` | `Lcom/google/common/collect/ImmutableList$Builder;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | declared |
 
-## Declared members (18, all visibilities)
+## Declared members (5 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.loot.LootPool$Builder implements net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder<net.minecraft.world.level.storage.loot.LootPool$Builder>, net.minecraft.world.level.storage.loot.predicates.ConditionUserBuilder<net.minecraft.world.level.storage.loot.LootPool$Builder> {
-    private final com.google.common.collect.ImmutableList$Builder<net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer> entries;
-    private final com.google.common.collect.ImmutableList$Builder<net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.predicates.LootItemCondition>> conditions;
-    private final com.google.common.collect.ImmutableList$Builder<net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.functions.LootItemFunction>> functions;
-    private net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider> rolls;
-    private net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider> bonusRolls;
-    public net.minecraft.world.level.storage.loot.LootPool$Builder();
-    public net.minecraft.world.level.storage.loot.LootPool$Builder setRolls(net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>);
-    public net.minecraft.world.level.storage.loot.LootPool$Builder unwrap();
-    public net.minecraft.world.level.storage.loot.LootPool$Builder setBonusRolls(net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider>);
-    public net.minecraft.world.level.storage.loot.LootPool$Builder add(net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Builder<?>);
-    public net.minecraft.world.level.storage.loot.LootPool$Builder addAll(java.util.List<? extends net.minecraft.world.level.storage.loot.entries.UniformContainerBase$Builder<?>>);
-    public net.minecraft.world.level.storage.loot.LootPool$Builder when(net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.predicates.LootItemCondition>);
-    public net.minecraft.world.level.storage.loot.LootPool$Builder apply(net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.functions.LootItemFunction>);
-    public net.minecraft.world.level.storage.loot.LootPool build();
-    public net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder unwrap();
-    public net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder apply(net.minecraft.core.Holder);
-    public net.minecraft.world.level.storage.loot.predicates.ConditionUserBuilder unwrap();
-    public net.minecraft.world.level.storage.loot.predicates.ConditionUserBuilder when(net.minecraft.core.Holder);
-}
+```
+private final entries : Lcom/google/common/collect/ImmutableList$Builder;
+private final conditions : Lcom/google/common/collect/ImmutableList$Builder;
+private final functions : Lcom/google/common/collect/ImmutableList$Builder;
+private rolls : Lnet/minecraft/core/Holder;
+private bonusRolls : Lnet/minecraft/core/Holder;
+public <init>()V
+public setRolls(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootPool$Builder;
+public unwrap()Lnet/minecraft/world/level/storage/loot/LootPool$Builder;
+public setBonusRolls(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootPool$Builder;
+public add(Lnet/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer$Builder;)Lnet/minecraft/world/level/storage/loot/LootPool$Builder;
+public addAll(Ljava/util/List;)Lnet/minecraft/world/level/storage/loot/LootPool$Builder;
+public when(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootPool$Builder;
+public apply(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootPool$Builder;
+public build()Lnet/minecraft/world/level/storage/loot/LootPool;
+public synthetic unwrap()Lnet/minecraft/world/level/storage/loot/functions/FunctionUserBuilder;
+public synthetic apply(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/functions/FunctionUserBuilder;
+public synthetic unwrap()Lnet/minecraft/world/level/storage/loot/predicates/ConditionUserBuilder;
+public synthetic when(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/predicates/ConditionUserBuilder;
 ```

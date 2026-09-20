@@ -11,140 +11,149 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/state/BlockBehaviour`; implements `net/minecraft/world/level/ItemLike`, `net/fabricmc/fabric/api/block/v1/FabricBlock`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/level/block/state/BlockBehaviour$Prope` | `` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
-| calls | `defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;` | `` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
-| calls | `defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| calls | `defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getStateDefinition()Lnet/minecraft/world/level/block/state/StateDefinition;` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `getStateDefinition()Lnet/minecraft/world/level/block/state/StateDefinition;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `getStateDefinition()Lnet/minecraft/world/level/block/state/StateDefinition;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getStateDefinition()Lnet/minecraft/world/level/block/state/StateDefinition;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getStateDefinition()Lnet/minecraft/world/level/block/state/StateDefinition;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `shouldRenderFace(Lnet/minecraft/world/level/block/state/BlockState;Lnet/mine` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| reads | `BLOCK_STATE_REGISTRYLnet/minecraft/core/IdMapper;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V` | exact | invokespecial@2 in `LiquidBlockMixin.<init>` | unknown | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@60 in `BlockApiLookupImpl.registerSelf` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@28 in `FlammableBlockRegistryImpl.get` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@45 in `LivingEntityMixin.modifyBedForOccupiedState` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@72 in `BlockColorRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@53 in `FluidVariantRenderHandler.getColor` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@72 in `FluidVariantRenderHandler.getColor` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@9 in `CauldronStorage.updateLevel` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `defaultBlockState` | `()Lnet/minecraft/world/level/block/state/BlockState;` | exact | invokevirtual@92 in `CauldronStorage.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getAppearance` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/worl` | inherited_exact | invokevirtual@20 in `FabricBlockState.getAppearance` | unknown | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| calls | `getDescriptionId` | `()Ljava/lang/String;` | inherited_exact | invokevirtual@2 in `FabricLanguageProvider$TranslationBuilder.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getLootTable` | `()Ljava/util/Optional;` | inherited_exact | invokevirtual@161 in `FabricBlockLootSubProvider.generate` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getName` | `()Lnet/minecraft/network/chat/MutableComponent;` | exact | invokevirtual@56 in `FluidVariantAttributeHandler.getName` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getProvidedEnchantmentPower` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/worl` | inherited_exact | invokevirtual@12 in `FabricBlockState.getProvidedEnchantmentPower` | unknown | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| calls | `getStateDefinition` | `()Lnet/minecraft/world/level/block/state/StateDefinition;` | exact | invokevirtual@1 in `OxidizableBlocksRegistryImpl.refreshRandomTickCache` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `getStateDefinition` | `()Lnet/minecraft/world/level/block/state/StateDefinition;` | exact | invokevirtual@20 in `ModelLoadingEventDispatcher.resolveBlockStates` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `getStateDefinition` | `()Lnet/minecraft/world/level/block/state/StateDefinition;` | exact | invokevirtual@34 in `PoiHelper.register` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `getStateDefinition` | `()Lnet/minecraft/world/level/block/state/StateDefinition;` | exact | invokevirtual@1 in `BlockInitTracker.lambda$postFreeze$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getStateDefinition` | `()Lnet/minecraft/world/level/block/state/StateDefinition;` | exact | invokevirtual@1 in `BlocksMixin.lambda$initShapeCache$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getStateDefinition` | `()Lnet/minecraft/world/level/block/state/StateDefinition;` | exact | invokevirtual@1 in `BootstrapMixin.lambda$afterInitialize$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `shouldRenderFace` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/worl` | exact | invokestatic@60 in `AltModelBlockRendererImpl.shouldCullFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `BLOCK_STATE_REGISTRY` | `Lnet/minecraft/core/IdMapper;` | exact | getstatic@15 in `BootstrapMixin.afterInitialize` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (111, all visibilities)
+## Declared members (26 fields, 85 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.Block extends net.minecraft.world.level.block.state.BlockBehaviour implements net.minecraft.world.level.ItemLike {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.core.Holder$Reference<net.minecraft.world.level.block.Block> builtInRegistryHolder;
-    public static final net.minecraft.core.IdMapper<net.minecraft.world.level.block.state.BlockState> BLOCK_STATE_REGISTRY;
-    private static final com.google.common.cache.LoadingCache<net.minecraft.world.phys.shapes.VoxelShape, java.lang.Boolean> SHAPE_FULL_BLOCK_CACHE;
-    public static final int UPDATE_NEIGHBORS;
-    public static final int UPDATE_CLIENTS;
-    public static final int UPDATE_INVISIBLE;
-    public static final int UPDATE_IMMEDIATE;
-    public static final int UPDATE_KNOWN_SHAPE;
-    public static final int UPDATE_SUPPRESS_DROPS;
-    public static final int UPDATE_MOVE_BY_PISTON;
-    public static final int UPDATE_SKIP_SHAPE_UPDATE_ON_WIRE;
-    public static final int UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS;
-    public static final int UPDATE_SKIP_ON_PLACE;
-    public static final int UPDATE_NONE;
-    public static final int UPDATE_ALL;
-    public static final int UPDATE_ALL_IMMEDIATE;
-    public static final int UPDATE_SKIP_ALL_SIDEEFFECTS;
-    public static final float INDESTRUCTIBLE;
-    public static final float INSTANT;
-    public static final int UPDATE_LIMIT;
-    protected final net.minecraft.world.level.block.state.StateDefinition<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState> stateDefinition;
-    private net.minecraft.world.level.block.state.BlockState defaultBlockState;
-    private net.minecraft.world.item.Item item;
-    private static final int CACHE_SIZE;
-    private static final java.lang.ThreadLocal<it.unimi.dsi.fastutil.objects.Object2ByteLinkedOpenHashMap<net.minecraft.world.level.block.Block$ShapePairKey>> OCCLUSION_CACHE;
-    public static int getId(net.minecraft.world.level.block.state.BlockState);
-    public static net.minecraft.world.level.block.state.BlockState stateById(int);
-    public static net.minecraft.world.level.block.Block byItem(net.minecraft.world.item.Item);
-    public static net.minecraft.world.level.block.state.BlockState pushEntitiesUp(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
-    public static net.minecraft.world.phys.shapes.VoxelShape box(double, double, double, double, double, double);
-    public static net.minecraft.world.phys.shapes.VoxelShape[] boxes(int, java.util.function.IntFunction<net.minecraft.world.phys.shapes.VoxelShape>);
-    public static net.minecraft.world.phys.shapes.VoxelShape cube(double);
-    public static net.minecraft.world.phys.shapes.VoxelShape cube(double, double, double);
-    public static net.minecraft.world.phys.shapes.VoxelShape column(double, double, double);
-    public static net.minecraft.world.phys.shapes.VoxelShape column(double, double, double, double);
-    public static net.minecraft.world.phys.shapes.VoxelShape boxZ(double, double, double);
-    public static net.minecraft.world.phys.shapes.VoxelShape boxZ(double, double, double, double);
-    public static net.minecraft.world.phys.shapes.VoxelShape boxZ(double, double, double, double, double);
-    public static net.minecraft.world.level.block.state.BlockState updateFromNeighbourShapes(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
-    public static void updateOrDestroy(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, int);
-    public static void updateOrDestroy(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, int, int);
-    public net.minecraft.world.level.block.Block(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    public static boolean isExceptionForConnection(net.minecraft.world.level.block.state.BlockState);
-    public static boolean dropFromBlockInteractLootTable(net.minecraft.server.level.ServerLevel, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.BlockEntity, net.minecraft.world.item.ItemInstance, net.minecraft.world.entity.Entity, java.util.function.BiConsumer<net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack>);
-    protected static boolean dropFromLootTable(net.minecraft.server.level.ServerLevel, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, java.util.function.Function<net.minecraft.world.level.storage.loot.LootParams$Builder, net.minecraft.world.level.storage.loot.LootParams>, java.util.function.BiConsumer<net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack>);
-    public static boolean shouldRenderFace(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction);
-    public static boolean canSupportRigidBlock(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    public static boolean canSupportCenter(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    public static boolean isFaceFull(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.core.Direction);
-    public static boolean isShapeFullBlock(net.minecraft.world.phys.shapes.VoxelShape);
-    public void animateTick(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public void destroy(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public static java.util.List<net.minecraft.world.item.ItemStack> getDrops(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.BlockEntity);
-    public static java.util.List<net.minecraft.world.item.ItemStack> getDrops(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.BlockEntity, net.minecraft.world.entity.Entity, net.minecraft.world.item.ItemInstance);
-    public static void dropResources(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    public static void dropResources(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.BlockEntity);
-    public static void dropResources(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.BlockEntity, net.minecraft.world.entity.Entity, net.minecraft.world.item.ItemStack);
-    public static void popResource(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.item.ItemStack);
-    public static void popResourceFromFace(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.world.item.ItemStack);
-    private static void popResource(net.minecraft.world.level.Level, java.util.function.Supplier<net.minecraft.world.entity.item.ItemEntity>, net.minecraft.world.item.ItemStack);
-    protected void popExperience(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, int);
-    public float getExplosionResistance();
-    public void wasExploded(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.Explosion);
-    public void stepOn(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.Entity);
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext);
-    public void playerDestroy(net.minecraft.server.level.ServerLevel, net.minecraft.server.level.ServerPlayer, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.BlockEntity, net.minecraft.world.item.ItemStack);
-    public void setPlacedBy(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.ItemStack);
-    public boolean isPossibleToRespawnInThis(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.network.chat.MutableComponent getName();
-    public void fallOn(net.minecraft.world.level.Level, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.entity.Entity, double);
-    public void bounceOn(net.minecraft.world.level.Level, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.entity.Entity, double);
-    public float getBounceRestitution();
-    public float getFallDistanceReduction();
-    public float getFriction();
-    public float getSpeedFactor();
-    public float getJumpFactor();
-    public void spawnDestroyByEntityParticles(net.minecraft.world.level.Level, net.minecraft.world.entity.Entity, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public void spawnDestroyParticles(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.level.block.state.BlockState playerWillDestroy(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.player.Player);
-    public void handlePrecipitation(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.biome.Biome$Precipitation);
-    public boolean dropFromExplosion(net.minecraft.world.level.Explosion);
-    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
-    public net.minecraft.world.level.block.state.StateDefinition<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState> getStateDefinition();
-    protected final void registerDefaultState(net.minecraft.world.level.block.state.BlockState);
-    public final net.minecraft.world.level.block.state.BlockState defaultBlockState();
-    public final net.minecraft.world.level.block.state.BlockState withPropertiesOf(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.item.Item asItem();
-    public boolean hasDynamicShape();
-    public java.lang.String toString();
-    protected net.minecraft.world.level.block.Block asBlock();
-    protected java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.shapes.VoxelShape> getShapeForEachState(java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.shapes.VoxelShape>);
-    protected java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.shapes.VoxelShape> getShapeForEachState(java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.shapes.VoxelShape>, net.minecraft.world.level.block.state.properties.Property<?>...);
-    private static <S extends net.minecraft.world.level.block.state.StateHolder<?, S>, T extends java.lang.Comparable<T>> S setValueHelper(S, net.minecraft.world.level.block.state.properties.Property<T>, java.lang.Object);
-    public net.minecraft.core.Holder$Reference<net.minecraft.world.level.block.Block> builtInRegistryHolder();
-    protected void tryDropExperience(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.item.ItemStack, net.minecraft.util.valueproviders.IntProvider);
-    private static net.minecraft.world.phys.shapes.VoxelShape lambda$getShapeForEachState$4(java.util.Map, com.google.common.collect.ImmutableMap, net.minecraft.world.level.block.state.BlockState);
-    private static boolean lambda$getShapeForEachState$2(java.util.Map, net.minecraft.world.level.block.state.BlockState);
-    private static boolean lambda$getShapeForEachState$3(net.minecraft.world.level.block.state.BlockState, java.util.Map$Entry);
-    private static java.lang.Object lambda$getShapeForEachState$1(net.minecraft.world.level.block.state.properties.Property);
-    private static net.minecraft.world.level.block.state.properties.Property lambda$getShapeForEachState$0(net.minecraft.world.level.block.state.properties.Property);
-    private static net.minecraft.world.entity.item.ItemEntity lambda$popResourceFromFace$0(net.minecraft.world.level.Level, double, double, double, net.minecraft.world.item.ItemStack, double, double, double);
-    private static net.minecraft.world.entity.item.ItemEntity lambda$popResource$0(net.minecraft.world.level.Level, double, double, double, net.minecraft.world.item.ItemStack);
-    private static void lambda$dropResources$2(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.item.ItemStack);
-    private static void lambda$dropResources$1(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.item.ItemStack);
-    private static void lambda$dropResources$0(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.item.ItemStack);
-    private static it.unimi.dsi.fastutil.objects.Object2ByteLinkedOpenHashMap lambda$static$0();
-    private static void lambda$dropFromLootTable$0(java.util.function.BiConsumer, net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    private static net.minecraft.world.level.storage.loot.LootParams lambda$dropFromBlockInteractLootTable$0(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.BlockEntity, net.minecraft.world.entity.Entity, net.minecraft.world.item.ItemInstance, net.minecraft.world.level.storage.loot.LootParams$Builder);
-    private static net.minecraft.world.phys.shapes.VoxelShape[] lambda$boxes$0(int);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final builtInRegistryHolder : Lnet/minecraft/core/Holder$Reference;
+public static final BLOCK_STATE_REGISTRY : Lnet/minecraft/core/IdMapper;
+private static final SHAPE_FULL_BLOCK_CACHE : Lcom/google/common/cache/LoadingCache;
+public static final UPDATE_NEIGHBORS : I
+public static final UPDATE_CLIENTS : I
+public static final UPDATE_INVISIBLE : I
+public static final UPDATE_IMMEDIATE : I
+public static final UPDATE_KNOWN_SHAPE : I
+public static final UPDATE_SUPPRESS_DROPS : I
+public static final UPDATE_MOVE_BY_PISTON : I
+public static final UPDATE_SKIP_SHAPE_UPDATE_ON_WIRE : I
+public static final UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS : I
+public static final UPDATE_SKIP_ON_PLACE : I
+public static final UPDATE_NONE : I
+public static final UPDATE_ALL : I
+public static final UPDATE_ALL_IMMEDIATE : I
+public static final UPDATE_SKIP_ALL_SIDEEFFECTS : I
+public static final INDESTRUCTIBLE : F
+public static final INSTANT : F
+public static final UPDATE_LIMIT : I
+protected final stateDefinition : Lnet/minecraft/world/level/block/state/StateDefinition;
+private defaultBlockState : Lnet/minecraft/world/level/block/state/BlockState;
+private item : Lnet/minecraft/world/item/Item;
+private static final CACHE_SIZE : I
+private static final OCCLUSION_CACHE : Ljava/lang/ThreadLocal;
+public static getId(Lnet/minecraft/world/level/block/state/BlockState;)I
+public static stateById(I)Lnet/minecraft/world/level/block/state/BlockState;
+public static byItem(Lnet/minecraft/world/item/Item;)Lnet/minecraft/world/level/block/Block;
+public static pushEntitiesUp(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+public static box(DDDDDD)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static boxes(ILjava/util/function/IntFunction;)[Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static cube(D)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static cube(DDD)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static column(DDD)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static column(DDDD)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static boxZ(DDD)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static boxZ(DDDD)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static boxZ(DDDDD)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static updateFromNeighbourShapes(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+public static updateOrDestroy(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;I)V
+public static updateOrDestroy(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;II)V
+public <init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+public static isExceptionForConnection(Lnet/minecraft/world/level/block/state/BlockState;)Z
+public static dropFromBlockInteractLootTable(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemInstance;Lnet/minecraft/world/entity/Entity;Ljava/util/function/BiConsumer;)Z
+protected static dropFromLootTable(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;Ljava/util/function/BiConsumer;)Z
+public static shouldRenderFace(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z
+public static canSupportRigidBlock(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+public static canSupportCenter(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z
+public static isFaceFull(Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/core/Direction;)Z
+public static isShapeFullBlock(Lnet/minecraft/world/phys/shapes/VoxelShape;)Z
+public animateTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V
+public destroy(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public static getDrops(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;)Ljava/util/List;
+public static getDrops(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemInstance;)Ljava/util/List;
+public static dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+public static dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;)V
+public static dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V
+public static popResource(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V
+public static popResourceFromFace(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/world/item/ItemStack;)V
+private static popResource(Lnet/minecraft/world/level/Level;Ljava/util/function/Supplier;Lnet/minecraft/world/item/ItemStack;)V
+protected popExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;I)V
+public getExplosionResistance()F
+public wasExploded(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Explosion;)V
+public stepOn(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/Entity;)V
+public getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;
+public playerDestroy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V
+public setPlacedBy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V
+public isPossibleToRespawnInThis(Lnet/minecraft/world/level/block/state/BlockState;)Z
+public getName()Lnet/minecraft/network/chat/MutableComponent;
+public fallOn(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;D)V
+public bounceOn(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;D)V
+public getBounceRestitution()F
+public getFallDistanceReduction()F
+public getFriction()F
+public getSpeedFactor()F
+public getJumpFactor()F
+public spawnDestroyByEntityParticles(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public spawnDestroyParticles(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;
+public handlePrecipitation(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/biome/Biome$Precipitation;)V
+public dropFromExplosion(Lnet/minecraft/world/level/Explosion;)Z
+protected createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+public getStateDefinition()Lnet/minecraft/world/level/block/state/StateDefinition;
+protected final registerDefaultState(Lnet/minecraft/world/level/block/state/BlockState;)V
+public final defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;
+public final withPropertiesOf(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;
+public asItem()Lnet/minecraft/world/item/Item;
+public hasDynamicShape()Z
+public toString()Ljava/lang/String;
+protected asBlock()Lnet/minecraft/world/level/block/Block;
+protected getShapeForEachState(Ljava/util/function/Function;)Ljava/util/function/Function;
+protected getShapeForEachState(Ljava/util/function/Function;[Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/util/function/Function;
+private static setValueHelper(Lnet/minecraft/world/level/block/state/StateHolder;Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Object;)Lnet/minecraft/world/level/block/state/StateHolder;
+public builtInRegistryHolder()Lnet/minecraft/core/Holder$Reference;
+protected tryDropExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/util/valueproviders/IntProvider;)V
+private static synthetic lambda$getShapeForEachState$4(Ljava/util/Map;Lcom/google/common/collect/ImmutableMap;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+private static synthetic lambda$getShapeForEachState$2(Ljava/util/Map;Lnet/minecraft/world/level/block/state/BlockState;)Z
+private static synthetic lambda$getShapeForEachState$3(Lnet/minecraft/world/level/block/state/BlockState;Ljava/util/Map$Entry;)Z
+private static synthetic lambda$getShapeForEachState$1(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Object;
+private static synthetic lambda$getShapeForEachState$0(Lnet/minecraft/world/level/block/state/properties/Property;)Lnet/minecraft/world/level/block/state/properties/Property;
+private static synthetic lambda$popResourceFromFace$0(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;DDD)Lnet/minecraft/world/entity/item/ItemEntity;
+private static synthetic lambda$popResource$0(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;
+private static synthetic lambda$dropResources$2(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V
+private static synthetic lambda$dropResources$1(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V
+private static synthetic lambda$dropResources$0(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V
+private static synthetic lambda$static$0()Lit/unimi/dsi/fastutil/objects/Object2ByteLinkedOpenHashMap;
+private static synthetic lambda$dropFromLootTable$0(Ljava/util/function/BiConsumer;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)V
+private static synthetic lambda$dropFromBlockInteractLootTable$0(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemInstance;Lnet/minecraft/world/level/storage/loot/LootParams$Builder;)Lnet/minecraft/world/level/storage/loot/LootParams;
+private static synthetic lambda$boxes$0(I)[Lnet/minecraft/world/phys/shapes/VoxelShape;
+static <clinit>()V
 ```

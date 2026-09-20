@@ -12,8 +12,8 @@ module: "fabric-loader"
 fabric-loader 0.19.5 -- kind: interface
 
 ```java
-public abstract java.util.Collection<? extends net.fabricmc.loader.api.metadata.version.VersionPredicate$PredicateTerm> getTerms()
+public abstract java.util.Collection getTerms()
 public abstract net.fabricmc.loader.api.metadata.version.VersionInterval getInterval()
-public static net.fabricmc.loader.api.metadata.version.VersionPredicate parse(java.lang.String) throws net.fabricmc.loader.api.VersionParsingException
-public static java.util.Collection<net.fabricmc.loader.api.metadata.version.VersionPredicate> parse(java.util.Collection<java.lang.String>) throws net.fabricmc.loader.api.VersionParsingException
+public static net.fabricmc.loader.api.metadata.version.VersionPredicate parse(java.lang.String)
+public static java.util.Collection parse(java.util.Collection)
 ```

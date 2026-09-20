@@ -11,736 +11,759 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/world/Nameable`, `net/minecraft/world/level/entity/EntityAccess`, `net/minecraft/world/scores/ScoreHolder`, `net/minecraft/network/syncher/SyncedDataHolder`, `net/minecraft/core/component/DataComponentGetter`, `net/minecraft/world/entity/ItemOwner`, `net/minecraft/world/entity/SlotProvider`, `net/minecraft/util/debug/DebugValueSource`, `net/minecraft/core/TypedInstance`, `net/fabricmc/fabric/api/attachment/v1/AttachmentTarget`, `net/fabricmc/fabric/api/event/lifecycle/v1/EntityLoadData`, `net/fabricmc/fabric/api/permission/v1/PermissionContextOwner`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world` | `` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| calls | `blockPosition()Lnet/minecraft/core/BlockPos;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getId()I` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getId()I` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getPlainTextName()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getType()Lnet/minecraft/world/entity/EntityType;` | `` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
-| calls | `getType()Lnet/minecraft/world/entity/EntityType;` | `` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `getUUID()Ljava/util/UUID;` | `` | both | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getUUID()Ljava/util/UUID;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getX()D` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getX()D` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getY()D` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getY()D` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getZ()D` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getZ()D` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `killedEntity(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/worl` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `position()Lnet/minecraft/world/phys/Vec3;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `spawnReason()Lnet/minecraft/world/entity/EntitySpawnReason;` | `` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `<init>` | `@ModifyArg at INVOKE Lnet/minecraft/world/entity/EntityFluidInteraction;<init>(L` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| injects_into | `<init>` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| injects_into | `load` | `@Inject at INVOKE Lnet/minecraft/world/entity/Entity;readAdditionalSaveData(Lnet` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| injects_into | `registerDebugValues` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
-| injects_into | `saveWithoutId` | `@Inject at INVOKE Lnet/minecraft/world/entity/Entity;addAdditionalSaveData(Lnet/` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| injects_into | `setId` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Lev` | exact | invokespecial@3 in `LivingEntityMixin.<init>` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Lev` | exact | invokespecial@3 in `LivingEntityMixin.<init>` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Lev` | exact | invokespecial@3 in `LivingEntityMixin.<init>` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `blockPosition` | `()Lnet/minecraft/core/BlockPos;` | exact | invokevirtual@41 in `EntityPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getId` | `()I` | exact | invokevirtual@85 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getId` | `()I` | exact | invokevirtual@51 in `MultiPlayerGameModeMixin.attackEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getId` | `()I` | exact | invokevirtual@40 in `PlayerLookup.tracking` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `getPlainTextName` | `()Ljava/lang/String;` | inherited_exact | invokevirtual@11 in `EntityPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/entity/EntityType;` | exact | invokevirtual@24 in `EntityApiLookupImpl.find` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/entity/EntityType;` | exact | invokevirtual@1 in `DetectorRailBlockMixin.lambda$getCustomComparatorOutput$0` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `getUUID` | `()Ljava/util/UUID;` | exact | invokevirtual@4 in `EntityPermissionContext.uuid` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getUUID` | `()Ljava/util/UUID;` | exact | invokevirtual@128 in `CommandSourceStackMixin.storeOriginalSource` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getX` | `()D` | exact | invokevirtual@19 in `ServerGamePacketListenerImplMixin.handleInteract` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getX` | `()D` | exact | invokevirtual@57 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getY` | `()D` | exact | invokevirtual@23 in `ServerGamePacketListenerImplMixin.handleInteract` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getY` | `()D` | exact | invokevirtual@62 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getZ` | `()D` | exact | invokevirtual@27 in `ServerGamePacketListenerImplMixin.handleInteract` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getZ` | `()D` | exact | invokevirtual@67 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `isInLava` | `()Z` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| calls | `isInWater` | `()Z` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| calls | `isPushedByFluid` | `()Z` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| calls | `killedEntity` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/L` | exact | invokevirtual@19 in `ServerPlayerMixin.callOnKillForPlayer` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | declared |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | invokevirtual@1 in `EntityDataAccessorMixin.setData` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | invokevirtual@62 in `EntityMixin.afterDimensionChanged` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | invokevirtual@30 in `PersistentEntitySectionManagerMixin.beforeAddEntity` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | invokevirtual@8 in `PlayerLookup.tracking` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | invokevirtual@31 in `EntityPermissionContext.<init>` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | invokevirtual@41 in `EntityPermissionContext.<init>` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | exact | invokevirtual@56 in `EntityPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `position` | `()Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@26 in `EntityPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `spawnReason` | `()Lnet/minecraft/world/entity/EntitySpawnReason;` | inherited_exact | invokevirtual@38 in `PersistentEntitySectionManagerMixin.beforeAddEntity` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Lev` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Lev` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| injects_into | `canSpawnSprintParticle` | `()Z` | name_only | @ModifyReturnValue at ['RETURN'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `isInLiquid` | `()Z` | name_only | @ModifyReturnValue at ['RETURN'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `isVisuallyCrawling` | `()Z` | name_only | @ModifyExpressionValue at ['INVOKE'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `load` | `(Lnet/minecraft/world/level/storage/ValueInput;)V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| injects_into | `registerDebugValues` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/debug/Deb` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
+| injects_into | `saveWithoutId` | `(Lnet/minecraft/world/level/storage/ValueOutput;)V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| injects_into | `setId` | `(I)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| injects_into | `spawnSprintParticle` | `()V` | name_only | @ModifyExpressionValue at ['NEW'] | both | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| injects_into | `updateFluidInteraction` | `()Z` | name_only | @ModifyReturnValue at ['RETURN'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `updateSwimming` | `()V` | name_only | @ModifyExpressionValue at ['INVOKE'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `updateSwimming` | `()V` | name_only | @ModifyExpressionValue at ['INVOKE'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `fallDistance` | `D` | exact | getfield@17 in `SimpleConfiguredFluidBehavior.handleFluidInteractionUpdate` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `firstTick` | `Z` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| reads | `fluidInteraction` | `Lnet/minecraft/world/entity/EntityFluidInteraction;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| reads | `id` | `I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | declared |
+| reads | `level` | `Lnet/minecraft/world/level/Level;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | declared |
+| wraps | `teleport` | `(Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| wraps | `updateSwimming` | `()V` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| writes | `fallDistance` | `D` | exact | putfield@26 in `SimpleConfiguredFluidBehavior.handleFluidInteractionUpdate` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
 
-## Declared members (690, all visibilities)
+## Declared members (136 fields, 554 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.entity.Entity implements net.minecraft.world.Nameable, net.minecraft.world.level.entity.EntityAccess, net.minecraft.world.scores.ScoreHolder, net.minecraft.network.syncher.SyncedDataHolder, net.minecraft.core.component.DataComponentGetter, net.minecraft.world.entity.ItemOwner, net.minecraft.world.entity.SlotProvider, net.minecraft.util.debug.DebugValueSource, net.minecraft.core.TypedInstance<net.minecraft.world.entity.EntityType<?>> {
-    private static final org.slf4j.Logger LOGGER;
-    public static final java.lang.String TAG_ID;
-    public static final java.lang.String TAG_UUID;
-    public static final java.lang.String TAG_PASSENGERS;
-    public static final java.lang.String TAG_DATA;
-    public static final java.lang.String TAG_POS;
-    public static final java.lang.String TAG_MOTION;
-    public static final java.lang.String TAG_ROTATION;
-    public static final java.lang.String TAG_PORTAL_COOLDOWN;
-    public static final java.lang.String TAG_NO_GRAVITY;
-    public static final java.lang.String TAG_AIR;
-    public static final java.lang.String TAG_ON_GROUND;
-    public static final java.lang.String TAG_FALL_DISTANCE;
-    public static final java.lang.String TAG_FIRE;
-    public static final java.lang.String TAG_SILENT;
-    public static final java.lang.String TAG_GLOWING;
-    public static final java.lang.String TAG_INVULNERABLE;
-    public static final java.lang.String TAG_INVULNERABLE_TIME;
-    public static final java.lang.String TAG_CUSTOM_NAME;
-    public static final int INVALID_ENTITY_ID;
-    public static final int CONTENTS_SLOT_INDEX;
-    public static final int BOARDING_COOLDOWN;
-    public static final int TOTAL_AIR_SUPPLY;
-    public static final int MAX_ENTITY_TAG_COUNT;
-    private static final com.mojang.serialization.Codec<java.util.List<java.lang.String>> TAG_LIST_CODEC;
-    public static final double DEFAULT_NAME_TAG_DISTANCE;
-    public static final double DEFAULT_BELOW_NAME_DISTANCE;
-    public static final double MAX_NAME_TAG_DISTANCE;
-    public static final float DELTA_AFFECTED_BY_BLOCKS_BELOW_0_2;
-    public static final double DELTA_AFFECTED_BY_BLOCKS_BELOW_0_5;
-    public static final double DELTA_AFFECTED_BY_BLOCKS_BELOW_1_0;
-    public static final int BASE_TICKS_REQUIRED_TO_FREEZE;
-    public static final int FREEZE_HURT_FREQUENCY;
-    public static final int BASE_SAFE_FALL_DISTANCE;
-    private static final net.minecraft.world.phys.AABB INITIAL_AABB;
-    private static final double WATER_FLOW_SCALE;
-    private static final double LAVA_FAST_FLOW_SCALE;
-    private static final double LAVA_SLOW_FLOW_SCALE;
-    private static final int MAX_BLOCK_ITERATIONS_ALONG_TRAVEL_PER_TICK;
-    private static final double MAX_MOVEMENT_RESETTING_TRACE_DISTANCE;
-    private static final java.util.Set<net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>> FLUIDS_WITH_CURRENT;
-    private static double viewScale;
-    private final net.minecraft.world.entity.EntityType<?> type;
-    private boolean requiresPrecisePosition;
-    private int id;
-    public boolean blocksBuilding;
-    private com.google.common.collect.ImmutableList<net.minecraft.world.entity.Entity> passengers;
-    protected int boardingCooldown;
-    private net.minecraft.world.entity.Entity vehicle;
-    private net.minecraft.world.level.Level level;
-    public double xo;
-    public double yo;
-    public double zo;
-    private net.minecraft.world.phys.Vec3 position;
-    private net.minecraft.core.BlockPos blockPosition;
-    private net.minecraft.world.level.ChunkPos chunkPosition;
-    private net.minecraft.world.phys.Vec3 deltaMovement;
-    private float yRot;
-    private float xRot;
-    public float yRotO;
-    public float xRotO;
-    private net.minecraft.world.phys.AABB bb;
-    private boolean onGround;
-    public boolean horizontalCollision;
-    public boolean verticalCollision;
-    public boolean verticalCollisionBelow;
-    public boolean minorHorizontalCollision;
-    protected net.minecraft.world.phys.Vec3 stuckSpeedMultiplier;
-    private net.minecraft.world.entity.Entity$RemovalReason removalReason;
-    public static final float DEFAULT_BB_WIDTH;
-    public static final float DEFAULT_BB_HEIGHT;
-    public float moveDist;
-    public float flyDist;
-    public double fallDistance;
-    private float nextStep;
-    public double xOld;
-    public double yOld;
-    public double zOld;
-    public boolean noPhysics;
-    protected final net.minecraft.util.RandomSource random;
-    public int tickCount;
-    private int remainingFireTicks;
-    private final net.minecraft.world.entity.EntityFluidInteraction fluidInteraction;
-    protected boolean wasTouchingWater;
-    protected boolean wasEyeInWater;
-    private int invulnerableTime;
-    protected boolean firstTick;
-    protected final net.minecraft.network.syncher.SynchedEntityData entityData;
-    protected static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Byte> DATA_SHARED_FLAGS_ID;
-    protected static final int FLAG_ONFIRE;
-    private static final int FLAG_SHIFT_KEY_DOWN;
-    private static final int FLAG_SPRINTING;
-    private static final int FLAG_SWIMMING;
-    private static final int FLAG_INVISIBLE;
-    protected static final int FLAG_GLOWING;
-    protected static final int FLAG_FALL_FLYING;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Integer> DATA_AIR_SUPPLY_ID;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.util.Optional<net.minecraft.network.chat.Component>> DATA_CUSTOM_NAME;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Boolean> DATA_CUSTOM_NAME_VISIBLE;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Boolean> DATA_SILENT;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Boolean> DATA_NO_GRAVITY;
-    protected static final net.minecraft.network.syncher.EntityDataAccessor<net.minecraft.world.entity.Pose> DATA_POSE;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Integer> DATA_TICKS_FROZEN;
-    private net.minecraft.world.level.entity.EntityInLevelCallback levelCallback;
-    private final net.minecraft.network.protocol.game.VecDeltaCodec packetPositionCodec;
-    public boolean needsSync;
-    public boolean syncPosition;
-    public boolean syncVelocity;
-    public net.minecraft.world.entity.PortalProcessor portalProcess;
-    private int portalCooldown;
-    private boolean permanentlyInvulnerable;
-    protected java.util.UUID uuid;
-    protected java.lang.String stringUUID;
-    private boolean hasGlowingTag;
-    private final java.util.Set<java.lang.String> tags;
-    private final double[] pistonDeltas;
-    private long pistonDeltasGameTime;
-    private net.minecraft.world.entity.EntityDimensions dimensions;
-    private float eyeHeight;
-    public boolean isInPowderSnow;
-    public boolean wasInPowderSnow;
-    public java.util.Optional<net.minecraft.core.BlockPos> mainSupportingBlockPos;
-    private boolean onGroundNoBlocks;
-    private float crystalSoundIntensity;
-    private int lastCrystalSoundPlayTick;
-    private boolean hasVisualFire;
-    private net.minecraft.world.phys.Vec3 lastKnownSpeed;
-    private net.minecraft.world.phys.Vec3 lastKnownPosition;
-    private net.minecraft.world.level.block.state.BlockState inBlockState;
-    public static final int MAX_MOVEMENTS_HANDELED_PER_TICK;
-    private final java.util.ArrayDeque<net.minecraft.world.entity.Entity$Movement> movementThisTick;
-    private final java.util.List<net.minecraft.world.entity.Entity$Movement> finalMovementsThisTick;
-    private final it.unimi.dsi.fastutil.longs.LongSet visitedBlocks;
-    protected final net.minecraft.world.entity.InsideBlockEffectApplier$StepBasedCollector insideEffectCollector;
-    protected final net.minecraft.world.entity.InterpolationHandler interpolationHandler;
-    private net.minecraft.world.item.component.CustomData customData;
-    public net.minecraft.world.entity.Entity(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.Level);
-    public boolean isColliding(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public int getTeamColor();
-    public boolean isSpectator();
-    public boolean canInteractWithLevel();
-    public final void unRide();
-    public void syncPacketPositionCodec(double, double, double);
-    public net.minecraft.network.protocol.game.VecDeltaCodec getPositionCodec();
-    public net.minecraft.world.entity.EntityType<?> getType();
-    public net.minecraft.core.Holder<net.minecraft.world.entity.EntityType<?>> typeHolder();
-    public boolean getRequiresPrecisePosition();
-    public void setRequiresPrecisePosition(boolean);
-    public int getId();
-    public void setId(int);
-    public java.util.Set<java.lang.String> entityTags();
-    public boolean addTag(java.lang.String);
-    public boolean removeTag(java.lang.String);
-    public void kill(net.minecraft.server.level.ServerLevel);
-    public final void discard();
-    protected abstract void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData$Builder);
-    public net.minecraft.network.syncher.SynchedEntityData getEntityData();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public void remove(net.minecraft.world.entity.Entity$RemovalReason);
-    public void onClientRemoval();
-    public void onRemoval(net.minecraft.world.entity.Entity$RemovalReason);
-    public void setPose(net.minecraft.world.entity.Pose);
-    public net.minecraft.world.entity.Pose getPose();
-    public boolean hasPose(net.minecraft.world.entity.Pose);
-    public boolean closerThan(net.minecraft.world.entity.Entity, double);
-    public boolean closerThan(net.minecraft.world.entity.Entity, double, double);
-    protected void setRot(float, float);
-    public final void setPos(net.minecraft.world.phys.Vec3);
-    public void setPos(double, double, double);
-    protected final net.minecraft.world.phys.AABB makeBoundingBox();
-    protected net.minecraft.world.phys.AABB makeBoundingBox(net.minecraft.world.phys.Vec3);
-    protected void reapplyPosition();
-    public void turn(double, double);
-    public void updateDataBeforeSync();
-    public void tick();
-    public final void commonTick();
-    public void baseTick();
-    protected void computeSpeed();
-    public void setSharedFlagOnFire(boolean);
-    public void checkBelowWorld();
-    public void setPortalCooldown();
-    public void setPortalCooldown(int);
-    public int getPortalCooldown();
-    public boolean isOnPortalCooldown();
-    protected void processPortalCooldown();
-    public void lavaIgnite();
-    public void lavaHurt();
-    protected boolean shouldPlayLavaHurtSound();
-    public final void igniteForSeconds(float);
-    public void igniteForTicks(int);
-    public void setRemainingFireTicks(int);
-    public int getRemainingFireTicks();
-    public void clearFire();
-    protected void onBelowWorld();
-    public boolean isFree(double, double, double);
-    private boolean isFree(net.minecraft.world.phys.AABB);
-    public void setOnGround(boolean);
-    public void setOnGroundWithMovement(boolean, net.minecraft.world.phys.Vec3);
-    public void setOnGroundWithMovement(boolean, boolean, net.minecraft.world.phys.Vec3);
-    public boolean isSupportedBy(net.minecraft.core.BlockPos);
-    protected void checkSupportingBlock(boolean, net.minecraft.world.phys.Vec3);
-    public boolean onGround();
-    public void move(net.minecraft.world.entity.MoverType, net.minecraft.world.phys.Vec3);
-    public void recordMovement(net.minecraft.world.entity.MoverType, net.minecraft.world.phys.Vec3);
-    private void restituteMovementAfterCollisions(net.minecraft.world.level.block.state.BlockState, boolean, boolean, net.minecraft.world.phys.Vec3);
-    private double getBlockBounciness(net.minecraft.world.level.block.Block);
-    protected double getEntityBounciness();
-    protected double getEffectiveGravity();
-    protected boolean omnidirectionalAirMover();
-    private void applyMovementEmissionAndPlaySound(net.minecraft.world.entity.Entity$MovementEmission, net.minecraft.world.phys.Vec3, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected void applyEffectsFromBlocks();
-    protected void applyEffectsFromBlocksForLastMovements();
-    private void addMovementThisTick(net.minecraft.world.entity.Entity$Movement);
-    public void removeLatestMovementRecording();
-    protected void clearMovementThisTick();
-    public boolean hasMovedHorizontallyRecently();
-    public void applyEffectsFromBlocks(net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3);
-    private void applyEffectsFromBlocks(java.util.List<net.minecraft.world.entity.Entity$Movement>);
-    protected boolean isAffectedByBlocks();
-    private boolean isStateClimbable(net.minecraft.world.level.block.state.BlockState);
-    private boolean vibrationAndSoundEffectsFromBlock(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, boolean, boolean, net.minecraft.world.phys.Vec3);
-    protected boolean isHorizontalCollisionMinor(net.minecraft.world.phys.Vec3);
-    protected void playEntityOnFireExtinguishedSound();
-    public void extinguishFire();
-    protected void processFlappingMovement();
-    public net.minecraft.core.BlockPos getOnPosLegacy();
-    public net.minecraft.core.BlockPos getBlockPosBelowThatAffectsMyMovement();
-    public net.minecraft.core.BlockPos getOnPos();
-    protected net.minecraft.core.BlockPos getOnPos(float);
-    protected float getBlockJumpFactor();
-    protected float getBlockSpeedFactor();
-    protected net.minecraft.world.phys.Vec3 maybeBackOffFromEdge(net.minecraft.world.phys.Vec3, net.minecraft.world.entity.MoverType);
-    protected net.minecraft.world.phys.Vec3 limitPistonMovement(net.minecraft.world.phys.Vec3);
-    private double applyPistonMovementRestriction(net.minecraft.core.Direction$Axis, double);
-    public double getAvailableSpaceBelow(double);
-    private net.minecraft.world.phys.Vec3 collide(net.minecraft.world.phys.Vec3);
-    private static float[] collectCandidateStepUpHeights(net.minecraft.world.phys.AABB, java.util.List<net.minecraft.world.phys.shapes.VoxelShape>, float, float);
-    public static net.minecraft.world.phys.Vec3 collideBoundingBox(net.minecraft.world.entity.Entity, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.AABB, net.minecraft.world.level.Level, java.util.List<net.minecraft.world.phys.shapes.VoxelShape>);
-    public static net.minecraft.world.phys.Vec3 collideBoundingBox(net.minecraft.world.phys.shapes.CollisionContext, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.AABB, net.minecraft.world.level.Level, java.util.List<net.minecraft.world.phys.shapes.VoxelShape>);
-    public static java.util.List<net.minecraft.world.phys.shapes.VoxelShape> collectAllColliders(net.minecraft.world.entity.Entity, net.minecraft.world.level.Level, net.minecraft.world.phys.AABB);
-    private static java.util.List<net.minecraft.world.phys.shapes.VoxelShape> collectCollidersIgnoringWorldBorder(net.minecraft.world.entity.Entity, net.minecraft.world.level.Level, java.util.List<net.minecraft.world.phys.shapes.VoxelShape>, net.minecraft.world.phys.AABB);
-    private static java.util.List<net.minecraft.world.phys.shapes.VoxelShape> collectCollidersIgnoringWorldBorder(net.minecraft.world.phys.shapes.CollisionContext, net.minecraft.world.level.Level, java.util.List<net.minecraft.world.phys.shapes.VoxelShape>, net.minecraft.world.phys.AABB);
-    private static net.minecraft.world.phys.Vec3 collideWithShapes(net.minecraft.world.phys.Vec3, net.minecraft.world.phys.AABB, java.util.List<net.minecraft.world.phys.shapes.VoxelShape>);
-    protected float nextStep();
-    protected net.minecraft.sounds.SoundEvent getSwimSound();
-    protected net.minecraft.sounds.SoundEvent getSwimSplashSound();
-    protected net.minecraft.sounds.SoundEvent getSwimHighSpeedSplashSound();
-    private void checkInsideBlocks(java.util.List<net.minecraft.world.entity.Entity$Movement>, net.minecraft.world.entity.InsideBlockEffectApplier$StepBasedCollector);
-    private int checkInsideBlocks(net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3, net.minecraft.world.entity.InsideBlockEffectApplier$StepBasedCollector, it.unimi.dsi.fastutil.longs.LongSet, int);
-    private void debugBlockIntersection(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, boolean, boolean);
-    public boolean collidedWithFluid(net.minecraft.world.level.material.FluidState, net.minecraft.core.BlockPos, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3);
-    public boolean collidedWithShapeMovingFrom(net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3, java.util.List<net.minecraft.world.phys.AABB>);
-    protected void onInsideBlock(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.core.BlockPos adjustSpawnLocation(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos);
-    public void gameEvent(net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.world.entity.Entity);
-    public void gameEvent(net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>);
-    private void walkingStepSound(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected void waterSwimSound();
-    protected net.minecraft.core.BlockPos getPrimaryStepSoundBlockPos(net.minecraft.core.BlockPos);
-    protected void playCombinationStepSounds(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState);
-    protected void playMuffledStepSound(net.minecraft.world.level.block.state.BlockState);
-    protected void playStepSound(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private boolean shouldPlayAmethystStepSound(net.minecraft.world.level.block.state.BlockState);
-    private void playAmethystStepSound();
-    protected void playSwimSound(float);
-    protected void onFlap();
-    protected boolean isFlapping();
-    public void playSound(net.minecraft.sounds.SoundEvent, float, float);
-    public void playSound(net.minecraft.sounds.SoundEvent);
-    public boolean isSilent();
-    public void setSilent(boolean);
-    public boolean isNoGravity();
-    public void setNoGravity(boolean);
-    protected double getDefaultGravity();
-    public final double getGravity();
-    protected void applyGravity();
-    protected float getAirDrag();
-    protected net.minecraft.world.entity.Entity$MovementEmission getMovementEmission();
-    public boolean dampensVibrations();
-    public final void doCheckFallDamage(double, double, double, boolean);
-    protected void checkFallDamage(double, boolean, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
-    public boolean fireImmune();
-    public boolean causeFallDamage(double, float, net.minecraft.world.damagesource.DamageSource);
-    protected void propagateFallToPassengers(double, float, net.minecraft.world.damagesource.DamageSource);
-    public boolean isInWater();
-    private boolean isInRain();
-    public boolean isInWaterOrRain();
-    public boolean isInLiquid();
-    public boolean isInFloatableFluid();
-    public boolean isUnderWater();
-    public boolean isInShallowWater();
-    public boolean isInClouds();
-    public void updateSwimming();
-    protected boolean updateFluidInteraction();
-    protected void doWaterSplashEffect();
-    protected net.minecraft.world.level.block.state.BlockState getBlockStateOnLegacy();
-    public net.minecraft.world.level.block.state.BlockState getBlockStateOn();
-    public boolean canSpawnSprintParticle();
-    protected void spawnSprintParticle();
-    public boolean isEyeInFluid(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>);
-    public boolean isInLava();
-    public void moveRelative(float, net.minecraft.world.phys.Vec3);
-    protected static net.minecraft.world.phys.Vec3 getInputVector(net.minecraft.world.phys.Vec3, float, float);
-    public float getLightLevelDependentMagicValue();
-    public void absSnapTo(double, double, double, float, float);
-    public void absSnapRotationTo(float, float);
-    public void absSnapTo(double, double, double);
-    public void snapTo(net.minecraft.world.phys.Vec3);
-    public void snapTo(double, double, double);
-    public void snapTo(net.minecraft.core.BlockPos, float, float);
-    public void snapTo(net.minecraft.world.phys.Vec3, float, float);
-    public void snapTo(double, double, double, float, float);
-    public final void setOldPosAndRot();
-    public final void setOldPosAndRot(net.minecraft.world.phys.Vec3, float, float);
-    protected void setOldPos();
-    public void setOldRot();
-    private void setOldPos(net.minecraft.world.phys.Vec3);
-    private void setOldRot(float, float);
-    public final net.minecraft.world.phys.Vec3 oldPosition();
-    public float distanceTo(net.minecraft.world.entity.Entity);
-    public double distanceToSqr(double, double, double);
-    public double distanceToSqr(net.minecraft.world.entity.Entity);
-    public double distanceToSqr(net.minecraft.world.phys.Vec3);
-    public void playerTouch(net.minecraft.world.entity.player.Player);
-    public void push(net.minecraft.world.entity.Entity);
-    public void push(net.minecraft.world.phys.Vec3);
-    public void pushFromExplosion(net.minecraft.world.phys.Vec3);
-    public void push(double, double, double);
-    protected void markHurt();
-    public final void hurt(net.minecraft.world.damagesource.DamageSource, float);
-    public final boolean hurtOrSimulate(net.minecraft.world.damagesource.DamageSource, float);
-    public abstract boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-    public boolean hurtClient(net.minecraft.world.damagesource.DamageSource);
-    public final net.minecraft.world.phys.Vec3 getViewVector(float);
-    public net.minecraft.core.Direction getNearestViewDirection();
-    public float getViewXRot(float);
-    public float getViewYRot(float);
-    public float getXRot(float);
-    public float getYRot(float);
-    public static net.minecraft.world.phys.Vec3 calculateViewVector(float, float);
-    public static org.joml.Quaternionf calculateViewQuaternion(float, float);
-    public final net.minecraft.world.phys.Vec3 getUpVector(float);
-    protected static net.minecraft.world.phys.Vec3 calculateUpVector(float, float);
-    public final net.minecraft.world.phys.Vec3 getEyePosition();
-    public final net.minecraft.world.phys.Vec3 getEyePosition(float);
-    public net.minecraft.world.phys.Vec3 getLightProbePosition(float);
-    public final net.minecraft.world.phys.Vec3 getPosition(float);
-    public net.minecraft.world.phys.HitResult pick(double, float, boolean);
-    public boolean canBeHitByProjectile();
-    public boolean isPickable();
-    public boolean canBePickedFromInside();
-    public boolean isPushable();
-    public void awardKillScore(net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-    public boolean shouldRender(double, double, double);
-    public boolean shouldRenderAtSqrDistance(double);
-    public boolean saveAsPassenger(net.minecraft.world.level.storage.ValueOutput);
-    public boolean save(net.minecraft.world.level.storage.ValueOutput);
-    public void saveWithoutId(net.minecraft.world.level.storage.ValueOutput);
-    public void load(net.minecraft.world.level.storage.ValueInput);
-    public void postDataManipulated();
-    protected boolean repositionEntityAfterLoad();
-    protected final java.lang.String getEncodeId();
-    protected abstract void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput);
-    protected abstract void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput);
-    public net.minecraft.world.entity.item.ItemEntity spawnAtLocation(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.ItemLike);
-    public net.minecraft.world.entity.item.ItemEntity spawnAtLocation(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.entity.item.ItemEntity spawnAtLocation(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack, net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.entity.item.ItemEntity spawnAtLocation(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack, float);
-    public boolean isAlive();
-    public boolean isInWall();
-    public net.minecraft.world.InteractionResult interact(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.phys.Vec3);
-    public boolean shearOffAllLeashConnections(net.minecraft.world.entity.player.Player);
-    public boolean dropAllLeashConnections(net.minecraft.world.entity.player.Player);
-    public boolean canCollideWith(net.minecraft.world.entity.Entity);
-    public boolean canBeCollidedWith(net.minecraft.world.entity.Entity);
-    public void rideTick();
-    public final void positionRider(net.minecraft.world.entity.Entity);
-    protected void positionRider(net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity$MoveFunction);
-    public void onPassengerTurned(net.minecraft.world.entity.Entity);
-    public net.minecraft.world.phys.Vec3 getVehicleAttachmentPoint(net.minecraft.world.entity.Entity);
-    public net.minecraft.world.phys.Vec3 getPassengerRidingPosition(net.minecraft.world.entity.Entity);
-    protected net.minecraft.world.phys.Vec3 getPassengerAttachmentPoint(net.minecraft.world.entity.Entity, net.minecraft.world.entity.EntityDimensions, float);
-    protected static net.minecraft.world.phys.Vec3 getDefaultPassengerAttachmentPoint(net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity, net.minecraft.world.entity.EntityAttachments);
-    public final boolean startRiding(net.minecraft.world.entity.Entity);
-    public boolean showVehicleHealth();
-    public boolean startRiding(net.minecraft.world.entity.Entity, boolean, boolean);
-    protected boolean canRide(net.minecraft.world.entity.Entity);
-    public void ejectPassengers();
-    public final boolean doTeamsAllowDamage(net.minecraft.world.entity.Entity);
-    public void removeVehicle();
-    public void stopRiding();
-    protected void addPassenger(net.minecraft.world.entity.Entity);
-    protected void removePassenger(net.minecraft.world.entity.Entity);
-    protected boolean canAddPassenger(net.minecraft.world.entity.Entity);
-    protected boolean couldAcceptPassenger();
-    public final boolean isInterpolating();
-    public final void moveOrInterpolateTo(net.minecraft.world.entity.PositionPath, float, float);
-    public final void moveOrInterpolateTo(net.minecraft.world.phys.Vec3, float, float);
-    public final void moveOrInterpolateTo(float, float);
-    public final void moveOrInterpolateTo(net.minecraft.world.entity.PositionPath);
-    public final void moveOrInterpolateTo(net.minecraft.world.entity.PositionPath, float, float, boolean);
-    public void onInterpolationStart(net.minecraft.world.entity.InterpolationHandler);
-    protected net.minecraft.world.entity.InterpolationHandler createInterpolationHandler();
-    public final net.minecraft.world.entity.InterpolationHandler getInterpolation();
-    public void lerpHeadTo(float, int);
-    public float getPickRadius();
-    public net.minecraft.world.phys.Vec3 getLookAngle();
-    public org.joml.Quaternionf getLookQuaternion();
-    public net.minecraft.world.phys.Vec3 getHeadLookAngle();
-    public net.minecraft.world.phys.Vec3 getHandHoldingItemAngle(net.minecraft.world.item.Item);
-    public net.minecraft.world.phys.Vec2 getRotationVector();
-    public net.minecraft.world.phys.Vec3 getForward();
-    public void setAsInsidePortal(net.minecraft.world.level.block.Portal, net.minecraft.core.BlockPos);
-    protected void handlePortal();
-    public void teleportToPortalDestination(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.portal.TeleportTransition);
-    public int getDimensionChangingDelay();
-    public void lerpMotion(net.minecraft.world.phys.Vec3);
-    public void handleDamageEvent(net.minecraft.world.damagesource.DamageSource);
-    public void handleEntityEvent(byte);
-    public void animateHurt(float);
-    public boolean isOnFire();
-    public boolean isPassenger();
-    public boolean isVehicle();
-    public boolean dismountsUnderwater();
-    public boolean canControlVehicle();
-    public void setShiftKeyDown(boolean);
-    public boolean isShiftKeyDown();
-    public boolean isSteppingCarefully();
-    public boolean isSuppressingBounce();
-    public boolean isDiscrete();
-    public boolean isDescending();
-    public boolean isCrouching();
-    public boolean isSprinting();
-    public void setSprinting(boolean);
-    public boolean isSwimming();
-    public boolean isVisuallySwimming();
-    public boolean isVisuallyCrawling();
-    public void setSwimming(boolean);
-    public final boolean hasGlowingTag();
-    public final void setGlowingTag(boolean);
-    public boolean isCurrentlyGlowing();
-    public boolean isInvisible();
-    public boolean isInvisibleTo(net.minecraft.world.entity.player.Player);
-    public boolean isOnRails();
-    public void updateDynamicGameEventListener(java.util.function.BiConsumer<net.minecraft.world.level.gameevent.DynamicGameEventListener<?>, net.minecraft.server.level.ServerLevel>);
-    public net.minecraft.world.scores.PlayerTeam getTeam();
-    public final boolean isAlliedTo(net.minecraft.world.entity.Entity);
-    protected boolean considersEntityAsAlly(net.minecraft.world.entity.Entity);
-    public boolean isAlliedTo(net.minecraft.world.scores.Team);
-    public void setInvisible(boolean);
-    protected boolean getSharedFlag(int);
-    protected void setSharedFlag(int, boolean);
-    public int getMaxAirSupply();
-    public int getAirSupply();
-    public void setAirSupply(int);
-    public void clearFreeze();
-    public int getTicksFrozen();
-    public void setTicksFrozen(int);
-    public float getPercentFrozen();
-    public boolean isFullyFrozen();
-    public int getTicksRequiredToFreeze();
-    public void thunderHit(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LightningBolt);
-    public void onAboveBubbleColumn(boolean, net.minecraft.core.BlockPos);
-    protected static void handleOnAboveBubbleColumn(net.minecraft.world.entity.Entity, boolean, net.minecraft.core.BlockPos);
-    protected static void sendBubbleColumnParticles(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    public void onInsideBubbleColumn(boolean);
-    protected static void handleOnInsideBubbleColumn(net.minecraft.world.entity.Entity, boolean);
-    public boolean killedEntity(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource);
-    public boolean projectileReceivesSideEffectsOnHit(boolean);
-    public void checkFallDistanceAccumulation();
-    public void resetFallDistance();
-    protected void moveTowardsClosestSpace(double, double, double);
-    public void makeStuckInBlock(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.Vec3);
-    private static net.minecraft.network.chat.Component removeAction(net.minecraft.network.chat.Component);
-    public net.minecraft.network.chat.Component getName();
-    protected net.minecraft.network.chat.Component getTypeName();
-    public boolean is(net.minecraft.world.entity.Entity);
-    public float getYHeadRot();
-    public void setYHeadRot(float);
-    public void setYBodyRot(float);
-    public boolean isAttackable();
-    public boolean skipAttackInteraction(net.minecraft.world.entity.Entity);
-    public java.lang.String toString();
-    protected final boolean isInvulnerableToBase(net.minecraft.world.damagesource.DamageSource);
-    public boolean isInvulnerable();
-    public boolean isPermanentlyInvulnerable();
-    public boolean isTemporarilyInvulnerable();
-    public boolean isInvulnerableToPiercingWeapon();
-    public void setPermanentlyInvulnerable(boolean);
-    public void copyPosition(net.minecraft.world.entity.Entity);
-    public void restoreFrom(net.minecraft.world.entity.Entity);
-    public net.minecraft.world.entity.Entity teleport(net.minecraft.world.level.portal.TeleportTransition);
-    private net.minecraft.world.entity.Entity teleportSameDimension(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.portal.TeleportTransition);
-    private net.minecraft.world.entity.Entity teleportCrossDimension(net.minecraft.server.level.ServerLevel, net.minecraft.server.level.ServerLevel, net.minecraft.world.level.portal.TeleportTransition);
-    protected void teleportSpectators(net.minecraft.world.level.portal.TeleportTransition, net.minecraft.server.level.ServerLevel);
-    private net.minecraft.world.level.portal.TeleportTransition calculatePassengerTransition(net.minecraft.world.level.portal.TeleportTransition, net.minecraft.world.entity.Entity);
-    private void sendTeleportTransitionToPlayers(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.portal.TeleportTransition);
-    public void teleportSetPosition(net.minecraft.world.entity.PositionMoveRotation, java.util.Set<net.minecraft.world.entity.Relative>);
-    public void teleportSetPosition(net.minecraft.world.entity.PositionMoveRotation, net.minecraft.world.entity.PositionMoveRotation, java.util.Set<net.minecraft.world.entity.Relative>);
-    public void forceSetRotation(float, boolean, float, boolean);
-    public void placePortalTicket(net.minecraft.core.BlockPos);
-    protected void removeAfterChangingDimensions();
-    public net.minecraft.world.phys.Vec3 getRelativePortalPosition(net.minecraft.core.Direction$Axis, net.minecraft.util.BlockUtil$FoundRectangle);
-    public boolean canUsePortal(boolean);
-    public boolean canTeleport(net.minecraft.world.level.Level, net.minecraft.world.level.Level);
-    public float getBlockExplosionResistance(net.minecraft.world.level.Explosion, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState, float);
-    public boolean shouldBlockExplode(net.minecraft.world.level.Explosion, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, float);
-    public int getMaxFallDistance();
-    public boolean isIgnoringBlockTriggers();
-    public void fillCrashReportCategory(net.minecraft.CrashReportCategory);
-    public boolean displayFireAnimation();
-    public void setUUID(java.util.UUID);
-    public java.util.UUID getUUID();
-    public java.lang.String getStringUUID();
-    public java.lang.String getScoreboardName();
-    public boolean isPushedByFluid();
-    public static double getViewScale();
-    public static void setViewScale(double);
-    public net.minecraft.network.chat.Component getDisplayName();
-    public void setCustomName(net.minecraft.network.chat.Component);
-    public net.minecraft.network.chat.Component getCustomName();
-    public boolean hasCustomName();
-    public void setCustomNameVisible(boolean);
-    public boolean isCustomNameVisible();
-    public net.minecraft.network.chat.Component belowNameDisplay();
-    public boolean teleportTo(net.minecraft.server.level.ServerLevel, double, double, double, java.util.Set<net.minecraft.world.entity.Relative>, float, float, boolean);
-    public void dismountTo(double, double, double);
-    public void teleportTo(double, double, double);
-    private void teleportPassengers();
-    public void teleportRelative(double, double, double);
-    public boolean shouldShowName();
-    public void onSyncedDataUpdated(java.util.List<net.minecraft.network.syncher.SynchedEntityData$DataValue<?>>);
-    public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?>);
-    protected void fixupDimensions();
-    public void refreshDimensions();
-    public boolean fudgePositionAfterSizeChange(net.minecraft.world.entity.EntityDimensions);
-    public net.minecraft.core.Direction getDirection();
-    public net.minecraft.core.Direction getMotionDirection();
-    protected net.minecraft.network.chat.HoverEvent createHoverEvent();
-    public boolean broadcastToPlayer(net.minecraft.server.level.ServerPlayer);
-    public final net.minecraft.world.phys.AABB getBoundingBox();
-    public net.minecraft.world.phys.AABB getInterpolatedBoundingBox(float);
-    public final void setBoundingBox(net.minecraft.world.phys.AABB);
-    public final float getEyeHeight(net.minecraft.world.entity.Pose);
-    public final float getEyeHeight();
-    public net.minecraft.world.entity.SlotAccess getSlot(int);
-    public boolean ignoreExplosion(net.minecraft.world.level.Explosion);
-    public void startSeenByPlayer(net.minecraft.server.level.ServerPlayer);
-    public void stopSeenByPlayer(net.minecraft.server.level.ServerPlayer);
-    public float rotate(net.minecraft.world.level.block.Rotation);
-    public float mirror(net.minecraft.world.level.block.Mirror);
-    public net.minecraft.world.entity.projectile.ProjectileDeflection deflection(net.minecraft.world.entity.projectile.Projectile);
-    public net.minecraft.world.entity.LivingEntity getControllingPassenger();
-    public final boolean hasControllingPassenger();
-    public final java.util.List<net.minecraft.world.entity.Entity> getPassengers();
-    public net.minecraft.world.entity.Entity getFirstPassenger();
-    public boolean hasPassenger(net.minecraft.world.entity.Entity);
-    public boolean hasPassenger(java.util.function.Predicate<net.minecraft.world.entity.Entity>);
-    private java.util.stream.Stream<net.minecraft.world.entity.Entity> getIndirectPassengersStream();
-    public java.util.stream.Stream<net.minecraft.world.entity.Entity> getSelfAndPassengers();
-    public java.util.stream.Stream<net.minecraft.world.entity.Entity> getPassengersAndSelf();
-    public java.lang.Iterable<net.minecraft.world.entity.Entity> getIndirectPassengers();
-    public int countPlayerPassengers();
-    public boolean hasExactlyOnePlayerPassenger();
-    public net.minecraft.world.entity.Entity getRootVehicle();
-    public boolean isPassengerOfSameVehicle(net.minecraft.world.entity.Entity);
-    public boolean hasIndirectPassenger(net.minecraft.world.entity.Entity);
-    public final boolean isLocalInstanceAuthoritative();
-    protected boolean isLocalClientAuthoritative();
-    public boolean isClientAuthoritative();
-    public net.minecraft.world.entity.MoveSimulationType getMoveSimulationType();
-    public final boolean canSimulateMovement();
-    public boolean isEffectiveAi();
-    protected static net.minecraft.world.phys.Vec3 getCollisionHorizontalEscapeVector(double, double, float);
-    public net.minecraft.world.phys.Vec3 getDismountLocationForPassenger(net.minecraft.world.entity.LivingEntity);
-    public net.minecraft.world.entity.Entity getVehicle();
-    public net.minecraft.world.entity.Entity getControlledVehicle();
-    public net.minecraft.world.level.material.PushReaction getPistonPushReaction();
-    public net.minecraft.sounds.SoundSource getSoundSource();
-    protected int getFireImmuneTicks();
-    public net.minecraft.commands.CommandSourceStack createCommandSourceStackForNameResolution(net.minecraft.server.level.ServerLevel);
-    public void lookAt(net.minecraft.commands.arguments.EntityAnchorArgument$Anchor, net.minecraft.world.phys.Vec3);
-    public float getPreciseBodyRotation(float);
-    public boolean touchingUnloadedChunk();
-    public double getFluidHeight(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>);
-    public double getFluidJumpThreshold();
-    public final float getBbWidth();
-    public final float getBbHeight();
-    public net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ClientGamePacketListener> getAddEntityPacket(net.minecraft.server.level.ServerEntity);
-    public net.minecraft.world.entity.EntityDimensions getDimensions(net.minecraft.world.entity.Pose);
-    public final net.minecraft.world.entity.EntityAttachments getAttachments();
-    public net.minecraft.world.phys.Vec3 position();
-    public net.minecraft.world.phys.Vec3 trackingPosition();
-    public net.minecraft.core.BlockPos blockPosition();
-    public net.minecraft.world.level.block.state.BlockState getInBlockState();
-    public net.minecraft.world.level.ChunkPos chunkPosition();
-    public net.minecraft.world.phys.Vec3 getDeltaMovement();
-    public void setDeltaMovement(net.minecraft.world.phys.Vec3);
-    public void addDeltaMovement(net.minecraft.world.phys.Vec3);
-    public void setDeltaMovement(double, double, double);
-    public final int getBlockX();
-    public final double getX();
-    public double getX(double);
-    public double getRandomX(double);
-    public final int getBlockY();
-    public final double getY();
-    public double getY(double);
-    public double getRandomY(double);
-    public double getRandomY();
-    public double getEyeY();
-    public final int getBlockZ();
-    public final double getZ();
-    public double getZ(double);
-    public double getRandomZ(double);
-    public final void setPosRaw(double, double, double);
-    public void checkDespawn();
-    public net.minecraft.world.phys.Vec3[] getQuadLeashHolderOffsets();
-    public boolean supportQuadLeashAsHolder();
-    public void notifyLeashHolder(net.minecraft.world.entity.Leashable);
-    public void notifyLeasheeRemoved(net.minecraft.world.entity.Leashable);
-    public net.minecraft.world.phys.Vec3 getRopeHoldPosition(float);
-    public void recreateFromPacket(net.minecraft.network.protocol.game.ClientboundAddEntityPacket);
-    public net.minecraft.world.item.ItemStack getPickResult();
-    public void setIsInPowderSnow(boolean);
-    public boolean canFreeze();
-    public boolean isFreezing();
-    public float getYRot();
-    public float getVisualRotationYInDegrees();
-    public void setYRot(float);
-    public float getXRot();
-    public void setXRot(float);
-    public net.minecraft.core.PositionAndRotation storePositionAndRotation();
-    public net.minecraft.core.PositionAndRotation getClientPositionAndRotation();
-    public net.minecraft.world.phys.Vec3 getClientPosition();
-    public boolean canSprint();
-    public float maxUpStep();
-    public void onExplosionHit(net.minecraft.world.entity.Entity);
-    public final boolean isRemoved();
-    public net.minecraft.world.entity.Entity$RemovalReason getRemovalReason();
-    public final void setRemoved(net.minecraft.world.entity.Entity$RemovalReason);
-    protected void unsetRemoved();
-    public void setLevelCallback(net.minecraft.world.level.entity.EntityInLevelCallback);
-    public boolean shouldBeSaved();
-    public boolean isAlwaysTicking();
-    public boolean mayInteract(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos);
-    public boolean isFlyingVehicle();
-    public net.minecraft.world.level.Level level();
-    protected void setLevel(net.minecraft.world.level.Level);
-    public net.minecraft.world.damagesource.DamageSources damageSources();
-    public net.minecraft.core.RegistryAccess registryAccess();
-    protected void lerpPositionAndRotationStep(int, double, double, double, double, double);
-    public net.minecraft.util.RandomSource getRandom();
-    public net.minecraft.world.phys.Vec3 getKnownMovement();
-    public net.minecraft.world.phys.Vec3 getKnownSpeed();
-    public net.minecraft.world.item.ItemStack getWeaponItem();
-    public java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> getLootTable();
-    protected void applyImplicitComponents(net.minecraft.core.component.DataComponentGetter);
-    public final void applyComponentsFromItemStack(net.minecraft.world.item.ItemStack);
-    public <T> T get(net.minecraft.core.component.DataComponentType<? extends T>);
-    protected static <T> T castComponentValue(net.minecraft.core.component.DataComponentType<T>, java.lang.Object);
-    public <T> void setComponent(net.minecraft.core.component.DataComponentType<T>, T);
-    protected <T> boolean applyImplicitComponent(net.minecraft.core.component.DataComponentType<T>, T);
-    protected <T> boolean applyImplicitComponentIfPresent(net.minecraft.core.component.DataComponentGetter, net.minecraft.core.component.DataComponentType<T>);
-    public net.minecraft.util.ProblemReporter$PathElement problemPath();
-    public void registerDebugValues(net.minecraft.server.level.ServerLevel, net.minecraft.util.debug.DebugValueSource$Registration);
-    public net.minecraft.world.phys.AABB getFluidInteractionBox();
-    public void setInvulnerableTime(int);
-    public int getInvulnerableTime();
-    protected net.minecraft.world.phys.AABB modifyPassengerFluidInteractionBox(net.minecraft.world.phys.AABB);
-    private static boolean lambda$countPlayerPassengers$0(net.minecraft.world.entity.Entity);
-    private java.util.Iterator lambda$getIndirectPassengers$0();
-    private static void lambda$teleportPassengers$0(net.minecraft.world.entity.Entity);
-    private net.minecraft.network.chat.Style lambda$getDisplayName$0(net.minecraft.network.chat.Style);
-    private java.lang.String lambda$fillCrashReportCategory$3() throws java.lang.Exception;
-    private java.lang.String lambda$fillCrashReportCategory$2() throws java.lang.Exception;
-    private java.lang.String lambda$fillCrashReportCategory$1() throws java.lang.Exception;
-    private java.lang.String lambda$fillCrashReportCategory$0() throws java.lang.Exception;
-    private static boolean lambda$sendTeleportTransitionToPlayers$0(java.util.List, net.minecraft.server.level.ServerPlayer);
-    private static boolean lambda$removePassenger$0(net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity);
-    private static void lambda$startRiding$1(net.minecraft.world.entity.Entity);
-    private static boolean lambda$startRiding$0(net.minecraft.world.entity.Entity);
-    private static boolean lambda$interact$0(net.minecraft.world.entity.player.Player, net.minecraft.world.entity.Leashable);
-    private boolean lambda$isInWall$0(net.minecraft.world.phys.AABB, net.minecraft.core.BlockPos);
-    private static java.lang.IllegalStateException lambda$getEncodeId$0();
-    private void lambda$load$1(java.lang.String);
-    private void lambda$load$0(java.util.UUID);
-    private net.minecraft.world.level.block.state.BlockState lambda$checkFallDamage$0(net.minecraft.core.BlockPos);
-    private boolean lambda$checkInsideBlocks$0(int, java.util.concurrent.atomic.AtomicInteger, boolean, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3, it.unimi.dsi.fastutil.longs.LongSet, boolean, net.minecraft.world.phys.AABB, net.minecraft.world.entity.InsideBlockEffectApplier$StepBasedCollector, net.minecraft.core.BlockPos, int);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final TAG_ID : Ljava/lang/String;
+public static final TAG_UUID : Ljava/lang/String;
+public static final TAG_PASSENGERS : Ljava/lang/String;
+public static final TAG_DATA : Ljava/lang/String;
+public static final TAG_POS : Ljava/lang/String;
+public static final TAG_MOTION : Ljava/lang/String;
+public static final TAG_ROTATION : Ljava/lang/String;
+public static final TAG_PORTAL_COOLDOWN : Ljava/lang/String;
+public static final TAG_NO_GRAVITY : Ljava/lang/String;
+public static final TAG_AIR : Ljava/lang/String;
+public static final TAG_ON_GROUND : Ljava/lang/String;
+public static final TAG_FALL_DISTANCE : Ljava/lang/String;
+public static final TAG_FIRE : Ljava/lang/String;
+public static final TAG_SILENT : Ljava/lang/String;
+public static final TAG_GLOWING : Ljava/lang/String;
+public static final TAG_INVULNERABLE : Ljava/lang/String;
+public static final TAG_INVULNERABLE_TIME : Ljava/lang/String;
+public static final TAG_CUSTOM_NAME : Ljava/lang/String;
+public static final INVALID_ENTITY_ID : I
+public static final CONTENTS_SLOT_INDEX : I
+public static final BOARDING_COOLDOWN : I
+public static final TOTAL_AIR_SUPPLY : I
+public static final MAX_ENTITY_TAG_COUNT : I
+private static final TAG_LIST_CODEC : Lcom/mojang/serialization/Codec;
+public static final DEFAULT_NAME_TAG_DISTANCE : D
+public static final DEFAULT_BELOW_NAME_DISTANCE : D
+public static final MAX_NAME_TAG_DISTANCE : D
+public static final DELTA_AFFECTED_BY_BLOCKS_BELOW_0_2 : F
+public static final DELTA_AFFECTED_BY_BLOCKS_BELOW_0_5 : D
+public static final DELTA_AFFECTED_BY_BLOCKS_BELOW_1_0 : D
+public static final BASE_TICKS_REQUIRED_TO_FREEZE : I
+public static final FREEZE_HURT_FREQUENCY : I
+public static final BASE_SAFE_FALL_DISTANCE : I
+private static final INITIAL_AABB : Lnet/minecraft/world/phys/AABB;
+private static final WATER_FLOW_SCALE : D
+private static final LAVA_FAST_FLOW_SCALE : D
+private static final LAVA_SLOW_FLOW_SCALE : D
+private static final MAX_BLOCK_ITERATIONS_ALONG_TRAVEL_PER_TICK : I
+private static final MAX_MOVEMENT_RESETTING_TRACE_DISTANCE : D
+private static final FLUIDS_WITH_CURRENT : Ljava/util/Set;
+private static viewScale : D
+private final type : Lnet/minecraft/world/entity/EntityType;
+private requiresPrecisePosition : Z
+private id : I
+public blocksBuilding : Z
+private passengers : Lcom/google/common/collect/ImmutableList;
+protected boardingCooldown : I
+private vehicle : Lnet/minecraft/world/entity/Entity;
+private level : Lnet/minecraft/world/level/Level;
+public xo : D
+public yo : D
+public zo : D
+private position : Lnet/minecraft/world/phys/Vec3;
+private blockPosition : Lnet/minecraft/core/BlockPos;
+private chunkPosition : Lnet/minecraft/world/level/ChunkPos;
+private deltaMovement : Lnet/minecraft/world/phys/Vec3;
+private yRot : F
+private xRot : F
+public yRotO : F
+public xRotO : F
+private bb : Lnet/minecraft/world/phys/AABB;
+private onGround : Z
+public horizontalCollision : Z
+public verticalCollision : Z
+public verticalCollisionBelow : Z
+public minorHorizontalCollision : Z
+protected stuckSpeedMultiplier : Lnet/minecraft/world/phys/Vec3;
+private removalReason : Lnet/minecraft/world/entity/Entity$RemovalReason;
+public static final DEFAULT_BB_WIDTH : F
+public static final DEFAULT_BB_HEIGHT : F
+public moveDist : F
+public flyDist : F
+public fallDistance : D
+private nextStep : F
+public xOld : D
+public yOld : D
+public zOld : D
+public noPhysics : Z
+protected final random : Lnet/minecraft/util/RandomSource;
+public tickCount : I
+private remainingFireTicks : I
+private final fluidInteraction : Lnet/minecraft/world/entity/EntityFluidInteraction;
+protected wasTouchingWater : Z
+protected wasEyeInWater : Z
+private invulnerableTime : I
+protected firstTick : Z
+protected final entityData : Lnet/minecraft/network/syncher/SynchedEntityData;
+protected static final DATA_SHARED_FLAGS_ID : Lnet/minecraft/network/syncher/EntityDataAccessor;
+protected static final FLAG_ONFIRE : I
+private static final FLAG_SHIFT_KEY_DOWN : I
+private static final FLAG_SPRINTING : I
+private static final FLAG_SWIMMING : I
+private static final FLAG_INVISIBLE : I
+protected static final FLAG_GLOWING : I
+protected static final FLAG_FALL_FLYING : I
+private static final DATA_AIR_SUPPLY_ID : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_CUSTOM_NAME : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_CUSTOM_NAME_VISIBLE : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_SILENT : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_NO_GRAVITY : Lnet/minecraft/network/syncher/EntityDataAccessor;
+protected static final DATA_POSE : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_TICKS_FROZEN : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private levelCallback : Lnet/minecraft/world/level/entity/EntityInLevelCallback;
+private final packetPositionCodec : Lnet/minecraft/network/protocol/game/VecDeltaCodec;
+public needsSync : Z
+public syncPosition : Z
+public syncVelocity : Z
+public portalProcess : Lnet/minecraft/world/entity/PortalProcessor;
+private portalCooldown : I
+private permanentlyInvulnerable : Z
+protected uuid : Ljava/util/UUID;
+protected stringUUID : Ljava/lang/String;
+private hasGlowingTag : Z
+private final tags : Ljava/util/Set;
+private final pistonDeltas : [D
+private pistonDeltasGameTime : J
+private dimensions : Lnet/minecraft/world/entity/EntityDimensions;
+private eyeHeight : F
+public isInPowderSnow : Z
+public wasInPowderSnow : Z
+public mainSupportingBlockPos : Ljava/util/Optional;
+private onGroundNoBlocks : Z
+private crystalSoundIntensity : F
+private lastCrystalSoundPlayTick : I
+private hasVisualFire : Z
+private lastKnownSpeed : Lnet/minecraft/world/phys/Vec3;
+private lastKnownPosition : Lnet/minecraft/world/phys/Vec3;
+private inBlockState : Lnet/minecraft/world/level/block/state/BlockState;
+public static final MAX_MOVEMENTS_HANDELED_PER_TICK : I
+private final movementThisTick : Ljava/util/ArrayDeque;
+private final finalMovementsThisTick : Ljava/util/List;
+private final visitedBlocks : Lit/unimi/dsi/fastutil/longs/LongSet;
+protected final insideEffectCollector : Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;
+protected final interpolationHandler : Lnet/minecraft/world/entity/InterpolationHandler;
+private customData : Lnet/minecraft/world/item/component/CustomData;
+public <init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V
+public isColliding(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
+public getTeamColor()I
+public isSpectator()Z
+public canInteractWithLevel()Z
+public final unRide()V
+public syncPacketPositionCodec(DDD)V
+public getPositionCodec()Lnet/minecraft/network/protocol/game/VecDeltaCodec;
+public getType()Lnet/minecraft/world/entity/EntityType;
+public typeHolder()Lnet/minecraft/core/Holder;
+public getRequiresPrecisePosition()Z
+public setRequiresPrecisePosition(Z)V
+public getId()I
+public setId(I)V
+public entityTags()Ljava/util/Set;
+public addTag(Ljava/lang/String;)Z
+public removeTag(Ljava/lang/String;)Z
+public kill(Lnet/minecraft/server/level/ServerLevel;)V
+public final discard()V
+protected abstract defineSynchedData(Lnet/minecraft/network/syncher/SynchedEntityData$Builder;)V
+public getEntityData()Lnet/minecraft/network/syncher/SynchedEntityData;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public remove(Lnet/minecraft/world/entity/Entity$RemovalReason;)V
+public onClientRemoval()V
+public onRemoval(Lnet/minecraft/world/entity/Entity$RemovalReason;)V
+public setPose(Lnet/minecraft/world/entity/Pose;)V
+public getPose()Lnet/minecraft/world/entity/Pose;
+public hasPose(Lnet/minecraft/world/entity/Pose;)Z
+public closerThan(Lnet/minecraft/world/entity/Entity;D)Z
+public closerThan(Lnet/minecraft/world/entity/Entity;DD)Z
+protected setRot(FF)V
+public final setPos(Lnet/minecraft/world/phys/Vec3;)V
+public setPos(DDD)V
+protected final makeBoundingBox()Lnet/minecraft/world/phys/AABB;
+protected makeBoundingBox(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/AABB;
+protected reapplyPosition()V
+public turn(DD)V
+public updateDataBeforeSync()V
+public tick()V
+public final commonTick()V
+public baseTick()V
+protected computeSpeed()V
+public setSharedFlagOnFire(Z)V
+public checkBelowWorld()V
+public setPortalCooldown()V
+public setPortalCooldown(I)V
+public getPortalCooldown()I
+public isOnPortalCooldown()Z
+protected processPortalCooldown()V
+public lavaIgnite()V
+public lavaHurt()V
+protected shouldPlayLavaHurtSound()Z
+public final igniteForSeconds(F)V
+public igniteForTicks(I)V
+public setRemainingFireTicks(I)V
+public getRemainingFireTicks()I
+public clearFire()V
+protected onBelowWorld()V
+public isFree(DDD)Z
+private isFree(Lnet/minecraft/world/phys/AABB;)Z
+public setOnGround(Z)V
+public setOnGroundWithMovement(ZLnet/minecraft/world/phys/Vec3;)V
+public setOnGroundWithMovement(ZZLnet/minecraft/world/phys/Vec3;)V
+public isSupportedBy(Lnet/minecraft/core/BlockPos;)Z
+protected checkSupportingBlock(ZLnet/minecraft/world/phys/Vec3;)V
+public onGround()Z
+public move(Lnet/minecraft/world/entity/MoverType;Lnet/minecraft/world/phys/Vec3;)V
+public recordMovement(Lnet/minecraft/world/entity/MoverType;Lnet/minecraft/world/phys/Vec3;)V
+private restituteMovementAfterCollisions(Lnet/minecraft/world/level/block/state/BlockState;ZZLnet/minecraft/world/phys/Vec3;)V
+private getBlockBounciness(Lnet/minecraft/world/level/block/Block;)D
+protected getEntityBounciness()D
+protected getEffectiveGravity()D
+protected omnidirectionalAirMover()Z
+private applyMovementEmissionAndPlaySound(Lnet/minecraft/world/entity/Entity$MovementEmission;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected applyEffectsFromBlocks()V
+protected applyEffectsFromBlocksForLastMovements()V
+private addMovementThisTick(Lnet/minecraft/world/entity/Entity$Movement;)V
+public removeLatestMovementRecording()V
+protected clearMovementThisTick()V
+public hasMovedHorizontallyRecently()Z
+public applyEffectsFromBlocks(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;)V
+private applyEffectsFromBlocks(Ljava/util/List;)V
+protected isAffectedByBlocks()Z
+private isStateClimbable(Lnet/minecraft/world/level/block/state/BlockState;)Z
+private vibrationAndSoundEffectsFromBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;ZZLnet/minecraft/world/phys/Vec3;)Z
+protected isHorizontalCollisionMinor(Lnet/minecraft/world/phys/Vec3;)Z
+protected playEntityOnFireExtinguishedSound()V
+public extinguishFire()V
+protected processFlappingMovement()V
+public getOnPosLegacy()Lnet/minecraft/core/BlockPos;
+public getBlockPosBelowThatAffectsMyMovement()Lnet/minecraft/core/BlockPos;
+public getOnPos()Lnet/minecraft/core/BlockPos;
+protected getOnPos(F)Lnet/minecraft/core/BlockPos;
+protected getBlockJumpFactor()F
+protected getBlockSpeedFactor()F
+protected maybeBackOffFromEdge(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/MoverType;)Lnet/minecraft/world/phys/Vec3;
+protected limitPistonMovement(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+private applyPistonMovementRestriction(Lnet/minecraft/core/Direction$Axis;D)D
+public getAvailableSpaceBelow(D)D
+private collide(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+private static collectCandidateStepUpHeights(Lnet/minecraft/world/phys/AABB;Ljava/util/List;FF)[F
+public static collideBoundingBox(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/world/phys/Vec3;
+public static collideBoundingBox(Lnet/minecraft/world/phys/shapes/CollisionContext;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/world/level/Level;Ljava/util/List;)Lnet/minecraft/world/phys/Vec3;
+public static collectAllColliders(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;
+private static collectCollidersIgnoringWorldBorder(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Ljava/util/List;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;
+private static collectCollidersIgnoringWorldBorder(Lnet/minecraft/world/phys/shapes/CollisionContext;Lnet/minecraft/world/level/Level;Ljava/util/List;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;
+private static collideWithShapes(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Ljava/util/List;)Lnet/minecraft/world/phys/Vec3;
+protected nextStep()F
+protected getSwimSound()Lnet/minecraft/sounds/SoundEvent;
+protected getSwimSplashSound()Lnet/minecraft/sounds/SoundEvent;
+protected getSwimHighSpeedSplashSound()Lnet/minecraft/sounds/SoundEvent;
+private checkInsideBlocks(Ljava/util/List;Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;)V
+private checkInsideBlocks(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;Lit/unimi/dsi/fastutil/longs/LongSet;I)I
+private debugBlockIntersection(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;ZZ)V
+public collidedWithFluid(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;)Z
+public collidedWithShapeMovingFrom(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Ljava/util/List;)Z
+protected onInsideBlock(Lnet/minecraft/world/level/block/state/BlockState;)V
+public adjustSpawnLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+public gameEvent(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/Entity;)V
+public gameEvent(Lnet/minecraft/core/Holder;)V
+private walkingStepSound(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected waterSwimSound()V
+protected getPrimaryStepSoundBlockPos(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+protected playCombinationStepSounds(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected playMuffledStepSound(Lnet/minecraft/world/level/block/state/BlockState;)V
+protected playStepSound(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+private shouldPlayAmethystStepSound(Lnet/minecraft/world/level/block/state/BlockState;)Z
+private playAmethystStepSound()V
+protected playSwimSound(F)V
+protected onFlap()V
+protected isFlapping()Z
+public playSound(Lnet/minecraft/sounds/SoundEvent;FF)V
+public playSound(Lnet/minecraft/sounds/SoundEvent;)V
+public isSilent()Z
+public setSilent(Z)V
+public isNoGravity()Z
+public setNoGravity(Z)V
+protected getDefaultGravity()D
+public final getGravity()D
+protected applyGravity()V
+protected getAirDrag()F
+protected getMovementEmission()Lnet/minecraft/world/entity/Entity$MovementEmission;
+public dampensVibrations()Z
+public final doCheckFallDamage(DDDZ)V
+protected checkFallDamage(DZLnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V
+public fireImmune()Z
+public causeFallDamage(DFLnet/minecraft/world/damagesource/DamageSource;)Z
+protected propagateFallToPassengers(DFLnet/minecraft/world/damagesource/DamageSource;)V
+public isInWater()Z
+private isInRain()Z
+public isInWaterOrRain()Z
+public isInLiquid()Z
+public isInFloatableFluid()Z
+public isUnderWater()Z
+public isInShallowWater()Z
+public isInClouds()Z
+public updateSwimming()V
+protected updateFluidInteraction()Z
+protected doWaterSplashEffect()V
+protected getBlockStateOnLegacy()Lnet/minecraft/world/level/block/state/BlockState;
+public getBlockStateOn()Lnet/minecraft/world/level/block/state/BlockState;
+public canSpawnSprintParticle()Z
+protected spawnSprintParticle()V
+public isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z
+public isInLava()Z
+public moveRelative(FLnet/minecraft/world/phys/Vec3;)V
+protected static getInputVector(Lnet/minecraft/world/phys/Vec3;FF)Lnet/minecraft/world/phys/Vec3;
+public getLightLevelDependentMagicValue()F
+public absSnapTo(DDDFF)V
+public absSnapRotationTo(FF)V
+public absSnapTo(DDD)V
+public snapTo(Lnet/minecraft/world/phys/Vec3;)V
+public snapTo(DDD)V
+public snapTo(Lnet/minecraft/core/BlockPos;FF)V
+public snapTo(Lnet/minecraft/world/phys/Vec3;FF)V
+public snapTo(DDDFF)V
+public final setOldPosAndRot()V
+public final setOldPosAndRot(Lnet/minecraft/world/phys/Vec3;FF)V
+protected setOldPos()V
+public setOldRot()V
+private setOldPos(Lnet/minecraft/world/phys/Vec3;)V
+private setOldRot(FF)V
+public final oldPosition()Lnet/minecraft/world/phys/Vec3;
+public distanceTo(Lnet/minecraft/world/entity/Entity;)F
+public distanceToSqr(DDD)D
+public distanceToSqr(Lnet/minecraft/world/entity/Entity;)D
+public distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D
+public playerTouch(Lnet/minecraft/world/entity/player/Player;)V
+public push(Lnet/minecraft/world/entity/Entity;)V
+public push(Lnet/minecraft/world/phys/Vec3;)V
+public pushFromExplosion(Lnet/minecraft/world/phys/Vec3;)V
+public push(DDD)V
+protected markHurt()V
+public final hurt(Lnet/minecraft/world/damagesource/DamageSource;F)V
+public final hurtOrSimulate(Lnet/minecraft/world/damagesource/DamageSource;F)Z
+public abstract hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z
+public hurtClient(Lnet/minecraft/world/damagesource/DamageSource;)Z
+public final getViewVector(F)Lnet/minecraft/world/phys/Vec3;
+public getNearestViewDirection()Lnet/minecraft/core/Direction;
+public getViewXRot(F)F
+public getViewYRot(F)F
+public getXRot(F)F
+public getYRot(F)F
+public static calculateViewVector(FF)Lnet/minecraft/world/phys/Vec3;
+public static calculateViewQuaternion(FF)Lorg/joml/Quaternionf;
+public final getUpVector(F)Lnet/minecraft/world/phys/Vec3;
+protected static calculateUpVector(FF)Lnet/minecraft/world/phys/Vec3;
+public final getEyePosition()Lnet/minecraft/world/phys/Vec3;
+public final getEyePosition(F)Lnet/minecraft/world/phys/Vec3;
+public getLightProbePosition(F)Lnet/minecraft/world/phys/Vec3;
+public final getPosition(F)Lnet/minecraft/world/phys/Vec3;
+public pick(DFZ)Lnet/minecraft/world/phys/HitResult;
+public canBeHitByProjectile()Z
+public isPickable()Z
+public canBePickedFromInside()Z
+public isPushable()Z
+public awardKillScore(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)V
+public shouldRender(DDD)Z
+public shouldRenderAtSqrDistance(D)Z
+public saveAsPassenger(Lnet/minecraft/world/level/storage/ValueOutput;)Z
+public save(Lnet/minecraft/world/level/storage/ValueOutput;)Z
+public saveWithoutId(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public load(Lnet/minecraft/world/level/storage/ValueInput;)V
+public postDataManipulated()V
+protected repositionEntityAfterLoad()Z
+protected final getEncodeId()Ljava/lang/String;
+protected abstract readAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected abstract addAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;
+public spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;
+public spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/entity/item/ItemEntity;
+public spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;F)Lnet/minecraft/world/entity/item/ItemEntity;
+public isAlive()Z
+public isInWall()Z
+public interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;
+public shearOffAllLeashConnections(Lnet/minecraft/world/entity/player/Player;)Z
+public dropAllLeashConnections(Lnet/minecraft/world/entity/player/Player;)Z
+public canCollideWith(Lnet/minecraft/world/entity/Entity;)Z
+public canBeCollidedWith(Lnet/minecraft/world/entity/Entity;)Z
+public rideTick()V
+public final positionRider(Lnet/minecraft/world/entity/Entity;)V
+protected positionRider(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity$MoveFunction;)V
+public onPassengerTurned(Lnet/minecraft/world/entity/Entity;)V
+public getVehicleAttachmentPoint(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/phys/Vec3;
+public getPassengerRidingPosition(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/phys/Vec3;
+protected getPassengerAttachmentPoint(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/EntityDimensions;F)Lnet/minecraft/world/phys/Vec3;
+protected static getDefaultPassengerAttachmentPoint(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/EntityAttachments;)Lnet/minecraft/world/phys/Vec3;
+public final startRiding(Lnet/minecraft/world/entity/Entity;)Z
+public showVehicleHealth()Z
+public startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z
+protected canRide(Lnet/minecraft/world/entity/Entity;)Z
+public ejectPassengers()V
+public final doTeamsAllowDamage(Lnet/minecraft/world/entity/Entity;)Z
+public removeVehicle()V
+public stopRiding()V
+protected addPassenger(Lnet/minecraft/world/entity/Entity;)V
+protected removePassenger(Lnet/minecraft/world/entity/Entity;)V
+protected canAddPassenger(Lnet/minecraft/world/entity/Entity;)Z
+protected couldAcceptPassenger()Z
+public final isInterpolating()Z
+public final moveOrInterpolateTo(Lnet/minecraft/world/entity/PositionPath;FF)V
+public final moveOrInterpolateTo(Lnet/minecraft/world/phys/Vec3;FF)V
+public final moveOrInterpolateTo(FF)V
+public final moveOrInterpolateTo(Lnet/minecraft/world/entity/PositionPath;)V
+public final moveOrInterpolateTo(Lnet/minecraft/world/entity/PositionPath;FFZ)V
+public onInterpolationStart(Lnet/minecraft/world/entity/InterpolationHandler;)V
+protected createInterpolationHandler()Lnet/minecraft/world/entity/InterpolationHandler;
+public final getInterpolation()Lnet/minecraft/world/entity/InterpolationHandler;
+public lerpHeadTo(FI)V
+public getPickRadius()F
+public getLookAngle()Lnet/minecraft/world/phys/Vec3;
+public getLookQuaternion()Lorg/joml/Quaternionf;
+public getHeadLookAngle()Lnet/minecraft/world/phys/Vec3;
+public getHandHoldingItemAngle(Lnet/minecraft/world/item/Item;)Lnet/minecraft/world/phys/Vec3;
+public getRotationVector()Lnet/minecraft/world/phys/Vec2;
+public getForward()Lnet/minecraft/world/phys/Vec3;
+public setAsInsidePortal(Lnet/minecraft/world/level/block/Portal;Lnet/minecraft/core/BlockPos;)V
+protected handlePortal()V
+public teleportToPortalDestination(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/portal/TeleportTransition;)V
+public getDimensionChangingDelay()I
+public lerpMotion(Lnet/minecraft/world/phys/Vec3;)V
+public handleDamageEvent(Lnet/minecraft/world/damagesource/DamageSource;)V
+public handleEntityEvent(B)V
+public animateHurt(F)V
+public isOnFire()Z
+public isPassenger()Z
+public isVehicle()Z
+public dismountsUnderwater()Z
+public canControlVehicle()Z
+public setShiftKeyDown(Z)V
+public isShiftKeyDown()Z
+public isSteppingCarefully()Z
+public isSuppressingBounce()Z
+public isDiscrete()Z
+public isDescending()Z
+public isCrouching()Z
+public isSprinting()Z
+public setSprinting(Z)V
+public isSwimming()Z
+public isVisuallySwimming()Z
+public isVisuallyCrawling()Z
+public setSwimming(Z)V
+public final hasGlowingTag()Z
+public final setGlowingTag(Z)V
+public isCurrentlyGlowing()Z
+public isInvisible()Z
+public isInvisibleTo(Lnet/minecraft/world/entity/player/Player;)Z
+public isOnRails()Z
+public updateDynamicGameEventListener(Ljava/util/function/BiConsumer;)V
+public getTeam()Lnet/minecraft/world/scores/PlayerTeam;
+public final isAlliedTo(Lnet/minecraft/world/entity/Entity;)Z
+protected considersEntityAsAlly(Lnet/minecraft/world/entity/Entity;)Z
+public isAlliedTo(Lnet/minecraft/world/scores/Team;)Z
+public setInvisible(Z)V
+protected getSharedFlag(I)Z
+protected setSharedFlag(IZ)V
+public getMaxAirSupply()I
+public getAirSupply()I
+public setAirSupply(I)V
+public clearFreeze()V
+public getTicksFrozen()I
+public setTicksFrozen(I)V
+public getPercentFrozen()F
+public isFullyFrozen()Z
+public getTicksRequiredToFreeze()I
+public thunderHit(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LightningBolt;)V
+public onAboveBubbleColumn(ZLnet/minecraft/core/BlockPos;)V
+protected static handleOnAboveBubbleColumn(Lnet/minecraft/world/entity/Entity;ZLnet/minecraft/core/BlockPos;)V
+protected static sendBubbleColumnParticles(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+public onInsideBubbleColumn(Z)V
+protected static handleOnInsideBubbleColumn(Lnet/minecraft/world/entity/Entity;Z)V
+public killedEntity(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/damagesource/DamageSource;)Z
+public projectileReceivesSideEffectsOnHit(Z)Z
+public checkFallDistanceAccumulation()V
+public resetFallDistance()V
+protected moveTowardsClosestSpace(DDD)V
+public makeStuckInBlock(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/Vec3;)V
+private static removeAction(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+public getName()Lnet/minecraft/network/chat/Component;
+protected getTypeName()Lnet/minecraft/network/chat/Component;
+public is(Lnet/minecraft/world/entity/Entity;)Z
+public getYHeadRot()F
+public setYHeadRot(F)V
+public setYBodyRot(F)V
+public isAttackable()Z
+public skipAttackInteraction(Lnet/minecraft/world/entity/Entity;)Z
+public toString()Ljava/lang/String;
+protected final isInvulnerableToBase(Lnet/minecraft/world/damagesource/DamageSource;)Z
+public isInvulnerable()Z
+public isPermanentlyInvulnerable()Z
+public isTemporarilyInvulnerable()Z
+public isInvulnerableToPiercingWeapon()Z
+public setPermanentlyInvulnerable(Z)V
+public copyPosition(Lnet/minecraft/world/entity/Entity;)V
+public restoreFrom(Lnet/minecraft/world/entity/Entity;)V
+public teleport(Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/world/entity/Entity;
+private teleportSameDimension(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/world/entity/Entity;
+private teleportCrossDimension(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/world/entity/Entity;
+protected teleportSpectators(Lnet/minecraft/world/level/portal/TeleportTransition;Lnet/minecraft/server/level/ServerLevel;)V
+private calculatePassengerTransition(Lnet/minecraft/world/level/portal/TeleportTransition;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/level/portal/TeleportTransition;
+private sendTeleportTransitionToPlayers(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/portal/TeleportTransition;)V
+public teleportSetPosition(Lnet/minecraft/world/entity/PositionMoveRotation;Ljava/util/Set;)V
+public teleportSetPosition(Lnet/minecraft/world/entity/PositionMoveRotation;Lnet/minecraft/world/entity/PositionMoveRotation;Ljava/util/Set;)V
+public forceSetRotation(FZFZ)V
+public placePortalTicket(Lnet/minecraft/core/BlockPos;)V
+protected removeAfterChangingDimensions()V
+public getRelativePortalPosition(Lnet/minecraft/core/Direction$Axis;Lnet/minecraft/util/BlockUtil$FoundRectangle;)Lnet/minecraft/world/phys/Vec3;
+public canUsePortal(Z)Z
+public canTeleport(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/Level;)Z
+public getBlockExplosionResistance(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;F)F
+public shouldBlockExplode(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;F)Z
+public getMaxFallDistance()I
+public isIgnoringBlockTriggers()Z
+public fillCrashReportCategory(Lnet/minecraft/CrashReportCategory;)V
+public displayFireAnimation()Z
+public setUUID(Ljava/util/UUID;)V
+public getUUID()Ljava/util/UUID;
+public getStringUUID()Ljava/lang/String;
+public getScoreboardName()Ljava/lang/String;
+public isPushedByFluid()Z
+public static getViewScale()D
+public static setViewScale(D)V
+public getDisplayName()Lnet/minecraft/network/chat/Component;
+public setCustomName(Lnet/minecraft/network/chat/Component;)V
+public getCustomName()Lnet/minecraft/network/chat/Component;
+public hasCustomName()Z
+public setCustomNameVisible(Z)V
+public isCustomNameVisible()Z
+public belowNameDisplay()Lnet/minecraft/network/chat/Component;
+public teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDLjava/util/Set;FFZ)Z
+public dismountTo(DDD)V
+public teleportTo(DDD)V
+private teleportPassengers()V
+public teleportRelative(DDD)V
+public shouldShowName()Z
+public onSyncedDataUpdated(Ljava/util/List;)V
+public onSyncedDataUpdated(Lnet/minecraft/network/syncher/EntityDataAccessor;)V
+protected fixupDimensions()V
+public refreshDimensions()V
+public fudgePositionAfterSizeChange(Lnet/minecraft/world/entity/EntityDimensions;)Z
+public getDirection()Lnet/minecraft/core/Direction;
+public getMotionDirection()Lnet/minecraft/core/Direction;
+protected createHoverEvent()Lnet/minecraft/network/chat/HoverEvent;
+public broadcastToPlayer(Lnet/minecraft/server/level/ServerPlayer;)Z
+public final getBoundingBox()Lnet/minecraft/world/phys/AABB;
+public getInterpolatedBoundingBox(F)Lnet/minecraft/world/phys/AABB;
+public final setBoundingBox(Lnet/minecraft/world/phys/AABB;)V
+public final getEyeHeight(Lnet/minecraft/world/entity/Pose;)F
+public final getEyeHeight()F
+public getSlot(I)Lnet/minecraft/world/entity/SlotAccess;
+public ignoreExplosion(Lnet/minecraft/world/level/Explosion;)Z
+public startSeenByPlayer(Lnet/minecraft/server/level/ServerPlayer;)V
+public stopSeenByPlayer(Lnet/minecraft/server/level/ServerPlayer;)V
+public rotate(Lnet/minecraft/world/level/block/Rotation;)F
+public mirror(Lnet/minecraft/world/level/block/Mirror;)F
+public deflection(Lnet/minecraft/world/entity/projectile/Projectile;)Lnet/minecraft/world/entity/projectile/ProjectileDeflection;
+public getControllingPassenger()Lnet/minecraft/world/entity/LivingEntity;
+public final hasControllingPassenger()Z
+public final getPassengers()Ljava/util/List;
+public getFirstPassenger()Lnet/minecraft/world/entity/Entity;
+public hasPassenger(Lnet/minecraft/world/entity/Entity;)Z
+public hasPassenger(Ljava/util/function/Predicate;)Z
+private getIndirectPassengersStream()Ljava/util/stream/Stream;
+public getSelfAndPassengers()Ljava/util/stream/Stream;
+public getPassengersAndSelf()Ljava/util/stream/Stream;
+public getIndirectPassengers()Ljava/lang/Iterable;
+public countPlayerPassengers()I
+public hasExactlyOnePlayerPassenger()Z
+public getRootVehicle()Lnet/minecraft/world/entity/Entity;
+public isPassengerOfSameVehicle(Lnet/minecraft/world/entity/Entity;)Z
+public hasIndirectPassenger(Lnet/minecraft/world/entity/Entity;)Z
+public final isLocalInstanceAuthoritative()Z
+protected isLocalClientAuthoritative()Z
+public isClientAuthoritative()Z
+public getMoveSimulationType()Lnet/minecraft/world/entity/MoveSimulationType;
+public final canSimulateMovement()Z
+public isEffectiveAi()Z
+protected static getCollisionHorizontalEscapeVector(DDF)Lnet/minecraft/world/phys/Vec3;
+public getDismountLocationForPassenger(Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/phys/Vec3;
+public getVehicle()Lnet/minecraft/world/entity/Entity;
+public getControlledVehicle()Lnet/minecraft/world/entity/Entity;
+public getPistonPushReaction()Lnet/minecraft/world/level/material/PushReaction;
+public getSoundSource()Lnet/minecraft/sounds/SoundSource;
+protected getFireImmuneTicks()I
+public createCommandSourceStackForNameResolution(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/commands/CommandSourceStack;
+public lookAt(Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;Lnet/minecraft/world/phys/Vec3;)V
+public getPreciseBodyRotation(F)F
+public touchingUnloadedChunk()Z
+public getFluidHeight(Lnet/minecraft/tags/TagKey;)D
+public getFluidJumpThreshold()D
+public final getBbWidth()F
+public final getBbHeight()F
+public getAddEntityPacket(Lnet/minecraft/server/level/ServerEntity;)Lnet/minecraft/network/protocol/Packet;
+public getDimensions(Lnet/minecraft/world/entity/Pose;)Lnet/minecraft/world/entity/EntityDimensions;
+public final getAttachments()Lnet/minecraft/world/entity/EntityAttachments;
+public position()Lnet/minecraft/world/phys/Vec3;
+public trackingPosition()Lnet/minecraft/world/phys/Vec3;
+public blockPosition()Lnet/minecraft/core/BlockPos;
+public getInBlockState()Lnet/minecraft/world/level/block/state/BlockState;
+public chunkPosition()Lnet/minecraft/world/level/ChunkPos;
+public getDeltaMovement()Lnet/minecraft/world/phys/Vec3;
+public setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V
+public addDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V
+public setDeltaMovement(DDD)V
+public final getBlockX()I
+public final getX()D
+public getX(D)D
+public getRandomX(D)D
+public final getBlockY()I
+public final getY()D
+public getY(D)D
+public getRandomY(D)D
+public getRandomY()D
+public getEyeY()D
+public final getBlockZ()I
+public final getZ()D
+public getZ(D)D
+public getRandomZ(D)D
+public final setPosRaw(DDD)V
+public checkDespawn()V
+public getQuadLeashHolderOffsets()[Lnet/minecraft/world/phys/Vec3;
+public supportQuadLeashAsHolder()Z
+public notifyLeashHolder(Lnet/minecraft/world/entity/Leashable;)V
+public notifyLeasheeRemoved(Lnet/minecraft/world/entity/Leashable;)V
+public getRopeHoldPosition(F)Lnet/minecraft/world/phys/Vec3;
+public recreateFromPacket(Lnet/minecraft/network/protocol/game/ClientboundAddEntityPacket;)V
+public getPickResult()Lnet/minecraft/world/item/ItemStack;
+public setIsInPowderSnow(Z)V
+public canFreeze()Z
+public isFreezing()Z
+public getYRot()F
+public getVisualRotationYInDegrees()F
+public setYRot(F)V
+public getXRot()F
+public setXRot(F)V
+public storePositionAndRotation()Lnet/minecraft/core/PositionAndRotation;
+public getClientPositionAndRotation()Lnet/minecraft/core/PositionAndRotation;
+public getClientPosition()Lnet/minecraft/world/phys/Vec3;
+public canSprint()Z
+public maxUpStep()F
+public onExplosionHit(Lnet/minecraft/world/entity/Entity;)V
+public final isRemoved()Z
+public getRemovalReason()Lnet/minecraft/world/entity/Entity$RemovalReason;
+public final setRemoved(Lnet/minecraft/world/entity/Entity$RemovalReason;)V
+protected unsetRemoved()V
+public setLevelCallback(Lnet/minecraft/world/level/entity/EntityInLevelCallback;)V
+public shouldBeSaved()Z
+public isAlwaysTicking()Z
+public mayInteract(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Z
+public isFlyingVehicle()Z
+public level()Lnet/minecraft/world/level/Level;
+protected setLevel(Lnet/minecraft/world/level/Level;)V
+public damageSources()Lnet/minecraft/world/damagesource/DamageSources;
+public registryAccess()Lnet/minecraft/core/RegistryAccess;
+protected lerpPositionAndRotationStep(IDDDDD)V
+public getRandom()Lnet/minecraft/util/RandomSource;
+public getKnownMovement()Lnet/minecraft/world/phys/Vec3;
+public getKnownSpeed()Lnet/minecraft/world/phys/Vec3;
+public getWeaponItem()Lnet/minecraft/world/item/ItemStack;
+public getLootTable()Ljava/util/Optional;
+protected applyImplicitComponents(Lnet/minecraft/core/component/DataComponentGetter;)V
+public final applyComponentsFromItemStack(Lnet/minecraft/world/item/ItemStack;)V
+public get(Lnet/minecraft/core/component/DataComponentType;)Ljava/lang/Object;
+protected static castComponentValue(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ljava/lang/Object;
+public setComponent(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)V
+protected applyImplicitComponent(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Z
+protected applyImplicitComponentIfPresent(Lnet/minecraft/core/component/DataComponentGetter;Lnet/minecraft/core/component/DataComponentType;)Z
+public problemPath()Lnet/minecraft/util/ProblemReporter$PathElement;
+public registerDebugValues(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/debug/DebugValueSource$Registration;)V
+public getFluidInteractionBox()Lnet/minecraft/world/phys/AABB;
+public setInvulnerableTime(I)V
+public getInvulnerableTime()I
+protected modifyPassengerFluidInteractionBox(Lnet/minecraft/world/phys/AABB;)Lnet/minecraft/world/phys/AABB;
+private static synthetic lambda$countPlayerPassengers$0(Lnet/minecraft/world/entity/Entity;)Z
+private synthetic lambda$getIndirectPassengers$0()Ljava/util/Iterator;
+private static synthetic lambda$teleportPassengers$0(Lnet/minecraft/world/entity/Entity;)V
+private synthetic lambda$getDisplayName$0(Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/Style;
+private synthetic lambda$fillCrashReportCategory$3()Ljava/lang/String;
+private synthetic lambda$fillCrashReportCategory$2()Ljava/lang/String;
+private synthetic lambda$fillCrashReportCategory$1()Ljava/lang/String;
+private synthetic lambda$fillCrashReportCategory$0()Ljava/lang/String;
+private static synthetic lambda$sendTeleportTransitionToPlayers$0(Ljava/util/List;Lnet/minecraft/server/level/ServerPlayer;)Z
+private static synthetic lambda$removePassenger$0(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;)Z
+private static synthetic lambda$startRiding$1(Lnet/minecraft/world/entity/Entity;)V
+private static synthetic lambda$startRiding$0(Lnet/minecraft/world/entity/Entity;)Z
+private static synthetic lambda$interact$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Leashable;)Z
+private synthetic lambda$isInWall$0(Lnet/minecraft/world/phys/AABB;Lnet/minecraft/core/BlockPos;)Z
+private static synthetic lambda$getEncodeId$0()Ljava/lang/IllegalStateException;
+private synthetic lambda$load$1(Ljava/lang/String;)V
+private synthetic lambda$load$0(Ljava/util/UUID;)V
+private synthetic lambda$checkFallDamage$0(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+private synthetic lambda$checkInsideBlocks$0(ILjava/util/concurrent/atomic/AtomicInteger;ZLnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lit/unimi/dsi/fastutil/longs/LongSet;ZLnet/minecraft/world/phys/AABB;Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;Lnet/minecraft/core/BlockPos;I)Z
+static <clinit>()V
 ```

@@ -14,5 +14,5 @@ Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: inter
 
 ```java
 public abstract net.minecraft.client.renderer.texture.TextureAtlas getAtlas()
-public abstract java.util.List<net.minecraft.client.renderer.texture.TextureAtlasSprite> getSprites()
+public abstract java.util.List getSprites()
 ```

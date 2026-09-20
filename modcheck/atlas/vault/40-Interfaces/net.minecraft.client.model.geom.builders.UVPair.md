@@ -11,29 +11,39 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.model|net.minecraft.client.model]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `unpackU(J)F` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `unpackV(J)F` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `pack` | `(FF)J` | exact | invokestatic@52 in `QuadView.toBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `pack` | `(FF)J` | exact | invokestatic@71 in `QuadView.toBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `pack` | `(FF)J` | exact | invokestatic@90 in `QuadView.toBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `pack` | `(FF)J` | exact | invokestatic@109 in `QuadView.toBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `unpackU` | `(J)F` | exact | invokestatic@80 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `unpackU` | `(J)F` | exact | invokestatic@95 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `unpackU` | `(J)F` | exact | invokestatic@111 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `unpackU` | `(J)F` | exact | invokestatic@127 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `unpackV` | `(J)F` | exact | invokestatic@84 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `unpackV` | `(J)F` | exact | invokestatic@100 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `unpackV` | `(J)F` | exact | invokestatic@116 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `unpackV` | `(J)F` | exact | invokestatic@132 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.model.geom.builders.UVPair extends java.lang.Record {
-    private final float u;
-    private final float v;
-    public net.minecraft.client.model.geom.builders.UVPair(float, float);
-    public java.lang.String toString();
-    public static long pack(float, float);
-    public static float unpackU(long);
-    public static float unpackV(long);
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public float u();
-    public float v();
-}
+```
+private final u : F
+private final v : F
+public <init>(FF)V
+public toString()Ljava/lang/String;
+public static pack(FF)J
+public static unpackU(J)F
+public static unpackV(J)F
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public u()F
+public v()F
 ```

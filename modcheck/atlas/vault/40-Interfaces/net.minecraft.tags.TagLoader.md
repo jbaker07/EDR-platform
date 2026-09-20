@@ -11,45 +11,48 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.tags|net.minecraft.tags]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `build` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| injects_into | `lambda$build$0` | `@ModifyArg at INVOKE Lnet/minecraft/tags/TagLoader$SortingEntry;<init>(Ljava/uti` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| injects_into | `load` | `@Inject at INVOKE Ljava/util/List;clear()V` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| injects_into | `load` | `@Inject at INVOKE Ljava/util/List;forEach(Ljava/util/function/Consumer;)V` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `build` | `(Ljava/util/Map;)Ljava/util/Map;` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| injects_into | `lambda$build$0` | `(Lnet/minecraft/util/DependencySorter;Lnet/minecraft/resources/Identif` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| injects_into | `load` | `(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| injects_into | `load` | `(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| wraps | `lambda$build$1` | `(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/Map;Lnet/minecraft/res` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| wraps | `loadTagsForRegistry` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/` | exact | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| wraps | `tryBuildTag` | `(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/List;)Lcom/mojang/data` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (25, all visibilities)
+## Declared members (3 fields, 22 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.tags.TagLoader<T> {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.tags.TagLoader$ElementLookup<T> elementLookup;
-    private final java.lang.String directory;
-    public net.minecraft.tags.TagLoader(net.minecraft.tags.TagLoader$ElementLookup<T>, java.lang.String);
-    public java.util.Map<net.minecraft.resources.Identifier, java.util.List<net.minecraft.tags.TagLoader$EntryWithSource>> load(net.minecraft.server.packs.resources.ResourceManager);
-    private com.mojang.datafixers.util.Either<java.util.List<net.minecraft.tags.TagLoader$EntryWithSource>, java.util.List<T>> tryBuildTag(net.minecraft.tags.TagEntry$Lookup<T>, java.util.List<net.minecraft.tags.TagLoader$EntryWithSource>);
-    public java.util.Map<net.minecraft.resources.Identifier, java.util.List<T>> build(java.util.Map<net.minecraft.resources.Identifier, java.util.List<net.minecraft.tags.TagLoader$EntryWithSource>>);
-    public static <T> java.util.Map<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>> loadTagsFromNetwork(net.minecraft.tags.TagNetworkSerialization$NetworkPayload, net.minecraft.core.Registry<T>);
-    public static java.util.List<net.minecraft.core.Registry$PendingTags<?>> loadTagsForExistingRegistries(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.RegistryAccess);
-    public static <T> void loadTagsForRegistry(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.WritableRegistry<T>);
-    public static <T> java.util.Map<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>> loadTagsForRegistry(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.tags.TagLoader$ElementLookup<net.minecraft.core.Holder<T>>);
-    private static <T> java.util.Map<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>> wrapTags(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, java.util.Map<net.minecraft.resources.Identifier, java.util.List<net.minecraft.core.Holder<T>>>);
-    private static <T> java.util.Optional<net.minecraft.core.Registry$PendingTags<T>> loadPendingTags(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.Registry<T>);
-    public static java.util.List<net.minecraft.core.HolderLookup$RegistryLookup<?>> buildUpdatedLookups(net.minecraft.core.RegistryAccess$Frozen, java.util.List<net.minecraft.core.Registry$PendingTags<?>>);
-    private static net.minecraft.core.Registry$PendingTags<?> findTagsForRegistry(java.util.List<net.minecraft.core.Registry$PendingTags<?>>, net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    private static void lambda$buildUpdatedLookups$0(java.util.List, java.util.List, net.minecraft.core.RegistryAccess$RegistryEntry);
-    private static net.minecraft.tags.TagKey lambda$wrapTags$0(net.minecraft.resources.ResourceKey, java.util.Map$Entry);
-    private static java.util.Optional lambda$loadTagsForExistingRegistries$0(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.RegistryAccess$RegistryEntry);
-    private void lambda$build$1(net.minecraft.tags.TagEntry$Lookup, java.util.Map, net.minecraft.resources.Identifier, net.minecraft.tags.TagLoader$SortingEntry);
-    private static void lambda$build$3(java.util.Map, net.minecraft.resources.Identifier, java.util.List);
-    private static void lambda$build$2(net.minecraft.resources.Identifier, java.util.List);
-    private static void lambda$build$0(net.minecraft.util.DependencySorter, net.minecraft.resources.Identifier, java.util.List);
-    private static void lambda$load$1(java.util.List, java.lang.String, net.minecraft.tags.TagEntry);
-    private static java.util.List lambda$load$0(net.minecraft.resources.Identifier);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final elementLookup : Lnet/minecraft/tags/TagLoader$ElementLookup;
+private final directory : Ljava/lang/String;
+public <init>(Lnet/minecraft/tags/TagLoader$ElementLookup;Ljava/lang/String;)V
+public load(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map;
+private tryBuildTag(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/List;)Lcom/mojang/datafixers/util/Either;
+public build(Ljava/util/Map;)Ljava/util/Map;
+public static loadTagsFromNetwork(Lnet/minecraft/tags/TagNetworkSerialization$NetworkPayload;Lnet/minecraft/core/Registry;)Ljava/util/Map;
+public static loadTagsForExistingRegistries(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/core/RegistryAccess;)Ljava/util/List;
+public static loadTagsForRegistry(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/core/WritableRegistry;)V
+public static loadTagsForRegistry(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/tags/TagLoader$ElementLookup;)Ljava/util/Map;
+private static wrapTags(Lnet/minecraft/resources/ResourceKey;Ljava/util/Map;)Ljava/util/Map;
+private static loadPendingTags(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/core/Registry;)Ljava/util/Optional;
+public static buildUpdatedLookups(Lnet/minecraft/core/RegistryAccess$Frozen;Ljava/util/List;)Ljava/util/List;
+private static findTagsForRegistry(Ljava/util/List;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Registry$PendingTags;
+private static synthetic lambda$buildUpdatedLookups$0(Ljava/util/List;Ljava/util/List;Lnet/minecraft/core/RegistryAccess$RegistryEntry;)V
+private static synthetic lambda$wrapTags$0(Lnet/minecraft/resources/ResourceKey;Ljava/util/Map$Entry;)Lnet/minecraft/tags/TagKey;
+private static synthetic lambda$loadTagsForExistingRegistries$0(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/core/RegistryAccess$RegistryEntry;)Ljava/util/Optional;
+private synthetic lambda$build$1(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/Map;Lnet/minecraft/resources/Identifier;Lnet/minecraft/tags/TagLoader$SortingEntry;)V
+private static synthetic lambda$build$3(Ljava/util/Map;Lnet/minecraft/resources/Identifier;Ljava/util/List;)V
+private static synthetic lambda$build$2(Lnet/minecraft/resources/Identifier;Ljava/util/List;)V
+private static synthetic lambda$build$0(Lnet/minecraft/util/DependencySorter;Lnet/minecraft/resources/Identifier;Ljava/util/List;)V
+private static synthetic lambda$load$1(Ljava/util/List;Ljava/lang/String;Lnet/minecraft/tags/TagEntry;)V
+private static synthetic lambda$load$0(Lnet/minecraft/resources/Identifier;)Ljava/util/List;
+static <clinit>()V
 ```

@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PlayerListMixin.afterRespawn` | `PlayerList.respawn` @Inject at TAIL | both | static_inference |
-| `ServerPlayerMixin.afterLevelChanged` | `ServerPlayer.triggerDimensionChangeTriggers(Lnet/minecraft/server/level/ServerLevel;)V` @Inject at TAIL | both | static_inference |
+| `PlayerListMixin.afterRespawn` @60 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`respawn` @Inject TAIL | unknown | static_inference |
+| `ServerPlayerMixin.afterLevelChanged` @18 | [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`triggerDimensionChangeTriggers` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

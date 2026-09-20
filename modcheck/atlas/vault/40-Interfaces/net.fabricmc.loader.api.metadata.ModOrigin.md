@@ -13,7 +13,7 @@ fabric-loader 0.19.5 -- kind: interface
 
 ```java
 public abstract net.fabricmc.loader.api.metadata.ModOrigin$Kind getKind()
-public abstract java.util.List<java.nio.file.Path> getPaths()
+public abstract java.util.List getPaths()
 public abstract java.lang.String getParentModId()
 public abstract java.lang.String getParentSubLocation()
 ```

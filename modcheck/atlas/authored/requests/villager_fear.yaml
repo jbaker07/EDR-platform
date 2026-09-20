@@ -1,5 +1,10 @@
 - id: request.villager_fear
   title: Villagers flee from a player holding a cursed totem
+  analyst_exercise: true
+  canonical_request:
+    id: exercise.villager_fear
+    kind: analyst_exercise
+    requirement_ids: []
   family: workflow:wf.behaviour.entity_ai
   request: >-
     Analyst-authored exercise request: villagers should run away from any player
@@ -35,7 +40,7 @@
     - "Flee behaviour, radius, no regression in trading: need a game; none observed."
   unresolved: [question:q.villager_ai_architecture, question:q.unhooked_vanilla_members, question:q.contested_method_policy, question:q.injection_points_not_resolved]
   evidence:
-    - extracted:minecraft_members.json
+    - extracted:minecraft_surface.json.gz
     - extracted:edges.json#injects_into
     - record:recipe/fabric_extend_behaviour_with_mixin
   status: {analysed: true, implemented: none, validated_scope: none}

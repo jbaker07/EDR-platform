@@ -11,24 +11,25 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `<init>` | `@Redirect at INVOKE Lnet/minecraft/server/packs/repository/ServerPacksSource;cre` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `trySelectingPacks` | `(Ljava/util/List;)Ljava/util/List;` | name_only | @ModifyReturnValue at ['RETURN'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| wraps | `<init>` | `()V` | name_only | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (2 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.multiplayer.KnownPacksManager {
-    private final net.minecraft.server.packs.repository.PackRepository repository;
-    private final java.util.Map<net.minecraft.server.packs.repository.KnownPack, java.lang.String> knownPackToId;
-    public net.minecraft.client.multiplayer.KnownPacksManager();
-    public java.util.List<net.minecraft.server.packs.repository.KnownPack> trySelectingPacks(java.util.List<net.minecraft.server.packs.repository.KnownPack>);
-    public net.minecraft.server.packs.resources.CloseableResourceManager createResourceManager();
-    private static void lambda$new$0(com.google.common.collect.ImmutableMap$Builder, net.minecraft.server.packs.repository.Pack);
-    private static void lambda$new$1(com.google.common.collect.ImmutableMap$Builder, net.minecraft.server.packs.PackLocationInfo, net.minecraft.server.packs.repository.KnownPack);
-}
+```
+private final repository : Lnet/minecraft/server/packs/repository/PackRepository;
+private final knownPackToId : Ljava/util/Map;
+public <init>()V
+public trySelectingPacks(Ljava/util/List;)Ljava/util/List;
+public createResourceManager()Lnet/minecraft/server/packs/resources/CloseableResourceManager;
+private static synthetic lambda$new$0(Lcom/google/common/collect/ImmutableMap$Builder;Lnet/minecraft/server/packs/repository/Pack;)V
+private static synthetic lambda$new$1(Lcom/google/common/collect/ImmutableMap$Builder;Lnet/minecraft/server/packs/PackLocationInfo;Lnet/minecraft/server/packs/repository/KnownPack;)V
 ```

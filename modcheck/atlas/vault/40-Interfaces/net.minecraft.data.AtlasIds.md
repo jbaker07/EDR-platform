@@ -11,32 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data|net.minecraft.data]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `BLOCKSLnet/minecraft/resources/Identifier;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| reads | `ITEMSLnet/minecraft/resources/Identifier;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `BLOCKS` | `Lnet/minecraft/resources/Identifier;` | exact | getstatic@1 in `QuadAtlas.ofId` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `BLOCKS` | `Lnet/minecraft/resources/Identifier;` | exact | getstatic@10 in `QuadAtlas.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `BLOCKS` | `Lnet/minecraft/resources/Identifier;` | exact | getstatic@1 in `MaterialBakerMixin.spriteFinder` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `ITEMS` | `Lnet/minecraft/resources/Identifier;` | exact | getstatic@15 in `QuadAtlas.ofId` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `ITEMS` | `Lnet/minecraft/resources/Identifier;` | exact | getstatic@29 in `QuadAtlas.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `ITEMS` | `Lnet/minecraft/resources/Identifier;` | exact | getstatic@19 in `MaterialBakerMixin.spriteFinder` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `PARTICLES` | `Lnet/minecraft/resources/Identifier;` | exact | getstatic@6 in `FabricSpriteSetImpl.getAtlas` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (12 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.AtlasIds {
-    public static final net.minecraft.resources.Identifier BANNER_PATTERNS;
-    public static final net.minecraft.resources.Identifier BLOCKS;
-    public static final net.minecraft.resources.Identifier ITEMS;
-    public static final net.minecraft.resources.Identifier CHESTS;
-    public static final net.minecraft.resources.Identifier DECORATED_POT;
-    public static final net.minecraft.resources.Identifier GUI;
-    public static final net.minecraft.resources.Identifier MAP_DECORATIONS;
-    public static final net.minecraft.resources.Identifier PAINTINGS;
-    public static final net.minecraft.resources.Identifier PARTICLES;
-    public static final net.minecraft.resources.Identifier SHIELD_PATTERNS;
-    public static final net.minecraft.resources.Identifier SHULKER_BOXES;
-    public static final net.minecraft.resources.Identifier CELESTIALS;
-    public net.minecraft.data.AtlasIds();
-    static {};
-}
+```
+public static final BANNER_PATTERNS : Lnet/minecraft/resources/Identifier;
+public static final BLOCKS : Lnet/minecraft/resources/Identifier;
+public static final ITEMS : Lnet/minecraft/resources/Identifier;
+public static final CHESTS : Lnet/minecraft/resources/Identifier;
+public static final DECORATED_POT : Lnet/minecraft/resources/Identifier;
+public static final GUI : Lnet/minecraft/resources/Identifier;
+public static final MAP_DECORATIONS : Lnet/minecraft/resources/Identifier;
+public static final PAINTINGS : Lnet/minecraft/resources/Identifier;
+public static final PARTICLES : Lnet/minecraft/resources/Identifier;
+public static final SHIELD_PATTERNS : Lnet/minecraft/resources/Identifier;
+public static final SHULKER_BOXES : Lnet/minecraft/resources/Identifier;
+public static final CELESTIALS : Lnet/minecraft/resources/Identifier;
+public <init>()V
+static <clinit>()V
 ```

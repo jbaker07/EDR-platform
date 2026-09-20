@@ -13,11 +13,10 @@ sha256: "58266b2e28d20444584f22f1940b99656437728bd45e1b226c4869637e704638"
 Module: [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] -- kind: class
 
 ```java
-net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder(double)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder category(net.minecraft.world.level.gamerules.GameRuleCategory)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder codec(com.mojang.serialization.Codec<java.lang.Double>)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder argumentType(com.mojang.brigadier.arguments.ArgumentType<java.lang.Double>)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder commandResultSupplier(java.util.function.ToIntFunction<java.lang.Double>)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder codec(com.mojang.serialization.Codec)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder argumentType(com.mojang.brigadier.arguments.ArgumentType)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder commandResultSupplier(java.util.function.ToIntFunction)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder requiredFeatures(net.minecraft.world.flag.FeatureFlagSet)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder minValue(java.lang.Double)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$DoubleRuleBuilder range(java.lang.Double, java.lang.Double)

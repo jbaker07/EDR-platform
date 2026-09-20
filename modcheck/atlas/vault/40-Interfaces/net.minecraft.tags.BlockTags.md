@@ -1,0 +1,315 @@
+---
+type: "interface"
+fqcn: "net.minecraft.tags.BlockTags"
+side: "vanilla"
+---
+
+> [!info] Generated
+> Built by `atlas/extract/vault.py` from the records and extracted facts it links to. Do not edit; edit the source and regenerate.
+
+# net.minecraft.tags.BlockTags
+
+System: [[20-Systems/net.minecraft.tags|net.minecraft.tags]]
+
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
+## How Fabric API modules touch this type
+
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `AIR` | `Lnet/minecraft/tags/TagKey;` | exact | getstatic@7 in `BlockTransformerHelperImpl.createTilling` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `AIR` | `Lnet/minecraft/tags/TagKey;` | exact | getstatic@7 in `BlockTransformerHelperImpl.createFlattening` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+
+## Declared members (284 fields, 3 methods, all visibilities)
+
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
+
+```
+public static final WOOL : Lnet/minecraft/tags/TagKey;
+public static final PLANKS : Lnet/minecraft/tags/TagKey;
+public static final STONE_BRICKS : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_BUTTONS : Lnet/minecraft/tags/TagKey;
+public static final STONE_BUTTONS : Lnet/minecraft/tags/TagKey;
+public static final BUTTONS : Lnet/minecraft/tags/TagKey;
+public static final WOOL_CARPETS : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_DOORS : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_STAIRS : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_SLABS : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_FENCES : Lnet/minecraft/tags/TagKey;
+public static final FENCE_GATES : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_PRESSURE_PLATES : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_SHELVES : Lnet/minecraft/tags/TagKey;
+public static final DOORS : Lnet/minecraft/tags/TagKey;
+public static final SAPLINGS : Lnet/minecraft/tags/TagKey;
+public static final BAMBOO_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final PALE_OAK_LOGS : Lnet/minecraft/tags/TagKey;
+public static final JUNGLE_LOGS : Lnet/minecraft/tags/TagKey;
+public static final WART_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final LOGS : Lnet/minecraft/tags/TagKey;
+public static final SAND : Lnet/minecraft/tags/TagKey;
+public static final SLABS : Lnet/minecraft/tags/TagKey;
+public static final WALLS : Lnet/minecraft/tags/TagKey;
+public static final STAIRS : Lnet/minecraft/tags/TagKey;
+public static final ANVIL : Lnet/minecraft/tags/TagKey;
+public static final RAILS : Lnet/minecraft/tags/TagKey;
+public static final LEAVES : Lnet/minecraft/tags/TagKey;
+public static final WOODEN_TRAPDOORS : Lnet/minecraft/tags/TagKey;
+public static final TRAPDOORS : Lnet/minecraft/tags/TagKey;
+public static final SMALL_FLOWERS : Lnet/minecraft/tags/TagKey;
+public static final FLOWERS : Lnet/minecraft/tags/TagKey;
+public static final BEDS : Lnet/minecraft/tags/TagKey;
+public static final FENCES : Lnet/minecraft/tags/TagKey;
+public static final SOUL_FIRE_BASE_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final CANDLES : Lnet/minecraft/tags/TagKey;
+public static final DAMPENS_VIBRATIONS : Lnet/minecraft/tags/TagKey;
+public static final GOLD_ORES : Lnet/minecraft/tags/TagKey;
+public static final IRON_ORES : Lnet/minecraft/tags/TagKey;
+public static final COPPER_ORES : Lnet/minecraft/tags/TagKey;
+public static final ORES : Lnet/minecraft/tags/TagKey;
+public static final DIRT : Lnet/minecraft/tags/TagKey;
+public static final MUD : Lnet/minecraft/tags/TagKey;
+public static final MOSS_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final GRASS_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final TERRACOTTA : Lnet/minecraft/tags/TagKey;
+public static final GLAZED_TERRACOTTA : Lnet/minecraft/tags/TagKey;
+public static final CONCRETE : Lnet/minecraft/tags/TagKey;
+public static final CONCRETE_SLABS : Lnet/minecraft/tags/TagKey;
+public static final CONCRETE_STAIRS : Lnet/minecraft/tags/TagKey;
+public static final CONCRETE_POWDERS : Lnet/minecraft/tags/TagKey;
+public static final COMPLETES_FIND_TREE_TUTORIAL : Lnet/minecraft/tags/TagKey;
+public static final SHULKER_BOXES : Lnet/minecraft/tags/TagKey;
+public static final COPPER_CHESTS : Lnet/minecraft/tags/TagKey;
+public static final LIGHTNING_RODS : Lnet/minecraft/tags/TagKey;
+public static final COPPER : Lnet/minecraft/tags/TagKey;
+public static final CHAINS : Lnet/minecraft/tags/TagKey;
+public static final COPPER_GOLEM_STATUES : Lnet/minecraft/tags/TagKey;
+public static final LANTERNS : Lnet/minecraft/tags/TagKey;
+public static final BARS : Lnet/minecraft/tags/TagKey;
+public static final SKULLS : Lnet/minecraft/tags/TagKey;
+public static final WOOL_SLABS : Lnet/minecraft/tags/TagKey;
+public static final WOOL_STAIRS : Lnet/minecraft/tags/TagKey;
+public static final CEILING_HANGING_SIGNS : Lnet/minecraft/tags/TagKey;
+public static final STANDING_SIGNS : Lnet/minecraft/tags/TagKey;
+public static final BEE_ATTRACTIVE : Lnet/minecraft/tags/TagKey;
+public static final MOB_INTERACTABLE_DOORS : Lnet/minecraft/tags/TagKey;
+public static final PRESSURE_PLATES : Lnet/minecraft/tags/TagKey;
+public static final STONE_PRESSURE_PLATES : Lnet/minecraft/tags/TagKey;
+public static final OVERWORLD_NATURAL_LOGS : Lnet/minecraft/tags/TagKey;
+public static final BANNERS : Lnet/minecraft/tags/TagKey;
+public static final PIGLIN_REPELLENTS : Lnet/minecraft/tags/TagKey;
+public static final BADLANDS_TERRACOTTA : Lnet/minecraft/tags/TagKey;
+public static final FLOWER_POTS : Lnet/minecraft/tags/TagKey;
+public static final ENDERMAN_HOLDABLE : Lnet/minecraft/tags/TagKey;
+public static final ICE : Lnet/minecraft/tags/TagKey;
+public static final VALID_SPAWN : Lnet/minecraft/tags/TagKey;
+public static final IMPERMEABLE : Lnet/minecraft/tags/TagKey;
+public static final UNDERWATER_BONEMEALS : Lnet/minecraft/tags/TagKey;
+public static final CORAL_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final WALL_CORALS : Lnet/minecraft/tags/TagKey;
+public static final CORAL_PLANTS : Lnet/minecraft/tags/TagKey;
+public static final CORALS : Lnet/minecraft/tags/TagKey;
+public static final WALL_SIGNS : Lnet/minecraft/tags/TagKey;
+public static final SIGNS : Lnet/minecraft/tags/TagKey;
+public static final WALL_HANGING_SIGNS : Lnet/minecraft/tags/TagKey;
+public static final ALL_HANGING_SIGNS : Lnet/minecraft/tags/TagKey;
+public static final ALL_SIGNS : Lnet/minecraft/tags/TagKey;
+public static final DRAGON_IMMUNE : Lnet/minecraft/tags/TagKey;
+public static final DRAGON_TRANSPARENT : Lnet/minecraft/tags/TagKey;
+public static final WITHER_IMMUNE : Lnet/minecraft/tags/TagKey;
+public static final WITHER_SUMMON_BASE_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final BEEHIVES : Lnet/minecraft/tags/TagKey;
+public static final CROPS : Lnet/minecraft/tags/TagKey;
+public static final BEE_GROWABLES : Lnet/minecraft/tags/TagKey;
+public static final PORTALS : Lnet/minecraft/tags/TagKey;
+public static final FIRE : Lnet/minecraft/tags/TagKey;
+public static final NYLIUM : Lnet/minecraft/tags/TagKey;
+public static final BEACON_BASE_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final SOUL_SPEED_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final WALL_POST_OVERRIDE : Lnet/minecraft/tags/TagKey;
+public static final CLIMBABLE : Lnet/minecraft/tags/TagKey;
+public static final FALL_DAMAGE_RESETTING : Lnet/minecraft/tags/TagKey;
+public static final HOGLIN_REPELLENTS : Lnet/minecraft/tags/TagKey;
+public static final STRIDER_WARM_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final CAMPFIRES : Lnet/minecraft/tags/TagKey;
+public static final GUARDED_BY_PIGLINS : Lnet/minecraft/tags/TagKey;
+public static final PREVENT_MOB_SPAWNING_INSIDE : Lnet/minecraft/tags/TagKey;
+public static final UNSTABLE_BOTTOM_CENTER : Lnet/minecraft/tags/TagKey;
+public static final EDIBLE_FOR_SHEEP : Lnet/minecraft/tags/TagKey;
+public static final CAN_GLIDE_THROUGH : Lnet/minecraft/tags/TagKey;
+public static final CAUSES_PERIODIC_GEYSER_ERUPTIONS : Lnet/minecraft/tags/TagKey;
+public static final CAUSES_CONTINUOUS_GEYSER_ERUPTIONS : Lnet/minecraft/tags/TagKey;
+public static final NETHER_PORTAL_FRAME : Lnet/minecraft/tags/TagKey;
+public static final CONDUIT_EFFECT_BLOCK : Lnet/minecraft/tags/TagKey;
+public static final INFINIBURN_OVERWORLD : Lnet/minecraft/tags/TagKey;
+public static final INFINIBURN_NETHER : Lnet/minecraft/tags/TagKey;
+public static final INFINIBURN_END : Lnet/minecraft/tags/TagKey;
+public static final SUBSTRATE_OVERWORLD : Lnet/minecraft/tags/TagKey;
+public static final BASE_STONE_OVERWORLD : Lnet/minecraft/tags/TagKey;
+public static final STONE_ORE_REPLACEABLES : Lnet/minecraft/tags/TagKey;
+public static final HEIGHT_SPECIFIC_ORE_REPLACEABLES : Lnet/minecraft/tags/TagKey;
+public static final DEEPSLATE_ORE_REPLACEABLES : Lnet/minecraft/tags/TagKey;
+public static final BASE_STONE_NETHER : Lnet/minecraft/tags/TagKey;
+public static final BENEATH_TREE_PODZOL_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final BENEATH_BAMBOO_PODZOL_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final CANNOT_REPLACE_BELOW_TREE_TRUNK : Lnet/minecraft/tags/TagKey;
+public static final CANNOT_PLACE_BASALT_PILLAR_ON : Lnet/minecraft/tags/TagKey;
+public static final UNCARVABLE : Lnet/minecraft/tags/TagKey;
+public static final CANDLE_CAKES : Lnet/minecraft/tags/TagKey;
+public static final CAULDRONS : Lnet/minecraft/tags/TagKey;
+public static final CRYSTAL_SOUND_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final INSIDE_STEP_SOUND_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final COMBINATION_STEP_SOUND_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final CAMEL_SAND_STEP_SOUND_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final HAPPY_GHAST_AVOIDS : Lnet/minecraft/tags/TagKey;
+public static final OCCLUDES_VIBRATION_SIGNALS : Lnet/minecraft/tags/TagKey;
+public static final CUSHION_USES_COLLISION_SHAPE : Lnet/minecraft/tags/TagKey;
+public static final DRIPSTONE_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final SULFUR_SPIKE_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final CAVE_VINES : Lnet/minecraft/tags/TagKey;
+public static final MOSS_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final LUSH_GROUND_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final AZALEA_ROOT_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final ICE_SPIKE_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final FOREST_ROCK_CAN_PLACE_ON : Lnet/minecraft/tags/TagKey;
+public static final HUGE_BROWN_MUSHROOM_CAN_PLACE_ON : Lnet/minecraft/tags/TagKey;
+public static final HUGE_RED_MUSHROOM_CAN_PLACE_ON : Lnet/minecraft/tags/TagKey;
+public static final SNOW : Lnet/minecraft/tags/TagKey;
+public static final MINEABLE_WITH_AXE : Lnet/minecraft/tags/TagKey;
+public static final MINEABLE_WITH_HOE : Lnet/minecraft/tags/TagKey;
+public static final MINEABLE_WITH_PICKAXE : Lnet/minecraft/tags/TagKey;
+public static final MINEABLE_WITH_SHOVEL : Lnet/minecraft/tags/TagKey;
+public static final SWORD_EFFICIENT : Lnet/minecraft/tags/TagKey;
+public static final SWORD_INSTANTLY_MINES : Lnet/minecraft/tags/TagKey;
+public static final SHEARS_EXTREME_BREAKING_SPEED : Lnet/minecraft/tags/TagKey;
+public static final SHEARS_MAJOR_BREAKING_SPEED : Lnet/minecraft/tags/TagKey;
+public static final SHEARS_MINOR_BREAKING_SPEED : Lnet/minecraft/tags/TagKey;
+public static final TURNS_INTO_DIRT_PATH : Lnet/minecraft/tags/TagKey;
+public static final TURNS_INTO_FARMLAND : Lnet/minecraft/tags/TagKey;
+public static final NEEDS_DIAMOND_TOOL : Lnet/minecraft/tags/TagKey;
+public static final NEEDS_IRON_TOOL : Lnet/minecraft/tags/TagKey;
+public static final NEEDS_STONE_TOOL : Lnet/minecraft/tags/TagKey;
+public static final INCORRECT_FOR_NETHERITE_TOOL : Lnet/minecraft/tags/TagKey;
+public static final INCORRECT_FOR_DIAMOND_TOOL : Lnet/minecraft/tags/TagKey;
+public static final INCORRECT_FOR_IRON_TOOL : Lnet/minecraft/tags/TagKey;
+public static final INCORRECT_FOR_COPPER_TOOL : Lnet/minecraft/tags/TagKey;
+public static final INCORRECT_FOR_STONE_TOOL : Lnet/minecraft/tags/TagKey;
+public static final INCORRECT_FOR_GOLD_TOOL : Lnet/minecraft/tags/TagKey;
+public static final INCORRECT_FOR_WOODEN_TOOL : Lnet/minecraft/tags/TagKey;
+public static final FEATURES_CANNOT_REPLACE : Lnet/minecraft/tags/TagKey;
+public static final LAVA_POOL_STONE_CANNOT_REPLACE : Lnet/minecraft/tags/TagKey;
+public static final GEODE_INVALID_BLOCKS : Lnet/minecraft/tags/TagKey;
+public static final FROG_PREFER_JUMP_TO : Lnet/minecraft/tags/TagKey;
+public static final SCULK_GROWTH_INHIBITORS : Lnet/minecraft/tags/TagKey;
+public static final SCULK_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final SCULK_REPLACEABLE_WORLD_GEN : Lnet/minecraft/tags/TagKey;
+public static final ANCIENT_CITY_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final VIBRATION_RESONATORS : Lnet/minecraft/tags/TagKey;
+public static final ANIMALS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final ARMADILLO_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final AXOLOTLS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final GOATS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final MOOSHROOMS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final PARROTS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final POLAR_BEARS_SPAWNABLE_ON_ALTERNATE : Lnet/minecraft/tags/TagKey;
+public static final RABBITS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final FOXES_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final WOLVES_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final FROGS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final BATS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final CAMELS_SPAWNABLE_ON : Lnet/minecraft/tags/TagKey;
+public static final AZALEA_GROWS_ON : Lnet/minecraft/tags/TagKey;
+public static final CONVERTIBLE_TO_MUD : Lnet/minecraft/tags/TagKey;
+public static final MANGROVE_LOGS_CAN_GROW_THROUGH : Lnet/minecraft/tags/TagKey;
+public static final MANGROVE_ROOTS_CAN_GROW_THROUGH : Lnet/minecraft/tags/TagKey;
+public static final SNAPS_GOAT_HORN : Lnet/minecraft/tags/TagKey;
+public static final REPLACEABLE_BY_TREES : Lnet/minecraft/tags/TagKey;
+public static final REPLACEABLE_BY_MUSHROOMS : Lnet/minecraft/tags/TagKey;
+public static final ENABLES_BUBBLE_COLUMN_DRAG_DOWN : Lnet/minecraft/tags/TagKey;
+public static final ENABLES_BUBBLE_COLUMN_PUSH_UP : Lnet/minecraft/tags/TagKey;
+public static final CATS_CAN_SIT_ON : Lnet/minecraft/tags/TagKey;
+public static final CATS_CAN_LIE_ON : Lnet/minecraft/tags/TagKey;
+public static final SPEEDS_UP_ZOMBIE_VILLAGER_CURING : Lnet/minecraft/tags/TagKey;
+public static final VILLAGERS_CAN_SLEEP_ON_BED : Lnet/minecraft/tags/TagKey;
+public static final VILLAGER_BABIES_CAN_JUMP_ON_BED : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_VEGETATION : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_DRY_VEGETATION : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_CROPS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_STEM_CROPS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_STEM_FRUIT : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_PUMPKIN_STEM : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_MELON_STEM : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_PUMPKIN_STEM_FRUIT : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_MELON_STEM_FRUIT : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_SUGAR_CANE : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_SUGAR_CANE_ADJACENTLY : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_BAMBOO : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_SMALL_DRIPLEAF : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_BIG_DRIPLEAF : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_CACTUS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_CHORUS_PLANT : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_CHORUS_FLOWER : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_NETHER_SPROUTS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_AZALEA : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_WARPED_FUNGUS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_CRIMSON_FUNGUS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_MANGROVE_PROPAGULE : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_HANGING_MANGROVE_PROPAGULE : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_NETHER_WART : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_CRIMSON_ROOTS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_WARPED_ROOTS : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_WITHER_ROSE : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_COCOA : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_LILY_PAD : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_FROGSPAWN : Lnet/minecraft/tags/TagKey;
+public static final PREVENTS_NEARBY_LEAF_DECAY : Lnet/minecraft/tags/TagKey;
+public static final SUPPORT_OVERRIDE_CACTUS_FLOWER : Lnet/minecraft/tags/TagKey;
+public static final SUPPORT_OVERRIDE_SNOW_LAYER : Lnet/minecraft/tags/TagKey;
+public static final CANNOT_SUPPORT_SNOW_LAYER : Lnet/minecraft/tags/TagKey;
+public static final CANNOT_SUPPORT_SEAGRASS : Lnet/minecraft/tags/TagKey;
+public static final CANNOT_SUPPORT_KELP : Lnet/minecraft/tags/TagKey;
+public static final OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT : Lnet/minecraft/tags/TagKey;
+public static final GROWS_CROPS : Lnet/minecraft/tags/TagKey;
+public static final INVALID_SPAWN_INSIDE : Lnet/minecraft/tags/TagKey;
+public static final SNIFFER_DIGGABLE_BLOCK : Lnet/minecraft/tags/TagKey;
+public static final SNIFFER_EGG_HATCH_BOOST : Lnet/minecraft/tags/TagKey;
+public static final TRAIL_RUINS_REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final REPLACEABLE : Lnet/minecraft/tags/TagKey;
+public static final ENCHANTMENT_POWER_PROVIDER : Lnet/minecraft/tags/TagKey;
+public static final ENCHANTMENT_POWER_TRANSMITTER : Lnet/minecraft/tags/TagKey;
+public static final MAINTAINS_FARMLAND : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_WIND_CHARGE_EXPLOSIONS : Lnet/minecraft/tags/TagKey;
+public static final DOES_NOT_BLOCK_HOPPERS : Lnet/minecraft/tags/TagKey;
+public static final SUPPRESSES_BOUNCE : Lnet/minecraft/tags/TagKey;
+public static final TRIGGERS_AMBIENT_DESERT_SAND_BLOCK_SOUNDS : Lnet/minecraft/tags/TagKey;
+public static final TRIGGERS_AMBIENT_DESERT_DRY_VEGETATION_BLOCK_SOUNDS : Lnet/minecraft/tags/TagKey;
+public static final TRIGGERS_AMBIENT_DRIED_GHAST_BLOCK_SOUNDS : Lnet/minecraft/tags/TagKey;
+public static final REQUIRED_FOR_POPLAR_LEAF_AMBIENCE : Lnet/minecraft/tags/TagKey;
+public static final SPELEOTHEMS : Lnet/minecraft/tags/TagKey;
+public static final DANGEROUS_FOR_TELEPORTATION : Lnet/minecraft/tags/TagKey;
+public static final CAT_DOES_NOT_TELEPORT_TO : Lnet/minecraft/tags/TagKey;
+public static final ENDERMAN_DOES_NOT_TELEPORT_TO : Lnet/minecraft/tags/TagKey;
+public static final SHULKER_DOES_NOT_TELEPORT_TO : Lnet/minecraft/tags/TagKey;
+public static final CONSUMABLE_DOES_NOT_TELEPORT_TO : Lnet/minecraft/tags/TagKey;
+public static final FOX_IMMUNE_TO : Lnet/minecraft/tags/TagKey;
+public static final POLAR_BEAR_IMMUNE_TO : Lnet/minecraft/tags/TagKey;
+public static final SNOW_GOLEM_IMMUNE_TO : Lnet/minecraft/tags/TagKey;
+public static final STRAY_IMMUNE_TO : Lnet/minecraft/tags/TagKey;
+public static final WITHER_IMMUNE_TO : Lnet/minecraft/tags/TagKey;
+public static final WITHER_SKELETON_IMMUNE_TO : Lnet/minecraft/tags/TagKey;
+public static final DEFAULT_IMMUNE_TO : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_MOTION : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_MOTION_NO_LEAVES : Lnet/minecraft/tags/TagKey;
+public static final ENTITIES_CAN_TELEPORT_TO : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_DOLPHIN_JUMP : Lnet/minecraft/tags/TagKey;
+public static final ICE_MELTS_WHEN_DESTROYED_ABOVE : Lnet/minecraft/tags/TagKey;
+public static final CAUSES_SUFFOCATION : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_MOTION_IN_HEIGHTMAP : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_MOTION_IN_HEIGHTMAP_NO_LEAVES : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_LAVA_FIRE_SPREAD : Lnet/minecraft/tags/TagKey;
+public static final BLOCKS_FLUID_FLOW : Lnet/minecraft/tags/TagKey;
+public static final WASHED_AWAY_BY_FLUIDS : Lnet/minecraft/tags/TagKey;
+public static final AIR : Lnet/minecraft/tags/TagKey;
+private <init>()V
+private static create(Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
+static <clinit>()V
+```

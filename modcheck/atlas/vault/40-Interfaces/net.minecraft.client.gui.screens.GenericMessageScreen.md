@@ -11,24 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/screens/Screen`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/network/chat/Component;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/network/chat/Component;)V` | exact | invokespecial@39 in `TestSingleplayerContextImpl.lambda$close$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (1 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.GenericMessageScreen extends net.minecraft.client.gui.screens.Screen {
-    private net.minecraft.client.gui.components.FocusableTextWidget textWidget;
-    public net.minecraft.client.gui.screens.GenericMessageScreen(net.minecraft.network.chat.Component);
-    protected void init();
-    protected void repositionElements();
-    public boolean shouldCloseOnEsc();
-    protected boolean shouldNarrateNavigation();
-    public void extractBackground(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-}
+```
+private textWidget : Lnet/minecraft/client/gui/components/FocusableTextWidget;
+public <init>(Lnet/minecraft/network/chat/Component;)V
+protected init()V
+protected repositionElements()V
+public shouldCloseOnEsc()Z
+protected shouldNarrateNavigation()Z
+public extractBackground(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
 ```

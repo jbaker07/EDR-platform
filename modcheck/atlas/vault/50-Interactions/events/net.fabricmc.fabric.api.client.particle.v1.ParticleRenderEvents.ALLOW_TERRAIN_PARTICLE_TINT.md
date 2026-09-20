@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `TerrainParticleMixin.removeUntintableParticles` | (handler is not itself an injector method: fired from a helper or impl class) | client | static_inference |
+| `TerrainParticleMixin.removeUntintableParticles` @14 | [[40-Interfaces/net.minecraft.client.particle.TerrainParticle|TerrainParticle]].`<init>` @WrapOperation INVOKE `Lnet/minecraft/client/color/block/BlockColors;getTintSource(Lnet/minecraft/world/level/block/state/BlockState;I)Lnet/minecraft/client/color/block/BlockTintSource;` | unknown | static_inference |
 
 ## Contract
 

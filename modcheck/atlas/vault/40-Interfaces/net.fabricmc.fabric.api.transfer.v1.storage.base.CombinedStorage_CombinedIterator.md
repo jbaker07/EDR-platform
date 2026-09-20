@@ -13,11 +13,7 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
 
 ```java
-final java.util.Iterator<S> partIterator
-java.util.Iterator<? extends net.fabricmc.fabric.api.transfer.v1.storage.StorageView<T>> currentPartIterator
-final net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage this$0
-net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage$CombinedIterator(net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage)
 public boolean hasNext()
-public net.fabricmc.fabric.api.transfer.v1.storage.StorageView<T> next()
+public net.fabricmc.fabric.api.transfer.v1.storage.StorageView next()
 public java.lang.Object next()
 ```

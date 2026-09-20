@@ -11,45 +11,48 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/level/storage/ValueOutput`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `buildResult()Lnet/minecraft/nbt/CompoundTag;` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `createWithContext(Lnet/minecraft/util/ProblemReporter;Lnet/minecraft/core/Hol` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `buildResult` | `()Lnet/minecraft/nbt/CompoundTag;` | exact | invokevirtual@40 in `AttachmentSavedData$1.encode` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `buildResult` | `()Lnet/minecraft/nbt/CompoundTag;` | exact | invokevirtual@34 in `SerializableChunkDataMixin.storeAttachmentNbtData` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `createWithContext` | `(Lnet/minecraft/util/ProblemReporter;Lnet/minecraft/core/HolderLookup$` | exact | invokestatic@16 in `SerializableChunkDataMixin.storeAttachmentNbtData` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `createWithoutContext` | `(Lnet/minecraft/util/ProblemReporter;)Lnet/minecraft/world/level/stora` | exact | invokestatic@18 in `AttachmentSavedData$1.encode` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `output` | `Lnet/minecraft/nbt/CompoundTag;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-serialization-api-v1|fabric-serialization-api-v1]] | declared |
 
-## Declared members (27, all visibilities)
+## Declared members (3 fields, 24 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.TagValueOutput implements net.minecraft.world.level.storage.ValueOutput {
-    private final net.minecraft.util.ProblemReporter problemReporter;
-    private final com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag> ops;
-    private final net.minecraft.nbt.CompoundTag output;
-    private net.minecraft.world.level.storage.TagValueOutput(net.minecraft.util.ProblemReporter, com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, net.minecraft.nbt.CompoundTag);
-    public static net.minecraft.world.level.storage.TagValueOutput createWithContext(net.minecraft.util.ProblemReporter, net.minecraft.core.HolderLookup$Provider);
-    public static net.minecraft.world.level.storage.TagValueOutput createWithoutContext(net.minecraft.util.ProblemReporter);
-    public <T> void store(java.lang.String, com.mojang.serialization.Codec<T>, T);
-    public <T> void storeNullable(java.lang.String, com.mojang.serialization.Codec<T>, T);
-    public <T> void store(com.mojang.serialization.MapCodec<T>, T);
-    public void putBoolean(java.lang.String, boolean);
-    public void putByte(java.lang.String, byte);
-    public void putShort(java.lang.String, short);
-    public void putInt(java.lang.String, int);
-    public void putLong(java.lang.String, long);
-    public void putFloat(java.lang.String, float);
-    public void putDouble(java.lang.String, double);
-    public void putString(java.lang.String, java.lang.String);
-    public void putIntArray(java.lang.String, int[]);
-    private net.minecraft.util.ProblemReporter reporterForChild(java.lang.String);
-    public net.minecraft.world.level.storage.ValueOutput child(java.lang.String);
-    public net.minecraft.world.level.storage.ValueOutput$ValueOutputList childrenList(java.lang.String);
-    public <T> net.minecraft.world.level.storage.ValueOutput$TypedOutputList<T> list(java.lang.String, com.mojang.serialization.Codec<T>);
-    public void discard(java.lang.String);
-    public boolean isEmpty();
-    public net.minecraft.nbt.CompoundTag buildResult();
-    private void lambda$store$1(net.minecraft.nbt.Tag);
-    private void lambda$store$0(java.lang.String, net.minecraft.nbt.Tag);
-}
+```
+private final problemReporter : Lnet/minecraft/util/ProblemReporter;
+private final ops : Lcom/mojang/serialization/DynamicOps;
+private final output : Lnet/minecraft/nbt/CompoundTag;
+private <init>(Lnet/minecraft/util/ProblemReporter;Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/nbt/CompoundTag;)V
+public static createWithContext(Lnet/minecraft/util/ProblemReporter;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/level/storage/TagValueOutput;
+public static createWithoutContext(Lnet/minecraft/util/ProblemReporter;)Lnet/minecraft/world/level/storage/TagValueOutput;
+public store(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V
+public storeNullable(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V
+public store(Lcom/mojang/serialization/MapCodec;Ljava/lang/Object;)V
+public putBoolean(Ljava/lang/String;Z)V
+public putByte(Ljava/lang/String;B)V
+public putShort(Ljava/lang/String;S)V
+public putInt(Ljava/lang/String;I)V
+public putLong(Ljava/lang/String;J)V
+public putFloat(Ljava/lang/String;F)V
+public putDouble(Ljava/lang/String;D)V
+public putString(Ljava/lang/String;Ljava/lang/String;)V
+public putIntArray(Ljava/lang/String;[I)V
+private reporterForChild(Ljava/lang/String;)Lnet/minecraft/util/ProblemReporter;
+public child(Ljava/lang/String;)Lnet/minecraft/world/level/storage/ValueOutput;
+public childrenList(Ljava/lang/String;)Lnet/minecraft/world/level/storage/ValueOutput$ValueOutputList;
+public list(Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/level/storage/ValueOutput$TypedOutputList;
+public discard(Ljava/lang/String;)V
+public isEmpty()Z
+public buildResult()Lnet/minecraft/nbt/CompoundTag;
+private synthetic lambda$store$1(Lnet/minecraft/nbt/Tag;)V
+private synthetic lambda$store$0(Ljava/lang/String;Lnet/minecraft/nbt/Tag;)V
 ```

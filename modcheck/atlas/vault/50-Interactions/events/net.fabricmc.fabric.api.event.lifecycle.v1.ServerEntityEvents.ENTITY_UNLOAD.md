@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerLevelEntityCallbacksMixin.invokeEntityUnloadEvent` | `ServerLevel$EntityCallbacks.onTrackingEnd(Lnet/minecraft/world/entity/Entity;)V` @Inject at HEAD | both | static_inference |
-| `LifecycleEventsImpl.lambda$onInitialize$3` | (impl code, not a mixin) | unknown | static_inference |
+| `LifecycleEventsImpl.lambda$onInitialize$3` @135 | (impl code, not a mixin) | unknown | static_inference |
+| `ServerLevelEntityCallbacksMixin.invokeEntityUnloadEvent` @14 | [[40-Interfaces/net.minecraft.server.level.ServerLevel_EntityCallbacks|ServerLevel$EntityCallbacks]].`onTrackingEnd` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

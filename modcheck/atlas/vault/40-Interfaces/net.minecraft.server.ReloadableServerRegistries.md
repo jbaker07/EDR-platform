@@ -11,28 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `reload` | `@Redirect at FIELD Lnet/minecraft/resources/RegistryDataLoader;RELOADABLE_REGIST` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `reload` | `(Lnet/minecraft/core/LayeredRegistryAccess;Ljava/util/List;Lnet/minecr` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| wraps | `reload` | `(Lnet/minecraft/core/LayeredRegistryAccess;Ljava/util/List;Lnet/minecr` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| wraps | `reload` | `(Lnet/minecraft/core/LayeredRegistryAccess;Ljava/util/List;Lnet/minecr` | name_only | @Redirect at ['FIELD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.ReloadableServerRegistries {
-    private static final org.slf4j.Logger LOGGER;
-    private static final net.minecraft.core.RegistrationInfo DEFAULT_REGISTRATION_INFO;
-    public net.minecraft.server.ReloadableServerRegistries();
-    public static java.util.concurrent.CompletableFuture<net.minecraft.server.ReloadableServerRegistries$LoadResult> reload(net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>, java.util.List<net.minecraft.core.Registry$PendingTags<?>>, net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor);
-    private static net.minecraft.server.ReloadableServerRegistries$LoadResult createAndValidateFullContext(net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>, net.minecraft.core.HolderLookup$Provider, net.minecraft.core.RegistryAccess$Frozen);
-    private static net.minecraft.core.HolderLookup$Provider concatenateLookups(net.minecraft.core.HolderLookup$Provider, net.minecraft.core.HolderLookup$Provider);
-    private static void validateLootRegistries(net.minecraft.core.HolderLookup$Provider);
-    private static void lambda$validateLootRegistries$1(java.lang.String, net.minecraft.util.ProblemReporter$Problem);
-    private static void lambda$validateLootRegistries$0(net.minecraft.world.level.storage.loot.ValidationContextSource, net.minecraft.core.HolderLookup$Provider, net.minecraft.world.level.storage.loot.LootDataType);
-    private static net.minecraft.server.ReloadableServerRegistries$LoadResult lambda$reload$0(net.minecraft.core.LayeredRegistryAccess, net.minecraft.core.HolderLookup$Provider, net.minecraft.core.RegistryAccess$Frozen);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final DEFAULT_REGISTRATION_INFO : Lnet/minecraft/core/RegistrationInfo;
+public <init>()V
+public static reload(Lnet/minecraft/core/LayeredRegistryAccess;Ljava/util/List;Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private static createAndValidateFullContext(Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/core/RegistryAccess$Frozen;)Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;
+private static concatenateLookups(Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/core/HolderLookup$Provider;
+private static validateLootRegistries(Lnet/minecraft/core/HolderLookup$Provider;)V
+private static synthetic lambda$validateLootRegistries$1(Ljava/lang/String;Lnet/minecraft/util/ProblemReporter$Problem;)V
+private static synthetic lambda$validateLootRegistries$0(Lnet/minecraft/world/level/storage/loot/ValidationContextSource;Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/world/level/storage/loot/LootDataType;)V
+private static synthetic lambda$reload$0(Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/core/RegistryAccess$Frozen;)Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;
+static <clinit>()V
 ```

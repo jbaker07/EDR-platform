@@ -13,11 +13,11 @@ sha256: "7d63b44a449ddd84d4988ef17cec1894ef1890b2844079500ea47c3dc678d967"
 Module: [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] -- kind: class
 
 ```java
-public static net.minecraft.world.item.crafting.Ingredient all(net.minecraft.world.item.crafting.Ingredient...)
-public static net.minecraft.world.item.crafting.Ingredient any(net.minecraft.world.item.crafting.Ingredient...)
+public static net.minecraft.world.item.crafting.Ingredient all(net.minecraft.world.item.crafting.Ingredient[])
+public static net.minecraft.world.item.crafting.Ingredient any(net.minecraft.world.item.crafting.Ingredient[])
 public static net.minecraft.world.item.crafting.Ingredient difference(net.minecraft.world.item.crafting.Ingredient, net.minecraft.world.item.crafting.Ingredient)
 public static net.minecraft.world.item.crafting.Ingredient components(net.minecraft.world.item.crafting.Ingredient, net.minecraft.core.component.DataComponentPatch)
-public static net.minecraft.world.item.crafting.Ingredient components(net.minecraft.world.item.crafting.Ingredient, java.util.function.UnaryOperator<net.minecraft.core.component.DataComponentPatch$Builder>)
+public static net.minecraft.world.item.crafting.Ingredient components(net.minecraft.world.item.crafting.Ingredient, java.util.function.UnaryOperator)
 public static net.minecraft.world.item.crafting.Ingredient components(net.minecraft.world.item.ItemStack)
 public static net.minecraft.world.item.crafting.Ingredient customData(net.minecraft.world.item.crafting.Ingredient, net.minecraft.nbt.CompoundTag)
 ```

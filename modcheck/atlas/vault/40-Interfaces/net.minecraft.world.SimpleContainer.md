@@ -11,45 +11,45 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world|net.minecraft.world]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/Container`, `net/minecraft/world/inventory/StackedContentsCompatible`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `setChanged()V` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| wraps | `setItem(ILnet/minecraft/world/item/ItemStack;)V` | `@Redirect at INVOKE Lnet/minecraft/world/SimpleContainer;setChanged()V` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `setChanged` | `()V` | exact | invokevirtual@8 in `SimpleContainerMixin.fabric_redirectChanged` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| wraps | `setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | exact | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (2 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.SimpleContainer implements net.minecraft.world.Container,net.minecraft.world.inventory.StackedContentsCompatible {
-    private final int size;
-    private final net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> items;
-    public net.minecraft.world.SimpleContainer(int);
-    public net.minecraft.world.SimpleContainer(net.minecraft.world.item.ItemStack...);
-    public net.minecraft.world.item.ItemStack getItem(int);
-    public java.util.List<net.minecraft.world.item.ItemStack> removeAllItems();
-    public net.minecraft.world.item.ItemStack removeItem(int, int);
-    public net.minecraft.world.item.ItemStack removeItemType(net.minecraft.world.item.Item, int);
-    public net.minecraft.world.item.ItemStack addItem(net.minecraft.world.item.ItemStack);
-    public boolean canAddItem(net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.item.ItemStack removeItemNoUpdate(int);
-    public void setItem(int, net.minecraft.world.item.ItemStack);
-    public void setChanged();
-    public int getContainerSize();
-    public boolean isEmpty();
-    public boolean stillValid(net.minecraft.world.entity.player.Player);
-    public void clearContent();
-    public void fillStackedContents(net.minecraft.world.entity.player.StackedItemContents);
-    public java.lang.String toString();
-    private void moveItemToEmptySlots(net.minecraft.world.item.ItemStack);
-    private void moveItemToOccupiedSlotsWithSameType(net.minecraft.world.item.ItemStack);
-    private void moveItemsBetweenStacks(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
-    public void fromItemList(net.minecraft.world.level.storage.ValueInput$TypedInputList<net.minecraft.world.item.ItemStack>);
-    public void storeAsItemList(net.minecraft.world.level.storage.ValueOutput$TypedOutputList<net.minecraft.world.item.ItemStack>);
-    public net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getItems();
-    private static boolean lambda$toString$0(net.minecraft.world.item.ItemStack);
-    private static boolean lambda$removeAllItems$0(net.minecraft.world.item.ItemStack);
-}
+```
+private final size : I
+public final items : Lnet/minecraft/core/NonNullList;
+public <init>(I)V
+public <init>([Lnet/minecraft/world/item/ItemStack;)V
+public getItem(I)Lnet/minecraft/world/item/ItemStack;
+public removeAllItems()Ljava/util/List;
+public removeItem(II)Lnet/minecraft/world/item/ItemStack;
+public removeItemType(Lnet/minecraft/world/item/Item;I)Lnet/minecraft/world/item/ItemStack;
+public addItem(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+public canAddItem(Lnet/minecraft/world/item/ItemStack;)Z
+public removeItemNoUpdate(I)Lnet/minecraft/world/item/ItemStack;
+public setItem(ILnet/minecraft/world/item/ItemStack;)V
+public setChanged()V
+public getContainerSize()I
+public isEmpty()Z
+public stillValid(Lnet/minecraft/world/entity/player/Player;)Z
+public clearContent()V
+public fillStackedContents(Lnet/minecraft/world/entity/player/StackedItemContents;)V
+public toString()Ljava/lang/String;
+private moveItemToEmptySlots(Lnet/minecraft/world/item/ItemStack;)V
+private moveItemToOccupiedSlotsWithSameType(Lnet/minecraft/world/item/ItemStack;)V
+private moveItemsBetweenStacks(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)V
+public fromItemList(Lnet/minecraft/world/level/storage/ValueInput$TypedInputList;)V
+public storeAsItemList(Lnet/minecraft/world/level/storage/ValueOutput$TypedOutputList;)V
+public getItems()Lnet/minecraft/core/NonNullList;
+private static synthetic lambda$toString$0(Lnet/minecraft/world/item/ItemStack;)Z
+private static synthetic lambda$removeAllItems$0(Lnet/minecraft/world/item/ItemStack;)Z
 ```

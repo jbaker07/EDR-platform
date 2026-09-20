@@ -11,42 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at INVOKE Lcom/google/common/collect/ImmutableList$Builder;add(Ljava/lan` | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
 
-## Declared members (25, all visibilities)
+## Declared members (13 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.lang.String STRUCTURE_FILE_EXTENSION;
-    private static final java.lang.String STRUCTURE_TEXT_FILE_EXTENSION;
-    public static final java.lang.String STRUCTURE_DIRECTORY_NAME;
-    public static final net.minecraft.resources.FileToIdConverter WORLD_STRUCTURE_LISTER;
-    private static final net.minecraft.resources.FileToIdConverter WORLD_TEXT_STRUCTURE_LISTER;
-    private static final net.minecraft.resources.FileToIdConverter RESOURCE_STRUCTURE_LISTER;
-    public static final net.minecraft.resources.FileToIdConverter RESOURCE_TEXT_STRUCTURE_LISTER;
-    private final java.util.Map<net.minecraft.resources.Identifier, java.util.Optional<net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate>> structureRepository;
-    private final net.minecraft.world.level.levelgen.structure.templatesystem.loader.ResourceManagerTemplateSource resourceManagerSource;
-    private final java.util.List<net.minecraft.world.level.levelgen.structure.templatesystem.loader.TemplateSource> sources;
-    private final net.minecraft.world.level.levelgen.structure.templatesystem.loader.TemplatePathFactory worldTemplates;
-    private final net.minecraft.world.level.levelgen.structure.templatesystem.loader.TemplatePathFactory testTemplates;
-    public net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.datafixers.DataFixer, net.minecraft.core.HolderGetter<net.minecraft.world.level.block.Block>);
-    public net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate getOrCreate(net.minecraft.resources.Identifier);
-    public java.util.Optional<net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate> get(net.minecraft.resources.Identifier);
-    public java.util.stream.Stream<net.minecraft.resources.Identifier> listTemplates();
-    private java.util.Optional<net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate> tryLoad(net.minecraft.resources.Identifier);
-    public void onResourceManagerReload(net.minecraft.server.packs.resources.ResourceManager);
-    public boolean save(net.minecraft.resources.Identifier);
-    public static boolean save(java.nio.file.Path, net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate, boolean) throws java.io.IOException;
-    public net.minecraft.world.level.levelgen.structure.templatesystem.loader.TemplatePathFactory worldTemplates();
-    public net.minecraft.world.level.levelgen.structure.templatesystem.loader.TemplatePathFactory testTemplates();
-    public void remove(net.minecraft.resources.Identifier);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final STRUCTURE_FILE_EXTENSION : Ljava/lang/String;
+private static final STRUCTURE_TEXT_FILE_EXTENSION : Ljava/lang/String;
+public static final STRUCTURE_DIRECTORY_NAME : Ljava/lang/String;
+public static final WORLD_STRUCTURE_LISTER : Lnet/minecraft/resources/FileToIdConverter;
+private static final WORLD_TEXT_STRUCTURE_LISTER : Lnet/minecraft/resources/FileToIdConverter;
+private static final RESOURCE_STRUCTURE_LISTER : Lnet/minecraft/resources/FileToIdConverter;
+public static final RESOURCE_TEXT_STRUCTURE_LISTER : Lnet/minecraft/resources/FileToIdConverter;
+private final structureRepository : Ljava/util/Map;
+private final resourceManagerSource : Lnet/minecraft/world/level/levelgen/structure/templatesystem/loader/ResourceManagerTemplateSource;
+private final sources : Ljava/util/List;
+private final worldTemplates : Lnet/minecraft/world/level/levelgen/structure/templatesystem/loader/TemplatePathFactory;
+private final testTemplates : Lnet/minecraft/world/level/levelgen/structure/templatesystem/loader/TemplatePathFactory;
+public <init>(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/core/HolderGetter;)V
+public getOrCreate(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;
+public get(Lnet/minecraft/resources/Identifier;)Ljava/util/Optional;
+public listTemplates()Ljava/util/stream/Stream;
+private tryLoad(Lnet/minecraft/resources/Identifier;)Ljava/util/Optional;
+public onResourceManagerReload(Lnet/minecraft/server/packs/resources/ResourceManager;)V
+public save(Lnet/minecraft/resources/Identifier;)Z
+public static save(Ljava/nio/file/Path;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;Z)Z
+public worldTemplates()Lnet/minecraft/world/level/levelgen/structure/templatesystem/loader/TemplatePathFactory;
+public testTemplates()Lnet/minecraft/world/level/levelgen/structure/templatesystem/loader/TemplatePathFactory;
+public remove(Lnet/minecraft/resources/Identifier;)V
+static <clinit>()V
 ```

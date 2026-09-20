@@ -13,13 +13,13 @@ fabric-loader 0.19.5 -- kind: interface
 
 ```java
 public static net.fabricmc.loader.api.FabricLoader getInstance()
-public abstract <T> java.util.List<T> getEntrypoints(java.lang.String, java.lang.Class<T>)
-public abstract <T> java.util.List<net.fabricmc.loader.api.entrypoint.EntrypointContainer<T>> getEntrypointContainers(java.lang.String, java.lang.Class<T>)
-public abstract <T> void invokeEntrypoints(java.lang.String, java.lang.Class<T>, java.util.function.Consumer<? super T>)
+public abstract java.util.List getEntrypoints(java.lang.String, java.lang.Class)
+public abstract java.util.List getEntrypointContainers(java.lang.String, java.lang.Class)
+public abstract void invokeEntrypoints(java.lang.String, java.lang.Class, java.util.function.Consumer)
 public abstract net.fabricmc.loader.api.ObjectShare getObjectShare()
 public abstract net.fabricmc.loader.api.MappingResolver getMappingResolver()
-public abstract java.util.Optional<net.fabricmc.loader.api.ModContainer> getModContainer(java.lang.String)
-public abstract java.util.Collection<net.fabricmc.loader.api.ModContainer> getAllMods()
+public abstract java.util.Optional getModContainer(java.lang.String)
+public abstract java.util.Collection getAllMods()
 public abstract boolean isModLoaded(java.lang.String)
 public abstract boolean isDevelopmentEnvironment()
 public abstract net.fabricmc.api.EnvType getEnvironmentType()

@@ -13,7 +13,6 @@ sha256: "039a5c3dee042ff156c52c4bec64a384e766e830a37cc9f6bf68f1e7dc3646b1"
 Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: interface
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback> EVENT
+public static final net.fabricmc.fabric.api.event.Event EVENT
 public abstract void onRegistrySetup(net.fabricmc.fabric.api.event.registry.DynamicRegistryView)
-static {}
 ```

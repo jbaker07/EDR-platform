@@ -14,6 +14,6 @@ Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind:
 
 ```java
 public abstract int getSlotCount()
-public abstract net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage<T> getSlot(int)
-public default java.util.List<net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage<T>> getSlots()
+public abstract net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage getSlot(int)
+public java.util.List getSlots()
 ```

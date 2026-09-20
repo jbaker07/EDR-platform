@@ -9,7 +9,7 @@ side: "client"
 
 # GUI: screens, HUD and widgets
 
-Package `net.minecraft.client.gui` -- generated view: [[20-Systems/net.minecraft.client.gui|hooked types]]
+Package `net.minecraft.client.gui` -- generated view: [[20-Systems/net.minecraft.client.gui|inventory and hooked types]]
 
 **Responsibility.** Screens, the in-game HUD (Gui), widgets, layouts and the GUI render-state extraction introduced with the 26.x renderer. 53 hooked types.
 

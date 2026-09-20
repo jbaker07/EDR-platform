@@ -10,7 +10,7 @@ sha256: "aff8cffc3d6da5475f21060e45cd28307676974674c4e10504c0fcc89c7746c4"
 
 # net.fabricmc.fabric.api.item.v1.EnchantmentSource
 
-Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] -- kind: class
+Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.item.v1.EnchantmentSource VANILLA
@@ -21,5 +21,4 @@ public static net.fabricmc.fabric.api.item.v1.EnchantmentSource valueOf(java.lan
 public boolean isBuiltin()
 public net.fabricmc.fabric.api.item.v1.ResourceSource toResourceSource()
 public static net.fabricmc.fabric.api.item.v1.EnchantmentSource fromResourceSource(net.fabricmc.fabric.api.item.v1.ResourceSource)
-static {}
 ```

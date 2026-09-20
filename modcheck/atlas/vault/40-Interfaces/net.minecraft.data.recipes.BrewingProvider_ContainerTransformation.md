@@ -11,28 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.recipes|net.minecraft.data.recipes]]
 
+`record` final; extends `java/lang/Record`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `output()Lnet/minecraft/world/item/Item;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `reagent()Lnet/minecraft/world/item/Item;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `output` | `()Lnet/minecraft/world/item/Item;` | exact | invokevirtual@29 in `BrewingProviderMixin.preventDuplicatingDefaultTransformations` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `output` | `()Lnet/minecraft/world/item/Item;` | exact | invokevirtual@77 in `BrewingProviderMixin.preventDuplicatingDefaultTransformations` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `reagent` | `()Lnet/minecraft/world/item/Item;` | exact | invokevirtual@15 in `BrewingProviderMixin.preventDuplicatingDefaultTransformations` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `reagent` | `()Lnet/minecraft/world/item/Item;` | exact | invokevirtual@63 in `BrewingProviderMixin.preventDuplicatingDefaultTransformations` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (3 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-final class net.minecraft.data.recipes.BrewingProvider$ContainerTransformation extends java.lang.Record {
-    private final net.minecraft.world.item.Item container;
-    private final net.minecraft.world.item.Item reagent;
-    private final net.minecraft.world.item.Item output;
-    private net.minecraft.data.recipes.BrewingProvider$ContainerTransformation(net.minecraft.world.item.Item, net.minecraft.world.item.Item, net.minecraft.world.item.Item);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.world.item.Item container();
-    public net.minecraft.world.item.Item reagent();
-    public net.minecraft.world.item.Item output();
-}
+```
+private final container : Lnet/minecraft/world/item/Item;
+private final reagent : Lnet/minecraft/world/item/Item;
+private final output : Lnet/minecraft/world/item/Item;
+private <init>(Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/Item;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public container()Lnet/minecraft/world/item/Item;
+public reagent()Lnet/minecraft/world/item/Item;
+public output()Lnet/minecraft/world/item/Item;
 ```

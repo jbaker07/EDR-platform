@@ -11,25 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `refreshRendererList` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `refreshRendererList` | `()V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
+| reads | `renderers` | `Ljava/util/List;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | declared |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.debug.DebugRenderer {
-    private final java.util.List<net.minecraft.client.renderer.debug.DebugRenderer$SimpleDebugRenderer> renderers;
-    private long lastDebugEntriesVersion;
-    public net.minecraft.client.renderer.debug.DebugRenderer();
-    public void refreshRendererList();
-    public void emitGizmos(net.minecraft.client.renderer.culling.Frustum, double, double, double, float);
-    public static java.util.Optional<net.minecraft.world.entity.Entity> getTargetedEntity(net.minecraft.world.entity.Entity, int);
-    private static net.minecraft.world.phys.Vec3 mixColor(float);
-    private static net.minecraft.world.phys.Vec3 shiftHue(float, float, float, float);
-}
+```
+private final renderers : Ljava/util/List;
+private lastDebugEntriesVersion : J
+public <init>()V
+public refreshRendererList()V
+public emitGizmos(Lnet/minecraft/client/renderer/culling/Frustum;DDDF)V
+public static getTargetedEntity(Lnet/minecraft/world/entity/Entity;I)Ljava/util/Optional;
+private static mixColor(F)Lnet/minecraft/world/phys/Vec3;
+private static shiftHue(FFFF)Lnet/minecraft/world/phys/Vec3;
 ```

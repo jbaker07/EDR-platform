@@ -18,5 +18,5 @@ public static void addLast(net.minecraft.resources.Identifier, net.fabricmc.fabr
 public static void attachElementBefore(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier, net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement)
 public static void attachElementAfter(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier, net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement)
 public static void removeElement(net.minecraft.resources.Identifier)
-public static void replaceElement(net.minecraft.resources.Identifier, java.util.function.Function<net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement, net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement>)
+public static void replaceElement(net.minecraft.resources.Identifier, java.util.function.Function)
 ```

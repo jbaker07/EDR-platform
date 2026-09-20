@@ -11,30 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `id()Lnet/minecraft/resources/ResourceKey;` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `id()Lnet/minecraft/resources/ResourceKey;` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `value()Lnet/minecraft/world/item/crafting/Recipe;` | `` | both | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `value()Lnet/minecraft/world/item/crafting/Recipe;` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/item/crafti` | exact | invokespecial@103 in `ClientboundRecipeSyncPayload$Entry.read` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@72 in `ClientboundRecipeSyncPayload$Entry.write` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@32 in `SynchronizedRecipesImpl.indexByKey` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@1 in `RecipeSyncImplClient.lambda$onRecipeSyncPacket$0` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/world/item/crafting/Recipe;` | exact | invokevirtual@7 in `SynchronizedRecipes.getFirstMatch` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/world/item/crafting/Recipe;` | exact | invokevirtual@13 in `SynchronizedRecipes.get` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/world/item/crafting/Recipe;` | exact | invokevirtual@82 in `ClientboundRecipeSyncPayload$Entry.write` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/world/item/crafting/Recipe;` | exact | invokevirtual@32 in `SynchronizedRecipesImpl.indexByType` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/world/item/crafting/Recipe;` | exact | invokevirtual@1 in `SynchronizedRecipesImpl.lambda$getAllMatches$0` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/world/item/crafting/Recipe;` | exact | invokevirtual@83 in `RecipeMapMixin.attachSerializerMap` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (3 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.crafting.RecipeHolder<T extends net.minecraft.world.item.crafting.Recipe<?>> extends java.lang.Record {
-    private final net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> id;
-    private final T value;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.crafting.RecipeHolder<?>> STREAM_CODEC;
-    public net.minecraft.world.item.crafting.RecipeHolder(net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>, T);
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public java.lang.String toString();
-    public net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> id();
-    public T value();
-    static {};
-}
+```
+private final id : Lnet/minecraft/resources/ResourceKey;
+private final value : Lnet/minecraft/world/item/crafting/Recipe;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/item/crafting/Recipe;)V
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public toString()Ljava/lang/String;
+public id()Lnet/minecraft/resources/ResourceKey;
+public value()Lnet/minecraft/world/item/crafting/Recipe;
+static <clinit>()V
 ```

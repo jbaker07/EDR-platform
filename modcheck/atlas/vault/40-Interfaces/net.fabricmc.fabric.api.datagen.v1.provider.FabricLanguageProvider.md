@@ -14,10 +14,10 @@ Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api
 
 ```java
 protected final net.fabricmc.fabric.api.datagen.v1.FabricPackOutput packOutput
-protected net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>)
-protected net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.lang.String, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>)
+protected <init>(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture)
+protected <init>(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.lang.String, java.util.concurrent.CompletableFuture)
 public abstract void generateTranslations(net.minecraft.core.HolderLookup$Provider, net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider$TranslationBuilder)
-public java.util.concurrent.CompletableFuture<?> run(net.minecraft.data.CachedOutput)
+public java.util.concurrent.CompletableFuture run(net.minecraft.data.CachedOutput)
 protected java.nio.file.Path getLangFilePath(java.lang.String)
 public java.lang.String getName()
 ```

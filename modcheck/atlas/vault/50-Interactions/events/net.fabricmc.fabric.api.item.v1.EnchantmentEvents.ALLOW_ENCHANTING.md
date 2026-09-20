@@ -15,7 +15,9 @@ Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]]
 
 ## Published from
 
-- no publisher found by extraction (may be fired from generated or non-module code)
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
+|---|---|---|---|
+| `FabricItemStack.canBeEnchantedWith` @15 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

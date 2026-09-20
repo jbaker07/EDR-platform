@@ -19,17 +19,20 @@ lifecycle: "stable"
 - depends: `{"fabricloader": ">=0.19.3"}`
 - entrypoints: `null`
 - mixin configs: `["fabric-key-mapping-api-v1.mixins.json"]`
+- mixin classes: 3 found by annotation, 3 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.client.KeyMapping_Category|KeyMapping$Category]] | `register(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/KeyMapping$Category;` | injects_into `@Inject at RETURN` | client | `KeyMappingCategoryMixin.onReturnRegister` |
-| [[40-Interfaces/net.minecraft.client.Options|Options]] | `load()V` | injects_into `@Inject at HEAD` | client | `OptionsMixin.loadHook` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.KeyMapping_Category|KeyMapping$Category]].`register` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/KeyMapping$Category;` | exact | @Inject | RETURN | client | 1000 (default) | `KeyMappingCategoryMixin.onReturnRegister` |
+| [[40-Interfaces/net.minecraft.client.Options|Options]].`load` | `()V` | exact | @Inject | HEAD | client | 1000 (default) | `OptionsMixin.loadHook` |
 
 ## API surface
 
@@ -37,6 +40,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ItemStackMixin.handleUseOnEvent` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `ItemStackMixin.handleUseOnEvent` @10 | [[40-Interfaces/net.minecraft.world.item.ItemStack|ItemStack]].`useOn` @WrapOperation INVOKE `Lnet/minecraft/world/item/Item;useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;` | unknown | static_inference |
 
 ## Contract
 

@@ -13,11 +13,11 @@ sha256: "039a5c3dee042ff156c52c4bec64a384e766e830a37cc9f6bf68f1e7dc3646b1"
 Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: class
 
 ```java
-public static java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>> getAllDynamicRegistries()
-public static java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>> getWorldRegistries()
-public static java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>> getReloadableRegistries()
-public static <T> void register(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Codec<T>)
-public static <T> void registerSynced(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Codec<T>, net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption...)
-public static <T> void registerSynced(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Codec<T>, com.mojang.serialization.Codec<T>, net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption...)
-public static <T> void registerReloadable(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Codec<T>)
+public static java.util.List getAllDynamicRegistries()
+public static java.util.List getWorldRegistries()
+public static java.util.List getReloadableRegistries()
+public static void register(net.minecraft.resources.ResourceKey, com.mojang.serialization.Codec)
+public static void registerSynced(net.minecraft.resources.ResourceKey, com.mojang.serialization.Codec, net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption[])
+public static void registerSynced(net.minecraft.resources.ResourceKey, com.mojang.serialization.Codec, com.mojang.serialization.Codec, net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption[])
+public static void registerReloadable(net.minecraft.resources.ResourceKey, com.mojang.serialization.Codec)
 ```

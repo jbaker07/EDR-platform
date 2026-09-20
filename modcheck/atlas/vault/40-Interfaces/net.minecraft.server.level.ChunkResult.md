@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.level|net.minecraft.server.level]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `ifSuccess(Ljava/util/function/Consumer;)Lnet/minecraft/server/level/C` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `ifSuccess` | `(Ljava/util/function/Consumer;)Lnet/minecraft/server/level/ChunkResult` | exact | invokeinterface@7 in `BlockEntityMixin.lambda$fabric_markChanged$0` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (0 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.level.ChunkResult<T> {
-    public static <T> net.minecraft.server.level.ChunkResult<T> of(T);
-    public static <T> net.minecraft.server.level.ChunkResult<T> error(java.lang.String);
-    public static <T> net.minecraft.server.level.ChunkResult<T> error(java.util.function.Supplier<java.lang.String>);
-    public abstract boolean isSuccess();
-    public abstract T orElse(T);
-    public static <R> R orElse(net.minecraft.server.level.ChunkResult<? extends R>, R);
-    public abstract java.lang.String getError();
-    public abstract net.minecraft.server.level.ChunkResult<T> ifSuccess(java.util.function.Consumer<T>);
-    public abstract <R> net.minecraft.server.level.ChunkResult<R> map(java.util.function.Function<T, R>);
-    public abstract <E extends java.lang.Throwable> T orElseThrow(java.util.function.Supplier<E>) throws E;
-    private static java.lang.String lambda$error$0(java.lang.String);
-}
+```
+public static of(Ljava/lang/Object;)Lnet/minecraft/server/level/ChunkResult;
+public static error(Ljava/lang/String;)Lnet/minecraft/server/level/ChunkResult;
+public static error(Ljava/util/function/Supplier;)Lnet/minecraft/server/level/ChunkResult;
+public abstract isSuccess()Z
+public abstract orElse(Ljava/lang/Object;)Ljava/lang/Object;
+public static orElse(Lnet/minecraft/server/level/ChunkResult;Ljava/lang/Object;)Ljava/lang/Object;
+public abstract getError()Ljava/lang/String;
+public abstract ifSuccess(Ljava/util/function/Consumer;)Lnet/minecraft/server/level/ChunkResult;
+public abstract map(Ljava/util/function/Function;)Lnet/minecraft/server/level/ChunkResult;
+public abstract orElseThrow(Ljava/util/function/Supplier;)Ljava/lang/Object;
+private static synthetic lambda$error$0(Ljava/lang/String;)Ljava/lang/String;
 ```

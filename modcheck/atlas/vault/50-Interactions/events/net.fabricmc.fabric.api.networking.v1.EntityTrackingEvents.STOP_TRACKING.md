@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerEntityMixin.onStopTracking` | `ServerEntity.removePairing` @Inject at HEAD | both | static_inference |
+| `ServerEntityMixin.onStopTracking` @14 | [[40-Interfaces/net.minecraft.server.level.ServerEntity|ServerEntity]].`removePairing` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

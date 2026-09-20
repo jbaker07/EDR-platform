@@ -11,34 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/client/resources/model/ResolvableModel`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `<clinit>()V` | `@Redirect at INVOKE Lcom/mojang/serialization/Codec;flatComapMap(Ljava/util/func` | client | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| wraps | `<clinit>()V` | `@Redirect at INVOKE Lcom/mojang/serialization/Codec;flatComapMap(Ljava/util/func` | client | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `bake` | `(Lnet/minecraft/client/resources/model/ModelBaker;)Lnet/minecraft/clie` | exact | invokeinterface@44 in `CompositeBlockStateModelImpl$Unbaked.bake` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `resolveDependencies` | `(Lnet/minecraft/client/resources/model/ResolvableModel$Resolver;)V` | inherited_exact | invokeinterface@2 in `CompositeBlockStateModelImpl$Unbaked.lambda$resolveDependencies$0` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@1 in `CompositeBlockStateModelImpl$Unbaked.lambda$static$0` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| wraps | `<clinit>` | `()V` | exact | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| wraps | `<clinit>` | `()V` | exact | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (3 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked extends net.minecraft.client.resources.model.ResolvableModel {
-    public static final com.mojang.serialization.Codec<net.minecraft.util.random.Weighted<net.minecraft.client.renderer.block.dispatch.Variant>> ELEMENT_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked> HARDCODED_WEIGHTED_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked> CODEC;
-    public abstract net.minecraft.client.renderer.block.dispatch.BlockStateModel bake(net.minecraft.client.resources.model.ModelBaker);
-    public default net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot asRoot();
-    private static com.mojang.serialization.DataResult lambda$static$8(net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked);
-    private static java.lang.String lambda$static$9();
-    private static net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked lambda$static$5(com.mojang.datafixers.util.Either);
-    private static java.lang.Record lambda$static$7(net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked);
-    private static java.lang.Record lambda$static$6(net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked);
-    private static com.mojang.serialization.DataResult lambda$static$3(net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked);
-    private static java.lang.String lambda$static$4();
-    private static net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked lambda$static$1(java.util.List);
-    private static net.minecraft.util.random.Weighted lambda$static$2(net.minecraft.util.random.Weighted);
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+public static final ELEMENT_CODEC : Lcom/mojang/serialization/Codec;
+public static final HARDCODED_WEIGHTED_CODEC : Lcom/mojang/serialization/Codec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public abstract bake(Lnet/minecraft/client/resources/model/ModelBaker;)Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;
+public asRoot()Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel$UnbakedRoot;
+private static synthetic lambda$static$8(Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel$Unbaked;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$9()Ljava/lang/String;
+private static synthetic lambda$static$5(Lcom/mojang/datafixers/util/Either;)Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel$Unbaked;
+private static synthetic lambda$static$7(Lnet/minecraft/client/renderer/block/dispatch/SingleVariant$Unbaked;)Ljava/lang/Record;
+private static synthetic lambda$static$6(Lnet/minecraft/client/renderer/block/dispatch/WeightedVariants$Unbaked;)Ljava/lang/Record;
+private static synthetic lambda$static$3(Lnet/minecraft/client/renderer/block/dispatch/WeightedVariants$Unbaked;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$4()Ljava/lang/String;
+private static synthetic lambda$static$1(Ljava/util/List;)Lnet/minecraft/client/renderer/block/dispatch/WeightedVariants$Unbaked;
+private static synthetic lambda$static$2(Lnet/minecraft/util/random/Weighted;)Lnet/minecraft/util/random/Weighted;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

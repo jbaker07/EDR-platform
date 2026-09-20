@@ -10,7 +10,7 @@ sha256: "1bd8282a95da3822a15d7468d3542f493b9186d214ef10f938b0006319409647"
 
 # net.fabricmc.fabric.api.gametest.v1.GameTest
 
-Module: [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] -- kind: interface
+Module: [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] -- kind: annotation
 
 ```java
 public abstract java.lang.String environment()

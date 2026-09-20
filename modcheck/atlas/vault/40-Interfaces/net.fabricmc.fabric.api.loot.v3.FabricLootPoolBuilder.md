@@ -13,11 +13,11 @@ sha256: "569540023c6d19e4b4854e14ea4bb99aed401946d5470f761ac1f1388cc7de2c"
 Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] -- kind: interface
 
 ```java
-public default net.minecraft.world.level.storage.loot.LootPool$Builder add(net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer)
-public default net.minecraft.world.level.storage.loot.LootPool$Builder add(java.util.Collection<? extends net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer>)
-public default net.minecraft.world.level.storage.loot.LootPool$Builder when(net.minecraft.world.level.storage.loot.predicates.LootItemCondition)
-public default net.minecraft.world.level.storage.loot.LootPool$Builder when(java.util.Collection<? extends net.minecraft.world.level.storage.loot.predicates.LootItemCondition>)
-public default net.minecraft.world.level.storage.loot.LootPool$Builder apply(net.minecraft.world.level.storage.loot.functions.LootItemFunction)
-public default net.minecraft.world.level.storage.loot.LootPool$Builder apply(java.util.Collection<? extends net.minecraft.world.level.storage.loot.functions.LootItemFunction>)
+public net.minecraft.world.level.storage.loot.LootPool$Builder add(net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer)
+public net.minecraft.world.level.storage.loot.LootPool$Builder add(java.util.Collection)
+public net.minecraft.world.level.storage.loot.LootPool$Builder when(net.minecraft.world.level.storage.loot.predicates.LootItemCondition)
+public net.minecraft.world.level.storage.loot.LootPool$Builder when(java.util.Collection)
+public net.minecraft.world.level.storage.loot.LootPool$Builder apply(net.minecraft.world.level.storage.loot.functions.LootItemFunction)
+public net.minecraft.world.level.storage.loot.LootPool$Builder apply(java.util.Collection)
 public static net.minecraft.world.level.storage.loot.LootPool$Builder copyOf(net.minecraft.world.level.storage.loot.LootPool)
 ```

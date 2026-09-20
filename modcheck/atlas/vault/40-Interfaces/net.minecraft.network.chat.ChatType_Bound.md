@@ -11,33 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.chat|net.minecraft.network.chat]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `decorate(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/netwo` | `` | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `decorate` | `(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Co` | exact | invokevirtual@22 in `ChatListenerMixin.fabric_onFilteredSignedChatMessage` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| calls | `decorate` | `(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Co` | exact | invokevirtual@3 in `ChatListenerMixin.fabric_onProfilelessChatMessage` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (4 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.chat.ChatType$Bound extends java.lang.Record {
-    private final net.minecraft.core.Holder<net.minecraft.network.chat.ChatType> chatType;
-    private final net.minecraft.network.chat.Component name;
-    private final java.util.Optional<net.minecraft.network.chat.Component> targetName;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.network.chat.ChatType$Bound> STREAM_CODEC;
-    private net.minecraft.network.chat.ChatType$Bound(net.minecraft.core.Holder<net.minecraft.network.chat.ChatType>, net.minecraft.network.chat.Component);
-    public net.minecraft.network.chat.ChatType$Bound(net.minecraft.core.Holder<net.minecraft.network.chat.ChatType>, net.minecraft.network.chat.Component, java.util.Optional<net.minecraft.network.chat.Component>);
-    public net.minecraft.network.chat.Component decorate(net.minecraft.network.chat.Component);
-    public net.minecraft.network.chat.Component decorateNarration(net.minecraft.network.chat.Component);
-    public net.minecraft.network.chat.ChatType$Bound withTargetName(net.minecraft.network.chat.Component);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.Holder<net.minecraft.network.chat.ChatType> chatType();
-    public net.minecraft.network.chat.Component name();
-    public java.util.Optional<net.minecraft.network.chat.Component> targetName();
-    static {};
-}
+```
+private final chatType : Lnet/minecraft/core/Holder;
+private final name : Lnet/minecraft/network/chat/Component;
+private final targetName : Ljava/util/Optional;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/network/chat/Component;)V
+public <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/network/chat/Component;Ljava/util/Optional;)V
+public decorate(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+public decorateNarration(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+public withTargetName(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/ChatType$Bound;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public chatType()Lnet/minecraft/core/Holder;
+public name()Lnet/minecraft/network/chat/Component;
+public targetName()Ljava/util/Optional;
+static <clinit>()V
 ```

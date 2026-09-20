@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LevelRendererMixin.afterRenderSolidFeatures` | `LevelRenderer.executeSolid` @Inject at INVOKE Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;executeSolid(Lcom/mojang/renderpearl/api/commands/RenderPass;)V | client | static_inference |
+| `LevelRendererMixin.afterRenderSolidFeatures` @13 | [[40-Interfaces/net.minecraft.client.renderer.LevelRenderer|LevelRenderer]].`executeSolid` @Inject INVOKE `Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;executeSolid(Lcom/mojang/renderpearl/api/commands/RenderPass;)V` | unknown | static_inference |
 
 ## Contract
 

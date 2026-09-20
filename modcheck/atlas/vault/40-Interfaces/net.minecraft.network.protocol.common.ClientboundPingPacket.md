@@ -11,27 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(I)V` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(I)V` | exact | invokespecial@21 in `ServerConfigurationNetworkAddon.startConfiguration` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (2 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.protocol.common.ClientboundPingPacket implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ClientCommonPacketListener> {
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.FriendlyByteBuf, net.minecraft.network.protocol.common.ClientboundPingPacket> STREAM_CODEC;
-    private final int id;
-    public net.minecraft.network.protocol.common.ClientboundPingPacket(int);
-    private net.minecraft.network.protocol.common.ClientboundPingPacket(net.minecraft.network.FriendlyByteBuf);
-    private void write(net.minecraft.network.FriendlyByteBuf);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundPingPacket> type();
-    public void handle(net.minecraft.network.protocol.common.ClientCommonPacketListener);
-    public int getId();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private final id : I
+public <init>(I)V
+private <init>(Lnet/minecraft/network/FriendlyByteBuf;)V
+private write(Lnet/minecraft/network/FriendlyByteBuf;)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/common/ClientCommonPacketListener;)V
+public getId()I
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

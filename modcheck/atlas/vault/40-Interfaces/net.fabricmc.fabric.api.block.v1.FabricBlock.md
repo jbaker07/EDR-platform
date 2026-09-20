@@ -13,6 +13,6 @@ sha256: "12df8ce066403f03483ef89d13600072b56c5be290fb12260035fdaf5604761f"
 Module: [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] -- kind: interface
 
 ```java
-public default net.minecraft.world.level.block.state.BlockState getAppearance(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockAndLightGetter, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos)
-public default float getProvidedEnchantmentPower(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos)
+public net.minecraft.world.level.block.state.BlockState getAppearance(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockAndLightGetter, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos)
+public float getProvidedEnchantmentPower(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos)
 ```

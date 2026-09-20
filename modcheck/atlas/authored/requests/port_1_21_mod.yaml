@@ -1,5 +1,10 @@
 - id: request.port_1_21_mod
   title: Port a 1.21-era Fabric mod with saved data to 26.3
+  analyst_exercise: true
+  canonical_request:
+    id: exercise.port_1_21_mod
+    kind: analyst_exercise
+    requirement_ids: []
   family: workflow:wf.engineering.version_migration
   request: >-
     Analyst-authored exercise request: a mod written for Minecraft 1.21 (Yarn or

@@ -11,20 +11,22 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `submit(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokeinterface@52 in `SubmitNodeCollectionMixin.submitBlockModel` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokeinterface@74 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokeinterface@14 in `SubmitRenderPhase.submit` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (3, all visibilities)
+## Declared members (0 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.renderer.feature.phase.FeatureRenderPhase<Submit extends net.minecraft.client.renderer.feature.submit.SubmitNode> {
-    public abstract void submit(Submit);
-    public abstract void sortInto(net.minecraft.client.renderer.feature.phase.FeatureRenderPhase$Output);
-    public abstract boolean isEmpty();
-}
+```
+public abstract submit(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V
+public abstract sortInto(Lnet/minecraft/client/renderer/feature/phase/FeatureRenderPhase$Output;)V
+public abstract isEmpty()Z
 ```

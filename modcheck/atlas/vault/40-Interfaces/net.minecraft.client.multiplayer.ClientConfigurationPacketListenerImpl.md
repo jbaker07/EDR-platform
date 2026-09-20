@@ -11,49 +11,50 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public; extends `net/minecraft/client/multiplayer/ClientCommonPacketListenerImpl`; implements `net/minecraft/network/protocol/configuration/ClientConfigurationPacketListener`, `net/minecraft/network/TickablePacketListener`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| injects_into | `handleConfigurationFinished` | `@Inject at INVOKE Lnet/minecraft/network/Connection;setupInboundProtocol(Lnet/mi` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `handleConfigurationFinished` | `@Inject at NEW (Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Connectio` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| injects_into | `handleSelectKnownPacks` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getPacketContext` | `()Lnet/fabricmc/fabric/api/networking/v1/context/PacketContext;` | inherited_exact | invokevirtual@6 in `ClientConfigurationNetworking$Context.packetContext` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Connection;Lne` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| injects_into | `handleConfigurationFinished` | `(Lnet/minecraft/network/protocol/configuration/ClientboundFinishConfig` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `handleConfigurationFinished` | `(Lnet/minecraft/network/protocol/configuration/ClientboundFinishConfig` | name_only | @Inject at ['NEW'] | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| injects_into | `handleSelectKnownPacks` | `(Lnet/minecraft/network/protocol/configuration/ClientboundSelectKnownP` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (29, all visibilities)
+## Declared members (10 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.multiplayer.ClientConfigurationPacketListenerImpl extends net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl implements net.minecraft.network.protocol.configuration.ClientConfigurationPacketListener,net.minecraft.network.TickablePacketListener {
-    private static final org.slf4j.Logger LOGGER;
-    public static final net.minecraft.network.chat.Component DISCONNECTED_MESSAGE;
-    private final net.minecraft.client.multiplayer.LevelLoadTracker levelLoadTracker;
-    private final com.mojang.authlib.GameProfile localGameProfile;
-    private net.minecraft.world.flag.FeatureFlagSet enabledFeatures;
-    private final net.minecraft.core.RegistryAccess$Frozen receivedRegistries;
-    private final net.minecraft.client.multiplayer.RegistryDataCollector registryDataCollector;
-    private net.minecraft.client.multiplayer.KnownPacksManager knownPacks;
-    protected net.minecraft.client.gui.components.ChatComponent$State chatState;
-    private boolean seenCodeOfConduct;
-    public net.minecraft.client.multiplayer.ClientConfigurationPacketListenerImpl(net.minecraft.client.Minecraft, net.minecraft.network.Connection, net.minecraft.client.multiplayer.CommonListenerCookie);
-    public boolean isAcceptingMessages();
-    protected void handleCustomPayload(net.minecraft.network.protocol.common.custom.CustomPacketPayload);
-    private void handleUnknownCustomPayload(net.minecraft.network.protocol.common.custom.CustomPacketPayload);
-    public void handleRegistryData(net.minecraft.network.protocol.configuration.ClientboundRegistryDataPacket);
-    public void handleUpdateTags(net.minecraft.network.protocol.common.ClientboundUpdateTagsPacket);
-    public void handleEnabledFeatures(net.minecraft.network.protocol.configuration.ClientboundUpdateEnabledFeaturesPacket);
-    public void handleSelectKnownPacks(net.minecraft.network.protocol.configuration.ClientboundSelectKnownPacks);
-    public void handleResetChat(net.minecraft.network.protocol.configuration.ClientboundResetChatPacket);
-    private <T> T runWithResources(java.util.function.Function<net.minecraft.server.packs.resources.ResourceProvider, T>);
-    public void handleCodeOfConduct(net.minecraft.network.protocol.configuration.ClientboundCodeOfConductPacket);
-    public void handleConfigurationFinished(net.minecraft.network.protocol.configuration.ClientboundFinishConfigurationPacket);
-    private static net.minecraft.core.RegistryAccess$Frozen filterRegistries(net.minecraft.core.RegistryAccess$Frozen, java.util.stream.Stream<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>>);
-    public void tick();
-    public void onDisconnect(net.minecraft.network.DisconnectionDetails);
-    protected net.minecraft.client.gui.screens.dialog.DialogConnectionAccess createDialogAccess();
-    private net.minecraft.core.RegistryAccess$Frozen lambda$handleConfigurationFinished$0(net.minecraft.server.packs.resources.ResourceProvider);
-    private void lambda$handleCodeOfConduct$0(net.minecraft.client.gui.screens.Screen, boolean);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final DISCONNECTED_MESSAGE : Lnet/minecraft/network/chat/Component;
+private final levelLoadTracker : Lnet/minecraft/client/multiplayer/LevelLoadTracker;
+private final localGameProfile : Lcom/mojang/authlib/GameProfile;
+private enabledFeatures : Lnet/minecraft/world/flag/FeatureFlagSet;
+private final receivedRegistries : Lnet/minecraft/core/RegistryAccess$Frozen;
+private final registryDataCollector : Lnet/minecraft/client/multiplayer/RegistryDataCollector;
+private knownPacks : Lnet/minecraft/client/multiplayer/KnownPacksManager;
+protected chatState : Lnet/minecraft/client/gui/components/ChatComponent$State;
+private seenCodeOfConduct : Z
+public <init>(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Connection;Lnet/minecraft/client/multiplayer/CommonListenerCookie;)V
+public isAcceptingMessages()Z
+protected handleCustomPayload(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;)V
+private handleUnknownCustomPayload(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;)V
+public handleRegistryData(Lnet/minecraft/network/protocol/configuration/ClientboundRegistryDataPacket;)V
+public handleUpdateTags(Lnet/minecraft/network/protocol/common/ClientboundUpdateTagsPacket;)V
+public handleEnabledFeatures(Lnet/minecraft/network/protocol/configuration/ClientboundUpdateEnabledFeaturesPacket;)V
+public handleSelectKnownPacks(Lnet/minecraft/network/protocol/configuration/ClientboundSelectKnownPacks;)V
+public handleResetChat(Lnet/minecraft/network/protocol/configuration/ClientboundResetChatPacket;)V
+private runWithResources(Ljava/util/function/Function;)Ljava/lang/Object;
+public handleCodeOfConduct(Lnet/minecraft/network/protocol/configuration/ClientboundCodeOfConductPacket;)V
+public handleConfigurationFinished(Lnet/minecraft/network/protocol/configuration/ClientboundFinishConfigurationPacket;)V
+private static filterRegistries(Lnet/minecraft/core/RegistryAccess$Frozen;Ljava/util/stream/Stream;)Lnet/minecraft/core/RegistryAccess$Frozen;
+public tick()V
+public onDisconnect(Lnet/minecraft/network/DisconnectionDetails;)V
+protected createDialogAccess()Lnet/minecraft/client/gui/screens/dialog/DialogConnectionAccess;
+private synthetic lambda$handleConfigurationFinished$0(Lnet/minecraft/server/packs/resources/ResourceProvider;)Lnet/minecraft/core/RegistryAccess$Frozen;
+private synthetic lambda$handleCodeOfConduct$0(Lnet/minecraft/client/gui/screens/Screen;Z)V
+static <clinit>()V
 ```

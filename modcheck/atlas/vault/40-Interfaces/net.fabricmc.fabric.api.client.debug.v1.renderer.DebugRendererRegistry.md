@@ -13,7 +13,7 @@ sha256: "1ef63bc24f6319cc43d2d4add8a2df5e8c3986b5bd1f39b920a5bd7738ec52e3"
 Module: [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.client.debug.v1.renderer.DebugRendererRegistry()
-public static <T> void register(net.minecraft.util.debug.DebugSubscription<T>, net.fabricmc.fabric.api.client.debug.v1.renderer.DebugRendererFactory)
-public static <T> void register(net.minecraft.util.debug.DebugSubscription<T>, net.fabricmc.fabric.api.client.debug.v1.renderer.DebugRendererFactory, boolean)
+public <init>()
+public static void register(net.minecraft.util.debug.DebugSubscription, net.fabricmc.fabric.api.client.debug.v1.renderer.DebugRendererFactory)
+public static void register(net.minecraft.util.debug.DebugSubscription, net.fabricmc.fabric.api.client.debug.v1.renderer.DebugRendererFactory, boolean)
 ```

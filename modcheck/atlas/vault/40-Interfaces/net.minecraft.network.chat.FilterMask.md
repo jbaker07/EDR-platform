@@ -11,38 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.chat|net.minecraft.network.chat]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `applyWithFormatting(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;` | `` | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `applyWithFormatting` | `(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;` | exact | invokevirtual@8 in `ChatListenerMixin.fabric_onFilteredSignedChatMessage` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (8 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.chat.FilterMask {
-    public static final com.mojang.serialization.Codec<net.minecraft.network.chat.FilterMask> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.network.chat.FilterMask> STREAM_CODEC;
-    public static final net.minecraft.network.chat.FilterMask FULLY_FILTERED;
-    public static final net.minecraft.network.chat.FilterMask PASS_THROUGH;
-    public static final net.minecraft.network.chat.Style FILTERED_STYLE;
-    private static final char HASH;
-    private final java.util.BitSet mask;
-    private final net.minecraft.network.chat.FilterMask$Type type;
-    private net.minecraft.network.chat.FilterMask(java.util.BitSet, net.minecraft.network.chat.FilterMask$Type);
-    private net.minecraft.network.chat.FilterMask(java.util.BitSet);
-    public net.minecraft.network.chat.FilterMask(int);
-    private net.minecraft.network.chat.FilterMask$Type type();
-    private java.util.BitSet mask();
-    public void setFiltered(int);
-    public java.lang.String apply(java.lang.String);
-    public net.minecraft.network.chat.Component applyWithFormatting(java.lang.String);
-    public boolean isEmpty();
-    public boolean isFullyFiltered();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final FULLY_FILTERED : Lnet/minecraft/network/chat/FilterMask;
+public static final PASS_THROUGH : Lnet/minecraft/network/chat/FilterMask;
+public static final FILTERED_STYLE : Lnet/minecraft/network/chat/Style;
+private static final HASH : C
+private final mask : Ljava/util/BitSet;
+private final type : Lnet/minecraft/network/chat/FilterMask$Type;
+private <init>(Ljava/util/BitSet;Lnet/minecraft/network/chat/FilterMask$Type;)V
+private <init>(Ljava/util/BitSet;)V
+public <init>(I)V
+private type()Lnet/minecraft/network/chat/FilterMask$Type;
+private mask()Ljava/util/BitSet;
+public setFiltered(I)V
+public apply(Ljava/lang/String;)Ljava/lang/String;
+public applyWithFormatting(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;
+public isEmpty()Z
+public isFullyFiltered()Z
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+static <clinit>()V
 ```

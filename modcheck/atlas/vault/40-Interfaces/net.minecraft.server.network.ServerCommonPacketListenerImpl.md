@@ -11,62 +11,64 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.network|net.minecraft.server.network]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/network/protocol/common/ServerCommonPacketListener`, `net/fabricmc/fabric/api/networking/v1/context/PacketContextProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/networ` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/networ` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/networ` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `handleCustomPayload` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| injects_into | `handlePong` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/network/Connecti` | exact | invokespecial@4 in `ServerConfigurationPacketListenerImplMixin.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/network/Connecti` | exact | invokespecial@4 in `ServerGamePacketListenerImplMixin.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/network/Connecti` | exact | invokespecial@4 in `ServerConfigurationPacketListenerImplMixin.<init>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `handleCustomPayload` | `(Lnet/minecraft/network/protocol/common/ServerboundCustomPayloadPacket` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| injects_into | `handlePong` | `(Lnet/minecraft/network/protocol/common/ServerboundPongPacket;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/network/Connection;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
+| reads | `server` | `Lnet/minecraft/server/MinecraftServer;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
 
-## Declared members (41, all visibilities)
+## Declared members (15 fields, 26 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.server.network.ServerCommonPacketListenerImpl implements net.minecraft.network.protocol.common.ServerCommonPacketListener {
-    private static final org.slf4j.Logger LOGGER;
-    public static final int LATENCY_CHECK_INTERVAL;
-    private static final int CLOSED_LISTENER_TIMEOUT;
-    private static final net.minecraft.network.chat.Component TIMEOUT_DISCONNECTION_MESSAGE;
-    static final net.minecraft.network.chat.Component DISCONNECT_UNEXPECTED_QUERY;
-    protected final net.minecraft.server.MinecraftServer server;
-    protected final net.minecraft.network.Connection connection;
-    private final boolean transferred;
-    private long keepAliveTime;
-    private boolean keepAlivePending;
-    private long keepAliveChallenge;
-    private long closedListenerTime;
-    private boolean closed;
-    private int latency;
-    private volatile boolean suspendFlushingOnServerThread;
-    public net.minecraft.server.network.ServerCommonPacketListenerImpl(net.minecraft.server.MinecraftServer, net.minecraft.network.Connection, net.minecraft.server.network.CommonListenerCookie);
-    private void close();
-    public void onDisconnect(net.minecraft.network.DisconnectionDetails);
-    public void onPacketError(net.minecraft.network.protocol.Packet, java.lang.Exception) throws net.minecraft.ReportedException;
-    public void handleKeepAlive(net.minecraft.network.protocol.common.ServerboundKeepAlivePacket);
-    public void handlePong(net.minecraft.network.protocol.common.ServerboundPongPacket);
-    public void handleCustomPayload(net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket);
-    public void handleCustomClickAction(net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket);
-    public void handleResourcePackResponse(net.minecraft.network.protocol.common.ServerboundResourcePackPacket);
-    public void handleCookieResponse(net.minecraft.network.protocol.cookie.ServerboundCookieResponsePacket);
-    protected void keepConnectionAlive();
-    private boolean checkIfClosed(long);
-    public void suspendFlushing();
-    public void resumeFlushing();
-    public void send(net.minecraft.network.protocol.Packet<?>);
-    public void send(net.minecraft.network.protocol.Packet<?>, io.netty.channel.ChannelFutureListener);
-    public void disconnect(net.minecraft.network.chat.Component);
-    public void disconnect(net.minecraft.network.DisconnectionDetails);
-    protected boolean isSingleplayerOwner();
-    protected abstract com.mojang.authlib.GameProfile playerProfile();
-    public com.mojang.authlib.GameProfile getOwner();
-    public int latency();
-    protected net.minecraft.server.network.CommonListenerCookie createCookie(net.minecraft.server.level.ClientInformation);
-    private void lambda$disconnect$0(net.minecraft.network.DisconnectionDetails);
-    private static java.lang.String lambda$send$0(net.minecraft.network.protocol.Packet) throws java.lang.Exception;
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final LATENCY_CHECK_INTERVAL : I
+private static final CLOSED_LISTENER_TIMEOUT : I
+private static final TIMEOUT_DISCONNECTION_MESSAGE : Lnet/minecraft/network/chat/Component;
+static final DISCONNECT_UNEXPECTED_QUERY : Lnet/minecraft/network/chat/Component;
+protected final server : Lnet/minecraft/server/MinecraftServer;
+protected final connection : Lnet/minecraft/network/Connection;
+private final transferred : Z
+private keepAliveTime : J
+private keepAlivePending : Z
+private keepAliveChallenge : J
+private closedListenerTime : J
+private closed : Z
+private latency : I
+private suspendFlushingOnServerThread : Z
+public <init>(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/network/Connection;Lnet/minecraft/server/network/CommonListenerCookie;)V
+private close()V
+public onDisconnect(Lnet/minecraft/network/DisconnectionDetails;)V
+public onPacketError(Lnet/minecraft/network/protocol/Packet;Ljava/lang/Exception;)V
+public handleKeepAlive(Lnet/minecraft/network/protocol/common/ServerboundKeepAlivePacket;)V
+public handlePong(Lnet/minecraft/network/protocol/common/ServerboundPongPacket;)V
+public handleCustomPayload(Lnet/minecraft/network/protocol/common/ServerboundCustomPayloadPacket;)V
+public handleCustomClickAction(Lnet/minecraft/network/protocol/common/ServerboundCustomClickActionPacket;)V
+public handleResourcePackResponse(Lnet/minecraft/network/protocol/common/ServerboundResourcePackPacket;)V
+public handleCookieResponse(Lnet/minecraft/network/protocol/cookie/ServerboundCookieResponsePacket;)V
+protected keepConnectionAlive()V
+private checkIfClosed(J)Z
+public suspendFlushing()V
+public resumeFlushing()V
+public send(Lnet/minecraft/network/protocol/Packet;)V
+public send(Lnet/minecraft/network/protocol/Packet;Lio/netty/channel/ChannelFutureListener;)V
+public disconnect(Lnet/minecraft/network/chat/Component;)V
+public disconnect(Lnet/minecraft/network/DisconnectionDetails;)V
+protected isSingleplayerOwner()Z
+protected abstract playerProfile()Lcom/mojang/authlib/GameProfile;
+public getOwner()Lcom/mojang/authlib/GameProfile;
+public latency()I
+protected createCookie(Lnet/minecraft/server/level/ClientInformation;)Lnet/minecraft/server/network/CommonListenerCookie;
+private synthetic lambda$disconnect$0(Lnet/minecraft/network/DisconnectionDetails;)V
+private static synthetic lambda$send$0(Lnet/minecraft/network/protocol/Packet;)Ljava/lang/String;
+static <clinit>()V
 ```

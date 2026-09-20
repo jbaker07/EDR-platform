@@ -6,61 +6,75 @@ source: "authored/mechanisms/mixin.md"
 > [!warning] Analyst-authored
 > Interpretation, not extraction. Claims cite evidence ids; anything uncited is opinion. Reviewed corrections go into the store records or the extractors, never into a generated note.
 
-# Mixin: composition, ordering, and what the corpus actually shows
+# Mixin: composition and ordering, as extracted and as executed
 
-Mixin (`sponge-mixin 0.17.4+mixin.0.8.7`, in `extracted:corpus.json`) is the one
-mechanism by which Fabric API itself, and any mod, changes vanilla bytecode. The
-generated `mechanism:Mixin` note carries the counts; this note is the analyst's
-reading of what those counts mean for composition.
+Mixin (`sponge-mixin 0.17.4+mixin.0.8.7`, with MixinExtras 0.5.5 bundled by the
+loader; both hashed in ``extracted/corpus.json``) is the one mechanism by which
+Fabric API itself, and any mod, changes vanilla bytecode. This note separates
+three kinds of evidence and names each.
 
-## What was read from the jars (direct_reference)
+## Read from the jars (direct_reference)
 
-- `@Mixin.priority()` has annotation default **1000**, `@Mixin.remap()` defaults
-  to true, `@Mixin.targets()` defaults to empty. Read with
-  `javap -v org.spongepowered.asm.mixin.Mixin` against the sponge-mixin artifact
-  in the corpus.
-- `@Inject` declares `cancellable()`, `require()`, `expect()` and `order()`
-  members (same method, `org.spongepowered.asm.mixin.injection.Inject`).
-- Across all 47 Fabric API modules the injector kinds actually used are
-  `@Inject` 407, `@Redirect` 58, `@ModifyArg` 32, `@ModifyVariable` 13, and
-  **zero `@Overwrite`** (`extracted:fabric_api.json`; edges in
-  `extracted:edges.json#injects_into` and `extracted:edges.json#wraps`).
-- Every mixin config declares its `package`, `mixins`, `client` and `server`
-  lists; the environment of each edge in the atlas comes from those lists or from
-  an `@Environment` annotation on the mixin class (`extracted:fabric_api.json`).
+- Annotation defaults, from the `AnnotationDefault` attributes of the pinned jar:
+  `@Mixin.priority` 1000, `remap` true, `value`/`targets` empty; `@Inject.require` -1
+  (meaning "use the config's default"), `expect` 1, `cancellable` false
+  (``extracted/fabric_api.json``, `mixin_runtime.annotation_defaults`).
+- Across the 47 modules, 512 mixin classes are declared in configs and 512 are
+  found by annotation. Injector kinds actually used: `@Inject` 407, `@WrapOperation`
+  113, `@Redirect` 58, `@ModifyExpressionValue` 44, `@ModifyArg` 32,
+  `@ModifyReturnValue` 20, `@WrapMethod` 15, `@ModifyVariable` 13,
+  `@WrapWithCondition` 6, `@ModifyReceiver` 1, and **one `@Overwrite`**
+  (`fabric-renderer-api-v1`, `BlockStateModelWrapperMixin.update`, client). The
+  earlier note said zero overwrites and no MixinExtras use; that came from a
+  javap-text parser that could not see argument-less marker annotations or the
+  `com.llamalad7` namespace. It was wrong on both counts and has been regenerated
+  from the class files (``extracted/edges.json#replaces``, ``extracted/edges.json#wraps``).
+- Every injection target and every `@At` point is resolved against the processed
+  compile jar: 126 exact by descriptor, 604 by unique name, 6 ambiguous among
+  overloads, 5 wildcard/regex/quantified selectors; points 332 exact, 49 inherited,
+  4 expression-based ([[80-Unresolved/q.selector_ambiguity|q.selector_ambiguity]]).
+- `InjectionPoint.checkPriority` returns true iff the target's priority is lower
+  than the mixin's; `MethodHead`, `BeforeReturn` and `BeforeFinalReturn` override
+  it to always true; `BeforeInvoke` and the other points do not
+  (``extracted/mixin_transformation_tests.json``, `static_checks`).
+- The applicator's pass order is MAIN, INJECT_PREPARE, ..., INJECT_APPLY: every
+  mixin's methods (including overwrites) are merged before any mixin's injections
+  are applied (`static_checks.ApplicatorPass.order`).
 
-## What follows from that (analyst inference)
+## Executed on controlled classes (executed_transformation)
 
-1. **Additive injections coexist; redirects contend.** An `@Inject` adds a call
-   at a location and, unless `cancellable` and cancelled, leaves the original flow
-   intact, so many mods injecting into one method is the normal case. A
-   `@Redirect` replaces one call site; two redirects of the same call site cannot
-   both apply. The generated `50-Interactions/contested_methods` list is where a
-   mod's own redirect or overwrite would collide with Fabric API.
-2. **`@Overwrite` is avoided by Fabric API itself.** Zero overwrites in 47
-   modules is a design signal: Fabric API composes with other mods by never
-   replacing a vanilla method body. A mod that overwrites a method Fabric API
-   injects into removes Fabric's injection, and with it every event fired from it.
-3. **Priority is a tie-break, not an ordering guarantee.** The default 1000 is
-   read from the jar. How the runtime orders mixins of equal priority across mods
-   is documented upstream but **not in the corpus**
-   (question:q.mixin_docs_application_order) and not observed
-   (question:q.runtime_mixin_application). Nothing in this atlas states the
-   application order of two mods' mixins.
-4. **Cancellation is a contract on the injection, not on the event.** A
-   cancellable `@Inject` lets the handler skip the rest of the vanilla method.
-   Whether a Fabric *event* lets a subscriber cancel is a property of the
-   callback's return type (`declared`), recorded per event in `50-Interactions/events`.
+The pinned transformer was run in a plain JVM over independently compiled target
+classes and two mixin configurations standing in for two mods
+(`atlas/harness/mixin_transform`, results in ``extracted/mixin_transformation_tests.json``).
+This is transformer evidence, not Minecraft evidence: no game class and no loader
+classloader were involved.
 
-## What the extraction does not resolve
+| pair | result | scenario |
+|---|---|---|
+| `@Overwrite` + another mod's HEAD/TAIL `@Inject`, any priority | both apply; the injections run around the overwritten body | [[30-Mechanisms/Transformation_Tests#A|scenario A]], [[30-Mechanisms/Transformation_Tests#L|scenario L]], [[30-Mechanisms/Transformation_Tests#N|scenario N]] |
+| `@Overwrite` + another mod's INVOKE-point `@Inject` or `@Redirect`, equal or lower priority | refused: "cannot inject into ... merged by ... with priority"; with a required config, a transformation failure | [[30-Mechanisms/Transformation_Tests#B|scenario B]], [[30-Mechanisms/Transformation_Tests#B2|scenario B2]], [[30-Mechanisms/Transformation_Tests#J|scenario J]] |
+| same, injecting mixin at higher priority, call still present | applies and fires | [[30-Mechanisms/Transformation_Tests#K|scenario K]] |
+| same, higher priority, call removed by the overwrite | fails the injection count check (require=1) | [[30-Mechanisms/Transformation_Tests#M|scenario M]] |
+| two `@Redirect`s of one call site | the second finds no target: failure with require=1 | [[30-Mechanisms/Transformation_Tests#C|scenario C]] |
+| `@Redirect` + `@WrapOperation` on one call site | compose; the wrapper runs around the redirect handler | [[30-Mechanisms/Transformation_Tests#D|scenario D]] |
+| two `@Overwrite`s at equal priority | no error; the first configuration's body runs | [[30-Mechanisms/Transformation_Tests#F|scenario F]] |
+| equal-priority HEAD injections from two configs | configuration order | [[30-Mechanisms/Transformation_Tests#E|scenario E]] |
+| priorities 900 and 1100 at HEAD | the lower priority's injection runs first | [[30-Mechanisms/Transformation_Tests#G|scenario G]] |
+| cancelling HEAD + another mod's TAIL/RETURN | the cancel suppresses them | [[30-Mechanisms/Transformation_Tests#H|scenario H]] |
 
-- `@At` injection points are recorded as strings (`INVOKE`, `TAIL`, `HEAD`,
-  `RETURN`, `NEW`, with their `target` descriptors) and are not resolved to
-  bytecode offsets, slices or ordinals (question:q.injection_points_not_resolved).
-- Whether an injection's target method exists in 26.3 is cross-checked by
-  `extracted:minecraft_members.json` for the hooked types; the edge targets that remain
-  unresolved are listed there with the reasons (question:q.edge_targets_unresolved).
-- ModCheck's own jar inspector lists a mod's mixin classes but does not read their
-  targets, so the collision analysis this note describes is **not implemented**
-  for arbitrary mod jars (question:q.inspector_mixin_targets,
-  question:q.mixin_collision_analyser).
+The previous version of this note asserted, without evidence, that "a mod's
+`@Overwrite` of any injected method removes Fabric's injection and the events it
+fires". That is false as a universal statement: HEAD/TAIL/RETURN injections
+survive; INVOKE-point ones fail loudly rather than vanish; and the outcome
+depends on priority. The claim is withdrawn and replaced by the table.
+
+## What follows for a compatibility check (analyst inference)
+
+1. A shared target is a **potential** interaction, nothing more
+   (`50-Interactions/shared_targets`: 34 methods, all exactly resolved).
+2. A conflict verdict needs, in order: exact resolution of both selectors and
+   points; applicability (both mixins active in the same environment); and the
+   composition rule for the pair of injector effects and priorities from the
+   table above. Same-method overlap without same-point resolution is not a verdict
+   ([[80-Unresolved/q.injection_points_not_resolved|q.injection_points_not_resolved]]).
+3. Nothing here is `observed` in a game ([[80-Unresolved/q.runtime_mixin_application|q.runtime_mixin_application]]).

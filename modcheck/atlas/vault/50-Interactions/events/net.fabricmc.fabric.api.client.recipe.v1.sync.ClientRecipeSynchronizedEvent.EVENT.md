@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `RecipeSyncImplClient.onRecipeSyncPacket` | (impl code, not a mixin) | unknown | static_inference |
+| `RecipeSyncImplClient.onRecipeSyncPacket` @127 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

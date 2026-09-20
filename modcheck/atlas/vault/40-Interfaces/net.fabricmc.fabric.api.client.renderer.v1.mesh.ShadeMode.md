@@ -10,12 +10,11 @@ sha256: "2e4aaeb20f8615e8176f30bc82616cee25f8727323bfef7a70d5a6555ae8e9ee"
 
 # net.fabricmc.fabric.api.client.renderer.v1.mesh.ShadeMode
 
-Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind: class
+Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.client.renderer.v1.mesh.ShadeMode ENHANCED
 public static final net.fabricmc.fabric.api.client.renderer.v1.mesh.ShadeMode VANILLA
 public static net.fabricmc.fabric.api.client.renderer.v1.mesh.ShadeMode[] values()
 public static net.fabricmc.fabric.api.client.renderer.v1.mesh.ShadeMode valueOf(java.lang.String)
-static {}
 ```

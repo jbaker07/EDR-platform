@@ -11,49 +11,49 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `setBlockState(IIILnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft/world/level/block/state/BlockState;` | `@Redirect at INVOKE Lnet/minecraft/world/level/block/state/BlockState;isAir()Z` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `setBlockState` | `(IIILnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft` | exact | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
 
-## Declared members (32, all visibilities)
+## Declared members (7 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.chunk.LevelChunkSection {
-    public static final int BIOME_CONTAINER_BITS;
-    private short nonEmptyBlockCount;
-    private short fluidCount;
-    private short tickingBlockCount;
-    private short tickingFluidCount;
-    private final net.minecraft.world.level.chunk.PalettedContainer<net.minecraft.world.level.block.state.BlockState> states;
-    private net.minecraft.world.level.chunk.PalettedContainerRO<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> biomes;
-    private net.minecraft.world.level.chunk.LevelChunkSection(net.minecraft.world.level.chunk.LevelChunkSection);
-    public net.minecraft.world.level.chunk.LevelChunkSection(net.minecraft.world.level.chunk.PalettedContainer<net.minecraft.world.level.block.state.BlockState>, net.minecraft.world.level.chunk.PalettedContainerRO<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>>);
-    public net.minecraft.world.level.chunk.LevelChunkSection(net.minecraft.world.level.chunk.PalettedContainerFactory);
-    public net.minecraft.world.level.block.state.BlockState getBlockState(int, int, int);
-    public net.minecraft.world.level.material.FluidState getFluidState(int, int, int);
-    public void acquire();
-    public void release();
-    public net.minecraft.world.level.block.state.BlockState setBlockState(int, int, int, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.level.block.state.BlockState setBlockState(int, int, int, net.minecraft.world.level.block.state.BlockState, boolean);
-    public boolean hasOnlyAir();
-    public boolean hasFluid();
-    public boolean isRandomlyTicking();
-    public boolean isRandomlyTickingBlocks();
-    public boolean isRandomlyTickingFluids();
-    public void recalcBlockCounts();
-    public net.minecraft.world.level.chunk.PalettedContainer<net.minecraft.world.level.block.state.BlockState> getStates();
-    public net.minecraft.world.level.chunk.PalettedContainerRO<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> getBiomes();
-    public void read(net.minecraft.network.FriendlyByteBuf);
-    public void readBiomes(net.minecraft.network.FriendlyByteBuf);
-    public void write(net.minecraft.network.FriendlyByteBuf);
-    public int getSerializedSize();
-    public boolean maybeHas(java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState>);
-    public net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> getNoiseBiome(int, int, int);
-    public void fillBiomesFromNoise(net.minecraft.world.level.biome.BiomeResolver, int, int, int);
-    public net.minecraft.world.level.chunk.LevelChunkSection copy();
-}
+```
+public static final BIOME_CONTAINER_BITS : I
+private nonEmptyBlockCount : S
+private fluidCount : S
+private tickingBlockCount : S
+private tickingFluidCount : S
+private final states : Lnet/minecraft/world/level/chunk/PalettedContainer;
+private biomes : Lnet/minecraft/world/level/chunk/PalettedContainerRO;
+private <init>(Lnet/minecraft/world/level/chunk/LevelChunkSection;)V
+public <init>(Lnet/minecraft/world/level/chunk/PalettedContainer;Lnet/minecraft/world/level/chunk/PalettedContainerRO;)V
+public <init>(Lnet/minecraft/world/level/chunk/PalettedContainerFactory;)V
+public getBlockState(III)Lnet/minecraft/world/level/block/state/BlockState;
+public getFluidState(III)Lnet/minecraft/world/level/material/FluidState;
+public acquire()V
+public release()V
+public setBlockState(IIILnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;
+public setBlockState(IIILnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft/world/level/block/state/BlockState;
+public hasOnlyAir()Z
+public hasFluid()Z
+public isRandomlyTicking()Z
+public isRandomlyTickingBlocks()Z
+public isRandomlyTickingFluids()Z
+public recalcBlockCounts()V
+public getStates()Lnet/minecraft/world/level/chunk/PalettedContainer;
+public getBiomes()Lnet/minecraft/world/level/chunk/PalettedContainerRO;
+public read(Lnet/minecraft/network/FriendlyByteBuf;)V
+public readBiomes(Lnet/minecraft/network/FriendlyByteBuf;)V
+public write(Lnet/minecraft/network/FriendlyByteBuf;)V
+public getSerializedSize()I
+public maybeHas(Ljava/util/function/Predicate;)Z
+public getNoiseBiome(III)Lnet/minecraft/core/Holder;
+public fillBiomesFromNoise(Lnet/minecraft/world/level/biome/BiomeResolver;III)V
+public copy()Lnet/minecraft/world/level/chunk/LevelChunkSection;
 ```

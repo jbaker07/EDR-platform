@@ -13,7 +13,6 @@ fabric-loader 0.19.5 -- kind: interface
 
 ```java
 public static final net.fabricmc.loader.api.metadata.ContactInformation EMPTY
-public abstract java.util.Optional<java.lang.String> get(java.lang.String)
-public abstract java.util.Map<java.lang.String, java.lang.String> asMap()
-static {}
+public abstract java.util.Optional get(java.lang.String)
+public abstract java.util.Map asMap()
 ```

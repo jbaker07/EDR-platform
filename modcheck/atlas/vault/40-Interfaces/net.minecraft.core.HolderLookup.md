@@ -11,21 +11,21 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/core/HolderGetter`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `listElements()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `listElements` | `()Ljava/util/stream/Stream;` | exact | invokeinterface@33 in `LootUtil.getEntryOrDirect` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
 
-## Declared members (4, all visibilities)
+## Declared members (0 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.core.HolderLookup<T> extends net.minecraft.core.HolderGetter<T> {
-    public abstract java.util.stream.Stream<net.minecraft.core.Holder$Reference<T>> listElements();
-    public default java.util.stream.Stream<net.minecraft.resources.ResourceKey<T>> listElementIds();
-    public abstract java.util.stream.Stream<net.minecraft.core.HolderSet$Named<T>> listTags();
-    public default java.util.stream.Stream<net.minecraft.tags.TagKey<T>> listTagIds();
-}
+```
+public abstract listElements()Ljava/util/stream/Stream;
+public listElementIds()Ljava/util/stream/Stream;
+public abstract listTags()Ljava/util/stream/Stream;
+public listTagIds()Ljava/util/stream/Stream;
 ```

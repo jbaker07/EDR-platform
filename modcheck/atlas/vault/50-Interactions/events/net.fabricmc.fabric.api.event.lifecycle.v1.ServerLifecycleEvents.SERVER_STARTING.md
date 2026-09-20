@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftServerMixin.beforeSetupServer` | `MinecraftServer.runServer` @Inject at INVOKE Lnet/minecraft/server/MinecraftServer;initServer()Z | both | static_inference |
+| `MinecraftServerMixin.beforeSetupServer` @13 | [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]].`runServer` @Inject INVOKE `Lnet/minecraft/server/MinecraftServer;initServer()Z` | unknown | static_inference |
 
 ## Contract
 

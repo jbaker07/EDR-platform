@@ -13,5 +13,5 @@ sha256: "0bf0c29bd7f1803eac7c5d4aec1af51bb25790ba41583108a2320740043cd0c2"
 Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: class
 
 ```java
-net.fabricmc.fabric.api.particle.v1.FabricParticleTypes$1(boolean)
+
 ```

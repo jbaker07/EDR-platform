@@ -11,35 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/network/protocol/Packet`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/network/protocol/common/custom/CustomPacketP` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `payload()Lnet/minecraft/network/protocol/common/custom/CustomPacket` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `payload()Lnet/minecraft/network/protocol/common/custom/CustomPacket` | `` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;)V` | exact | invokespecial@36 in `ServerNetworkingImpl.createClientboundPacket` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `payload` | `()Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;` | exact | invokevirtual@41 in `IdDispatchCodecMixin.encode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `payload` | `()Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;` | exact | invokevirtual@1 in `ClientCommonPacketListenerImplMixin.onCustomPayload` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `payload` | `Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
+| wraps | `<clinit>` | `()V` | exact | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| wraps | `<clinit>` | `()V` | exact | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (4 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ClientCommonPacketListener> {
-    private final net.minecraft.network.protocol.common.custom.CustomPacketPayload payload;
-    private static final int MAX_PAYLOAD_SIZE;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket> GAMEPLAY_STREAM_CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.FriendlyByteBuf, net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket> CONFIG_STREAM_CODEC;
-    public net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket(net.minecraft.network.protocol.common.custom.CustomPacketPayload);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket> type();
-    public void handle(net.minecraft.network.protocol.common.ClientCommonPacketListener);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.network.protocol.common.custom.CustomPacketPayload payload();
-    public void handle(net.minecraft.network.PacketListener);
-    private static net.minecraft.network.codec.StreamCodec lambda$static$2(net.minecraft.resources.Identifier);
-    private static void lambda$static$1(java.util.ArrayList);
-    private static net.minecraft.network.codec.StreamCodec lambda$static$0(net.minecraft.resources.Identifier);
-    static {};
-}
+```
+private final payload : Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;
+private static final MAX_PAYLOAD_SIZE : I
+public static final GAMEPLAY_STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final CONFIG_STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/common/ClientCommonPacketListener;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public payload()Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+private static synthetic lambda$static$2(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$static$1(Ljava/util/ArrayList;)V
+private static synthetic lambda$static$0(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/network/codec/StreamCodec;
+static <clinit>()V
 ```

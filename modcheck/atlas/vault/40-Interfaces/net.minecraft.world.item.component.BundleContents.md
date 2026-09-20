@@ -11,55 +11,62 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`class` public final; extends `java/lang/Object`; implements `net/minecraft/world/item/component/ContainerComponent`, `net/minecraft/world/inventory/tooltip/TooltipComponent`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `asMutable()Lnet/minecraft/world/item/component/BundleContents$Mutable` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `canItemBeInBundle(Lnet/minecraft/world/item/ItemStack;)Z` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `size()I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/List;)V` | exact | invokespecial@168 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `asMutable` | `()Lnet/minecraft/world/item/component/BundleContents$Mutable;` | exact | invokevirtual@50 in `BundleContentsStorage.insert` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `canItemBeInBundle` | `(Lnet/minecraft/world/item/ItemStack;)Z` | exact | invokestatic@38 in `BundleContentsStorage.insert` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `items` | `()Ljava/util/List;` | exact | invokevirtual@28 in `BundleContentsStorage$BundleSlotWrapper.getStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `items` | `()Ljava/util/List;` | exact | invokevirtual@61 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `size` | `()I` | exact | invokevirtual@7 in `BundleContentsStorage$BundleSlotWrapper.getStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `size` | `()I` | exact | invokevirtual@23 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `size` | `()I` | exact | invokevirtual@4 in `BundleContentsStorage.updateSlotsIfNeeded` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `weight` | `()Lcom/mojang/serialization/DataResult;` | exact | invokevirtual@10 in `BundleContentsStorage$BundleSlotWrapper.getCapacity` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `EMPTY` | `Lnet/minecraft/world/item/component/BundleContents;` | exact | getstatic@17 in `BundleContentsStorage.bundleContents` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (36, all visibilities)
+## Declared members (10 fields, 26 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.component.BundleContents implements net.minecraft.world.item.component.ContainerComponent<net.minecraft.world.item.component.BundleContents>, net.minecraft.world.inventory.tooltip.TooltipComponent {
-    public static final net.minecraft.world.item.component.BundleContents EMPTY;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.item.component.BundleContents> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.component.BundleContents> STREAM_CODEC;
-    private static final org.apache.commons.lang3.math.Fraction BUNDLE_IN_BUNDLE_WEIGHT;
-    private static final int NO_STACK_INDEX;
-    public static final int NO_SELECTED_ITEM_INDEX;
-    public static final com.mojang.serialization.DataResult<org.apache.commons.lang3.math.Fraction> BEEHIVE_WEIGHT;
-    private final java.util.List<net.minecraft.world.item.ItemStackTemplate> items;
-    private final int selectedItem;
-    private final java.util.function.Supplier<com.mojang.serialization.DataResult<org.apache.commons.lang3.math.Fraction>> weight;
-    private net.minecraft.world.item.component.BundleContents(java.util.List<net.minecraft.world.item.ItemStackTemplate>, int);
-    public net.minecraft.world.item.component.BundleContents(java.util.List<net.minecraft.world.item.ItemStackTemplate>);
-    private static com.mojang.serialization.DataResult<org.apache.commons.lang3.math.Fraction> computeContentWeight(java.util.List<? extends net.minecraft.world.item.ItemInstance>);
-    private static com.mojang.serialization.DataResult<org.apache.commons.lang3.math.Fraction> getWeight(net.minecraft.world.item.ItemInstance);
-    public static boolean canItemBeInBundle(net.minecraft.world.item.ItemStack);
-    public int getNumberOfItemsToShow();
-    public java.util.stream.Stream<net.minecraft.world.item.ItemStack> itemCopies();
-    public java.util.List<net.minecraft.world.item.ItemStackTemplate> items();
-    public int size();
-    public com.mojang.serialization.DataResult<org.apache.commons.lang3.math.Fraction> weight();
-    public boolean isEmpty();
-    public int getSelectedItemIndex();
-    public net.minecraft.world.item.ItemStackTemplate getSelectedItem();
-    public net.minecraft.world.item.component.BundleContents copyWithContents(java.util.stream.Stream<net.minecraft.world.item.ItemStack>);
-    public net.minecraft.world.item.component.BundleContents$Mutable asMutable();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public java.lang.String toString();
-    public net.minecraft.world.item.component.ContainerComponent$Mutable asMutable();
-    public net.minecraft.world.item.component.ContainerComponent copyWithContents(java.util.stream.Stream);
-    private static org.apache.commons.lang3.math.Fraction lambda$getWeight$0(org.apache.commons.lang3.math.Fraction);
-    private static java.lang.String lambda$computeContentWeight$0();
-    private com.mojang.serialization.DataResult lambda$new$0();
-    private static java.util.List lambda$static$1(net.minecraft.world.item.component.BundleContents);
-    private static java.util.List lambda$static$0(net.minecraft.world.item.component.BundleContents);
-    static {};
-}
+```
+public static final EMPTY : Lnet/minecraft/world/item/component/BundleContents;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private static final BUNDLE_IN_BUNDLE_WEIGHT : Lorg/apache/commons/lang3/math/Fraction;
+private static final NO_STACK_INDEX : I
+public static final NO_SELECTED_ITEM_INDEX : I
+public static final BEEHIVE_WEIGHT : Lcom/mojang/serialization/DataResult;
+private final items : Ljava/util/List;
+private final selectedItem : I
+private final weight : Ljava/util/function/Supplier;
+private <init>(Ljava/util/List;I)V
+public <init>(Ljava/util/List;)V
+private static computeContentWeight(Ljava/util/List;)Lcom/mojang/serialization/DataResult;
+private static getWeight(Lnet/minecraft/world/item/ItemInstance;)Lcom/mojang/serialization/DataResult;
+public static canItemBeInBundle(Lnet/minecraft/world/item/ItemStack;)Z
+public getNumberOfItemsToShow()I
+public itemCopies()Ljava/util/stream/Stream;
+public items()Ljava/util/List;
+public size()I
+public weight()Lcom/mojang/serialization/DataResult;
+public isEmpty()Z
+public getSelectedItemIndex()I
+public getSelectedItem()Lnet/minecraft/world/item/ItemStackTemplate;
+public copyWithContents(Ljava/util/stream/Stream;)Lnet/minecraft/world/item/component/BundleContents;
+public asMutable()Lnet/minecraft/world/item/component/BundleContents$Mutable;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public toString()Ljava/lang/String;
+public synthetic asMutable()Lnet/minecraft/world/item/component/ContainerComponent$Mutable;
+public synthetic copyWithContents(Ljava/util/stream/Stream;)Lnet/minecraft/world/item/component/ContainerComponent;
+private static synthetic lambda$getWeight$0(Lorg/apache/commons/lang3/math/Fraction;)Lorg/apache/commons/lang3/math/Fraction;
+private static synthetic lambda$computeContentWeight$0()Ljava/lang/String;
+private synthetic lambda$new$0()Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$1(Lnet/minecraft/world/item/component/BundleContents;)Ljava/util/List;
+private static synthetic lambda$static$0(Lnet/minecraft/world/item/component/BundleContents;)Ljava/util/List;
+static <clinit>()V
 ```

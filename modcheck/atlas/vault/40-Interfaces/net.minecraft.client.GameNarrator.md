@@ -11,37 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client|net.minecraft.client]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `saySystemChatQueued(Lnet/minecraft/network/chat/Component;)V` | `` | client | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `saySystemChatQueued` | `(Lnet/minecraft/network/chat/Component;)V` | exact | invokevirtual@25 in `ClientSuggestionProviderMixin.sendFeedback` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
 
-## Declared members (20, all visibilities)
+## Declared members (4 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.GameNarrator {
-    public static final net.minecraft.network.chat.Component NO_TITLE;
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.client.Minecraft minecraft;
-    private final com.mojang.text2speech.Narrator narrator;
-    public net.minecraft.client.GameNarrator(net.minecraft.client.Minecraft);
-    public void sayChatQueued(net.minecraft.network.chat.Component);
-    public void saySystemChatQueued(net.minecraft.network.chat.Component);
-    public void saySystemQueued(net.minecraft.network.chat.Component);
-    private void narrateNotInterruptingMessage(net.minecraft.network.chat.Component);
-    public void saySystemNow(net.minecraft.network.chat.Component);
-    public void saySystemNow(java.lang.String);
-    private void narrateMessage(java.lang.String, boolean);
-    private net.minecraft.client.NarratorStatus getStatus();
-    private void logNarratedMessage(java.lang.String);
-    public void updateNarratorStatus(net.minecraft.client.NarratorStatus);
-    public boolean isActive();
-    public void clear();
-    public void destroy();
-    public void checkStatus(boolean);
-    static {};
-}
+```
+public static final NO_TITLE : Lnet/minecraft/network/chat/Component;
+private static final LOGGER : Lorg/slf4j/Logger;
+private final minecraft : Lnet/minecraft/client/Minecraft;
+private final narrator : Lcom/mojang/text2speech/Narrator;
+public <init>(Lnet/minecraft/client/Minecraft;)V
+public sayChatQueued(Lnet/minecraft/network/chat/Component;)V
+public saySystemChatQueued(Lnet/minecraft/network/chat/Component;)V
+public saySystemQueued(Lnet/minecraft/network/chat/Component;)V
+private narrateNotInterruptingMessage(Lnet/minecraft/network/chat/Component;)V
+public saySystemNow(Lnet/minecraft/network/chat/Component;)V
+public saySystemNow(Ljava/lang/String;)V
+private narrateMessage(Ljava/lang/String;Z)V
+private getStatus()Lnet/minecraft/client/NarratorStatus;
+private logNarratedMessage(Ljava/lang/String;)V
+public updateNarratorStatus(Lnet/minecraft/client/NarratorStatus;)V
+public isActive()Z
+public clear()V
+public destroy()V
+public checkStatus(Z)V
+static <clinit>()V
 ```

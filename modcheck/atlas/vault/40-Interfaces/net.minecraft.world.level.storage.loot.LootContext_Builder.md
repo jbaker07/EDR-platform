@@ -11,26 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/level/storage/loot/LootParams;)V` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `create(Ljava/util/Optional;)Lnet/minecraft/world/level/storage/loo` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/level/storage/loot/LootParams;)V` | exact | invokespecial@35 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `create` | `(Ljava/util/Optional;)Lnet/minecraft/world/level/storage/loot/LootCont` | exact | invokevirtual@41 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.loot.LootContext$Builder {
-    private final net.minecraft.world.level.storage.loot.LootParams params;
-    private net.minecraft.util.RandomSource random;
-    public net.minecraft.world.level.storage.loot.LootContext$Builder(net.minecraft.world.level.storage.loot.LootParams);
-    public net.minecraft.world.level.storage.loot.LootContext$Builder withOptionalRandomSeed(long);
-    public net.minecraft.world.level.storage.loot.LootContext$Builder withOptionalRandomSource(net.minecraft.util.RandomSource);
-    public net.minecraft.server.level.ServerLevel getLevel();
-    public net.minecraft.world.level.storage.loot.LootContext create(java.util.Optional<net.minecraft.resources.Identifier>);
-    private static java.util.Optional lambda$create$0(java.util.Optional, net.minecraft.server.MinecraftServer);
-}
+```
+private final params : Lnet/minecraft/world/level/storage/loot/LootParams;
+private random : Lnet/minecraft/util/RandomSource;
+public <init>(Lnet/minecraft/world/level/storage/loot/LootParams;)V
+public withOptionalRandomSeed(J)Lnet/minecraft/world/level/storage/loot/LootContext$Builder;
+public withOptionalRandomSource(Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/storage/loot/LootContext$Builder;
+public getLevel()Lnet/minecraft/server/level/ServerLevel;
+public create(Ljava/util/Optional;)Lnet/minecraft/world/level/storage/loot/LootContext;
+private static synthetic lambda$create$0(Ljava/util/Optional;Lnet/minecraft/server/MinecraftServer;)Ljava/util/Optional;
 ```

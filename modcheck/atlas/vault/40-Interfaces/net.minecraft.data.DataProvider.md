@@ -11,39 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data|net.minecraft.data]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `saveStable(Lnet/minecraft/data/CachedOutput;Lcom/mojang/serialization/` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `saveStable(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonEleme` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| injects_into | `lambda$static$0` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| injects_into | `lambda$static$0` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/n` | exact | invokestatic@166 in `FabricAdvancementProvider.lambda$run$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/n` | exact | invokestatic@32 in `FabricCodecDataProvider.lambda$write$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/n` | exact | invokestatic@90 in `FabricDynamicRegistryProvider.writeToPath` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/n` | exact | invokestatic@103 in `FabricLanguageProvider.lambda$run$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/n` | exact | invokestatic@56 in `FabricRecipeProvider.lambda$run$2` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/n` | exact | invokestatic@56 in `FabricRecipeProvider.lambda$run$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/n` | exact | invokestatic@143 in `FabricLootTableProviderImpl.lambda$run$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lcom/mojang/serialization/Codec;Ljav` | exact | invokestatic@23 in `TagAliasGenerator.writeTagAlias` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `saveStable` | `(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/core/HolderLookup$Pro` | exact | invokestatic@47 in `FabricSoundsProvider.lambda$run$3` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `lambda$static$0` | `(Lit/unimi/dsi/fastutil/objects/Object2IntOpenHashMap;)V` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `lambda$static$0` | `(Lit/unimi/dsi/fastutil/objects/Object2IntOpenHashMap;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `FIXED_ORDER_FIELDS` | `Ljava/util/function/ToIntFunction;` | exact | getstatic@108 in `FabricDataGenHelper.runInternal` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (3 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.data.DataProvider {
-    public static final java.util.function.ToIntFunction<java.lang.String> FIXED_ORDER_FIELDS;
-    public static final java.util.Comparator<java.lang.String> KEY_COMPARATOR;
-    public static final org.slf4j.Logger LOGGER;
-    public abstract java.util.concurrent.CompletableFuture<?> run(net.minecraft.data.CachedOutput);
-    public abstract java.lang.String getName();
-    public static <T> java.util.concurrent.CompletableFuture<?> saveAll(net.minecraft.data.CachedOutput, com.mojang.serialization.Codec<T>, net.minecraft.data.PackOutput$PathProvider, java.util.Map<net.minecraft.resources.Identifier, T>);
-    public static <T, E> java.util.concurrent.CompletableFuture<?> saveAll(net.minecraft.data.CachedOutput, com.mojang.serialization.Codec<E>, java.util.function.Function<T, java.nio.file.Path>, java.util.Map<T, E>);
-    public static <T, E> java.util.concurrent.CompletableFuture<?> saveAll(net.minecraft.data.CachedOutput, java.util.function.Function<E, com.google.gson.JsonElement>, java.util.function.Function<T, java.nio.file.Path>, java.util.Map<T, E>);
-    public static <T> java.util.concurrent.CompletableFuture<?> saveStable(net.minecraft.data.CachedOutput, net.minecraft.core.HolderLookup$Provider, com.mojang.serialization.Codec<T>, T, java.nio.file.Path);
-    public static <T> java.util.concurrent.CompletableFuture<?> saveStable(net.minecraft.data.CachedOutput, com.mojang.serialization.Codec<T>, T, java.nio.file.Path);
-    private static <T> java.util.concurrent.CompletableFuture<?> saveStable(net.minecraft.data.CachedOutput, com.mojang.serialization.DynamicOps<com.google.gson.JsonElement>, com.mojang.serialization.Codec<T>, T, java.nio.file.Path);
-    public static java.util.concurrent.CompletableFuture<?> saveStable(net.minecraft.data.CachedOutput, com.google.gson.JsonElement, java.nio.file.Path);
-    private static void lambda$saveStable$0(com.google.gson.JsonElement, net.minecraft.data.CachedOutput, java.nio.file.Path);
-    private static java.util.concurrent.CompletableFuture[] lambda$saveAll$2(int);
-    private static java.util.concurrent.CompletableFuture lambda$saveAll$1(java.util.function.Function, java.util.function.Function, net.minecraft.data.CachedOutput, java.util.Map$Entry);
-    private static com.google.gson.JsonElement lambda$saveAll$0(com.mojang.serialization.Codec, java.lang.Object);
-    private static java.lang.String lambda$static$1(java.lang.String);
-    private static void lambda$static$0(it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap);
-    static {};
-}
+```
+public static final FIXED_ORDER_FIELDS : Ljava/util/function/ToIntFunction;
+public static final KEY_COMPARATOR : Ljava/util/Comparator;
+public static final LOGGER : Lorg/slf4j/Logger;
+public abstract run(Lnet/minecraft/data/CachedOutput;)Ljava/util/concurrent/CompletableFuture;
+public abstract getName()Ljava/lang/String;
+public static saveAll(Lnet/minecraft/data/CachedOutput;Lcom/mojang/serialization/Codec;Lnet/minecraft/data/PackOutput$PathProvider;Ljava/util/Map;)Ljava/util/concurrent/CompletableFuture;
+public static saveAll(Lnet/minecraft/data/CachedOutput;Lcom/mojang/serialization/Codec;Ljava/util/function/Function;Ljava/util/Map;)Ljava/util/concurrent/CompletableFuture;
+public static saveAll(Lnet/minecraft/data/CachedOutput;Ljava/util/function/Function;Ljava/util/function/Function;Ljava/util/Map;)Ljava/util/concurrent/CompletableFuture;
+public static saveStable(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/core/HolderLookup$Provider;Lcom/mojang/serialization/Codec;Ljava/lang/Object;Ljava/nio/file/Path;)Ljava/util/concurrent/CompletableFuture;
+public static saveStable(Lnet/minecraft/data/CachedOutput;Lcom/mojang/serialization/Codec;Ljava/lang/Object;Ljava/nio/file/Path;)Ljava/util/concurrent/CompletableFuture;
+private static saveStable(Lnet/minecraft/data/CachedOutput;Lcom/mojang/serialization/DynamicOps;Lcom/mojang/serialization/Codec;Ljava/lang/Object;Ljava/nio/file/Path;)Ljava/util/concurrent/CompletableFuture;
+public static saveStable(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/nio/file/Path;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$saveStable$0(Lcom/google/gson/JsonElement;Lnet/minecraft/data/CachedOutput;Ljava/nio/file/Path;)V
+private static synthetic lambda$saveAll$2(I)[Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$saveAll$1(Ljava/util/function/Function;Ljava/util/function/Function;Lnet/minecraft/data/CachedOutput;Ljava/util/Map$Entry;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$saveAll$0(Lcom/mojang/serialization/Codec;Ljava/lang/Object;)Lcom/google/gson/JsonElement;
+private static synthetic lambda$static$1(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$static$0(Lit/unimi/dsi/fastutil/objects/Object2IntOpenHashMap;)V
+static <clinit>()V
 ```

@@ -11,44 +11,45 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `reset` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| reads | `blockOutlineRenderStateLnet/minecraft/client/renderer/state/level/BlockOutlineRende` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `reset` | `()V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `blockOutlineRenderState` | `Lnet/minecraft/client/renderer/state/level/BlockOutlineRenderState;` | exact | getfield@20 in `LevelRendererMixin.beforeRenderBlockOutline` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `cameraRenderState` | `Lnet/minecraft/client/renderer/state/level/CameraRenderState;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
 
-## Declared members (26, all visibilities)
+## Declared members (24 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.state.level.LevelRenderState {
-    public net.minecraft.client.renderer.state.level.CameraRenderState cameraRenderState;
-    public final net.minecraft.client.renderer.state.level.PlayerRenderState playerRenderState;
-    public final java.util.List<net.minecraft.client.renderer.state.level.SectionUpdateRenderState> sectionUpdateRenderStates;
-    public final java.util.List<net.minecraft.client.renderer.entity.state.EntityRenderState> entityRenderStates;
-    public final java.util.List<net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState> blockEntityRenderStates;
-    public net.minecraft.client.renderer.state.level.BlockOutlineRenderState blockOutlineRenderState;
-    public final java.util.List<net.minecraft.client.renderer.state.level.BlockBreakingRenderState> blockBreakingRenderStates;
-    public final net.minecraft.client.renderer.state.level.WeatherRenderState weatherRenderState;
-    public final net.minecraft.client.renderer.state.level.WorldBorderRenderState worldBorderRenderState;
-    public final net.minecraft.client.renderer.state.level.SkyRenderState skyRenderState;
-    public final net.minecraft.client.renderer.state.level.ParticlesRenderState particlesRenderState;
-    public long gameTime;
-    public float worldPartialTicks;
-    public int lastEntityRenderStateCount;
-    public int cloudColor;
-    public float cloudHeight;
-    public boolean render3dCrosshair;
-    public boolean renderWireframeTerrain;
-    public boolean shouldUseMultiDrawIndirectForTerrain;
-    public java.lang.Runnable playerCompiledSectionCallback;
-    public net.minecraft.client.renderer.state.level.ChunkLoadingRenderState chunkLoadingRenderState;
-    public boolean shouldResetChunkLayerSampler;
-    public boolean shouldShowEntityOutlines;
-    public boolean shouldResetSkyRenderer;
-    public net.minecraft.client.renderer.state.level.LevelRenderState();
-    public void reset();
-}
+```
+public cameraRenderState : Lnet/minecraft/client/renderer/state/level/CameraRenderState;
+public final playerRenderState : Lnet/minecraft/client/renderer/state/level/PlayerRenderState;
+public final sectionUpdateRenderStates : Ljava/util/List;
+public final entityRenderStates : Ljava/util/List;
+public final blockEntityRenderStates : Ljava/util/List;
+public blockOutlineRenderState : Lnet/minecraft/client/renderer/state/level/BlockOutlineRenderState;
+public final blockBreakingRenderStates : Ljava/util/List;
+public final weatherRenderState : Lnet/minecraft/client/renderer/state/level/WeatherRenderState;
+public final worldBorderRenderState : Lnet/minecraft/client/renderer/state/level/WorldBorderRenderState;
+public final skyRenderState : Lnet/minecraft/client/renderer/state/level/SkyRenderState;
+public final particlesRenderState : Lnet/minecraft/client/renderer/state/level/ParticlesRenderState;
+public gameTime : J
+public worldPartialTicks : F
+public lastEntityRenderStateCount : I
+public cloudColor : I
+public cloudHeight : F
+public render3dCrosshair : Z
+public renderWireframeTerrain : Z
+public shouldUseMultiDrawIndirectForTerrain : Z
+public playerCompiledSectionCallback : Ljava/lang/Runnable;
+public chunkLoadingRenderState : Lnet/minecraft/client/renderer/state/level/ChunkLoadingRenderState;
+public shouldResetChunkLayerSampler : Z
+public shouldShowEntityOutlines : Z
+public shouldResetSkyRenderer : Z
+public <init>()V
+public reset()V
 ```

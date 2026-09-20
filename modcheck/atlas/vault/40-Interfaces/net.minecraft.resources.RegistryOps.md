@@ -11,41 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`class` public; extends `net/minecraft/resources/DelegatingOps`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `retrieveGetter(Lnet/minecraft/resources/ResourceKey;)Lcom/mojang/serializa` | `` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| reads | `lookupProviderLnet/minecraft/resources/RegistryOps$RegistryInfoLookup;` | `` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `create` | `(Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/resources/Registr` | exact | invokestatic@69 in `FabricRecipeProvider.lambda$run$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `retrieveGetter` | `(Lnet/minecraft/resources/ResourceKey;)Lcom/mojang/serialization/codec` | exact | invokestatic@4 in `TheEndBiomeSourceMixin.lambda$modifyCodec$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `lookupProvider` | `Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;` | exact | getfield@25 in `RegistryLoadTaskPendingRegistrationMixin.loadFromResource` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (1 fields, 22 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.resources.RegistryOps<T> extends net.minecraft.resources.DelegatingOps<T> {
-    private final net.minecraft.resources.RegistryOps$RegistryInfoLookup lookupProvider;
-    public static <T> net.minecraft.resources.RegistryOps<T> create(com.mojang.serialization.DynamicOps<T>, net.minecraft.core.HolderLookup$Provider);
-    public static <T> net.minecraft.resources.RegistryOps<T> create(com.mojang.serialization.DynamicOps<T>, net.minecraft.resources.RegistryOps$RegistryInfoLookup);
-    public static <T> com.mojang.serialization.Dynamic<T> injectRegistryContext(com.mojang.serialization.Dynamic<T>, net.minecraft.core.HolderLookup$Provider);
-    private net.minecraft.resources.RegistryOps(com.mojang.serialization.DynamicOps<T>, net.minecraft.resources.RegistryOps$RegistryInfoLookup);
-    public <U> net.minecraft.resources.RegistryOps<U> withParent(com.mojang.serialization.DynamicOps<U>);
-    public <E> java.util.Optional<net.minecraft.core.HolderGetter<E>> getter(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends E>>);
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public static <E, O> com.mojang.serialization.codecs.RecordCodecBuilder<O, net.minecraft.core.HolderGetter<E>> retrieveGetter(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends E>>);
-    public static <E, O> com.mojang.serialization.codecs.RecordCodecBuilder<O, net.minecraft.core.Holder$Reference<E>> retrieveElement(net.minecraft.resources.ResourceKey<E>);
-    private static net.minecraft.core.Holder$Reference lambda$retrieveElement$5(java.lang.Object);
-    private static com.mojang.serialization.DataResult lambda$retrieveElement$0(net.minecraft.resources.ResourceKey, net.minecraft.resources.ResourceKey, com.mojang.serialization.DynamicOps);
-    private static java.lang.String lambda$retrieveElement$4();
-    private static com.mojang.serialization.DataResult lambda$retrieveElement$2(net.minecraft.resources.ResourceKey);
-    private static java.lang.String lambda$retrieveElement$3(net.minecraft.resources.ResourceKey);
-    private static java.util.Optional lambda$retrieveElement$1(net.minecraft.resources.ResourceKey, net.minecraft.core.HolderGetter);
-    private static net.minecraft.core.HolderGetter lambda$retrieveGetter$5(java.lang.Object);
-    private static com.mojang.serialization.DataResult lambda$retrieveGetter$0(net.minecraft.resources.ResourceKey, com.mojang.serialization.DynamicOps);
-    private static java.lang.String lambda$retrieveGetter$4();
-    private static com.mojang.serialization.DataResult lambda$retrieveGetter$2(net.minecraft.resources.ResourceKey);
-    private static java.lang.String lambda$retrieveGetter$3(net.minecraft.resources.ResourceKey);
-    private static com.mojang.serialization.DataResult lambda$retrieveGetter$1(net.minecraft.core.HolderGetter);
-}
+```
+private final lookupProvider : Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;
+public static create(Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/resources/RegistryOps;
+public static create(Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;)Lnet/minecraft/resources/RegistryOps;
+public static injectRegistryContext(Lcom/mojang/serialization/Dynamic;Lnet/minecraft/core/HolderLookup$Provider;)Lcom/mojang/serialization/Dynamic;
+private <init>(Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;)V
+public withParent(Lcom/mojang/serialization/DynamicOps;)Lnet/minecraft/resources/RegistryOps;
+public getter(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public static retrieveGetter(Lnet/minecraft/resources/ResourceKey;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+public static retrieveElement(Lnet/minecraft/resources/ResourceKey;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+private static synthetic lambda$retrieveElement$5(Ljava/lang/Object;)Lnet/minecraft/core/Holder$Reference;
+private static synthetic lambda$retrieveElement$0(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/DynamicOps;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$retrieveElement$4()Ljava/lang/String;
+private static synthetic lambda$retrieveElement$2(Lnet/minecraft/resources/ResourceKey;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$retrieveElement$3(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;
+private static synthetic lambda$retrieveElement$1(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/HolderGetter;)Ljava/util/Optional;
+private static synthetic lambda$retrieveGetter$5(Ljava/lang/Object;)Lnet/minecraft/core/HolderGetter;
+private static synthetic lambda$retrieveGetter$0(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/DynamicOps;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$retrieveGetter$4()Ljava/lang/String;
+private static synthetic lambda$retrieveGetter$2(Lnet/minecraft/resources/ResourceKey;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$retrieveGetter$3(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;
+private static synthetic lambda$retrieveGetter$1(Lnet/minecraft/core/HolderGetter;)Lcom/mojang/serialization/DataResult;
 ```

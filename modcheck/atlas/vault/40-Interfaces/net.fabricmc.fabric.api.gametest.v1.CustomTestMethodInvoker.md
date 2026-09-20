@@ -13,5 +13,5 @@ sha256: "1bd8282a95da3822a15d7468d3542f493b9186d214ef10f938b0006319409647"
 Module: [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] -- kind: interface
 
 ```java
-public abstract void invokeTestMethod(net.minecraft.gametest.framework.GameTestHelper, java.lang.reflect.Method) throws java.lang.ReflectiveOperationException
+public abstract void invokeTestMethod(net.minecraft.gametest.framework.GameTestHelper, java.lang.reflect.Method)
 ```

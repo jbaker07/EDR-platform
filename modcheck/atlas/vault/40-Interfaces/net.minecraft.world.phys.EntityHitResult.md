@@ -11,23 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.phys|net.minecraft.world.phys]]
 
+`class` public; extends `net/minecraft/world/phys/HitResult`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phy` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getLocation()Lnet/minecraft/world/phys/Vec3;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;)V` | exact | invokespecial@33 in `ServerGamePacketListenerImplMixin.handleInteract` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getLocation` | `()Lnet/minecraft/world/phys/Vec3;` | inherited_exact | invokevirtual@52 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (1 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.phys.EntityHitResult extends net.minecraft.world.phys.HitResult {
-    private final net.minecraft.world.entity.Entity entity;
-    public net.minecraft.world.phys.EntityHitResult(net.minecraft.world.entity.Entity);
-    public net.minecraft.world.phys.EntityHitResult(net.minecraft.world.entity.Entity, net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.entity.Entity getEntity();
-    public net.minecraft.world.phys.HitResult$Type getType();
-}
+```
+private final entity : Lnet/minecraft/world/entity/Entity;
+public <init>(Lnet/minecraft/world/entity/Entity;)V
+public <init>(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;)V
+public getEntity()Lnet/minecraft/world/entity/Entity;
+public getType()Lnet/minecraft/world/phys/HitResult$Type;
 ```

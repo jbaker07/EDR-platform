@@ -14,7 +14,7 @@ Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind:
 
 ```java
 public abstract net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadEmitter emitter()
-public abstract void forEachMutable(java.util.function.Consumer<? super net.fabricmc.fabric.api.client.renderer.v1.mesh.MutableQuadView>)
+public abstract void forEachMutable(java.util.function.Consumer)
 public abstract net.fabricmc.fabric.api.client.renderer.v1.mesh.Mesh immutableCopy()
 public abstract void clear()
 ```

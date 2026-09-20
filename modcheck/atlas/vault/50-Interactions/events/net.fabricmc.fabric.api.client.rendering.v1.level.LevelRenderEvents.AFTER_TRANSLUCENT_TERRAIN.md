@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LevelRendererMixin.wrapRenderTranslucentTerrain` | (handler is not itself an injector method: fired from a helper or impl class) | client | static_inference |
+| `LevelRendererMixin.wrapRenderTranslucentTerrain` @74 | [[40-Interfaces/net.minecraft.client.renderer.LevelRenderer|LevelRenderer]].`executeClassicTransparency` @WrapOperation INVOKE `Lnet/minecraft/client/renderer/chunk/ChunkSectionsToRender;renderGroup(Lnet/minecraft/client/renderer/chunk/ChunkSectionLayerGroup;Lcom/mojang/renderpearl/api/commands/RenderPass;Lcom/mojang/renderpearl/api/textures/GpuSampler;Lcom/mojang/renderpearl/api/textures/GpuTextureView;Z)V` | unknown | static_inference |
 
 ## Contract
 

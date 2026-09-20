@@ -11,38 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `bootStrap` | `@Inject at INVOKE Lnet/minecraft/server/Bootstrap;wrapStreams()V` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| wraps | `bootStrap` | `@Redirect at INVOKE Lnet/minecraft/core/registries/BuiltInRegistries;bootStrap()` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `bootStrap` | `()V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| wraps | `bootStrap` | `()V` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (20, all visibilities)
+## Declared members (4 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.Bootstrap {
-    public static final java.io.PrintStream STDOUT;
-    private static volatile boolean isBootstrapped;
-    private static final org.slf4j.Logger LOGGER;
-    public static final java.util.concurrent.atomic.AtomicLong bootstrapDuration;
-    public net.minecraft.server.Bootstrap();
-    public static void bootStrap();
-    private static <T> void checkTranslations(net.minecraft.locale.Language, java.lang.Iterable<T>, java.util.function.Function<T, java.lang.String>, java.util.Set<java.lang.String>);
-    private static void checkGameruleTranslations(net.minecraft.locale.Language, java.util.Set<java.lang.String>);
-    public static java.util.Set<java.lang.String> getMissingTranslations(net.minecraft.locale.Language);
-    public static void checkBootstrapCalled(java.util.function.Supplier<java.lang.String>);
-    private static java.lang.RuntimeException createBootstrapException(java.util.function.Supplier<java.lang.String>);
-    public static void validate();
-    private static void wrapStreams();
-    public static void realStdoutPrintln(java.lang.String);
-    public static void shutdownStdout();
-    private static void lambda$validate$1(java.lang.String);
-    private static java.lang.String lambda$validate$0();
-    private static java.lang.String lambda$getMissingTranslations$0(net.minecraft.resources.Identifier);
-    private static void lambda$checkTranslations$0(java.util.function.Function, net.minecraft.locale.Language, java.util.Set, java.lang.Object);
-    static {};
-}
+```
+public static final STDOUT : Ljava/io/PrintStream;
+private static isBootstrapped : Z
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final bootstrapDuration : Ljava/util/concurrent/atomic/AtomicLong;
+public <init>()V
+public static bootStrap()V
+private static checkTranslations(Lnet/minecraft/locale/Language;Ljava/lang/Iterable;Ljava/util/function/Function;Ljava/util/Set;)V
+private static checkGameruleTranslations(Lnet/minecraft/locale/Language;Ljava/util/Set;)V
+public static getMissingTranslations(Lnet/minecraft/locale/Language;)Ljava/util/Set;
+public static checkBootstrapCalled(Ljava/util/function/Supplier;)V
+private static createBootstrapException(Ljava/util/function/Supplier;)Ljava/lang/RuntimeException;
+public static validate()V
+private static wrapStreams()V
+public static realStdoutPrintln(Ljava/lang/String;)V
+public static shutdownStdout()V
+private static synthetic lambda$validate$1(Ljava/lang/String;)V
+private static synthetic lambda$validate$0()Ljava/lang/String;
+private static synthetic lambda$getMissingTranslations$0(Lnet/minecraft/resources/Identifier;)Ljava/lang/String;
+private static synthetic lambda$checkTranslations$0(Ljava/util/function/Function;Lnet/minecraft/locale/Language;Ljava/util/Set;Ljava/lang/Object;)V
+static <clinit>()V
 ```

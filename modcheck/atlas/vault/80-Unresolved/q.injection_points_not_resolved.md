@@ -2,7 +2,7 @@
 type: "question"
 id: "q.injection_points_not_resolved"
 kind: "incomplete_extraction"
-status: "open"
+status: "in_progress"
 ---
 
 > [!warning] Analyst-authored
@@ -10,9 +10,9 @@ status: "open"
 
 # q.injection_points_not_resolved
 
-**Question.** For each injects_into and wraps edge, where exactly inside the target method does the injection apply (bytecode offset, slice, ordinal), and what does a Redirect or ModifyArg change about the call it wraps?
+**Question.** For each injects_into and wraps edge, every @At now resolves to an exact member (332 exact, 49 inherited_exact, 4 MixinExtras expression points unresolvable by construction); what remains is the instruction OFFSET inside the target method where each point applies, so that two injections into the same method can be told apart as same-point or different-point.
 
-**Kind.** `incomplete_extraction` -- **Status.** open
+**Kind.** `incomplete_extraction` -- **Status.** in_progress
 
 **Why it matters.** Two injections into one method only collide if they touch the same point. The atlas records the @At kind and target descriptor as a string, which is enough to say "same method", not "same point".
 
@@ -21,14 +21,13 @@ status: "open"
 **Evidence already available.**
 - `extracted/edges.json#injects_into`
 - `extracted/edges.json#wraps`
-- `extracted/fabric_api.json`
+- `extracted/minecraft_surface.json.gz`
 
 **Best remaining source.** The vanilla method bodies (javap -c on the hooked types) matched against each @At target descriptor; the sponge-mixin injection-point classes in the corpus.
 
-**Procedure.** For each edge, disassemble the target method with javap -c, locate the instruction(s) matching the @At target (INVOKE descriptor, NEW type, RETURN, HEAD, TAIL), record the ordinal count, and attach the instruction index to the edge as `operation.offset`. Redirect and ModifyArg then get a `wraps.call` endpoint naming the wrapped callee.
+**Procedure.** Decode the target method's Code attribute with atlas/extract/classfile.py, locate the instruction(s) matching each point (INVOKE/FIELD/NEW by resolved member, HEAD/TAIL/RETURN by position, ordinal applied), and attach the offset list to the edge's `points`.
 
-**Done when.** Every injects_into/wraps edge has an instruction-level locator or a recorded reason it cannot have one.
+**Done when.** Every point on every injects_into/wraps edge carries offsets, or a recorded reason (expression point).
 
 **Conclusions affected while open.**
-- contested_methods lists methods, not points; two entries there may not actually interfere.
-- No claim about a Redirect's effect on other injections can be made.
+- shared_targets in `extracted/edges.json` is a same-METHOD index; same-POINT overlap is not yet computed.

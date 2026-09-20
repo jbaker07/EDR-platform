@@ -11,37 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.phys|net.minecraft.world.phys]]
 
+`class` public; extends `net/minecraft/world/phys/HitResult`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getBlockPos()Lnet/minecraft/core/BlockPos;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getBlockPos()Lnet/minecraft/core/BlockPos;` | `` | both | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getBlockPos` | `()Lnet/minecraft/core/BlockPos;` | exact | invokevirtual@17 in `BlockBehaviourBlockStateBaseMixin.callUseItemOnEvent` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getBlockPos` | `()Lnet/minecraft/core/BlockPos;` | exact | invokevirtual@15 in `BlockBehaviourBlockStateBaseMixin.callUseWithoutItemEvent` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getBlockPos` | `()Lnet/minecraft/core/BlockPos;` | exact | invokevirtual@5 in `BrushItemMixin.modifyBlockStateParticleOption` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (6 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.phys.BlockHitResult extends net.minecraft.world.phys.HitResult {
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.phys.BlockHitResult> STREAM_CODEC;
-    private final net.minecraft.core.Direction direction;
-    private final net.minecraft.core.BlockPos blockPos;
-    private final boolean miss;
-    private final boolean inside;
-    private final boolean worldBorderHit;
-    public static net.minecraft.world.phys.BlockHitResult miss(net.minecraft.world.phys.Vec3, net.minecraft.core.Direction, net.minecraft.core.BlockPos);
-    public net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3, net.minecraft.core.Direction, net.minecraft.core.BlockPos, boolean);
-    public net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3, net.minecraft.core.Direction, net.minecraft.core.BlockPos, boolean, boolean);
-    private net.minecraft.world.phys.BlockHitResult(boolean, net.minecraft.world.phys.Vec3, net.minecraft.core.Direction, net.minecraft.core.BlockPos, boolean, boolean);
-    public net.minecraft.world.phys.BlockHitResult withDirection(net.minecraft.core.Direction);
-    public net.minecraft.world.phys.BlockHitResult withPosition(net.minecraft.core.BlockPos);
-    public net.minecraft.world.phys.BlockHitResult hitBorder();
-    public net.minecraft.core.BlockPos getBlockPos();
-    public net.minecraft.core.Direction getDirection();
-    public net.minecraft.world.phys.HitResult$Type getType();
-    public boolean isInside();
-    public boolean isWorldBorderHit();
-    static {};
-}
+```
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private final direction : Lnet/minecraft/core/Direction;
+private final blockPos : Lnet/minecraft/core/BlockPos;
+private final miss : Z
+private final inside : Z
+private final worldBorderHit : Z
+public static miss(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/BlockHitResult;
+public <init>(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Z)V
+public <init>(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;ZZ)V
+private <init>(ZLnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;ZZ)V
+public withDirection(Lnet/minecraft/core/Direction;)Lnet/minecraft/world/phys/BlockHitResult;
+public withPosition(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/BlockHitResult;
+public hitBorder()Lnet/minecraft/world/phys/BlockHitResult;
+public getBlockPos()Lnet/minecraft/core/BlockPos;
+public getDirection()Lnet/minecraft/core/Direction;
+public getType()Lnet/minecraft/world/phys/HitResult$Type;
+public isInside()Z
+public isWorldBorderHit()Z
+static <clinit>()V
 ```

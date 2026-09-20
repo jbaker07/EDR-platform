@@ -11,27 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `reset` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `reset` | `()V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (6 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.state.level.WorldBorderRenderState {
-    public double minX;
-    public double maxX;
-    public double minZ;
-    public double maxZ;
-    public int tint;
-    public double alpha;
-    public net.minecraft.client.renderer.state.level.WorldBorderRenderState();
-    public java.util.List<net.minecraft.client.renderer.state.level.WorldBorderRenderState$DistancePerDirection> closestBorder(double, double);
-    public void reset();
-    private static double lambda$closestBorder$0(net.minecraft.client.renderer.state.level.WorldBorderRenderState$DistancePerDirection);
-}
+```
+public minX : D
+public maxX : D
+public minZ : D
+public maxZ : D
+public tint : I
+public alpha : D
+public <init>()V
+public closestBorder(DD)Ljava/util/List;
+public reset()V
+private static synthetic lambda$closestBorder$0(Lnet/minecraft/client/renderer/state/level/WorldBorderRenderState$DistancePerDirection;)D
 ```

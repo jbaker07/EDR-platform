@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LevelExtractorMixin.onReload` | `LevelExtractor.allChanged` @Inject at HEAD | client | static_inference |
+| `LevelExtractorMixin.onReload` @9 | [[40-Interfaces/net.minecraft.client.renderer.extract.LevelExtractor|LevelExtractor]].`allChanged` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

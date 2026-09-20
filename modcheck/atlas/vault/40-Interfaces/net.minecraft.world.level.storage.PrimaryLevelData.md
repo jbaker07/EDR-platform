@@ -11,79 +11,79 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/level/storage/ServerLevelData`, `net/minecraft/world/level/storage/WorldData`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `createTag(Ljava/util/UUID;)Lnet/minecraft/nbt/CompoundTag;` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `createTag` | `(Ljava/util/UUID;)Lnet/minecraft/nbt/CompoundTag;` | exact | invokevirtual@13 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (62, all visibilities)
+## Declared members (17 fields, 45 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.PrimaryLevelData implements net.minecraft.world.level.storage.ServerLevelData,net.minecraft.world.level.storage.WorldData {
-    private static final org.slf4j.Logger LOGGER;
-    public static final java.lang.String LEVEL_NAME;
-    protected static final java.lang.String OLD_PLAYER;
-    protected static final java.lang.String SINGLEPLAYER_UUID;
-    protected static final java.lang.String OLD_WORLD_GEN_SETTINGS;
-    private net.minecraft.world.level.LevelSettings settings;
-    private final net.minecraft.world.level.storage.PrimaryLevelData$SpecialWorldProperty specialWorldProperty;
-    private final com.mojang.serialization.Lifecycle worldGenSettingsLifecycle;
-    private net.minecraft.world.level.storage.LevelData$RespawnData respawnData;
-    private long gameTime;
-    private final java.util.UUID singlePlayerUUID;
-    private final int version;
-    private boolean initialized;
-    private final java.util.Set<java.lang.String> knownServerBrands;
-    private boolean wasModded;
-    private final java.util.Set<java.lang.String> removedFeatureFlags;
-    private java.util.List<java.lang.Integer> versionHistory;
-    private net.minecraft.world.level.storage.PrimaryLevelData(java.util.UUID, boolean, net.minecraft.world.level.storage.LevelData$RespawnData, long, int, boolean, java.util.Set<java.lang.String>, java.util.Set<java.lang.String>, net.minecraft.world.level.LevelSettings, net.minecraft.world.level.storage.PrimaryLevelData$SpecialWorldProperty, com.mojang.serialization.Lifecycle, java.util.List<java.lang.Integer>);
-    public net.minecraft.world.level.storage.PrimaryLevelData(net.minecraft.world.level.LevelSettings, net.minecraft.world.level.storage.PrimaryLevelData$SpecialWorldProperty, com.mojang.serialization.Lifecycle);
-    public static <T> net.minecraft.world.level.storage.PrimaryLevelData parse(com.mojang.serialization.Dynamic<T>, net.minecraft.world.level.LevelSettings, net.minecraft.world.level.storage.PrimaryLevelData$SpecialWorldProperty, com.mojang.serialization.Lifecycle);
-    public net.minecraft.nbt.CompoundTag createTag(java.util.UUID);
-    private void setTagData(net.minecraft.nbt.CompoundTag, java.util.UUID);
-    public static void writeLastPlayed(net.minecraft.nbt.CompoundTag);
-    public static com.mojang.serialization.Dynamic<?> writeLastPlayed(com.mojang.serialization.Dynamic<?>);
-    public static void writeVersionTag(net.minecraft.nbt.CompoundTag);
-    public static com.mojang.serialization.Dynamic<?> writeVersionTag(com.mojang.serialization.Dynamic<?>);
-    public void writeVersionHistory(net.minecraft.nbt.CompoundTag);
-    private static net.minecraft.nbt.ListTag stringCollectionToTag(java.util.Set<java.lang.String>);
-    public net.minecraft.world.level.storage.LevelData$RespawnData getRespawnData();
-    public long getGameTime();
-    public java.util.UUID getSinglePlayerUUID();
-    public void setGameTime(long);
-    public void setSpawn(net.minecraft.world.level.storage.LevelData$RespawnData);
-    public java.lang.String getLevelName();
-    public int getVersion();
-    public net.minecraft.world.level.GameType getGameType();
-    public void setGameType(net.minecraft.world.level.GameType);
-    public boolean isHardcore();
-    public boolean isAllowCommands();
-    public void setAllowCommands(boolean);
-    public boolean isInitialized();
-    public void setInitialized(boolean);
-    public net.minecraft.world.Difficulty getDifficulty();
-    public void setDifficulty(net.minecraft.world.Difficulty);
-    public boolean isDifficultyLocked();
-    public void setDifficultyLocked(boolean);
-    public void fillCrashReportCategory(net.minecraft.CrashReportCategory, net.minecraft.world.level.LevelHeightAccessor);
-    public boolean isFlatWorld();
-    public boolean isDebugWorld();
-    public com.mojang.serialization.Lifecycle worldGenSettingsLifecycle();
-    public net.minecraft.world.level.WorldDataConfiguration getDataConfiguration();
-    public void setDataConfiguration(net.minecraft.world.level.WorldDataConfiguration);
-    public void setModdedInfo(java.lang.String, boolean);
-    public boolean wasModded();
-    public java.util.Set<java.lang.String> getKnownServerBrands();
-    public java.util.Set<java.lang.String> getRemovedFeatureFlags();
-    public net.minecraft.world.level.storage.ServerLevelData overworldData();
-    public net.minecraft.world.level.LevelSettings getLevelSettings();
-    private static java.lang.Integer lambda$parse$2(com.mojang.serialization.Dynamic);
-    private static java.util.stream.Stream lambda$parse$1(com.mojang.serialization.Dynamic);
-    private static java.util.stream.Stream lambda$parse$0(com.mojang.serialization.Dynamic);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final LEVEL_NAME : Ljava/lang/String;
+protected static final OLD_PLAYER : Ljava/lang/String;
+protected static final SINGLEPLAYER_UUID : Ljava/lang/String;
+protected static final OLD_WORLD_GEN_SETTINGS : Ljava/lang/String;
+private settings : Lnet/minecraft/world/level/LevelSettings;
+private final specialWorldProperty : Lnet/minecraft/world/level/storage/PrimaryLevelData$SpecialWorldProperty;
+private final worldGenSettingsLifecycle : Lcom/mojang/serialization/Lifecycle;
+private respawnData : Lnet/minecraft/world/level/storage/LevelData$RespawnData;
+private gameTime : J
+private final singlePlayerUUID : Ljava/util/UUID;
+private final version : I
+private initialized : Z
+private final knownServerBrands : Ljava/util/Set;
+private wasModded : Z
+private final removedFeatureFlags : Ljava/util/Set;
+private versionHistory : Ljava/util/List;
+private <init>(Ljava/util/UUID;ZLnet/minecraft/world/level/storage/LevelData$RespawnData;JIZLjava/util/Set;Ljava/util/Set;Lnet/minecraft/world/level/LevelSettings;Lnet/minecraft/world/level/storage/PrimaryLevelData$SpecialWorldProperty;Lcom/mojang/serialization/Lifecycle;Ljava/util/List;)V
+public <init>(Lnet/minecraft/world/level/LevelSettings;Lnet/minecraft/world/level/storage/PrimaryLevelData$SpecialWorldProperty;Lcom/mojang/serialization/Lifecycle;)V
+public static parse(Lcom/mojang/serialization/Dynamic;Lnet/minecraft/world/level/LevelSettings;Lnet/minecraft/world/level/storage/PrimaryLevelData$SpecialWorldProperty;Lcom/mojang/serialization/Lifecycle;)Lnet/minecraft/world/level/storage/PrimaryLevelData;
+public createTag(Ljava/util/UUID;)Lnet/minecraft/nbt/CompoundTag;
+private setTagData(Lnet/minecraft/nbt/CompoundTag;Ljava/util/UUID;)V
+public static writeLastPlayed(Lnet/minecraft/nbt/CompoundTag;)V
+public static writeLastPlayed(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/Dynamic;
+public static writeVersionTag(Lnet/minecraft/nbt/CompoundTag;)V
+public static writeVersionTag(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/Dynamic;
+public writeVersionHistory(Lnet/minecraft/nbt/CompoundTag;)V
+private static stringCollectionToTag(Ljava/util/Set;)Lnet/minecraft/nbt/ListTag;
+public getRespawnData()Lnet/minecraft/world/level/storage/LevelData$RespawnData;
+public getGameTime()J
+public getSinglePlayerUUID()Ljava/util/UUID;
+public setGameTime(J)V
+public setSpawn(Lnet/minecraft/world/level/storage/LevelData$RespawnData;)V
+public getLevelName()Ljava/lang/String;
+public getVersion()I
+public getGameType()Lnet/minecraft/world/level/GameType;
+public setGameType(Lnet/minecraft/world/level/GameType;)V
+public isHardcore()Z
+public isAllowCommands()Z
+public setAllowCommands(Z)V
+public isInitialized()Z
+public setInitialized(Z)V
+public getDifficulty()Lnet/minecraft/world/Difficulty;
+public setDifficulty(Lnet/minecraft/world/Difficulty;)V
+public isDifficultyLocked()Z
+public setDifficultyLocked(Z)V
+public fillCrashReportCategory(Lnet/minecraft/CrashReportCategory;Lnet/minecraft/world/level/LevelHeightAccessor;)V
+public isFlatWorld()Z
+public isDebugWorld()Z
+public worldGenSettingsLifecycle()Lcom/mojang/serialization/Lifecycle;
+public getDataConfiguration()Lnet/minecraft/world/level/WorldDataConfiguration;
+public setDataConfiguration(Lnet/minecraft/world/level/WorldDataConfiguration;)V
+public setModdedInfo(Ljava/lang/String;Z)V
+public wasModded()Z
+public getKnownServerBrands()Ljava/util/Set;
+public getRemovedFeatureFlags()Ljava/util/Set;
+public overworldData()Lnet/minecraft/world/level/storage/ServerLevelData;
+public getLevelSettings()Lnet/minecraft/world/level/LevelSettings;
+private static synthetic lambda$parse$2(Lcom/mojang/serialization/Dynamic;)Ljava/lang/Integer;
+private static synthetic lambda$parse$1(Lcom/mojang/serialization/Dynamic;)Ljava/util/stream/Stream;
+private static synthetic lambda$parse$0(Lcom/mojang/serialization/Dynamic;)Ljava/util/stream/Stream;
+static <clinit>()V
 ```

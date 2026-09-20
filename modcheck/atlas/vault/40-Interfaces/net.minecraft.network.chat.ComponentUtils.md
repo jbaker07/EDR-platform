@@ -11,40 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.chat|net.minecraft.network.chat]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `fromMessage(Lcom/mojang/brigadier/Message;)Lnet/minecraft/network/chat/` | `` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `formatList` | `(Ljava/util/Collection;Lnet/minecraft/network/chat/Component;)Lnet/min` | exact | invokestatic@458 in `RegistryCustomContentState$Missing.asDetails` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `formatList` | `(Ljava/util/Collection;Lnet/minecraft/network/chat/Component;)Lnet/min` | exact | invokestatic@655 in `RegistryCustomContentState$Missing.asDetails` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `fromMessage` | `(Lcom/mojang/brigadier/Message;)Lnet/minecraft/network/chat/Component;` | exact | invokestatic@4 in `ClientCommandInternals.getErrorMessage` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (3 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.chat.ComponentUtils {
-    public static final java.lang.String DEFAULT_SEPARATOR_TEXT;
-    public static final net.minecraft.network.chat.Component DEFAULT_SEPARATOR;
-    public static final net.minecraft.network.chat.Component DEFAULT_NO_STYLE_SEPARATOR;
-    public net.minecraft.network.chat.ComponentUtils();
-    public static net.minecraft.network.chat.MutableComponent mergeStyles(net.minecraft.network.chat.MutableComponent, net.minecraft.network.chat.Style);
-    public static net.minecraft.network.chat.Component mergeStyles(net.minecraft.network.chat.Component, net.minecraft.network.chat.Style);
-    public static java.util.Optional<net.minecraft.network.chat.MutableComponent> resolve(net.minecraft.network.chat.ResolutionContext, java.util.Optional<net.minecraft.network.chat.Component>, int) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public static net.minecraft.network.chat.MutableComponent resolve(net.minecraft.network.chat.ResolutionContext, net.minecraft.network.chat.Component) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public static net.minecraft.network.chat.MutableComponent resolve(net.minecraft.network.chat.ResolutionContext, net.minecraft.network.chat.Component, int) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static net.minecraft.network.chat.Style resolveStyle(net.minecraft.network.chat.ResolutionContext, net.minecraft.network.chat.Style, int) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public static net.minecraft.network.chat.Component formatList(java.util.Collection<java.lang.String>);
-    public static <T extends java.lang.Comparable<T>> net.minecraft.network.chat.Component formatAndSortList(java.util.Collection<T>, java.util.function.Function<T, net.minecraft.network.chat.Component>);
-    public static <T> net.minecraft.network.chat.Component formatList(java.util.Collection<? extends T>, java.util.function.Function<T, net.minecraft.network.chat.Component>);
-    public static <T> net.minecraft.network.chat.MutableComponent formatList(java.util.Collection<? extends T>, java.util.Optional<? extends net.minecraft.network.chat.Component>, java.util.function.Function<T, net.minecraft.network.chat.Component>);
-    public static net.minecraft.network.chat.Component formatList(java.util.Collection<? extends net.minecraft.network.chat.Component>, net.minecraft.network.chat.Component);
-    public static <T> net.minecraft.network.chat.MutableComponent formatList(java.util.Collection<? extends T>, net.minecraft.network.chat.Component, java.util.function.Function<T, net.minecraft.network.chat.Component>);
-    public static net.minecraft.network.chat.MutableComponent wrapInSquareBrackets(net.minecraft.network.chat.Component);
-    public static net.minecraft.network.chat.Component fromMessage(com.mojang.brigadier.Message);
-    public static boolean isTranslationResolvable(net.minecraft.network.chat.Component);
-    public static net.minecraft.network.chat.MutableComponent copyOnClickText(java.lang.String);
-    private static net.minecraft.network.chat.Style lambda$copyOnClickText$0(java.lang.String, net.minecraft.network.chat.Style);
-    private static net.minecraft.network.chat.Component lambda$formatList$0(java.lang.String);
-    static {};
-}
+```
+public static final DEFAULT_SEPARATOR_TEXT : Ljava/lang/String;
+public static final DEFAULT_SEPARATOR : Lnet/minecraft/network/chat/Component;
+public static final DEFAULT_NO_STYLE_SEPARATOR : Lnet/minecraft/network/chat/Component;
+public <init>()V
+public static mergeStyles(Lnet/minecraft/network/chat/MutableComponent;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/MutableComponent;
+public static mergeStyles(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/Component;
+public static resolve(Lnet/minecraft/network/chat/ResolutionContext;Ljava/util/Optional;I)Ljava/util/Optional;
+public static resolve(Lnet/minecraft/network/chat/ResolutionContext;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/MutableComponent;
+public static resolve(Lnet/minecraft/network/chat/ResolutionContext;Lnet/minecraft/network/chat/Component;I)Lnet/minecraft/network/chat/MutableComponent;
+private static resolveStyle(Lnet/minecraft/network/chat/ResolutionContext;Lnet/minecraft/network/chat/Style;I)Lnet/minecraft/network/chat/Style;
+public static formatList(Ljava/util/Collection;)Lnet/minecraft/network/chat/Component;
+public static formatAndSortList(Ljava/util/Collection;Ljava/util/function/Function;)Lnet/minecraft/network/chat/Component;
+public static formatList(Ljava/util/Collection;Ljava/util/function/Function;)Lnet/minecraft/network/chat/Component;
+public static formatList(Ljava/util/Collection;Ljava/util/Optional;Ljava/util/function/Function;)Lnet/minecraft/network/chat/MutableComponent;
+public static formatList(Ljava/util/Collection;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+public static formatList(Ljava/util/Collection;Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;)Lnet/minecraft/network/chat/MutableComponent;
+public static wrapInSquareBrackets(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/MutableComponent;
+public static fromMessage(Lcom/mojang/brigadier/Message;)Lnet/minecraft/network/chat/Component;
+public static isTranslationResolvable(Lnet/minecraft/network/chat/Component;)Z
+public static copyOnClickText(Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent;
+private static synthetic lambda$copyOnClickText$0(Ljava/lang/String;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/Style;
+private static synthetic lambda$formatList$0(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;
+static <clinit>()V
 ```

@@ -20,16 +20,21 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `[{"config": "fabric-rendering-fluids-v1.mixins.json", "environment": "client"}]`
 - access widener: `fabric-rendering-fluids-v1.classtweaker`
+- mixin classes: 2 found by annotation, 2 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.client.renderer.block.FluidRenderer|FluidRenderer]] | `tesselate` | injects_into `@Inject at HEAD` | client | `FluidRendererMixin.onHeadRender` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.renderer.block.FluidRenderer|FluidRenderer]].`tesselate` | `(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/client/renderer/block/FluidRenderer$Output;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)V` | name_only | @Inject | HEAD | client | 1000 (default) | `FluidRendererMixin.onHeadRender` |
+| [[40-Interfaces/net.minecraft.client.renderer.block.FluidRenderer|FluidRenderer]].`tesselate` | `(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/client/renderer/block/FluidRenderer$Output;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)V` | name_only | @ModifyExpressionValue | MIXINEXTRAS:EXPRESSION (selector_unsupported) | client | 1000 (default) | `FluidRendererMixin.modifyNonOverlayCheck` |
+| [[40-Interfaces/net.minecraft.client.renderer.block.FluidStateModelSet|FluidStateModelSet]].`bake` | `(Lnet/minecraft/client/resources/model/sprite/MaterialBaker;)Ljava/util/Map;` | name_only | @WrapMethod | - | client | 1000 (default) | `FluidStateModelSetMixin.bake` |
 
 ## API surface
 
@@ -39,6 +44,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

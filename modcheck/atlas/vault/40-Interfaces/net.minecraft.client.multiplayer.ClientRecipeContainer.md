@@ -11,22 +11,22 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/item/crafting/RecipeAccess`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getSynchronizedRecipes()Lnet/fabricmc/fabric/api/recipe/v1/sync/SynchronizedRecipe` | `` | client | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getSynchronizedRecipes` | `()Lnet/fabricmc/fabric/api/recipe/v1/sync/SynchronizedRecipes;` | inherited_exact | invokevirtual@8 in `ClientPacketListenerMixin.copyPreviousRecipes` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (2 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.multiplayer.ClientRecipeContainer implements net.minecraft.world.item.crafting.RecipeAccess {
-    private final java.util.Map<net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.RecipePropertySet>, net.minecraft.world.item.crafting.RecipePropertySet> itemSets;
-    private final net.minecraft.world.item.crafting.SelectableRecipe$SingleInputSet<net.minecraft.world.item.crafting.StonecutterRecipe> stonecutterRecipes;
-    public net.minecraft.client.multiplayer.ClientRecipeContainer(java.util.Map<net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.RecipePropertySet>, net.minecraft.world.item.crafting.RecipePropertySet>, net.minecraft.world.item.crafting.SelectableRecipe$SingleInputSet<net.minecraft.world.item.crafting.StonecutterRecipe>);
-    public net.minecraft.world.item.crafting.RecipePropertySet propertySet(net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.RecipePropertySet>);
-    public net.minecraft.world.item.crafting.SelectableRecipe$SingleInputSet<net.minecraft.world.item.crafting.StonecutterRecipe> stonecutterRecipes();
-}
+```
+private final itemSets : Ljava/util/Map;
+private final stonecutterRecipes : Lnet/minecraft/world/item/crafting/SelectableRecipe$SingleInputSet;
+public <init>(Ljava/util/Map;Lnet/minecraft/world/item/crafting/SelectableRecipe$SingleInputSet;)V
+public propertySet(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/item/crafting/RecipePropertySet;
+public stonecutterRecipes()Lnet/minecraft/world/item/crafting/SelectableRecipe$SingleInputSet;
 ```

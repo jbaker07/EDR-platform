@@ -14,7 +14,7 @@ Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind:
 
 ```java
 public static net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage of(net.minecraft.world.Container, net.minecraft.core.Direction)
-public abstract java.util.List<net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage<net.fabricmc.fabric.api.transfer.v1.item.ItemVariant>> getSlots()
-public default int getSlotCount()
-public default net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage<net.fabricmc.fabric.api.transfer.v1.item.ItemVariant> getSlot(int)
+public abstract java.util.List getSlots()
+public int getSlotCount()
+public net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage getSlot(int)
 ```

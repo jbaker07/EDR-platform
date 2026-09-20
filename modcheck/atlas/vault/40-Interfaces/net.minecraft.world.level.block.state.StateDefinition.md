@@ -11,53 +11,55 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getPossibleStates` | `()Lcom/google/common/collect/ImmutableList;` | exact | invokevirtual@4 in `OxidizableBlocksRegistryImpl.refreshRandomTickCache` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `getPossibleStates` | `()Lcom/google/common/collect/ImmutableList;` | exact | invokevirtual@23 in `ModelLoadingEventDispatcher.resolveBlockStates` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `getPossibleStates` | `()Lcom/google/common/collect/ImmutableList;` | exact | invokevirtual@37 in `PoiHelper.register` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `getPossibleStates` | `()Lcom/google/common/collect/ImmutableList;` | exact | invokevirtual@4 in `BlockInitTracker.lambda$postFreeze$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPossibleStates` | `()Lcom/google/common/collect/ImmutableList;` | exact | invokevirtual@4 in `BlocksMixin.lambda$initShapeCache$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPossibleStates` | `()Lcom/google/common/collect/ImmutableList;` | exact | invokevirtual@4 in `BootstrapMixin.lambda$afterInitialize$1` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPossibleStates` | `()Lcom/google/common/collect/ImmutableList;` | exact | invokevirtual@4 in `BootstrapMixin.lambda$afterInitialize$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (32, all visibilities)
+## Declared members (9 fields, 23 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.state.StateDefinition<O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> {
-    private static final java.util.regex.Pattern NAME_PATTERN;
-    private static final java.lang.Comparable<?>[] EMPTY_VALUES;
-    private static final net.minecraft.world.level.block.state.properties.Property<?>[] EMPTY_KEYS;
-    private static final net.minecraft.world.level.block.state.StateHolder<?, ?>[][] EMPTY_NEIGHBORS;
-    private final O owner;
-    private final com.google.common.collect.ImmutableSortedMap<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>> propertiesByName;
-    private final com.google.common.collect.ImmutableList<S> states;
-    private final com.mojang.serialization.MapCodec<S> propertiesCodec;
-    static final boolean $assertionsDisabled;
-    protected net.minecraft.world.level.block.state.StateDefinition(java.util.function.Function<O, S>, O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
-    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.mojang.serialization.MapCodec<S> createCodec(O, java.util.function.Function<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
-    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.google.common.collect.ImmutableList<S> createSingletonState(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>);
-    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.google.common.collect.ImmutableList<S> createSinglePropertyStates(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
-    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>, T extends java.lang.Comparable<T>> com.google.common.collect.ImmutableList<S> createSinglePropertyStates(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, net.minecraft.world.level.block.state.properties.Property<T>);
-    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.google.common.collect.ImmutableList<S> createMultiPropertyStates(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
-    private static <S extends net.minecraft.world.level.block.state.StateHolder<?, ?>> S[][] emptyNeighbors();
-    private static <S extends net.minecraft.world.level.block.state.StateHolder<?, S>, T extends java.lang.Comparable<T>> com.mojang.serialization.MapCodec<S> appendPropertyCodec(com.mojang.serialization.MapCodec<S>, java.util.function.Supplier<S>, java.lang.String, net.minecraft.world.level.block.state.properties.Property<T>);
-    public com.google.common.collect.ImmutableList<S> getPossibleStates();
-    public S any();
-    public com.mojang.serialization.MapCodec<S> propertiesCodec();
-    public O getOwner();
-    public java.util.Collection<net.minecraft.world.level.block.state.properties.Property<?>> getProperties();
-    public java.lang.String toString();
-    public net.minecraft.world.level.block.state.properties.Property<?> getProperty(java.lang.String);
-    public boolean isSingletonState();
-    private static com.mojang.datafixers.util.Pair lambda$appendPropertyCodec$3(net.minecraft.world.level.block.state.properties.Property, net.minecraft.world.level.block.state.StateHolder);
-    private static net.minecraft.world.level.block.state.StateHolder lambda$appendPropertyCodec$2(net.minecraft.world.level.block.state.properties.Property, com.mojang.datafixers.util.Pair);
-    private static net.minecraft.world.level.block.state.properties.Property$Value lambda$appendPropertyCodec$1(net.minecraft.world.level.block.state.properties.Property, java.util.function.Supplier);
-    private static void lambda$appendPropertyCodec$0(java.lang.String);
-    private static void lambda$createMultiPropertyStates$0(net.minecraft.world.level.block.state.StateDefinition$StateCollection, net.minecraft.world.level.block.state.properties.Property[], java.util.List, net.minecraft.world.level.block.state.StateHolder);
-    private static net.minecraft.world.level.block.state.StateHolder lambda$createCodec$0(java.util.function.Function, java.lang.Object);
-    static {};
-}
+```
+private static final NAME_PATTERN : Ljava/util/regex/Pattern;
+private static final EMPTY_VALUES : [Ljava/lang/Comparable;
+private static final EMPTY_KEYS : [Lnet/minecraft/world/level/block/state/properties/Property;
+private static final EMPTY_NEIGHBORS : [[Lnet/minecraft/world/level/block/state/StateHolder;
+private final owner : Ljava/lang/Object;
+private final propertiesByName : Lcom/google/common/collect/ImmutableSortedMap;
+private final states : Lcom/google/common/collect/ImmutableList;
+private final propertiesCodec : Lcom/mojang/serialization/MapCodec;
+static final synthetic $assertionsDisabled : Z
+protected <init>(Ljava/util/function/Function;Ljava/lang/Object;Lnet/minecraft/world/level/block/state/StateDefinition$Factory;Ljava/util/Map;)V
+private static createCodec(Ljava/lang/Object;Ljava/util/function/Function;Ljava/util/Map;)Lcom/mojang/serialization/MapCodec;
+private static createSingletonState(Ljava/lang/Object;Lnet/minecraft/world/level/block/state/StateDefinition$Factory;)Lcom/google/common/collect/ImmutableList;
+private static createSinglePropertyStates(Ljava/lang/Object;Lnet/minecraft/world/level/block/state/StateDefinition$Factory;Ljava/util/Map;)Lcom/google/common/collect/ImmutableList;
+private static createSinglePropertyStates(Ljava/lang/Object;Lnet/minecraft/world/level/block/state/StateDefinition$Factory;Lnet/minecraft/world/level/block/state/properties/Property;)Lcom/google/common/collect/ImmutableList;
+private static createMultiPropertyStates(Ljava/lang/Object;Lnet/minecraft/world/level/block/state/StateDefinition$Factory;Ljava/util/Map;)Lcom/google/common/collect/ImmutableList;
+private static emptyNeighbors()[[Lnet/minecraft/world/level/block/state/StateHolder;
+private static appendPropertyCodec(Lcom/mojang/serialization/MapCodec;Ljava/util/function/Supplier;Ljava/lang/String;Lnet/minecraft/world/level/block/state/properties/Property;)Lcom/mojang/serialization/MapCodec;
+public getPossibleStates()Lcom/google/common/collect/ImmutableList;
+public any()Lnet/minecraft/world/level/block/state/StateHolder;
+public propertiesCodec()Lcom/mojang/serialization/MapCodec;
+public getOwner()Ljava/lang/Object;
+public getProperties()Ljava/util/Collection;
+public toString()Ljava/lang/String;
+public getProperty(Ljava/lang/String;)Lnet/minecraft/world/level/block/state/properties/Property;
+public isSingletonState()Z
+private static synthetic lambda$appendPropertyCodec$3(Lnet/minecraft/world/level/block/state/properties/Property;Lnet/minecraft/world/level/block/state/StateHolder;)Lcom/mojang/datafixers/util/Pair;
+private static synthetic lambda$appendPropertyCodec$2(Lnet/minecraft/world/level/block/state/properties/Property;Lcom/mojang/datafixers/util/Pair;)Lnet/minecraft/world/level/block/state/StateHolder;
+private static synthetic lambda$appendPropertyCodec$1(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/util/function/Supplier;)Lnet/minecraft/world/level/block/state/properties/Property$Value;
+private static synthetic lambda$appendPropertyCodec$0(Ljava/lang/String;)V
+private static synthetic lambda$createMultiPropertyStates$0(Lnet/minecraft/world/level/block/state/StateDefinition$StateCollection;[Lnet/minecraft/world/level/block/state/properties/Property;Ljava/util/List;Lnet/minecraft/world/level/block/state/StateHolder;)V
+private static synthetic lambda$createCodec$0(Ljava/util/function/Function;Ljava/lang/Object;)Lnet/minecraft/world/level/block/state/StateHolder;
+static <clinit>()V
 ```

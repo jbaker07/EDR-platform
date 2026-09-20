@@ -11,39 +11,41 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/lang/String;Ljava/lang/String;)V` | `` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
-| calls | `fileToId(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `json(Ljava/lang/String;)Lnet/minecraft/resources/FileToIdConvert` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `listMatchingResources(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljav` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `prefix()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/String;Ljava/lang/String;)V` | exact | invokespecial@32 in `FabricGameTestRunner.<clinit>` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `fileToId` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identif` | exact | invokevirtual@123 in `TagAliasLoader.prepare` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `idToFile` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identif` | exact | invokevirtual@4 in `StructureTemplateManagerMixin$1.load` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `json` | `(Ljava/lang/String;)Lnet/minecraft/resources/FileToIdConverter;` | exact | invokestatic@59 in `TagAliasLoader.prepare` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `listMatchingResources` | `(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map` | exact | invokevirtual@9 in `StructureTemplateManagerMixin$1.list` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `listMatchingResources` | `(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map` | exact | invokevirtual@70 in `TagAliasLoader.prepare` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `prefix` | `()Ljava/lang/String;` | exact | invokevirtual@50 in `SimpleJsonResourceReloadListenerMixin.applyResourceConditions` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
 
-## Declared members (18, all visibilities)
+## Declared members (2 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.resources.FileToIdConverter extends java.lang.Record {
-    private final java.lang.String prefix;
-    private final java.lang.String extension;
-    public net.minecraft.resources.FileToIdConverter(java.lang.String, java.lang.String);
-    public static net.minecraft.resources.FileToIdConverter json(java.lang.String);
-    public static net.minecraft.resources.FileToIdConverter registry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    public net.minecraft.resources.Identifier idToFile(net.minecraft.resources.Identifier);
-    public net.minecraft.resources.Identifier fileToId(net.minecraft.resources.Identifier);
-    public boolean extensionMatches(net.minecraft.resources.Identifier);
-    public boolean prefixMatches(net.minecraft.resources.Identifier);
-    public boolean matches(net.minecraft.resources.Identifier);
-    private net.minecraft.server.packs.resources.ResourceManager$Selector extensionSelector();
-    public java.util.Map<net.minecraft.resources.Identifier, net.minecraft.server.packs.resources.Resource> listMatchingResources(net.minecraft.server.packs.resources.ResourceManager);
-    public java.util.Map<net.minecraft.resources.Identifier, java.util.List<net.minecraft.server.packs.resources.Resource>> listMatchingResourceStacks(net.minecraft.server.packs.resources.ResourceManager);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.lang.String prefix();
-    public java.lang.String extension();
-}
+```
+private final prefix : Ljava/lang/String;
+private final extension : Ljava/lang/String;
+public <init>(Ljava/lang/String;Ljava/lang/String;)V
+public static json(Ljava/lang/String;)Lnet/minecraft/resources/FileToIdConverter;
+public static registry(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/FileToIdConverter;
+public idToFile(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identifier;
+public fileToId(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identifier;
+public extensionMatches(Lnet/minecraft/resources/Identifier;)Z
+public prefixMatches(Lnet/minecraft/resources/Identifier;)Z
+public matches(Lnet/minecraft/resources/Identifier;)Z
+private extensionSelector()Lnet/minecraft/server/packs/resources/ResourceManager$Selector;
+public listMatchingResources(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map;
+public listMatchingResourceStacks(Lnet/minecraft/server/packs/resources/ResourceManager;)Ljava/util/Map;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public prefix()Ljava/lang/String;
+public extension()Ljava/lang/String;
 ```

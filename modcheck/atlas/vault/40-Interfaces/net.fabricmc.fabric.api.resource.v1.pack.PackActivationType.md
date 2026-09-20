@@ -10,7 +10,7 @@ sha256: "2d2fb907728c895640c1261ff3dd115b5087913d88d1ba1d9f3a8a4cfd1ca87e"
 
 # net.fabricmc.fabric.api.resource.v1.pack.PackActivationType
 
-Module: [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] -- kind: class
+Module: [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.resource.v1.pack.PackActivationType NORMAL
@@ -19,5 +19,4 @@ public static final net.fabricmc.fabric.api.resource.v1.pack.PackActivationType 
 public static net.fabricmc.fabric.api.resource.v1.pack.PackActivationType[] values()
 public static net.fabricmc.fabric.api.resource.v1.pack.PackActivationType valueOf(java.lang.String)
 public boolean isEnabledByDefault()
-static {}
 ```

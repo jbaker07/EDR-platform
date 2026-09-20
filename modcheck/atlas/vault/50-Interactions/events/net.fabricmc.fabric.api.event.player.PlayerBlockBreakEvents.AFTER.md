@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerPlayerGameModeMixin.onBlockBroken` | `ServerPlayerGameMode.destroyBlock` @Inject at INVOKE Lnet/minecraft/world/level/block/Block;destroy(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V | both | static_inference |
+| `ServerPlayerGameModeMixin.onBlockBroken` @21 | [[40-Interfaces/net.minecraft.server.level.ServerPlayerGameMode|ServerPlayerGameMode]].`destroyBlock` @Inject INVOKE `Lnet/minecraft/world/level/block/Block;destroy(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V` | unknown | static_inference |
 
 ## Contract
 

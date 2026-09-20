@@ -11,45 +11,45 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.inventory|net.minecraft.world.inventory]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/inventory/AbstractContainerMenu`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/inventory/MenuType;ILnet/minecraft/wor` | `` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/inventory/MenuType;ILnet/minecraft/world/entity/` | exact | invokespecial@8 in `AnvilMenuMixin.<init>` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (28, all visibilities)
+## Declared members (8 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.inventory.ItemCombinerMenu extends net.minecraft.world.inventory.AbstractContainerMenu {
-    private static final int INVENTORY_SLOTS_PER_ROW;
-    private static final int INVENTORY_ROWS;
-    private static final int INPUT_SLOT_START;
-    protected final net.minecraft.world.inventory.ContainerLevelAccess access;
-    protected final net.minecraft.world.entity.player.Player player;
-    protected final net.minecraft.world.Container inputSlots;
-    protected final net.minecraft.world.inventory.ResultContainer resultSlots;
-    private final int resultSlotIndex;
-    protected boolean mayPickup(net.minecraft.world.entity.player.Player, boolean);
-    protected abstract void onTake(net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack);
-    protected abstract boolean isValidBlock(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.inventory.ItemCombinerMenu(net.minecraft.world.inventory.MenuType<?>, int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.inventory.ContainerLevelAccess, net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition);
-    private void createInputSlots(net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition);
-    private void createResultSlot(net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition);
-    public abstract void createResult();
-    private net.minecraft.world.SimpleContainer createContainer(int);
-    public void slotsChanged(net.minecraft.world.Container);
-    public void removed(net.minecraft.world.entity.player.Player);
-    public boolean stillValid(net.minecraft.world.entity.player.Player);
-    public net.minecraft.world.item.ItemStack quickMoveStack(net.minecraft.world.entity.player.Player, int);
-    protected boolean canMoveIntoInputSlots(net.minecraft.world.item.ItemStack);
-    public int getResultSlot();
-    private int getInventorySlotStart();
-    private int getInventorySlotEnd();
-    private int getUseRowStart();
-    private int getUseRowEnd();
-    private java.lang.Boolean lambda$stillValid$0(net.minecraft.world.entity.player.Player, net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    private void lambda$removed$0(net.minecraft.world.entity.player.Player, net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-}
+```
+private static final INVENTORY_SLOTS_PER_ROW : I
+private static final INVENTORY_ROWS : I
+private static final INPUT_SLOT_START : I
+protected final access : Lnet/minecraft/world/inventory/ContainerLevelAccess;
+protected final player : Lnet/minecraft/world/entity/player/Player;
+protected final inputSlots : Lnet/minecraft/world/Container;
+protected final resultSlots : Lnet/minecraft/world/inventory/ResultContainer;
+private final resultSlotIndex : I
+protected mayPickup(Lnet/minecraft/world/entity/player/Player;Z)Z
+protected abstract onTake(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V
+protected abstract isValidBlock(Lnet/minecraft/world/level/block/state/BlockState;)Z
+public <init>(Lnet/minecraft/world/inventory/MenuType;ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;Lnet/minecraft/world/inventory/ItemCombinerMenuSlotDefinition;)V
+private createInputSlots(Lnet/minecraft/world/inventory/ItemCombinerMenuSlotDefinition;)V
+private createResultSlot(Lnet/minecraft/world/inventory/ItemCombinerMenuSlotDefinition;)V
+public abstract createResult()V
+private createContainer(I)Lnet/minecraft/world/SimpleContainer;
+public slotsChanged(Lnet/minecraft/world/Container;)V
+public removed(Lnet/minecraft/world/entity/player/Player;)V
+public stillValid(Lnet/minecraft/world/entity/player/Player;)Z
+public quickMoveStack(Lnet/minecraft/world/entity/player/Player;I)Lnet/minecraft/world/item/ItemStack;
+protected canMoveIntoInputSlots(Lnet/minecraft/world/item/ItemStack;)Z
+public getResultSlot()I
+private getInventorySlotStart()I
+private getInventorySlotEnd()I
+private getUseRowStart()I
+private getUseRowEnd()I
+private synthetic lambda$stillValid$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Ljava/lang/Boolean;
+private synthetic lambda$removed$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
 ```

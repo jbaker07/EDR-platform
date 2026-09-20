@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LevelChunkMixin.getLevel` | (handler is not itself an injector method: fired from a helper or impl class) | client | static_inference |
-| `LevelChunkMixin.getLevel` | (handler is not itself an injector method: fired from a helper or impl class) | server | static_inference |
+| `LevelChunkMixin.onLoadBlockEntity` @36 | [[40-Interfaces/net.minecraft.world.level.chunk.LevelChunk|LevelChunk]].`setBlockEntity` @ModifyExpressionValue INVOKE `Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;` | unknown | static_inference |
+| `LevelChunkMixin.onLoadBlockEntity` @36 | [[40-Interfaces/net.minecraft.world.level.chunk.LevelChunk|LevelChunk]].`setBlockEntity` @ModifyExpressionValue INVOKE `Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;` | unknown | static_inference |
 
 ## Contract
 

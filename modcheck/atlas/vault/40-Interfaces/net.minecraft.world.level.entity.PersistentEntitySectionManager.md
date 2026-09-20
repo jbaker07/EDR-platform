@@ -11,82 +11,82 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `addEntity` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `addEntity` | `(Lnet/minecraft/world/level/entity/EntityAccess;Z)Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
 
-## Declared members (65, all visibilities)
+## Declared members (11 fields, 54 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.entity.PersistentEntitySectionManager<T extends net.minecraft.world.level.entity.EntityAccess> implements java.lang.AutoCloseable {
-    private static final org.slf4j.Logger LOGGER;
-    private final java.util.Set<java.util.UUID> knownUuids;
-    private final net.minecraft.world.level.entity.LevelCallback<T> callbacks;
-    private final net.minecraft.world.level.entity.EntityPersistentStorage<T> permanentStorage;
-    private final net.minecraft.world.level.entity.EntityLookup<T> visibleEntityStorage;
-    private final net.minecraft.world.level.entity.EntitySectionStorage<T> sectionStorage;
-    private final net.minecraft.world.level.entity.LevelEntityGetter<T> entityGetter;
-    private final it.unimi.dsi.fastutil.longs.Long2ObjectMap<net.minecraft.world.level.entity.Visibility> chunkVisibility;
-    private final it.unimi.dsi.fastutil.longs.Long2ObjectMap<net.minecraft.world.level.entity.PersistentEntitySectionManager$ChunkLoadStatus> chunkLoadStatuses;
-    private final it.unimi.dsi.fastutil.longs.LongSet chunksToUnload;
-    private final java.util.Queue<net.minecraft.world.level.entity.ChunkEntities<T>> loadingInbox;
-    public net.minecraft.world.level.entity.PersistentEntitySectionManager(java.lang.Class<T>, net.minecraft.world.level.entity.LevelCallback<T>, net.minecraft.world.level.entity.EntityPersistentStorage<T>);
-    private void removeSectionIfEmpty(long, net.minecraft.world.level.entity.EntitySection<T>);
-    private boolean addEntityUuid(T);
-    public boolean addNewEntity(T);
-    private boolean addEntity(T, boolean);
-    private static <T extends net.minecraft.world.level.entity.EntityAccess> net.minecraft.world.level.entity.Visibility getEffectiveStatus(T, net.minecraft.world.level.entity.Visibility);
-    public boolean isTicking(net.minecraft.world.level.ChunkPos);
-    public void addLegacyChunkEntities(java.util.stream.Stream<T>);
-    public void addWorldGenChunkEntities(java.util.stream.Stream<T>);
-    private void startTicking(T);
-    private void stopTicking(T);
-    private void startTracking(T);
-    private void stopTracking(T);
-    public void updateChunkStatus(net.minecraft.world.level.ChunkPos, net.minecraft.server.level.FullChunkStatus);
-    public void updateChunkStatus(net.minecraft.world.level.ChunkPos, net.minecraft.world.level.entity.Visibility);
-    private void ensureChunkQueuedForLoad(long);
-    private boolean storeChunkSections(long, java.util.function.Consumer<T>);
-    private void requestChunkLoad(long);
-    private boolean processChunkUnload(long);
-    private void unloadEntity(net.minecraft.world.level.entity.EntityAccess);
-    private void processUnloads();
-    public void processPendingLoads();
-    public void tick();
-    private it.unimi.dsi.fastutil.longs.LongSet getAllChunksToSave();
-    public void autoSave();
-    public void saveAll();
-    public void close() throws java.io.IOException;
-    public boolean isLoaded(java.util.UUID);
-    public net.minecraft.world.level.entity.LevelEntityGetter<T> getEntityGetter();
-    public boolean canPositionTick(net.minecraft.core.BlockPos);
-    public boolean canPositionTick(net.minecraft.world.level.ChunkPos);
-    public boolean areEntitiesLoaded(long);
-    public void dumpSections(java.io.Writer) throws java.io.IOException;
-    public java.lang.String gatherStats();
-    public int count();
-    private void lambda$dumpSections$0(net.minecraft.util.CsvOutput, long);
-    private void lambda$dumpSections$1(net.minecraft.util.CsvOutput, net.minecraft.world.level.entity.PersistentEntitySectionManager$ChunkLoadStatus, long);
-    private boolean lambda$saveAll$0(long);
-    private static void lambda$saveAll$1(net.minecraft.world.level.entity.EntityAccess);
-    private void lambda$autoSave$0(long);
-    private static void lambda$autoSave$1(net.minecraft.world.level.entity.EntityAccess);
-    private void lambda$processPendingLoads$0(net.minecraft.world.level.entity.EntityAccess);
-    private boolean lambda$processUnloads$0(long);
-    private void lambda$processChunkUnload$0(net.minecraft.world.level.entity.EntityAccess);
-    private static java.lang.Void lambda$requestChunkLoad$0(net.minecraft.world.level.ChunkPos, java.lang.Throwable);
-    private static java.util.stream.Stream lambda$storeChunkSections$0(net.minecraft.world.level.entity.EntitySection);
-    private void lambda$updateChunkStatus$0(net.minecraft.world.level.entity.Visibility, net.minecraft.world.level.entity.EntitySection);
-    private static boolean lambda$updateChunkStatus$4(net.minecraft.world.level.entity.EntityAccess);
-    private static boolean lambda$updateChunkStatus$3(net.minecraft.world.level.entity.EntityAccess);
-    private static boolean lambda$updateChunkStatus$2(net.minecraft.world.level.entity.EntityAccess);
-    private static boolean lambda$updateChunkStatus$1(net.minecraft.world.level.entity.EntityAccess);
-    private void lambda$addWorldGenChunkEntities$0(net.minecraft.world.level.entity.EntityAccess);
-    private void lambda$addLegacyChunkEntities$0(net.minecraft.world.level.entity.EntityAccess);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final knownUuids : Ljava/util/Set;
+private final callbacks : Lnet/minecraft/world/level/entity/LevelCallback;
+private final permanentStorage : Lnet/minecraft/world/level/entity/EntityPersistentStorage;
+private final visibleEntityStorage : Lnet/minecraft/world/level/entity/EntityLookup;
+private final sectionStorage : Lnet/minecraft/world/level/entity/EntitySectionStorage;
+private final entityGetter : Lnet/minecraft/world/level/entity/LevelEntityGetter;
+private final chunkVisibility : Lit/unimi/dsi/fastutil/longs/Long2ObjectMap;
+private final chunkLoadStatuses : Lit/unimi/dsi/fastutil/longs/Long2ObjectMap;
+private final chunksToUnload : Lit/unimi/dsi/fastutil/longs/LongSet;
+private final loadingInbox : Ljava/util/Queue;
+public <init>(Ljava/lang/Class;Lnet/minecraft/world/level/entity/LevelCallback;Lnet/minecraft/world/level/entity/EntityPersistentStorage;)V
+private removeSectionIfEmpty(JLnet/minecraft/world/level/entity/EntitySection;)V
+private addEntityUuid(Lnet/minecraft/world/level/entity/EntityAccess;)Z
+public addNewEntity(Lnet/minecraft/world/level/entity/EntityAccess;)Z
+private addEntity(Lnet/minecraft/world/level/entity/EntityAccess;Z)Z
+private static getEffectiveStatus(Lnet/minecraft/world/level/entity/EntityAccess;Lnet/minecraft/world/level/entity/Visibility;)Lnet/minecraft/world/level/entity/Visibility;
+public isTicking(Lnet/minecraft/world/level/ChunkPos;)Z
+public addLegacyChunkEntities(Ljava/util/stream/Stream;)V
+public addWorldGenChunkEntities(Ljava/util/stream/Stream;)V
+private startTicking(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private stopTicking(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private startTracking(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private stopTracking(Lnet/minecraft/world/level/entity/EntityAccess;)V
+public updateChunkStatus(Lnet/minecraft/world/level/ChunkPos;Lnet/minecraft/server/level/FullChunkStatus;)V
+public updateChunkStatus(Lnet/minecraft/world/level/ChunkPos;Lnet/minecraft/world/level/entity/Visibility;)V
+private ensureChunkQueuedForLoad(J)V
+private storeChunkSections(JLjava/util/function/Consumer;)Z
+private requestChunkLoad(J)V
+private processChunkUnload(J)Z
+private unloadEntity(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private processUnloads()V
+public processPendingLoads()V
+public tick()V
+private getAllChunksToSave()Lit/unimi/dsi/fastutil/longs/LongSet;
+public autoSave()V
+public saveAll()V
+public close()V
+public isLoaded(Ljava/util/UUID;)Z
+public getEntityGetter()Lnet/minecraft/world/level/entity/LevelEntityGetter;
+public canPositionTick(Lnet/minecraft/core/BlockPos;)Z
+public canPositionTick(Lnet/minecraft/world/level/ChunkPos;)Z
+public areEntitiesLoaded(J)Z
+public dumpSections(Ljava/io/Writer;)V
+public gatherStats()Ljava/lang/String;
+public count()I
+private synthetic lambda$dumpSections$0(Lnet/minecraft/util/CsvOutput;J)V
+private synthetic lambda$dumpSections$1(Lnet/minecraft/util/CsvOutput;Lnet/minecraft/world/level/entity/PersistentEntitySectionManager$ChunkLoadStatus;J)V
+private synthetic lambda$saveAll$0(J)Z
+private static synthetic lambda$saveAll$1(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private synthetic lambda$autoSave$0(J)V
+private static synthetic lambda$autoSave$1(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private synthetic lambda$processPendingLoads$0(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private synthetic lambda$processUnloads$0(J)Z
+private synthetic lambda$processChunkUnload$0(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private static synthetic lambda$requestChunkLoad$0(Lnet/minecraft/world/level/ChunkPos;Ljava/lang/Throwable;)Ljava/lang/Void;
+private static synthetic lambda$storeChunkSections$0(Lnet/minecraft/world/level/entity/EntitySection;)Ljava/util/stream/Stream;
+private synthetic lambda$updateChunkStatus$0(Lnet/minecraft/world/level/entity/Visibility;Lnet/minecraft/world/level/entity/EntitySection;)V
+private static synthetic lambda$updateChunkStatus$4(Lnet/minecraft/world/level/entity/EntityAccess;)Z
+private static synthetic lambda$updateChunkStatus$3(Lnet/minecraft/world/level/entity/EntityAccess;)Z
+private static synthetic lambda$updateChunkStatus$2(Lnet/minecraft/world/level/entity/EntityAccess;)Z
+private static synthetic lambda$updateChunkStatus$1(Lnet/minecraft/world/level/entity/EntityAccess;)Z
+private synthetic lambda$addWorldGenChunkEntities$0(Lnet/minecraft/world/level/entity/EntityAccess;)V
+private synthetic lambda$addLegacyChunkEntities$0(Lnet/minecraft/world/level/entity/EntityAccess;)V
+static <clinit>()V
 ```

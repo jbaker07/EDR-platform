@@ -11,25 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data|net.minecraft.data]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `createPathProvider(Lnet/minecraft/data/PackOutput$Target;Ljava/lang/String;)Ln` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/nio/file/Path;)V` | exact | invokespecial@2 in `FabricPackOutput.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `createPathProvider` | `(Lnet/minecraft/data/PackOutput$Target;Ljava/lang/String;)Lnet/minecra` | exact | invokevirtual@9 in `TagsProviderMixin.initPathResolver` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getOutputFolder` | `()Ljava/nio/file/Path;` | exact | invokevirtual@4 in `FabricDataGenerator.createBuiltinResourcePack` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getOutputFolder` | `(Lnet/minecraft/data/PackOutput$Target;)Ljava/nio/file/Path;` | exact | invokevirtual@7 in `FabricSoundsProvider.lambda$run$3` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (1 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.PackOutput {
-    private final java.nio.file.Path outputFolder;
-    public net.minecraft.data.PackOutput(java.nio.file.Path);
-    public java.nio.file.Path getOutputFolder();
-    public java.nio.file.Path getOutputFolder(net.minecraft.data.PackOutput$Target);
-    public net.minecraft.data.PackOutput$PathProvider createPathProvider(net.minecraft.data.PackOutput$Target, java.lang.String);
-    public net.minecraft.data.PackOutput$PathProvider createRegistryElementsPathProvider(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    public net.minecraft.data.PackOutput$PathProvider createRegistryTagsPathProvider(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    public net.minecraft.data.PackOutput$PathProvider createRegistryComponentPathProvider(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-}
+```
+private final outputFolder : Ljava/nio/file/Path;
+public <init>(Ljava/nio/file/Path;)V
+public getOutputFolder()Ljava/nio/file/Path;
+public getOutputFolder(Lnet/minecraft/data/PackOutput$Target;)Ljava/nio/file/Path;
+public createPathProvider(Lnet/minecraft/data/PackOutput$Target;Ljava/lang/String;)Lnet/minecraft/data/PackOutput$PathProvider;
+public createRegistryElementsPathProvider(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/data/PackOutput$PathProvider;
+public createRegistryTagsPathProvider(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/data/PackOutput$PathProvider;
+public createRegistryComponentPathProvider(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/data/PackOutput$PathProvider;
 ```

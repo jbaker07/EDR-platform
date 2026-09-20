@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerPlayerGameModeMixin.interactItem` | `ServerPlayerGameMode.useItem` @Inject at HEAD | both | static_inference |
-| `MultiPlayerGameModeMixin.interactItem` | `MultiPlayerGameMode.useItem` @Inject at INVOKE Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;ensureHasSentCarriedItem()V | client | static_inference |
+| `ServerPlayerGameModeMixin.interactItem` @13 | [[40-Interfaces/net.minecraft.server.level.ServerPlayerGameMode|ServerPlayerGameMode]].`useItem` @Inject HEAD | unknown | static_inference |
+| `MultiPlayerGameModeMixin.interactItem` @15 | [[40-Interfaces/net.minecraft.client.multiplayer.MultiPlayerGameMode|MultiPlayerGameMode]].`useItem` @Inject INVOKE `Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;ensureHasSentCarriedItem()V` | unknown | static_inference |
 
 ## Contract
 

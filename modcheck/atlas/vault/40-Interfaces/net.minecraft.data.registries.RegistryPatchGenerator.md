@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.registries|net.minecraft.data.registries]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `lambda$createReloadableLookup$0` | `@Redirect at FIELD Lnet/minecraft/resources/RegistryDataLoader;RELOADABLE_REGIST` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| wraps | `lambda$createWorldLookup$0` | `@Redirect at FIELD Lnet/minecraft/resources/RegistryDataLoader;WORLD_REGISTRIES:` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `lambda$createReloadableLookup$0` | `(Lnet/minecraft/core/RegistrySetBuilder;Lnet/minecraft/core/HolderLook` | name_only | @Redirect at ['FIELD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| wraps | `lambda$createWorldLookup$0` | `(Lnet/minecraft/core/RegistrySetBuilder;Lnet/minecraft/core/HolderLook` | name_only | @Redirect at ['FIELD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (0 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.registries.RegistryPatchGenerator {
-    public net.minecraft.data.registries.RegistryPatchGenerator();
-    private static boolean hasAnyPatchedElement(net.minecraft.core.RegistrySetBuilder$PatchedRegistries, net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    public static java.util.concurrent.CompletableFuture<net.minecraft.core.RegistrySetBuilder$PatchedRegistries> createWorldLookup(java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>, net.minecraft.core.RegistrySetBuilder);
-    public static java.util.concurrent.CompletableFuture<net.minecraft.core.RegistrySetBuilder$PatchedRegistries> createReloadableLookup(java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>, net.minecraft.core.RegistrySetBuilder);
-    private static net.minecraft.core.RegistrySetBuilder$PatchedRegistries lambda$createReloadableLookup$0(net.minecraft.core.RegistrySetBuilder, net.minecraft.core.HolderLookup$Provider, net.minecraft.core.HolderLookup$Provider);
-    private static boolean lambda$createReloadableLookup$2(net.minecraft.core.RegistrySetBuilder$PatchedRegistries, net.minecraft.world.level.storage.loot.LootDataType);
-    private static void lambda$createReloadableLookup$1(net.minecraft.core.Cloner$Factory, net.minecraft.resources.RegistryDataLoader$RegistryData);
-    private static net.minecraft.core.RegistrySetBuilder$PatchedRegistries lambda$createWorldLookup$0(net.minecraft.core.RegistrySetBuilder, net.minecraft.core.HolderLookup$Provider);
-    private static void lambda$createWorldLookup$1(net.minecraft.core.Cloner$Factory, net.minecraft.resources.RegistryDataLoader$RegistryData);
-    private static java.util.Optional lambda$hasAnyPatchedElement$0(net.minecraft.core.HolderLookup$RegistryLookup);
-}
+```
+public <init>()V
+private static hasAnyPatchedElement(Lnet/minecraft/core/RegistrySetBuilder$PatchedRegistries;Lnet/minecraft/resources/ResourceKey;)Z
+public static createWorldLookup(Ljava/util/concurrent/CompletableFuture;Lnet/minecraft/core/RegistrySetBuilder;)Ljava/util/concurrent/CompletableFuture;
+public static createReloadableLookup(Ljava/util/concurrent/CompletableFuture;Ljava/util/concurrent/CompletableFuture;Lnet/minecraft/core/RegistrySetBuilder;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$createReloadableLookup$0(Lnet/minecraft/core/RegistrySetBuilder;Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/core/RegistrySetBuilder$PatchedRegistries;
+private static synthetic lambda$createReloadableLookup$2(Lnet/minecraft/core/RegistrySetBuilder$PatchedRegistries;Lnet/minecraft/world/level/storage/loot/LootDataType;)Z
+private static synthetic lambda$createReloadableLookup$1(Lnet/minecraft/core/Cloner$Factory;Lnet/minecraft/resources/RegistryDataLoader$RegistryData;)V
+private static synthetic lambda$createWorldLookup$0(Lnet/minecraft/core/RegistrySetBuilder;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/core/RegistrySetBuilder$PatchedRegistries;
+private static synthetic lambda$createWorldLookup$1(Lnet/minecraft/core/Cloner$Factory;Lnet/minecraft/resources/RegistryDataLoader$RegistryData;)V
+private static synthetic lambda$hasAnyPatchedElement$0(Lnet/minecraft/core/HolderLookup$RegistryLookup;)Ljava/util/Optional;
 ```

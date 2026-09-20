@@ -11,98 +11,101 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.commands|net.minecraft.commands]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/commands/SharedSuggestionProvider`, `net/minecraft/commands/ExecutionCommandSource`, `net/fabricmc/fabric/api/permission/v1/PermissionContextOwner`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getEntity()Lnet/minecraft/world/entity/Entity;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getLevel()Lnet/minecraft/server/level/ServerLevel;` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `getLevel()Lnet/minecraft/server/level/ServerLevel;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getPlayer()Lnet/minecraft/server/level/ServerPlayer;` | `` | both | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
-| calls | `getPosition()Lnet/minecraft/world/phys/Vec3;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getServer()Lnet/minecraft/server/MinecraftServer;` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `getServer()Lnet/minecraft/server/MinecraftServer;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getTextName()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `permissions()Lnet/minecraft/server/permissions/PermissionSet;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `sendSuccess(Ljava/util/function/Supplier;Z)V` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| injects_into | `<init>(Lnet/minecraft/commands/CommandSource;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec2;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/permissions/PermissionSet;Lnet/minecraft/commands/CommandSourceStack$NamesProvider;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/entity/Entity;)V` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getEntity` | `()Lnet/minecraft/world/entity/Entity;` | exact | invokevirtual@74 in `CommandPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getEntity` | `()Lnet/minecraft/world/entity/Entity;` | exact | invokevirtual@4 in `CommandPermissionContext.keys` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getLevel` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@9 in `EnumRuleCommand.executeAndSetEnum` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `getLevel` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@59 in `CommandPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getPlayer` | `()Lnet/minecraft/server/level/ServerPlayer;` | exact | invokevirtual@44 in `PlayerListMixin.onSendCommandMessage` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| calls | `getPosition` | `()Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@26 in `CommandPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getPosition` | `()Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@41 in `CommandPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getServer` | `()Lnet/minecraft/server/MinecraftServer;` | exact | invokevirtual@18 in `EnumRuleCommand.executeAndSetEnum` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `getServer` | `()Lnet/minecraft/server/MinecraftServer;` | exact | invokevirtual@101 in `CommandPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `getTextName` | `()Ljava/lang/String;` | exact | invokevirtual@11 in `CommandPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `permissions` | `()Lnet/minecraft/server/permissions/PermissionSet;` | exact | invokevirtual@12 in `CommandPermissionContext.permissionLevel` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `sendSuccess` | `(Ljava/util/function/Supplier;Z)V` | exact | invokevirtual@57 in `EnumRuleCommand.executeAndSetEnum` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| injects_into | `/^with/ desc=/CommandSourceStack;$/` | `?` | selector_unsupported | @ModifyReturnValue at ['RETURN'] | both | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/commands/CommandSource;Lnet/minecraft/world/phys/Vec3;` | exact | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
 
-## Declared members (71, all visibilities)
+## Declared members (15 fields, 56 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.commands.CommandSourceStack implements net.minecraft.commands.SharedSuggestionProvider, net.minecraft.commands.ExecutionCommandSource<net.minecraft.commands.CommandSourceStack> {
-    public static final com.mojang.brigadier.exceptions.SimpleCommandExceptionType ERROR_NOT_PLAYER;
-    public static final com.mojang.brigadier.exceptions.SimpleCommandExceptionType ERROR_NOT_ENTITY;
-    private final net.minecraft.commands.CommandSource source;
-    private final net.minecraft.world.phys.Vec3 worldPosition;
-    private final net.minecraft.server.level.ServerLevel level;
-    private final net.minecraft.server.permissions.PermissionSet permissions;
-    private final net.minecraft.commands.CommandSourceStack$NamesProvider namesProvider;
-    private final net.minecraft.server.MinecraftServer server;
-    private final boolean silent;
-    private final net.minecraft.world.entity.Entity entity;
-    private final net.minecraft.commands.CommandResultCallback resultCallback;
-    private final net.minecraft.commands.arguments.EntityAnchorArgument$Anchor anchor;
-    private final net.minecraft.world.phys.Vec2 rotation;
-    private final net.minecraft.commands.CommandSigningContext signingContext;
-    private final net.minecraft.util.TaskChainer chatMessageChainer;
-    public net.minecraft.commands.CommandSourceStack(net.minecraft.commands.CommandSource, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec2, net.minecraft.server.level.ServerLevel, net.minecraft.server.permissions.PermissionSet, net.minecraft.server.MinecraftServer, net.minecraft.world.entity.Entity);
-    public net.minecraft.commands.CommandSourceStack(net.minecraft.commands.CommandSource, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec2, net.minecraft.server.level.ServerLevel, net.minecraft.server.permissions.PermissionSet, net.minecraft.network.chat.Component, net.minecraft.server.MinecraftServer);
-    private net.minecraft.commands.CommandSourceStack(net.minecraft.commands.CommandSource, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec2, net.minecraft.server.level.ServerLevel, net.minecraft.server.permissions.PermissionSet, net.minecraft.commands.CommandSourceStack$NamesProvider, net.minecraft.server.MinecraftServer, net.minecraft.world.entity.Entity);
-    private net.minecraft.commands.CommandSourceStack(net.minecraft.commands.CommandSource, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec2, net.minecraft.server.level.ServerLevel, net.minecraft.server.permissions.PermissionSet, net.minecraft.commands.CommandSourceStack$NamesProvider, net.minecraft.server.MinecraftServer, net.minecraft.world.entity.Entity, boolean, net.minecraft.commands.CommandResultCallback, net.minecraft.commands.arguments.EntityAnchorArgument$Anchor, net.minecraft.commands.CommandSigningContext, net.minecraft.util.TaskChainer);
-    public net.minecraft.commands.CommandSourceStack withSource(net.minecraft.commands.CommandSource);
-    public net.minecraft.commands.CommandSourceStack withEntity(net.minecraft.world.entity.Entity);
-    public net.minecraft.commands.CommandSourceStack withPosition(net.minecraft.world.phys.Vec3);
-    public net.minecraft.commands.CommandSourceStack withRotation(net.minecraft.world.phys.Vec2);
-    public net.minecraft.commands.CommandSourceStack withCallback(net.minecraft.commands.CommandResultCallback);
-    public net.minecraft.commands.CommandSourceStack withCallback(net.minecraft.commands.CommandResultCallback, java.util.function.BinaryOperator<net.minecraft.commands.CommandResultCallback>);
-    public net.minecraft.commands.CommandSourceStack withSuppressedOutput();
-    public net.minecraft.commands.CommandSourceStack withPermission(net.minecraft.server.permissions.PermissionSet);
-    public net.minecraft.commands.CommandSourceStack withMaximumPermission(net.minecraft.server.permissions.PermissionSet);
-    public net.minecraft.commands.CommandSourceStack withAnchor(net.minecraft.commands.arguments.EntityAnchorArgument$Anchor);
-    public net.minecraft.commands.CommandSourceStack withLevel(net.minecraft.server.level.ServerLevel);
-    public net.minecraft.commands.CommandSourceStack facing(net.minecraft.world.entity.Entity, net.minecraft.commands.arguments.EntityAnchorArgument$Anchor);
-    public net.minecraft.commands.CommandSourceStack facing(net.minecraft.world.phys.Vec3);
-    public net.minecraft.commands.CommandSourceStack withSigningContext(net.minecraft.commands.CommandSigningContext, net.minecraft.util.TaskChainer);
-    public net.minecraft.network.chat.Component getDisplayName();
-    public java.lang.String getTextName();
-    public net.minecraft.server.permissions.PermissionSet permissions();
-    public net.minecraft.world.phys.Vec3 getPosition();
-    public net.minecraft.server.level.ServerLevel getLevel();
-    public net.minecraft.world.entity.Entity getEntity();
-    public net.minecraft.world.entity.Entity getEntityOrException() throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public net.minecraft.server.level.ServerPlayer getPlayerOrException() throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public net.minecraft.server.level.ServerPlayer getPlayer();
-    public boolean isPlayer();
-    public net.minecraft.world.phys.Vec2 getRotation();
-    public net.minecraft.server.MinecraftServer getServer();
-    public net.minecraft.commands.arguments.EntityAnchorArgument$Anchor getAnchor();
-    public net.minecraft.commands.CommandSigningContext getSigningContext();
-    public net.minecraft.util.TaskChainer getChatMessageChainer();
-    public boolean shouldFilterMessageTo(net.minecraft.server.level.ServerPlayer);
-    public void sendChatMessage(net.minecraft.network.chat.OutgoingChatMessage, boolean, net.minecraft.network.chat.ChatType$Bound);
-    public void sendSystemMessage(net.minecraft.network.chat.Component);
-    public void sendSuccess(java.util.function.Supplier<net.minecraft.network.chat.Component>, boolean);
-    private void broadcastToAdmins(net.minecraft.network.chat.Component);
-    public void sendFailure(net.minecraft.network.chat.Component);
-    public net.minecraft.commands.CommandResultCallback callback();
-    public java.util.Collection<java.lang.String> getOnlinePlayerNames();
-    public java.util.Collection<java.lang.String> getAllTeams();
-    public java.util.stream.Stream<net.minecraft.resources.Identifier> getAvailableSounds();
-    public java.util.stream.Stream<net.minecraft.resources.Identifier> getAvailablePostEffects();
-    public java.util.concurrent.CompletableFuture<com.mojang.brigadier.suggestion.Suggestions> customSuggestion(com.mojang.brigadier.context.CommandContext<?>);
-    public <E> java.util.concurrent.CompletableFuture<com.mojang.brigadier.suggestion.Suggestions> suggestRegistryElements(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<E>>, net.minecraft.commands.SharedSuggestionProvider$ElementSuggestionType, com.mojang.brigadier.suggestion.SuggestionsBuilder, com.mojang.brigadier.context.CommandContext<?>, java.util.function.Predicate<E>);
-    private <E> java.util.Optional<? extends net.minecraft.core.HolderLookup<E>> getLookup(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<E>>);
-    public java.util.Set<net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>> levels();
-    public net.minecraft.core.RegistryAccess registryAccess();
-    public net.minecraft.world.flag.FeatureFlagSet enabledFeatures();
-    public com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack> dispatcher();
-    public void handleError(com.mojang.brigadier.exceptions.CommandExceptionType, com.mojang.brigadier.Message, boolean, net.minecraft.commands.execution.TraceCallbacks);
-    public boolean isSilent();
-    public net.minecraft.commands.ExecutionCommandSource withCallback(net.minecraft.commands.CommandResultCallback);
-    private java.util.concurrent.CompletableFuture lambda$suggestRegistryElements$0(net.minecraft.commands.SharedSuggestionProvider$ElementSuggestionType, com.mojang.brigadier.suggestion.SuggestionsBuilder, java.util.function.Predicate, net.minecraft.core.HolderLookup);
-    static {};
-}
+```
+public static final ERROR_NOT_PLAYER : Lcom/mojang/brigadier/exceptions/SimpleCommandExceptionType;
+public static final ERROR_NOT_ENTITY : Lcom/mojang/brigadier/exceptions/SimpleCommandExceptionType;
+private final source : Lnet/minecraft/commands/CommandSource;
+private final worldPosition : Lnet/minecraft/world/phys/Vec3;
+private final level : Lnet/minecraft/server/level/ServerLevel;
+private final permissions : Lnet/minecraft/server/permissions/PermissionSet;
+private final namesProvider : Lnet/minecraft/commands/CommandSourceStack$NamesProvider;
+private final server : Lnet/minecraft/server/MinecraftServer;
+private final silent : Z
+private final entity : Lnet/minecraft/world/entity/Entity;
+private final resultCallback : Lnet/minecraft/commands/CommandResultCallback;
+private final anchor : Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;
+private final rotation : Lnet/minecraft/world/phys/Vec2;
+private final signingContext : Lnet/minecraft/commands/CommandSigningContext;
+private final chatMessageChainer : Lnet/minecraft/util/TaskChainer;
+public <init>(Lnet/minecraft/commands/CommandSource;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec2;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/permissions/PermissionSet;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/entity/Entity;)V
+public <init>(Lnet/minecraft/commands/CommandSource;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec2;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/permissions/PermissionSet;Lnet/minecraft/network/chat/Component;Lnet/minecraft/server/MinecraftServer;)V
+private <init>(Lnet/minecraft/commands/CommandSource;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec2;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/permissions/PermissionSet;Lnet/minecraft/commands/CommandSourceStack$NamesProvider;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/entity/Entity;)V
+private <init>(Lnet/minecraft/commands/CommandSource;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec2;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/permissions/PermissionSet;Lnet/minecraft/commands/CommandSourceStack$NamesProvider;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/entity/Entity;ZLnet/minecraft/commands/CommandResultCallback;Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;Lnet/minecraft/commands/CommandSigningContext;Lnet/minecraft/util/TaskChainer;)V
+public withSource(Lnet/minecraft/commands/CommandSource;)Lnet/minecraft/commands/CommandSourceStack;
+public withEntity(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/commands/CommandSourceStack;
+public withPosition(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/commands/CommandSourceStack;
+public withRotation(Lnet/minecraft/world/phys/Vec2;)Lnet/minecraft/commands/CommandSourceStack;
+public withCallback(Lnet/minecraft/commands/CommandResultCallback;)Lnet/minecraft/commands/CommandSourceStack;
+public withCallback(Lnet/minecraft/commands/CommandResultCallback;Ljava/util/function/BinaryOperator;)Lnet/minecraft/commands/CommandSourceStack;
+public withSuppressedOutput()Lnet/minecraft/commands/CommandSourceStack;
+public withPermission(Lnet/minecraft/server/permissions/PermissionSet;)Lnet/minecraft/commands/CommandSourceStack;
+public withMaximumPermission(Lnet/minecraft/server/permissions/PermissionSet;)Lnet/minecraft/commands/CommandSourceStack;
+public withAnchor(Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;)Lnet/minecraft/commands/CommandSourceStack;
+public withLevel(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/commands/CommandSourceStack;
+public facing(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;)Lnet/minecraft/commands/CommandSourceStack;
+public facing(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/commands/CommandSourceStack;
+public withSigningContext(Lnet/minecraft/commands/CommandSigningContext;Lnet/minecraft/util/TaskChainer;)Lnet/minecraft/commands/CommandSourceStack;
+public getDisplayName()Lnet/minecraft/network/chat/Component;
+public getTextName()Ljava/lang/String;
+public permissions()Lnet/minecraft/server/permissions/PermissionSet;
+public getPosition()Lnet/minecraft/world/phys/Vec3;
+public getLevel()Lnet/minecraft/server/level/ServerLevel;
+public getEntity()Lnet/minecraft/world/entity/Entity;
+public getEntityOrException()Lnet/minecraft/world/entity/Entity;
+public getPlayerOrException()Lnet/minecraft/server/level/ServerPlayer;
+public getPlayer()Lnet/minecraft/server/level/ServerPlayer;
+public isPlayer()Z
+public getRotation()Lnet/minecraft/world/phys/Vec2;
+public getServer()Lnet/minecraft/server/MinecraftServer;
+public getAnchor()Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;
+public getSigningContext()Lnet/minecraft/commands/CommandSigningContext;
+public getChatMessageChainer()Lnet/minecraft/util/TaskChainer;
+public shouldFilterMessageTo(Lnet/minecraft/server/level/ServerPlayer;)Z
+public sendChatMessage(Lnet/minecraft/network/chat/OutgoingChatMessage;ZLnet/minecraft/network/chat/ChatType$Bound;)V
+public sendSystemMessage(Lnet/minecraft/network/chat/Component;)V
+public sendSuccess(Ljava/util/function/Supplier;Z)V
+private broadcastToAdmins(Lnet/minecraft/network/chat/Component;)V
+public sendFailure(Lnet/minecraft/network/chat/Component;)V
+public callback()Lnet/minecraft/commands/CommandResultCallback;
+public getOnlinePlayerNames()Ljava/util/Collection;
+public getAllTeams()Ljava/util/Collection;
+public getAvailableSounds()Ljava/util/stream/Stream;
+public getAvailablePostEffects()Ljava/util/stream/Stream;
+public customSuggestion(Lcom/mojang/brigadier/context/CommandContext;)Ljava/util/concurrent/CompletableFuture;
+public suggestRegistryElements(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/commands/SharedSuggestionProvider$ElementSuggestionType;Lcom/mojang/brigadier/suggestion/SuggestionsBuilder;Lcom/mojang/brigadier/context/CommandContext;Ljava/util/function/Predicate;)Ljava/util/concurrent/CompletableFuture;
+private getLookup(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;
+public levels()Ljava/util/Set;
+public registryAccess()Lnet/minecraft/core/RegistryAccess;
+public enabledFeatures()Lnet/minecraft/world/flag/FeatureFlagSet;
+public dispatcher()Lcom/mojang/brigadier/CommandDispatcher;
+public handleError(Lcom/mojang/brigadier/exceptions/CommandExceptionType;Lcom/mojang/brigadier/Message;ZLnet/minecraft/commands/execution/TraceCallbacks;)V
+public isSilent()Z
+public synthetic withCallback(Lnet/minecraft/commands/CommandResultCallback;)Lnet/minecraft/commands/ExecutionCommandSource;
+private synthetic lambda$suggestRegistryElements$0(Lnet/minecraft/commands/SharedSuggestionProvider$ElementSuggestionType;Lcom/mojang/brigadier/suggestion/SuggestionsBuilder;Ljava/util/function/Predicate;Lnet/minecraft/core/HolderLookup;)Ljava/util/concurrent/CompletableFuture;
+static <clinit>()V
 ```

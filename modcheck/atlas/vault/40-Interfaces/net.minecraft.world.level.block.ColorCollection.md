@@ -11,72 +11,78 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `red()Ljava/lang/Object;` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Obje` | exact | invokespecial@790 in `ConventionalBlockItemTags.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `<init>` | `(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Obje` | exact | invokespecial@835 in `ConventionalBlockTags.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `<init>` | `(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Obje` | exact | invokespecial@1605 in `ConventionalItemTags.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `<init>` | `(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Obje` | exact | invokespecial@1816 in `ConventionalItemTags.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `forEach` | `(Ljava/util/function/Consumer;)V` | exact | invokevirtual@116 in `ItemStorage.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `forEach` | `(Ljava/util/function/Consumer;)V` | exact | invokevirtual@150 in `ItemStorage.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `red` | `()Ljava/lang/Object;` | exact | invokevirtual@39 in `LivingEntityMixin.modifyBedForOccupiedState` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
 
-## Declared members (55, all visibilities)
+## Declared members (18 fields, 37 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.block.ColorCollection<T> extends java.lang.Record {
-    private final T white;
-    private final T orange;
-    private final T magenta;
-    private final T lightBlue;
-    private final T yellow;
-    private final T lime;
-    private final T pink;
-    private final T gray;
-    private final T lightGray;
-    private final T cyan;
-    private final T purple;
-    private final T blue;
-    private final T brown;
-    private final T green;
-    private final T red;
-    private final T black;
-    public static final net.minecraft.world.level.block.ColorCollection<net.minecraft.world.item.DyeColor> VALUES;
-    public static final net.minecraft.world.level.block.ColorCollection<java.lang.String> NAMES;
-    public net.minecraft.world.level.block.ColorCollection(T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T);
-    public static <T> net.minecraft.world.level.block.ColorCollection<T> create(T);
-    public static <B extends net.minecraft.world.level.block.Block, Id> net.minecraft.world.level.block.ColorCollection<net.minecraft.world.level.block.Block> registerBlocks(net.minecraft.world.level.block.ColorCollection<Id>, org.apache.commons.lang3.function.TriFunction<Id, java.util.function.Function<net.minecraft.world.level.block.state.BlockBehaviour$Properties, net.minecraft.world.level.block.Block>, net.minecraft.world.level.block.state.BlockBehaviour$Properties, net.minecraft.world.level.block.Block>, java.util.function.BiFunction<net.minecraft.world.item.DyeColor, net.minecraft.world.level.block.state.BlockBehaviour$Properties, B>, java.util.function.Function<net.minecraft.world.item.DyeColor, net.minecraft.world.level.block.state.BlockBehaviour$Properties>);
-    public static <Id> net.minecraft.world.level.block.ColorCollection<net.minecraft.world.item.Item> registerBlockItems(net.minecraft.world.level.block.ColorCollection<Id>, net.minecraft.world.level.block.ColorCollection<net.minecraft.world.level.block.Block>, org.apache.commons.lang3.function.TriFunction<Id, net.minecraft.world.level.block.Block, net.minecraft.world.item.DyeColor, net.minecraft.world.item.Item>);
-    public static <Id> net.minecraft.world.level.block.ColorCollection<net.minecraft.world.item.Item> registerItems(net.minecraft.world.level.block.ColorCollection<Id>, java.util.function.BiFunction<Id, net.minecraft.world.item.DyeColor, net.minecraft.world.item.Item>);
-    public static net.minecraft.world.level.block.ColorCollection<java.lang.String> prefixWithColor(net.minecraft.world.level.block.ColorCollection<java.lang.String>);
-    public java.util.List<T> asList();
-    public void forEach(java.util.function.Consumer<T>);
-    public T pick(net.minecraft.world.item.DyeColor);
-    public <U> net.minecraft.world.level.block.ColorCollection<U> map(java.util.function.Function<T, U>);
-    public static <T, U> void zipApply(net.minecraft.world.level.block.ColorCollection<T>, net.minecraft.world.level.block.ColorCollection<U>, java.util.function.BiConsumer<T, U>);
-    public static <T, U, R> net.minecraft.world.level.block.ColorCollection<R> zipMap(net.minecraft.world.level.block.ColorCollection<T>, net.minecraft.world.level.block.ColorCollection<U>, java.util.function.BiFunction<T, U, R>);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public T white();
-    public T orange();
-    public T magenta();
-    public T lightBlue();
-    public T yellow();
-    public T lime();
-    public T pink();
-    public T gray();
-    public T lightGray();
-    public T cyan();
-    public T purple();
-    public T blue();
-    public T brown();
-    public T green();
-    public T red();
-    public T black();
-    private static java.lang.String lambda$prefixWithColor$0(java.lang.String, java.lang.String);
-    private static net.minecraft.world.item.Item lambda$registerItems$0(java.util.function.BiFunction, net.minecraft.world.item.DyeColor, java.lang.Object);
-    private static net.minecraft.world.item.Item lambda$registerBlockItems$0(org.apache.commons.lang3.function.TriFunction, net.minecraft.world.level.block.ColorCollection, net.minecraft.world.item.DyeColor, java.lang.Object);
-    private static net.minecraft.world.level.block.Block lambda$registerBlocks$0(org.apache.commons.lang3.function.TriFunction, java.util.function.BiFunction, java.util.function.Function, net.minecraft.world.item.DyeColor, java.lang.Object);
-    private static net.minecraft.world.level.block.Block lambda$registerBlocks$1(java.util.function.BiFunction, net.minecraft.world.item.DyeColor, net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    static {};
-}
+```
+private final white : Ljava/lang/Object;
+private final orange : Ljava/lang/Object;
+private final magenta : Ljava/lang/Object;
+private final lightBlue : Ljava/lang/Object;
+private final yellow : Ljava/lang/Object;
+private final lime : Ljava/lang/Object;
+private final pink : Ljava/lang/Object;
+private final gray : Ljava/lang/Object;
+private final lightGray : Ljava/lang/Object;
+private final cyan : Ljava/lang/Object;
+private final purple : Ljava/lang/Object;
+private final blue : Ljava/lang/Object;
+private final brown : Ljava/lang/Object;
+private final green : Ljava/lang/Object;
+private final red : Ljava/lang/Object;
+private final black : Ljava/lang/Object;
+public static final VALUES : Lnet/minecraft/world/level/block/ColorCollection;
+public static final NAMES : Lnet/minecraft/world/level/block/ColorCollection;
+public <init>(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V
+public static create(Ljava/lang/Object;)Lnet/minecraft/world/level/block/ColorCollection;
+public static registerBlocks(Lnet/minecraft/world/level/block/ColorCollection;Lorg/apache/commons/lang3/function/TriFunction;Ljava/util/function/BiFunction;Ljava/util/function/Function;)Lnet/minecraft/world/level/block/ColorCollection;
+public static registerBlockItems(Lnet/minecraft/world/level/block/ColorCollection;Lnet/minecraft/world/level/block/ColorCollection;Lorg/apache/commons/lang3/function/TriFunction;)Lnet/minecraft/world/level/block/ColorCollection;
+public static registerItems(Lnet/minecraft/world/level/block/ColorCollection;Ljava/util/function/BiFunction;)Lnet/minecraft/world/level/block/ColorCollection;
+public static prefixWithColor(Lnet/minecraft/world/level/block/ColorCollection;)Lnet/minecraft/world/level/block/ColorCollection;
+public asList()Ljava/util/List;
+public forEach(Ljava/util/function/Consumer;)V
+public pick(Lnet/minecraft/world/item/DyeColor;)Ljava/lang/Object;
+public map(Ljava/util/function/Function;)Lnet/minecraft/world/level/block/ColorCollection;
+public static zipApply(Lnet/minecraft/world/level/block/ColorCollection;Lnet/minecraft/world/level/block/ColorCollection;Ljava/util/function/BiConsumer;)V
+public static zipMap(Lnet/minecraft/world/level/block/ColorCollection;Lnet/minecraft/world/level/block/ColorCollection;Ljava/util/function/BiFunction;)Lnet/minecraft/world/level/block/ColorCollection;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public white()Ljava/lang/Object;
+public orange()Ljava/lang/Object;
+public magenta()Ljava/lang/Object;
+public lightBlue()Ljava/lang/Object;
+public yellow()Ljava/lang/Object;
+public lime()Ljava/lang/Object;
+public pink()Ljava/lang/Object;
+public gray()Ljava/lang/Object;
+public lightGray()Ljava/lang/Object;
+public cyan()Ljava/lang/Object;
+public purple()Ljava/lang/Object;
+public blue()Ljava/lang/Object;
+public brown()Ljava/lang/Object;
+public green()Ljava/lang/Object;
+public red()Ljava/lang/Object;
+public black()Ljava/lang/Object;
+private static synthetic lambda$prefixWithColor$0(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$registerItems$0(Ljava/util/function/BiFunction;Lnet/minecraft/world/item/DyeColor;Ljava/lang/Object;)Lnet/minecraft/world/item/Item;
+private static synthetic lambda$registerBlockItems$0(Lorg/apache/commons/lang3/function/TriFunction;Lnet/minecraft/world/level/block/ColorCollection;Lnet/minecraft/world/item/DyeColor;Ljava/lang/Object;)Lnet/minecraft/world/item/Item;
+private static synthetic lambda$registerBlocks$0(Lorg/apache/commons/lang3/function/TriFunction;Ljava/util/function/BiFunction;Ljava/util/function/Function;Lnet/minecraft/world/item/DyeColor;Ljava/lang/Object;)Lnet/minecraft/world/level/block/Block;
+private static synthetic lambda$registerBlocks$1(Ljava/util/function/BiFunction;Lnet/minecraft/world/item/DyeColor;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;
+static <clinit>()V
 ```

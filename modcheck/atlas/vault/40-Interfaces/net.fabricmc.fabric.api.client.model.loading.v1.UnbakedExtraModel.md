@@ -13,5 +13,5 @@ sha256: "4889e5947bb2f9d899f72c17676b27aaef7d2594ecaaf75e89626e1eea169711"
 Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] -- kind: interface
 
 ```java
-public abstract T bake(net.minecraft.client.resources.model.ModelBaker)
+public abstract java.lang.Object bake(net.minecraft.client.resources.model.ModelBaker)
 ```

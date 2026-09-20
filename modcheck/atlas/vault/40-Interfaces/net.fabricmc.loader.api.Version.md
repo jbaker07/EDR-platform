@@ -13,5 +13,5 @@ fabric-loader 0.19.5 -- kind: interface
 
 ```java
 public abstract java.lang.String getFriendlyString()
-public static net.fabricmc.loader.api.Version parse(java.lang.String) throws net.fabricmc.loader.api.VersionParsingException
+public static net.fabricmc.loader.api.Version parse(java.lang.String)
 ```

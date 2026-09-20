@@ -9,7 +9,7 @@ side: "shared_by_design"
 
 # Packs, resources and reload
 
-Package `net.minecraft.server.packs` -- generated view: [[20-Systems/net.minecraft.server.packs|hooked types]]
+Package `net.minecraft.server.packs` -- generated view: [[20-Systems/net.minecraft.server.packs|inventory and hooked types]]
 
 **Responsibility.** Pack repositories, pack resources, the resource manager and reload listeners; the server side loads data packs, the client side resource packs, through the same classes. 25 hooked types.
 

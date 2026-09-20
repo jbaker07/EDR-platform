@@ -11,47 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/Block`; implements `net/minecraft/world/level/block/BucketPickup`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `shouldSpreadLiquid` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `shouldSpreadLiquid` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/mi` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
 
-## Declared members (30, all visibilities)
+## Declared members (5 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.LiquidBlock extends net.minecraft.world.level.block.Block implements net.minecraft.world.level.block.BucketPickup {
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LEVEL;
-    protected final net.minecraft.world.level.material.FlowingFluid fluid;
-    private final java.util.List<net.minecraft.world.level.material.FluidState> stateCache;
-    public static final com.google.common.collect.ImmutableList<net.minecraft.core.Direction> POSSIBLE_FLOW_DIRECTIONS;
-    private static final int BUBBLE_COLUMN_CHECK_DELAY;
-    protected net.minecraft.world.level.block.LiquidBlock(net.minecraft.world.level.material.FlowingFluid, net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    protected net.minecraft.world.phys.shapes.VoxelShape getCollisionShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
-    private java.util.Optional<net.minecraft.world.entity.LivingEntity> ifMobIsColliding(net.minecraft.world.phys.shapes.CollisionContext);
-    protected boolean isRandomlyTicking(net.minecraft.world.level.block.state.BlockState);
-    protected void randomTick(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    protected boolean propagatesSkylightDown(net.minecraft.world.level.block.state.BlockState);
-    protected boolean isPathfindable(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.pathfinder.PathComputationType);
-    protected net.minecraft.world.level.material.FluidState getFluidState(net.minecraft.world.level.block.state.BlockState);
-    protected boolean skipRendering(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction);
-    protected net.minecraft.world.level.block.RenderShape getRenderShape(net.minecraft.world.level.block.state.BlockState);
-    protected java.util.List<net.minecraft.world.item.ItemStack> getDrops(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.storage.loot.LootParams$Builder);
-    protected net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
-    protected void onPlace(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, boolean);
-    protected void tick(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    protected net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelReader, net.minecraft.world.level.ScheduledTickAccess, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource);
-    private static boolean shouldBubbleColumnOccupy(net.minecraft.world.level.block.state.BlockState);
-    protected void neighborChanged(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block, net.minecraft.world.level.redstone.Orientation, boolean);
-    private void tryScheduleBubbleBlockColumn(net.minecraft.world.level.ScheduledTickAccess, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private boolean shouldSpreadLiquid(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private void fizz(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
-    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
-    public net.minecraft.world.item.ItemStack pickupBlock(net.minecraft.world.entity.LivingEntity, net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public java.util.Optional<net.minecraft.sounds.SoundEvent> getPickupSound();
-    private static boolean lambda$getCollisionShape$0(net.minecraft.world.phys.shapes.CollisionContext, net.minecraft.core.BlockPos, net.minecraft.world.level.BlockGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.shapes.VoxelShape);
-    static {};
-}
+```
+public static final LEVEL : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+protected final fluid : Lnet/minecraft/world/level/material/FlowingFluid;
+private final stateCache : Ljava/util/List;
+public static final POSSIBLE_FLOW_DIRECTIONS : Lcom/google/common/collect/ImmutableList;
+private static final BUBBLE_COLUMN_CHECK_DELAY : I
+public <init>(Lnet/minecraft/world/level/material/FlowingFluid;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+protected getCollisionShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+private ifMobIsColliding(Lnet/minecraft/world/phys/shapes/CollisionContext;)Ljava/util/Optional;
+protected isRandomlyTicking(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected randomTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V
+protected propagatesSkylightDown(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected isPathfindable(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/pathfinder/PathComputationType;)Z
+protected getFluidState(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/material/FluidState;
+protected skipRendering(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z
+protected getRenderShape(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/RenderShape;
+protected getDrops(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/storage/loot/LootParams$Builder;)Ljava/util/List;
+protected getShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+protected onPlace(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)V
+protected tick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V
+protected updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/block/state/BlockState;
+private static shouldBubbleColumnOccupy(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;Z)V
+private tryScheduleBubbleBlockColumn(Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+private shouldSpreadLiquid(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
+private fizz(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V
+protected createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+public pickupBlock(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/item/ItemStack;
+public getPickupSound()Ljava/util/Optional;
+private static synthetic lambda$getCollisionShape$0(Lnet/minecraft/world/phys/shapes/CollisionContext;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/shapes/VoxelShape;)Z
+static <clinit>()V
 ```

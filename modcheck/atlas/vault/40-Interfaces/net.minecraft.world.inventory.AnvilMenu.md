@@ -11,53 +11,53 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.inventory|net.minecraft.world.inventory]]
 
+`class` public; extends `net/minecraft/world/inventory/ItemCombinerMenu`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `createResult` | `@Redirect at INVOKE Lnet/minecraft/world/item/enchantment/Enchantment;canEnchant` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `createResult` | `()V` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (36, all visibilities)
+## Declared members (21 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.inventory.AnvilMenu extends net.minecraft.world.inventory.ItemCombinerMenu {
-    public static final int INPUT_SLOT;
-    public static final int ADDITIONAL_SLOT;
-    public static final int RESULT_SLOT;
-    private static final org.slf4j.Logger LOGGER;
-    private static final boolean DEBUG_COST;
-    public static final int MAX_NAME_LENGTH;
-    private int repairItemCountCost;
-    private java.lang.String itemName;
-    private final net.minecraft.world.inventory.DataSlot cost;
-    private boolean onlyRenaming;
-    private static final int COST_FAIL;
-    private static final int COST_BASE;
-    private static final int COST_ADDED_BASE;
-    private static final int COST_REPAIR_MATERIAL;
-    private static final int COST_REPAIR_SACRIFICE;
-    private static final int COST_INCOMPATIBLE_PENALTY;
-    private static final int COST_RENAME;
-    private static final int INPUT_SLOT_X_PLACEMENT;
-    private static final int ADDITIONAL_SLOT_X_PLACEMENT;
-    private static final int RESULT_SLOT_X_PLACEMENT;
-    private static final int SLOT_Y_PLACEMENT;
-    public net.minecraft.world.inventory.AnvilMenu(int, net.minecraft.world.entity.player.Inventory);
-    public net.minecraft.world.inventory.AnvilMenu(int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.inventory.ContainerLevelAccess);
-    private static net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition createInputSlotDefinitions();
-    protected boolean isValidBlock(net.minecraft.world.level.block.state.BlockState);
-    protected boolean mayPickup(net.minecraft.world.entity.player.Player, boolean);
-    protected void onTake(net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack);
-    public void createResult();
-    public static int calculateIncreasedRepairCost(int);
-    public boolean setItemName(java.lang.String);
-    private static java.lang.String validateName(java.lang.String);
-    public int getCost();
-    private static void lambda$onTake$0(net.minecraft.world.entity.player.Player, net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    private static boolean lambda$createInputSlotDefinitions$1(net.minecraft.world.item.ItemStack);
-    private static boolean lambda$createInputSlotDefinitions$0(net.minecraft.world.item.ItemStack);
-    static {};
-}
+```
+public static final INPUT_SLOT : I
+public static final ADDITIONAL_SLOT : I
+public static final RESULT_SLOT : I
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final DEBUG_COST : Z
+public static final MAX_NAME_LENGTH : I
+private repairItemCountCost : I
+private itemName : Ljava/lang/String;
+private final cost : Lnet/minecraft/world/inventory/DataSlot;
+private onlyRenaming : Z
+private static final COST_FAIL : I
+private static final COST_BASE : I
+private static final COST_ADDED_BASE : I
+private static final COST_REPAIR_MATERIAL : I
+private static final COST_REPAIR_SACRIFICE : I
+private static final COST_INCOMPATIBLE_PENALTY : I
+private static final COST_RENAME : I
+private static final INPUT_SLOT_X_PLACEMENT : I
+private static final ADDITIONAL_SLOT_X_PLACEMENT : I
+private static final RESULT_SLOT_X_PLACEMENT : I
+private static final SLOT_Y_PLACEMENT : I
+public <init>(ILnet/minecraft/world/entity/player/Inventory;)V
+public <init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V
+private static createInputSlotDefinitions()Lnet/minecraft/world/inventory/ItemCombinerMenuSlotDefinition;
+protected isValidBlock(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected mayPickup(Lnet/minecraft/world/entity/player/Player;Z)Z
+protected onTake(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V
+public createResult()V
+public static calculateIncreasedRepairCost(I)I
+public setItemName(Ljava/lang/String;)Z
+private static validateName(Ljava/lang/String;)Ljava/lang/String;
+public getCost()I
+private static synthetic lambda$onTake$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+private static synthetic lambda$createInputSlotDefinitions$1(Lnet/minecraft/world/item/ItemStack;)Z
+private static synthetic lambda$createInputSlotDefinitions$0(Lnet/minecraft/world/item/ItemStack;)Z
+static <clinit>()V
 ```

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerPlayerMixin.onCopyFrom` | `ServerPlayer.restoreFrom` @Inject at TAIL | both | static_inference |
+| `ServerPlayerMixin.onCopyFrom` @15 | [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`restoreFrom` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

@@ -11,26 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/client/renderer/feature/phase/FeatureRenderPhase`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `submit(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokevirtual@66 in `SubmitNodeCollectionMixin.submitBlockModel` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokevirtual@112 in `SubmitNodeCollectionMixin.submitBlockModel` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokevirtual@103 in `SubmitNodeCollectionMixin.submitBreakingBlockModel` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokevirtual@137 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `submit` | `(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V` | exact | invokevirtual@179 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (1 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.feature.phase.SimpleFeatureRenderPhase implements net.minecraft.client.renderer.feature.phase.FeatureRenderPhase<net.minecraft.client.renderer.feature.submit.SubmitNode> {
-    private net.minecraft.client.renderer.feature.phase.SimpleFeatureRenderPhase$FeatureSubmits<?>[] submitsByFeature;
-    public net.minecraft.client.renderer.feature.phase.SimpleFeatureRenderPhase();
-    public void submit(net.minecraft.client.renderer.feature.submit.SubmitNode);
-    public void sortInto(net.minecraft.client.renderer.feature.phase.FeatureRenderPhase$Output);
-    private static <Submit extends net.minecraft.client.renderer.feature.submit.SubmitNode> void sortFeatureInto(net.minecraft.client.renderer.feature.phase.FeatureRenderPhase$Output, net.minecraft.client.renderer.feature.phase.SimpleFeatureRenderPhase$FeatureSubmits<Submit>);
-    private static <V> java.util.Collection<V> maybeShuffle(java.util.Collection<V>);
-    private static <V> V[] maybeShuffle(V[]);
-    public void clear();
-    public boolean isEmpty();
-}
+```
+private submitsByFeature : [Lnet/minecraft/client/renderer/feature/phase/SimpleFeatureRenderPhase$FeatureSubmits;
+public <init>()V
+public submit(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V
+public sortInto(Lnet/minecraft/client/renderer/feature/phase/FeatureRenderPhase$Output;)V
+private static sortFeatureInto(Lnet/minecraft/client/renderer/feature/phase/FeatureRenderPhase$Output;Lnet/minecraft/client/renderer/feature/phase/SimpleFeatureRenderPhase$FeatureSubmits;)V
+private static maybeShuffle(Ljava/util/Collection;)Ljava/util/Collection;
+private static maybeShuffle([Ljava/lang/Object;)[Ljava/lang/Object;
+public clear()V
+public isEmpty()Z
 ```

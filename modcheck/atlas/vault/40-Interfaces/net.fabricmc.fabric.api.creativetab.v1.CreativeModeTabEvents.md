@@ -13,7 +13,6 @@ sha256: "415e659be69014edac017bc384a96c4f2da5ce8fa2093e7d488593e05f03a0b6"
 Module: [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents$ModifyOutputAll> MODIFY_OUTPUT_ALL
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents$ModifyOutput> modifyOutputEvent(net.minecraft.resources.ResourceKey<net.minecraft.world.item.CreativeModeTab>)
-static {}
+public static final net.fabricmc.fabric.api.event.Event MODIFY_OUTPUT_ALL
+public static net.fabricmc.fabric.api.event.Event modifyOutputEvent(net.minecraft.resources.ResourceKey)
 ```

@@ -11,32 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`record` public final; extends `java/lang/Record`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `registries()Lnet/minecraft/core/LayeredRegistryAccess;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `registries()Lnet/minecraft/core/LayeredRegistryAccess;` | `` | client | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `resourceManager()Lnet/minecraft/server/packs/resources/CloseableResourceMan` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `registries` | `()Lnet/minecraft/core/LayeredRegistryAccess;` | exact | invokevirtual@3 in `MinecraftServerMixin.saveRegistryEntryInfo` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `registries` | `()Lnet/minecraft/core/LayeredRegistryAccess;` | exact | invokevirtual@10 in `WorldOpenFlowsMixin.injectHereForCustomScreen` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `resourceManager` | `()Lnet/minecraft/server/packs/resources/CloseableResourceManager;` | exact | invokevirtual@3 in `MinecraftServerMixin.init` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (4 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.server.WorldStem extends java.lang.Record implements java.lang.AutoCloseable {
-    private final net.minecraft.server.packs.resources.CloseableResourceManager resourceManager;
-    private final net.minecraft.server.ReloadableServerResources dataPackResources;
-    private final net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer> registries;
-    private final net.minecraft.world.level.storage.LevelDataAndDimensions$WorldDataAndGenSettings worldDataAndGenSettings;
-    public net.minecraft.server.WorldStem(net.minecraft.server.packs.resources.CloseableResourceManager, net.minecraft.server.ReloadableServerResources, net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>, net.minecraft.world.level.storage.LevelDataAndDimensions$WorldDataAndGenSettings);
-    public void close();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.server.packs.resources.CloseableResourceManager resourceManager();
-    public net.minecraft.server.ReloadableServerResources dataPackResources();
-    public net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer> registries();
-    public net.minecraft.world.level.storage.LevelDataAndDimensions$WorldDataAndGenSettings worldDataAndGenSettings();
-}
+```
+private final resourceManager : Lnet/minecraft/server/packs/resources/CloseableResourceManager;
+private final dataPackResources : Lnet/minecraft/server/ReloadableServerResources;
+private final registries : Lnet/minecraft/core/LayeredRegistryAccess;
+private final worldDataAndGenSettings : Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;
+public <init>(Lnet/minecraft/server/packs/resources/CloseableResourceManager;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;)V
+public close()V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public resourceManager()Lnet/minecraft/server/packs/resources/CloseableResourceManager;
+public dataPackResources()Lnet/minecraft/server/ReloadableServerResources;
+public registries()Lnet/minecraft/core/LayeredRegistryAccess;
+public worldDataAndGenSettings()Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;
 ```

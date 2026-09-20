@@ -11,42 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.damagesource|net.minecraft.world.damagesource]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getEntity()Lnet/minecraft/world/entity/Entity;` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getEntity` | `()Lnet/minecraft/world/entity/Entity;` | exact | invokevirtual@1 in `ServerPlayerMixin.callOnKillForPlayer` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
 
-## Declared members (25, all visibilities)
+## Declared members (4 fields, 21 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.damagesource.DamageSource {
-    private final net.minecraft.core.Holder<net.minecraft.world.damagesource.DamageType> type;
-    private final net.minecraft.world.entity.Entity causingEntity;
-    private final net.minecraft.world.entity.Entity directEntity;
-    private final net.minecraft.world.phys.Vec3 damageSourcePosition;
-    public java.lang.String toString();
-    public float getFoodExhaustion();
-    public boolean isDirect();
-    private net.minecraft.world.damagesource.DamageSource(net.minecraft.core.Holder<net.minecraft.world.damagesource.DamageType>, net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity, net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.damagesource.DamageSource(net.minecraft.core.Holder<net.minecraft.world.damagesource.DamageType>, net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity);
-    public net.minecraft.world.damagesource.DamageSource(net.minecraft.core.Holder<net.minecraft.world.damagesource.DamageType>, net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.damagesource.DamageSource(net.minecraft.core.Holder<net.minecraft.world.damagesource.DamageType>, net.minecraft.world.entity.Entity);
-    public net.minecraft.world.damagesource.DamageSource(net.minecraft.core.Holder<net.minecraft.world.damagesource.DamageType>);
-    public net.minecraft.world.entity.Entity getDirectEntity();
-    public net.minecraft.world.entity.Entity getEntity();
-    public net.minecraft.world.item.ItemStack getWeaponItem();
-    public net.minecraft.network.chat.Component getLocalizedDeathMessage(net.minecraft.world.entity.LivingEntity);
-    public java.lang.String getMsgId();
-    public boolean scalesWithDifficulty();
-    public boolean isCreativePlayer();
-    public net.minecraft.world.phys.Vec3 getSourcePosition();
-    public net.minecraft.world.phys.Vec3 sourcePositionRaw();
-    public boolean is(net.minecraft.tags.TagKey<net.minecraft.world.damagesource.DamageType>);
-    public boolean is(net.minecraft.resources.ResourceKey<net.minecraft.world.damagesource.DamageType>);
-    public net.minecraft.world.damagesource.DamageType type();
-    public net.minecraft.core.Holder<net.minecraft.world.damagesource.DamageType> typeHolder();
-}
+```
+private final type : Lnet/minecraft/core/Holder;
+private final causingEntity : Lnet/minecraft/world/entity/Entity;
+private final directEntity : Lnet/minecraft/world/entity/Entity;
+private final damageSourcePosition : Lnet/minecraft/world/phys/Vec3;
+public toString()Ljava/lang/String;
+public getFoodExhaustion()F
+public isDirect()Z
+private <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;)V
+public <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;)V
+public <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/world/phys/Vec3;)V
+public <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/Entity;)V
+public <init>(Lnet/minecraft/core/Holder;)V
+public getDirectEntity()Lnet/minecraft/world/entity/Entity;
+public getEntity()Lnet/minecraft/world/entity/Entity;
+public getWeaponItem()Lnet/minecraft/world/item/ItemStack;
+public getLocalizedDeathMessage(Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/network/chat/Component;
+public getMsgId()Ljava/lang/String;
+public scalesWithDifficulty()Z
+public isCreativePlayer()Z
+public getSourcePosition()Lnet/minecraft/world/phys/Vec3;
+public sourcePositionRaw()Lnet/minecraft/world/phys/Vec3;
+public is(Lnet/minecraft/tags/TagKey;)Z
+public is(Lnet/minecraft/resources/ResourceKey;)Z
+public type()Lnet/minecraft/world/damagesource/DamageType;
+public typeHolder()Lnet/minecraft/core/Holder;
 ```

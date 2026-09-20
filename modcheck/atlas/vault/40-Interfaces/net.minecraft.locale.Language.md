@@ -11,41 +11,43 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.locale|net.minecraft.locale]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getInstance()Lnet/minecraft/locale/Language;` | `` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
-| calls | `getInstance()Lnet/minecraft/locale/Language;` | `` | client | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `has(Ljava/lang/String;)Z` | `` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
-| calls | `has(Ljava/lang/String;)Z` | `` | client | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| wraps | `loadDefault` | `@Redirect at INVOKE Ljava/util/Map;copyOf(Ljava/util/Map;)Ljava/util/Map;` | server | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| wraps | `parseTranslations(Ljava/util/function/BiConsumer;Ljava/lang/String;)V` | `@Redirect at INVOKE Ljava/lang/Class;getResourceAsStream(Ljava/lang/String;)Ljav` | server | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getInstance` | `()Lnet/minecraft/locale/Language;` | exact | invokestatic@0 in `TranslationConventionLogWarnings.lambda$setupUntranslatedItemTagWarning | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `getInstance` | `()Lnet/minecraft/locale/Language;` | exact | invokestatic@60 in `RuleListEntryTypeVisitorMixin.displayProperEnumName` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `has` | `(Ljava/lang/String;)Z` | exact | invokevirtual@27 in `TranslationConventionLogWarnings.lambda$setupUntranslatedItemTagWarni | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `has` | `(Ljava/lang/String;)Z` | exact | invokevirtual@65 in `RuleListEntryTypeVisitorMixin.displayProperEnumName` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `loadFromJson` | `(Ljava/io/InputStream;Ljava/util/function/BiConsumer;)V` | exact | @Shadow declaration | server | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
+| reads | `LOGGER` | `Lorg/slf4j/Logger;` | exact | @Shadow declaration | server | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
+| wraps | `loadDefault` | `()Lnet/minecraft/locale/Language;` | name_only | @Redirect at ['INVOKE'] | server | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| wraps | `parseTranslations` | `(Ljava/util/function/BiConsumer;Ljava/lang/String;)V` | exact | @Redirect at ['INVOKE'] | server | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (6 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.locale.Language {
-    private static final org.slf4j.Logger LOGGER;
-    private static final com.google.gson.Gson GSON;
-    private static final java.util.regex.Pattern UNSUPPORTED_FORMAT_PATTERN;
-    public static final java.lang.String DEFAULT;
-    public static final net.minecraft.locale.Language DEFAULT_INSTANCE;
-    private static volatile net.minecraft.locale.Language instance;
-    public net.minecraft.locale.Language();
-    private static net.minecraft.locale.Language loadDefault();
-    private static void parseTranslations(java.util.function.BiConsumer<java.lang.String, java.lang.String>, java.lang.String);
-    public static void loadFromJson(java.io.InputStream, java.util.function.BiConsumer<java.lang.String, java.lang.String>);
-    public static net.minecraft.locale.Language getInstance();
-    public static void inject(net.minecraft.locale.Language);
-    public java.lang.String getOrDefault(java.lang.String);
-    public abstract java.lang.String getOrDefault(java.lang.String, java.lang.String);
-    public abstract boolean has(java.lang.String);
-    public abstract boolean isDefaultRightToLeft();
-    public abstract net.minecraft.util.FormattedCharSequence getVisualOrder(net.minecraft.network.chat.FormattedText);
-    public java.util.List<net.minecraft.util.FormattedCharSequence> getVisualOrder(java.util.List<net.minecraft.network.chat.FormattedText>);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final GSON : Lcom/google/gson/Gson;
+private static final UNSUPPORTED_FORMAT_PATTERN : Ljava/util/regex/Pattern;
+public static final DEFAULT : Ljava/lang/String;
+public static final DEFAULT_INSTANCE : Lnet/minecraft/locale/Language;
+private static instance : Lnet/minecraft/locale/Language;
+public <init>()V
+private static loadDefault()Lnet/minecraft/locale/Language;
+private static parseTranslations(Ljava/util/function/BiConsumer;Ljava/lang/String;)V
+public static loadFromJson(Ljava/io/InputStream;Ljava/util/function/BiConsumer;)V
+public static getInstance()Lnet/minecraft/locale/Language;
+public static inject(Lnet/minecraft/locale/Language;)V
+public getOrDefault(Ljava/lang/String;)Ljava/lang/String;
+public abstract getOrDefault(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+public abstract has(Ljava/lang/String;)Z
+public abstract isDefaultRightToLeft()Z
+public abstract getVisualOrder(Lnet/minecraft/network/chat/FormattedText;)Lnet/minecraft/util/FormattedCharSequence;
+public getVisualOrder(Ljava/util/List;)Ljava/util/List;
+static <clinit>()V
 ```

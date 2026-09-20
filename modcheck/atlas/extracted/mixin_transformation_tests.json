@@ -1,0 +1,396 @@
+{
+ "generated_at": "2026-09-20T08:51:34+00:00",
+ "evidence_class": "executed_transformation",
+ "what_this_is": "The pinned Mixin transformer run in a plain JVM over independently compiled target and mixin classes (two mixin configs standing in for two mods). Not a Minecraft run: no game class, no fabric-loader, no transforming classloader.",
+ "runtime": {
+  "mixin_version": "0.8.7",
+  "java": "25.0.4.1",
+  "sponge_mixin": {
+   "path": "/root/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/5f66cc9f59b8efaa942155a3d5a30599bf6640dd/sponge-mixin-0.17.4+mixin.0.8.7.jar",
+   "sha256": "1f0ae44db7295f8626f33b1dc0ad7f043d8954a8d6847247875fcc5dfcecc934"
+  },
+  "mixinextras": {
+   "path": "/root/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-fabric/0.5.5/d1055b99c0ab08a8403fe2da3d79ca28e6340a76/mixinextras-fabric-0.5.5.jar",
+   "sha256": "5da883dc4bfb16e4ceca3f16d8c4ad937bdfb1ce337ed5ba15472d4d81dd6242"
+  },
+  "harness": "atlas/harness/mixin_transform"
+ },
+ "sources": {
+  "fixtures": [
+   "atlas/harness/mixin_transform/src/fixtures/moda/A_Overwrite.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/B2_Overwrite.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/B_Overwrite.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/C_Redirect.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/D_Redirect.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/E_Inject.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/F_Overwrite.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/G_Inject1100.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/H_Cancel.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/J_OverwriteKeepsStep.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/K_OverwriteKeepsStep.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/L_Overwrite.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/M_OverwriteNoStep.java",
+   "atlas/harness/mixin_transform/src/fixtures/moda/N_Overwrite.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/A_Inject.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/B2_InjectInvokeOptional.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/B_InjectInvoke.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/C_Redirect2.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/D_Wrap.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/E_Inject2.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/F_Overwrite2.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/G_Inject900.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/H_TailReturn.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/J_Redirect.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/K_InjectInvoke1100.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/L_InjectHead900.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/M_InjectInvoke1100.java",
+   "atlas/harness/mixin_transform/src/fixtures/modb/N_InjectHead1100.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/A.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/B.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/B2.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/C.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/D.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/E.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/F.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/G.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/H.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/J.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/K.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/L.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/M.java",
+   "atlas/harness/mixin_transform/src/fixtures/targets/N.java"
+  ],
+  "configs": [
+   "moda.mixins.json",
+   "modb.mixins.json"
+  ],
+  "config_default_require": 1
+ },
+ "static_checks": {
+  "InjectionPoint.checkPriority.default_bytecode": [
+   "iload_1",
+   "iload_2",
+   "if_icmpge",
+   "iconst_1",
+   "goto",
+   "iconst_0",
+   "ireturn"
+  ],
+  "InjectionPoint.checkPriority.reading": "returns true iff targetPriority < mixinPriority (iload_1, iload_2, if_icmpge)",
+  "checkPriority_overriders": {
+   "MethodHead": [
+    "iconst_1",
+    "ireturn"
+   ],
+   "BeforeReturn": [
+    "iconst_1",
+    "ireturn"
+   ],
+   "BeforeFinalReturn": [
+    "iconst_1",
+    "ireturn"
+   ],
+   "BeforeInvoke": null,
+   "AfterInvoke": null,
+   "BeforeFieldAccess": null,
+   "BeforeNew": null,
+   "BeforeConstant": null,
+   "JumpInsnPoint": null
+  },
+  "ApplicatorPass.order": [
+   "MAIN",
+   "INJECT_PREPARE",
+   "INITIALISER_APPLY_LEGACY",
+   "INJECT_PREPARE_LEGACY",
+   "INITIALISER_APPLY",
+   "ACCESSOR",
+   "INJECT_PREINJECT",
+   "INJECT_APPLY"
+  ],
+  "Mixin.annotation_defaults": {
+   "value": [],
+   "targets": [],
+   "priority": 1000,
+   "remap": true
+  }
+ },
+ "scenarios": [
+  {
+   "id": "A",
+   "question": "Does an @Overwrite from one mod remove a HEAD/TAIL @Inject on the same method from another mod (equal priority 1000)?",
+   "setup": "moda A_Overwrite: @Overwrite run(); modb A_Inject: @Inject HEAD and TAIL into run()",
+   "target": "fixtures.targets.A",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.A\tmoda.mixins.json:A_Overwrite from mod (unknown)",
+    "apply\tfixtures.targets.A\tmodb.mixins.json:A_Inject from mod (unknown)"
+   ],
+   "trace": [
+    "A2.head",
+    "A1.overwrite",
+    "A2.tail"
+   ]
+  },
+  {
+   "id": "B",
+   "question": "Does an INVOKE-point @Inject (require=1) into a method overwritten by an equal-priority mod apply?",
+   "setup": "moda B_Overwrite (body no longer calls step); modb B_InjectInvoke at INVOKE step(), require=1",
+   "target": "fixtures.targets.B",
+   "transformed": false,
+   "bytes_changed": false,
+   "transform_error": "org.spongepowered.asm.mixin.transformer.throwables.MixinTransformerError: An unexpected critical error was encountered <- org.spongepowered.asm.mixin.throwables.MixinApplyError: Mixin [modb.mixins.json:B_InjectInvoke from mod (unknown)] from phase [DEFAULT] in config [modb.mixins.json] FAILED during APPLY <- org.spongepowered.asm.mixin.injection.throwables.InvalidInjectionException: @At(\"INVOKE\") on fixtures/targets/B::atStep with priority 1000 cannot inject into fixtures/targets/B::run()V merged by fixtures.moda.B_Overwrite with priority 1000 [INJECT_PREPARE Applicator Phase -> modb.mixins.json:B_InjectInvoke from mod (unknown) -> Prepare Injections -> handler$zzg000$atStep(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V -> Prepare ->  -> { target: run()V }]",
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.B\tmoda.mixins.json:B_Overwrite from mod (unknown)",
+    "apply\tfixtures.targets.B\tmodb.mixins.json:B_InjectInvoke from mod (unknown)"
+   ],
+   "trace": []
+  },
+  {
+   "id": "B2",
+   "question": "Same as B with require=0, expect=0: is the failure a target-count failure or a validation refusal?",
+   "setup": "moda B2_Overwrite; modb B2_InjectInvokeOptional at INVOKE step(), require=0, expect=0",
+   "target": "fixtures.targets.B2",
+   "transformed": false,
+   "bytes_changed": false,
+   "transform_error": "org.spongepowered.asm.mixin.transformer.throwables.MixinTransformerError: An unexpected critical error was encountered <- org.spongepowered.asm.mixin.throwables.MixinApplyError: Mixin [modb.mixins.json:B2_InjectInvokeOptional from mod (unknown)] from phase [DEFAULT] in config [modb.mixins.json] FAILED during APPLY <- org.spongepowered.asm.mixin.injection.throwables.InvalidInjectionException: @At(\"INVOKE\") on fixtures/targets/B2::atStep with priority 1000 cannot inject into fixtures/targets/B2::run()V merged by fixtures.moda.B2_Overwrite with priority 1000 [INJECT_PREPARE Applicator Phase -> modb.mixins.json:B2_InjectInvokeOptional from mod (unknown) -> Prepare Injections -> handler$zzh001$atStep(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V -> Prepare ->  -> { target: run()V }]",
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.B2\tmoda.mixins.json:B2_Overwrite from mod (unknown)",
+    "apply\tfixtures.targets.B2\tmodb.mixins.json:B2_InjectInvokeOptional from mod (unknown)"
+   ],
+   "trace": []
+  },
+  {
+   "id": "C",
+   "question": "Do two @Redirects of the same call site from two mods both apply?",
+   "setup": "moda C_Redirect and modb C_Redirect2 both redirect INVOKE step() in run()",
+   "target": "fixtures.targets.C",
+   "transformed": false,
+   "bytes_changed": false,
+   "transform_error": "org.spongepowered.asm.mixin.transformer.throwables.MixinTransformerError: An unexpected critical error was encountered <- org.spongepowered.asm.mixin.injection.throwables.InjectionError: Critical injection failure: Redirector redirect(Lfixtures/targets/C;)V in modb.mixins.json:C_Redirect2 from mod (unknown) failed injection check, (0/1) succeeded. Scanned 0 target(s). No refMap loaded.",
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.C\tmoda.mixins.json:C_Redirect from mod (unknown)",
+    "apply\tfixtures.targets.C\tmodb.mixins.json:C_Redirect2 from mod (unknown)"
+   ],
+   "trace": []
+  },
+  {
+   "id": "D",
+   "question": "Does a MixinExtras @WrapOperation compose with another mod's @Redirect of the same call?",
+   "setup": "moda D_Redirect; modb D_Wrap (@WrapOperation) on INVOKE step()",
+   "target": "fixtures.targets.D",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.D\tmoda.mixins.json:D_Redirect from mod (unknown)",
+    "apply\tfixtures.targets.D\tmodb.mixins.json:D_Wrap from mod (unknown)"
+   ],
+   "trace": [
+    "D.run",
+    "D2.wrap.before",
+    "D1.redirect",
+    "D.step",
+    "D2.wrap.after"
+   ]
+  },
+  {
+   "id": "E",
+   "question": "In what order do equal-priority HEAD and TAIL injections from two mods run?",
+   "setup": "moda E_Inject and modb E_Inject2, both HEAD+TAIL, priority 1000, configs added moda then modb",
+   "target": "fixtures.targets.E",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.E\tmoda.mixins.json:E_Inject from mod (unknown)",
+    "apply\tfixtures.targets.E\tmodb.mixins.json:E_Inject2 from mod (unknown)"
+   ],
+   "trace": [
+    "E1.head",
+    "E2.head",
+    "E.run",
+    "E.step",
+    "E1.tail",
+    "E2.tail"
+   ]
+  },
+  {
+   "id": "F",
+   "question": "What happens when two mods @Overwrite the same method at equal priority?",
+   "setup": "moda F_Overwrite and modb F_Overwrite2",
+   "target": "fixtures.targets.F",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.F\tmoda.mixins.json:F_Overwrite from mod (unknown)",
+    "apply\tfixtures.targets.F\tmodb.mixins.json:F_Overwrite2 from mod (unknown)"
+   ],
+   "trace": [
+    "F1.overwrite"
+   ]
+  },
+  {
+   "id": "G",
+   "question": "Does mixin priority order HEAD injections from two mods?",
+   "setup": "moda G_Inject1100 (priority 1100) and modb G_Inject900 (priority 900), both HEAD",
+   "target": "fixtures.targets.G",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.G\tmodb.mixins.json:G_Inject900 from mod (unknown)",
+    "apply\tfixtures.targets.G\tmoda.mixins.json:G_Inject1100 from mod (unknown)"
+   ],
+   "trace": [
+    "G2.head.p900",
+    "G1.head.p1100",
+    "G.run",
+    "G.step"
+   ]
+  },
+  {
+   "id": "H",
+   "question": "Does a cancelling HEAD injection from one mod suppress another mod's TAIL and RETURN injections?",
+   "setup": "moda H_Cancel: HEAD cancellable, ci.cancel(); modb H_TailReturn: TAIL and RETURN",
+   "target": "fixtures.targets.H",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.H\tmoda.mixins.json:H_Cancel from mod (unknown)",
+    "apply\tfixtures.targets.H\tmodb.mixins.json:H_TailReturn from mod (unknown)"
+   ],
+   "trace": [
+    "H1.head.cancel"
+   ]
+  },
+  {
+   "id": "J",
+   "question": "Does a @Redirect into a method overwritten by an equal-priority mod apply when the overwritten body still contains the call?",
+   "setup": "moda J_OverwriteKeepsStep: @Overwrite run() calling step(); modb J_Redirect on INVOKE step()",
+   "target": "fixtures.targets.J",
+   "transformed": false,
+   "bytes_changed": false,
+   "transform_error": "org.spongepowered.asm.mixin.transformer.throwables.MixinTransformerError: An unexpected critical error was encountered <- org.spongepowered.asm.mixin.throwables.MixinApplyError: Mixin [modb.mixins.json:J_Redirect from mod (unknown)] from phase [DEFAULT] in config [modb.mixins.json] FAILED during APPLY <- org.spongepowered.asm.mixin.injection.throwables.InvalidInjectionException: @At(\"INVOKE\") on fixtures/targets/J::redirect with priority 1000 cannot inject into fixtures/targets/J::run()V merged by fixtures.moda.J_OverwriteKeepsStep with priority 1000 [INJECT_PREPARE Applicator Phase -> modb.mixins.json:J_Redirect from mod (unknown) -> Prepare Injections -> redirect$zzn000$redirect(Lfixtures/targets/J;)V -> Prepare ->  -> { target: run()V }]",
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.J\tmoda.mixins.json:J_OverwriteKeepsStep from mod (unknown)",
+    "apply\tfixtures.targets.J\tmodb.mixins.json:J_Redirect from mod (unknown)"
+   ],
+   "trace": []
+  },
+  {
+   "id": "K",
+   "question": "Does an INVOKE-point @Inject with HIGHER priority than the overwriting mixin apply to the overwritten body?",
+   "setup": "moda K_OverwriteKeepsStep (1000); modb K_InjectInvoke1100 (1100) at INVOKE step()",
+   "target": "fixtures.targets.K",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.K\tmoda.mixins.json:K_OverwriteKeepsStep from mod (unknown)",
+    "apply\tfixtures.targets.K\tmodb.mixins.json:K_InjectInvoke1100 from mod (unknown)"
+   ],
+   "trace": [
+    "K1.overwrite.calls_step",
+    "K2.at_step.p1100",
+    "K.step"
+   ]
+  },
+  {
+   "id": "L",
+   "question": "Do HEAD/TAIL injections with LOWER priority than the overwriting mixin apply?",
+   "setup": "moda L_Overwrite (1000); modb L_InjectHead900 (900) HEAD and TAIL",
+   "target": "fixtures.targets.L",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.L\tmodb.mixins.json:L_InjectHead900 from mod (unknown)",
+    "apply\tfixtures.targets.L\tmoda.mixins.json:L_Overwrite from mod (unknown)"
+   ],
+   "trace": [
+    "L2.head.p900",
+    "L1.overwrite",
+    "L2.tail.p900"
+   ]
+  },
+  {
+   "id": "M",
+   "question": "With higher priority, what happens when the overwritten body no longer contains the INVOKE target?",
+   "setup": "moda M_OverwriteNoStep (1000); modb M_InjectInvoke1100 (1100) at INVOKE step(), require=1",
+   "target": "fixtures.targets.M",
+   "transformed": false,
+   "bytes_changed": false,
+   "transform_error": "org.spongepowered.asm.mixin.transformer.throwables.MixinTransformerError: An unexpected critical error was encountered <- org.spongepowered.asm.mixin.injection.throwables.InjectionError: Critical injection failure: Callback method atStep(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V in modb.mixins.json:M_InjectInvoke1100 from mod (unknown) failed injection check, (0/1) succeeded. Scanned 0 target(s). No refMap loaded.",
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.M\tmoda.mixins.json:M_OverwriteNoStep from mod (unknown)",
+    "apply\tfixtures.targets.M\tmodb.mixins.json:M_InjectInvoke1100 from mod (unknown)"
+   ],
+   "trace": []
+  },
+  {
+   "id": "N",
+   "question": "Does a HEAD injection with higher priority than the overwrite apply?",
+   "setup": "moda N_Overwrite (1000); modb N_InjectHead1100 (1100) HEAD",
+   "target": "fixtures.targets.N",
+   "transformed": true,
+   "bytes_changed": true,
+   "transform_error": null,
+   "run_error": null,
+   "applied": [
+    "apply\tfixtures.targets.N\tmoda.mixins.json:N_Overwrite from mod (unknown)",
+    "apply\tfixtures.targets.N\tmodb.mixins.json:N_InjectHead1100 from mod (unknown)"
+   ],
+   "trace": [
+    "N2.head.p1100",
+    "N1.overwrite"
+   ]
+  }
+ ],
+ "audit": [
+  "apply\tfixtures.targets.A\tmoda.mixins.json:A_Overwrite from mod (unknown)",
+  "apply\tfixtures.targets.A\tmodb.mixins.json:A_Inject from mod (unknown)",
+  "apply\tfixtures.targets.B\tmoda.mixins.json:B_Overwrite from mod (unknown)",
+  "apply\tfixtures.targets.B\tmodb.mixins.json:B_InjectInvoke from mod (unknown)",
+  "apply\tfixtures.targets.B2\tmoda.mixins.json:B2_Overwrite from mod (unknown)",
+  "apply\tfixtures.targets.B2\tmodb.mixins.json:B2_InjectInvokeOptional from mod (unknown)",
+  "apply\tfixtures.targets.C\tmoda.mixins.json:C_Redirect from mod (unknown)",
+  "apply\tfixtures.targets.C\tmodb.mixins.json:C_Redirect2 from mod (unknown)",
+  "apply\tfixtures.targets.D\tmoda.mixins.json:D_Redirect from mod (unknown)",
+  "apply\tfixtures.targets.D\tmodb.mixins.json:D_Wrap from mod (unknown)",
+  "apply\tfixtures.targets.E\tmoda.mixins.json:E_Inject from mod (unknown)",
+  "apply\tfixtures.targets.E\tmodb.mixins.json:E_Inject2 from mod (unknown)",
+  "apply\tfixtures.targets.F\tmoda.mixins.json:F_Overwrite from mod (unknown)",
+  "apply\tfixtures.targets.F\tmodb.mixins.json:F_Overwrite2 from mod (unknown)",
+  "apply\tfixtures.targets.G\tmodb.mixins.json:G_Inject900 from mod (unknown)",
+  "apply\tfixtures.targets.G\tmoda.mixins.json:G_Inject1100 from mod (unknown)",
+  "apply\tfixtures.targets.H\tmoda.mixins.json:H_Cancel from mod (unknown)",
+  "apply\tfixtures.targets.H\tmodb.mixins.json:H_TailReturn from mod (unknown)",
+  "apply\tfixtures.targets.J\tmoda.mixins.json:J_OverwriteKeepsStep from mod (unknown)",
+  "apply\tfixtures.targets.J\tmodb.mixins.json:J_Redirect from mod (unknown)",
+  "apply\tfixtures.targets.K\tmoda.mixins.json:K_OverwriteKeepsStep from mod (unknown)",
+  "apply\tfixtures.targets.K\tmodb.mixins.json:K_InjectInvoke1100 from mod (unknown)",
+  "apply\tfixtures.targets.L\tmodb.mixins.json:L_InjectHead900 from mod (unknown)",
+  "apply\tfixtures.targets.L\tmoda.mixins.json:L_Overwrite from mod (unknown)",
+  "apply\tfixtures.targets.M\tmoda.mixins.json:M_OverwriteNoStep from mod (unknown)",
+  "apply\tfixtures.targets.M\tmodb.mixins.json:M_InjectInvoke1100 from mod (unknown)",
+  "apply\tfixtures.targets.N\tmoda.mixins.json:N_Overwrite from mod (unknown)",
+  "apply\tfixtures.targets.N\tmodb.mixins.json:N_InjectHead1100 from mod (unknown)"
+ ]
+}

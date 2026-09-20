@@ -11,42 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `CLIENTBOUND_CUSTOM_PAYLOADLnet/minecraft/network/protocol/PacketType;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| reads | `SERVERBOUND_CUSTOM_PAYLOADLnet/minecraft/network/protocol/PacketType;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `CLIENTBOUND_CUSTOM_PAYLOAD` | `Lnet/minecraft/network/protocol/PacketType;` | exact | getstatic@4 in `IdDispatchCodecMixin.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `SERVERBOUND_CUSTOM_PAYLOAD` | `Lnet/minecraft/network/protocol/PacketType;` | exact | getstatic@14 in `IdDispatchCodecMixin.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (24, all visibilities)
+## Declared members (20 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.protocol.common.CommonPacketTypes {
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundClearDialogPacket> CLIENTBOUND_CLEAR_DIALOG;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket> CLIENTBOUND_CUSTOM_PAYLOAD;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundCustomReportDetailsPacket> CLIENTBOUND_CUSTOM_REPORT_DETAILS;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundDisconnectPacket> CLIENTBOUND_DISCONNECT;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundKeepAlivePacket> CLIENTBOUND_KEEP_ALIVE;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundPingPacket> CLIENTBOUND_PING;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundResourcePackPopPacket> CLIENTBOUND_RESOURCE_PACK_POP;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket> CLIENTBOUND_RESOURCE_PACK_PUSH;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundPostEffectsPacket> CLIENTBOUND_POST_EFFECTS;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundServerLinksPacket> CLIENTBOUND_SERVER_LINKS;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundShowDialogPacket> CLIENTBOUND_SHOW_DIALOG;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundStoreCookiePacket> CLIENTBOUND_STORE_COOKIE;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundTransferPacket> CLIENTBOUND_TRANSFER;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ClientboundUpdateTagsPacket> CLIENTBOUND_UPDATE_TAGS;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ServerboundClientInformationPacket> SERVERBOUND_CLIENT_INFORMATION;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket> SERVERBOUND_CUSTOM_PAYLOAD;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ServerboundKeepAlivePacket> SERVERBOUND_KEEP_ALIVE;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ServerboundPongPacket> SERVERBOUND_PONG;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ServerboundResourcePackPacket> SERVERBOUND_RESOURCE_PACK;
-    public static final net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket> SERVERBOUND_CUSTOM_CLICK_ACTION;
-    public net.minecraft.network.protocol.common.CommonPacketTypes();
-    private static <T extends net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ClientCommonPacketListener>> net.minecraft.network.protocol.PacketType<T> createClientbound(java.lang.String);
-    private static <T extends net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ServerCommonPacketListener>> net.minecraft.network.protocol.PacketType<T> createServerbound(java.lang.String);
-    static {};
-}
+```
+public static final CLIENTBOUND_CLEAR_DIALOG : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_CUSTOM_PAYLOAD : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_CUSTOM_REPORT_DETAILS : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_DISCONNECT : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_KEEP_ALIVE : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_PING : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_RESOURCE_PACK_POP : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_RESOURCE_PACK_PUSH : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_POST_EFFECTS : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_SERVER_LINKS : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_SHOW_DIALOG : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_STORE_COOKIE : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_TRANSFER : Lnet/minecraft/network/protocol/PacketType;
+public static final CLIENTBOUND_UPDATE_TAGS : Lnet/minecraft/network/protocol/PacketType;
+public static final SERVERBOUND_CLIENT_INFORMATION : Lnet/minecraft/network/protocol/PacketType;
+public static final SERVERBOUND_CUSTOM_PAYLOAD : Lnet/minecraft/network/protocol/PacketType;
+public static final SERVERBOUND_KEEP_ALIVE : Lnet/minecraft/network/protocol/PacketType;
+public static final SERVERBOUND_PONG : Lnet/minecraft/network/protocol/PacketType;
+public static final SERVERBOUND_RESOURCE_PACK : Lnet/minecraft/network/protocol/PacketType;
+public static final SERVERBOUND_CUSTOM_CLICK_ACTION : Lnet/minecraft/network/protocol/PacketType;
+public <init>()V
+private static createClientbound(Ljava/lang/String;)Lnet/minecraft/network/protocol/PacketType;
+private static createServerbound(Ljava/lang/String;)Lnet/minecraft/network/protocol/PacketType;
+static <clinit>()V
 ```

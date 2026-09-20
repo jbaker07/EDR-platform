@@ -11,57 +11,57 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/pathfinder/NodeEvaluator`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `getPathTypeFromState` | `@Inject at INVOKE Lnet/minecraft/world/level/block/state/BlockState;getBlock()Ln` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `getPathTypeFromState` | `(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
 
-## Declared members (40, all visibilities)
+## Declared members (5 fields, 35 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.pathfinder.WalkNodeEvaluator extends net.minecraft.world.level.pathfinder.NodeEvaluator {
-    public static final double SPACE_BETWEEN_WALL_POSTS;
-    private static final double DEFAULT_MOB_JUMP_HEIGHT;
-    private final it.unimi.dsi.fastutil.longs.Long2ObjectMap<net.minecraft.world.level.pathfinder.PathType> pathTypesByPosCacheByMob;
-    private final it.unimi.dsi.fastutil.objects.Object2BooleanMap<net.minecraft.world.phys.AABB> collisionCache;
-    private final net.minecraft.world.level.pathfinder.Node[] reusableNeighbors;
-    public net.minecraft.world.level.pathfinder.WalkNodeEvaluator();
-    public void prepare(net.minecraft.world.level.PathNavigationRegion, net.minecraft.world.entity.Mob);
-    public void done();
-    public net.minecraft.world.level.pathfinder.Node getStart();
-    protected net.minecraft.world.level.pathfinder.Node getStartNode(net.minecraft.core.BlockPos);
-    protected boolean canStartAt(net.minecraft.core.BlockPos);
-    public net.minecraft.world.level.pathfinder.Target getTarget(double, double, double);
-    public int getNeighbors(net.minecraft.world.level.pathfinder.Node[], net.minecraft.world.level.pathfinder.Node);
-    protected boolean isNeighborValid(net.minecraft.world.level.pathfinder.Node, net.minecraft.world.level.pathfinder.Node);
-    protected boolean isDiagonalValid(net.minecraft.world.level.pathfinder.Node, net.minecraft.world.level.pathfinder.Node, net.minecraft.world.level.pathfinder.Node);
-    protected boolean isDiagonalValid(net.minecraft.world.level.pathfinder.Node);
-    private static boolean doesBlockHavePartialCollision(net.minecraft.world.level.pathfinder.PathType);
-    private boolean canReachWithoutCollision(net.minecraft.world.level.pathfinder.Node);
-    protected double getFloorLevel(net.minecraft.core.BlockPos);
-    public static double getFloorLevel(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    protected boolean isAmphibious();
-    protected net.minecraft.world.level.pathfinder.Node findAcceptedNode(int, int, int, int, double, net.minecraft.core.Direction, net.minecraft.world.level.pathfinder.PathType);
-    private double getMobJumpHeight();
-    private net.minecraft.world.level.pathfinder.Node getNodeAndUpdateCostToMax(int, int, int, net.minecraft.world.level.pathfinder.PathType, float);
-    private net.minecraft.world.level.pathfinder.Node getBlockedNode(int, int, int);
-    private net.minecraft.world.level.pathfinder.Node getClosedNode(int, int, int, net.minecraft.world.level.pathfinder.PathType);
-    private net.minecraft.world.level.pathfinder.Node tryJumpOn(int, int, int, int, double, net.minecraft.core.Direction, net.minecraft.world.level.pathfinder.PathType, net.minecraft.core.BlockPos$MutableBlockPos);
-    private net.minecraft.world.level.pathfinder.Node tryFindFirstNonWaterBelow(int, int, int, net.minecraft.world.level.pathfinder.Node);
-    private net.minecraft.world.level.pathfinder.Node tryFindFirstGroundNodeBelow(int, int, int);
-    private boolean hasCollisions(net.minecraft.world.phys.AABB);
-    protected net.minecraft.world.level.pathfinder.PathType getCachedPathType(int, int, int);
-    public net.minecraft.world.level.pathfinder.PathType getPathTypeOfMob(net.minecraft.world.level.pathfinder.PathfindingContext, int, int, int, net.minecraft.world.entity.Mob);
-    public java.util.Set<net.minecraft.world.level.pathfinder.PathType> getPathTypeWithinMobBB(net.minecraft.world.level.pathfinder.PathfindingContext, int, int, int);
-    public net.minecraft.world.level.pathfinder.PathType getPathType(net.minecraft.world.level.pathfinder.PathfindingContext, int, int, int);
-    public static net.minecraft.world.level.pathfinder.PathType getPathTypeStatic(net.minecraft.world.entity.Mob, net.minecraft.core.BlockPos);
-    public static net.minecraft.world.level.pathfinder.PathType getPathTypeStatic(net.minecraft.world.level.pathfinder.PathfindingContext, net.minecraft.core.BlockPos$MutableBlockPos);
-    public static net.minecraft.world.level.pathfinder.PathType checkNeighbourBlocks(net.minecraft.world.level.pathfinder.PathfindingContext, int, int, int, net.minecraft.world.level.pathfinder.PathType);
-    protected static net.minecraft.world.level.pathfinder.PathType getPathTypeFromState(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    private net.minecraft.world.level.pathfinder.PathType lambda$getCachedPathType$0(int, int, int, long);
-    private boolean lambda$hasCollisions$0(net.minecraft.world.phys.AABB, java.lang.Object);
-}
+```
+public static final SPACE_BETWEEN_WALL_POSTS : D
+private static final DEFAULT_MOB_JUMP_HEIGHT : D
+private final pathTypesByPosCacheByMob : Lit/unimi/dsi/fastutil/longs/Long2ObjectMap;
+private final collisionCache : Lit/unimi/dsi/fastutil/objects/Object2BooleanMap;
+private final reusableNeighbors : [Lnet/minecraft/world/level/pathfinder/Node;
+public <init>()V
+public prepare(Lnet/minecraft/world/level/PathNavigationRegion;Lnet/minecraft/world/entity/Mob;)V
+public done()V
+public getStart()Lnet/minecraft/world/level/pathfinder/Node;
+protected getStartNode(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/pathfinder/Node;
+protected canStartAt(Lnet/minecraft/core/BlockPos;)Z
+public getTarget(DDD)Lnet/minecraft/world/level/pathfinder/Target;
+public getNeighbors([Lnet/minecraft/world/level/pathfinder/Node;Lnet/minecraft/world/level/pathfinder/Node;)I
+protected isNeighborValid(Lnet/minecraft/world/level/pathfinder/Node;Lnet/minecraft/world/level/pathfinder/Node;)Z
+protected isDiagonalValid(Lnet/minecraft/world/level/pathfinder/Node;Lnet/minecraft/world/level/pathfinder/Node;Lnet/minecraft/world/level/pathfinder/Node;)Z
+protected isDiagonalValid(Lnet/minecraft/world/level/pathfinder/Node;)Z
+private static doesBlockHavePartialCollision(Lnet/minecraft/world/level/pathfinder/PathType;)Z
+private canReachWithoutCollision(Lnet/minecraft/world/level/pathfinder/Node;)Z
+protected getFloorLevel(Lnet/minecraft/core/BlockPos;)D
+public static getFloorLevel(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)D
+protected isAmphibious()Z
+protected findAcceptedNode(IIIIDLnet/minecraft/core/Direction;Lnet/minecraft/world/level/pathfinder/PathType;)Lnet/minecraft/world/level/pathfinder/Node;
+private getMobJumpHeight()D
+private getNodeAndUpdateCostToMax(IIILnet/minecraft/world/level/pathfinder/PathType;F)Lnet/minecraft/world/level/pathfinder/Node;
+private getBlockedNode(III)Lnet/minecraft/world/level/pathfinder/Node;
+private getClosedNode(IIILnet/minecraft/world/level/pathfinder/PathType;)Lnet/minecraft/world/level/pathfinder/Node;
+private tryJumpOn(IIIIDLnet/minecraft/core/Direction;Lnet/minecraft/world/level/pathfinder/PathType;Lnet/minecraft/core/BlockPos$MutableBlockPos;)Lnet/minecraft/world/level/pathfinder/Node;
+private tryFindFirstNonWaterBelow(IIILnet/minecraft/world/level/pathfinder/Node;)Lnet/minecraft/world/level/pathfinder/Node;
+private tryFindFirstGroundNodeBelow(III)Lnet/minecraft/world/level/pathfinder/Node;
+private hasCollisions(Lnet/minecraft/world/phys/AABB;)Z
+protected getCachedPathType(III)Lnet/minecraft/world/level/pathfinder/PathType;
+public getPathTypeOfMob(Lnet/minecraft/world/level/pathfinder/PathfindingContext;IIILnet/minecraft/world/entity/Mob;)Lnet/minecraft/world/level/pathfinder/PathType;
+public getPathTypeWithinMobBB(Lnet/minecraft/world/level/pathfinder/PathfindingContext;III)Ljava/util/Set;
+public getPathType(Lnet/minecraft/world/level/pathfinder/PathfindingContext;III)Lnet/minecraft/world/level/pathfinder/PathType;
+public static getPathTypeStatic(Lnet/minecraft/world/entity/Mob;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/pathfinder/PathType;
+public static getPathTypeStatic(Lnet/minecraft/world/level/pathfinder/PathfindingContext;Lnet/minecraft/core/BlockPos$MutableBlockPos;)Lnet/minecraft/world/level/pathfinder/PathType;
+public static checkNeighbourBlocks(Lnet/minecraft/world/level/pathfinder/PathfindingContext;IIILnet/minecraft/world/level/pathfinder/PathType;)Lnet/minecraft/world/level/pathfinder/PathType;
+protected static getPathTypeFromState(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/pathfinder/PathType;
+private synthetic lambda$getCachedPathType$0(IIIJ)Lnet/minecraft/world/level/pathfinder/PathType;
+private synthetic lambda$hasCollisions$0(Lnet/minecraft/world/phys/AABB;Ljava/lang/Object;)Z
 ```

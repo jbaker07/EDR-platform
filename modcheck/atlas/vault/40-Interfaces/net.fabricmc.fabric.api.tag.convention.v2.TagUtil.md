@@ -15,6 +15,6 @@ Module: [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] --
 ```java
 public static final java.lang.String C_TAG_NAMESPACE
 public static final java.lang.String FABRIC_TAG_NAMESPACE
-public static <T> boolean isIn(net.minecraft.tags.TagKey<T>, T)
-public static <T> boolean isIn(net.minecraft.core.RegistryAccess, net.minecraft.tags.TagKey<T>, T)
+public static boolean isIn(net.minecraft.tags.TagKey, java.lang.Object)
+public static boolean isIn(net.minecraft.core.RegistryAccess, net.minecraft.tags.TagKey, java.lang.Object)
 ```

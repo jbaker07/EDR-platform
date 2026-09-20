@@ -18,5 +18,4 @@ public static void register(net.minecraft.world.level.block.Block, net.fabricmc.
 public static void registerDynamic(net.minecraft.world.level.block.Block, net.fabricmc.fabric.api.registry.LandPathTypeRegistry$DynamicPathTypeProvider)
 public static net.minecraft.world.level.pathfinder.PathType getPathType(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, boolean)
 public static net.fabricmc.fabric.api.registry.LandPathTypeRegistry$PathTypeProvider getPathTypeProvider(net.minecraft.world.level.block.Block)
-static {}
 ```

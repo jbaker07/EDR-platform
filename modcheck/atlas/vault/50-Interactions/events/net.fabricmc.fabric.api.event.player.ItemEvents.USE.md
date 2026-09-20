@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ItemStackMixin.handleUseEvent` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `ItemStackMixin.handleUseEvent` @13 | [[40-Interfaces/net.minecraft.world.item.ItemStack|ItemStack]].`use` @WrapOperation INVOKE `Lnet/minecraft/world/item/Item;use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;` | unknown | static_inference |
 
 ## Contract
 

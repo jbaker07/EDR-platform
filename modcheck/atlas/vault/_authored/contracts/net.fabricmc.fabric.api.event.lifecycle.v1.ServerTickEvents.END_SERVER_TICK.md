@@ -17,7 +17,7 @@ Subject: [[50-Interactions/events/net.fabricmc.fabric.api.event.lifecycle.v1.Ser
 |---|---|---|
 | Callback signature is onEndTick(MinecraftServer); no return value, so a listener cannot cancel or alter anything through the event itself. | `declared` | `extracted/edges.json#callback_of`; `extracted/fabric_api.json#fabric-lifecycle-events-v1` |
 | Fired from MinecraftServerMixin.onEndTick, an @Inject at TAIL of MinecraftServer.tickServer, so it runs after every level and player has ticked for that server tick. | `static_inference` | `extracted/edges.json#publishes_event`; `extracted/edges.json#injects_into` |
-| Runs on the server thread, because tickServer is called from the server run loop and the injection is inline. | `analyst_inference` | `extracted/minecraft_members.json`; [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]] |
+| Runs on the server thread, because tickServer is called from the server run loop and the injection is inline. | `analyst_inference` | `extracted/minecraft_surface.json.gz`; [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]] |
 | Applies on both the dedicated server and the integrated server (mixin environment is both). | `declared` | `extracted/fabric_api.json#fabric-lifecycle-events-v1` |
 
 ## Not established

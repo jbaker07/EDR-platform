@@ -13,9 +13,9 @@ sha256: "aff8cffc3d6da5475f21060e45cd28307676974674c4e10504c0fcc89c7746c4"
 Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] -- kind: interface
 
 ```java
-public default boolean allowComponentsUpdateAnimation(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack)
-public default boolean allowContinuingBlockBreaking(net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack)
-public default net.minecraft.world.item.ItemStackTemplate getCraftingRemainder(net.minecraft.world.item.ItemStack)
-public default boolean canBeEnchantedWith(net.minecraft.world.item.ItemStack, net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>, net.fabricmc.fabric.api.item.v1.EnchantingContext)
-public default java.lang.String getCreatorNamespace(net.minecraft.world.item.ItemStack)
+public boolean allowComponentsUpdateAnimation(net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand, net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack)
+public boolean allowContinuingBlockBreaking(net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack)
+public net.minecraft.world.item.ItemStackTemplate getCraftingRemainder(net.minecraft.world.item.ItemStack)
+public boolean canBeEnchantedWith(net.minecraft.world.item.ItemStack, net.minecraft.core.Holder, net.fabricmc.fabric.api.item.v1.EnchantingContext)
+public java.lang.String getCreatorNamespace(net.minecraft.world.item.ItemStack)
 ```

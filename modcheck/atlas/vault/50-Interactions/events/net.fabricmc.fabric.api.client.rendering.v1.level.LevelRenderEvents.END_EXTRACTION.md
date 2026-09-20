@@ -15,7 +15,7 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-- no publisher found by extraction (may be fired from generated or non-module code)
+- no publisher found by extraction in any class of any module ([[80-Unresolved/q.event_publishers_missing|q.event_publishers_missing]])
 
 ## Contract
 

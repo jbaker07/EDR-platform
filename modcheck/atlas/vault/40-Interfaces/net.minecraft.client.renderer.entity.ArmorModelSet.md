@@ -11,34 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `putFrom(Lnet/minecraft/client/renderer/entity/ArmorModelSet;Lcom/go` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `map` | `(Ljava/util/function/Function;)Lnet/minecraft/client/renderer/entity/A` | exact | invokevirtual@62 in `ModelLayerRegistry.registerArmorModelLayers` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `putFrom` | `(Lnet/minecraft/client/renderer/entity/ArmorModelSet;Lcom/google/commo` | exact | invokevirtual@121 in `LayerDefinitionsMixin.registerExtraModelData` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (4 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.renderer.entity.ArmorModelSet<T> extends java.lang.Record {
-    private final T head;
-    private final T chest;
-    private final T legs;
-    private final T feet;
-    public net.minecraft.client.renderer.entity.ArmorModelSet(T, T, T, T);
-    public T get(net.minecraft.world.entity.EquipmentSlot);
-    public <U> net.minecraft.client.renderer.entity.ArmorModelSet<U> map(java.util.function.Function<? super T, ? extends U>);
-    public void putFrom(net.minecraft.client.renderer.entity.ArmorModelSet<net.minecraft.client.model.geom.builders.LayerDefinition>, com.google.common.collect.ImmutableMap$Builder<T, net.minecraft.client.model.geom.builders.LayerDefinition>);
-    public static <M extends net.minecraft.client.model.HumanoidModel<?>> net.minecraft.client.renderer.entity.ArmorModelSet<M> bake(net.minecraft.client.renderer.entity.ArmorModelSet<net.minecraft.client.model.geom.ModelLayerLocation>, net.minecraft.client.model.geom.EntityModelSet, java.util.function.Function<net.minecraft.client.model.geom.ModelPart, M>);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public T head();
-    public T chest();
-    public T legs();
-    public T feet();
-    private static net.minecraft.client.model.HumanoidModel lambda$bake$0(java.util.function.Function, net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.model.geom.ModelLayerLocation);
-}
+```
+private final head : Ljava/lang/Object;
+private final chest : Ljava/lang/Object;
+private final legs : Ljava/lang/Object;
+private final feet : Ljava/lang/Object;
+public <init>(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V
+public get(Lnet/minecraft/world/entity/EquipmentSlot;)Ljava/lang/Object;
+public map(Ljava/util/function/Function;)Lnet/minecraft/client/renderer/entity/ArmorModelSet;
+public putFrom(Lnet/minecraft/client/renderer/entity/ArmorModelSet;Lcom/google/common/collect/ImmutableMap$Builder;)V
+public static bake(Lnet/minecraft/client/renderer/entity/ArmorModelSet;Lnet/minecraft/client/model/geom/EntityModelSet;Ljava/util/function/Function;)Lnet/minecraft/client/renderer/entity/ArmorModelSet;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public head()Ljava/lang/Object;
+public chest()Ljava/lang/Object;
+public legs()Ljava/lang/Object;
+public feet()Ljava/lang/Object;
+private static synthetic lambda$bake$0(Ljava/util/function/Function;Lnet/minecraft/client/model/geom/EntityModelSet;Lnet/minecraft/client/model/geom/ModelLayerLocation;)Lnet/minecraft/client/model/HumanoidModel;
 ```

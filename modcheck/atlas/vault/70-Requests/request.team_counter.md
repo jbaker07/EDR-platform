@@ -1,6 +1,8 @@
 ---
 type: "request"
 id: "request.team_counter"
+canonical: "exercise.team_counter"
+kind: "analyst_exercise"
 family: "workflow:wf.multiplayer.networking"
 ---
 
@@ -9,13 +11,24 @@ family: "workflow:wf.multiplayer.networking"
 
 # Team resource counter shown on every player's HUD
 
+**Canonical request.** `exercise.team_counter` (analyst_exercise)
+
+> [!note] Analyst exercise
+> No creator wrote this request. Nothing in it is approved intent.
+
 ## Request
 
 Analyst-authored exercise request: each team accumulates a count of gathered resources (say, ores mined); every member sees their team's count on the HUD; the count persists with the world and survives players leaving and rejoining.
 
-## Approved behaviour and constraints
+## Approved behaviour (the request's own words or acceptance criteria)
 
-- Provisional: team means the vanilla scoreboard team (open: [[80-Unresolved/q.team_counter_scope|q.team_counter_scope]]); counts persist per world; HUD shows own team only.
+- None approved: there is no creator. The exercise carries two explicit team definitions below; neither is chosen.
+
+## Analyst assumptions
+
+- Definition T1 -- team = the vanilla scoreboard team (operator-managed with /team; can be dissolved; membership changes fire no Fabric event in `extracted/edges.json#callback_of`).
+- Definition T2 -- team = a mod-defined group with its own commands and persistence (more work; independent of operators).
+- Counts persist per world under either definition; the HUD shows the viewer's own team only.
 
 ## Preservation obligations
 
@@ -74,3 +87,8 @@ Analyst-authored exercise request: each team accumulates a count of gathered res
 - `extracted/edges.json#publishes_event`
 - `extracted/fabric_api.json#fabric-data-attachment-api-v1`
 
+## Status
+
+- analysed: True
+- implemented: none
+- validated_scope: none

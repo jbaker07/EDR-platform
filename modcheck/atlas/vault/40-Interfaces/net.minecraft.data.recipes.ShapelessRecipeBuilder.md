@@ -11,38 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.recipes|net.minecraft.data.recipes]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/data/recipes/RecipeBuilder`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `save` | `(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/Res` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (6 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.recipes.ShapelessRecipeBuilder implements net.minecraft.data.recipes.RecipeBuilder {
-    private final net.minecraft.core.HolderGetter<net.minecraft.world.item.Item> items;
-    private final net.minecraft.data.recipes.RecipeCategory category;
-    private final net.minecraft.world.item.ItemStackTemplate result;
-    private final java.util.List<net.minecraft.world.item.crafting.Ingredient> ingredients;
-    private final net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder advancementBuilder;
-    private java.lang.String group;
-    private net.minecraft.data.recipes.ShapelessRecipeBuilder(net.minecraft.core.HolderGetter<net.minecraft.world.item.Item>, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.ItemStackTemplate);
-    public static net.minecraft.data.recipes.ShapelessRecipeBuilder shapeless(net.minecraft.core.HolderGetter<net.minecraft.world.item.Item>, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.ItemStackTemplate);
-    public static net.minecraft.data.recipes.ShapelessRecipeBuilder shapeless(net.minecraft.core.HolderGetter<net.minecraft.world.item.Item>, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.level.ItemLike);
-    public static net.minecraft.data.recipes.ShapelessRecipeBuilder shapeless(net.minecraft.core.HolderGetter<net.minecraft.world.item.Item>, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.level.ItemLike, int);
-    public net.minecraft.data.recipes.ShapelessRecipeBuilder requires(net.minecraft.tags.TagKey<net.minecraft.world.item.Item>);
-    public net.minecraft.data.recipes.ShapelessRecipeBuilder requires(net.minecraft.world.level.ItemLike);
-    public net.minecraft.data.recipes.ShapelessRecipeBuilder requires(net.minecraft.world.level.ItemLike, int);
-    public net.minecraft.data.recipes.ShapelessRecipeBuilder requires(net.minecraft.world.item.crafting.Ingredient);
-    public net.minecraft.data.recipes.ShapelessRecipeBuilder requires(net.minecraft.world.item.crafting.Ingredient, int);
-    public net.minecraft.data.recipes.ShapelessRecipeBuilder unlockedBy(java.lang.String, net.minecraft.advancements.triggers.Criterion<?>);
-    public net.minecraft.data.recipes.ShapelessRecipeBuilder group(java.lang.String);
-    public net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> defaultId();
-    public void save(net.minecraft.data.recipes.RecipeOutput, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>);
-    public net.minecraft.data.recipes.RecipeBuilder group(java.lang.String);
-    public net.minecraft.data.recipes.RecipeBuilder unlockedBy(java.lang.String, net.minecraft.advancements.triggers.Criterion);
-}
+```
+private final items : Lnet/minecraft/core/HolderGetter;
+private final category : Lnet/minecraft/data/recipes/RecipeCategory;
+private final result : Lnet/minecraft/world/item/ItemStackTemplate;
+private final ingredients : Ljava/util/List;
+private final advancementBuilder : Lnet/minecraft/data/recipes/RecipeUnlockAdvancementBuilder;
+private group : Ljava/lang/String;
+private <init>(Lnet/minecraft/core/HolderGetter;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/ItemStackTemplate;)V
+public static shapeless(Lnet/minecraft/core/HolderGetter;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/ItemStackTemplate;)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public static shapeless(Lnet/minecraft/core/HolderGetter;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public static shapeless(Lnet/minecraft/core/HolderGetter;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;I)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public requires(Lnet/minecraft/tags/TagKey;)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public requires(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public requires(Lnet/minecraft/world/level/ItemLike;I)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public requires(Lnet/minecraft/world/item/crafting/Ingredient;)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public requires(Lnet/minecraft/world/item/crafting/Ingredient;I)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public unlockedBy(Ljava/lang/String;Lnet/minecraft/advancements/triggers/Criterion;)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public group(Ljava/lang/String;)Lnet/minecraft/data/recipes/ShapelessRecipeBuilder;
+public defaultId()Lnet/minecraft/resources/ResourceKey;
+public save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V
+public synthetic group(Ljava/lang/String;)Lnet/minecraft/data/recipes/RecipeBuilder;
+public synthetic unlockedBy(Ljava/lang/String;Lnet/minecraft/advancements/triggers/Criterion;)Lnet/minecraft/data/recipes/RecipeBuilder;
 ```

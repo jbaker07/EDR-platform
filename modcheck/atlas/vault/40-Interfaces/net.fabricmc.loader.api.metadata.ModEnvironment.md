@@ -9,7 +9,7 @@ module: "fabric-loader"
 
 # net.fabricmc.loader.api.metadata.ModEnvironment
 
-fabric-loader 0.19.5 -- kind: class
+fabric-loader 0.19.5 -- kind: enum
 
 ```java
 public static final net.fabricmc.loader.api.metadata.ModEnvironment CLIENT
@@ -18,5 +18,4 @@ public static final net.fabricmc.loader.api.metadata.ModEnvironment UNIVERSAL
 public static net.fabricmc.loader.api.metadata.ModEnvironment[] values()
 public static net.fabricmc.loader.api.metadata.ModEnvironment valueOf(java.lang.String)
 public boolean matches(net.fabricmc.api.EnvType)
-static {}
 ```

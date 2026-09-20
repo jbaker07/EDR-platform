@@ -2,7 +2,7 @@
 type: "question"
 id: "q.lantern_rain_semantics"
 kind: "ambiguous_creator_intent"
-status: "open"
+status: "resolved"
 ---
 
 > [!warning] Analyst-authored
@@ -12,7 +12,7 @@ status: "open"
 
 **Question.** For the rain lantern, does "raining" mean the level's weather flag (Level.isRaining()), rain at the lantern's position (Level.isRainingAt(BlockPos), which accounts for biome and sky exposure), or precipitation of any kind including snow?
 
-**Kind.** `ambiguous_creator_intent` -- **Status.** open
+**Kind.** `ambiguous_creator_intent` -- **Status.** resolved
 
 **Why it matters.** Both methods exist on the hooked Level type. A lantern under a roof, or in a desert, or in snow, behaves differently under each reading, and the difference is visible to players.
 
@@ -20,7 +20,7 @@ status: "open"
 
 **Evidence already available.**
 - [[40-Interfaces/net.minecraft.world.level.Level|Level]]
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 
 **Best remaining source.** The creator.
 
@@ -30,3 +30,5 @@ status: "open"
 
 **Conclusions affected while open.**
 - The reference implementation's choice is a default, not an approved behaviour.
+
+**Resolved by.** The canonical record's proposed contract (modcheck/evaluation/requests/rain_charged_lantern_v2.yaml, proposed_contract.exposure_test): Level.isRainingAt(pos.above()). That is a ModCheck proposal recorded as such, not a creator decision; the request's acceptance criterion (an exposed lantern charges, a sheltered one does not) is what binds. Whether isRainingAt means that in every biome and weather state is [[80-Unresolved/q.lantern_runtime_gate|q.lantern_runtime_gate]].

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerGamePacketListenerImplMixin.onPickItemFromBlock` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `ServerGamePacketListenerImplMixin.onPickItemFromBlock` @20 | [[40-Interfaces/net.minecraft.server.network.ServerGamePacketListenerImpl|ServerGamePacketListenerImpl]].`handlePickItemFromBlock` @WrapOperation INVOKE `Lnet/minecraft/world/level/block/state/BlockState;getCloneItemStack(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Z)Lnet/minecraft/world/item/ItemStack;` | unknown | static_inference |
 
 ## Contract
 

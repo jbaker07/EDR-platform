@@ -13,5 +13,5 @@ sha256: "1b2d1d92f0e32719b571a51de70acc363b388f888bd8abf0882580a9a0a4f4d5"
 Module: [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] -- kind: interface
 
 ```java
-public abstract void modifyDimensionAttributes(net.minecraft.core.Holder<net.minecraft.world.level.dimension.DimensionType>, net.minecraft.world.attribute.EnvironmentAttributeMap$Builder, net.minecraft.core.HolderLookup$Provider)
+public abstract void modifyDimensionAttributes(net.minecraft.core.Holder, net.minecraft.world.attribute.EnvironmentAttributeMap$Builder, net.minecraft.core.HolderLookup$Provider)
 ```

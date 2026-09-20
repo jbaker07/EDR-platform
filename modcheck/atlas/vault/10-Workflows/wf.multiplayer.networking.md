@@ -72,4 +72,4 @@ area: "multiplayer"
 - contract_mapped: True
 - interaction_analysed: True
 - implemented_in_modcheck: True
-- validated_scope: payload generator compiles against the pinned corpus; exercised by the reference lantern's JUnit tests with fakes
+- validated_scope: payload generator compiles against the pinned corpus; the reference lantern's payload and recipients (PlayerLookup.tracking) are hand-authored, with the client cache unit-tested (11 tests); no game run

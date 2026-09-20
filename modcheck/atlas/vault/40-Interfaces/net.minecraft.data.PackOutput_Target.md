@@ -11,27 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data|net.minecraft.data]]
 
+`enum` public final; extends `java/lang/Enum`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `DATA_PACKLnet/minecraft/data/PackOutput$Target;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `DATA_PACK` | `Lnet/minecraft/data/PackOutput$Target;` | exact | getstatic@85 in `FabricDynamicRegistryProvider.writeHolders` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `DATA_PACK` | `Lnet/minecraft/data/PackOutput$Target;` | exact | getstatic@2 in `TagsProviderMixin.initPathResolver` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `RESOURCE_PACK` | `Lnet/minecraft/data/PackOutput$Target;` | exact | getstatic@4 in `FabricSoundsProvider.lambda$run$3` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `RESOURCE_PACK` | `Lnet/minecraft/data/PackOutput$Target;` | exact | getstatic@4 in `FabricLanguageProvider.getLangFilePath` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (5 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.data.PackOutput$Target extends java.lang.Enum<net.minecraft.data.PackOutput$Target> {
-    public static final net.minecraft.data.PackOutput$Target DATA_PACK;
-    public static final net.minecraft.data.PackOutput$Target RESOURCE_PACK;
-    public static final net.minecraft.data.PackOutput$Target REPORTS;
-    private final java.lang.String directory;
-    private static final net.minecraft.data.PackOutput$Target[] $VALUES;
-    public static net.minecraft.data.PackOutput$Target[] values();
-    public static net.minecraft.data.PackOutput$Target valueOf(java.lang.String);
-    private net.minecraft.data.PackOutput$Target(java.lang.String);
-    private static net.minecraft.data.PackOutput$Target[] $values();
-    static {};
-}
+```
+public static final DATA_PACK : Lnet/minecraft/data/PackOutput$Target;
+public static final RESOURCE_PACK : Lnet/minecraft/data/PackOutput$Target;
+public static final REPORTS : Lnet/minecraft/data/PackOutput$Target;
+private final directory : Ljava/lang/String;
+private static final synthetic $VALUES : [Lnet/minecraft/data/PackOutput$Target;
+public static values()[Lnet/minecraft/data/PackOutput$Target;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/data/PackOutput$Target;
+private <init>(Ljava/lang/String;ILjava/lang/String;)V
+private static synthetic $values()[Lnet/minecraft/data/PackOutput$Target;
+static <clinit>()V
 ```

@@ -11,35 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getSerializer()Lnet/minecraft/world/item/crafting/RecipeSerializer;` | `` | both | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `getType()Lnet/minecraft/world/item/crafting/RecipeType;` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `matches(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecra` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getSerializer` | `()Lnet/minecraft/world/item/crafting/RecipeSerializer;` | exact | invokeinterface@86 in `RecipeMapMixin.attachSerializerMap` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/item/crafting/RecipeType;` | exact | invokeinterface@16 in `SynchronizedRecipes.get` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/item/crafting/RecipeType;` | exact | invokeinterface@35 in `SynchronizedRecipesImpl.indexByType` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `matches` | `(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/world/l` | exact | invokeinterface@12 in `SynchronizedRecipes.getFirstMatch` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `matches` | `(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/world/l` | exact | invokeinterface@6 in `SynchronizedRecipesImpl.lambda$getAllMatches$0` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `DIRECT_CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@0 in `FabricRecipeProvider.lambda$run$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (5 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.item.crafting.Recipe<T extends net.minecraft.world.item.crafting.RecipeInput> {
-    public static final com.mojang.serialization.Codec<net.minecraft.world.item.crafting.Recipe<?>> DIRECT_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>> KEY_CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.crafting.Recipe<?>> STREAM_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.core.Holder<net.minecraft.world.item.crafting.Recipe<?>>> CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.core.HolderSet<net.minecraft.world.item.crafting.Recipe<?>>> LIST_CODEC;
-    public abstract boolean matches(T, net.minecraft.world.level.Level);
-    public abstract net.minecraft.world.item.ItemStack assemble(T);
-    public default boolean isSpecial();
-    public abstract boolean showNotification();
-    public abstract java.lang.String group();
-    public abstract net.minecraft.world.item.crafting.RecipeSerializer<? extends net.minecraft.world.item.crafting.Recipe<T>> getSerializer();
-    public abstract net.minecraft.world.item.crafting.RecipeType<? extends net.minecraft.world.item.crafting.Recipe<T>> getType();
-    public abstract net.minecraft.world.item.crafting.PlacementInfo placementInfo();
-    public default java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display();
-    public abstract net.minecraft.world.item.crafting.RecipeBookCategory recipeBookCategory();
-    static {};
-}
+```
+public static final DIRECT_CODEC : Lcom/mojang/serialization/Codec;
+public static final KEY_CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final LIST_CODEC : Lcom/mojang/serialization/Codec;
+public abstract matches(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/world/level/Level;)Z
+public abstract assemble(Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/world/item/ItemStack;
+public isSpecial()Z
+public abstract showNotification()Z
+public abstract group()Ljava/lang/String;
+public abstract getSerializer()Lnet/minecraft/world/item/crafting/RecipeSerializer;
+public abstract getType()Lnet/minecraft/world/item/crafting/RecipeType;
+public abstract placementInfo()Lnet/minecraft/world/item/crafting/PlacementInfo;
+public display()Ljava/util/List;
+public abstract recipeBookCategory()Lnet/minecraft/world/item/crafting/RecipeBookCategory;
+static <clinit>()V
 ```

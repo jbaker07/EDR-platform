@@ -24,7 +24,7 @@ area: "content"
 
 ## Tools and artifacts used today
 
-- A BlockEntity subclass with save/load via the 26.3 value I/O API (its signatures were corrected during the lantern build: no codec() on BlockEntityType in 26.3).
+- A BlockEntity subclass with load/save via the 26.3 ValueInput/ValueOutput API and a BlockEntityTicker installed from the block's getTicker: the reference lantern's hand-authored path (reference/rainlantern, [[70-Requests/request.rain_lantern|request.rain_lantern]]).
 
 ## Decisions the creator must make
 
@@ -33,12 +33,12 @@ area: "content"
 
 ## Information those decisions need
 
-- The block entity save/load method signatures in 26.3 (BlockEntity is in the world.level package; its members are extracted only if hooked -- check `extracted/minecraft_members.json`).
+- The block entity save/load method signatures in 26.3 (BlockEntity is in the world.level package; its members are extracted only if hooked -- check `extracted/minecraft_surface.json.gz`).
 - Whether the reference lantern's approach (SavedData at level scope) or a per-block entity fits the request.
 
 ## Existing automation
 
-- ModCheck generates SavedData and attachment code (`capability/persist_state.fabric_saveddata`, `capability/persist_state.fabric_attachment`); no block-entity generator.
+- ModCheck generates SavedData and attachment code (`capability/persist_state.fabric_saveddata`, `capability/persist_state.fabric_attachment`); no block-entity generator. The reference lantern was not generated.
 
 ## Remaining manual or unsupported work
 
@@ -65,4 +65,4 @@ area: "content"
 - contract_mapped: False
 - interaction_analysed: True
 - implemented_in_modcheck: True
-- validated_scope: SavedData and attachment generators compile against the pinned corpus and are exercised by the reference lantern's JUnit tests; the block-entity path itself is not implemented
+- validated_scope: the hand-authored reference lantern compiles and passes 40 JUnit tests with fakes (charging rules, serialization contract, HUD cache, resources and wiring); the SavedData and attachment generators compile; nothing observed in a game

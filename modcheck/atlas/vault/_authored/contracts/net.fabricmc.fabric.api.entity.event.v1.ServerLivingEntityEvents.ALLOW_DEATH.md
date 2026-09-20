@@ -16,7 +16,7 @@ Subject: [[50-Interactions/events/net.fabricmc.fabric.api.entity.event.v1.Server
 | claim | basis | evidence |
 |---|---|---|
 | Implemented as a @Redirect of LivingEntity.isDeadOrDying inside LivingEntity.hurtServer, so the listener's boolean stands in for the vanilla death check at that call site only. | `static_inference` | `extracted/edges.json#publishes_event`; `extracted/edges.json#wraps` |
-| A mod that redirects the same call site cannot coexist with this event (one redirect per call site). | `analyst_inference` | [[30-Mechanisms/Mixin|Mixin]]; `extracted/edges.json#wraps` |
+| A mod that @Redirects the same isDeadOrDying call site cannot coexist with this event's redirect: the second redirect finds no target and, with a required config, fails at transformation ([[30-Mechanisms/Transformation_Tests#C|scenario C]]). | `executed_transformation` | [[30-Mechanisms/Transformation_Tests#C|scenario C]]; `extracted/edges.json#wraps` |
 
 ## Not established
 

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftServerMixin.onEndTick` | `MinecraftServer.tickServer` @Inject at TAIL | both | static_inference |
+| `MinecraftServerMixin.onLoadWorld` @42 | [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]].`createLevels` @WrapOperation INVOKE `Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;` | unknown | static_inference |
 
 ## Contract
 

@@ -11,39 +11,41 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.flag|net.minecraft.world.flag]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `allFlags()Lnet/minecraft/world/flag/FeatureFlagSet;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `allFlags()Lnet/minecraft/world/flag/FeatureFlagSet;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `fromNames(Ljava/lang/Iterable;Ljava/util/function/Consumer;)Lnet/mine` | `` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
-| calls | `subset([Lnet/minecraft/world/flag/FeatureFlag;)Lnet/minecraft/worl` | `` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
-| calls | `toNames(Lnet/minecraft/world/flag/FeatureFlagSet;)Ljava/util/Set;` | `` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `allFlags` | `()Lnet/minecraft/world/flag/FeatureFlagSet;` | exact | invokevirtual@7 in `FabricBlockLootSubProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `allFlags` | `()Lnet/minecraft/world/flag/FeatureFlagSet;` | exact | invokevirtual@4 in `FabricEntityLootSubProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `allFlags` | `()Lnet/minecraft/world/flag/FeatureFlagSet;` | exact | invokevirtual@7 in `ConditionBlockLootSubProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `allFlags` | `()Lnet/minecraft/world/flag/FeatureFlagSet;` | exact | invokevirtual@4 in `ConditionEntityLootSubProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `fromNames` | `(Ljava/lang/Iterable;Ljava/util/function/Consumer;)Lnet/minecraft/worl` | exact | invokevirtual@18 in `ResourceConditionsImpl.featuresEnabled` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| calls | `subset` | `([Lnet/minecraft/world/flag/FeatureFlag;)Lnet/minecraft/world/flag/Fea` | exact | invokevirtual@8 in `FeaturesEnabledResourceCondition.<init>` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| calls | `toNames` | `(Lnet/minecraft/world/flag/FeatureFlagSet;)Ljava/util/Set;` | exact | invokevirtual@11 in `FeaturesEnabledResourceCondition.<init>` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
 
-## Declared members (18, all visibilities)
+## Declared members (4 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.flag.FeatureFlagRegistry {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.world.flag.FeatureFlagUniverse universe;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.world.flag.FeatureFlag> names;
-    private final net.minecraft.world.flag.FeatureFlagSet allFlags;
-    private net.minecraft.world.flag.FeatureFlagRegistry(net.minecraft.world.flag.FeatureFlagUniverse, net.minecraft.world.flag.FeatureFlagSet, java.util.Map<net.minecraft.resources.Identifier, net.minecraft.world.flag.FeatureFlag>);
-    public boolean isSubset(net.minecraft.world.flag.FeatureFlagSet);
-    public net.minecraft.world.flag.FeatureFlagSet allFlags();
-    public net.minecraft.world.flag.FeatureFlagSet fromNames(java.lang.Iterable<net.minecraft.resources.Identifier>);
-    public net.minecraft.world.flag.FeatureFlagSet subset(net.minecraft.world.flag.FeatureFlag...);
-    public net.minecraft.world.flag.FeatureFlagSet fromNames(java.lang.Iterable<net.minecraft.resources.Identifier>, java.util.function.Consumer<net.minecraft.resources.Identifier>);
-    public java.util.Set<net.minecraft.resources.Identifier> toNames(net.minecraft.world.flag.FeatureFlagSet);
-    public com.mojang.serialization.Codec<net.minecraft.world.flag.FeatureFlagSet> codec();
-    private java.util.List lambda$codec$2(net.minecraft.world.flag.FeatureFlagSet);
-    private com.mojang.serialization.DataResult lambda$codec$0(java.util.List);
-    private static java.lang.String lambda$codec$1(java.util.Set);
-    private static void lambda$toNames$0(net.minecraft.world.flag.FeatureFlagSet, java.util.Set, net.minecraft.resources.Identifier, net.minecraft.world.flag.FeatureFlag);
-    private static void lambda$fromNames$0(net.minecraft.resources.Identifier);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final universe : Lnet/minecraft/world/flag/FeatureFlagUniverse;
+private final names : Ljava/util/Map;
+private final allFlags : Lnet/minecraft/world/flag/FeatureFlagSet;
+private <init>(Lnet/minecraft/world/flag/FeatureFlagUniverse;Lnet/minecraft/world/flag/FeatureFlagSet;Ljava/util/Map;)V
+public isSubset(Lnet/minecraft/world/flag/FeatureFlagSet;)Z
+public allFlags()Lnet/minecraft/world/flag/FeatureFlagSet;
+public fromNames(Ljava/lang/Iterable;)Lnet/minecraft/world/flag/FeatureFlagSet;
+public subset([Lnet/minecraft/world/flag/FeatureFlag;)Lnet/minecraft/world/flag/FeatureFlagSet;
+public fromNames(Ljava/lang/Iterable;Ljava/util/function/Consumer;)Lnet/minecraft/world/flag/FeatureFlagSet;
+public toNames(Lnet/minecraft/world/flag/FeatureFlagSet;)Ljava/util/Set;
+public codec()Lcom/mojang/serialization/Codec;
+private synthetic lambda$codec$2(Lnet/minecraft/world/flag/FeatureFlagSet;)Ljava/util/List;
+private synthetic lambda$codec$0(Ljava/util/List;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$codec$1(Ljava/util/Set;)Ljava/lang/String;
+private static synthetic lambda$toNames$0(Lnet/minecraft/world/flag/FeatureFlagSet;Ljava/util/Set;Lnet/minecraft/resources/Identifier;Lnet/minecraft/world/flag/FeatureFlag;)V
+private static synthetic lambda$fromNames$0(Lnet/minecraft/resources/Identifier;)V
+static <clinit>()V
 ```

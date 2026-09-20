@@ -11,39 +11,40 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `usedBiomes()Ljava/util/stream/Stream;` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `usedBiomes` | `()Ljava/util/stream/Stream;` | exact | invokevirtual@3 in `NetherBiomeData.canGenerateInNether` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `NETHER` | `Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Pr` | exact | getstatic@0 in `NetherBiomeData.canGenerateInNether` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
 
-## Declared members (22, all visibilities)
+## Declared members (6 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset extends java.lang.Record {
-    private final net.minecraft.resources.Identifier id;
-    private final net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset$SourceProvider provider;
-    public static final net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset NETHER;
-    public static final net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset OVERWORLD;
-    private static final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset> BY_NAME;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset> CODEC;
-    public net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset(net.minecraft.resources.Identifier, net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset$SourceProvider);
-    private static <T> net.minecraft.world.level.biome.Climate$ParameterList<T> generateOverworldBiomes(java.util.function.Function<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>, T>);
-    public java.util.stream.Stream<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>> usedBiomes();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.resources.Identifier id();
-    public net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset$SourceProvider provider();
-    private static net.minecraft.resources.ResourceKey lambda$usedBiomes$0(net.minecraft.resources.ResourceKey);
-    private static void lambda$generateOverworldBiomes$0(com.google.common.collect.ImmutableList$Builder, java.util.function.Function, com.mojang.datafixers.util.Pair);
-    private static com.mojang.serialization.DataResult lambda$static$4(net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset);
-    private static com.mojang.serialization.DataResult lambda$static$1(net.minecraft.resources.Identifier);
-    private static com.mojang.serialization.DataResult lambda$static$2(net.minecraft.resources.Identifier);
-    private static java.lang.String lambda$static$3(net.minecraft.resources.Identifier);
-    private static net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset lambda$static$0(net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset);
-    static {};
-}
+```
+private final id : Lnet/minecraft/resources/Identifier;
+private final provider : Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset$SourceProvider;
+public static final NETHER : Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset;
+public static final OVERWORLD : Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset;
+private static final BY_NAME : Ljava/util/Map;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public <init>(Lnet/minecraft/resources/Identifier;Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset$SourceProvider;)V
+private static generateOverworldBiomes(Ljava/util/function/Function;)Lnet/minecraft/world/level/biome/Climate$ParameterList;
+public usedBiomes()Ljava/util/stream/Stream;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public id()Lnet/minecraft/resources/Identifier;
+public provider()Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset$SourceProvider;
+private static synthetic lambda$usedBiomes$0(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+private static synthetic lambda$generateOverworldBiomes$0(Lcom/google/common/collect/ImmutableList$Builder;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Pair;)V
+private static synthetic lambda$static$4(Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$1(Lnet/minecraft/resources/Identifier;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$2(Lnet/minecraft/resources/Identifier;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$3(Lnet/minecraft/resources/Identifier;)Ljava/lang/String;
+private static synthetic lambda$static$0(Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset;)Lnet/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset;
+static <clinit>()V
 ```

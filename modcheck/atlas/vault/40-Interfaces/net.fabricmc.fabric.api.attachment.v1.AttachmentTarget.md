@@ -14,16 +14,16 @@ Module: [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api
 
 ```java
 public static final java.lang.String NBT_ATTACHMENT_KEY
-public default <A> A getAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>)
-public default <A> A getAttachedOrThrow(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>)
-public default <A> A getAttachedOrSet(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>, A)
-public default <A> A getAttachedOrCreate(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>, java.util.function.Supplier<A>)
-public default <A> A getAttachedOrCreate(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>)
-public default <A> A getAttachedOrElse(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>, A)
-public default <A> A getAttachedOrGet(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>, java.util.function.Supplier<A>)
-public default <A> A setAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>, A)
-public default boolean hasAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType<?>)
-public default <A> A removeAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>)
-public default <A> net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.attachment.v1.AttachmentTarget$OnAttachedSet<A>> onAttachedSet(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>)
-public default <A> A modifyAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType<A>, java.util.function.UnaryOperator<A>)
+public java.lang.Object getAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType)
+public java.lang.Object getAttachedOrThrow(net.fabricmc.fabric.api.attachment.v1.AttachmentType)
+public java.lang.Object getAttachedOrSet(net.fabricmc.fabric.api.attachment.v1.AttachmentType, java.lang.Object)
+public java.lang.Object getAttachedOrCreate(net.fabricmc.fabric.api.attachment.v1.AttachmentType, java.util.function.Supplier)
+public java.lang.Object getAttachedOrCreate(net.fabricmc.fabric.api.attachment.v1.AttachmentType)
+public java.lang.Object getAttachedOrElse(net.fabricmc.fabric.api.attachment.v1.AttachmentType, java.lang.Object)
+public java.lang.Object getAttachedOrGet(net.fabricmc.fabric.api.attachment.v1.AttachmentType, java.util.function.Supplier)
+public java.lang.Object setAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType, java.lang.Object)
+public boolean hasAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType)
+public java.lang.Object removeAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType)
+public net.fabricmc.fabric.api.event.Event onAttachedSet(net.fabricmc.fabric.api.attachment.v1.AttachmentType)
+public java.lang.Object modifyAttached(net.fabricmc.fabric.api.attachment.v1.AttachmentType, java.util.function.UnaryOperator)
 ```

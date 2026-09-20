@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.allowAddEffect` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `LivingEntityMixin.allowAddEffect` @45 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`canBeAffected` @WrapMethod  | unknown | static_inference |
 
 ## Contract
 

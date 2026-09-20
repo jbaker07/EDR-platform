@@ -11,79 +11,81 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `close` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `preparePictureInPicture` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `preparePictureInPicture` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `preparePictureInPictureState` | `@ModifyVariable at STORE` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `(Lnet/minecraft/client/renderer/state/gui/GuiRenderState;Lnet/minecraf` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `addElementToMesh` | `(Lnet/minecraft/client/renderer/state/gui/GuiElementRenderState;)V` | name_only | @ModifyExpressionValue at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `close` | `()V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `preparePictureInPicture` | `()V` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `preparePictureInPicture` | `()V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `preparePictureInPictureState` | `(Lnet/minecraft/client/renderer/state/gui/pip/PictureInPictureRenderSt` | name_only | @ModifyVariable at ['STORE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `pictureInPictureRenderers` | `Ljava/util/Map;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
 
-## Declared members (58, all visibilities)
+## Declared members (27 fields, 31 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.render.GuiRenderer implements java.lang.AutoCloseable {
-    private static final org.slf4j.Logger LOGGER;
-    private static final float MAX_GUI_Z;
-    public static final float MIN_GUI_Z;
-    private static final float GUI_Z_NEAR;
-    public static final int GUI_3D_Z_FAR;
-    public static final int GUI_3D_Z_NEAR;
-    public static final int DEFAULT_ITEM_SIZE;
-    public static final org.joml.Vector4fc CLEAR_COLOR;
-    private static final java.util.Comparator<net.minecraft.client.gui.navigation.ScreenRectangle> SCISSOR_COMPARATOR;
-    private static final java.util.Comparator<net.minecraft.client.gui.render.TextureSetup> TEXTURE_COMPARATOR;
-    private static final java.util.Comparator<net.minecraft.client.renderer.state.gui.GuiElementRenderState> ELEMENT_SORT_COMPARATOR;
-    private final java.util.Map<java.lang.Object, net.minecraft.client.gui.render.pip.OversizedItemRenderer> oversizedItemRenderers;
-    private final net.minecraft.client.renderer.state.gui.GuiRenderState renderState;
-    private final java.util.List<net.minecraft.client.gui.render.GuiRenderer$Draw> draws;
-    private final net.minecraft.client.renderer.StagedVertexBuffer vertexBuffer;
-    private int firstDrawIndexAfterBlur;
-    private final net.minecraft.client.renderer.Projection guiProjection;
-    private final net.minecraft.client.renderer.ProjectionMatrixBuffer guiProjectionMatrixBuffer;
-    private final net.minecraft.client.renderer.feature.FeatureRenderDispatcher featureRenderDispatcher;
-    private final java.util.Map<java.lang.Class<? extends net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState>, net.minecraft.client.gui.render.pip.PictureInPictureRenderer<?>> pictureInPictureRenderers;
-    private net.minecraft.client.gui.render.GuiItemAtlas itemAtlas;
-    private int cachedGuiScale;
-    private final net.minecraft.client.renderer.CubeMap cubeMap;
-    private net.minecraft.client.gui.navigation.ScreenRectangle previousScissorArea;
-    private com.mojang.renderpearl.api.pipeline.RenderPipeline previousPipeline;
-    private net.minecraft.client.gui.render.TextureSetup previousTextureSetup;
-    private net.minecraft.client.renderer.StagedVertexBuffer$Draw previousDraw;
-    public net.minecraft.client.gui.render.GuiRenderer(net.minecraft.client.renderer.state.gui.GuiRenderState, net.minecraft.client.renderer.feature.FeatureRenderDispatcher, java.util.List<net.minecraft.client.gui.render.pip.PictureInPictureRenderer<?>>);
-    public void endFrame();
-    public void render();
-    private void clearUnusedOversizedItemRenderers();
-    private void prepare();
-    private void addElementsToMeshes(net.minecraft.client.renderer.state.gui.GuiRenderState$TraverseRange);
-    private void draw();
-    private void executeDrawRange(java.util.function.Supplier<java.lang.String>, com.mojang.blaze3d.pipeline.RenderTarget, com.mojang.renderpearl.api.buffers.GpuBufferSlice, int, int);
-    private void addElementToMesh(net.minecraft.client.renderer.state.gui.GuiElementRenderState);
-    private void prepareText();
-    private void prepareItemElements();
-    private void preparePictureInPicture();
-    private <T extends net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState> void preparePictureInPictureState(T, int);
-    private void submitBlitFromItemAtlas(net.minecraft.client.renderer.state.gui.GuiItemRenderState, net.minecraft.client.gui.render.GuiItemAtlas$SlotView);
-    private net.minecraft.client.gui.render.GuiItemAtlas prepareItemAtlas(java.util.Set<java.lang.Object>, int);
-    private int getGuiScaleInvalidatingItemAtlasIfChanged();
-    private void invalidateItemAtlas();
-    private void executeDraw(net.minecraft.client.gui.render.GuiRenderer$Draw, com.mojang.renderpearl.api.commands.RenderPass);
-    private boolean scissorChanged(net.minecraft.client.gui.navigation.ScreenRectangle, net.minecraft.client.gui.navigation.ScreenRectangle);
-    private void enableScissor(net.minecraft.client.gui.navigation.ScreenRectangle, com.mojang.renderpearl.api.commands.RenderPass);
-    public void registerPanoramaTextures(net.minecraft.client.renderer.texture.TextureManager);
-    public void close();
-    private void lambda$preparePictureInPicture$0(int, net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState);
-    private void lambda$prepareItemElements$1(int, net.minecraft.client.renderer.state.gui.GuiItemRenderState);
-    private static net.minecraft.client.gui.render.pip.OversizedItemRenderer lambda$prepareItemElements$2(java.lang.Object);
-    private void lambda$prepareItemElements$0(org.apache.commons.lang3.mutable.MutableBoolean, net.minecraft.client.gui.render.GuiItemAtlas, net.minecraft.client.renderer.state.gui.GuiItemRenderState);
-    private void lambda$prepareText$0(net.minecraft.client.renderer.state.gui.GuiTextRenderState);
-    private static java.lang.String lambda$draw$1();
-    private static java.lang.String lambda$draw$0();
-    private static java.lang.String lambda$new$0();
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final MAX_GUI_Z : F
+public static final MIN_GUI_Z : F
+private static final GUI_Z_NEAR : F
+public static final GUI_3D_Z_FAR : I
+public static final GUI_3D_Z_NEAR : I
+public static final DEFAULT_ITEM_SIZE : I
+public static final CLEAR_COLOR : Lorg/joml/Vector4fc;
+private static final SCISSOR_COMPARATOR : Ljava/util/Comparator;
+private static final TEXTURE_COMPARATOR : Ljava/util/Comparator;
+private static final ELEMENT_SORT_COMPARATOR : Ljava/util/Comparator;
+private final oversizedItemRenderers : Ljava/util/Map;
+private final renderState : Lnet/minecraft/client/renderer/state/gui/GuiRenderState;
+private final draws : Ljava/util/List;
+private final vertexBuffer : Lnet/minecraft/client/renderer/StagedVertexBuffer;
+private firstDrawIndexAfterBlur : I
+private final guiProjection : Lnet/minecraft/client/renderer/Projection;
+private final guiProjectionMatrixBuffer : Lnet/minecraft/client/renderer/ProjectionMatrixBuffer;
+private final featureRenderDispatcher : Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;
+private final pictureInPictureRenderers : Ljava/util/Map;
+private itemAtlas : Lnet/minecraft/client/gui/render/GuiItemAtlas;
+private cachedGuiScale : I
+private final cubeMap : Lnet/minecraft/client/renderer/CubeMap;
+private previousScissorArea : Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+private previousPipeline : Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;
+private previousTextureSetup : Lnet/minecraft/client/gui/render/TextureSetup;
+private previousDraw : Lnet/minecraft/client/renderer/StagedVertexBuffer$Draw;
+public <init>(Lnet/minecraft/client/renderer/state/gui/GuiRenderState;Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;Ljava/util/List;)V
+public endFrame()V
+public render()V
+private clearUnusedOversizedItemRenderers()V
+private prepare()V
+private addElementsToMeshes(Lnet/minecraft/client/renderer/state/gui/GuiRenderState$TraverseRange;)V
+private draw()V
+private executeDrawRange(Ljava/util/function/Supplier;Lcom/mojang/blaze3d/pipeline/RenderTarget;Lcom/mojang/renderpearl/api/buffers/GpuBufferSlice;II)V
+private addElementToMesh(Lnet/minecraft/client/renderer/state/gui/GuiElementRenderState;)V
+private prepareText()V
+private prepareItemElements()V
+private preparePictureInPicture()V
+private preparePictureInPictureState(Lnet/minecraft/client/renderer/state/gui/pip/PictureInPictureRenderState;I)V
+private submitBlitFromItemAtlas(Lnet/minecraft/client/renderer/state/gui/GuiItemRenderState;Lnet/minecraft/client/gui/render/GuiItemAtlas$SlotView;)V
+private prepareItemAtlas(Ljava/util/Set;I)Lnet/minecraft/client/gui/render/GuiItemAtlas;
+private getGuiScaleInvalidatingItemAtlasIfChanged()I
+private invalidateItemAtlas()V
+private executeDraw(Lnet/minecraft/client/gui/render/GuiRenderer$Draw;Lcom/mojang/renderpearl/api/commands/RenderPass;)V
+private scissorChanged(Lnet/minecraft/client/gui/navigation/ScreenRectangle;Lnet/minecraft/client/gui/navigation/ScreenRectangle;)Z
+private enableScissor(Lnet/minecraft/client/gui/navigation/ScreenRectangle;Lcom/mojang/renderpearl/api/commands/RenderPass;)V
+public registerPanoramaTextures(Lnet/minecraft/client/renderer/texture/TextureManager;)V
+public close()V
+private synthetic lambda$preparePictureInPicture$0(ILnet/minecraft/client/renderer/state/gui/pip/PictureInPictureRenderState;)V
+private synthetic lambda$prepareItemElements$1(ILnet/minecraft/client/renderer/state/gui/GuiItemRenderState;)V
+private static synthetic lambda$prepareItemElements$2(Ljava/lang/Object;)Lnet/minecraft/client/gui/render/pip/OversizedItemRenderer;
+private synthetic lambda$prepareItemElements$0(Lorg/apache/commons/lang3/mutable/MutableBoolean;Lnet/minecraft/client/gui/render/GuiItemAtlas;Lnet/minecraft/client/renderer/state/gui/GuiItemRenderState;)V
+private synthetic lambda$prepareText$0(Lnet/minecraft/client/renderer/state/gui/GuiTextRenderState;)V
+private static synthetic lambda$draw$1()Ljava/lang/String;
+private static synthetic lambda$draw$0()Ljava/lang/String;
+private static synthetic lambda$new$0()Ljava/lang/String;
+static <clinit>()V
 ```

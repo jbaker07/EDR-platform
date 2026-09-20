@@ -11,34 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `progressMapping(Ljava/util/function/BiConsumer;)V` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `progressMapping` | `(Ljava/util/function/BiConsumer;)V` | exact | invokevirtual@16 in `OxidizableBlocksRegistryImpl.registerWeatheringCopperBlocks` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (4 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.block.WeatheringCopperCollection$ByState<T> extends java.lang.Record {
-    private final T unaffected;
-    private final T exposed;
-    private final T weathered;
-    private final T oxidized;
-    public net.minecraft.world.level.block.WeatheringCopperCollection$ByState(T, T, T, T);
-    public static <T> net.minecraft.world.level.block.WeatheringCopperCollection$ByState<T> create(T);
-    public <U> net.minecraft.world.level.block.WeatheringCopperCollection$ByState<U> map(java.util.function.Function<T, U>);
-    public T pick(net.minecraft.world.level.block.WeatheringCopper$WeatherState);
-    public void forEach(java.util.function.Consumer<T>);
-    public void progressMapping(java.util.function.BiConsumer<T, T>);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public T unaffected();
-    public T exposed();
-    public T weathered();
-    public T oxidized();
-}
+```
+private final unaffected : Ljava/lang/Object;
+private final exposed : Ljava/lang/Object;
+private final weathered : Ljava/lang/Object;
+private final oxidized : Ljava/lang/Object;
+public <init>(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V
+public static create(Ljava/lang/Object;)Lnet/minecraft/world/level/block/WeatheringCopperCollection$ByState;
+public map(Ljava/util/function/Function;)Lnet/minecraft/world/level/block/WeatheringCopperCollection$ByState;
+public pick(Lnet/minecraft/world/level/block/WeatheringCopper$WeatherState;)Ljava/lang/Object;
+public forEach(Ljava/util/function/Consumer;)V
+public progressMapping(Ljava/util/function/BiConsumer;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public unaffected()Ljava/lang/Object;
+public exposed()Ljava/lang/Object;
+public weathered()Ljava/lang/Object;
+public oxidized()Ljava/lang/Object;
 ```

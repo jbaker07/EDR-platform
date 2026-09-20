@@ -13,5 +13,5 @@ sha256: "569540023c6d19e4b4854e14ea4bb99aed401946d5470f761ac1f1388cc7de2c"
 Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] -- kind: interface
 
 ```java
-public abstract void onLootTablesLoaded(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.LootTable>)
+public abstract void onLootTablesLoaded(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.Registry)
 ```

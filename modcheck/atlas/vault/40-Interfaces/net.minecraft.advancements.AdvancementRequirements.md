@@ -11,40 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.advancements|net.minecraft.advancements]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/util/List;)V` | `` | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| calls | `requirements()Ljava/util/List;` | `` | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| reads | `EMPTYLnet/minecraft/advancements/AdvancementRequirements;` | `` | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/List;)V` | exact | invokespecial@121 in `AdvancementBuilderMixin.pureRequirements` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| calls | `<init>` | `(Ljava/util/List;)V` | exact | invokespecial@45 in `AdvancementBuilderMixin.requireCriteria` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| calls | `requirements` | `()Ljava/util/List;` | exact | invokevirtual@34 in `AdvancementBuilderMixin.pureRequirements` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| calls | `requirements` | `()Ljava/util/List;` | exact | invokevirtual@2 in `AdvancementBuilderMixin.lambda$requireCriteria$0` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| reads | `EMPTY` | `Lnet/minecraft/advancements/AdvancementRequirements;` | exact | getstatic@4 in `AdvancementBuilderMixin.getRequirements` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (4 fields, 17 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.advancements.AdvancementRequirements extends java.lang.Record {
-    private final java.util.List<java.util.List<java.lang.String>> requirements;
-    public static final com.mojang.serialization.Codec<net.minecraft.advancements.AdvancementRequirements> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.advancements.AdvancementRequirements> STREAM_CODEC;
-    public static final net.minecraft.advancements.AdvancementRequirements EMPTY;
-    public net.minecraft.advancements.AdvancementRequirements(java.util.List<java.util.List<java.lang.String>>);
-    public static net.minecraft.advancements.AdvancementRequirements allOf(java.util.Collection<java.lang.String>);
-    public static net.minecraft.advancements.AdvancementRequirements anyOf(java.util.Collection<java.lang.String>);
-    public int size();
-    public boolean test(java.util.function.Predicate<java.lang.String>);
-    public int count(java.util.function.Predicate<java.lang.String>);
-    private static boolean anyMatch(java.util.List<java.lang.String>, java.util.function.Predicate<java.lang.String>);
-    public com.mojang.serialization.DataResult<net.minecraft.advancements.AdvancementRequirements> validate(java.util.Set<java.lang.String>);
-    public boolean isEmpty();
-    public java.lang.String toString();
-    public java.util.Set<java.lang.String> names();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.List<java.util.List<java.lang.String>> requirements();
-    private static java.lang.String lambda$validate$1(java.util.Set, java.util.Set);
-    private static java.lang.String lambda$validate$0();
-    static {};
-}
+```
+private final requirements : Ljava/util/List;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final EMPTY : Lnet/minecraft/advancements/AdvancementRequirements;
+public <init>(Ljava/util/List;)V
+public static allOf(Ljava/util/Collection;)Lnet/minecraft/advancements/AdvancementRequirements;
+public static anyOf(Ljava/util/Collection;)Lnet/minecraft/advancements/AdvancementRequirements;
+public size()I
+public test(Ljava/util/function/Predicate;)Z
+public count(Ljava/util/function/Predicate;)I
+private static anyMatch(Ljava/util/List;Ljava/util/function/Predicate;)Z
+public validate(Ljava/util/Set;)Lcom/mojang/serialization/DataResult;
+public isEmpty()Z
+public toString()Ljava/lang/String;
+public names()Ljava/util/Set;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public requirements()Ljava/util/List;
+private static synthetic lambda$validate$1(Ljava/util/Set;Ljava/util/Set;)Ljava/lang/String;
+private static synthetic lambda$validate$0()Ljava/lang/String;
+static <clinit>()V
 ```

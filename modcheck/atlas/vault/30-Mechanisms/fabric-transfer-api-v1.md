@@ -19,44 +19,49 @@ lifecycle: "stable"
 - depends: `{"fabricloader": ">=0.19.3", "fabric-api-lookup-api-v1": "*", "fabric-rendering-fluids-v1": "*"}`
 - entrypoints: `null`
 - mixin configs: `["fabric-transfer-api-v1.mixins.json"]`
+- mixin classes: 18 found by annotation, 18 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - [[50-Interactions/events/net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage.GENERAL_COMBINED_PROVIDER|FluidStorage.GENERAL_COMBINED_PROVIDER]]
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.world.SimpleContainer|SimpleContainer]] | `setItem(ILnet/minecraft/world/item/ItemStack;)V` | wraps `@Redirect at INVOKE Lnet/minecraft/world/SimpleContainer;setChanged()V` | both | `SimpleContainerMixin.fabric_redirectChanged` |
-| [[40-Interfaces/net.minecraft.world.item.BucketItem|BucketItem]] | `playEmptySound` | injects_into `@ModifyVariable at STORE` | both | `BucketItemMixin.hookEmptyingSound` |
-| [[40-Interfaces/net.minecraft.world.level.block.CrafterBlock|CrafterBlock]] | `dispenseItem` | injects_into `@Inject at INVOKE Lnet/minecraft/world/item/ItemStack;isEmpty()Z` | both | `CrafterBlockMixin.transferOrSpawnStack` |
-| [[40-Interfaces/net.minecraft.world.level.block.DropperBlock|DropperBlock]] | `dispenseFrom` | injects_into `@Inject at INVOKE Lnet/minecraft/core/dispenser/DispenseItemBehavior;dispense(Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;` | both | `DropperBlockMixin.hookDispense` |
-| [[40-Interfaces/net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity|AbstractFurnaceBlockEntity]] | `setItem` | injects_into `@Inject at HEAD` | both | `AbstractFurnaceBlockEntityMixin.setStackSuppressUpdate` |
-| [[40-Interfaces/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity|ChiseledBookShelfBlockEntity]] | `setItem` | injects_into `@Inject at HEAD` | both | `ChiseledBookShelfBlockEntityMixin.setStackBypass` |
-| [[40-Interfaces/net.minecraft.world.level.block.entity.HopperBlockEntity|HopperBlockEntity]] | `ejectItems` | injects_into `@Inject at INVOKE_ASSIGN Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getAttachedContainer(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)Lnet/minecraft/world/Container;` | both | `HopperBlockEntityMixin.hookInsert` |
-| [[40-Interfaces/net.minecraft.world.level.block.entity.HopperBlockEntity|HopperBlockEntity]] | `suckInItems(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;)Z` | injects_into `@Inject at INVOKE_ASSIGN Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getSourceContainer(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/Container;` | both | `HopperBlockEntityMixin.hookExtract` |
-| [[40-Interfaces/net.minecraft.world.level.block.entity.JukeboxBlockEntity|JukeboxBlockEntity]] | `setTheItem` | injects_into `@Inject at HEAD` | both | `JukeboxBlockEntityMixin.setStackBypass` |
-| [[40-Interfaces/net.minecraft.world.level.material.Fluid|Fluid]] | `getPickupSound` | injects_into `@Inject at HEAD` | both | `FluidMixin.hookGetBucketFillSound` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.world.SimpleContainer|SimpleContainer]].`setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | exact | @Redirect | INVOKE `Lnet/minecraft/world/SimpleContainer;setChanged()V` (exact) | both | 1000 (default) | `SimpleContainerMixin.fabric_redirectChanged` |
+| [[40-Interfaces/net.minecraft.world.item.BucketItem|BucketItem]].`playEmptySound` | `(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V` | name_only | @ModifyVariable | STORE | both | 1000 (default) | `BucketItemMixin.hookEmptyingSound` |
+| [[40-Interfaces/net.minecraft.world.level.block.CrafterBlock|CrafterBlock]].`dispenseItem` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/CrafterBlockEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/crafting/RecipeHolder;)V` | name_only | @Inject | INVOKE `Lnet/minecraft/world/item/ItemStack;isEmpty()Z` (exact) | both | 1000 (default) | `CrafterBlockMixin.transferOrSpawnStack` |
+| [[40-Interfaces/net.minecraft.world.level.block.DropperBlock|DropperBlock]].`dispenseFrom` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V` | name_only | @Inject | INVOKE `Lnet/minecraft/core/dispenser/DispenseItemBehavior;dispense(Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;` (exact) | both | 1000 (default) | `DropperBlockMixin.hookDispense` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity|AbstractFurnaceBlockEntity]].`setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | name_only | @Inject | HEAD | both | 1000 (default) | `AbstractFurnaceBlockEntityMixin.setStackSuppressUpdate` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.BaseContainerBlockEntity|BaseContainerBlockEntity]].`setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | exact | @WrapOperation | INVOKE `Lnet/minecraft/world/level/block/entity/BaseContainerBlockEntity;setChanged()V` (inherited_exact) | both | 1000 (default) | `BaseContainerBlockEntityMixin.fabric_redirectSetChanged` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity|ChiseledBookShelfBlockEntity]].`setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | name_only | @Inject | HEAD | both | 1000 (default) | `ChiseledBookShelfBlockEntityMixin.setStackBypass` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.HopperBlockEntity|HopperBlockEntity]].`ejectItems` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)Z` | name_only | @Inject | INVOKE_ASSIGN `Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getAttachedContainer(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)Lnet/minecraft/world/Container;` (exact) | both | 1000 (default) | `HopperBlockEntityMixin.hookInsert` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.HopperBlockEntity|HopperBlockEntity]].`suckInItems` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;)Z` | exact | @Inject | INVOKE_ASSIGN `Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getSourceContainer(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/Container;` (exact) | both | 1000 (default) | `HopperBlockEntityMixin.hookExtract` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.JukeboxBlockEntity|JukeboxBlockEntity]].`setTheItem` | `(Lnet/minecraft/world/item/ItemStack;)V` | name_only | @Inject | HEAD | both | 1000 (default) | `JukeboxBlockEntityMixin.setStackBypass` |
+| [[40-Interfaces/net.minecraft.world.level.block.entity.ListBackedContainer|ListBackedContainer]].`setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | name_only | @WrapOperation | INVOKE `Lnet/minecraft/world/level/block/entity/ListBackedContainer;setChanged()V` (inherited_exact) | both | 1000 (default) | `ListBackedContainerMixin.cancelSetChanged` |
+| [[40-Interfaces/net.minecraft.world.level.material.Fluid|Fluid]].`getPickupSound` | `()Ljava/util/Optional;` | name_only | @Inject | HEAD | both | 1000 (default) | `FluidMixin.hookGetBucketFillSound` |
 
 ## API surface
 
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRenderHandler|FluidVariantRenderHandler]] (interface, 2 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering|FluidVariantRendering]] (class, 10 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering|FluidVariantRendering]] (class, 9 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext|ContainerItemContext]] (interface, 17 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent|CauldronFluidContent]] (class, 10 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent|CauldronFluidContent]] (class, 9 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants|FluidConstants]] (class, 14 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage|FluidStorage]] (class, 5 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage|FluidStorage]] (class, 4 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorageUtil|FluidStorageUtil]] (class, 1 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant|FluidVariant]] (interface, 10 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant|FluidVariant]] (interface, 9 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler|FluidVariantAttributeHandler]] (interface, 9 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes|FluidVariantAttributes]] (class, 14 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes|FluidVariantAttributes]] (class, 13 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.base.EmptyItemFluidStorage|EmptyItemFluidStorage]] (class, 6 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage|FullItemFluidStorage]] (class, 10 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.fluid.base.SingleFluidStorage|SingleFluidStorage]] (abstract_class, 6 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage|ContainerStorage]] (interface, 4 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.ItemStorage|ItemStorage]] (class, 3 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.ItemVariant|ItemVariant]] (interface, 14 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.ItemStorage|ItemStorage]] (class, 2 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.ItemVariant|ItemVariant]] (interface, 13 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage|PlayerInventoryStorage]] (interface, 11 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.base.SingleItemStorage|SingleItemStorage]] (abstract_class, 5 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage|SingleStackStorage]] (abstract_class, 20 members)
@@ -83,6 +88,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

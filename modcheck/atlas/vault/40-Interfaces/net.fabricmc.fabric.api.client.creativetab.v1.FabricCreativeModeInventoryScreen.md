@@ -13,14 +13,14 @@ sha256: "415e659be69014edac017bc384a96c4f2da5ce8fa2093e7d488593e05f03a0b6"
 Module: [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] -- kind: interface
 
 ```java
-public default boolean switchToPage(int)
-public default boolean switchToNextPage()
-public default boolean switchToPreviousPage()
-public default int getCurrentPage()
-public default int getPageCount()
-public default java.util.List<net.minecraft.world.item.CreativeModeTab> getTabsOnPage(int)
-public default int getPage(net.minecraft.world.item.CreativeModeTab)
-public default boolean hasAdditionalPages()
-public default net.minecraft.world.item.CreativeModeTab getSelectedTab()
-public default boolean setSelectedTab(net.minecraft.world.item.CreativeModeTab)
+public boolean switchToPage(int)
+public boolean switchToNextPage()
+public boolean switchToPreviousPage()
+public int getCurrentPage()
+public int getPageCount()
+public java.util.List getTabsOnPage(int)
+public int getPage(net.minecraft.world.item.CreativeModeTab)
+public boolean hasAdditionalPages()
+public net.minecraft.world.item.CreativeModeTab getSelectedTab()
+public boolean setSelectedTab(net.minecraft.world.item.CreativeModeTab)
 ```

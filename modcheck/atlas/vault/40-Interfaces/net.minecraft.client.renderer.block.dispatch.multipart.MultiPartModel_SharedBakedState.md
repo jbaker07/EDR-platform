@@ -11,26 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` final; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `selectModels(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/ut` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `selectModels` | `(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/List;` | exact | invokevirtual@16 in `MultiPartModelMixin.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `selectModels` | `(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/List;` | exact | invokevirtual@16 in `MultiPartModelMixin.createGeometryKey` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `selectModels` | `(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/List;` | exact | invokevirtual@16 in `MultiPartModelMixin.materialFlags` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (4 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-final class net.minecraft.client.renderer.block.dispatch.multipart.MultiPartModel$SharedBakedState {
-    private final java.util.List<net.minecraft.client.renderer.block.dispatch.multipart.MultiPartModel$Selector<net.minecraft.client.renderer.block.dispatch.BlockStateModel>> selectors;
-    private final net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial;
-    private final int materialFlags;
-    private final java.util.Map<java.util.BitSet, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModel>> subsets;
-    private static net.minecraft.client.renderer.block.dispatch.BlockStateModel getFirstModel(java.util.List<net.minecraft.client.renderer.block.dispatch.multipart.MultiPartModel$Selector<net.minecraft.client.renderer.block.dispatch.BlockStateModel>>);
-    private static int computeMaterialFlags(java.util.List<net.minecraft.client.renderer.block.dispatch.multipart.MultiPartModel$Selector<net.minecraft.client.renderer.block.dispatch.BlockStateModel>>);
-    public net.minecraft.client.renderer.block.dispatch.multipart.MultiPartModel$SharedBakedState(java.util.List<net.minecraft.client.renderer.block.dispatch.multipart.MultiPartModel$Selector<net.minecraft.client.renderer.block.dispatch.BlockStateModel>>);
-    public java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModel> selectModels(net.minecraft.world.level.block.state.BlockState);
-    private java.util.List lambda$selectModels$0(java.util.BitSet);
-}
+```
+private final selectors : Ljava/util/List;
+private final particleMaterial : Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+private final materialFlags : I
+private final subsets : Ljava/util/Map;
+private static getFirstModel(Ljava/util/List;)Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;
+private static computeMaterialFlags(Ljava/util/List;)I
+public <init>(Ljava/util/List;)V
+public selectModels(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/List;
+private synthetic lambda$selectModels$0(Ljava/util/BitSet;)Ljava/util/List;
 ```

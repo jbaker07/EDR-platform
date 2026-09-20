@@ -11,19 +11,19 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.commands|net.minecraft.commands]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/core/HolderLookup$Provider`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `simple(Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/wo` | `` | client | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `simple` | `(Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/world/flag/F` | exact | invokestatic@30 in `ClientPacketListenerMixin.onGameJoin` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
 
-## Declared members (2, all visibilities)
+## Declared members (0 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.commands.CommandBuildContext extends net.minecraft.core.HolderLookup$Provider {
-    public static net.minecraft.commands.CommandBuildContext simple(net.minecraft.core.HolderLookup$Provider, net.minecraft.world.flag.FeatureFlagSet);
-    public abstract net.minecraft.world.flag.FeatureFlagSet enabledFeatures();
-}
+```
+public static simple(Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/world/flag/FeatureFlagSet;)Lnet/minecraft/commands/CommandBuildContext;
+public abstract enabledFeatures()Lnet/minecraft/world/flag/FeatureFlagSet;
 ```

@@ -1,150 +1,208 @@
 - id: wf.behaviour.entity_ai
   area: behaviour
   title: Change or add entity behaviour (AI)
-  intent: >-
-    Make a creature act differently: flee from something, seek something, attack or
-    ignore a target, follow a schedule. The creator describes the behaviour in game
-    terms and expects it to hold in multiplayer.
+  intent: 'Make a creature act differently: flee from something, seek something, attack or ignore a target, follow
+    a schedule. The creator describes the behaviour in game terms and expects it to hold in multiplayer.'
   preserve:
-    - The creature's other behaviours; a new goal must not starve vanilla goals unless asked.
-    - "Server authority: AI runs on the server and the client only sees the result."
+  - The creature's other behaviours; a new goal must not starve vanilla goals unless asked.
+  - 'Server authority: AI runs on the server and the client only sees the result.'
   mechanisms:
-    - type:net.minecraft.world.entity.Mob declares the protected GoalSelector; a goal is added through an accessor mixin or an access widener (mechanism:fabric-transitive-access-wideners-v1 ships vanilla widenings; whether goalSelector is among them is not extracted).
-    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_LOAD -- the point to add a goal to a vanilla mob instance, idempotently.
-    - mechanism:Mixin into the mob's registerGoals or the brain-building method for brain-driven mobs.
-    - event:net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE and related for reaction-style behaviour without AI changes.
+  - type:net.minecraft.world.entity.Mob declares the protected GoalSelector; a goal is added through an accessor
+    mixin or an access widener (mechanism:fabric-transitive-access-wideners-v1 ships vanilla widenings; whether
+    goalSelector is among them is not extracted).
+  - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_LOAD -- the point to add a goal to
+    a vanilla mob instance, idempotently.
+  - mechanism:Mixin into the mob's registerGoals or the brain-building method for brain-driven mobs.
+  - event:net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE and related for reaction-style
+    behaviour without AI changes.
   tools_today:
-    - A Goal subclass; registration at ENTITY_LOAD or via mixin.
+  - A Goal subclass; registration at ENTITY_LOAD or via mixin.
   decisions:
-    - GoalSelector-based mob or Brain-based mob (question:q.villager_ai_architecture) -- the two need different code.
-    - Event-based (composable, limited to instance-level) versus mixin (any change, contested-method risk).
-    - Goal priority relative to vanilla goals.
+  - GoalSelector-based mob or Brain-based mob (question:q.villager_ai_architecture) -- the two need different code.
+  - Event-based (composable, limited to instance-level) versus mixin (any change, contested-method risk).
+  - Goal priority relative to vanilla goals.
   information_needed:
-    - The target mob's AI architecture and the members of its class (unhooked types; question:q.unhooked_vanilla_members).
-    - Whether an access widener already opens goalSelector.
-    - Thread and re-entrancy of ENTITY_LOAD (analyst contract exists).
+  - The target mob's AI architecture and the members of its class (unhooked types; question:q.unhooked_vanilla_members).
+  - Whether an access widener already opens goalSelector.
+  - Thread and re-entrancy of ENTITY_LOAD (analyst contract exists).
   automation_existing:
-    - The mixin recipe record (record:recipe/fabric_extend_behaviour_with_mixin) scaffolds a mixin; no AI-specific generator.
+  - The mixin recipe record (record:recipe/fabric_extend_behaviour_with_mixin) scaffolds a mixin; no AI-specific
+    generator.
   remaining_manual:
-    - Goal logic; choosing between the two AI systems.
+  - Goal logic; choosing between the two AI systems.
   modcheck_contribution:
-    - Extraction of the AI packages as extra types so candidates are signature-checked; a capability for "add a goal to a vanilla mob at ENTITY_LOAD" with the idempotence check built in.
+  - Extraction of the AI packages as extra types so candidates are signature-checked; a capability for "add a goal
+    to a vanilla mob at ENTITY_LOAD" with the idempotence check built in.
   interactions_to_check:
-    - Other mods adding goals to the same mob at the same priority.
-    - Mixins into the same registerGoals method (contested).
+  - Other mods adding goals to the same mob at the same priority.
+  - Mixins into the same registerGoals method (contested).
   evidence:
-    - extracted:minecraft_members.json
-    - extracted:edges.json#publishes_event
-    - record:recipe/fabric_extend_behaviour_with_mixin
-  questions: [question:q.villager_ai_architecture, question:q.unhooked_vanilla_members, question:q.contested_method_policy]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: false, validated_scope: none}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - extracted:minecraft_surface.json.gz
+  - extracted:edges.json#publishes_event
+  - record:recipe/fabric_extend_behaviour_with_mixin
+  questions:
+  - question:q.villager_ai_architecture
+  - question:q.unhooked_vanilla_members
+  - question:q.contested_method_policy
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: false
+    validated_scope: none
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.behaviour.vanilla_modification
   area: behaviour
   title: Change vanilla behaviour directly
-  intent: >-
-    Something vanilla does should happen differently: a different drop, a different
-    damage rule, a different interaction result. The creator wants the smallest
-    change that achieves it and keeps other mods working.
+  intent: 'Something vanilla does should happen differently: a different drop, a different damage rule, a different
+    interaction result. The creator wants the smallest change that achieves it and keeps other mods working.'
   preserve:
-    - Every Fabric API event fired from the modified method (removed by @Overwrite).
-    - Other mods' injections into the same method.
+  - Every Fabric API injection into the modified method and the events fired from it. What an @Overwrite does to
+    them depends on the injection point and priority, established by transformation tests (mechanism:Mixin).
+  - Other mods' injections into the same method.
   mechanisms:
-    - "Fabric events first: the interaction and entity events (event:net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT, event:net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE, event:net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DEATH and the rest of extracted:edges.json#callback_of)."
-    - mechanism:Mixin when no event covers the point (record:capability/modify_behaviour.fabric_extend_behaviour_with_mixin).
+  - 'Fabric events first: the interaction and entity events (event:net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT,
+    event:net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE, event:net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DEATH
+    and the rest of extracted:edges.json#callback_of).'
+  - mechanism:Mixin when no event covers the point (record:capability/modify_behaviour.fabric_extend_behaviour_with_mixin).
   tools_today:
-    - A mixin class listed in the mod's mixin config; javap on the target to confirm the method exists.
+  - A mixin class listed in the mod's mixin config; javap on the target to confirm the method exists.
   decisions:
-    - Event or mixin.
-    - "For a mixin: injector kind (Inject adds, Redirect replaces one call, Overwrite replaces the body) -- see the mixin note under mechanism:Mixin."
-    - Whether to cancel, and where (a HEAD cancel on a contested method suppresses other mods).
+  - Event or mixin.
+  - 'For a mixin: injector kind. @Inject adds; @Redirect replaces one call site and cannot share it with another
+    @Redirect (scenario:C) but composes under a @WrapOperation (scenario:D); @Overwrite replaces the body and keeps
+    other mods'' HEAD/TAIL/RETURN injections while refusing their INVOKE-point injections unless theirs outrank
+    it (scenario:A, scenario:B, scenario:K).'
+  - 'Whether to cancel, and where: a cancelling HEAD suppresses every later injection in the method, other mods''
+    included (scenario:H).'
   information_needed:
-    - The exact target method signature in 26.3 (extracted:minecraft_members.json for hooked types).
-    - Whether the target is contested (generated list under 50-Interactions).
-    - Application order relative to other mods (question:q.mixin_docs_application_order).
+  - 'The exact target method in the processed compile jar (extracted:minecraft_surface.json.gz; note it differs
+    from Mojang''s jar in 363 classes: extracted:resolved_environment.json).'
+  - Whether the target is a shared target (extracted:edges.json#shared_targets) and with which injector effects.
+  - 'Application order relative to other mods: lower priority first, configuration order at equal priority in the
+    harness (scenario:E, scenario:G); the documented rule is question:q.mixin_docs_application_order.'
   automation_existing:
-    - Mixin scaffold generator (record:capability/modify_behaviour.fabric_extend_behaviour_with_mixin); target existence is not checked by the planner.
+  - Mixin scaffold generator (record:capability/modify_behaviour.fabric_extend_behaviour_with_mixin); target existence
+    is not checked by the planner.
   remaining_manual:
-    - Choosing the injection point; the collision check.
+  - Choosing the injection point; the collision check.
   modcheck_contribution:
-    - Target-existence check from minecraft_members.json; contested-method warning; the policy from question:q.contested_method_policy once decided.
+  - Target-existence check from the surface; shared-target warning; the policy from question:q.contested_method_policy
+    once decided, encoded with the composition table.
   interactions_to_check:
-    - Any other mod's mixin into the same method (question:q.mixin_collision_analyser).
+  - Any other mod's mixin into the same method (question:q.mixin_collision_analyser).
   evidence:
-    - record:capability/modify_behaviour.fabric_extend_behaviour_with_mixin
-    - extracted:edges.json#injects_into
-    - extracted:minecraft_members.json
-  questions: [question:q.contested_method_policy, question:q.mixin_collision_analyser, question:q.injection_points_not_resolved]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "the mixin scaffold compiles against the pinned corpus; no target-existence or collision check runs"}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - record:capability/modify_behaviour.fabric_extend_behaviour_with_mixin
+  - extracted:edges.json#injects_into
+  - extracted:mixin_transformation_tests.json
+  - extracted:minecraft_surface.json.gz
+  questions:
+  - question:q.contested_method_policy
+  - question:q.mixin_collision_analyser
+  - question:q.injection_points_not_resolved
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: true
+    validated_scope: the mixin scaffold compiles against the pinned corpus; no target-existence or collision check
+      runs
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.behaviour.rules_config
   area: behaviour
   title: Make behaviour configurable (game rules, config)
-  intent: >-
-    Server operators should be able to switch or tune the mod's behaviour per world
-    without editing files, and the setting should persist with the world.
+  intent: Server operators should be able to switch or tune the mod's behaviour per world without editing files,
+    and the setting should persist with the world.
   preserve:
-    - Vanilla game rules and their defaults.
+  - Vanilla game rules and their defaults.
   mechanisms:
-    - mechanism:fabric-game-rule-api-v1 -- registers a game rule (record:capability/add_configuration.fabric_gamerule); read through type:net.minecraft.server.level.ServerLevel getGameRules().
-    - A config file read at initialisation (no Fabric API module; loader gives the config directory through type:net.fabricmc.loader.api.FabricLoader).
+  - mechanism:fabric-game-rule-api-v1 -- registers a game rule (record:capability/add_configuration.fabric_gamerule);
+    read through type:net.minecraft.server.level.ServerLevel getGameRules().
+  - A config file read at initialisation (no Fabric API module; loader gives the config directory through type:net.fabricmc.loader.api.FabricLoader).
   tools_today:
-    - The generated gamerule code; /gamerule in-game.
+  - The generated gamerule code; /gamerule in-game.
   decisions:
-    - Per-world game rule (operator-facing, synced, persisted by vanilla) versus config file (per installation, needs own sync if the client must know).
+  - Per-world game rule (operator-facing, synced, persisted by vanilla) versus config file (per installation, needs
+    own sync if the client must know).
   information_needed:
-    - That getGameRules() lives on ServerLevel, not Level (corrected after a build failure; record:capability/add_configuration.fabric_gamerule).
+  - That getGameRules() lives on ServerLevel, not Level (corrected after a build failure; record:capability/add_configuration.fabric_gamerule).
   automation_existing:
-    - Deterministic gamerule generator in ModCheck.
+  - Deterministic gamerule generator in ModCheck.
   remaining_manual:
-    - Config-file path.
+  - Config-file path.
   modcheck_contribution:
-    - Already delivers the game rule path; a config-file capability is a candidate.
+  - Already delivers the game rule path; a config-file capability is a candidate.
   evidence:
-    - record:capability/add_configuration.fabric_gamerule
-    - extracted:minecraft_members.json
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "compiles against the pinned corpus; exercised by the reference lantern's JUnit tests"}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - record:capability/add_configuration.fabric_gamerule
+  - extracted:minecraft_surface.json.gz
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: true
+    validated_scope: the gamerule generator compiles against the pinned corpus; the reference lantern registers
+      its rule by hand with GameRuleBuilder and unit-tests the bounds (3 tests); no game run
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.behaviour.lifecycle_events
   area: behaviour
   title: Run code at lifecycle points (start, tick, load, join, reload)
-  intent: >-
-    Something should happen when the server starts, every tick, when a level or
-    entity loads, when a player joins, or when data packs reload -- reliably, on the
-    right side, without stalling the game.
+  intent: Something should happen when the server starts, every tick, when a level or entity loads, when a player
+    joins, or when data packs reload -- reliably, on the right side, without stalling the game.
   preserve:
-    - "The tick budget: a listener's cost is paid by every player."
-    - Idempotence across reloads and chunk reloads.
+  - 'The tick budget: a listener''s cost is paid by every player.'
+  - Idempotence across reloads and chunk reloads.
   mechanisms:
-    - mechanism:fabric-lifecycle-events-v1 (server and level ticks, lifecycle, entity, chunk, block entity events) and its client counterpart.
-    - mechanism:fabric-entity-events-v1 (player join/leave/respawn, living entity events).
-    - mechanism:fabric-networking-api-v1 connection events.
-    - Contracts for the main ones are under _authored/contracts (END_SERVER_TICK, END_LEVEL_TICK, SERVER_STARTING/STARTED/STOPPING, SYNC_DATA_PACK_CONTENTS, ENTITY_LOAD, CHUNK_GENERATE).
+  - mechanism:fabric-lifecycle-events-v1 (server and level ticks, lifecycle, entity, chunk, block entity events)
+    and its client counterpart.
+  - mechanism:fabric-entity-events-v1 (player join/leave/respawn, living entity events).
+  - mechanism:fabric-networking-api-v1 connection events.
+  - Contracts for the main ones are under _authored/contracts (END_SERVER_TICK, END_LEVEL_TICK, SERVER_STARTING/STARTED/STOPPING,
+    SYNC_DATA_PACK_CONTENTS, ENTITY_LOAD, CHUNK_GENERATE).
   tools_today:
-    - Register on the Event field from the right entrypoint (type:net.fabricmc.api.ModInitializer common, type:net.fabricmc.api.ClientModInitializer client).
+  - Register on the Event field from the right entrypoint (type:net.fabricmc.api.ModInitializer common, type:net.fabricmc.api.ClientModInitializer
+    client).
   decisions:
-    - "Which event: the atlas's per-event notes give the injection site, side and callback."
-    - Server tick versus level tick (the level tick hands the ServerLevel).
-    - Phase ordering when order matters (not extracted; question:q.event_phase_ordering).
+  - 'Which event: the atlas''s per-event notes give the injection site, side and callback.'
+  - Server tick versus level tick (the level tick hands the ServerLevel).
+  - Phase ordering when order matters (not extracted; question:q.event_phase_ordering).
   information_needed:
-    - Injection site and side of each event (extracted:edges.json#publishes_event joined to injects_into).
-    - Thread of each event (analyst inference only; question:q.runtime_event_delivery).
+  - Injection site and side of each event (extracted:edges.json#publishes_event joined to injects_into).
+  - Thread of each event (analyst inference only; question:q.runtime_event_delivery).
   automation_existing:
-    - Server tick generator (record:capability/subscribe_event.fabric_server_tick); client entrypoint recipe (record:capability/subscribe_event.fabric_add_client_entrypoint).
+  - Server tick generator (record:capability/subscribe_event.fabric_server_tick); client entrypoint recipe (record:capability/subscribe_event.fabric_add_client_entrypoint).
   remaining_manual:
-    - Every other event; ordering.
+  - Every other event; ordering.
   modcheck_contribution:
-    - Event notes with site and contract for all 189 events; a contract checker (question:q.contract_checker).
+  - Event notes with site and contract for all 189 events; a contract checker (question:q.contract_checker).
   interactions_to_check:
-    - Listener ordering across mods on the same event.
+  - Listener ordering across mods on the same event.
   evidence:
-    - record:capability/subscribe_event.fabric_server_tick
-    - record:capability/subscribe_event.fabric_add_client_entrypoint
-    - extracted:edges.json#publishes_event
-    - extracted:edges.json#callback_of
-  questions: [question:q.event_phase_ordering, question:q.runtime_event_delivery, question:q.event_publishers_missing]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "server tick and client entrypoint generators compile against the pinned corpus; reference lantern JUnit tests exercise the tick handler with fakes"}
-  provenance: {author: analyst, added: '2026-09-20'}
+  - record:capability/subscribe_event.fabric_server_tick
+  - record:capability/subscribe_event.fabric_add_client_entrypoint
+  - extracted:edges.json#publishes_event
+  - extracted:edges.json#callback_of
+  questions:
+  - question:q.event_phase_ordering
+  - question:q.runtime_event_delivery
+  - question:q.event_publishers_missing
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: true
+    validated_scope: server tick and client entrypoint generators compile against the pinned corpus (the discarded
+      lantern scaffold built with them); the hand-authored reference lantern does not use a Fabric tick event --
+      it uses a block-entity ticker
+  provenance:
+    author: analyst
+    added: '2026-09-20'

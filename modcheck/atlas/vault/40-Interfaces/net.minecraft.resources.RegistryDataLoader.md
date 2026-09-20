@@ -11,49 +11,60 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `lambda$load$0` | `@ModifyArg at INVOKE Ljava/util/concurrent/CompletableFuture;thenApplyAsync(Ljav` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `lambda$load$2(Ljava/util/List;Ljava/util/Map;Ljava/lang/Void;)Lnet/minecraft/core/RegistryAccess$Frozen;` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
-| injects_into | `load(Lnet/minecraft/resources/RegistryDataLoader$LoaderFactory;Ljava/util/List;Ljava/util/List;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;` | `@ModifyArg at INVOKE Ljava/util/concurrent/CompletableFuture;supplyAsync(Ljava/u` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `load(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Ljava/util/List;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `lambda$load$0` | `(Ljava/util/List;Lnet/minecraft/resources/RegistryDataLoader$LoaderFac` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `lambda$load$2` | `(Ljava/util/List;Ljava/util/Map;Ljava/lang/Void;)Lnet/minecraft/core/R` | exact | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| injects_into | `load` | `(Lnet/minecraft/resources/RegistryDataLoader$LoaderFactory;Ljava/util/` | exact | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `load` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List` | exact | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `DIMENSION_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@62 in `DynamicRegistriesImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `RELOADABLE_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@17 in `DynamicRegistriesImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `RELOADABLE_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@74 in `DynamicRegistriesImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `SYNCHRONIZED_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@21 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `SYNCHRONIZED_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@34 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `SYNCHRONIZED_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@43 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `WORLD_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@4 in `DynamicRegistriesImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `WORLD_REGISTRIES` | `Ljava/util/List;` | exact | getstatic@50 in `DynamicRegistriesImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| wraps | `lambda$load$0` | `(Ljava/util/List;Lnet/minecraft/resources/RegistryDataLoader$LoaderFac` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| wraps | `load` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List` | exact | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| writes | `SYNCHRONIZED_REGISTRIES` | `Ljava/util/List;` | exact | putstatic@40 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (29, all visibilities)
+## Declared members (6 fields, 23 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.resources.RegistryDataLoader {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.util.Comparator<net.minecraft.resources.ResourceKey<?>> ERROR_KEY_COMPARATOR;
-    public static final java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>> WORLD_REGISTRIES;
-    public static final java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>> DIMENSION_REGISTRIES;
-    public static final java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>> RELOADABLE_REGISTRIES;
-    public static final java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>> SYNCHRONIZED_REGISTRIES;
-    public net.minecraft.resources.RegistryDataLoader();
-    public static java.util.concurrent.CompletableFuture<net.minecraft.core.RegistryAccess$Frozen> load(net.minecraft.server.packs.resources.ResourceManager, java.util.List<net.minecraft.core.HolderLookup$RegistryLookup<?>>, java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>>, java.util.concurrent.Executor);
-    public static java.util.concurrent.CompletableFuture<net.minecraft.core.RegistryAccess$Frozen> load(java.util.Map<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, net.minecraft.resources.RegistryDataLoader$NetworkedRegistryData>, net.minecraft.server.packs.resources.ResourceProvider, java.util.List<net.minecraft.core.HolderLookup$RegistryLookup<?>>, java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>>, java.util.concurrent.Executor);
-    private static java.util.concurrent.CompletableFuture<net.minecraft.core.RegistryAccess$Frozen> load(net.minecraft.resources.RegistryDataLoader$LoaderFactory, java.util.List<net.minecraft.core.HolderLookup$RegistryLookup<?>>, java.util.List<net.minecraft.resources.RegistryDataLoader$RegistryData<?>>, java.util.concurrent.Executor);
-    private static net.minecraft.resources.RegistryOps$RegistryInfoLookup createContext(java.util.List<net.minecraft.core.HolderLookup$RegistryLookup<?>>, java.util.List<net.minecraft.resources.RegistryLoadTask<?>>);
-    private static net.minecraft.ReportedException logErrors(java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>);
-    private static void printFullDetailsToLog(java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>);
-    private static net.minecraft.ReportedException createReportWithBriefInfo(java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>);
-    private static java.lang.String lambda$createReportWithBriefInfo$0(java.util.Map) throws java.lang.Exception;
-    private static void lambda$createReportWithBriefInfo$1(java.lang.StringBuilder, java.util.Map$Entry);
-    private static void lambda$printFullDetailsToLog$2(java.io.PrintWriter, java.util.Map$Entry);
-    private static void lambda$printFullDetailsToLog$3(java.io.PrintWriter, java.util.Map$Entry);
-    private static net.minecraft.resources.Identifier lambda$printFullDetailsToLog$1(java.util.Map$Entry);
-    private static net.minecraft.resources.Identifier lambda$printFullDetailsToLog$0(java.util.Map$Entry);
-    private static void lambda$createContext$1(java.util.Map, net.minecraft.resources.RegistryLoadTask);
-    private static void lambda$createContext$0(java.util.Map, net.minecraft.core.HolderLookup$RegistryLookup);
-    private static java.util.concurrent.CompletionStage lambda$load$5(java.util.concurrent.CompletableFuture);
-    private static java.util.concurrent.CompletableFuture lambda$load$0(java.util.List, net.minecraft.resources.RegistryDataLoader$LoaderFactory, java.util.List, java.util.concurrent.Executor);
-    private static net.minecraft.core.RegistryAccess$Frozen lambda$load$2(java.util.List, java.util.Map, java.lang.Void);
-    private static java.util.stream.Stream lambda$load$4(java.util.Map, net.minecraft.resources.RegistryLoadTask);
-    private static boolean lambda$load$3(java.util.Map, net.minecraft.resources.RegistryLoadTask);
-    private static net.minecraft.resources.RegistryLoadTask lambda$load$1(net.minecraft.resources.RegistryDataLoader$LoaderFactory, java.util.Map, net.minecraft.resources.RegistryDataLoader$RegistryData);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final ERROR_KEY_COMPARATOR : Ljava/util/Comparator;
+public static final WORLD_REGISTRIES : Ljava/util/List;
+public static final DIMENSION_REGISTRIES : Ljava/util/List;
+public static final RELOADABLE_REGISTRIES : Ljava/util/List;
+public static final SYNCHRONIZED_REGISTRIES : Ljava/util/List;
+public <init>()V
+public static load(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Ljava/util/List;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+public static load(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceProvider;Ljava/util/List;Ljava/util/List;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private static load(Lnet/minecraft/resources/RegistryDataLoader$LoaderFactory;Ljava/util/List;Ljava/util/List;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private static createContext(Ljava/util/List;Ljava/util/List;)Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;
+private static logErrors(Ljava/util/Map;)Lnet/minecraft/ReportedException;
+private static printFullDetailsToLog(Ljava/util/Map;)V
+private static createReportWithBriefInfo(Ljava/util/Map;)Lnet/minecraft/ReportedException;
+private static synthetic lambda$createReportWithBriefInfo$0(Ljava/util/Map;)Ljava/lang/String;
+private static synthetic lambda$createReportWithBriefInfo$1(Ljava/lang/StringBuilder;Ljava/util/Map$Entry;)V
+private static synthetic lambda$printFullDetailsToLog$2(Ljava/io/PrintWriter;Ljava/util/Map$Entry;)V
+private static synthetic lambda$printFullDetailsToLog$3(Ljava/io/PrintWriter;Ljava/util/Map$Entry;)V
+private static synthetic lambda$printFullDetailsToLog$1(Ljava/util/Map$Entry;)Lnet/minecraft/resources/Identifier;
+private static synthetic lambda$printFullDetailsToLog$0(Ljava/util/Map$Entry;)Lnet/minecraft/resources/Identifier;
+private static synthetic lambda$createContext$1(Ljava/util/Map;Lnet/minecraft/resources/RegistryLoadTask;)V
+private static synthetic lambda$createContext$0(Ljava/util/Map;Lnet/minecraft/core/HolderLookup$RegistryLookup;)V
+private static synthetic lambda$load$5(Ljava/util/concurrent/CompletableFuture;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$load$0(Ljava/util/List;Lnet/minecraft/resources/RegistryDataLoader$LoaderFactory;Ljava/util/List;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$load$2(Ljava/util/List;Ljava/util/Map;Ljava/lang/Void;)Lnet/minecraft/core/RegistryAccess$Frozen;
+private static synthetic lambda$load$4(Ljava/util/Map;Lnet/minecraft/resources/RegistryLoadTask;)Ljava/util/stream/Stream;
+private static synthetic lambda$load$3(Ljava/util/Map;Lnet/minecraft/resources/RegistryLoadTask;)Z
+private static synthetic lambda$load$1(Lnet/minecraft/resources/RegistryDataLoader$LoaderFactory;Ljava/util/Map;Lnet/minecraft/resources/RegistryDataLoader$RegistryData;)Lnet/minecraft/resources/RegistryLoadTask;
+static <clinit>()V
 ```

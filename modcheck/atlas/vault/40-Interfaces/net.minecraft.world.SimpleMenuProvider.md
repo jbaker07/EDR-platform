@@ -11,22 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world|net.minecraft.world]]
 
+`class` public final; extends `java/lang/Object`; implements `net/minecraft/world/MenuProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `menuConstructorLnet/minecraft/world/inventory/MenuConstructor;` | `` | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `menuConstructor` | `Lnet/minecraft/world/inventory/MenuConstructor;` | exact | getfield@22 in `ServerPlayerMixin.fabric_storeOpenedMenu` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| reads | `menuConstructor` | `Lnet/minecraft/world/inventory/MenuConstructor;` | exact | getfield@15 in `ServerPlayerMixin.fabric_replaceVanillaScreenPacket` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (2 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.SimpleMenuProvider implements net.minecraft.world.MenuProvider {
-    private final net.minecraft.network.chat.Component title;
-    private final net.minecraft.world.inventory.MenuConstructor menuConstructor;
-    public net.minecraft.world.SimpleMenuProvider(net.minecraft.world.inventory.MenuConstructor, net.minecraft.network.chat.Component);
-    public net.minecraft.network.chat.Component getDisplayName();
-    public net.minecraft.world.inventory.AbstractContainerMenu createMenu(int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.entity.player.Player);
-}
+```
+private final title : Lnet/minecraft/network/chat/Component;
+private final menuConstructor : Lnet/minecraft/world/inventory/MenuConstructor;
+public <init>(Lnet/minecraft/world/inventory/MenuConstructor;Lnet/minecraft/network/chat/Component;)V
+public getDisplayName()Lnet/minecraft/network/chat/Component;
+public createMenu(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/inventory/AbstractContainerMenu;
 ```

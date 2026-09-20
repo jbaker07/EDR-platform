@@ -11,29 +11,29 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/level/levelgen/BitRandomSource`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(J)V` | `` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(J)V` | exact | invokespecial@44 in `ClimateSamplerMixin.fabric_getEndBiomesSampler` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (6 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.levelgen.LegacyRandomSource implements net.minecraft.world.level.levelgen.BitRandomSource {
-    private static final int MODULUS_BITS;
-    private static final long MODULUS_MASK;
-    private static final long MULTIPLIER;
-    private static final long INCREMENT;
-    private final java.util.concurrent.atomic.AtomicLong seed;
-    private final net.minecraft.world.level.levelgen.MarsagliaPolarGaussian gaussianSource;
-    public net.minecraft.world.level.levelgen.LegacyRandomSource(long);
-    public net.minecraft.util.RandomSource fork();
-    public net.minecraft.world.level.levelgen.PositionalRandomFactory forkPositional();
-    public void setSeed(long);
-    public int next(int);
-    public double nextGaussian();
-}
+```
+private static final MODULUS_BITS : I
+private static final MODULUS_MASK : J
+private static final MULTIPLIER : J
+private static final INCREMENT : J
+private final seed : Ljava/util/concurrent/atomic/AtomicLong;
+private final gaussianSource : Lnet/minecraft/world/level/levelgen/MarsagliaPolarGaussian;
+public <init>(J)V
+public fork()Lnet/minecraft/util/RandomSource;
+public forkPositional()Lnet/minecraft/world/level/levelgen/PositionalRandomFactory;
+public setSeed(J)V
+public next(I)I
+public nextGaussian()D
 ```

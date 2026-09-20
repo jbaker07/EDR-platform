@@ -47,7 +47,7 @@ area: "behaviour"
 ## Evidence
 
 - `capability/add_configuration.fabric_gamerule`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 
 ## Status
 
@@ -56,4 +56,4 @@ area: "behaviour"
 - contract_mapped: True
 - interaction_analysed: True
 - implemented_in_modcheck: True
-- validated_scope: compiles against the pinned corpus; exercised by the reference lantern's JUnit tests
+- validated_scope: the gamerule generator compiles against the pinned corpus; the reference lantern registers its rule by hand with GameRuleBuilder and unit-tests the bounds (3 tests); no game run

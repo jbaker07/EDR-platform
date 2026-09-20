@@ -13,10 +13,9 @@ sha256: "a5a9e382e4f9875f7450dbf0d45221ca70afc00cf84aa02023104bb15a530ade"
 Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$CopyFrom> COPY_FROM
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AfterRespawn> AFTER_RESPAWN
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Join> JOIN
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$Leave> LEAVE
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents$AllowDeath> ALLOW_DEATH
-static {}
+public static final net.fabricmc.fabric.api.event.Event COPY_FROM
+public static final net.fabricmc.fabric.api.event.Event AFTER_RESPAWN
+public static final net.fabricmc.fabric.api.event.Event JOIN
+public static final net.fabricmc.fabric.api.event.Event LEAVE
+public static final net.fabricmc.fabric.api.event.Event ALLOW_DEATH
 ```

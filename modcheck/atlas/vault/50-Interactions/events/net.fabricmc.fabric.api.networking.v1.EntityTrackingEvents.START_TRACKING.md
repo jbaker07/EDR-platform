@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerEntityMixin.onStartTracking` | `ServerEntity.addPairing` @Inject at TAIL | both | static_inference |
+| `ServerEntityMixin.onStartTracking` @14 | [[40-Interfaces/net.minecraft.server.level.ServerEntity|ServerEntity]].`addPairing` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

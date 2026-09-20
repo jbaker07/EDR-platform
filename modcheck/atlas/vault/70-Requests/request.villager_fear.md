@@ -1,6 +1,8 @@
 ---
 type: "request"
 id: "request.villager_fear"
+canonical: "exercise.villager_fear"
+kind: "analyst_exercise"
 family: "workflow:wf.behaviour.entity_ai"
 ---
 
@@ -9,11 +11,16 @@ family: "workflow:wf.behaviour.entity_ai"
 
 # Villagers flee from a player holding a cursed totem
 
+**Canonical request.** `exercise.villager_fear` (analyst_exercise)
+
+> [!note] Analyst exercise
+> No creator wrote this request. Nothing in it is approved intent.
+
 ## Request
 
 Analyst-authored exercise request: villagers should run away from any player holding a new "cursed totem" item, the way they flee zombies; other villager behaviour is unchanged; it must work on servers.
 
-## Approved behaviour and constraints
+## Approved behaviour (the request's own words or acceptance criteria)
 
 - Provisional: flee radius similar to the vanilla zombie avoidance; server-side only; no change to trading.
 
@@ -68,7 +75,12 @@ Analyst-authored exercise request: villagers should run away from any player hol
 
 ## Evidence
 
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `extracted/edges.json#injects_into`
 - `recipe/fabric_extend_behaviour_with_mixin`
 
+## Status
+
+- analysed: True
+- implemented: none
+- validated_scope: none

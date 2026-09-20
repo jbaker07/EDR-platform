@@ -11,23 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `net/minecraft/util/StringRepresentable$StringRepresentableCodec`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `fieldOf(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;` | `` | both | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `fieldOf` | `(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;` | inherited_exact | invokevirtual@11 in `GameRulesServiceGameRuleUpdateMixin.lambda$fabric_createTypedCodec$0` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (1 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.StringRepresentable$EnumCodec<E extends java.lang.Enum<E> & net.minecraft.util.StringRepresentable> extends net.minecraft.util.StringRepresentable$StringRepresentableCodec<E> {
-    private final java.util.function.Function<java.lang.String, E> resolver;
-    public net.minecraft.util.StringRepresentable$EnumCodec(E[], java.util.function.Function<java.lang.String, E>);
-    public E byName(java.lang.String);
-    public E byName(java.lang.String, E);
-    public E byName(java.lang.String, java.util.function.Supplier<? extends E>);
-    private static int lambda$new$0(java.lang.Enum);
-}
+```
+private final resolver : Ljava/util/function/Function;
+public <init>([Ljava/lang/Enum;Ljava/util/function/Function;)V
+public byName(Ljava/lang/String;)Ljava/lang/Enum;
+public byName(Ljava/lang/String;Ljava/lang/Enum;)Ljava/lang/Enum;
+public byName(Ljava/lang/String;Ljava/util/function/Supplier;)Ljava/lang/Enum;
+private static synthetic lambda$new$0(Ljava/lang/Enum;)I
 ```

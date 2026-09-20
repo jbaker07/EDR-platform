@@ -58,7 +58,7 @@ area: "behaviour"
 
 ## Evidence
 
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `extracted/edges.json#publishes_event`
 - `recipe/fabric_extend_behaviour_with_mixin`
 

@@ -31,5 +31,4 @@ public static final net.minecraft.resources.Identifier SOUNDS
 public static final net.minecraft.resources.Identifier SPLASH_TEXTS
 public static final net.minecraft.resources.Identifier TEXTURES
 public static final net.minecraft.resources.Identifier WAYPOINT_STYLE
-static {}
 ```

@@ -11,48 +11,52 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/core/IdMap`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `add(Ljava/lang/Object;)I` | `` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `clear()V` | `` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `iterator()Ljava/util/Iterator;` | `` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `size()I` | `` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `add` | `(Ljava/lang/Object;)I` | exact | invokevirtual@55 in `FabricEntityDataRegistryImpl.reorderHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `add` | `(Ljava/lang/Object;)I` | exact | invokevirtual@98 in `FabricEntityDataRegistryImpl.reorderHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `add` | `(Ljava/lang/Object;)I` | exact | invokevirtual@135 in `FabricEntityDataRegistryImpl.reorderHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `clear` | `()V` | exact | invokevirtual@22 in `FabricEntityDataRegistryImpl.reorderHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `iterator` | `()Ljava/util/Iterator;` | exact | invokevirtual@21 in `FabricEntityDataRegistryImpl.storeVanillaHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `iterator` | `()Ljava/util/Iterator;` | exact | invokevirtual@5 in `FabricEntityDataRegistryImpl.storeExternalHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `size` | `()I` | exact | invokevirtual@10 in `FabricEntityDataRegistryImpl.reorderHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `size` | `()I` | exact | invokevirtual@148 in `FabricEntityDataRegistryImpl.reorderHandlers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (28, all visibilities)
+## Declared members (8 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.CrudeIncrementalIntIdentityHashBiMap<K> implements net.minecraft.core.IdMap<K> {
-    private static final int NOT_FOUND;
-    private static final java.lang.Object EMPTY_SLOT;
-    private static final float LOADFACTOR;
-    private K[] keys;
-    private int[] values;
-    private K[] byId;
-    private int nextId;
-    private int size;
-    private net.minecraft.util.CrudeIncrementalIntIdentityHashBiMap(int);
-    private net.minecraft.util.CrudeIncrementalIntIdentityHashBiMap(K[], int[], K[], int, int);
-    public static <A> net.minecraft.util.CrudeIncrementalIntIdentityHashBiMap<A> create(int);
-    public int getId(K);
-    public K byId(int);
-    private int getValue(int);
-    public boolean contains(K);
-    public boolean contains(int);
-    public int add(K);
-    private int nextId();
-    private void grow(int);
-    public void addMapping(K, int);
-    private int hash(K);
-    private int indexOf(K, int);
-    private int findEmpty(int);
-    public java.util.Iterator<K> iterator();
-    public void clear();
-    public int size();
-    public net.minecraft.util.CrudeIncrementalIntIdentityHashBiMap<K> copy();
-    static {};
-}
+```
+private static final NOT_FOUND : I
+private static final EMPTY_SLOT : Ljava/lang/Object;
+private static final LOADFACTOR : F
+private keys : [Ljava/lang/Object;
+private values : [I
+private byId : [Ljava/lang/Object;
+private nextId : I
+private size : I
+private <init>(I)V
+private <init>([Ljava/lang/Object;[I[Ljava/lang/Object;II)V
+public static create(I)Lnet/minecraft/util/CrudeIncrementalIntIdentityHashBiMap;
+public getId(Ljava/lang/Object;)I
+public byId(I)Ljava/lang/Object;
+private getValue(I)I
+public contains(Ljava/lang/Object;)Z
+public contains(I)Z
+public add(Ljava/lang/Object;)I
+private nextId()I
+private grow(I)V
+public addMapping(Ljava/lang/Object;I)V
+private hash(Ljava/lang/Object;)I
+private indexOf(Ljava/lang/Object;I)I
+private findEmpty(I)I
+public iterator()Ljava/util/Iterator;
+public clear()V
+public size()I
+public copy()Lnet/minecraft/util/CrudeIncrementalIntIdentityHashBiMap;
+static <clinit>()V
 ```

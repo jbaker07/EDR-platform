@@ -22,5 +22,4 @@ public static net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent get
 public static net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent getForFluid(net.minecraft.world.level.material.Fluid)
 public static synchronized net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent registerCauldron(net.minecraft.world.level.block.Block, net.minecraft.world.level.material.Fluid, long, net.minecraft.world.level.block.state.properties.IntegerProperty)
 public int currentLevel(net.minecraft.world.level.block.state.BlockState)
-static {}
 ```

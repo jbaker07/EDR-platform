@@ -13,6 +13,6 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: interface
 
 ```java
-public abstract void generate(java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.world.level.storage.loot.LootTable$Builder>)
-public default java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.world.level.storage.loot.LootTable$Builder> withConditions(java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.world.level.storage.loot.LootTable$Builder>, net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition...)
+public abstract void generate(java.util.function.BiConsumer)
+public java.util.function.BiConsumer withConditions(java.util.function.BiConsumer, net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition[])
 ```

@@ -13,16 +13,16 @@ sha256: "ce9698da6dd365c6ee59ad5f5e85602cefaaddaebf6d80fad76925e84cda5176"
 Module: [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] -- kind: class
 
 ```java
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> all()
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> vanilla()
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> foundInOverworld()
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> foundInTheNether()
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> foundInTheEnd()
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> tag(net.minecraft.tags.TagKey<net.minecraft.world.level.biome.Biome>)
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> excludeByKey(net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>...)
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> excludeByKey(java.util.Collection<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>>)
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> includeByKey(net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>...)
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> includeByKey(java.util.Collection<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>>)
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> spawnsOneOf(net.minecraft.world.entity.EntityType<?>...)
-public static java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> spawnsOneOf(java.util.Set<net.minecraft.world.entity.EntityType<?>>)
+public static java.util.function.Predicate all()
+public static java.util.function.Predicate vanilla()
+public static java.util.function.Predicate foundInOverworld()
+public static java.util.function.Predicate foundInTheNether()
+public static java.util.function.Predicate foundInTheEnd()
+public static java.util.function.Predicate tag(net.minecraft.tags.TagKey)
+public static java.util.function.Predicate excludeByKey(net.minecraft.resources.ResourceKey[])
+public static java.util.function.Predicate excludeByKey(java.util.Collection)
+public static java.util.function.Predicate includeByKey(net.minecraft.resources.ResourceKey[])
+public static java.util.function.Predicate includeByKey(java.util.Collection)
+public static java.util.function.Predicate spawnsOneOf(net.minecraft.world.entity.EntityType[])
+public static java.util.function.Predicate spawnsOneOf(java.util.Set)
 ```

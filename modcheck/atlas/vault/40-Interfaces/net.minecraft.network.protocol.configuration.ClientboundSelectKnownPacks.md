@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/util/List;)V` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/List;)V` | exact | invokespecial@61 in `SynchronizeRegistriesTaskMixin.sendPacket` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.protocol.configuration.ClientboundSelectKnownPacks extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.configuration.ClientConfigurationPacketListener> {
-    private final java.util.List<net.minecraft.server.packs.repository.KnownPack> knownPacks;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.network.protocol.configuration.ClientboundSelectKnownPacks> STREAM_CODEC;
-    public net.minecraft.network.protocol.configuration.ClientboundSelectKnownPacks(java.util.List<net.minecraft.server.packs.repository.KnownPack>);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.configuration.ClientboundSelectKnownPacks> type();
-    public void handle(net.minecraft.network.protocol.configuration.ClientConfigurationPacketListener);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.List<net.minecraft.server.packs.repository.KnownPack> knownPacks();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+private final knownPacks : Ljava/util/List;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Ljava/util/List;)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/configuration/ClientConfigurationPacketListener;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public knownPacks()Ljava/util/List;
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

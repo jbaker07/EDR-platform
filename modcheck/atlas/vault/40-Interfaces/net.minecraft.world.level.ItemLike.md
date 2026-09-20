@@ -11,20 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `asItem()Lnet/minecraft/world/item/Item;` | `` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
-| calls | `asItem()Lnet/minecraft/world/item/Item;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `asItem()Lnet/minecraft/world/item/Item;` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@22 in `ItemApiLookupImpl.registerSelf` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@46 in `ItemApiLookupImpl.registerForItems` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@1 in `VillagerInteractionRegistries.registerGatherableItem` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@16 in `VillagerInteractionRegistries.registerGatherableItem` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@1 in `VillagerInteractionRegistries.registerCompostable` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@16 in `VillagerInteractionRegistries.registerCompostable` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@5 in `FabricCreativeModeTabOutput.insertBefore` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@5 in `FabricCreativeModeTabOutput.insertAfter` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@13 in `RecipeProviderMixin.adjustIdStonecutter` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@44 in `ArmorRendererRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@60 in `ArmorRendererRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@81 in `ArmorRendererRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `asItem` | `()Lnet/minecraft/world/item/Item;` | exact | invokeinterface@1 in `ItemVariant.of` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (1, all visibilities)
+## Declared members (0 fields, 1 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.level.ItemLike {
-    public abstract net.minecraft.world.item.Item asItem();
-}
+```
+public abstract asItem()Lnet/minecraft/world/item/Item;
 ```

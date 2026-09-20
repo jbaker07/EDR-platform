@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientTooltipComponentMixin.convertCustomTooltipComponent` | `ClientTooltipComponent.create(Lnet/minecraft/world/inventory/tooltip/TooltipComponent;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent;` @Inject at HEAD | client | static_inference |
+| `ClientTooltipComponentMixin.convertCustomTooltipComponent` @10 | [[40-Interfaces/net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent|ClientTooltipComponent]].`create` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

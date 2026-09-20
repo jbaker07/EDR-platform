@@ -13,8 +13,7 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents$AfterBlockOutlineExtraction> AFTER_BLOCK_OUTLINE_EXTRACTION
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents$EndExtraction> END_EXTRACTION
-public net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents()
-static {}
+public static final net.fabricmc.fabric.api.event.Event AFTER_BLOCK_OUTLINE_EXTRACTION
+public static final net.fabricmc.fabric.api.event.Event END_EXTRACTION
+public <init>()
 ```

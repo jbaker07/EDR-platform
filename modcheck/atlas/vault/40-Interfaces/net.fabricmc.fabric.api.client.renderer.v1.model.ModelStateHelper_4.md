@@ -13,9 +13,6 @@ sha256: "2e4aaeb20f8615e8176f30bc82616cee25f8727323bfef7a70d5a6555ae8e9ee"
 Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind: class
 
 ```java
-final com.mojang.math.Transformation val$transformation
-final net.minecraft.client.renderer.block.dispatch.ModelState val$faceTransformDelegate
-net.fabricmc.fabric.api.client.renderer.v1.model.ModelStateHelper$4()
 public com.mojang.math.Transformation transformation()
 public org.joml.Matrix4fc faceTransformation(net.minecraft.core.Direction)
 public org.joml.Matrix4fc inverseFaceTransformation(net.minecraft.core.Direction)

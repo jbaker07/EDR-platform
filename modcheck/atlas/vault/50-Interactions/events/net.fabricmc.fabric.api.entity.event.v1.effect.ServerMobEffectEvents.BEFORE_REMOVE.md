@@ -15,11 +15,11 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.beforeRemoveEffect` | `LivingEntity.removeEffect` @Inject at HEAD | both | static_inference |
-| `LivingEntityMixin.beforeExpireRemoveEffect` | `LivingEntity.tickEffects` @Inject at INVOKE Ljava/util/Iterator;remove()V | both | static_inference |
-| `LivingEntityMixin.beforeRemoveAllEffects` | `LivingEntity.removeAllEffects` @Inject at INVOKE Lcom/google/common/collect/Maps;newHashMap(Ljava/util/Map;)Ljava/util/HashMap; | both | static_inference |
+| `LivingEntityMixin.beforeRemoveEffect` @39 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`removeEffect` @Inject HEAD | unknown | static_inference |
+| `LivingEntityMixin.beforeExpireRemoveEffect` @25 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`tickEffects` @Inject INVOKE `Ljava/util/Iterator;remove()V` | unknown | static_inference |
+| `LivingEntityMixin.beforeRemoveAllEffects` @57 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`removeAllEffects` @Inject INVOKE `Lcom/google/common/collect/Maps;newHashMap(Ljava/util/Map;)Ljava/util/HashMap;` | unknown | static_inference |
 
 ## Contract
 

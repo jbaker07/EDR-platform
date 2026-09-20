@@ -14,5 +14,5 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: inter
 
 ```java
 public abstract void extractAdvancementIcon(net.fabricmc.fabric.api.client.rendering.v1.advancement.AdvancementRenderContext$Icon)
-public default boolean shouldRenderOriginalIcon()
+public boolean shouldRenderOriginalIcon()
 ```

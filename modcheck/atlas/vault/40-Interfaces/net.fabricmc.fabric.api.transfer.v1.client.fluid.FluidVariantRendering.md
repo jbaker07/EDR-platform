@@ -16,11 +16,10 @@ Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind:
 public static void register(net.minecraft.world.level.material.Fluid, net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRenderHandler)
 public static net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRenderHandler getHandler(net.minecraft.world.level.material.Fluid)
 public static net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRenderHandler getHandlerOrDefault(net.minecraft.world.level.material.Fluid)
-public static java.util.List<net.minecraft.network.chat.Component> getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public static java.util.List<net.minecraft.network.chat.Component> getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, boolean)
-public static java.util.List<net.minecraft.network.chat.Component> getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.world.item.TooltipFlag)
-public static java.util.List<net.minecraft.network.chat.Component> getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, boolean, net.minecraft.world.item.TooltipFlag)
+public static java.util.List getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public static java.util.List getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, boolean)
+public static java.util.List getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.world.item.TooltipFlag)
+public static java.util.List getTooltip(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, boolean, net.minecraft.world.item.TooltipFlag)
 public static int getColor(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
 public static int getColor(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos)
-static {}
 ```

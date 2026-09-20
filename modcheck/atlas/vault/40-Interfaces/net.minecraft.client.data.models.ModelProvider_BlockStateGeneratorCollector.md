@@ -11,27 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.data|net.minecraft.client.data]]
 
+`class` ; extends `java/lang/Object`; implements `java/util/function/Consumer`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `validate` | `@ModifyArg at INVOKE Ljava/util/stream/Stream;filter(Ljava/util/function/Predica` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| reads | `generatorsLjava/util/Map;` | `` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `validate` | `()V` | name_only | @ModifyArg at ['INVOKE'] | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `generators` | `Ljava/util/Map;` | exact | getfield@33 in `ModelProviderMixin.setFabricPackOutput` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (1 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.client.data.models.ModelProvider$BlockStateGeneratorCollector implements java.util.function.Consumer<net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator> {
-    private final java.util.Map<net.minecraft.world.level.block.Block, net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator> generators;
-    private net.minecraft.client.data.models.ModelProvider$BlockStateGeneratorCollector();
-    public void accept(net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator);
-    public void validate();
-    public java.util.concurrent.CompletableFuture<?> save(net.minecraft.data.CachedOutput, net.minecraft.data.PackOutput$PathProvider);
-    public void accept(java.lang.Object);
-    private static java.nio.file.Path lambda$save$0(net.minecraft.data.PackOutput$PathProvider, net.minecraft.world.level.block.Block);
-    private static net.minecraft.resources.Identifier lambda$validate$1(net.minecraft.core.Holder$Reference);
-    private boolean lambda$validate$0(net.minecraft.core.Holder$Reference);
-}
+```
+private final generators : Ljava/util/Map;
+private <init>()V
+public accept(Lnet/minecraft/client/data/models/blockstates/BlockModelDefinitionGenerator;)V
+public validate()V
+public save(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/data/PackOutput$PathProvider;)Ljava/util/concurrent/CompletableFuture;
+public synthetic accept(Ljava/lang/Object;)V
+private static synthetic lambda$save$0(Lnet/minecraft/data/PackOutput$PathProvider;Lnet/minecraft/world/level/block/Block;)Ljava/nio/file/Path;
+private static synthetic lambda$validate$1(Lnet/minecraft/core/Holder$Reference;)Lnet/minecraft/resources/Identifier;
+private synthetic lambda$validate$0(Lnet/minecraft/core/Holder$Reference;)Z
 ```

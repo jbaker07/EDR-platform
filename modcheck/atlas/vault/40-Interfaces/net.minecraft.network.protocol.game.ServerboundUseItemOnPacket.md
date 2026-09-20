@@ -11,32 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/p` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockH` | exact | invokespecial@7 in `MultiPlayerGameModeMixin.lambda$interactBlock$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (15, all visibilities)
+## Declared members (4 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.protocol.game.ServerboundUseItemOnPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ServerGamePacketListener> {
-    private final net.minecraft.world.InteractionHand hand;
-    private final net.minecraft.world.phys.BlockHitResult hitResult;
-    private final int sequence;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.FriendlyByteBuf, net.minecraft.network.protocol.game.ServerboundUseItemOnPacket> STREAM_CODEC;
-    public net.minecraft.network.protocol.game.ServerboundUseItemOnPacket(net.minecraft.world.InteractionHand, net.minecraft.world.phys.BlockHitResult, int);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.game.ServerboundUseItemOnPacket> type();
-    public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.world.InteractionHand hand();
-    public net.minecraft.world.phys.BlockHitResult hitResult();
-    public int sequence();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+private final hand : Lnet/minecraft/world/InteractionHand;
+private final hitResult : Lnet/minecraft/world/phys/BlockHitResult;
+private final sequence : I
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;I)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public hand()Lnet/minecraft/world/InteractionHand;
+public hitResult()Lnet/minecraft/world/phys/BlockHitResult;
+public sequence()I
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

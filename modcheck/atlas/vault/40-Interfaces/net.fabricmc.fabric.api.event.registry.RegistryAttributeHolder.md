@@ -13,8 +13,8 @@ sha256: "039a5c3dee042ff156c52c4bec64a384e766e830a37cc9f6bf68f1e7dc3646b1"
 Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: interface
 
 ```java
-public static net.fabricmc.fabric.api.event.registry.RegistryAttributeHolder get(net.minecraft.resources.ResourceKey<?>)
-public static net.fabricmc.fabric.api.event.registry.RegistryAttributeHolder get(net.minecraft.core.Registry<?>)
+public static net.fabricmc.fabric.api.event.registry.RegistryAttributeHolder get(net.minecraft.resources.ResourceKey)
+public static net.fabricmc.fabric.api.event.registry.RegistryAttributeHolder get(net.minecraft.core.Registry)
 public abstract net.fabricmc.fabric.api.event.registry.RegistryAttributeHolder addAttribute(net.fabricmc.fabric.api.event.registry.RegistryAttribute)
 public abstract boolean hasAttribute(net.fabricmc.fabric.api.event.registry.RegistryAttribute)
 ```

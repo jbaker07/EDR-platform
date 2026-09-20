@@ -1,244 +1,234 @@
-# Unresolved questions: missing_artifact_access and missing_documentation.
 - id: q.older_minecraft_versions
   kind: missing_artifact_access
   status: open
-  question: >-
-    Can the 1.21.x (and other 26.x) Minecraft jars be resolved and hashed the same
-    way as 26.3, so that member and injection-target differences between versions can
-    be extracted rather than remembered?
-  affects: [workflow:wf.engineering.version_migration, request:request.port_1_21_mod, workflow:wf.state.migration]
-  why_it_matters: >-
-    Every migration claim in this atlas (mappings removal, END_WORLD_TICK to
-    END_LEVEL_TICK, pack format bumps) rests on one 26.3 jar and on cached build
-    scripts, not on a diff of two jars.
+  question: Can the 1.21.x (and other 26.x) Minecraft jars be resolved and hashed the same way as 26.3, so that
+    member and injection-target differences between versions can be extracted rather than remembered?
+  affects:
+  - workflow:wf.engineering.version_migration
+  - request:request.port_1_21_mod
+  - workflow:wf.state.migration
+  why_it_matters: Every migration claim in this atlas (mappings removal, END_WORLD_TICK to END_LEVEL_TICK, pack
+    format bumps) rests on one 26.3 jar and on cached build scripts, not on a diff of two jars.
   evidence_available:
-    - source:fabric_example_mod_build_1_21
-    - source:fabric_example_mod_build_26_3
-    - source:mojang_version_manifest
-    - record:resolution/remove_mappings_for_non_obfuscated_minecraft
-  best_remaining_source: >-
-    Fabric Loom against a second gradle.properties pinned to the older version, in a
-    scratch project, producing a second merged jar in the Gradle cache.
-  procedure: >-
-    Create a throwaway Loom project for the older version, run a dependency
-    resolution, hash the resulting merged jar, run atlas/extract/corpus.py and
-    vanilla_members.py against it, and diff member sets per hooked type.
-  completion_condition: >-
-    corpus.json lists two Minecraft versions and a generated note reports members
-    added, removed and re-signed between them.
+  - source:fabric_example_mod_build_1_21
+  - source:fabric_example_mod_build_26_3
+  - source:mojang_version_manifest
+  - record:resolution/remove_mappings_for_non_obfuscated_minecraft
+  best_remaining_source: Fabric Loom against a second gradle.properties pinned to the older version, in a scratch
+    project, producing a second merged jar in the Gradle cache.
+  procedure: Create a throwaway Loom project for the older version, run a dependency resolution, hash the resulting
+    merged jar, run atlas/extract/corpus.py and vanilla_members.py against it, and diff member sets per hooked type.
+  completion_condition: corpus.json lists two Minecraft versions and a generated note reports members added, removed
+    and re-signed between them.
   conclusions_affected_while_open:
-    - wf.engineering.version_migration lists migrations from memory of build failures, not from a diff.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - wf.engineering.version_migration lists migrations from memory of build failures, not from a diff.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.bedrock_artifacts
   kind: missing_artifact_access
   status: open
-  question: >-
-    What does the Bedrock Edition modification surface consist of at the artifact
-    level (behaviour pack and resource pack manifests, the @minecraft/server scripting
-    modules and their type declarations), and can they be retrieved under terms that
-    allow extraction?
-  affects: [workflow:wf.content.data_driven_content, workflow:wf.behaviour.entity_ai]
-  why_it_matters: >-
-    Bedrock is the larger player base and a completely separate surface. Without
-    artifacts the atlas can only say it exists.
+  question: What does the Bedrock Edition modification surface consist of at the artifact level (behaviour pack
+    and resource pack manifests, the @minecraft/server scripting modules and their type declarations), and can they
+    be retrieved under terms that allow extraction?
+  affects:
+  - workflow:wf.content.data_driven_content
+  - workflow:wf.behaviour.entity_ai
+  why_it_matters: Bedrock is the larger player base and a completely separate surface. Without artifacts the atlas
+    can only say it exists.
   evidence_available:
-    - extracted:corpus.json
-  best_remaining_source: >-
-    The npm packages @minecraft/server and @minecraft/server-ui (type declarations),
-    and Mojang's bedrock-samples repository, if their terms permit.
-  procedure: >-
-    Retrieve with `modcheck sources add`, record reuse terms, add a
-    `bedrock` group to atlas/extract/corpus.py, and write a TypeScript-declaration
-    extractor parallel to jvm.py.
-  completion_condition: >-
-    corpus.json has a bedrock group with hashed artifacts and at least one extracted
-    surface note.
+  - extracted:corpus.json
+  best_remaining_source: The npm packages @minecraft/server and @minecraft/server-ui (type declarations), and Mojang's
+    bedrock-samples repository, if their terms permit.
+  procedure: Retrieve with `modcheck sources add`, record reuse terms, add a `bedrock` group to atlas/extract/corpus.py,
+    and write a TypeScript-declaration extractor parallel to jvm.py.
+  completion_condition: corpus.json has a bedrock group with hashed artifacts and at least one extracted surface
+    note.
   conclusions_affected_while_open:
-    - Nothing in this atlas applies to Bedrock; any request naming Bedrock is out of corpus.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Nothing in this atlas applies to Bedrock; any request naming Bedrock is out of corpus.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.neoforge_forge_quilt_artifacts
   kind: missing_artifact_access
   status: open
-  question: >-
-    Can the NeoForge, Forge and Quilt loader artifacts for a 26.x version be resolved
-    and hashed, so that their event buses, mod descriptors and mixin/coremod
-    mechanisms can be extracted with the same tools?
-  affects: [workflow:wf.integration.dependencies_conditions, workflow:wf.engineering.project_setup]
-  why_it_matters: >-
-    The pack manifest names four loaders; the corpus contains one. Every "loader:
-    fabric" field in the atlas is a scope statement, and the other three have only a
-    getting-started page.
+  question: Can the NeoForge, Forge and Quilt loader artifacts for a 26.x version be resolved and hashed, so that
+    their event buses, mod descriptors and mixin/coremod mechanisms can be extracted with the same tools?
+  affects:
+  - workflow:wf.integration.dependencies_conditions
+  - workflow:wf.engineering.project_setup
+  why_it_matters: 'The pack manifest names four loaders; the corpus contains one. Every "loader: fabric" field in
+    the atlas is a scope statement, and the other three have only a getting-started page.'
   evidence_available:
-    - source:neoforge_docs_getting_started
-    - extracted:corpus.json
-  best_remaining_source: >-
-    The NeoForge Maven (maven.neoforged.net) and Quilt Maven, resolved through their
-    Gradle plugins in scratch projects.
-  procedure: >-
-    Same as q.older_minecraft_versions but per loader; extend corpus.py groups; run
-    jvm.py over the loader jars; add the loader's event type to the edge vocabulary
-    if it is not Fabric's Event.
+  - source:neoforge_docs_getting_started
+  - extracted:corpus.json
+  best_remaining_source: The NeoForge Maven (maven.neoforged.net) and Quilt Maven, resolved through their Gradle
+    plugins in scratch projects.
+  procedure: Same as q.older_minecraft_versions but per loader; extend corpus.py groups; run jvm.py over the loader
+    jars; add the loader's event type to the edge vocabulary if it is not Fabric's Event.
   completion_condition: corpus.json lists at least one non-Fabric loader with extracted surfaces.
   conclusions_affected_while_open:
-    - No capability, edge or contract in the atlas applies to NeoForge, Forge or Quilt.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - No capability, edge or contract in the atlas applies to NeoForge, Forge or Quilt.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.paper_plugin_api
   kind: missing_artifact_access
   status: open
-  question: >-
-    Can the Paper server jar and paper-api be resolved so that the plugin surface
-    (Bukkit events, plugin.yml, no client component) can be inventoried as its own
-    branch?
-  affects: [workflow:wf.multiplayer.side_separation, workflow:wf.behaviour.lifecycle_events]
-  why_it_matters: >-
-    Server operators often ask for "a plugin" when they mean a server-side mod, and
-    the two are not interchangeable. The atlas cannot currently show the difference
-    with evidence.
+  question: Can the Paper server jar and paper-api be resolved so that the plugin surface (Bukkit events, plugin.yml,
+    no client component) can be inventoried as its own branch?
+  affects:
+  - workflow:wf.multiplayer.side_separation
+  - workflow:wf.behaviour.lifecycle_events
+  why_it_matters: Server operators often ask for "a plugin" when they mean a server-side mod, and the two are not
+    interchangeable. The atlas cannot currently show the difference with evidence.
   evidence_available: []
   best_remaining_source: The PaperMC Maven repository (paper-api) and the Paper download API.
-  procedure: >-
-    Retrieve paper-api with `modcheck sources add`, record terms, add a
-    `paper_plugin` group to corpus.py, extract its event classes with jvm.py.
+  procedure: Retrieve paper-api with `modcheck sources add`, record terms, add a `paper_plugin` group to corpus.py,
+    extract its event classes with jvm.py.
   completion_condition: A 00-Scope/Branches row for Paper reads "in corpus".
   conclusions_affected_while_open:
-    - Requests phrased as "plugin" are answered with Fabric server-side mods, and the atlas says so.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Requests phrased as "plugin" are answered with Fabric server-side mods, and the atlas says so.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.fabric_javadoc_sources
   kind: missing_documentation
   status: open
-  question: >-
-    What do the Fabric API javadocs say about each event's thread, side, timing and
-    cancellation semantics? The -sources jars were not resolved (0 in the Gradle
-    cache), so no documented contract exists in the corpus.
-  affects: [workflow:wf.behaviour.lifecycle_events, workflow:wf.multiplayer.networking, workflow:wf.behaviour.entity_ai]
-  why_it_matters: >-
-    Every analyst-stated contract under _authored/contracts is inferred from
-    injection sites. The javadoc is the module author's own statement and would
-    upgrade many claims from analyst_inference to documented.
+  question: What do the Fabric API javadocs say about each event's thread, side, timing and cancellation semantics?
+    The -sources jars were not resolved (0 in the Gradle cache), so no documented contract exists in the corpus.
+  affects:
+  - workflow:wf.behaviour.lifecycle_events
+  - workflow:wf.multiplayer.networking
+  - workflow:wf.behaviour.entity_ai
+  why_it_matters: Every analyst-stated contract under _authored/contracts is inferred from injection sites. The
+    javadoc is the module author's own statement and would upgrade many claims from analyst_inference to documented.
   evidence_available:
-    - extracted:fabric_api.json
-    - extracted:edges.json#publishes_event
-  best_remaining_source: >-
-    maven.fabricmc.net -sources.jar for each module at the pinned version, or the
-    FabricMC/fabric repository at the tag matching 0.161.0+26.3.
-  procedure: >-
-    Resolve sources through Loom (`genSources` or the sources classifier), hash them,
-    write a javadoc extractor that attaches the doc comment of each Event field to
-    the event note as `documented` evidence with the sources sha256.
+  - extracted:fabric_api.json
+  - extracted:edges.json#publishes_event
+  best_remaining_source: maven.fabricmc.net -sources.jar for each module at the pinned version, or the FabricMC/fabric
+    repository at the tag matching 0.161.0+26.3.
+  procedure: Resolve sources through Loom (`genSources` or the sources classifier), hash them, write a javadoc extractor
+    that attaches the doc comment of each Event field to the event note as `documented` evidence with the sources
+    sha256.
   completion_condition: Each event note has a "Documented" section or a recorded absence.
   conclusions_affected_while_open:
-    - No contract in the atlas is `documented`; all are declared, static_inference or analyst_inference.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - No contract in the atlas is `documented`; all are declared, static_inference or analyst_inference.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.fabric_docs_module_pages
   kind: missing_documentation
   status: open
-  question: >-
-    Which docs.fabricmc.net pages (networking, events, rendering, data generation,
-    mixins) describe the workflows this atlas maps, and what do they say? Only the
-    documentation home page is cached.
-  affects: [workflow:wf.multiplayer.networking, workflow:wf.presentation.hud_screens, workflow:wf.content.data_driven_content, workflow:wf.engineering.project_setup]
-  why_it_matters: >-
-    "Tools today" and "existing automation" in each workflow note are drawn from
-    artifacts and from the reference implementation; the official guidance for each
-    step is not in the evidence set.
+  question: Which docs.fabricmc.net pages (networking, events, rendering, data generation, mixins) describe the
+    workflows this atlas maps, and what do they say? Only the documentation home page is cached.
+  affects:
+  - workflow:wf.multiplayer.networking
+  - workflow:wf.presentation.hud_screens
+  - workflow:wf.content.data_driven_content
+  - workflow:wf.engineering.project_setup
+  why_it_matters: '"Tools today" and "existing automation" in each workflow note are drawn from artifacts and from
+    the reference implementation; the official guidance for each step is not in the evidence set.'
   evidence_available:
-    - source:fabric_docs_home
-    - source:fabric_mod_json_spec
+  - source:fabric_docs_home
+  - source:fabric_mod_json_spec
   best_remaining_source: docs.fabricmc.net subpages, retrieved and hashed with `modcheck sources add`.
-  procedure: >-
-    Add each relevant page as a source with reuse terms, then cite it from the
-    workflow's tools_today with a `source:` reference.
+  procedure: Add each relevant page as a source with reuse terms, then cite it from the workflow's tools_today with
+    a `source:` reference.
   completion_condition: Every workflow family cites at least one cached documentation source for its tools_today.
   conclusions_affected_while_open:
-    - Workflow tools_today lists are artifact-derived and may omit officially recommended steps.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Workflow tools_today lists are artifact-derived and may omit officially recommended steps.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.mojang_changelog_26_3
   kind: missing_documentation
   status: open
-  question: >-
-    What changed in resource pack format 97.1 and data pack format 121.0 relative to
-    the previous formats, and what does protocol 777 change for custom payloads?
-  affects: [workflow:wf.presentation.models_animation, workflow:wf.content.data_driven_content, workflow:wf.engineering.version_migration]
-  why_it_matters: >-
-    The pack formats are read from version.json, but the atlas cannot tell a creator
-    what to change in an older pack without the change notes.
+  question: What changed in resource pack format 97.1 and data pack format 121.0 relative to the previous formats,
+    and what does protocol 777 change for custom payloads?
+  affects:
+  - workflow:wf.presentation.models_animation
+  - workflow:wf.content.data_driven_content
+  - workflow:wf.engineering.version_migration
+  why_it_matters: The pack formats are read from version.json, but the atlas cannot tell a creator what to change
+    in an older pack without the change notes.
   evidence_available:
-    - extracted:corpus.json
-    - source:mojang_version_manifest
+  - extracted:corpus.json
+  - source:mojang_version_manifest
   best_remaining_source: The official 26.3 release notes (minecraft.net / feedback.minecraft.net), cached as a source.
   procedure: Retrieve the release notes, record terms, cite from wf.engineering.version_migration.
   completion_condition: The migration workflow cites a cached change log for the pack format bumps.
   conclusions_affected_while_open:
-    - Pack-format migration steps are stated only as "the number changed".
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Pack-format migration steps are stated only as "the number changed".
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.mixin_docs_application_order
   kind: missing_documentation
-  status: open
-  question: >-
-    What does the Mixin documentation state about application order between mixins of
-    equal priority from different mods, and about the interaction of @Redirect with
-    @Inject at the same call site?
-  affects: [workflow:wf.integration.mixin_coexistence]
-  why_it_matters: >-
-    The priority default was read from the jar; the ordering rule was not, and no
-    claim about two mods' mixin order can be made without it.
+  status: in_progress
+  question: The transformation tests established, for this pinned Mixin, that lower-priority mixins are applied
+    first and that equal-priority mixins are applied in configuration order for that run (scenario:E, scenario:G).
+    What does the Mixin documentation state as the rule for equal priorities across mods, and does fabric-loader's
+    config ordering match it?
+  affects:
+  - workflow:wf.integration.mixin_coexistence
+  why_it_matters: The priority default was read from the jar; the ordering rule was not, and no claim about two
+    mods' mixin order can be made without it.
   evidence_available:
-    - extracted:corpus.json
-    - mechanism:Mixin
+  - extracted:mixin_transformation_tests.json
+  - extracted:corpus.json
+  - mechanism:Mixin
   best_remaining_source: The SpongePowered Mixin wiki and the sponge-mixin source, cached as sources.
   procedure: Retrieve, record terms, cite from _authored/mechanisms/mixin.md and the Mixin contract.
   completion_condition: The mixin note's ordering paragraph cites a documented source.
   conclusions_affected_while_open:
-    - contested_methods cannot say which mod's injection runs first.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Equal-priority ordering between two mods is observed for one configuration order, not documented as a rule.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.external_asset_tools
   kind: missing_documentation
   status: open
-  question: >-
-    Which external tools (Blockbench for models and animations, image editors for
-    textures, audio tools for sounds) produce artefacts in the formats the 26.3 jar
-    expects, and what are their export options for those formats?
-  affects: [workflow:wf.presentation.models_animation, workflow:wf.presentation.particles_sounds, request:request.lantern_moth]
-  why_it_matters: >-
-    The presentation workflows depend on tools outside the corpus; without their
-    documentation the atlas can only name the target file formats.
+  question: Which external tools (Blockbench for models and animations, image editors for textures, audio tools
+    for sounds) produce artefacts in the formats the 26.3 jar expects, and what are their export options for those
+    formats?
+  affects:
+  - workflow:wf.presentation.models_animation
+  - workflow:wf.presentation.particles_sounds
+  - request:request.lantern_moth
+  why_it_matters: The presentation workflows depend on tools outside the corpus; without their documentation the
+    atlas can only name the target file formats.
   evidence_available:
-    - extracted:corpus.json
+  - extracted:corpus.json
   best_remaining_source: The tools' own documentation, cached as sources with terms.
   procedure: Retrieve with `modcheck sources add`, cite from the workflows' tools_today.
   completion_condition: wf.presentation.models_animation cites a cached tool source for each artefact type.
   conclusions_affected_while_open:
-    - The models_animation workflow's "tools today" for authoring is unsupported by cached evidence.
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - The models_animation workflow's "tools today" for authoring is unsupported by cached evidence.
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: q.mod_data_migration_practice
   kind: missing_documentation
   status: open
-  question: >-
-    How do Fabric mods migrate their own persisted data across versions in practice:
-    does Fabric expose a data-fixer hook, or do mods version their codecs and migrate
-    on read?
-  affects: [workflow:wf.state.migration, request:request.port_1_21_mod, request:request.team_counter]
-  why_it_matters: >-
-    The corpus shows vanilla's DataFixer package (444 classes in
-    net.minecraft.util.datafix) and two Fabric hooks into it, but no API for mods to
-    add fixers. Whether that is a gap or a deliberate practice determines the
-    migration design in every state workflow.
+  question: 'How do Fabric mods migrate their own persisted data across versions in practice: does Fabric expose
+    a data-fixer hook, or do mods version their codecs and migrate on read?'
+  affects:
+  - workflow:wf.state.migration
+  - request:request.port_1_21_mod
+  - request:request.team_counter
+  why_it_matters: The corpus shows vanilla's DataFixer package (444 classes in net.minecraft.util.datafix) and two
+    Fabric hooks into it, but no API for mods to add fixers. Whether that is a gap or a deliberate practice determines
+    the migration design in every state workflow.
   evidence_available:
-    - extracted:corpus.json
-    - extracted:edges.json
-    - mechanism:fabric-data-attachment-api-v1
+  - extracted:corpus.json
+  - extracted:edges.json
+  - mechanism:fabric-data-attachment-api-v1
   best_remaining_source: Fabric documentation on persistent data and the data attachment API javadoc.
   procedure: Retrieve; if no hook exists, record the codec-versioning pattern as the documented practice.
   completion_condition: wf.state.migration cites a documented migration practice.
   conclusions_affected_while_open:
-    - Migration designs in 70-Requests use codec versioning by analyst choice, not by documented practice.
-  provenance: {author: analyst, added: '2026-09-20'}
+  - Migration designs in 70-Requests use codec versioning by analyst choice, not by documented practice.
+  provenance:
+    author: analyst
+    added: '2026-09-20'

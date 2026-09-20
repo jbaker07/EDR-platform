@@ -11,67 +11,70 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `WATERLnet/minecraft/core/Holder;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `WATER` | `Lnet/minecraft/core/Holder;` | exact | getstatic@2 in `BrewingProviderMixin.preventDuplicatingDefaultTransformations` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `WATER` | `Lnet/minecraft/core/Holder;` | exact | getstatic@50 in `BrewingProviderMixin.preventDuplicatingDefaultTransformations` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `WATER` | `Lnet/minecraft/core/Holder;` | exact | getstatic@15 in `FluidStorage.lambda$static$4` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `WATER` | `Lnet/minecraft/core/Holder;` | exact | getstatic@48 in `WaterPotionStorage.isWaterPotion` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (50, all visibilities)
+## Declared members (46 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.item.alchemy.Potions {
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> WATER;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> MUNDANE;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> THICK;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> AWKWARD;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> NIGHT_VISION;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_NIGHT_VISION;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> INVISIBILITY;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_INVISIBILITY;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LEAPING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_LEAPING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_LEAPING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> FIRE_RESISTANCE;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_FIRE_RESISTANCE;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> SWIFTNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_SWIFTNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_SWIFTNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> SLOWNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_SLOWNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_SLOWNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> TURTLE_MASTER;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_TURTLE_MASTER;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_TURTLE_MASTER;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> WATER_BREATHING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_WATER_BREATHING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> HEALING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_HEALING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> HARMING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_HARMING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> POISON;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_POISON;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_POISON;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> REGENERATION;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_REGENERATION;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_REGENERATION;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRENGTH;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_STRENGTH;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> STRONG_STRENGTH;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> WEAKNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_WEAKNESS;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LUCK;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> SLOW_FALLING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> LONG_SLOW_FALLING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> WIND_CHARGED;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> WEAVING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> OOZING;
-    public static final net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> INFESTED;
-    public net.minecraft.world.item.alchemy.Potions();
-    private static net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> register(net.minecraft.resources.ResourceKey<net.minecraft.world.item.alchemy.Potion>, net.minecraft.world.item.alchemy.Potion);
-    public static net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> bootstrap(net.minecraft.core.Registry<net.minecraft.world.item.alchemy.Potion>);
-    static {};
-}
+```
+public static final WATER : Lnet/minecraft/core/Holder;
+public static final MUNDANE : Lnet/minecraft/core/Holder;
+public static final THICK : Lnet/minecraft/core/Holder;
+public static final AWKWARD : Lnet/minecraft/core/Holder;
+public static final NIGHT_VISION : Lnet/minecraft/core/Holder;
+public static final LONG_NIGHT_VISION : Lnet/minecraft/core/Holder;
+public static final INVISIBILITY : Lnet/minecraft/core/Holder;
+public static final LONG_INVISIBILITY : Lnet/minecraft/core/Holder;
+public static final LEAPING : Lnet/minecraft/core/Holder;
+public static final LONG_LEAPING : Lnet/minecraft/core/Holder;
+public static final STRONG_LEAPING : Lnet/minecraft/core/Holder;
+public static final FIRE_RESISTANCE : Lnet/minecraft/core/Holder;
+public static final LONG_FIRE_RESISTANCE : Lnet/minecraft/core/Holder;
+public static final SWIFTNESS : Lnet/minecraft/core/Holder;
+public static final LONG_SWIFTNESS : Lnet/minecraft/core/Holder;
+public static final STRONG_SWIFTNESS : Lnet/minecraft/core/Holder;
+public static final SLOWNESS : Lnet/minecraft/core/Holder;
+public static final LONG_SLOWNESS : Lnet/minecraft/core/Holder;
+public static final STRONG_SLOWNESS : Lnet/minecraft/core/Holder;
+public static final TURTLE_MASTER : Lnet/minecraft/core/Holder;
+public static final LONG_TURTLE_MASTER : Lnet/minecraft/core/Holder;
+public static final STRONG_TURTLE_MASTER : Lnet/minecraft/core/Holder;
+public static final WATER_BREATHING : Lnet/minecraft/core/Holder;
+public static final LONG_WATER_BREATHING : Lnet/minecraft/core/Holder;
+public static final HEALING : Lnet/minecraft/core/Holder;
+public static final STRONG_HEALING : Lnet/minecraft/core/Holder;
+public static final HARMING : Lnet/minecraft/core/Holder;
+public static final STRONG_HARMING : Lnet/minecraft/core/Holder;
+public static final POISON : Lnet/minecraft/core/Holder;
+public static final LONG_POISON : Lnet/minecraft/core/Holder;
+public static final STRONG_POISON : Lnet/minecraft/core/Holder;
+public static final REGENERATION : Lnet/minecraft/core/Holder;
+public static final LONG_REGENERATION : Lnet/minecraft/core/Holder;
+public static final STRONG_REGENERATION : Lnet/minecraft/core/Holder;
+public static final STRENGTH : Lnet/minecraft/core/Holder;
+public static final LONG_STRENGTH : Lnet/minecraft/core/Holder;
+public static final STRONG_STRENGTH : Lnet/minecraft/core/Holder;
+public static final WEAKNESS : Lnet/minecraft/core/Holder;
+public static final LONG_WEAKNESS : Lnet/minecraft/core/Holder;
+public static final LUCK : Lnet/minecraft/core/Holder;
+public static final SLOW_FALLING : Lnet/minecraft/core/Holder;
+public static final LONG_SLOW_FALLING : Lnet/minecraft/core/Holder;
+public static final WIND_CHARGED : Lnet/minecraft/core/Holder;
+public static final WEAVING : Lnet/minecraft/core/Holder;
+public static final OOZING : Lnet/minecraft/core/Holder;
+public static final INFESTED : Lnet/minecraft/core/Holder;
+public <init>()V
+private static register(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/item/alchemy/Potion;)Lnet/minecraft/core/Holder;
+public static bootstrap(Lnet/minecraft/core/Registry;)Lnet/minecraft/core/Holder;
+static <clinit>()V
 ```

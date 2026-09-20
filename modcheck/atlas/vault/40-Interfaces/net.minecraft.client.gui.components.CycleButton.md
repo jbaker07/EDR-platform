@@ -11,57 +11,57 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/components/AbstractButton`; implements `net/minecraft/client/gui/components/ResettableOptionWidget`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `onPress(Lnet/minecraft/client/input/InputWithModifiers;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `onPress` | `(Lnet/minecraft/client/input/InputWithModifiers;)V` | exact | invokevirtual@84 in `ClientGameTestContextImpl.pressMatchingButton` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (40, all visibilities)
+## Declared members (13 fields, 27 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.components.CycleButton<T> extends net.minecraft.client.gui.components.AbstractButton implements net.minecraft.client.gui.components.ResettableOptionWidget {
-    public static final java.util.function.BooleanSupplier DEFAULT_ALT_LIST_SELECTOR;
-    private static final java.util.List<java.lang.Boolean> BOOLEAN_OPTIONS;
-    private final java.util.function.Supplier<T> defaultValueSupplier;
-    private final net.minecraft.network.chat.Component name;
-    private int index;
-    private T value;
-    private final net.minecraft.client.gui.components.CycleButton$ValueListSupplier<T> values;
-    private final java.util.function.Function<T, net.minecraft.network.chat.Component> valueStringifier;
-    private final java.util.function.Function<net.minecraft.client.gui.components.CycleButton<T>, net.minecraft.network.chat.MutableComponent> narrationProvider;
-    private final net.minecraft.client.gui.components.CycleButton$OnValueChange<T> onValueChange;
-    private final net.minecraft.client.gui.components.CycleButton$DisplayState displayState;
-    private final net.minecraft.client.OptionInstance$TooltipSupplier<T> tooltipSupplier;
-    private final net.minecraft.client.gui.components.CycleButton$SpriteSupplier<T> spriteSupplier;
-    private net.minecraft.client.gui.components.CycleButton(int, int, int, int, net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, int, T, java.util.function.Supplier<T>, net.minecraft.client.gui.components.CycleButton$ValueListSupplier<T>, java.util.function.Function<T, net.minecraft.network.chat.Component>, java.util.function.Function<net.minecraft.client.gui.components.CycleButton<T>, net.minecraft.network.chat.MutableComponent>, net.minecraft.client.gui.components.CycleButton$OnValueChange<T>, net.minecraft.client.OptionInstance$TooltipSupplier<T>, net.minecraft.client.gui.components.CycleButton$DisplayState, net.minecraft.client.gui.components.CycleButton$SpriteSupplier<T>);
-    protected void extractContents(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    private void updateTooltip();
-    public void onPress(net.minecraft.client.input.InputWithModifiers);
-    private void cycleValue(int);
-    private T getCycledValue(int);
-    public boolean mouseScrolled(double, double, double, double);
-    public void setValue(T);
-    public void resetValue();
-    private void updateValue(T);
-    private net.minecraft.network.chat.Component createLabelForValue(T);
-    private net.minecraft.network.chat.MutableComponent createFullName(T);
-    public T getValue();
-    protected net.minecraft.network.chat.MutableComponent createNarrationMessage();
-    public void updateWidgetNarration(net.minecraft.client.gui.narration.NarrationElementOutput);
-    public net.minecraft.network.chat.MutableComponent createDefaultNarrationMessage();
-    public static <T> net.minecraft.client.gui.components.CycleButton$Builder<T> builder(java.util.function.Function<T, net.minecraft.network.chat.Component>, java.util.function.Supplier<T>);
-    public static <T> net.minecraft.client.gui.components.CycleButton$Builder<T> builder(java.util.function.Function<T, net.minecraft.network.chat.Component>, T);
-    public static net.minecraft.client.gui.components.CycleButton$Builder<java.lang.Boolean> booleanBuilder(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, boolean);
-    public static net.minecraft.client.gui.components.CycleButton$Builder<java.lang.Boolean> onOffBuilder(boolean);
-    private static java.lang.Boolean lambda$onOffBuilder$1(boolean);
-    private static net.minecraft.network.chat.Component lambda$onOffBuilder$0(java.lang.Boolean);
-    private static java.lang.Boolean lambda$booleanBuilder$1(boolean);
-    private static net.minecraft.network.chat.Component lambda$booleanBuilder$0(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component, java.lang.Boolean);
-    private static java.lang.Object lambda$builder$0(java.lang.Object);
-    private static boolean lambda$static$0();
-    static {};
-}
+```
+public static final DEFAULT_ALT_LIST_SELECTOR : Ljava/util/function/BooleanSupplier;
+private static final BOOLEAN_OPTIONS : Ljava/util/List;
+private final defaultValueSupplier : Ljava/util/function/Supplier;
+private final name : Lnet/minecraft/network/chat/Component;
+private index : I
+private value : Ljava/lang/Object;
+private final values : Lnet/minecraft/client/gui/components/CycleButton$ValueListSupplier;
+private final valueStringifier : Ljava/util/function/Function;
+private final narrationProvider : Ljava/util/function/Function;
+private final onValueChange : Lnet/minecraft/client/gui/components/CycleButton$OnValueChange;
+private final displayState : Lnet/minecraft/client/gui/components/CycleButton$DisplayState;
+private final tooltipSupplier : Lnet/minecraft/client/OptionInstance$TooltipSupplier;
+private final spriteSupplier : Lnet/minecraft/client/gui/components/CycleButton$SpriteSupplier;
+private <init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;ILjava/lang/Object;Ljava/util/function/Supplier;Lnet/minecraft/client/gui/components/CycleButton$ValueListSupplier;Ljava/util/function/Function;Ljava/util/function/Function;Lnet/minecraft/client/gui/components/CycleButton$OnValueChange;Lnet/minecraft/client/OptionInstance$TooltipSupplier;Lnet/minecraft/client/gui/components/CycleButton$DisplayState;Lnet/minecraft/client/gui/components/CycleButton$SpriteSupplier;)V
+protected extractContents(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+private updateTooltip()V
+public onPress(Lnet/minecraft/client/input/InputWithModifiers;)V
+private cycleValue(I)V
+private getCycledValue(I)Ljava/lang/Object;
+public mouseScrolled(DDDD)Z
+public setValue(Ljava/lang/Object;)V
+public resetValue()V
+private updateValue(Ljava/lang/Object;)V
+private createLabelForValue(Ljava/lang/Object;)Lnet/minecraft/network/chat/Component;
+private createFullName(Ljava/lang/Object;)Lnet/minecraft/network/chat/MutableComponent;
+public getValue()Ljava/lang/Object;
+protected createNarrationMessage()Lnet/minecraft/network/chat/MutableComponent;
+public updateWidgetNarration(Lnet/minecraft/client/gui/narration/NarrationElementOutput;)V
+public createDefaultNarrationMessage()Lnet/minecraft/network/chat/MutableComponent;
+public static builder(Ljava/util/function/Function;Ljava/util/function/Supplier;)Lnet/minecraft/client/gui/components/CycleButton$Builder;
+public static builder(Ljava/util/function/Function;Ljava/lang/Object;)Lnet/minecraft/client/gui/components/CycleButton$Builder;
+public static booleanBuilder(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;Z)Lnet/minecraft/client/gui/components/CycleButton$Builder;
+public static onOffBuilder(Z)Lnet/minecraft/client/gui/components/CycleButton$Builder;
+private static synthetic lambda$onOffBuilder$1(Z)Ljava/lang/Boolean;
+private static synthetic lambda$onOffBuilder$0(Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$booleanBuilder$1(Z)Ljava/lang/Boolean;
+private static synthetic lambda$booleanBuilder$0(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$builder$0(Ljava/lang/Object;)Ljava/lang/Object;
+private static synthetic lambda$static$0()Z
+static <clinit>()V
 ```

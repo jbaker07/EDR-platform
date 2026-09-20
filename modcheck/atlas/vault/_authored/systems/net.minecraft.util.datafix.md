@@ -9,7 +9,7 @@ side: "shared_by_design"
 
 # DataFixers -- vanilla save migration
 
-Package `net.minecraft.util.datafix` -- generated view: [[20-Systems/net.minecraft.util.datafix|hooked types]]
+Package `net.minecraft.util.datafix` -- generated view: [[20-Systems/net.minecraft.util.datafix|inventory and hooked types]]
 
 **Responsibility.** Vanilla's schema-versioned migration of saved data (444 classes): every world version bump ships fixes here. Two types are hooked by Fabric API.
 

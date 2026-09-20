@@ -11,48 +11,52 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core.component|net.minecraft.core.component]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `builder(Lnet/minecraft/world/level/levelgen/feature/stateproviders/` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `builder` | `(Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockState` | exact | invokestatic@21 in `BlockTransformerHelperImpl.createStripping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `(Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockState` | exact | invokestatic@23 in `BlockTransformerHelperImpl.createTilling` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `(Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockState` | exact | invokestatic@23 in `BlockTransformerHelperImpl.createFlattening` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `(Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockState` | exact | invokestatic@21 in `BlockTransformerHelperImpl.createOxidationScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `(Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockState` | exact | invokestatic@21 in `BlockTransformerHelperImpl.createWaxScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (31, all visibilities)
+## Declared members (12 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.core.component.BlockTransformer$BlockTransformData extends java.lang.Record {
-    private final net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider> blockStateProvider;
-    private final net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent> sound;
-    private final net.minecraft.core.component.BlockTransformer$TransformParticle particle;
-    private final java.util.List<net.minecraft.core.Direction> disallowedFaces;
-    private final java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> loot;
-    private final net.minecraft.core.component.BlockTransformer$DropStrategy dropStrategy;
-    private final boolean updateFromNeighbors;
-    private final net.minecraft.core.component.BlockTransformer$TransformType transformType;
-    private final boolean consumeOnUse;
-    private final int itemDamagePerUse;
-    public static final com.mojang.serialization.Codec<net.minecraft.core.component.BlockTransformer$BlockTransformData> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.core.component.BlockTransformer$BlockTransformData> STREAM_CODEC;
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData(net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>, net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>, net.minecraft.core.component.BlockTransformer$TransformParticle, java.util.List<net.minecraft.core.Direction>, java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>>, net.minecraft.core.component.BlockTransformer$DropStrategy, boolean, net.minecraft.core.component.BlockTransformer$TransformType, boolean, int);
-    public static net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder builder(net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>);
-    public static net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder builder(net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider);
-    public static net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder builder(net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate, net.minecraft.world.level.block.Block);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider> blockStateProvider();
-    public net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent> sound();
-    public net.minecraft.core.component.BlockTransformer$TransformParticle particle();
-    public java.util.List<net.minecraft.core.Direction> disallowedFaces();
-    public java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> loot();
-    public net.minecraft.core.component.BlockTransformer$DropStrategy dropStrategy();
-    public boolean updateFromNeighbors();
-    public net.minecraft.core.component.BlockTransformer$TransformType transformType();
-    public boolean consumeOnUse();
-    public int itemDamagePerUse();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final blockStateProvider : Lnet/minecraft/core/Holder;
+private final sound : Lnet/minecraft/core/Holder;
+private final particle : Lnet/minecraft/core/component/BlockTransformer$TransformParticle;
+private final disallowedFaces : Ljava/util/List;
+private final loot : Ljava/util/Optional;
+private final dropStrategy : Lnet/minecraft/core/component/BlockTransformer$DropStrategy;
+private final updateFromNeighbors : Z
+private final transformType : Lnet/minecraft/core/component/BlockTransformer$TransformType;
+private final consumeOnUse : Z
+private final itemDamagePerUse : I
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/core/Holder;Lnet/minecraft/core/component/BlockTransformer$TransformParticle;Ljava/util/List;Ljava/util/Optional;Lnet/minecraft/core/component/BlockTransformer$DropStrategy;ZLnet/minecraft/core/component/BlockTransformer$TransformType;ZI)V
+public static builder(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public static builder(Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public static builder(Lnet/minecraft/world/level/levelgen/blockpredicates/BlockPredicate;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public blockStateProvider()Lnet/minecraft/core/Holder;
+public sound()Lnet/minecraft/core/Holder;
+public particle()Lnet/minecraft/core/component/BlockTransformer$TransformParticle;
+public disallowedFaces()Ljava/util/List;
+public loot()Ljava/util/Optional;
+public dropStrategy()Lnet/minecraft/core/component/BlockTransformer$DropStrategy;
+public updateFromNeighbors()Z
+public transformType()Lnet/minecraft/core/component/BlockTransformer$TransformType;
+public consumeOnUse()Z
+public itemDamagePerUse()I
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

@@ -11,21 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.network|net.minecraft.server.network]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `start(Ljava/util/function/Consumer;)V` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `type()Lnet/minecraft/server/network/ConfigurationTask$Type;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `start` | `(Ljava/util/function/Consumer;)V` | exact | invokeinterface@87 in `ServerConfigurationPacketListenerImplMixin.pollEarlyTasks` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `type` | `()Lnet/minecraft/server/network/ConfigurationTask$Type;` | exact | invokeinterface@25 in `ServerConfigurationPacketListenerImplMixin.onClientReady` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `type` | `()Lnet/minecraft/server/network/ConfigurationTask$Type;` | exact | invokeinterface@32 in `ServerConfigurationPacketListenerImplMixin.pollEarlyTasks` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `type` | `()Lnet/minecraft/server/network/ConfigurationTask$Type;` | exact | invokeinterface@24 in `ServerConfigurationPacketListenerImplMixin.completeTask` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (3, all visibilities)
+## Declared members (0 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.network.ConfigurationTask {
-    public abstract void start(java.util.function.Consumer<net.minecraft.network.protocol.Packet<?>>);
-    public default boolean tick();
-    public abstract net.minecraft.server.network.ConfigurationTask$Type type();
-}
+```
+public abstract start(Ljava/util/function/Consumer;)V
+public tick()Z
+public abstract type()Lnet/minecraft/server/network/ConfigurationTask$Type;
 ```

@@ -11,49 +11,56 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(IIII)V` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(IIII)V` | exact | invokespecial@39 in `OptimizedScrollableLayout$Container.getBorderForArrowNavigation` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `<init>` | `(IIII)V` | exact | invokespecial@16 in `AdvancementTabMixin.captureWindowSize` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `bottom` | `()I` | exact | invokevirtual@46 in `OptimizedScrollableLayout$Container.setFocused` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `bottom` | `()I` | exact | invokevirtual@50 in `OptimizedScrollableLayout$Container.setFocused` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getBorder` | `(Lnet/minecraft/client/gui/navigation/ScreenDirection;)Lnet/minecraft/` | exact | invokevirtual@43 in `OptimizedScrollableLayout$Container.getBorderForArrowNavigation` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `top` | `()I` | exact | invokevirtual@35 in `OptimizedScrollableLayout$Container.setFocused` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `top` | `()I` | exact | invokevirtual@39 in `OptimizedScrollableLayout$Container.setFocused` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `top` | `()I` | exact | invokevirtual@16 in `OptimizedScrollableLayout$Container.setScrollAmount` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (32, all visibilities)
+## Declared members (4 fields, 28 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.gui.navigation.ScreenRectangle extends java.lang.Record {
-    private final net.minecraft.client.gui.navigation.ScreenPosition position;
-    private final int width;
-    private final int height;
-    private static final net.minecraft.client.gui.navigation.ScreenRectangle EMPTY;
-    public net.minecraft.client.gui.navigation.ScreenRectangle(int, int, int, int);
-    public net.minecraft.client.gui.navigation.ScreenRectangle(net.minecraft.client.gui.navigation.ScreenPosition, int, int);
-    public static net.minecraft.client.gui.navigation.ScreenRectangle empty();
-    public static net.minecraft.client.gui.navigation.ScreenRectangle of(net.minecraft.client.gui.navigation.ScreenAxis, int, int, int, int);
-    public net.minecraft.client.gui.navigation.ScreenRectangle step(net.minecraft.client.gui.navigation.ScreenDirection);
-    public int getLength(net.minecraft.client.gui.navigation.ScreenAxis);
-    public int getBoundInDirection(net.minecraft.client.gui.navigation.ScreenDirection);
-    public net.minecraft.client.gui.navigation.ScreenRectangle getBorder(net.minecraft.client.gui.navigation.ScreenDirection);
-    public boolean overlaps(net.minecraft.client.gui.navigation.ScreenRectangle);
-    public boolean overlapsInAxis(net.minecraft.client.gui.navigation.ScreenRectangle, net.minecraft.client.gui.navigation.ScreenAxis);
-    public int getCenterInAxis(net.minecraft.client.gui.navigation.ScreenAxis);
-    public net.minecraft.client.gui.navigation.ScreenRectangle intersection(net.minecraft.client.gui.navigation.ScreenRectangle);
-    public boolean intersects(net.minecraft.client.gui.navigation.ScreenRectangle);
-    public boolean encompasses(net.minecraft.client.gui.navigation.ScreenRectangle);
-    public int top();
-    public int bottom();
-    public int left();
-    public int right();
-    public boolean containsPoint(int, int);
-    public net.minecraft.client.gui.navigation.ScreenRectangle transformAxisAligned(org.joml.Matrix3x2fc);
-    public net.minecraft.client.gui.navigation.ScreenRectangle transformMaxBounds(org.joml.Matrix3x2fc);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.client.gui.navigation.ScreenPosition position();
-    public int width();
-    public int height();
-    static {};
-}
+```
+private final position : Lnet/minecraft/client/gui/navigation/ScreenPosition;
+private final width : I
+private final height : I
+private static final EMPTY : Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public <init>(IIII)V
+public <init>(Lnet/minecraft/client/gui/navigation/ScreenPosition;II)V
+public static empty()Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public static of(Lnet/minecraft/client/gui/navigation/ScreenAxis;IIII)Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public step(Lnet/minecraft/client/gui/navigation/ScreenDirection;)Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public getLength(Lnet/minecraft/client/gui/navigation/ScreenAxis;)I
+public getBoundInDirection(Lnet/minecraft/client/gui/navigation/ScreenDirection;)I
+public getBorder(Lnet/minecraft/client/gui/navigation/ScreenDirection;)Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public overlaps(Lnet/minecraft/client/gui/navigation/ScreenRectangle;)Z
+public overlapsInAxis(Lnet/minecraft/client/gui/navigation/ScreenRectangle;Lnet/minecraft/client/gui/navigation/ScreenAxis;)Z
+public getCenterInAxis(Lnet/minecraft/client/gui/navigation/ScreenAxis;)I
+public intersection(Lnet/minecraft/client/gui/navigation/ScreenRectangle;)Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public intersects(Lnet/minecraft/client/gui/navigation/ScreenRectangle;)Z
+public encompasses(Lnet/minecraft/client/gui/navigation/ScreenRectangle;)Z
+public top()I
+public bottom()I
+public left()I
+public right()I
+public containsPoint(II)Z
+public transformAxisAligned(Lorg/joml/Matrix3x2fc;)Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public transformMaxBounds(Lorg/joml/Matrix3x2fc;)Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public position()Lnet/minecraft/client/gui/navigation/ScreenPosition;
+public width()I
+public height()I
+static <clinit>()V
 ```

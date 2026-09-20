@@ -11,33 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@33 in `ChunkStatusTasksMixin.onChunkLoad` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@60 in `ChunkStatusTasksMixin.onChunkLoad` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@128 in `ChunkStatusTasksMixin.onChunkLoad` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (6 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.chunk.status.WorldGenContext extends java.lang.Record {
-    private final net.minecraft.server.level.ServerLevel level;
-    private final net.minecraft.world.level.chunk.ChunkGenerator generator;
-    private final net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager structureManager;
-    private final net.minecraft.server.level.ThreadedLevelLightEngine lightEngine;
-    private final java.util.concurrent.Executor mainThreadExecutor;
-    private final net.minecraft.world.level.chunk.LevelChunk$UnsavedListener unsavedListener;
-    public net.minecraft.world.level.chunk.status.WorldGenContext(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.chunk.ChunkGenerator, net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager, net.minecraft.server.level.ThreadedLevelLightEngine, java.util.concurrent.Executor, net.minecraft.world.level.chunk.LevelChunk$UnsavedListener);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.server.level.ServerLevel level();
-    public net.minecraft.world.level.chunk.ChunkGenerator generator();
-    public net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager structureManager();
-    public net.minecraft.server.level.ThreadedLevelLightEngine lightEngine();
-    public java.util.concurrent.Executor mainThreadExecutor();
-    public net.minecraft.world.level.chunk.LevelChunk$UnsavedListener unsavedListener();
-}
+```
+private final level : Lnet/minecraft/server/level/ServerLevel;
+private final generator : Lnet/minecraft/world/level/chunk/ChunkGenerator;
+private final structureManager : Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplateManager;
+private final lightEngine : Lnet/minecraft/server/level/ThreadedLevelLightEngine;
+private final mainThreadExecutor : Ljava/util/concurrent/Executor;
+private final unsavedListener : Lnet/minecraft/world/level/chunk/LevelChunk$UnsavedListener;
+public <init>(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkGenerator;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplateManager;Lnet/minecraft/server/level/ThreadedLevelLightEngine;Ljava/util/concurrent/Executor;Lnet/minecraft/world/level/chunk/LevelChunk$UnsavedListener;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public level()Lnet/minecraft/server/level/ServerLevel;
+public generator()Lnet/minecraft/world/level/chunk/ChunkGenerator;
+public structureManager()Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplateManager;
+public lightEngine()Lnet/minecraft/server/level/ThreadedLevelLightEngine;
+public mainThreadExecutor()Ljava/util/concurrent/Executor;
+public unsavedListener()Lnet/minecraft/world/level/chunk/LevelChunk$UnsavedListener;
 ```

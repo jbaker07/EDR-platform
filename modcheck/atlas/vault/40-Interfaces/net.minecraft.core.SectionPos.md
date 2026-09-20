@@ -11,96 +11,104 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `net/minecraft/core/Vec3i`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `of(J)Lnet/minecraft/core/SectionPos;` | `` | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
-| calls | `sectionToBlockCoord(I)I` | `` | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
-| calls | `x()I` | `` | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
-| calls | `y()I` | `` | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
-| calls | `z()I` | `` | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `of` | `(J)Lnet/minecraft/core/SectionPos;` | exact | invokestatic@11 in `RenderRegionCacheMixin.copyDataForChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `sectionToBlockCoord` | `(I)I` | exact | invokestatic@20 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `sectionToBlockCoord` | `(I)I` | exact | invokestatic@30 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `sectionToBlockCoord` | `(I)I` | exact | invokestatic@41 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `sectionToBlockCoord` | `(I)I` | exact | invokestatic@52 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `sectionToBlockCoord` | `(I)I` | exact | invokestatic@63 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `sectionToBlockCoord` | `(I)I` | exact | invokestatic@74 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `x` | `()I` | exact | invokevirtual@15 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `x` | `()I` | exact | invokevirtual@47 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `y` | `()I` | exact | invokevirtual@25 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `y` | `()I` | exact | invokevirtual@58 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `z` | `()I` | exact | invokevirtual@36 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| calls | `z` | `()I` | exact | invokevirtual@69 in `RenderRegionCacheMixin.mapChunk` | unknown | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
 
-## Declared members (75, all visibilities)
+## Declared members (19 fields, 56 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.SectionPos extends net.minecraft.core.Vec3i {
-    public static final int SECTION_BITS;
-    public static final int SECTION_SIZE;
-    public static final int SECTION_BLOCK_COUNT;
-    public static final int SECTION_MASK;
-    public static final int SECTION_HALF_SIZE;
-    public static final int SECTION_MAX_INDEX;
-    private static final int PACKED_X_LENGTH;
-    private static final int PACKED_Y_LENGTH;
-    private static final int PACKED_Z_LENGTH;
-    private static final long PACKED_X_MASK;
-    private static final long PACKED_Y_MASK;
-    private static final long PACKED_Z_MASK;
-    private static final int Y_OFFSET;
-    private static final int Z_OFFSET;
-    private static final int X_OFFSET;
-    private static final int RELATIVE_X_SHIFT;
-    private static final int RELATIVE_Y_SHIFT;
-    private static final int RELATIVE_Z_SHIFT;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.core.SectionPos> STREAM_CODEC;
-    private net.minecraft.core.SectionPos(int, int, int);
-    public static net.minecraft.core.SectionPos of(int, int, int);
-    public static net.minecraft.core.SectionPos of(net.minecraft.core.BlockPos);
-    public static net.minecraft.core.SectionPos of(net.minecraft.world.level.ChunkPos, int);
-    public static net.minecraft.core.SectionPos of(net.minecraft.world.level.entity.EntityAccess);
-    public static net.minecraft.core.SectionPos of(net.minecraft.core.Position);
-    public static net.minecraft.core.SectionPos of(long);
-    public static net.minecraft.core.SectionPos bottomOf(net.minecraft.world.level.chunk.ChunkAccess);
-    public static long offset(long, net.minecraft.core.Direction);
-    public static long offset(long, int, int, int);
-    public static int posToSectionCoord(double);
-    public static int blockToSectionCoord(int);
-    public static int blockToSectionCoord(double);
-    public static int sectionRelative(int);
-    public static short sectionRelativePos(net.minecraft.core.BlockPos);
-    public static int sectionRelativeX(short);
-    public static int sectionRelativeY(short);
-    public static int sectionRelativeZ(short);
-    public int relativeToBlockX(short);
-    public int relativeToBlockY(short);
-    public int relativeToBlockZ(short);
-    public net.minecraft.core.BlockPos relativeToBlockPos(short);
-    public static int sectionToBlockCoord(int);
-    public static int sectionToBlockCoord(int, int);
-    public static int x(long);
-    public static int y(long);
-    public static int z(long);
-    public int x();
-    public int y();
-    public int z();
-    public int minBlockX();
-    public int minBlockY();
-    public int minBlockZ();
-    public int maxBlockX();
-    public int maxBlockY();
-    public int maxBlockZ();
-    public static long blockToSection(long);
-    public static long getZeroNode(int, int);
-    public static long getZeroNode(long);
-    public static long sectionToChunk(long);
-    public net.minecraft.core.BlockPos origin();
-    public net.minecraft.core.BlockPos center();
-    public net.minecraft.world.level.ChunkPos chunk();
-    public static long asLong(net.minecraft.core.BlockPos);
-    public static long asLong(int, int, int);
-    public long asLong();
-    public net.minecraft.core.SectionPos offset(int, int, int);
-    public java.util.stream.Stream<net.minecraft.core.BlockPos> blocksInside();
-    public static java.util.stream.Stream<net.minecraft.core.SectionPos> cube(net.minecraft.core.SectionPos, int);
-    public static java.util.stream.Stream<net.minecraft.core.SectionPos> aroundChunk(net.minecraft.world.level.ChunkPos, int, int, int);
-    public static java.util.stream.Stream<net.minecraft.core.SectionPos> betweenClosedStream(int, int, int, int, int, int);
-    public static void aroundAndAtBlockPos(net.minecraft.core.BlockPos, it.unimi.dsi.fastutil.longs.LongConsumer);
-    public static void aroundAndAtBlockPos(long, it.unimi.dsi.fastutil.longs.LongConsumer);
-    public static void aroundAndAtBlockPos(int, int, int, it.unimi.dsi.fastutil.longs.LongConsumer);
-    public net.minecraft.core.Vec3i offset(int, int, int);
-    static {};
-}
+```
+public static final SECTION_BITS : I
+public static final SECTION_SIZE : I
+public static final SECTION_BLOCK_COUNT : I
+public static final SECTION_MASK : I
+public static final SECTION_HALF_SIZE : I
+public static final SECTION_MAX_INDEX : I
+private static final PACKED_X_LENGTH : I
+private static final PACKED_Y_LENGTH : I
+private static final PACKED_Z_LENGTH : I
+private static final PACKED_X_MASK : J
+private static final PACKED_Y_MASK : J
+private static final PACKED_Z_MASK : J
+private static final Y_OFFSET : I
+private static final Z_OFFSET : I
+private static final X_OFFSET : I
+private static final RELATIVE_X_SHIFT : I
+private static final RELATIVE_Y_SHIFT : I
+private static final RELATIVE_Z_SHIFT : I
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private <init>(III)V
+public static of(III)Lnet/minecraft/core/SectionPos;
+public static of(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/SectionPos;
+public static of(Lnet/minecraft/world/level/ChunkPos;I)Lnet/minecraft/core/SectionPos;
+public static of(Lnet/minecraft/world/level/entity/EntityAccess;)Lnet/minecraft/core/SectionPos;
+public static of(Lnet/minecraft/core/Position;)Lnet/minecraft/core/SectionPos;
+public static of(J)Lnet/minecraft/core/SectionPos;
+public static bottomOf(Lnet/minecraft/world/level/chunk/ChunkAccess;)Lnet/minecraft/core/SectionPos;
+public static offset(JLnet/minecraft/core/Direction;)J
+public static offset(JIII)J
+public static posToSectionCoord(D)I
+public static blockToSectionCoord(I)I
+public static blockToSectionCoord(D)I
+public static sectionRelative(I)I
+public static sectionRelativePos(Lnet/minecraft/core/BlockPos;)S
+public static sectionRelativeX(S)I
+public static sectionRelativeY(S)I
+public static sectionRelativeZ(S)I
+public relativeToBlockX(S)I
+public relativeToBlockY(S)I
+public relativeToBlockZ(S)I
+public relativeToBlockPos(S)Lnet/minecraft/core/BlockPos;
+public static sectionToBlockCoord(I)I
+public static sectionToBlockCoord(II)I
+public static x(J)I
+public static y(J)I
+public static z(J)I
+public x()I
+public y()I
+public z()I
+public minBlockX()I
+public minBlockY()I
+public minBlockZ()I
+public maxBlockX()I
+public maxBlockY()I
+public maxBlockZ()I
+public static blockToSection(J)J
+public static getZeroNode(II)J
+public static getZeroNode(J)J
+public static sectionToChunk(J)J
+public origin()Lnet/minecraft/core/BlockPos;
+public center()Lnet/minecraft/core/BlockPos;
+public chunk()Lnet/minecraft/world/level/ChunkPos;
+public static asLong(Lnet/minecraft/core/BlockPos;)J
+public static asLong(III)J
+public asLong()J
+public offset(III)Lnet/minecraft/core/SectionPos;
+public blocksInside()Ljava/util/stream/Stream;
+public static cube(Lnet/minecraft/core/SectionPos;I)Ljava/util/stream/Stream;
+public static aroundChunk(Lnet/minecraft/world/level/ChunkPos;III)Ljava/util/stream/Stream;
+public static betweenClosedStream(IIIIII)Ljava/util/stream/Stream;
+public static aroundAndAtBlockPos(Lnet/minecraft/core/BlockPos;Lit/unimi/dsi/fastutil/longs/LongConsumer;)V
+public static aroundAndAtBlockPos(JLit/unimi/dsi/fastutil/longs/LongConsumer;)V
+public static aroundAndAtBlockPos(IIILit/unimi/dsi/fastutil/longs/LongConsumer;)V
+public synthetic offset(III)Lnet/minecraft/core/Vec3i;
+static <clinit>()V
 ```

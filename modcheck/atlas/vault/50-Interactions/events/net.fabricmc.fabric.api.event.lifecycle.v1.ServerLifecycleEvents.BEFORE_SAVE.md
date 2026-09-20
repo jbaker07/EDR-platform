@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftServerMixin.startSave` | `MinecraftServer.saveAllChunks` @Inject at HEAD | both | static_inference |
+| `MinecraftServerMixin.startSave` @15 | [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]].`saveAllChunks` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

@@ -11,34 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/resource/v1/FabricResource`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getFabricPackSource()Lnet/minecraft/server/packs/repository/PackSource;` | `` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| calls | `getFabricPackSource()Lnet/minecraft/server/packs/repository/PackSource;` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `getFabricPackSource()Lnet/minecraft/server/packs/repository/PackSource;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `openAsReader()Ljava/io/BufferedReader;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `source()Lnet/minecraft/server/packs/PackResources;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getFabricPackSource` | `()Lnet/minecraft/server/packs/repository/PackSource;` | inherited_exact | invokevirtual@5 in `AdvancementUtil.determineSource` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| calls | `getFabricPackSource` | `()Lnet/minecraft/server/packs/repository/PackSource;` | inherited_exact | invokevirtual@5 in `ResourceUtil.determineSource` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `getFabricPackSource` | `()Lnet/minecraft/server/packs/repository/PackSource;` | inherited_exact | invokevirtual@5 in `LootUtil.determineSource` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `openAsReader` | `()Ljava/io/BufferedReader;` | exact | invokevirtual@33 in `StructureTemplateManagerMixin$1.load` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `openAsReader` | `()Ljava/io/BufferedReader;` | exact | invokevirtual@138 in `TagAliasLoader.prepare` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `source` | `()Lnet/minecraft/server/packs/PackResources;` | exact | invokevirtual@6 in `ResourceMixin.getFabricPackSource` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (4 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.packs.resources.Resource {
-    private final net.minecraft.server.packs.PackResources source;
-    private final net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream> streamSupplier;
-    private final net.minecraft.server.packs.resources.IoSupplier<net.minecraft.server.packs.resources.ResourceMetadata> metadataSupplier;
-    private net.minecraft.server.packs.resources.ResourceMetadata cachedMetadata;
-    public net.minecraft.server.packs.resources.Resource(net.minecraft.server.packs.PackResources, net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream>, net.minecraft.server.packs.resources.IoSupplier<net.minecraft.server.packs.resources.ResourceMetadata>);
-    public net.minecraft.server.packs.resources.Resource(net.minecraft.server.packs.PackResources, net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream>);
-    public net.minecraft.server.packs.PackResources source();
-    public java.lang.String sourcePackId();
-    public java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo();
-    public java.io.InputStream open() throws java.io.IOException;
-    public java.io.BufferedReader openAsReader() throws java.io.IOException;
-    public java.lang.String readAllAsString() throws java.io.IOException;
-    public net.minecraft.server.packs.resources.ResourceMetadata metadata() throws java.io.IOException;
-}
+```
+private final source : Lnet/minecraft/server/packs/PackResources;
+private final streamSupplier : Lnet/minecraft/server/packs/resources/IoSupplier;
+private final metadataSupplier : Lnet/minecraft/server/packs/resources/IoSupplier;
+private cachedMetadata : Lnet/minecraft/server/packs/resources/ResourceMetadata;
+public <init>(Lnet/minecraft/server/packs/PackResources;Lnet/minecraft/server/packs/resources/IoSupplier;Lnet/minecraft/server/packs/resources/IoSupplier;)V
+public <init>(Lnet/minecraft/server/packs/PackResources;Lnet/minecraft/server/packs/resources/IoSupplier;)V
+public source()Lnet/minecraft/server/packs/PackResources;
+public sourcePackId()Ljava/lang/String;
+public knownPackInfo()Ljava/util/Optional;
+public open()Ljava/io/InputStream;
+public openAsReader()Ljava/io/BufferedReader;
+public readAllAsString()Ljava/lang/String;
+public metadata()Lnet/minecraft/server/packs/resources/ResourceMetadata;
 ```

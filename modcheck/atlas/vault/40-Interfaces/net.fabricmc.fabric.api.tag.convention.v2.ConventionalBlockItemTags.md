@@ -100,7 +100,7 @@ public static final net.minecraft.tags.BlockItemTagId PURPLE_DYED
 public static final net.minecraft.tags.BlockItemTagId RED_DYED
 public static final net.minecraft.tags.BlockItemTagId WHITE_DYED
 public static final net.minecraft.tags.BlockItemTagId YELLOW_DYED
-public static final net.minecraft.world.level.block.ColorCollection<net.minecraft.tags.BlockItemTagId> COLOR_DYED
+public static final net.minecraft.world.level.block.ColorCollection COLOR_DYED
 public static final net.minecraft.tags.BlockItemTagId UNDYED_SIMPLE_DYEABLE
 public static final net.minecraft.tags.BlockItemTagId REDYEABLE_SIMPLE_DYEABLE
 public static final net.minecraft.tags.BlockItemTagId SIMPLE_DYEABLE
@@ -145,5 +145,4 @@ public static final net.minecraft.tags.BlockItemTagId ORE_RATES_SPARSE
 public static final net.minecraft.tags.BlockItemTagId ORES_IN_GROUND_DEEPSLATE
 public static final net.minecraft.tags.BlockItemTagId ORES_IN_GROUND_NETHERRACK
 public static final net.minecraft.tags.BlockItemTagId ORES_IN_GROUND_STONE
-static {}
 ```

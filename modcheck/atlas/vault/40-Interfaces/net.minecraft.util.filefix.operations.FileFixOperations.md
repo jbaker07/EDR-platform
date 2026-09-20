@@ -11,24 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util.filefix|net.minecraft.util.filefix]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `move(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/util/fi` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `move` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/util/filefix/oper` | exact | invokestatic@14 in `DimensionStorageFileFixMixin.addFabricAttachmentsMigration` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (0 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.filefix.operations.FileFixOperations {
-    public net.minecraft.util.filefix.operations.FileFixOperations();
-    public static net.minecraft.util.filefix.operations.Move moveSimple(java.lang.String);
-    public static net.minecraft.util.filefix.operations.Move move(java.lang.String, java.lang.String);
-    public static net.minecraft.util.filefix.operations.RegexMove moveRegex(java.lang.String, java.lang.String);
-    public static net.minecraft.util.filefix.operations.DeleteFileOrEmptyDirectory delete(java.lang.String);
-    public static net.minecraft.util.filefix.operations.ApplyInFolders applyInFolders(net.minecraft.util.filefix.access.FileRelation, java.util.List<net.minecraft.util.filefix.operations.FileFixOperation>);
-    public static net.minecraft.util.filefix.operations.GroupMove groupMove(java.util.Map<java.lang.String, java.lang.String>, java.util.List<net.minecraft.util.filefix.operations.Move>);
-}
+```
+public <init>()V
+public static moveSimple(Ljava/lang/String;)Lnet/minecraft/util/filefix/operations/Move;
+public static move(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/util/filefix/operations/Move;
+public static moveRegex(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/util/filefix/operations/RegexMove;
+public static delete(Ljava/lang/String;)Lnet/minecraft/util/filefix/operations/DeleteFileOrEmptyDirectory;
+public static applyInFolders(Lnet/minecraft/util/filefix/access/FileRelation;Ljava/util/List;)Lnet/minecraft/util/filefix/operations/ApplyInFolders;
+public static groupMove(Ljava/util/Map;Ljava/util/List;)Lnet/minecraft/util/filefix/operations/GroupMove;
 ```

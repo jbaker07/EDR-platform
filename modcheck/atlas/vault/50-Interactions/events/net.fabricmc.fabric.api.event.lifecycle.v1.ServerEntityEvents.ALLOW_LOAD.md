@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PersistentEntitySectionManagerMixin.net.fabricmc.fabric.mixin.event.lifecycle.PersistentEntitySectionManagerMixin` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `PersistentEntitySectionManagerMixin.beforeAddEntity` @42 | [[40-Interfaces/net.minecraft.world.level.entity.PersistentEntitySectionManager|PersistentEntitySectionManager]].`addEntity` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

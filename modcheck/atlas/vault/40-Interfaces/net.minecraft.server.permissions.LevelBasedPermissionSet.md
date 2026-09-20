@@ -11,28 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.permissions|net.minecraft.server.permissions]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/server/permissions/PermissionSet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `level()Lnet/minecraft/server/permissions/PermissionLevel;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `level` | `()Lnet/minecraft/server/permissions/PermissionLevel;` | exact | invokeinterface@28 in `PermissionContext.offlinePlayer` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/permissions/PermissionLevel;` | exact | invokeinterface@19 in `PermissionContext.offlinePlayer` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/permissions/PermissionLevel;` | exact | invokeinterface@13 in `CommandPermissionContext.extractPermissionLevel` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (5 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.permissions.LevelBasedPermissionSet extends net.minecraft.server.permissions.PermissionSet {
-    public static final net.minecraft.server.permissions.LevelBasedPermissionSet ALL;
-    public static final net.minecraft.server.permissions.LevelBasedPermissionSet MODERATOR;
-    public static final net.minecraft.server.permissions.LevelBasedPermissionSet GAMEMASTER;
-    public static final net.minecraft.server.permissions.LevelBasedPermissionSet ADMIN;
-    public static final net.minecraft.server.permissions.LevelBasedPermissionSet OWNER;
-    public abstract net.minecraft.server.permissions.PermissionLevel level();
-    public default boolean hasPermission(net.minecraft.server.permissions.Permission);
-    public default net.minecraft.server.permissions.PermissionSet union(net.minecraft.server.permissions.PermissionSet);
-    public static net.minecraft.server.permissions.LevelBasedPermissionSet forLevel(net.minecraft.server.permissions.PermissionLevel);
-    private static net.minecraft.server.permissions.LevelBasedPermissionSet create(net.minecraft.server.permissions.PermissionLevel);
-    static {};
-}
+```
+public static final ALL : Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+public static final MODERATOR : Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+public static final GAMEMASTER : Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+public static final ADMIN : Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+public static final OWNER : Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+public abstract level()Lnet/minecraft/server/permissions/PermissionLevel;
+public hasPermission(Lnet/minecraft/server/permissions/Permission;)Z
+public union(Lnet/minecraft/server/permissions/PermissionSet;)Lnet/minecraft/server/permissions/PermissionSet;
+public static forLevel(Lnet/minecraft/server/permissions/PermissionLevel;)Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+private static create(Lnet/minecraft/server/permissions/PermissionLevel;)Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+static <clinit>()V
 ```

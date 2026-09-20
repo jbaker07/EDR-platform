@@ -11,536 +11,545 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client|net.minecraft.client]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `chunkSectionFadeInTime()Lnet/minecraft/client/OptionInstance;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `cloudStatus()Lnet/minecraft/client/OptionInstance;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `cutoutLeaves()Lnet/minecraft/client/OptionInstance;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `getEffectiveRenderDistance()I` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `getSoundSourceOptionInstance(Lnet/minecraft/sounds/SoundSource;)Lnet/minecraft/client/Op` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `maxAnisotropyBit()Lnet/minecraft/client/OptionInstance;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `renderDistance()Lnet/minecraft/client/OptionInstance;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| injects_into | `<init>` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| injects_into | `load` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `load()V` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
-| reads | `keyAttackLnet/minecraft/client/KeyMapping;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `chunkSectionFadeInTime` | `()Lnet/minecraft/client/OptionInstance;` | exact | invokevirtual@29 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `cloudStatus` | `()Lnet/minecraft/client/OptionInstance;` | exact | invokevirtual@8 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `cutoutLeaves` | `()Lnet/minecraft/client/OptionInstance;` | exact | invokevirtual@6 in `FabricBlockStateModel.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `cutoutLeaves` | `()Lnet/minecraft/client/OptionInstance;` | exact | invokevirtual@6 in `SingleVariantMixin.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getEffectiveRenderDistance` | `()I` | exact | invokevirtual@4 in `TestServerConnectionImpl.areChunksLoaded` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getSoundSourceOptionInstance` | `(Lnet/minecraft/sounds/SoundSource;)Lnet/minecraft/client/OptionInstan` | exact | invokevirtual@59 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `maxAnisotropyBit` | `()Lnet/minecraft/client/OptionInstance;` | exact | invokevirtual@18 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `renderDistance` | `()Lnet/minecraft/client/OptionInstance;` | exact | invokevirtual@45 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/client/Minecraft;Ljava/io/File;)V` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| injects_into | `load` | `()V` | exact | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| injects_into | `load` | `()V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| reads | `advancedItemTooltips` | `Z` | exact | getfield@8 in `FluidVariantRendering.getTooltip` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `advancedItemTooltips` | `Z` | exact | getfield@8 in `FluidVariantRendering.getTooltip` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `keyAttack` | `Lnet/minecraft/client/KeyMapping;` | exact | getfield@4 in `MinecraftMixin.injectHandleInputEventsForPreAttackCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `keyAttack` | `Lnet/minecraft/client/KeyMapping;` | exact | getfield@20 in `MinecraftMixin.injectHandleInputEventsForPreAttackCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `keyMappings` | `[Lnet/minecraft/client/KeyMapping;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | declared |
+| reads | `resourcePacks` | `Ljava/util/List;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
+| wraps | `updateResourcePacks` | `(Lnet/minecraft/server/packs/repository/PackRepository;)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| writes | `onboardAccessibility` | `Z` | exact | putfield@41 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| writes | `tutorialStep` | `Lnet/minecraft/client/tutorial/TutorialSteps;` | exact | putfield@4 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (509, all visibilities)
+## Declared members (245 fields, 264 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.Options {
-    private static final org.slf4j.Logger LOGGER;
-    private static final com.google.gson.Gson GSON;
-    private static final com.google.gson.reflect.TypeToken<java.util.List<java.lang.String>> LIST_OF_STRINGS_TYPE;
-    public static final int RENDER_DISTANCE_SHORT;
-    public static final int RENDER_DISTANCE_FAR;
-    public static final int RENDER_DISTANCE_REALLY_FAR;
-    public static final int RENDER_DISTANCE_EXTREME;
-    private static final com.google.common.base.Splitter OPTION_SPLITTER;
-    private static final java.lang.String DEFAULT_SOUND_DEVICE;
-    private static final net.minecraft.network.chat.Component TOOLTIP_NEEDS_RESTART;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_DARK_MOJANG_BACKGROUND;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> darkMojangStudiosBackground;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_HIDE_LIGHTNING_FLASHES;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> hideLightningFlash;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_HIDE_SPLASH_TEXTS;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> hideSplashTexts;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> sensitivity;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> renderDistance;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> simulationDistance;
-    private int serverRenderDistance;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> entityDistanceScaling;
-    public static final int UNLIMITED_FRAMERATE_CUTOFF;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> framerateLimit;
-    private net.minecraft.client.PreferredGraphicsApi preferredGraphicsBackendFromStartup;
-    private static final net.minecraft.network.chat.Component GRAPHICS_API_TOOLTIP;
-    private static final net.minecraft.network.chat.Component GRAPHICS_API_TOOLTIP_VULKAN;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.PreferredGraphicsApi> preferredGraphicsBackend;
-    private boolean isApplyingGraphicsPreset;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.GraphicsPreset> graphicsPreset;
-    private static final net.minecraft.network.chat.Component INACTIVITY_FPS_LIMIT_TOOLTIP_MINIMIZED;
-    private static final net.minecraft.network.chat.Component INACTIVITY_FPS_LIMIT_TOOLTIP_AFK;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.InactivityFpsLimit> inactivityFpsLimit;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.CloudStatus> cloudStatus;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> cloudRange;
-    private static final net.minecraft.network.chat.Component GRAPHICS_TOOLTIP_WEATHER_RADIUS;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> weatherRadius;
-    private static final net.minecraft.network.chat.Component GRAPHICS_TOOLTIP_CUTOUT_LEAVES;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> cutoutLeaves;
-    private static final net.minecraft.network.chat.Component GRAPHICS_TOOLTIP_VIGNETTE;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> vignette;
-    private static final net.minecraft.network.chat.Component GRAPHICS_TOOLTIP_IMPROVED_TRANSPARENCY;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> improvedTransparency;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> ambientOcclusion;
-    private static final net.minecraft.network.chat.Component GRAPHICS_TOOLTIP_CHUNK_FADE;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chunkSectionFadeInTime;
-    private static final net.minecraft.network.chat.Component PRIORITIZE_CHUNK_TOOLTIP_NONE;
-    private static final net.minecraft.network.chat.Component PRIORITIZE_CHUNK_TOOLTIP_PLAYER_AFFECTED;
-    private static final net.minecraft.network.chat.Component PRIORITIZE_CHUNK_TOOLTIP_NEARBY;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.PrioritizeChunkUpdates> prioritizeChunkUpdates;
-    public java.util.List<java.lang.String> resourcePacks;
-    public java.util.List<java.lang.String> incompatibleResourcePacks;
-    private final net.minecraft.client.OptionInstance<net.minecraft.world.entity.player.ChatVisiblity> chatVisibility;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chatOpacity;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chatLineSpacing;
-    private static final net.minecraft.network.chat.Component MENU_BACKGROUND_BLURRINESS_TOOLTIP;
-    private static final int BLURRINESS_DEFAULT_VALUE;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> menuBackgroundBlurriness;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> textBackgroundOpacity;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> panoramaSpeed;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_CONTRAST_MODE;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> highContrast;
-    private static final net.minecraft.network.chat.Component HIGH_CONTRAST_BLOCK_OUTLINE_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> highContrastBlockOutline;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> narratorHotkey;
-    public java.lang.String fullscreenVideoModeString;
-    public boolean hideServerAddress;
-    public boolean advancedItemTooltips;
-    public boolean pauseOnLostFocus;
-    private final java.util.Set<net.minecraft.world.entity.player.PlayerModelPart> modelParts;
-    private final net.minecraft.client.OptionInstance<net.minecraft.world.entity.HumanoidArm> mainHand;
-    public int overrideWidth;
-    public int overrideHeight;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chatScale;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chatWidth;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chatHeightUnfocused;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chatHeightFocused;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> chatDelay;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_NOTIFICATION_DISPLAY_TIME;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> notificationDisplayTime;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> mipmapLevels;
-    private static final net.minecraft.network.chat.Component GRAPHICS_TOOLTIP_ANISOTROPIC_FILTERING;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> maxAnisotropyBit;
-    private static final net.minecraft.network.chat.Component FILTERING_NONE_TOOLTIP;
-    private static final net.minecraft.network.chat.Component FILTERING_RGSS_TOOLTIP;
-    private static final net.minecraft.network.chat.Component FILTERING_ANISOTROPIC_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.TextureFilteringMethod> textureFiltering;
-    private boolean useNativeTransport;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.AttackIndicatorStatus> attackIndicator;
-    public net.minecraft.client.tutorial.TutorialSteps tutorialStep;
-    public boolean joinedFirstServer;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> biomeBlendRadius;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> mouseWheelSensitivity;
-    private static final net.minecraft.network.chat.Component ALLOW_CURSOR_CHANGES_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> allowCursorChanges;
-    private static final net.minecraft.network.chat.Component QUIT_SHORTCUTS_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> quitShortcuts;
-    private static final net.minecraft.network.chat.Component CTRL_CLICK_EMULATES_RIGHT_CLICK_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> ctrlClickEmulatesRightClick;
-    public int glDebugVerbosity;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> autoJump;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_ROTATE_WITH_MINECART;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> rotateWithMinecart;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> operatorItemsTab;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> autoSuggestions;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> chatColors;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> chatLinks;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> chatLinksPrompt;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> enableVsync;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> entityShadows;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> forceUnicodeFont;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> japaneseGlyphVariants;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> invertXMouse;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> invertYMouse;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> discreteMouseScroll;
-    private static final net.minecraft.network.chat.Component REALMS_NOTIFICATIONS_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> realmsNotifications;
-    private static final net.minecraft.network.chat.Component ALLOW_SERVER_LISTING_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> allowServerListing;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> reducedDebugInfo;
-    private static final net.minecraft.network.chat.Component IN_GAME_NOTIFICATION_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> inGameNotification;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.PresenceSharing> sharePresence;
-    private final java.util.Map<net.minecraft.sounds.SoundSource, net.minecraft.client.OptionInstance<java.lang.Double>> soundSourceVolumes;
-    private static final net.minecraft.network.chat.Component CLOSED_CAPTIONS_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> showSubtitles;
-    private static final net.minecraft.network.chat.Component DIRECTIONAL_AUDIO_TOOLTIP_ON;
-    private static final net.minecraft.network.chat.Component DIRECTIONAL_AUDIO_TOOLTIP_OFF;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> directionalAudio;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> backgroundForChatOnly;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> fullscreen;
-    private static final net.minecraft.network.chat.Component TOOLTIP_EXCLUSIVE_FULLSCREEN_ON;
-    private static final net.minecraft.network.chat.Component TOOLTIP_EXCLUSIVE_FULLSCREEN_OFF;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> exclusiveFullscreen;
-    private static final net.minecraft.network.chat.Component MAC_FULLSCREEN_MENU_VISIBILITY_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> macFullscreenMenuVisibility;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> bobView;
-    private static final net.minecraft.network.chat.Component KEY_TOGGLE;
-    private static final net.minecraft.network.chat.Component KEY_HOLD;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> toggleCrouch;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> toggleSprint;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> toggleAttack;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> toggleUse;
-    private static final net.minecraft.network.chat.Component SPRINT_WINDOW_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> sprintWindow;
-    public boolean skipMultiplayerWarning;
-    private static final net.minecraft.network.chat.Component CHAT_TOOLTIP_HIDE_MATCHED_NAMES;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> hideMatchedNames;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> showAutosaveIndicator;
-    private static final net.minecraft.network.chat.Component CHAT_TOOLTIP_ONLY_SHOW_SECURE;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> onlyShowSecureChat;
-    private static final net.minecraft.network.chat.Component CHAT_TOOLTIP_SAVE_DRAFTS;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> saveChatDrafts;
-    public final net.minecraft.client.KeyMapping keyUp;
-    public final net.minecraft.client.KeyMapping keyLeft;
-    public final net.minecraft.client.KeyMapping keyDown;
-    public final net.minecraft.client.KeyMapping keyRight;
-    public final net.minecraft.client.KeyMapping keyJump;
-    public final net.minecraft.client.KeyMapping keyShift;
-    public final net.minecraft.client.KeyMapping keySprint;
-    public final net.minecraft.client.KeyMapping keyInventory;
-    public final net.minecraft.client.KeyMapping keySwapOffhand;
-    public final net.minecraft.client.KeyMapping keyDrop;
-    public final net.minecraft.client.KeyMapping keyUse;
-    public final net.minecraft.client.KeyMapping keyAttack;
-    public final net.minecraft.client.KeyMapping keyPickItem;
-    public final net.minecraft.client.KeyMapping keyChat;
-    public final net.minecraft.client.KeyMapping keyPlayerList;
-    public final net.minecraft.client.KeyMapping keyCommand;
-    public final net.minecraft.client.KeyMapping keyFriends;
-    public final net.minecraft.client.KeyMapping keySocialInteractions;
-    public final net.minecraft.client.KeyMapping keyScreenshot;
-    public final net.minecraft.client.KeyMapping keyTogglePerspective;
-    public final net.minecraft.client.KeyMapping keySmoothCamera;
-    public final net.minecraft.client.KeyMapping keyFullscreen;
-    public final net.minecraft.client.KeyMapping keyAdvancements;
-    public final net.minecraft.client.KeyMapping keyQuickActions;
-    public final net.minecraft.client.KeyMapping keyToggleGui;
-    public final net.minecraft.client.KeyMapping keyToggleSpectatorShaderEffects;
-    public final net.minecraft.client.KeyMapping[] keyHotbarSlots;
-    public final net.minecraft.client.KeyMapping keySaveHotbarActivator;
-    public final net.minecraft.client.KeyMapping keyLoadHotbarActivator;
-    public final net.minecraft.client.KeyMapping keySpectatorOutlines;
-    public final net.minecraft.client.KeyMapping keySpectatorHotbar;
-    public final net.minecraft.client.KeyMapping keyDebugOverlay;
-    public final net.minecraft.client.KeyMapping keyDebugModifier;
-    public final net.minecraft.client.KeyMapping keyDebugCrash;
-    public final net.minecraft.client.KeyMapping keyDebugReloadChunk;
-    public final net.minecraft.client.KeyMapping keyDebugShowHitboxes;
-    public final net.minecraft.client.KeyMapping keyDebugClearChat;
-    public final net.minecraft.client.KeyMapping keyDebugShowChunkBorders;
-    public final net.minecraft.client.KeyMapping keyDebugShowAdvancedTooltips;
-    public final net.minecraft.client.KeyMapping keyDebugCopyRecreateCommand;
-    public final net.minecraft.client.KeyMapping keyDebugSpectate;
-    public final net.minecraft.client.KeyMapping keyDebugSwitchGameMode;
-    public final net.minecraft.client.KeyMapping keyDebugDebugOptions;
-    public final net.minecraft.client.KeyMapping keyDebugFocusPause;
-    public final net.minecraft.client.KeyMapping keyDebugDumpDynamicTextures;
-    public final net.minecraft.client.KeyMapping keyDebugReloadResourcePacks;
-    public final net.minecraft.client.KeyMapping keyDebugProfiling;
-    public final net.minecraft.client.KeyMapping keyDebugCopyLocation;
-    public final net.minecraft.client.KeyMapping keyDebugDumpVersion;
-    public final net.minecraft.client.KeyMapping keyDebugPofilingChart;
-    public final net.minecraft.client.KeyMapping keyDebugFpsCharts;
-    public final net.minecraft.client.KeyMapping keyDebugNetworkCharts;
-    public final net.minecraft.client.KeyMapping keyDebugLightmapTexture;
-    public final net.minecraft.client.KeyMapping keyDebugSwitchTranslucencyMode;
-    public final net.minecraft.client.KeyMapping[] debugKeys;
-    public final net.minecraft.client.KeyMapping[] keyMappings;
-    protected net.minecraft.client.Minecraft minecraft;
-    private final java.io.File optionsFile;
-    private net.minecraft.client.CameraType cameraType;
-    public java.lang.String lastMpIp;
-    public boolean smoothCamera;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> fov;
-    private static final net.minecraft.network.chat.Component TELEMETRY_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Boolean> telemetryOptInExtra;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_SCREEN_EFFECT;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> screenEffectScale;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_FOV_EFFECT;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> fovEffectScale;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_DARKNESS_EFFECT;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> darknessEffectScale;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_GLINT_SPEED;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> glintSpeed;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_GLINT_STRENGTH;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> glintStrength;
-    private static final net.minecraft.network.chat.Component ACCESSIBILITY_TOOLTIP_DAMAGE_TILT_STRENGTH;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> damageTiltStrength;
-    private final net.minecraft.client.OptionInstance<java.lang.Double> gamma;
-    public static final int AUTO_GUI_SCALE;
-    private static final int MAX_GUI_SCALE_INCLUSIVE;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> guiScale;
-    public static final int DEBUG_GUI_SCALE_UNCHANGED;
-    private static final net.minecraft.network.chat.Component DEBUG_GUI_SCALE_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<java.lang.Integer> debugGuiScale;
-    private final net.minecraft.client.OptionInstance<net.minecraft.server.level.ParticleStatus> particles;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.NarratorStatus> narrator;
-    public java.lang.String languageCode;
-    private final net.minecraft.client.OptionInstance<java.lang.String> soundDevice;
-    public boolean onboardAccessibility;
-    private static final net.minecraft.network.chat.Component MUSIC_FREQUENCY_TOOLTIP;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.sounds.MusicManager$MusicFrequency> musicFrequency;
-    private final net.minecraft.client.OptionInstance<net.minecraft.client.MusicToastDisplayState> musicToast;
-    public boolean syncWrites;
-    public boolean startedCleanly;
-    public static boolean isSoundDeviceDefault(java.lang.String);
-    private static void operateOnLevelExtractor(java.util.function.Consumer<net.minecraft.client.renderer.extract.LevelExtractor>);
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> darkMojangStudiosBackground();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> hideLightningFlash();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> hideSplashTexts();
-    public net.minecraft.client.OptionInstance<java.lang.Double> sensitivity();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> renderDistance();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> simulationDistance();
-    public net.minecraft.client.OptionInstance<java.lang.Double> entityDistanceScaling();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> framerateLimit();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.PreferredGraphicsApi> preferredGraphicsBackend();
-    public boolean isRestartRequiredToApplyVideoSettings();
-    public void applyGraphicsPreset(net.minecraft.client.GraphicsPreset);
-    public net.minecraft.client.OptionInstance<net.minecraft.client.GraphicsPreset> graphicsPreset();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.InactivityFpsLimit> inactivityFpsLimit();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.CloudStatus> cloudStatus();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> cloudRange();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> weatherRadius();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> cutoutLeaves();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> vignette();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> improvedTransparency();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> ambientOcclusion();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chunkSectionFadeInTime();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.PrioritizeChunkUpdates> prioritizeChunkUpdates();
-    public void updateResourcePacks(net.minecraft.server.packs.repository.PackRepository);
-    public net.minecraft.client.OptionInstance<net.minecraft.world.entity.player.ChatVisiblity> chatVisibility();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chatOpacity();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chatLineSpacing();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> menuBackgroundBlurriness();
-    public int getMenuBackgroundBlurriness();
-    public net.minecraft.client.OptionInstance<java.lang.Double> textBackgroundOpacity();
-    public net.minecraft.client.OptionInstance<java.lang.Double> panoramaSpeed();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> highContrast();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> highContrastBlockOutline();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> narratorHotkey();
-    public net.minecraft.client.OptionInstance<net.minecraft.world.entity.HumanoidArm> mainHand();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chatScale();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chatWidth();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chatHeightUnfocused();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chatHeightFocused();
-    public net.minecraft.client.OptionInstance<java.lang.Double> chatDelay();
-    public net.minecraft.client.OptionInstance<java.lang.Double> notificationDisplayTime();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> mipmapLevels();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> maxAnisotropyBit();
-    public int maxAnisotropyValue();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.TextureFilteringMethod> textureFiltering();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.AttackIndicatorStatus> attackIndicator();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> biomeBlendRadius();
-    private static double logMouse(int);
-    private static int unlogMouse(double);
-    public net.minecraft.client.OptionInstance<java.lang.Double> mouseWheelSensitivity();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> allowCursorChanges();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> quitShortcuts();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> ctrlClickEmulatesRightClick();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> autoJump();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> rotateWithMinecart();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> operatorItemsTab();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> autoSuggestions();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> chatColors();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> chatLinks();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> chatLinksPrompt();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> enableVsync();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> entityShadows();
-    private static void updateFontOptions();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> forceUnicodeFont();
-    private static boolean japaneseGlyphVariantsDefault();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> japaneseGlyphVariants();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> invertMouseX();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> invertMouseY();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> discreteMouseScroll();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> realmsNotifications();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> allowServerListing();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> reducedDebugInfo();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> inGameNotification();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.PresenceSharing> sharePresence();
-    public final float getFinalSoundSourceVolume(net.minecraft.sounds.SoundSource);
-    public final float getSoundSourceVolume(net.minecraft.sounds.SoundSource);
-    public final net.minecraft.client.OptionInstance<java.lang.Double> getSoundSourceOptionInstance(net.minecraft.sounds.SoundSource);
-    private net.minecraft.client.OptionInstance<java.lang.Double> createSoundSliderOptionInstance(java.lang.String, net.minecraft.sounds.SoundSource);
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> showSubtitles();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> directionalAudio();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> backgroundForChatOnly();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> fullscreen();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> exclusiveFullscreen();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> macFullscreenMenuVisibility();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> bobView();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> toggleCrouch();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> toggleSprint();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> toggleAttack();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> toggleUse();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> sprintWindow();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> hideMatchedNames();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> showAutosaveIndicator();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> onlyShowSecureChat();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> saveChatDrafts();
-    private void setGraphicsPresetToCustom();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> fov();
-    public net.minecraft.client.OptionInstance<java.lang.Boolean> telemetryOptInExtra();
-    public net.minecraft.client.OptionInstance<java.lang.Double> screenEffectScale();
-    public net.minecraft.client.OptionInstance<java.lang.Double> fovEffectScale();
-    public net.minecraft.client.OptionInstance<java.lang.Double> darknessEffectScale();
-    public net.minecraft.client.OptionInstance<java.lang.Double> glintSpeed();
-    public net.minecraft.client.OptionInstance<java.lang.Double> glintStrength();
-    public net.minecraft.client.OptionInstance<java.lang.Double> damageTiltStrength();
-    public net.minecraft.client.OptionInstance<java.lang.Double> gamma();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> guiScale();
-    public net.minecraft.client.OptionInstance<java.lang.Integer> debugGuiScale();
-    public net.minecraft.client.OptionInstance<net.minecraft.server.level.ParticleStatus> particles();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.NarratorStatus> narrator();
-    public net.minecraft.client.OptionInstance<java.lang.String> soundDevice();
-    public void onboardingAccessibilityFinished();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.sounds.MusicManager$MusicFrequency> musicFrequency();
-    public net.minecraft.client.OptionInstance<net.minecraft.client.MusicToastDisplayState> musicToast();
-    public net.minecraft.client.Options(net.minecraft.client.Minecraft, java.io.File);
-    public float getBackgroundOpacity(float);
-    public int getBackgroundColor(float);
-    public int getBackgroundColor(int);
-    private void processDumpedOptions(net.minecraft.client.Options$OptionAccess);
-    private void processOptions(net.minecraft.client.Options$FieldAccess);
-    public void load();
-    private static boolean isTrue(java.lang.String);
-    private static boolean isFalse(java.lang.String);
-    private net.minecraft.nbt.CompoundTag dataFix(net.minecraft.nbt.CompoundTag);
-    public void save();
-    private java.lang.String getFullscreenVideoModeString();
-    public net.minecraft.server.level.ClientInformation buildPlayerInformation();
-    public void broadcastOptions();
-    public void setModelPart(net.minecraft.world.entity.player.PlayerModelPart, boolean);
-    public boolean isModelPartEnabled(net.minecraft.world.entity.player.PlayerModelPart);
-    public net.minecraft.client.CloudStatus getCloudStatus();
-    public boolean useNativeTransport();
-    public void loadSelectedResourcePacks(net.minecraft.server.packs.repository.PackRepository);
-    public net.minecraft.client.CameraType getCameraType();
-    public void setCameraType(net.minecraft.client.CameraType);
-    private static java.util.List<java.lang.String> readListOfStrings(java.lang.String);
-    public java.io.File getFile();
-    public java.lang.String dumpOptionsForReport();
-    public void setServerRenderDistance(int);
-    public int getEffectiveRenderDistance();
-    private static net.minecraft.network.chat.Component pixelValueLabel(net.minecraft.network.chat.Component, int);
-    private static net.minecraft.network.chat.Component percentValueLabel(net.minecraft.network.chat.Component, double);
-    public static net.minecraft.network.chat.Component genericValueLabel(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component);
-    public static net.minecraft.network.chat.Component genericValueLabel(net.minecraft.network.chat.Component, int);
-    public static net.minecraft.network.chat.Component genericValueOrOffLabel(net.minecraft.network.chat.Component, int);
-    private static net.minecraft.network.chat.Component percentValueOrOffLabel(net.minecraft.network.chat.Component, double);
-    private static java.lang.String lambda$dumpOptionsForReport$0(com.mojang.datafixers.util.Pair);
-    private void lambda$load$1(java.lang.String);
-    private static void lambda$load$0(net.minecraft.nbt.CompoundTag, java.lang.String);
-    private void lambda$new$112(java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$111(net.minecraft.network.chat.Component, java.lang.Integer);
-    private void lambda$new$110(java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$109(net.minecraft.network.chat.Component, java.lang.Integer);
-    private void lambda$new$108(net.minecraft.client.MusicToastDisplayState);
-    private static net.minecraft.network.chat.Component lambda$new$107(net.minecraft.network.chat.Component, net.minecraft.client.MusicToastDisplayState);
-    private static net.minecraft.client.gui.components.Tooltip lambda$new$106(net.minecraft.client.MusicToastDisplayState);
-    private static void lambda$new$105(net.minecraft.client.sounds.MusicManager$MusicFrequency);
-    private static net.minecraft.network.chat.Component lambda$new$104(net.minecraft.network.chat.Component, net.minecraft.client.sounds.MusicManager$MusicFrequency);
-    private static void lambda$new$103(java.lang.String);
-    private static java.util.Optional lambda$new$102(java.lang.String);
-    private static java.util.List lambda$new$101();
-    private static net.minecraft.network.chat.Component lambda$new$100(net.minecraft.network.chat.Component, java.lang.String);
-    private void lambda$new$99(net.minecraft.client.NarratorStatus);
-    private net.minecraft.network.chat.Component lambda$new$98(net.minecraft.network.chat.Component, net.minecraft.client.NarratorStatus);
-    private void lambda$new$97(net.minecraft.server.level.ParticleStatus);
-    private static net.minecraft.network.chat.Component lambda$new$96(net.minecraft.network.chat.Component, net.minecraft.server.level.ParticleStatus);
-    private static void lambda$new$95(java.lang.Integer);
-    private static int lambda$new$94();
-    private static net.minecraft.network.chat.Component lambda$new$93(net.minecraft.network.chat.Component, java.lang.Integer);
-    private void lambda$new$92(java.lang.Integer);
-    private static int lambda$new$91();
-    private static net.minecraft.network.chat.Component lambda$new$90(net.minecraft.network.chat.Component, java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$89(net.minecraft.network.chat.Component, java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$88(net.minecraft.network.chat.Component, java.lang.Boolean);
-    private static java.lang.Double lambda$new$87(java.lang.Integer);
-    private static java.lang.Integer lambda$new$86(java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$85(net.minecraft.network.chat.Component, java.lang.Integer);
-    private static net.minecraft.client.KeyMapping[] lambda$keyMappings$0(int);
-    private static net.minecraft.network.chat.Component lambda$new$84(net.minecraft.network.chat.Component, java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$83(net.minecraft.network.chat.Component, java.lang.Boolean);
-    private static net.minecraft.network.chat.Component lambda$new$82(net.minecraft.network.chat.Component, java.lang.Boolean);
-    private static net.minecraft.network.chat.Component lambda$new$81(net.minecraft.network.chat.Component, java.lang.Boolean);
-    private static net.minecraft.network.chat.Component lambda$new$80(net.minecraft.network.chat.Component, java.lang.Boolean);
-    private static void lambda$new$79(java.lang.Boolean);
-    private static net.minecraft.client.gui.components.Tooltip lambda$new$78(java.lang.Boolean);
-    private static void lambda$new$77(java.lang.Boolean);
-    private static net.minecraft.network.chat.Component lambda$new$76(net.minecraft.network.chat.Component, java.lang.Boolean);
-    private static void lambda$new$75(java.lang.Boolean);
-    private static net.minecraft.client.gui.components.Tooltip lambda$new$74(java.lang.Boolean);
-    private void lambda$createSoundSliderOptionInstance$0(net.minecraft.sounds.SoundSource, java.lang.Double);
-    private net.minecraft.client.OptionInstance lambda$new$73(net.minecraft.sounds.SoundSource);
-    private static void lambda$new$72(net.minecraft.client.PresenceSharing);
-    private static net.minecraft.network.chat.Component lambda$new$71(net.minecraft.network.chat.Component, net.minecraft.client.PresenceSharing);
-    private static net.minecraft.client.gui.components.Tooltip lambda$new$70(net.minecraft.client.PresenceSharing);
-    private static void lambda$new$69(java.lang.Boolean);
-    private static void lambda$new$68(java.lang.Boolean);
-    private static void lambda$new$67(java.lang.Boolean);
-    private void lambda$new$66(java.lang.Boolean);
-    private static void lambda$new$65(java.lang.Boolean);
-    private static void lambda$new$64(java.lang.Boolean);
-    private static void lambda$new$63(java.lang.Boolean);
-    private static net.minecraft.network.chat.Component lambda$new$62(net.minecraft.network.chat.Component, java.lang.Double);
-    private void lambda$new$61(java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$60(net.minecraft.network.chat.Component, java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$59(net.minecraft.network.chat.Component, net.minecraft.client.AttackIndicatorStatus);
-    private void lambda$new$58(net.minecraft.client.TextureFilteringMethod);
-    private static net.minecraft.network.chat.Component lambda$new$57(net.minecraft.network.chat.Component, net.minecraft.client.TextureFilteringMethod);
-    private static net.minecraft.client.gui.components.Tooltip lambda$new$56(net.minecraft.client.TextureFilteringMethod);
-    private void lambda$new$55(java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$54(net.minecraft.network.chat.Component, java.lang.Integer);
-    private void lambda$new$53(java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$52(net.minecraft.network.chat.Component, java.lang.Integer);
-    private static int lambda$new$51(java.lang.Double);
-    private static java.lang.Double lambda$new$50(int);
-    private static net.minecraft.network.chat.Component lambda$new$49(net.minecraft.network.chat.Component, java.lang.Double);
-    private static void lambda$new$48(java.lang.Double);
-    private static int lambda$new$47(java.lang.Double);
-    private static java.lang.Double lambda$new$46(int);
-    private static net.minecraft.network.chat.Component lambda$new$45(net.minecraft.network.chat.Component, java.lang.Double);
-    private static void lambda$new$44(java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$43(net.minecraft.network.chat.Component, java.lang.Double);
-    private static void lambda$new$42(java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$41(net.minecraft.network.chat.Component, java.lang.Double);
-    private static void lambda$new$40(java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$39(net.minecraft.network.chat.Component, java.lang.Double);
-    private static void lambda$new$38(java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$37(net.minecraft.network.chat.Component, java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$36(net.minecraft.network.chat.Component, net.minecraft.world.entity.HumanoidArm);
-    private void lambda$new$35(java.lang.Boolean);
-    private static void lambda$new$34(java.lang.Double);
-    private void lambda$new$33(java.lang.Integer);
-    private static void lambda$new$32(java.lang.Double);
-    private static net.minecraft.network.chat.Component lambda$new$31(net.minecraft.network.chat.Component, java.lang.Double);
-    private static void lambda$new$30(net.minecraft.world.entity.player.ChatVisiblity);
-    private static net.minecraft.network.chat.Component lambda$new$29(net.minecraft.network.chat.Component, net.minecraft.world.entity.player.ChatVisiblity);
-    private void lambda$new$28(net.minecraft.client.PrioritizeChunkUpdates);
-    private static net.minecraft.network.chat.Component lambda$new$27(net.minecraft.network.chat.Component, net.minecraft.client.PrioritizeChunkUpdates);
-    private static net.minecraft.client.gui.components.Tooltip lambda$new$26(net.minecraft.client.PrioritizeChunkUpdates);
-    private static int lambda$new$25(java.lang.Double);
-    private static java.lang.Double lambda$new$24(int);
-    private static net.minecraft.network.chat.Component lambda$new$23(net.minecraft.network.chat.Component, java.lang.Double);
-    private void lambda$new$22(java.lang.Boolean);
-    private void lambda$new$21(java.lang.Boolean);
-    private void lambda$new$20(java.lang.Boolean);
-    private void lambda$new$19(java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$18(net.minecraft.network.chat.Component, java.lang.Integer);
-    private void lambda$new$17(java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$new$16(net.minecraft.network.chat.Component, java.lang.Integer);
-    private void lambda$new$15(net.minecraft.client.CloudStatus);
-    private static net.minecraft.client.CloudStatus lambda$new$14(java.lang.Boolean);
-    private static net.minecraft.network.chat.Component lambda$new$13(net.minecraft.network.chat.Component, net.minecraft.client.CloudStatus);
-    private static net.minecraft.network.chat.Component lambda$new$12(net.minecraft.network.chat.Component, net.minecraft.client.InactivityFpsLimit);
-    private static net.minecraft.client.gui.components.Tooltip lambda$new$11(net.minecraft.client.InactivityFpsLimit);
-    private static net.minecraft.network.chat.Component lambda$new$10(net.minecraft.network.chat.Component, net.minecraft.client.GraphicsPreset);
-    private static net.minecraft.network.chat.Component lambda$new$9(net.minecraft.network.chat.Component, net.minecraft.client.PreferredGraphicsApi);
-    private net.minecraft.client.gui.components.Tooltip lambda$new$8(net.minecraft.client.PreferredGraphicsApi);
-    private static void lambda$new$7(java.lang.Integer);
-    private static int lambda$new$6(java.lang.Integer);
-    private static java.lang.Integer lambda$new$5(int);
-    private static net.minecraft.network.chat.Component lambda$new$4(net.minecraft.network.chat.Component, java.lang.Integer);
-    private void lambda$new$3(java.lang.Double);
-    private static int lambda$new$2(java.lang.Double);
-    private static java.lang.Double lambda$new$1(int);
-    private static net.minecraft.network.chat.Component lambda$new$0(net.minecraft.network.chat.Component, java.lang.Double);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final GSON : Lcom/google/gson/Gson;
+private static final LIST_OF_STRINGS_TYPE : Lcom/google/gson/reflect/TypeToken;
+public static final RENDER_DISTANCE_SHORT : I
+public static final RENDER_DISTANCE_FAR : I
+public static final RENDER_DISTANCE_REALLY_FAR : I
+public static final RENDER_DISTANCE_EXTREME : I
+private static final OPTION_SPLITTER : Lcom/google/common/base/Splitter;
+private static final DEFAULT_SOUND_DEVICE : Ljava/lang/String;
+private static final TOOLTIP_NEEDS_RESTART : Lnet/minecraft/network/chat/Component;
+private static final ACCESSIBILITY_TOOLTIP_DARK_MOJANG_BACKGROUND : Lnet/minecraft/network/chat/Component;
+private final darkMojangStudiosBackground : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_HIDE_LIGHTNING_FLASHES : Lnet/minecraft/network/chat/Component;
+private final hideLightningFlash : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_HIDE_SPLASH_TEXTS : Lnet/minecraft/network/chat/Component;
+private final hideSplashTexts : Lnet/minecraft/client/OptionInstance;
+private final sensitivity : Lnet/minecraft/client/OptionInstance;
+private final renderDistance : Lnet/minecraft/client/OptionInstance;
+private final simulationDistance : Lnet/minecraft/client/OptionInstance;
+private serverRenderDistance : I
+private final entityDistanceScaling : Lnet/minecraft/client/OptionInstance;
+public static final UNLIMITED_FRAMERATE_CUTOFF : I
+private final framerateLimit : Lnet/minecraft/client/OptionInstance;
+private preferredGraphicsBackendFromStartup : Lnet/minecraft/client/PreferredGraphicsApi;
+private static final GRAPHICS_API_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private static final GRAPHICS_API_TOOLTIP_VULKAN : Lnet/minecraft/network/chat/Component;
+private final preferredGraphicsBackend : Lnet/minecraft/client/OptionInstance;
+private isApplyingGraphicsPreset : Z
+private final graphicsPreset : Lnet/minecraft/client/OptionInstance;
+private static final INACTIVITY_FPS_LIMIT_TOOLTIP_MINIMIZED : Lnet/minecraft/network/chat/Component;
+private static final INACTIVITY_FPS_LIMIT_TOOLTIP_AFK : Lnet/minecraft/network/chat/Component;
+private final inactivityFpsLimit : Lnet/minecraft/client/OptionInstance;
+private final cloudStatus : Lnet/minecraft/client/OptionInstance;
+private final cloudRange : Lnet/minecraft/client/OptionInstance;
+private static final GRAPHICS_TOOLTIP_WEATHER_RADIUS : Lnet/minecraft/network/chat/Component;
+private final weatherRadius : Lnet/minecraft/client/OptionInstance;
+private static final GRAPHICS_TOOLTIP_CUTOUT_LEAVES : Lnet/minecraft/network/chat/Component;
+private final cutoutLeaves : Lnet/minecraft/client/OptionInstance;
+private static final GRAPHICS_TOOLTIP_VIGNETTE : Lnet/minecraft/network/chat/Component;
+private final vignette : Lnet/minecraft/client/OptionInstance;
+private static final GRAPHICS_TOOLTIP_IMPROVED_TRANSPARENCY : Lnet/minecraft/network/chat/Component;
+private final improvedTransparency : Lnet/minecraft/client/OptionInstance;
+private final ambientOcclusion : Lnet/minecraft/client/OptionInstance;
+private static final GRAPHICS_TOOLTIP_CHUNK_FADE : Lnet/minecraft/network/chat/Component;
+private final chunkSectionFadeInTime : Lnet/minecraft/client/OptionInstance;
+private static final PRIORITIZE_CHUNK_TOOLTIP_NONE : Lnet/minecraft/network/chat/Component;
+private static final PRIORITIZE_CHUNK_TOOLTIP_PLAYER_AFFECTED : Lnet/minecraft/network/chat/Component;
+private static final PRIORITIZE_CHUNK_TOOLTIP_NEARBY : Lnet/minecraft/network/chat/Component;
+private final prioritizeChunkUpdates : Lnet/minecraft/client/OptionInstance;
+public resourcePacks : Ljava/util/List;
+public incompatibleResourcePacks : Ljava/util/List;
+private final chatVisibility : Lnet/minecraft/client/OptionInstance;
+private final chatOpacity : Lnet/minecraft/client/OptionInstance;
+private final chatLineSpacing : Lnet/minecraft/client/OptionInstance;
+private static final MENU_BACKGROUND_BLURRINESS_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private static final BLURRINESS_DEFAULT_VALUE : I
+private final menuBackgroundBlurriness : Lnet/minecraft/client/OptionInstance;
+private final textBackgroundOpacity : Lnet/minecraft/client/OptionInstance;
+private final panoramaSpeed : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_CONTRAST_MODE : Lnet/minecraft/network/chat/Component;
+private final highContrast : Lnet/minecraft/client/OptionInstance;
+private static final HIGH_CONTRAST_BLOCK_OUTLINE_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final highContrastBlockOutline : Lnet/minecraft/client/OptionInstance;
+private final narratorHotkey : Lnet/minecraft/client/OptionInstance;
+public fullscreenVideoModeString : Ljava/lang/String;
+public hideServerAddress : Z
+public advancedItemTooltips : Z
+public pauseOnLostFocus : Z
+private final modelParts : Ljava/util/Set;
+private final mainHand : Lnet/minecraft/client/OptionInstance;
+public overrideWidth : I
+public overrideHeight : I
+private final chatScale : Lnet/minecraft/client/OptionInstance;
+private final chatWidth : Lnet/minecraft/client/OptionInstance;
+private final chatHeightUnfocused : Lnet/minecraft/client/OptionInstance;
+private final chatHeightFocused : Lnet/minecraft/client/OptionInstance;
+private final chatDelay : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_NOTIFICATION_DISPLAY_TIME : Lnet/minecraft/network/chat/Component;
+private final notificationDisplayTime : Lnet/minecraft/client/OptionInstance;
+private final mipmapLevels : Lnet/minecraft/client/OptionInstance;
+private static final GRAPHICS_TOOLTIP_ANISOTROPIC_FILTERING : Lnet/minecraft/network/chat/Component;
+private final maxAnisotropyBit : Lnet/minecraft/client/OptionInstance;
+private static final FILTERING_NONE_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private static final FILTERING_RGSS_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private static final FILTERING_ANISOTROPIC_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final textureFiltering : Lnet/minecraft/client/OptionInstance;
+private useNativeTransport : Z
+private final attackIndicator : Lnet/minecraft/client/OptionInstance;
+public tutorialStep : Lnet/minecraft/client/tutorial/TutorialSteps;
+public joinedFirstServer : Z
+private final biomeBlendRadius : Lnet/minecraft/client/OptionInstance;
+private final mouseWheelSensitivity : Lnet/minecraft/client/OptionInstance;
+private static final ALLOW_CURSOR_CHANGES_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final allowCursorChanges : Lnet/minecraft/client/OptionInstance;
+private static final QUIT_SHORTCUTS_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final quitShortcuts : Lnet/minecraft/client/OptionInstance;
+private static final CTRL_CLICK_EMULATES_RIGHT_CLICK_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final ctrlClickEmulatesRightClick : Lnet/minecraft/client/OptionInstance;
+public glDebugVerbosity : I
+private final autoJump : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_ROTATE_WITH_MINECART : Lnet/minecraft/network/chat/Component;
+private final rotateWithMinecart : Lnet/minecraft/client/OptionInstance;
+private final operatorItemsTab : Lnet/minecraft/client/OptionInstance;
+private final autoSuggestions : Lnet/minecraft/client/OptionInstance;
+private final chatColors : Lnet/minecraft/client/OptionInstance;
+private final chatLinks : Lnet/minecraft/client/OptionInstance;
+private final chatLinksPrompt : Lnet/minecraft/client/OptionInstance;
+private final enableVsync : Lnet/minecraft/client/OptionInstance;
+private final entityShadows : Lnet/minecraft/client/OptionInstance;
+private final forceUnicodeFont : Lnet/minecraft/client/OptionInstance;
+private final japaneseGlyphVariants : Lnet/minecraft/client/OptionInstance;
+private final invertXMouse : Lnet/minecraft/client/OptionInstance;
+private final invertYMouse : Lnet/minecraft/client/OptionInstance;
+private final discreteMouseScroll : Lnet/minecraft/client/OptionInstance;
+private static final REALMS_NOTIFICATIONS_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final realmsNotifications : Lnet/minecraft/client/OptionInstance;
+private static final ALLOW_SERVER_LISTING_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final allowServerListing : Lnet/minecraft/client/OptionInstance;
+private final reducedDebugInfo : Lnet/minecraft/client/OptionInstance;
+private static final IN_GAME_NOTIFICATION_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final inGameNotification : Lnet/minecraft/client/OptionInstance;
+private final sharePresence : Lnet/minecraft/client/OptionInstance;
+private final soundSourceVolumes : Ljava/util/Map;
+private static final CLOSED_CAPTIONS_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final showSubtitles : Lnet/minecraft/client/OptionInstance;
+private static final DIRECTIONAL_AUDIO_TOOLTIP_ON : Lnet/minecraft/network/chat/Component;
+private static final DIRECTIONAL_AUDIO_TOOLTIP_OFF : Lnet/minecraft/network/chat/Component;
+private final directionalAudio : Lnet/minecraft/client/OptionInstance;
+private final backgroundForChatOnly : Lnet/minecraft/client/OptionInstance;
+private final fullscreen : Lnet/minecraft/client/OptionInstance;
+private static final TOOLTIP_EXCLUSIVE_FULLSCREEN_ON : Lnet/minecraft/network/chat/Component;
+private static final TOOLTIP_EXCLUSIVE_FULLSCREEN_OFF : Lnet/minecraft/network/chat/Component;
+private final exclusiveFullscreen : Lnet/minecraft/client/OptionInstance;
+private static final MAC_FULLSCREEN_MENU_VISIBILITY_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final macFullscreenMenuVisibility : Lnet/minecraft/client/OptionInstance;
+private final bobView : Lnet/minecraft/client/OptionInstance;
+private static final KEY_TOGGLE : Lnet/minecraft/network/chat/Component;
+private static final KEY_HOLD : Lnet/minecraft/network/chat/Component;
+private final toggleCrouch : Lnet/minecraft/client/OptionInstance;
+private final toggleSprint : Lnet/minecraft/client/OptionInstance;
+private final toggleAttack : Lnet/minecraft/client/OptionInstance;
+private final toggleUse : Lnet/minecraft/client/OptionInstance;
+private static final SPRINT_WINDOW_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final sprintWindow : Lnet/minecraft/client/OptionInstance;
+public skipMultiplayerWarning : Z
+private static final CHAT_TOOLTIP_HIDE_MATCHED_NAMES : Lnet/minecraft/network/chat/Component;
+private final hideMatchedNames : Lnet/minecraft/client/OptionInstance;
+private final showAutosaveIndicator : Lnet/minecraft/client/OptionInstance;
+private static final CHAT_TOOLTIP_ONLY_SHOW_SECURE : Lnet/minecraft/network/chat/Component;
+private final onlyShowSecureChat : Lnet/minecraft/client/OptionInstance;
+private static final CHAT_TOOLTIP_SAVE_DRAFTS : Lnet/minecraft/network/chat/Component;
+private final saveChatDrafts : Lnet/minecraft/client/OptionInstance;
+public final keyUp : Lnet/minecraft/client/KeyMapping;
+public final keyLeft : Lnet/minecraft/client/KeyMapping;
+public final keyDown : Lnet/minecraft/client/KeyMapping;
+public final keyRight : Lnet/minecraft/client/KeyMapping;
+public final keyJump : Lnet/minecraft/client/KeyMapping;
+public final keyShift : Lnet/minecraft/client/KeyMapping;
+public final keySprint : Lnet/minecraft/client/KeyMapping;
+public final keyInventory : Lnet/minecraft/client/KeyMapping;
+public final keySwapOffhand : Lnet/minecraft/client/KeyMapping;
+public final keyDrop : Lnet/minecraft/client/KeyMapping;
+public final keyUse : Lnet/minecraft/client/KeyMapping;
+public final keyAttack : Lnet/minecraft/client/KeyMapping;
+public final keyPickItem : Lnet/minecraft/client/KeyMapping;
+public final keyChat : Lnet/minecraft/client/KeyMapping;
+public final keyPlayerList : Lnet/minecraft/client/KeyMapping;
+public final keyCommand : Lnet/minecraft/client/KeyMapping;
+public final keyFriends : Lnet/minecraft/client/KeyMapping;
+public final keySocialInteractions : Lnet/minecraft/client/KeyMapping;
+public final keyScreenshot : Lnet/minecraft/client/KeyMapping;
+public final keyTogglePerspective : Lnet/minecraft/client/KeyMapping;
+public final keySmoothCamera : Lnet/minecraft/client/KeyMapping;
+public final keyFullscreen : Lnet/minecraft/client/KeyMapping;
+public final keyAdvancements : Lnet/minecraft/client/KeyMapping;
+public final keyQuickActions : Lnet/minecraft/client/KeyMapping;
+public final keyToggleGui : Lnet/minecraft/client/KeyMapping;
+public final keyToggleSpectatorShaderEffects : Lnet/minecraft/client/KeyMapping;
+public final keyHotbarSlots : [Lnet/minecraft/client/KeyMapping;
+public final keySaveHotbarActivator : Lnet/minecraft/client/KeyMapping;
+public final keyLoadHotbarActivator : Lnet/minecraft/client/KeyMapping;
+public final keySpectatorOutlines : Lnet/minecraft/client/KeyMapping;
+public final keySpectatorHotbar : Lnet/minecraft/client/KeyMapping;
+public final keyDebugOverlay : Lnet/minecraft/client/KeyMapping;
+public final keyDebugModifier : Lnet/minecraft/client/KeyMapping;
+public final keyDebugCrash : Lnet/minecraft/client/KeyMapping;
+public final keyDebugReloadChunk : Lnet/minecraft/client/KeyMapping;
+public final keyDebugShowHitboxes : Lnet/minecraft/client/KeyMapping;
+public final keyDebugClearChat : Lnet/minecraft/client/KeyMapping;
+public final keyDebugShowChunkBorders : Lnet/minecraft/client/KeyMapping;
+public final keyDebugShowAdvancedTooltips : Lnet/minecraft/client/KeyMapping;
+public final keyDebugCopyRecreateCommand : Lnet/minecraft/client/KeyMapping;
+public final keyDebugSpectate : Lnet/minecraft/client/KeyMapping;
+public final keyDebugSwitchGameMode : Lnet/minecraft/client/KeyMapping;
+public final keyDebugDebugOptions : Lnet/minecraft/client/KeyMapping;
+public final keyDebugFocusPause : Lnet/minecraft/client/KeyMapping;
+public final keyDebugDumpDynamicTextures : Lnet/minecraft/client/KeyMapping;
+public final keyDebugReloadResourcePacks : Lnet/minecraft/client/KeyMapping;
+public final keyDebugProfiling : Lnet/minecraft/client/KeyMapping;
+public final keyDebugCopyLocation : Lnet/minecraft/client/KeyMapping;
+public final keyDebugDumpVersion : Lnet/minecraft/client/KeyMapping;
+public final keyDebugPofilingChart : Lnet/minecraft/client/KeyMapping;
+public final keyDebugFpsCharts : Lnet/minecraft/client/KeyMapping;
+public final keyDebugNetworkCharts : Lnet/minecraft/client/KeyMapping;
+public final keyDebugLightmapTexture : Lnet/minecraft/client/KeyMapping;
+public final keyDebugSwitchTranslucencyMode : Lnet/minecraft/client/KeyMapping;
+public final debugKeys : [Lnet/minecraft/client/KeyMapping;
+public final keyMappings : [Lnet/minecraft/client/KeyMapping;
+protected minecraft : Lnet/minecraft/client/Minecraft;
+private final optionsFile : Ljava/io/File;
+private cameraType : Lnet/minecraft/client/CameraType;
+public lastMpIp : Ljava/lang/String;
+public smoothCamera : Z
+private final fov : Lnet/minecraft/client/OptionInstance;
+private static final TELEMETRY_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final telemetryOptInExtra : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_SCREEN_EFFECT : Lnet/minecraft/network/chat/Component;
+private final screenEffectScale : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_FOV_EFFECT : Lnet/minecraft/network/chat/Component;
+private final fovEffectScale : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_DARKNESS_EFFECT : Lnet/minecraft/network/chat/Component;
+private final darknessEffectScale : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_GLINT_SPEED : Lnet/minecraft/network/chat/Component;
+private final glintSpeed : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_GLINT_STRENGTH : Lnet/minecraft/network/chat/Component;
+private final glintStrength : Lnet/minecraft/client/OptionInstance;
+private static final ACCESSIBILITY_TOOLTIP_DAMAGE_TILT_STRENGTH : Lnet/minecraft/network/chat/Component;
+private final damageTiltStrength : Lnet/minecraft/client/OptionInstance;
+private final gamma : Lnet/minecraft/client/OptionInstance;
+public static final AUTO_GUI_SCALE : I
+private static final MAX_GUI_SCALE_INCLUSIVE : I
+private final guiScale : Lnet/minecraft/client/OptionInstance;
+public static final DEBUG_GUI_SCALE_UNCHANGED : I
+private static final DEBUG_GUI_SCALE_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final debugGuiScale : Lnet/minecraft/client/OptionInstance;
+private final particles : Lnet/minecraft/client/OptionInstance;
+private final narrator : Lnet/minecraft/client/OptionInstance;
+public languageCode : Ljava/lang/String;
+private final soundDevice : Lnet/minecraft/client/OptionInstance;
+public onboardAccessibility : Z
+private static final MUSIC_FREQUENCY_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private final musicFrequency : Lnet/minecraft/client/OptionInstance;
+private final musicToast : Lnet/minecraft/client/OptionInstance;
+public syncWrites : Z
+public startedCleanly : Z
+public static isSoundDeviceDefault(Ljava/lang/String;)Z
+private static operateOnLevelExtractor(Ljava/util/function/Consumer;)V
+public darkMojangStudiosBackground()Lnet/minecraft/client/OptionInstance;
+public hideLightningFlash()Lnet/minecraft/client/OptionInstance;
+public hideSplashTexts()Lnet/minecraft/client/OptionInstance;
+public sensitivity()Lnet/minecraft/client/OptionInstance;
+public renderDistance()Lnet/minecraft/client/OptionInstance;
+public simulationDistance()Lnet/minecraft/client/OptionInstance;
+public entityDistanceScaling()Lnet/minecraft/client/OptionInstance;
+public framerateLimit()Lnet/minecraft/client/OptionInstance;
+public preferredGraphicsBackend()Lnet/minecraft/client/OptionInstance;
+public isRestartRequiredToApplyVideoSettings()Z
+public applyGraphicsPreset(Lnet/minecraft/client/GraphicsPreset;)V
+public graphicsPreset()Lnet/minecraft/client/OptionInstance;
+public inactivityFpsLimit()Lnet/minecraft/client/OptionInstance;
+public cloudStatus()Lnet/minecraft/client/OptionInstance;
+public cloudRange()Lnet/minecraft/client/OptionInstance;
+public weatherRadius()Lnet/minecraft/client/OptionInstance;
+public cutoutLeaves()Lnet/minecraft/client/OptionInstance;
+public vignette()Lnet/minecraft/client/OptionInstance;
+public improvedTransparency()Lnet/minecraft/client/OptionInstance;
+public ambientOcclusion()Lnet/minecraft/client/OptionInstance;
+public chunkSectionFadeInTime()Lnet/minecraft/client/OptionInstance;
+public prioritizeChunkUpdates()Lnet/minecraft/client/OptionInstance;
+public updateResourcePacks(Lnet/minecraft/server/packs/repository/PackRepository;)V
+public chatVisibility()Lnet/minecraft/client/OptionInstance;
+public chatOpacity()Lnet/minecraft/client/OptionInstance;
+public chatLineSpacing()Lnet/minecraft/client/OptionInstance;
+public menuBackgroundBlurriness()Lnet/minecraft/client/OptionInstance;
+public getMenuBackgroundBlurriness()I
+public textBackgroundOpacity()Lnet/minecraft/client/OptionInstance;
+public panoramaSpeed()Lnet/minecraft/client/OptionInstance;
+public highContrast()Lnet/minecraft/client/OptionInstance;
+public highContrastBlockOutline()Lnet/minecraft/client/OptionInstance;
+public narratorHotkey()Lnet/minecraft/client/OptionInstance;
+public mainHand()Lnet/minecraft/client/OptionInstance;
+public chatScale()Lnet/minecraft/client/OptionInstance;
+public chatWidth()Lnet/minecraft/client/OptionInstance;
+public chatHeightUnfocused()Lnet/minecraft/client/OptionInstance;
+public chatHeightFocused()Lnet/minecraft/client/OptionInstance;
+public chatDelay()Lnet/minecraft/client/OptionInstance;
+public notificationDisplayTime()Lnet/minecraft/client/OptionInstance;
+public mipmapLevels()Lnet/minecraft/client/OptionInstance;
+public maxAnisotropyBit()Lnet/minecraft/client/OptionInstance;
+public maxAnisotropyValue()I
+public textureFiltering()Lnet/minecraft/client/OptionInstance;
+public attackIndicator()Lnet/minecraft/client/OptionInstance;
+public biomeBlendRadius()Lnet/minecraft/client/OptionInstance;
+private static logMouse(I)D
+private static unlogMouse(D)I
+public mouseWheelSensitivity()Lnet/minecraft/client/OptionInstance;
+public allowCursorChanges()Lnet/minecraft/client/OptionInstance;
+public quitShortcuts()Lnet/minecraft/client/OptionInstance;
+public ctrlClickEmulatesRightClick()Lnet/minecraft/client/OptionInstance;
+public autoJump()Lnet/minecraft/client/OptionInstance;
+public rotateWithMinecart()Lnet/minecraft/client/OptionInstance;
+public operatorItemsTab()Lnet/minecraft/client/OptionInstance;
+public autoSuggestions()Lnet/minecraft/client/OptionInstance;
+public chatColors()Lnet/minecraft/client/OptionInstance;
+public chatLinks()Lnet/minecraft/client/OptionInstance;
+public chatLinksPrompt()Lnet/minecraft/client/OptionInstance;
+public enableVsync()Lnet/minecraft/client/OptionInstance;
+public entityShadows()Lnet/minecraft/client/OptionInstance;
+private static updateFontOptions()V
+public forceUnicodeFont()Lnet/minecraft/client/OptionInstance;
+private static japaneseGlyphVariantsDefault()Z
+public japaneseGlyphVariants()Lnet/minecraft/client/OptionInstance;
+public invertMouseX()Lnet/minecraft/client/OptionInstance;
+public invertMouseY()Lnet/minecraft/client/OptionInstance;
+public discreteMouseScroll()Lnet/minecraft/client/OptionInstance;
+public realmsNotifications()Lnet/minecraft/client/OptionInstance;
+public allowServerListing()Lnet/minecraft/client/OptionInstance;
+public reducedDebugInfo()Lnet/minecraft/client/OptionInstance;
+public inGameNotification()Lnet/minecraft/client/OptionInstance;
+public sharePresence()Lnet/minecraft/client/OptionInstance;
+public final getFinalSoundSourceVolume(Lnet/minecraft/sounds/SoundSource;)F
+public final getSoundSourceVolume(Lnet/minecraft/sounds/SoundSource;)F
+public final getSoundSourceOptionInstance(Lnet/minecraft/sounds/SoundSource;)Lnet/minecraft/client/OptionInstance;
+private createSoundSliderOptionInstance(Ljava/lang/String;Lnet/minecraft/sounds/SoundSource;)Lnet/minecraft/client/OptionInstance;
+public showSubtitles()Lnet/minecraft/client/OptionInstance;
+public directionalAudio()Lnet/minecraft/client/OptionInstance;
+public backgroundForChatOnly()Lnet/minecraft/client/OptionInstance;
+public fullscreen()Lnet/minecraft/client/OptionInstance;
+public exclusiveFullscreen()Lnet/minecraft/client/OptionInstance;
+public macFullscreenMenuVisibility()Lnet/minecraft/client/OptionInstance;
+public bobView()Lnet/minecraft/client/OptionInstance;
+public toggleCrouch()Lnet/minecraft/client/OptionInstance;
+public toggleSprint()Lnet/minecraft/client/OptionInstance;
+public toggleAttack()Lnet/minecraft/client/OptionInstance;
+public toggleUse()Lnet/minecraft/client/OptionInstance;
+public sprintWindow()Lnet/minecraft/client/OptionInstance;
+public hideMatchedNames()Lnet/minecraft/client/OptionInstance;
+public showAutosaveIndicator()Lnet/minecraft/client/OptionInstance;
+public onlyShowSecureChat()Lnet/minecraft/client/OptionInstance;
+public saveChatDrafts()Lnet/minecraft/client/OptionInstance;
+private setGraphicsPresetToCustom()V
+public fov()Lnet/minecraft/client/OptionInstance;
+public telemetryOptInExtra()Lnet/minecraft/client/OptionInstance;
+public screenEffectScale()Lnet/minecraft/client/OptionInstance;
+public fovEffectScale()Lnet/minecraft/client/OptionInstance;
+public darknessEffectScale()Lnet/minecraft/client/OptionInstance;
+public glintSpeed()Lnet/minecraft/client/OptionInstance;
+public glintStrength()Lnet/minecraft/client/OptionInstance;
+public damageTiltStrength()Lnet/minecraft/client/OptionInstance;
+public gamma()Lnet/minecraft/client/OptionInstance;
+public guiScale()Lnet/minecraft/client/OptionInstance;
+public debugGuiScale()Lnet/minecraft/client/OptionInstance;
+public particles()Lnet/minecraft/client/OptionInstance;
+public narrator()Lnet/minecraft/client/OptionInstance;
+public soundDevice()Lnet/minecraft/client/OptionInstance;
+public onboardingAccessibilityFinished()V
+public musicFrequency()Lnet/minecraft/client/OptionInstance;
+public musicToast()Lnet/minecraft/client/OptionInstance;
+public <init>(Lnet/minecraft/client/Minecraft;Ljava/io/File;)V
+public getBackgroundOpacity(F)F
+public getBackgroundColor(F)I
+public getBackgroundColor(I)I
+private processDumpedOptions(Lnet/minecraft/client/Options$OptionAccess;)V
+private processOptions(Lnet/minecraft/client/Options$FieldAccess;)V
+public load()V
+private static isTrue(Ljava/lang/String;)Z
+private static isFalse(Ljava/lang/String;)Z
+private dataFix(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/nbt/CompoundTag;
+public save()V
+private getFullscreenVideoModeString()Ljava/lang/String;
+public buildPlayerInformation()Lnet/minecraft/server/level/ClientInformation;
+public broadcastOptions()V
+public setModelPart(Lnet/minecraft/world/entity/player/PlayerModelPart;Z)V
+public isModelPartEnabled(Lnet/minecraft/world/entity/player/PlayerModelPart;)Z
+public getCloudStatus()Lnet/minecraft/client/CloudStatus;
+public useNativeTransport()Z
+public loadSelectedResourcePacks(Lnet/minecraft/server/packs/repository/PackRepository;)V
+public getCameraType()Lnet/minecraft/client/CameraType;
+public setCameraType(Lnet/minecraft/client/CameraType;)V
+private static readListOfStrings(Ljava/lang/String;)Ljava/util/List;
+public getFile()Ljava/io/File;
+public dumpOptionsForReport()Ljava/lang/String;
+public setServerRenderDistance(I)V
+public getEffectiveRenderDistance()I
+private static pixelValueLabel(Lnet/minecraft/network/chat/Component;I)Lnet/minecraft/network/chat/Component;
+private static percentValueLabel(Lnet/minecraft/network/chat/Component;D)Lnet/minecraft/network/chat/Component;
+public static genericValueLabel(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+public static genericValueLabel(Lnet/minecraft/network/chat/Component;I)Lnet/minecraft/network/chat/Component;
+public static genericValueOrOffLabel(Lnet/minecraft/network/chat/Component;I)Lnet/minecraft/network/chat/Component;
+private static percentValueOrOffLabel(Lnet/minecraft/network/chat/Component;D)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$dumpOptionsForReport$0(Lcom/mojang/datafixers/util/Pair;)Ljava/lang/String;
+private synthetic lambda$load$1(Ljava/lang/String;)V
+private static synthetic lambda$load$0(Lnet/minecraft/nbt/CompoundTag;Ljava/lang/String;)V
+private synthetic lambda$new$112(Ljava/lang/Integer;)V
+private static synthetic lambda$new$111(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$110(Ljava/lang/Integer;)V
+private static synthetic lambda$new$109(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$108(Lnet/minecraft/client/MusicToastDisplayState;)V
+private static synthetic lambda$new$107(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/MusicToastDisplayState;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$106(Lnet/minecraft/client/MusicToastDisplayState;)Lnet/minecraft/client/gui/components/Tooltip;
+private static synthetic lambda$new$105(Lnet/minecraft/client/sounds/MusicManager$MusicFrequency;)V
+private static synthetic lambda$new$104(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/sounds/MusicManager$MusicFrequency;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$103(Ljava/lang/String;)V
+private static synthetic lambda$new$102(Ljava/lang/String;)Ljava/util/Optional;
+private static synthetic lambda$new$101()Ljava/util/List;
+private static synthetic lambda$new$100(Lnet/minecraft/network/chat/Component;Ljava/lang/String;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$99(Lnet/minecraft/client/NarratorStatus;)V
+private synthetic lambda$new$98(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/NarratorStatus;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$97(Lnet/minecraft/server/level/ParticleStatus;)V
+private static synthetic lambda$new$96(Lnet/minecraft/network/chat/Component;Lnet/minecraft/server/level/ParticleStatus;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$95(Ljava/lang/Integer;)V
+private static synthetic lambda$new$94()I
+private static synthetic lambda$new$93(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$92(Ljava/lang/Integer;)V
+private static synthetic lambda$new$91()I
+private static synthetic lambda$new$90(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$89(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$88(Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$87(Ljava/lang/Integer;)Ljava/lang/Double;
+private static synthetic lambda$new$86(Ljava/lang/Double;)Ljava/lang/Integer;
+private static synthetic lambda$new$85(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$keyMappings$0(I)[Lnet/minecraft/client/KeyMapping;
+private static synthetic lambda$new$84(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$83(Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$82(Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$81(Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$80(Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$79(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$78(Ljava/lang/Boolean;)Lnet/minecraft/client/gui/components/Tooltip;
+private static synthetic lambda$new$77(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$76(Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$75(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$74(Ljava/lang/Boolean;)Lnet/minecraft/client/gui/components/Tooltip;
+private synthetic lambda$createSoundSliderOptionInstance$0(Lnet/minecraft/sounds/SoundSource;Ljava/lang/Double;)V
+private synthetic lambda$new$73(Lnet/minecraft/sounds/SoundSource;)Lnet/minecraft/client/OptionInstance;
+private static synthetic lambda$new$72(Lnet/minecraft/client/PresenceSharing;)V
+private static synthetic lambda$new$71(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/PresenceSharing;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$70(Lnet/minecraft/client/PresenceSharing;)Lnet/minecraft/client/gui/components/Tooltip;
+private static synthetic lambda$new$69(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$68(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$67(Ljava/lang/Boolean;)V
+private synthetic lambda$new$66(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$65(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$64(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$63(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$62(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$61(Ljava/lang/Integer;)V
+private static synthetic lambda$new$60(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$59(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/AttackIndicatorStatus;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$58(Lnet/minecraft/client/TextureFilteringMethod;)V
+private static synthetic lambda$new$57(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/TextureFilteringMethod;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$56(Lnet/minecraft/client/TextureFilteringMethod;)Lnet/minecraft/client/gui/components/Tooltip;
+private synthetic lambda$new$55(Ljava/lang/Integer;)V
+private static synthetic lambda$new$54(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$53(Ljava/lang/Integer;)V
+private static synthetic lambda$new$52(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$51(Ljava/lang/Double;)I
+private static synthetic lambda$new$50(I)Ljava/lang/Double;
+private static synthetic lambda$new$49(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$48(Ljava/lang/Double;)V
+private static synthetic lambda$new$47(Ljava/lang/Double;)I
+private static synthetic lambda$new$46(I)Ljava/lang/Double;
+private static synthetic lambda$new$45(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$44(Ljava/lang/Double;)V
+private static synthetic lambda$new$43(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$42(Ljava/lang/Double;)V
+private static synthetic lambda$new$41(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$40(Ljava/lang/Double;)V
+private static synthetic lambda$new$39(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$38(Ljava/lang/Double;)V
+private static synthetic lambda$new$37(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$36(Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/entity/HumanoidArm;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$35(Ljava/lang/Boolean;)V
+private static synthetic lambda$new$34(Ljava/lang/Double;)V
+private synthetic lambda$new$33(Ljava/lang/Integer;)V
+private static synthetic lambda$new$32(Ljava/lang/Double;)V
+private static synthetic lambda$new$31(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$30(Lnet/minecraft/world/entity/player/ChatVisiblity;)V
+private static synthetic lambda$new$29(Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/entity/player/ChatVisiblity;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$28(Lnet/minecraft/client/PrioritizeChunkUpdates;)V
+private static synthetic lambda$new$27(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/PrioritizeChunkUpdates;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$26(Lnet/minecraft/client/PrioritizeChunkUpdates;)Lnet/minecraft/client/gui/components/Tooltip;
+private static synthetic lambda$new$25(Ljava/lang/Double;)I
+private static synthetic lambda$new$24(I)Ljava/lang/Double;
+private static synthetic lambda$new$23(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$22(Ljava/lang/Boolean;)V
+private synthetic lambda$new$21(Ljava/lang/Boolean;)V
+private synthetic lambda$new$20(Ljava/lang/Boolean;)V
+private synthetic lambda$new$19(Ljava/lang/Integer;)V
+private static synthetic lambda$new$18(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$17(Ljava/lang/Integer;)V
+private static synthetic lambda$new$16(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$15(Lnet/minecraft/client/CloudStatus;)V
+private static synthetic lambda$new$14(Ljava/lang/Boolean;)Lnet/minecraft/client/CloudStatus;
+private static synthetic lambda$new$13(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/CloudStatus;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$12(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/InactivityFpsLimit;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$11(Lnet/minecraft/client/InactivityFpsLimit;)Lnet/minecraft/client/gui/components/Tooltip;
+private static synthetic lambda$new$10(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/GraphicsPreset;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$new$9(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/PreferredGraphicsApi;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$8(Lnet/minecraft/client/PreferredGraphicsApi;)Lnet/minecraft/client/gui/components/Tooltip;
+private static synthetic lambda$new$7(Ljava/lang/Integer;)V
+private static synthetic lambda$new$6(Ljava/lang/Integer;)I
+private static synthetic lambda$new$5(I)Ljava/lang/Integer;
+private static synthetic lambda$new$4(Lnet/minecraft/network/chat/Component;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private synthetic lambda$new$3(Ljava/lang/Double;)V
+private static synthetic lambda$new$2(Ljava/lang/Double;)I
+private static synthetic lambda$new$1(I)Ljava/lang/Double;
+private static synthetic lambda$new$0(Lnet/minecraft/network/chat/Component;Ljava/lang/Double;)Lnet/minecraft/network/chat/Component;
+static <clinit>()V
 ```

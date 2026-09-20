@@ -13,9 +13,9 @@ sha256: "7d63b44a449ddd84d4988ef17cec1894ef1890b2844079500ea47c3dc678d967"
 Module: [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] -- kind: interface
 
 ```java
-public static void register(net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer<?>)
-public static net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer<?> get(net.minecraft.resources.Identifier)
+public static void register(net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer)
+public static net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer get(net.minecraft.resources.Identifier)
 public abstract net.minecraft.resources.Identifier getIdentifier()
-public abstract com.mojang.serialization.MapCodec<T> getCodec()
-public abstract net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, T> getStreamCodec()
+public abstract com.mojang.serialization.MapCodec getCodec()
+public abstract net.minecraft.network.codec.StreamCodec getStreamCodec()
 ```

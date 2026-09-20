@@ -14,10 +14,10 @@ Module: [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v
 
 ```java
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSpeed(float)
-public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSpeed(net.minecraft.util.ToFloatFunction<net.minecraft.world.entity.LivingEntity>)
+public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSpeed(net.minecraft.util.ToFloatFunction)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSlowdown(float)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSlowdown(float, float)
-public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSlowdown(net.minecraft.util.ToFloatFunction<net.minecraft.world.entity.LivingEntity>)
+public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSlowdown(net.minecraft.util.ToFloatFunction)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder movementSlowdown(net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder$MovementSlowdownFunction)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder fallDistanceModifier(float)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder gravityMultiplier(float)
@@ -26,8 +26,8 @@ public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder all
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder allowBoats(boolean)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder allowSwimming(boolean)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder allowSprinting(boolean)
-public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder allowSprinting(java.util.function.Predicate<net.minecraft.world.entity.LivingEntity>)
-public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder allowSprinting(java.util.function.BiPredicate<net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid>, net.minecraft.world.entity.LivingEntity>)
+public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder allowSprinting(java.util.function.Predicate)
+public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder allowSprinting(java.util.function.BiPredicate)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder makeMobsFloat(boolean)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder makeRiddenMobsFloat(boolean)
 public abstract net.fabricmc.fabric.api.registry.fluid.FluidBehavior$Builder enableDrowning(boolean)

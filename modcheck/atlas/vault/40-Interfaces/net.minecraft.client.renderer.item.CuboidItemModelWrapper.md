@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/client/renderer/item/ItemModel`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| injects_into | `update` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `(Ljava/util/List;Lnet/minecraft/client/resources/model/geometry/QuadCo` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| injects_into | `update` | `(Lnet/minecraft/client/renderer/item/ItemStackRenderState;Lnet/minecra` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (6 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.item.CuboidItemModelWrapper implements net.minecraft.client.renderer.item.ItemModel {
-    private final java.util.List<net.minecraft.client.color.item.ItemTintSource> tints;
-    private final boolean animated;
-    private final net.minecraft.client.resources.model.geometry.ItemQuads itemQuads;
-    private final java.util.function.Supplier<org.joml.Vector3fc[]> extents;
-    private final net.minecraft.client.renderer.item.ModelRenderProperties properties;
-    private final org.joml.Matrix4fc transformation;
-    private net.minecraft.client.renderer.item.CuboidItemModelWrapper(java.util.List<net.minecraft.client.color.item.ItemTintSource>, net.minecraft.client.resources.model.geometry.QuadCollection, net.minecraft.client.renderer.item.ModelRenderProperties, org.joml.Matrix4fc);
-    public static org.joml.Vector3fc[] computeExtents(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>);
-    public void update(net.minecraft.client.renderer.item.ItemStackRenderState, net.minecraft.world.item.ItemStack, net.minecraft.client.renderer.item.ItemModelResolver, net.minecraft.world.item.ItemDisplayContext, net.minecraft.client.multiplayer.ClientLevel, net.minecraft.world.entity.ItemOwner, int);
-    private static void validateAtlasUsage(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>);
-    private static boolean hasSpecialAnimatedTexture(net.minecraft.world.item.ItemStack);
-    private static org.joml.Vector3fc[] lambda$computeExtents$0(int);
-    private static org.joml.Vector3fc[] lambda$new$0(net.minecraft.client.resources.model.geometry.QuadCollection);
-}
+```
+private final tints : Ljava/util/List;
+private final animated : Z
+private final itemQuads : Lnet/minecraft/client/resources/model/geometry/ItemQuads;
+private final extents : Ljava/util/function/Supplier;
+private final properties : Lnet/minecraft/client/renderer/item/ModelRenderProperties;
+private final transformation : Lorg/joml/Matrix4fc;
+private <init>(Ljava/util/List;Lnet/minecraft/client/resources/model/geometry/QuadCollection;Lnet/minecraft/client/renderer/item/ModelRenderProperties;Lorg/joml/Matrix4fc;)V
+public static computeExtents(Ljava/util/List;)[Lorg/joml/Vector3fc;
+public update(Lnet/minecraft/client/renderer/item/ItemStackRenderState;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/client/renderer/item/ItemModelResolver;Lnet/minecraft/world/item/ItemDisplayContext;Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/world/entity/ItemOwner;I)V
+private static validateAtlasUsage(Ljava/util/List;)V
+private static hasSpecialAnimatedTexture(Lnet/minecraft/world/item/ItemStack;)Z
+private static synthetic lambda$computeExtents$0(I)[Lorg/joml/Vector3fc;
+private static synthetic lambda$new$0(Lnet/minecraft/client/resources/model/geometry/QuadCollection;)[Lorg/joml/Vector3fc;
 ```

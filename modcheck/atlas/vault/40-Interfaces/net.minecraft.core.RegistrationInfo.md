@@ -11,34 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/util/Optional;Lcom/mojang/serialization/Lifecycle;)V` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `"<init>"(Ljava/util/Optional;Lcom/mojang/serialization/Lifecycle;)V` | `` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
-| calls | `"<init>"(Ljava/util/Optional;Lcom/mojang/serialization/Lifecycle;)V` | `` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `knownPackInfo()Ljava/util/Optional;` | `` | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
-| calls | `lifecycle()Lcom/mojang/serialization/Lifecycle;` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `lifecycle()Lcom/mojang/serialization/Lifecycle;` | `` | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
-| calls | `lifecycle()Lcom/mojang/serialization/Lifecycle;` | `` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
-| calls | `lifecycle()Lcom/mojang/serialization/Lifecycle;` | `` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/Optional;Lcom/mojang/serialization/Lifecycle;)V` | exact | invokespecial@334 in `BiomeModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `<init>` | `(Ljava/util/Optional;Lcom/mojang/serialization/Lifecycle;)V` | exact | invokespecial@162 in `DimensionModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| calls | `<init>` | `(Ljava/util/Optional;Lcom/mojang/serialization/Lifecycle;)V` | exact | invokespecial@105 in `ResourceManagerRegistryLoadTaskMixin.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `knownPackInfo` | `()Ljava/util/Optional;` | exact | invokevirtual@55 in `WorldDimensionsMixin.betterModdedStabilityCheck` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| calls | `lifecycle` | `()Lcom/mojang/serialization/Lifecycle;` | exact | invokevirtual@331 in `BiomeModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `lifecycle` | `()Lcom/mojang/serialization/Lifecycle;` | exact | invokevirtual@159 in `DimensionModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| calls | `lifecycle` | `()Lcom/mojang/serialization/Lifecycle;` | exact | invokevirtual@73 in `WorldDimensionsMixin.betterModdedStabilityCheck` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| calls | `lifecycle` | `()Lcom/mojang/serialization/Lifecycle;` | exact | invokevirtual@102 in `ResourceManagerRegistryLoadTaskMixin.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `BUILT_IN` | `Lnet/minecraft/core/RegistrationInfo;` | exact | getstatic@59 in `FabricRegistryBuilder.buildAndRegister` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (3 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.core.RegistrationInfo extends java.lang.Record {
-    private final java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo;
-    private final com.mojang.serialization.Lifecycle lifecycle;
-    public static final net.minecraft.core.RegistrationInfo BUILT_IN;
-    public net.minecraft.core.RegistrationInfo(java.util.Optional<net.minecraft.server.packs.repository.KnownPack>, com.mojang.serialization.Lifecycle);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo();
-    public com.mojang.serialization.Lifecycle lifecycle();
-    static {};
-}
+```
+private final knownPackInfo : Ljava/util/Optional;
+private final lifecycle : Lcom/mojang/serialization/Lifecycle;
+public static final BUILT_IN : Lnet/minecraft/core/RegistrationInfo;
+public <init>(Ljava/util/Optional;Lcom/mojang/serialization/Lifecycle;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public knownPackInfo()Ljava/util/Optional;
+public lifecycle()Lcom/mojang/serialization/Lifecycle;
+static <clinit>()V
 ```

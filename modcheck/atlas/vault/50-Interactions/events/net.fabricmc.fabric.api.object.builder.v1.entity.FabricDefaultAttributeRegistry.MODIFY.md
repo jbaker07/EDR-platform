@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `FabricDefaultAttributeRegistryImpl.invokeModify` | (impl code, not a mixin) | unknown | static_inference |
+| `FabricDefaultAttributeRegistryImpl.invokeModify` @16 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

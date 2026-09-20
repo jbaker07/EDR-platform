@@ -13,17 +13,16 @@ sha256: "96fa76cd74df23aa2332980b0577eb88ec3ef8a2ab7c0eb0c99810bbc6390fe9"
 Module: [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] -- kind: class
 
 ```java
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> LAVA
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> WATER
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> MILK
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> HONEY
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> GASEOUS
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> EXPERIENCE
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> POTION
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> SUSPICIOUS_STEW
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> MUSHROOM_STEW
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> RABBIT_STEW
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> BEETROOT_SOUP
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> HIDDEN_FROM_RECIPE_VIEWERS
-static {}
+public static final net.minecraft.tags.TagKey LAVA
+public static final net.minecraft.tags.TagKey WATER
+public static final net.minecraft.tags.TagKey MILK
+public static final net.minecraft.tags.TagKey HONEY
+public static final net.minecraft.tags.TagKey GASEOUS
+public static final net.minecraft.tags.TagKey EXPERIENCE
+public static final net.minecraft.tags.TagKey POTION
+public static final net.minecraft.tags.TagKey SUSPICIOUS_STEW
+public static final net.minecraft.tags.TagKey MUSHROOM_STEW
+public static final net.minecraft.tags.TagKey RABBIT_STEW
+public static final net.minecraft.tags.TagKey BEETROOT_SOUP
+public static final net.minecraft.tags.TagKey HIDDEN_FROM_RECIPE_VIEWERS
 ```

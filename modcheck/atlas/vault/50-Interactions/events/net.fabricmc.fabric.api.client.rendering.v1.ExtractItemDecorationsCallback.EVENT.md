@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `GuiGraphicsExtractorMixin.drawStackOverlay` | `GuiGraphicsExtractor.itemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V` @Inject at RETURN | client | static_inference |
+| `GuiGraphicsExtractorMixin.drawStackOverlay` @25 | [[40-Interfaces/net.minecraft.client.gui.GuiGraphicsExtractor|GuiGraphicsExtractor]].`itemDecorations` @Inject RETURN | unknown | static_inference |
 
 ## Contract
 

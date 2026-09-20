@@ -13,6 +13,6 @@ sha256: "eb0799d38e825cb6e82fe40ce1dd80da2ed9f142d60952e04609ccbbba153691"
 Module: [[30-Mechanisms/fabric-serialization-api-v1|fabric-serialization-api-v1]] -- kind: interface
 
 ```java
-public default void putLongArray(java.lang.String, long[])
-public default void putByteArray(java.lang.String, byte[])
+public void putLongArray(java.lang.String, long[])
+public void putByteArray(java.lang.String, byte[])
 ```

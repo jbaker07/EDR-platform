@@ -11,94 +11,94 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `fromJson(Lcom/google/gson/Gson;Ljava/io/Reader;Ljava/lang/Class;)Lja` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `getAsBoolean(Lcom/google/gson/JsonObject;Ljava/lang/String;Z)Z` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `getAsString(Lcom/google/gson/JsonObject;Ljava/lang/String;)Ljava/lang/S` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `getType(Lcom/google/gson/JsonElement;)Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `fromJson` | `(Lcom/google/gson/Gson;Ljava/io/Reader;Ljava/lang/Class;)Ljava/lang/Ob` | exact | invokestatic@6 in `UnbakedModelDeserializerRegistry.deserialize` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `getAsBoolean` | `(Lcom/google/gson/JsonObject;Ljava/lang/String;Z)Z` | exact | invokestatic@75 in `UnbakedModelJsonDeserializer.deserialize` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `getAsString` | `(Lcom/google/gson/JsonObject;Ljava/lang/String;)Ljava/lang/String;` | exact | invokestatic@65 in `UnbakedModelJsonDeserializer.deserialize` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `getType` | `(Lcom/google/gson/JsonElement;)Ljava/lang/String;` | exact | invokestatic@89 in `UnbakedModelJsonDeserializer.deserialize` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
 
-## Declared members (74, all visibilities)
+## Declared members (1 fields, 73 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.GsonHelper {
-    private static final com.google.gson.Gson GSON;
-    public net.minecraft.util.GsonHelper();
-    public static boolean isStringValue(com.google.gson.JsonObject, java.lang.String);
-    public static boolean isStringValue(com.google.gson.JsonElement);
-    public static boolean isNumberValue(com.google.gson.JsonObject, java.lang.String);
-    public static boolean isNumberValue(com.google.gson.JsonElement);
-    public static boolean isBooleanValue(com.google.gson.JsonObject, java.lang.String);
-    public static boolean isBooleanValue(com.google.gson.JsonElement);
-    public static boolean isArrayNode(com.google.gson.JsonObject, java.lang.String);
-    public static boolean isObjectNode(com.google.gson.JsonObject, java.lang.String);
-    public static boolean isValidPrimitive(com.google.gson.JsonObject, java.lang.String);
-    public static boolean isValidNode(com.google.gson.JsonObject, java.lang.String);
-    public static com.google.gson.JsonElement getNonNull(com.google.gson.JsonObject, java.lang.String);
-    public static java.lang.String convertToString(com.google.gson.JsonElement, java.lang.String);
-    public static java.lang.String getAsString(com.google.gson.JsonObject, java.lang.String);
-    public static java.lang.String getAsString(com.google.gson.JsonObject, java.lang.String, java.lang.String);
-    public static net.minecraft.core.Holder<net.minecraft.world.item.Item> convertToItem(com.google.gson.JsonElement, java.lang.String);
-    public static net.minecraft.core.Holder<net.minecraft.world.item.Item> getAsItem(com.google.gson.JsonObject, java.lang.String);
-    public static net.minecraft.core.Holder<net.minecraft.world.item.Item> getAsItem(com.google.gson.JsonObject, java.lang.String, net.minecraft.core.Holder<net.minecraft.world.item.Item>);
-    public static boolean convertToBoolean(com.google.gson.JsonElement, java.lang.String);
-    public static boolean getAsBoolean(com.google.gson.JsonObject, java.lang.String);
-    public static boolean getAsBoolean(com.google.gson.JsonObject, java.lang.String, boolean);
-    public static double convertToDouble(com.google.gson.JsonElement, java.lang.String);
-    public static double getAsDouble(com.google.gson.JsonObject, java.lang.String);
-    public static double getAsDouble(com.google.gson.JsonObject, java.lang.String, double);
-    public static float convertToFloat(com.google.gson.JsonElement, java.lang.String);
-    public static float getAsFloat(com.google.gson.JsonObject, java.lang.String);
-    public static float getAsFloat(com.google.gson.JsonObject, java.lang.String, float);
-    public static long convertToLong(com.google.gson.JsonElement, java.lang.String);
-    public static long getAsLong(com.google.gson.JsonObject, java.lang.String);
-    public static long getAsLong(com.google.gson.JsonObject, java.lang.String, long);
-    public static int convertToInt(com.google.gson.JsonElement, java.lang.String);
-    public static int getAsInt(com.google.gson.JsonObject, java.lang.String);
-    public static int getAsInt(com.google.gson.JsonObject, java.lang.String, int);
-    public static byte convertToByte(com.google.gson.JsonElement, java.lang.String);
-    public static byte getAsByte(com.google.gson.JsonObject, java.lang.String);
-    public static byte getAsByte(com.google.gson.JsonObject, java.lang.String, byte);
-    public static char convertToCharacter(com.google.gson.JsonElement, java.lang.String);
-    public static char getAsCharacter(com.google.gson.JsonObject, java.lang.String);
-    public static char getAsCharacter(com.google.gson.JsonObject, java.lang.String, char);
-    public static java.math.BigDecimal convertToBigDecimal(com.google.gson.JsonElement, java.lang.String);
-    public static java.math.BigDecimal getAsBigDecimal(com.google.gson.JsonObject, java.lang.String);
-    public static java.math.BigDecimal getAsBigDecimal(com.google.gson.JsonObject, java.lang.String, java.math.BigDecimal);
-    public static java.math.BigInteger convertToBigInteger(com.google.gson.JsonElement, java.lang.String);
-    public static java.math.BigInteger getAsBigInteger(com.google.gson.JsonObject, java.lang.String);
-    public static java.math.BigInteger getAsBigInteger(com.google.gson.JsonObject, java.lang.String, java.math.BigInteger);
-    public static short convertToShort(com.google.gson.JsonElement, java.lang.String);
-    public static short getAsShort(com.google.gson.JsonObject, java.lang.String);
-    public static short getAsShort(com.google.gson.JsonObject, java.lang.String, short);
-    public static com.google.gson.JsonObject convertToJsonObject(com.google.gson.JsonElement, java.lang.String);
-    public static com.google.gson.JsonObject getAsJsonObject(com.google.gson.JsonObject, java.lang.String);
-    public static com.google.gson.JsonObject getAsJsonObject(com.google.gson.JsonObject, java.lang.String, com.google.gson.JsonObject);
-    public static com.google.gson.JsonArray convertToJsonArray(com.google.gson.JsonElement, java.lang.String);
-    public static com.google.gson.JsonArray getAsJsonArray(com.google.gson.JsonObject, java.lang.String);
-    public static com.google.gson.JsonArray getAsJsonArray(com.google.gson.JsonObject, java.lang.String, com.google.gson.JsonArray);
-    public static <T> T convertToObject(com.google.gson.JsonElement, java.lang.String, com.google.gson.JsonDeserializationContext, java.lang.Class<? extends T>);
-    public static <T> T getAsObject(com.google.gson.JsonObject, java.lang.String, com.google.gson.JsonDeserializationContext, java.lang.Class<? extends T>);
-    public static <T> T getAsObject(com.google.gson.JsonObject, java.lang.String, T, com.google.gson.JsonDeserializationContext, java.lang.Class<? extends T>);
-    public static java.lang.String getType(com.google.gson.JsonElement);
-    public static <T> T fromJson(com.google.gson.Gson, java.io.Reader, java.lang.Class<T>);
-    public static <T> T fromNullableJson(com.google.gson.Gson, java.io.Reader, com.google.gson.reflect.TypeToken<T>);
-    public static <T> T fromJson(com.google.gson.Gson, java.io.Reader, com.google.gson.reflect.TypeToken<T>);
-    public static <T> T fromNullableJson(com.google.gson.Gson, java.lang.String, com.google.gson.reflect.TypeToken<T>);
-    public static <T> T fromJson(com.google.gson.Gson, java.lang.String, java.lang.Class<T>);
-    public static com.google.gson.JsonObject parse(java.lang.String);
-    public static com.google.gson.JsonObject parse(java.io.Reader);
-    public static com.google.gson.JsonArray parseArray(java.lang.String);
-    public static com.google.gson.JsonArray parseArray(java.io.Reader);
-    public static java.lang.String toStableString(com.google.gson.JsonElement);
-    public static void writeValue(com.google.gson.stream.JsonWriter, com.google.gson.JsonElement, java.util.Comparator<java.lang.String>) throws java.io.IOException;
-    private static java.util.Collection<java.util.Map$Entry<java.lang.String, com.google.gson.JsonElement>> sortByKeyIfNeeded(java.util.Collection<java.util.Map$Entry<java.lang.String, com.google.gson.JsonElement>>, java.util.Comparator<java.lang.String>);
-    public static boolean encodesLongerThan(com.google.gson.JsonElement, int);
-    private static com.google.gson.JsonSyntaxException lambda$convertToItem$0(java.lang.String, java.lang.String);
-    static {};
-}
+```
+private static final GSON : Lcom/google/gson/Gson;
+public <init>()V
+public static isStringValue(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static isStringValue(Lcom/google/gson/JsonElement;)Z
+public static isNumberValue(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static isNumberValue(Lcom/google/gson/JsonElement;)Z
+public static isBooleanValue(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static isBooleanValue(Lcom/google/gson/JsonElement;)Z
+public static isArrayNode(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static isObjectNode(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static isValidPrimitive(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static isValidNode(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static getNonNull(Lcom/google/gson/JsonObject;Ljava/lang/String;)Lcom/google/gson/JsonElement;
+public static convertToString(Lcom/google/gson/JsonElement;Ljava/lang/String;)Ljava/lang/String;
+public static getAsString(Lcom/google/gson/JsonObject;Ljava/lang/String;)Ljava/lang/String;
+public static getAsString(Lcom/google/gson/JsonObject;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+public static convertToItem(Lcom/google/gson/JsonElement;Ljava/lang/String;)Lnet/minecraft/core/Holder;
+public static getAsItem(Lcom/google/gson/JsonObject;Ljava/lang/String;)Lnet/minecraft/core/Holder;
+public static getAsItem(Lcom/google/gson/JsonObject;Ljava/lang/String;Lnet/minecraft/core/Holder;)Lnet/minecraft/core/Holder;
+public static convertToBoolean(Lcom/google/gson/JsonElement;Ljava/lang/String;)Z
+public static getAsBoolean(Lcom/google/gson/JsonObject;Ljava/lang/String;)Z
+public static getAsBoolean(Lcom/google/gson/JsonObject;Ljava/lang/String;Z)Z
+public static convertToDouble(Lcom/google/gson/JsonElement;Ljava/lang/String;)D
+public static getAsDouble(Lcom/google/gson/JsonObject;Ljava/lang/String;)D
+public static getAsDouble(Lcom/google/gson/JsonObject;Ljava/lang/String;D)D
+public static convertToFloat(Lcom/google/gson/JsonElement;Ljava/lang/String;)F
+public static getAsFloat(Lcom/google/gson/JsonObject;Ljava/lang/String;)F
+public static getAsFloat(Lcom/google/gson/JsonObject;Ljava/lang/String;F)F
+public static convertToLong(Lcom/google/gson/JsonElement;Ljava/lang/String;)J
+public static getAsLong(Lcom/google/gson/JsonObject;Ljava/lang/String;)J
+public static getAsLong(Lcom/google/gson/JsonObject;Ljava/lang/String;J)J
+public static convertToInt(Lcom/google/gson/JsonElement;Ljava/lang/String;)I
+public static getAsInt(Lcom/google/gson/JsonObject;Ljava/lang/String;)I
+public static getAsInt(Lcom/google/gson/JsonObject;Ljava/lang/String;I)I
+public static convertToByte(Lcom/google/gson/JsonElement;Ljava/lang/String;)B
+public static getAsByte(Lcom/google/gson/JsonObject;Ljava/lang/String;)B
+public static getAsByte(Lcom/google/gson/JsonObject;Ljava/lang/String;B)B
+public static convertToCharacter(Lcom/google/gson/JsonElement;Ljava/lang/String;)C
+public static getAsCharacter(Lcom/google/gson/JsonObject;Ljava/lang/String;)C
+public static getAsCharacter(Lcom/google/gson/JsonObject;Ljava/lang/String;C)C
+public static convertToBigDecimal(Lcom/google/gson/JsonElement;Ljava/lang/String;)Ljava/math/BigDecimal;
+public static getAsBigDecimal(Lcom/google/gson/JsonObject;Ljava/lang/String;)Ljava/math/BigDecimal;
+public static getAsBigDecimal(Lcom/google/gson/JsonObject;Ljava/lang/String;Ljava/math/BigDecimal;)Ljava/math/BigDecimal;
+public static convertToBigInteger(Lcom/google/gson/JsonElement;Ljava/lang/String;)Ljava/math/BigInteger;
+public static getAsBigInteger(Lcom/google/gson/JsonObject;Ljava/lang/String;)Ljava/math/BigInteger;
+public static getAsBigInteger(Lcom/google/gson/JsonObject;Ljava/lang/String;Ljava/math/BigInteger;)Ljava/math/BigInteger;
+public static convertToShort(Lcom/google/gson/JsonElement;Ljava/lang/String;)S
+public static getAsShort(Lcom/google/gson/JsonObject;Ljava/lang/String;)S
+public static getAsShort(Lcom/google/gson/JsonObject;Ljava/lang/String;S)S
+public static convertToJsonObject(Lcom/google/gson/JsonElement;Ljava/lang/String;)Lcom/google/gson/JsonObject;
+public static getAsJsonObject(Lcom/google/gson/JsonObject;Ljava/lang/String;)Lcom/google/gson/JsonObject;
+public static getAsJsonObject(Lcom/google/gson/JsonObject;Ljava/lang/String;Lcom/google/gson/JsonObject;)Lcom/google/gson/JsonObject;
+public static convertToJsonArray(Lcom/google/gson/JsonElement;Ljava/lang/String;)Lcom/google/gson/JsonArray;
+public static getAsJsonArray(Lcom/google/gson/JsonObject;Ljava/lang/String;)Lcom/google/gson/JsonArray;
+public static getAsJsonArray(Lcom/google/gson/JsonObject;Ljava/lang/String;Lcom/google/gson/JsonArray;)Lcom/google/gson/JsonArray;
+public static convertToObject(Lcom/google/gson/JsonElement;Ljava/lang/String;Lcom/google/gson/JsonDeserializationContext;Ljava/lang/Class;)Ljava/lang/Object;
+public static getAsObject(Lcom/google/gson/JsonObject;Ljava/lang/String;Lcom/google/gson/JsonDeserializationContext;Ljava/lang/Class;)Ljava/lang/Object;
+public static getAsObject(Lcom/google/gson/JsonObject;Ljava/lang/String;Ljava/lang/Object;Lcom/google/gson/JsonDeserializationContext;Ljava/lang/Class;)Ljava/lang/Object;
+public static getType(Lcom/google/gson/JsonElement;)Ljava/lang/String;
+public static fromJson(Lcom/google/gson/Gson;Ljava/io/Reader;Ljava/lang/Class;)Ljava/lang/Object;
+public static fromNullableJson(Lcom/google/gson/Gson;Ljava/io/Reader;Lcom/google/gson/reflect/TypeToken;)Ljava/lang/Object;
+public static fromJson(Lcom/google/gson/Gson;Ljava/io/Reader;Lcom/google/gson/reflect/TypeToken;)Ljava/lang/Object;
+public static fromNullableJson(Lcom/google/gson/Gson;Ljava/lang/String;Lcom/google/gson/reflect/TypeToken;)Ljava/lang/Object;
+public static fromJson(Lcom/google/gson/Gson;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;
+public static parse(Ljava/lang/String;)Lcom/google/gson/JsonObject;
+public static parse(Ljava/io/Reader;)Lcom/google/gson/JsonObject;
+public static parseArray(Ljava/lang/String;)Lcom/google/gson/JsonArray;
+public static parseArray(Ljava/io/Reader;)Lcom/google/gson/JsonArray;
+public static toStableString(Lcom/google/gson/JsonElement;)Ljava/lang/String;
+public static writeValue(Lcom/google/gson/stream/JsonWriter;Lcom/google/gson/JsonElement;Ljava/util/Comparator;)V
+private static sortByKeyIfNeeded(Ljava/util/Collection;Ljava/util/Comparator;)Ljava/util/Collection;
+public static encodesLongerThan(Lcom/google/gson/JsonElement;I)Z
+private static synthetic lambda$convertToItem$0(Ljava/lang/String;Ljava/lang/String;)Lcom/google/gson/JsonSyntaxException;
+static <clinit>()V
 ```

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PlayerListMixin.afterRespawn` | `PlayerList.respawn` @Inject at TAIL | both | static_inference |
+| `PlayerListMixin.afterRespawn` @23 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`respawn` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

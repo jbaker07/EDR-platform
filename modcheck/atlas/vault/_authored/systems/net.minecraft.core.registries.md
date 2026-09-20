@@ -9,7 +9,7 @@ side: "shared_by_design"
 
 # Built-in registries and registry keys
 
-Package `net.minecraft.core.registries` -- generated view: [[20-Systems/net.minecraft.core.registries|hooked types]]
+Package `net.minecraft.core.registries` -- generated view: [[20-Systems/net.minecraft.core.registries|inventory and hooked types]]
 
 **Responsibility.** BuiltInRegistries holds the 97 static registries every mod registers content into; Registries holds the 157 keys, including the dynamic (data-driven) ones loaded from data packs.
 

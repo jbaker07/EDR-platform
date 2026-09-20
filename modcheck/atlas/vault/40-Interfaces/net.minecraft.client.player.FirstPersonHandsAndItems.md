@@ -11,31 +11,33 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.player|net.minecraft.client.player]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `tick` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `tick` | `(Lnet/minecraft/client/player/LocalPlayer;)V` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `mainHandItem` | `Lnet/minecraft/world/item/ItemStack;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | declared |
+| reads | `offHandItem` | `Lnet/minecraft/world/item/ItemStack;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | declared |
 
-## Declared members (14, all visibilities)
+## Declared members (6 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.player.FirstPersonHandsAndItems {
-    private net.minecraft.world.item.ItemStack mainHandItem;
-    private net.minecraft.world.item.ItemStack offHandItem;
-    private float mainHandHeight;
-    private float oMainHandHeight;
-    private float offHandHeight;
-    private float oOffHandHeight;
-    public net.minecraft.client.player.FirstPersonHandsAndItems();
-    public void tick(net.minecraft.client.player.LocalPlayer);
-    public void itemUsed(net.minecraft.world.InteractionHand);
-    public void extractRenderState(net.minecraft.client.player.LocalPlayer, float, net.minecraft.client.renderer.state.level.FirstPersonHandsAndItemsRenderState);
-    private boolean shouldInstantlyReplaceVisibleItem(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack, net.minecraft.client.player.LocalPlayer);
-    private boolean extractMapRenderState(net.minecraft.client.player.LocalPlayer, net.minecraft.world.item.ItemStack, net.minecraft.client.renderer.state.MapRenderState);
-    public static net.minecraft.client.renderer.state.level.FirstPersonHandsAndItemsRenderState$HandRenderSelection evaluateWhichHandsToRender(net.minecraft.client.player.LocalPlayer);
-    private static boolean isChargedCrossbow(net.minecraft.world.item.ItemStack);
-}
+```
+private mainHandItem : Lnet/minecraft/world/item/ItemStack;
+private offHandItem : Lnet/minecraft/world/item/ItemStack;
+private mainHandHeight : F
+private oMainHandHeight : F
+private offHandHeight : F
+private oOffHandHeight : F
+public <init>()V
+public tick(Lnet/minecraft/client/player/LocalPlayer;)V
+public itemUsed(Lnet/minecraft/world/InteractionHand;)V
+public extractRenderState(Lnet/minecraft/client/player/LocalPlayer;FLnet/minecraft/client/renderer/state/level/FirstPersonHandsAndItemsRenderState;)V
+private shouldInstantlyReplaceVisibleItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/client/player/LocalPlayer;)Z
+private extractMapRenderState(Lnet/minecraft/client/player/LocalPlayer;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/client/renderer/state/MapRenderState;)Z
+public static evaluateWhichHandsToRender(Lnet/minecraft/client/player/LocalPlayer;)Lnet/minecraft/client/renderer/state/level/FirstPersonHandsAndItemsRenderState$HandRenderSelection;
+private static isChargedCrossbow(Lnet/minecraft/world/item/ItemStack;)Z
 ```

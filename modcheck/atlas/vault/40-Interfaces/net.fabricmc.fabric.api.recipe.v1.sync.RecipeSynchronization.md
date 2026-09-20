@@ -14,6 +14,5 @@ Module: [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] -- kind: cla
 
 ```java
 public static final net.minecraft.resources.Identifier RECIPE_SYNC_EVENT_PHASE
-public static void synchronizeRecipeSerializer(net.minecraft.world.item.crafting.RecipeSerializer<?>)
-static {}
+public static void synchronizeRecipeSerializer(net.minecraft.world.item.crafting.RecipeSerializer)
 ```

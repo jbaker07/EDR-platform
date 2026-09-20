@@ -11,26 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data|net.minecraft.data]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `json(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `json(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `file` | `(Lnet/minecraft/resources/Identifier;Ljava/lang/String;)Ljava/nio/file` | exact | invokevirtual@17 in `FabricCodecDataProvider.lambda$write$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `json` | `(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | exact | invokevirtual@8 in `FabricAdvancementProvider.getOutputPath` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `json` | `(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | exact | invokevirtual@157 in `FabricDynamicRegistryProvider.writeHolders` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `json` | `(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | exact | invokevirtual@23 in `FabricLanguageProvider.getLangFilePath` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `json` | `(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | exact | invokevirtual@53 in `FabricRecipeProvider.lambda$run$2` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `json` | `(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | exact | invokevirtual@53 in `FabricRecipeProvider.lambda$run$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `json` | `(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | exact | invokevirtual@2 in `TagAliasGenerator.writeTagAlias` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `json` | `(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;` | exact | invokevirtual@8 in `FabricLootTableProviderImpl.getOutputPath` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.PackOutput$PathProvider {
-    private final java.nio.file.Path root;
-    private final java.lang.String kind;
-    private net.minecraft.data.PackOutput$PathProvider(net.minecraft.data.PackOutput, net.minecraft.data.PackOutput$Target, java.lang.String);
-    public java.nio.file.Path file(net.minecraft.resources.Identifier, java.lang.String);
-    public java.nio.file.Path json(net.minecraft.resources.Identifier);
-    public java.nio.file.Path json(net.minecraft.resources.ResourceKey<?>);
-    private java.lang.String lambda$json$0(java.lang.String);
-    private java.lang.String lambda$file$0(java.lang.String, java.lang.String);
-}
+```
+private final root : Ljava/nio/file/Path;
+private final kind : Ljava/lang/String;
+private <init>(Lnet/minecraft/data/PackOutput;Lnet/minecraft/data/PackOutput$Target;Ljava/lang/String;)V
+public file(Lnet/minecraft/resources/Identifier;Ljava/lang/String;)Ljava/nio/file/Path;
+public json(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;
+public json(Lnet/minecraft/resources/ResourceKey;)Ljava/nio/file/Path;
+private synthetic lambda$json$0(Ljava/lang/String;)Ljava/lang/String;
+private synthetic lambda$file$0(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 ```

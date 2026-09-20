@@ -11,27 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.recipes|net.minecraft.data.recipes]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `save` | `(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/Res` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (4 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.recipes.CustomCraftingRecipeBuilder {
-    private final net.minecraft.data.recipes.RecipeCategory category;
-    private final net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder advancementBuilder;
-    private java.lang.String group;
-    private final net.minecraft.data.recipes.CustomCraftingRecipeBuilder$Factory factory;
-    public net.minecraft.data.recipes.CustomCraftingRecipeBuilder(net.minecraft.data.recipes.RecipeCategory, net.minecraft.data.recipes.CustomCraftingRecipeBuilder$Factory);
-    public static net.minecraft.data.recipes.CustomCraftingRecipeBuilder customCrafting(net.minecraft.data.recipes.RecipeCategory, net.minecraft.data.recipes.CustomCraftingRecipeBuilder$Factory);
-    public net.minecraft.data.recipes.CustomCraftingRecipeBuilder unlockedBy(java.lang.String, net.minecraft.advancements.triggers.Criterion<?>);
-    public net.minecraft.data.recipes.CustomCraftingRecipeBuilder group(java.lang.String);
-    public void save(net.minecraft.data.recipes.RecipeOutput, java.lang.String);
-    public void save(net.minecraft.data.recipes.RecipeOutput, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>);
-}
+```
+private final category : Lnet/minecraft/data/recipes/RecipeCategory;
+private final advancementBuilder : Lnet/minecraft/data/recipes/RecipeUnlockAdvancementBuilder;
+private group : Ljava/lang/String;
+private final factory : Lnet/minecraft/data/recipes/CustomCraftingRecipeBuilder$Factory;
+public <init>(Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/data/recipes/CustomCraftingRecipeBuilder$Factory;)V
+public static customCrafting(Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/data/recipes/CustomCraftingRecipeBuilder$Factory;)Lnet/minecraft/data/recipes/CustomCraftingRecipeBuilder;
+public unlockedBy(Ljava/lang/String;Lnet/minecraft/advancements/triggers/Criterion;)Lnet/minecraft/data/recipes/CustomCraftingRecipeBuilder;
+public group(Ljava/lang/String;)Lnet/minecraft/data/recipes/CustomCraftingRecipeBuilder;
+public save(Lnet/minecraft/data/recipes/RecipeOutput;Ljava/lang/String;)V
+public save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V
 ```

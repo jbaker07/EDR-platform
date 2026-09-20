@@ -13,12 +13,12 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
 
 ```java
-public java.util.List<S> parts
-public net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage(java.util.List<S>)
+public java.util.List parts
+public <init>(java.util.List)
 public boolean supportsInsertion()
-public long insert(T, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
+public long insert(java.lang.Object, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
 public boolean supportsExtraction()
-public long extract(T, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
-public java.util.Iterator<net.fabricmc.fabric.api.transfer.v1.storage.StorageView<T>> iterator()
+public long extract(java.lang.Object, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
+public java.util.Iterator iterator()
 public java.lang.String toString()
 ```

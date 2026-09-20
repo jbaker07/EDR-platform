@@ -7,7 +7,7 @@ type: "index"
 
 # Analyst-stated contracts
 
-Each note separates what is *asserted* (with the basis for it) from what is *not established*. A contract is an analyst's reading of declared signatures, bytecode patterns and cached documentation; it is not a runtime guarantee.
+Each note separates what is *asserted* (with the basis for it) from what is *not established*. A contract is an analyst's reading of declared signatures, bytecode patterns, executed transformation scenarios and cached documentation; it is not a runtime guarantee.
 
 | subject | kind | asserted | not established |
 |---|---|---|---|
@@ -26,4 +26,4 @@ Each note separates what is *asserted* (with the basis for it) from what is *not
 | [[_authored/contracts/net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE|PlayerBlockBreakEvents.BEFORE]] | event | 2 | 1 |
 | [[_authored/contracts/net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT|UseBlockCallback.EVENT]] | event | 3 | 1 |
 | [[_authored/contracts/net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN|ServerPlayConnectionEvents.JOIN]] | event | 2 | 1 |
-| [[_authored/contracts/Mixin|Mixin]] | hook | 2 | 2 |
+| [[_authored/contracts/Mixin|Mixin]] | hook | 8 | 3 |

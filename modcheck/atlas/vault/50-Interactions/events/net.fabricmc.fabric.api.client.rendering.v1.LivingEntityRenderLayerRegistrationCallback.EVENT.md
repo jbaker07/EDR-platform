@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `EntityRenderersMixin.onRegisterRenderers` | `EntityRenderers.<clinit>*` @Inject at RETURN | client | static_inference |
-| `EntityRenderersMixin.createAvatarRenderer` | (handler is not itself an injector method: fired from a helper or impl class) | client | static_inference |
+| `EntityRenderersMixin.createEntityRenderer` @60 | [[40-Interfaces/net.minecraft.client.renderer.entity.EntityRenderers|EntityRenderers]].`lambda$createEntityRenderers$0` @Redirect INVOKE `Lnet/minecraft/client/renderer/entity/EntityRendererProvider;create(Lnet/minecraft/client/renderer/entity/EntityRendererProvider$Context;)Lnet/minecraft/client/renderer/entity/EntityRenderer;` | unknown | static_inference |
+| `EntityRenderersMixin.createAvatarRenderer` @64 | [[40-Interfaces/net.minecraft.client.renderer.entity.EntityRenderers|EntityRenderers]].`createAvatarRenderers` @WrapOperation NEW `(Lnet/minecraft/client/renderer/entity/EntityRendererProvider$Context;Z)Lnet/minecraft/client/renderer/entity/player/AvatarRenderer;` | unknown | static_inference |
 
 ## Contract
 

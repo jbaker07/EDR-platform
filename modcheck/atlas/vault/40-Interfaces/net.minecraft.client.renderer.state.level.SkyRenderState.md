@@ -11,32 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `reset` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `reset` | `()V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (15, all visibilities)
+## Declared members (13 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.state.level.SkyRenderState {
-    public net.minecraft.world.level.dimension.DimensionType$Skybox skybox;
-    public boolean shouldRenderDarkDisc;
-    public float sunAngle;
-    public float moonAngle;
-    public float starAngle;
-    public float rainBrightness;
-    public float starBrightness;
-    public org.joml.Vector4fc sunriseAndSunsetColor;
-    public net.minecraft.world.level.MoonPhase moonPhase;
-    public org.joml.Vector3fc skyColor;
-    public float endFlashIntensity;
-    public float endFlashXAngle;
-    public float endFlashYAngle;
-    public net.minecraft.client.renderer.state.level.SkyRenderState();
-    public void reset();
-}
+```
+public skybox : Lnet/minecraft/world/level/dimension/DimensionType$Skybox;
+public shouldRenderDarkDisc : Z
+public sunAngle : F
+public moonAngle : F
+public starAngle : F
+public rainBrightness : F
+public starBrightness : F
+public sunriseAndSunsetColor : Lorg/joml/Vector4fc;
+public moonPhase : Lnet/minecraft/world/level/MoonPhase;
+public skyColor : Lorg/joml/Vector3fc;
+public endFlashIntensity : F
+public endFlashXAngle : F
+public endFlashYAngle : F
+public <init>()V
+public reset()V
 ```

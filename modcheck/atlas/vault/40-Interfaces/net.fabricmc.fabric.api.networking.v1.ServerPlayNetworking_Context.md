@@ -16,5 +16,5 @@ Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- k
 public abstract net.minecraft.server.MinecraftServer server()
 public abstract net.minecraft.server.level.ServerPlayer player()
 public abstract net.fabricmc.fabric.api.networking.v1.PacketSender responseSender()
-public default net.fabricmc.fabric.api.networking.v1.context.PacketContext packetContext()
+public net.fabricmc.fabric.api.networking.v1.context.PacketContext packetContext()
 ```

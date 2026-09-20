@@ -11,33 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `value()Lcom/mojang/datafixers/util/Either;` | `` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
-| injects_into | `loadFromResource` | `@Inject at INVOKE Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serializat` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `value` | `()Lcom/mojang/datafixers/util/Either;` | exact | invokevirtual@1 in `ResourceManagerRegistryLoadTaskMixin.load` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| calls | `value` | `()Lcom/mojang/datafixers/util/Either;` | exact | invokevirtual@14 in `ResourceManagerRegistryLoadTaskMixin.load` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| injects_into | `loadFromResource` | `(Lcom/mojang/serialization/Decoder;Lnet/minecraft/resources/RegistryOp` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
 
-## Declared members (15, all visibilities)
+## Declared members (3 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.resources.RegistryLoadTask$PendingRegistration<T> extends java.lang.Record {
-    private final net.minecraft.resources.ResourceKey<T> key;
-    private final com.mojang.datafixers.util.Either<T, java.lang.Exception> value;
-    private final net.minecraft.core.RegistrationInfo registrationInfo;
-    protected net.minecraft.resources.RegistryLoadTask$PendingRegistration(net.minecraft.resources.ResourceKey<T>, com.mojang.datafixers.util.Either<T, java.lang.Exception>, net.minecraft.core.RegistrationInfo);
-    public static <T> com.mojang.datafixers.util.Either<T, java.lang.Exception> loadFromResource(com.mojang.serialization.Decoder<T>, net.minecraft.resources.RegistryOps<com.google.gson.JsonElement>, net.minecraft.resources.ResourceKey<T>, net.minecraft.server.packs.resources.Resource);
-    public static <T> com.mojang.datafixers.util.Either<T, java.lang.Exception> findAndLoadFromResource(com.mojang.serialization.Decoder<T>, net.minecraft.resources.RegistryOps<com.google.gson.JsonElement>, net.minecraft.resources.ResourceKey<T>, net.minecraft.resources.FileToIdConverter, net.minecraft.server.packs.resources.ResourceProvider);
-    public static <T> com.mojang.datafixers.util.Either<T, java.lang.Exception> loadFromNetwork(com.mojang.serialization.Decoder<T>, net.minecraft.resources.RegistryOps<net.minecraft.nbt.Tag>, net.minecraft.resources.ResourceKey<T>, net.minecraft.nbt.Tag);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.resources.ResourceKey<T> key();
-    public com.mojang.datafixers.util.Either<T, java.lang.Exception> value();
-    public net.minecraft.core.RegistrationInfo registrationInfo();
-    private static com.mojang.datafixers.util.Either lambda$findAndLoadFromResource$1(net.minecraft.resources.Identifier, net.minecraft.resources.ResourceKey);
-    private static com.mojang.datafixers.util.Either lambda$findAndLoadFromResource$0(com.mojang.serialization.Decoder, net.minecraft.resources.RegistryOps, net.minecraft.resources.ResourceKey, net.minecraft.server.packs.resources.Resource);
-}
+```
+private final key : Lnet/minecraft/resources/ResourceKey;
+private final value : Lcom/mojang/datafixers/util/Either;
+private final registrationInfo : Lnet/minecraft/core/RegistrationInfo;
+protected <init>(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/RegistrationInfo;)V
+public static loadFromResource(Lcom/mojang/serialization/Decoder;Lnet/minecraft/resources/RegistryOps;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/server/packs/resources/Resource;)Lcom/mojang/datafixers/util/Either;
+public static findAndLoadFromResource(Lcom/mojang/serialization/Decoder;Lnet/minecraft/resources/RegistryOps;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/resources/FileToIdConverter;Lnet/minecraft/server/packs/resources/ResourceProvider;)Lcom/mojang/datafixers/util/Either;
+public static loadFromNetwork(Lcom/mojang/serialization/Decoder;Lnet/minecraft/resources/RegistryOps;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/nbt/Tag;)Lcom/mojang/datafixers/util/Either;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public key()Lnet/minecraft/resources/ResourceKey;
+public value()Lcom/mojang/datafixers/util/Either;
+public registrationInfo()Lnet/minecraft/core/RegistrationInfo;
+private static synthetic lambda$findAndLoadFromResource$1(Lnet/minecraft/resources/Identifier;Lnet/minecraft/resources/ResourceKey;)Lcom/mojang/datafixers/util/Either;
+private static synthetic lambda$findAndLoadFromResource$0(Lcom/mojang/serialization/Decoder;Lnet/minecraft/resources/RegistryOps;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/server/packs/resources/Resource;)Lcom/mojang/datafixers/util/Either;
 ```

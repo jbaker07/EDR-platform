@@ -14,6 +14,6 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 
 ```java
 public static void register(net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin)
-public static java.util.List<net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin> getAll()
+public static java.util.List getAll()
 public abstract void initialize(net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin$Context)
 ```

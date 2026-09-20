@@ -14,8 +14,8 @@ Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api
 
 ```java
 public abstract void onInitializeDataGenerator(net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator)
-public default java.lang.String getEffectiveModId()
-public default void buildRegistry(net.minecraft.core.RegistrySetBuilder)
-public default void buildReloadableRegistry(net.minecraft.core.RegistrySetBuilder)
-public default void addJsonKeySortOrders(net.fabricmc.fabric.api.datagen.v1.JsonKeySortOrderCallback)
+public java.lang.String getEffectiveModId()
+public void buildRegistry(net.minecraft.core.RegistrySetBuilder)
+public void buildReloadableRegistry(net.minecraft.core.RegistrySetBuilder)
+public void addJsonKeySortOrders(net.fabricmc.fabric.api.datagen.v1.JsonKeySortOrderCallback)
 ```

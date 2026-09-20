@@ -9,7 +9,7 @@ side: "shared_by_design"
 
 # Level, blocks, block entities, chunks and world generation
 
-Package `net.minecraft.world.level` -- generated view: [[20-Systems/net.minecraft.world.level|hooked types]]
+Package `net.minecraft.world.level` -- generated view: [[20-Systems/net.minecraft.world.level|inventory and hooked types]]
 
 **Responsibility.** The shared world model used by both sides: Level and its subclasses, block and block-state definitions, block entities, chunk data, biomes, dimension types, game rules, storage and the entire world-generation package tree. 2176 top-level classes; 106 of them are hooked by Fabric API, the most of any package.
 
@@ -34,7 +34,7 @@ Package `net.minecraft.world.level` -- generated view: [[20-Systems/net.minecraf
 ## Evidence
 
 - `extracted/corpus.json`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `extracted/edges.json#injects_into`
 
 ## Open questions

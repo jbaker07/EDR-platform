@@ -11,77 +11,81 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/level/block/entity/BaseContainerBlockEntity`; implements `net/minecraft/world/WorldlyContainer`, `net/minecraft/world/inventory/StackedContentsCompatible`, `net/minecraft/world/inventory/RecipeCraftingHolder`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `consumeFuel` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| injects_into | `setItem` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| wraps | `consumeFuel` | `@Redirect at INVOKE Lnet/minecraft/world/item/Item;getCraftingRemainder()Lnet/mi` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getTotalCookTime` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/bl` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | declared |
+| injects_into | `consumeFuel` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| injects_into | `setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `cookingTimer` | `I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | declared |
+| reads | `cookingTotalTime` | `I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | declared |
+| reads | `items` | `Lnet/minecraft/core/NonNullList;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | declared |
+| wraps | `consumeFuel` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (58, all visibilities)
+## Declared members (28 fields, 30 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity extends net.minecraft.world.level.block.entity.BaseContainerBlockEntity implements net.minecraft.world.WorldlyContainer,net.minecraft.world.inventory.StackedContentsCompatible,net.minecraft.world.inventory.RecipeCraftingHolder {
-    protected static final int SLOT_INPUT;
-    protected static final int SLOT_FUEL;
-    protected static final int SLOT_RESULT;
-    public static final int DATA_LIT_TIME;
-    private static final int[] SLOTS_FOR_UP;
-    private static final int[] SLOTS_FOR_DOWN;
-    private static final int[] SLOTS_FOR_SIDES;
-    public static final int DATA_LIT_DURATION;
-    public static final int DATA_COOKING_PROGRESS;
-    public static final int DATA_COOKING_TOTAL_TIME;
-    public static final int NUM_DATA_VALUES;
-    public static final int BURN_TIME_STANDARD;
-    public static final int BURN_COOL_SPEED;
-    private static final com.mojang.serialization.Codec<java.util.Map<net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>, java.lang.Integer>> RECIPES_USED_CODEC;
-    private static final int DEFAULT_COOKING_TIMER;
-    private static final int DEFAULT_COOKING_TOTAL_TIME;
-    private static final int DEFAULT_LIT_TIME_REMAINING;
-    private static final int DEFAULT_LIT_TOTAL_TIME;
-    private static final float DEFAULT_SPEED_MULTIPLIER;
-    protected net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> items;
-    private int litTimeRemaining;
-    private int litTotalTime;
-    private int cookingTimer;
-    private int cookingTotalTime;
-    private float speedMultiplier;
-    protected final net.minecraft.world.inventory.ContainerData dataAccess;
-    private final it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap<net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>> recipesUsed;
-    private final net.minecraft.world.item.crafting.RecipeManager$CachedCheck<net.minecraft.world.item.crafting.SingleRecipeInput, ? extends net.minecraft.world.item.crafting.AbstractCookingRecipe> quickCheck;
-    protected net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?>, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.item.crafting.RecipeType<? extends net.minecraft.world.item.crafting.AbstractCookingRecipe>);
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput);
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput);
-    public static void serverTick(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity);
-    private static void consumeFuel(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack>, net.minecraft.world.item.ItemStack);
-    private static boolean canBurn(net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack>, int, net.minecraft.world.item.ItemStack);
-    private static void burn(net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack>, net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
-    protected int getBurnDuration(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    protected float getSpeedMultiplier(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    private static int getTotalCookTime(net.minecraft.world.item.crafting.RecipeHolder<? extends net.minecraft.world.item.crafting.AbstractCookingRecipe>, net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity);
-    private static int getTotalCookTime(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity);
-    public int[] getSlotsForFace(net.minecraft.core.Direction);
-    public boolean canPlaceItemThroughFace(int, net.minecraft.world.item.ItemStack, net.minecraft.core.Direction);
-    public boolean canTakeItemThroughFace(int, net.minecraft.world.item.ItemStack, net.minecraft.core.Direction);
-    public int getContainerSize();
-    protected net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getItems();
-    protected void setItems(net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack>);
-    public void setItem(int, net.minecraft.world.item.ItemStack);
-    public boolean canPlaceItem(int, net.minecraft.world.item.ItemStack);
-    public void setRecipeUsed(net.minecraft.world.item.crafting.RecipeHolder<?>);
-    public net.minecraft.world.item.crafting.RecipeHolder<?> getRecipeUsed();
-    public void awardUsedRecipes(net.minecraft.world.entity.player.Player, java.util.List<net.minecraft.world.item.ItemStack>);
-    public void awardUsedRecipesAndPopExperience(net.minecraft.server.level.ServerPlayer);
-    public java.util.List<net.minecraft.world.item.crafting.RecipeHolder<?>> getRecipesToAwardAndPopExperience(net.minecraft.server.level.ServerLevel, net.minecraft.world.phys.Vec3);
-    private static void createExperience(net.minecraft.server.level.ServerLevel, net.minecraft.world.phys.Vec3, int, float);
-    public void fillStackedContents(net.minecraft.world.entity.player.StackedItemContents);
-    public void preRemoveSideEffects(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private static void lambda$getRecipesToAwardAndPopExperience$0(java.util.List, net.minecraft.server.level.ServerLevel, net.minecraft.world.phys.Vec3, it.unimi.dsi.fastutil.objects.Reference2IntMap$Entry, net.minecraft.world.item.crafting.RecipeHolder);
-    private static java.lang.Integer lambda$getTotalCookTime$0(net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity, net.minecraft.world.item.crafting.RecipeHolder);
-    static {};
-}
+```
+protected static final SLOT_INPUT : I
+protected static final SLOT_FUEL : I
+protected static final SLOT_RESULT : I
+public static final DATA_LIT_TIME : I
+private static final SLOTS_FOR_UP : [I
+private static final SLOTS_FOR_DOWN : [I
+private static final SLOTS_FOR_SIDES : [I
+public static final DATA_LIT_DURATION : I
+public static final DATA_COOKING_PROGRESS : I
+public static final DATA_COOKING_TOTAL_TIME : I
+public static final NUM_DATA_VALUES : I
+public static final BURN_TIME_STANDARD : I
+public static final BURN_COOL_SPEED : I
+private static final RECIPES_USED_CODEC : Lcom/mojang/serialization/Codec;
+private static final DEFAULT_COOKING_TIMER : I
+private static final DEFAULT_COOKING_TOTAL_TIME : I
+private static final DEFAULT_LIT_TIME_REMAINING : I
+private static final DEFAULT_LIT_TOTAL_TIME : I
+private static final DEFAULT_SPEED_MULTIPLIER : F
+protected items : Lnet/minecraft/core/NonNullList;
+private litTimeRemaining : I
+private litTotalTime : I
+private cookingTimer : I
+private cookingTotalTime : I
+private speedMultiplier : F
+protected final dataAccess : Lnet/minecraft/world/inventory/ContainerData;
+private final recipesUsed : Lit/unimi/dsi/fastutil/objects/Reference2IntOpenHashMap;
+private final quickCheck : Lnet/minecraft/world/item/crafting/RecipeManager$CachedCheck;
+protected <init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/crafting/RecipeType;)V
+protected loadAdditional(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected saveAdditional(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public static serverTick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity;)V
+private static consumeFuel(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/NonNullList;Lnet/minecraft/world/item/ItemStack;)V
+private static canBurn(Lnet/minecraft/core/NonNullList;ILnet/minecraft/world/item/ItemStack;)Z
+private static burn(Lnet/minecraft/core/NonNullList;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)V
+protected getBurnDuration(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)I
+protected getSpeedMultiplier(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)F
+private static getTotalCookTime(Lnet/minecraft/world/item/crafting/RecipeHolder;Lnet/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity;)I
+private static getTotalCookTime(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity;)I
+public getSlotsForFace(Lnet/minecraft/core/Direction;)[I
+public canPlaceItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z
+public canTakeItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z
+public getContainerSize()I
+protected getItems()Lnet/minecraft/core/NonNullList;
+protected setItems(Lnet/minecraft/core/NonNullList;)V
+public setItem(ILnet/minecraft/world/item/ItemStack;)V
+public canPlaceItem(ILnet/minecraft/world/item/ItemStack;)Z
+public setRecipeUsed(Lnet/minecraft/world/item/crafting/RecipeHolder;)V
+public getRecipeUsed()Lnet/minecraft/world/item/crafting/RecipeHolder;
+public awardUsedRecipes(Lnet/minecraft/world/entity/player/Player;Ljava/util/List;)V
+public awardUsedRecipesAndPopExperience(Lnet/minecraft/server/level/ServerPlayer;)V
+public getRecipesToAwardAndPopExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;)Ljava/util/List;
+private static createExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;IF)V
+public fillStackedContents(Lnet/minecraft/world/entity/player/StackedItemContents;)V
+public preRemoveSideEffects(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+private static synthetic lambda$getRecipesToAwardAndPopExperience$0(Ljava/util/List;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;Lit/unimi/dsi/fastutil/objects/Reference2IntMap$Entry;Lnet/minecraft/world/item/crafting/RecipeHolder;)V
+private static synthetic lambda$getTotalCookTime$0(Lnet/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity;Lnet/minecraft/world/item/crafting/RecipeHolder;)Ljava/lang/Integer;
+static <clinit>()V
 ```

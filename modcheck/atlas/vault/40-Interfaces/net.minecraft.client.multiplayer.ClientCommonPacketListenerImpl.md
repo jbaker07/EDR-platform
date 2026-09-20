@@ -11,78 +11,80 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/network/protocol/common/ClientCommonPacketListener`, `net/fabricmc/fabric/api/networking/v1/context/PacketContextProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Conn` | `` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Conn` | `` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| injects_into | `handleCustomPayload(Lnet/minecraft/network/protocol/common/ClientboundCustomPayloadPacket;)V` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Connection;Lne` | exact | invokespecial@4 in `ClientConfigurationPacketListenerImplMixin.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Connection;Lne` | exact | invokespecial@4 in `ClientPacketListenerMixin.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| injects_into | `handleCustomPayload` | `(Lnet/minecraft/network/protocol/common/ClientboundCustomPayloadPacket` | exact | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/network/Connection;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
+| reads | `minecraft` | `Lnet/minecraft/client/Minecraft;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
 
-## Declared members (59, all visibilities)
+## Declared members (15 fields, 44 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl implements net.minecraft.network.protocol.common.ClientCommonPacketListener {
-    private static final net.minecraft.network.chat.Component GENERIC_DISCONNECT_MESSAGE;
-    private static final org.slf4j.Logger LOGGER;
-    protected final net.minecraft.client.Minecraft minecraft;
-    protected final net.minecraft.network.Connection connection;
-    protected final net.minecraft.client.multiplayer.ServerData serverData;
-    protected java.lang.String serverBrand;
-    protected final net.minecraft.client.telemetry.WorldSessionTelemetryManager telemetryManager;
-    protected final net.minecraft.client.gui.screens.Screen postDisconnectScreen;
-    protected boolean isTransferring;
-    private final java.util.List<net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl$DeferredPacket> deferredPackets;
-    protected final java.util.Map<net.minecraft.resources.Identifier, byte[]> serverCookies;
-    protected java.util.Map<java.lang.String, java.lang.String> customReportDetails;
-    private net.minecraft.server.ServerLinks serverLinks;
-    protected final java.util.Map<java.util.UUID, net.minecraft.client.multiplayer.PlayerInfo> seenPlayers;
-    protected boolean seenInsecureChatWarning;
-    protected net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl(net.minecraft.client.Minecraft, net.minecraft.network.Connection, net.minecraft.client.multiplayer.CommonListenerCookie);
-    public net.minecraft.server.ServerLinks serverLinks();
-    public void onPacketError(net.minecraft.network.protocol.Packet, java.lang.Exception);
-    public net.minecraft.network.DisconnectionDetails createDisconnectionInfo(net.minecraft.network.chat.Component, java.lang.Throwable);
-    private java.util.Optional<java.nio.file.Path> storeDisconnectionReport(net.minecraft.network.protocol.Packet, java.lang.Throwable);
-    public boolean shouldHandleMessage(net.minecraft.network.protocol.Packet<?>);
-    public void handleKeepAlive(net.minecraft.network.protocol.common.ClientboundKeepAlivePacket);
-    public void handlePing(net.minecraft.network.protocol.common.ClientboundPingPacket);
-    public void handleCustomPayload(net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket);
-    protected abstract void handleCustomPayload(net.minecraft.network.protocol.common.custom.CustomPacketPayload);
-    public void handleResourcePackPush(net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket);
-    public void handleResourcePackPop(net.minecraft.network.protocol.common.ClientboundResourcePackPopPacket);
-    public void handlePostEffects(net.minecraft.network.protocol.common.ClientboundPostEffectsPacket);
-    private static net.minecraft.network.chat.Component preparePackPrompt(net.minecraft.network.chat.Component, net.minecraft.network.chat.Component);
-    private static java.net.URL parseResourcePackUrl(java.lang.String);
-    public void handleRequestCookie(net.minecraft.network.protocol.cookie.ClientboundCookieRequestPacket);
-    public void handleStoreCookie(net.minecraft.network.protocol.common.ClientboundStoreCookiePacket);
-    public void handleCustomReportDetails(net.minecraft.network.protocol.common.ClientboundCustomReportDetailsPacket);
-    public void handleServerLinks(net.minecraft.network.protocol.common.ClientboundServerLinksPacket);
-    public void handleShowDialog(net.minecraft.network.protocol.common.ClientboundShowDialogPacket);
-    protected abstract net.minecraft.client.gui.screens.dialog.DialogConnectionAccess createDialogAccess();
-    public void showDialog(net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>, net.minecraft.client.gui.screens.Screen);
-    protected void showDialog(net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>, net.minecraft.client.gui.screens.dialog.DialogConnectionAccess, net.minecraft.client.gui.screens.Screen);
-    public void handleClearDialog(net.minecraft.network.protocol.common.ClientboundClearDialogPacket);
-    public void clearDialog();
-    public void handleTransfer(net.minecraft.network.protocol.common.ClientboundTransferPacket);
-    public void handleDisconnect(net.minecraft.network.protocol.common.ClientboundDisconnectPacket);
-    protected void sendDeferredPackets();
-    public void send(net.minecraft.network.protocol.Packet<?>);
-    public void onDisconnect(net.minecraft.network.DisconnectionDetails);
-    public void fillListenerSpecificCrashDetails(net.minecraft.CrashReport, net.minecraft.CrashReportCategory);
-    protected net.minecraft.client.gui.screens.Screen createDisconnectScreen(net.minecraft.network.DisconnectionDetails);
-    public java.lang.String serverBrand();
-    private void sendWhen(net.minecraft.network.protocol.Packet<? extends net.minecraft.network.ServerboundPacketListener>, java.util.function.BooleanSupplier, java.time.Duration);
-    private net.minecraft.client.gui.screens.Screen addOrUpdatePackPrompt(java.util.UUID, java.net.URL, java.lang.String, boolean, net.minecraft.network.chat.Component);
-    private net.minecraft.client.gui.screens.Screen lambda$createDisconnectScreen$0();
-    private java.lang.String lambda$fillListenerSpecificCrashDetails$2() throws java.lang.Exception;
-    private java.lang.String lambda$fillListenerSpecificCrashDetails$1() throws java.lang.Exception;
-    private java.lang.String lambda$fillListenerSpecificCrashDetails$0() throws java.lang.Exception;
-    private void lambda$handleResourcePackPop$1();
-    private void lambda$handleResourcePackPop$0(java.util.UUID);
-    private static boolean lambda$handleKeepAlive$0();
-    private static java.util.List lambda$storeDisconnectionReport$0(net.minecraft.server.ServerLinks$Entry);
-    static {};
-}
+```
+private static final GENERIC_DISCONNECT_MESSAGE : Lnet/minecraft/network/chat/Component;
+private static final LOGGER : Lorg/slf4j/Logger;
+protected final minecraft : Lnet/minecraft/client/Minecraft;
+protected final connection : Lnet/minecraft/network/Connection;
+protected final serverData : Lnet/minecraft/client/multiplayer/ServerData;
+protected serverBrand : Ljava/lang/String;
+protected final telemetryManager : Lnet/minecraft/client/telemetry/WorldSessionTelemetryManager;
+protected final postDisconnectScreen : Lnet/minecraft/client/gui/screens/Screen;
+protected isTransferring : Z
+private final deferredPackets : Ljava/util/List;
+protected final serverCookies : Ljava/util/Map;
+protected customReportDetails : Ljava/util/Map;
+private serverLinks : Lnet/minecraft/server/ServerLinks;
+protected final seenPlayers : Ljava/util/Map;
+protected seenInsecureChatWarning : Z
+protected <init>(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Connection;Lnet/minecraft/client/multiplayer/CommonListenerCookie;)V
+public serverLinks()Lnet/minecraft/server/ServerLinks;
+public onPacketError(Lnet/minecraft/network/protocol/Packet;Ljava/lang/Exception;)V
+public createDisconnectionInfo(Lnet/minecraft/network/chat/Component;Ljava/lang/Throwable;)Lnet/minecraft/network/DisconnectionDetails;
+private storeDisconnectionReport(Lnet/minecraft/network/protocol/Packet;Ljava/lang/Throwable;)Ljava/util/Optional;
+public shouldHandleMessage(Lnet/minecraft/network/protocol/Packet;)Z
+public handleKeepAlive(Lnet/minecraft/network/protocol/common/ClientboundKeepAlivePacket;)V
+public handlePing(Lnet/minecraft/network/protocol/common/ClientboundPingPacket;)V
+public handleCustomPayload(Lnet/minecraft/network/protocol/common/ClientboundCustomPayloadPacket;)V
+protected abstract handleCustomPayload(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;)V
+public handleResourcePackPush(Lnet/minecraft/network/protocol/common/ClientboundResourcePackPushPacket;)V
+public handleResourcePackPop(Lnet/minecraft/network/protocol/common/ClientboundResourcePackPopPacket;)V
+public handlePostEffects(Lnet/minecraft/network/protocol/common/ClientboundPostEffectsPacket;)V
+private static preparePackPrompt(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+private static parseResourcePackUrl(Ljava/lang/String;)Ljava/net/URL;
+public handleRequestCookie(Lnet/minecraft/network/protocol/cookie/ClientboundCookieRequestPacket;)V
+public handleStoreCookie(Lnet/minecraft/network/protocol/common/ClientboundStoreCookiePacket;)V
+public handleCustomReportDetails(Lnet/minecraft/network/protocol/common/ClientboundCustomReportDetailsPacket;)V
+public handleServerLinks(Lnet/minecraft/network/protocol/common/ClientboundServerLinksPacket;)V
+public handleShowDialog(Lnet/minecraft/network/protocol/common/ClientboundShowDialogPacket;)V
+protected abstract createDialogAccess()Lnet/minecraft/client/gui/screens/dialog/DialogConnectionAccess;
+public showDialog(Lnet/minecraft/core/Holder;Lnet/minecraft/client/gui/screens/Screen;)V
+protected showDialog(Lnet/minecraft/core/Holder;Lnet/minecraft/client/gui/screens/dialog/DialogConnectionAccess;Lnet/minecraft/client/gui/screens/Screen;)V
+public handleClearDialog(Lnet/minecraft/network/protocol/common/ClientboundClearDialogPacket;)V
+public clearDialog()V
+public handleTransfer(Lnet/minecraft/network/protocol/common/ClientboundTransferPacket;)V
+public handleDisconnect(Lnet/minecraft/network/protocol/common/ClientboundDisconnectPacket;)V
+protected sendDeferredPackets()V
+public send(Lnet/minecraft/network/protocol/Packet;)V
+public onDisconnect(Lnet/minecraft/network/DisconnectionDetails;)V
+public fillListenerSpecificCrashDetails(Lnet/minecraft/CrashReport;Lnet/minecraft/CrashReportCategory;)V
+protected createDisconnectScreen(Lnet/minecraft/network/DisconnectionDetails;)Lnet/minecraft/client/gui/screens/Screen;
+public serverBrand()Ljava/lang/String;
+private sendWhen(Lnet/minecraft/network/protocol/Packet;Ljava/util/function/BooleanSupplier;Ljava/time/Duration;)V
+private addOrUpdatePackPrompt(Ljava/util/UUID;Ljava/net/URL;Ljava/lang/String;ZLnet/minecraft/network/chat/Component;)Lnet/minecraft/client/gui/screens/Screen;
+private synthetic lambda$createDisconnectScreen$0()Lnet/minecraft/client/gui/screens/Screen;
+private synthetic lambda$fillListenerSpecificCrashDetails$2()Ljava/lang/String;
+private synthetic lambda$fillListenerSpecificCrashDetails$1()Ljava/lang/String;
+private synthetic lambda$fillListenerSpecificCrashDetails$0()Ljava/lang/String;
+private synthetic lambda$handleResourcePackPop$1()V
+private synthetic lambda$handleResourcePackPop$0(Ljava/util/UUID;)V
+private static synthetic lambda$handleKeepAlive$0()Z
+private static synthetic lambda$storeDisconnectionReport$0(Lnet/minecraft/server/ServerLinks$Entry;)Ljava/util/List;
+static <clinit>()V
 ```

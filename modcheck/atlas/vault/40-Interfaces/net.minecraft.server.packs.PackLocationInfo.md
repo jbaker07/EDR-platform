@@ -11,34 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/lang/String;Lnet/minecraft/network/chat/Component;Lne` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `"<init>"(Ljava/lang/String;Lnet/minecraft/network/chat/Component;Lne` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `knownPackInfo()Ljava/util/Optional;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `source()Lnet/minecraft/server/packs/repository/PackSource;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/String;Lnet/minecraft/network/chat/Component;Lnet/minecraf` | exact | invokespecial@83 in `ResourceLoaderImpl.registerBuiltinResourcePacks` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `<init>` | `(Ljava/lang/String;Lnet/minecraft/network/chat/Component;Lnet/minecraf` | exact | invokespecial@288 in `ModNioPackResources.create` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `knownPackInfo` | `()Ljava/util/Optional;` | exact | invokevirtual@6 in `MinecraftServerMixin.lambda$init$0` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `source` | `()Lnet/minecraft/server/packs/repository/PackSource;` | exact | invokevirtual@5 in `PackMixin.lambda$onCreateResourcePack$0` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (4 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.server.packs.PackLocationInfo extends java.lang.Record {
-    private final java.lang.String id;
-    private final net.minecraft.network.chat.Component title;
-    private final net.minecraft.server.packs.repository.PackSource source;
-    private final java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo;
-    public net.minecraft.server.packs.PackLocationInfo(java.lang.String, net.minecraft.network.chat.Component, net.minecraft.server.packs.repository.PackSource, java.util.Optional<net.minecraft.server.packs.repository.KnownPack>);
-    public net.minecraft.network.chat.Component createChatLink(boolean, net.minecraft.network.chat.Component);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.lang.String id();
-    public net.minecraft.network.chat.Component title();
-    public net.minecraft.server.packs.repository.PackSource source();
-    public java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo();
-    private net.minecraft.network.chat.Style lambda$createChatLink$0(boolean, net.minecraft.network.chat.Component, net.minecraft.network.chat.Style);
-}
+```
+private final id : Ljava/lang/String;
+private final title : Lnet/minecraft/network/chat/Component;
+private final source : Lnet/minecraft/server/packs/repository/PackSource;
+private final knownPackInfo : Ljava/util/Optional;
+public <init>(Ljava/lang/String;Lnet/minecraft/network/chat/Component;Lnet/minecraft/server/packs/repository/PackSource;Ljava/util/Optional;)V
+public createChatLink(ZLnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public id()Ljava/lang/String;
+public title()Lnet/minecraft/network/chat/Component;
+public source()Lnet/minecraft/server/packs/repository/PackSource;
+public knownPackInfo()Ljava/util/Optional;
+private synthetic lambda$createChatLink$0(ZLnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/Style;
 ```

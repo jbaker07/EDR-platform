@@ -11,47 +11,49 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.tags|net.minecraft.tags]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/resources/Identifier;ZZ)V` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `build(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/function/Con` | `` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `build(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/function/Con` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `element(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/Ta` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `optionalElement(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/Ta` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `optionalTag(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/Ta` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `tag(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/Ta` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/resources/Identifier;ZZ)V` | exact | invokespecial@4 in `ForcedTagEntry.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `build` | `(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/function/Consumer;)Z` | exact | invokevirtual@293 in `ClientTagsLoader.loadTag` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `build` | `(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/function/Consumer;)Z` | exact | invokevirtual@347 in `ClientTagsLoader.loadTag` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `build` | `(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/function/Consumer;)Z` | exact | invokevirtual@22 in `TagLoaderMixin.removeEntriesFromTags` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `element` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;` | exact | invokestatic@5 in `TagBuilderMixin.fabric_removeElement` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `optionalElement` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;` | exact | invokestatic@76 in `TagRemovalInternals.addRemoveEntry` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `optionalTag` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;` | exact | invokestatic@64 in `TagRemovalInternals.addRemoveEntry` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `tag` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;` | exact | invokestatic@5 in `TagBuilderMixin.fabric_removeTag` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@11 in `TagRemovalInternals.lambda$modifyTagFileCodec$0` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (24, all visibilities)
+## Declared members (5 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.tags.TagEntry {
-    private static final com.mojang.serialization.Codec<net.minecraft.tags.TagEntry> FULL_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.tags.TagEntry> CODEC;
-    private final net.minecraft.resources.Identifier id;
-    private final boolean tag;
-    private final boolean required;
-    private net.minecraft.tags.TagEntry(net.minecraft.resources.Identifier, boolean, boolean);
-    private net.minecraft.tags.TagEntry(net.minecraft.util.ExtraCodecs$TagOrElementLocation, boolean);
-    private net.minecraft.util.ExtraCodecs$TagOrElementLocation elementOrTag();
-    public static net.minecraft.tags.TagEntry element(net.minecraft.resources.Identifier);
-    public static net.minecraft.tags.TagEntry optionalElement(net.minecraft.resources.Identifier);
-    public static net.minecraft.tags.TagEntry tag(net.minecraft.resources.Identifier);
-    public static net.minecraft.tags.TagEntry optionalTag(net.minecraft.resources.Identifier);
-    public <T> boolean build(net.minecraft.tags.TagEntry$Lookup<T>, java.util.function.Consumer<T>);
-    public void visitRequiredDependencies(java.util.function.Consumer<net.minecraft.resources.Identifier>);
-    public void visitOptionalDependencies(java.util.function.Consumer<net.minecraft.resources.Identifier>);
-    public boolean verifyIfPresent(java.util.function.Predicate<net.minecraft.resources.Identifier>, java.util.function.Predicate<net.minecraft.resources.Identifier>);
-    public java.lang.String toString();
-    private static com.mojang.datafixers.util.Either lambda$static$5(net.minecraft.tags.TagEntry);
-    private static net.minecraft.tags.TagEntry lambda$static$2(com.mojang.datafixers.util.Either);
-    private static net.minecraft.tags.TagEntry lambda$static$4(net.minecraft.tags.TagEntry);
-    private static net.minecraft.tags.TagEntry lambda$static$3(net.minecraft.util.ExtraCodecs$TagOrElementLocation);
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    private static java.lang.Boolean lambda$static$1(net.minecraft.tags.TagEntry);
-    static {};
-}
+```
+private static final FULL_CODEC : Lcom/mojang/serialization/Codec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+private final id : Lnet/minecraft/resources/Identifier;
+private final tag : Z
+private final required : Z
+private <init>(Lnet/minecraft/resources/Identifier;ZZ)V
+private <init>(Lnet/minecraft/util/ExtraCodecs$TagOrElementLocation;Z)V
+private elementOrTag()Lnet/minecraft/util/ExtraCodecs$TagOrElementLocation;
+public static element(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;
+public static optionalElement(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;
+public static tag(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;
+public static optionalTag(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagEntry;
+public build(Lnet/minecraft/tags/TagEntry$Lookup;Ljava/util/function/Consumer;)Z
+public visitRequiredDependencies(Ljava/util/function/Consumer;)V
+public visitOptionalDependencies(Ljava/util/function/Consumer;)V
+public verifyIfPresent(Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Z
+public toString()Ljava/lang/String;
+private static synthetic lambda$static$5(Lnet/minecraft/tags/TagEntry;)Lcom/mojang/datafixers/util/Either;
+private static synthetic lambda$static$2(Lcom/mojang/datafixers/util/Either;)Lnet/minecraft/tags/TagEntry;
+private static synthetic lambda$static$4(Lnet/minecraft/tags/TagEntry;)Lnet/minecraft/tags/TagEntry;
+private static synthetic lambda$static$3(Lnet/minecraft/util/ExtraCodecs$TagOrElementLocation;)Lnet/minecraft/tags/TagEntry;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+private static synthetic lambda$static$1(Lnet/minecraft/tags/TagEntry;)Ljava/lang/Boolean;
+static <clinit>()V
 ```

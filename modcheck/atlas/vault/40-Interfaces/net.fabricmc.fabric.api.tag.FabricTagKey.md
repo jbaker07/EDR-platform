@@ -13,6 +13,6 @@ sha256: "96fa76cd74df23aa2332980b0577eb88ec3ef8a2ab7c0eb0c99810bbc6390fe9"
 Module: [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] -- kind: interface
 
 ```java
-public default java.lang.String getTranslationKey()
-public default net.minecraft.network.chat.Component getName()
+public java.lang.String getTranslationKey()
+public net.minecraft.network.chat.Component getName()
 ```

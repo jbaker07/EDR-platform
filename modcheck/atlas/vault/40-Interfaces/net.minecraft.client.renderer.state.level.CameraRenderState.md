@@ -11,37 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `clearExtraData()V` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `clearExtraData` | `()V` | inherited_exact | invokevirtual@13 in `LevelRenderStateMixin.clearExtraRenderData` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (20, all visibilities)
+## Declared members (19 fields, 1 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.state.level.CameraRenderState {
-    public net.minecraft.core.BlockPos blockPos;
-    public net.minecraft.world.phys.Vec3 pos;
-    public float xRot;
-    public float yRot;
-    public boolean initialized;
-    public boolean isPanoramicMode;
-    public boolean isFrustumCaptured;
-    public boolean isFirstPerson;
-    public boolean smartCull;
-    public org.joml.Quaternionf orientation;
-    public float cameraEntityPartialTicks;
-    public net.minecraft.client.renderer.culling.Frustum cullFrustum;
-    public net.minecraft.world.level.material.FogType fogType;
-    public net.minecraft.client.renderer.fog.FogData fogData;
-    public float hudFov;
-    public float depthFar;
-    public org.joml.Matrix4f projectionMatrix;
-    public org.joml.Matrix4f viewRotationMatrix;
-    public net.minecraft.client.renderer.state.level.CameraEntityRenderState entityRenderState;
-    public net.minecraft.client.renderer.state.level.CameraRenderState();
-}
+```
+public blockPos : Lnet/minecraft/core/BlockPos;
+public pos : Lnet/minecraft/world/phys/Vec3;
+public xRot : F
+public yRot : F
+public initialized : Z
+public isPanoramicMode : Z
+public isFrustumCaptured : Z
+public isFirstPerson : Z
+public smartCull : Z
+public orientation : Lorg/joml/Quaternionf;
+public cameraEntityPartialTicks : F
+public cullFrustum : Lnet/minecraft/client/renderer/culling/Frustum;
+public fogType : Lnet/minecraft/world/level/material/FogType;
+public fogData : Lnet/minecraft/client/renderer/fog/FogData;
+public hudFov : F
+public depthFar : F
+public projectionMatrix : Lorg/joml/Matrix4f;
+public viewRotationMatrix : Lorg/joml/Matrix4f;
+public entityRenderState : Lnet/minecraft/client/renderer/state/level/CameraEntityRenderState;
+public <init>()V
 ```

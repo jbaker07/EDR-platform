@@ -11,30 +11,33 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `compile` | `@Inject at INVOKE Lnet/minecraft/core/BlockPos;betweenClosed(Lnet/minecraft/core` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| wraps | `compile` | `@Redirect at INVOKE net/minecraft/client/renderer/block/ModelBlockRenderer.tesse` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getOrBeginLayer` | `(Ljava/util/Map;Lnet/minecraft/client/renderer/SectionBufferBuilderPac` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| injects_into | `compile` | `(Lnet/minecraft/core/SectionPos;Lnet/minecraft/client/renderer/chunk/R` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `ambientOcclusion` | `Z` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| reads | `blockColors` | `Lnet/minecraft/client/color/block/BlockColors;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| wraps | `compile` | `(Lnet/minecraft/core/SectionPos;Lnet/minecraft/client/renderer/chunk/R` | name_only | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (5 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.chunk.SectionCompiler {
-    private final boolean ambientOcclusion;
-    private final boolean cutoutLeaves;
-    private final net.minecraft.client.renderer.block.BlockStateModelSet blockModelSet;
-    private final net.minecraft.client.renderer.block.FluidStateModelSet fluidModelSet;
-    private final net.minecraft.client.color.block.BlockColors blockColors;
-    public net.minecraft.client.renderer.chunk.SectionCompiler(boolean, boolean, net.minecraft.client.renderer.block.BlockStateModelSet, net.minecraft.client.renderer.block.FluidStateModelSet, net.minecraft.client.color.block.BlockColors);
-    public net.minecraft.client.renderer.chunk.SectionCompiler$Results compile(net.minecraft.core.SectionPos, net.minecraft.client.renderer.chunk.RenderSectionRegion, com.mojang.blaze3d.vertex.VertexSorting, net.minecraft.client.renderer.SectionBufferBuilderPack);
-    private com.mojang.blaze3d.vertex.BufferBuilder getOrBeginLayer(java.util.Map<net.minecraft.client.renderer.chunk.ChunkSectionLayer, com.mojang.blaze3d.vertex.BufferBuilder>, net.minecraft.client.renderer.SectionBufferBuilderPack, net.minecraft.client.renderer.chunk.ChunkSectionLayer);
-    private <E extends net.minecraft.world.level.block.entity.BlockEntity> void handleBlockEntity(net.minecraft.client.renderer.chunk.SectionCompiler$Results, E);
-    private com.mojang.blaze3d.vertex.VertexConsumer lambda$compile$2(java.util.Map, net.minecraft.client.renderer.SectionBufferBuilderPack, net.minecraft.client.renderer.chunk.ChunkSectionLayer);
-    private void lambda$compile$1(java.util.Map, net.minecraft.client.renderer.SectionBufferBuilderPack, float, float, float, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance);
-    private void lambda$compile$0(java.util.Map, net.minecraft.client.renderer.SectionBufferBuilderPack, float, float, float, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance);
-}
+```
+private final ambientOcclusion : Z
+private final cutoutLeaves : Z
+private final blockModelSet : Lnet/minecraft/client/renderer/block/BlockStateModelSet;
+private final fluidModelSet : Lnet/minecraft/client/renderer/block/FluidStateModelSet;
+private final blockColors : Lnet/minecraft/client/color/block/BlockColors;
+public <init>(ZZLnet/minecraft/client/renderer/block/BlockStateModelSet;Lnet/minecraft/client/renderer/block/FluidStateModelSet;Lnet/minecraft/client/color/block/BlockColors;)V
+public compile(Lnet/minecraft/core/SectionPos;Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;Lcom/mojang/blaze3d/vertex/VertexSorting;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;)Lnet/minecraft/client/renderer/chunk/SectionCompiler$Results;
+private getOrBeginLayer(Ljava/util/Map;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;Lnet/minecraft/client/renderer/chunk/ChunkSectionLayer;)Lcom/mojang/blaze3d/vertex/BufferBuilder;
+private handleBlockEntity(Lnet/minecraft/client/renderer/chunk/SectionCompiler$Results;Lnet/minecraft/world/level/block/entity/BlockEntity;)V
+private synthetic lambda$compile$2(Ljava/util/Map;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;Lnet/minecraft/client/renderer/chunk/ChunkSectionLayer;)Lcom/mojang/blaze3d/vertex/VertexConsumer;
+private synthetic lambda$compile$1(Ljava/util/Map;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;FFFLnet/minecraft/client/resources/model/geometry/BakedQuad;Lcom/mojang/blaze3d/vertex/QuadInstance;)V
+private synthetic lambda$compile$0(Ljava/util/Map;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;FFFLnet/minecraft/client/resources/model/geometry/BakedQuad;Lcom/mojang/blaze3d/vertex/QuadInstance;)V
 ```

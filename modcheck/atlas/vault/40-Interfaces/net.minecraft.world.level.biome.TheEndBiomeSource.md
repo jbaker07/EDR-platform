@@ -11,36 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/biome/BiomeSource`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<clinit>` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| injects_into | `<init>` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| injects_into | `create` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| injects_into | `create` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| injects_into | `getNoiseBiome` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<clinit>` | `()V` | exact | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/core/Holder;Lnet/minecraft/core/Holder;Lnet/minecraft/` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| injects_into | `create` | `(Lnet/minecraft/core/HolderGetter;)Lnet/minecraft/world/level/biome/Th` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| injects_into | `create` | `(Lnet/minecraft/core/HolderGetter;)Lnet/minecraft/world/level/biome/Th` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| injects_into | `getNoiseBiome` | `(IIILnet/minecraft/world/level/biome/Climate$Sampler;)Lnet/minecraft/c` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/MapCodec;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | declared |
 
-## Declared members (15, all visibilities)
+## Declared members (6 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.biome.TheEndBiomeSource extends net.minecraft.world.level.biome.BiomeSource {
-    public static final com.mojang.serialization.MapCodec<net.minecraft.world.level.biome.TheEndBiomeSource> CODEC;
-    private final net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> end;
-    private final net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> highlands;
-    private final net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> midlands;
-    private final net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> islands;
-    private final net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> barrens;
-    public static net.minecraft.world.level.biome.TheEndBiomeSource create(net.minecraft.core.HolderGetter<net.minecraft.world.level.biome.Biome>);
-    private net.minecraft.world.level.biome.TheEndBiomeSource(net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>);
-    protected java.util.stream.Stream<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> collectPossibleBiomes();
-    protected com.mojang.serialization.MapCodec<net.minecraft.world.level.biome.TheEndBiomeSource> codec();
-    public net.minecraft.world.level.biome.BiomeResolver createResolver(net.minecraft.world.level.biome.Climate$Sampler);
-    private net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> getNoiseBiome(int, int, int, net.minecraft.world.level.biome.Climate$Sampler);
-    private net.minecraft.core.Holder lambda$createResolver$0(net.minecraft.world.level.biome.Climate$Sampler, int, int, int);
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/MapCodec;
+private final end : Lnet/minecraft/core/Holder;
+private final highlands : Lnet/minecraft/core/Holder;
+private final midlands : Lnet/minecraft/core/Holder;
+private final islands : Lnet/minecraft/core/Holder;
+private final barrens : Lnet/minecraft/core/Holder;
+public static create(Lnet/minecraft/core/HolderGetter;)Lnet/minecraft/world/level/biome/TheEndBiomeSource;
+private <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/core/Holder;Lnet/minecraft/core/Holder;Lnet/minecraft/core/Holder;Lnet/minecraft/core/Holder;)V
+protected collectPossibleBiomes()Ljava/util/stream/Stream;
+protected codec()Lcom/mojang/serialization/MapCodec;
+public createResolver(Lnet/minecraft/world/level/biome/Climate$Sampler;)Lnet/minecraft/world/level/biome/BiomeResolver;
+private getNoiseBiome(IIILnet/minecraft/world/level/biome/Climate$Sampler;)Lnet/minecraft/core/Holder;
+private synthetic lambda$createResolver$0(Lnet/minecraft/world/level/biome/Climate$Sampler;III)Lnet/minecraft/core/Holder;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

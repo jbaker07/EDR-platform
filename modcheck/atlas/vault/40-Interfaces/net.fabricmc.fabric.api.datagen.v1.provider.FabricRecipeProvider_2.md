@@ -13,9 +13,5 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: class
 
 ```java
-final net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider$FabricBootstrapContext val$recipes
-final net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider$FabricBootstrapContext val$advancements
-final net.minecraft.core.HolderLookup$Provider val$registries
-net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider$2()
-public <T> java.util.Optional<net.minecraft.core.HolderGetter<T>> lookup(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends T>>)
+public java.util.Optional lookup(net.minecraft.resources.ResourceKey)
 ```

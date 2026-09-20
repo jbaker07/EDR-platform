@@ -11,36 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.flag|net.minecraft.world.flag]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `isSubsetOf(Lnet/minecraft/world/flag/FeatureFlagSet;)Z` | `` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `isSubsetOf` | `(Lnet/minecraft/world/flag/FeatureFlagSet;)Z` | exact | invokevirtual@53 in `ResourceConditionsImpl.featuresEnabled` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| calls | `of` | `()Lnet/minecraft/world/flag/FeatureFlagSet;` | exact | invokestatic@19 in `GameRuleBuilder.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (4 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.flag.FeatureFlagSet {
-    private static final net.minecraft.world.flag.FeatureFlagSet EMPTY;
-    public static final int MAX_CONTAINER_SIZE;
-    private final net.minecraft.world.flag.FeatureFlagUniverse universe;
-    private final long mask;
-    private net.minecraft.world.flag.FeatureFlagSet(net.minecraft.world.flag.FeatureFlagUniverse, long);
-    static net.minecraft.world.flag.FeatureFlagSet create(net.minecraft.world.flag.FeatureFlagUniverse, java.util.Collection<net.minecraft.world.flag.FeatureFlag>);
-    public static net.minecraft.world.flag.FeatureFlagSet of();
-    public static net.minecraft.world.flag.FeatureFlagSet of(net.minecraft.world.flag.FeatureFlag);
-    public static net.minecraft.world.flag.FeatureFlagSet of(net.minecraft.world.flag.FeatureFlag, net.minecraft.world.flag.FeatureFlag...);
-    private static long computeMask(net.minecraft.world.flag.FeatureFlagUniverse, long, java.lang.Iterable<net.minecraft.world.flag.FeatureFlag>);
-    public boolean contains(net.minecraft.world.flag.FeatureFlag);
-    public boolean isEmpty();
-    public boolean isSubsetOf(net.minecraft.world.flag.FeatureFlagSet);
-    public boolean intersects(net.minecraft.world.flag.FeatureFlagSet);
-    public net.minecraft.world.flag.FeatureFlagSet join(net.minecraft.world.flag.FeatureFlagSet);
-    public net.minecraft.world.flag.FeatureFlagSet subtract(net.minecraft.world.flag.FeatureFlagSet);
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    static {};
-}
+```
+private static final EMPTY : Lnet/minecraft/world/flag/FeatureFlagSet;
+public static final MAX_CONTAINER_SIZE : I
+private final universe : Lnet/minecraft/world/flag/FeatureFlagUniverse;
+private final mask : J
+private <init>(Lnet/minecraft/world/flag/FeatureFlagUniverse;J)V
+static create(Lnet/minecraft/world/flag/FeatureFlagUniverse;Ljava/util/Collection;)Lnet/minecraft/world/flag/FeatureFlagSet;
+public static of()Lnet/minecraft/world/flag/FeatureFlagSet;
+public static of(Lnet/minecraft/world/flag/FeatureFlag;)Lnet/minecraft/world/flag/FeatureFlagSet;
+public static of(Lnet/minecraft/world/flag/FeatureFlag;[Lnet/minecraft/world/flag/FeatureFlag;)Lnet/minecraft/world/flag/FeatureFlagSet;
+private static computeMask(Lnet/minecraft/world/flag/FeatureFlagUniverse;JLjava/lang/Iterable;)J
+public contains(Lnet/minecraft/world/flag/FeatureFlag;)Z
+public isEmpty()Z
+public isSubsetOf(Lnet/minecraft/world/flag/FeatureFlagSet;)Z
+public intersects(Lnet/minecraft/world/flag/FeatureFlagSet;)Z
+public join(Lnet/minecraft/world/flag/FeatureFlagSet;)Lnet/minecraft/world/flag/FeatureFlagSet;
+public subtract(Lnet/minecraft/world/flag/FeatureFlagSet;)Lnet/minecraft/world/flag/FeatureFlagSet;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+static <clinit>()V
 ```

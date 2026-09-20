@@ -13,9 +13,6 @@ sha256: "1d7d9bea7e90eacfb57ac9e6d1f09036c8f118fc5ab50328f55c4d0b8519782c"
 Module: [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] -- kind: class
 
 ```java
-final net.minecraft.resources.Identifier val$id
-final com.mojang.serialization.MapCodec val$codec
-net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType$1(net.minecraft.resources.Identifier, com.mojang.serialization.MapCodec)
 public net.minecraft.resources.Identifier id()
-public com.mojang.serialization.MapCodec<T> codec()
+public com.mojang.serialization.MapCodec codec()
 ```

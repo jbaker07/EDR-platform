@@ -20,7 +20,7 @@ status: "open"
 
 **Evidence already available.**
 - `extracted/edges.json#publishes_event`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 
 **Best remaining source.** The vanilla chunk task scheduler classes (net.minecraft.server.level and net.minecraft.world.level.chunk.status), extracted and read for the executor each status task is submitted to; then a runtime probe.
 

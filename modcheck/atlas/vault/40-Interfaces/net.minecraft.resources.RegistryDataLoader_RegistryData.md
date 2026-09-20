@@ -11,33 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serializat` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `key()Lnet/minecraft/resources/ResourceKey;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `key()Lnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
-| calls | `key()Lnet/minecraft/resources/ResourceKey;` | `` | client | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `key()Lnet/minecraft/resources/ResourceKey;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Codec;` | exact | invokespecial@64 in `DynamicRegistriesImpl.register` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Codec;` | exact | invokespecial@55 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Codec;` | exact | invokespecial@64 in `DynamicRegistriesImpl.registerReloadable` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `elementCodec` | `()Lcom/mojang/serialization/Codec;` | exact | invokevirtual@21 in `FabricDynamicRegistryProvider$RegistryEntries.create` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@1 in `FabricDynamicRegistryProvider$Entries.lambda$new$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@2 in `FabricDynamicRegistryProvider$Entries.lambda$new$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@2 in `FabricDynamicRegistryProvider$RegistryEntries.create` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@17 in `FabricDynamicRegistryProvider$RegistryEntries.create` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@85 in `FabricDataGenHelper.createWorldLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@97 in `FabricDataGenHelper.createWorldLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@88 in `FabricDataGenHelper.createReloadableLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@100 in `FabricDataGenHelper.createReloadableLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@1 in `RegistryDataLoaderMixin.lambda$loadFromResources$0` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@121 in `DynamicRegistriesImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@4 in `RegistryDataCollectorMixin.lambda$skipEmptyRegistries$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@17 in `RegistryDataCollectorMixin.lambda$skipEmptyRegistries$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (3 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.resources.RegistryDataLoader$RegistryData<T> extends java.lang.Record {
-    private final net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key;
-    private final com.mojang.serialization.Codec<T> elementCodec;
-    private final net.minecraft.resources.RegistryValidator<T> validator;
-    private net.minecraft.resources.RegistryDataLoader$RegistryData(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Codec<T>);
-    public net.minecraft.resources.RegistryDataLoader$RegistryData(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Codec<T>, net.minecraft.resources.RegistryValidator<T>);
-    public void runWithArguments(java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Codec<T>>);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key();
-    public com.mojang.serialization.Codec<T> elementCodec();
-    public net.minecraft.resources.RegistryValidator<T> validator();
-}
+```
+private final key : Lnet/minecraft/resources/ResourceKey;
+private final elementCodec : Lcom/mojang/serialization/Codec;
+private final validator : Lnet/minecraft/resources/RegistryValidator;
+private <init>(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Codec;)V
+public <init>(Lnet/minecraft/resources/ResourceKey;Lcom/mojang/serialization/Codec;Lnet/minecraft/resources/RegistryValidator;)V
+public runWithArguments(Ljava/util/function/BiConsumer;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public key()Lnet/minecraft/resources/ResourceKey;
+public elementCodec()Lcom/mojang/serialization/Codec;
+public validator()Lnet/minecraft/resources/RegistryValidator;
 ```

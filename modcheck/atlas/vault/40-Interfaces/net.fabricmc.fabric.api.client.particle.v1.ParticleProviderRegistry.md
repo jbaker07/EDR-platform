@@ -14,6 +14,6 @@ Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: inter
 
 ```java
 public static net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry getInstance()
-public abstract <T extends net.minecraft.core.particles.ParticleOptions> void register(net.minecraft.core.particles.ParticleType<T>, net.minecraft.client.particle.ParticleProvider<T>)
-public abstract <T extends net.minecraft.core.particles.ParticleOptions> void register(net.minecraft.core.particles.ParticleType<T>, net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry$PendingParticleProvider<T>)
+public abstract void register(net.minecraft.core.particles.ParticleType, net.minecraft.client.particle.ParticleProvider)
+public abstract void register(net.minecraft.core.particles.ParticleType, net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry$PendingParticleProvider)
 ```

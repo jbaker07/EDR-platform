@@ -14,7 +14,7 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
 public static void register(net.minecraft.world.level.ColorResolver)
-public static java.util.Set<net.minecraft.world.level.ColorResolver> getAllResolvers()
-public static java.util.Set<net.minecraft.world.level.ColorResolver> getCustomResolvers()
+public static java.util.Set getAllResolvers()
+public static java.util.Set getCustomResolvers()
 public static boolean isRegistered(net.minecraft.world.level.ColorResolver)
 ```

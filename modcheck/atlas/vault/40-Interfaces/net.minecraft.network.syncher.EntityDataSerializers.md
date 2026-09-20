@@ -11,70 +11,70 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.syncher|net.minecraft.network.syncher]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<clinit>` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| injects_into | `registerSerializer(Lnet/minecraft/network/syncher/EntityDataSerializer;)V` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<clinit>` | `()V` | exact | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| injects_into | `registerSerializer` | `(Lnet/minecraft/network/syncher/EntityDataSerializer;)V` | exact | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (52, all visibilities)
+## Declared members (47 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.syncher.EntityDataSerializers {
-    private static final net.minecraft.util.CrudeIncrementalIntIdentityHashBiMap<net.minecraft.network.syncher.EntityDataSerializer<?>> SERIALIZERS;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.lang.Byte> BYTE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.lang.Integer> INT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.lang.Long> LONG;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.lang.Float> FLOAT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.lang.String> STRING;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.network.chat.Component> COMPONENT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.util.Optional<net.minecraft.network.chat.Component>> OPTIONAL_COMPONENT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.item.ItemStack> ITEM_STACK;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.level.block.state.BlockState> BLOCK_STATE;
-    private static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.Optional<net.minecraft.world.level.block.state.BlockState>> OPTIONAL_BLOCK_STATE_CODEC;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.util.Optional<net.minecraft.world.level.block.state.BlockState>> OPTIONAL_BLOCK_STATE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.lang.Boolean> BOOLEAN;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.particles.ParticleOptions> PARTICLE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.util.List<net.minecraft.core.particles.ParticleOptions>> PARTICLES;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Rotations> ROTATIONS;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.BlockPos> BLOCK_POS;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.util.Optional<net.minecraft.core.BlockPos>> OPTIONAL_BLOCK_POS;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Direction> DIRECTION;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.util.Optional<net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>>> OPTIONAL_LIVING_ENTITY_REFERENCE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.util.Optional<net.minecraft.core.GlobalPos>> OPTIONAL_GLOBAL_POS;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.entity.npc.villager.VillagerData> VILLAGER_DATA;
-    private static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.OptionalInt> OPTIONAL_UNSIGNED_INT_CODEC;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<java.util.OptionalInt> OPTIONAL_UNSIGNED_INT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.entity.Pose> POSE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.feline.CatVariant>> CAT_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.feline.CatSoundVariant>> CAT_SOUND_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.chicken.ChickenVariant>> CHICKEN_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.chicken.ChickenSoundVariant>> CHICKEN_SOUND_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.cow.CowVariant>> COW_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.cow.CowSoundVariant>> COW_SOUND_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.wolf.WolfVariant>> WOLF_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.wolf.WolfSoundVariant>> WOLF_SOUND_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.frog.FrogVariant>> FROG_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.pig.PigVariant>> PIG_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.pig.PigSoundVariant>> PIG_SOUND_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.animal.nautilus.ZombieNautilusVariant>> ZOMBIE_NAUTILUS_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.core.Holder<net.minecraft.world.entity.decoration.painting.PaintingVariant>> PAINTING_VARIANT;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.entity.animal.armadillo.Armadillo$ArmadilloState> ARMADILLO_STATE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.entity.animal.sniffer.Sniffer$State> SNIFFER_STATE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.level.block.WeatheringCopper$WeatherState> WEATHERING_COPPER_STATE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.entity.animal.golem.CopperGolemState> COPPER_GOLEM_STATE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<org.joml.Vector3fc> VECTOR3;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<org.joml.Quaternionfc> QUATERNION;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.item.component.ResolvableProfile> RESOLVABLE_PROFILE;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.entity.HumanoidArm> HUMANOID_ARM;
-    public static final net.minecraft.network.syncher.EntityDataSerializer<net.minecraft.world.item.DyeColor> DYE_COLOR;
-    public static void registerSerializer(net.minecraft.network.syncher.EntityDataSerializer<?>);
-    public static net.minecraft.network.syncher.EntityDataSerializer<?> getSerializer(int);
-    public static int getSerializedId(net.minecraft.network.syncher.EntityDataSerializer<?>);
-    private net.minecraft.network.syncher.EntityDataSerializers();
-    static {};
-}
+```
+private static final SERIALIZERS : Lnet/minecraft/util/CrudeIncrementalIntIdentityHashBiMap;
+public static final BYTE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final INT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final LONG : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final FLOAT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final STRING : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final COMPONENT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final OPTIONAL_COMPONENT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final ITEM_STACK : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final BLOCK_STATE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+private static final OPTIONAL_BLOCK_STATE_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final OPTIONAL_BLOCK_STATE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final BOOLEAN : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final PARTICLE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final PARTICLES : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final ROTATIONS : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final BLOCK_POS : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final OPTIONAL_BLOCK_POS : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final DIRECTION : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final OPTIONAL_LIVING_ENTITY_REFERENCE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final OPTIONAL_GLOBAL_POS : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final VILLAGER_DATA : Lnet/minecraft/network/syncher/EntityDataSerializer;
+private static final OPTIONAL_UNSIGNED_INT_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final OPTIONAL_UNSIGNED_INT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final POSE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final CAT_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final CAT_SOUND_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final CHICKEN_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final CHICKEN_SOUND_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final COW_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final COW_SOUND_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final WOLF_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final WOLF_SOUND_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final FROG_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final PIG_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final PIG_SOUND_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final ZOMBIE_NAUTILUS_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final PAINTING_VARIANT : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final ARMADILLO_STATE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final SNIFFER_STATE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final WEATHERING_COPPER_STATE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final COPPER_GOLEM_STATE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final VECTOR3 : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final QUATERNION : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final RESOLVABLE_PROFILE : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final HUMANOID_ARM : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static final DYE_COLOR : Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static registerSerializer(Lnet/minecraft/network/syncher/EntityDataSerializer;)V
+public static getSerializer(I)Lnet/minecraft/network/syncher/EntityDataSerializer;
+public static getSerializedId(Lnet/minecraft/network/syncher/EntityDataSerializer;)I
+private <init>()V
+static <clinit>()V
 ```

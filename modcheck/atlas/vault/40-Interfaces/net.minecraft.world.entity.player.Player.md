@@ -11,307 +11,321 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/entity/Avatar`; implements `net/minecraft/world/entity/ContainerUser`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/level/Level;Lcom/mojang/authlib/GamePr` | `` | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| calls | `getAbsorptionAmount()F` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getAirSupply()I` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getArmorValue()I` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getAttributeValue(Lnet/minecraft/core/Holder;)D` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getDisplayName()Lnet/minecraft/network/chat/Component;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getHealth()F` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getInventory()Lnet/minecraft/world/entity/player/Inventory;` | `` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| calls | `getMaxAirSupply()I` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getStringUUID()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getXRot()F` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getYRot()F` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z` | `` | client | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/world/level/Level;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `permissions()Lnet/minecraft/server/permissions/PermissionSet;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| injects_into | `attack` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| injects_into | `isSleepingLongEnough` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| injects_into | `startSleepInBed` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/level/Level;Lcom/mojang/authlib/GameProfile;)V` | exact | invokespecial@3 in `ServerPlayerMixin.<init>` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `createItemStackToDrop` | `(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/it` | inherited_exact | invokevirtual@84 in `PlayerInventoryStorageImpl$DroppedStacks.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getAbsorptionAmount` | `()F` | exact | invokevirtual@48 in `HudStatusBarHeightRegistryImpl.lambda$static$1` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getAirSupply` | `()I` | inherited_exact | invokevirtual@6 in `HudStatusBarHeightRegistryImpl.lambda$static$5` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getArmorValue` | `()I` | inherited_exact | invokevirtual@1 in `HudStatusBarHeightRegistryImpl.lambda$static$2` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getAttributeValue` | `(Lnet/minecraft/core/Holder;)D` | inherited_exact | invokevirtual@32 in `HudStatusBarHeightRegistryImpl.lambda$static$1` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getDisplayName` | `()Lnet/minecraft/network/chat/Component;` | exact | invokevirtual@1 in `DebugMessages.forPlayer` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getEyeY` | `()D` | inherited_exact | invokevirtual@255 in `FluidStorageUtil.moveWithSound` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getHealth` | `()F` | inherited_exact | invokevirtual@8 in `HudStatusBarHeightRegistryImpl.lambda$static$1` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getInventory` | `()Lnet/minecraft/world/entity/player/Inventory;` | exact | invokevirtual@108 in `ClientNetworking.openScreen` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `getInventory` | `()Lnet/minecraft/world/entity/player/Inventory;` | exact | invokevirtual@120 in `ClientNetworking.openScreen` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `getInventory` | `()Lnet/minecraft/world/entity/player/Inventory;` | exact | invokevirtual@1 in `PlayerInventoryStorage.of` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getItemInHand` | `(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemS` | inherited_exact | invokevirtual@10 in `ContainerItemContext.forPlayerInteraction` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getItemInHand` | `(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemS` | inherited_exact | invokevirtual@25 in `FluidStorageUtil.interactWithFluidStorage` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getMaxAirSupply` | `()I` | inherited_exact | invokevirtual@1 in `HudStatusBarHeightRegistryImpl.lambda$static$5` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getStringUUID` | `()Ljava/lang/String;` | inherited_exact | invokevirtual@8 in `DebugMessages.forPlayer` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getX` | `()D` | inherited_exact | invokevirtual@251 in `FluidStorageUtil.moveWithSound` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getXRot` | `()F` | inherited_exact | invokevirtual@11 in `MultiPlayerGameModeMixin.lambda$interactItem$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getYRot` | `()F` | inherited_exact | invokevirtual@7 in `MultiPlayerGameModeMixin.lambda$interactItem$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getZ` | `()D` | inherited_exact | invokevirtual@259 in `FluidStorageUtil.moveWithSound` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `hasInfiniteMaterials` | `()Z` | exact | invokevirtual@1 in `ContainerItemContext.forPlayerInteraction` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `isEyeInFluid` | `(Lnet/minecraft/tags/TagKey;)Z` | inherited_exact | invokevirtual@38 in `HudMixin.popTheBubbleForCustomFluids` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `isEyeInFluid` | `(Lnet/minecraft/tags/TagKey;)Z` | inherited_exact | invokevirtual@20 in `HudStatusBarHeightRegistryImpl.lambda$static$5` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@11 in `MultiPlayerGameModeMixin.interactItem` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@40 in `MultiPlayerGameModeMixin.interactItem` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@11 in `MultiPlayerGameModeMixin.attackEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@246 in `FluidStorageUtil.moveWithSound` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@104 in `PlayerInventoryStorageImpl$DroppedStacks.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/world/level/Level;` | inherited_exact | invokevirtual@18 in `PlayerInventoryStorageImpl.drop` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `permissions` | `()Lnet/minecraft/server/permissions/PermissionSet;` | exact | invokevirtual@18 in `EntityPermissionContext.permissionLevel` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| injects_into | `attack` | `(Lnet/minecraft/world/entity/Entity;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| injects_into | `isSleepingLongEnough` | `()Z` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| injects_into | `startSleepInBed` | `(Lnet/minecraft/world/level/block/AbstractBedBlock;Lnet/minecraft/worl` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| writes | `containerMenu` | `Lnet/minecraft/world/inventory/AbstractContainerMenu;` | exact | putfield@144 in `ClientNetworking.openScreen` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
 
-## Declared members (271, all visibilities)
+## Declared members (44 fields, 227 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.entity.player.Player extends net.minecraft.world.entity.Avatar implements net.minecraft.world.entity.ContainerUser {
-    public static final int MAX_HEALTH;
-    public static final int SLEEP_DURATION;
-    public static final int WAKE_UP_DURATION;
-    public static final int ENDER_SLOT_OFFSET;
-    public static final int HELD_ITEM_SLOT;
-    public static final int CRAFTING_SLOT_OFFSET;
-    public static final float DEFAULT_BLOCK_INTERACTION_RANGE;
-    public static final float DEFAULT_ENTITY_INTERACTION_RANGE;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Float> DATA_PLAYER_ABSORPTION_ID;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Integer> DATA_SCORE_ID;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.util.OptionalInt> DATA_SHOULDER_PARROT_LEFT;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.util.OptionalInt> DATA_SHOULDER_PARROT_RIGHT;
-    private static final short DEFAULT_SLEEP_TIMER;
-    private static final float DEFAULT_EXPERIENCE_PROGRESS;
-    private static final int DEFAULT_EXPERIENCE_LEVEL;
-    private static final int DEFAULT_TOTAL_EXPERIENCE;
-    private static final int NO_ENCHANTMENT_SEED;
-    private static final int DEFAULT_SELECTED_SLOT;
-    private static final int DEFAULT_SCORE;
-    public static final float CREATIVE_ENTITY_INTERACTION_RANGE_MODIFIER_VALUE;
-    private final net.minecraft.world.entity.player.Inventory inventory;
-    protected net.minecraft.world.inventory.PlayerEnderChestContainer enderChestInventory;
-    public final net.minecraft.world.inventory.InventoryMenu inventoryMenu;
-    public net.minecraft.world.inventory.AbstractContainerMenu containerMenu;
-    protected net.minecraft.world.food.FoodData foodData;
-    protected int jumpTriggerTime;
-    public int takeXpDelay;
-    private int sleepCounter;
-    protected boolean wasUnderwater;
-    private final net.minecraft.world.entity.player.Abilities abilities;
-    public int experienceLevel;
-    public int totalExperience;
-    public float experienceProgress;
-    protected int enchantmentSeed;
-    protected final float defaultFlySpeed;
-    private int lastLevelUpTime;
-    private final com.mojang.authlib.GameProfile gameProfile;
-    private boolean reducedDebugInfo;
-    private net.minecraft.world.item.ItemStack lastItemInMainHand;
-    private final net.minecraft.world.item.ItemCooldowns cooldowns;
-    private java.util.Optional<net.minecraft.core.GlobalPos> lastDeathLocation;
-    protected final java.util.List<net.minecraft.resources.Identifier> postEffects;
-    public net.minecraft.world.entity.projectile.FishingHook fishing;
-    protected float hurtDir;
-    public net.minecraft.world.entity.player.Player(net.minecraft.world.level.Level, com.mojang.authlib.GameProfile);
-    protected net.minecraft.world.entity.EntityEquipment createEquipment();
-    public boolean blockActionRestricted(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.GameType);
-    public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createAttributes();
-    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData$Builder);
-    public void tick();
-    protected float getMaxHeadRotationRelativeToBody();
-    public boolean isSecondaryUseActive();
-    protected boolean wantsToStopRiding();
-    protected boolean isStayingOnGroundSurface();
-    protected boolean updateIsUnderwater();
-    public void onAboveBubbleColumn(boolean, net.minecraft.core.BlockPos);
-    public void onInsideBubbleColumn(boolean);
-    private void turtleHelmetTick();
-    private boolean isEquipped(net.minecraft.world.item.Item);
-    protected net.minecraft.world.item.ItemCooldowns createItemCooldowns();
-    protected void updatePlayerPose();
-    private net.minecraft.world.entity.Pose getDesiredPose();
-    protected boolean canPlayerFitWithinBlocksAndEntitiesWhen(net.minecraft.world.entity.Pose);
-    protected net.minecraft.sounds.SoundEvent getSwimSound();
-    protected net.minecraft.sounds.SoundEvent getSwimSplashSound();
-    protected net.minecraft.sounds.SoundEvent getSwimHighSpeedSplashSound();
-    public int getDimensionChangingDelay();
-    public void playSound(net.minecraft.sounds.SoundEvent, float, float);
-    public net.minecraft.sounds.SoundSource getSoundSource();
-    protected int getFireImmuneTicks();
-    public void handleEntityEvent(byte);
-    protected void closeContainer();
-    protected void doCloseContainer();
-    public void rideTick();
-    public void aiStep();
-    protected void tickRegeneration();
-    public void handleShoulderEntities();
-    protected void removeEntitiesOnShoulder();
-    private void touch(net.minecraft.world.entity.Entity);
-    public int getScore();
-    public void setScore(int);
-    public void increaseScore(int);
-    public void startAutoSpinAttack(int, float, net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.item.ItemStack getWeaponItem();
-    public void die(net.minecraft.world.damagesource.DamageSource);
-    protected void dropEquipment(net.minecraft.server.level.ServerLevel);
-    protected void destroyVanishingCursedItems();
-    protected net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource);
-    protected net.minecraft.sounds.SoundEvent getDeathSound();
-    public void handleCreativeModeItemDrop(net.minecraft.world.item.ItemStack);
-    public float getDestroySpeed(net.minecraft.world.level.block.state.BlockState);
-    public boolean hasCorrectToolForDrops(net.minecraft.world.level.block.state.BlockState);
-    protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput);
-    protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput);
-    public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
-    public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-    protected void blockUsingItem(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource, float, boolean);
-    public boolean canBeSeenAsEnemy();
-    public boolean canHarmPlayer(net.minecraft.world.entity.player.Player);
-    protected void hurtArmor(net.minecraft.world.damagesource.DamageSource, float);
-    protected void hurtHelmet(net.minecraft.world.damagesource.DamageSource, float);
-    protected void actuallyHurt(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-    public boolean isTextFilteringEnabled();
-    public void openTextEdit(net.minecraft.world.level.block.entity.SignBlockEntity, net.minecraft.world.level.block.entity.SignTextSlot);
-    public void openMinecartCommandBlock(net.minecraft.world.entity.vehicle.minecart.MinecartCommandBlock);
-    public void openCommandBlock(net.minecraft.world.level.block.entity.CommandBlockEntity);
-    public void openStructureBlock(net.minecraft.world.level.block.entity.StructureBlockEntity);
-    public void openTestBlock(net.minecraft.world.level.block.entity.TestBlockEntity);
-    public void openTestInstanceBlock(net.minecraft.world.level.block.entity.TestInstanceBlockEntity);
-    public void openJigsawBlock(net.minecraft.world.level.block.entity.JigsawBlockEntity);
-    public void openHorseInventory(net.minecraft.world.entity.animal.equine.AbstractHorse, net.minecraft.world.Container);
-    public void openNautilusInventory(net.minecraft.world.entity.animal.nautilus.AbstractNautilus, net.minecraft.world.Container);
-    public java.util.OptionalInt openMenu(net.minecraft.world.MenuProvider);
-    public void openDialog(net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>);
-    public void sendMerchantOffers(int, net.minecraft.world.item.trading.MerchantOffers, int, int, boolean, boolean);
-    public void openItemGui(net.minecraft.world.item.ItemStack, net.minecraft.world.InteractionHand);
-    public net.minecraft.world.InteractionResult interactOn(net.minecraft.world.entity.Entity, net.minecraft.world.InteractionHand, net.minecraft.world.phys.Vec3);
-    public void removeVehicle();
-    protected boolean isImmobile();
-    public boolean isAffectedByFluids();
-    protected net.minecraft.world.phys.Vec3 maybeBackOffFromEdge(net.minecraft.world.phys.Vec3, net.minecraft.world.entity.MoverType);
-    private boolean isAboveGround(float);
-    private boolean canFallAtLeast(double, double, double);
-    public void attack(net.minecraft.world.entity.Entity);
-    private void playServerSideSound(net.minecraft.sounds.SoundEvent);
-    private net.minecraft.world.damagesource.DamageSource createAttackSource(net.minecraft.world.item.ItemStack);
-    private boolean cannotAttack(net.minecraft.world.entity.Entity);
-    private boolean deflectProjectile(net.minecraft.world.entity.Entity);
-    private boolean canCriticalAttack(net.minecraft.world.entity.Entity);
-    private boolean isSweepAttack(boolean, boolean, boolean);
-    private void attackVisualEffects(net.minecraft.world.entity.Entity, boolean, boolean, boolean, boolean, float);
-    private void damageStatsAndHearts(net.minecraft.world.entity.Entity, float);
-    private void itemAttackInteraction(net.minecraft.world.entity.Entity, net.minecraft.world.item.ItemStack, net.minecraft.world.damagesource.DamageSource, boolean);
-    public void causeExtraKnockback(net.minecraft.world.entity.Entity, float, net.minecraft.world.phys.Vec3, net.minecraft.world.damagesource.DamageSource, float, boolean);
-    public float getVoicePitch();
-    private void doSweepAttack(net.minecraft.world.entity.Entity, float, net.minecraft.world.damagesource.DamageSource, float);
-    protected float getEnchantedDamage(net.minecraft.world.entity.Entity, float, net.minecraft.world.damagesource.DamageSource);
-    protected void doAutoAttackOnTouch(net.minecraft.world.entity.LivingEntity);
-    public void crit(net.minecraft.world.entity.Entity);
-    private float baseDamageScaleFactor();
-    public boolean stabAttack(net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.entity.Entity, float, boolean, boolean, boolean);
-    public void magicCrit(net.minecraft.world.entity.Entity);
-    public void remove(net.minecraft.world.entity.Entity$RemovalReason);
-    public boolean isClientAuthoritative();
-    protected boolean isLocalClientAuthoritative();
-    public boolean isLocalPlayer();
-    public net.minecraft.world.entity.MoveSimulationType getMoveSimulationType();
-    public boolean isEffectiveAi();
-    public com.mojang.authlib.GameProfile getGameProfile();
-    public net.minecraft.server.players.NameAndId nameAndId();
-    public net.minecraft.world.entity.player.Inventory getInventory();
-    public net.minecraft.world.entity.player.Abilities getAbilities();
-    public boolean hasInfiniteMaterials();
-    public boolean preventsBlockDrops();
-    public void updateTutorialInventoryAction(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack, net.minecraft.world.inventory.ClickAction);
-    public boolean hasContainerOpen();
-    public boolean canDropItems();
-    public com.mojang.datafixers.util.Either<net.minecraft.world.entity.player.Player$BedSleepingProblem, net.minecraft.util.Unit> startSleepInBed(net.minecraft.world.level.block.AbstractBedBlock, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.attribute.BedRule, net.minecraft.core.BlockPos);
-    public void stopSleepInBed(boolean, boolean);
-    public void stopSleeping();
-    public boolean isSleepingLongEnough();
-    public int getSleepTimer();
-    public void sendSystemMessage(net.minecraft.network.chat.Component);
-    public void sendOverlayMessage(net.minecraft.network.chat.Component);
-    public void awardStat(net.minecraft.resources.Identifier);
-    public void awardStat(net.minecraft.resources.Identifier, int);
-    public void awardStat(net.minecraft.stats.Stat<?>);
-    public void awardStat(net.minecraft.stats.Stat<?>, int);
-    public void resetStat(net.minecraft.stats.Stat<?>);
-    public int awardRecipes(java.util.Collection<net.minecraft.world.item.crafting.RecipeHolder<?>>);
-    public void triggerRecipeCrafted(net.minecraft.world.item.crafting.RecipeHolder<?>, java.util.List<net.minecraft.world.item.ItemStack>);
-    public void travel(net.minecraft.world.phys.Vec3);
-    protected boolean canGlide();
-    public void updateSwimming();
-    protected boolean freeAt(net.minecraft.core.BlockPos);
-    public float getSpeed();
-    public boolean causeFallDamage(double, float, net.minecraft.world.damagesource.DamageSource);
-    public boolean tryToStartFallFlying();
-    public void startFallFlying();
-    protected void doWaterSplashEffect();
-    protected void playStepSound(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.entity.LivingEntity$Fallsounds getFallSounds();
-    public boolean killedEntity(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, net.minecraft.world.damagesource.DamageSource);
-    public void makeStuckInBlock(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.Vec3);
-    public void giveExperiencePoints(int);
-    public int getEnchantmentSeed();
-    public void onEnchantmentPerformed(net.minecraft.world.item.ItemStack, int);
-    public void giveExperienceLevels(int);
-    public int getXpNeededForNextLevel();
-    public void causeFoodExhaustion(float);
-    protected boolean hasEnoughFoodToDoExhaustiveManoeuvres();
-    public net.minecraft.world.food.FoodData getFoodData();
-    public boolean canEat(boolean);
-    public boolean isHurt();
-    public boolean mayBuild();
-    public boolean mayUseItemAt(net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.world.item.ItemStack);
-    protected int getBaseExperienceReward(net.minecraft.server.level.ServerLevel);
-    protected boolean isAlwaysExperienceDropper();
-    public boolean shouldShowName();
-    protected net.minecraft.world.entity.Entity$MovementEmission getMovementEmission();
-    public void onUpdateAbilities();
-    public net.minecraft.network.chat.Component getName();
-    public java.lang.String getPlainTextName();
-    public net.minecraft.world.inventory.PlayerEnderChestContainer getEnderChestInventory();
-    protected boolean doesEmitEquipEvent(net.minecraft.world.entity.EquipmentSlot);
-    public boolean addItem(net.minecraft.world.item.ItemStack);
-    public abstract net.minecraft.world.level.GameType gameMode();
-    public boolean isSpectator();
-    public boolean isPickable();
-    public boolean isSwimming();
-    public boolean isCreative();
-    public boolean isPushedByFluid();
-    public net.minecraft.network.chat.Component getDisplayName();
-    private net.minecraft.network.chat.MutableComponent decorateDisplayNameComponent(net.minecraft.network.chat.MutableComponent);
-    public java.lang.String getScoreboardName();
-    protected void internalSetAbsorptionAmount(float);
-    public float getAbsorptionAmount();
-    public net.minecraft.world.entity.SlotAccess getSlot(int);
-    public boolean isReducedDebugInfo();
-    public void setReducedDebugInfo(boolean);
-    public void setRemainingFireTicks(int);
-    protected static java.util.Optional<net.minecraft.world.entity.animal.parrot.Parrot$Variant> extractParrotVariant(net.minecraft.nbt.CompoundTag);
-    protected static java.util.OptionalInt convertParrotVariant(java.util.Optional<net.minecraft.world.entity.animal.parrot.Parrot$Variant>);
-    private static java.util.Optional<net.minecraft.world.entity.animal.parrot.Parrot$Variant> convertParrotVariant(java.util.OptionalInt);
-    public void setShoulderParrotLeft(java.util.Optional<net.minecraft.world.entity.animal.parrot.Parrot$Variant>);
-    public java.util.Optional<net.minecraft.world.entity.animal.parrot.Parrot$Variant> getShoulderParrotLeft();
-    public void setShoulderParrotRight(java.util.Optional<net.minecraft.world.entity.animal.parrot.Parrot$Variant>);
-    public java.util.Optional<net.minecraft.world.entity.animal.parrot.Parrot$Variant> getShoulderParrotRight();
-    public float getCurrentItemAttackStrengthDelay();
-    public boolean cannotAttackWithItem(net.minecraft.world.item.ItemStack, int);
-    public float getAttackStrengthScale(float);
-    public float getItemSwapScale(float);
-    public void resetAttackStrengthTicker();
-    public void onAttack();
-    public void resetOnlyAttackStrengthTicker();
-    public net.minecraft.world.item.ItemCooldowns getCooldowns();
-    protected float getBlockSpeedFactor();
-    public float getLuck();
-    public boolean canUseGameMasterBlocks();
-    public net.minecraft.server.permissions.PermissionSet permissions();
-    public com.google.common.collect.ImmutableList<net.minecraft.world.entity.Pose> getDismountPoses();
-    public net.minecraft.world.item.ItemStack getProjectile(net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.phys.Vec3 getRopeHoldPosition(float);
-    public boolean isAlwaysTicking();
-    public boolean isScoping();
-    public boolean shouldBeSaved();
-    public java.util.Optional<net.minecraft.core.GlobalPos> getLastDeathLocation();
-    public void setLastDeathLocation(java.util.Optional<net.minecraft.core.GlobalPos>);
-    public float getHurtDir();
-    public void animateHurt(float);
-    public boolean isMobilityRestricted();
-    public boolean canSprint();
-    protected float getFlyingSpeed();
-    public boolean hasContainerOpen(net.minecraft.world.level.block.entity.ContainerOpenersCounter, net.minecraft.core.BlockPos);
-    public double getContainerInteractionRange();
-    public double blockInteractionRange();
-    public double entityInteractionRange();
-    public boolean isWithinEntityInteractionRange(net.minecraft.world.entity.Entity, double);
-    public boolean isWithinEntityInteractionRange(net.minecraft.world.phys.AABB, double);
-    public boolean isWithinAttackRange(net.minecraft.world.item.ItemStack, net.minecraft.world.phys.AABB, double);
-    public boolean isWithinBlockInteractionRange(net.minecraft.core.BlockPos, double);
-    public boolean shouldRotateWithMinecart();
-    public boolean onClimbable();
-    public java.lang.String debugInfo();
-    private static java.lang.String printPlayerPermissions(net.minecraft.server.permissions.PermissionSet);
-    public net.minecraft.world.item.component.ResolvableProfile getProfile();
-    public net.minecraft.world.damagesource.DamageSource createDamageSource();
-    private static java.util.OptionalInt lambda$convertParrotVariant$0(net.minecraft.world.entity.animal.parrot.Parrot$Variant);
-    private net.minecraft.network.chat.Style lambda$decorateDisplayNameComponent$0(java.lang.String, net.minecraft.network.chat.Style);
-    private static void lambda$addAdditionalSaveData$0(net.minecraft.world.level.storage.ValueOutput, net.minecraft.core.GlobalPos);
-    static {};
-}
+```
+public static final MAX_HEALTH : I
+public static final SLEEP_DURATION : I
+public static final WAKE_UP_DURATION : I
+public static final ENDER_SLOT_OFFSET : I
+public static final HELD_ITEM_SLOT : I
+public static final CRAFTING_SLOT_OFFSET : I
+public static final DEFAULT_BLOCK_INTERACTION_RANGE : F
+public static final DEFAULT_ENTITY_INTERACTION_RANGE : F
+private static final DATA_PLAYER_ABSORPTION_ID : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_SCORE_ID : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_SHOULDER_PARROT_LEFT : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_SHOULDER_PARROT_RIGHT : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DEFAULT_SLEEP_TIMER : S
+private static final DEFAULT_EXPERIENCE_PROGRESS : F
+private static final DEFAULT_EXPERIENCE_LEVEL : I
+private static final DEFAULT_TOTAL_EXPERIENCE : I
+private static final NO_ENCHANTMENT_SEED : I
+private static final DEFAULT_SELECTED_SLOT : I
+private static final DEFAULT_SCORE : I
+public static final CREATIVE_ENTITY_INTERACTION_RANGE_MODIFIER_VALUE : F
+private final inventory : Lnet/minecraft/world/entity/player/Inventory;
+protected enderChestInventory : Lnet/minecraft/world/inventory/PlayerEnderChestContainer;
+public final inventoryMenu : Lnet/minecraft/world/inventory/InventoryMenu;
+public containerMenu : Lnet/minecraft/world/inventory/AbstractContainerMenu;
+protected foodData : Lnet/minecraft/world/food/FoodData;
+protected jumpTriggerTime : I
+public takeXpDelay : I
+private sleepCounter : I
+protected wasUnderwater : Z
+private final abilities : Lnet/minecraft/world/entity/player/Abilities;
+public experienceLevel : I
+public totalExperience : I
+public experienceProgress : F
+protected enchantmentSeed : I
+protected final defaultFlySpeed : F
+private lastLevelUpTime : I
+private final gameProfile : Lcom/mojang/authlib/GameProfile;
+private reducedDebugInfo : Z
+private lastItemInMainHand : Lnet/minecraft/world/item/ItemStack;
+private final cooldowns : Lnet/minecraft/world/item/ItemCooldowns;
+private lastDeathLocation : Ljava/util/Optional;
+protected final postEffects : Ljava/util/List;
+public fishing : Lnet/minecraft/world/entity/projectile/FishingHook;
+protected hurtDir : F
+public <init>(Lnet/minecraft/world/level/Level;Lcom/mojang/authlib/GameProfile;)V
+protected createEquipment()Lnet/minecraft/world/entity/EntityEquipment;
+public blockActionRestricted(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/GameType;)Z
+public static createAttributes()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;
+protected defineSynchedData(Lnet/minecraft/network/syncher/SynchedEntityData$Builder;)V
+public tick()V
+protected getMaxHeadRotationRelativeToBody()F
+public isSecondaryUseActive()Z
+protected wantsToStopRiding()Z
+protected isStayingOnGroundSurface()Z
+protected updateIsUnderwater()Z
+public onAboveBubbleColumn(ZLnet/minecraft/core/BlockPos;)V
+public onInsideBubbleColumn(Z)V
+private turtleHelmetTick()V
+private isEquipped(Lnet/minecraft/world/item/Item;)Z
+protected createItemCooldowns()Lnet/minecraft/world/item/ItemCooldowns;
+protected updatePlayerPose()V
+private getDesiredPose()Lnet/minecraft/world/entity/Pose;
+protected canPlayerFitWithinBlocksAndEntitiesWhen(Lnet/minecraft/world/entity/Pose;)Z
+protected getSwimSound()Lnet/minecraft/sounds/SoundEvent;
+protected getSwimSplashSound()Lnet/minecraft/sounds/SoundEvent;
+protected getSwimHighSpeedSplashSound()Lnet/minecraft/sounds/SoundEvent;
+public getDimensionChangingDelay()I
+public playSound(Lnet/minecraft/sounds/SoundEvent;FF)V
+public getSoundSource()Lnet/minecraft/sounds/SoundSource;
+protected getFireImmuneTicks()I
+public handleEntityEvent(B)V
+protected closeContainer()V
+protected doCloseContainer()V
+public rideTick()V
+public aiStep()V
+protected tickRegeneration()V
+public handleShoulderEntities()V
+protected removeEntitiesOnShoulder()V
+private touch(Lnet/minecraft/world/entity/Entity;)V
+public getScore()I
+public setScore(I)V
+public increaseScore(I)V
+public startAutoSpinAttack(IFLnet/minecraft/world/item/ItemStack;)V
+public getWeaponItem()Lnet/minecraft/world/item/ItemStack;
+public die(Lnet/minecraft/world/damagesource/DamageSource;)V
+protected dropEquipment(Lnet/minecraft/server/level/ServerLevel;)V
+protected destroyVanishingCursedItems()V
+protected getHurtSound(Lnet/minecraft/world/damagesource/DamageSource;)Lnet/minecraft/sounds/SoundEvent;
+protected getDeathSound()Lnet/minecraft/sounds/SoundEvent;
+public handleCreativeModeItemDrop(Lnet/minecraft/world/item/ItemStack;)V
+public getDestroySpeed(Lnet/minecraft/world/level/block/state/BlockState;)F
+public hasCorrectToolForDrops(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected readAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected addAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public isInvulnerableTo(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)Z
+public hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z
+protected blockUsingItem(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/damagesource/DamageSource;FZ)V
+public canBeSeenAsEnemy()Z
+public canHarmPlayer(Lnet/minecraft/world/entity/player/Player;)Z
+protected hurtArmor(Lnet/minecraft/world/damagesource/DamageSource;F)V
+protected hurtHelmet(Lnet/minecraft/world/damagesource/DamageSource;F)V
+protected actuallyHurt(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)V
+public isTextFilteringEnabled()Z
+public openTextEdit(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraft/world/level/block/entity/SignTextSlot;)V
+public openMinecartCommandBlock(Lnet/minecraft/world/entity/vehicle/minecart/MinecartCommandBlock;)V
+public openCommandBlock(Lnet/minecraft/world/level/block/entity/CommandBlockEntity;)V
+public openStructureBlock(Lnet/minecraft/world/level/block/entity/StructureBlockEntity;)V
+public openTestBlock(Lnet/minecraft/world/level/block/entity/TestBlockEntity;)V
+public openTestInstanceBlock(Lnet/minecraft/world/level/block/entity/TestInstanceBlockEntity;)V
+public openJigsawBlock(Lnet/minecraft/world/level/block/entity/JigsawBlockEntity;)V
+public openHorseInventory(Lnet/minecraft/world/entity/animal/equine/AbstractHorse;Lnet/minecraft/world/Container;)V
+public openNautilusInventory(Lnet/minecraft/world/entity/animal/nautilus/AbstractNautilus;Lnet/minecraft/world/Container;)V
+public openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;
+public openDialog(Lnet/minecraft/core/Holder;)V
+public sendMerchantOffers(ILnet/minecraft/world/item/trading/MerchantOffers;IIZZ)V
+public openItemGui(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;)V
+public interactOn(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;
+public removeVehicle()V
+protected isImmobile()Z
+public isAffectedByFluids()Z
+protected maybeBackOffFromEdge(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/MoverType;)Lnet/minecraft/world/phys/Vec3;
+private isAboveGround(F)Z
+private canFallAtLeast(DDD)Z
+public attack(Lnet/minecraft/world/entity/Entity;)V
+private playServerSideSound(Lnet/minecraft/sounds/SoundEvent;)V
+private createAttackSource(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/damagesource/DamageSource;
+private cannotAttack(Lnet/minecraft/world/entity/Entity;)Z
+private deflectProjectile(Lnet/minecraft/world/entity/Entity;)Z
+private canCriticalAttack(Lnet/minecraft/world/entity/Entity;)Z
+private isSweepAttack(ZZZ)Z
+private attackVisualEffects(Lnet/minecraft/world/entity/Entity;ZZZZF)V
+private damageStatsAndHearts(Lnet/minecraft/world/entity/Entity;F)V
+private itemAttackInteraction(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/damagesource/DamageSource;Z)V
+public causeExtraKnockback(Lnet/minecraft/world/entity/Entity;FLnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/damagesource/DamageSource;FZ)V
+public getVoicePitch()F
+private doSweepAttack(Lnet/minecraft/world/entity/Entity;FLnet/minecraft/world/damagesource/DamageSource;F)V
+protected getEnchantedDamage(Lnet/minecraft/world/entity/Entity;FLnet/minecraft/world/damagesource/DamageSource;)F
+protected doAutoAttackOnTouch(Lnet/minecraft/world/entity/LivingEntity;)V
+public crit(Lnet/minecraft/world/entity/Entity;)V
+private baseDamageScaleFactor()F
+public stabAttack(Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/world/entity/Entity;FZZZ)Z
+public magicCrit(Lnet/minecraft/world/entity/Entity;)V
+public remove(Lnet/minecraft/world/entity/Entity$RemovalReason;)V
+public isClientAuthoritative()Z
+protected isLocalClientAuthoritative()Z
+public isLocalPlayer()Z
+public getMoveSimulationType()Lnet/minecraft/world/entity/MoveSimulationType;
+public isEffectiveAi()Z
+public getGameProfile()Lcom/mojang/authlib/GameProfile;
+public nameAndId()Lnet/minecraft/server/players/NameAndId;
+public getInventory()Lnet/minecraft/world/entity/player/Inventory;
+public getAbilities()Lnet/minecraft/world/entity/player/Abilities;
+public hasInfiniteMaterials()Z
+public preventsBlockDrops()Z
+public updateTutorialInventoryAction(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/inventory/ClickAction;)V
+public hasContainerOpen()Z
+public canDropItems()Z
+public startSleepInBed(Lnet/minecraft/world/level/block/AbstractBedBlock;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/attribute/BedRule;Lnet/minecraft/core/BlockPos;)Lcom/mojang/datafixers/util/Either;
+public stopSleepInBed(ZZ)V
+public stopSleeping()V
+public isSleepingLongEnough()Z
+public getSleepTimer()I
+public sendSystemMessage(Lnet/minecraft/network/chat/Component;)V
+public sendOverlayMessage(Lnet/minecraft/network/chat/Component;)V
+public awardStat(Lnet/minecraft/resources/Identifier;)V
+public awardStat(Lnet/minecraft/resources/Identifier;I)V
+public awardStat(Lnet/minecraft/stats/Stat;)V
+public awardStat(Lnet/minecraft/stats/Stat;I)V
+public resetStat(Lnet/minecraft/stats/Stat;)V
+public awardRecipes(Ljava/util/Collection;)I
+public triggerRecipeCrafted(Lnet/minecraft/world/item/crafting/RecipeHolder;Ljava/util/List;)V
+public travel(Lnet/minecraft/world/phys/Vec3;)V
+protected canGlide()Z
+public updateSwimming()V
+protected freeAt(Lnet/minecraft/core/BlockPos;)Z
+public getSpeed()F
+public causeFallDamage(DFLnet/minecraft/world/damagesource/DamageSource;)Z
+public tryToStartFallFlying()Z
+public startFallFlying()V
+protected doWaterSplashEffect()V
+protected playStepSound(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public getFallSounds()Lnet/minecraft/world/entity/LivingEntity$Fallsounds;
+public killedEntity(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/damagesource/DamageSource;)Z
+public makeStuckInBlock(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/Vec3;)V
+public giveExperiencePoints(I)V
+public getEnchantmentSeed()I
+public onEnchantmentPerformed(Lnet/minecraft/world/item/ItemStack;I)V
+public giveExperienceLevels(I)V
+public getXpNeededForNextLevel()I
+public causeFoodExhaustion(F)V
+protected hasEnoughFoodToDoExhaustiveManoeuvres()Z
+public getFoodData()Lnet/minecraft/world/food/FoodData;
+public canEat(Z)Z
+public isHurt()Z
+public mayBuild()Z
+public mayUseItemAt(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/world/item/ItemStack;)Z
+protected getBaseExperienceReward(Lnet/minecraft/server/level/ServerLevel;)I
+protected isAlwaysExperienceDropper()Z
+public shouldShowName()Z
+protected getMovementEmission()Lnet/minecraft/world/entity/Entity$MovementEmission;
+public onUpdateAbilities()V
+public getName()Lnet/minecraft/network/chat/Component;
+public getPlainTextName()Ljava/lang/String;
+public getEnderChestInventory()Lnet/minecraft/world/inventory/PlayerEnderChestContainer;
+protected doesEmitEquipEvent(Lnet/minecraft/world/entity/EquipmentSlot;)Z
+public addItem(Lnet/minecraft/world/item/ItemStack;)Z
+public abstract gameMode()Lnet/minecraft/world/level/GameType;
+public isSpectator()Z
+public isPickable()Z
+public isSwimming()Z
+public isCreative()Z
+public isPushedByFluid()Z
+public getDisplayName()Lnet/minecraft/network/chat/Component;
+private decorateDisplayNameComponent(Lnet/minecraft/network/chat/MutableComponent;)Lnet/minecraft/network/chat/MutableComponent;
+public getScoreboardName()Ljava/lang/String;
+protected internalSetAbsorptionAmount(F)V
+public getAbsorptionAmount()F
+public getSlot(I)Lnet/minecraft/world/entity/SlotAccess;
+public isReducedDebugInfo()Z
+public setReducedDebugInfo(Z)V
+public setRemainingFireTicks(I)V
+protected static extractParrotVariant(Lnet/minecraft/nbt/CompoundTag;)Ljava/util/Optional;
+protected static convertParrotVariant(Ljava/util/Optional;)Ljava/util/OptionalInt;
+private static convertParrotVariant(Ljava/util/OptionalInt;)Ljava/util/Optional;
+public setShoulderParrotLeft(Ljava/util/Optional;)V
+public getShoulderParrotLeft()Ljava/util/Optional;
+public setShoulderParrotRight(Ljava/util/Optional;)V
+public getShoulderParrotRight()Ljava/util/Optional;
+public getCurrentItemAttackStrengthDelay()F
+public cannotAttackWithItem(Lnet/minecraft/world/item/ItemStack;I)Z
+public getAttackStrengthScale(F)F
+public getItemSwapScale(F)F
+public resetAttackStrengthTicker()V
+public onAttack()V
+public resetOnlyAttackStrengthTicker()V
+public getCooldowns()Lnet/minecraft/world/item/ItemCooldowns;
+protected getBlockSpeedFactor()F
+public getLuck()F
+public canUseGameMasterBlocks()Z
+public permissions()Lnet/minecraft/server/permissions/PermissionSet;
+public getDismountPoses()Lcom/google/common/collect/ImmutableList;
+public getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+public getRopeHoldPosition(F)Lnet/minecraft/world/phys/Vec3;
+public isAlwaysTicking()Z
+public isScoping()Z
+public shouldBeSaved()Z
+public getLastDeathLocation()Ljava/util/Optional;
+public setLastDeathLocation(Ljava/util/Optional;)V
+public getHurtDir()F
+public animateHurt(F)V
+public isMobilityRestricted()Z
+public canSprint()Z
+protected getFlyingSpeed()F
+public hasContainerOpen(Lnet/minecraft/world/level/block/entity/ContainerOpenersCounter;Lnet/minecraft/core/BlockPos;)Z
+public getContainerInteractionRange()D
+public blockInteractionRange()D
+public entityInteractionRange()D
+public isWithinEntityInteractionRange(Lnet/minecraft/world/entity/Entity;D)Z
+public isWithinEntityInteractionRange(Lnet/minecraft/world/phys/AABB;D)Z
+public isWithinAttackRange(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/phys/AABB;D)Z
+public isWithinBlockInteractionRange(Lnet/minecraft/core/BlockPos;D)Z
+public shouldRotateWithMinecart()Z
+public onClimbable()Z
+public debugInfo()Ljava/lang/String;
+private static printPlayerPermissions(Lnet/minecraft/server/permissions/PermissionSet;)Ljava/lang/String;
+public getProfile()Lnet/minecraft/world/item/component/ResolvableProfile;
+public createDamageSource()Lnet/minecraft/world/damagesource/DamageSource;
+private static synthetic lambda$convertParrotVariant$0(Lnet/minecraft/world/entity/animal/parrot/Parrot$Variant;)Ljava/util/OptionalInt;
+private synthetic lambda$decorateDisplayNameComponent$0(Ljava/lang/String;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/Style;
+private static synthetic lambda$addAdditionalSaveData$0(Lnet/minecraft/world/level/storage/ValueOutput;Lnet/minecraft/core/GlobalPos;)V
+static <clinit>()V
 ```

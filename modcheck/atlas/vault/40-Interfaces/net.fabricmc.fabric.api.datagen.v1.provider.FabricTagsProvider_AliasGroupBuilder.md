@@ -13,10 +13,9 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: class
 
 ```java
-final net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider this$0
-public java.util.List<net.minecraft.tags.TagKey<T>> getTags()
-public net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider<T>.AliasGroupBuilder add(net.minecraft.tags.TagKey<T>)
-public final net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider<T>.AliasGroupBuilder add(net.minecraft.tags.TagKey<T>...)
-public net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider<T>.AliasGroupBuilder add(net.minecraft.resources.Identifier)
-public net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider<T>.AliasGroupBuilder add(net.minecraft.resources.Identifier...)
+public java.util.List getTags()
+public net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$AliasGroupBuilder add(net.minecraft.tags.TagKey)
+public final net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$AliasGroupBuilder add(net.minecraft.tags.TagKey[])
+public net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$AliasGroupBuilder add(net.minecraft.resources.Identifier)
+public net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$AliasGroupBuilder add(net.minecraft.resources.Identifier[])
 ```

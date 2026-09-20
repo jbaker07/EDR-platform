@@ -10,7 +10,7 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 
 # net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext$Result
 
-Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
+Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext$Result ABORTED
@@ -19,5 +19,4 @@ public static net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext
 public static net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext$Result valueOf(java.lang.String)
 public boolean wasAborted()
 public boolean wasCommitted()
-static {}
 ```

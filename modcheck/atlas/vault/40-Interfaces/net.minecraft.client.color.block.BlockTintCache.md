@@ -11,29 +11,29 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.color|net.minecraft.client.color]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/util/function/ToIntFunction;)V` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `invalidateAll()V` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `invalidateForChunk(II)V` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/function/ToIntFunction;)V` | exact | invokespecial@11 in `ClientLevelMixin.lambda$new$0` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `invalidateAll` | `()V` | exact | invokevirtual@35 in `ClientLevelMixin.onReloadColor` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `invalidateForChunk` | `(II)V` | exact | invokevirtual@45 in `ClientLevelMixin.onResetChunkColor` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (5 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.color.block.BlockTintCache {
-    private static final int MAX_CACHE_ENTRIES;
-    private final java.lang.ThreadLocal<net.minecraft.client.color.block.BlockTintCache$LatestCacheInfo> latestChunkOnThread;
-    private final it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap<net.minecraft.client.color.block.BlockTintCache$CacheData> cache;
-    private final java.util.concurrent.locks.ReentrantReadWriteLock lock;
-    private final java.util.function.ToIntFunction<net.minecraft.core.BlockPos> source;
-    public net.minecraft.client.color.block.BlockTintCache(java.util.function.ToIntFunction<net.minecraft.core.BlockPos>);
-    public int getColor(net.minecraft.core.BlockPos);
-    public void invalidateForChunk(int, int);
-    public void invalidateAll();
-    private net.minecraft.client.color.block.BlockTintCache$CacheData findOrCreateChunkCache(int, int);
-}
+```
+private static final MAX_CACHE_ENTRIES : I
+private final latestChunkOnThread : Ljava/lang/ThreadLocal;
+private final cache : Lit/unimi/dsi/fastutil/longs/Long2ObjectLinkedOpenHashMap;
+private final lock : Ljava/util/concurrent/locks/ReentrantReadWriteLock;
+private final source : Ljava/util/function/ToIntFunction;
+public <init>(Ljava/util/function/ToIntFunction;)V
+public getColor(Lnet/minecraft/core/BlockPos;)I
+public invalidateForChunk(II)V
+public invalidateAll()V
+private findOrCreateChunkCache(II)Lnet/minecraft/client/color/block/BlockTintCache$CacheData;
 ```

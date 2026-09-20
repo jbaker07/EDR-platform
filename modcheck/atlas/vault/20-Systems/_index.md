@@ -7,122 +7,141 @@ type: "index"
 
 # Game systems (by package)
 
-A package is a system boundary the game's own authors drew. The `hooked` column counts vanilla types in that package that at least one Fabric API module injects into, replaces, wraps, calls or reads -- the modification surface Fabric itself uses. A package with zero hooks is not untouchable; it is one no shipped Fabric module touches.
+The declared inventory of the jar a mod compiles against: every class, hooked or not (``extracted/minecraft_surface.json.gz``: 11383 classes, 150385 members, 565 packages, rolled up to depth 4 here). `hooked types` counts classes in the package that at least one Fabric API module injects into, wraps, calls, reads or writes; a zero means no shipped module touches it, not that it cannot be modified. `processed` counts classes Loom changed before compilation.
 
-| package | classes | hooked types | note |
-|---|---|---|---|
-| `net.minecraft.advancements` | 16 | 4 | [[20-Systems/net.minecraft.advancements|note]] |
-| `net.minecraft.advancements.predicates` | 90 | 0 |  |
-| `net.minecraft.advancements.triggers` | 95 | 0 |  |
-| `net.minecraft.client` | 94 | 9 | [[20-Systems/net.minecraft.client|note]] |
-| `net.minecraft.client.animation` | 29 | 0 |  |
-| `net.minecraft.client.color` | 31 | 3 | [[20-Systems/net.minecraft.client.color|note]] |
-| `net.minecraft.client.data` | 47 | 3 | [[20-Systems/net.minecraft.client.data|note]] |
-| `net.minecraft.client.entity` | 4 | 0 |  |
-| `net.minecraft.client.gui` | 794 | 53 | [[20-Systems/net.minecraft.client.gui|note]] |
-| `net.minecraft.client.input` | 13 | 3 | [[20-Systems/net.minecraft.client.input|note]] |
-| `net.minecraft.client.main` | 16 | 0 |  |
-| `net.minecraft.client.model` | 282 | 4 | [[20-Systems/net.minecraft.client.model|note]] |
-| `net.minecraft.client.multiplayer` | 130 | 15 | [[20-Systems/net.minecraft.client.multiplayer|note]] |
-| `net.minecraft.client.particle` | 230 | 6 | [[20-Systems/net.minecraft.client.particle|note]] |
-| `net.minecraft.client.player` | 11 | 2 | [[20-Systems/net.minecraft.client.player|note]] |
-| `net.minecraft.client.profiling` | 2 | 0 |  |
-| `net.minecraft.client.quickplay` | 7 | 0 |  |
-| `net.minecraft.client.renderer` | 1006 | 66 | [[20-Systems/net.minecraft.client.renderer|note]] |
-| `net.minecraft.client.resources` | 205 | 13 | [[20-Systems/net.minecraft.client.resources|note]] |
-| `net.minecraft.client.searchtree` | 10 | 0 |  |
-| `net.minecraft.client.server` | 8 | 0 |  |
-| `net.minecraft.client.sounds` | 30 | 1 | [[20-Systems/net.minecraft.client.sounds|note]] |
-| `net.minecraft.client.telemetry` | 26 | 0 |  |
-| `net.minecraft.client.tutorial` | 10 | 0 |  |
-| `net.minecraft.client.waypoints` | 2 | 0 |  |
-| `net.minecraft.commands` | 30 | 3 | [[20-Systems/net.minecraft.commands|note]] |
-| `net.minecraft.commands.arguments` | 157 | 0 |  |
-| `net.minecraft.commands.execution` | 27 | 0 |  |
-| `net.minecraft.commands.functions` | 10 | 0 |  |
-| `net.minecraft.commands.synchronization` | 21 | 0 |  |
-| `net.minecraft.core` | 103 | 29 | [[20-Systems/net.minecraft.core|note]] |
-| `net.minecraft.core.cauldron` | 4 | 0 |  |
-| `net.minecraft.core.component` | 73 | 12 | [[20-Systems/net.minecraft.core.component|note]] |
-| `net.minecraft.core.dispenser` | 27 | 0 |  |
-| `net.minecraft.core.particles` | 22 | 1 | [[20-Systems/net.minecraft.core.particles|note]] |
-| `net.minecraft.core.registries` | 20 | 2 | [[20-Systems/net.minecraft.core.registries|note]] |
-| `net.minecraft.data` | 28 | 6 | [[20-Systems/net.minecraft.data|note]] |
-| `net.minecraft.data.advancements` | 11 | 0 |  |
-| `net.minecraft.data.info` | 12 | 0 |  |
-| `net.minecraft.data.loot` | 26 | 2 | [[20-Systems/net.minecraft.data.loot|note]] |
-| `net.minecraft.data.metadata` | 2 | 0 |  |
-| `net.minecraft.data.recipes` | 28 | 13 | [[20-Systems/net.minecraft.data.recipes|note]] |
-| `net.minecraft.data.registries` | 5 | 3 | [[20-Systems/net.minecraft.data.registries|note]] |
-| `net.minecraft.data.structures` | 8 | 0 |  |
-| `net.minecraft.data.tags` | 37 | 2 | [[20-Systems/net.minecraft.data.tags|note]] |
-| `net.minecraft.data.worldgen` | 65 | 0 |  |
-| `net.minecraft.gametest` | 2 | 0 |  |
-| `net.minecraft.gametest.framework` | 78 | 3 | [[20-Systems/net.minecraft.gametest.framework|note]] |
-| `net.minecraft.gizmos` | 20 | 0 |  |
-| `net.minecraft.locale` | 4 | 1 | [[20-Systems/net.minecraft.locale|note]] |
-| `net.minecraft.nbt` | 97 | 5 | [[20-Systems/net.minecraft.nbt|note]] |
-| `net.minecraft.nbt.visitors` | 12 | 0 |  |
-| `net.minecraft.network` | 56 | 13 | [[20-Systems/net.minecraft.network|note]] |
-| `net.minecraft.network.chat` | 123 | 9 | [[20-Systems/net.minecraft.network.chat|note]] |
-| `net.minecraft.network.codec` | 70 | 4 | [[20-Systems/net.minecraft.network.codec|note]] |
-| `net.minecraft.network.protocol` | 368 | 30 | [[20-Systems/net.minecraft.network.protocol|note]] |
-| `net.minecraft.network.syncher` | 13 | 1 | [[20-Systems/net.minecraft.network.syncher|note]] |
-| `net.minecraft.realms` | 6 | 0 |  |
-| `net.minecraft.recipebook` | 5 | 0 |  |
-| `net.minecraft.references` | 5 | 0 |  |
-| `net.minecraft.resources` | 24 | 12 | [[20-Systems/net.minecraft.resources|note]] |
-| `net.minecraft.server` | 52 | 12 | [[20-Systems/net.minecraft.server|note]] |
-| `net.minecraft.server.advancements` | 4 | 0 |  |
-| `net.minecraft.server.bossevents` | 4 | 0 |  |
-| `net.minecraft.server.chase` | 5 | 0 |  |
-| `net.minecraft.server.commands` | 180 | 4 | [[20-Systems/net.minecraft.server.commands|note]] |
-| `net.minecraft.server.dedicated` | 11 | 4 | [[20-Systems/net.minecraft.server.dedicated|note]] |
-| `net.minecraft.server.dialog` | 41 | 0 |  |
-| `net.minecraft.server.gui` | 6 | 0 |  |
-| `net.minecraft.server.jsonrpc` | 95 | 2 | [[20-Systems/net.minecraft.server.jsonrpc|note]] |
-| `net.minecraft.server.level` | 71 | 13 | [[20-Systems/net.minecraft.server.level|note]] |
-| `net.minecraft.server.network` | 53 | 10 | [[20-Systems/net.minecraft.server.network|note]] |
-| `net.minecraft.server.notifications` | 5 | 1 | [[20-Systems/net.minecraft.server.notifications|note]] |
-| `net.minecraft.server.packs` | 110 | 25 | [[20-Systems/net.minecraft.server.packs|note]] |
-| `net.minecraft.server.permissions` | 18 | 2 | [[20-Systems/net.minecraft.server.permissions|note]] |
-| `net.minecraft.server.players` | 31 | 4 | [[20-Systems/net.minecraft.server.players|note]] |
-| `net.minecraft.server.rcon` | 10 | 0 |  |
-| `net.minecraft.server.waypoints` | 2 | 0 |  |
-| `net.minecraft.sounds` | 6 | 0 |  |
-| `net.minecraft.stats` | 14 | 0 |  |
-| `net.minecraft.tags` | 36 | 6 | [[20-Systems/net.minecraft.tags|note]] |
-| `net.minecraft.util` | 187 | 16 | [[20-Systems/net.minecraft.util|note]] |
-| `net.minecraft.util.context` | 6 | 0 |  |
-| `net.minecraft.util.datafix` | 444 | 2 | [[20-Systems/net.minecraft.util.datafix|note]] |
-| `net.minecraft.util.debug` | 34 | 1 | [[20-Systems/net.minecraft.util.debug|note]] |
-| `net.minecraft.util.debugchart` | 8 | 0 |  |
-| `net.minecraft.util.eventlog` | 11 | 0 |  |
-| `net.minecraft.util.filefix` | 73 | 2 | [[20-Systems/net.minecraft.util.filefix|note]] |
-| `net.minecraft.util.monitoring` | 3 | 0 |  |
-| `net.minecraft.util.parsing` | 59 | 0 |  |
-| `net.minecraft.util.profiling` | 103 | 2 | [[20-Systems/net.minecraft.util.profiling|note]] |
-| `net.minecraft.util.random` | 8 | 2 | [[20-Systems/net.minecraft.util.random|note]] |
-| `net.minecraft.util.thread` | 18 | 1 | [[20-Systems/net.minecraft.util.thread|note]] |
-| `net.minecraft.util.valueproviders` | 19 | 0 |  |
-| `net.minecraft.util.worldupdate` | 14 | 0 |  |
-| `net.minecraft.world` | 36 | 9 | [[20-Systems/net.minecraft.world|note]] |
-| `net.minecraft.world.attribute` | 60 | 2 | [[20-Systems/net.minecraft.world.attribute|note]] |
-| `net.minecraft.world.clock` | 13 | 0 |  |
-| `net.minecraft.world.damagesource` | 13 | 1 | [[20-Systems/net.minecraft.world.damagesource|note]] |
-| `net.minecraft.world.effect` | 24 | 0 |  |
-| `net.minecraft.world.entity` | 1157 | 17 | [[20-Systems/net.minecraft.world.entity|note]] |
-| `net.minecraft.world.flag` | 8 | 2 | [[20-Systems/net.minecraft.world.flag|note]] |
-| `net.minecraft.world.food` | 7 | 0 |  |
-| `net.minecraft.world.inventory` | 114 | 4 | [[20-Systems/net.minecraft.world.inventory|note]] |
-| `net.minecraft.world.item` | 460 | 31 | [[20-Systems/net.minecraft.world.item|note]] |
-| `net.minecraft.world.level` | 2176 | 106 | [[20-Systems/net.minecraft.world.level|note]] |
-| `net.minecraft.world.phys` | 39 | 3 | [[20-Systems/net.minecraft.world.phys|note]] |
-| `net.minecraft.world.scores` | 29 | 0 |  |
-| `net.minecraft.world.ticks` | 20 | 0 |  |
-| `net.minecraft.world.timeline` | 7 | 0 |  |
-| `net.minecraft.world.waypoints` | 24 | 0 |  |
-| `com.mojang.datafixers.types` | ? | 2 | [[20-Systems/com.mojang.datafixers.types|note]] |
-| `com.mojang.renderpearl.api` | ? | 1 | [[20-Systems/com.mojang.renderpearl.api|note]] |
-| `com.mojang.blaze3d.platform` | ? | 3 | [[20-Systems/com.mojang.blaze3d.platform|note]] |
-| `net.minecraft` | ? | 5 | [[20-Systems/net.minecraft|note]] |
+| package | classes | top-level | processed | hooked types | note |
+|---|---|---|---|---|---|
+| `com.mojang.blaze3d` | 8 | 5 | 0 | 0 | [[20-Systems/com.mojang.blaze3d|note]] |
+| `com.mojang.blaze3d.audio` | 16 | 12 | 0 | 0 | [[20-Systems/com.mojang.blaze3d.audio|note]] |
+| `com.mojang.blaze3d.buffers` | 3 | 3 | 0 | 0 | [[20-Systems/com.mojang.blaze3d.buffers|note]] |
+| `com.mojang.blaze3d.font` | 13 | 7 | 0 | 0 | [[20-Systems/com.mojang.blaze3d.font|note]] |
+| `com.mojang.blaze3d.framegraph` | 10 | 3 | 0 | 0 | [[20-Systems/com.mojang.blaze3d.framegraph|note]] |
+| `com.mojang.blaze3d.pipeline` | 6 | 5 | 0 | 1 | [[20-Systems/com.mojang.blaze3d.pipeline|note]] |
+| `com.mojang.blaze3d.platform` | 41 | 26 | 0 | 13 | [[20-Systems/com.mojang.blaze3d.platform|note]] |
+| `com.mojang.blaze3d.resource` | 9 | 6 | 0 | 0 | [[20-Systems/com.mojang.blaze3d.resource|note]] |
+| `com.mojang.blaze3d.systems` | 10 | 5 | 0 | 1 | [[20-Systems/com.mojang.blaze3d.systems|note]] |
+| `com.mojang.blaze3d.vertex` | 31 | 14 | 0 | 5 | [[20-Systems/com.mojang.blaze3d.vertex|note]] |
+| `com.mojang.math` | 18 | 10 | 0 | 2 | [[20-Systems/com.mojang.math|note]] |
+| `com.mojang.realmsclient` | 17 | 4 | 0 | 0 | [[20-Systems/com.mojang.realmsclient|note]] |
+| `com.mojang.realmsclient.client` | 33 | 19 | 0 | 0 | [[20-Systems/com.mojang.realmsclient.client|note]] |
+| `com.mojang.realmsclient.dto` | 59 | 43 | 0 | 0 | [[20-Systems/com.mojang.realmsclient.dto|note]] |
+| `com.mojang.realmsclient.exception` | 5 | 5 | 0 | 0 | [[20-Systems/com.mojang.realmsclient.exception|note]] |
+| `com.mojang.realmsclient.gui` | 92 | 46 | 0 | 0 | [[20-Systems/com.mojang.realmsclient.gui|note]] |
+| `com.mojang.realmsclient.util` | 26 | 20 | 0 | 0 | [[20-Systems/com.mojang.realmsclient.util|note]] |
+| `com.mojang.renderpearl` | 1 | 1 | 0 | 0 | [[20-Systems/com.mojang.renderpearl|note]] |
+| `com.mojang.renderpearl.api` | 73 | 53 | 3 | 7 | [[20-Systems/com.mojang.renderpearl.api|note]] |
+| `com.mojang.renderpearl.backend` | 151 | 76 | 0 | 2 | [[20-Systems/com.mojang.renderpearl.backend|note]] |
+| `com.mojang.renderpearl.frontend` | 20 | 12 | 0 | 0 | [[20-Systems/com.mojang.renderpearl.frontend|note]] |
+| `com.mojang.renderpearl.util` | 4 | 4 | 0 | 0 | [[20-Systems/com.mojang.renderpearl.util|note]] |
+| `net.minecraft` | 22 | 19 | 0 | 8 | [[20-Systems/net.minecraft|note]] |
+| `net.minecraft.advancements` | 16 | 13 | 2 | 6 | [[20-Systems/net.minecraft.advancements|note]] |
+| `net.minecraft.advancements.predicates` | 90 | 53 | 0 | 0 | [[20-Systems/net.minecraft.advancements.predicates|note]] |
+| `net.minecraft.advancements.triggers` | 95 | 49 | 0 | 0 | [[20-Systems/net.minecraft.advancements.triggers|note]] |
+| `net.minecraft.client` | 94 | 41 | 3 | 12 | [[20-Systems/net.minecraft.client|note]] |
+| `net.minecraft.client.animation` | 29 | 23 | 0 | 0 | [[20-Systems/net.minecraft.client.animation|note]] |
+| `net.minecraft.client.color` | 31 | 17 | 1 | 3 | [[20-Systems/net.minecraft.client.color|note]] |
+| `net.minecraft.client.data` | 47 | 28 | 10 | 3 | [[20-Systems/net.minecraft.client.data|note]] |
+| `net.minecraft.client.entity` | 4 | 4 | 0 | 0 | [[20-Systems/net.minecraft.client.entity|note]] |
+| `net.minecraft.client.gui` | 794 | 445 | 9 | 67 | [[20-Systems/net.minecraft.client.gui|note]] |
+| `net.minecraft.client.input` | 13 | 8 | 0 | 3 | [[20-Systems/net.minecraft.client.input|note]] |
+| `net.minecraft.client.main` | 16 | 4 | 0 | 0 | [[20-Systems/net.minecraft.client.main|note]] |
+| `net.minecraft.client.model` | 282 | 268 | 4 | 4 | [[20-Systems/net.minecraft.client.model|note]] |
+| `net.minecraft.client.multiplayer` | 130 | 63 | 4 | 18 | [[20-Systems/net.minecraft.client.multiplayer|note]] |
+| `net.minecraft.client.particle` | 230 | 88 | 3 | 7 | [[20-Systems/net.minecraft.client.particle|note]] |
+| `net.minecraft.client.player` | 11 | 11 | 1 | 2 | [[20-Systems/net.minecraft.client.player|note]] |
+| `net.minecraft.client.profiling` | 2 | 2 | 0 | 0 | [[20-Systems/net.minecraft.client.profiling|note]] |
+| `net.minecraft.client.quickplay` | 7 | 3 | 0 | 0 | [[20-Systems/net.minecraft.client.quickplay|note]] |
+| `net.minecraft.client.renderer` | 1006 | 715 | 51 | 87 | [[20-Systems/net.minecraft.client.renderer|note]] |
+| `net.minecraft.client.resources` | 205 | 110 | 6 | 20 | [[20-Systems/net.minecraft.client.resources|note]] |
+| `net.minecraft.client.searchtree` | 10 | 8 | 0 | 0 | [[20-Systems/net.minecraft.client.searchtree|note]] |
+| `net.minecraft.client.server` | 8 | 6 | 0 | 0 | [[20-Systems/net.minecraft.client.server|note]] |
+| `net.minecraft.client.sounds` | 30 | 17 | 0 | 2 | [[20-Systems/net.minecraft.client.sounds|note]] |
+| `net.minecraft.client.telemetry` | 26 | 18 | 0 | 0 | [[20-Systems/net.minecraft.client.telemetry|note]] |
+| `net.minecraft.client.tutorial` | 10 | 10 | 0 | 1 | [[20-Systems/net.minecraft.client.tutorial|note]] |
+| `net.minecraft.client.waypoints` | 2 | 2 | 0 | 0 | [[20-Systems/net.minecraft.client.waypoints|note]] |
+| `net.minecraft.commands` | 30 | 14 | 3 | 3 | [[20-Systems/net.minecraft.commands|note]] |
+| `net.minecraft.commands.arguments` | 157 | 73 | 1 | 3 | [[20-Systems/net.minecraft.commands.arguments|note]] |
+| `net.minecraft.commands.execution` | 27 | 18 | 0 | 1 | [[20-Systems/net.minecraft.commands.execution|note]] |
+| `net.minecraft.commands.functions` | 10 | 7 | 0 | 0 | [[20-Systems/net.minecraft.commands.functions|note]] |
+| `net.minecraft.commands.synchronization` | 21 | 12 | 0 | 0 | [[20-Systems/net.minecraft.commands.synchronization|note]] |
+| `net.minecraft.core` | 103 | 39 | 10 | 33 | [[20-Systems/net.minecraft.core|note]] |
+| `net.minecraft.core.cauldron` | 4 | 3 | 0 | 0 | [[20-Systems/net.minecraft.core.cauldron|note]] |
+| `net.minecraft.core.component` | 73 | 32 | 5 | 15 | [[20-Systems/net.minecraft.core.component|note]] |
+| `net.minecraft.core.dispenser` | 27 | 14 | 0 | 0 | [[20-Systems/net.minecraft.core.dispenser|note]] |
+| `net.minecraft.core.particles` | 22 | 21 | 1 | 3 | [[20-Systems/net.minecraft.core.particles|note]] |
+| `net.minecraft.core.registries` | 20 | 14 | 1 | 3 | [[20-Systems/net.minecraft.core.registries|note]] |
+| `net.minecraft.data` | 28 | 10 | 5 | 9 | [[20-Systems/net.minecraft.data|note]] |
+| `net.minecraft.data.advancements` | 11 | 10 | 0 | 1 | [[20-Systems/net.minecraft.data.advancements|note]] |
+| `net.minecraft.data.info` | 12 | 8 | 5 | 0 | [[20-Systems/net.minecraft.data.info|note]] |
+| `net.minecraft.data.loot` | 26 | 21 | 2 | 2 | [[20-Systems/net.minecraft.data.loot|note]] |
+| `net.minecraft.data.metadata` | 2 | 2 | 1 | 0 | [[20-Systems/net.minecraft.data.metadata|note]] |
+| `net.minecraft.data.recipes` | 28 | 20 | 4 | 15 | [[20-Systems/net.minecraft.data.recipes|note]] |
+| `net.minecraft.data.registries` | 5 | 5 | 2 | 3 | [[20-Systems/net.minecraft.data.registries|note]] |
+| `net.minecraft.data.structures` | 8 | 5 | 2 | 0 | [[20-Systems/net.minecraft.data.structures|note]] |
+| `net.minecraft.data.tags` | 37 | 29 | 2 | 4 | [[20-Systems/net.minecraft.data.tags|note]] |
+| `net.minecraft.data.worldgen` | 65 | 64 | 4 | 0 | [[20-Systems/net.minecraft.data.worldgen|note]] |
+| `net.minecraft.gametest` | 2 | 2 | 0 | 0 | [[20-Systems/net.minecraft.gametest|note]] |
+| `net.minecraft.gametest.framework` | 78 | 46 | 0 | 5 | [[20-Systems/net.minecraft.gametest.framework|note]] |
+| `net.minecraft.gizmos` | 20 | 15 | 0 | 0 | [[20-Systems/net.minecraft.gizmos|note]] |
+| `net.minecraft.locale` | 4 | 3 | 0 | 1 | [[20-Systems/net.minecraft.locale|note]] |
+| `net.minecraft.nbt` | 97 | 36 | 0 | 8 | [[20-Systems/net.minecraft.nbt|note]] |
+| `net.minecraft.nbt.visitors` | 12 | 7 | 0 | 0 | [[20-Systems/net.minecraft.nbt.visitors|note]] |
+| `net.minecraft.network` | 56 | 42 | 2 | 15 | [[20-Systems/net.minecraft.network|note]] |
+| `net.minecraft.network.chat` | 123 | 63 | 2 | 12 | [[20-Systems/net.minecraft.network.chat|note]] |
+| `net.minecraft.network.codec` | 70 | 7 | 2 | 4 | [[20-Systems/net.minecraft.network.codec|note]] |
+| `net.minecraft.network.protocol` | 368 | 298 | 2 | 34 | [[20-Systems/net.minecraft.network.protocol|note]] |
+| `net.minecraft.network.syncher` | 13 | 6 | 0 | 1 | [[20-Systems/net.minecraft.network.syncher|note]] |
+| `net.minecraft.realms` | 6 | 4 | 0 | 0 | [[20-Systems/net.minecraft.realms|note]] |
+| `net.minecraft.recipebook` | 5 | 3 | 0 | 0 | [[20-Systems/net.minecraft.recipebook|note]] |
+| `net.minecraft.references` | 5 | 5 | 0 | 1 | [[20-Systems/net.minecraft.references|note]] |
+| `net.minecraft.resources` | 24 | 12 | 5 | 12 | [[20-Systems/net.minecraft.resources|note]] |
+| `net.minecraft.server` | 52 | 27 | 2 | 13 | [[20-Systems/net.minecraft.server|note]] |
+| `net.minecraft.server.advancements` | 4 | 2 | 0 | 0 | [[20-Systems/net.minecraft.server.advancements|note]] |
+| `net.minecraft.server.bossevents` | 4 | 3 | 0 | 0 | [[20-Systems/net.minecraft.server.bossevents|note]] |
+| `net.minecraft.server.chase` | 5 | 3 | 0 | 0 | [[20-Systems/net.minecraft.server.chase|note]] |
+| `net.minecraft.server.commands` | 180 | 111 | 0 | 6 | [[20-Systems/net.minecraft.server.commands|note]] |
+| `net.minecraft.server.dedicated` | 11 | 7 | 0 | 4 | [[20-Systems/net.minecraft.server.dedicated|note]] |
+| `net.minecraft.server.dialog` | 41 | 35 | 0 | 0 | [[20-Systems/net.minecraft.server.dialog|note]] |
+| `net.minecraft.server.gui` | 6 | 4 | 0 | 0 | [[20-Systems/net.minecraft.server.gui|note]] |
+| `net.minecraft.server.jsonrpc` | 95 | 65 | 0 | 2 | [[20-Systems/net.minecraft.server.jsonrpc|note]] |
+| `net.minecraft.server.level` | 71 | 42 | 2 | 14 | [[20-Systems/net.minecraft.server.level|note]] |
+| `net.minecraft.server.network` | 53 | 29 | 4 | 11 | [[20-Systems/net.minecraft.server.network|note]] |
+| `net.minecraft.server.notifications` | 5 | 5 | 0 | 1 | [[20-Systems/net.minecraft.server.notifications|note]] |
+| `net.minecraft.server.packs` | 110 | 57 | 4 | 29 | [[20-Systems/net.minecraft.server.packs|note]] |
+| `net.minecraft.server.permissions` | 18 | 12 | 0 | 4 | [[20-Systems/net.minecraft.server.permissions|note]] |
+| `net.minecraft.server.players` | 31 | 19 | 0 | 4 | [[20-Systems/net.minecraft.server.players|note]] |
+| `net.minecraft.server.rcon` | 10 | 9 | 0 | 0 | [[20-Systems/net.minecraft.server.rcon|note]] |
+| `net.minecraft.server.waypoints` | 2 | 2 | 0 | 0 | [[20-Systems/net.minecraft.server.waypoints|note]] |
+| `net.minecraft.sounds` | 6 | 6 | 1 | 3 | [[20-Systems/net.minecraft.sounds|note]] |
+| `net.minecraft.stats` | 14 | 10 | 0 | 0 | [[20-Systems/net.minecraft.stats|note]] |
+| `net.minecraft.tags` | 36 | 29 | 5 | 12 | [[20-Systems/net.minecraft.tags|note]] |
+| `net.minecraft.util` | 187 | 93 | 0 | 18 | [[20-Systems/net.minecraft.util|note]] |
+| `net.minecraft.util.context` | 6 | 4 | 0 | 0 | [[20-Systems/net.minecraft.util.context|note]] |
+| `net.minecraft.util.datafix` | 444 | 411 | 0 | 3 | [[20-Systems/net.minecraft.util.datafix|note]] |
+| `net.minecraft.util.debug` | 34 | 19 | 0 | 2 | [[20-Systems/net.minecraft.util.debug|note]] |
+| `net.minecraft.util.debugchart` | 8 | 8 | 0 | 0 | [[20-Systems/net.minecraft.util.debugchart|note]] |
+| `net.minecraft.util.eventlog` | 11 | 4 | 0 | 0 | [[20-Systems/net.minecraft.util.eventlog|note]] |
+| `net.minecraft.util.filefix` | 73 | 57 | 0 | 2 | [[20-Systems/net.minecraft.util.filefix|note]] |
+| `net.minecraft.util.monitoring` | 3 | 2 | 0 | 0 | [[20-Systems/net.minecraft.util.monitoring|note]] |
+| `net.minecraft.util.parsing` | 59 | 29 | 0 | 0 | [[20-Systems/net.minecraft.util.parsing|note]] |
+| `net.minecraft.util.profiling` | 103 | 70 | 0 | 2 | [[20-Systems/net.minecraft.util.profiling|note]] |
+| `net.minecraft.util.random` | 8 | 4 | 0 | 2 | [[20-Systems/net.minecraft.util.random|note]] |
+| `net.minecraft.util.thread` | 18 | 9 | 0 | 1 | [[20-Systems/net.minecraft.util.thread|note]] |
+| `net.minecraft.util.valueproviders` | 19 | 19 | 0 | 2 | [[20-Systems/net.minecraft.util.valueproviders|note]] |
+| `net.minecraft.util.worldupdate` | 14 | 6 | 0 | 0 | [[20-Systems/net.minecraft.util.worldupdate|note]] |
+| `net.minecraft.world` | 36 | 25 | 3 | 10 | [[20-Systems/net.minecraft.world|note]] |
+| `net.minecraft.world.attribute` | 60 | 30 | 0 | 7 | [[20-Systems/net.minecraft.world.attribute|note]] |
+| `net.minecraft.world.clock` | 13 | 11 | 0 | 0 | [[20-Systems/net.minecraft.world.clock|note]] |
+| `net.minecraft.world.damagesource` | 13 | 12 | 1 | 1 | [[20-Systems/net.minecraft.world.damagesource|note]] |
+| `net.minecraft.world.effect` | 24 | 20 | 1 | 3 | [[20-Systems/net.minecraft.world.effect|note]] |
+| `net.minecraft.world.entity` | 1157 | 727 | 16 | 32 | [[20-Systems/net.minecraft.world.entity|note]] |
+| `net.minecraft.world.flag` | 8 | 7 | 0 | 3 | [[20-Systems/net.minecraft.world.flag|note]] |
+| `net.minecraft.world.food` | 7 | 6 | 0 | 0 | [[20-Systems/net.minecraft.world.food|note]] |
+| `net.minecraft.world.inventory` | 114 | 64 | 2 | 5 | [[20-Systems/net.minecraft.world.inventory|note]] |
+| `net.minecraft.world.item` | 460 | 323 | 21 | 42 | [[20-Systems/net.minecraft.world.item|note]] |
+| `net.minecraft.world.level` | 2176 | 1418 | 142 | 143 | [[20-Systems/net.minecraft.world.level|note]] |
+| `net.minecraft.world.phys` | 39 | 28 | 0 | 3 | [[20-Systems/net.minecraft.world.phys|note]] |
+| `net.minecraft.world.scores` | 29 | 16 | 1 | 0 | [[20-Systems/net.minecraft.world.scores|note]] |
+| `net.minecraft.world.ticks` | 20 | 14 | 0 | 0 | [[20-Systems/net.minecraft.world.ticks|note]] |
+| `net.minecraft.world.timeline` | 7 | 5 | 0 | 0 | [[20-Systems/net.minecraft.world.timeline|note]] |
+| `net.minecraft.world.waypoints` | 24 | 9 | 0 | 0 | [[20-Systems/net.minecraft.world.waypoints|note]] |

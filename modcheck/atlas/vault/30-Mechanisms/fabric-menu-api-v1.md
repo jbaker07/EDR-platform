@@ -20,18 +20,21 @@ lifecycle: "stable"
 - entrypoints: `{"main": ["net.fabricmc.fabric.impl.menu.Networking"], "client": ["net.fabricmc.fabric.impl.menu.client.ClientNetworking"]}`
 - mixin configs: `["fabric-menu-api-v1.mixins.json"]`
 - access widener: `fabric-menu-api-v1.classtweaker`
+- mixin classes: 2 found by annotation, 2 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]] | `openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | wraps `@Redirect at INVOKE Lnet/minecraft/server/level/ServerPlayer;closeContainer()V` | both | `ServerPlayerMixin.fabric_closeContainerScreenIfAllowed` |
-| [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]] | `openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | injects_into `@Inject at INVOKE Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V` | both | `ServerPlayerMixin.fabric_storeOpenedMenu` |
-| [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]] | `openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | wraps `@Redirect at INVOKE Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V` | both | `ServerPlayerMixin.fabric_replaceVanillaScreenPacket` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`openMenu` | `(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | exact | @Redirect | INVOKE `Lnet/minecraft/server/level/ServerPlayer;closeContainer()V` (exact) | both | 1000 (default) | `ServerPlayerMixin.fabric_closeContainerScreenIfAllowed` |
+| [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`openMenu` | `(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | exact | @Inject | INVOKE `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V` (inherited_exact) | both | 1000 (default) | `ServerPlayerMixin.fabric_storeOpenedMenu` |
+| [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`openMenu` | `(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | exact | @Redirect | INVOKE `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V` (inherited_exact) | both | 1000 (default) | `ServerPlayerMixin.fabric_replaceVanillaScreenPacket` |
 
 ## API surface
 
@@ -41,6 +44,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

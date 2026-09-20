@@ -8,6 +8,15 @@ package: "net.minecraft.server.notifications"
 
 # net.minecraft.server.notifications
 
-5 classes in the jar. Hooked types: 1
+5 classes (5 top-level) across 1 packages in the processed jar; 0 changed by Loom processing; 1 hooked by Fabric API.
+
+## Hooked types
 
 - [[40-Interfaces/net.minecraft.server.notifications.NotificationManager|NotificationManager]] -- calls:1 -- by fabric-lifecycle-events-v1
+
+## Declared inventory
+
+### `net.minecraft.server.notifications` (5 top-level)
+
+`EmptyNotificationService`, [[40-Interfaces/net.minecraft.server.notifications.NotificationManager|NotificationManager]], `NotificationService`, `ServerActivityMonitor`, `package-info`
+

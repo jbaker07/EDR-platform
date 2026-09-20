@@ -11,97 +11,97 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.sounds|net.minecraft.client.sounds]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;` | `@Redirect at INVOKE Lnet/minecraft/client/sounds/SoundBufferLibrary;getStream(Ln` | client | [[30-Mechanisms/fabric-sound-api-v1|fabric-sound-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `play` | `(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/` | exact | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-sound-api-v1|fabric-sound-api-v1]] | direct_reference |
 
-## Declared members (80, all visibilities)
+## Declared members (32 fields, 48 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.sounds.SoundEngine {
-    private static final org.slf4j.Marker MARKER;
-    private static final org.slf4j.Logger LOGGER;
-    private static final float PITCH_MIN;
-    private static final float PITCH_MAX;
-    private static final float VOLUME_MIN;
-    private static final float VOLUME_MAX;
-    private static final int MIN_SOURCE_LIFETIME;
-    private static final java.util.Set<net.minecraft.resources.Identifier> ONLY_WARN_ONCE;
-    public static final java.lang.String MISSING_SOUND;
-    public static final int LOOPING_SOUND_SUBTITLE_INTERVAL_TICKS;
-    public static final java.lang.String OPEN_AL_SOFT_PREFIX;
-    public static final int OPEN_AL_SOFT_PREFIX_LENGTH;
-    private final net.minecraft.client.sounds.SoundManager soundManager;
-    private final net.minecraft.client.Options options;
-    private boolean loaded;
-    private final com.mojang.blaze3d.audio.Library library;
-    private final com.mojang.blaze3d.audio.Listener listener;
-    private final net.minecraft.client.sounds.SoundBufferLibrary soundBuffers;
-    private final net.minecraft.client.sounds.SoundEngineExecutor executor;
-    private final net.minecraft.client.sounds.ChannelAccess channelAccess;
-    private int tickCount;
-    private com.mojang.blaze3d.audio.DeviceList lastSeenDevices;
-    private final com.mojang.blaze3d.audio.DeviceTracker deviceTracker;
-    private final java.util.Map<net.minecraft.client.resources.sounds.SoundInstance, net.minecraft.client.sounds.ChannelAccess$ChannelHandle> instanceToChannel;
-    private final com.google.common.collect.Multimap<net.minecraft.sounds.SoundSource, net.minecraft.client.resources.sounds.SoundInstance> instanceBySource;
-    private final it.unimi.dsi.fastutil.objects.Object2FloatMap<net.minecraft.sounds.SoundSource> gainBySource;
-    private final java.util.List<net.minecraft.client.resources.sounds.TickableSoundInstance> tickingSounds;
-    private final java.util.Map<net.minecraft.client.resources.sounds.SoundInstance, java.lang.Integer> queuedSounds;
-    private final java.util.Map<net.minecraft.client.resources.sounds.SoundInstance, java.lang.Integer> soundDeleteTime;
-    private final java.util.List<net.minecraft.client.sounds.SoundEventListener> listeners;
-    private final java.util.List<net.minecraft.client.resources.sounds.TickableSoundInstance> queuedTickableSounds;
-    private final java.util.List<net.minecraft.client.resources.sounds.Sound> preloadQueue;
-    public net.minecraft.client.sounds.SoundEngine(net.minecraft.client.sounds.SoundManager, net.minecraft.client.Options, net.minecraft.server.packs.resources.ResourceProvider);
-    public void reload();
-    private synchronized void loadLibrary();
-    public void refreshCategoryVolume(net.minecraft.sounds.SoundSource);
-    public void destroy();
-    public void emergencyShutdown();
-    public void stop(net.minecraft.client.resources.sounds.SoundInstance);
-    public void updateCategoryVolume(net.minecraft.sounds.SoundSource, float);
-    public void stopAll();
-    public void addEventListener(net.minecraft.client.sounds.SoundEventListener);
-    public void removeEventListener(net.minecraft.client.sounds.SoundEventListener);
-    private boolean shouldChangeDevice();
-    public void tick(boolean);
-    private void tickInGameSound();
-    private void notifyListeners(net.minecraft.client.resources.sounds.SoundInstance, net.minecraft.client.sounds.WeighedSoundEvents, float);
-    private static float getRange(boolean, net.minecraft.client.resources.sounds.SoundInstance$Attenuation, float);
-    private void tickMusicWhenPaused();
-    private static boolean requiresManualLooping(net.minecraft.client.resources.sounds.SoundInstance);
-    private static boolean shouldLoopManually(net.minecraft.client.resources.sounds.SoundInstance);
-    private static boolean shouldLoopAutomatically(net.minecraft.client.resources.sounds.SoundInstance);
-    public boolean isActive(net.minecraft.client.resources.sounds.SoundInstance);
-    public net.minecraft.client.sounds.SoundEngine$PlayResult play(net.minecraft.client.resources.sounds.SoundInstance);
-    public void queueTickingSound(net.minecraft.client.resources.sounds.TickableSoundInstance);
-    public void requestPreload(net.minecraft.client.resources.sounds.Sound);
-    private float calculatePitch(net.minecraft.client.resources.sounds.SoundInstance);
-    private float calculateVolume(net.minecraft.client.resources.sounds.SoundInstance);
-    private float calculateVolume(float, net.minecraft.sounds.SoundSource);
-    public void pauseAllExcept(net.minecraft.sounds.SoundSource...);
-    public void resume();
-    public void playDelayed(net.minecraft.client.resources.sounds.SoundInstance, int);
-    public void updateSource(net.minecraft.client.Camera);
-    public void stop(net.minecraft.resources.Identifier, net.minecraft.sounds.SoundSource);
-    public java.lang.String getChannelDebugString();
-    public void getSoundCacheDebugStats(net.minecraft.client.sounds.SoundBufferLibrary$DebugOutput);
-    public java.util.List<java.lang.String> getAvailableSoundDevices();
-    public com.mojang.blaze3d.audio.ListenerTransform getListenerTransform();
-    private void lambda$updateSource$0(com.mojang.blaze3d.audio.ListenerTransform);
-    private static void lambda$resume$0(java.util.stream.Stream);
-    private static void lambda$play$3(net.minecraft.client.sounds.ChannelAccess$ChannelHandle, net.minecraft.client.sounds.AudioStream);
-    private static void lambda$play$4(net.minecraft.client.sounds.AudioStream, com.mojang.blaze3d.audio.Channel);
-    private static void lambda$play$1(net.minecraft.client.sounds.ChannelAccess$ChannelHandle, com.mojang.blaze3d.audio.SoundBuffer);
-    private static void lambda$play$2(com.mojang.blaze3d.audio.SoundBuffer, com.mojang.blaze3d.audio.Channel);
-    private static void lambda$play$0(float, float, net.minecraft.client.resources.sounds.SoundInstance, float, boolean, boolean, net.minecraft.world.phys.Vec3, com.mojang.blaze3d.audio.Channel);
-    private static void lambda$tickInGameSound$0(float, float, net.minecraft.world.phys.Vec3, com.mojang.blaze3d.audio.Channel);
-    private void lambda$refreshCategoryVolume$0(net.minecraft.sounds.SoundSource, net.minecraft.client.resources.sounds.SoundInstance, net.minecraft.client.sounds.ChannelAccess$ChannelHandle);
-    private static void lambda$refreshCategoryVolume$1(float, com.mojang.blaze3d.audio.Channel);
-    private static void lambda$new$0(it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap);
-    static {};
-}
+```
+private static final MARKER : Lorg/slf4j/Marker;
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final PITCH_MIN : F
+private static final PITCH_MAX : F
+private static final VOLUME_MIN : F
+private static final VOLUME_MAX : F
+private static final MIN_SOURCE_LIFETIME : I
+private static final ONLY_WARN_ONCE : Ljava/util/Set;
+public static final MISSING_SOUND : Ljava/lang/String;
+public static final LOOPING_SOUND_SUBTITLE_INTERVAL_TICKS : I
+public static final OPEN_AL_SOFT_PREFIX : Ljava/lang/String;
+public static final OPEN_AL_SOFT_PREFIX_LENGTH : I
+private final soundManager : Lnet/minecraft/client/sounds/SoundManager;
+private final options : Lnet/minecraft/client/Options;
+private loaded : Z
+private final library : Lcom/mojang/blaze3d/audio/Library;
+private final listener : Lcom/mojang/blaze3d/audio/Listener;
+private final soundBuffers : Lnet/minecraft/client/sounds/SoundBufferLibrary;
+private final executor : Lnet/minecraft/client/sounds/SoundEngineExecutor;
+private final channelAccess : Lnet/minecraft/client/sounds/ChannelAccess;
+private tickCount : I
+private lastSeenDevices : Lcom/mojang/blaze3d/audio/DeviceList;
+private final deviceTracker : Lcom/mojang/blaze3d/audio/DeviceTracker;
+private final instanceToChannel : Ljava/util/Map;
+private final instanceBySource : Lcom/google/common/collect/Multimap;
+private final gainBySource : Lit/unimi/dsi/fastutil/objects/Object2FloatMap;
+private final tickingSounds : Ljava/util/List;
+private final queuedSounds : Ljava/util/Map;
+private final soundDeleteTime : Ljava/util/Map;
+private final listeners : Ljava/util/List;
+private final queuedTickableSounds : Ljava/util/List;
+private final preloadQueue : Ljava/util/List;
+public <init>(Lnet/minecraft/client/sounds/SoundManager;Lnet/minecraft/client/Options;Lnet/minecraft/server/packs/resources/ResourceProvider;)V
+public reload()V
+private loadLibrary()V
+public refreshCategoryVolume(Lnet/minecraft/sounds/SoundSource;)V
+public destroy()V
+public emergencyShutdown()V
+public stop(Lnet/minecraft/client/resources/sounds/SoundInstance;)V
+public updateCategoryVolume(Lnet/minecraft/sounds/SoundSource;F)V
+public stopAll()V
+public addEventListener(Lnet/minecraft/client/sounds/SoundEventListener;)V
+public removeEventListener(Lnet/minecraft/client/sounds/SoundEventListener;)V
+private shouldChangeDevice()Z
+public tick(Z)V
+private tickInGameSound()V
+private notifyListeners(Lnet/minecraft/client/resources/sounds/SoundInstance;Lnet/minecraft/client/sounds/WeighedSoundEvents;F)V
+private static getRange(ZLnet/minecraft/client/resources/sounds/SoundInstance$Attenuation;F)F
+private tickMusicWhenPaused()V
+private static requiresManualLooping(Lnet/minecraft/client/resources/sounds/SoundInstance;)Z
+private static shouldLoopManually(Lnet/minecraft/client/resources/sounds/SoundInstance;)Z
+private static shouldLoopAutomatically(Lnet/minecraft/client/resources/sounds/SoundInstance;)Z
+public isActive(Lnet/minecraft/client/resources/sounds/SoundInstance;)Z
+public play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;
+public queueTickingSound(Lnet/minecraft/client/resources/sounds/TickableSoundInstance;)V
+public requestPreload(Lnet/minecraft/client/resources/sounds/Sound;)V
+private calculatePitch(Lnet/minecraft/client/resources/sounds/SoundInstance;)F
+private calculateVolume(Lnet/minecraft/client/resources/sounds/SoundInstance;)F
+private calculateVolume(FLnet/minecraft/sounds/SoundSource;)F
+public pauseAllExcept([Lnet/minecraft/sounds/SoundSource;)V
+public resume()V
+public playDelayed(Lnet/minecraft/client/resources/sounds/SoundInstance;I)V
+public updateSource(Lnet/minecraft/client/Camera;)V
+public stop(Lnet/minecraft/resources/Identifier;Lnet/minecraft/sounds/SoundSource;)V
+public getChannelDebugString()Ljava/lang/String;
+public getSoundCacheDebugStats(Lnet/minecraft/client/sounds/SoundBufferLibrary$DebugOutput;)V
+public getAvailableSoundDevices()Ljava/util/List;
+public getListenerTransform()Lcom/mojang/blaze3d/audio/ListenerTransform;
+private synthetic lambda$updateSource$0(Lcom/mojang/blaze3d/audio/ListenerTransform;)V
+private static synthetic lambda$resume$0(Ljava/util/stream/Stream;)V
+private static synthetic lambda$play$3(Lnet/minecraft/client/sounds/ChannelAccess$ChannelHandle;Lnet/minecraft/client/sounds/AudioStream;)V
+private static synthetic lambda$play$4(Lnet/minecraft/client/sounds/AudioStream;Lcom/mojang/blaze3d/audio/Channel;)V
+private static synthetic lambda$play$1(Lnet/minecraft/client/sounds/ChannelAccess$ChannelHandle;Lcom/mojang/blaze3d/audio/SoundBuffer;)V
+private static synthetic lambda$play$2(Lcom/mojang/blaze3d/audio/SoundBuffer;Lcom/mojang/blaze3d/audio/Channel;)V
+private static synthetic lambda$play$0(FFLnet/minecraft/client/resources/sounds/SoundInstance;FZZLnet/minecraft/world/phys/Vec3;Lcom/mojang/blaze3d/audio/Channel;)V
+private static synthetic lambda$tickInGameSound$0(FFLnet/minecraft/world/phys/Vec3;Lcom/mojang/blaze3d/audio/Channel;)V
+private synthetic lambda$refreshCategoryVolume$0(Lnet/minecraft/sounds/SoundSource;Lnet/minecraft/client/resources/sounds/SoundInstance;Lnet/minecraft/client/sounds/ChannelAccess$ChannelHandle;)V
+private static synthetic lambda$refreshCategoryVolume$1(FLcom/mojang/blaze3d/audio/Channel;)V
+private static synthetic lambda$new$0(Lit/unimi/dsi/fastutil/objects/Object2FloatOpenHashMap;)V
+static <clinit>()V
 ```

@@ -11,25 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/renderer/v1/model/FabricBlockStateModelSet`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getParticleMaterial(Lnet/minecraft/world/level/block/state/BlockState;Lnet/mine` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `getParticleMaterial(Lnet/minecraft/world/level/block/state/BlockState;Lnet/mine` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `getParticleMaterial(Lnet/minecraft/world/level/block/state/BlockState;Lnet/mine` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `get` | `(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/cli` | exact | invokevirtual@5 in `FabricBlockStateModelSet.getParticleMaterial` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getParticleMaterial` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/clie` | inherited_exact | invokevirtual@11 in `BlockMarkerMixin.getParticleMaterialProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getParticleMaterial` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/clie` | inherited_exact | invokevirtual@34 in `LevelExtractorMixin.getParticleMaterialProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getParticleMaterial` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/clie` | inherited_exact | invokevirtual@4 in `TerrainParticleMixin.getParticleIconProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (2 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.block.BlockStateModelSet {
-    private final java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> modelByState;
-    private final net.minecraft.client.renderer.block.dispatch.BlockStateModel missingModel;
-    public net.minecraft.client.renderer.block.BlockStateModelSet(java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel>, net.minecraft.client.renderer.block.dispatch.BlockStateModel);
-    public net.minecraft.client.renderer.block.dispatch.BlockStateModel get(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.client.renderer.block.dispatch.BlockStateModel missingModel();
-    public net.minecraft.client.resources.model.sprite.Material$Baked getParticleMaterial(net.minecraft.world.level.block.state.BlockState);
-}
+```
+private final modelByState : Ljava/util/Map;
+private final missingModel : Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;
+public <init>(Ljava/util/Map;Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;)V
+public get(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;
+public missingModel()Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;
+public getParticleMaterial(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
 ```

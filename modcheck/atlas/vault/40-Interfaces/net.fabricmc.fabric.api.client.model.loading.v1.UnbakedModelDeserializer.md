@@ -15,6 +15,6 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 ```java
 public static void register(net.minecraft.resources.Identifier, net.fabricmc.fabric.api.client.model.loading.v1.UnbakedModelDeserializer)
 public static net.fabricmc.fabric.api.client.model.loading.v1.UnbakedModelDeserializer get(net.minecraft.resources.Identifier)
-public static net.minecraft.client.resources.model.UnbakedModel deserialize(java.io.Reader) throws com.google.gson.JsonParseException
+public static net.minecraft.client.resources.model.UnbakedModel deserialize(java.io.Reader)
 public abstract net.minecraft.client.resources.model.UnbakedModel deserialize(com.google.gson.JsonObject, com.google.gson.JsonDeserializationContext)
 ```

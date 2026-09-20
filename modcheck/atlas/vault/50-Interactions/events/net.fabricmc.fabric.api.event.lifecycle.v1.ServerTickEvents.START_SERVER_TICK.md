@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftServerMixin.onStartTick` | `MinecraftServer.tickServer` @Inject at INVOKE Lnet/minecraft/server/MinecraftServer;tickChildren(Ljava/util/function/BooleanSupplier;)V | both | static_inference |
+| `MinecraftServerMixin.onStartTick` @13 | [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]].`tickServer` @Inject INVOKE `Lnet/minecraft/server/MinecraftServer;tickChildren(Ljava/util/function/BooleanSupplier;)V` | unknown | static_inference |
 
 ## Contract
 

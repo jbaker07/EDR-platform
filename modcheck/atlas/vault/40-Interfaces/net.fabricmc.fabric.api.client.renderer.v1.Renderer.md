@@ -15,7 +15,7 @@ Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind:
 ```java
 public static net.fabricmc.fabric.api.client.renderer.v1.Renderer get()
 public static void register(net.fabricmc.fabric.api.client.renderer.v1.Renderer)
-public abstract net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadEmitter quadEmitter(java.util.function.Consumer<? super net.fabricmc.fabric.api.client.renderer.v1.mesh.MutableQuadView>)
+public abstract net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadEmitter quadEmitter(java.util.function.Consumer)
 public abstract net.fabricmc.fabric.api.client.renderer.v1.mesh.MutableMesh mutableMesh()
 public abstract net.fabricmc.fabric.api.client.renderer.v1.render.AltModelBlockRenderer altModelBlockRenderer(boolean, boolean, net.minecraft.client.color.block.BlockColors)
 ```

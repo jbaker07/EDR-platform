@@ -13,6 +13,6 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: interface
 
 ```java
-public default net.minecraft.client.model.geom.ModelPart getChildPart(java.lang.String)
-public default void copyTransforms(net.minecraft.client.model.Model<?>)
+public net.minecraft.client.model.geom.ModelPart getChildPart(java.lang.String)
+public void copyTransforms(net.minecraft.client.model.Model)
 ```

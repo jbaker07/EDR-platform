@@ -14,13 +14,13 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 
 ```java
 protected net.minecraft.client.renderer.block.dispatch.BlockStateModel wrapped
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBlockStateModel()
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBlockStateModel(net.minecraft.client.renderer.block.dispatch.BlockStateModel)
-public void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>)
+protected <init>()
+protected <init>(net.minecraft.client.renderer.block.dispatch.BlockStateModel)
+public void collectParts(net.minecraft.util.RandomSource, java.util.List)
 public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial()
 public int materialFlags()
 public boolean hasMaterialFlag(int)
-public void emitQuads(net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadEmitter, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource, java.util.function.Predicate<net.minecraft.core.Direction>)
+public void emitQuads(net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadEmitter, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource, java.util.function.Predicate)
 public java.lang.Object createGeometryKey(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource)
 public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState)
 public int materialFlags(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource)

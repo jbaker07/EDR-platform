@@ -13,6 +13,6 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.client.rendering.v1.SubmitRenderPhase(java.util.function.Function<net.minecraft.client.renderer.SubmitNodeCollection, net.minecraft.client.renderer.feature.phase.FeatureRenderPhase<? super T>>)
-public void submit(net.minecraft.client.renderer.SubmitNodeCollection, T)
+public <init>(java.util.function.Function)
+public void submit(net.minecraft.client.renderer.SubmitNodeCollection, net.minecraft.client.renderer.feature.submit.SubmitNode)
 ```

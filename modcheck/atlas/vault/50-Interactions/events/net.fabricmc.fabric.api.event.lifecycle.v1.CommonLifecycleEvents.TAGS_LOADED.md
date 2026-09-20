@@ -15,11 +15,11 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ReloadableServerResourcesMixin.hookRefresh` | `ReloadableServerResources.updateComponentsAndStaticRegistryTags` @Inject at TAIL | both | static_inference |
-| `ClientConfigurationPacketListenerImplMixin.invokeTagsLoaded` | `ClientConfigurationPacketListenerImpl.handleConfigurationFinished` @Inject at INVOKE Lnet/minecraft/network/Connection;setupInboundProtocol(Lnet/minecraft/network/ProtocolInfo;Lnet/minecraft/network/PacketListener;)V | client | static_inference |
-| `ClientPacketListenerMixin.invokeTagsLoaded` | `ClientPacketListener.handleUpdateTags` @Inject at INVOKE Lnet/minecraft/world/item/CreativeModeTabs;searchTab()Lnet/minecraft/world/item/CreativeModeTab; | client | static_inference |
+| `ReloadableServerResourcesMixin.hookRefresh` @14 | [[40-Interfaces/net.minecraft.server.ReloadableServerResources|ReloadableServerResources]].`updateComponentsAndStaticRegistryTags` @Inject TAIL | unknown | static_inference |
+| `ClientConfigurationPacketListenerImplMixin.invokeTagsLoaded` @11 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientConfigurationPacketListenerImpl|ClientConfigurationPacketListenerImpl]].`handleConfigurationFinished` @Inject INVOKE `Lnet/minecraft/network/Connection;setupInboundProtocol(Lnet/minecraft/network/ProtocolInfo;Lnet/minecraft/network/PacketListener;)V` | unknown | static_inference |
+| `ClientPacketListenerMixin.invokeTagsLoaded` @14 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`handleUpdateTags` @Inject INVOKE `Lnet/minecraft/world/item/CreativeModeTabs;searchTab()Lnet/minecraft/world/item/CreativeModeTab;` | unknown | static_inference |
 
 ## Contract
 

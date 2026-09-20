@@ -19,5 +19,4 @@ public static final net.minecraft.resources.Identifier MODELS
 public static final net.minecraft.resources.Identifier LANGUAGES
 public static final net.minecraft.resources.Identifier TEXTURES
 public static final net.minecraft.resources.Identifier FUNCTIONS
-static {}
 ```

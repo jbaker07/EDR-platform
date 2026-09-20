@@ -11,29 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<clinit>*` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<clinit>` | `?` | selector_unsupported | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `PROVIDERS` | `Ljava/util/Map;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
 
-## Declared members (12, all visibilities)
+## Declared members (1 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.blockentity.BlockEntityRenderers {
-    private static final java.util.Map<net.minecraft.world.level.block.entity.BlockEntityType<?>, net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider<?, ?>> PROVIDERS;
-    public net.minecraft.client.renderer.blockentity.BlockEntityRenderers();
-    private static <T extends net.minecraft.world.level.block.entity.BlockEntity, S extends net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState> void register(net.minecraft.world.level.block.entity.BlockEntityType<? extends T>, net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider<T, S>);
-    public static java.util.Map<net.minecraft.world.level.block.entity.BlockEntityType<?>, net.minecraft.client.renderer.blockentity.BlockEntityRenderer<?, ?>> createEntityRenderers(net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context);
-    private static void lambda$createEntityRenderers$0(com.google.common.collect.ImmutableMap$Builder, net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context, net.minecraft.world.level.block.entity.BlockEntityType, net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider);
-    private static net.minecraft.client.renderer.blockentity.BlockEntityRenderer lambda$static$5(net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context);
-    private static net.minecraft.client.renderer.blockentity.BlockEntityRenderer lambda$static$4(net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context);
-    private static net.minecraft.client.renderer.blockentity.BlockEntityRenderer lambda$static$3(net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context);
-    private static net.minecraft.client.renderer.blockentity.BlockEntityRenderer lambda$static$2(net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context);
-    private static net.minecraft.client.renderer.blockentity.BlockEntityRenderer lambda$static$1(net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context);
-    private static net.minecraft.client.renderer.blockentity.BlockEntityRenderer lambda$static$0(net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider$Context);
-    static {};
-}
+```
+private static final PROVIDERS : Ljava/util/Map;
+public <init>()V
+public static register(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
+public static createEntityRenderers(Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;)Ljava/util/Map;
+private static synthetic lambda$createEntityRenderers$0(Lcom/google/common/collect/ImmutableMap$Builder;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
+private static synthetic lambda$static$5(Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;)Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderer;
+private static synthetic lambda$static$4(Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;)Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderer;
+private static synthetic lambda$static$3(Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;)Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderer;
+private static synthetic lambda$static$2(Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;)Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderer;
+private static synthetic lambda$static$1(Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;)Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderer;
+private static synthetic lambda$static$0(Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider$Context;)Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderer;
+static <clinit>()V
 ```

@@ -16,5 +16,4 @@ Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind:
 public static net.minecraft.client.renderer.block.dispatch.ModelState of(com.mojang.math.Transformation, boolean)
 public static net.minecraft.client.renderer.block.dispatch.ModelState multiply(net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.renderer.block.dispatch.ModelState)
 public static net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadTransform asQuadTransform(net.minecraft.client.renderer.block.dispatch.ModelState, net.fabricmc.fabric.api.client.renderer.v1.sprite.SpriteFinderGetter)
-static {}
 ```

@@ -11,35 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`record` public final; extends `java/lang/Record`; implements `net/fabricmc/fabric/api/client/renderer/v1/sprite/FabricPreparations`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `missing()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `spriteFinder()Lnet/fabricmc/fabric/api/client/renderer/v1/sprite/SpriteF` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `missing` | `()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;` | exact | invokevirtual@67 in `MaterialBakerMixin.spriteFinder` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `spriteFinder` | `()Lnet/fabricmc/fabric/api/client/renderer/v1/sprite/SpriteFinder;` | inherited_exact | invokevirtual@14 in `MaterialBakerMixin.spriteFinder` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `spriteFinder` | `()Lnet/fabricmc/fabric/api/client/renderer/v1/sprite/SpriteFinder;` | inherited_exact | invokevirtual@32 in `MaterialBakerMixin.spriteFinder` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `missing` | `Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| reads | `regions` | `Ljava/util/Map;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
 
-## Declared members (17, all visibilities)
+## Declared members (6 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.renderer.texture.SpriteLoader$Preparations extends java.lang.Record {
-    private final int width;
-    private final int height;
-    private final int mipLevel;
-    private final net.minecraft.client.renderer.texture.TextureAtlasSprite missing;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.TextureAtlasSprite> regions;
-    private final java.util.concurrent.CompletableFuture<java.lang.Void> readyForUpload;
-    public net.minecraft.client.renderer.texture.SpriteLoader$Preparations(int, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.TextureAtlasSprite>, java.util.concurrent.CompletableFuture<java.lang.Void>);
-    public net.minecraft.client.renderer.texture.TextureAtlasSprite getSprite(net.minecraft.resources.Identifier);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public int width();
-    public int height();
-    public int mipLevel();
-    public net.minecraft.client.renderer.texture.TextureAtlasSprite missing();
-    public java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.TextureAtlasSprite> regions();
-    public java.util.concurrent.CompletableFuture<java.lang.Void> readyForUpload();
-}
+```
+private final width : I
+private final height : I
+private final mipLevel : I
+private final missing : Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+private final regions : Ljava/util/Map;
+private final readyForUpload : Ljava/util/concurrent/CompletableFuture;
+public <init>(IIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;Ljava/util/Map;Ljava/util/concurrent/CompletableFuture;)V
+public getSprite(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public width()I
+public height()I
+public mipLevel()I
+public missing()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+public regions()Ljava/util/Map;
+public readyForUpload()Ljava/util/concurrent/CompletableFuture;
 ```

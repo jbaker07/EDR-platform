@@ -11,267 +11,273 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.level|net.minecraft.server.level]]
 
+`class` public; extends `net/minecraft/world/level/Level`; implements `net/minecraft/world/level/WorldGenLevel`, `net/minecraft/server/level/ServerEntityGetter`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `dimension()Lnet/minecraft/resources/ResourceKey;` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `getAllEntities()Ljava/lang/Iterable;` | `` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| calls | `getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/bl` | `` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
-| calls | `getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/bl` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/bl` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/bl` | `` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
-| calls | `getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/bl` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getChunkSource()Lnet/minecraft/server/level/ServerChunkCache;` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `getDataStorage()Lnet/minecraft/world/level/storage/SavedDataStorage;` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `getGameRules()Lnet/minecraft/world/level/gamerules/GameRules;` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `getRandom()Lnet/minecraft/util/RandomSource;` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getServer()Lnet/minecraft/server/MinecraftServer;` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `getServer()Lnet/minecraft/server/MinecraftServer;` | `` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getServer()Lnet/minecraft/server/MinecraftServer;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `getServer()Lnet/minecraft/server/MinecraftServer;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `globalAttachments()Lnet/fabricmc/fabric/api/attachment/v1/GlobalAttachments;` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `recipeAccess()Lnet/minecraft/world/item/crafting/RecipeManager;` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `registryAccess()Lnet/minecraft/core/RegistryAccess;` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| injects_into | `<init>` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| injects_into | `tick` | `@Inject at FIELD Lnet/minecraft/server/level/ServerLevel;handlingTick:Z` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `tick` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `dimension` | `()Lnet/minecraft/resources/ResourceKey;` | inherited_exact | invokevirtual@1 in `AttachmentSavedData.lambda$codec$1` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `getAllEntities` | `()Ljava/lang/Iterable;` | exact | invokevirtual@96 in `LifecycleEventsImpl.lambda$onInitialize$3` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| calls | `getBlockEntity` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity` | inherited_exact | invokevirtual@16 in `BlockApiCacheImpl.getBlockEntity` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
+| calls | `getBlockEntity` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity` | inherited_exact | invokevirtual@86 in `ServerPlayerGameModeMixin.startBlockBreak` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getBlockEntity` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity` | inherited_exact | invokevirtual@2 in `DropperBlockMixin.hookDispense` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getBlockState` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/` | inherited_exact | invokevirtual@35 in `BlockApiCacheImpl.find` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
+| calls | `getBlockState` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/` | inherited_exact | invokevirtual@72 in `ServerPlayerGameModeMixin.startBlockBreak` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getChunkSource` | `()Lnet/minecraft/server/level/ServerChunkCache;` | exact | invokevirtual@18 in `BlockEntityMixin.fabric_markChanged` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `getChunkSource` | `()Lnet/minecraft/server/level/ServerChunkCache;` | exact | invokevirtual@21 in `BlockEntityMixin.fabric_syncChange` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `getChunkSource` | `()Lnet/minecraft/server/level/ServerChunkCache;` | exact | invokevirtual@15 in `PlayerLookup.tracking` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `getDataStorage` | `()Lnet/minecraft/world/level/storage/SavedDataStorage;` | exact | invokevirtual@28 in `ServerLevelMixin.createAttachmentsPersistentState` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `getGameRules` | `()Lnet/minecraft/world/level/gamerules/GameRules;` | exact | invokevirtual@12 in `EnumRuleCommand.executeAndSetEnum` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `getRandom` | `()Lnet/minecraft/util/RandomSource;` | inherited_exact | invokevirtual@64 in `DropperBlockMixin.hookDispense` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getServer` | `()Lnet/minecraft/server/MinecraftServer;` | exact | invokevirtual@70 in `BlockEntityMixin.fabric_markChanged` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `getServer` | `()Lnet/minecraft/server/MinecraftServer;` | exact | invokevirtual@2 in `FakePlayer.<init>` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getServer` | `()Lnet/minecraft/server/MinecraftServer;` | exact | invokevirtual@5 in `FakePlayerPacketListener.<init>` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getServer` | `()Lnet/minecraft/server/MinecraftServer;` | exact | invokevirtual@1 in `LootUtil.getEntryOrDirect` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `getServer` | `()Lnet/minecraft/server/MinecraftServer;` | exact | invokevirtual@10 in `ServerPlayNetworkAddon.schedule` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `globalAttachments` | `()Lnet/fabricmc/fabric/api/attachment/v1/GlobalAttachments;` | inherited_exact | invokevirtual@12 in `AttachmentSync.lambda$onInitialize$2` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `players` | `()Ljava/util/List;` | exact | invokevirtual@8 in `PlayerLookup.level` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `recipeAccess` | `()Lnet/minecraft/world/item/crafting/RecipeManager;` | exact | invokevirtual@36 in `RecipeSyncImpl.sendRecipes` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `registryAccess` | `()Lnet/minecraft/core/RegistryAccess;` | inherited_exact | invokevirtual@58 in `SerializableChunkDataMixin.setAttachmentDataInChunk` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `registryAccess` | `()Lnet/minecraft/core/RegistryAccess;` | inherited_exact | invokevirtual@13 in `SerializableChunkDataMixin.storeAttachmentNbtData` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/server/MinecraftServer;Ljava/util/concurrent/Executor;` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| injects_into | `tick` | `(Ljava/util/function/BooleanSupplier;)V` | name_only | @Inject at ['FIELD'] | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `tick` | `(Ljava/util/function/BooleanSupplier;)V` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| reads | `server` | `Lnet/minecraft/server/MinecraftServer;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | declared |
 
-## Declared members (230, all visibilities)
+## Declared members (39 fields, 191 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.level.ServerLevel extends net.minecraft.world.level.Level implements net.minecraft.world.level.WorldGenLevel,net.minecraft.server.level.ServerEntityGetter {
-    public static final net.minecraft.core.BlockPos END_SPAWN_POINT;
-    public static final net.minecraft.util.valueproviders.IntProvider RAIN_DELAY;
-    public static final net.minecraft.util.valueproviders.IntProvider RAIN_DURATION;
-    private static final net.minecraft.util.valueproviders.IntProvider THUNDER_DELAY;
-    public static final net.minecraft.util.valueproviders.IntProvider THUNDER_DURATION;
-    private static final org.slf4j.Logger LOGGER;
-    private static final int EMPTY_TIME_NO_TICK;
-    private static final int MAX_SCHEDULED_TICKS_PER_TICK;
-    private static final java.util.concurrent.atomic.AtomicInteger ENTITY_COUNTER;
-    private final java.util.List<net.minecraft.server.level.ServerPlayer> players;
-    private final net.minecraft.server.level.ServerChunkCache chunkSource;
-    private final net.minecraft.server.MinecraftServer server;
-    private final net.minecraft.world.level.storage.ServerLevelData serverLevelData;
-    private final net.minecraft.world.level.entity.EntityTickList entityTickList;
-    private final net.minecraft.server.waypoints.ServerWaypointManager waypointManager;
-    private net.minecraft.world.attribute.EnvironmentAttributeSystem environmentAttributes;
-    private final net.minecraft.world.level.entity.PersistentEntitySectionManager<net.minecraft.world.entity.Entity> entityManager;
-    private final net.minecraft.world.level.gameevent.GameEventDispatcher gameEventDispatcher;
-    public boolean noSave;
-    private final net.minecraft.server.players.SleepStatus sleepStatus;
-    private int emptyTime;
-    private final net.minecraft.world.level.portal.PortalForcer portalForcer;
-    private final net.minecraft.world.ticks.LevelTicks<net.minecraft.world.level.block.Block> blockTicks;
-    private final net.minecraft.world.ticks.LevelTicks<net.minecraft.world.level.material.Fluid> fluidTicks;
-    private final net.minecraft.world.level.pathfinder.PathTypeCache pathTypesByPosCache;
-    private final java.util.Set<net.minecraft.world.entity.Mob> navigatingMobs;
-    private volatile boolean isUpdatingNavigations;
-    protected final net.minecraft.world.entity.raid.Raids raids;
-    private final it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet<net.minecraft.world.level.BlockEventData> blockEvents;
-    private final java.util.List<net.minecraft.world.level.BlockEventData> blockEventsToReschedule;
-    private boolean handlingTick;
-    private final java.util.List<net.minecraft.world.level.CustomSpawner> customSpawners;
-    private net.minecraft.world.level.dimension.end.EnderDragonFight dragonFight;
-    private final it.unimi.dsi.fastutil.ints.Int2ObjectMap<net.minecraft.world.entity.boss.enderdragon.EnderDragonPart> dragonParts;
-    private final net.minecraft.world.level.biome.BiomeResolver uncachedBiomeResolver;
-    private final net.minecraft.world.level.StructureManager structureManager;
-    private final net.minecraft.world.level.levelgen.structure.StructureCheck structureCheck;
-    private final boolean tickTime;
-    private final net.minecraft.util.debug.LevelDebugSynchronizers debugSynchronizers;
-    public net.minecraft.server.level.ServerLevel(net.minecraft.server.MinecraftServer, java.util.concurrent.Executor, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.world.level.storage.ServerLevelData, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>, net.minecraft.world.level.dimension.LevelStem, boolean, long, java.util.List<net.minecraft.world.level.CustomSpawner>, boolean);
-    public int getNextEntityId();
-    public void setDragonFight(net.minecraft.world.level.dimension.end.EnderDragonFight);
-    public net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> getUncachedNoiseBiome(int, int, int);
-    public net.minecraft.world.level.biome.BiomeResolver uncachedBiomeResolver();
-    public net.minecraft.world.level.StructureManager structureManager();
-    public net.minecraft.world.clock.ServerClockManager clockManager();
-    public net.minecraft.world.attribute.EnvironmentAttributeSystem environmentAttributes();
-    public net.minecraft.world.attribute.EnvironmentAttributeSystem setEnvironmentAttributes(net.minecraft.world.attribute.EnvironmentAttributeSystem);
-    public void tick(java.util.function.BooleanSupplier);
-    public boolean shouldTickBlocksAt(long);
-    protected void tickTime();
-    public void tickCustomSpawners(boolean);
-    private void wakeUpAllPlayers();
-    public void tickChunk(net.minecraft.world.level.chunk.LevelChunk, int);
-    public void tickThunder(net.minecraft.world.level.chunk.LevelChunk);
-    public void tickPrecipitation(net.minecraft.core.BlockPos);
-    private java.util.Optional<net.minecraft.core.BlockPos> findLightningRod(net.minecraft.core.BlockPos);
-    protected net.minecraft.core.BlockPos findLightningTargetAround(net.minecraft.core.BlockPos);
-    public boolean isHandlingTick();
-    public boolean canSleepThroughNights();
-    private void announceSleepStatus();
-    public void updateSleepingPlayerList();
-    public net.minecraft.server.ServerScoreboard getScoreboard();
-    public net.minecraft.server.waypoints.ServerWaypointManager getWaypointManager();
-    public net.minecraft.world.DifficultyInstance getCurrentDifficultyAt(net.minecraft.core.BlockPos);
-    public float getMoonBrightness(net.minecraft.core.BlockPos);
-    private void prepareWeather(net.minecraft.world.level.saveddata.WeatherData);
-    private void advanceWeatherCycle();
-    public void resetWeatherCycle();
-    public void resetEmptyTime();
-    private void tickFluid(net.minecraft.core.BlockPos, net.minecraft.world.level.material.Fluid);
-    private void tickBlock(net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block);
-    public void tickNonPassenger(net.minecraft.world.entity.Entity);
-    private void tickPassenger(net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity);
-    public void updateNeighboursOnBlockSet(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public boolean mayInteract(net.minecraft.world.entity.Entity, net.minecraft.core.BlockPos);
-    public void save(net.minecraft.util.ProgressListener, boolean, boolean);
-    private void saveLevelData(boolean);
-    public <T extends net.minecraft.world.entity.Entity> java.util.List<? extends T> getEntities(net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, java.util.function.Predicate<? super T>);
-    public <T extends net.minecraft.world.entity.Entity> void getEntities(net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, java.util.function.Predicate<? super T>, java.util.List<? super T>);
-    public <T extends net.minecraft.world.entity.Entity> void getEntities(net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, java.util.function.Predicate<? super T>, java.util.List<? super T>, int);
-    public java.util.List<? extends net.minecraft.world.entity.boss.enderdragon.EnderDragon> getDragons();
-    public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayers(java.util.function.Predicate<? super net.minecraft.server.level.ServerPlayer>);
-    public java.util.List<net.minecraft.server.level.ServerPlayer> getPlayers(java.util.function.Predicate<? super net.minecraft.server.level.ServerPlayer>, int);
-    public net.minecraft.server.level.ServerPlayer getRandomPlayer();
-    public boolean addFreshEntity(net.minecraft.world.entity.Entity);
-    public boolean addWithUUID(net.minecraft.world.entity.Entity);
-    public void addDuringTeleport(net.minecraft.world.entity.Entity);
-    public void addNewPlayer(net.minecraft.server.level.ServerPlayer);
-    public void addRespawnedPlayer(net.minecraft.server.level.ServerPlayer);
-    private void addPlayer(net.minecraft.server.level.ServerPlayer);
-    private boolean addEntity(net.minecraft.world.entity.Entity);
-    public boolean tryAddFreshEntityWithPassengers(net.minecraft.world.entity.Entity);
-    public void unload(net.minecraft.world.level.chunk.LevelChunk);
-    public void removePlayerImmediately(net.minecraft.server.level.ServerPlayer, net.minecraft.world.entity.Entity$RemovalReason);
-    public void destroyBlockProgress(int, net.minecraft.core.BlockPos, int);
-    public void playSeededSound(net.minecraft.world.entity.Entity, double, double, double, net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>, net.minecraft.sounds.SoundSource, float, float, long);
-    public void playSeededSound(net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity, net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>, net.minecraft.sounds.SoundSource, float, float, long);
-    public void globalLevelEvent(int, net.minecraft.core.BlockPos, int);
-    public void levelEvent(net.minecraft.world.entity.Entity, int, net.minecraft.core.BlockPos, int);
-    public int getLogicalHeight();
-    public void gameEvent(net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.world.phys.Vec3, net.minecraft.world.level.gameevent.GameEvent$Context);
-    public void sendBlockUpdated(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState, int);
-    public void updateNeighborsAt(net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block);
-    public void updateNeighborsAt(net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block, net.minecraft.world.level.redstone.Orientation);
-    public void updateNeighborsAtExceptFromFacing(net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block, net.minecraft.core.Direction, net.minecraft.world.level.redstone.Orientation);
-    public void neighborChanged(net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block, net.minecraft.world.level.redstone.Orientation);
-    public void neighborChanged(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block, net.minecraft.world.level.redstone.Orientation, boolean);
-    public void broadcastEntityEvent(net.minecraft.world.entity.Entity, byte);
-    public void broadcastDamageEvent(net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-    public net.minecraft.server.level.ServerChunkCache getChunkSource();
-    public void explode(net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, net.minecraft.world.level.ExplosionDamageCalculator, double, double, double, float, boolean, net.minecraft.world.level.Level$ExplosionInteraction, net.minecraft.core.particles.ParticleOptions, net.minecraft.core.particles.ParticleOptions, net.minecraft.util.random.WeightedList<net.minecraft.core.particles.ExplosionParticleInfo>, net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>);
-    private net.minecraft.world.level.Explosion$BlockInteraction getDestroyType(net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean>);
-    public void blockEvent(net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block, int, int);
-    private void runBlockEvents();
-    private boolean doBlockEvent(net.minecraft.world.level.BlockEventData);
-    public net.minecraft.world.ticks.LevelTicks<net.minecraft.world.level.block.Block> getBlockTicks();
-    public net.minecraft.world.ticks.LevelTicks<net.minecraft.world.level.material.Fluid> getFluidTicks();
-    public net.minecraft.server.MinecraftServer getServer();
-    public net.minecraft.world.level.portal.PortalForcer getPortalForcer();
-    public net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager getStructureTemplateManager();
-    public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, double, double, double, int, double, double, double, double);
-    public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, double, double, double, int, double, double, double, double, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket$RandomizationType);
-    public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, double, double, double, int, double, double, double, double, double, double);
-    public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, double, double, double, int, double, double, double, double, double, double, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket$RandomizationType);
-    public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, boolean, boolean, double, double, double, int, double, double, double, double);
-    public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, boolean, boolean, double, double, double, int, double, double, double, double, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket$RandomizationType);
-    public <T extends net.minecraft.core.particles.ParticleOptions> int sendParticles(T, boolean, boolean, double, double, double, int, double, double, double, double, double, double, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket$RandomizationType);
-    public <T extends net.minecraft.core.particles.ParticleOptions> boolean sendParticles(net.minecraft.server.level.ServerPlayer, T, boolean, boolean, double, double, double, int, double, double, double, double);
-    private boolean sendParticles(net.minecraft.server.level.ServerPlayer, boolean, double, double, double, net.minecraft.network.protocol.Packet<?>);
-    public net.minecraft.world.entity.Entity getEntity(int);
-    public net.minecraft.world.entity.Entity getEntityInAnyDimension(java.util.UUID);
-    public net.minecraft.world.entity.player.Player getPlayerInAnyDimension(java.util.UUID);
-    public net.minecraft.world.entity.Entity getEntityOrPart(int);
-    public java.util.Collection<net.minecraft.world.entity.boss.enderdragon.EnderDragonPart> dragonParts();
-    public net.minecraft.core.BlockPos findNearestMapStructure(net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure>, net.minecraft.core.BlockPos, int, boolean);
-    public net.minecraft.core.BlockPos findNearestMapStructure(net.minecraft.core.HolderSet<net.minecraft.world.level.levelgen.structure.Structure>, net.minecraft.core.BlockPos, int, boolean);
-    public com.mojang.datafixers.util.Pair<net.minecraft.core.BlockPos, net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>> findClosestBiome3d(java.util.function.Predicate<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>>, net.minecraft.core.BlockPos, int, int, int);
-    public net.minecraft.world.level.border.WorldBorder getWorldBorder();
-    public net.minecraft.world.item.crafting.RecipeManager recipeAccess();
-    public net.minecraft.world.TickRateManager tickRateManager();
-    public boolean noSave();
-    public net.minecraft.world.level.storage.SavedDataStorage getDataStorage();
-    public net.minecraft.world.level.saveddata.maps.MapItemSavedData getMapData(net.minecraft.world.level.saveddata.maps.MapId);
-    public void setMapData(net.minecraft.world.level.saveddata.maps.MapId, net.minecraft.world.level.saveddata.maps.MapItemSavedData);
-    public net.minecraft.world.level.saveddata.maps.MapId getFreeMapId();
-    public void setRespawnData(net.minecraft.world.level.storage.LevelData$RespawnData);
-    public net.minecraft.world.level.storage.LevelData$RespawnData getRespawnData();
-    public it.unimi.dsi.fastutil.longs.LongSet getForceLoadedChunks();
-    public boolean setChunkForced(int, int, boolean);
-    public java.util.List<net.minecraft.server.level.ServerPlayer> players();
-    public void updatePOIOnBlockStateChange(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.entity.ai.village.poi.PoiManager getPoiManager();
-    public boolean isVillage(net.minecraft.core.BlockPos);
-    public boolean isVillage(net.minecraft.core.SectionPos);
-    public boolean isCloseToVillage(net.minecraft.core.BlockPos, int);
-    public int sectionsToVillage(net.minecraft.core.SectionPos);
-    public net.minecraft.world.entity.raid.Raids getRaids();
-    public net.minecraft.world.entity.raid.Raid getRaidAt(net.minecraft.core.BlockPos);
-    public boolean isRaided(net.minecraft.core.BlockPos);
-    public void onReputationEvent(net.minecraft.world.entity.ai.village.ReputationEventType, net.minecraft.world.entity.Entity, net.minecraft.world.entity.ReputationEventHandler);
-    public void saveDebugReport(java.nio.file.Path) throws java.io.IOException;
-    private static void dumpEntities(java.io.Writer, java.lang.Iterable<net.minecraft.world.entity.Entity>) throws java.io.IOException;
-    private void dumpBlockEntityTickers(java.io.Writer) throws java.io.IOException;
-    public void clearBlockEvents(net.minecraft.world.level.levelgen.structure.BoundingBox);
-    public java.lang.Iterable<net.minecraft.world.entity.Entity> getAllEntities();
-    public java.lang.String toString();
-    public boolean isFlat();
-    public long getSeed();
-    public net.minecraft.world.level.dimension.end.EnderDragonFight getDragonFight();
-    public net.minecraft.world.level.saveddata.WeatherData getWeatherData();
-    public net.minecraft.server.level.ServerLevel getLevel();
-    public java.lang.String getWatchdogStats();
-    private static <T> java.lang.String getTypeCount(java.lang.Iterable<T>, java.util.function.Function<T, java.lang.String>);
-    protected net.minecraft.world.level.entity.LevelEntityGetter<net.minecraft.world.entity.Entity> getEntities();
-    public void addLegacyChunkEntities(java.util.stream.Stream<net.minecraft.world.entity.Entity>);
-    public void addWorldGenChunkEntities(java.util.stream.Stream<net.minecraft.world.entity.Entity>);
-    public void startTickingChunk(net.minecraft.world.level.chunk.LevelChunk);
-    public void onStructureStartsAvailable(net.minecraft.world.level.chunk.ChunkAccess);
-    public net.minecraft.world.level.pathfinder.PathTypeCache getPathTypeCache();
-    public void waitForEntities(net.minecraft.world.level.ChunkPos, int);
-    public boolean isSpawningMonsters();
-    public void close() throws java.io.IOException;
-    public java.lang.String gatherChunkSourceStats();
-    public boolean areEntitiesLoaded(long);
-    public boolean isPositionTickingWithEntitiesLoaded(long);
-    public boolean isPositionEntityTicking(net.minecraft.core.BlockPos);
-    public boolean areEntitiesActuallyLoadedAndTicking(net.minecraft.world.level.ChunkPos);
-    public boolean anyPlayerCloseEnoughForSpawning(net.minecraft.core.BlockPos);
-    public boolean anyPlayerCloseEnoughForSpawning(net.minecraft.world.level.ChunkPos);
-    public boolean canSpreadFireAround(net.minecraft.core.BlockPos);
-    public boolean canSpawnEntitiesInChunk(net.minecraft.world.level.ChunkPos);
-    public net.minecraft.world.flag.FeatureFlagSet enabledFeatures();
-    public net.minecraft.world.level.gamerules.GameRules getGameRules();
-    public net.minecraft.CrashReportCategory fillReportDetails(net.minecraft.CrashReport);
-    public int getSeaLevel();
-    public void onBlockEntityAdded(net.minecraft.world.level.block.entity.BlockEntity);
-    public net.minecraft.util.debug.LevelDebugSynchronizers debugSynchronizers();
-    public boolean isAllowedToEnterPortal(net.minecraft.world.level.Level);
-    public boolean isPvpAllowed();
-    public boolean isCommandBlockEnabled();
-    public boolean isSpawnerBlockEnabled();
-    public net.minecraft.world.clock.ClockManager clockManager();
-    public net.minecraft.world.item.crafting.RecipeAccess recipeAccess();
-    public net.minecraft.world.scores.Scoreboard getScoreboard();
-    public net.minecraft.world.level.chunk.ChunkSource getChunkSource();
-    public net.minecraft.world.attribute.EnvironmentAttributeReader environmentAttributes();
-    public net.minecraft.world.ticks.LevelTickAccess getFluidTicks();
-    public net.minecraft.world.ticks.LevelTickAccess getBlockTicks();
-    private java.lang.String lambda$fillReportDetails$1(net.minecraft.world.level.saveddata.WeatherData) throws java.lang.Exception;
-    private java.lang.String lambda$fillReportDetails$0() throws java.lang.Exception;
-    private boolean lambda$waitForEntities$0(java.util.List);
-    private void lambda$onStructureStartsAvailable$0(net.minecraft.world.level.chunk.ChunkAccess);
-    private static java.lang.String lambda$getTypeCount$0(it.unimi.dsi.fastutil.objects.Object2IntMap$Entry);
-    private static java.lang.String lambda$getWatchdogStats$0(net.minecraft.world.entity.Entity);
-    private static boolean lambda$clearBlockEvents$0(net.minecraft.world.level.levelgen.structure.BoundingBox, net.minecraft.world.level.BlockEventData);
-    private void lambda$updatePOIOnBlockStateChange$2(net.minecraft.core.BlockPos, net.minecraft.core.Holder);
-    private void lambda$updatePOIOnBlockStateChange$3(net.minecraft.core.BlockPos, net.minecraft.core.Holder);
-    private void lambda$updatePOIOnBlockStateChange$0(net.minecraft.core.BlockPos, net.minecraft.core.Holder);
-    private void lambda$updatePOIOnBlockStateChange$1(net.minecraft.core.BlockPos);
-    private void lambda$globalLevelEvent$0(net.minecraft.core.BlockPos, int, int, net.minecraft.server.level.ServerPlayer);
-    private static net.minecraft.util.Continuation lambda$getEntities$0(java.util.function.Predicate, java.util.List, int, net.minecraft.world.entity.Entity);
-    private boolean lambda$findLightningTargetAround$0(net.minecraft.world.entity.LivingEntity);
-    private static net.minecraft.core.BlockPos lambda$findLightningRod$2(net.minecraft.core.BlockPos);
-    private boolean lambda$findLightningRod$1(net.minecraft.core.BlockPos);
-    private static boolean lambda$findLightningRod$0(net.minecraft.core.Holder);
-    private static void lambda$wakeUpAllPlayers$0(net.minecraft.server.level.ServerPlayer);
-    private void lambda$tick$1(net.minecraft.core.BlockPos);
-    private void lambda$tick$0(net.minecraft.world.TickRateManager, net.minecraft.util.profiling.ProfilerFiller, net.minecraft.world.entity.Entity);
-    static {};
-}
+```
+public static final END_SPAWN_POINT : Lnet/minecraft/core/BlockPos;
+public static final RAIN_DELAY : Lnet/minecraft/util/valueproviders/IntProvider;
+public static final RAIN_DURATION : Lnet/minecraft/util/valueproviders/IntProvider;
+private static final THUNDER_DELAY : Lnet/minecraft/util/valueproviders/IntProvider;
+public static final THUNDER_DURATION : Lnet/minecraft/util/valueproviders/IntProvider;
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final EMPTY_TIME_NO_TICK : I
+private static final MAX_SCHEDULED_TICKS_PER_TICK : I
+private static final ENTITY_COUNTER : Ljava/util/concurrent/atomic/AtomicInteger;
+private final players : Ljava/util/List;
+private final chunkSource : Lnet/minecraft/server/level/ServerChunkCache;
+private final server : Lnet/minecraft/server/MinecraftServer;
+private final serverLevelData : Lnet/minecraft/world/level/storage/ServerLevelData;
+private final entityTickList : Lnet/minecraft/world/level/entity/EntityTickList;
+private final waypointManager : Lnet/minecraft/server/waypoints/ServerWaypointManager;
+private environmentAttributes : Lnet/minecraft/world/attribute/EnvironmentAttributeSystem;
+private final entityManager : Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
+private final gameEventDispatcher : Lnet/minecraft/world/level/gameevent/GameEventDispatcher;
+public noSave : Z
+private final sleepStatus : Lnet/minecraft/server/players/SleepStatus;
+private emptyTime : I
+private final portalForcer : Lnet/minecraft/world/level/portal/PortalForcer;
+private final blockTicks : Lnet/minecraft/world/ticks/LevelTicks;
+private final fluidTicks : Lnet/minecraft/world/ticks/LevelTicks;
+private final pathTypesByPosCache : Lnet/minecraft/world/level/pathfinder/PathTypeCache;
+private final navigatingMobs : Ljava/util/Set;
+private isUpdatingNavigations : Z
+protected final raids : Lnet/minecraft/world/entity/raid/Raids;
+private final blockEvents : Lit/unimi/dsi/fastutil/objects/ObjectLinkedOpenHashSet;
+private final blockEventsToReschedule : Ljava/util/List;
+private handlingTick : Z
+private final customSpawners : Ljava/util/List;
+private dragonFight : Lnet/minecraft/world/level/dimension/end/EnderDragonFight;
+private final dragonParts : Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+private final uncachedBiomeResolver : Lnet/minecraft/world/level/biome/BiomeResolver;
+private final structureManager : Lnet/minecraft/world/level/StructureManager;
+private final structureCheck : Lnet/minecraft/world/level/levelgen/structure/StructureCheck;
+private final tickTime : Z
+private final debugSynchronizers : Lnet/minecraft/util/debug/LevelDebugSynchronizers;
+public <init>(Lnet/minecraft/server/MinecraftServer;Ljava/util/concurrent/Executor;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/world/level/storage/ServerLevelData;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/dimension/LevelStem;ZJLjava/util/List;Z)V
+public getNextEntityId()I
+public setDragonFight(Lnet/minecraft/world/level/dimension/end/EnderDragonFight;)V
+public getUncachedNoiseBiome(III)Lnet/minecraft/core/Holder;
+public uncachedBiomeResolver()Lnet/minecraft/world/level/biome/BiomeResolver;
+public structureManager()Lnet/minecraft/world/level/StructureManager;
+public clockManager()Lnet/minecraft/world/clock/ServerClockManager;
+public environmentAttributes()Lnet/minecraft/world/attribute/EnvironmentAttributeSystem;
+public setEnvironmentAttributes(Lnet/minecraft/world/attribute/EnvironmentAttributeSystem;)Lnet/minecraft/world/attribute/EnvironmentAttributeSystem;
+public tick(Ljava/util/function/BooleanSupplier;)V
+public shouldTickBlocksAt(J)Z
+protected tickTime()V
+public tickCustomSpawners(Z)V
+private wakeUpAllPlayers()V
+public tickChunk(Lnet/minecraft/world/level/chunk/LevelChunk;I)V
+public tickThunder(Lnet/minecraft/world/level/chunk/LevelChunk;)V
+public tickPrecipitation(Lnet/minecraft/core/BlockPos;)V
+private findLightningRod(Lnet/minecraft/core/BlockPos;)Ljava/util/Optional;
+protected findLightningTargetAround(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+public isHandlingTick()Z
+public canSleepThroughNights()Z
+private announceSleepStatus()V
+public updateSleepingPlayerList()V
+public getScoreboard()Lnet/minecraft/server/ServerScoreboard;
+public getWaypointManager()Lnet/minecraft/server/waypoints/ServerWaypointManager;
+public getCurrentDifficultyAt(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/DifficultyInstance;
+public getMoonBrightness(Lnet/minecraft/core/BlockPos;)F
+private prepareWeather(Lnet/minecraft/world/level/saveddata/WeatherData;)V
+private advanceWeatherCycle()V
+public resetWeatherCycle()V
+public resetEmptyTime()V
+private tickFluid(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/Fluid;)V
+private tickBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;)V
+public tickNonPassenger(Lnet/minecraft/world/entity/Entity;)V
+private tickPassenger(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;)V
+public updateNeighboursOnBlockSet(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public mayInteract(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;)Z
+public save(Lnet/minecraft/util/ProgressListener;ZZ)V
+private saveLevelData(Z)V
+public getEntities(Lnet/minecraft/world/level/entity/EntityTypeTest;Ljava/util/function/Predicate;)Ljava/util/List;
+public getEntities(Lnet/minecraft/world/level/entity/EntityTypeTest;Ljava/util/function/Predicate;Ljava/util/List;)V
+public getEntities(Lnet/minecraft/world/level/entity/EntityTypeTest;Ljava/util/function/Predicate;Ljava/util/List;I)V
+public getDragons()Ljava/util/List;
+public getPlayers(Ljava/util/function/Predicate;)Ljava/util/List;
+public getPlayers(Ljava/util/function/Predicate;I)Ljava/util/List;
+public getRandomPlayer()Lnet/minecraft/server/level/ServerPlayer;
+public addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z
+public addWithUUID(Lnet/minecraft/world/entity/Entity;)Z
+public addDuringTeleport(Lnet/minecraft/world/entity/Entity;)V
+public addNewPlayer(Lnet/minecraft/server/level/ServerPlayer;)V
+public addRespawnedPlayer(Lnet/minecraft/server/level/ServerPlayer;)V
+private addPlayer(Lnet/minecraft/server/level/ServerPlayer;)V
+private addEntity(Lnet/minecraft/world/entity/Entity;)Z
+public tryAddFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)Z
+public unload(Lnet/minecraft/world/level/chunk/LevelChunk;)V
+public removePlayerImmediately(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/Entity$RemovalReason;)V
+public destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V
+public playSeededSound(Lnet/minecraft/world/entity/Entity;DDDLnet/minecraft/core/Holder;Lnet/minecraft/sounds/SoundSource;FFJ)V
+public playSeededSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/Holder;Lnet/minecraft/sounds/SoundSource;FFJ)V
+public globalLevelEvent(ILnet/minecraft/core/BlockPos;I)V
+public levelEvent(Lnet/minecraft/world/entity/Entity;ILnet/minecraft/core/BlockPos;I)V
+public getLogicalHeight()I
+public gameEvent(Lnet/minecraft/core/Holder;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/gameevent/GameEvent$Context;)V
+public sendBlockUpdated(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;I)V
+public updateNeighborsAt(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;)V
+public updateNeighborsAt(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;)V
+public updateNeighborsAtExceptFromFacing(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/redstone/Orientation;)V
+public neighborChanged(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;)V
+public neighborChanged(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/redstone/Orientation;Z)V
+public broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V
+public broadcastDamageEvent(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)V
+public getChunkSource()Lnet/minecraft/server/level/ServerChunkCache;
+public explode(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lnet/minecraft/world/level/ExplosionDamageCalculator;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/util/random/WeightedList;Lnet/minecraft/core/Holder;)V
+private getDestroyType(Lnet/minecraft/world/level/gamerules/GameRule;)Lnet/minecraft/world/level/Explosion$BlockInteraction;
+public blockEvent(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;II)V
+private runBlockEvents()V
+private doBlockEvent(Lnet/minecraft/world/level/BlockEventData;)Z
+public getBlockTicks()Lnet/minecraft/world/ticks/LevelTicks;
+public getFluidTicks()Lnet/minecraft/world/ticks/LevelTicks;
+public getServer()Lnet/minecraft/server/MinecraftServer;
+public getPortalForcer()Lnet/minecraft/world/level/portal/PortalForcer;
+public getStructureTemplateManager()Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplateManager;
+public sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I
+public sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDDLnet/minecraft/network/protocol/game/ClientboundLevelParticlesPacket$RandomizationType;)I
+public sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDDDD)I
+public sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDDDDLnet/minecraft/network/protocol/game/ClientboundLevelParticlesPacket$RandomizationType;)I
+public sendParticles(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDIDDDD)I
+public sendParticles(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDIDDDDLnet/minecraft/network/protocol/game/ClientboundLevelParticlesPacket$RandomizationType;)I
+public sendParticles(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDIDDDDDDLnet/minecraft/network/protocol/game/ClientboundLevelParticlesPacket$RandomizationType;)I
+public sendParticles(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/core/particles/ParticleOptions;ZZDDDIDDDD)Z
+public final sendParticles(Lnet/minecraft/server/level/ServerPlayer;ZDDDLnet/minecraft/network/protocol/Packet;)Z
+public getEntity(I)Lnet/minecraft/world/entity/Entity;
+public getEntityInAnyDimension(Ljava/util/UUID;)Lnet/minecraft/world/entity/Entity;
+public getPlayerInAnyDimension(Ljava/util/UUID;)Lnet/minecraft/world/entity/player/Player;
+public getEntityOrPart(I)Lnet/minecraft/world/entity/Entity;
+public dragonParts()Ljava/util/Collection;
+public findNearestMapStructure(Lnet/minecraft/tags/TagKey;Lnet/minecraft/core/BlockPos;IZ)Lnet/minecraft/core/BlockPos;
+public findNearestMapStructure(Lnet/minecraft/core/HolderSet;Lnet/minecraft/core/BlockPos;IZ)Lnet/minecraft/core/BlockPos;
+public findClosestBiome3d(Ljava/util/function/Predicate;Lnet/minecraft/core/BlockPos;III)Lcom/mojang/datafixers/util/Pair;
+public getWorldBorder()Lnet/minecraft/world/level/border/WorldBorder;
+public recipeAccess()Lnet/minecraft/world/item/crafting/RecipeManager;
+public tickRateManager()Lnet/minecraft/world/TickRateManager;
+public noSave()Z
+public getDataStorage()Lnet/minecraft/world/level/storage/SavedDataStorage;
+public getMapData(Lnet/minecraft/world/level/saveddata/maps/MapId;)Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;
+public setMapData(Lnet/minecraft/world/level/saveddata/maps/MapId;Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;)V
+public getFreeMapId()Lnet/minecraft/world/level/saveddata/maps/MapId;
+public setRespawnData(Lnet/minecraft/world/level/storage/LevelData$RespawnData;)V
+public getRespawnData()Lnet/minecraft/world/level/storage/LevelData$RespawnData;
+public getForceLoadedChunks()Lit/unimi/dsi/fastutil/longs/LongSet;
+public setChunkForced(IIZ)Z
+public players()Ljava/util/List;
+public updatePOIOnBlockStateChange(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V
+public getPoiManager()Lnet/minecraft/world/entity/ai/village/poi/PoiManager;
+public isVillage(Lnet/minecraft/core/BlockPos;)Z
+public isVillage(Lnet/minecraft/core/SectionPos;)Z
+public isCloseToVillage(Lnet/minecraft/core/BlockPos;I)Z
+public sectionsToVillage(Lnet/minecraft/core/SectionPos;)I
+public getRaids()Lnet/minecraft/world/entity/raid/Raids;
+public getRaidAt(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/entity/raid/Raid;
+public isRaided(Lnet/minecraft/core/BlockPos;)Z
+public onReputationEvent(Lnet/minecraft/world/entity/ai/village/ReputationEventType;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/ReputationEventHandler;)V
+public saveDebugReport(Ljava/nio/file/Path;)V
+private static dumpEntities(Ljava/io/Writer;Ljava/lang/Iterable;)V
+private dumpBlockEntityTickers(Ljava/io/Writer;)V
+public clearBlockEvents(Lnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
+public getAllEntities()Ljava/lang/Iterable;
+public toString()Ljava/lang/String;
+public isFlat()Z
+public getSeed()J
+public getDragonFight()Lnet/minecraft/world/level/dimension/end/EnderDragonFight;
+public getWeatherData()Lnet/minecraft/world/level/saveddata/WeatherData;
+public getLevel()Lnet/minecraft/server/level/ServerLevel;
+public getWatchdogStats()Ljava/lang/String;
+private static getTypeCount(Ljava/lang/Iterable;Ljava/util/function/Function;)Ljava/lang/String;
+protected getEntities()Lnet/minecraft/world/level/entity/LevelEntityGetter;
+public addLegacyChunkEntities(Ljava/util/stream/Stream;)V
+public addWorldGenChunkEntities(Ljava/util/stream/Stream;)V
+public startTickingChunk(Lnet/minecraft/world/level/chunk/LevelChunk;)V
+public onStructureStartsAvailable(Lnet/minecraft/world/level/chunk/ChunkAccess;)V
+public getPathTypeCache()Lnet/minecraft/world/level/pathfinder/PathTypeCache;
+public waitForEntities(Lnet/minecraft/world/level/ChunkPos;I)V
+public isSpawningMonsters()Z
+public close()V
+public gatherChunkSourceStats()Ljava/lang/String;
+public areEntitiesLoaded(J)Z
+public isPositionTickingWithEntitiesLoaded(J)Z
+public isPositionEntityTicking(Lnet/minecraft/core/BlockPos;)Z
+public areEntitiesActuallyLoadedAndTicking(Lnet/minecraft/world/level/ChunkPos;)Z
+public anyPlayerCloseEnoughForSpawning(Lnet/minecraft/core/BlockPos;)Z
+public anyPlayerCloseEnoughForSpawning(Lnet/minecraft/world/level/ChunkPos;)Z
+public canSpreadFireAround(Lnet/minecraft/core/BlockPos;)Z
+public canSpawnEntitiesInChunk(Lnet/minecraft/world/level/ChunkPos;)Z
+public enabledFeatures()Lnet/minecraft/world/flag/FeatureFlagSet;
+public getGameRules()Lnet/minecraft/world/level/gamerules/GameRules;
+public fillReportDetails(Lnet/minecraft/CrashReport;)Lnet/minecraft/CrashReportCategory;
+public getSeaLevel()I
+public onBlockEntityAdded(Lnet/minecraft/world/level/block/entity/BlockEntity;)V
+public debugSynchronizers()Lnet/minecraft/util/debug/LevelDebugSynchronizers;
+public isAllowedToEnterPortal(Lnet/minecraft/world/level/Level;)Z
+public isPvpAllowed()Z
+public isCommandBlockEnabled()Z
+public isSpawnerBlockEnabled()Z
+public synthetic clockManager()Lnet/minecraft/world/clock/ClockManager;
+public synthetic recipeAccess()Lnet/minecraft/world/item/crafting/RecipeAccess;
+public synthetic getScoreboard()Lnet/minecraft/world/scores/Scoreboard;
+public synthetic getChunkSource()Lnet/minecraft/world/level/chunk/ChunkSource;
+public synthetic environmentAttributes()Lnet/minecraft/world/attribute/EnvironmentAttributeReader;
+public synthetic getFluidTicks()Lnet/minecraft/world/ticks/LevelTickAccess;
+public synthetic getBlockTicks()Lnet/minecraft/world/ticks/LevelTickAccess;
+private synthetic lambda$fillReportDetails$1(Lnet/minecraft/world/level/saveddata/WeatherData;)Ljava/lang/String;
+private synthetic lambda$fillReportDetails$0()Ljava/lang/String;
+private synthetic lambda$waitForEntities$0(Ljava/util/List;)Z
+private synthetic lambda$onStructureStartsAvailable$0(Lnet/minecraft/world/level/chunk/ChunkAccess;)V
+private static synthetic lambda$getTypeCount$0(Lit/unimi/dsi/fastutil/objects/Object2IntMap$Entry;)Ljava/lang/String;
+private static synthetic lambda$getWatchdogStats$0(Lnet/minecraft/world/entity/Entity;)Ljava/lang/String;
+private static synthetic lambda$clearBlockEvents$0(Lnet/minecraft/world/level/levelgen/structure/BoundingBox;Lnet/minecraft/world/level/BlockEventData;)Z
+private synthetic lambda$updatePOIOnBlockStateChange$2(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Holder;)V
+private synthetic lambda$updatePOIOnBlockStateChange$3(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Holder;)V
+private synthetic lambda$updatePOIOnBlockStateChange$0(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Holder;)V
+private synthetic lambda$updatePOIOnBlockStateChange$1(Lnet/minecraft/core/BlockPos;)V
+private synthetic lambda$globalLevelEvent$0(Lnet/minecraft/core/BlockPos;IILnet/minecraft/server/level/ServerPlayer;)V
+private static synthetic lambda$getEntities$0(Ljava/util/function/Predicate;Ljava/util/List;ILnet/minecraft/world/entity/Entity;)Lnet/minecraft/util/Continuation;
+private synthetic lambda$findLightningTargetAround$0(Lnet/minecraft/world/entity/LivingEntity;)Z
+private static synthetic lambda$findLightningRod$2(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+private synthetic lambda$findLightningRod$1(Lnet/minecraft/core/BlockPos;)Z
+private static synthetic lambda$findLightningRod$0(Lnet/minecraft/core/Holder;)Z
+private static synthetic lambda$wakeUpAllPlayers$0(Lnet/minecraft/server/level/ServerPlayer;)V
+private synthetic lambda$tick$1(Lnet/minecraft/core/BlockPos;)V
+private synthetic lambda$tick$0(Lnet/minecraft/world/TickRateManager;Lnet/minecraft/util/profiling/ProfilerFiller;Lnet/minecraft/world/entity/Entity;)V
+static <clinit>()V
 ```

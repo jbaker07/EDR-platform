@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerPlayerGameModeMixin.startBlockBreak` | `ServerPlayerGameMode.handleBlockBreakAction` @Inject at HEAD | both | static_inference |
-| `MultiPlayerGameModeMixin.fabric_fireAttackBlockCallback` | (handler is not itself an injector method: fired from a helper or impl class) | client | static_inference |
+| `ServerPlayerGameModeMixin.startBlockBreak` @30 | [[40-Interfaces/net.minecraft.server.level.ServerPlayerGameMode|ServerPlayerGameMode]].`handleBlockBreakAction` @Inject HEAD | unknown | static_inference |
+| `MultiPlayerGameModeMixin.fabric_fireAttackBlockCallback` @28 | (handler is not itself an injector: fired from a helper or impl method) | unknown | static_inference |
 
 ## Contract
 

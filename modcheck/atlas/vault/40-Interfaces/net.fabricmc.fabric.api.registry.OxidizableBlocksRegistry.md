@@ -15,5 +15,5 @@ Module: [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v
 ```java
 public static void registerNextStage(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.Block)
 public static void registerWaxable(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.Block)
-public static void registerWeatheringCopperBlocks(net.minecraft.world.level.block.WeatheringCopperCollection<net.minecraft.world.level.block.Block>)
+public static void registerWeatheringCopperBlocks(net.minecraft.world.level.block.WeatheringCopperCollection)
 ```

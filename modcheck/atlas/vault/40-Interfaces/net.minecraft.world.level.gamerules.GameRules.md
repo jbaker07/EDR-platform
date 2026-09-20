@@ -11,110 +11,119 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `get(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/O` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `getAsString(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/S` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `set(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Ob` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `set(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Ob` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `set(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Ob` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `set(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Ob` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `get` | `(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;` | exact | invokevirtual@52 in `EnumRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `get` | `(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;` | exact | invokevirtual@18 in `EnumRuleEntry.lambda$new$0` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `get` | `(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;` | exact | invokevirtual@42 in `EnumRuleEntry.lambda$new$0` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `getAsString` | `(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/String;` | exact | invokevirtual@78 in `DoubleRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/` | exact | invokevirtual@59 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/` | exact | invokevirtual@74 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/` | exact | invokevirtual@89 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/` | exact | invokevirtual@104 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/` | exact | invokevirtual@21 in `EnumRuleCommand.executeAndSetEnum` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/` | exact | invokevirtual@51 in `DoubleRuleEntry.lambda$new$0` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/` | exact | invokevirtual@30 in `EnumRuleEntry.lambda$new$0` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| reads | `ADVANCE_TIME` | `Lnet/minecraft/world/level/gamerules/GameRule;` | exact | getstatic@51 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| reads | `ADVANCE_WEATHER` | `Lnet/minecraft/world/level/gamerules/GameRule;` | exact | getstatic@66 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| reads | `RESPAWN_RADIUS` | `Lnet/minecraft/world/level/gamerules/GameRule;` | exact | getstatic@96 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| reads | `SPAWN_MOBS` | `Lnet/minecraft/world/level/gamerules/GameRule;` | exact | getstatic@81 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (88, all visibilities)
+## Declared members (61 fields, 27 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.gamerules.GameRules {
-    private static final org.slf4j.Logger LOGGER;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> ADVANCE_TIME;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> ADVANCE_WEATHER;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> ALLOW_ENTERING_NETHER_USING_PORTALS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> BLOCK_DROPS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> BLOCK_EXPLOSION_DROP_DECAY;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> COMMAND_BLOCKS_WORK;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> COMMAND_BLOCK_OUTPUT;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> DROWNING_DAMAGE;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> ELYTRA_MOVEMENT_CHECK;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> ENDER_PEARLS_VANISH_ON_DEATH;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> ENTITY_DROPS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> FALL_DAMAGE;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> FIRE_DAMAGE;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> FIRE_SPREAD_RADIUS_AROUND_PLAYER;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> FORGIVE_DEAD_PLAYERS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> FREEZE_DAMAGE;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> GLOBAL_SOUND_EVENTS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> IMMEDIATE_RESPAWN;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> KEEP_INVENTORY;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> LAVA_SOURCE_CONVERSION;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> LIMITED_CRAFTING;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> LOCATOR_BAR;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> LOG_ADMIN_COMMANDS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> MAX_BLOCK_MODIFICATIONS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> MAX_COMMAND_FORKS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> MAX_COMMAND_SEQUENCE_LENGTH;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> MAX_ENTITY_CRAMMING;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> MAX_MINECART_SPEED;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> MAX_SNOW_ACCUMULATION_HEIGHT;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> MOB_DROPS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> MOB_EXPLOSION_DROP_DECAY;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> MOB_GRIEFING;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> NATURAL_HEALTH_REGENERATION;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> PLAYER_MOVEMENT_CHECK;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> PLAYERS_NETHER_PORTAL_CREATIVE_DELAY;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> PLAYERS_NETHER_PORTAL_DEFAULT_DELAY;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> PLAYERS_SLEEPING_PERCENTAGE;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> PROJECTILES_CAN_BREAK_BLOCKS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> PVP;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> RAIDS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> RANDOM_TICK_SPEED;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> REDUCED_DEBUG_INFO;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> RESPAWN_RADIUS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SEND_COMMAND_FEEDBACK;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SHOW_ADVANCEMENT_MESSAGES;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SHOW_DEATH_MESSAGES;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPAWNER_BLOCKS_WORK;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPAWN_MOBS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPAWN_MONSTERS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPAWN_PATROLS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPAWN_PHANTOMS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPAWN_WANDERING_TRADERS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPAWN_WARDENS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPECTATORS_GENERATE_CHUNKS;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> SPREAD_VINES;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> TNT_EXPLODES;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> TNT_EXPLOSION_DROP_DECAY;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> UNIVERSAL_ANGER;
-    public static final net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> WATER_SOURCE_CONVERSION;
-    private final net.minecraft.world.level.gamerules.GameRuleMap rules;
-    public static com.mojang.serialization.Codec<net.minecraft.world.level.gamerules.GameRules> codec(net.minecraft.world.flag.FeatureFlagSet);
-    public net.minecraft.world.level.gamerules.GameRules(net.minecraft.world.flag.FeatureFlagSet, net.minecraft.world.level.gamerules.GameRuleMap);
-    public net.minecraft.world.level.gamerules.GameRules(net.minecraft.world.flag.FeatureFlagSet);
-    public net.minecraft.world.level.gamerules.GameRules(java.util.List<net.minecraft.world.level.gamerules.GameRule<?>>);
-    public java.util.stream.Stream<net.minecraft.world.level.gamerules.GameRule<?>> availableRules();
-    public <T> T get(net.minecraft.world.level.gamerules.GameRule<T>);
-    public <T> void set(net.minecraft.world.level.gamerules.GameRule<T>, T, net.minecraft.server.MinecraftServer);
-    public net.minecraft.world.level.gamerules.GameRules copy(net.minecraft.world.flag.FeatureFlagSet);
-    public void setAll(net.minecraft.world.level.gamerules.GameRules, net.minecraft.server.MinecraftServer);
-    public void setAll(net.minecraft.world.level.gamerules.GameRuleMap, net.minecraft.server.MinecraftServer);
-    private <T> void setFromOther(net.minecraft.world.level.gamerules.GameRuleMap, net.minecraft.world.level.gamerules.GameRule<T>, net.minecraft.server.MinecraftServer);
-    public void visitGameRuleTypes(net.minecraft.world.level.gamerules.GameRuleTypeVisitor);
-    private static net.minecraft.world.level.gamerules.GameRule<java.lang.Boolean> registerBoolean(java.lang.String, net.minecraft.world.level.gamerules.GameRuleCategory, boolean);
-    private static net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> registerInteger(java.lang.String, net.minecraft.world.level.gamerules.GameRuleCategory, int, int);
-    private static net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> registerInteger(java.lang.String, net.minecraft.world.level.gamerules.GameRuleCategory, int, int, int);
-    private static net.minecraft.world.level.gamerules.GameRule<java.lang.Integer> registerInteger(java.lang.String, net.minecraft.world.level.gamerules.GameRuleCategory, int, int, int, net.minecraft.world.flag.FeatureFlagSet);
-    private static <T> net.minecraft.world.level.gamerules.GameRule<T> register(java.lang.String, net.minecraft.world.level.gamerules.GameRuleCategory, net.minecraft.world.level.gamerules.GameRuleType, com.mojang.brigadier.arguments.ArgumentType<T>, com.mojang.serialization.Codec<T>, T, net.minecraft.world.flag.FeatureFlagSet, net.minecraft.world.level.gamerules.GameRules$VisitorCaller<T>, java.util.function.ToIntFunction<T>);
-    public static net.minecraft.world.level.gamerules.GameRule<?> bootstrap(net.minecraft.core.Registry<net.minecraft.world.level.gamerules.GameRule<?>>);
-    public <T> java.lang.String getAsString(net.minecraft.world.level.gamerules.GameRule<T>);
-    private static int lambda$registerInteger$0(java.lang.Integer);
-    private static int lambda$registerBoolean$0(java.lang.Boolean);
-    private static void lambda$visitGameRuleTypes$0(net.minecraft.world.level.gamerules.GameRuleTypeVisitor, net.minecraft.world.level.gamerules.GameRule);
-    private void lambda$setAll$0(net.minecraft.world.level.gamerules.GameRuleMap, net.minecraft.server.MinecraftServer, net.minecraft.world.level.gamerules.GameRule);
-    private static void lambda$new$0(net.minecraft.world.flag.FeatureFlagSet, net.minecraft.world.level.gamerules.GameRuleMap, net.minecraft.world.level.gamerules.GameRule);
-    private static net.minecraft.world.level.gamerules.GameRuleMap lambda$codec$1(net.minecraft.world.level.gamerules.GameRules);
-    private static net.minecraft.world.level.gamerules.GameRules lambda$codec$0(net.minecraft.world.flag.FeatureFlagSet, net.minecraft.world.level.gamerules.GameRuleMap);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final ADVANCE_TIME : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final ADVANCE_WEATHER : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final ALLOW_ENTERING_NETHER_USING_PORTALS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final BLOCK_DROPS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final BLOCK_EXPLOSION_DROP_DECAY : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final COMMAND_BLOCKS_WORK : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final COMMAND_BLOCK_OUTPUT : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final DROWNING_DAMAGE : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final ELYTRA_MOVEMENT_CHECK : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final ENDER_PEARLS_VANISH_ON_DEATH : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final ENTITY_DROPS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final FALL_DAMAGE : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final FIRE_DAMAGE : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final FIRE_SPREAD_RADIUS_AROUND_PLAYER : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final FORGIVE_DEAD_PLAYERS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final FREEZE_DAMAGE : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final GLOBAL_SOUND_EVENTS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final IMMEDIATE_RESPAWN : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final KEEP_INVENTORY : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final LAVA_SOURCE_CONVERSION : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final LIMITED_CRAFTING : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final LOCATOR_BAR : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final LOG_ADMIN_COMMANDS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MAX_BLOCK_MODIFICATIONS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MAX_COMMAND_FORKS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MAX_COMMAND_SEQUENCE_LENGTH : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MAX_ENTITY_CRAMMING : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MAX_MINECART_SPEED : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MAX_SNOW_ACCUMULATION_HEIGHT : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MOB_DROPS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MOB_EXPLOSION_DROP_DECAY : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final MOB_GRIEFING : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final NATURAL_HEALTH_REGENERATION : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final PLAYER_MOVEMENT_CHECK : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final PLAYERS_NETHER_PORTAL_CREATIVE_DELAY : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final PLAYERS_NETHER_PORTAL_DEFAULT_DELAY : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final PLAYERS_SLEEPING_PERCENTAGE : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final PROJECTILES_CAN_BREAK_BLOCKS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final PVP : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final RAIDS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final RANDOM_TICK_SPEED : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final REDUCED_DEBUG_INFO : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final RESPAWN_RADIUS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SEND_COMMAND_FEEDBACK : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SHOW_ADVANCEMENT_MESSAGES : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SHOW_DEATH_MESSAGES : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPAWNER_BLOCKS_WORK : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPAWN_MOBS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPAWN_MONSTERS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPAWN_PATROLS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPAWN_PHANTOMS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPAWN_WANDERING_TRADERS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPAWN_WARDENS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPECTATORS_GENERATE_CHUNKS : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final SPREAD_VINES : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final TNT_EXPLODES : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final TNT_EXPLOSION_DROP_DECAY : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final UNIVERSAL_ANGER : Lnet/minecraft/world/level/gamerules/GameRule;
+public static final WATER_SOURCE_CONVERSION : Lnet/minecraft/world/level/gamerules/GameRule;
+private final rules : Lnet/minecraft/world/level/gamerules/GameRuleMap;
+public static codec(Lnet/minecraft/world/flag/FeatureFlagSet;)Lcom/mojang/serialization/Codec;
+public <init>(Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/world/level/gamerules/GameRuleMap;)V
+public <init>(Lnet/minecraft/world/flag/FeatureFlagSet;)V
+public <init>(Ljava/util/List;)V
+public availableRules()Ljava/util/stream/Stream;
+public get(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;
+public set(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/minecraft/server/MinecraftServer;)V
+public copy(Lnet/minecraft/world/flag/FeatureFlagSet;)Lnet/minecraft/world/level/gamerules/GameRules;
+public setAll(Lnet/minecraft/world/level/gamerules/GameRules;Lnet/minecraft/server/MinecraftServer;)V
+public setAll(Lnet/minecraft/world/level/gamerules/GameRuleMap;Lnet/minecraft/server/MinecraftServer;)V
+private setFromOther(Lnet/minecraft/world/level/gamerules/GameRuleMap;Lnet/minecraft/world/level/gamerules/GameRule;Lnet/minecraft/server/MinecraftServer;)V
+public visitGameRuleTypes(Lnet/minecraft/world/level/gamerules/GameRuleTypeVisitor;)V
+private static registerBoolean(Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Z)Lnet/minecraft/world/level/gamerules/GameRule;
+private static registerInteger(Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;II)Lnet/minecraft/world/level/gamerules/GameRule;
+private static registerInteger(Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;III)Lnet/minecraft/world/level/gamerules/GameRule;
+private static registerInteger(Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;IIILnet/minecraft/world/flag/FeatureFlagSet;)Lnet/minecraft/world/level/gamerules/GameRule;
+private static register(Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Lnet/minecraft/world/level/gamerules/GameRuleType;Lcom/mojang/brigadier/arguments/ArgumentType;Lcom/mojang/serialization/Codec;Ljava/lang/Object;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/world/level/gamerules/GameRules$VisitorCaller;Ljava/util/function/ToIntFunction;)Lnet/minecraft/world/level/gamerules/GameRule;
+public static bootstrap(Lnet/minecraft/core/Registry;)Lnet/minecraft/world/level/gamerules/GameRule;
+public getAsString(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/String;
+private static synthetic lambda$registerInteger$0(Ljava/lang/Integer;)I
+private static synthetic lambda$registerBoolean$0(Ljava/lang/Boolean;)I
+private static synthetic lambda$visitGameRuleTypes$0(Lnet/minecraft/world/level/gamerules/GameRuleTypeVisitor;Lnet/minecraft/world/level/gamerules/GameRule;)V
+private synthetic lambda$setAll$0(Lnet/minecraft/world/level/gamerules/GameRuleMap;Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/world/level/gamerules/GameRule;)V
+private static synthetic lambda$new$0(Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/world/level/gamerules/GameRuleMap;Lnet/minecraft/world/level/gamerules/GameRule;)V
+private static synthetic lambda$codec$1(Lnet/minecraft/world/level/gamerules/GameRules;)Lnet/minecraft/world/level/gamerules/GameRuleMap;
+private static synthetic lambda$codec$0(Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/world/level/gamerules/GameRuleMap;)Lnet/minecraft/world/level/gamerules/GameRules;
+static <clinit>()V
 ```

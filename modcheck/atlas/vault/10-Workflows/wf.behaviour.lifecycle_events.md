@@ -74,4 +74,4 @@ area: "behaviour"
 - contract_mapped: True
 - interaction_analysed: True
 - implemented_in_modcheck: True
-- validated_scope: server tick and client entrypoint generators compile against the pinned corpus; reference lantern JUnit tests exercise the tick handler with fakes
+- validated_scope: server tick and client entrypoint generators compile against the pinned corpus (the discarded lantern scaffold built with them); the hand-authored reference lantern does not use a Fabric tick event -- it uses a block-entity ticker

@@ -16,6 +16,6 @@ Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api
 public final java.lang.String toString()
 public final int hashCode()
 public final boolean equals(java.lang.Object)
-public T value()
+public java.lang.Object value()
 public net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition[] conditions()
 ```

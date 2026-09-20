@@ -13,7 +13,7 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: abstract_class
 
 ```java
-protected net.fabricmc.fabric.api.datagen.v1.provider.FabricBrewingProvider(net.minecraft.data.recipes.RecipeOutput)
+protected <init>(net.minecraft.data.recipes.RecipeOutput)
 protected void addContainers()
 protected void addContainerTransformations()
 ```

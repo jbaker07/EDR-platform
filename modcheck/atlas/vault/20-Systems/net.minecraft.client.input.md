@@ -8,8 +8,17 @@ package: "net.minecraft.client.input"
 
 # net.minecraft.client.input
 
-13 classes in the jar. Hooked types: 3
+13 classes (8 top-level) across 1 packages in the processed jar; 0 changed by Loom processing; 3 hooked by Fabric API.
 
-- [[40-Interfaces/net.minecraft.client.input.CharacterEvent|CharacterEvent]] -- calls:1 -- by fabric-client-gametest-api-v1
-- [[40-Interfaces/net.minecraft.client.input.KeyEvent|KeyEvent]] -- calls:2 -- by fabric-client-gametest-api-v1, fabric-creative-tab-api-v1
+## Hooked types
+
+- [[40-Interfaces/net.minecraft.client.input.CharacterEvent|CharacterEvent]] -- calls:2 -- by fabric-client-gametest-api-v1
+- [[40-Interfaces/net.minecraft.client.input.KeyEvent|KeyEvent]] -- calls:3 -- by fabric-client-gametest-api-v1, fabric-creative-tab-api-v1
 - [[40-Interfaces/net.minecraft.client.input.MouseButtonInfo|MouseButtonInfo]] -- calls:2 -- by fabric-client-gametest-api-v1
+
+## Declared inventory
+
+### `net.minecraft.client.input` (8 top-level)
+
+[[40-Interfaces/net.minecraft.client.input.CharacterEvent|CharacterEvent]], `InputQuirks`, `InputWithModifiers`, [[40-Interfaces/net.minecraft.client.input.KeyEvent|KeyEvent]], `MouseButtonEvent`, [[40-Interfaces/net.minecraft.client.input.MouseButtonInfo|MouseButtonInfo]], `PreeditEvent`, `package-info`
+

@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(I)V` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(I)V` | exact | invokespecial@54 in `MultiPlayerGameModeMixin.attackEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.protocol.game.ServerboundAttackPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ServerGamePacketListener> {
-    private final int entityId;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.network.protocol.game.ServerboundAttackPacket> STREAM_CODEC;
-    public net.minecraft.network.protocol.game.ServerboundAttackPacket(int);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.game.ServerboundAttackPacket> type();
-    public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public int entityId();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+private final entityId : I
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(I)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public entityId()I
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

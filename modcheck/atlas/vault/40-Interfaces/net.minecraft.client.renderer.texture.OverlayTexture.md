@@ -11,32 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `NO_OVERLAYI` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| reads | `NO_OVERLAYI` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `NO_OVERLAY` | `I` | exact | getstatic@94 in `MovingBlockFeatureRendererMixin$1.accept` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `NO_OVERLAY` | `I` | exact | getstatic@15 in `SectionCompilerMixin.lambda$beforeLoopCompile$0` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `NO_OVERLAY` | `I` | exact | getstatic@103 in `SubmitNodeCollectionMixin.submitBlockModel` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `NO_OVERLAY` | `I` | exact | getstatic@94 in `SubmitNodeCollectionMixin.submitBreakingBlockModel` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `NO_OVERLAY` | `I` | exact | getstatic@158 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (6 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.texture.OverlayTexture implements java.lang.AutoCloseable {
-    private static final int SIZE;
-    public static final int NO_WHITE_U;
-    public static final int RED_OVERLAY_V;
-    public static final int WHITE_OVERLAY_V;
-    public static final int NO_OVERLAY;
-    private final net.minecraft.client.renderer.texture.DynamicTexture texture;
-    public net.minecraft.client.renderer.texture.OverlayTexture();
-    public void close();
-    public static int u(float);
-    public static int v(boolean);
-    public static int pack(int, int);
-    public static int pack(float, boolean);
-    public com.mojang.renderpearl.api.textures.GpuTextureView getTextureView();
-    static {};
-}
+```
+private static final SIZE : I
+public static final NO_WHITE_U : I
+public static final RED_OVERLAY_V : I
+public static final WHITE_OVERLAY_V : I
+public static final NO_OVERLAY : I
+private final texture : Lnet/minecraft/client/renderer/texture/DynamicTexture;
+public <init>()V
+public close()V
+public static u(F)I
+public static v(Z)I
+public static pack(II)I
+public static pack(FZ)I
+public getTextureView()Lcom/mojang/renderpearl/api/textures/GpuTextureView;
+static <clinit>()V
 ```

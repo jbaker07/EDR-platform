@@ -13,5 +13,5 @@ sha256: "0f819114e0eb2d7e2950b25fe4edc581eb453bd4f98f77ffc2ddabe07a557764"
 Module: [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] -- kind: interface
 
 ```java
-public default java.lang.Object getRenderData()
+public java.lang.Object getRenderData()
 ```

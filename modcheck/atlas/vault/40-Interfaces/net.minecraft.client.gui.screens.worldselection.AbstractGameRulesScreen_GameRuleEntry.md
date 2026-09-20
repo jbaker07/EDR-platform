@@ -11,25 +11,25 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`abstract_class` public abstract; extends `net/minecraft/client/gui/screens/worldselection/AbstractGameRulesScreen$RuleEntry`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/client/gui/screens/worldselection/AbstractGa` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/client/gui/screens/worldselection/AbstractGa` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/client/gui/screens/worldselection/AbstractGameRulesScr` | exact | invokespecial@9 in `DoubleRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/client/gui/screens/worldselection/AbstractGameRulesScr` | exact | invokespecial@9 in `EnumRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (3 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen$GameRuleEntry extends net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen$RuleEntry {
-    private final java.util.List<net.minecraft.util.FormattedCharSequence> label;
-    protected final java.util.List<net.minecraft.client.gui.components.AbstractWidget> children;
-    final net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen this$0;
-    public net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen$GameRuleEntry(java.util.List<net.minecraft.util.FormattedCharSequence>, net.minecraft.network.chat.Component);
-    public java.util.List<? extends net.minecraft.client.gui.components.events.GuiEventListener> children();
-    public java.util.List<? extends net.minecraft.client.gui.narration.NarratableEntry> narratables();
-    protected void extractLabel(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-}
+```
+private final label : Ljava/util/List;
+protected final children : Ljava/util/List;
+final synthetic this$0 : Lnet/minecraft/client/gui/screens/worldselection/AbstractGameRulesScreen;
+public <init>(Lnet/minecraft/client/gui/screens/worldselection/AbstractGameRulesScreen;Ljava/util/List;Lnet/minecraft/network/chat/Component;)V
+public children()Ljava/util/List;
+public narratables()Ljava/util/List;
+protected extractLabel(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
 ```

@@ -11,32 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `lambda$ownedNetworkableRegistries$0` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| injects_into | `lambda$packRegistry$0` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `lambda$ownedNetworkableRegistries$0` | `(Lnet/minecraft/core/RegistryAccess$RegistryEntry;)Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `lambda$packRegistry$0` | `(Ljava/util/Set;Lnet/minecraft/resources/RegistryDataLoader$RegistryDa` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `NETWORKABLE_REGISTRIES` | `Ljava/util/Set;` | exact | getstatic@64 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `NETWORKABLE_REGISTRIES` | `Ljava/util/Set;` | exact | getstatic@77 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `NETWORKABLE_REGISTRIES` | `Ljava/util/Set;` | exact | getstatic@86 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| writes | `NETWORKABLE_REGISTRIES` | `Ljava/util/Set;` | exact | putstatic@83 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (1 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.RegistrySynchronization {
-    private static final java.util.Set<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>> NETWORKABLE_REGISTRIES;
-    public net.minecraft.core.RegistrySynchronization();
-    public static void packRegistries(com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, net.minecraft.core.RegistryAccess, java.util.Set<net.minecraft.server.packs.repository.KnownPack>, java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, java.util.List<net.minecraft.core.RegistrySynchronization$PackedRegistryEntry>>);
-    private static <T> void packRegistry(com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, net.minecraft.resources.RegistryDataLoader$RegistryData<T>, net.minecraft.core.RegistryAccess, java.util.Set<net.minecraft.server.packs.repository.KnownPack>, java.util.function.BiConsumer<net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, java.util.List<net.minecraft.core.RegistrySynchronization$PackedRegistryEntry>>);
-    private static java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>> ownedNetworkableRegistries(net.minecraft.core.RegistryAccess);
-    public static java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>> networkedRegistries(net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>);
-    public static java.util.stream.Stream<net.minecraft.core.RegistryAccess$RegistryEntry<?>> networkSafeRegistries(net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>);
-    public static boolean isNetworkable(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    private static boolean lambda$ownedNetworkableRegistries$0(net.minecraft.core.RegistryAccess$RegistryEntry);
-    private static void lambda$packRegistry$0(java.util.Set, net.minecraft.resources.RegistryDataLoader$RegistryData, com.mojang.serialization.DynamicOps, java.util.function.BiConsumer, net.minecraft.core.Registry);
-    private static void lambda$packRegistry$1(net.minecraft.core.Registry, java.util.Set, net.minecraft.resources.RegistryDataLoader$RegistryData, com.mojang.serialization.DynamicOps, java.util.List, net.minecraft.core.Holder$Reference);
-    private static java.lang.IllegalArgumentException lambda$packRegistry$2(net.minecraft.core.Holder$Reference, java.lang.String);
-    private static void lambda$packRegistries$0(com.mojang.serialization.DynamicOps, net.minecraft.core.RegistryAccess, java.util.Set, java.util.function.BiConsumer, net.minecraft.resources.RegistryDataLoader$RegistryData);
-    static {};
-}
+```
+private static final NETWORKABLE_REGISTRIES : Ljava/util/Set;
+public <init>()V
+public static packRegistries(Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/core/RegistryAccess;Ljava/util/Set;Ljava/util/function/BiConsumer;)V
+private static packRegistry(Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/resources/RegistryDataLoader$RegistryData;Lnet/minecraft/core/RegistryAccess;Ljava/util/Set;Ljava/util/function/BiConsumer;)V
+private static ownedNetworkableRegistries(Lnet/minecraft/core/RegistryAccess;)Ljava/util/stream/Stream;
+public static networkedRegistries(Lnet/minecraft/core/LayeredRegistryAccess;)Ljava/util/stream/Stream;
+public static networkSafeRegistries(Lnet/minecraft/core/LayeredRegistryAccess;)Ljava/util/stream/Stream;
+public static isNetworkable(Lnet/minecraft/resources/ResourceKey;)Z
+private static synthetic lambda$ownedNetworkableRegistries$0(Lnet/minecraft/core/RegistryAccess$RegistryEntry;)Z
+private static synthetic lambda$packRegistry$0(Ljava/util/Set;Lnet/minecraft/resources/RegistryDataLoader$RegistryData;Lcom/mojang/serialization/DynamicOps;Ljava/util/function/BiConsumer;Lnet/minecraft/core/Registry;)V
+private static synthetic lambda$packRegistry$1(Lnet/minecraft/core/Registry;Ljava/util/Set;Lnet/minecraft/resources/RegistryDataLoader$RegistryData;Lcom/mojang/serialization/DynamicOps;Ljava/util/List;Lnet/minecraft/core/Holder$Reference;)V
+private static synthetic lambda$packRegistry$2(Lnet/minecraft/core/Holder$Reference;Ljava/lang/String;)Ljava/lang/IllegalArgumentException;
+private static synthetic lambda$packRegistries$0(Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/core/RegistryAccess;Ljava/util/Set;Ljava/util/function/BiConsumer;Lnet/minecraft/resources/RegistryDataLoader$RegistryData;)V
+static <clinit>()V
 ```

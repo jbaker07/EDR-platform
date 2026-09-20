@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`enum` public final; extends `java/lang/Enum`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `RELOADABLELnet/minecraft/server/RegistryLayer;` | `` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| reads | `WORLDLnet/minecraft/server/RegistryLayer;` | `` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `RELOADABLE` | `Lnet/minecraft/server/RegistryLayer;` | exact | getstatic@14 in `ReloadableServerResourcesMixin.applyDynamicTagAliases` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| reads | `WORLD` | `Lnet/minecraft/server/RegistryLayer;` | exact | getstatic@4 in `ReloadableServerResourcesMixin.applyDynamicTagAliases` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (7 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.server.RegistryLayer extends java.lang.Enum<net.minecraft.server.RegistryLayer> {
-    public static final net.minecraft.server.RegistryLayer STATIC;
-    public static final net.minecraft.server.RegistryLayer WORLD;
-    public static final net.minecraft.server.RegistryLayer DIMENSIONS;
-    public static final net.minecraft.server.RegistryLayer RELOADABLE;
-    private static final java.util.List<net.minecraft.server.RegistryLayer> VALUES;
-    private static final net.minecraft.core.RegistryAccess$Frozen STATIC_ACCESS;
-    private static final net.minecraft.server.RegistryLayer[] $VALUES;
-    public static net.minecraft.server.RegistryLayer[] values();
-    public static net.minecraft.server.RegistryLayer valueOf(java.lang.String);
-    private net.minecraft.server.RegistryLayer();
-    public static net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer> createRegistryAccess();
-    private static net.minecraft.server.RegistryLayer[] $values();
-    static {};
-}
+```
+public static final STATIC : Lnet/minecraft/server/RegistryLayer;
+public static final WORLD : Lnet/minecraft/server/RegistryLayer;
+public static final DIMENSIONS : Lnet/minecraft/server/RegistryLayer;
+public static final RELOADABLE : Lnet/minecraft/server/RegistryLayer;
+private static final VALUES : Ljava/util/List;
+private static final STATIC_ACCESS : Lnet/minecraft/core/RegistryAccess$Frozen;
+private static final synthetic $VALUES : [Lnet/minecraft/server/RegistryLayer;
+public static values()[Lnet/minecraft/server/RegistryLayer;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/server/RegistryLayer;
+private <init>(Ljava/lang/String;I)V
+public static createRegistryAccess()Lnet/minecraft/core/LayeredRegistryAccess;
+private static synthetic $values()[Lnet/minecraft/server/RegistryLayer;
+static <clinit>()V
 ```

@@ -13,7 +13,7 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: class
 
 ```java
-public net.minecraft.core.Holder$Reference<T> register(net.minecraft.resources.ResourceKey<T>, T)
-public <S> net.minecraft.core.HolderGetter<S> lookup(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends S>>)
-public <S> java.util.stream.Stream<net.minecraft.core.Holder$Reference<S>> listContextElements(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends S>>)
+public net.minecraft.core.Holder$Reference register(net.minecraft.resources.ResourceKey, java.lang.Object)
+public net.minecraft.core.HolderGetter lookup(net.minecraft.resources.ResourceKey)
+public java.util.stream.Stream listContextElements(net.minecraft.resources.ResourceKey)
 ```

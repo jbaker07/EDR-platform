@@ -11,37 +11,43 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client|net.minecraft.client]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `id()Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
-| injects_into | `register(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/KeyMapping$Category;` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `id` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@1 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@14 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@52 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@59 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@79 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `id` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@86 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| injects_into | `register` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/KeyMapping` | exact | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| reads | `SORT_ORDER` | `Ljava/util/List;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | declared |
 
-## Declared members (19, all visibilities)
+## Declared members (10 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.KeyMapping$Category extends java.lang.Record {
-    private final net.minecraft.resources.Identifier id;
-    private static final java.util.List<net.minecraft.client.KeyMapping$Category> SORT_ORDER;
-    public static final net.minecraft.client.KeyMapping$Category MOVEMENT;
-    public static final net.minecraft.client.KeyMapping$Category MISC;
-    public static final net.minecraft.client.KeyMapping$Category MULTIPLAYER;
-    public static final net.minecraft.client.KeyMapping$Category GAMEPLAY;
-    public static final net.minecraft.client.KeyMapping$Category INVENTORY;
-    public static final net.minecraft.client.KeyMapping$Category CREATIVE;
-    public static final net.minecraft.client.KeyMapping$Category SPECTATOR;
-    public static final net.minecraft.client.KeyMapping$Category DEBUG;
-    public net.minecraft.client.KeyMapping$Category(net.minecraft.resources.Identifier);
-    private static net.minecraft.client.KeyMapping$Category register(java.lang.String);
-    public static net.minecraft.client.KeyMapping$Category register(net.minecraft.resources.Identifier);
-    public net.minecraft.network.chat.Component label();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.resources.Identifier id();
-    static {};
-}
+```
+private final id : Lnet/minecraft/resources/Identifier;
+private static final SORT_ORDER : Ljava/util/List;
+public static final MOVEMENT : Lnet/minecraft/client/KeyMapping$Category;
+public static final MISC : Lnet/minecraft/client/KeyMapping$Category;
+public static final MULTIPLAYER : Lnet/minecraft/client/KeyMapping$Category;
+public static final GAMEPLAY : Lnet/minecraft/client/KeyMapping$Category;
+public static final INVENTORY : Lnet/minecraft/client/KeyMapping$Category;
+public static final CREATIVE : Lnet/minecraft/client/KeyMapping$Category;
+public static final SPECTATOR : Lnet/minecraft/client/KeyMapping$Category;
+public static final DEBUG : Lnet/minecraft/client/KeyMapping$Category;
+public <init>(Lnet/minecraft/resources/Identifier;)V
+private static register(Ljava/lang/String;)Lnet/minecraft/client/KeyMapping$Category;
+public static register(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/KeyMapping$Category;
+public label()Lnet/minecraft/network/chat/Component;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public id()Lnet/minecraft/resources/Identifier;
+static <clinit>()V
 ```

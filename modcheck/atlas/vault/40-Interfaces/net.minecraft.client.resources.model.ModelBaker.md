@@ -11,22 +11,25 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.resources|net.minecraft.client.resources]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `materials()Lnet/minecraft/client/resources/model/sprite/MaterialBaker` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getModel` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/resources/` | exact | invokeinterface@9 in `SimpleUnbakedExtraModel.bake` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `materials` | `()Lnet/minecraft/client/resources/model/sprite/MaterialBaker;` | exact | invokeinterface@34 in `SimpleUnbakedExtraModel.lambda$bakeResolved$0` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `materials` | `()Lnet/minecraft/client/resources/model/sprite/MaterialBaker;` | exact | invokeinterface@38 in `SimpleModelWrapperMixin.lambda$analyzeMesh$0` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `missingBlockModelPart` | `()Lnet/minecraft/client/renderer/block/dispatch/BlockStateModelPart;` | exact | invokeinterface@209 in `SimpleUnbakedExtraModel.bakeResolved` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (0 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.resources.model.ModelBaker {
-    public abstract net.minecraft.client.resources.model.ResolvedModel getModel(net.minecraft.resources.Identifier);
-    public abstract net.minecraft.client.renderer.block.dispatch.BlockStateModelPart missingBlockModelPart();
-    public abstract net.minecraft.client.resources.model.sprite.MaterialBaker materials();
-    public abstract net.minecraft.client.resources.model.ModelBaker$Interner interner();
-    public abstract <T> T compute(net.minecraft.client.resources.model.ModelBaker$SharedOperationKey<T>);
-}
+```
+public abstract getModel(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/resources/model/ResolvedModel;
+public abstract missingBlockModelPart()Lnet/minecraft/client/renderer/block/dispatch/BlockStateModelPart;
+public abstract materials()Lnet/minecraft/client/resources/model/sprite/MaterialBaker;
+public abstract interner()Lnet/minecraft/client/resources/model/ModelBaker$Interner;
+public abstract compute(Lnet/minecraft/client/resources/model/ModelBaker$SharedOperationKey;)Ljava/lang/Object;
 ```

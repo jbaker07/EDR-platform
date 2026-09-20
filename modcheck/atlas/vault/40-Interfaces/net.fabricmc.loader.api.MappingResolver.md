@@ -12,7 +12,7 @@ module: "fabric-loader"
 fabric-loader 0.19.5 -- kind: interface
 
 ```java
-public abstract java.util.Collection<java.lang.String> getNamespaces()
+public abstract java.util.Collection getNamespaces()
 public abstract java.lang.String getCurrentRuntimeNamespace()
 public abstract java.lang.String mapClassName(java.lang.String, java.lang.String)
 public abstract java.lang.String unmapClassName(java.lang.String, java.lang.String)

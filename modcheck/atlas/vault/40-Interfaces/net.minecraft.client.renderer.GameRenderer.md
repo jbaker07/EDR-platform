@@ -11,125 +11,128 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`, `net/minecraft/world/waypoints/TrackedWaypoint$Projector`, `net/minecraft/server/packs/resources/ResourceManagerReloadListener`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `extract(Lnet/minecraft/client/DeltaTracker;Z)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `mainCamera()Lnet/minecraft/client/Camera;` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `mainRenderTarget()Lcom/mojang/blaze3d/pipeline/RenderTarget;` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `mainRenderTarget()Lcom/mojang/blaze3d/pipeline/RenderTarget;` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `mainRenderTarget()Lcom/mojang/blaze3d/pipeline/RenderTarget;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `panorama()Lnet/minecraft/client/renderer/Panorama;` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `render()V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `resize(II)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `update(Lnet/minecraft/client/DeltaTracker;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `useImprovedTransparency()Z` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| injects_into | `<init>` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `extract` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `extract` | `(Lnet/minecraft/client/DeltaTracker;Z)V` | exact | invokevirtual@22 in `ClientGameTestContextImpl.lambda$doTakeScreenshot$2` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `mainCamera` | `()Lnet/minecraft/client/Camera;` | exact | invokevirtual@34 in `LevelExtractorMixin.fabric_prepareLevelExtractionContext` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `mainRenderTarget` | `()Lcom/mojang/blaze3d/pipeline/RenderTarget;` | exact | invokevirtual@58 in `ClientGameTestContextImpl.lambda$doTakeScreenshot$2` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `mainRenderTarget` | `()Lcom/mojang/blaze3d/pipeline/RenderTarget;` | exact | invokevirtual@13 in `GlCommandEncoderMixin.blitFrameBuffer` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `mainRenderTarget` | `()Lcom/mojang/blaze3d/pipeline/RenderTarget;` | exact | invokevirtual@13 in `VulkanGpuSurfaceMixin.blitFrameBuffer` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `panorama` | `()Lnet/minecraft/client/renderer/Panorama;` | exact | invokevirtual@6 in `ScreenMixin.disableRotatingPanoramaForClientGameTests` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `render` | `()V` | exact | invokevirtual@29 in `ClientGameTestContextImpl.lambda$doTakeScreenshot$2` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `resize` | `(II)V` | exact | invokevirtual@34 in `ClientGameTestContextImpl.lambda$doTakeScreenshot$4` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `resize` | `(II)V` | exact | invokevirtual@66 in `ClientGameTestContextImpl.lambda$doTakeScreenshot$1` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `update` | `(Lnet/minecraft/client/DeltaTracker;)V` | exact | invokevirtual@13 in `ClientGameTestContextImpl.lambda$doTakeScreenshot$2` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `useImprovedTransparency` | `()Z` | exact | invokevirtual@15 in `SubmitNodeCollectionMixin.submitBreakingBlockModel` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/renderer/FirstP` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `extract` | `(Lnet/minecraft/client/DeltaTracker;Z)V` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `guiRenderer` | `Lnet/minecraft/client/gui/render/GuiRenderer;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
+| reads | `minecraft` | `Lnet/minecraft/client/Minecraft;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
 
-## Declared members (97, all visibilities)
+## Declared members (40 fields, 57 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.GameRenderer implements java.lang.AutoCloseable,net.minecraft.world.waypoints.TrackedWaypoint$Projector,net.minecraft.server.packs.resources.ResourceManagerReloadListener {
-    private static final net.minecraft.resources.Identifier BLUR_POST_CHAIN_ID;
-    public static net.minecraft.resources.Identifier END_OF_FRAME_POST_EFFECT;
-    public static final int MAX_BLUR_RADIUS;
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.client.Minecraft minecraft;
-    private final net.minecraft.client.renderer.state.GameRenderState gameRenderState;
-    public final net.minecraft.client.renderer.FirstPersonHandsAndItemsRenderer firstPersonHandsAndItemsRenderer;
-    private final net.minecraft.client.renderer.ScreenEffectRenderer screenEffectRenderer;
-    private final net.minecraft.client.renderer.DebugCrosshairRenderer debugCrosshairRenderer;
-    private final net.minecraft.client.renderer.RenderBuffers renderBuffers;
-    private final com.mojang.blaze3d.pipeline.RenderTarget mainRenderTarget;
-    private final com.mojang.blaze3d.pipeline.RenderTarget hud3DTarget;
-    private float bossOverlayWorldDarkening;
-    private float bossOverlayWorldDarkeningO;
-    private boolean renderBlockOutline;
-    private long lastScreenshotAttempt;
-    private boolean hasWorldScreenshot;
-    private final net.minecraft.client.renderer.Lightmap lightmap;
-    private final net.minecraft.client.renderer.LightmapRenderStateExtractor lightmapRenderStateExtractor;
-    private final net.minecraft.client.renderer.UiLightmap uiLightmap;
-    private boolean useUiLightmap;
-    private final net.minecraft.client.renderer.texture.OverlayTexture overlayTexture;
-    protected final net.minecraft.client.renderer.Panorama panorama;
-    private final com.mojang.blaze3d.resource.CrossFrameResourcePool resourcePool;
-    private final net.minecraft.client.renderer.fog.FogRenderer fogRenderer;
-    private final net.minecraft.client.gui.render.GuiRenderer guiRenderer;
-    private final net.minecraft.client.renderer.feature.FeatureRenderDispatcher featureRenderDispatcher;
-    private final net.minecraft.client.renderer.SubmitNodeStorage handAndScreenSubmitNodeStorage;
-    private net.minecraft.resources.Identifier spectatedEntityPostEffect;
-    private boolean spectatedEntityEffectActive;
-    private final net.minecraft.client.Camera mainCamera;
-    private final net.minecraft.client.renderer.Projection hudProjection;
-    private final com.mojang.blaze3d.platform.Lighting lighting;
-    private final net.minecraft.client.renderer.GlobalSettingsUniform globalSettingsUniform;
-    private final net.minecraft.client.renderer.ProjectionMatrixBuffer levelProjectionMatrixBuffer;
-    private final net.minecraft.client.renderer.ProjectionMatrixBuffer hud3dProjectionMatrixBuffer;
-    private final java.util.List<net.minecraft.resources.Identifier> requestedPostEffects;
-    private final java.util.List<net.minecraft.client.renderer.PostChain> appliedPostEffects;
-    private final java.util.List<net.minecraft.resources.Identifier> failedPostEffects;
-    private volatile boolean shouldResetFailedPostEffects;
-    public net.minecraft.client.renderer.GameRenderer(net.minecraft.client.Minecraft, net.minecraft.client.renderer.FirstPersonHandsAndItemsRenderer, net.minecraft.client.resources.model.ModelManager, net.minecraft.client.renderer.item.ItemModelResolver);
-    public void close();
-    public net.minecraft.client.renderer.RenderBuffers renderBuffers();
-    public net.minecraft.client.renderer.feature.FeatureRenderDispatcher featureRenderDispatcher();
-    public net.minecraft.client.renderer.state.GameRenderState gameRenderState();
-    public void setRenderBlockOutline(boolean);
-    public void clearSpectatedEntityPostEffect();
-    public void toggleSpectatorPostEffect();
-    public void checkEntityPostEffect(net.minecraft.world.entity.Entity);
-    private void setSpectatedEntityPostEffect(net.minecraft.resources.Identifier);
-    public void processBlurEffect();
-    public static void preloadUiShader(net.minecraft.server.packs.resources.ResourceManager);
-    public void tick();
-    public net.minecraft.resources.Identifier spectatedEntityPostEffect();
-    public java.util.List<net.minecraft.resources.Identifier> getRequestedPostEffects();
-    public java.util.List<net.minecraft.resources.Identifier> getAppliedPostEffects();
-    public void onResourceManagerReload(net.minecraft.server.packs.resources.ResourceManager);
-    public void resize(int, int);
-    private void bobHurt(net.minecraft.client.renderer.state.level.CameraRenderState, com.mojang.blaze3d.vertex.PoseStack);
-    private void bobView(net.minecraft.client.renderer.state.level.CameraRenderState, com.mojang.blaze3d.vertex.PoseStack);
-    private void renderItemInHand(net.minecraft.client.renderer.state.level.CameraRenderState, net.minecraft.client.renderer.state.level.PlayerRenderState, com.mojang.renderpearl.api.textures.GpuTextureView);
-    public static float nightVisionScale(net.minecraft.world.entity.LivingEntity, float);
-    public void update(net.minecraft.client.DeltaTracker);
-    public void extract(net.minecraft.client.DeltaTracker, boolean);
-    public void render();
-    private void preparePostEffects(java.util.List<net.minecraft.resources.Identifier>);
-    private void applyPostEffects();
-    private void tryTakeScreenshotIfNeeded();
-    private void takeAutoScreenshot(java.nio.file.Path);
-    private boolean shouldRenderBlockOutline();
-    public void renderLevel();
-    private void render3dHud(net.minecraft.client.renderer.state.level.CameraRenderState, net.minecraft.client.renderer.state.level.PlayerRenderState, net.minecraft.client.renderer.state.OptionsRenderState, boolean);
-    private void integrate3DHudDepth();
-    private void extractWindow();
-    private void extractOptions();
-    private void extractCamera(net.minecraft.client.DeltaTracker, float);
-    public void resetData();
-    public float bossOverlayWorldDarkening(float);
-    public net.minecraft.client.Camera mainCamera();
-    public com.mojang.renderpearl.api.textures.GpuTextureView lightmap();
-    public com.mojang.renderpearl.api.textures.GpuTextureView levelLightmap();
-    public net.minecraft.client.renderer.texture.OverlayTexture overlayTexture();
-    public com.mojang.blaze3d.pipeline.RenderTarget mainRenderTarget();
-    public net.minecraft.world.phys.Vec3 projectPointToScreen(net.minecraft.world.phys.Vec3);
-    public double projectHorizonToScreen();
-    public com.mojang.blaze3d.platform.Lighting lighting();
-    public void setLevel(net.minecraft.client.multiplayer.ClientLevel);
-    public net.minecraft.client.renderer.Panorama panorama();
-    public void registerPanoramaTextures(net.minecraft.client.renderer.texture.TextureManager);
-    public boolean useImprovedTransparency();
-    private static java.lang.String lambda$integrate3DHudDepth$0();
-    private static java.lang.String lambda$render3dHud$0();
-    private static void lambda$takeAutoScreenshot$0(java.nio.file.Path, com.mojang.blaze3d.platform.NativeImage);
-    private static void lambda$takeAutoScreenshot$1(com.mojang.blaze3d.platform.NativeImage, java.nio.file.Path);
-    private void lambda$tryTakeScreenshotIfNeeded$0(java.nio.file.Path);
-    private static java.lang.String lambda$renderItemInHand$0();
-    static {};
-}
+```
+private static final BLUR_POST_CHAIN_ID : Lnet/minecraft/resources/Identifier;
+public static END_OF_FRAME_POST_EFFECT : Lnet/minecraft/resources/Identifier;
+public static final MAX_BLUR_RADIUS : I
+private static final LOGGER : Lorg/slf4j/Logger;
+private final minecraft : Lnet/minecraft/client/Minecraft;
+private final gameRenderState : Lnet/minecraft/client/renderer/state/GameRenderState;
+public final firstPersonHandsAndItemsRenderer : Lnet/minecraft/client/renderer/FirstPersonHandsAndItemsRenderer;
+private final screenEffectRenderer : Lnet/minecraft/client/renderer/ScreenEffectRenderer;
+private final debugCrosshairRenderer : Lnet/minecraft/client/renderer/DebugCrosshairRenderer;
+private final renderBuffers : Lnet/minecraft/client/renderer/RenderBuffers;
+private final mainRenderTarget : Lcom/mojang/blaze3d/pipeline/RenderTarget;
+private final hud3DTarget : Lcom/mojang/blaze3d/pipeline/RenderTarget;
+private bossOverlayWorldDarkening : F
+private bossOverlayWorldDarkeningO : F
+private renderBlockOutline : Z
+private lastScreenshotAttempt : J
+private hasWorldScreenshot : Z
+private final lightmap : Lnet/minecraft/client/renderer/Lightmap;
+private final lightmapRenderStateExtractor : Lnet/minecraft/client/renderer/LightmapRenderStateExtractor;
+private final uiLightmap : Lnet/minecraft/client/renderer/UiLightmap;
+private useUiLightmap : Z
+private final overlayTexture : Lnet/minecraft/client/renderer/texture/OverlayTexture;
+protected final panorama : Lnet/minecraft/client/renderer/Panorama;
+private final resourcePool : Lcom/mojang/blaze3d/resource/CrossFrameResourcePool;
+private final fogRenderer : Lnet/minecraft/client/renderer/fog/FogRenderer;
+private final guiRenderer : Lnet/minecraft/client/gui/render/GuiRenderer;
+private final featureRenderDispatcher : Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;
+private final handAndScreenSubmitNodeStorage : Lnet/minecraft/client/renderer/SubmitNodeStorage;
+private spectatedEntityPostEffect : Lnet/minecraft/resources/Identifier;
+private spectatedEntityEffectActive : Z
+private final mainCamera : Lnet/minecraft/client/Camera;
+private final hudProjection : Lnet/minecraft/client/renderer/Projection;
+private final lighting : Lcom/mojang/blaze3d/platform/Lighting;
+private final globalSettingsUniform : Lnet/minecraft/client/renderer/GlobalSettingsUniform;
+private final levelProjectionMatrixBuffer : Lnet/minecraft/client/renderer/ProjectionMatrixBuffer;
+private final hud3dProjectionMatrixBuffer : Lnet/minecraft/client/renderer/ProjectionMatrixBuffer;
+private final requestedPostEffects : Ljava/util/List;
+private final appliedPostEffects : Ljava/util/List;
+private final failedPostEffects : Ljava/util/List;
+private shouldResetFailedPostEffects : Z
+public <init>(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/renderer/FirstPersonHandsAndItemsRenderer;Lnet/minecraft/client/resources/model/ModelManager;Lnet/minecraft/client/renderer/item/ItemModelResolver;)V
+public close()V
+public renderBuffers()Lnet/minecraft/client/renderer/RenderBuffers;
+public featureRenderDispatcher()Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;
+public gameRenderState()Lnet/minecraft/client/renderer/state/GameRenderState;
+public setRenderBlockOutline(Z)V
+public clearSpectatedEntityPostEffect()V
+public toggleSpectatorPostEffect()V
+public checkEntityPostEffect(Lnet/minecraft/world/entity/Entity;)V
+private setSpectatedEntityPostEffect(Lnet/minecraft/resources/Identifier;)V
+public processBlurEffect()V
+public static preloadUiShader(Lnet/minecraft/server/packs/resources/ResourceManager;)V
+public tick()V
+public spectatedEntityPostEffect()Lnet/minecraft/resources/Identifier;
+public getRequestedPostEffects()Ljava/util/List;
+public getAppliedPostEffects()Ljava/util/List;
+public onResourceManagerReload(Lnet/minecraft/server/packs/resources/ResourceManager;)V
+public resize(II)V
+private bobHurt(Lnet/minecraft/client/renderer/state/level/CameraRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;)V
+private bobView(Lnet/minecraft/client/renderer/state/level/CameraRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;)V
+private renderItemInHand(Lnet/minecraft/client/renderer/state/level/CameraRenderState;Lnet/minecraft/client/renderer/state/level/PlayerRenderState;Lcom/mojang/renderpearl/api/textures/GpuTextureView;)V
+public static nightVisionScale(Lnet/minecraft/world/entity/LivingEntity;F)F
+public update(Lnet/minecraft/client/DeltaTracker;)V
+public extract(Lnet/minecraft/client/DeltaTracker;Z)V
+public render()V
+private preparePostEffects(Ljava/util/List;)V
+private applyPostEffects()V
+private tryTakeScreenshotIfNeeded()V
+private takeAutoScreenshot(Ljava/nio/file/Path;)V
+private shouldRenderBlockOutline()Z
+public renderLevel()V
+private render3dHud(Lnet/minecraft/client/renderer/state/level/CameraRenderState;Lnet/minecraft/client/renderer/state/level/PlayerRenderState;Lnet/minecraft/client/renderer/state/OptionsRenderState;Z)V
+private integrate3DHudDepth()V
+private extractWindow()V
+private extractOptions()V
+private extractCamera(Lnet/minecraft/client/DeltaTracker;F)V
+public resetData()V
+public bossOverlayWorldDarkening(F)F
+public mainCamera()Lnet/minecraft/client/Camera;
+public lightmap()Lcom/mojang/renderpearl/api/textures/GpuTextureView;
+public levelLightmap()Lcom/mojang/renderpearl/api/textures/GpuTextureView;
+public overlayTexture()Lnet/minecraft/client/renderer/texture/OverlayTexture;
+public mainRenderTarget()Lcom/mojang/blaze3d/pipeline/RenderTarget;
+public projectPointToScreen(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public projectHorizonToScreen()D
+public lighting()Lcom/mojang/blaze3d/platform/Lighting;
+public setLevel(Lnet/minecraft/client/multiplayer/ClientLevel;)V
+public panorama()Lnet/minecraft/client/renderer/Panorama;
+public registerPanoramaTextures(Lnet/minecraft/client/renderer/texture/TextureManager;)V
+public useImprovedTransparency()Z
+private static synthetic lambda$integrate3DHudDepth$0()Ljava/lang/String;
+private static synthetic lambda$render3dHud$0()Ljava/lang/String;
+private static synthetic lambda$takeAutoScreenshot$0(Ljava/nio/file/Path;Lcom/mojang/blaze3d/platform/NativeImage;)V
+private static synthetic lambda$takeAutoScreenshot$1(Lcom/mojang/blaze3d/platform/NativeImage;Ljava/nio/file/Path;)V
+private synthetic lambda$tryTakeScreenshotIfNeeded$0(Ljava/nio/file/Path;)V
+private static synthetic lambda$renderItemInHand$0()Ljava/lang/String;
+static <clinit>()V
 ```

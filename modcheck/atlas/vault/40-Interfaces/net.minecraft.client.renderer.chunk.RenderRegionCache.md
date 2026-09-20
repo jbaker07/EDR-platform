@@ -11,23 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `createRegion` | `@Inject at INVOKE Lnet/minecraft/client/renderer/chunk/RenderRegionCache;getSect` | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
-| injects_into | `createRegion` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `createRegion` | `(Lnet/minecraft/client/multiplayer/ClientLevel;J)Lnet/minecraft/client` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
+| injects_into | `createRegion` | `(Lnet/minecraft/client/multiplayer/ClientLevel;J)Lnet/minecraft/client` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (1 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.chunk.RenderRegionCache {
-    private final it.unimi.dsi.fastutil.longs.Long2ObjectMap<net.minecraft.client.renderer.chunk.SectionCopy> sectionCopyCache;
-    public net.minecraft.client.renderer.chunk.RenderRegionCache();
-    public net.minecraft.client.renderer.chunk.RenderSectionRegion createRegion(net.minecraft.client.multiplayer.ClientLevel, long);
-    private net.minecraft.client.renderer.chunk.SectionCopy getSectionDataCopy(net.minecraft.world.level.Level, int, int, int);
-    private static net.minecraft.client.renderer.chunk.SectionCopy lambda$getSectionDataCopy$0(net.minecraft.world.level.Level, int, int, int, long);
-}
+```
+private final sectionCopyCache : Lit/unimi/dsi/fastutil/longs/Long2ObjectMap;
+public <init>()V
+public createRegion(Lnet/minecraft/client/multiplayer/ClientLevel;J)Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;
+private getSectionDataCopy(Lnet/minecraft/world/level/Level;III)Lnet/minecraft/client/renderer/chunk/SectionCopy;
+private static synthetic lambda$getSectionDataCopy$0(Lnet/minecraft/world/level/Level;IIIJ)Lnet/minecraft/client/renderer/chunk/SectionCopy;
 ```

@@ -13,7 +13,7 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
-public static void register(java.util.List<net.minecraft.client.color.block.BlockTintSource>, net.minecraft.world.level.block.Block...)
-public static void register(net.fabricmc.fabric.api.client.rendering.v1.BlockTintsFactory, net.minecraft.world.level.block.Block...)
+public static void register(java.util.List, net.minecraft.world.level.block.Block[])
+public static void register(net.fabricmc.fabric.api.client.rendering.v1.BlockTintsFactory, net.minecraft.world.level.block.Block[])
 public static net.fabricmc.fabric.api.client.rendering.v1.BlockTintsFactory getFactory(net.minecraft.world.level.block.state.BlockState)
 ```

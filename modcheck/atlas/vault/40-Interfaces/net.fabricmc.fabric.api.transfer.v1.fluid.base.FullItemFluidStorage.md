@@ -13,8 +13,8 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, net.minecraft.world.item.Item, net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, long)
-public net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, java.util.function.Function<net.fabricmc.fabric.api.transfer.v1.item.ItemVariant, net.fabricmc.fabric.api.transfer.v1.item.ItemVariant>, net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, long)
+public <init>(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, net.minecraft.world.item.Item, net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, long)
+public <init>(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, java.util.function.Function, net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, long)
 public long extract(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
 public boolean isResourceBlank()
 public net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant getResource()

@@ -17,5 +17,4 @@ public static final net.minecraft.resources.Identifier OVERRIDE_PHASE
 public static final net.minecraft.resources.Identifier DEFAULT_PHASE
 public static final net.minecraft.resources.Identifier WRAP_PHASE
 public static final net.minecraft.resources.Identifier WRAP_LAST_PHASE
-static {}
 ```

@@ -13,13 +13,13 @@ sha256: "4ff3be674760c602b4ed59c10d74d2d52597e8a562489ecd4b68ebf7f71d466c"
 Module: [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] -- kind: interface
 
 ```java
-public static <A, C> net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup<A, C> get(net.minecraft.resources.Identifier, java.lang.Class<A>, java.lang.Class<C>)
-public abstract A find(net.minecraft.world.item.ItemStack, C)
-public abstract void registerSelf(net.minecraft.world.level.ItemLike...)
-public abstract void registerForItems(net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup$ItemApiProvider<A, C>, net.minecraft.world.level.ItemLike...)
-public abstract void registerFallback(net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup$ItemApiProvider<A, C>)
+public static net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup get(net.minecraft.resources.Identifier, java.lang.Class, java.lang.Class)
+public abstract java.lang.Object find(net.minecraft.world.item.ItemStack, java.lang.Object)
+public abstract void registerSelf(net.minecraft.world.level.ItemLike[])
+public abstract void registerForItems(net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup$ItemApiProvider, net.minecraft.world.level.ItemLike[])
+public abstract void registerFallback(net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup$ItemApiProvider)
 public abstract net.minecraft.resources.Identifier getId()
-public abstract java.lang.Class<A> apiClass()
-public abstract java.lang.Class<C> contextClass()
-public abstract net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup$ItemApiProvider<A, C> getProvider(net.minecraft.world.item.Item)
+public abstract java.lang.Class apiClass()
+public abstract java.lang.Class contextClass()
+public abstract net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup$ItemApiProvider getProvider(net.minecraft.world.item.Item)
 ```

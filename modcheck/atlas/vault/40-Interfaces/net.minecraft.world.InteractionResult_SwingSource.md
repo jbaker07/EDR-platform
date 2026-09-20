@@ -11,26 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world|net.minecraft.world]]
 
+`enum` public final; extends `java/lang/Enum`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `PREDICTEDLnet/minecraft/world/InteractionResult$SwingSource;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `PREDICTED` | `Lnet/minecraft/world/InteractionResult$SwingSource;` | exact | getstatic@124 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (4 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.InteractionResult$SwingSource extends java.lang.Enum<net.minecraft.world.InteractionResult$SwingSource> {
-    public static final net.minecraft.world.InteractionResult$SwingSource NONE;
-    public static final net.minecraft.world.InteractionResult$SwingSource PREDICTED;
-    public static final net.minecraft.world.InteractionResult$SwingSource SERVER_ONLY;
-    private static final net.minecraft.world.InteractionResult$SwingSource[] $VALUES;
-    public static net.minecraft.world.InteractionResult$SwingSource[] values();
-    public static net.minecraft.world.InteractionResult$SwingSource valueOf(java.lang.String);
-    private net.minecraft.world.InteractionResult$SwingSource();
-    private static net.minecraft.world.InteractionResult$SwingSource[] $values();
-    static {};
-}
+```
+public static final NONE : Lnet/minecraft/world/InteractionResult$SwingSource;
+public static final PREDICTED : Lnet/minecraft/world/InteractionResult$SwingSource;
+public static final SERVER_ONLY : Lnet/minecraft/world/InteractionResult$SwingSource;
+private static final synthetic $VALUES : [Lnet/minecraft/world/InteractionResult$SwingSource;
+public static values()[Lnet/minecraft/world/InteractionResult$SwingSource;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/world/InteractionResult$SwingSource;
+private <init>(Ljava/lang/String;I)V
+private static synthetic $values()[Lnet/minecraft/world/InteractionResult$SwingSource;
+static <clinit>()V
 ```

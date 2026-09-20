@@ -45,7 +45,7 @@ public abstract net.fabricmc.fabric.api.client.renderer.v1.mesh.ShadeMode shadeM
 public abstract boolean animated()
 public abstract int tintIndex()
 public abstract int tag()
-public default net.minecraft.client.resources.model.geometry.BakedQuad toBakedQuad(net.minecraft.client.renderer.texture.TextureAtlasSprite)
+public net.minecraft.client.resources.model.geometry.BakedQuad toBakedQuad(net.minecraft.client.renderer.texture.TextureAtlasSprite)
 public abstract void buffer(int, com.mojang.blaze3d.vertex.VertexConsumer)
 public abstract void buffer(int, com.mojang.blaze3d.vertex.PoseStack$Pose, com.mojang.blaze3d.vertex.VertexConsumer)
 ```

@@ -9,7 +9,7 @@ side: "shared_by_design"
 
 # Entities, living entities, mobs and AI
 
-Package `net.minecraft.world.entity` -- generated view: [[20-Systems/net.minecraft.world.entity|hooked types]]
+Package `net.minecraft.world.entity` -- generated view: [[20-Systems/net.minecraft.world.entity|inventory and hooked types]]
 
 **Responsibility.** Entity, LivingEntity, Mob, Player and their subclasses, plus the ai subpackages (goals, brain behaviours, navigation, sensing). Server-side AI ticks here; client-side copies of entities exist for rendering and prediction.
 
@@ -33,7 +33,7 @@ Package `net.minecraft.world.entity` -- generated view: [[20-Systems/net.minecra
 
 ## Evidence
 
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `extracted/edges.json#wraps`
 - `extracted/edges.json#injects_into`
 

@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/server/packs/resources/ReloadInstance`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `create(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/concurrent/CompletableFuture;Z)Lnet/minecraft/server/packs/resources/ReloadInstance;` | `@ModifyArg at INVOKE Lnet/minecraft/server/packs/resources/SimpleReloadInstance;` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `create(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/concurrent/CompletableFuture;Z)Lnet/minecraft/server/packs/resources/ReloadInstance;` | `@ModifyArg at INVOKE Lnet/minecraft/server/packs/resources/ProfiledReloadInstanc` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `create(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/concurrent/CompletableFuture;Z)Lnet/minecraft/server/packs/resources/ReloadInstance;` | `@ModifyVariable at LOAD` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `create` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List` | exact | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `create` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List` | exact | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `create` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List` | exact | @ModifyVariable at ['LOAD'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (25, all visibilities)
+## Declared members (11 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.packs.resources.SimpleReloadInstance<S> implements net.minecraft.server.packs.resources.ReloadInstance {
-    private static final int PREPARATION_PROGRESS_WEIGHT;
-    private static final int EXTRA_RELOAD_PROGRESS_WEIGHT;
-    private static final int LISTENER_PROGRESS_WEIGHT;
-    private final java.util.concurrent.CompletableFuture<net.minecraft.util.Unit> allPreparations;
-    private java.util.concurrent.CompletableFuture<java.util.List<S>> allDone;
-    private final java.util.Set<net.minecraft.server.packs.resources.PreparableReloadListener> preparingListeners;
-    private final int listenerCount;
-    private final java.util.concurrent.atomic.AtomicInteger startedTasks;
-    private final java.util.concurrent.atomic.AtomicInteger finishedTasks;
-    private final java.util.concurrent.atomic.AtomicInteger startedReloads;
-    private final java.util.concurrent.atomic.AtomicInteger finishedReloads;
-    public static net.minecraft.server.packs.resources.ReloadInstance of(net.minecraft.server.packs.resources.ResourceManager, java.util.List<net.minecraft.server.packs.resources.PreparableReloadListener>, java.util.concurrent.Executor, java.util.concurrent.Executor, java.util.concurrent.CompletableFuture<net.minecraft.util.Unit>);
-    protected net.minecraft.server.packs.resources.SimpleReloadInstance(java.util.List<net.minecraft.server.packs.resources.PreparableReloadListener>);
-    protected void startTasks(java.util.concurrent.Executor, java.util.concurrent.Executor, net.minecraft.server.packs.resources.ResourceManager, java.util.List<net.minecraft.server.packs.resources.PreparableReloadListener>, net.minecraft.server.packs.resources.SimpleReloadInstance$StateFactory<S>, java.util.concurrent.CompletableFuture<?>);
-    protected java.util.concurrent.CompletableFuture<java.util.List<S>> prepareTasks(java.util.concurrent.Executor, java.util.concurrent.Executor, net.minecraft.server.packs.resources.ResourceManager, java.util.List<net.minecraft.server.packs.resources.PreparableReloadListener>, net.minecraft.server.packs.resources.SimpleReloadInstance$StateFactory<S>, java.util.concurrent.CompletableFuture<?>);
-    private net.minecraft.server.packs.resources.PreparableReloadListener$PreparationBarrier createBarrierForListener(net.minecraft.server.packs.resources.PreparableReloadListener, java.util.concurrent.CompletableFuture<?>, java.util.concurrent.Executor);
-    public java.util.concurrent.CompletableFuture<?> done();
-    public float getActualProgress();
-    private static int weightProgress(int, int, int);
-    public static net.minecraft.server.packs.resources.ReloadInstance create(net.minecraft.server.packs.resources.ResourceManager, java.util.List<net.minecraft.server.packs.resources.PreparableReloadListener>, java.util.concurrent.Executor, java.util.concurrent.Executor, java.util.concurrent.CompletableFuture<net.minecraft.util.Unit>, boolean);
-    private static void lambda$prepareTasks$4(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, net.minecraft.server.packs.resources.PreparableReloadListener);
-    private void lambda$prepareTasks$2(java.util.concurrent.Executor, java.lang.Runnable);
-    private void lambda$prepareTasks$3(java.lang.Runnable);
-    private void lambda$prepareTasks$0(java.util.concurrent.Executor, java.lang.Runnable);
-    private void lambda$prepareTasks$1(java.lang.Runnable);
-}
+```
+private static final PREPARATION_PROGRESS_WEIGHT : I
+private static final EXTRA_RELOAD_PROGRESS_WEIGHT : I
+private static final LISTENER_PROGRESS_WEIGHT : I
+private final allPreparations : Ljava/util/concurrent/CompletableFuture;
+private allDone : Ljava/util/concurrent/CompletableFuture;
+private final preparingListeners : Ljava/util/Set;
+private final listenerCount : I
+private final startedTasks : Ljava/util/concurrent/atomic/AtomicInteger;
+private final finishedTasks : Ljava/util/concurrent/atomic/AtomicInteger;
+private final startedReloads : Ljava/util/concurrent/atomic/AtomicInteger;
+private final finishedReloads : Ljava/util/concurrent/atomic/AtomicInteger;
+public static of(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/concurrent/CompletableFuture;)Lnet/minecraft/server/packs/resources/ReloadInstance;
+protected <init>(Ljava/util/List;)V
+protected startTasks(Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Lnet/minecraft/server/packs/resources/SimpleReloadInstance$StateFactory;Ljava/util/concurrent/CompletableFuture;)V
+protected prepareTasks(Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Lnet/minecraft/server/packs/resources/SimpleReloadInstance$StateFactory;Ljava/util/concurrent/CompletableFuture;)Ljava/util/concurrent/CompletableFuture;
+private createBarrierForListener(Lnet/minecraft/server/packs/resources/PreparableReloadListener;Ljava/util/concurrent/CompletableFuture;Ljava/util/concurrent/Executor;)Lnet/minecraft/server/packs/resources/PreparableReloadListener$PreparationBarrier;
+public done()Ljava/util/concurrent/CompletableFuture;
+public getActualProgress()F
+private static weightProgress(III)I
+public static create(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/concurrent/CompletableFuture;Z)Lnet/minecraft/server/packs/resources/ReloadInstance;
+private static synthetic lambda$prepareTasks$4(Lnet/minecraft/server/packs/resources/PreparableReloadListener$SharedState;Lnet/minecraft/server/packs/resources/PreparableReloadListener;)V
+private synthetic lambda$prepareTasks$2(Ljava/util/concurrent/Executor;Ljava/lang/Runnable;)V
+private synthetic lambda$prepareTasks$3(Ljava/lang/Runnable;)V
+private synthetic lambda$prepareTasks$0(Ljava/util/concurrent/Executor;Ljava/lang/Runnable;)V
+private synthetic lambda$prepareTasks$1(Ljava/lang/Runnable;)V
 ```

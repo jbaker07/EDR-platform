@@ -15,5 +15,5 @@ Module: [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api
 ```java
 public abstract int width()
 public abstract int height()
-public abstract DATA data()
+public abstract java.lang.Object data()
 ```

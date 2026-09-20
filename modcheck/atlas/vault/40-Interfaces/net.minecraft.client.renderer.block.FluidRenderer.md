@@ -11,34 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `tesselate(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lne` | `` | unknown | [[30-Mechanisms/fabric-rendering-fluids-v1|fabric-rendering-fluids-v1]] | direct_reference |
-| injects_into | `tesselate` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-rendering-fluids-v1|fabric-rendering-fluids-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `tesselate` | `(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraf` | exact | invokevirtual@8 in `FluidRenderingImpl.lambda$renderVanillaDefault$0` | unknown | [[30-Mechanisms/fabric-rendering-fluids-v1|fabric-rendering-fluids-v1]] | direct_reference |
+| injects_into | `tesselate` | `(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraf` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-rendering-fluids-v1|fabric-rendering-fluids-v1]] | direct_reference |
+| injects_into | `tesselate` | `(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraf` | name_only | @ModifyExpressionValue at ['MIXINEXTRAS:EXPRESSION'] | client | [[30-Mechanisms/fabric-rendering-fluids-v1|fabric-rendering-fluids-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (2 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.block.FluidRenderer {
-    private static final float MAX_FLUID_HEIGHT;
-    private final net.minecraft.client.renderer.block.FluidStateModelSet fluidModels;
-    public net.minecraft.client.renderer.block.FluidRenderer(net.minecraft.client.renderer.block.FluidStateModelSet);
-    private static boolean isNeighborSameFluid(net.minecraft.world.level.material.FluidState, net.minecraft.world.level.material.FluidState);
-    private static boolean isFaceOccludedByState(net.minecraft.core.Direction, float, net.minecraft.world.level.block.state.BlockState);
-    private static boolean isFaceOccludedByNeighbor(net.minecraft.core.Direction, float, net.minecraft.world.level.block.state.BlockState);
-    private static boolean isFaceOccludedBySelf(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction);
-    public static boolean shouldRenderFace(net.minecraft.world.level.material.FluidState, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.world.level.material.FluidState);
-    public void tesselate(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.client.renderer.block.FluidRenderer$Output, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState);
-    private void addFace(com.mojang.blaze3d.vertex.VertexConsumer, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, int, int, boolean);
-    private float calculateAverageHeight(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.material.Fluid, float, float, float, net.minecraft.core.BlockPos);
-    private void addWeightedHeight(float[], float);
-    private float getHeight(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.material.Fluid, net.minecraft.core.BlockPos);
-    private float getHeight(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.material.Fluid, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState);
-    private void vertex(com.mojang.blaze3d.vertex.VertexConsumer, float, float, float, int, float, float, int);
-    private int getLightCoords(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos);
-}
+```
+private static final MAX_FLUID_HEIGHT : F
+public final fluidModels : Lnet/minecraft/client/renderer/block/FluidStateModelSet;
+public <init>(Lnet/minecraft/client/renderer/block/FluidStateModelSet;)V
+private static isNeighborSameFluid(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/material/FluidState;)Z
+private static isFaceOccludedByState(Lnet/minecraft/core/Direction;FLnet/minecraft/world/level/block/state/BlockState;)Z
+private static isFaceOccludedByNeighbor(Lnet/minecraft/core/Direction;FLnet/minecraft/world/level/block/state/BlockState;)Z
+private static isFaceOccludedBySelf(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z
+public static shouldRenderFace(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z
+public tesselate(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/client/renderer/block/FluidRenderer$Output;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)V
+private addFace(Lcom/mojang/blaze3d/vertex/VertexConsumer;FFFFFFFFFFFFFFFFFFFFIIZ)V
+private calculateAverageHeight(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/material/Fluid;FFFLnet/minecraft/core/BlockPos;)F
+private addWeightedHeight([FF)V
+private getHeight(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/BlockPos;)F
+private getHeight(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)F
+private vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;FFFIFFI)V
+private getLightCoords(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;)I
 ```

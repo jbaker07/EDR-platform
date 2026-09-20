@@ -13,20 +13,19 @@ sha256: "dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544"
 Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- kind: interface
 
 ```java
-public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey<net.minecraft.server.MinecraftServer> SERVER_INSTANCE
-public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey<net.minecraft.core.RegistryAccess> REGISTRY_ACCESS
-public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey<com.mojang.authlib.GameProfile> GAME_PROFILE
-public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey<net.minecraft.network.Connection> CONNECTION
-public abstract <T> T get(net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey<T>)
-public default <T> T orElseThrow(net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey<T>)
-public default <T> T orElse(net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey<T>, T)
-public abstract <T> void set(net.fabricmc.fabric.api.networking.v1.context.PacketContext$Key<T>, T)
+public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey SERVER_INSTANCE
+public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey REGISTRY_ACCESS
+public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey GAME_PROFILE
+public static final net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey CONNECTION
+public abstract java.lang.Object get(net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey)
+public java.lang.Object orElseThrow(net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey)
+public java.lang.Object orElse(net.fabricmc.fabric.api.networking.v1.context.PacketContext$ReadKey, java.lang.Object)
+public abstract void set(net.fabricmc.fabric.api.networking.v1.context.PacketContext$Key, java.lang.Object)
 public static net.fabricmc.fabric.api.networking.v1.context.PacketContext get()
 public static net.fabricmc.fabric.api.networking.v1.context.PacketContext orElseThrow()
 public static void runWithContext(net.fabricmc.fabric.api.networking.v1.context.PacketContextProvider, java.lang.Runnable)
-public static <T> T supplyWithContext(net.fabricmc.fabric.api.networking.v1.context.PacketContextProvider, java.util.function.Supplier<T>)
+public static java.lang.Object supplyWithContext(net.fabricmc.fabric.api.networking.v1.context.PacketContextProvider, java.util.function.Supplier)
 public static void runWithoutContext(java.lang.Runnable)
-public static <T> T supplyWithoutContext(java.util.function.Supplier<T>)
-public static <T> net.fabricmc.fabric.api.networking.v1.context.PacketContext$Key<T> key(net.minecraft.resources.Identifier)
-static {}
+public static java.lang.Object supplyWithoutContext(java.util.function.Supplier)
+public static net.fabricmc.fabric.api.networking.v1.context.PacketContext$Key key(net.minecraft.resources.Identifier)
 ```

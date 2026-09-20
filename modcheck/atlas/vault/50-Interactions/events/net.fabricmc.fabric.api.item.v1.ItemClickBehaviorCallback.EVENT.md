@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `AbstractContainerMenuMixin.overrideContainerMenuItemClickBehaviour` | `AbstractContainerMenu.tryItemClickBehaviourOverride` @Inject at HEAD | both | static_inference |
+| `AbstractContainerMenuMixin.overrideContainerMenuItemClickBehaviour` @20 | [[40-Interfaces/net.minecraft.world.inventory.AbstractContainerMenu|AbstractContainerMenu]].`tryItemClickBehaviourOverride` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

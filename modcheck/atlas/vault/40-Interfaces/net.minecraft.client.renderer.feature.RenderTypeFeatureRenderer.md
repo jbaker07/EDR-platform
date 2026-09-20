@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/client/renderer/feature/FeatureRenderer`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"()V` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `()V` | exact | invokespecial@1 in `MovingBlockFeatureRendererMixin.<init>` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `<init>` | `()V` | exact | invokespecial@1 in `ExtendedBlockModelFeatureRenderer.<init>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `<init>` | `()V` | exact | invokespecial@1 in `ExtendedItemFeatureRenderer.<init>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (2 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.renderer.feature.RenderTypeFeatureRenderer<Submit extends net.minecraft.client.renderer.feature.submit.SubmitNode> implements net.minecraft.client.renderer.feature.FeatureRenderer<Submit> {
-    private net.minecraft.client.renderer.feature.RenderTypeFeatureRenderer$Group currentGroup;
-    private final java.util.List<net.minecraft.client.renderer.feature.RenderTypeFeatureRenderer$Group> groups;
-    public net.minecraft.client.renderer.feature.RenderTypeFeatureRenderer();
-    protected abstract void buildGroup(net.minecraft.client.renderer.feature.FeatureFrameContext, java.util.List<Submit>);
-    protected final com.mojang.blaze3d.vertex.VertexConsumer getVertexBuilder(net.minecraft.client.renderer.rendertype.RenderType);
-    private net.minecraft.client.renderer.feature.RenderTypeFeatureRenderer$Group currentGroup();
-    public final void prepareGroup(net.minecraft.client.renderer.feature.FeatureFrameContext, java.util.List<Submit>, boolean);
-    public void executeGroup(net.minecraft.client.renderer.feature.FeatureFrameContext, net.minecraft.client.renderer.oit.OitStage, com.mojang.renderpearl.api.commands.RenderPass, int, java.util.List<Submit>, boolean);
-    public void finishExecute(net.minecraft.client.renderer.feature.FeatureFrameContext);
-}
+```
+private currentGroup : Lnet/minecraft/client/renderer/feature/RenderTypeFeatureRenderer$Group;
+private final groups : Ljava/util/List;
+public <init>()V
+protected abstract buildGroup(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;Ljava/util/List;)V
+protected final getVertexBuilder(Lnet/minecraft/client/renderer/rendertype/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;
+private currentGroup()Lnet/minecraft/client/renderer/feature/RenderTypeFeatureRenderer$Group;
+public final prepareGroup(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;Ljava/util/List;Z)V
+public executeGroup(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;Lnet/minecraft/client/renderer/oit/OitStage;Lcom/mojang/renderpearl/api/commands/RenderPass;ILjava/util/List;Z)V
+public finishExecute(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;)V
 ```

@@ -14,6 +14,5 @@ Module: [[30-Mechanisms/fabric-sound-api-v1|fabric-sound-api-v1]] -- kind: inter
 
 ```java
 public static final net.minecraft.resources.Identifier EMPTY_SOUND
-public default java.util.concurrent.CompletableFuture<net.minecraft.client.sounds.AudioStream> getAudioStream(net.minecraft.client.sounds.SoundBufferLibrary, net.minecraft.resources.Identifier, boolean)
-static {}
+public java.util.concurrent.CompletableFuture getAudioStream(net.minecraft.client.sounds.SoundBufferLibrary, net.minecraft.resources.Identifier, boolean)
 ```

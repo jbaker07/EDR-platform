@@ -11,41 +11,51 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core.component|net.minecraft.core.component]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `build()Lnet/minecraft/core/component/BlockTransformer$BlockTransf` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `disallowedFaces(Ljava/util/List;)Lnet/minecraft/core/component/BlockTransfo` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `particle(Lnet/minecraft/core/component/BlockTransformer$TransformPar` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `sound(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/B` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `build` | `()Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;` | exact | invokevirtual@30 in `BlockTransformerHelperImpl.createStripping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;` | exact | invokevirtual@41 in `BlockTransformerHelperImpl.createTilling` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;` | exact | invokevirtual@41 in `BlockTransformerHelperImpl.createFlattening` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;` | exact | invokevirtual@36 in `BlockTransformerHelperImpl.createOxidationScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;` | exact | invokevirtual@36 in `BlockTransformerHelperImpl.createWaxScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `disallowedFaces` | `(Ljava/util/List;)Lnet/minecraft/core/component/BlockTransformer$Block` | exact | invokevirtual@38 in `BlockTransformerHelperImpl.createTilling` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `disallowedFaces` | `(Ljava/util/List;)Lnet/minecraft/core/component/BlockTransformer$Block` | exact | invokevirtual@38 in `BlockTransformerHelperImpl.createFlattening` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `particle` | `(Lnet/minecraft/core/component/BlockTransformer$TransformParticle;)Lne` | exact | invokevirtual@33 in `BlockTransformerHelperImpl.createOxidationScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `particle` | `(Lnet/minecraft/core/component/BlockTransformer$TransformParticle;)Lne` | exact | invokevirtual@33 in `BlockTransformerHelperImpl.createWaxScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `sound` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/BlockTransf` | exact | invokevirtual@27 in `BlockTransformerHelperImpl.createStripping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `sound` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/BlockTransf` | exact | invokevirtual@29 in `BlockTransformerHelperImpl.createTilling` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `sound` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/BlockTransf` | exact | invokevirtual@29 in `BlockTransformerHelperImpl.createFlattening` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `sound` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/BlockTransf` | exact | invokevirtual@27 in `BlockTransformerHelperImpl.createOxidationScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `sound` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/BlockTransf` | exact | invokevirtual@27 in `BlockTransformerHelperImpl.createWaxScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (10 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder {
-    private final net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider> targetStateProvider;
-    private net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent> sound;
-    private net.minecraft.core.component.BlockTransformer$TransformParticle particle;
-    private java.util.List<net.minecraft.core.Direction> disallowedFaces;
-    private java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> loot;
-    private net.minecraft.core.component.BlockTransformer$DropStrategy dropStrategy;
-    private boolean updateFromNeighbors;
-    private net.minecraft.core.component.BlockTransformer$TransformType transformType;
-    private boolean consumeOnUse;
-    private int itemDamagePerUse;
-    private net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder(net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder sound(net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder particle(net.minecraft.core.component.BlockTransformer$TransformParticle);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder disallowedFaces(java.util.List<net.minecraft.core.Direction>);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder loot(net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder dropStrategy(net.minecraft.core.component.BlockTransformer$DropStrategy);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder updateFromNeighbors(boolean);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder transformType(net.minecraft.core.component.BlockTransformer$TransformType);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder consumeOnUse(boolean);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData$Builder itemDamagePerUse(int);
-    public net.minecraft.core.component.BlockTransformer$BlockTransformData build();
-}
+```
+private final targetStateProvider : Lnet/minecraft/core/Holder;
+private sound : Lnet/minecraft/core/Holder;
+private particle : Lnet/minecraft/core/component/BlockTransformer$TransformParticle;
+private disallowedFaces : Ljava/util/List;
+private loot : Ljava/util/Optional;
+private dropStrategy : Lnet/minecraft/core/component/BlockTransformer$DropStrategy;
+private updateFromNeighbors : Z
+private transformType : Lnet/minecraft/core/component/BlockTransformer$TransformType;
+private consumeOnUse : Z
+private itemDamagePerUse : I
+private <init>(Lnet/minecraft/core/Holder;)V
+public sound(Lnet/minecraft/core/Holder;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public particle(Lnet/minecraft/core/component/BlockTransformer$TransformParticle;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public disallowedFaces(Ljava/util/List;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public loot(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public dropStrategy(Lnet/minecraft/core/component/BlockTransformer$DropStrategy;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public updateFromNeighbors(Z)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public transformType(Lnet/minecraft/core/component/BlockTransformer$TransformType;)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public consumeOnUse(Z)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public itemDamagePerUse(I)Lnet/minecraft/core/component/BlockTransformer$BlockTransformData$Builder;
+public build()Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;
 ```

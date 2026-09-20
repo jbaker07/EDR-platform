@@ -13,5 +13,5 @@ sha256: "58266b2e28d20444584f22f1940b99656437728bd45e1b226c4869637e704638"
 Module: [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] -- kind: interface
 
 ```java
-public abstract void onGameRuleUpdated(T, net.minecraft.server.MinecraftServer)
+public abstract void onGameRuleUpdated(java.lang.Object, net.minecraft.server.MinecraftServer)
 ```

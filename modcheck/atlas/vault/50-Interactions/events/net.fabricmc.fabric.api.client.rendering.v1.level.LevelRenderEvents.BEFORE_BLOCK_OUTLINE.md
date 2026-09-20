@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LevelRendererMixin.beforeRenderBlockOutline` | `LevelRenderer.submitBlockOutline` @Inject at FIELD Lnet/minecraft/client/renderer/state/level/CameraRenderState;pos:Lnet/minecraft/world/phys/Vec3; | client | static_inference |
+| `LevelRendererMixin.beforeRenderBlockOutline` @23 | [[40-Interfaces/net.minecraft.client.renderer.LevelRenderer|LevelRenderer]].`submitBlockOutline` @Inject FIELD `Lnet/minecraft/client/renderer/state/level/CameraRenderState;pos:Lnet/minecraft/world/phys/Vec3;` | unknown | static_inference |
 
 ## Contract
 

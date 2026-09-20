@@ -11,30 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public final; extends `net/minecraft/world/level/saveddata/SavedData`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `TYPELnet/minecraft/world/level/saveddata/SavedDataType;` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `TYPE` | `Lnet/minecraft/world/level/saveddata/SavedDataType;` | exact | getstatic@88 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (4 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.levelgen.WorldGenSettings extends net.minecraft.world.level.saveddata.SavedData {
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.levelgen.WorldGenSettings> CODEC;
-    public static final net.minecraft.world.level.saveddata.SavedDataType<net.minecraft.world.level.levelgen.WorldGenSettings> TYPE;
-    private final net.minecraft.world.level.levelgen.WorldOptions options;
-    private final net.minecraft.world.level.levelgen.WorldDimensions dimensions;
-    public net.minecraft.world.level.levelgen.WorldGenSettings(net.minecraft.world.level.levelgen.WorldOptions, net.minecraft.world.level.levelgen.WorldDimensions);
-    public static net.minecraft.world.level.levelgen.WorldGenSettings of(net.minecraft.world.level.levelgen.WorldOptions, net.minecraft.core.RegistryAccess);
-    public net.minecraft.world.level.levelgen.WorldOptions options();
-    public net.minecraft.world.level.levelgen.WorldDimensions dimensions();
-    public int hashCode();
-    public java.lang.String toString();
-    private static net.minecraft.world.level.levelgen.WorldGenSettings lambda$static$1();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final TYPE : Lnet/minecraft/world/level/saveddata/SavedDataType;
+private final options : Lnet/minecraft/world/level/levelgen/WorldOptions;
+private final dimensions : Lnet/minecraft/world/level/levelgen/WorldDimensions;
+public <init>(Lnet/minecraft/world/level/levelgen/WorldOptions;Lnet/minecraft/world/level/levelgen/WorldDimensions;)V
+public static of(Lnet/minecraft/world/level/levelgen/WorldOptions;Lnet/minecraft/core/RegistryAccess;)Lnet/minecraft/world/level/levelgen/WorldGenSettings;
+public options()Lnet/minecraft/world/level/levelgen/WorldOptions;
+public dimensions()Lnet/minecraft/world/level/levelgen/WorldDimensions;
+public hashCode()I
+public toString()Ljava/lang/String;
+private static synthetic lambda$static$1()Lnet/minecraft/world/level/levelgen/WorldGenSettings;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

@@ -11,30 +11,33 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/util/List;Ljava/util/List;)V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getDisabled()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getEnabled()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/List;Ljava/util/List;)V` | exact | invokespecial@258 in `ModPackResourcesUtil.createDefaultDataConfiguration` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `<init>` | `(Ljava/util/List;Ljava/util/List;)V` | exact | invokespecial@110 in `ModPackResourcesUtil.createTestServerSettings` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getDisabled` | `()Ljava/util/List;` | exact | invokevirtual@55 in `ModPackResourcesUtil.createDefaultDataConfiguration` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getEnabled` | `()Ljava/util/List;` | exact | invokevirtual@41 in `ModPackResourcesUtil.createDefaultDataConfiguration` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| reads | `DEFAULT` | `Lnet/minecraft/world/level/DataPackConfig;` | exact | getstatic@38 in `ModPackResourcesUtil.createDefaultDataConfiguration` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| reads | `DEFAULT` | `Lnet/minecraft/world/level/DataPackConfig;` | exact | getstatic@52 in `ModPackResourcesUtil.createDefaultDataConfiguration` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (4 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.DataPackConfig {
-    public static final net.minecraft.world.level.DataPackConfig DEFAULT;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.DataPackConfig> CODEC;
-    private final java.util.List<java.lang.String> enabled;
-    private final java.util.List<java.lang.String> disabled;
-    public net.minecraft.world.level.DataPackConfig(java.util.List<java.lang.String>, java.util.List<java.lang.String>);
-    public java.util.List<java.lang.String> getEnabled();
-    public java.util.List<java.lang.String> getDisabled();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    private static java.util.List lambda$static$2(net.minecraft.world.level.DataPackConfig);
-    private static java.util.List lambda$static$1(net.minecraft.world.level.DataPackConfig);
-    static {};
-}
+```
+public static final DEFAULT : Lnet/minecraft/world/level/DataPackConfig;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+private final enabled : Ljava/util/List;
+private final disabled : Ljava/util/List;
+public <init>(Ljava/util/List;Ljava/util/List;)V
+public getEnabled()Ljava/util/List;
+public getDisabled()Ljava/util/List;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+private static synthetic lambda$static$2(Lnet/minecraft/world/level/DataPackConfig;)Ljava/util/List;
+private static synthetic lambda$static$1(Lnet/minecraft/world/level/DataPackConfig;)Ljava/util/List;
+static <clinit>()V
 ```

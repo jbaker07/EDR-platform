@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/client/renderer/block/dispatch/BlockStateModel$Unbaked`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/util/random/WeightedList;)V` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `entries()Lnet/minecraft/util/random/WeightedList;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/util/random/WeightedList;)V` | exact | invokespecial@16 in `CustomUnbakedBlockStateModelRegistry.lambda$static$2` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `entries` | `()Lnet/minecraft/util/random/WeightedList;` | exact | invokevirtual@1 in `CustomUnbakedBlockStateModelRegistry.lambda$static$5` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (1 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked extends java.lang.Record implements net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked {
-    private final net.minecraft.util.random.WeightedList<net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked> entries;
-    public net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked(net.minecraft.util.random.WeightedList<net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked>);
-    public net.minecraft.client.renderer.block.dispatch.BlockStateModel bake(net.minecraft.client.resources.model.ModelBaker);
-    public void resolveDependencies(net.minecraft.client.resources.model.ResolvableModel$Resolver);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.util.random.WeightedList<net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked> entries();
-    private static void lambda$resolveDependencies$0(net.minecraft.client.resources.model.ResolvableModel$Resolver, net.minecraft.util.random.Weighted);
-    private static net.minecraft.client.renderer.block.dispatch.BlockStateModel lambda$bake$0(net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked);
-}
+```
+private final entries : Lnet/minecraft/util/random/WeightedList;
+public <init>(Lnet/minecraft/util/random/WeightedList;)V
+public bake(Lnet/minecraft/client/resources/model/ModelBaker;)Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;
+public resolveDependencies(Lnet/minecraft/client/resources/model/ResolvableModel$Resolver;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public entries()Lnet/minecraft/util/random/WeightedList;
+private static synthetic lambda$resolveDependencies$0(Lnet/minecraft/client/resources/model/ResolvableModel$Resolver;Lnet/minecraft/util/random/Weighted;)V
+private static synthetic lambda$bake$0(Lnet/minecraft/client/resources/model/ModelBaker;Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel$Unbaked;)Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;
 ```

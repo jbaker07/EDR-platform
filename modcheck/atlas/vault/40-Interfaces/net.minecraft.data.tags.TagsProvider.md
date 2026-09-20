@@ -11,47 +11,50 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.tags|net.minecraft.data.tags]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/data/DataProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>(Lnet/minecraft/data/PackOutput;Lnet/minecraft/resources/ResourceKey;Ljava/util/concurrent/CompletableFuture;Ljava/util/concurrent/CompletableFuture;)V` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| injects_into | `lambda$run$5` | `@ModifyArg at INVOKE Lnet/minecraft/data/DataProvider;saveStable(Lnet/minecraft/` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| injects_into | `lambda$run$5` | `@ModifyArg at INVOKE Lnet/minecraft/tags/TagFile;<init>(Ljava/util/List;Z)V` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/data/PackOutput;Lnet/minecraft/resources/ResourceKey;L` | exact | invokespecial@4 in `FabricTagsProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/data/PackOutput;Lnet/minecraft/resources/ResourceKey;L` | exact | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `lambda$run$5` | `(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Lnet/mine` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `lambda$run$5` | `(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Lnet/mine` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `registryKey` | `Lnet/minecraft/resources/ResourceKey;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | declared |
+| wraps | `lambda$run$2` | `(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/data/tags/TagsProvide` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (28, all visibilities)
+## Declared members (6 fields, 22 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.data.tags.TagsProvider<T> implements net.minecraft.data.DataProvider {
-    protected final net.minecraft.data.PackOutput$PathProvider pathProvider;
-    private final java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider> lookupProvider;
-    private final java.util.concurrent.CompletableFuture<java.lang.Void> contentsDone;
-    private final java.util.concurrent.CompletableFuture<net.minecraft.data.tags.TagsProvider$TagLookup<T>> parentProvider;
-    protected final net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> registryKey;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.tags.TagBuilder> builders;
-    protected net.minecraft.data.tags.TagsProvider(net.minecraft.data.PackOutput, net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>);
-    protected net.minecraft.data.tags.TagsProvider(net.minecraft.data.PackOutput, net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>, java.util.concurrent.CompletableFuture<net.minecraft.data.tags.TagsProvider$TagLookup<T>>);
-    public final java.lang.String getName();
-    protected abstract void addTags(net.minecraft.core.HolderLookup$Provider);
-    public java.util.concurrent.CompletableFuture<?> run(net.minecraft.data.CachedOutput);
-    protected net.minecraft.tags.TagBuilder getOrCreateRawBuilder(net.minecraft.tags.TagKey<T>);
-    public java.util.concurrent.CompletableFuture<net.minecraft.data.tags.TagsProvider$TagLookup<T>> contentsGetter();
-    protected java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider> createContentsProvider();
-    protected net.minecraft.data.tags.TagAppender<T> tag(net.minecraft.tags.TagKey<T>);
-    protected net.minecraft.data.tags.TagAppender<T> tag(net.minecraft.tags.TagKey<T>, boolean);
-    private net.minecraft.core.HolderLookup$Provider lambda$createContentsProvider$0(net.minecraft.core.HolderLookup$Provider);
-    private net.minecraft.data.tags.TagsProvider$TagLookup lambda$contentsGetter$0(java.lang.Void);
-    private java.util.Optional lambda$contentsGetter$1(net.minecraft.tags.TagKey);
-    private static net.minecraft.tags.TagBuilder lambda$getOrCreateRawBuilder$0(net.minecraft.resources.Identifier);
-    private java.util.concurrent.CompletionStage lambda$run$2(net.minecraft.data.CachedOutput, net.minecraft.data.tags.TagsProvider$1CombinedData);
-    private static java.util.concurrent.CompletableFuture[] lambda$run$7(int);
-    private java.util.concurrent.CompletableFuture lambda$run$5(java.util.function.Predicate, java.util.function.Predicate, net.minecraft.data.CachedOutput, net.minecraft.data.tags.TagsProvider$1CombinedData, java.util.Map$Entry);
-    private static boolean lambda$run$6(java.util.function.Predicate, java.util.function.Predicate, net.minecraft.tags.TagEntry);
-    private boolean lambda$run$4(net.minecraft.data.tags.TagsProvider$1CombinedData, net.minecraft.resources.Identifier);
-    private boolean lambda$run$3(net.minecraft.core.HolderLookup$RegistryLookup, net.minecraft.resources.Identifier);
-    private static net.minecraft.data.tags.TagsProvider$1CombinedData lambda$run$1(net.minecraft.core.HolderLookup$Provider, net.minecraft.data.tags.TagsProvider$TagLookup);
-    private net.minecraft.core.HolderLookup$Provider lambda$run$0(net.minecraft.core.HolderLookup$Provider);
-}
+```
+protected final pathProvider : Lnet/minecraft/data/PackOutput$PathProvider;
+private final lookupProvider : Ljava/util/concurrent/CompletableFuture;
+private final contentsDone : Ljava/util/concurrent/CompletableFuture;
+private final parentProvider : Ljava/util/concurrent/CompletableFuture;
+protected final registryKey : Lnet/minecraft/resources/ResourceKey;
+private final builders : Ljava/util/Map;
+protected <init>(Lnet/minecraft/data/PackOutput;Lnet/minecraft/resources/ResourceKey;Ljava/util/concurrent/CompletableFuture;)V
+protected <init>(Lnet/minecraft/data/PackOutput;Lnet/minecraft/resources/ResourceKey;Ljava/util/concurrent/CompletableFuture;Ljava/util/concurrent/CompletableFuture;)V
+public getName()Ljava/lang/String;
+protected abstract addTags(Lnet/minecraft/core/HolderLookup$Provider;)V
+public run(Lnet/minecraft/data/CachedOutput;)Ljava/util/concurrent/CompletableFuture;
+protected getOrCreateRawBuilder(Lnet/minecraft/tags/TagKey;)Lnet/minecraft/tags/TagBuilder;
+public contentsGetter()Ljava/util/concurrent/CompletableFuture;
+protected createContentsProvider()Ljava/util/concurrent/CompletableFuture;
+protected tag(Lnet/minecraft/tags/TagKey;)Lnet/minecraft/data/tags/TagAppender;
+protected tag(Lnet/minecraft/tags/TagKey;Z)Lnet/minecraft/data/tags/TagAppender;
+private synthetic lambda$createContentsProvider$0(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/core/HolderLookup$Provider;
+private synthetic lambda$contentsGetter$0(Ljava/lang/Void;)Lnet/minecraft/data/tags/TagsProvider$TagLookup;
+private synthetic lambda$contentsGetter$1(Lnet/minecraft/tags/TagKey;)Ljava/util/Optional;
+private static synthetic lambda$getOrCreateRawBuilder$0(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/tags/TagBuilder;
+private synthetic lambda$run$2(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/data/tags/TagsProvider$1CombinedData;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$run$7(I)[Ljava/util/concurrent/CompletableFuture;
+private synthetic lambda$run$5(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Lnet/minecraft/data/CachedOutput;Lnet/minecraft/data/tags/TagsProvider$1CombinedData;Ljava/util/Map$Entry;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$run$6(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Lnet/minecraft/tags/TagEntry;)Z
+private synthetic lambda$run$4(Lnet/minecraft/data/tags/TagsProvider$1CombinedData;Lnet/minecraft/resources/Identifier;)Z
+private synthetic lambda$run$3(Lnet/minecraft/core/HolderLookup$RegistryLookup;Lnet/minecraft/resources/Identifier;)Z
+private static synthetic lambda$run$1(Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/data/tags/TagsProvider$TagLookup;)Lnet/minecraft/data/tags/TagsProvider$1CombinedData;
+private synthetic lambda$run$0(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/core/HolderLookup$Provider;
 ```

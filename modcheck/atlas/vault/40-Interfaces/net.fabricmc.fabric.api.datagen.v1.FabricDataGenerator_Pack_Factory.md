@@ -13,5 +13,5 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: interface
 
 ```java
-public abstract T create(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput)
+public abstract net.minecraft.data.DataProvider create(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput)
 ```

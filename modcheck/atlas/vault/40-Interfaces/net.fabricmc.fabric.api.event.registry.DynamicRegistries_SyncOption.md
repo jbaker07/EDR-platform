@@ -10,11 +10,10 @@ sha256: "039a5c3dee042ff156c52c4bec64a384e766e830a37cc9f6bf68f1e7dc3646b1"
 
 # net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption
 
-Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: class
+Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption SKIP_WHEN_EMPTY
 public static net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption[] values()
 public static net.fabricmc.fabric.api.event.registry.DynamicRegistries$SyncOption valueOf(java.lang.String)
-static {}
 ```

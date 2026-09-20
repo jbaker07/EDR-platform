@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LevelRendererMixin.afterRenderClassicTranslucentFeatures` | `LevelRenderer.executeClassicTransparency` @Inject at INVOKE Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;executeTranslucent(Lcom/mojang/renderpearl/api/commands/RenderPass;)V | client | static_inference |
-| `LevelRendererMixin.afterRenderOitTranslucentFeatures` | `LevelRenderer.executeOit` @Inject at RETURN | client | static_inference |
+| `LevelRendererMixin.afterRenderClassicTranslucentFeatures` @13 | [[40-Interfaces/net.minecraft.client.renderer.LevelRenderer|LevelRenderer]].`executeClassicTransparency` @Inject INVOKE `Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;executeTranslucent(Lcom/mojang/renderpearl/api/commands/RenderPass;)V` | unknown | static_inference |
+| `LevelRendererMixin.afterRenderOitTranslucentFeatures` @13 | [[40-Interfaces/net.minecraft.client.renderer.LevelRenderer|LevelRenderer]].`executeOit` @Inject RETURN | unknown | static_inference |
 
 ## Contract
 

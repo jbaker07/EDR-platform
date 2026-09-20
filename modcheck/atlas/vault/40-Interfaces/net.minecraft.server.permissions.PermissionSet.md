@@ -11,24 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.permissions|net.minecraft.server.permissions]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `hasPermission(Lnet/minecraft/server/permissions/Permission;)Z` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `hasPermission` | `(Lnet/minecraft/server/permissions/Permission;)Z` | exact | invokeinterface@81 in `CommandPermissionContext.extractPermissionLevel` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| reads | `ALL_PERMISSIONS` | `Lnet/minecraft/server/permissions/PermissionSet;` | exact | getstatic@20 in `CommandPermissionContext.extractPermissionLevel` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| reads | `NO_PERMISSIONS` | `Lnet/minecraft/server/permissions/PermissionSet;` | exact | getstatic@31 in `CommandPermissionContext.extractPermissionLevel` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (2 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.permissions.PermissionSet {
-    public static final net.minecraft.server.permissions.PermissionSet NO_PERMISSIONS;
-    public static final net.minecraft.server.permissions.PermissionSet ALL_PERMISSIONS;
-    public abstract boolean hasPermission(net.minecraft.server.permissions.Permission);
-    public default net.minecraft.server.permissions.PermissionSet union(net.minecraft.server.permissions.PermissionSet);
-    private static boolean lambda$static$1(net.minecraft.server.permissions.Permission);
-    private static boolean lambda$static$0(net.minecraft.server.permissions.Permission);
-    static {};
-}
+```
+public static final NO_PERMISSIONS : Lnet/minecraft/server/permissions/PermissionSet;
+public static final ALL_PERMISSIONS : Lnet/minecraft/server/permissions/PermissionSet;
+public abstract hasPermission(Lnet/minecraft/server/permissions/Permission;)Z
+public union(Lnet/minecraft/server/permissions/PermissionSet;)Lnet/minecraft/server/permissions/PermissionSet;
+private static synthetic lambda$static$1(Lnet/minecraft/server/permissions/Permission;)Z
+private static synthetic lambda$static$0(Lnet/minecraft/server/permissions/Permission;)Z
+static <clinit>()V
 ```

@@ -13,5 +13,5 @@ sha256: "1ef63bc24f6319cc43d2d4add8a2df5e8c3986b5bd1f39b920a5bd7738ec52e3"
 Module: [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] -- kind: interface
 
 ```java
-public abstract T create(D)
+public abstract java.lang.Object create(java.lang.Object)
 ```

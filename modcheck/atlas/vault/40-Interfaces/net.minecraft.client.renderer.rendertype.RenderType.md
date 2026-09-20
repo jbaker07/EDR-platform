@@ -11,45 +11,49 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `hasBlending()Z` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `hasBlending()Z` | `` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `isOutline()Z` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `outline()Ljava/util/Optional;` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `hasBlending` | `()Z` | exact | invokevirtual@6 in `MeshViewRenderTypeGroups$FilteredMeshView.lambda$forEach$0` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `hasBlending` | `()Z` | exact | invokevirtual@7 in `MeshViewRenderTypeGroups.lambda$split$0` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `hasBlending` | `()Z` | exact | invokevirtual@134 in `BlockModelRenderStateMixin.submitMesh` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `hasBlending` | `()Z` | exact | invokevirtual@170 in `BlockModelRenderStateMixin.submitMesh` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `isOutline` | `()Z` | exact | invokevirtual@12 in `SubmitNodeCollectionMixin.lambda$submitBlockModel$0` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `outline` | `()Ljava/util/Optional;` | exact | invokevirtual@31 in `MovingBlockFeatureRendererMixin$1.accept` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `outline` | `()Ljava/util/Optional;` | exact | invokevirtual@68 in `MovingBlockFeatureRendererMixin$1.accept` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `outline` | `()Ljava/util/Optional;` | exact | invokevirtual@4 in `ExtendedItemFeatureRenderer.bufferOutline` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (25, all visibilities)
+## Declared members (8 fields, 17 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.rendertype.RenderType {
-    private static final int MEGABYTE;
-    public static final int BIG_BUFFER_SIZE;
-    public static final int SMALL_BUFFER_SIZE;
-    public static final int TRANSIENT_BUFFER_SIZE;
-    private final net.minecraft.client.renderer.rendertype.RenderSetup state;
-    private final boolean hasBlending;
-    private final java.util.Optional<net.minecraft.client.renderer.rendertype.RenderType> outline;
-    protected final java.lang.String name;
-    private net.minecraft.client.renderer.rendertype.RenderType(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
-    static net.minecraft.client.renderer.rendertype.RenderType create(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
-    public java.lang.String toString();
-    public boolean hasBlending();
-    private boolean calculateHasBlending();
-    public net.minecraft.client.renderer.rendertype.PreparedRenderType prepare();
-    private com.mojang.renderpearl.api.buffers.GpuBufferSlice writeDynamicTransforms(org.joml.Matrix4f);
-    public com.mojang.renderpearl.api.vertex.VertexFormat format();
-    public com.mojang.renderpearl.api.pipeline.PrimitiveTopology primitiveTopology();
-    public java.util.Optional<net.minecraft.client.renderer.rendertype.RenderType> outline();
-    public boolean isOutline();
-    public com.mojang.renderpearl.api.pipeline.RenderPipeline pipeline();
-    public boolean affectsCrumbling();
-    public boolean canConsolidateConsecutiveGeometry();
-    public boolean sortOnUpload();
-    public boolean forceSolidModelPhase();
-    private static net.minecraft.client.renderer.rendertype.RenderType lambda$new$0(net.minecraft.client.renderer.rendertype.RenderSetup, net.minecraft.client.renderer.rendertype.RenderSetup$TextureBinding);
-}
+```
+private static final MEGABYTE : I
+public static final BIG_BUFFER_SIZE : I
+public static final SMALL_BUFFER_SIZE : I
+public static final TRANSIENT_BUFFER_SIZE : I
+private final state : Lnet/minecraft/client/renderer/rendertype/RenderSetup;
+private final hasBlending : Z
+private final outline : Ljava/util/Optional;
+protected final name : Ljava/lang/String;
+private <init>(Ljava/lang/String;Lnet/minecraft/client/renderer/rendertype/RenderSetup;)V
+public static create(Ljava/lang/String;Lnet/minecraft/client/renderer/rendertype/RenderSetup;)Lnet/minecraft/client/renderer/rendertype/RenderType;
+public toString()Ljava/lang/String;
+public hasBlending()Z
+private calculateHasBlending()Z
+public prepare()Lnet/minecraft/client/renderer/rendertype/PreparedRenderType;
+private writeDynamicTransforms(Lorg/joml/Matrix4f;)Lcom/mojang/renderpearl/api/buffers/GpuBufferSlice;
+public format()Lcom/mojang/renderpearl/api/vertex/VertexFormat;
+public primitiveTopology()Lcom/mojang/renderpearl/api/pipeline/PrimitiveTopology;
+public outline()Ljava/util/Optional;
+public isOutline()Z
+public pipeline()Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;
+public affectsCrumbling()Z
+public canConsolidateConsecutiveGeometry()Z
+public sortOnUpload()Z
+public forceSolidModelPhase()Z
+private static synthetic lambda$new$0(Lnet/minecraft/client/renderer/rendertype/RenderSetup;Lnet/minecraft/client/renderer/rendertype/RenderSetup$TextureBinding;)Lnet/minecraft/client/renderer/rendertype/RenderType;
 ```

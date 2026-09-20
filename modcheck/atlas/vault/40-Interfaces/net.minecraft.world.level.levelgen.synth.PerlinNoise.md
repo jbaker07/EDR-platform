@@ -11,30 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/levelgen/synth/GradientNoise`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/util/RandomSource;)V` | `` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `get(DDD)F` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/util/RandomSource;)V` | exact | invokespecial@50 in `ClimateSamplerMixin.fabric_getEndBiomesSampler` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `get` | `(DDD)F` | exact | invokevirtual@6 in `WeightedPicker.pickFromNoise` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (2 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.levelgen.synth.PerlinNoise extends net.minecraft.world.level.levelgen.synth.GradientNoise {
-    public static final net.minecraft.util.Interval RANGE;
-    public static final double STANDARD_DEVIATION;
-    public net.minecraft.world.level.levelgen.synth.PerlinNoise(net.minecraft.util.RandomSource);
-    public net.minecraft.util.Interval range();
-    public float get(double, double);
-    public float get(double, double, double);
-    public float noiseWithDerivative(double, double, double, float[]);
-    protected float sampleAndLerp(int, int, int, float, float, float, float);
-    public void addToVolume(net.minecraft.world.level.levelgen.densityfunction.DensityBuffer, net.minecraft.world.level.levelgen.densityfunction.DensityVolume, double, double, float);
-    private float sampleWithDerivative(int, int, int, float, float, float, float[]);
-    public void parityConfigString(java.lang.StringBuilder);
-    static {};
-}
+```
+public static final RANGE : Lnet/minecraft/util/Interval;
+public static final STANDARD_DEVIATION : D
+public <init>(Lnet/minecraft/util/RandomSource;)V
+public range()Lnet/minecraft/util/Interval;
+public get(DD)F
+public get(DDD)F
+public noiseWithDerivative(DDD[F)F
+protected sampleAndLerp(IIIFFFF)F
+public addToVolume(Lnet/minecraft/world/level/levelgen/densityfunction/DensityBuffer;Lnet/minecraft/world/level/levelgen/densityfunction/DensityVolume;DDF)V
+private sampleWithDerivative(IIIFFF[F)F
+public parityConfigString(Ljava/lang/StringBuilder;)V
+static <clinit>()V
 ```

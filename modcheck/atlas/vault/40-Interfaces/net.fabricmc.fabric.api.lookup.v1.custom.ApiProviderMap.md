@@ -13,7 +13,7 @@ sha256: "4ff3be674760c602b4ed59c10d74d2d52597e8a562489ecd4b68ebf7f71d466c"
 Module: [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] -- kind: interface
 
 ```java
-public static <K, V> net.fabricmc.fabric.api.lookup.v1.custom.ApiProviderMap<K, V> create()
-public abstract V get(K)
-public abstract V putIfAbsent(K, V)
+public static net.fabricmc.fabric.api.lookup.v1.custom.ApiProviderMap create()
+public abstract java.lang.Object get(java.lang.Object)
+public abstract java.lang.Object putIfAbsent(java.lang.Object, java.lang.Object)
 ```

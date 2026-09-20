@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MouseHandlerMixin.wrapSelectedSlot` | (handler is not itself an injector method: fired from a helper or impl class) | client | static_inference |
+| `MouseHandlerMixin.wrapSelectedSlot` @23 | [[40-Interfaces/net.minecraft.client.MouseHandler|MouseHandler]].`onScroll` @WrapOperation INVOKE `Lnet/minecraft/world/entity/player/Inventory;setSelectedSlot(I)V` | unknown | static_inference |
 
 ## Contract
 

@@ -11,82 +11,88 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/Container`, `net/minecraft/world/Nameable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getSelectedSlot()I` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `getSelectedSlot()I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `isHotbarSlot(I)Z` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getSelectedSlot` | `()I` | exact | invokevirtual@1 in `MouseHandlerMixin.wrapSelectedSlot` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `getSelectedSlot` | `()I` | exact | invokevirtual@14 in `PlayerInventoryStorageImpl.getHandSlot` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getSelectedSlot` | `()I` | exact | invokevirtual@28 in `PlayerInventoryStorageImpl.getHandSlot` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getSelectedSlot` | `()I` | exact | invokevirtual@43 in `PlayerInventoryStorageImpl.getHandSlot` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `isHotbarSlot` | `(I)Z` | exact | invokestatic@17 in `PlayerInventoryStorageImpl.getHandSlot` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `player` | `Lnet/minecraft/world/entity/player/Player;` | exact | getfield@20 in `DebugMessages.forInventory` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `player` | `Lnet/minecraft/world/entity/player/Player;` | exact | getfield@62 in `PlayerInventoryStorageImpl$DroppedStacks.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `player` | `Lnet/minecraft/world/entity/player/Player;` | exact | getfield@101 in `PlayerInventoryStorageImpl$DroppedStacks.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `player` | `Lnet/minecraft/world/entity/player/Player;` | exact | getfield@15 in `PlayerInventoryStorageImpl.drop` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (63, all visibilities)
+## Declared members (14 fields, 49 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.entity.player.Inventory implements net.minecraft.world.Container,net.minecraft.world.Nameable {
-    public static final int POP_TIME_DURATION;
-    public static final int INVENTORY_SIZE;
-    public static final int SELECTION_SIZE;
-    public static final int SLOT_OFFHAND;
-    public static final int SLOT_BODY_ARMOR;
-    public static final int SLOT_SADDLE;
-    public static final int NOT_FOUND_INDEX;
-    public static final it.unimi.dsi.fastutil.ints.Int2ObjectMap<net.minecraft.world.entity.EquipmentSlot> EQUIPMENT_SLOT_MAPPING;
-    private static final net.minecraft.network.chat.Component DEFAULT_NAME;
-    private final net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> items;
-    private int selected;
-    public final net.minecraft.world.entity.player.Player player;
-    private final net.minecraft.world.entity.EntityEquipment equipment;
-    private int timesChanged;
-    public net.minecraft.world.entity.player.Inventory(net.minecraft.world.entity.player.Player, net.minecraft.world.entity.EntityEquipment);
-    public int getSelectedSlot();
-    public void setSelectedSlot(int);
-    public net.minecraft.world.item.ItemStack getSelectedItem();
-    public net.minecraft.world.item.ItemStack setSelectedItem(net.minecraft.world.item.ItemStack);
-    public static int getSelectionSize();
-    public net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getNonEquipmentItems();
-    private boolean hasRemainingSpaceForItem(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
-    public int getFreeSlot();
-    public void addAndPickItem(net.minecraft.world.item.ItemStack);
-    public void pickSlot(int);
-    public static boolean isHotbarSlot(int);
-    public int findSlotMatchingItem(net.minecraft.world.item.ItemStack);
-    public static boolean isUsableForCrafting(net.minecraft.world.item.ItemStack);
-    public int findSlotMatchingCraftingIngredient(net.minecraft.core.Holder<net.minecraft.world.item.Item>, net.minecraft.world.item.ItemStack);
-    public int getSuitableHotbarSlot();
-    public int clearOrCountMatchingItems(java.util.function.Predicate<net.minecraft.world.item.ItemStack>, boolean, int, net.minecraft.world.Container);
-    private int addResource(net.minecraft.world.item.ItemStack);
-    private int addResource(int, net.minecraft.world.item.ItemStack);
-    public int getSlotWithRemainingSpace(net.minecraft.world.item.ItemStack);
-    public void tick();
-    public boolean add(net.minecraft.world.item.ItemStack);
-    public boolean add(int, net.minecraft.world.item.ItemStack);
-    public void placeItemBackInInventory(net.minecraft.world.item.ItemStack, net.minecraft.util.Prediction);
-    public void placeItemBackInInventory(net.minecraft.world.item.ItemStack, boolean, net.minecraft.util.Prediction);
-    public net.minecraft.network.protocol.game.ClientboundSetPlayerInventoryPacket createInventoryUpdatePacket(int);
-    public net.minecraft.world.item.ItemStack removeItem(int, int);
-    public void removeItem(net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.item.ItemStack removeItemNoUpdate(int);
-    public void setItem(int, net.minecraft.world.item.ItemStack);
-    public void save(net.minecraft.world.level.storage.ValueOutput$TypedOutputList<net.minecraft.world.ItemStackWithSlot>);
-    public void load(net.minecraft.world.level.storage.ValueInput$TypedInputList<net.minecraft.world.ItemStackWithSlot>);
-    public int getContainerSize();
-    public boolean isEmpty();
-    public net.minecraft.world.item.ItemStack getItem(int);
-    public net.minecraft.network.chat.Component getName();
-    public void dropAll();
-    public void setChanged();
-    public int getTimesChanged();
-    public boolean stillValid(net.minecraft.world.entity.player.Player);
-    public boolean contains(net.minecraft.world.item.ItemStack);
-    public boolean contains(net.minecraft.tags.TagKey<net.minecraft.world.item.Item>);
-    public boolean contains(java.util.function.Predicate<net.minecraft.world.item.ItemStack>);
-    public void replaceWith(net.minecraft.world.entity.player.Inventory);
-    public void clearContent();
-    public void fillStackedContents(net.minecraft.world.entity.player.StackedItemContents);
-    public net.minecraft.world.item.ItemStack removeFromSelected(boolean);
-    private static java.lang.String lambda$add$0(net.minecraft.world.item.ItemStack) throws java.lang.Exception;
-    static {};
-}
+```
+public static final POP_TIME_DURATION : I
+public static final INVENTORY_SIZE : I
+public static final SELECTION_SIZE : I
+public static final SLOT_OFFHAND : I
+public static final SLOT_BODY_ARMOR : I
+public static final SLOT_SADDLE : I
+public static final NOT_FOUND_INDEX : I
+public static final EQUIPMENT_SLOT_MAPPING : Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+private static final DEFAULT_NAME : Lnet/minecraft/network/chat/Component;
+private final items : Lnet/minecraft/core/NonNullList;
+private selected : I
+public final player : Lnet/minecraft/world/entity/player/Player;
+private final equipment : Lnet/minecraft/world/entity/EntityEquipment;
+private timesChanged : I
+public <init>(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/EntityEquipment;)V
+public getSelectedSlot()I
+public setSelectedSlot(I)V
+public getSelectedItem()Lnet/minecraft/world/item/ItemStack;
+public setSelectedItem(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+public static getSelectionSize()I
+public getNonEquipmentItems()Lnet/minecraft/core/NonNullList;
+private hasRemainingSpaceForItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z
+public getFreeSlot()I
+public addAndPickItem(Lnet/minecraft/world/item/ItemStack;)V
+public pickSlot(I)V
+public static isHotbarSlot(I)Z
+public findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I
+public static isUsableForCrafting(Lnet/minecraft/world/item/ItemStack;)Z
+public findSlotMatchingCraftingIngredient(Lnet/minecraft/core/Holder;Lnet/minecraft/world/item/ItemStack;)I
+public getSuitableHotbarSlot()I
+public clearOrCountMatchingItems(Ljava/util/function/Predicate;ZILnet/minecraft/world/Container;)I
+private addResource(Lnet/minecraft/world/item/ItemStack;)I
+private addResource(ILnet/minecraft/world/item/ItemStack;)I
+public getSlotWithRemainingSpace(Lnet/minecraft/world/item/ItemStack;)I
+public tick()V
+public add(Lnet/minecraft/world/item/ItemStack;)Z
+public add(ILnet/minecraft/world/item/ItemStack;)Z
+public placeItemBackInInventory(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/util/Prediction;)V
+public placeItemBackInInventory(Lnet/minecraft/world/item/ItemStack;ZLnet/minecraft/util/Prediction;)V
+public createInventoryUpdatePacket(I)Lnet/minecraft/network/protocol/game/ClientboundSetPlayerInventoryPacket;
+public removeItem(II)Lnet/minecraft/world/item/ItemStack;
+public removeItem(Lnet/minecraft/world/item/ItemStack;)V
+public removeItemNoUpdate(I)Lnet/minecraft/world/item/ItemStack;
+public setItem(ILnet/minecraft/world/item/ItemStack;)V
+public save(Lnet/minecraft/world/level/storage/ValueOutput$TypedOutputList;)V
+public load(Lnet/minecraft/world/level/storage/ValueInput$TypedInputList;)V
+public getContainerSize()I
+public isEmpty()Z
+public getItem(I)Lnet/minecraft/world/item/ItemStack;
+public getName()Lnet/minecraft/network/chat/Component;
+public dropAll()V
+public setChanged()V
+public getTimesChanged()I
+public stillValid(Lnet/minecraft/world/entity/player/Player;)Z
+public contains(Lnet/minecraft/world/item/ItemStack;)Z
+public contains(Lnet/minecraft/tags/TagKey;)Z
+public contains(Ljava/util/function/Predicate;)Z
+public replaceWith(Lnet/minecraft/world/entity/player/Inventory;)V
+public clearContent()V
+public fillStackedContents(Lnet/minecraft/world/entity/player/StackedItemContents;)V
+public removeFromSelected(Z)Lnet/minecraft/world/item/ItemStack;
+private static synthetic lambda$add$0(Lnet/minecraft/world/item/ItemStack;)Ljava/lang/String;
+static <clinit>()V
 ```

@@ -11,22 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.recipes|net.minecraft.data.recipes]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/data/worldgen/BootstrapContextAccess`, `net/fabricmc/fabric/api/datagen/v1/recipe/FabricRecipeOutput`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getRecipeIdentifier(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resourc` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getRecipeIdentifier(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resourc` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getRecipeIdentifier(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resourc` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getRecipeIdentifier(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resourc` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `accept` | `(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/item/crafti` | exact | invokeinterface@30 in `FabricRecipeProvider$1.accept` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `advancement` | `()Lnet/minecraft/advancements/Advancement$Builder;` | exact | invokeinterface@4 in `FabricRecipeProvider$1.advancement` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getRecipeIdentifier` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identif` | inherited_exact | invokeinterface@5 in `FabricRecipeProvider$1.getRecipeIdentifier` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getRecipeIdentifier` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identif` | inherited_exact | invokeinterface@9 in `AllCraftingRecipeJsonBuildersMixin.modifyRecipeKey` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getRecipeIdentifier` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identif` | inherited_exact | invokeinterface@9 in `SmithingTransformRecipeBuilderMixin.modifyRecipeKey` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getRecipeIdentifier` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identif` | inherited_exact | invokeinterface@9 in `SmithingTrimRecipeBuilderMixin.modifyRecipeKey` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getRecipeIdentifier` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identif` | inherited_exact | invokeinterface@9 in `SpecialRecipeBuilderMixin.modifyRecipeKey` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `listContextElements` | `(Lnet/minecraft/resources/ResourceKey;)Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@5 in `FabricRecipeProvider$1.listContextElements` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `lookup` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/HolderGette` | inherited_exact | invokeinterface@5 in `FabricRecipeProvider$1.lookup` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (2, all visibilities)
+## Declared members (0 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.data.recipes.RecipeOutput extends net.minecraft.data.worldgen.BootstrapContextAccess {
-    public abstract void accept(net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>, net.minecraft.world.item.crafting.Recipe<?>, net.minecraft.advancements.AdvancementHolder);
-    public abstract net.minecraft.advancements.Advancement$Builder advancement();
-}
+```
+public abstract accept(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/item/crafting/Recipe;Lnet/minecraft/advancements/AdvancementHolder;)V
+public abstract advancement()Lnet/minecraft/advancements/Advancement$Builder;
 ```

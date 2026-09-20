@@ -13,5 +13,5 @@ sha256: "0bf0c29bd7f1803eac7c5d4aec1af51bb25790ba41583108a2320740043cd0c2"
 Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: interface
 
 ```java
-public abstract net.minecraft.client.particle.ParticleProvider<T> create(net.fabricmc.fabric.api.client.particle.v1.FabricSpriteSet)
+public abstract net.minecraft.client.particle.ParticleProvider create(net.fabricmc.fabric.api.client.particle.v1.FabricSpriteSet)
 ```

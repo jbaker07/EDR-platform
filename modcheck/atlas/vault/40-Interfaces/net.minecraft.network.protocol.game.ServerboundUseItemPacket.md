@@ -11,34 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/InteractionHand;IFF)V` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/InteractionHand;IFF)V` | exact | invokespecial@14 in `MultiPlayerGameModeMixin.lambda$interactItem$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (5 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.protocol.game.ServerboundUseItemPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ServerGamePacketListener> {
-    private final net.minecraft.world.InteractionHand hand;
-    private final int sequence;
-    private final float yRot;
-    private final float xRot;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.FriendlyByteBuf, net.minecraft.network.protocol.game.ServerboundUseItemPacket> STREAM_CODEC;
-    public net.minecraft.network.protocol.game.ServerboundUseItemPacket(net.minecraft.world.InteractionHand, int, float, float);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.game.ServerboundUseItemPacket> type();
-    public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.world.InteractionHand hand();
-    public int sequence();
-    public float yRot();
-    public float xRot();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+private final hand : Lnet/minecraft/world/InteractionHand;
+private final sequence : I
+private final yRot : F
+private final xRot : F
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/world/InteractionHand;IFF)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public hand()Lnet/minecraft/world/InteractionHand;
+public sequence()I
+public yRot()F
+public xRot()F
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

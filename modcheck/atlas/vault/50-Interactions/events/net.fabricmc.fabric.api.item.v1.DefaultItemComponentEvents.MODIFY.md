@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `DefaultItemComponentImpl.modifyItemComponents` | (impl code, not a mixin) | unknown | static_inference |
+| `DefaultItemComponentImpl.modifyItemComponents` @17 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

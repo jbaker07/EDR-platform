@@ -19,7 +19,7 @@ status: "open"
 **Affects.** [[10-Workflows/wf.engineering.version_migration|wf.engineering.version_migration]], [[70-Requests/request.port_1_21_mod|request.port_1_21_mod]]
 
 **Evidence already available.**
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `capability/subscribe_event.fabric_server_tick`
 
 **Best remaining source.** A second corpus (q.older_minecraft_versions).

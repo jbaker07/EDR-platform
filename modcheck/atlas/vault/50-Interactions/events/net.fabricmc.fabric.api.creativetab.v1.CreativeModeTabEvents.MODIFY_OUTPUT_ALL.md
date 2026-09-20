@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `CreativeModeTabMixin.getStacks` | `CreativeModeTab.buildContents` @Inject at TAIL | both | static_inference |
+| `CreativeModeTabMixin.getStacks` @158 | [[40-Interfaces/net.minecraft.world.item.CreativeModeTab|CreativeModeTab]].`buildContents` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

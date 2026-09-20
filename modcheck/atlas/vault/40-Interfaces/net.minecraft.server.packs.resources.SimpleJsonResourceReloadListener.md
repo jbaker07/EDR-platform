@@ -11,28 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`abstract_class` public abstract; extends `net/minecraft/server/packs/resources/SimplePreparableReloadListener`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `lambda$prepare$0` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `lambda$prepare$0` | `(Ljava/util/Map;Lnet/minecraft/resources/Identifier;Ljava/lang/Object;` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `lister` | `Lnet/minecraft/resources/FileToIdConverter;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | declared |
+| wraps | `prepare` | `?` | ambiguous | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (4 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener<T> extends net.minecraft.server.packs.resources.SimplePreparableReloadListener<java.util.Map<net.minecraft.resources.Identifier, T>> {
-    private static final org.slf4j.Logger LOGGER;
-    private final com.mojang.serialization.DynamicOps<com.google.gson.JsonElement> ops;
-    private final com.mojang.serialization.Codec<T> codec;
-    private final net.minecraft.resources.FileToIdConverter lister;
-    protected net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener(com.mojang.serialization.Codec<T>, net.minecraft.resources.FileToIdConverter);
-    private net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener(com.mojang.serialization.DynamicOps<com.google.gson.JsonElement>, com.mojang.serialization.Codec<T>, net.minecraft.resources.FileToIdConverter);
-    protected java.util.Map<net.minecraft.resources.Identifier, T> prepare(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.util.profiling.ProfilerFiller);
-    protected java.lang.Object prepare(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.util.profiling.ProfilerFiller);
-    private static void lambda$prepare$1(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier, com.mojang.serialization.DataResult$Error);
-    private static void lambda$prepare$0(java.util.Map, net.minecraft.resources.Identifier, java.lang.Object);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final ops : Lcom/mojang/serialization/DynamicOps;
+private final codec : Lcom/mojang/serialization/Codec;
+private final lister : Lnet/minecraft/resources/FileToIdConverter;
+protected <init>(Lcom/mojang/serialization/Codec;Lnet/minecraft/resources/FileToIdConverter;)V
+private <init>(Lcom/mojang/serialization/DynamicOps;Lcom/mojang/serialization/Codec;Lnet/minecraft/resources/FileToIdConverter;)V
+protected prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/Map;
+protected synthetic prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/lang/Object;
+private static synthetic lambda$prepare$1(Lnet/minecraft/resources/Identifier;Lnet/minecraft/resources/Identifier;Lcom/mojang/serialization/DataResult$Error;)V
+private static synthetic lambda$prepare$0(Ljava/util/Map;Lnet/minecraft/resources/Identifier;Ljava/lang/Object;)V
+static <clinit>()V
 ```

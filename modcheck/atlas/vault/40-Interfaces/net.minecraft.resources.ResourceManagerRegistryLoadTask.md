@@ -11,28 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`class` public; extends `net/minecraft/resources/RegistryLoadTask`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `load` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `lambda$load$2` | `(Lnet/minecraft/resources/FileToIdConverter;Lnet/minecraft/resources/R` | name_only | @ModifyExpressionValue at ['NEW'] | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| injects_into | `load` | `(Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;Ljava/util/co` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `resourceManager` | `Lnet/minecraft/server/packs/resources/ResourceManager;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | declared |
+| reads | `resourceManager` | `Lnet/minecraft/server/packs/resources/ResourceManager;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | declared |
+| wraps | `lambda$load$2` | `(Lnet/minecraft/resources/FileToIdConverter;Lnet/minecraft/resources/R` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| wraps | `lambda$load$2` | `(Lnet/minecraft/resources/FileToIdConverter;Lnet/minecraft/resources/R` | name_only | @WrapOperation at ['NEW'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| wraps | `lambda$load$2` | `(Lnet/minecraft/resources/FileToIdConverter;Lnet/minecraft/resources/R` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.resources.ResourceManagerRegistryLoadTask<T> extends net.minecraft.resources.RegistryLoadTask<T> {
-    private static final java.util.function.Function<java.util.Optional<net.minecraft.server.packs.repository.KnownPack>, net.minecraft.core.RegistrationInfo> REGISTRATION_INFO_CACHE;
-    private final net.minecraft.server.packs.resources.ResourceManager resourceManager;
-    public net.minecraft.resources.ResourceManagerRegistryLoadTask(net.minecraft.resources.RegistryDataLoader$RegistryData<T>, com.mojang.serialization.Lifecycle, java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>, net.minecraft.server.packs.resources.ResourceManager);
-    public java.util.concurrent.CompletableFuture<?> load(net.minecraft.resources.RegistryOps$RegistryInfoLookup, java.util.concurrent.Executor);
-    private void lambda$load$3(java.util.Map);
-    private java.util.concurrent.CompletionStage lambda$load$1(net.minecraft.resources.RegistryOps$RegistryInfoLookup, net.minecraft.resources.FileToIdConverter, java.util.concurrent.Executor, java.util.Map);
-    private net.minecraft.resources.RegistryLoadTask$PendingRegistration lambda$load$2(net.minecraft.resources.FileToIdConverter, net.minecraft.resources.RegistryOps, net.minecraft.resources.Identifier, net.minecraft.server.packs.resources.Resource);
-    private java.util.Map lambda$load$0(net.minecraft.resources.FileToIdConverter);
-    private static net.minecraft.core.RegistrationInfo lambda$static$0(java.util.Optional);
-    private static com.mojang.serialization.Lifecycle lambda$static$1(java.lang.Boolean);
-    static {};
-}
+```
+private static final REGISTRATION_INFO_CACHE : Ljava/util/function/Function;
+private final resourceManager : Lnet/minecraft/server/packs/resources/ResourceManager;
+public <init>(Lnet/minecraft/resources/RegistryDataLoader$RegistryData;Lcom/mojang/serialization/Lifecycle;Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;)V
+public load(Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private synthetic lambda$load$3(Ljava/util/Map;)V
+private synthetic lambda$load$1(Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;Lnet/minecraft/resources/FileToIdConverter;Ljava/util/concurrent/Executor;Ljava/util/Map;)Ljava/util/concurrent/CompletionStage;
+private synthetic lambda$load$2(Lnet/minecraft/resources/FileToIdConverter;Lnet/minecraft/resources/RegistryOps;Lnet/minecraft/resources/Identifier;Lnet/minecraft/server/packs/resources/Resource;)Lnet/minecraft/resources/RegistryLoadTask$PendingRegistration;
+private synthetic lambda$load$0(Lnet/minecraft/resources/FileToIdConverter;)Ljava/util/Map;
+private static synthetic lambda$static$0(Ljava/util/Optional;)Lnet/minecraft/core/RegistrationInfo;
+private static synthetic lambda$static$1(Ljava/lang/Boolean;)Lcom/mojang/serialization/Lifecycle;
+static <clinit>()V
 ```

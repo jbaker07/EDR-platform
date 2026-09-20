@@ -1,6 +1,6 @@
 ---
 type: "coverage"
-generated_at: "2026-09-20T08:10:20+00:00"
+generated_at: "2026-09-20T09:11:07+00:00"
 ---
 
 > [!info] Generated
@@ -12,20 +12,19 @@ Seven separate measures. None of them is 'supported'. A capability record, a lin
 
 ## 1. Surface inventory
 
-- artifacts classified: 68 / 68 (0 unclassified)
-- Minecraft packages (depth 4) inventoried: 111 / 111, 10715 top-level classes
+- artifacts classified: 144 / 144 (0 unclassified); groups {"minecraft_processed": 1, "minecraft": 6, "minecraft_library": 74, "mixin_runtime_extras": 1, "loader_runtime_dep": 1, "build_tooling": 12, "fabric_loader": 1, "mixin_runtime": 1, "fabric_api_module": 47}
+- classes in the processed compile jar: 11383 (7301 top-level) in 565 packages, 150385 declared members -- all inventoried (``extracted/minecraft_surface.json.gz``)
+- depth-4 packages: 134; with at least one Fabric API hook: 88
 - data pack entry types inventoried: 44 (from the jar)
 - Fabric API modules inventoried: 47 / 47
+- resolved environment recorded: compile 114, runtime 126, test 134 entries, all hashed; processed-vs-cache jar diff: 363 classes
 
 ## 2. Extraction
 
-- mixin classes declared in mixin configs: 513; with @Mixin targets extracted: 511 (classes under mixin packages in total, including nested and helper classes: 600)
-- Fabric API classes with public surface extracted: 394 / 399
-- vanilla types that are hook targets: 628
-- vanilla packages with at least one hook: 63 / 111
-- hooked types that live outside the merged jar (libraries): 2 -- no members, by construction
-- vanilla classes whose members were extracted: 628 / 10715 (the 626 hook targets plus BuiltInRegistries, Registries)
-- edge targets cross-checked against those members: 1539 declared on the type, 123 declared on a superclass, 75 unresolved / 1737 (unresolved = interface-declared, `java.lang.Object`, wildcard `<clinit>*`, or Fabric interface-injected members; see unresolved)
+- mixin classes: 512 found by annotation / 512 declared in configs; extraction failures: 0
+- injections: 742 by injector {"Inject": 421, "WrapOperation": 115, "Redirect": 60, "ModifyExpressionValue": 45, "ModifyArg": 32, "ModifyVariable": 26, "ModifyReturnValue": 20, "WrapMethod": 15, "WrapWithCondition": 6, "ModifyReceiver": 1, "Overwrite": 1}
+- Fabric API classes with public surface extracted: 399 / 399
+- vanilla types that are hook targets: 893; every one has its declared members in the surface
 
 ## 3. Workflow information
 
@@ -34,140 +33,168 @@ Seven separate measures. None of them is 'supported'. A capability record, a lin
 
 ## 4. Interaction contracts
 
-- typed edges: 3203 -- by relation {"injects_into": 479, "calls": 1975, "reads": 168, "publishes_event": 235, "callback_of": 189, "wraps": 60, "registers_into": 97}
-- by evidence class: {"direct_reference": 2779, "static_inference": 235, "declared": 189}
-- events with an identified publisher: 182 / 189
+- typed edges: 7825 -- by relation {"injects_into": 544, "wraps": 197, "reads": 1431, "calls": 5088, "publishes_event": 242, "callback_of": 189, "writes": 36, "replaces": 1, "registers_into": 97}
+- by evidence class: {"direct_reference": 7094, "declared": 489, "static_inference": 242}
+- resolution of injection selectors: injects_into {"exact": 93, "name_only": 441, "ambiguous": 5, "selector_unsupported": 5}; wraps {"exact": 33, "name_only": 163, "ambiguous": 1}; replaces {"exact": 1}
+- resolution of injection points (@At): {"exact": 332, "inherited_exact": 49, "selector_unsupported": 4}
+- resolution of calls / reads / writes: {"exact": 4373, "inherited_exact": 715} / {"exact": 1422, "inherited_exact": 9} / {"exact": 36}
+- events with an identified publisher: 187 / 189
 - events with an analyst-stated subscriber contract: 15 / 189
+- shared targets (potential interactions, no verdict): 34; same-point overlap: not computed
 - curated interaction records in the store: 0
 
 ## 5. Executable analysis (ModCheck)
 
 - capability records: 9; failures with a detector: 1 / 3
-- static mixin-collision analysis over arbitrary mod jars: NOT implemented (the jvm inspector lists mixin classes; it does not read their targets)
+- static mixin-collision analysis over arbitrary mod jars: NOT implemented (the extractor and resolver exist under atlas/extract; the jvm inspector does not call them; the required order is index -> exact resolution -> applicability -> composition rule)
 
-## 6. Runtime evidence
+## 6. Runtime and transformation evidence
 
 - observed edges: 0. No game has run.
+- executed_transformation: 14 scenarios run through the pinned Mixin transformer (9 transformed, 5 refused at transformation); transformer evidence, not Minecraft evidence
 
 ## 7. Creation / maintenance automation
 
-- deterministic generators: 6 mechanisms (Fabric only)
+- deterministic generators: 6 mechanisms (Fabric only); the reference lantern was hand-authored, not generated
 - agent execution: boundary exists, unavailable here
 
 ## Per-system state
 
-Columns are independent: *inspected* = members of its hooked types extracted; *contract-mapped* = analyst contracts whose publication site is in the package; *analysed* = an analyst system note exists; *in ModCheck* = a request analysis names it, marked if that request is implemented; *validated* = the validation scope of that implementation.
+Columns are independent: *inventoried* = every class and member of the package is in the surface; *inspected* = hooked types with their edges resolved; *contract-mapped* = analyst contracts whose publication site is in the package; *analysed* = an analyst system note exists; *in ModCheck* = a request analysis names it; *validated* = the validation scope of that implementation.
 
 | package | inventoried | inspected | contract-mapped | analysed | in ModCheck | validated |
 |---|---|---|---|---|---|---|
-| `net.minecraft.advancements` | yes | members of 4/4 hooked types | no | edges only | no | none |
-| `net.minecraft.advancements.predicates` | yes | no | no | no | no | none |
-| `net.minecraft.advancements.triggers` | yes | no | no | no | no | none |
-| `net.minecraft.client` | yes | members of 9/9 hooked types | 1 contracts | edges only | request.lantern_moth; request.rain_lantern (implemented); request.team_counter | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.client.animation` | yes | no | no | no | no | none |
-| `net.minecraft.client.color` | yes | members of 3/3 hooked types | no | edges only | no | none |
-| `net.minecraft.client.data` | yes | members of 3/3 hooked types | no | edges only | no | none |
-| `net.minecraft.client.entity` | yes | no | no | no | no | none |
-| `net.minecraft.client.gui` | yes | members of 53/53 hooked types | no | system note | request.rain_lantern (implemented); request.team_counter | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.client.input` | yes | members of 3/3 hooked types | no | edges only | no | none |
-| `net.minecraft.client.main` | yes | no | no | no | no | none |
-| `net.minecraft.client.model` | yes | members of 4/4 hooked types | no | edges only | no | none |
-| `net.minecraft.client.multiplayer` | yes | members of 15/15 hooked types | 1 contracts | system note | no | none |
-| `net.minecraft.client.particle` | yes | members of 6/6 hooked types | no | edges only | no | none |
-| `net.minecraft.client.player` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.client.profiling` | yes | no | no | no | no | none |
-| `net.minecraft.client.quickplay` | yes | no | no | no | no | none |
-| `net.minecraft.client.renderer` | yes | members of 66/66 hooked types | no | system note | request.lantern_moth | none |
-| `net.minecraft.client.resources` | yes | members of 13/13 hooked types | no | edges only | no | none |
-| `net.minecraft.client.searchtree` | yes | no | no | no | no | none |
-| `net.minecraft.client.server` | yes | no | no | no | no | none |
-| `net.minecraft.client.sounds` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.client.telemetry` | yes | no | no | no | no | none |
-| `net.minecraft.client.tutorial` | yes | no | no | no | no | none |
-| `net.minecraft.client.waypoints` | yes | no | no | no | no | none |
-| `net.minecraft.commands` | yes | members of 3/3 hooked types | 1 contracts | edges only | no | none |
-| `net.minecraft.commands.arguments` | yes | no | no | no | no | none |
-| `net.minecraft.commands.execution` | yes | no | no | no | no | none |
-| `net.minecraft.commands.functions` | yes | no | no | no | no | none |
-| `net.minecraft.commands.synchronization` | yes | no | no | no | no | none |
-| `net.minecraft.core` | yes | members of 29/29 hooked types | no | edges only | request.crystal_caves | none |
-| `net.minecraft.core.cauldron` | yes | no | no | no | no | none |
-| `net.minecraft.core.component` | yes | members of 12/12 hooked types | no | edges only | no | none |
-| `net.minecraft.core.dispenser` | yes | no | no | no | no | none |
-| `net.minecraft.core.particles` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.core.registries` | yes | members of 2/2 hooked types | no | system note | request.crystal_caves | none |
-| `net.minecraft.data` | yes | members of 6/6 hooked types | no | edges only | no | none |
-| `net.minecraft.data.advancements` | yes | no | no | no | no | none |
-| `net.minecraft.data.info` | yes | no | no | no | no | none |
-| `net.minecraft.data.loot` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.data.metadata` | yes | no | no | no | no | none |
-| `net.minecraft.data.recipes` | yes | members of 13/13 hooked types | no | edges only | no | none |
-| `net.minecraft.data.registries` | yes | members of 3/3 hooked types | no | edges only | no | none |
-| `net.minecraft.data.structures` | yes | no | no | no | no | none |
-| `net.minecraft.data.tags` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.data.worldgen` | yes | no | no | no | no | none |
-| `net.minecraft.gametest` | yes | no | no | no | no | none |
-| `net.minecraft.gametest.framework` | yes | members of 3/3 hooked types | no | edges only | no | none |
-| `net.minecraft.gizmos` | yes | no | no | no | no | none |
-| `net.minecraft.locale` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.nbt` | yes | members of 5/5 hooked types | no | edges only | no | none |
-| `net.minecraft.nbt.visitors` | yes | no | no | no | no | none |
-| `net.minecraft.network` | yes | members of 13/13 hooked types | no | edges only | request.rain_lantern (implemented); request.team_counter | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.network.chat` | yes | members of 9/9 hooked types | no | edges only | no | none |
-| `net.minecraft.network.codec` | yes | members of 4/4 hooked types | no | edges only | no | none |
-| `net.minecraft.network.protocol` | yes | members of 30/30 hooked types | no | system note | request.rain_lantern (implemented); request.team_counter | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.network.syncher` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.realms` | yes | no | no | no | no | none |
-| `net.minecraft.recipebook` | yes | no | no | no | no | none |
-| `net.minecraft.references` | yes | no | no | no | no | none |
-| `net.minecraft.resources` | yes | members of 12/12 hooked types | no | edges only | no | none |
-| `net.minecraft.server` | yes | members of 12/12 hooked types | 4 contracts | system note | request.crystal_caves; request.rain_lantern (implemented); request.team_counter | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.server.advancements` | yes | no | no | no | no | none |
-| `net.minecraft.server.bossevents` | yes | no | no | no | no | none |
-| `net.minecraft.server.chase` | yes | no | no | no | no | none |
-| `net.minecraft.server.commands` | yes | members of 4/4 hooked types | no | edges only | no | none |
-| `net.minecraft.server.dedicated` | yes | members of 4/4 hooked types | no | edges only | no | none |
-| `net.minecraft.server.dialog` | yes | no | no | no | no | none |
-| `net.minecraft.server.gui` | yes | no | no | no | no | none |
-| `net.minecraft.server.jsonrpc` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.server.level` | yes | members of 13/13 hooked types | 4 contracts | system note | request.rain_lantern (implemented); request.team_counter | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.server.network` | yes | members of 10/10 hooked types | no | system note | no | none |
-| `net.minecraft.server.notifications` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.server.packs` | yes | members of 25/25 hooked types | no | system note | request.crystal_caves | none |
-| `net.minecraft.server.permissions` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.server.players` | yes | members of 4/4 hooked types | 3 contracts | edges only | no | none |
-| `net.minecraft.server.rcon` | yes | no | no | no | no | none |
-| `net.minecraft.server.waypoints` | yes | no | no | no | no | none |
-| `net.minecraft.sounds` | yes | no | no | no | no | none |
-| `net.minecraft.stats` | yes | no | no | no | no | none |
-| `net.minecraft.tags` | yes | members of 6/6 hooked types | no | edges only | no | none |
-| `net.minecraft.util` | yes | members of 16/16 hooked types | no | edges only | request.port_1_21_mod | none |
-| `net.minecraft.util.context` | yes | no | no | no | no | none |
-| `net.minecraft.util.datafix` | yes | members of 2/2 hooked types | no | system note | request.port_1_21_mod | none |
-| `net.minecraft.util.debug` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.util.debugchart` | yes | no | no | no | no | none |
-| `net.minecraft.util.eventlog` | yes | no | no | no | no | none |
-| `net.minecraft.util.filefix` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.util.monitoring` | yes | no | no | no | no | none |
-| `net.minecraft.util.parsing` | yes | no | no | no | no | none |
-| `net.minecraft.util.profiling` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.util.random` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.util.thread` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.util.valueproviders` | yes | no | no | no | no | none |
-| `net.minecraft.util.worldupdate` | yes | no | no | no | no | none |
-| `net.minecraft.world` | yes | members of 9/9 hooked types | no | edges only | request.crystal_caves; request.lantern_moth; request.lantern_moth; request.rain_lantern (implemented); request.villager_fear; request.villager_fear | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.world.attribute` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.world.clock` | yes | no | no | no | no | none |
-| `net.minecraft.world.damagesource` | yes | members of 1/1 hooked types | no | edges only | no | none |
-| `net.minecraft.world.effect` | yes | no | no | no | no | none |
-| `net.minecraft.world.entity` | yes | members of 17/17 hooked types | 1 contracts | system note | request.lantern_moth; request.villager_fear | none |
-| `net.minecraft.world.flag` | yes | members of 2/2 hooked types | no | edges only | no | none |
-| `net.minecraft.world.food` | yes | no | no | no | no | none |
-| `net.minecraft.world.inventory` | yes | members of 4/4 hooked types | no | edges only | no | none |
-| `net.minecraft.world.item` | yes | members of 31/31 hooked types | no | system note | request.villager_fear | none |
-| `net.minecraft.world.level` | yes | members of 106/106 hooked types | 1 contracts | system note | request.crystal_caves; request.lantern_moth; request.rain_lantern (implemented) | JUnit with fakes, gradle build; no game run |
-| `net.minecraft.world.phys` | yes | members of 3/3 hooked types | no | edges only | no | none |
-| `net.minecraft.world.scores` | yes | no | no | no | no | none |
-| `net.minecraft.world.ticks` | yes | no | no | no | no | none |
-| `net.minecraft.world.timeline` | yes | no | no | no | no | none |
-| `net.minecraft.world.waypoints` | yes | no | no | no | no | none |
+| `com.mojang.blaze3d` | all classes | no hooks | no | no | no | none |
+| `com.mojang.blaze3d.audio` | all classes | no hooks | no | no | no | none |
+| `com.mojang.blaze3d.buffers` | all classes | no hooks | no | no | no | none |
+| `com.mojang.blaze3d.font` | all classes | no hooks | no | no | no | none |
+| `com.mojang.blaze3d.framegraph` | all classes | no hooks | no | no | no | none |
+| `com.mojang.blaze3d.pipeline` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `com.mojang.blaze3d.platform` | all classes | 13 hooked types, edges resolved | no | edges only | no | none |
+| `com.mojang.blaze3d.resource` | all classes | no hooks | no | no | no | none |
+| `com.mojang.blaze3d.systems` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `com.mojang.blaze3d.vertex` | all classes | 5 hooked types, edges resolved | no | edges only | no | none |
+| `com.mojang.math` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `com.mojang.realmsclient` | all classes | no hooks | no | no | no | none |
+| `com.mojang.realmsclient.client` | all classes | no hooks | no | no | no | none |
+| `com.mojang.realmsclient.dto` | all classes | no hooks | no | no | no | none |
+| `com.mojang.realmsclient.exception` | all classes | no hooks | no | no | no | none |
+| `com.mojang.realmsclient.gui` | all classes | no hooks | no | no | no | none |
+| `com.mojang.realmsclient.util` | all classes | no hooks | no | no | no | none |
+| `com.mojang.renderpearl` | all classes | no hooks | no | no | no | none |
+| `com.mojang.renderpearl.api` | all classes | 7 hooked types, edges resolved | no | edges only | no | none |
+| `com.mojang.renderpearl.backend` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `com.mojang.renderpearl.frontend` | all classes | no hooks | no | no | no | none |
+| `com.mojang.renderpearl.util` | all classes | no hooks | no | no | no | none |
+| `net.minecraft` | all classes | 8 hooked types, edges resolved | no | edges only | request.crystal_caves; request.crystal_caves; request.crystal_caves; request.lantern_moth; request.lantern_moth; request.lantern_moth; request.port_1_21_mod; request.rain_lantern (implemented, hand-authored); request.rain_lantern (implemented, hand-authored); request.rain_lantern (implemented, hand-authored); request.rain_lantern (implemented, hand-authored); request.rain_lantern (implemented, hand-authored); request.team_counter; request.team_counter; request.team_counter; request.villager_fear; request.villager_fear | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.advancements` | all classes | 6 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.advancements.predicates` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.advancements.triggers` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client` | all classes | 12 hooked types, edges resolved | 1 contracts | edges only | request.lantern_moth; request.rain_lantern (implemented, hand-authored); request.team_counter | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.client.animation` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.color` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.data` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.entity` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.gui` | all classes | 67 hooked types, edges resolved | no | system note | request.rain_lantern (implemented, hand-authored); request.team_counter | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.client.input` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.main` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.model` | all classes | 4 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.multiplayer` | all classes | 18 hooked types, edges resolved | 1 contracts | system note | no | none |
+| `net.minecraft.client.particle` | all classes | 7 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.player` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.profiling` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.quickplay` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.renderer` | all classes | 87 hooked types, edges resolved | no | system note | request.lantern_moth | none |
+| `net.minecraft.client.resources` | all classes | 20 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.searchtree` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.server` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.sounds` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.telemetry` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.client.tutorial` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.client.waypoints` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.commands` | all classes | 3 hooked types, edges resolved | 1 contracts | edges only | no | none |
+| `net.minecraft.commands.arguments` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.commands.execution` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.commands.functions` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.commands.synchronization` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.core` | all classes | 33 hooked types, edges resolved | no | edges only | request.crystal_caves; request.rain_lantern (implemented, hand-authored) | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.core.cauldron` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.core.component` | all classes | 15 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.core.dispenser` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.core.particles` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.core.registries` | all classes | 3 hooked types, edges resolved | no | system note | request.crystal_caves; request.rain_lantern (implemented, hand-authored) | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.data` | all classes | 9 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.data.advancements` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.data.info` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.data.loot` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.data.metadata` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.data.recipes` | all classes | 15 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.data.registries` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.data.structures` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.data.tags` | all classes | 4 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.data.worldgen` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.gametest` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.gametest.framework` | all classes | 5 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.gizmos` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.locale` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.nbt` | all classes | 8 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.nbt.visitors` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.network` | all classes | 15 hooked types, edges resolved | no | edges only | request.rain_lantern (implemented, hand-authored); request.team_counter | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.network.chat` | all classes | 12 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.network.codec` | all classes | 4 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.network.protocol` | all classes | 34 hooked types, edges resolved | no | system note | request.rain_lantern (implemented, hand-authored); request.team_counter | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.network.syncher` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.realms` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.recipebook` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.references` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.resources` | all classes | 12 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.server` | all classes | 13 hooked types, edges resolved | 4 contracts | system note | request.crystal_caves; request.rain_lantern (implemented, hand-authored); request.team_counter | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.server.advancements` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.server.bossevents` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.server.chase` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.server.commands` | all classes | 6 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.server.dedicated` | all classes | 4 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.server.dialog` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.server.gui` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.server.jsonrpc` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.server.level` | all classes | 14 hooked types, edges resolved | 4 contracts | system note | request.rain_lantern (implemented, hand-authored); request.team_counter | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.server.network` | all classes | 11 hooked types, edges resolved | no | system note | no | none |
+| `net.minecraft.server.notifications` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.server.packs` | all classes | 29 hooked types, edges resolved | no | system note | request.crystal_caves | none |
+| `net.minecraft.server.permissions` | all classes | 4 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.server.players` | all classes | 4 hooked types, edges resolved | 3 contracts | edges only | no | none |
+| `net.minecraft.server.rcon` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.server.waypoints` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.sounds` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.stats` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.tags` | all classes | 12 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.util` | all classes | 18 hooked types, edges resolved | no | edges only | request.port_1_21_mod | none |
+| `net.minecraft.util.context` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.util.datafix` | all classes | 3 hooked types, edges resolved | no | system note | request.port_1_21_mod | none |
+| `net.minecraft.util.debug` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.util.debugchart` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.util.eventlog` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.util.filefix` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.util.monitoring` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.util.parsing` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.util.profiling` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.util.random` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.util.thread` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.util.valueproviders` | all classes | 2 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.util.worldupdate` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.world` | all classes | 10 hooked types, edges resolved | no | edges only | request.crystal_caves; request.lantern_moth; request.lantern_moth; request.rain_lantern (implemented, hand-authored); request.villager_fear; request.villager_fear | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.world.attribute` | all classes | 7 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.world.clock` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.world.damagesource` | all classes | 1 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.world.effect` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.world.entity` | all classes | 32 hooked types, edges resolved | 1 contracts | system note | request.lantern_moth; request.villager_fear | none |
+| `net.minecraft.world.flag` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.world.food` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.world.inventory` | all classes | 5 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.world.item` | all classes | 42 hooked types, edges resolved | no | system note | request.villager_fear | none |
+| `net.minecraft.world.level` | all classes | 143 hooked types, edges resolved | 1 contracts | system note | request.crystal_caves; request.lantern_moth; request.rain_lantern (implemented, hand-authored) | JUnit with fakes, gradle build; no game run |
+| `net.minecraft.world.phys` | all classes | 3 hooked types, edges resolved | no | edges only | no | none |
+| `net.minecraft.world.scores` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.world.ticks` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.world.timeline` | all classes | no hooks | no | no | no | none |
+| `net.minecraft.world.waypoints` | all classes | no hooks | no | no | no | none |

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ChatListenerMixin.fabric_onChatMessage` | (handler is not itself an injector method: fired from a helper or impl class) | client | static_inference |
+| `ChatListenerMixin.fabric_onChatMessage` @16 | (handler is not itself an injector: fired from a helper or impl method) | unknown | static_inference |
 
 ## Contract
 

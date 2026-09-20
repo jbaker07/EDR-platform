@@ -11,39 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.resources|net.minecraft.client.resources]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/renderer/v1/sprite/FabricMaterialBaker`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `spriteFinder(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadAtlas;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `spriteFinder` | `(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadAtlas;)Lnet/fabr` | inherited_exact | invokevirtual@45 in `SimpleUnbakedExtraModel.lambda$bakeResolved$0` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `spriteFinder` | `(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadAtlas;)Lnet/fabr` | inherited_exact | invokevirtual@49 in `SimpleModelWrapperMixin.lambda$analyzeMesh$0` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `blockAtlas` | `Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| reads | `itemAtlas` | `Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
 
-## Declared members (22, all visibilities)
+## Declared members (9 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.resources.model.sprite.MaterialBaker {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.client.renderer.texture.SpriteLoader$Preparations blockAtlas;
-    private final net.minecraft.client.renderer.texture.SpriteLoader$Preparations itemAtlas;
-    private final net.minecraft.client.resources.model.sprite.Material$Baked missingSprite;
-    private final net.minecraft.client.resources.model.sprite.Material$Baked missingSpriteForceTranslucent;
-    private final com.google.common.collect.Multimap<java.lang.String, net.minecraft.resources.Identifier> missingSprites;
-    private final com.google.common.collect.Multimap<java.lang.String, java.lang.String> missingReferences;
-    private final java.util.Map<net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.sprite.Material$Baked> bakedMaterials;
-    private final java.util.function.Function<net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.sprite.Material$Baked> bakerFunction;
-    public net.minecraft.client.resources.model.sprite.MaterialBaker(net.minecraft.client.renderer.texture.SpriteLoader$Preparations, net.minecraft.client.renderer.texture.SpriteLoader$Preparations);
-    private net.minecraft.client.resources.model.sprite.Material$Baked replacementForMissingMaterial(net.minecraft.client.resources.model.sprite.Material);
-    public net.minecraft.client.resources.model.sprite.Material$Baked get(net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.ModelDebugName);
-    private net.minecraft.client.resources.model.sprite.Material$Baked bake(net.minecraft.client.resources.model.sprite.Material);
-    private static net.minecraft.client.resources.model.sprite.Material$Baked bakeForAtlas(net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.renderer.texture.SpriteLoader$Preparations);
-    public net.minecraft.client.resources.model.sprite.Material$Baked resolveSlot(net.minecraft.client.resources.model.sprite.TextureSlots, java.lang.String, net.minecraft.client.resources.model.ModelDebugName);
-    public net.minecraft.client.resources.model.sprite.Material$Baked reportMissingReference(java.lang.String, net.minecraft.client.resources.model.ModelDebugName);
-    public void logMissingTextures();
-    private static void lambda$logMissingTextures$2(java.lang.String, java.util.Collection);
-    private static java.lang.String lambda$logMissingTextures$3(java.lang.String);
-    private static void lambda$logMissingTextures$0(java.lang.String, java.util.Collection);
-    private static java.lang.String lambda$logMissingTextures$1(net.minecraft.resources.Identifier);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final blockAtlas : Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;
+private final itemAtlas : Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;
+private final missingSprite : Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+private final missingSpriteForceTranslucent : Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+private final missingSprites : Lcom/google/common/collect/Multimap;
+private final missingReferences : Lcom/google/common/collect/Multimap;
+private final bakedMaterials : Ljava/util/Map;
+private final bakerFunction : Ljava/util/function/Function;
+public <init>(Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;)V
+private replacementForMissingMaterial(Lnet/minecraft/client/resources/model/sprite/Material;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+public get(Lnet/minecraft/client/resources/model/sprite/Material;Lnet/minecraft/client/resources/model/ModelDebugName;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+private bake(Lnet/minecraft/client/resources/model/sprite/Material;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+private static bakeForAtlas(Lnet/minecraft/client/resources/model/sprite/Material;Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+public resolveSlot(Lnet/minecraft/client/resources/model/sprite/TextureSlots;Ljava/lang/String;Lnet/minecraft/client/resources/model/ModelDebugName;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+public reportMissingReference(Ljava/lang/String;Lnet/minecraft/client/resources/model/ModelDebugName;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+public logMissingTextures()V
+private static synthetic lambda$logMissingTextures$2(Ljava/lang/String;Ljava/util/Collection;)V
+private static synthetic lambda$logMissingTextures$3(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$logMissingTextures$0(Ljava/lang/String;Ljava/util/Collection;)V
+private static synthetic lambda$logMissingTextures$1(Lnet/minecraft/resources/Identifier;)Ljava/lang/String;
+static <clinit>()V
 ```

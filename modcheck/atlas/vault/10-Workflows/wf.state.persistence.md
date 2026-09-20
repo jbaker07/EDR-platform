@@ -18,7 +18,7 @@ area: "state"
 
 ## Mechanisms that can serve it
 
-- Level-scoped SavedData (`capability/persist_state.fabric_saveddata`) -- the reference lantern's choice for per-level state.
+- Level-scoped SavedData (`capability/persist_state.fabric_saveddata`) -- what the discarded lantern scaffold generated; the hand-authored reference lantern persists per block entity instead ([[10-Workflows/wf.content.block_entity|wf.content.block_entity]]).
 - Attachments ([[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]], `capability/persist_state.fabric_attachment`) on entities, block entities, chunks and levels, with optional persistence and sync (AttachmentRegistry.Builder.syncWith is in the extracted API surface).
 - Block entity NBT ([[10-Workflows/wf.content.block_entity|wf.content.block_entity]]) and item stack data components.
 - [[50-Interactions/events/net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.BEFORE_SAVE|BEFORE_SAVE]] for flush-before-save hooks.
@@ -72,4 +72,4 @@ area: "state"
 - contract_mapped: True
 - interaction_analysed: True
 - implemented_in_modcheck: True
-- validated_scope: both generators compile against the pinned corpus; exercised by the reference lantern's JUnit tests
+- validated_scope: both generators compile against the pinned corpus (exercised by the discarded scaffold's build); the reference lantern's block-entity persistence is hand-authored and contract-tested with 5 JUnit tests

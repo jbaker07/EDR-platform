@@ -14,11 +14,11 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 
 ```java
 public abstract void registerBlockStateResolver(net.minecraft.world.level.block.Block, net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver)
-public abstract <T> void addModel(net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey<T>, net.fabricmc.fabric.api.client.model.loading.v1.UnbakedExtraModel<T>)
-public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoad> modifyModelOnLoad()
-public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoadBlock> modifyBlockModelOnLoad()
-public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeBlock> modifyBlockModelBeforeBake()
-public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeBlock> modifyBlockModelAfterBake()
-public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeItem> modifyItemModelBeforeBake()
-public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeItem> modifyItemModelAfterBake()
+public abstract void addModel(net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey, net.fabricmc.fabric.api.client.model.loading.v1.UnbakedExtraModel)
+public abstract net.fabricmc.fabric.api.event.Event modifyModelOnLoad()
+public abstract net.fabricmc.fabric.api.event.Event modifyBlockModelOnLoad()
+public abstract net.fabricmc.fabric.api.event.Event modifyBlockModelBeforeBake()
+public abstract net.fabricmc.fabric.api.event.Event modifyBlockModelAfterBake()
+public abstract net.fabricmc.fabric.api.event.Event modifyItemModelBeforeBake()
+public abstract net.fabricmc.fabric.api.event.Event modifyItemModelAfterBake()
 ```

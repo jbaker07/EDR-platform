@@ -11,51 +11,51 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/renderer/v1/render/FabricLayerRenderState`, `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `emitter()Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadEmitt` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| injects_into | `clear` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `clear()V` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| reads | `EMPTY_TINTS[I` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| wraps | `submit` | `@Redirect at INVOKE Lnet/minecraft/client/renderer/SubmitNodeCollector;submitIte` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `emitter` | `()Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadEmitter;` | inherited_exact | invokevirtual@13 in `CuboidItemModelWrapperMixin.onReturnUpdate` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| injects_into | `clear` | `()V` | exact | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| injects_into | `clear` | `()V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `EMPTY_TINTS` | `[I` | exact | getstatic@163 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| wraps | `submit` | `(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/S` | name_only | @Redirect at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (30, all visibilities)
+## Declared members (14 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.item.ItemStackRenderState$LayerRenderState {
-    private static final org.joml.Vector3fc[] NO_EXTENTS;
-    public static final java.util.function.Supplier<org.joml.Vector3fc[]> NO_EXTENTS_SUPPLIER;
-    public static final int[] EMPTY_TINTS;
-    private net.minecraft.client.resources.model.geometry.ItemQuads quads;
-    private boolean usesBlockLight;
-    private net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial;
-    private net.minecraft.client.resources.model.cuboid.ItemTransform itemTransform;
-    private final org.joml.Matrix4f localTransform;
-    private net.minecraft.client.renderer.item.ItemStackRenderState$FoilType foilType;
-    private it.unimi.dsi.fastutil.ints.IntList tintLayers;
-    private net.minecraft.client.renderer.special.SpecialModelRenderer<java.lang.Object> specialRenderer;
-    private java.lang.Object argumentForSpecialRendering;
-    private java.util.function.Supplier<org.joml.Vector3fc[]> extents;
-    final net.minecraft.client.renderer.item.ItemStackRenderState this$0;
-    public net.minecraft.client.renderer.item.ItemStackRenderState$LayerRenderState(net.minecraft.client.renderer.item.ItemStackRenderState);
-    public void clear();
-    public void setQuads(net.minecraft.client.resources.model.geometry.ItemQuads);
-    public void setUsesBlockLight(boolean);
-    public void setExtents(java.util.function.Supplier<org.joml.Vector3fc[]>);
-    public void setParticleMaterial(net.minecraft.client.resources.model.sprite.Material$Baked);
-    public void setItemTransform(net.minecraft.client.resources.model.cuboid.ItemTransform);
-    public void setLocalTransform(org.joml.Matrix4fc);
-    public <T> void setupSpecialModel(net.minecraft.client.renderer.special.SpecialModelRenderer<T>, T);
-    private static net.minecraft.client.renderer.special.SpecialModelRenderer<java.lang.Object> eraseSpecialRenderer(net.minecraft.client.renderer.special.SpecialModelRenderer<?>);
-    public void setFoilType(net.minecraft.client.renderer.item.ItemStackRenderState$FoilType);
-    public it.unimi.dsi.fastutil.ints.IntList tintLayers();
-    private void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, int, int);
-    private void applyTransform(com.mojang.blaze3d.vertex.PoseStack$Pose);
-    private static org.joml.Vector3fc[] lambda$static$0();
-    static {};
-}
+```
+private static final NO_EXTENTS : [Lorg/joml/Vector3fc;
+public static final NO_EXTENTS_SUPPLIER : Ljava/util/function/Supplier;
+public static final EMPTY_TINTS : [I
+private quads : Lnet/minecraft/client/resources/model/geometry/ItemQuads;
+private usesBlockLight : Z
+private particleMaterial : Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+private itemTransform : Lnet/minecraft/client/resources/model/cuboid/ItemTransform;
+private final localTransform : Lorg/joml/Matrix4f;
+private foilType : Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+private tintLayers : Lit/unimi/dsi/fastutil/ints/IntList;
+private specialRenderer : Lnet/minecraft/client/renderer/special/SpecialModelRenderer;
+private argumentForSpecialRendering : Ljava/lang/Object;
+private extents : Ljava/util/function/Supplier;
+final synthetic this$0 : Lnet/minecraft/client/renderer/item/ItemStackRenderState;
+public <init>(Lnet/minecraft/client/renderer/item/ItemStackRenderState;)V
+public clear()V
+public setQuads(Lnet/minecraft/client/resources/model/geometry/ItemQuads;)V
+public setUsesBlockLight(Z)V
+public setExtents(Ljava/util/function/Supplier;)V
+public setParticleMaterial(Lnet/minecraft/client/resources/model/sprite/Material$Baked;)V
+public setItemTransform(Lnet/minecraft/client/resources/model/cuboid/ItemTransform;)V
+public setLocalTransform(Lorg/joml/Matrix4fc;)V
+public setupSpecialModel(Lnet/minecraft/client/renderer/special/SpecialModelRenderer;Ljava/lang/Object;)V
+private static eraseSpecialRenderer(Lnet/minecraft/client/renderer/special/SpecialModelRenderer;)Lnet/minecraft/client/renderer/special/SpecialModelRenderer;
+public setFoilType(Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;)V
+public tintLayers()Lit/unimi/dsi/fastutil/ints/IntList;
+private submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;III)V
+private applyTransform(Lcom/mojang/blaze3d/vertex/PoseStack$Pose;)V
+private static synthetic lambda$static$0()[Lorg/joml/Vector3fc;
+static <clinit>()V
 ```

@@ -11,29 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `hasPermissions()Z` | `` | both | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| calls | `hasPermissions()Z` | `` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `enabledFeatures` | `()Lnet/minecraft/world/flag/FeatureFlagSet;` | exact | invokevirtual@4 in `FabricCreativeModeTabOutput.getEnabledFeatures` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `hasPermissions` | `()Z` | exact | invokevirtual@4 in `FabricCreativeModeTabOutput.shouldShowOpRestrictedItems` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `hasPermissions` | `()Z` | exact | invokevirtual@113 in `CreativeModeTabMixin.getStacks` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `hasPermissions` | `()Z` | exact | invokevirtual@17 in `CreativeModeInventoryScreenMixin.hasAdditionalPages` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (3 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.CreativeModeTab$ItemDisplayParameters extends java.lang.Record {
-    private final net.minecraft.world.flag.FeatureFlagSet enabledFeatures;
-    private final boolean hasPermissions;
-    private final net.minecraft.core.HolderLookup$Provider holders;
-    public net.minecraft.world.item.CreativeModeTab$ItemDisplayParameters(net.minecraft.world.flag.FeatureFlagSet, boolean, net.minecraft.core.HolderLookup$Provider);
-    public boolean needsUpdate(net.minecraft.world.flag.FeatureFlagSet, boolean, net.minecraft.core.HolderLookup$Provider);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.world.flag.FeatureFlagSet enabledFeatures();
-    public boolean hasPermissions();
-    public net.minecraft.core.HolderLookup$Provider holders();
-}
+```
+private final enabledFeatures : Lnet/minecraft/world/flag/FeatureFlagSet;
+private final hasPermissions : Z
+private final holders : Lnet/minecraft/core/HolderLookup$Provider;
+public <init>(Lnet/minecraft/world/flag/FeatureFlagSet;ZLnet/minecraft/core/HolderLookup$Provider;)V
+public needsUpdate(Lnet/minecraft/world/flag/FeatureFlagSet;ZLnet/minecraft/core/HolderLookup$Provider;)Z
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public enabledFeatures()Lnet/minecraft/world/flag/FeatureFlagSet;
+public hasPermissions()Z
+public holders()Lnet/minecraft/core/HolderLookup$Provider;
 ```

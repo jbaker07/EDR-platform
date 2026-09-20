@@ -11,25 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.codec|net.minecraft.network.codec]]
 
+`record` final; extends `java/lang/Record`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `type()Ljava/lang/Object;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `type` | `()Ljava/lang/Object;` | exact | invokevirtual@1 in `IdDispatchCodecMixin.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `type` | `()Ljava/lang/Object;` | exact | invokevirtual@11 in `IdDispatchCodecMixin.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `type` | `()Ljava/lang/Object;` | exact | invokevirtual@72 in `IdDispatchCodecMixin.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-final class net.minecraft.network.codec.IdDispatchCodec$Entry<B, V, T> extends java.lang.Record {
-    private final net.minecraft.network.codec.StreamCodec<? super B, ? extends V> serializer;
-    private final T type;
-    private net.minecraft.network.codec.IdDispatchCodec$Entry(net.minecraft.network.codec.StreamCodec<? super B, ? extends V>, T);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.network.codec.StreamCodec<? super B, ? extends V> serializer();
-    public T type();
-}
+```
+private final serializer : Lnet/minecraft/network/codec/StreamCodec;
+private final type : Ljava/lang/Object;
+private <init>(Lnet/minecraft/network/codec/StreamCodec;Ljava/lang/Object;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public serializer()Lnet/minecraft/network/codec/StreamCodec;
+public type()Ljava/lang/Object;
 ```

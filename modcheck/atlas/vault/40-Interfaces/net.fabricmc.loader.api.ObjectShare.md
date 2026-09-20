@@ -13,7 +13,7 @@ fabric-loader 0.19.5 -- kind: interface
 
 ```java
 public abstract java.lang.Object get(java.lang.String)
-public abstract void whenAvailable(java.lang.String, java.util.function.BiConsumer<java.lang.String, java.lang.Object>)
+public abstract void whenAvailable(java.lang.String, java.util.function.BiConsumer)
 public abstract java.lang.Object put(java.lang.String, java.lang.Object)
 public abstract java.lang.Object putIfAbsent(java.lang.String, java.lang.Object)
 public abstract java.lang.Object remove(java.lang.String)

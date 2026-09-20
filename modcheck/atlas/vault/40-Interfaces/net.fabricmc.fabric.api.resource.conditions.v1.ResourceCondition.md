@@ -13,10 +13,9 @@ sha256: "1d7d9bea7e90eacfb57ac9e6d1f09036c8f118fc5ab50328f55c4d0b8519782c"
 Module: [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] -- kind: interface
 
 ```java
-public static final com.mojang.serialization.Codec<net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition> CODEC
-public static final com.mojang.serialization.Codec<java.util.List<net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition>> LIST_CODEC
-public static final com.mojang.serialization.Codec<net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition> CONDITION_CODEC
-public abstract net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType<?> getType()
+public static final com.mojang.serialization.Codec CODEC
+public static final com.mojang.serialization.Codec LIST_CODEC
+public static final com.mojang.serialization.Codec CONDITION_CODEC
+public abstract net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType getType()
 public abstract boolean test(net.minecraft.resources.RegistryOps$RegistryInfoLookup)
-static {}
 ```

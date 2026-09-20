@@ -11,29 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`enum` public final; extends `java/lang/Enum`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `ordinal()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `ordinal()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `values()[Lnet/minecraft/client/renderer/item/ItemStackRenderState$` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| reads | `NONELnet/minecraft/client/renderer/item/ItemStackRenderState$Foi` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@11 in `EncodingFormat.foilType` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@15 in `ExtendedItemFeatureRenderer$2.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@30 in `ExtendedItemFeatureRenderer$2.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@45 in `ExtendedItemFeatureRenderer$2.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@97 in `ExtendedItemFeatureRenderer.bufferMain` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `values` | `()[Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | invokestatic@161 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `values` | `()[Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | invokestatic@0 in `ExtendedItemFeatureRenderer$2.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `NONE` | `Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | getstatic@42 in `ModelHelper.computeMaterialFlags` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `NONE` | `Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | getstatic@173 in `SubmitNodeCollectionMixin.submitItem` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `NONE` | `Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | getstatic@12 in `ExtendedItemFeatureRenderer$2.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `SPECIAL` | `Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | getstatic@42 in `ExtendedItemFeatureRenderer$2.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `SPECIAL` | `Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | getstatic@168 in `ExtendedItemFeatureRenderer.bufferMain` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `STANDARD` | `Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;` | exact | getstatic@27 in `ExtendedItemFeatureRenderer$2.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (4 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.renderer.item.ItemStackRenderState$FoilType extends java.lang.Enum<net.minecraft.client.renderer.item.ItemStackRenderState$FoilType> {
-    public static final net.minecraft.client.renderer.item.ItemStackRenderState$FoilType NONE;
-    public static final net.minecraft.client.renderer.item.ItemStackRenderState$FoilType STANDARD;
-    public static final net.minecraft.client.renderer.item.ItemStackRenderState$FoilType SPECIAL;
-    private static final net.minecraft.client.renderer.item.ItemStackRenderState$FoilType[] $VALUES;
-    public static net.minecraft.client.renderer.item.ItemStackRenderState$FoilType[] values();
-    public static net.minecraft.client.renderer.item.ItemStackRenderState$FoilType valueOf(java.lang.String);
-    private net.minecraft.client.renderer.item.ItemStackRenderState$FoilType();
-    private static net.minecraft.client.renderer.item.ItemStackRenderState$FoilType[] $values();
-    static {};
-}
+```
+public static final NONE : Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+public static final STANDARD : Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+public static final SPECIAL : Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+private static final synthetic $VALUES : [Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+public static values()[Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+private <init>(Ljava/lang/String;I)V
+private static synthetic $values()[Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;
+static <clinit>()V
 ```

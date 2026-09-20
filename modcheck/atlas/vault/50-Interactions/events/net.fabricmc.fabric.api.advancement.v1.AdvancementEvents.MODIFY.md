@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `AdvancementUtil.modifyAdvancement` | (impl code, not a mixin) | unknown | static_inference |
+| `AdvancementUtil.modifyAdvancement` @52 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

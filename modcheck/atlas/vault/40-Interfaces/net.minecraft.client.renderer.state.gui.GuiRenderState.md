@@ -11,55 +11,55 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `reset` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `reset` | `()V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (38, all visibilities)
+## Declared members (10 fields, 28 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.state.gui.GuiRenderState {
-    private static final int DEBUG_RECTANGLE_COLOR;
-    private final java.util.List<net.minecraft.client.renderer.state.gui.GuiRenderState$Node> strata;
-    private int firstStratumAfterBlur;
-    private net.minecraft.client.renderer.state.gui.GuiRenderState$Node current;
-    private final java.util.Set<java.lang.Object> itemModelIdentities;
-    private net.minecraft.client.gui.navigation.ScreenRectangle lastElementBounds;
-    public net.minecraft.client.renderer.state.gui.PanoramaRenderState panoramaRenderState;
-    public org.joml.Vector4f clearColorOverride;
-    public boolean isHudHidden;
-    private net.minecraft.client.gui.navigation.ScreenRectangle windowRectangleForDebug;
-    public net.minecraft.client.renderer.state.gui.GuiRenderState();
-    public void nextStratum();
-    public void blurBeforeThisStratum();
-    public void up();
-    public void addItem(net.minecraft.client.renderer.state.gui.GuiItemRenderState);
-    public void addText(net.minecraft.client.renderer.state.gui.GuiTextRenderState);
-    public void addPicturesInPictureState(net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState);
-    public void addGuiElement(net.minecraft.client.renderer.state.gui.GuiElementRenderState);
-    private void addDebugRectangleIfEnabled(net.minecraft.client.gui.navigation.ScreenRectangle);
-    private boolean findAppropriateNode(net.minecraft.client.renderer.state.gui.ScreenArea);
-    private void navigateToAboveHighestElementWithIntersectingBounds(net.minecraft.client.gui.navigation.ScreenRectangle);
-    private boolean hasIntersection(net.minecraft.client.gui.navigation.ScreenRectangle, java.util.List<? extends net.minecraft.client.renderer.state.gui.ScreenArea>);
-    public void addBlitToCurrentLayer(net.minecraft.client.renderer.state.gui.BlitRenderState);
-    public void addGlyphToCurrentLayer(net.minecraft.client.renderer.state.gui.GuiElementRenderState);
-    public java.util.Set<java.lang.Object> getItemModelIdentities();
-    public void forEachElement(java.util.function.Consumer<net.minecraft.client.renderer.state.gui.GuiElementRenderState>, net.minecraft.client.renderer.state.gui.GuiRenderState$TraverseRange);
-    public void forEachItem(java.util.function.Consumer<net.minecraft.client.renderer.state.gui.GuiItemRenderState>);
-    public void forEachText(java.util.function.Consumer<net.minecraft.client.renderer.state.gui.GuiTextRenderState>);
-    public void forEachPictureInPicture(java.util.function.Consumer<net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState>);
-    public void sortElements(java.util.Comparator<net.minecraft.client.renderer.state.gui.GuiElementRenderState>);
-    private void traverse(java.util.function.Consumer<net.minecraft.client.renderer.state.gui.GuiRenderState$Node>, net.minecraft.client.renderer.state.gui.GuiRenderState$TraverseRange);
-    private void traverse(net.minecraft.client.renderer.state.gui.GuiRenderState$Node, java.util.function.Consumer<net.minecraft.client.renderer.state.gui.GuiRenderState$Node>);
-    public void reset();
-    private static void lambda$sortElements$0(java.util.Comparator, net.minecraft.client.renderer.state.gui.GuiRenderState$Node);
-    private void lambda$forEachPictureInPicture$0(java.util.function.Consumer, net.minecraft.client.renderer.state.gui.GuiRenderState$Node);
-    private void lambda$forEachText$0(java.util.function.Consumer, net.minecraft.client.renderer.state.gui.GuiRenderState$Node);
-    private void lambda$forEachItem$0(java.util.function.Consumer, net.minecraft.client.renderer.state.gui.GuiRenderState$Node);
-    private static void lambda$forEachElement$0(java.util.function.Consumer, net.minecraft.client.renderer.state.gui.GuiRenderState$Node);
-}
+```
+private static final DEBUG_RECTANGLE_COLOR : I
+private final strata : Ljava/util/List;
+private firstStratumAfterBlur : I
+private current : Lnet/minecraft/client/renderer/state/gui/GuiRenderState$Node;
+private final itemModelIdentities : Ljava/util/Set;
+private lastElementBounds : Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public panoramaRenderState : Lnet/minecraft/client/renderer/state/gui/PanoramaRenderState;
+public clearColorOverride : Lorg/joml/Vector4f;
+public isHudHidden : Z
+private windowRectangleForDebug : Lnet/minecraft/client/gui/navigation/ScreenRectangle;
+public <init>()V
+public nextStratum()V
+public blurBeforeThisStratum()V
+public up()V
+public addItem(Lnet/minecraft/client/renderer/state/gui/GuiItemRenderState;)V
+public addText(Lnet/minecraft/client/renderer/state/gui/GuiTextRenderState;)V
+public addPicturesInPictureState(Lnet/minecraft/client/renderer/state/gui/pip/PictureInPictureRenderState;)V
+public addGuiElement(Lnet/minecraft/client/renderer/state/gui/GuiElementRenderState;)V
+private addDebugRectangleIfEnabled(Lnet/minecraft/client/gui/navigation/ScreenRectangle;)V
+private findAppropriateNode(Lnet/minecraft/client/renderer/state/gui/ScreenArea;)Z
+private navigateToAboveHighestElementWithIntersectingBounds(Lnet/minecraft/client/gui/navigation/ScreenRectangle;)V
+private hasIntersection(Lnet/minecraft/client/gui/navigation/ScreenRectangle;Ljava/util/List;)Z
+public addBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V
+public addGlyphToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/GuiElementRenderState;)V
+public getItemModelIdentities()Ljava/util/Set;
+public forEachElement(Ljava/util/function/Consumer;Lnet/minecraft/client/renderer/state/gui/GuiRenderState$TraverseRange;)V
+public forEachItem(Ljava/util/function/Consumer;)V
+public forEachText(Ljava/util/function/Consumer;)V
+public forEachPictureInPicture(Ljava/util/function/Consumer;)V
+public sortElements(Ljava/util/Comparator;)V
+private traverse(Ljava/util/function/Consumer;Lnet/minecraft/client/renderer/state/gui/GuiRenderState$TraverseRange;)V
+private traverse(Lnet/minecraft/client/renderer/state/gui/GuiRenderState$Node;Ljava/util/function/Consumer;)V
+public reset()V
+private static synthetic lambda$sortElements$0(Ljava/util/Comparator;Lnet/minecraft/client/renderer/state/gui/GuiRenderState$Node;)V
+private synthetic lambda$forEachPictureInPicture$0(Ljava/util/function/Consumer;Lnet/minecraft/client/renderer/state/gui/GuiRenderState$Node;)V
+private synthetic lambda$forEachText$0(Ljava/util/function/Consumer;Lnet/minecraft/client/renderer/state/gui/GuiRenderState$Node;)V
+private synthetic lambda$forEachItem$0(Ljava/util/function/Consumer;Lnet/minecraft/client/renderer/state/gui/GuiRenderState$Node;)V
+private static synthetic lambda$forEachElement$0(Ljava/util/function/Consumer;Lnet/minecraft/client/renderer/state/gui/GuiRenderState$Node;)V
 ```

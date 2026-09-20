@@ -14,8 +14,8 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 
 ```java
 protected net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot wrapped
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedRootBlockStateModel()
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedRootBlockStateModel(net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot)
+protected <init>()
+protected <init>(net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot)
 public net.minecraft.client.renderer.block.dispatch.BlockStateModel bake(net.minecraft.world.level.block.state.BlockState, net.minecraft.client.resources.model.ModelBaker)
 public java.lang.Object visualEqualityGroup(net.minecraft.world.level.block.state.BlockState)
 public void resolveDependencies(net.minecraft.client.resources.model.ResolvableModel$Resolver)

@@ -11,20 +11,20 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `isEmpty()Z` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `isEmpty` | `()Z` | exact | invokeinterface@1 in `SynchronizedRecipesImpl.getAllMatches` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (3, all visibilities)
+## Declared members (0 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.item.crafting.RecipeInput {
-    public abstract net.minecraft.world.item.ItemStack getItem(int);
-    public abstract int size();
-    public default boolean isEmpty();
-}
+```
+public abstract getItem(I)Lnet/minecraft/world/item/ItemStack;
+public abstract size()I
+public isEmpty()Z
 ```

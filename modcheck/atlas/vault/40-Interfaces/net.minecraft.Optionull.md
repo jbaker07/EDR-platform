@@ -11,34 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft|net.minecraft]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `map(Ljava/lang/Object;Ljava/util/function/Function;)Ljava/lang/` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `isNullOrEmpty` | `([Ljava/lang/Object;)Z` | exact | invokestatic@1 in `GameRuleBuilder$EnumRuleBuilder.supportedValues` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `map` | `(Ljava/lang/Object;Ljava/util/function/Function;)Ljava/lang/Object;` | exact | invokestatic@43 in `ClientGameTestContextImpl.lambda$clickScreenButton$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `mapOrElse` | `(Ljava/lang/Object;Ljava/util/function/Function;Ljava/util/function/Su` | exact | invokestatic@15 in `ResourceConditionType.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (0 fields, 17 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.Optionull {
-    public net.minecraft.Optionull();
-    public static <T> T orElse(T, T);
-    public static <T, R> R map(T, java.util.function.Function<T, R>);
-    public static <T, R> R mapOrDefault(T, java.util.function.Function<T, R>, R);
-    public static <T, R> R mapOrElse(T, java.util.function.Function<T, R>, java.util.function.Supplier<R>);
-    public static <T> T first(java.util.Collection<T>);
-    public static <T> T firstOrDefault(java.util.Collection<T>, T);
-    public static <T> T firstOrElse(java.util.Collection<T>, java.util.function.Supplier<T>);
-    public static <T> boolean isNullOrEmpty(T[]);
-    public static boolean isNullOrEmpty(boolean[]);
-    public static boolean isNullOrEmpty(byte[]);
-    public static boolean isNullOrEmpty(char[]);
-    public static boolean isNullOrEmpty(short[]);
-    public static boolean isNullOrEmpty(int[]);
-    public static boolean isNullOrEmpty(long[]);
-    public static boolean isNullOrEmpty(float[]);
-    public static boolean isNullOrEmpty(double[]);
-}
+```
+public <init>()V
+public static orElse(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+public static map(Ljava/lang/Object;Ljava/util/function/Function;)Ljava/lang/Object;
+public static mapOrDefault(Ljava/lang/Object;Ljava/util/function/Function;Ljava/lang/Object;)Ljava/lang/Object;
+public static mapOrElse(Ljava/lang/Object;Ljava/util/function/Function;Ljava/util/function/Supplier;)Ljava/lang/Object;
+public static first(Ljava/util/Collection;)Ljava/lang/Object;
+public static firstOrDefault(Ljava/util/Collection;Ljava/lang/Object;)Ljava/lang/Object;
+public static firstOrElse(Ljava/util/Collection;Ljava/util/function/Supplier;)Ljava/lang/Object;
+public static isNullOrEmpty([Ljava/lang/Object;)Z
+public static isNullOrEmpty([Z)Z
+public static isNullOrEmpty([B)Z
+public static isNullOrEmpty([C)Z
+public static isNullOrEmpty([S)Z
+public static isNullOrEmpty([I)Z
+public static isNullOrEmpty([J)Z
+public static isNullOrEmpty([F)Z
+public static isNullOrEmpty([D)Z
 ```

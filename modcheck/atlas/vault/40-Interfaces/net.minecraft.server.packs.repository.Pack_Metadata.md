@@ -11,29 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `overlays()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `overlays` | `()Ljava/util/List;` | exact | invokevirtual@1 in `ResourceLoaderImpl$1.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `overlays` | `()Ljava/util/List;` | exact | invokevirtual@25 in `ResourceLoaderImpl$1.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `overlays` | `()Ljava/util/List;` | exact | invokevirtual@38 in `ResourceLoaderImpl$1.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `overlays` | `()Ljava/util/List;` | exact | invokevirtual@1 in `ModPackResourcesFactory.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `overlays` | `()Ljava/util/List;` | exact | invokevirtual@25 in `ModPackResourcesFactory.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `overlays` | `()Ljava/util/List;` | exact | invokevirtual@38 in `ModPackResourcesFactory.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (4 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.server.packs.repository.Pack$Metadata extends java.lang.Record {
-    private final net.minecraft.network.chat.Component description;
-    private final net.minecraft.server.packs.repository.PackCompatibility compatibility;
-    private final net.minecraft.world.flag.FeatureFlagSet requestedFeatures;
-    private final java.util.List<java.lang.String> overlays;
-    public net.minecraft.server.packs.repository.Pack$Metadata(net.minecraft.network.chat.Component, net.minecraft.server.packs.repository.PackCompatibility, net.minecraft.world.flag.FeatureFlagSet, java.util.List<java.lang.String>);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.network.chat.Component description();
-    public net.minecraft.server.packs.repository.PackCompatibility compatibility();
-    public net.minecraft.world.flag.FeatureFlagSet requestedFeatures();
-    public java.util.List<java.lang.String> overlays();
-}
+```
+private final description : Lnet/minecraft/network/chat/Component;
+private final compatibility : Lnet/minecraft/server/packs/repository/PackCompatibility;
+private final requestedFeatures : Lnet/minecraft/world/flag/FeatureFlagSet;
+private final overlays : Ljava/util/List;
+public <init>(Lnet/minecraft/network/chat/Component;Lnet/minecraft/server/packs/repository/PackCompatibility;Lnet/minecraft/world/flag/FeatureFlagSet;Ljava/util/List;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public description()Lnet/minecraft/network/chat/Component;
+public compatibility()Lnet/minecraft/server/packs/repository/PackCompatibility;
+public requestedFeatures()Lnet/minecraft/world/flag/FeatureFlagSet;
+public overlays()Ljava/util/List;
 ```

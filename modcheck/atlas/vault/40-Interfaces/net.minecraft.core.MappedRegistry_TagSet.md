@@ -11,23 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`interface` abstract; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `get(Lnet/minecraft/tags/TagKey;)Ljava/util/Optional;` | `` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `get` | `(Lnet/minecraft/tags/TagKey;)Ljava/util/Optional;` | exact | invokeinterface@95 in `MappedRegistryMixin.fabric_applyPendingTagAliases` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `get` | `(Lnet/minecraft/tags/TagKey;)Ljava/util/Optional;` | exact | invokeinterface@262 in `MappedRegistryMixin.fabric_applyPendingTagAliases` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (0 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-interface net.minecraft.core.MappedRegistry$TagSet<T> {
-    public static <T> net.minecraft.core.MappedRegistry$TagSet<T> unbound();
-    public static <T> net.minecraft.core.MappedRegistry$TagSet<T> fromMap(java.util.Map<net.minecraft.tags.TagKey<T>, net.minecraft.core.HolderSet$Named<T>>);
-    public abstract boolean isBound();
-    public abstract java.util.Optional<net.minecraft.core.HolderSet$Named<T>> get(net.minecraft.tags.TagKey<T>);
-    public abstract void forEach(java.util.function.BiConsumer<? super net.minecraft.tags.TagKey<T>, ? super net.minecraft.core.HolderSet$Named<T>>);
-    public abstract java.util.stream.Stream<net.minecraft.core.HolderSet$Named<T>> getTags();
-}
+```
+public static unbound()Lnet/minecraft/core/MappedRegistry$TagSet;
+public static fromMap(Ljava/util/Map;)Lnet/minecraft/core/MappedRegistry$TagSet;
+public abstract isBound()Z
+public abstract get(Lnet/minecraft/tags/TagKey;)Ljava/util/Optional;
+public abstract forEach(Ljava/util/function/BiConsumer;)V
+public abstract getTags()Ljava/util/stream/Stream;
 ```

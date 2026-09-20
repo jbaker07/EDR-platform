@@ -11,38 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `blockColors()Lnet/minecraft/client/color/block/BlockColors;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `options()Lnet/minecraft/client/renderer/state/OptionsRenderState;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `blockColors` | `()Lnet/minecraft/client/color/block/BlockColors;` | exact | invokevirtual@14 in `MovingBlockFeatureRendererMixin.beforeInitBlockRenderer` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `options` | `()Lnet/minecraft/client/renderer/state/OptionsRenderState;` | exact | invokevirtual@6 in `MovingBlockFeatureRendererMixin.beforeInitBlockRenderer` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (20, all visibilities)
+## Declared members (8 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.renderer.feature.FeatureFrameContext extends java.lang.Record {
-    private final net.minecraft.client.renderer.state.OptionsRenderState options;
-    private final net.minecraft.client.gui.Font font;
-    private final net.minecraft.client.renderer.block.BlockStateModelSet blockStateModelSet;
-    private final net.minecraft.client.color.block.BlockColors blockColors;
-    private final net.minecraft.client.renderer.texture.TextureManager textureManager;
-    private final net.minecraft.client.resources.model.sprite.AtlasManager atlasManager;
-    private final com.mojang.renderpearl.api.textures.GpuTextureView lightmap;
-    private final net.minecraft.client.renderer.StagedVertexBuffer stagedVertexBuffer;
-    public net.minecraft.client.renderer.feature.FeatureFrameContext(net.minecraft.client.renderer.state.OptionsRenderState, net.minecraft.client.gui.Font, net.minecraft.client.renderer.block.BlockStateModelSet, net.minecraft.client.color.block.BlockColors, net.minecraft.client.renderer.texture.TextureManager, net.minecraft.client.resources.model.sprite.AtlasManager, com.mojang.renderpearl.api.textures.GpuTextureView, net.minecraft.client.renderer.StagedVertexBuffer);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.client.renderer.state.OptionsRenderState options();
-    public net.minecraft.client.gui.Font font();
-    public net.minecraft.client.renderer.block.BlockStateModelSet blockStateModelSet();
-    public net.minecraft.client.color.block.BlockColors blockColors();
-    public net.minecraft.client.renderer.texture.TextureManager textureManager();
-    public net.minecraft.client.resources.model.sprite.AtlasManager atlasManager();
-    public com.mojang.renderpearl.api.textures.GpuTextureView lightmap();
-    public net.minecraft.client.renderer.StagedVertexBuffer stagedVertexBuffer();
-}
+```
+private final options : Lnet/minecraft/client/renderer/state/OptionsRenderState;
+private final font : Lnet/minecraft/client/gui/Font;
+private final blockStateModelSet : Lnet/minecraft/client/renderer/block/BlockStateModelSet;
+private final blockColors : Lnet/minecraft/client/color/block/BlockColors;
+private final textureManager : Lnet/minecraft/client/renderer/texture/TextureManager;
+private final atlasManager : Lnet/minecraft/client/resources/model/sprite/AtlasManager;
+private final lightmap : Lcom/mojang/renderpearl/api/textures/GpuTextureView;
+private final stagedVertexBuffer : Lnet/minecraft/client/renderer/StagedVertexBuffer;
+public <init>(Lnet/minecraft/client/renderer/state/OptionsRenderState;Lnet/minecraft/client/gui/Font;Lnet/minecraft/client/renderer/block/BlockStateModelSet;Lnet/minecraft/client/color/block/BlockColors;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/client/resources/model/sprite/AtlasManager;Lcom/mojang/renderpearl/api/textures/GpuTextureView;Lnet/minecraft/client/renderer/StagedVertexBuffer;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public options()Lnet/minecraft/client/renderer/state/OptionsRenderState;
+public font()Lnet/minecraft/client/gui/Font;
+public blockStateModelSet()Lnet/minecraft/client/renderer/block/BlockStateModelSet;
+public blockColors()Lnet/minecraft/client/color/block/BlockColors;
+public textureManager()Lnet/minecraft/client/renderer/texture/TextureManager;
+public atlasManager()Lnet/minecraft/client/resources/model/sprite/AtlasManager;
+public lightmap()Lcom/mojang/renderpearl/api/textures/GpuTextureView;
+public stagedVertexBuffer()Lnet/minecraft/client/renderer/StagedVertexBuffer;
 ```

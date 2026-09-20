@@ -13,6 +13,6 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: interface
 
 ```java
-public default net.fabricmc.fabric.api.transfer.v1.storage.Storage<net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant> getFluidStorage(net.minecraft.core.Direction)
-public default net.fabricmc.fabric.api.transfer.v1.storage.Storage<net.fabricmc.fabric.api.transfer.v1.item.ItemVariant> getItemStorage(net.minecraft.core.Direction)
+public net.fabricmc.fabric.api.transfer.v1.storage.Storage getFluidStorage(net.minecraft.core.Direction)
+public net.fabricmc.fabric.api.transfer.v1.storage.Storage getItemStorage(net.minecraft.core.Direction)
 ```

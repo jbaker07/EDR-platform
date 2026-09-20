@@ -14,6 +14,6 @@ Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind:
 
 ```java
 public abstract int size()
-public abstract void forEach(java.util.function.Consumer<? super net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadView>)
+public abstract void forEach(java.util.function.Consumer)
 public abstract void outputTo(net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadEmitter)
 ```

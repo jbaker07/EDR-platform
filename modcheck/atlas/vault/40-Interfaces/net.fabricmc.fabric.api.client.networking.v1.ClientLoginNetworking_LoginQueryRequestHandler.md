@@ -13,5 +13,5 @@ sha256: "dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544"
 Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- kind: interface
 
 ```java
-public abstract java.util.concurrent.CompletableFuture<net.minecraft.network.FriendlyByteBuf> receive(net.minecraft.client.Minecraft, net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl, net.minecraft.network.FriendlyByteBuf, java.util.function.Consumer<io.netty.channel.ChannelFutureListener>)
+public abstract java.util.concurrent.CompletableFuture receive(net.minecraft.client.Minecraft, net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl, net.minecraft.network.FriendlyByteBuf, java.util.function.Consumer)
 ```

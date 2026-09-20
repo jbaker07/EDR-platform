@@ -11,23 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/world/item/crafting/Recipe`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `defaultCraftingReminder` | `@Redirect at INVOKE Lnet/minecraft/world/item/Item;getCraftingRemainder()Lnet/mi` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `defaultCraftingReminder` | `(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/core` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| wraps | `defaultCraftingReminder` | `(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/core` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (0 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.item.crafting.CraftingRecipe extends net.minecraft.world.item.crafting.Recipe<net.minecraft.world.item.crafting.CraftingInput> {
-    public default net.minecraft.world.item.crafting.RecipeType<net.minecraft.world.item.crafting.CraftingRecipe> getType();
-    public abstract net.minecraft.world.item.crafting.RecipeSerializer<? extends net.minecraft.world.item.crafting.CraftingRecipe> getSerializer();
-    public abstract net.minecraft.world.item.crafting.CraftingBookCategory category();
-    public default net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getRemainingItems(net.minecraft.world.item.crafting.CraftingInput);
-    public static net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> defaultCraftingReminder(net.minecraft.world.item.crafting.CraftingInput);
-    public default net.minecraft.world.item.crafting.RecipeBookCategory recipeBookCategory();
-}
+```
+public getType()Lnet/minecraft/world/item/crafting/RecipeType;
+public abstract getSerializer()Lnet/minecraft/world/item/crafting/RecipeSerializer;
+public abstract category()Lnet/minecraft/world/item/crafting/CraftingBookCategory;
+public getRemainingItems(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/core/NonNullList;
+public static defaultCraftingReminder(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/core/NonNullList;
+public recipeBookCategory()Lnet/minecraft/world/item/crafting/RecipeBookCategory;
 ```

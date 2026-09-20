@@ -13,7 +13,6 @@ sha256: "1b2d1d92f0e32719b571a51de70acc363b388f888bd8abf0882580a9a0a4f4d5"
 Module: [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.dimension.v1.DimensionEvents$ModifyAttributes> MODIFY_ATTRIBUTES
-public net.fabricmc.fabric.api.dimension.v1.DimensionEvents()
-static {}
+public static final net.fabricmc.fabric.api.event.Event MODIFY_ATTRIBUTES
+public <init>()
 ```

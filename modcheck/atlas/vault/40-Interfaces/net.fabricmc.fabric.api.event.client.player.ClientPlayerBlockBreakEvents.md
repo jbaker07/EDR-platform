@@ -13,6 +13,5 @@ sha256: "f57dd8df1d78cbcaf6ee1073aebd64e5c959cc7224002098e653832f0ecd7de8"
 Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.client.player.ClientPlayerBlockBreakEvents$After> AFTER
-static {}
+public static final net.fabricmc.fabric.api.event.Event AFTER
 ```

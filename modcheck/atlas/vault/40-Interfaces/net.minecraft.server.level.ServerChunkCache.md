@@ -11,100 +11,102 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.level|net.minecraft.server.level]]
 
+`class` public; extends `net/minecraft/world/level/chunk/ChunkSource`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `blockChanged(Lnet/minecraft/core/BlockPos;)V` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| reads | `chunkMapLnet/minecraft/server/level/ChunkMap;` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `blockChanged` | `(Lnet/minecraft/core/BlockPos;)V` | exact | invokevirtual@28 in `BlockEntityMixin.fabric_syncChange` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `chunkMap` | `Lnet/minecraft/server/level/ChunkMap;` | exact | getfield@21 in `BlockEntityMixin.fabric_markChanged` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `chunkMap` | `Lnet/minecraft/server/level/ChunkMap;` | exact | getfield@18 in `PlayerLookup.tracking` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `chunkMap` | `Lnet/minecraft/server/level/ChunkMap;` | exact | getfield@26 in `PlayerLookup.tracking` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (82, all visibilities)
+## Declared members (17 fields, 65 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.level.ServerChunkCache extends net.minecraft.world.level.chunk.ChunkSource {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.server.level.DistanceManager distanceManager;
-    private final net.minecraft.server.level.ServerLevel level;
-    private final java.lang.Thread mainThread;
-    private final net.minecraft.server.level.ThreadedLevelLightEngine lightEngine;
-    private final net.minecraft.server.level.ServerChunkCache$MainThreadExecutor mainThreadProcessor;
-    public final net.minecraft.server.level.ChunkMap chunkMap;
-    private final net.minecraft.world.level.storage.SavedDataStorage savedDataStorage;
-    private final net.minecraft.world.level.TicketStorage ticketStorage;
-    private boolean spawnEnemies;
-    private static final int CACHE_SIZE;
-    private final long[] lastChunkPos;
-    private final net.minecraft.world.level.chunk.status.ChunkStatus[] lastChunkStatus;
-    private final net.minecraft.world.level.chunk.ChunkAccess[] lastChunk;
-    private final java.util.List<net.minecraft.world.level.chunk.LevelChunk> spawningChunks;
-    private final java.util.Set<net.minecraft.server.level.ChunkHolder> chunkHoldersToBroadcast;
-    private net.minecraft.world.level.NaturalSpawner$SpawnState lastSpawnState;
-    public net.minecraft.server.level.ServerChunkCache(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.datafixers.DataFixer, net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager, java.util.concurrent.Executor, net.minecraft.world.level.chunk.ChunkGenerator, int, int, boolean, net.minecraft.world.level.entity.ChunkStatusUpdateListener);
-    public net.minecraft.server.level.ThreadedLevelLightEngine getLightEngine();
-    private net.minecraft.server.level.ChunkHolder getVisibleChunkIfPresent(long);
-    private void storeInCache(long, net.minecraft.world.level.chunk.ChunkAccess, net.minecraft.world.level.chunk.status.ChunkStatus);
-    public net.minecraft.world.level.chunk.ChunkAccess getChunk(int, int, net.minecraft.world.level.chunk.status.ChunkStatus, boolean);
-    public net.minecraft.world.level.chunk.LevelChunk getChunkNow(int, int);
-    private void clearCache();
-    public java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>> getChunkFuture(int, int, net.minecraft.world.level.chunk.status.ChunkStatus, boolean);
-    private java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>> getChunkFutureMainThread(int, int, net.minecraft.world.level.chunk.status.ChunkStatus, boolean);
-    private boolean chunkAbsent(net.minecraft.server.level.ChunkHolder, int);
-    public boolean hasChunk(int, int);
-    public net.minecraft.world.level.chunk.LightChunk getChunkForLighting(int, int);
-    public net.minecraft.world.level.Level getLevel();
-    public boolean pollTask();
-    boolean runDistanceManagerUpdates();
-    public boolean isPositionTicking(long);
-    public void save(boolean);
-    public void close() throws java.io.IOException;
-    public void tick(java.util.function.BooleanSupplier, boolean);
-    private void tickChunks();
-    private void broadcastChangedChunks(net.minecraft.util.profiling.ProfilerFiller);
-    private void tickChunks(net.minecraft.util.profiling.ProfilerFiller);
-    private void tickSpawningChunk(net.minecraft.world.level.chunk.LevelChunk, java.util.List<net.minecraft.world.entity.MobCategory>, net.minecraft.world.level.NaturalSpawner$SpawnState);
-    private void getFullChunk(long, java.util.function.Consumer<net.minecraft.world.level.chunk.LevelChunk>);
-    public java.lang.String gatherStats();
-    public int getPendingTasksCount();
-    public net.minecraft.world.level.chunk.ChunkGenerator getGenerator();
-    public net.minecraft.world.level.chunk.ChunkGeneratorStructureState getGeneratorState();
-    public net.minecraft.world.level.levelgen.RandomState randomState();
-    public int getLoadedChunksCount();
-    public void blockChanged(net.minecraft.core.BlockPos);
-    public void onLightUpdate(net.minecraft.world.level.LightLayer, net.minecraft.core.SectionPos);
-    public boolean hasActiveTickets();
-    public void addTicket(net.minecraft.server.level.Ticket, net.minecraft.world.level.ChunkPos);
-    public java.util.concurrent.CompletableFuture<?> addTicketAndLoadWithRadius(net.minecraft.server.level.TicketType, net.minecraft.world.level.ChunkPos, int);
-    public void addTicketWithRadius(net.minecraft.server.level.TicketType, net.minecraft.world.level.ChunkPos, int);
-    public void removeTicketWithRadius(net.minecraft.server.level.TicketType, net.minecraft.world.level.ChunkPos, int);
-    public boolean updateChunkForced(net.minecraft.world.level.ChunkPos, boolean);
-    public it.unimi.dsi.fastutil.longs.LongSet getForceLoadedChunks();
-    public void move(net.minecraft.server.level.ServerPlayer);
-    public boolean hasEntityWithId(int);
-    public void removeEntity(net.minecraft.world.entity.Entity);
-    public void addEntity(net.minecraft.world.entity.Entity);
-    public void sendToTrackingPlayersAndSelf(net.minecraft.world.entity.Entity, net.minecraft.network.protocol.Packet<? super net.minecraft.network.protocol.game.ClientGamePacketListener>);
-    public void sendToTrackingPlayers(net.minecraft.world.entity.Entity, net.minecraft.network.protocol.Packet<? super net.minecraft.network.protocol.game.ClientGamePacketListener>);
-    public void sendToTrackingPlayersFiltered(net.minecraft.world.entity.Entity, net.minecraft.network.protocol.Packet<? super net.minecraft.network.protocol.game.ClientGamePacketListener>, java.util.function.Predicate<net.minecraft.server.level.ServerPlayer>);
-    public void setViewDistance(int);
-    public void setSimulationDistance(int);
-    public void setSpawnSettings(boolean);
-    public java.lang.String getChunkDebugData(net.minecraft.world.level.ChunkPos);
-    public net.minecraft.world.level.storage.SavedDataStorage getDataStorage();
-    public net.minecraft.world.entity.ai.village.poi.PoiManager getPoiManager();
-    public net.minecraft.world.level.chunk.storage.ChunkScanAccess chunkScanner();
-    public net.minecraft.world.level.NaturalSpawner$SpawnState getLastSpawnState();
-    public void deactivateTicketsOnClosing();
-    public void onChunkReadyToSend(net.minecraft.server.level.ChunkHolder);
-    public net.minecraft.world.level.lighting.LevelLightEngine getLightEngine();
-    public net.minecraft.world.level.BlockGetter getLevel();
-    private static net.minecraft.world.level.chunk.status.ChunkStatus lambda$addTicketAndLoadWithRadius$0(int);
-    private void lambda$onLightUpdate$0(net.minecraft.core.SectionPos, net.minecraft.world.level.LightLayer);
-    private void lambda$tickChunks$0(int, net.minecraft.world.level.chunk.LevelChunk);
-    private static java.util.concurrent.CompletionStage lambda$getChunkFuture$1(java.util.concurrent.CompletableFuture);
-    private java.util.concurrent.CompletableFuture lambda$getChunkFuture$0(int, int, net.minecraft.world.level.chunk.status.ChunkStatus, boolean);
-    private net.minecraft.world.level.chunk.ChunkAccess lambda$getChunk$0(int, int, net.minecraft.world.level.chunk.status.ChunkStatus, boolean);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final distanceManager : Lnet/minecraft/server/level/DistanceManager;
+private final level : Lnet/minecraft/server/level/ServerLevel;
+private final mainThread : Ljava/lang/Thread;
+private final lightEngine : Lnet/minecraft/server/level/ThreadedLevelLightEngine;
+private final mainThreadProcessor : Lnet/minecraft/server/level/ServerChunkCache$MainThreadExecutor;
+public final chunkMap : Lnet/minecraft/server/level/ChunkMap;
+private final savedDataStorage : Lnet/minecraft/world/level/storage/SavedDataStorage;
+private final ticketStorage : Lnet/minecraft/world/level/TicketStorage;
+private spawnEnemies : Z
+private static final CACHE_SIZE : I
+private final lastChunkPos : [J
+private final lastChunkStatus : [Lnet/minecraft/world/level/chunk/status/ChunkStatus;
+private final lastChunk : [Lnet/minecraft/world/level/chunk/ChunkAccess;
+private final spawningChunks : Ljava/util/List;
+private final chunkHoldersToBroadcast : Ljava/util/Set;
+private lastSpawnState : Lnet/minecraft/world/level/NaturalSpawner$SpawnState;
+public <init>(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplateManager;Ljava/util/concurrent/Executor;Lnet/minecraft/world/level/chunk/ChunkGenerator;IIZLnet/minecraft/world/level/entity/ChunkStatusUpdateListener;)V
+public getLightEngine()Lnet/minecraft/server/level/ThreadedLevelLightEngine;
+private getVisibleChunkIfPresent(J)Lnet/minecraft/server/level/ChunkHolder;
+private storeInCache(JLnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/world/level/chunk/status/ChunkStatus;)V
+public getChunk(IILnet/minecraft/world/level/chunk/status/ChunkStatus;Z)Lnet/minecraft/world/level/chunk/ChunkAccess;
+public getChunkNow(II)Lnet/minecraft/world/level/chunk/LevelChunk;
+private clearCache()V
+public getChunkFuture(IILnet/minecraft/world/level/chunk/status/ChunkStatus;Z)Ljava/util/concurrent/CompletableFuture;
+private getChunkFutureMainThread(IILnet/minecraft/world/level/chunk/status/ChunkStatus;Z)Ljava/util/concurrent/CompletableFuture;
+private chunkAbsent(Lnet/minecraft/server/level/ChunkHolder;I)Z
+public hasChunk(II)Z
+public getChunkForLighting(II)Lnet/minecraft/world/level/chunk/LightChunk;
+public getLevel()Lnet/minecraft/world/level/Level;
+public pollTask()Z
+ runDistanceManagerUpdates()Z
+public isPositionTicking(J)Z
+public save(Z)V
+public close()V
+public tick(Ljava/util/function/BooleanSupplier;Z)V
+private tickChunks()V
+private broadcastChangedChunks(Lnet/minecraft/util/profiling/ProfilerFiller;)V
+private tickChunks(Lnet/minecraft/util/profiling/ProfilerFiller;)V
+private tickSpawningChunk(Lnet/minecraft/world/level/chunk/LevelChunk;Ljava/util/List;Lnet/minecraft/world/level/NaturalSpawner$SpawnState;)V
+private getFullChunk(JLjava/util/function/Consumer;)V
+public gatherStats()Ljava/lang/String;
+public getPendingTasksCount()I
+public getGenerator()Lnet/minecraft/world/level/chunk/ChunkGenerator;
+public getGeneratorState()Lnet/minecraft/world/level/chunk/ChunkGeneratorStructureState;
+public randomState()Lnet/minecraft/world/level/levelgen/RandomState;
+public getLoadedChunksCount()I
+public blockChanged(Lnet/minecraft/core/BlockPos;)V
+public onLightUpdate(Lnet/minecraft/world/level/LightLayer;Lnet/minecraft/core/SectionPos;)V
+public hasActiveTickets()Z
+public addTicket(Lnet/minecraft/server/level/Ticket;Lnet/minecraft/world/level/ChunkPos;)V
+public addTicketAndLoadWithRadius(Lnet/minecraft/server/level/TicketType;Lnet/minecraft/world/level/ChunkPos;I)Ljava/util/concurrent/CompletableFuture;
+public addTicketWithRadius(Lnet/minecraft/server/level/TicketType;Lnet/minecraft/world/level/ChunkPos;I)V
+public removeTicketWithRadius(Lnet/minecraft/server/level/TicketType;Lnet/minecraft/world/level/ChunkPos;I)V
+public updateChunkForced(Lnet/minecraft/world/level/ChunkPos;Z)Z
+public getForceLoadedChunks()Lit/unimi/dsi/fastutil/longs/LongSet;
+public move(Lnet/minecraft/server/level/ServerPlayer;)V
+public hasEntityWithId(I)Z
+public removeEntity(Lnet/minecraft/world/entity/Entity;)V
+public addEntity(Lnet/minecraft/world/entity/Entity;)V
+public sendToTrackingPlayersAndSelf(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/network/protocol/Packet;)V
+public sendToTrackingPlayers(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/network/protocol/Packet;)V
+public sendToTrackingPlayersFiltered(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/network/protocol/Packet;Ljava/util/function/Predicate;)V
+public setViewDistance(I)V
+public setSimulationDistance(I)V
+public setSpawnSettings(Z)V
+public getChunkDebugData(Lnet/minecraft/world/level/ChunkPos;)Ljava/lang/String;
+public getDataStorage()Lnet/minecraft/world/level/storage/SavedDataStorage;
+public getPoiManager()Lnet/minecraft/world/entity/ai/village/poi/PoiManager;
+public chunkScanner()Lnet/minecraft/world/level/chunk/storage/ChunkScanAccess;
+public getLastSpawnState()Lnet/minecraft/world/level/NaturalSpawner$SpawnState;
+public deactivateTicketsOnClosing()V
+public onChunkReadyToSend(Lnet/minecraft/server/level/ChunkHolder;)V
+public synthetic getLightEngine()Lnet/minecraft/world/level/lighting/LevelLightEngine;
+public synthetic getLevel()Lnet/minecraft/world/level/BlockGetter;
+private static synthetic lambda$addTicketAndLoadWithRadius$0(I)Lnet/minecraft/world/level/chunk/status/ChunkStatus;
+private synthetic lambda$onLightUpdate$0(Lnet/minecraft/core/SectionPos;Lnet/minecraft/world/level/LightLayer;)V
+private synthetic lambda$tickChunks$0(ILnet/minecraft/world/level/chunk/LevelChunk;)V
+private static synthetic lambda$getChunkFuture$1(Ljava/util/concurrent/CompletableFuture;)Ljava/util/concurrent/CompletionStage;
+private synthetic lambda$getChunkFuture$0(IILnet/minecraft/world/level/chunk/status/ChunkStatus;Z)Ljava/util/concurrent/CompletableFuture;
+private synthetic lambda$getChunk$0(IILnet/minecraft/world/level/chunk/status/ChunkStatus;Z)Lnet/minecraft/world/level/chunk/ChunkAccess;
+static <clinit>()V
 ```

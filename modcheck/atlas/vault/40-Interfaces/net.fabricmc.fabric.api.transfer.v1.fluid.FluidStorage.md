@@ -13,9 +13,8 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup<net.fabricmc.fabric.api.transfer.v1.storage.Storage<net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant>, net.minecraft.core.Direction> SIDED
-public static final net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup<net.fabricmc.fabric.api.transfer.v1.storage.Storage<net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant>, net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext> ITEM
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage$CombinedItemApiProvider> GENERAL_COMBINED_PROVIDER
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage$CombinedItemApiProvider> combinedItemApiProvider(net.minecraft.world.item.Item)
-static {}
+public static final net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup SIDED
+public static final net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup ITEM
+public static final net.fabricmc.fabric.api.event.Event GENERAL_COMBINED_PROVIDER
+public static net.fabricmc.fabric.api.event.Event combinedItemApiProvider(net.minecraft.world.item.Item)
 ```

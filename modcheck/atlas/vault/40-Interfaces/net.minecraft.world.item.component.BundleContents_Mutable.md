@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`class` public; extends `net/minecraft/world/item/component/GrowableMutableContainer`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `toImmutable()Lnet/minecraft/world/item/component/BundleContents;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `tryInsert(Lnet/minecraft/world/item/ItemStack;)I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `toImmutable` | `()Lnet/minecraft/world/item/component/BundleContents;` | exact | invokevirtual@79 in `BundleContentsStorage.insert` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `tryInsert` | `(Lnet/minecraft/world/item/ItemStack;)I` | exact | invokevirtual@59 in `BundleContentsStorage.insert` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (26, all visibilities)
+## Declared members (3 fields, 23 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.item.component.BundleContents$Mutable extends net.minecraft.world.item.component.GrowableMutableContainer<net.minecraft.world.item.component.BundleContents> {
-    private org.apache.commons.lang3.math.Fraction weight;
-    private int selectedItem;
-    private boolean needsFlattening;
-    private net.minecraft.world.item.component.BundleContents$Mutable(java.util.List<net.minecraft.world.item.ItemStack>, org.apache.commons.lang3.math.Fraction, int);
-    public net.minecraft.world.item.component.BundleContents$Mutable();
-    public net.minecraft.world.item.component.BundleContents$Mutable clearItems();
-    private int findStackIndexWithinRange(net.minecraft.world.item.ItemStack, int, int);
-    private int findStackIndex(net.minecraft.world.item.ItemStack);
-    private int getMaxAmountToAdd(org.apache.commons.lang3.math.Fraction);
-    public int tryInsert(net.minecraft.world.item.ItemStack);
-    public int tryTransfer(net.minecraft.world.inventory.Slot, net.minecraft.world.entity.player.Player);
-    public void toggleSelectedItem(int);
-    private boolean indexIsOutsideAllowedBounds(int);
-    public net.minecraft.world.item.ItemStack removeOne();
-    private static org.apache.commons.lang3.math.Fraction getStackedWeight(org.apache.commons.lang3.math.Fraction, int);
-    private static org.apache.commons.lang3.math.Fraction getStackedWeight(net.minecraft.world.item.ItemStack);
-    public org.apache.commons.lang3.math.Fraction weight();
-    public int replaceSlotItems(net.minecraft.world.item.ItemProvider, net.minecraft.world.item.slot.SlotSelector);
-    public void modifySlots(java.util.function.Consumer<? super net.minecraft.world.entity.SlotAccess>, net.minecraft.world.item.slot.SlotSelector);
-    protected boolean setItem(int, net.minecraft.world.item.ItemStack);
-    protected boolean addSlotWithItem(net.minecraft.world.item.ItemProvider);
-    private static org.apache.commons.lang3.math.Fraction getWeightWithAddedItems(org.apache.commons.lang3.math.Fraction, net.minecraft.world.item.ItemStack);
-    public boolean canInsertNewSlots();
-    private void mergeIdenticalStacks();
-    public net.minecraft.world.item.component.BundleContents toImmutable();
-    public java.lang.Object toImmutable();
-}
+```
+private weight : Lorg/apache/commons/lang3/math/Fraction;
+private selectedItem : I
+private needsFlattening : Z
+private <init>(Ljava/util/List;Lorg/apache/commons/lang3/math/Fraction;I)V
+public <init>()V
+public clearItems()Lnet/minecraft/world/item/component/BundleContents$Mutable;
+private findStackIndexWithinRange(Lnet/minecraft/world/item/ItemStack;II)I
+private findStackIndex(Lnet/minecraft/world/item/ItemStack;)I
+private getMaxAmountToAdd(Lorg/apache/commons/lang3/math/Fraction;)I
+public tryInsert(Lnet/minecraft/world/item/ItemStack;)I
+public tryTransfer(Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/entity/player/Player;)I
+public toggleSelectedItem(I)V
+private indexIsOutsideAllowedBounds(I)Z
+public removeOne()Lnet/minecraft/world/item/ItemStack;
+private static getStackedWeight(Lorg/apache/commons/lang3/math/Fraction;I)Lorg/apache/commons/lang3/math/Fraction;
+private static getStackedWeight(Lnet/minecraft/world/item/ItemStack;)Lorg/apache/commons/lang3/math/Fraction;
+public weight()Lorg/apache/commons/lang3/math/Fraction;
+public replaceSlotItems(Lnet/minecraft/world/item/ItemProvider;Lnet/minecraft/world/item/slot/SlotSelector;)I
+public modifySlots(Ljava/util/function/Consumer;Lnet/minecraft/world/item/slot/SlotSelector;)V
+protected setItem(ILnet/minecraft/world/item/ItemStack;)Z
+protected addSlotWithItem(Lnet/minecraft/world/item/ItemProvider;)Z
+private static getWeightWithAddedItems(Lorg/apache/commons/lang3/math/Fraction;Lnet/minecraft/world/item/ItemStack;)Lorg/apache/commons/lang3/math/Fraction;
+public canInsertNewSlots()Z
+private mergeIdenticalStacks()V
+public toImmutable()Lnet/minecraft/world/item/component/BundleContents;
+public synthetic toImmutable()Ljava/lang/Object;
 ```

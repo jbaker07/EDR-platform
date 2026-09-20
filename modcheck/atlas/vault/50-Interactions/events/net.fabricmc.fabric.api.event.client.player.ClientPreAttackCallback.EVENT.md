@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftMixin.injectHandleInputEventsForPreAttackCallback` | `Minecraft.handleKeybinds` @Inject at INVOKE Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z | client | static_inference |
+| `MinecraftMixin.injectHandleInputEventsForPreAttackCallback` @52 | [[40-Interfaces/net.minecraft.client.Minecraft|Minecraft]].`handleKeybinds` @Inject INVOKE `Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z` | unknown | static_inference |
 
 ## Contract
 

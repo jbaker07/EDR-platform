@@ -11,405 +11,437 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network|net.minecraft.network]]
 
+`class` public; extends `io/netty/buffer/ByteBuf`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lio/netty/buffer/ByteBuf;)V` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `copy()Lio/netty/buffer/ByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `isReadable()Z` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readBoolean()Z` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readByte()B` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readByte()B` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `readIdentifier()Lnet/minecraft/resources/Identifier;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readUtf()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readUtf()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `readVarInt()I` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readVarInt()I` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `readVarIntArray()[I` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readableBytes()I` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readableBytes()I` | `` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `readableBytes()I` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `skipBytes(I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `skipBytes(I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `skipBytes(I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `writeByte(I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `writeByte(I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `writeBytes([B)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `writeBytes(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/network/FriendlyBy` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `writeUtf(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `writeUtf(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `writeVarInt(I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `writeVarInt(I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `writeVarIntArray([I)Lnet/minecraft/network/FriendlyByteBuf;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@7 in `FriendlyByteBufs.create` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@16 in `FriendlyByteBufs.readBytes` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@16 in `FriendlyByteBufs.readSlice` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@16 in `FriendlyByteBufs.readRetainedSlice` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@15 in `FriendlyByteBufs.copy` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@17 in `FriendlyByteBufs.copy` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@15 in `FriendlyByteBufs.slice` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@15 in `FriendlyByteBufs.retainedSlice` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@17 in `FriendlyByteBufs.slice` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@17 in `FriendlyByteBufs.retainedSlice` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@15 in `FriendlyByteBufs.duplicate` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@15 in `FriendlyByteBufs.retainedDuplicate` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@7 in `FriendlyByteBufs.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lio/netty/buffer/ByteBuf;)V` | exact | invokespecial@34 in `IdDispatchCodecMixin.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `copy` | `()Lio/netty/buffer/ByteBuf;` | exact | invokevirtual@2 in `PayloadHelper.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `copy` | `()Lio/netty/buffer/ByteBuf;` | exact | invokevirtual@11 in `PayloadHelper.read` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `isReadable` | `()Z` | exact | invokevirtual@17 in `RegistrationPayload.read` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readBoolean` | `()Z` | exact | invokevirtual@1 in `ServerboundCustomQueryAnswerPacketMixin.readResponse` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readByte` | `()B` | exact | invokevirtual@24 in `RegistrationPayload.read` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readByte` | `()B` | exact | invokevirtual@62 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readIdentifier` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@48 in `IdDispatchCodecMixin.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readUtf` | `()Ljava/lang/String;` | exact | invokevirtual@6 in `CommonRegisterPayload.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readUtf` | `()Ljava/lang/String;` | exact | invokevirtual@31 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readUtf` | `()Ljava/lang/String;` | exact | invokevirtual@56 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readUtf` | `()Ljava/lang/String;` | exact | invokevirtual@99 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readUtf` | `()Ljava/lang/String;` | exact | invokevirtual@158 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readVarInt` | `()I` | exact | invokevirtual@2 in `CommonRegisterPayload.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readVarInt` | `()I` | exact | invokevirtual@17 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readVarInt` | `()I` | exact | invokevirtual@40 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readVarInt` | `()I` | exact | invokevirtual@80 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readVarInt` | `()I` | exact | invokevirtual@108 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readVarInt` | `()I` | exact | invokevirtual@124 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readVarInt` | `()I` | exact | invokevirtual@130 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `readVarIntArray` | `()[I` | exact | invokevirtual@2 in `CommonVersionPayload.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readableBytes` | `()I` | exact | invokevirtual@20 in `PayloadHelper.read` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readableBytes` | `()I` | exact | invokevirtual@1 in `PayloadHelper.assertSize` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readableBytes` | `()I` | exact | invokevirtual@46 in `ServerLoginPacketListenerImplMixin.handleCustomPayloadReceivedAsync` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `readableBytes` | `()I` | exact | invokevirtual@68 in `ClientHandshakePacketListenerImplMixin.handleQueryRequest` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `skipBytes` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@23 in `PayloadHelper.read` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `skipBytes` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@49 in `ServerLoginPacketListenerImplMixin.handleCustomPayloadReceivedAsync` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `skipBytes` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@71 in `ClientHandshakePacketListenerImplMixin.handleQueryRequest` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `writeByte` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@43 in `RegistrationPayload.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `writeByte` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@83 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeBytes` | `(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@5 in `PayloadHelper.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `writeBytes` | `(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@14 in `PayloadHelper.read` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `writeBytes` | `([B)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@59 in `RegistrationPayload.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `writeUtf` | `(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@14 in `CommonRegisterPayload.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `writeUtf` | `(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@5 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeUtf` | `(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@56 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeUtf` | `(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@387 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeUtf` | `(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@523 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeVarInt` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@5 in `CommonRegisterPayload.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `writeVarInt` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@38 in `RegistrySyncPayload.write` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeVarInt` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@16 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeVarInt` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@154 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeVarInt` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@399 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeVarInt` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@462 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeVarInt` | `(I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@474 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `writeVarIntArray` | `([I)Lnet/minecraft/network/FriendlyByteBuf;` | exact | invokevirtual@5 in `CommonVersionPayload.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (362, all visibilities)
+## Declared members (4 fields, 358 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.FriendlyByteBuf extends io.netty.buffer.ByteBuf {
-    private final io.netty.buffer.ByteBuf source;
-    public static final short MAX_STRING_LENGTH;
-    public static final int MAX_COMPONENT_STRING_LENGTH;
-    private static final com.google.gson.Gson GSON;
-    public net.minecraft.network.FriendlyByteBuf(io.netty.buffer.ByteBuf);
-    public <T> T readWithCodecTrusted(com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, com.mojang.serialization.Codec<T>);
-    public <T> T readWithCodec(com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, com.mojang.serialization.Codec<T>, net.minecraft.nbt.NbtAccounter);
-    public <T> net.minecraft.network.FriendlyByteBuf writeWithCodec(com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, com.mojang.serialization.Codec<T>, T);
-    public <T> T readLenientJsonWithCodec(com.mojang.serialization.Codec<T>);
-    public <T> void writeJsonWithCodec(com.mojang.serialization.Codec<T>, T);
-    public void readWithCount(java.util.function.Consumer<net.minecraft.network.FriendlyByteBuf>);
-    public <E extends java.lang.Enum<E>> void writeEnumSet(java.util.EnumSet<E>, java.lang.Class<E>);
-    public <E extends java.lang.Enum<E>> java.util.EnumSet<E> readEnumSet(java.lang.Class<E>);
-    public <T> void writeOptional(java.util.Optional<T>, net.minecraft.network.codec.StreamEncoder<? super net.minecraft.network.FriendlyByteBuf, T>);
-    public <T> java.util.Optional<T> readOptional(net.minecraft.network.codec.StreamDecoder<? super net.minecraft.network.FriendlyByteBuf, T>);
-    public <L, R> void writeEither(com.mojang.datafixers.util.Either<L, R>, net.minecraft.network.codec.StreamEncoder<? super net.minecraft.network.FriendlyByteBuf, L>, net.minecraft.network.codec.StreamEncoder<? super net.minecraft.network.FriendlyByteBuf, R>);
-    public <L, R> com.mojang.datafixers.util.Either<L, R> readEither(net.minecraft.network.codec.StreamDecoder<? super net.minecraft.network.FriendlyByteBuf, L>, net.minecraft.network.codec.StreamDecoder<? super net.minecraft.network.FriendlyByteBuf, R>);
-    public <T> T readNullable(net.minecraft.network.codec.StreamDecoder<? super net.minecraft.network.FriendlyByteBuf, T>);
-    public static <T, B extends io.netty.buffer.ByteBuf> T readNullable(B, net.minecraft.network.codec.StreamDecoder<? super B, T>);
-    public <T> void writeNullable(T, net.minecraft.network.codec.StreamEncoder<? super net.minecraft.network.FriendlyByteBuf, T>);
-    public static <T, B extends io.netty.buffer.ByteBuf> void writeNullable(B, T, net.minecraft.network.codec.StreamEncoder<? super B, T>);
-    public byte[] readByteArray();
-    public static byte[] readByteArray(io.netty.buffer.ByteBuf);
-    public net.minecraft.network.FriendlyByteBuf writeByteArray(byte[]);
-    public static void writeByteArray(io.netty.buffer.ByteBuf, byte[]);
-    public byte[] readByteArray(int);
-    public static byte[] readByteArray(io.netty.buffer.ByteBuf, int);
-    public net.minecraft.network.FriendlyByteBuf writeVarIntArray(int[]);
-    public int[] readVarIntArray();
-    public int[] readVarIntArray(int);
-    public net.minecraft.network.FriendlyByteBuf writeLongArray(long[]);
-    public static void writeLongArray(io.netty.buffer.ByteBuf, long[]);
-    public net.minecraft.network.FriendlyByteBuf writeFixedSizeLongArray(long[]);
-    public static void writeFixedSizeLongArray(io.netty.buffer.ByteBuf, long[]);
-    public long[] readLongArray();
-    public long[] readFixedSizeLongArray(long[]);
-    public static long[] readLongArray(io.netty.buffer.ByteBuf);
-    public static long[] readFixedSizeLongArray(io.netty.buffer.ByteBuf, long[]);
-    public net.minecraft.core.BlockPos readBlockPos();
-    public static net.minecraft.core.BlockPos readBlockPos(io.netty.buffer.ByteBuf);
-    public net.minecraft.network.FriendlyByteBuf writeBlockPos(net.minecraft.core.BlockPos);
-    public static void writeBlockPos(io.netty.buffer.ByteBuf, net.minecraft.core.BlockPos);
-    public net.minecraft.world.level.ChunkPos readChunkPos();
-    public net.minecraft.network.FriendlyByteBuf writeChunkPos(net.minecraft.world.level.ChunkPos);
-    public static net.minecraft.world.level.ChunkPos readChunkPos(io.netty.buffer.ByteBuf);
-    public static void writeChunkPos(io.netty.buffer.ByteBuf, net.minecraft.world.level.ChunkPos);
-    public net.minecraft.core.GlobalPos readGlobalPos();
-    public void writeGlobalPos(net.minecraft.core.GlobalPos);
-    public org.joml.Vector3f readVector3f();
-    public static org.joml.Vector3f readVector3f(io.netty.buffer.ByteBuf);
-    public void writeVector3f(org.joml.Vector3f);
-    public static void writeVector3f(io.netty.buffer.ByteBuf, org.joml.Vector3fc);
-    public org.joml.Quaternionf readQuaternion();
-    public static org.joml.Quaternionf readQuaternion(io.netty.buffer.ByteBuf);
-    public void writeQuaternion(org.joml.Quaternionf);
-    public static void writeQuaternion(io.netty.buffer.ByteBuf, org.joml.Quaternionfc);
-    public <T extends java.lang.Enum<T>> T readEnum(java.lang.Class<T>);
-    public net.minecraft.network.FriendlyByteBuf writeEnum(java.lang.Enum<?>);
-    public <T> T readById(java.util.function.IntFunction<T>);
-    public <T> net.minecraft.network.FriendlyByteBuf writeById(java.util.function.ToIntFunction<T>, T);
-    public int readVarInt();
-    public long readVarLong();
-    public net.minecraft.network.FriendlyByteBuf writeUUID(java.util.UUID);
-    public static void writeUUID(io.netty.buffer.ByteBuf, java.util.UUID);
-    public java.util.UUID readUUID();
-    public static java.util.UUID readUUID(io.netty.buffer.ByteBuf);
-    public net.minecraft.network.FriendlyByteBuf writeVarInt(int);
-    public net.minecraft.network.FriendlyByteBuf writeVarLong(long);
-    public net.minecraft.network.FriendlyByteBuf writeNbt(net.minecraft.nbt.Tag);
-    public static void writeNbt(io.netty.buffer.ByteBuf, net.minecraft.nbt.Tag);
-    public net.minecraft.nbt.CompoundTag readNbt();
-    public static net.minecraft.nbt.CompoundTag readNbt(io.netty.buffer.ByteBuf);
-    public static net.minecraft.nbt.Tag readNbt(io.netty.buffer.ByteBuf, net.minecraft.nbt.NbtAccounter);
-    public net.minecraft.nbt.Tag readNbt(net.minecraft.nbt.NbtAccounter);
-    public java.lang.String readUtf();
-    public java.lang.String readUtf(int);
-    public net.minecraft.network.FriendlyByteBuf writeUtf(java.lang.String);
-    public net.minecraft.network.FriendlyByteBuf writeUtf(java.lang.String, int);
-    public net.minecraft.resources.Identifier readIdentifier();
-    public net.minecraft.network.FriendlyByteBuf writeIdentifier(net.minecraft.resources.Identifier);
-    public <T> net.minecraft.resources.ResourceKey<T> readResourceKey(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
-    public void writeResourceKey(net.minecraft.resources.ResourceKey<?>);
-    public <T> net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> readRegistryKey();
-    public java.util.BitSet readBitSet();
-    public void writeBitSet(java.util.BitSet);
-    public java.util.BitSet readFixedBitSet(int);
-    public void writeFixedBitSet(java.util.BitSet, int);
-    public static java.util.BitSet readFixedBitSet(io.netty.buffer.ByteBuf, int);
-    public static void writeFixedBitSet(io.netty.buffer.ByteBuf, java.util.BitSet, int);
-    public static int readContainerId(io.netty.buffer.ByteBuf);
-    public int readContainerId();
-    public static void writeContainerId(io.netty.buffer.ByteBuf, int);
-    public void writeContainerId(int);
-    public boolean isContiguous();
-    public int maxFastWritableBytes();
-    public int capacity();
-    public net.minecraft.network.FriendlyByteBuf capacity(int);
-    public int maxCapacity();
-    public io.netty.buffer.ByteBufAllocator alloc();
-    public java.nio.ByteOrder order();
-    public io.netty.buffer.ByteBuf order(java.nio.ByteOrder);
-    public io.netty.buffer.ByteBuf unwrap();
-    public boolean isDirect();
-    public boolean isReadOnly();
-    public io.netty.buffer.ByteBuf asReadOnly();
-    public int readerIndex();
-    public net.minecraft.network.FriendlyByteBuf readerIndex(int);
-    public int writerIndex();
-    public net.minecraft.network.FriendlyByteBuf writerIndex(int);
-    public net.minecraft.network.FriendlyByteBuf setIndex(int, int);
-    public int readableBytes();
-    public int writableBytes();
-    public int maxWritableBytes();
-    public boolean isReadable();
-    public boolean isReadable(int);
-    public boolean isWritable();
-    public boolean isWritable(int);
-    public net.minecraft.network.FriendlyByteBuf clear();
-    public net.minecraft.network.FriendlyByteBuf markReaderIndex();
-    public net.minecraft.network.FriendlyByteBuf resetReaderIndex();
-    public net.minecraft.network.FriendlyByteBuf markWriterIndex();
-    public net.minecraft.network.FriendlyByteBuf resetWriterIndex();
-    public net.minecraft.network.FriendlyByteBuf discardReadBytes();
-    public net.minecraft.network.FriendlyByteBuf discardSomeReadBytes();
-    public net.minecraft.network.FriendlyByteBuf ensureWritable(int);
-    public int ensureWritable(int, boolean);
-    public boolean getBoolean(int);
-    public byte getByte(int);
-    public short getUnsignedByte(int);
-    public short getShort(int);
-    public short getShortLE(int);
-    public int getUnsignedShort(int);
-    public int getUnsignedShortLE(int);
-    public int getMedium(int);
-    public int getMediumLE(int);
-    public int getUnsignedMedium(int);
-    public int getUnsignedMediumLE(int);
-    public int getInt(int);
-    public int getIntLE(int);
-    public long getUnsignedInt(int);
-    public long getUnsignedIntLE(int);
-    public long getLong(int);
-    public long getLongLE(int);
-    public char getChar(int);
-    public float getFloat(int);
-    public double getDouble(int);
-    public net.minecraft.network.FriendlyByteBuf getBytes(int, io.netty.buffer.ByteBuf);
-    public net.minecraft.network.FriendlyByteBuf getBytes(int, io.netty.buffer.ByteBuf, int);
-    public net.minecraft.network.FriendlyByteBuf getBytes(int, io.netty.buffer.ByteBuf, int, int);
-    public net.minecraft.network.FriendlyByteBuf getBytes(int, byte[]);
-    public net.minecraft.network.FriendlyByteBuf getBytes(int, byte[], int, int);
-    public net.minecraft.network.FriendlyByteBuf getBytes(int, java.nio.ByteBuffer);
-    public net.minecraft.network.FriendlyByteBuf getBytes(int, java.io.OutputStream, int) throws java.io.IOException;
-    public int getBytes(int, java.nio.channels.GatheringByteChannel, int) throws java.io.IOException;
-    public int getBytes(int, java.nio.channels.FileChannel, long, int) throws java.io.IOException;
-    public java.lang.CharSequence getCharSequence(int, int, java.nio.charset.Charset);
-    public net.minecraft.network.FriendlyByteBuf setBoolean(int, boolean);
-    public net.minecraft.network.FriendlyByteBuf setByte(int, int);
-    public net.minecraft.network.FriendlyByteBuf setShort(int, int);
-    public net.minecraft.network.FriendlyByteBuf setShortLE(int, int);
-    public net.minecraft.network.FriendlyByteBuf setMedium(int, int);
-    public net.minecraft.network.FriendlyByteBuf setMediumLE(int, int);
-    public net.minecraft.network.FriendlyByteBuf setInt(int, int);
-    public net.minecraft.network.FriendlyByteBuf setIntLE(int, int);
-    public net.minecraft.network.FriendlyByteBuf setLong(int, long);
-    public net.minecraft.network.FriendlyByteBuf setLongLE(int, long);
-    public net.minecraft.network.FriendlyByteBuf setChar(int, int);
-    public net.minecraft.network.FriendlyByteBuf setFloat(int, float);
-    public net.minecraft.network.FriendlyByteBuf setDouble(int, double);
-    public net.minecraft.network.FriendlyByteBuf setBytes(int, io.netty.buffer.ByteBuf);
-    public net.minecraft.network.FriendlyByteBuf setBytes(int, io.netty.buffer.ByteBuf, int);
-    public net.minecraft.network.FriendlyByteBuf setBytes(int, io.netty.buffer.ByteBuf, int, int);
-    public net.minecraft.network.FriendlyByteBuf setBytes(int, byte[]);
-    public net.minecraft.network.FriendlyByteBuf setBytes(int, byte[], int, int);
-    public net.minecraft.network.FriendlyByteBuf setBytes(int, java.nio.ByteBuffer);
-    public int setBytes(int, java.io.InputStream, int) throws java.io.IOException;
-    public int setBytes(int, java.nio.channels.ScatteringByteChannel, int) throws java.io.IOException;
-    public int setBytes(int, java.nio.channels.FileChannel, long, int) throws java.io.IOException;
-    public net.minecraft.network.FriendlyByteBuf setZero(int, int);
-    public int setCharSequence(int, java.lang.CharSequence, java.nio.charset.Charset);
-    public boolean readBoolean();
-    public byte readByte();
-    public short readUnsignedByte();
-    public short readShort();
-    public short readShortLE();
-    public int readUnsignedShort();
-    public int readUnsignedShortLE();
-    public int readMedium();
-    public int readMediumLE();
-    public int readUnsignedMedium();
-    public int readUnsignedMediumLE();
-    public int readInt();
-    public int readIntLE();
-    public long readUnsignedInt();
-    public long readUnsignedIntLE();
-    public long readLong();
-    public long readLongLE();
-    public char readChar();
-    public float readFloat();
-    public double readDouble();
-    public io.netty.buffer.ByteBuf readBytes(int);
-    public io.netty.buffer.ByteBuf readSlice(int);
-    public io.netty.buffer.ByteBuf readRetainedSlice(int);
-    public net.minecraft.network.FriendlyByteBuf readBytes(io.netty.buffer.ByteBuf);
-    public net.minecraft.network.FriendlyByteBuf readBytes(io.netty.buffer.ByteBuf, int);
-    public net.minecraft.network.FriendlyByteBuf readBytes(io.netty.buffer.ByteBuf, int, int);
-    public net.minecraft.network.FriendlyByteBuf readBytes(byte[]);
-    public net.minecraft.network.FriendlyByteBuf readBytes(byte[], int, int);
-    public net.minecraft.network.FriendlyByteBuf readBytes(java.nio.ByteBuffer);
-    public net.minecraft.network.FriendlyByteBuf readBytes(java.io.OutputStream, int) throws java.io.IOException;
-    public int readBytes(java.nio.channels.GatheringByteChannel, int) throws java.io.IOException;
-    public java.lang.CharSequence readCharSequence(int, java.nio.charset.Charset);
-    public java.lang.String readString(int, java.nio.charset.Charset);
-    public int readBytes(java.nio.channels.FileChannel, long, int) throws java.io.IOException;
-    public net.minecraft.network.FriendlyByteBuf skipBytes(int);
-    public net.minecraft.network.FriendlyByteBuf writeBoolean(boolean);
-    public net.minecraft.network.FriendlyByteBuf writeByte(int);
-    public net.minecraft.network.FriendlyByteBuf writeShort(int);
-    public net.minecraft.network.FriendlyByteBuf writeShortLE(int);
-    public net.minecraft.network.FriendlyByteBuf writeMedium(int);
-    public net.minecraft.network.FriendlyByteBuf writeMediumLE(int);
-    public net.minecraft.network.FriendlyByteBuf writeInt(int);
-    public net.minecraft.network.FriendlyByteBuf writeIntLE(int);
-    public net.minecraft.network.FriendlyByteBuf writeLong(long);
-    public net.minecraft.network.FriendlyByteBuf writeLongLE(long);
-    public net.minecraft.network.FriendlyByteBuf writeChar(int);
-    public net.minecraft.network.FriendlyByteBuf writeFloat(float);
-    public net.minecraft.network.FriendlyByteBuf writeDouble(double);
-    public net.minecraft.network.FriendlyByteBuf writeBytes(io.netty.buffer.ByteBuf);
-    public net.minecraft.network.FriendlyByteBuf writeBytes(io.netty.buffer.ByteBuf, int);
-    public net.minecraft.network.FriendlyByteBuf writeBytes(io.netty.buffer.ByteBuf, int, int);
-    public net.minecraft.network.FriendlyByteBuf writeBytes(byte[]);
-    public net.minecraft.network.FriendlyByteBuf writeBytes(byte[], int, int);
-    public net.minecraft.network.FriendlyByteBuf writeBytes(java.nio.ByteBuffer);
-    public int writeBytes(java.io.InputStream, int) throws java.io.IOException;
-    public int writeBytes(java.nio.channels.ScatteringByteChannel, int) throws java.io.IOException;
-    public int writeBytes(java.nio.channels.FileChannel, long, int) throws java.io.IOException;
-    public net.minecraft.network.FriendlyByteBuf writeZero(int);
-    public int writeCharSequence(java.lang.CharSequence, java.nio.charset.Charset);
-    public int indexOf(int, int, byte);
-    public int bytesBefore(byte);
-    public int bytesBefore(int, byte);
-    public int bytesBefore(int, int, byte);
-    public int forEachByte(io.netty.util.ByteProcessor);
-    public int forEachByte(int, int, io.netty.util.ByteProcessor);
-    public int forEachByteDesc(io.netty.util.ByteProcessor);
-    public int forEachByteDesc(int, int, io.netty.util.ByteProcessor);
-    public io.netty.buffer.ByteBuf copy();
-    public io.netty.buffer.ByteBuf copy(int, int);
-    public io.netty.buffer.ByteBuf slice();
-    public io.netty.buffer.ByteBuf retainedSlice();
-    public io.netty.buffer.ByteBuf slice(int, int);
-    public io.netty.buffer.ByteBuf retainedSlice(int, int);
-    public io.netty.buffer.ByteBuf duplicate();
-    public io.netty.buffer.ByteBuf retainedDuplicate();
-    public int nioBufferCount();
-    public java.nio.ByteBuffer nioBuffer();
-    public java.nio.ByteBuffer nioBuffer(int, int);
-    public java.nio.ByteBuffer internalNioBuffer(int, int);
-    public java.nio.ByteBuffer[] nioBuffers();
-    public java.nio.ByteBuffer[] nioBuffers(int, int);
-    public boolean hasArray();
-    public byte[] array();
-    public int arrayOffset();
-    public boolean hasMemoryAddress();
-    public long memoryAddress();
-    public java.lang.String toString(java.nio.charset.Charset);
-    public java.lang.String toString(int, int, java.nio.charset.Charset);
-    public int hashCode();
-    public boolean equals(java.lang.Object);
-    public int compareTo(io.netty.buffer.ByteBuf);
-    public java.lang.String toString();
-    public net.minecraft.network.FriendlyByteBuf retain(int);
-    public net.minecraft.network.FriendlyByteBuf retain();
-    public net.minecraft.network.FriendlyByteBuf touch();
-    public net.minecraft.network.FriendlyByteBuf touch(java.lang.Object);
-    public int refCnt();
-    public boolean release();
-    public boolean release(int);
-    public io.netty.buffer.ByteBuf touch(java.lang.Object);
-    public io.netty.buffer.ByteBuf touch();
-    public io.netty.buffer.ByteBuf retain();
-    public io.netty.buffer.ByteBuf retain(int);
-    public io.netty.buffer.ByteBuf writeZero(int);
-    public io.netty.buffer.ByteBuf writeBytes(java.nio.ByteBuffer);
-    public io.netty.buffer.ByteBuf writeBytes(byte[], int, int);
-    public io.netty.buffer.ByteBuf writeBytes(byte[]);
-    public io.netty.buffer.ByteBuf writeBytes(io.netty.buffer.ByteBuf, int, int);
-    public io.netty.buffer.ByteBuf writeBytes(io.netty.buffer.ByteBuf, int);
-    public io.netty.buffer.ByteBuf writeBytes(io.netty.buffer.ByteBuf);
-    public io.netty.buffer.ByteBuf writeDouble(double);
-    public io.netty.buffer.ByteBuf writeFloat(float);
-    public io.netty.buffer.ByteBuf writeChar(int);
-    public io.netty.buffer.ByteBuf writeLongLE(long);
-    public io.netty.buffer.ByteBuf writeLong(long);
-    public io.netty.buffer.ByteBuf writeIntLE(int);
-    public io.netty.buffer.ByteBuf writeInt(int);
-    public io.netty.buffer.ByteBuf writeMediumLE(int);
-    public io.netty.buffer.ByteBuf writeMedium(int);
-    public io.netty.buffer.ByteBuf writeShortLE(int);
-    public io.netty.buffer.ByteBuf writeShort(int);
-    public io.netty.buffer.ByteBuf writeByte(int);
-    public io.netty.buffer.ByteBuf writeBoolean(boolean);
-    public io.netty.buffer.ByteBuf skipBytes(int);
-    public io.netty.buffer.ByteBuf readBytes(java.io.OutputStream, int) throws java.io.IOException;
-    public io.netty.buffer.ByteBuf readBytes(java.nio.ByteBuffer);
-    public io.netty.buffer.ByteBuf readBytes(byte[], int, int);
-    public io.netty.buffer.ByteBuf readBytes(byte[]);
-    public io.netty.buffer.ByteBuf readBytes(io.netty.buffer.ByteBuf, int, int);
-    public io.netty.buffer.ByteBuf readBytes(io.netty.buffer.ByteBuf, int);
-    public io.netty.buffer.ByteBuf readBytes(io.netty.buffer.ByteBuf);
-    public io.netty.buffer.ByteBuf setZero(int, int);
-    public io.netty.buffer.ByteBuf setBytes(int, java.nio.ByteBuffer);
-    public io.netty.buffer.ByteBuf setBytes(int, byte[], int, int);
-    public io.netty.buffer.ByteBuf setBytes(int, byte[]);
-    public io.netty.buffer.ByteBuf setBytes(int, io.netty.buffer.ByteBuf, int, int);
-    public io.netty.buffer.ByteBuf setBytes(int, io.netty.buffer.ByteBuf, int);
-    public io.netty.buffer.ByteBuf setBytes(int, io.netty.buffer.ByteBuf);
-    public io.netty.buffer.ByteBuf setDouble(int, double);
-    public io.netty.buffer.ByteBuf setFloat(int, float);
-    public io.netty.buffer.ByteBuf setChar(int, int);
-    public io.netty.buffer.ByteBuf setLongLE(int, long);
-    public io.netty.buffer.ByteBuf setLong(int, long);
-    public io.netty.buffer.ByteBuf setIntLE(int, int);
-    public io.netty.buffer.ByteBuf setInt(int, int);
-    public io.netty.buffer.ByteBuf setMediumLE(int, int);
-    public io.netty.buffer.ByteBuf setMedium(int, int);
-    public io.netty.buffer.ByteBuf setShortLE(int, int);
-    public io.netty.buffer.ByteBuf setShort(int, int);
-    public io.netty.buffer.ByteBuf setByte(int, int);
-    public io.netty.buffer.ByteBuf setBoolean(int, boolean);
-    public io.netty.buffer.ByteBuf getBytes(int, java.io.OutputStream, int) throws java.io.IOException;
-    public io.netty.buffer.ByteBuf getBytes(int, java.nio.ByteBuffer);
-    public io.netty.buffer.ByteBuf getBytes(int, byte[], int, int);
-    public io.netty.buffer.ByteBuf getBytes(int, byte[]);
-    public io.netty.buffer.ByteBuf getBytes(int, io.netty.buffer.ByteBuf, int, int);
-    public io.netty.buffer.ByteBuf getBytes(int, io.netty.buffer.ByteBuf, int);
-    public io.netty.buffer.ByteBuf getBytes(int, io.netty.buffer.ByteBuf);
-    public io.netty.buffer.ByteBuf ensureWritable(int);
-    public io.netty.buffer.ByteBuf discardSomeReadBytes();
-    public io.netty.buffer.ByteBuf discardReadBytes();
-    public io.netty.buffer.ByteBuf resetWriterIndex();
-    public io.netty.buffer.ByteBuf markWriterIndex();
-    public io.netty.buffer.ByteBuf resetReaderIndex();
-    public io.netty.buffer.ByteBuf markReaderIndex();
-    public io.netty.buffer.ByteBuf clear();
-    public io.netty.buffer.ByteBuf setIndex(int, int);
-    public io.netty.buffer.ByteBuf writerIndex(int);
-    public io.netty.buffer.ByteBuf readerIndex(int);
-    public io.netty.buffer.ByteBuf capacity(int);
-    public io.netty.util.ReferenceCounted touch(java.lang.Object);
-    public io.netty.util.ReferenceCounted touch();
-    public io.netty.util.ReferenceCounted retain(int);
-    public io.netty.util.ReferenceCounted retain();
-    public int compareTo(java.lang.Object);
-    private void lambda$writeEither$1(net.minecraft.network.codec.StreamEncoder, java.lang.Object);
-    private void lambda$writeEither$0(net.minecraft.network.codec.StreamEncoder, java.lang.Object);
-    private static io.netty.handler.codec.EncoderException lambda$writeJsonWithCodec$0(java.lang.Object, java.lang.String);
-    private static io.netty.handler.codec.DecoderException lambda$readLenientJsonWithCodec$0(java.lang.String);
-    private static io.netty.handler.codec.EncoderException lambda$writeWithCodec$0(java.lang.Object, java.lang.String);
-    private static io.netty.handler.codec.DecoderException lambda$readWithCodec$0(net.minecraft.nbt.Tag, java.lang.String);
-    static {};
-}
+```
+private final source : Lio/netty/buffer/ByteBuf;
+public static final MAX_STRING_LENGTH : S
+public static final MAX_COMPONENT_STRING_LENGTH : I
+private static final GSON : Lcom/google/gson/Gson;
+public <init>(Lio/netty/buffer/ByteBuf;)V
+public readWithCodecTrusted(Lcom/mojang/serialization/DynamicOps;Lcom/mojang/serialization/Codec;)Ljava/lang/Object;
+public readWithCodec(Lcom/mojang/serialization/DynamicOps;Lcom/mojang/serialization/Codec;Lnet/minecraft/nbt/NbtAccounter;)Ljava/lang/Object;
+public writeWithCodec(Lcom/mojang/serialization/DynamicOps;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)Lnet/minecraft/network/FriendlyByteBuf;
+public readLenientJsonWithCodec(Lcom/mojang/serialization/Codec;)Ljava/lang/Object;
+public writeJsonWithCodec(Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V
+public readWithCount(Ljava/util/function/Consumer;)V
+public writeEnumSet(Ljava/util/EnumSet;Ljava/lang/Class;)V
+public readEnumSet(Ljava/lang/Class;)Ljava/util/EnumSet;
+public writeOptional(Ljava/util/Optional;Lnet/minecraft/network/codec/StreamEncoder;)V
+public readOptional(Lnet/minecraft/network/codec/StreamDecoder;)Ljava/util/Optional;
+public writeEither(Lcom/mojang/datafixers/util/Either;Lnet/minecraft/network/codec/StreamEncoder;Lnet/minecraft/network/codec/StreamEncoder;)V
+public readEither(Lnet/minecraft/network/codec/StreamDecoder;Lnet/minecraft/network/codec/StreamDecoder;)Lcom/mojang/datafixers/util/Either;
+public readNullable(Lnet/minecraft/network/codec/StreamDecoder;)Ljava/lang/Object;
+public static readNullable(Lio/netty/buffer/ByteBuf;Lnet/minecraft/network/codec/StreamDecoder;)Ljava/lang/Object;
+public writeNullable(Ljava/lang/Object;Lnet/minecraft/network/codec/StreamEncoder;)V
+public static writeNullable(Lio/netty/buffer/ByteBuf;Ljava/lang/Object;Lnet/minecraft/network/codec/StreamEncoder;)V
+public readByteArray()[B
+public static readByteArray(Lio/netty/buffer/ByteBuf;)[B
+public writeByteArray([B)Lnet/minecraft/network/FriendlyByteBuf;
+public static writeByteArray(Lio/netty/buffer/ByteBuf;[B)V
+public readByteArray(I)[B
+public static readByteArray(Lio/netty/buffer/ByteBuf;I)[B
+public writeVarIntArray([I)Lnet/minecraft/network/FriendlyByteBuf;
+public readVarIntArray()[I
+public readVarIntArray(I)[I
+public writeLongArray([J)Lnet/minecraft/network/FriendlyByteBuf;
+public static writeLongArray(Lio/netty/buffer/ByteBuf;[J)V
+public writeFixedSizeLongArray([J)Lnet/minecraft/network/FriendlyByteBuf;
+public static writeFixedSizeLongArray(Lio/netty/buffer/ByteBuf;[J)V
+public readLongArray()[J
+public readFixedSizeLongArray([J)[J
+public static readLongArray(Lio/netty/buffer/ByteBuf;)[J
+public static readFixedSizeLongArray(Lio/netty/buffer/ByteBuf;[J)[J
+public readBlockPos()Lnet/minecraft/core/BlockPos;
+public static readBlockPos(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/core/BlockPos;
+public writeBlockPos(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/network/FriendlyByteBuf;
+public static writeBlockPos(Lio/netty/buffer/ByteBuf;Lnet/minecraft/core/BlockPos;)V
+public readChunkPos()Lnet/minecraft/world/level/ChunkPos;
+public writeChunkPos(Lnet/minecraft/world/level/ChunkPos;)Lnet/minecraft/network/FriendlyByteBuf;
+public static readChunkPos(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/world/level/ChunkPos;
+public static writeChunkPos(Lio/netty/buffer/ByteBuf;Lnet/minecraft/world/level/ChunkPos;)V
+public readGlobalPos()Lnet/minecraft/core/GlobalPos;
+public writeGlobalPos(Lnet/minecraft/core/GlobalPos;)V
+public readVector3f()Lorg/joml/Vector3f;
+public static readVector3f(Lio/netty/buffer/ByteBuf;)Lorg/joml/Vector3f;
+public writeVector3f(Lorg/joml/Vector3f;)V
+public static writeVector3f(Lio/netty/buffer/ByteBuf;Lorg/joml/Vector3fc;)V
+public readQuaternion()Lorg/joml/Quaternionf;
+public static readQuaternion(Lio/netty/buffer/ByteBuf;)Lorg/joml/Quaternionf;
+public writeQuaternion(Lorg/joml/Quaternionf;)V
+public static writeQuaternion(Lio/netty/buffer/ByteBuf;Lorg/joml/Quaternionfc;)V
+public readEnum(Ljava/lang/Class;)Ljava/lang/Enum;
+public writeEnum(Ljava/lang/Enum;)Lnet/minecraft/network/FriendlyByteBuf;
+public readById(Ljava/util/function/IntFunction;)Ljava/lang/Object;
+public writeById(Ljava/util/function/ToIntFunction;Ljava/lang/Object;)Lnet/minecraft/network/FriendlyByteBuf;
+public readVarInt()I
+public readVarLong()J
+public writeUUID(Ljava/util/UUID;)Lnet/minecraft/network/FriendlyByteBuf;
+public static writeUUID(Lio/netty/buffer/ByteBuf;Ljava/util/UUID;)V
+public readUUID()Ljava/util/UUID;
+public static readUUID(Lio/netty/buffer/ByteBuf;)Ljava/util/UUID;
+public writeVarInt(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeVarLong(J)Lnet/minecraft/network/FriendlyByteBuf;
+public writeNbt(Lnet/minecraft/nbt/Tag;)Lnet/minecraft/network/FriendlyByteBuf;
+public static writeNbt(Lio/netty/buffer/ByteBuf;Lnet/minecraft/nbt/Tag;)V
+public readNbt()Lnet/minecraft/nbt/CompoundTag;
+public static readNbt(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/nbt/CompoundTag;
+public static readNbt(Lio/netty/buffer/ByteBuf;Lnet/minecraft/nbt/NbtAccounter;)Lnet/minecraft/nbt/Tag;
+public readNbt(Lnet/minecraft/nbt/NbtAccounter;)Lnet/minecraft/nbt/Tag;
+public readUtf()Ljava/lang/String;
+public readUtf(I)Ljava/lang/String;
+public writeUtf(Ljava/lang/String;)Lnet/minecraft/network/FriendlyByteBuf;
+public writeUtf(Ljava/lang/String;I)Lnet/minecraft/network/FriendlyByteBuf;
+public readIdentifier()Lnet/minecraft/resources/Identifier;
+public writeIdentifier(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/network/FriendlyByteBuf;
+public readResourceKey(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+public writeResourceKey(Lnet/minecraft/resources/ResourceKey;)V
+public readRegistryKey()Lnet/minecraft/resources/ResourceKey;
+public readBitSet()Ljava/util/BitSet;
+public writeBitSet(Ljava/util/BitSet;)V
+public readFixedBitSet(I)Ljava/util/BitSet;
+public writeFixedBitSet(Ljava/util/BitSet;I)V
+public static readFixedBitSet(Lio/netty/buffer/ByteBuf;I)Ljava/util/BitSet;
+public static writeFixedBitSet(Lio/netty/buffer/ByteBuf;Ljava/util/BitSet;I)V
+public static readContainerId(Lio/netty/buffer/ByteBuf;)I
+public readContainerId()I
+public static writeContainerId(Lio/netty/buffer/ByteBuf;I)V
+public writeContainerId(I)V
+public isContiguous()Z
+public maxFastWritableBytes()I
+public capacity()I
+public capacity(I)Lnet/minecraft/network/FriendlyByteBuf;
+public maxCapacity()I
+public alloc()Lio/netty/buffer/ByteBufAllocator;
+public order()Ljava/nio/ByteOrder;
+public order(Ljava/nio/ByteOrder;)Lio/netty/buffer/ByteBuf;
+public unwrap()Lio/netty/buffer/ByteBuf;
+public isDirect()Z
+public isReadOnly()Z
+public asReadOnly()Lio/netty/buffer/ByteBuf;
+public readerIndex()I
+public readerIndex(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writerIndex()I
+public writerIndex(I)Lnet/minecraft/network/FriendlyByteBuf;
+public setIndex(II)Lnet/minecraft/network/FriendlyByteBuf;
+public readableBytes()I
+public writableBytes()I
+public maxWritableBytes()I
+public isReadable()Z
+public isReadable(I)Z
+public isWritable()Z
+public isWritable(I)Z
+public clear()Lnet/minecraft/network/FriendlyByteBuf;
+public markReaderIndex()Lnet/minecraft/network/FriendlyByteBuf;
+public resetReaderIndex()Lnet/minecraft/network/FriendlyByteBuf;
+public markWriterIndex()Lnet/minecraft/network/FriendlyByteBuf;
+public resetWriterIndex()Lnet/minecraft/network/FriendlyByteBuf;
+public discardReadBytes()Lnet/minecraft/network/FriendlyByteBuf;
+public discardSomeReadBytes()Lnet/minecraft/network/FriendlyByteBuf;
+public ensureWritable(I)Lnet/minecraft/network/FriendlyByteBuf;
+public ensureWritable(IZ)I
+public getBoolean(I)Z
+public getByte(I)B
+public getUnsignedByte(I)S
+public getShort(I)S
+public getShortLE(I)S
+public getUnsignedShort(I)I
+public getUnsignedShortLE(I)I
+public getMedium(I)I
+public getMediumLE(I)I
+public getUnsignedMedium(I)I
+public getUnsignedMediumLE(I)I
+public getInt(I)I
+public getIntLE(I)I
+public getUnsignedInt(I)J
+public getUnsignedIntLE(I)J
+public getLong(I)J
+public getLongLE(I)J
+public getChar(I)C
+public getFloat(I)F
+public getDouble(I)D
+public getBytes(ILio/netty/buffer/ByteBuf;)Lnet/minecraft/network/FriendlyByteBuf;
+public getBytes(ILio/netty/buffer/ByteBuf;I)Lnet/minecraft/network/FriendlyByteBuf;
+public getBytes(ILio/netty/buffer/ByteBuf;II)Lnet/minecraft/network/FriendlyByteBuf;
+public getBytes(I[B)Lnet/minecraft/network/FriendlyByteBuf;
+public getBytes(I[BII)Lnet/minecraft/network/FriendlyByteBuf;
+public getBytes(ILjava/nio/ByteBuffer;)Lnet/minecraft/network/FriendlyByteBuf;
+public getBytes(ILjava/io/OutputStream;I)Lnet/minecraft/network/FriendlyByteBuf;
+public getBytes(ILjava/nio/channels/GatheringByteChannel;I)I
+public getBytes(ILjava/nio/channels/FileChannel;JI)I
+public getCharSequence(IILjava/nio/charset/Charset;)Ljava/lang/CharSequence;
+public setBoolean(IZ)Lnet/minecraft/network/FriendlyByteBuf;
+public setByte(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setShort(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setShortLE(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setMedium(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setMediumLE(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setInt(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setIntLE(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setLong(IJ)Lnet/minecraft/network/FriendlyByteBuf;
+public setLongLE(IJ)Lnet/minecraft/network/FriendlyByteBuf;
+public setChar(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setFloat(IF)Lnet/minecraft/network/FriendlyByteBuf;
+public setDouble(ID)Lnet/minecraft/network/FriendlyByteBuf;
+public setBytes(ILio/netty/buffer/ByteBuf;)Lnet/minecraft/network/FriendlyByteBuf;
+public setBytes(ILio/netty/buffer/ByteBuf;I)Lnet/minecraft/network/FriendlyByteBuf;
+public setBytes(ILio/netty/buffer/ByteBuf;II)Lnet/minecraft/network/FriendlyByteBuf;
+public setBytes(I[B)Lnet/minecraft/network/FriendlyByteBuf;
+public setBytes(I[BII)Lnet/minecraft/network/FriendlyByteBuf;
+public setBytes(ILjava/nio/ByteBuffer;)Lnet/minecraft/network/FriendlyByteBuf;
+public setBytes(ILjava/io/InputStream;I)I
+public setBytes(ILjava/nio/channels/ScatteringByteChannel;I)I
+public setBytes(ILjava/nio/channels/FileChannel;JI)I
+public setZero(II)Lnet/minecraft/network/FriendlyByteBuf;
+public setCharSequence(ILjava/lang/CharSequence;Ljava/nio/charset/Charset;)I
+public readBoolean()Z
+public readByte()B
+public readUnsignedByte()S
+public readShort()S
+public readShortLE()S
+public readUnsignedShort()I
+public readUnsignedShortLE()I
+public readMedium()I
+public readMediumLE()I
+public readUnsignedMedium()I
+public readUnsignedMediumLE()I
+public readInt()I
+public readIntLE()I
+public readUnsignedInt()J
+public readUnsignedIntLE()J
+public readLong()J
+public readLongLE()J
+public readChar()C
+public readFloat()F
+public readDouble()D
+public readBytes(I)Lio/netty/buffer/ByteBuf;
+public readSlice(I)Lio/netty/buffer/ByteBuf;
+public readRetainedSlice(I)Lio/netty/buffer/ByteBuf;
+public readBytes(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/network/FriendlyByteBuf;
+public readBytes(Lio/netty/buffer/ByteBuf;I)Lnet/minecraft/network/FriendlyByteBuf;
+public readBytes(Lio/netty/buffer/ByteBuf;II)Lnet/minecraft/network/FriendlyByteBuf;
+public readBytes([B)Lnet/minecraft/network/FriendlyByteBuf;
+public readBytes([BII)Lnet/minecraft/network/FriendlyByteBuf;
+public readBytes(Ljava/nio/ByteBuffer;)Lnet/minecraft/network/FriendlyByteBuf;
+public readBytes(Ljava/io/OutputStream;I)Lnet/minecraft/network/FriendlyByteBuf;
+public readBytes(Ljava/nio/channels/GatheringByteChannel;I)I
+public readCharSequence(ILjava/nio/charset/Charset;)Ljava/lang/CharSequence;
+public readString(ILjava/nio/charset/Charset;)Ljava/lang/String;
+public readBytes(Ljava/nio/channels/FileChannel;JI)I
+public skipBytes(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBoolean(Z)Lnet/minecraft/network/FriendlyByteBuf;
+public writeByte(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeShort(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeShortLE(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeMedium(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeMediumLE(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeInt(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeIntLE(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeLong(J)Lnet/minecraft/network/FriendlyByteBuf;
+public writeLongLE(J)Lnet/minecraft/network/FriendlyByteBuf;
+public writeChar(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeFloat(F)Lnet/minecraft/network/FriendlyByteBuf;
+public writeDouble(D)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBytes(Lio/netty/buffer/ByteBuf;)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBytes(Lio/netty/buffer/ByteBuf;I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBytes(Lio/netty/buffer/ByteBuf;II)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBytes([B)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBytes([BII)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBytes(Ljava/nio/ByteBuffer;)Lnet/minecraft/network/FriendlyByteBuf;
+public writeBytes(Ljava/io/InputStream;I)I
+public writeBytes(Ljava/nio/channels/ScatteringByteChannel;I)I
+public writeBytes(Ljava/nio/channels/FileChannel;JI)I
+public writeZero(I)Lnet/minecraft/network/FriendlyByteBuf;
+public writeCharSequence(Ljava/lang/CharSequence;Ljava/nio/charset/Charset;)I
+public indexOf(IIB)I
+public bytesBefore(B)I
+public bytesBefore(IB)I
+public bytesBefore(IIB)I
+public forEachByte(Lio/netty/util/ByteProcessor;)I
+public forEachByte(IILio/netty/util/ByteProcessor;)I
+public forEachByteDesc(Lio/netty/util/ByteProcessor;)I
+public forEachByteDesc(IILio/netty/util/ByteProcessor;)I
+public copy()Lio/netty/buffer/ByteBuf;
+public copy(II)Lio/netty/buffer/ByteBuf;
+public slice()Lio/netty/buffer/ByteBuf;
+public retainedSlice()Lio/netty/buffer/ByteBuf;
+public slice(II)Lio/netty/buffer/ByteBuf;
+public retainedSlice(II)Lio/netty/buffer/ByteBuf;
+public duplicate()Lio/netty/buffer/ByteBuf;
+public retainedDuplicate()Lio/netty/buffer/ByteBuf;
+public nioBufferCount()I
+public nioBuffer()Ljava/nio/ByteBuffer;
+public nioBuffer(II)Ljava/nio/ByteBuffer;
+public internalNioBuffer(II)Ljava/nio/ByteBuffer;
+public nioBuffers()[Ljava/nio/ByteBuffer;
+public nioBuffers(II)[Ljava/nio/ByteBuffer;
+public hasArray()Z
+public array()[B
+public arrayOffset()I
+public hasMemoryAddress()Z
+public memoryAddress()J
+public toString(Ljava/nio/charset/Charset;)Ljava/lang/String;
+public toString(IILjava/nio/charset/Charset;)Ljava/lang/String;
+public hashCode()I
+public equals(Ljava/lang/Object;)Z
+public compareTo(Lio/netty/buffer/ByteBuf;)I
+public toString()Ljava/lang/String;
+public retain(I)Lnet/minecraft/network/FriendlyByteBuf;
+public retain()Lnet/minecraft/network/FriendlyByteBuf;
+public touch()Lnet/minecraft/network/FriendlyByteBuf;
+public touch(Ljava/lang/Object;)Lnet/minecraft/network/FriendlyByteBuf;
+public refCnt()I
+public release()Z
+public release(I)Z
+public synthetic touch(Ljava/lang/Object;)Lio/netty/buffer/ByteBuf;
+public synthetic touch()Lio/netty/buffer/ByteBuf;
+public synthetic retain()Lio/netty/buffer/ByteBuf;
+public synthetic retain(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeZero(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeBytes(Ljava/nio/ByteBuffer;)Lio/netty/buffer/ByteBuf;
+public synthetic writeBytes([BII)Lio/netty/buffer/ByteBuf;
+public synthetic writeBytes([B)Lio/netty/buffer/ByteBuf;
+public synthetic writeBytes(Lio/netty/buffer/ByteBuf;II)Lio/netty/buffer/ByteBuf;
+public synthetic writeBytes(Lio/netty/buffer/ByteBuf;I)Lio/netty/buffer/ByteBuf;
+public synthetic writeBytes(Lio/netty/buffer/ByteBuf;)Lio/netty/buffer/ByteBuf;
+public synthetic writeDouble(D)Lio/netty/buffer/ByteBuf;
+public synthetic writeFloat(F)Lio/netty/buffer/ByteBuf;
+public synthetic writeChar(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeLongLE(J)Lio/netty/buffer/ByteBuf;
+public synthetic writeLong(J)Lio/netty/buffer/ByteBuf;
+public synthetic writeIntLE(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeInt(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeMediumLE(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeMedium(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeShortLE(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeShort(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeByte(I)Lio/netty/buffer/ByteBuf;
+public synthetic writeBoolean(Z)Lio/netty/buffer/ByteBuf;
+public synthetic skipBytes(I)Lio/netty/buffer/ByteBuf;
+public synthetic readBytes(Ljava/io/OutputStream;I)Lio/netty/buffer/ByteBuf;
+public synthetic readBytes(Ljava/nio/ByteBuffer;)Lio/netty/buffer/ByteBuf;
+public synthetic readBytes([BII)Lio/netty/buffer/ByteBuf;
+public synthetic readBytes([B)Lio/netty/buffer/ByteBuf;
+public synthetic readBytes(Lio/netty/buffer/ByteBuf;II)Lio/netty/buffer/ByteBuf;
+public synthetic readBytes(Lio/netty/buffer/ByteBuf;I)Lio/netty/buffer/ByteBuf;
+public synthetic readBytes(Lio/netty/buffer/ByteBuf;)Lio/netty/buffer/ByteBuf;
+public synthetic setZero(II)Lio/netty/buffer/ByteBuf;
+public synthetic setBytes(ILjava/nio/ByteBuffer;)Lio/netty/buffer/ByteBuf;
+public synthetic setBytes(I[BII)Lio/netty/buffer/ByteBuf;
+public synthetic setBytes(I[B)Lio/netty/buffer/ByteBuf;
+public synthetic setBytes(ILio/netty/buffer/ByteBuf;II)Lio/netty/buffer/ByteBuf;
+public synthetic setBytes(ILio/netty/buffer/ByteBuf;I)Lio/netty/buffer/ByteBuf;
+public synthetic setBytes(ILio/netty/buffer/ByteBuf;)Lio/netty/buffer/ByteBuf;
+public synthetic setDouble(ID)Lio/netty/buffer/ByteBuf;
+public synthetic setFloat(IF)Lio/netty/buffer/ByteBuf;
+public synthetic setChar(II)Lio/netty/buffer/ByteBuf;
+public synthetic setLongLE(IJ)Lio/netty/buffer/ByteBuf;
+public synthetic setLong(IJ)Lio/netty/buffer/ByteBuf;
+public synthetic setIntLE(II)Lio/netty/buffer/ByteBuf;
+public synthetic setInt(II)Lio/netty/buffer/ByteBuf;
+public synthetic setMediumLE(II)Lio/netty/buffer/ByteBuf;
+public synthetic setMedium(II)Lio/netty/buffer/ByteBuf;
+public synthetic setShortLE(II)Lio/netty/buffer/ByteBuf;
+public synthetic setShort(II)Lio/netty/buffer/ByteBuf;
+public synthetic setByte(II)Lio/netty/buffer/ByteBuf;
+public synthetic setBoolean(IZ)Lio/netty/buffer/ByteBuf;
+public synthetic getBytes(ILjava/io/OutputStream;I)Lio/netty/buffer/ByteBuf;
+public synthetic getBytes(ILjava/nio/ByteBuffer;)Lio/netty/buffer/ByteBuf;
+public synthetic getBytes(I[BII)Lio/netty/buffer/ByteBuf;
+public synthetic getBytes(I[B)Lio/netty/buffer/ByteBuf;
+public synthetic getBytes(ILio/netty/buffer/ByteBuf;II)Lio/netty/buffer/ByteBuf;
+public synthetic getBytes(ILio/netty/buffer/ByteBuf;I)Lio/netty/buffer/ByteBuf;
+public synthetic getBytes(ILio/netty/buffer/ByteBuf;)Lio/netty/buffer/ByteBuf;
+public synthetic ensureWritable(I)Lio/netty/buffer/ByteBuf;
+public synthetic discardSomeReadBytes()Lio/netty/buffer/ByteBuf;
+public synthetic discardReadBytes()Lio/netty/buffer/ByteBuf;
+public synthetic resetWriterIndex()Lio/netty/buffer/ByteBuf;
+public synthetic markWriterIndex()Lio/netty/buffer/ByteBuf;
+public synthetic resetReaderIndex()Lio/netty/buffer/ByteBuf;
+public synthetic markReaderIndex()Lio/netty/buffer/ByteBuf;
+public synthetic clear()Lio/netty/buffer/ByteBuf;
+public synthetic setIndex(II)Lio/netty/buffer/ByteBuf;
+public synthetic writerIndex(I)Lio/netty/buffer/ByteBuf;
+public synthetic readerIndex(I)Lio/netty/buffer/ByteBuf;
+public synthetic capacity(I)Lio/netty/buffer/ByteBuf;
+public synthetic touch(Ljava/lang/Object;)Lio/netty/util/ReferenceCounted;
+public synthetic touch()Lio/netty/util/ReferenceCounted;
+public synthetic retain(I)Lio/netty/util/ReferenceCounted;
+public synthetic retain()Lio/netty/util/ReferenceCounted;
+public synthetic compareTo(Ljava/lang/Object;)I
+private synthetic lambda$writeEither$1(Lnet/minecraft/network/codec/StreamEncoder;Ljava/lang/Object;)V
+private synthetic lambda$writeEither$0(Lnet/minecraft/network/codec/StreamEncoder;Ljava/lang/Object;)V
+private static synthetic lambda$writeJsonWithCodec$0(Ljava/lang/Object;Ljava/lang/String;)Lio/netty/handler/codec/EncoderException;
+private static synthetic lambda$readLenientJsonWithCodec$0(Ljava/lang/String;)Lio/netty/handler/codec/DecoderException;
+private static synthetic lambda$writeWithCodec$0(Ljava/lang/Object;Ljava/lang/String;)Lio/netty/handler/codec/EncoderException;
+private static synthetic lambda$readWithCodec$0(Lnet/minecraft/nbt/Tag;Ljava/lang/String;)Lio/netty/handler/codec/DecoderException;
+static <clinit>()V
 ```

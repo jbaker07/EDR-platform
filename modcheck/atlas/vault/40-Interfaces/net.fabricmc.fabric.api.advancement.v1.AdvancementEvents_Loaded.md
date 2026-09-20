@@ -13,5 +13,5 @@ sha256: "89e2094ca63a5e3e4687ebd5530eb56a3f051fc568b7ab60243b69a6c8c3e74e"
 Module: [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] -- kind: interface
 
 ```java
-public abstract void onAdvancementsLoaded(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.Registry<net.minecraft.advancements.Advancement>, net.minecraft.core.HolderLookup$Provider)
+public abstract void onAdvancementsLoaded(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.Registry, net.minecraft.core.HolderLookup$Provider)
 ```

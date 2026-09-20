@@ -11,33 +11,33 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/server/packs/resources/CloseableResourceManager`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `(Lnet/minecraft/server/packs/PackType;Ljava/util/List;)V` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (3 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.packs.resources.MultiPackResourceManager implements net.minecraft.server.packs.resources.CloseableResourceManager {
-    private static final org.slf4j.Logger LOGGER;
-    private final java.util.Map<java.lang.String, net.minecraft.server.packs.resources.FallbackResourceManager> namespacedManagers;
-    private final java.util.List<net.minecraft.server.packs.PackResources> packs;
-    public net.minecraft.server.packs.resources.MultiPackResourceManager(net.minecraft.server.packs.PackType, java.util.List<net.minecraft.server.packs.PackResources>);
-    private net.minecraft.server.packs.resources.ResourceFilterSection getPackFilterSection(net.minecraft.server.packs.PackResources);
-    public java.util.Set<java.lang.String> getNamespaces();
-    public java.util.Optional<net.minecraft.server.packs.resources.Resource> getResource(net.minecraft.resources.Identifier);
-    public java.util.List<net.minecraft.server.packs.resources.Resource> getResourceStack(net.minecraft.resources.Identifier);
-    public java.util.Map<net.minecraft.resources.Identifier, net.minecraft.server.packs.resources.Resource> listResources(java.lang.String, net.minecraft.server.packs.resources.ResourceManager$Selector);
-    public java.util.Map<net.minecraft.resources.Identifier, java.util.List<net.minecraft.server.packs.resources.Resource>> listResourceStacks(java.lang.String, net.minecraft.server.packs.resources.ResourceManager$Selector);
-    private static void checkTrailingDirectoryPath(java.lang.String);
-    public java.util.stream.Stream<net.minecraft.server.packs.PackResources> listPacks();
-    public void close();
-    private static boolean lambda$new$1(net.minecraft.server.packs.resources.ResourceFilterSection, net.minecraft.resources.Identifier);
-    private static java.util.stream.Stream lambda$new$0(net.minecraft.server.packs.PackType, net.minecraft.server.packs.PackResources);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final namespacedManagers : Ljava/util/Map;
+private final packs : Ljava/util/List;
+public <init>(Lnet/minecraft/server/packs/PackType;Ljava/util/List;)V
+private getPackFilterSection(Lnet/minecraft/server/packs/PackResources;)Lnet/minecraft/server/packs/resources/ResourceFilterSection;
+public getNamespaces()Ljava/util/Set;
+public getResource(Lnet/minecraft/resources/Identifier;)Ljava/util/Optional;
+public getResourceStack(Lnet/minecraft/resources/Identifier;)Ljava/util/List;
+public listResources(Ljava/lang/String;Lnet/minecraft/server/packs/resources/ResourceManager$Selector;)Ljava/util/Map;
+public listResourceStacks(Ljava/lang/String;Lnet/minecraft/server/packs/resources/ResourceManager$Selector;)Ljava/util/Map;
+private static checkTrailingDirectoryPath(Ljava/lang/String;)V
+public listPacks()Ljava/util/stream/Stream;
+public close()V
+private static synthetic lambda$new$1(Lnet/minecraft/server/packs/resources/ResourceFilterSection;Lnet/minecraft/resources/Identifier;)Z
+private static synthetic lambda$new$0(Lnet/minecraft/server/packs/PackType;Lnet/minecraft/server/packs/PackResources;)Ljava/util/stream/Stream;
+static <clinit>()V
 ```

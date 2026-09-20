@@ -11,34 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client|net.minecraft.client]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `takeScreenshot(Lcom/mojang/blaze3d/pipeline/RenderTarget;Ljava/util/functi` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `takeScreenshot` | `(Lcom/mojang/blaze3d/pipeline/RenderTarget;Ljava/util/function/Consume` | exact | invokestatic@69 in `ClientGameTestContextImpl.lambda$doTakeScreenshot$2` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (2 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.Screenshot {
-    private static final org.slf4j.Logger LOGGER;
-    public static final java.lang.String SCREENSHOT_DIR;
-    public net.minecraft.client.Screenshot();
-    public static void grab(java.io.File, com.mojang.blaze3d.pipeline.RenderTarget, java.util.function.Consumer<net.minecraft.network.chat.Component>);
-    public static void grab(net.minecraft.client.Minecraft, boolean);
-    public static void grab(java.io.File, java.lang.String, com.mojang.blaze3d.pipeline.RenderTarget, int, java.util.function.Consumer<net.minecraft.network.chat.Component>);
-    public static void takeScreenshot(com.mojang.blaze3d.pipeline.RenderTarget, java.util.function.Consumer<com.mojang.blaze3d.platform.NativeImage>);
-    public static void takeScreenshot(com.mojang.blaze3d.pipeline.RenderTarget, int, java.util.function.Consumer<com.mojang.blaze3d.platform.NativeImage>);
-    private static java.io.File getFile(java.io.File);
-    private static void lambda$takeScreenshot$1(com.mojang.renderpearl.api.buffers.GpuBuffer, int, int, int, com.mojang.renderpearl.api.textures.GpuTexture, java.util.function.Consumer);
-    private static java.lang.String lambda$takeScreenshot$0();
-    private static void lambda$grab$2(java.io.File, java.lang.String, java.util.function.Consumer, com.mojang.blaze3d.platform.NativeImage);
-    private static void lambda$grab$3(com.mojang.blaze3d.platform.NativeImage, java.io.File, java.util.function.Consumer);
-    private static net.minecraft.network.chat.Style lambda$grab$4(java.io.File, net.minecraft.network.chat.Style);
-    private static void lambda$grab$0(net.minecraft.client.Minecraft, net.minecraft.network.chat.Component);
-    private static void lambda$grab$1(net.minecraft.client.Minecraft, net.minecraft.network.chat.Component);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final SCREENSHOT_DIR : Ljava/lang/String;
+public <init>()V
+public static grab(Ljava/io/File;Lcom/mojang/blaze3d/pipeline/RenderTarget;Ljava/util/function/Consumer;)V
+public static grab(Lnet/minecraft/client/Minecraft;Z)V
+public static grab(Ljava/io/File;Ljava/lang/String;Lcom/mojang/blaze3d/pipeline/RenderTarget;ILjava/util/function/Consumer;)V
+public static takeScreenshot(Lcom/mojang/blaze3d/pipeline/RenderTarget;Ljava/util/function/Consumer;)V
+public static takeScreenshot(Lcom/mojang/blaze3d/pipeline/RenderTarget;ILjava/util/function/Consumer;)V
+private static getFile(Ljava/io/File;)Ljava/io/File;
+private static synthetic lambda$takeScreenshot$1(Lcom/mojang/renderpearl/api/buffers/GpuBuffer;IIILcom/mojang/renderpearl/api/textures/GpuTexture;Ljava/util/function/Consumer;)V
+private static synthetic lambda$takeScreenshot$0()Ljava/lang/String;
+private static synthetic lambda$grab$2(Ljava/io/File;Ljava/lang/String;Ljava/util/function/Consumer;Lcom/mojang/blaze3d/platform/NativeImage;)V
+private static synthetic lambda$grab$3(Lcom/mojang/blaze3d/platform/NativeImage;Ljava/io/File;Ljava/util/function/Consumer;)V
+private static synthetic lambda$grab$4(Ljava/io/File;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/Style;
+private static synthetic lambda$grab$0(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/chat/Component;)V
+private static synthetic lambda$grab$1(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/chat/Component;)V
+static <clinit>()V
 ```

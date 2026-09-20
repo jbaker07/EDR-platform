@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientChunkCacheMixin.onChunkLoad` | `ClientChunkCache.replaceWithPacketData` @Inject at TAIL | client | static_inference |
+| `ClientChunkCacheMixin.onChunkLoad` @21 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientChunkCache|ClientChunkCache]].`replaceWithPacketData` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

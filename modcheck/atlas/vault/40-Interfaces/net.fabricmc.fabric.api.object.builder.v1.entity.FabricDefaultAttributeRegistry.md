@@ -13,8 +13,7 @@ sha256: "3a5f0ccef440552828d9469420547dc3cdbe3e206af73fa98d0bfcfb5b75c1ba"
 Module: [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry$ModifyDefaultAttribute> MODIFY
-public static void register(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.LivingEntity>, net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder)
-public static void register(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.LivingEntity>, net.minecraft.world.entity.ai.attributes.AttributeSupplier)
-static {}
+public static final net.fabricmc.fabric.api.event.Event MODIFY
+public static void register(net.minecraft.world.entity.EntityType, net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder)
+public static void register(net.minecraft.world.entity.EntityType, net.minecraft.world.entity.ai.attributes.AttributeSupplier)
 ```

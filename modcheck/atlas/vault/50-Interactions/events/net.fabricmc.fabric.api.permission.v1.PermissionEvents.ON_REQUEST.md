@@ -15,7 +15,9 @@ Module: [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]]
 
 ## Published from
 
-- no publisher found by extraction (may be fired from generated or non-module code)
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
+|---|---|---|---|
+| `PermissionContextOwner.checkPermission` @16 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

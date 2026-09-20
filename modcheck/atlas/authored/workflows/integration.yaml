@@ -1,95 +1,126 @@
 - id: wf.integration.dependencies_conditions
   area: integration
   title: Depend on, or adapt to, other mods
-  intent: >-
-    The mod needs another mod (hard dependency), works better with one (optional),
-    or must refuse to run with one (break). Players should get a clear message, not
-    a stack trace.
+  intent: The mod needs another mod (hard dependency), works better with one (optional), or must refuse to run with
+    one (break). Players should get a clear message, not a stack trace.
   preserve:
-    - The other mod's behaviour; integration must not patch it.
+  - The other mod's behaviour; integration must not patch it.
   mechanisms:
-    - fabric.mod.json depends / recommends / breaks / provides (source:fabric_mod_json_spec; every Fabric API module's own declaration is in extracted:fabric_api.json).
-    - type:net.fabricmc.loader.api.FabricLoader isModLoaded for optional integration.
-    - mechanism:fabric-resource-conditions-api-v1 for data files that load only when a mod is present.
-    - mechanism:fabric-api-lookup-api-v1 for capability-style lookups without hard class references.
+  - fabric.mod.json depends / recommends / breaks / provides (source:fabric_mod_json_spec; every Fabric API module's
+    own declaration is in extracted:fabric_api.json).
+  - type:net.fabricmc.loader.api.FabricLoader isModLoaded for optional integration.
+  - mechanism:fabric-resource-conditions-api-v1 for data files that load only when a mod is present.
+  - mechanism:fabric-api-lookup-api-v1 for capability-style lookups without hard class references.
   tools_today:
-    - The failure record for a missing dependency (record:failure/missing_required_dependency_prevents_launch) and ModCheck's inspector reading depends.
+  - The failure record for a missing dependency (record:failure/missing_required_dependency_prevents_launch) and
+    ModCheck's inspector reading depends.
   decisions:
-    - Hard, optional or negative dependency.
-    - Version range expressions.
+  - Hard, optional or negative dependency.
+  - Version range expressions.
   information_needed:
-    - Exact mod ids and versions of the counterpart (from its jar, inspected).
+  - Exact mod ids and versions of the counterpart (from its jar, inspected).
   automation_existing:
-    - Inspector reads dependencies; the failure record has a detector.
+  - Inspector reads dependencies; the failure record has a detector.
   remaining_manual:
-    - Optional-integration code.
+  - Optional-integration code.
   modcheck_contribution:
-    - "Delivered: dependency inspection and the missing-dependency failure; the mixin dimension is separate (workflow:wf.integration.mixin_coexistence)."
+  - 'Delivered: dependency inspection and the missing-dependency failure; the mixin dimension is separate (workflow:wf.integration.mixin_coexistence).'
   evidence:
-    - record:failure/missing_required_dependency_prevents_launch
-    - source:fabric_mod_json_spec
-    - extracted:fabric_api.json
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "inspector and detector have unit tests; no game run"}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - record:failure/missing_required_dependency_prevents_launch
+  - source:fabric_mod_json_spec
+  - extracted:fabric_api.json
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: true
+    validated_scope: inspector and detector have unit tests; no game run
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.integration.registry_sync
   area: integration
   title: Keep registries consistent between server and client
-  intent: >-
-    A client with a different mod set than the server must be told so cleanly, and
-    ids must map identically on both sides for the content that is shared.
+  intent: A client with a different mod set than the server must be told so cleanly, and ids must map identically
+    on both sides for the content that is shared.
   preserve:
-    - Vanilla's own id assignment.
+  - Vanilla's own id assignment.
   mechanisms:
-    - mechanism:fabric-registry-sync-v0 -- id sync during configuration; event:net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback.EVENT before dynamic registries load.
+  - mechanism:fabric-registry-sync-v0 -- id sync during configuration; event:net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback.EVENT
+    before dynamic registries load.
   tools_today:
-    - Nothing to write; the module handles it when both sides have Fabric API.
+  - Nothing to write; the module handles it when both sides have Fabric API.
   decisions:
-    - Whether a registry entry is optional for the client (the module supports marking).
+  - Whether a registry entry is optional for the client (the module supports marking).
   information_needed:
-    - The module's API for optional entries (in its extracted surface).
+  - The module's API for optional entries (in its extracted surface).
   automation_existing:
-    - The module itself.
+  - The module itself.
   remaining_manual:
-    - None for the common case.
+  - None for the common case.
   modcheck_contribution:
-    - A check that a mod registering content declares fabric-api (or the sync module) as a dependency.
+  - A check that a mod registering content declares fabric-api (or the sync module) as a dependency.
   evidence:
-    - extracted:fabric_api.json#fabric-registry-sync-v0
-    - extracted:edges.json#publishes_event
-  questions: [question:q.registry_freeze_timing]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - extracted:fabric_api.json#fabric-registry-sync-v0
+  - extracted:edges.json#publishes_event
+  questions:
+  - question:q.registry_freeze_timing
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: false
+    interaction_analysed: false
+    implemented_in_modcheck: false
+    validated_scope: none
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.integration.mixin_coexistence
   area: integration
   title: Coexist with other mods' mixins
-  intent: >-
-    The mod's bytecode changes and everyone else's must apply together. When they
-    cannot, the creator wants to know before players do.
+  intent: The mod's bytecode changes and everyone else's must apply together. When they cannot, the creator wants
+    to know before players do.
   preserve:
-    - Fabric API's injections (never Overwrite an injected method).
+  - 'Fabric API''s injections: know, per injector pair, what the transformer does (mechanism:Mixin, executed_transformation).'
   mechanisms:
-    - mechanism:Mixin; the generated contested-method list; the analyst note under _authored/mechanisms.
+  - mechanism:Mixin; the generated shared-target index (potential interactions only); the composition table in _authored/mechanisms/mixin.md.
   tools_today:
-    - Reading the other mod's mixin configs by hand; running the game.
+  - Reading the other mod's mixin configs by hand; running the game.
   decisions:
-    - Injector kind and priority; whether to require or soft-fail the injection.
+  - 'Injector kind and priority; whether to require or soft-fail the injection (require=0 does not avoid the merged-by
+    refusal: scenario:B2).'
   information_needed:
-    - "Both mods' targets (extractable with atlas/extract/jvm.py, not yet wired into inspection: question:q.inspector_mixin_targets)."
-    - Application order (question:q.mixin_docs_application_order).
+  - 'Both mods'' targets, exactly resolved (atlas/extract/jvm.py + resolve.py do this for Fabric API; not yet wired
+    into inspection: question:q.inspector_mixin_targets).'
+  - 'Applicability: environment of both mixins.'
+  - The composition rule for the injector pair (extracted:mixin_transformation_tests.json).
   automation_existing:
-    - The atlas extractor over Fabric API only.
+  - The atlas extractor over Fabric API only.
   remaining_manual:
-    - The pairwise check for arbitrary jars (question:q.mixin_collision_analyser).
+  - The pairwise check for arbitrary jars, in the order index -> exact resolution -> applicability -> composition
+    rule (question:q.mixin_collision_analyser).
   modcheck_contribution:
-    - The collision analyser is the highest-value unimplemented item in the backlog.
+  - The collision analyser is the highest-value unimplemented item in the backlog.
   interactions_to_check:
-    - Same-method injections; same-call-site redirects; any Overwrite.
+  - 'Same-method injections (potential); same-call-site redirects (fail: scenario:C); overwrites versus INVOKE-point
+    injections (priority-dependent: scenario:B, scenario:K); cancelling HEAD injections (scenario:H).'
   evidence:
-    - extracted:edges.json#injects_into
-    - extracted:edges.json#wraps
-    - extracted:fabric_api.json
-  questions: [question:q.mixin_collision_analyser, question:q.inspector_mixin_targets, question:q.mixin_docs_application_order, question:q.runtime_mixin_application]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: false, validated_scope: none}
-  provenance: {author: analyst, added: '2026-09-20'}
+  - extracted:edges.json#shared_targets
+  - extracted:edges.json#injects_into
+  - extracted:mixin_transformation_tests.json
+  questions:
+  - question:q.mixin_collision_analyser
+  - question:q.inspector_mixin_targets
+  - question:q.mixin_docs_application_order
+  - question:q.runtime_mixin_application
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: false
+    validated_scope: none
+  provenance:
+    author: analyst
+    added: '2026-09-20'

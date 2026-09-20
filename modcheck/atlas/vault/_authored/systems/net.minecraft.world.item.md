@@ -9,7 +9,7 @@ side: "shared_by_design"
 
 # Items, item stacks and creative tabs
 
-Package `net.minecraft.world.item` -- generated view: [[20-Systems/net.minecraft.world.item|hooked types]]
+Package `net.minecraft.world.item` -- generated view: [[20-Systems/net.minecraft.world.item|inventory and hooked types]]
 
 **Responsibility.** Item definitions, ItemStack, enchantment and tooltip logic, creative-mode tabs and the data components attached to stacks (net.minecraft.core.component is the component model itself).
 

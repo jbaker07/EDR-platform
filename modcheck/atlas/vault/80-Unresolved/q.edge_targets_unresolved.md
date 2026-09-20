@@ -2,7 +2,7 @@
 type: "question"
 id: "q.edge_targets_unresolved"
 kind: "incomplete_extraction"
-status: "open"
+status: "resolved"
 ---
 
 > [!warning] Analyst-authored
@@ -12,14 +12,14 @@ status: "open"
 
 **Question.** Which of the edge targets (75 at the time of writing; 90-Coverage carries the current count) that are neither declared on the hooked vanilla type nor on a superclass are (a) declared on an interface, (b) java.lang.Object methods, (c) wildcard targets such as <clinit>*, or (d) members Fabric adds by interface injection and that do not exist in the vanilla jar at all?
 
-**Kind.** `incomplete_extraction` -- **Status.** open
+**Kind.** `incomplete_extraction` -- **Status.** resolved
 
 **Why it matters.** A calls edge whose target does not exist in vanilla is either an extraction artefact or a Fabric-injected member. Until each is classified, a mod author reading the interface note for that type may look for a method that is not there.
 
 **Affects.** [[10-Workflows/wf.behaviour.vanilla_modification|wf.behaviour.vanilla_modification]], [[10-Workflows/wf.integration.mixin_coexistence|wf.integration.mixin_coexistence]]
 
 **Evidence already available.**
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `extracted/edges.json#calls`
 
 **Best remaining source.** The same jars: walk `implements` chains with javap (interfaces were not walked), and read fabric-api's interface-injection declarations from each module's fabric.mod.json custom block.
@@ -31,3 +31,5 @@ status: "open"
 **Conclusions affected while open.**
 - Interface notes under 40-Interfaces for the owners of unresolved targets may omit an inherited or injected member that an edge names.
 - The "targets resolved" count in 90-Coverage is a lower bound.
+
+**Resolved by.** Exact resolution in atlas/extract/resolve.py against the processed compile jar, Minecraft's own libraries and the JDK (`extracted/edges.json#calls`: 4373 exact + 715 inherited_exact, 0 unresolved; `extracted/edges.json#reads`: 1422 exact + 9 inherited, 0 unresolved). The old 75 were an artefact of a javap name match that walked neither interfaces nor library jars. What remains is [[80-Unresolved/q.selector_ambiguity|q.selector_ambiguity]].

@@ -6,6 +6,7 @@ caches); the extractors' own unit-level behaviour is covered by parsing fixtures
 """
 from __future__ import annotations
 
+import collections
 import importlib.util
 import json
 import re
@@ -30,7 +31,7 @@ needs_vault = pytest.mark.skipif(not (ATLAS / "vault" / "_index.md").exists(), r
 
 
 # -- extractor parsing, on fixtures (no javap) ------------------------------------
-JAVAP_MULTI = """Compiled from "Level.java"
+_UNUSED = """Compiled from "Level.java"
 public abstract class net.minecraft.world.level.Level implements net.minecraft.world.level.LevelAccessor {
   public boolean isRaining();
   public boolean isRainingAt(net.minecraft.core.BlockPos);
@@ -42,18 +43,6 @@ public class net.minecraft.server.level.ServerLevel extends net.minecraft.world.
   public void tick(java.util.function.BooleanSupplier);
 }
 """
-
-
-def test_vanilla_members_parses_multi_class_javap_output():
-    vm = _load("vanilla_members")
-    blocks = vm.parse_blocks(JAVAP_MULTI)
-    assert set(blocks) == {"net.minecraft.world.level.Level", "net.minecraft.server.level.ServerLevel"}
-    assert blocks["net.minecraft.world.level.Level"]["kind"] == "abstract_class"
-    assert "public boolean isRaining()" in blocks["net.minecraft.world.level.Level"]["members"]
-    names = vm.member_names(blocks["net.minecraft.server.level.ServerLevel"]["members"])
-    assert names == {"getGameRules", "tick"}
-    # a field is named by its last token, a method by the token before '('
-    assert "blockEntityTickers" in vm.member_names(blocks["net.minecraft.world.level.Level"]["members"])
 
 
 def test_reference_pattern_does_not_swallow_sentence_period():
@@ -87,14 +76,15 @@ def test_every_edge_cites_a_corpus_artifact_hash_and_no_edge_is_observed():
 
 
 @needs_extraction
-def test_fabric_api_publishes_no_overwrite_and_edges_reflect_it():
+def test_fabric_api_overwrite_count_is_regenerated_from_class_files():
+    """The first atlas said zero overwrites; the class-file reader finds exactly one, plus 199 MixinExtras injections."""
     edges = json.loads((EXTRACTED / "edges.json").read_text())
-    assert edges["counts"].get("replaces", 0) == 0
-    assert edges["counts"]["injects_into"] > 400
-    assert edges["counts"]["callback_of"] > 150
+    assert edges["counts"]["replaces"] == 1
     fabric = json.loads((EXTRACTED / "fabric_api.json").read_text())
-    injectors = {inj["injector"] for m in fabric["modules"] for mx in m["mixins"] for inj in mx["injections"]}
-    assert "Overwrite" not in injectors
+    injectors = collections.Counter(inj["injector"] for m in fabric["modules"] for mx in m["mixins"] for inj in mx["injections"])
+    assert injectors["Overwrite"] == 1 and injectors["WrapOperation"] > 100 and injectors["ModifyReturnValue"] > 10
+    assert sum(m["counts"]["extraction_failures"] for m in fabric["modules"]) == 0
+    assert all(m["mixins_missing"] == [] and m["mixins_undeclared"] == [] for m in fabric["modules"])
 
 
 @needs_extraction
@@ -109,24 +99,29 @@ def test_known_publication_sites_are_exact():
             if h:
                 sites.setdefault(e["to"]["id"].rsplit(".", 2)[-2] + "." + e["to"]["id"].rsplit(".", 1)[-1],
                                  (h["to"]["owner"], h["to"]["id"], h["operation"]))
-    assert sites["ServerTickEvents.END_LEVEL_TICK"][:2] == ("net.minecraft.server.level.ServerLevel", "tick")
+    assert sites["ServerTickEvents.END_LEVEL_TICK"][:2] == ("net/minecraft/server/level/ServerLevel", "tick")
     assert "TAIL" in sites["ServerTickEvents.END_LEVEL_TICK"][2]
-    assert sites["ServerTickEvents.END_SERVER_TICK"][:2] == ("net.minecraft.server.MinecraftServer", "tickServer")
-    assert sites["ServerLifecycleEvents.SERVER_STOPPING"][:2] == ("net.minecraft.server.MinecraftServer", "stopServer")
-    assert sites["ClientTickEvents.END_CLIENT_TICK"][:2] == ("net.minecraft.client.Minecraft", "tick")
+    assert sites["ServerTickEvents.END_SERVER_TICK"][:2] == ("net/minecraft/server/MinecraftServer", "tickServer")
+    assert sites["ServerLifecycleEvents.SERVER_STOPPING"][:2] == ("net/minecraft/server/MinecraftServer", "stopServer")
+    assert sites["ClientTickEvents.END_CLIENT_TICK"][:2] == ("net/minecraft/client/Minecraft", "tick")
 
 
 @needs_extraction
-def test_member_extraction_cross_checks_edge_targets():
-    members = json.loads((EXTRACTED / "minecraft_members.json").read_text())
-    assert members["types_extracted"] == members["types_requested"] - len(members["types_missing"])
-    et = members["edge_targets"]
-    assert et["resolved_on_type"] > 1000
-    assert len(et["unresolved"]) < 100, "unresolved edge targets grew; see q.edge_targets_unresolved"
-    level = members["types"]["net.minecraft.world.level.Level"]["members"]
-    assert "public boolean isRaining()" in level and "public boolean isRainingAt(net.minecraft.core.BlockPos)" in level
-    server_level = members["types"]["net.minecraft.server.level.ServerLevel"]["members"]
-    assert any(m.endswith("getGameRules()") for m in server_level)
+def test_surface_and_resolution_are_exact_against_the_processed_jar():
+    import gzip
+    with gzip.open(EXTRACTED / "minecraft_surface.json.gz", "rt") as fh:
+        surface = json.load(fh)
+    level = surface["classes"]["net/minecraft/world/level/Level"]
+    assert ["isRaining", "()Z"] in [[n, d] for n, d, a in level["methods"]]
+    assert ["isRainingAt", "(Lnet/minecraft/core/BlockPos;)Z"] in [[n, d] for n, d, a in level["methods"]]
+    assert surface["counts"]["classes"] > 11000 and surface["counts"]["processed_differs"] > 300
+    edges = json.loads((EXTRACTED / "edges.json").read_text())
+    rb = edges["resolution_by_relation"]
+    assert set(rb["calls"]) <= {"exact", "inherited_exact"} and set(rb["reads"]) <= {"exact", "inherited_exact"}
+    assert set(edges["injection_point_resolution"]) <= {"exact", "inherited_exact", "selector_unsupported"}
+    env = json.loads((EXTRACTED / "resolved_environment.json").read_text())
+    assert env["minecraft_jar_processing"]["processed_jar"]["sha256"] != env["minecraft_jar_processing"]["cache_jar"]["sha256"]
+    assert edges["resolution"]["sha256"] == env["minecraft_jar_processing"]["processed_jar"]["sha256"]
 
 
 # -- validator and vault ------------------------------------------------------------
@@ -169,6 +164,7 @@ def test_workflow_index_covers_all_eight_areas():
 def test_coverage_note_reports_zero_runtime_evidence_and_denominators():
     cov = (ATLAS / "vault" / "90-Coverage" / "_index.md").read_text()
     assert "observed edges: 0. No game has run." in cov
-    assert re.search(r"vanilla packages with at least one hook: \d+ / \d+", cov)
+    assert "executed_transformation" in cov
+    assert re.search(r"depth-4 packages: \d+; with at least one Fabric API hook: \d+", cov)
     assert re.search(r"events with an analyst-stated subscriber contract: \d+ / \d+", cov)
     assert "NOT implemented" in cov

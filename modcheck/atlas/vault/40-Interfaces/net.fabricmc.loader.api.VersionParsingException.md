@@ -12,8 +12,8 @@ module: "fabric-loader"
 fabric-loader 0.19.5 -- kind: class
 
 ```java
-public net.fabricmc.loader.api.VersionParsingException()
-public net.fabricmc.loader.api.VersionParsingException(java.lang.Throwable)
-public net.fabricmc.loader.api.VersionParsingException(java.lang.String)
-public net.fabricmc.loader.api.VersionParsingException(java.lang.String, java.lang.Throwable)
+public <init>()
+public <init>(java.lang.Throwable)
+public <init>(java.lang.String)
+public <init>(java.lang.String, java.lang.Throwable)
 ```

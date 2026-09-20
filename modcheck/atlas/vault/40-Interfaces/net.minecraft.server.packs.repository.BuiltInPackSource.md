@@ -11,40 +11,40 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/server/packs/repository/RepositorySource`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `loadPacks` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `loadPacks` | `(Ljava/util/function/Consumer;)V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (8 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.server.packs.repository.BuiltInPackSource implements net.minecraft.server.packs.repository.RepositorySource {
-    private static final org.slf4j.Logger LOGGER;
-    public static final java.lang.String VANILLA_ID;
-    public static final java.lang.String TESTS_ID;
-    public static final net.minecraft.server.packs.repository.KnownPack CORE_PACK_INFO;
-    private final net.minecraft.server.packs.PackType packType;
-    private final net.minecraft.server.packs.VanillaPackResources vanillaPack;
-    private final net.minecraft.resources.Identifier packDir;
-    private final net.minecraft.world.level.validation.DirectoryValidator validator;
-    public net.minecraft.server.packs.repository.BuiltInPackSource(net.minecraft.server.packs.PackType, net.minecraft.server.packs.VanillaPackResources, net.minecraft.resources.Identifier, net.minecraft.world.level.validation.DirectoryValidator);
-    public void loadPacks(java.util.function.Consumer<net.minecraft.server.packs.repository.Pack>);
-    protected abstract net.minecraft.server.packs.repository.Pack createVanillaPack(net.minecraft.server.packs.repository.Pack$ResourcesSupplier);
-    protected abstract net.minecraft.network.chat.Component getPackTitle(java.lang.String);
-    public net.minecraft.server.packs.VanillaPackResources getVanillaPack();
-    private void listBundledPacks(java.util.function.Consumer<net.minecraft.server.packs.repository.Pack>);
-    protected void populatePackList(java.util.function.BiConsumer<java.lang.String, java.util.function.Function<java.lang.String, net.minecraft.server.packs.repository.Pack>>);
-    protected void discoverPacksInPath(java.nio.file.Path, java.util.function.BiConsumer<java.lang.String, java.util.function.Function<java.lang.String, net.minecraft.server.packs.repository.Pack>>);
-    private static java.lang.String pathToId(java.nio.file.Path);
-    protected abstract net.minecraft.server.packs.repository.Pack createBuiltinPack(java.lang.String, net.minecraft.server.packs.repository.Pack$ResourcesSupplier, net.minecraft.network.chat.Component);
-    private void lambda$discoverPacksInPath$0(java.util.function.BiConsumer, java.nio.file.Path, net.minecraft.server.packs.repository.Pack$ResourcesSupplier);
-    private net.minecraft.server.packs.repository.Pack lambda$discoverPacksInPath$1(net.minecraft.server.packs.repository.Pack$ResourcesSupplier, java.lang.String);
-    private void lambda$populatePackList$0(java.util.function.BiConsumer, java.nio.file.Path);
-    private static void lambda$listBundledPacks$0(java.util.function.Consumer, java.lang.String, java.util.function.Function);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final VANILLA_ID : Ljava/lang/String;
+public static final TESTS_ID : Ljava/lang/String;
+public static final CORE_PACK_INFO : Lnet/minecraft/server/packs/repository/KnownPack;
+private final packType : Lnet/minecraft/server/packs/PackType;
+private final vanillaPack : Lnet/minecraft/server/packs/VanillaPackResources;
+private final packDir : Lnet/minecraft/resources/Identifier;
+private final validator : Lnet/minecraft/world/level/validation/DirectoryValidator;
+public <init>(Lnet/minecraft/server/packs/PackType;Lnet/minecraft/server/packs/VanillaPackResources;Lnet/minecraft/resources/Identifier;Lnet/minecraft/world/level/validation/DirectoryValidator;)V
+public loadPacks(Ljava/util/function/Consumer;)V
+protected abstract createVanillaPack(Lnet/minecraft/server/packs/repository/Pack$ResourcesSupplier;)Lnet/minecraft/server/packs/repository/Pack;
+protected abstract getPackTitle(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;
+public getVanillaPack()Lnet/minecraft/server/packs/VanillaPackResources;
+private listBundledPacks(Ljava/util/function/Consumer;)V
+protected populatePackList(Ljava/util/function/BiConsumer;)V
+protected discoverPacksInPath(Ljava/nio/file/Path;Ljava/util/function/BiConsumer;)V
+private static pathToId(Ljava/nio/file/Path;)Ljava/lang/String;
+protected abstract createBuiltinPack(Ljava/lang/String;Lnet/minecraft/server/packs/repository/Pack$ResourcesSupplier;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/server/packs/repository/Pack;
+private synthetic lambda$discoverPacksInPath$0(Ljava/util/function/BiConsumer;Ljava/nio/file/Path;Lnet/minecraft/server/packs/repository/Pack$ResourcesSupplier;)V
+private synthetic lambda$discoverPacksInPath$1(Lnet/minecraft/server/packs/repository/Pack$ResourcesSupplier;Ljava/lang/String;)Lnet/minecraft/server/packs/repository/Pack;
+private synthetic lambda$populatePackList$0(Ljava/util/function/BiConsumer;Ljava/nio/file/Path;)V
+private static synthetic lambda$listBundledPacks$0(Ljava/util/function/Consumer;Ljava/lang/String;Ljava/util/function/Function;)V
+static <clinit>()V
 ```

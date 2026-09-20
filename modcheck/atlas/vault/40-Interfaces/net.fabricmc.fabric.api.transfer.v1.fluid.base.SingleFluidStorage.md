@@ -13,7 +13,7 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: abstract_class
 
 ```java
-public net.fabricmc.fabric.api.transfer.v1.fluid.base.SingleFluidStorage()
+public <init>()
 public static net.fabricmc.fabric.api.transfer.v1.fluid.base.SingleFluidStorage withFixedCapacity(long, java.lang.Runnable)
 protected final net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant getBlankVariant()
 public void readValue(net.minecraft.world.level.storage.ValueInput)

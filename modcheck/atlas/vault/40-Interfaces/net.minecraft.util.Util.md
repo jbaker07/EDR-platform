@@ -11,187 +11,193 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `backgroundExecutor()Lnet/minecraft/TracingExecutor;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getPlatform()Lnet/minecraft/util/Util$OS;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `getPlatform()Lnet/minecraft/util/Util$OS;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `make(Ljava/lang/Object;Ljava/util/function/Consumer;)Ljava/lang/` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `sequence(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| reads | `NIL_UUIDLjava/util/UUID;` | `` | both | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `backgroundExecutor` | `()Lnet/minecraft/TracingExecutor;` | exact | invokestatic@86 in `FabricDataGenHelper.runInternal` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `backgroundExecutor` | `()Lnet/minecraft/TracingExecutor;` | exact | invokestatic@100 in `FabricDataGenHelper.runInternal` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPlatform` | `()Lnet/minecraft/util/Util$OS;` | exact | invokestatic@10 in `TestInputImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getPlatform` | `()Lnet/minecraft/util/Util$OS;` | exact | invokestatic@12 in `DedicatedServerImplUtil.lambda$static$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `make` | `(Ljava/lang/Object;Ljava/util/function/Consumer;)Ljava/lang/Object;` | exact | invokestatic@20 in `DedicatedServerImplUtil.<clinit>` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `makeDescriptionId` | `(Ljava/lang/String;Lnet/minecraft/resources/Identifier;)Ljava/lang/Str` | exact | invokestatic@16 in `SoundTypeBuilder.of` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `makeDescriptionId` | `(Ljava/lang/String;Lnet/minecraft/resources/Identifier;)Ljava/lang/Str` | exact | invokestatic@7 in `FabricLanguageProvider$TranslationBuilder.addEnchantment` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `makeDescriptionId` | `(Ljava/lang/String;Lnet/minecraft/resources/Identifier;)Ljava/lang/Str` | exact | invokestatic@7 in `FabricLanguageProvider$TranslationBuilder.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `makeDescriptionId` | `(Ljava/lang/String;Lnet/minecraft/resources/Identifier;)Ljava/lang/Str` | exact | invokestatic@48 in `FluidVariantAttributeHandler.getName` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `sequence` | `(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;` | exact | invokestatic@99 in `ModelLoadingPluginManager.preparePlugins` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| reads | `NIL_UUID` | `Ljava/util/UUID;` | exact | getstatic@27 in `CommandSourceStackMixin.<init>` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| reads | `NIL_UUID` | `Ljava/util/UUID;` | exact | getstatic@134 in `CommandSourceStackMixin.storeOriginalSource` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
 
-## Declared members (165, all visibilities)
+## Declared members (19 fields, 146 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.Util {
-    private static final org.slf4j.Logger LOGGER;
-    private static final int DEFAULT_MAX_THREADS;
-    private static final int DEFAULT_SAFE_FILE_OPERATION_RETRIES;
-    private static final java.lang.String MAX_THREADS_SYSTEM_PROPERTY;
-    private static final net.minecraft.TracingExecutor BACKGROUND_EXECUTOR;
-    private static final net.minecraft.TracingExecutor IO_POOL;
-    private static final net.minecraft.TracingExecutor DOWNLOAD_POOL;
-    private static final java.time.format.DateTimeFormatter FILENAME_DATE_TIME_FORMATTER;
-    public static final int LINEAR_LOOKUP_THRESHOLD;
-    private static final java.util.Set<java.lang.String> ALLOWED_UNTRUSTED_LINK_PROTOCOLS;
-    public static final long NANOS_PER_MILLI;
-    public static final long MILLIS_PER_SECOND;
-    private static net.minecraft.util.TimeSource$NanoTimeSource timeSource;
-    private static final net.minecraft.util.TimeSource$NanoTimeSource INDIRECT_TIME_SOURCE;
-    public static final com.google.common.base.Ticker TICKER;
-    public static final java.util.UUID NIL_UUID;
-    public static final java.nio.file.spi.FileSystemProvider ZIP_FILE_SYSTEM_PROVIDER;
-    public static final com.google.common.escape.Escaper CONTROL_CHARACTER_ESCAPER;
-    private static java.util.function.Consumer<java.lang.String> thePauser;
-    public net.minecraft.util.Util();
-    public static <K, V> java.util.stream.Collector<java.util.Map$Entry<? extends K, ? extends V>, ?, java.util.Map<K, V>> toMap();
-    public static <T> java.util.stream.Collector<T, ?, java.util.List<T>> toMutableList();
-    public static <T extends java.lang.Comparable<T>> java.lang.String getPropertyName(net.minecraft.world.level.block.state.properties.Property<T>, java.lang.Object);
-    public static java.lang.String makeDescriptionId(java.lang.String, net.minecraft.resources.Identifier);
-    public static net.minecraft.util.TimeSource$NanoTimeSource timeSource();
-    public static void setTimeSource(net.minecraft.util.TimeSource$NanoTimeSource);
-    public static void shutdownTimeSource();
-    public static long getMillis();
-    public static long getNanos();
-    public static long getEpochMillis();
-    public static long toMillis(double);
-    public static java.lang.String getFilenameFormattedDateTime();
-    private static net.minecraft.TracingExecutor makeExecutor(java.lang.String);
-    public static int maxAllowedExecutorThreads();
-    private static int getMaxThreads();
-    public static net.minecraft.TracingExecutor backgroundExecutor();
-    public static net.minecraft.TracingExecutor ioPool();
-    public static net.minecraft.TracingExecutor nonCriticalIoPool();
-    public static void shutdownExecutors();
-    private static net.minecraft.TracingExecutor makeIoExecutor(java.lang.String, boolean);
-    public static void throwAsRuntime(java.lang.Throwable);
-    private static void onThreadException(java.lang.Thread, java.lang.Throwable);
-    public static com.mojang.datafixers.types.Type<?> fetchChoiceType(com.mojang.datafixers.DSL$TypeReference, java.lang.String);
-    private static com.mojang.datafixers.types.Type<?> doFetchChoiceType(com.mojang.datafixers.DSL$TypeReference, java.lang.String);
-    public static void runNamed(java.lang.Runnable, java.lang.String);
-    public static <T> java.lang.String getRegisteredName(net.minecraft.core.Registry<T>, T);
-    public static <T> java.util.function.Predicate<T> allOf();
-    public static <T> java.util.function.Predicate<T> allOf(java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> allOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> allOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> allOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> allOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> allOf(java.util.function.Predicate<? super T>...);
-    public static <T> java.util.function.Predicate<T> allOf(java.util.List<? extends java.util.function.Predicate<? super T>>);
-    public static <T> java.util.function.Predicate<T> anyOf();
-    public static <T> java.util.function.Predicate<T> anyOf(java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> anyOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> anyOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> anyOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> anyOf(java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>, java.util.function.Predicate<? super T>);
-    public static <T> java.util.function.Predicate<T> anyOf(java.util.function.Predicate<? super T>...);
-    public static <T> java.util.function.Predicate<T> anyOf(java.util.List<? extends java.util.function.Predicate<? super T>>);
-    public static <T> boolean isSymmetrical(int, int, java.util.List<T>);
-    public static int growByHalf(int, int);
-    public static java.time.format.DateTimeFormatter localizedDateFormatter(java.time.format.FormatStyle);
-    public static java.lang.management.ThreadInfo[] dumpThreadInfo();
-    public static net.minecraft.util.Util$OS getPlatform();
-    public static boolean isAarch64();
-    public static boolean isAppleSiliconMac(java.lang.String);
-    public static java.net.URI parseAndValidateUntrustedUri(java.lang.String) throws java.net.URISyntaxException;
-    public static <T> T findNextInIterable(java.lang.Iterable<T>, T);
-    public static <T> T findPreviousInIterable(java.lang.Iterable<T>, T);
-    public static <T> T make(java.util.function.Supplier<T>);
-    public static <T> T make(T, java.util.function.Consumer<? super T>);
-    public static <K extends java.lang.Enum<K>, V> java.util.Map<K, V> makeEnumMap(java.lang.Class<K>, java.util.function.Function<K, V>);
-    public static <K, V1, V2> java.util.Map<K, V2> mapValues(java.util.Map<K, V1>, java.util.function.Function<? super V1, V2>);
-    public static <K, V1, V2> java.util.Map<K, V2> mapValuesLazy(java.util.Map<K, V1>, com.google.common.base.Function<V1, V2>);
-    public static <T extends java.lang.Enum<T>> java.util.Set<T> allOfEnumExcept(T);
-    public static <V> java.util.concurrent.CompletableFuture<java.util.List<V>> sequence(java.util.List<? extends java.util.concurrent.CompletableFuture<V>>);
-    public static <V> java.util.concurrent.CompletableFuture<java.util.List<V>> sequenceFailFast(java.util.List<? extends java.util.concurrent.CompletableFuture<? extends V>>);
-    public static <V> java.util.concurrent.CompletableFuture<java.util.List<V>> sequenceFailFastAndCancel(java.util.List<? extends java.util.concurrent.CompletableFuture<? extends V>>);
-    private static <V> java.util.concurrent.CompletableFuture<java.util.List<V>> fallibleSequence(java.util.List<? extends java.util.concurrent.CompletableFuture<? extends V>>, java.util.function.Consumer<java.lang.Throwable>);
-    public static <T> java.util.Optional<T> ifElse(java.util.Optional<T>, java.util.function.Consumer<T>, java.lang.Runnable);
-    public static <T> java.util.function.Supplier<T> name(java.util.function.Supplier<T>, java.util.function.Supplier<java.lang.String>);
-    public static java.lang.Runnable name(java.lang.Runnable, java.util.function.Supplier<java.lang.String>);
-    public static void logAndPauseIfInIde(java.lang.String);
-    public static void logAndPauseIfInIde(java.lang.String, java.lang.Throwable);
-    public static <T extends java.lang.Throwable> T pauseInIde(T);
-    public static void setPause(java.util.function.Consumer<java.lang.String>);
-    private static void doPause(java.lang.String);
-    public static java.lang.String describeError(java.lang.Throwable);
-    public static <T> T getRandom(T[], net.minecraft.util.RandomSource);
-    public static int getRandom(int[], net.minecraft.util.RandomSource);
-    public static <T> T getRandom(java.util.List<T>, net.minecraft.util.RandomSource);
-    public static <T> java.util.Optional<T> getRandomSafe(java.util.List<T>, net.minecraft.util.RandomSource);
-    private static java.util.function.BooleanSupplier createRenamer(java.nio.file.Path, java.nio.file.Path, java.nio.file.CopyOption...);
-    private static java.util.function.BooleanSupplier createDeleter(java.nio.file.Path);
-    private static java.util.function.BooleanSupplier createFileDeletedCheck(java.nio.file.Path);
-    private static java.util.function.BooleanSupplier createFileCreatedCheck(java.nio.file.Path);
-    private static boolean executeInSequence(java.util.function.BooleanSupplier...);
-    private static boolean runWithRetries(int, java.lang.String, java.util.function.BooleanSupplier...);
-    public static boolean safeMoveFile(java.nio.file.Path, java.nio.file.Path, java.nio.file.CopyOption...);
-    public static void safeReplaceFile(java.nio.file.Path, java.nio.file.Path, java.nio.file.Path);
-    public static boolean safeReplaceOrMoveFile(java.nio.file.Path, java.nio.file.Path, java.nio.file.Path, boolean);
-    public static int offsetByCodepoints(java.lang.String, int, int);
-    public static java.util.function.Consumer<java.lang.String> prefix(java.lang.String, java.util.function.Consumer<java.lang.String>);
-    public static com.mojang.serialization.DataResult<int[]> fixedSize(java.util.stream.IntStream, int);
-    public static com.mojang.serialization.DataResult<long[]> fixedSize(java.util.stream.LongStream, int);
-    public static <T> com.mojang.serialization.DataResult<java.util.List<T>> fixedSize(java.util.List<T>, int);
-    public static void startTimerHackThread();
-    public static void copyBetweenDirs(java.nio.file.Path, java.nio.file.Path, java.nio.file.Path) throws java.io.IOException;
-    public static java.lang.String sanitizeName(java.lang.String, net.minecraft.CharPredicate);
-    public static <K, V> net.minecraft.util.SingleKeyCache<K, V> singleKeyCache(java.util.function.Function<K, V>);
-    public static <T, R> java.util.function.Function<T, R> memoize(java.util.function.Function<T, R>);
-    public static <T, U, R> java.util.function.BiFunction<T, U, R> memoize(java.util.function.BiFunction<T, U, R>);
-    public static <T> java.util.List<T> toShuffledList(java.util.stream.Stream<T>, net.minecraft.util.RandomSource);
-    public static it.unimi.dsi.fastutil.ints.IntArrayList toShuffledList(java.util.stream.IntStream, net.minecraft.util.RandomSource);
-    public static <T> java.util.List<T> shuffledCopy(T[], net.minecraft.util.RandomSource);
-    public static <T> java.util.List<T> shuffledCopy(it.unimi.dsi.fastutil.objects.ObjectArrayList<T>, net.minecraft.util.RandomSource);
-    public static <T> void shuffle(java.util.List<T>, net.minecraft.util.RandomSource);
-    public static <T> java.util.concurrent.CompletableFuture<T> blockUntilDone(java.util.function.Function<java.util.concurrent.Executor, java.util.concurrent.CompletableFuture<T>>);
-    public static <T> T blockUntilDone(java.util.function.Function<java.util.concurrent.Executor, T>, java.util.function.Predicate<T>);
-    public static <T> java.util.function.ToIntFunction<T> createIndexLookup(java.util.List<T>);
-    public static <T> java.util.function.ToIntFunction<T> createIndexIdentityLookup(java.util.List<T>);
-    public static <A, B> com.mojang.datafixers.Typed<B> writeAndReadTypedOrThrow(com.mojang.datafixers.Typed<A>, com.mojang.datafixers.types.Type<B>, java.util.function.UnaryOperator<com.mojang.serialization.Dynamic<?>>);
-    public static <T> com.mojang.datafixers.Typed<T> readTypedOrThrow(com.mojang.datafixers.types.Type<T>, com.mojang.serialization.Dynamic<?>);
-    public static <T> com.mojang.datafixers.Typed<T> readTypedOrThrow(com.mojang.datafixers.types.Type<T>, com.mojang.serialization.Dynamic<?>, boolean);
-    public static <T> java.util.List<T> copyAndAdd(java.util.List<T>, T);
-    public static <T> java.util.List<T> copyAndAdd(java.util.List<T>, T...);
-    public static <T> java.util.List<T> copyAndAdd(T, java.util.List<T>);
-    public static <T> java.util.List<T> join(java.util.Collection<T>, java.util.Collection<T>);
-    public static <T> java.util.List<T> join(java.util.Collection<T>...);
-    public static <K, V> java.util.Map<K, V> copyAndPut(java.util.Map<K, V>, K, V);
-    private static java.lang.String lambda$sanitizeName$0(net.minecraft.CharPredicate, int);
-    private static java.lang.String lambda$fixedSize$2(int);
-    private static java.lang.String lambda$fixedSize$1(int);
-    private static java.lang.String lambda$fixedSize$0(int);
-    private static void lambda$prefix$0(java.util.function.Consumer, java.lang.String, java.lang.String);
-    private static java.util.List lambda$fallibleSequence$1(it.unimi.dsi.fastutil.objects.ObjectArrayList, java.lang.Void);
-    private static void lambda$fallibleSequence$0(java.util.function.Consumer, it.unimi.dsi.fastutil.objects.ObjectArrayList, int, java.lang.Object, java.lang.Throwable);
-    private static void lambda$sequenceFailFastAndCancel$0(java.util.concurrent.CompletableFuture, java.util.List, java.lang.Throwable);
-    private static java.util.List lambda$sequence$0(java.util.List, java.lang.Void);
-    private static java.lang.Object lambda$mapValues$0(java.util.function.Function, java.util.Map$Entry);
-    private static java.util.function.Predicate[] lambda$anyOf$6(int);
-    private static boolean lambda$anyOf$5(java.util.function.Predicate[], java.lang.Object);
-    private static boolean lambda$anyOf$4(java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$anyOf$3(java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$anyOf$2(java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$anyOf$1(java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$anyOf$0(java.lang.Object);
-    private static java.util.function.Predicate[] lambda$allOf$6(int);
-    private static boolean lambda$allOf$5(java.util.function.Predicate[], java.lang.Object);
-    private static boolean lambda$allOf$4(java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$allOf$3(java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$allOf$2(java.util.function.Predicate, java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$allOf$1(java.util.function.Predicate, java.util.function.Predicate, java.lang.Object);
-    private static boolean lambda$allOf$0(java.lang.Object);
-    private static java.lang.Thread lambda$makeIoExecutor$0(java.lang.String, java.util.concurrent.atomic.AtomicInteger, boolean, java.lang.Runnable);
-    private static java.util.concurrent.ForkJoinWorkerThread lambda$makeExecutor$0(java.lang.String, java.util.concurrent.atomic.AtomicInteger, java.util.concurrent.ForkJoinPool);
-    private static void lambda$static$4(java.lang.String);
-    private static void lambda$static$3(com.google.common.escape.Escapers$Builder);
-    private static java.lang.IllegalStateException lambda$static$2();
-    private static boolean lambda$static$1(java.nio.file.spi.FileSystemProvider);
-    private static long lambda$static$0();
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final DEFAULT_MAX_THREADS : I
+private static final DEFAULT_SAFE_FILE_OPERATION_RETRIES : I
+private static final MAX_THREADS_SYSTEM_PROPERTY : Ljava/lang/String;
+private static final BACKGROUND_EXECUTOR : Lnet/minecraft/TracingExecutor;
+private static final IO_POOL : Lnet/minecraft/TracingExecutor;
+private static final DOWNLOAD_POOL : Lnet/minecraft/TracingExecutor;
+private static final FILENAME_DATE_TIME_FORMATTER : Ljava/time/format/DateTimeFormatter;
+public static final LINEAR_LOOKUP_THRESHOLD : I
+private static final ALLOWED_UNTRUSTED_LINK_PROTOCOLS : Ljava/util/Set;
+public static final NANOS_PER_MILLI : J
+public static final MILLIS_PER_SECOND : J
+private static timeSource : Lnet/minecraft/util/TimeSource$NanoTimeSource;
+private static final INDIRECT_TIME_SOURCE : Lnet/minecraft/util/TimeSource$NanoTimeSource;
+public static final TICKER : Lcom/google/common/base/Ticker;
+public static final NIL_UUID : Ljava/util/UUID;
+public static final ZIP_FILE_SYSTEM_PROVIDER : Ljava/nio/file/spi/FileSystemProvider;
+public static final CONTROL_CHARACTER_ESCAPER : Lcom/google/common/escape/Escaper;
+private static thePauser : Ljava/util/function/Consumer;
+public <init>()V
+public static toMap()Ljava/util/stream/Collector;
+public static toMutableList()Ljava/util/stream/Collector;
+public static getPropertyName(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Object;)Ljava/lang/String;
+public static makeDescriptionId(Ljava/lang/String;Lnet/minecraft/resources/Identifier;)Ljava/lang/String;
+public static timeSource()Lnet/minecraft/util/TimeSource$NanoTimeSource;
+public static setTimeSource(Lnet/minecraft/util/TimeSource$NanoTimeSource;)V
+public static shutdownTimeSource()V
+public static getMillis()J
+public static getNanos()J
+public static getEpochMillis()J
+public static toMillis(D)J
+public static getFilenameFormattedDateTime()Ljava/lang/String;
+private static makeExecutor(Ljava/lang/String;)Lnet/minecraft/TracingExecutor;
+public static maxAllowedExecutorThreads()I
+private static getMaxThreads()I
+public static backgroundExecutor()Lnet/minecraft/TracingExecutor;
+public static ioPool()Lnet/minecraft/TracingExecutor;
+public static nonCriticalIoPool()Lnet/minecraft/TracingExecutor;
+public static shutdownExecutors()V
+private static makeIoExecutor(Ljava/lang/String;Z)Lnet/minecraft/TracingExecutor;
+public static throwAsRuntime(Ljava/lang/Throwable;)V
+private static onThreadException(Ljava/lang/Thread;Ljava/lang/Throwable;)V
+public static fetchChoiceType(Lcom/mojang/datafixers/DSL$TypeReference;Ljava/lang/String;)Lcom/mojang/datafixers/types/Type;
+private static doFetchChoiceType(Lcom/mojang/datafixers/DSL$TypeReference;Ljava/lang/String;)Lcom/mojang/datafixers/types/Type;
+public static runNamed(Ljava/lang/Runnable;Ljava/lang/String;)V
+public static getRegisteredName(Lnet/minecraft/core/Registry;Ljava/lang/Object;)Ljava/lang/String;
+public static allOf()Ljava/util/function/Predicate;
+public static allOf(Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static allOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static allOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static allOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static allOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static allOf([Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static allOf(Ljava/util/List;)Ljava/util/function/Predicate;
+public static anyOf()Ljava/util/function/Predicate;
+public static anyOf(Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static anyOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static anyOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static anyOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static anyOf(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static anyOf([Ljava/util/function/Predicate;)Ljava/util/function/Predicate;
+public static anyOf(Ljava/util/List;)Ljava/util/function/Predicate;
+public static isSymmetrical(IILjava/util/List;)Z
+public static growByHalf(II)I
+public static localizedDateFormatter(Ljava/time/format/FormatStyle;)Ljava/time/format/DateTimeFormatter;
+public static dumpThreadInfo()[Ljava/lang/management/ThreadInfo;
+public static getPlatform()Lnet/minecraft/util/Util$OS;
+public static isAarch64()Z
+public static isAppleSiliconMac(Ljava/lang/String;)Z
+public static parseAndValidateUntrustedUri(Ljava/lang/String;)Ljava/net/URI;
+public static findNextInIterable(Ljava/lang/Iterable;Ljava/lang/Object;)Ljava/lang/Object;
+public static findPreviousInIterable(Ljava/lang/Iterable;Ljava/lang/Object;)Ljava/lang/Object;
+public static make(Ljava/util/function/Supplier;)Ljava/lang/Object;
+public static make(Ljava/lang/Object;Ljava/util/function/Consumer;)Ljava/lang/Object;
+public static makeEnumMap(Ljava/lang/Class;Ljava/util/function/Function;)Ljava/util/Map;
+public static mapValues(Ljava/util/Map;Ljava/util/function/Function;)Ljava/util/Map;
+public static mapValuesLazy(Ljava/util/Map;Lcom/google/common/base/Function;)Ljava/util/Map;
+public static allOfEnumExcept(Ljava/lang/Enum;)Ljava/util/Set;
+public static sequence(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;
+public static sequenceFailFast(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;
+public static sequenceFailFastAndCancel(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;
+private static fallibleSequence(Ljava/util/List;Ljava/util/function/Consumer;)Ljava/util/concurrent/CompletableFuture;
+public static ifElse(Ljava/util/Optional;Ljava/util/function/Consumer;Ljava/lang/Runnable;)Ljava/util/Optional;
+public static name(Ljava/util/function/Supplier;Ljava/util/function/Supplier;)Ljava/util/function/Supplier;
+public static name(Ljava/lang/Runnable;Ljava/util/function/Supplier;)Ljava/lang/Runnable;
+public static logAndPauseIfInIde(Ljava/lang/String;)V
+public static logAndPauseIfInIde(Ljava/lang/String;Ljava/lang/Throwable;)V
+public static pauseInIde(Ljava/lang/Throwable;)Ljava/lang/Throwable;
+public static setPause(Ljava/util/function/Consumer;)V
+private static doPause(Ljava/lang/String;)V
+public static describeError(Ljava/lang/Throwable;)Ljava/lang/String;
+public static getRandom([Ljava/lang/Object;Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;
+public static getRandom([ILnet/minecraft/util/RandomSource;)I
+public static getRandom(Ljava/util/List;Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;
+public static getRandomSafe(Ljava/util/List;Lnet/minecraft/util/RandomSource;)Ljava/util/Optional;
+private static createRenamer(Ljava/nio/file/Path;Ljava/nio/file/Path;[Ljava/nio/file/CopyOption;)Ljava/util/function/BooleanSupplier;
+private static createDeleter(Ljava/nio/file/Path;)Ljava/util/function/BooleanSupplier;
+private static createFileDeletedCheck(Ljava/nio/file/Path;)Ljava/util/function/BooleanSupplier;
+private static createFileCreatedCheck(Ljava/nio/file/Path;)Ljava/util/function/BooleanSupplier;
+private static executeInSequence([Ljava/util/function/BooleanSupplier;)Z
+private static runWithRetries(ILjava/lang/String;[Ljava/util/function/BooleanSupplier;)Z
+public static safeMoveFile(Ljava/nio/file/Path;Ljava/nio/file/Path;[Ljava/nio/file/CopyOption;)Z
+public static safeReplaceFile(Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;)V
+public static safeReplaceOrMoveFile(Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Z)Z
+public static offsetByCodepoints(Ljava/lang/String;II)I
+public static prefix(Ljava/lang/String;Ljava/util/function/Consumer;)Ljava/util/function/Consumer;
+public static fixedSize(Ljava/util/stream/IntStream;I)Lcom/mojang/serialization/DataResult;
+public static fixedSize(Ljava/util/stream/LongStream;I)Lcom/mojang/serialization/DataResult;
+public static fixedSize(Ljava/util/List;I)Lcom/mojang/serialization/DataResult;
+public static startTimerHackThread()V
+public static copyBetweenDirs(Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;)V
+public static sanitizeName(Ljava/lang/String;Lnet/minecraft/CharPredicate;)Ljava/lang/String;
+public static singleKeyCache(Ljava/util/function/Function;)Lnet/minecraft/util/SingleKeyCache;
+public static memoize(Ljava/util/function/Function;)Ljava/util/function/Function;
+public static memoize(Ljava/util/function/BiFunction;)Ljava/util/function/BiFunction;
+public static toShuffledList(Ljava/util/stream/Stream;Lnet/minecraft/util/RandomSource;)Ljava/util/List;
+public static toShuffledList(Ljava/util/stream/IntStream;Lnet/minecraft/util/RandomSource;)Lit/unimi/dsi/fastutil/ints/IntArrayList;
+public static shuffledCopy([Ljava/lang/Object;Lnet/minecraft/util/RandomSource;)Ljava/util/List;
+public static shuffledCopy(Lit/unimi/dsi/fastutil/objects/ObjectArrayList;Lnet/minecraft/util/RandomSource;)Ljava/util/List;
+public static shuffle(Ljava/util/List;Lnet/minecraft/util/RandomSource;)V
+public static blockUntilDone(Ljava/util/function/Function;)Ljava/util/concurrent/CompletableFuture;
+public static blockUntilDone(Ljava/util/function/Function;Ljava/util/function/Predicate;)Ljava/lang/Object;
+public static createIndexLookup(Ljava/util/List;)Ljava/util/function/ToIntFunction;
+public static createIndexIdentityLookup(Ljava/util/List;)Ljava/util/function/ToIntFunction;
+public static writeAndReadTypedOrThrow(Lcom/mojang/datafixers/Typed;Lcom/mojang/datafixers/types/Type;Ljava/util/function/UnaryOperator;)Lcom/mojang/datafixers/Typed;
+public static readTypedOrThrow(Lcom/mojang/datafixers/types/Type;Lcom/mojang/serialization/Dynamic;)Lcom/mojang/datafixers/Typed;
+public static readTypedOrThrow(Lcom/mojang/datafixers/types/Type;Lcom/mojang/serialization/Dynamic;Z)Lcom/mojang/datafixers/Typed;
+public static copyAndAdd(Ljava/util/List;Ljava/lang/Object;)Ljava/util/List;
+public static copyAndAdd(Ljava/util/List;[Ljava/lang/Object;)Ljava/util/List;
+public static copyAndAdd(Ljava/lang/Object;Ljava/util/List;)Ljava/util/List;
+public static join(Ljava/util/Collection;Ljava/util/Collection;)Ljava/util/List;
+public static join([Ljava/util/Collection;)Ljava/util/List;
+public static copyAndPut(Ljava/util/Map;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;
+private static synthetic lambda$sanitizeName$0(Lnet/minecraft/CharPredicate;I)Ljava/lang/String;
+private static synthetic lambda$fixedSize$2(I)Ljava/lang/String;
+private static synthetic lambda$fixedSize$1(I)Ljava/lang/String;
+private static synthetic lambda$fixedSize$0(I)Ljava/lang/String;
+private static synthetic lambda$prefix$0(Ljava/util/function/Consumer;Ljava/lang/String;Ljava/lang/String;)V
+private static synthetic lambda$fallibleSequence$1(Lit/unimi/dsi/fastutil/objects/ObjectArrayList;Ljava/lang/Void;)Ljava/util/List;
+private static synthetic lambda$fallibleSequence$0(Ljava/util/function/Consumer;Lit/unimi/dsi/fastutil/objects/ObjectArrayList;ILjava/lang/Object;Ljava/lang/Throwable;)V
+private static synthetic lambda$sequenceFailFastAndCancel$0(Ljava/util/concurrent/CompletableFuture;Ljava/util/List;Ljava/lang/Throwable;)V
+private static synthetic lambda$sequence$0(Ljava/util/List;Ljava/lang/Void;)Ljava/util/List;
+private static synthetic lambda$mapValues$0(Ljava/util/function/Function;Ljava/util/Map$Entry;)Ljava/lang/Object;
+private static synthetic lambda$anyOf$6(I)[Ljava/util/function/Predicate;
+private static synthetic lambda$anyOf$5([Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$anyOf$4(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$anyOf$3(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$anyOf$2(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$anyOf$1(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$anyOf$0(Ljava/lang/Object;)Z
+private static synthetic lambda$allOf$6(I)[Ljava/util/function/Predicate;
+private static synthetic lambda$allOf$5([Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$allOf$4(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$allOf$3(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$allOf$2(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$allOf$1(Ljava/util/function/Predicate;Ljava/util/function/Predicate;Ljava/lang/Object;)Z
+private static synthetic lambda$allOf$0(Ljava/lang/Object;)Z
+private static synthetic lambda$makeIoExecutor$0(Ljava/lang/String;Ljava/util/concurrent/atomic/AtomicInteger;ZLjava/lang/Runnable;)Ljava/lang/Thread;
+private static synthetic lambda$makeExecutor$0(Ljava/lang/String;Ljava/util/concurrent/atomic/AtomicInteger;Ljava/util/concurrent/ForkJoinPool;)Ljava/util/concurrent/ForkJoinWorkerThread;
+private static synthetic lambda$static$4(Ljava/lang/String;)V
+private static synthetic lambda$static$3(Lcom/google/common/escape/Escapers$Builder;)V
+private static synthetic lambda$static$2()Ljava/lang/IllegalStateException;
+private static synthetic lambda$static$1(Ljava/nio/file/spi/FileSystemProvider;)Z
+private static synthetic lambda$static$0()J
+static <clinit>()V
 ```

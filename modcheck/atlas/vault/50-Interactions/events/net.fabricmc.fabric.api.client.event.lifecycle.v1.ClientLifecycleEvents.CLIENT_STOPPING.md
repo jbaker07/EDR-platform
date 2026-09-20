@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftMixin.onStopping` | `Minecraft.exitWorldAndClose` @Inject at INVOKE Lorg/slf4j/Logger;info(Ljava/lang/String;)V | client | static_inference |
+| `MinecraftMixin.onStopping` @13 | [[40-Interfaces/net.minecraft.client.Minecraft|Minecraft]].`exitWorldAndClose` @Inject INVOKE `Lorg/slf4j/Logger;info(Ljava/lang/String;)V` | unknown | static_inference |
 
 ## Contract
 

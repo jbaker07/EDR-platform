@@ -13,7 +13,5 @@ sha256: "a3a82771b3fd9f2eb36e1098c5f90759ac877982b9ac297831a1fce9b2185bf8"
 Module: [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] -- kind: class
 
 ```java
-final net.fabricmc.fabric.api.permission.v1.PermissionEvents$OnRequest[] val$arr
-net.fabricmc.fabric.api.permission.v1.PermissionEvents$1()
-public <T> T handlePermissionRequest(net.fabricmc.fabric.api.permission.v1.PermissionContext, net.fabricmc.fabric.api.permission.v1.PermissionNode<T>)
+public java.lang.Object handlePermissionRequest(net.fabricmc.fabric.api.permission.v1.PermissionContext, net.fabricmc.fabric.api.permission.v1.PermissionNode)
 ```

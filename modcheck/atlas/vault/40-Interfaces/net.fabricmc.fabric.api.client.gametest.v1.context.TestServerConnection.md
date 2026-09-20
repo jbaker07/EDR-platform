@@ -14,15 +14,15 @@ Module: [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api
 
 ```java
 public static final int DEFAULT_CHUNK_LOAD_TIMEOUT
-public default int waitForChunksDownload()
+public int waitForChunksDownload()
 public abstract int waitForChunksDownload(int)
-public default int waitForChunksRender()
-public default int waitForChunksRender(int)
-public default int waitForChunksRender(boolean)
+public int waitForChunksRender()
+public int waitForChunksRender(int)
+public int waitForChunksRender(boolean)
 public abstract int waitForChunksRender(boolean, int)
 public abstract void waitForClientboundPackets()
 public abstract void waitForServerboundPackets()
-public abstract void waitForClientboundEntityUpdates(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.entity.EntityType<?>...)
+public abstract void waitForClientboundEntityUpdates(net.minecraft.world.entity.EntityType, net.minecraft.world.entity.EntityType[])
 public abstract net.minecraft.client.player.LocalPlayer getClientPlayer()
 public abstract net.minecraft.server.level.ServerPlayer getServerPlayer()
 public abstract net.minecraft.client.multiplayer.ClientLevel getClientLevel()

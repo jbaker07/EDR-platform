@@ -11,49 +11,49 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/level/block/HorizontalDirectionalBlock`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `findStandUpPosition(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `findStandUpPosition` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Col` | exact | invokestatic@32 in `LivingEntityMixin.modifyWakeUpPosition` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
 
-## Declared members (32, all visibilities)
+## Declared members (2 fields, 30 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.level.block.AbstractBedBlock extends net.minecraft.world.level.block.HorizontalDirectionalBlock {
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.BedPart> PART;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty OCCUPIED;
-    public net.minecraft.world.level.block.AbstractBedBlock(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    public static net.minecraft.core.Direction getBedOrientation(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    protected abstract net.minecraft.world.attribute.EnvironmentAttribute<net.minecraft.world.attribute.BedRule> getBedEnvironmentAttribute();
-    protected abstract net.minecraft.world.InteractionResult destroyOnUse(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.entity.player.Player);
-    protected abstract void destroyOnLeave(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    public net.minecraft.world.attribute.BedRule getBedRule(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    public net.minecraft.resources.Identifier getSleptInBedStatType();
-    public java.util.OptionalDouble getSleepHeight(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    protected net.minecraft.world.InteractionResult useWithoutItem(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.entity.player.Player, net.minecraft.world.phys.BlockHitResult);
-    public void onStopSleeping(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    private boolean kickVillagerOutOfBed(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    protected net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelReader, net.minecraft.world.level.ScheduledTickAccess, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource);
-    private static net.minecraft.core.Direction getNeighbourDirection(net.minecraft.world.level.block.state.properties.BedPart, net.minecraft.core.Direction);
-    public net.minecraft.world.level.block.state.BlockState playerWillDestroy(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.player.Player);
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext);
-    public static net.minecraft.core.Direction getConnectedDirection(net.minecraft.world.level.block.state.BlockState);
-    public static net.minecraft.world.level.block.DoubleBlockCombiner$BlockType getBlockType(net.minecraft.world.level.block.state.BlockState);
-    private static boolean isBunkBed(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    public static java.util.Optional<net.minecraft.world.phys.Vec3> findStandUpPosition(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.CollisionGetter, net.minecraft.core.BlockPos, net.minecraft.core.Direction, float);
-    private static java.util.Optional<net.minecraft.world.phys.Vec3> findBunkBedStandUpPosition(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.CollisionGetter, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.core.Direction);
-    private static java.util.Optional<net.minecraft.world.phys.Vec3> findStandUpPositionAtOffset(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.CollisionGetter, net.minecraft.core.BlockPos, int[][], boolean);
-    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
-    public void setPlacedBy(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.ItemStack);
-    protected long getSeed(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
-    protected boolean isPathfindable(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.pathfinder.PathComputationType);
-    private static int[][] bedStandUpOffsets(net.minecraft.core.Direction, net.minecraft.core.Direction);
-    private static int[][] bedSurroundStandUpOffsets(net.minecraft.core.Direction, net.minecraft.core.Direction);
-    private static int[][] bedAboveStandUpOffsets(net.minecraft.core.Direction);
-    private static void lambda$useWithoutItem$0(net.minecraft.world.entity.player.Player, net.minecraft.world.entity.player.Player$BedSleepingProblem);
-    static {};
-}
+```
+public static final PART : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final OCCUPIED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public <init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+public static getBedOrientation(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Direction;
+protected abstract getBedEnvironmentAttribute()Lnet/minecraft/world/attribute/EnvironmentAttribute;
+protected abstract destroyOnUse(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/InteractionResult;
+protected abstract destroyOnLeave(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+public getBedRule(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/attribute/BedRule;
+public getSleptInBedStatType()Lnet/minecraft/resources/Identifier;
+public getSleepHeight(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Ljava/util/OptionalDouble;
+protected useWithoutItem(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;
+public onStopSleeping(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+private kickVillagerOutOfBed(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z
+protected updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/block/state/BlockState;
+private static getNeighbourDirection(Lnet/minecraft/world/level/block/state/properties/BedPart;Lnet/minecraft/core/Direction;)Lnet/minecraft/core/Direction;
+public playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;
+public getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;
+public static getConnectedDirection(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/core/Direction;
+public static getBlockType(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/DoubleBlockCombiner$BlockType;
+private static isBunkBed(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+public static findStandUpPosition(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;F)Ljava/util/Optional;
+private static findBunkBedStandUpPosition(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/Direction;)Ljava/util/Optional;
+private static findStandUpPositionAtOffset(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/core/BlockPos;[[IZ)Ljava/util/Optional;
+protected createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+public setPlacedBy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V
+protected getSeed(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)J
+protected isPathfindable(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/pathfinder/PathComputationType;)Z
+private static bedStandUpOffsets(Lnet/minecraft/core/Direction;Lnet/minecraft/core/Direction;)[[I
+private static bedSurroundStandUpOffsets(Lnet/minecraft/core/Direction;Lnet/minecraft/core/Direction;)[[I
+private static bedAboveStandUpOffsets(Lnet/minecraft/core/Direction;)[[I
+private static synthetic lambda$useWithoutItem$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/player/Player$BedSleepingProblem;)V
+static <clinit>()V
 ```

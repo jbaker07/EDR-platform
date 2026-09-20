@@ -9,7 +9,7 @@ side: "server"
 
 # Server-side connection handling
 
-Package `net.minecraft.server.network` -- generated view: [[20-Systems/net.minecraft.server.network|hooked types]]
+Package `net.minecraft.server.network` -- generated view: [[20-Systems/net.minecraft.server.network|inventory and hooked types]]
 
 **Responsibility.** ServerGamePacketListenerImpl and the configuration/login listeners: the server end of each player's connection, where serverbound packets are handled.
 

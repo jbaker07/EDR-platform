@@ -11,44 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `forceOpaque(ZLnet/minecraft/world/level/block/state/BlockState;)Z` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| injects_into | `computeTintColor(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;I)I` | `@Inject at FIELD Lnet/minecraft/client/renderer/block/ModelBlockRenderer;tintSou` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `forceOpaque` | `(ZLnet/minecraft/world/level/block/state/BlockState;)Z` | exact | invokestatic@24 in `FabricBlockStateModel.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `forceOpaque` | `(ZLnet/minecraft/world/level/block/state/BlockState;)Z` | exact | invokestatic@24 in `SingleVariantMixin.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| injects_into | `computeTintColor` | `(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraf` | exact | @Inject at ['FIELD'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `computedTintValues` | `Lit/unimi/dsi/fastutil/ints/IntList;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
+| reads | `tintSources` | `Ljava/util/List;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
 
-## Declared members (26, all visibilities)
+## Declared members (14 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.block.ModelBlockRenderer {
-    private static final net.minecraft.core.Direction[] DIRECTIONS;
-    private final net.minecraft.client.renderer.block.BlockModelLighter lighter;
-    private final boolean ambientOcclusion;
-    private final boolean cull;
-    private final net.minecraft.client.color.block.BlockColors blockColors;
-    private final net.minecraft.util.RandomSource random;
-    private final java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart> parts;
-    private final net.minecraft.core.BlockPos$MutableBlockPos scratchPos;
-    private final com.mojang.blaze3d.vertex.QuadInstance quadInstance;
-    private int tintCacheIndex;
-    private int tintCacheValue;
-    private boolean tintSourcesInitialized;
-    private final java.util.List<net.minecraft.client.color.block.BlockTintSource> tintSources;
-    private final it.unimi.dsi.fastutil.ints.IntList computedTintValues;
-    public net.minecraft.client.renderer.block.ModelBlockRenderer(boolean, boolean, net.minecraft.client.color.block.BlockColors);
-    public static boolean forceOpaque(boolean, net.minecraft.world.level.block.state.BlockState);
-    public void tesselateBlock(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel, long);
-    private void configureTintCache(net.minecraft.world.level.block.state.BlockState);
-    private void resetTintCache();
-    private void tesselateAmbientOcclusion(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
-    private void tesselateFlat(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
-    private boolean shouldRenderFace(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.core.BlockPos);
-    private void putQuadWithTint(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.client.resources.model.geometry.BakedQuad);
-    private int getTintColor(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, int);
-    private int computeTintColor(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, int);
-    static {};
-}
+```
+private static final DIRECTIONS : [Lnet/minecraft/core/Direction;
+private final lighter : Lnet/minecraft/client/renderer/block/BlockModelLighter;
+private final ambientOcclusion : Z
+private final cull : Z
+private final blockColors : Lnet/minecraft/client/color/block/BlockColors;
+private final random : Lnet/minecraft/util/RandomSource;
+private final parts : Ljava/util/List;
+private final scratchPos : Lnet/minecraft/core/BlockPos$MutableBlockPos;
+private final quadInstance : Lcom/mojang/blaze3d/vertex/QuadInstance;
+private tintCacheIndex : I
+private tintCacheValue : I
+private tintSourcesInitialized : Z
+private final tintSources : Ljava/util/List;
+private final computedTintValues : Lit/unimi/dsi/fastutil/ints/IntList;
+public <init>(ZZLnet/minecraft/client/color/block/BlockColors;)V
+public static forceOpaque(ZLnet/minecraft/world/level/block/state/BlockState;)Z
+public tesselateBlock(Lnet/minecraft/client/renderer/block/BlockQuadOutput;FFFLnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;J)V
+private configureTintCache(Lnet/minecraft/world/level/block/state/BlockState;)V
+private resetTintCache()V
+private tesselateAmbientOcclusion(Lnet/minecraft/client/renderer/block/BlockQuadOutput;FFFLjava/util/List;Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V
+private tesselateFlat(Lnet/minecraft/client/renderer/block/BlockQuadOutput;FFFLjava/util/List;Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V
+private shouldRenderFace(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;)Z
+private putQuadWithTint(Lnet/minecraft/client/renderer/block/BlockQuadOutput;FFFLnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/client/resources/model/geometry/BakedQuad;)V
+private getTintColor(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;I)I
+private computeTintColor(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;I)I
+static <clinit>()V
 ```

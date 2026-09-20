@@ -13,7 +13,6 @@ sha256: "7d63b44a449ddd84d4988ef17cec1894ef1890b2844079500ea47c3dc678d967"
 Module: [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] -- kind: interface
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.recipe.v1.sync.ClientRecipeSynchronizedEvent> EVENT
+public static final net.fabricmc.fabric.api.event.Event EVENT
 public abstract void onRecipesSynchronized(net.minecraft.client.Minecraft, net.fabricmc.fabric.api.recipe.v1.sync.SynchronizedRecipes)
-static {}
 ```

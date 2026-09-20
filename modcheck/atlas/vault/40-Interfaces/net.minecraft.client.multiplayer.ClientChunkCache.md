@@ -11,48 +11,49 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public; extends `net/minecraft/world/level/chunk/ChunkSource`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `drop` | `@Inject at INVOKE Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;dro` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `replaceWithPacketData` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `replaceWithPacketData` | `@Inject at NEW net/minecraft/world/level/chunk/LevelChunk` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `updateViewRadius` | `@Inject at INVOKE Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;inR` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `drop` | `(Lnet/minecraft/world/level/ChunkPos;)V` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `replaceWithPacketData` | `(IILnet/minecraft/network/protocol/game/ClientboundLevelChunkPacketDat` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `replaceWithPacketData` | `(IILnet/minecraft/network/protocol/game/ClientboundLevelChunkPacketDat` | name_only | @Inject at ['NEW'] | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `updateViewRadius` | `(I)V` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| reads | `level` | `Lnet/minecraft/client/multiplayer/ClientLevel;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | declared |
 
-## Declared members (28, all visibilities)
+## Declared members (5 fields, 23 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.multiplayer.ClientChunkCache extends net.minecraft.world.level.chunk.ChunkSource {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.world.level.chunk.LevelChunk emptyChunk;
-    private final net.minecraft.world.level.lighting.LevelLightEngine lightEngine;
-    private volatile net.minecraft.client.multiplayer.ClientChunkCache$Storage storage;
-    private final net.minecraft.client.multiplayer.ClientLevel level;
-    public net.minecraft.client.multiplayer.ClientChunkCache(net.minecraft.client.multiplayer.ClientLevel, int);
-    public net.minecraft.world.level.lighting.LevelLightEngine getLightEngine();
-    private static boolean isValidChunk(net.minecraft.world.level.chunk.LevelChunk, int, int);
-    public void drop(net.minecraft.world.level.ChunkPos);
-    public net.minecraft.world.level.chunk.LevelChunk getChunk(int, int, net.minecraft.world.level.chunk.status.ChunkStatus, boolean);
-    public net.minecraft.world.level.BlockGetter getLevel();
-    public void replaceBiomes(int, int, net.minecraft.network.FriendlyByteBuf);
-    public net.minecraft.world.level.chunk.LevelChunk replaceWithPacketData(int, int, net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData);
-    public void tick(java.util.function.BooleanSupplier, boolean);
-    public void updateViewCenter(int, int);
-    public void updateViewRadius(int);
-    private static int calculateStorageRange(int);
-    public java.lang.String gatherStats();
-    public int getLoadedChunksCount();
-    public void onLightUpdate(net.minecraft.world.level.LightLayer, net.minecraft.core.SectionPos);
-    public it.unimi.dsi.fastutil.longs.LongOpenHashSet addedEmptySections();
-    public it.unimi.dsi.fastutil.longs.LongOpenHashSet removedEmptySections();
-    public it.unimi.dsi.fastutil.longs.LongOpenHashSet addedLoadedChunks();
-    public it.unimi.dsi.fastutil.longs.LongOpenHashSet removedLoadedChunks();
-    public void flipUpdateTrackingSets();
-    public void onSectionEmptinessChanged(int, int, int, boolean);
-    public net.minecraft.world.level.chunk.ChunkAccess getChunk(int, int, net.minecraft.world.level.chunk.status.ChunkStatus, boolean);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final emptyChunk : Lnet/minecraft/world/level/chunk/LevelChunk;
+private final lightEngine : Lnet/minecraft/world/level/lighting/LevelLightEngine;
+private storage : Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;
+private final level : Lnet/minecraft/client/multiplayer/ClientLevel;
+public <init>(Lnet/minecraft/client/multiplayer/ClientLevel;I)V
+public getLightEngine()Lnet/minecraft/world/level/lighting/LevelLightEngine;
+private static isValidChunk(Lnet/minecraft/world/level/chunk/LevelChunk;II)Z
+public drop(Lnet/minecraft/world/level/ChunkPos;)V
+public getChunk(IILnet/minecraft/world/level/chunk/status/ChunkStatus;Z)Lnet/minecraft/world/level/chunk/LevelChunk;
+public getLevel()Lnet/minecraft/world/level/BlockGetter;
+public replaceBiomes(IILnet/minecraft/network/FriendlyByteBuf;)V
+public replaceWithPacketData(IILnet/minecraft/network/protocol/game/ClientboundLevelChunkPacketData;)Lnet/minecraft/world/level/chunk/LevelChunk;
+public tick(Ljava/util/function/BooleanSupplier;Z)V
+public updateViewCenter(II)V
+public updateViewRadius(I)V
+private static calculateStorageRange(I)I
+public gatherStats()Ljava/lang/String;
+public getLoadedChunksCount()I
+public onLightUpdate(Lnet/minecraft/world/level/LightLayer;Lnet/minecraft/core/SectionPos;)V
+public addedEmptySections()Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+public removedEmptySections()Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+public addedLoadedChunks()Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+public removedLoadedChunks()Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+public flipUpdateTrackingSets()V
+public onSectionEmptinessChanged(IIIZ)V
+public synthetic getChunk(IILnet/minecraft/world/level/chunk/status/ChunkStatus;Z)Lnet/minecraft/world/level/chunk/ChunkAccess;
+static <clinit>()V
 ```

@@ -1,60 +1,93 @@
-"""Mechanical facts from JVM artifacts, via the JDK's own ``javap``.
+"""Facts about JVM classes for the atlas, read from class files (see classfile.py).
 
-Reused rather than reimplemented: a class-file parser we wrote could disagree
-with the compiler, and these facts feed compatibility conclusions. ``javap -v``
-prints annotations with their arguments, which is where Mixin targets live;
-``javap -c`` prints resolved method and field references, which is where a
-class's direct dependencies live.
+Three readers, all pure functions of one ``ClassFile``:
 
-Four kinds of fact come out, and they are kept apart because they mean
-different things:
+* ``mixin_facts``   -- @Mixin targets, every injector annotation from the Mixin
+                       and MixinExtras namespaces (including no-argument markers
+                       such as @Overwrite), selectors and injection points as
+                       structured data, and explicit ``extraction_failures`` for
+                       any annotation form the reader does not understand.
+* ``class_refs``    -- every constant-pool reference the code makes, per method,
+                       with the instruction offset and opcode, so a field access
+                       is a read or a write, and a call has a caller.
+* ``surface``       -- declared members with exact descriptors and access flags.
 
-* ``direct_reference`` -- a Methodref/Fieldref/InterfaceMethodref in the
-  constant pool. Established from the artifact. Says the code *names* the
-  member, not that it runs.
-* ``mixin_injection`` -- a ``@Mixin`` class with ``@Inject``/``@Redirect``/
-  ``@Overwrite``/... members. Established from the artifact. Says the loader
-  will rewrite that vanilla method at load time -- IF the mixin config is
-  applied for this environment.
-* ``event_fire`` -- a ``getstatic <Events>.<FIELD>`` followed by an
-  ``invokeinterface`` on that event's callback interface in the same method.
-  Inferred by static pattern; the pairing is a heuristic and is labelled so.
-* ``declared`` -- fabric.mod.json contents. Declared by the module author.
-
-Nothing here observes runtime behaviour.
+Nothing here resolves a reference against another class; that is
+``resolve.py``'s job, and it reports what it could not resolve.
 """
 from __future__ import annotations
 
-import dataclasses
 import hashlib
 import json
 import re
-import subprocess
 import zipfile
 from pathlib import Path
-from typing import Iterable
 
-INJECTORS = ("Inject", "Redirect", "ModifyVariable", "ModifyArg", "ModifyArgs",
-             "ModifyConstant", "ModifyReturnValue", "ModifyExpressionValue",
-             "WrapOperation", "WrapWithCondition", "WrapMethod", "Overwrite")
-MEMBER_MARKERS = ("Shadow", "Accessor", "Invoker", "Unique", "Mutable", "Final")
+from classfile import ClassFile, Member, member_to_java  # noqa: F401  (re-exported for callers)
 
-_MEMBER_DECL = re.compile(r"^  (?:public |private |protected |static |final |abstract |synchronized |native |default )*"
-                          r"(?P<decl>[^\s].*\S)\s*;$")
-_REF = re.compile(r"//\s+(?P<kind>Method|InterfaceMethod|Field)\s+(?P<ref>\S+)")
-_METHOD_HEAD = re.compile(r"^  (?:[a-z ]+ )?[^\s(]+\s+(?P<name>[^\s(]+)\((?P<args>[^)]*)\)")
+MIXIN_NS = "Lorg/spongepowered/asm/mixin/"
+EXTRAS_NS = "Lcom/llamalad7/mixinextras/"
+FABRIC_ENV = "Lnet/fabricmc/api/Environment;"
+EVENT_DESC = "Lnet/fabricmc/fabric/api/event/Event;"
+EVENT_CLASS = "net/fabricmc/fabric/api/event/Event"
+
+# annotation type descriptor -> injector name. Anything else in the two
+# namespaces that sits on a method is an extraction failure, not a skip.
+INJECTOR_TYPES = {
+    MIXIN_NS + "injection/Inject;": "Inject",
+    MIXIN_NS + "injection/Redirect;": "Redirect",
+    MIXIN_NS + "injection/ModifyArg;": "ModifyArg",
+    MIXIN_NS + "injection/ModifyArgs;": "ModifyArgs",
+    MIXIN_NS + "injection/ModifyConstant;": "ModifyConstant",
+    MIXIN_NS + "injection/ModifyVariable;": "ModifyVariable",
+    MIXIN_NS + "Overwrite;": "Overwrite",
+    EXTRAS_NS + "injector/ModifyExpressionValue;": "ModifyExpressionValue",
+    EXTRAS_NS + "injector/ModifyReceiver;": "ModifyReceiver",
+    EXTRAS_NS + "injector/ModifyReturnValue;": "ModifyReturnValue",
+    EXTRAS_NS + "injector/WrapWithCondition;": "WrapWithCondition(v1)",
+    EXTRAS_NS + "injector/v2/WrapWithCondition;": "WrapWithCondition",
+    EXTRAS_NS + "injector/wrapoperation/WrapOperation;": "WrapOperation",
+    EXTRAS_NS + "injector/wrapmethod/WrapMethod;": "WrapMethod",
+}
+# the composition class of each injector: what it does to the target method
+INJECTOR_EFFECT = {
+    "Inject": "additive", "ModifyArg": "modify_call_argument", "ModifyArgs": "modify_call_arguments",
+    "ModifyConstant": "modify_constant", "ModifyVariable": "modify_local",
+    "Redirect": "replace_call_site", "Overwrite": "replace_method_body",
+    "ModifyExpressionValue": "modify_expression_value", "ModifyReceiver": "modify_call_receiver",
+    "ModifyReturnValue": "modify_return_value", "WrapWithCondition(v1)": "wrap_call_site_conditionally",
+    "WrapWithCondition": "wrap_call_site_conditionally", "WrapOperation": "wrap_call_site",
+    "WrapMethod": "wrap_method",
+}
+# MixinExtras expression injection points: @Expression / @Definition(s) qualify an
+# @At("MIXINEXTRAS:EXPRESSION") on the same handler. Recorded on the injection;
+# never resolvable to one exact member, since an expression matches code shape.
+EXPRESSION_TYPES = {EXTRAS_NS + "expression/Expression;": "Expression",
+                    EXTRAS_NS + "expression/Definition;": "Definition",
+                    EXTRAS_NS + "expression/Definitions;": "Definitions"}
+MARKER_TYPES = {
+    MIXIN_NS + "Shadow;": "Shadow", MIXIN_NS + "Unique;": "Unique", MIXIN_NS + "Final;": "Final",
+    MIXIN_NS + "Mutable;": "Mutable", MIXIN_NS + "Dynamic;": "Dynamic", MIXIN_NS + "Intrinsic;": "Intrinsic",
+    MIXIN_NS + "SoftOverride;": "SoftOverride", MIXIN_NS + "Debug;": "Debug",
+    MIXIN_NS + "gen/Accessor;": "Accessor", MIXIN_NS + "gen/Invoker;": "Invoker",
+    MIXIN_NS + "injection/Surrogate;": "Surrogate", MIXIN_NS + "injection/Group;": "Group",
+}
+CLASS_LEVEL_TYPES = {MIXIN_NS + "Mixin;": "Mixin", MIXIN_NS + "Pseudo;": "Pseudo",
+                     MIXIN_NS + "Implements;": "Implements", MIXIN_NS + "Debug;": "Debug",
+                     MIXIN_NS + "Unique;": "Unique", MIXIN_NS + "Dynamic;": "Dynamic"}
+# parameter-level sugar we recognise (recorded, never a failure)
+PARAM_TYPES = {MIXIN_NS + "injection/Coerce;", EXTRAS_NS + "sugar/Local;", EXTRAS_NS + "sugar/Share;",
+               EXTRAS_NS + "sugar/Cancellable;"}
+
+# Mixin's MemberInfo selector grammar, the subset we resolve exactly:
+#   [Lowner;]name[(args)ret]      or      [owner.]name[(args)ret]
+# A quantifier (name*, name+, name{n,m}) or a regex selector (/.../) is recorded as
+# unsupported for exact resolution -- it can match many members.
+_SELECTOR = re.compile(r"^(?P<owner>L[^;]+;)?(?P<name>[^\s(*+{]+)(?P<quant>\*|\+|\{[^}]*\})?(?P<desc>\(.*\).+)?$")
 
 
 def sha256_of(path: Path) -> str:
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-
-
-def javap(javap_bin: Path, jar: Path, fqcn: str, *flags: str) -> str:
-    proc = subprocess.run(
-        [str(javap_bin), *flags, "-cp", str(jar), fqcn],
-        capture_output=True, text=True, timeout=180,
-        env={"PATH": "/usr/bin:/bin", "JAVA_TOOL_OPTIONS": ""})
-    return proc.stdout if proc.returncode == 0 else ""
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def classes_in(jar: Path, prefix: str = "", include_nested: bool = True) -> list[str]:
@@ -74,198 +107,242 @@ def read_json_entry(jar: Path, entry: str) -> dict | list | None:
         if entry not in zf.namelist():
             return None
         raw = zf.read(entry)
-    # fabric.mod.json and mixin configs are plain JSON; tolerate a BOM.
     return json.loads(raw.decode("utf-8-sig"))
 
 
-# --- annotations (javap -v) -------------------------------------------------
-
-def _annotation_blocks(text: str) -> list[tuple[str | None, str, str]]:
-    """(member declaration or None for class-level, annotation name, block text)."""
-    lines = text.splitlines()
-    blocks: list[tuple[str | None, str, str]] = []
-    member: str | None = None
-    in_class_body = False
-    i = 0
-    while i < len(lines):
-        line = lines[i]
-        if not in_class_body:
-            if line.startswith("{"):
-                in_class_body = True
-            i += 1
-            continue
-        decl = _MEMBER_DECL.match(line)
-        if decl and not line.startswith("    "):
-            member = decl.group("decl")
-        stripped = line.strip()
-        if stripped.startswith("org.spongepowered.asm.mixin") and stripped.endswith("("):
-            name = stripped[: -1]
-            indent = len(line) - len(line.lstrip())
-            j = i + 1
-            body = []
-            while j < len(lines):
-                cur = lines[j]
-                if cur.strip() == ")" and len(cur) - len(cur.lstrip()) == indent:
-                    break
-                body.append(cur)
-                j += 1
-            blocks.append((member if line.startswith("    ") or member else None,
-                           name, "\n".join(body)))
-            i = j
-        i += 1
-    return blocks
-
-
-def _list_field(block: str, field: str) -> list[str]:
-    m = re.search(rf"\b{field}=\[(.*?)\]", block, re.S)
-    if not m:
+# --- helpers over annotation values ---------------------------------------------
+def _as_list(v):
+    if v is None:
         return []
-    inner = m.group(1)
-    return [s.strip().strip('"') for s in re.findall(r'"[^"]*"|class [^\s,\]]+', inner)]
+    return v if isinstance(v, list) else [v]
 
 
-def _str_field(block: str, field: str) -> str | None:
-    m = re.search(rf'\b{field}="([^"]*)"', block)
-    return m.group(1) if m else None
+def _class_internal(v) -> str | None:
+    """{'class': 'Lfoo/Bar;'} -> 'foo/Bar'"""
+    if isinstance(v, dict) and "class" in v:
+        d = v["class"]
+        return d[1:-1] if d.startswith("L") and d.endswith(";") else d
+    return None
 
 
-def _class_list(values: Iterable[str]) -> list[str]:
-    out = []
-    for v in values:
-        v = v.strip()
-        if v.startswith("class "):
-            v = v[6:]
-        v = v.strip("L;").replace("/", ".")
-        out.append(v)
-    return out
+def parse_selector(raw: str) -> dict:
+    """A Mixin member selector string -> structured selector."""
+    sel = {"kind": "string", "raw": raw, "owner": None, "name": None, "desc": None, "exact_resolvable": False}
+    if raw.startswith("/") and raw.endswith("/"):
+        sel["unsupported"] = "regex selector"
+        return sel
+    if raw == "*":
+        sel["name"], sel["quantifier"], sel["unsupported"] = "*", "*", "wildcard selector matches every method"
+        return sel
+    m = _SELECTOR.match(raw)
+    if not m:
+        sel["unsupported"] = "selector did not parse"
+        return sel
+    owner = m.group("owner")
+    name = m.group("name")
+    if owner:
+        sel["owner"] = owner[1:-1]
+    elif "." in name and not name.startswith("<"):
+        sel["owner"], name = name.rsplit(".", 1)
+        sel["owner"] = sel["owner"].replace(".", "/")
+    sel["name"] = name
+    sel["desc"] = m.group("desc")
+    if m.group("quant"):
+        sel["quantifier"] = m.group("quant")
+        sel["unsupported"] = "quantified selector matches many members"
+    else:
+        sel["exact_resolvable"] = True
+    return sel
 
 
-@dataclasses.dataclass
-class Injection:
-    injector: str
-    method: list[str]
-    at: str | None
-    target: str | None
-    cancellable: bool
-    member: str | None
+def _desc_selector(ann: dict) -> dict:
+    v = ann.get("values", {})
+    args = [_class_internal(a) or a for a in _as_list(v.get("args"))]
+    ret = _class_internal(v.get("ret")) if v.get("ret") else None
+    return {"kind": "desc", "owner": _class_internal(v.get("owner")), "name": v.get("value"),
+            "args": args, "ret": ret, "id": v.get("id"), "exact_resolvable": bool(v.get("value"))}
 
 
-@dataclasses.dataclass
-class MixinFacts:
-    mixin_class: str
-    targets: list[str]
-    injections: list[Injection]
-    shadows: list[str]
-    accessors: list[str]
-    overwrites: list[str]
-    environment: str | None
+def _at(ann: dict) -> dict:
+    v = ann.get("values", {})
+    out = {"value": v.get("value"), "target": v.get("target"), "ordinal": v.get("ordinal"),
+           "opcode": v.get("opcode"), "shift": (v.get("shift") or {}).get("value") if isinstance(v.get("shift"), dict) else v.get("shift"),
+           "by": v.get("by"), "args": _as_list(v.get("args")), "slice": v.get("slice"), "id": v.get("id"),
+           "remap": v.get("remap"), "unsafe": v.get("unsafe")}
+    if isinstance(v.get("desc"), dict):
+        out["desc"] = _desc_selector(v["desc"])
+    return {k: val for k, val in out.items() if val not in (None, [])}
 
 
-def mixin_facts(javap_bin: Path, jar: Path, fqcn: str) -> MixinFacts | None:
-    text = javap(javap_bin, jar, fqcn, "-v", "-p")
-    if "org.spongepowered.asm.mixin.Mixin(" not in text and "asm/mixin/Mixin;" not in text:
+def _slice(ann: dict) -> dict:
+    v = ann.get("values", {})
+    return {"id": v.get("id"), "from": _at(v["from"]) if isinstance(v.get("from"), dict) else None,
+            "to": _at(v["to"]) if isinstance(v.get("to"), dict) else None}
+
+
+def _injection(injector: str, ann: dict, handler: Member) -> dict:
+    v = ann.get("values", {})
+    selectors = [parse_selector(s) for s in _as_list(v.get("method"))]
+    selectors += [_desc_selector(d) for d in _as_list(v.get("target")) if isinstance(d, dict)]
+    if injector == "Overwrite":
+        # an overwrite targets the method with the handler's own name and descriptor
+        selectors = [{"kind": "handler", "owner": None, "name": handler.name, "desc": handler.desc,
+                      "exact_resolvable": True}]
+    inj = {
+        "injector": injector, "annotation": ann["type"], "effect": INJECTOR_EFFECT.get(injector, "unknown"),
+        "handler": {"name": handler.name, "desc": handler.desc, "static": handler.is_static},
+        "selectors": selectors,
+        "at": [_at(a) for a in _as_list(v.get("at")) if isinstance(a, dict)],
+        "slice": [_slice(s) for s in _as_list(v.get("slice")) if isinstance(s, dict)],
+    }
+    for key in ("cancellable", "require", "expect", "allow", "remap", "locals", "index", "ordinal", "argsOnly",
+                "print", "id", "slice"):
+        if key in v and key not in inj:
+            val = v[key]
+            inj[key] = val.get("value") if isinstance(val, dict) and "enum" in val else val
+    if injector == "ModifyConstant":
+        inj["constant"] = [c.get("values", {}) for c in _as_list(v.get("constant")) if isinstance(c, dict)]
+    unsupported = [s["unsupported"] for s in selectors if s.get("unsupported")]
+    if not selectors:
+        unsupported.append("no selector (neither method nor target given)")
+    if unsupported:
+        inj["unsupported"] = unsupported
+    return inj
+
+
+def mixin_facts(cf: ClassFile) -> dict | None:
+    """Structured facts for one mixin class, or None if the class is not a mixin."""
+    mixin_ann = next((a for a in cf.annotations if a["type"] == MIXIN_NS + "Mixin;"), None)
+    if mixin_ann is None:
         return None
-    targets: list[str] = []
-    injections: list[Injection] = []
-    shadows: list[str] = []
-    accessors: list[str] = []
-    overwrites: list[str] = []
-    for member, name, block in _annotation_blocks(text):
-        short = name.rsplit(".", 1)[-1]
-        if short == "Mixin":
-            targets = _class_list(_list_field(block, "value")) + _list_field(block, "targets")
-        elif short in INJECTORS:
-            at_block = re.search(r"at=\[?@org\.spongepowered\.asm\.mixin\.injection\.At\((.*?)\n\s*\)", block, re.S)
-            at_text = at_block.group(1) if at_block else block
-            injections.append(Injection(
-                injector=short,
-                method=_list_field(block, "method"),
-                at=_str_field(at_text, "value") if at_block else None,
-                target=_str_field(at_text, "target") if at_block else None,
-                cancellable="cancellable=true" in block,
-                member=member))
-            if short == "Overwrite" and member:
-                overwrites.append(member)
-        elif short == "Shadow" and member:
-            shadows.append(member)
-        elif short in ("Accessor", "Invoker") and member:
-            accessors.append(member)
-    env = None
-    m = re.search(r"net\.fabricmc\.api\.Environment\(\s*value=(?:.*?)\.(CLIENT|SERVER)", text, re.S)
-    if m:
-        env = m.group(1).lower()
-    return MixinFacts(mixin_class=fqcn, targets=targets, injections=injections,
-                      shadows=shadows, accessors=accessors, overwrites=overwrites,
-                      environment=env)
+    v = mixin_ann.get("values", {})
+    facts = {
+        "mixin_class": cf.name.replace("/", "."),
+        "kind": cf.kind,
+        "targets": [{"kind": "class", "name": n} for n in (_class_internal(x) for x in _as_list(v.get("value"))) if n]
+                   + [{"kind": "string", "name": s.replace(".", "/")} for s in _as_list(v.get("targets"))],
+        "priority": v.get("priority"),     # None = annotation default (read from the Mixin jar separately)
+        "remap": v.get("remap"),
+        "pseudo": any(a["type"] == MIXIN_NS + "Pseudo;" for a in cf.annotations),
+        "environment": None,
+        "injections": [], "shadows": [], "accessors": [], "uniques": [], "implements": [],
+        "extraction_failures": [],
+    }
+    for a in cf.annotations:
+        if a["type"] == FABRIC_ENV:
+            ev = a.get("values", {}).get("value")
+            facts["environment"] = ev.get("value", "").lower() if isinstance(ev, dict) else None
+        elif a["type"] == MIXIN_NS + "Implements;":
+            facts["implements"] = [(i.get("values", {}).get("iface") or {}) for i in _as_list(a["values"].get("value"))]
+        elif (a["type"].startswith(MIXIN_NS) or a["type"].startswith(EXTRAS_NS)) and a["type"] not in CLASS_LEVEL_TYPES:
+            facts["extraction_failures"].append({"where": "class", "annotation": a["type"],
+                                                 "reason": "unsupported class-level annotation"})
+    for member in cf.fields + cf.methods:
+        is_method = member.desc.startswith("(")
+        expressions = [{"kind": EXPRESSION_TYPES[a["type"]], "values": a.get("values", {})}
+                       for a in member.annotations if a["type"] in EXPRESSION_TYPES]
+        for a in member.annotations:
+            t = a["type"]
+            if t in INJECTOR_TYPES and is_method:
+                inj = _injection(INJECTOR_TYPES[t], a, member)
+                if expressions:
+                    inj["expressions"] = expressions
+                    inj.setdefault("unsupported", []).append(
+                        "MixinExtras expression injection point: matches code shape, not one member")
+                facts["injections"].append(inj)
+            elif t in EXPRESSION_TYPES:
+                continue
+            elif t in MARKER_TYPES:
+                name = MARKER_TYPES[t]
+                rec = {"name": member.name, "desc": member.desc, "static": member.is_static}
+                if name == "Shadow":
+                    rec["aliases"] = _as_list(a.get("values", {}).get("aliases"))
+                    rec["prefix"] = a.get("values", {}).get("prefix")
+                    facts["shadows"].append(rec)
+                elif name in ("Accessor", "Invoker"):
+                    rec["kind"] = name
+                    rec["target"] = a.get("values", {}).get("value")
+                    facts["accessors"].append(rec)
+                elif name == "Unique":
+                    facts["uniques"].append(rec)
+                # Final/Mutable/Dynamic/Intrinsic/SoftOverride/Debug/Surrogate/Group: recognised, no edge
+            elif t.startswith(MIXIN_NS) or t.startswith(EXTRAS_NS):
+                facts["extraction_failures"].append({"where": f"{member.name}{member.desc}", "annotation": t,
+                                                     "reason": "unsupported member annotation"})
+        for params in member.param_annotations:
+            for a in params:
+                if (a["type"].startswith(MIXIN_NS) or a["type"].startswith(EXTRAS_NS)) and a["type"] not in PARAM_TYPES:
+                    facts["extraction_failures"].append({"where": f"{member.name}{member.desc}", "annotation": a["type"],
+                                                         "reason": "unsupported parameter annotation"})
+    return facts
 
 
-# --- references and event fires (javap -c) ----------------------------------
-
-@dataclasses.dataclass
-class ClassRefs:
-    fqcn: str
-    methods: list[str]                 # owner.name:desc (owner may be the class itself)
-    fields: list[str]
-    event_fires: list[dict]            # {method, event_field, callback}
-    method_names: list[str]
+# --- references per method, with opcodes and offsets ---------------------------------
+_ACCESS = {"getstatic": "read", "getfield": "read", "putstatic": "write", "putfield": "write"}
+_INVOKE = {"invokevirtual", "invokespecial", "invokestatic", "invokeinterface"}
 
 
-def class_refs(javap_bin: Path, jar: Path, fqcn: str) -> ClassRefs:
-    text = javap(javap_bin, jar, fqcn, "-c", "-p")
-    methods: set[str] = set()
-    fields: set[str] = set()
-    fires: list[dict] = []
-    names: list[str] = []
-    current: str | None = None
-    pending_event: str | None = None
-    for line in text.splitlines():
-        head = _METHOD_HEAD.match(line)
-        if head and not line.startswith("    "):
-            current = head.group("name")
-            names.append(current)
-            pending_event = None
-        m = _REF.search(line)
-        if not m:
+def class_refs(cf: ClassFile) -> dict:
+    methods = []
+    for m in cf.methods:
+        if m.code is None:
             continue
-        kind, ref = m.group("kind"), m.group("ref")
-        if kind == "Field":
-            fields.add(ref)
-            if ref.endswith(":Lnet/fabricmc/fabric/api/event/Event;") and "getstatic" in line:
-                pending_event = ref.split(":")[0]
-        else:
-            methods.add(ref)
-            if pending_event and kind == "InterfaceMethod":
-                owner = ref.split(".")[0]
-                event_owner = pending_event.rsplit(".", 1)[0]
-                if owner.startswith(event_owner):
-                    fires.append({"method": current, "event_field": pending_event,
-                                  "callback": ref})
-                    pending_event = None
-    return ClassRefs(fqcn=fqcn, methods=sorted(methods), fields=sorted(fields),
-                     event_fires=fires, method_names=names)
+        refs, fires = [], []
+        pending = None      # (offset, owner, field) after getstatic of an Event field
+        invoker_seen = False
+        callback_type = None
+        for ins in m.code:
+            r = ins.ref
+            if not r:
+                continue
+            if ins.mnemonic in _ACCESS and r["kind"] == "Fieldref":
+                refs.append({"offset": ins.offset, "opcode": ins.mnemonic, "access": _ACCESS[ins.mnemonic],
+                             "kind": "field", "owner": r["owner"], "name": r["name"], "desc": r["desc"]})
+                if ins.mnemonic == "getstatic" and r["desc"] == EVENT_DESC:
+                    pending, invoker_seen, callback_type = (ins.offset, r["owner"], r["name"]), False, None
+            elif ins.mnemonic in _INVOKE and r["kind"] in ("Methodref", "InterfaceMethodref"):
+                refs.append({"offset": ins.offset, "opcode": ins.mnemonic, "kind": "method",
+                             "interface": r["kind"] == "InterfaceMethodref",
+                             "owner": r["owner"], "name": r["name"], "desc": r["desc"]})
+                if pending and r["owner"] == EVENT_CLASS and r["name"] == "invoker":
+                    invoker_seen = True
+                elif pending and invoker_seen and callback_type and r["owner"] == callback_type:
+                    fires.append({"offset": ins.offset, "event_owner": pending[1], "event_field": pending[2],
+                                  "getstatic_offset": pending[0], "callback_owner": r["owner"],
+                                  "callback_name": r["name"], "callback_desc": r["desc"]})
+                    pending, invoker_seen, callback_type = None, False, None
+            elif ins.mnemonic == "checkcast" and r["kind"] == "Class":
+                if pending and invoker_seen and callback_type is None:
+                    callback_type = r["name"]
+            elif ins.mnemonic == "invokedynamic":
+                refs.append({"offset": ins.offset, "opcode": "invokedynamic", "kind": "indy",
+                             "name": r["name"], "desc": r["desc"]})
+            elif ins.mnemonic in ("new", "anewarray", "instanceof") and r["kind"] == "Class":
+                refs.append({"offset": ins.offset, "opcode": ins.mnemonic, "kind": "type", "owner": r["name"]})
+        methods.append({"name": m.name, "desc": m.desc, "static": m.is_static, "refs": refs, "event_fires": fires})
+    return {"fqcn": cf.name.replace("/", "."), "internal": cf.name, "super": cf.super_name,
+            "interfaces": cf.interfaces, "methods": methods}
 
 
-# --- public API surface (javap, no -p) ---------------------------------------
+# --- declared surface ------------------------------------------------------------------
+def surface(cf: ClassFile, public_only: bool = False) -> dict:
+    def keep(m: Member) -> bool:
+        return not public_only or bool(m.access & 0x0001) or bool(m.access & 0x0004)
+    return {
+        "fqcn": cf.name.replace("/", "."), "internal": cf.name, "kind": cf.kind, "access": cf.access,
+        "super": cf.super_name, "interfaces": cf.interfaces, "signature": cf.signature,
+        "fields": [{"name": f.name, "desc": f.desc, "access": f.access, "signature": f.signature}
+                   for f in cf.fields if keep(f)],
+        "methods": [{"name": m.name, "desc": m.desc, "access": m.access, "signature": m.signature,
+                     "has_code": m.code is not None} for m in cf.methods if keep(m)],
+    }
 
-def public_surface(javap_bin: Path, jar: Path, fqcn: str) -> dict:
-    text = javap(javap_bin, jar, fqcn)
-    members = []
-    kind = "class"
-    for line in text.splitlines():
-        s = line.strip()
-        if s.startswith("Compiled from"):
-            continue
-        if s.endswith("{") and not members:
-            head = s[:-1].strip()
-            if " interface " in f" {head} ":
-                kind = "interface"
-            elif " enum " in f" {head} ":
-                kind = "enum"
-            elif " record " in f" {head}" or "extends java.lang.Record" in head:
-                kind = "record"
-            elif "abstract class" in head:
-                kind = "abstract_class"
-            continue
-        if s.endswith(";") and s not in ("}",):
-            members.append(s[:-1])
-    return {"fqcn": fqcn, "kind": kind, "members": members}
+
+def surface_lines(s: dict) -> list[str]:
+    """Display strings for a surface, javap-like."""
+    out = []
+    for f in s["fields"]:
+        out.append(member_to_java(Member(f["name"], f["desc"], f["access"])))
+    for m in s["methods"]:
+        out.append(member_to_java(Member(m["name"], m["desc"], m["access"])))
+    return out

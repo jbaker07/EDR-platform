@@ -11,189 +11,213 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getChat()Lnet/minecraft/client/gui/components/ChatComponent;` | `` | client | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getChat` | `()Lnet/minecraft/client/gui/components/ChatComponent;` | exact | invokevirtual@10 in `ClientSuggestionProviderMixin.sendFeedback` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| injects_into | `extractAirBubbles` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/e` | name_only | @ModifyExpressionValue at ['INVOKE'] | client | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `minecraft` | `Lnet/minecraft/client/Minecraft;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
+| wraps | `extractHotbarAndDecorations` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHotbarAndDecorations` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHotbarAndDecorations` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHotbarAndDecorations` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHotbarAndDecorations` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHotbarAndDecorations` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHotbarAndDecorations` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractPlayerHealth` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractPlayerHealth` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractPlayerHealth` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractPlayerHealth` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (172, all visibilities)
+## Declared members (90 fields, 82 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.Hud {
-    private static final net.minecraft.resources.Identifier CROSSHAIR_SPRITE;
-    private static final net.minecraft.resources.Identifier CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE;
-    private static final net.minecraft.resources.Identifier CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE;
-    private static final net.minecraft.resources.Identifier CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE;
-    private static final net.minecraft.resources.Identifier EFFECT_BACKGROUND_AMBIENT_SPRITE;
-    private static final net.minecraft.resources.Identifier EFFECT_BACKGROUND_SPRITE;
-    private static final net.minecraft.resources.Identifier HOTBAR_SPRITE;
-    private static final net.minecraft.resources.Identifier HOTBAR_SELECTION_SPRITE;
-    private static final net.minecraft.resources.Identifier HOTBAR_OFFHAND_LEFT_SPRITE;
-    private static final net.minecraft.resources.Identifier HOTBAR_OFFHAND_RIGHT_SPRITE;
-    private static final net.minecraft.resources.Identifier HOTBAR_ATTACK_INDICATOR_BACKGROUND_SPRITE;
-    private static final net.minecraft.resources.Identifier HOTBAR_ATTACK_INDICATOR_PROGRESS_SPRITE;
-    private static final net.minecraft.resources.Identifier ARMOR_EMPTY_SPRITE;
-    private static final net.minecraft.resources.Identifier ARMOR_HALF_SPRITE;
-    private static final net.minecraft.resources.Identifier ARMOR_FULL_SPRITE;
-    private static final net.minecraft.resources.Identifier FOOD_EMPTY_HUNGER_SPRITE;
-    private static final net.minecraft.resources.Identifier FOOD_HALF_HUNGER_SPRITE;
-    private static final net.minecraft.resources.Identifier FOOD_FULL_HUNGER_SPRITE;
-    private static final net.minecraft.resources.Identifier FOOD_EMPTY_SPRITE;
-    private static final net.minecraft.resources.Identifier FOOD_HALF_SPRITE;
-    private static final net.minecraft.resources.Identifier FOOD_FULL_SPRITE;
-    private static final net.minecraft.resources.Identifier AIR_SPRITE;
-    private static final net.minecraft.resources.Identifier AIR_POPPING_SPRITE;
-    private static final net.minecraft.resources.Identifier AIR_EMPTY_SPRITE;
-    private static final net.minecraft.resources.Identifier HEART_VEHICLE_CONTAINER_SPRITE;
-    private static final net.minecraft.resources.Identifier HEART_VEHICLE_FULL_SPRITE;
-    private static final net.minecraft.resources.Identifier HEART_VEHICLE_HALF_SPRITE;
-    private static final net.minecraft.resources.Identifier VIGNETTE_LOCATION;
-    public static final net.minecraft.resources.Identifier NAUSEA_LOCATION;
-    private static final net.minecraft.resources.Identifier SPYGLASS_SCOPE_LOCATION;
-    private static final net.minecraft.resources.Identifier POWDER_SNOW_OUTLINE_LOCATION;
-    private static final java.util.Comparator<net.minecraft.world.scores.PlayerScoreEntry> SCORE_DISPLAY_ORDER;
-    private static final net.minecraft.network.chat.Component DEMO_EXPIRED_TEXT;
-    private static final net.minecraft.network.chat.Component SAVING_TEXT;
-    private static final float MIN_CROSSHAIR_ATTACK_SPEED;
-    private static final int EXPERIENCE_BAR_DISPLAY_TICKS;
-    private static final int NUM_HEARTS_PER_ROW;
-    private static final int LINE_HEIGHT;
-    private static final java.lang.String SPACER;
-    private static final float PORTAL_OVERLAY_ALPHA_MIN;
-    private static final int HEART_SIZE;
-    private static final int HEART_SEPARATION;
-    private static final int NUM_AIR_BUBBLES;
-    private static final int AIR_BUBBLE_SIZE;
-    private static final int AIR_BUBBLE_SEPERATION;
-    private static final int AIR_BUBBLE_POPPING_DURATION;
-    private static final int EMPTY_AIR_BUBBLE_DELAY_DURATION;
-    private static final float AIR_BUBBLE_POP_SOUND_VOLUME_BASE;
-    private static final float AIR_BUBBLE_POP_SOUND_VOLUME_INCREMENT;
-    private static final float AIR_BUBBLE_POP_SOUND_PITCH_BASE;
-    private static final float AIR_BUBBLE_POP_SOUND_PITCH_INCREMENT;
-    private static final int NUM_AIR_BUBBLE_POPPED_BEFORE_SOUND_VOLUME_INCREASE;
-    private static final int NUM_AIR_BUBBLE_POPPED_BEFORE_SOUND_PITCH_INCREASE;
-    private static final float AUTOSAVE_FADE_SPEED_FACTOR;
-    private static final int SAVING_INDICATOR_WIDTH_PADDING_RIGHT;
-    private static final int SAVING_INDICATOR_HEIGHT_PADDING_BOTTOM;
-    private final net.minecraft.util.RandomSource random;
-    private final net.minecraft.client.Minecraft minecraft;
-    private final net.minecraft.client.gui.components.ChatComponent chat;
-    private final net.minecraft.client.resources.WaypointStyleManager waypointStyles;
-    private boolean isHidden;
-    private int tickCount;
-    private net.minecraft.network.chat.Component overlayMessageString;
-    private int overlayMessageTime;
-    private boolean animateOverlayMessageColor;
-    public float vignetteBrightness;
-    private int toolHighlightTimer;
-    private net.minecraft.world.item.ItemStack lastToolHighlight;
-    private final net.minecraft.client.gui.components.DebugScreenOverlay debugOverlay;
-    private final net.minecraft.client.gui.components.SubtitleOverlay subtitleOverlay;
-    private final net.minecraft.client.gui.components.spectator.SpectatorGui spectatorGui;
-    private final net.minecraft.client.gui.components.PlayerTabOverlay tabList;
-    private final net.minecraft.client.gui.components.BossHealthOverlay bossOverlay;
-    private int titleTime;
-    private net.minecraft.network.chat.Component title;
-    private net.minecraft.network.chat.Component subtitle;
-    private int titleFadeInTime;
-    private int titleStayTime;
-    private int titleFadeOutTime;
-    private int lastHealth;
-    private int displayHealth;
-    private long lastHealthTime;
-    private long healthBlinkTime;
-    private int lastBubblePopSoundPlayed;
-    private java.lang.Runnable deferredSubtitles;
-    private float autosaveIndicatorValue;
-    private float lastAutosaveIndicatorValue;
-    private com.mojang.datafixers.util.Pair<net.minecraft.client.gui.Hud$ContextualInfo, net.minecraft.client.gui.contextualbar.ContextualBar> contextualInfoBar;
-    private final java.util.Map<net.minecraft.client.gui.Hud$ContextualInfo, java.util.function.Supplier<net.minecraft.client.gui.contextualbar.ContextualBar>> contextualInfoBars;
-    private float scopeScale;
-    public net.minecraft.client.gui.Hud(net.minecraft.client.Minecraft);
-    public void registerReloadListeners(net.minecraft.server.packs.resources.ReloadableResourceManager);
-    public void toggle();
-    public boolean isHidden();
-    public void resetTitleTimes();
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractBossOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    public void extractDebugOverlay(net.minecraft.client.gui.GuiGraphicsExtractor);
-    private void extractSubtitleOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, boolean);
-    public void extractDeferredSubtitles();
-    private void extractCameraOverlays(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractSleepOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractOverlayMessage(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractTitle(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractChat(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractScoreboardSidebar(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractTabList(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractCrosshair(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private boolean canRenderCrosshairForSpectator(net.minecraft.world.phys.HitResult);
-    private void extractEffects(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    public static net.minecraft.resources.Identifier getMobEffectSprite(net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>);
-    private void extractHotbarAndDecorations(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractItemHotbar(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void extractSelectedItemName(net.minecraft.client.gui.GuiGraphicsExtractor);
-    private void extractDemoOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private void displayScoreboardSidebar(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.scores.Objective);
-    private net.minecraft.world.entity.player.Player getCameraPlayer();
-    private net.minecraft.world.entity.LivingEntity getPlayerVehicleWithHealth();
-    private int getVehicleMaxHearts(net.minecraft.world.entity.LivingEntity);
-    private int getVisibleVehicleHeartRows(int);
-    private void extractPlayerHealth(net.minecraft.client.gui.GuiGraphicsExtractor);
-    private static void extractArmor(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.entity.player.Player, int, int, int, int);
-    private void extractHearts(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.entity.player.Player, int, int, int, int, float, int, int, int, boolean);
-    private void extractHeart(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.gui.Hud$HeartType, int, int, boolean, boolean, boolean);
-    private void extractAirBubbles(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.entity.player.Player, int, int, int);
-    private int getAirBubbleYLine(int, int);
-    private static int getCurrentAirSupplyBubble(int, int, int);
-    private static int getEmptyBubbleDelayDuration(int, boolean);
-    private void playAirBubblePoppedSound(int, net.minecraft.world.entity.player.Player, int);
-    private void extractFood(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.entity.player.Player, int, int);
-    private void extractVehicleHealth(net.minecraft.client.gui.GuiGraphicsExtractor);
-    private void extractTextureOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.resources.Identifier, float);
-    private void extractSpyglassOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, float);
-    private void updateVignetteBrightness(net.minecraft.world.entity.Entity);
-    private void extractVignette(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.entity.Entity);
-    private void extractPortalOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, float);
-    private void extractConfusionOverlay(net.minecraft.client.gui.GuiGraphicsExtractor, float);
-    private void extractSlot(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, net.minecraft.client.DeltaTracker, net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack, int);
-    public void tick(boolean);
-    private void tick();
-    private void tickAutosaveIndicator();
-    public void setNowPlaying(net.minecraft.network.chat.Component);
-    public void setOverlayMessage(net.minecraft.network.chat.Component, boolean);
-    public void setTimes(int, int, int);
-    public void setSubtitle(net.minecraft.network.chat.Component);
-    public void setTitle(net.minecraft.network.chat.Component);
-    public void clearTitles();
-    public net.minecraft.client.gui.components.ChatComponent getChat();
-    public net.minecraft.client.resources.WaypointStyleManager getWaypointStyles();
-    public int getGuiTicks();
-    public net.minecraft.client.gui.Font getFont();
-    public net.minecraft.client.gui.components.spectator.SpectatorGui getSpectatorGui();
-    public net.minecraft.client.gui.components.PlayerTabOverlay getTabList();
-    public void onDisconnected();
-    public net.minecraft.client.gui.components.BossHealthOverlay getBossOverlay();
-    public net.minecraft.client.gui.components.DebugScreenOverlay getDebugOverlay();
-    public void clearCache();
-    public void extractSavingIndicator(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.DeltaTracker);
-    private boolean willPrioritizeExperienceInfo();
-    private boolean willPrioritizeJumpInfo();
-    private net.minecraft.client.gui.Hud$ContextualInfo nextContextualInfoState();
-    private static net.minecraft.client.gui.Hud$1DisplayEntry[] lambda$displayScoreboardSidebar$2(int);
-    private net.minecraft.client.gui.Hud$1DisplayEntry lambda$displayScoreboardSidebar$1(net.minecraft.world.scores.Scoreboard, net.minecraft.network.chat.numbers.NumberFormat, net.minecraft.world.scores.PlayerScoreEntry);
-    private static boolean lambda$displayScoreboardSidebar$0(net.minecraft.world.scores.PlayerScoreEntry);
-    private static net.minecraft.resources.Identifier lambda$getMobEffectSprite$0(net.minecraft.resources.Identifier);
-    private static java.lang.String lambda$extractCameraOverlays$0(java.lang.String);
-    private void lambda$extractSubtitleOverlay$0(net.minecraft.client.gui.GuiGraphicsExtractor);
-    private static net.minecraft.client.gui.contextualbar.ContextualBar lambda$new$3(net.minecraft.client.Minecraft);
-    private static net.minecraft.client.gui.contextualbar.ContextualBar lambda$new$2(net.minecraft.client.Minecraft);
-    private static net.minecraft.client.gui.contextualbar.ContextualBar lambda$new$1(net.minecraft.client.Minecraft);
-    private static net.minecraft.client.gui.contextualbar.ContextualBar lambda$new$0();
-    static {};
-}
+```
+private static final CROSSHAIR_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final EFFECT_BACKGROUND_AMBIENT_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final EFFECT_BACKGROUND_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HOTBAR_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HOTBAR_SELECTION_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HOTBAR_OFFHAND_LEFT_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HOTBAR_OFFHAND_RIGHT_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HOTBAR_ATTACK_INDICATOR_BACKGROUND_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HOTBAR_ATTACK_INDICATOR_PROGRESS_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final ARMOR_EMPTY_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final ARMOR_HALF_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final ARMOR_FULL_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final FOOD_EMPTY_HUNGER_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final FOOD_HALF_HUNGER_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final FOOD_FULL_HUNGER_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final FOOD_EMPTY_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final FOOD_HALF_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final FOOD_FULL_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final AIR_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final AIR_POPPING_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final AIR_EMPTY_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HEART_VEHICLE_CONTAINER_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HEART_VEHICLE_FULL_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HEART_VEHICLE_HALF_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final VIGNETTE_LOCATION : Lnet/minecraft/resources/Identifier;
+public static final NAUSEA_LOCATION : Lnet/minecraft/resources/Identifier;
+private static final SPYGLASS_SCOPE_LOCATION : Lnet/minecraft/resources/Identifier;
+private static final POWDER_SNOW_OUTLINE_LOCATION : Lnet/minecraft/resources/Identifier;
+private static final SCORE_DISPLAY_ORDER : Ljava/util/Comparator;
+private static final DEMO_EXPIRED_TEXT : Lnet/minecraft/network/chat/Component;
+private static final SAVING_TEXT : Lnet/minecraft/network/chat/Component;
+private static final MIN_CROSSHAIR_ATTACK_SPEED : F
+private static final EXPERIENCE_BAR_DISPLAY_TICKS : I
+private static final NUM_HEARTS_PER_ROW : I
+private static final LINE_HEIGHT : I
+private static final SPACER : Ljava/lang/String;
+private static final PORTAL_OVERLAY_ALPHA_MIN : F
+private static final HEART_SIZE : I
+private static final HEART_SEPARATION : I
+private static final NUM_AIR_BUBBLES : I
+private static final AIR_BUBBLE_SIZE : I
+private static final AIR_BUBBLE_SEPERATION : I
+private static final AIR_BUBBLE_POPPING_DURATION : I
+private static final EMPTY_AIR_BUBBLE_DELAY_DURATION : I
+private static final AIR_BUBBLE_POP_SOUND_VOLUME_BASE : F
+private static final AIR_BUBBLE_POP_SOUND_VOLUME_INCREMENT : F
+private static final AIR_BUBBLE_POP_SOUND_PITCH_BASE : F
+private static final AIR_BUBBLE_POP_SOUND_PITCH_INCREMENT : F
+private static final NUM_AIR_BUBBLE_POPPED_BEFORE_SOUND_VOLUME_INCREASE : I
+private static final NUM_AIR_BUBBLE_POPPED_BEFORE_SOUND_PITCH_INCREASE : I
+private static final AUTOSAVE_FADE_SPEED_FACTOR : F
+private static final SAVING_INDICATOR_WIDTH_PADDING_RIGHT : I
+private static final SAVING_INDICATOR_HEIGHT_PADDING_BOTTOM : I
+private final random : Lnet/minecraft/util/RandomSource;
+private final minecraft : Lnet/minecraft/client/Minecraft;
+private final chat : Lnet/minecraft/client/gui/components/ChatComponent;
+private final waypointStyles : Lnet/minecraft/client/resources/WaypointStyleManager;
+private isHidden : Z
+private tickCount : I
+private overlayMessageString : Lnet/minecraft/network/chat/Component;
+private overlayMessageTime : I
+private animateOverlayMessageColor : Z
+public vignetteBrightness : F
+private toolHighlightTimer : I
+private lastToolHighlight : Lnet/minecraft/world/item/ItemStack;
+private final debugOverlay : Lnet/minecraft/client/gui/components/DebugScreenOverlay;
+private final subtitleOverlay : Lnet/minecraft/client/gui/components/SubtitleOverlay;
+private final spectatorGui : Lnet/minecraft/client/gui/components/spectator/SpectatorGui;
+private final tabList : Lnet/minecraft/client/gui/components/PlayerTabOverlay;
+private final bossOverlay : Lnet/minecraft/client/gui/components/BossHealthOverlay;
+private titleTime : I
+private title : Lnet/minecraft/network/chat/Component;
+private subtitle : Lnet/minecraft/network/chat/Component;
+private titleFadeInTime : I
+private titleStayTime : I
+private titleFadeOutTime : I
+private lastHealth : I
+private displayHealth : I
+private lastHealthTime : J
+private healthBlinkTime : J
+private lastBubblePopSoundPlayed : I
+private deferredSubtitles : Ljava/lang/Runnable;
+private autosaveIndicatorValue : F
+private lastAutosaveIndicatorValue : F
+private contextualInfoBar : Lcom/mojang/datafixers/util/Pair;
+private final contextualInfoBars : Ljava/util/Map;
+private scopeScale : F
+public <init>(Lnet/minecraft/client/Minecraft;)V
+public registerReloadListeners(Lnet/minecraft/server/packs/resources/ReloadableResourceManager;)V
+public toggle()V
+public isHidden()Z
+public resetTitleTimes()V
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractBossOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+public extractDebugOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+private extractSubtitleOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Z)V
+public extractDeferredSubtitles()V
+private extractCameraOverlays(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractSleepOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractOverlayMessage(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractTitle(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractChat(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractTabList(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractCrosshair(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private canRenderCrosshairForSpectator(Lnet/minecraft/world/phys/HitResult;)Z
+private extractEffects(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+public static getMobEffectSprite(Lnet/minecraft/core/Holder;)Lnet/minecraft/resources/Identifier;
+private extractHotbarAndDecorations(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractItemHotbar(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private extractSelectedItemName(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+private extractDemoOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/scores/Objective;)V
+private getCameraPlayer()Lnet/minecraft/world/entity/player/Player;
+private getPlayerVehicleWithHealth()Lnet/minecraft/world/entity/LivingEntity;
+private getVehicleMaxHearts(Lnet/minecraft/world/entity/LivingEntity;)I
+private getVisibleVehicleHeartRows(I)I
+private extractPlayerHealth(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+private static extractArmor(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/entity/player/Player;IIII)V
+private extractHearts(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/entity/player/Player;IIIIFIIIZ)V
+private extractHeart(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Hud$HeartType;IIZZZ)V
+private extractAirBubbles(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/entity/player/Player;III)V
+private getAirBubbleYLine(II)I
+private static getCurrentAirSupplyBubble(III)I
+private static getEmptyBubbleDelayDuration(IZ)I
+private playAirBubblePoppedSound(ILnet/minecraft/world/entity/player/Player;I)V
+private extractFood(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/entity/player/Player;II)V
+private extractVehicleHealth(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+private extractTextureOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/resources/Identifier;F)V
+private extractSpyglassOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;F)V
+private updateVignetteBrightness(Lnet/minecraft/world/entity/Entity;)V
+private extractVignette(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/entity/Entity;)V
+private extractPortalOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;F)V
+private extractConfusionOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;F)V
+private extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IILnet/minecraft/client/DeltaTracker;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V
+public tick(Z)V
+private tick()V
+private tickAutosaveIndicator()V
+public setNowPlaying(Lnet/minecraft/network/chat/Component;)V
+public setOverlayMessage(Lnet/minecraft/network/chat/Component;Z)V
+public setTimes(III)V
+public setSubtitle(Lnet/minecraft/network/chat/Component;)V
+public setTitle(Lnet/minecraft/network/chat/Component;)V
+public clearTitles()V
+public getChat()Lnet/minecraft/client/gui/components/ChatComponent;
+public getWaypointStyles()Lnet/minecraft/client/resources/WaypointStyleManager;
+public getGuiTicks()I
+public getFont()Lnet/minecraft/client/gui/Font;
+public getSpectatorGui()Lnet/minecraft/client/gui/components/spectator/SpectatorGui;
+public getTabList()Lnet/minecraft/client/gui/components/PlayerTabOverlay;
+public onDisconnected()V
+public getBossOverlay()Lnet/minecraft/client/gui/components/BossHealthOverlay;
+public getDebugOverlay()Lnet/minecraft/client/gui/components/DebugScreenOverlay;
+public clearCache()V
+public extractSavingIndicator(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V
+private willPrioritizeExperienceInfo()Z
+private willPrioritizeJumpInfo()Z
+private nextContextualInfoState()Lnet/minecraft/client/gui/Hud$ContextualInfo;
+private static synthetic lambda$displayScoreboardSidebar$2(I)[Lnet/minecraft/client/gui/Hud$1DisplayEntry;
+private synthetic lambda$displayScoreboardSidebar$1(Lnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/network/chat/numbers/NumberFormat;Lnet/minecraft/world/scores/PlayerScoreEntry;)Lnet/minecraft/client/gui/Hud$1DisplayEntry;
+private static synthetic lambda$displayScoreboardSidebar$0(Lnet/minecraft/world/scores/PlayerScoreEntry;)Z
+private static synthetic lambda$getMobEffectSprite$0(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/resources/Identifier;
+private static synthetic lambda$extractCameraOverlays$0(Ljava/lang/String;)Ljava/lang/String;
+private synthetic lambda$extractSubtitleOverlay$0(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+private static synthetic lambda$new$3(Lnet/minecraft/client/Minecraft;)Lnet/minecraft/client/gui/contextualbar/ContextualBar;
+private static synthetic lambda$new$2(Lnet/minecraft/client/Minecraft;)Lnet/minecraft/client/gui/contextualbar/ContextualBar;
+private static synthetic lambda$new$1(Lnet/minecraft/client/Minecraft;)Lnet/minecraft/client/gui/contextualbar/ContextualBar;
+private static synthetic lambda$new$0()Lnet/minecraft/client/gui/contextualbar/ContextualBar;
+static <clinit>()V
 ```

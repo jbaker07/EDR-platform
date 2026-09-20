@@ -11,24 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/DispenserBlock`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `dispenseFrom` | `@Inject at INVOKE Lnet/minecraft/core/dispenser/DispenseItemBehavior;dispense(Ln` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `dispenseFrom` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/bl` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (2 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.DropperBlock extends net.minecraft.world.level.block.DispenserBlock {
-    private static final org.slf4j.Logger LOGGER;
-    private static final net.minecraft.core.dispenser.DispenseItemBehavior DISPENSE_BEHAVIOUR;
-    public net.minecraft.world.level.block.DropperBlock(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    protected net.minecraft.core.dispenser.DispenseItemBehavior getDispenseMethod(net.minecraft.world.level.Level, net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.level.block.entity.BlockEntity newBlockEntity(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected void dispenseFrom(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final DISPENSE_BEHAVIOUR : Lnet/minecraft/core/dispenser/DispenseItemBehavior;
+public <init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+protected getDispenseMethod(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/core/dispenser/DispenseItemBehavior;
+public newBlockEntity(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+protected dispenseFrom(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V
+static <clinit>()V
 ```

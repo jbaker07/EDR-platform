@@ -11,24 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft|net.minecraft]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `packVersion(Lnet/minecraft/server/packs/PackType;)Lnet/minecraft/server` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `packVersion` | `(Lnet/minecraft/server/packs/PackType;)Lnet/minecraft/server/packs/met` | exact | invokeinterface@118 in `ModPackResourcesUtil.openDefault` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (0 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.WorldVersion {
-    public abstract net.minecraft.world.level.storage.DataVersion dataVersion();
-    public abstract java.lang.String id();
-    public abstract java.lang.String name();
-    public abstract int protocolVersion();
-    public abstract net.minecraft.server.packs.metadata.pack.PackFormat packVersion(net.minecraft.server.packs.PackType);
-    public abstract java.util.Date buildTime();
-    public abstract boolean stable();
-}
+```
+public abstract dataVersion()Lnet/minecraft/world/level/storage/DataVersion;
+public abstract id()Ljava/lang/String;
+public abstract name()Ljava/lang/String;
+public abstract protocolVersion()I
+public abstract packVersion(Lnet/minecraft/server/packs/PackType;)Lnet/minecraft/server/packs/metadata/pack/PackFormat;
+public abstract buildTime()Ljava/util/Date;
+public abstract stable()Z
 ```

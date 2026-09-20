@@ -11,47 +11,49 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world|net.minecraft.world]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/world/Clearable`, `java/lang/Iterable`, `net/minecraft/world/entity/SlotProvider`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `canPlaceItem(ILnet/minecraft/world/item/ItemStack;)Z` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getContainerSize()I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getItem(I)Lnet/minecraft/world/item/ItemStack;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getMaxStackSize()I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getMaxStackSize(Lnet/minecraft/world/item/ItemStack;)I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `setItem(ILnet/minecraft/world/item/ItemStack;)V` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `canPlaceItem` | `(ILnet/minecraft/world/item/ItemStack;)Z` | exact | invokeinterface@40 in `ContainerSlotWrapper.canInsert` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getContainerSize` | `()I` | exact | invokeinterface@4 in `ContainerStorageImpl.resizeSlotList` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getItem` | `(I)Lnet/minecraft/world/item/ItemStack;` | exact | invokeinterface@11 in `ContainerSlotWrapper.getStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getMaxStackSize` | `()I` | exact | invokeinterface@74 in `ContainerSlotWrapper.getCapacity` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getMaxStackSize` | `(Lnet/minecraft/world/item/ItemStack;)I` | exact | invokeinterface@95 in `ContainerSlotWrapper.getCapacity` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `setChanged` | `()V` | exact | invokeinterface@7 in `ContainerStorageImpl$SetChangedParticipant.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | exact | invokeinterface@19 in `ContainerSlotWrapper.setStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `setItem` | `(ILnet/minecraft/world/item/ItemStack;)V` | exact | invokeinterface@49 in `ContainerSlotWrapper.setStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | inherited_exact | invokeinterface@28 in `DebugMessages.forInventory` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (24, all visibilities)
+## Declared members (1 fields, 23 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.Container extends net.minecraft.world.Clearable, java.lang.Iterable<net.minecraft.world.item.ItemStack>, net.minecraft.world.entity.SlotProvider {
-    public static final float DEFAULT_DISTANCE_BUFFER;
-    public abstract int getContainerSize();
-    public abstract boolean isEmpty();
-    public abstract net.minecraft.world.item.ItemStack getItem(int);
-    public abstract net.minecraft.world.item.ItemStack removeItem(int, int);
-    public abstract net.minecraft.world.item.ItemStack removeItemNoUpdate(int);
-    public abstract void setItem(int, net.minecraft.world.item.ItemStack);
-    public default int getMaxStackSize();
-    public default int getMaxStackSize(net.minecraft.world.item.ItemStack);
-    public abstract void setChanged();
-    public abstract boolean stillValid(net.minecraft.world.entity.player.Player);
-    public default void startOpen(net.minecraft.world.entity.ContainerUser);
-    public default void stopOpen(net.minecraft.world.entity.ContainerUser);
-    public default java.util.List<net.minecraft.world.entity.ContainerUser> getEntitiesWithContainerOpen();
-    public default boolean canPlaceItem(int, net.minecraft.world.item.ItemStack);
-    public default boolean canTakeItem(net.minecraft.world.Container, int, net.minecraft.world.item.ItemStack);
-    public default int countItem(net.minecraft.world.item.Item);
-    public default boolean hasAnyOf(java.util.Set<net.minecraft.world.item.Item>);
-    public default boolean hasAnyMatching(java.util.function.Predicate<net.minecraft.world.item.ItemStack>);
-    public static boolean stillValidBlockEntity(net.minecraft.world.level.block.entity.BlockEntity, net.minecraft.world.entity.player.Player);
-    public static boolean stillValidBlockEntity(net.minecraft.world.level.block.entity.BlockEntity, net.minecraft.world.entity.player.Player, float);
-    public default net.minecraft.world.entity.SlotAccess getSlot(int);
-    public default java.util.Iterator<net.minecraft.world.item.ItemStack> iterator();
-    private static boolean lambda$hasAnyOf$0(java.util.Set, net.minecraft.world.item.ItemStack);
-}
+```
+public static final DEFAULT_DISTANCE_BUFFER : F
+public abstract getContainerSize()I
+public abstract isEmpty()Z
+public abstract getItem(I)Lnet/minecraft/world/item/ItemStack;
+public abstract removeItem(II)Lnet/minecraft/world/item/ItemStack;
+public abstract removeItemNoUpdate(I)Lnet/minecraft/world/item/ItemStack;
+public abstract setItem(ILnet/minecraft/world/item/ItemStack;)V
+public getMaxStackSize()I
+public getMaxStackSize(Lnet/minecraft/world/item/ItemStack;)I
+public abstract setChanged()V
+public abstract stillValid(Lnet/minecraft/world/entity/player/Player;)Z
+public startOpen(Lnet/minecraft/world/entity/ContainerUser;)V
+public stopOpen(Lnet/minecraft/world/entity/ContainerUser;)V
+public getEntitiesWithContainerOpen()Ljava/util/List;
+public canPlaceItem(ILnet/minecraft/world/item/ItemStack;)Z
+public canTakeItem(Lnet/minecraft/world/Container;ILnet/minecraft/world/item/ItemStack;)Z
+public countItem(Lnet/minecraft/world/item/Item;)I
+public hasAnyOf(Ljava/util/Set;)Z
+public hasAnyMatching(Ljava/util/function/Predicate;)Z
+public static stillValidBlockEntity(Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/player/Player;)Z
+public static stillValidBlockEntity(Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/player/Player;F)Z
+public getSlot(I)Lnet/minecraft/world/entity/SlotAccess;
+public iterator()Ljava/util/Iterator;
+private static synthetic lambda$hasAnyOf$0(Ljava/util/Set;Lnet/minecraft/world/item/ItemStack;)Z
 ```

@@ -1,0 +1,25 @@
+{
+ "required": true,
+ "minVersion": "0.8",
+ "package": "fixtures.modb",
+ "compatibilityLevel": "JAVA_17",
+ "mixins": [
+  "A_Inject",
+  "B_InjectInvoke",
+  "B2_InjectInvokeOptional",
+  "C_Redirect2",
+  "D_Wrap",
+  "E_Inject2",
+  "F_Overwrite2",
+  "G_Inject900",
+  "H_TailReturn",
+  "J_Redirect",
+  "K_InjectInvoke1100",
+  "L_InjectHead900",
+  "M_InjectInvoke1100",
+  "N_InjectHead1100"
+ ],
+ "injectors": {
+  "defaultRequire": 1
+ }
+}

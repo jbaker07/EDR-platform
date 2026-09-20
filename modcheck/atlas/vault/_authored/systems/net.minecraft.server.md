@@ -9,7 +9,7 @@ side: "server"
 
 # MinecraftServer -- the server run loop
 
-Package `net.minecraft.server` -- generated view: [[20-Systems/net.minecraft.server|hooked types]]
+Package `net.minecraft.server` -- generated view: [[20-Systems/net.minecraft.server|inventory and hooked types]]
 
 **Responsibility.** Owns the server's main loop (runServer, tickServer, tickChildren), startup (initServer) and shutdown (stopServer), the set of loaded levels, the player list, resource reload and the save cycle. Both the dedicated server and the client's integrated server are instances of it.
 
@@ -34,7 +34,7 @@ Package `net.minecraft.server` -- generated view: [[20-Systems/net.minecraft.ser
 ## Evidence
 
 - `extracted/edges.json#injects_into`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Open questions

@@ -11,26 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `getPathTypeFromState` | `@Inject at INVOKE_ASSIGN Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Ln` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getBlockState` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| calls | `level` | `()Lnet/minecraft/world/level/CollisionGetter;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| injects_into | `getPathTypeFromState` | `(III)Lnet/minecraft/world/level/pathfinder/PathType;` | name_only | @Inject at ['INVOKE_ASSIGN'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (4 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.pathfinder.PathfindingContext {
-    private final net.minecraft.world.level.CollisionGetter level;
-    private final net.minecraft.world.level.pathfinder.PathTypeCache cache;
-    private final net.minecraft.core.BlockPos mobPosition;
-    private final net.minecraft.core.BlockPos$MutableBlockPos mutablePos;
-    public net.minecraft.world.level.pathfinder.PathfindingContext(net.minecraft.world.level.CollisionGetter, net.minecraft.world.entity.Mob);
-    public net.minecraft.world.level.pathfinder.PathType getPathTypeFromState(int, int, int);
-    public net.minecraft.world.level.block.state.BlockState getBlockState(net.minecraft.core.BlockPos);
-    public net.minecraft.world.level.CollisionGetter level();
-    public net.minecraft.core.BlockPos mobPosition();
-}
+```
+private final level : Lnet/minecraft/world/level/CollisionGetter;
+private final cache : Lnet/minecraft/world/level/pathfinder/PathTypeCache;
+private final mobPosition : Lnet/minecraft/core/BlockPos;
+private final mutablePos : Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public <init>(Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/world/entity/Mob;)V
+public getPathTypeFromState(III)Lnet/minecraft/world/level/pathfinder/PathType;
+public getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+public level()Lnet/minecraft/world/level/CollisionGetter;
+public mobPosition()Lnet/minecraft/core/BlockPos;
 ```

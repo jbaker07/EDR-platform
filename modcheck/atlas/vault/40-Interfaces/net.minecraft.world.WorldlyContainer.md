@@ -11,22 +11,22 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world|net.minecraft.world]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/world/Container`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `canPlaceItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Di` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `canTakeItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Di` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getSlotsForFace(Lnet/minecraft/core/Direction;)[I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `canPlaceItemThroughFace` | `(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z` | exact | invokeinterface@22 in `WorldlyContainerSlotWrapper.insert` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `canTakeItemThroughFace` | `(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z` | exact | invokeinterface@22 in `WorldlyContainerSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getSlotsForFace` | `(Lnet/minecraft/core/Direction;)[I` | exact | invokeinterface@10 in `SidedContainerStorageImpl.createWrapperList` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (3, all visibilities)
+## Declared members (0 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.WorldlyContainer extends net.minecraft.world.Container {
-    public abstract int[] getSlotsForFace(net.minecraft.core.Direction);
-    public abstract boolean canPlaceItemThroughFace(int, net.minecraft.world.item.ItemStack, net.minecraft.core.Direction);
-    public abstract boolean canTakeItemThroughFace(int, net.minecraft.world.item.ItemStack, net.minecraft.core.Direction);
-}
+```
+public abstract getSlotsForFace(Lnet/minecraft/core/Direction;)[I
+public abstract canPlaceItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z
+public abstract canTakeItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z
 ```

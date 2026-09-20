@@ -11,86 +11,89 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getGameRules()Lnet/minecraft/world/level/gamerules/GameRules;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `getSettings()Lnet/minecraft/client/gui/screens/worldselection/WorldCrea` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `getTargetFolder()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `setGenerateStructures(Z)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `setSeed(Ljava/lang/String;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `setWorldType(Lnet/minecraft/client/gui/screens/worldselection/WorldCreat` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getGameRules` | `()Lnet/minecraft/world/level/gamerules/GameRules;` | exact | invokevirtual@48 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getGameRules` | `()Lnet/minecraft/world/level/gamerules/GameRules;` | exact | invokevirtual@63 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getGameRules` | `()Lnet/minecraft/world/level/gamerules/GameRules;` | exact | invokevirtual@78 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getGameRules` | `()Lnet/minecraft/world/level/gamerules/GameRules;` | exact | invokevirtual@93 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getSettings` | `()Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContex` | exact | invokevirtual@1 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getTargetFolder` | `()Ljava/lang/String;` | exact | invokevirtual@94 in `TestWorldBuilderImpl.lambda$navigateCreateWorldScreen$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `setGenerateStructures` | `(Z)V` | exact | invokevirtual@44 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `setSeed` | `(Ljava/lang/String;)V` | exact | invokevirtual@39 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `setWorldType` | `(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState` | exact | invokevirtual@33 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (64, all visibilities)
+## Declared members (16 fields, 48 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.worldselection.WorldCreationUiState {
-    private static final net.minecraft.network.chat.Component DEFAULT_WORLD_NAME;
-    private final java.util.List<java.util.function.Consumer<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState>> listeners;
-    private java.lang.String name;
-    private net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$SelectedGameMode gameMode;
-    private net.minecraft.world.Difficulty difficulty;
-    private java.lang.Boolean allowCommands;
-    private java.lang.String seed;
-    private boolean generateStructures;
-    private boolean bonusChest;
-    private final java.nio.file.Path savesFolder;
-    private java.lang.String targetFolder;
-    private net.minecraft.client.gui.screens.worldselection.WorldCreationContext settings;
-    private net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry worldType;
-    private final java.util.List<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry> normalPresetList;
-    private final java.util.List<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry> altPresetList;
-    private net.minecraft.world.level.gamerules.GameRules gameRules;
-    public net.minecraft.client.gui.screens.worldselection.WorldCreationUiState(java.nio.file.Path, net.minecraft.client.gui.screens.worldselection.WorldCreationContext, java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.presets.WorldPreset>>, java.util.OptionalLong);
-    public void addListener(java.util.function.Consumer<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState>);
-    public void onChanged();
-    public void setName(java.lang.String);
-    private java.lang.String findResultFolder(java.lang.String);
-    public java.lang.String getName();
-    public java.lang.String getTargetFolder();
-    public void setGameMode(net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$SelectedGameMode);
-    public net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$SelectedGameMode getGameMode();
-    public void setDifficulty(net.minecraft.world.Difficulty);
-    public net.minecraft.world.Difficulty getDifficulty();
-    public boolean isHardcore();
-    public void setAllowCommands(boolean);
-    public boolean isAllowCommands();
-    public void setSeed(java.lang.String);
-    public java.lang.String getSeed();
-    public void setGenerateStructures(boolean);
-    public boolean isGenerateStructures();
-    public void setBonusChest(boolean);
-    public boolean isBonusChest();
-    public void setSettings(net.minecraft.client.gui.screens.worldselection.WorldCreationContext);
-    public net.minecraft.client.gui.screens.worldselection.WorldCreationContext getSettings();
-    public void updateDimensions(net.minecraft.client.gui.screens.worldselection.WorldCreationContext$DimensionsUpdater);
-    protected boolean tryUpdateDataConfiguration(net.minecraft.world.level.WorldDataConfiguration);
-    public boolean isDebug();
-    public void setWorldType(net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry);
-    public net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry getWorldType();
-    public net.minecraft.client.gui.screens.worldselection.PresetEditor getPresetEditor();
-    public java.util.List<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry> getNormalPresetList();
-    public java.util.List<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry> getAltPresetList();
-    private void updatePresetLists();
-    private static java.util.Optional<net.minecraft.core.Holder<net.minecraft.world.level.levelgen.presets.WorldPreset>> findPreset(net.minecraft.client.gui.screens.worldselection.WorldCreationContext, java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.presets.WorldPreset>>);
-    private static java.util.Optional<java.util.List<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState$WorldTypeEntry>> getNonEmptyList(net.minecraft.core.Registry<net.minecraft.world.level.levelgen.presets.WorldPreset>, net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.presets.WorldPreset>);
-    public void setGameRules(net.minecraft.world.level.gamerules.GameRules);
-    public net.minecraft.world.level.gamerules.GameRules getGameRules();
-    private static boolean lambda$getNonEmptyList$1(java.util.List);
-    private static java.util.List lambda$getNonEmptyList$0(net.minecraft.core.HolderSet$Named);
-    private static java.util.Optional lambda$findPreset$0(net.minecraft.client.gui.screens.worldselection.WorldCreationContext, net.minecraft.resources.ResourceKey);
-    private static java.util.List lambda$updatePresetLists$0(net.minecraft.core.Registry);
-    private static net.minecraft.world.level.levelgen.WorldDimensions lambda$setWorldType$0(net.minecraft.core.Holder, net.minecraft.core.RegistryAccess$Frozen, net.minecraft.world.level.levelgen.WorldDimensions);
-    private net.minecraft.world.level.levelgen.WorldOptions lambda$setSeed$0(net.minecraft.world.level.levelgen.WorldOptions);
-    private static net.minecraft.world.level.levelgen.WorldOptions lambda$onChanged$1(boolean, net.minecraft.world.level.levelgen.WorldOptions);
-    private static net.minecraft.world.level.levelgen.WorldOptions lambda$onChanged$0(boolean, net.minecraft.world.level.levelgen.WorldOptions);
-    private void lambda$new$3(net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings);
-    private static net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings lambda$new$2(net.minecraft.core.Holder$Reference);
-    private static java.util.Optional lambda$new$0(net.minecraft.client.gui.screens.worldselection.WorldCreationContext, net.minecraft.resources.ResourceKey);
-    private static java.util.Optional lambda$new$1(net.minecraft.resources.ResourceKey, net.minecraft.core.Registry);
-    static {};
-}
+```
+private static final DEFAULT_WORLD_NAME : Lnet/minecraft/network/chat/Component;
+private final listeners : Ljava/util/List;
+private name : Ljava/lang/String;
+private gameMode : Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState$SelectedGameMode;
+private difficulty : Lnet/minecraft/world/Difficulty;
+private allowCommands : Ljava/lang/Boolean;
+private seed : Ljava/lang/String;
+private generateStructures : Z
+private bonusChest : Z
+private final savesFolder : Ljava/nio/file/Path;
+private targetFolder : Ljava/lang/String;
+private settings : Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext;
+private worldType : Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState$WorldTypeEntry;
+private final normalPresetList : Ljava/util/List;
+private final altPresetList : Ljava/util/List;
+private gameRules : Lnet/minecraft/world/level/gamerules/GameRules;
+public <init>(Ljava/nio/file/Path;Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext;Ljava/util/Optional;Ljava/util/OptionalLong;)V
+public addListener(Ljava/util/function/Consumer;)V
+public onChanged()V
+public setName(Ljava/lang/String;)V
+private findResultFolder(Ljava/lang/String;)Ljava/lang/String;
+public getName()Ljava/lang/String;
+public getTargetFolder()Ljava/lang/String;
+public setGameMode(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState$SelectedGameMode;)V
+public getGameMode()Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState$SelectedGameMode;
+public setDifficulty(Lnet/minecraft/world/Difficulty;)V
+public getDifficulty()Lnet/minecraft/world/Difficulty;
+public isHardcore()Z
+public setAllowCommands(Z)V
+public isAllowCommands()Z
+public setSeed(Ljava/lang/String;)V
+public getSeed()Ljava/lang/String;
+public setGenerateStructures(Z)V
+public isGenerateStructures()Z
+public setBonusChest(Z)V
+public isBonusChest()Z
+public setSettings(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext;)V
+public getSettings()Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext;
+public updateDimensions(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext$DimensionsUpdater;)V
+protected tryUpdateDataConfiguration(Lnet/minecraft/world/level/WorldDataConfiguration;)Z
+public isDebug()Z
+public setWorldType(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState$WorldTypeEntry;)V
+public getWorldType()Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState$WorldTypeEntry;
+public getPresetEditor()Lnet/minecraft/client/gui/screens/worldselection/PresetEditor;
+public getNormalPresetList()Ljava/util/List;
+public getAltPresetList()Ljava/util/List;
+private updatePresetLists()V
+private static findPreset(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext;Ljava/util/Optional;)Ljava/util/Optional;
+private static getNonEmptyList(Lnet/minecraft/core/Registry;Lnet/minecraft/tags/TagKey;)Ljava/util/Optional;
+public setGameRules(Lnet/minecraft/world/level/gamerules/GameRules;)V
+public getGameRules()Lnet/minecraft/world/level/gamerules/GameRules;
+private static synthetic lambda$getNonEmptyList$1(Ljava/util/List;)Z
+private static synthetic lambda$getNonEmptyList$0(Lnet/minecraft/core/HolderSet$Named;)Ljava/util/List;
+private static synthetic lambda$findPreset$0(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext;Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;
+private static synthetic lambda$updatePresetLists$0(Lnet/minecraft/core/Registry;)Ljava/util/List;
+private static synthetic lambda$setWorldType$0(Lnet/minecraft/core/Holder;Lnet/minecraft/core/RegistryAccess$Frozen;Lnet/minecraft/world/level/levelgen/WorldDimensions;)Lnet/minecraft/world/level/levelgen/WorldDimensions;
+private synthetic lambda$setSeed$0(Lnet/minecraft/world/level/levelgen/WorldOptions;)Lnet/minecraft/world/level/levelgen/WorldOptions;
+private static synthetic lambda$onChanged$1(ZLnet/minecraft/world/level/levelgen/WorldOptions;)Lnet/minecraft/world/level/levelgen/WorldOptions;
+private static synthetic lambda$onChanged$0(ZLnet/minecraft/world/level/levelgen/WorldOptions;)Lnet/minecraft/world/level/levelgen/WorldOptions;
+private synthetic lambda$new$3(Lnet/minecraft/world/level/levelgen/flat/FlatLevelGeneratorSettings;)V
+private static synthetic lambda$new$2(Lnet/minecraft/core/Holder$Reference;)Lnet/minecraft/world/level/levelgen/flat/FlatLevelGeneratorSettings;
+private static synthetic lambda$new$0(Lnet/minecraft/client/gui/screens/worldselection/WorldCreationContext;Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;
+private static synthetic lambda$new$1(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry;)Ljava/util/Optional;
+static <clinit>()V
 ```

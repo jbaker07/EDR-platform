@@ -15,6 +15,5 @@ Module: [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v
 ```java
 public static void registerGatherableItem(net.minecraft.world.level.ItemLike)
 public static void registerCompostable(net.minecraft.world.level.ItemLike)
-public static void registerGiftLootTable(net.minecraft.resources.ResourceKey<net.minecraft.world.entity.npc.villager.VillagerProfession>, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>)
-static {}
+public static void registerGiftLootTable(net.minecraft.resources.ResourceKey, net.minecraft.resources.ResourceKey)
 ```

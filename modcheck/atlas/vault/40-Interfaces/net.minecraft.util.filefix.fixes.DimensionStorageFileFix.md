@@ -11,19 +11,19 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util.filefix|net.minecraft.util.filefix]]
 
+`class` public; extends `net/minecraft/util/filefix/FileFix`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `makeFixer` | `@ModifyArg at INVOKE Lnet/minecraft/util/filefix/operations/FileFixOperations;ap` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `makeFixer` | `()V` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (2, all visibilities)
+## Declared members (0 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.filefix.fixes.DimensionStorageFileFix extends net.minecraft.util.filefix.FileFix {
-    public net.minecraft.util.filefix.fixes.DimensionStorageFileFix(com.mojang.datafixers.schemas.Schema);
-    public void makeFixer();
-}
+```
+public <init>(Lcom/mojang/datafixers/schemas/Schema;)V
+public makeFixer()V
 ```

@@ -13,11 +13,11 @@ sha256: "4ff3be674760c602b4ed59c10d74d2d52597e8a562489ecd4b68ebf7f71d466c"
 Module: [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] -- kind: interface
 
 ```java
-public default A find(C)
-public abstract A find(net.minecraft.world.level.block.state.BlockState, C)
+public java.lang.Object find(java.lang.Object)
+public abstract java.lang.Object find(net.minecraft.world.level.block.state.BlockState, java.lang.Object)
 public abstract net.minecraft.world.level.block.entity.BlockEntity getBlockEntity()
-public abstract net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup<A, C> getLookup()
+public abstract net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup getLookup()
 public abstract net.minecraft.server.level.ServerLevel getLevel()
 public abstract net.minecraft.core.BlockPos getPos()
-public static <A, C> net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache<A, C> create(net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup<A, C>, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos)
+public static net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache create(net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos)
 ```

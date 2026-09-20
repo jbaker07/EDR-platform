@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftServerMixin.afterShutdownServer` | `MinecraftServer.stopServer` @Inject at TAIL | both | static_inference |
+| `MinecraftServerMixin.afterShutdownServer` @13 | [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]].`stopServer` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

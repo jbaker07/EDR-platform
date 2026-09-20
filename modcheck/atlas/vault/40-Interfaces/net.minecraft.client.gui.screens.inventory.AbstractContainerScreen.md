@@ -11,93 +11,93 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`abstract_class` public abstract; extends `net/minecraft/client/gui/screens/Screen`; implements `net/minecraft/client/gui/screens/inventory/MenuAccess`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/m` | `` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/m` | `` | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
-| injects_into | `extractRenderState` | `@Inject at INVOKE Lnet/minecraft/client/gui/screens/inventory/AbstractContainerS` | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
-| injects_into | `mouseDragged` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
-| injects_into | `mouseReleased` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/w` | exact | invokespecial@4 in `CreativeModeInventoryScreenMixin.<init>` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/w` | exact | invokespecial@4 in `AbstractRecipeBookScreenMixin.<init>` | unknown | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
+| injects_into | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
+| injects_into | `mouseDragged` | `(Lnet/minecraft/client/input/MouseButtonEvent;DD)Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
+| injects_into | `mouseReleased` | `(Lnet/minecraft/client/input/MouseButtonEvent;)Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
 
-## Declared members (72, all visibilities)
+## Declared members (28 fields, 44 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.gui.screens.inventory.AbstractContainerScreen<T extends net.minecraft.world.inventory.AbstractContainerMenu> extends net.minecraft.client.gui.screens.Screen implements net.minecraft.client.gui.screens.inventory.MenuAccess<T> {
-    public static final net.minecraft.resources.Identifier INVENTORY_LOCATION;
-    private static final net.minecraft.resources.Identifier SLOT_HIGHLIGHT_BACK_SPRITE;
-    private static final net.minecraft.resources.Identifier SLOT_HIGHLIGHT_FRONT_SPRITE;
-    protected static final int BACKGROUND_TEXTURE_WIDTH;
-    protected static final int BACKGROUND_TEXTURE_HEIGHT;
-    protected static final int DEFAULT_IMAGE_WIDTH;
-    protected static final int DEFAULT_IMAGE_HEIGHT;
-    protected final int imageWidth;
-    protected final int imageHeight;
-    protected int titleLabelX;
-    protected int titleLabelY;
-    protected int inventoryLabelX;
-    protected int inventoryLabelY;
-    private final java.util.List<net.minecraft.client.gui.ItemSlotMouseAction> itemSlotMouseActions;
-    protected final T menu;
-    protected final net.minecraft.network.chat.Component playerInventoryTitle;
-    protected net.minecraft.world.inventory.Slot hoveredSlot;
-    private net.minecraft.world.inventory.Slot lastClickSlot;
-    protected int leftPos;
-    protected int topPos;
-    protected final java.util.Set<net.minecraft.world.inventory.Slot> quickCraftSlots;
-    protected boolean isQuickCrafting;
-    private int quickCraftingType;
-    private int quickCraftingButton;
-    private boolean skipNextRelease;
-    private int quickCraftingRemainder;
-    private boolean doubleclick;
-    private net.minecraft.world.item.ItemStack lastQuickMoved;
-    public net.minecraft.client.gui.screens.inventory.AbstractContainerScreen(T, net.minecraft.world.entity.player.Inventory, net.minecraft.network.chat.Component);
-    public net.minecraft.client.gui.screens.inventory.AbstractContainerScreen(T, net.minecraft.world.entity.player.Inventory, net.minecraft.network.chat.Component, int, int);
-    protected void init();
-    protected void addItemSlotMouseAction(net.minecraft.client.gui.ItemSlotMouseAction);
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    public void extractContents(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    public void extractCarriedItem(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    protected void extractSlots(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    public boolean mouseScrolled(double, double, double, double);
-    private void extractSlotHighlightBack(net.minecraft.client.gui.GuiGraphicsExtractor);
-    private void extractSlotHighlightFront(net.minecraft.client.gui.GuiGraphicsExtractor);
-    protected void extractTooltip(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    private boolean showTooltipWithItemInHand(net.minecraft.world.item.ItemStack);
-    protected java.util.List<net.minecraft.network.chat.Component> getTooltipFromContainerItem(net.minecraft.world.item.ItemStack);
-    private void extractFloatingItem(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.item.ItemStack, int, int, java.lang.String);
-    protected void extractLabels(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    protected void extractSlot(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.inventory.Slot, int, int);
-    private void recalculateQuickCraftRemaining();
-    private net.minecraft.world.inventory.Slot getHoveredSlot(double, double);
-    private void slotClicked(net.minecraft.world.inventory.Slot, int, net.minecraft.client.input.MouseButtonEvent, net.minecraft.world.inventory.ContainerInput);
-    private static int getContainerClickButton(net.minecraft.client.input.MouseButtonEvent);
-    public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent, boolean);
-    private void checkHotbarMouseClicked(net.minecraft.client.input.MouseButtonEvent);
-    protected boolean hasClickedOutside(double, double, int, int);
-    public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent, double, double);
-    public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent);
-    private boolean isHovering(net.minecraft.world.inventory.Slot, double, double);
-    protected boolean isHovering(int, int, int, int, double, double);
-    private void onStopHovering(net.minecraft.world.inventory.Slot);
-    protected void slotClicked(net.minecraft.world.inventory.Slot, int, int, net.minecraft.world.inventory.ContainerInput);
-    protected void onMouseClickAction(net.minecraft.world.inventory.Slot, net.minecraft.world.inventory.ContainerInput);
-    protected void handleSlotStateChanged(int, int, boolean);
-    public boolean keyPressed(net.minecraft.client.input.KeyEvent);
-    protected boolean checkHotbarKeyPressed(net.minecraft.client.input.KeyEvent);
-    public void removed();
-    public boolean isPauseScreen();
-    public boolean isInGameUi();
-    public final void tick();
-    protected void containerTick();
-    private boolean shouldAddSlotToQuickCraft(net.minecraft.world.inventory.Slot, net.minecraft.world.item.ItemStack);
-    private void quickCraftToSlots();
-    public T getMenu();
-    public void onClose();
-    static {};
-}
+```
+public static final INVENTORY_LOCATION : Lnet/minecraft/resources/Identifier;
+private static final SLOT_HIGHLIGHT_BACK_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final SLOT_HIGHLIGHT_FRONT_SPRITE : Lnet/minecraft/resources/Identifier;
+protected static final BACKGROUND_TEXTURE_WIDTH : I
+protected static final BACKGROUND_TEXTURE_HEIGHT : I
+protected static final DEFAULT_IMAGE_WIDTH : I
+protected static final DEFAULT_IMAGE_HEIGHT : I
+protected final imageWidth : I
+protected final imageHeight : I
+protected titleLabelX : I
+protected titleLabelY : I
+protected inventoryLabelX : I
+protected inventoryLabelY : I
+private final itemSlotMouseActions : Ljava/util/List;
+protected final menu : Lnet/minecraft/world/inventory/AbstractContainerMenu;
+protected final playerInventoryTitle : Lnet/minecraft/network/chat/Component;
+protected hoveredSlot : Lnet/minecraft/world/inventory/Slot;
+private lastClickSlot : Lnet/minecraft/world/inventory/Slot;
+protected leftPos : I
+protected topPos : I
+protected final quickCraftSlots : Ljava/util/Set;
+protected isQuickCrafting : Z
+private quickCraftingType : I
+private quickCraftingButton : I
+private skipNextRelease : Z
+private quickCraftingRemainder : I
+private doubleclick : Z
+private lastQuickMoved : Lnet/minecraft/world/item/ItemStack;
+public <init>(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/network/chat/Component;)V
+public <init>(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/network/chat/Component;II)V
+protected init()V
+protected addItemSlotMouseAction(Lnet/minecraft/client/gui/ItemSlotMouseAction;)V
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+public extractContents(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+public extractCarriedItem(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+protected extractSlots(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+public mouseScrolled(DDDD)Z
+private extractSlotHighlightBack(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+private extractSlotHighlightFront(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+protected extractTooltip(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+private showTooltipWithItemInHand(Lnet/minecraft/world/item/ItemStack;)Z
+protected getTooltipFromContainerItem(Lnet/minecraft/world/item/ItemStack;)Ljava/util/List;
+private extractFloatingItem(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V
+protected extractLabels(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+protected extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V
+private recalculateQuickCraftRemaining()V
+private getHoveredSlot(DD)Lnet/minecraft/world/inventory/Slot;
+private slotClicked(Lnet/minecraft/world/inventory/Slot;ILnet/minecraft/client/input/MouseButtonEvent;Lnet/minecraft/world/inventory/ContainerInput;)V
+private static getContainerClickButton(Lnet/minecraft/client/input/MouseButtonEvent;)I
+public mouseClicked(Lnet/minecraft/client/input/MouseButtonEvent;Z)Z
+private checkHotbarMouseClicked(Lnet/minecraft/client/input/MouseButtonEvent;)V
+protected hasClickedOutside(DDII)Z
+public mouseDragged(Lnet/minecraft/client/input/MouseButtonEvent;DD)Z
+public mouseReleased(Lnet/minecraft/client/input/MouseButtonEvent;)Z
+private isHovering(Lnet/minecraft/world/inventory/Slot;DD)Z
+protected isHovering(IIIIDD)Z
+private onStopHovering(Lnet/minecraft/world/inventory/Slot;)V
+protected slotClicked(Lnet/minecraft/world/inventory/Slot;IILnet/minecraft/world/inventory/ContainerInput;)V
+protected onMouseClickAction(Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/inventory/ContainerInput;)V
+protected handleSlotStateChanged(IIZ)V
+public keyPressed(Lnet/minecraft/client/input/KeyEvent;)Z
+protected checkHotbarKeyPressed(Lnet/minecraft/client/input/KeyEvent;)Z
+public removed()V
+public isPauseScreen()Z
+public isInGameUi()Z
+public final tick()V
+protected containerTick()V
+private shouldAddSlotToQuickCraft(Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/item/ItemStack;)Z
+private quickCraftToSlots()V
+public getMenu()Lnet/minecraft/world/inventory/AbstractContainerMenu;
+public onClose()V
+static <clinit>()V
 ```

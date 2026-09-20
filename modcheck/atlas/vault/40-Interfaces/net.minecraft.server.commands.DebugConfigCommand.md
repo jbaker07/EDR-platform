@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.commands|net.minecraft.server.commands]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `register(Lcom/mojang/brigadier/CommandDispatcher;Lnet/minecraft/comm` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| wraps | `unconfig` | `@Redirect at INVOKE Lnet/minecraft/server/network/ServerConfigurationPacketListe` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `register` | `(Lcom/mojang/brigadier/CommandDispatcher;Lnet/minecraft/commands/Comma` | exact | invokestatic@24 in `CommandsMixin.init` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| wraps | `unconfig` | `(Lnet/minecraft/commands/CommandSourceStack;Ljava/util/UUID;)I` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (0 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.commands.DebugConfigCommand {
-    public net.minecraft.server.commands.DebugConfigCommand();
-    public static void register(com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack>, net.minecraft.commands.CommandBuildContext);
-    private static java.lang.Iterable<java.lang.String> getUuidsInConfig(net.minecraft.server.MinecraftServer);
-    private static int config(net.minecraft.commands.CommandSourceStack, net.minecraft.server.level.ServerPlayer);
-    private static net.minecraft.server.network.ServerConfigurationPacketListenerImpl findConfigPlayer(net.minecraft.server.MinecraftServer, java.util.UUID);
-    private static int unconfig(net.minecraft.commands.CommandSourceStack, java.util.UUID);
-    private static int showDialog(net.minecraft.commands.CommandSourceStack, java.util.UUID, net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>);
-    private static net.minecraft.network.chat.Component lambda$config$0(com.mojang.authlib.GameProfile);
-    private static int lambda$register$4(com.mojang.brigadier.context.CommandContext) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static java.util.concurrent.CompletableFuture lambda$register$3(com.mojang.brigadier.context.CommandContext, com.mojang.brigadier.suggestion.SuggestionsBuilder) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static int lambda$register$2(com.mojang.brigadier.context.CommandContext) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static java.util.concurrent.CompletableFuture lambda$register$1(com.mojang.brigadier.context.CommandContext, com.mojang.brigadier.suggestion.SuggestionsBuilder) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static int lambda$register$0(com.mojang.brigadier.context.CommandContext) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-}
+```
+public <init>()V
+public static register(Lcom/mojang/brigadier/CommandDispatcher;Lnet/minecraft/commands/CommandBuildContext;)V
+private static getUuidsInConfig(Lnet/minecraft/server/MinecraftServer;)Ljava/lang/Iterable;
+private static config(Lnet/minecraft/commands/CommandSourceStack;Lnet/minecraft/server/level/ServerPlayer;)I
+private static findConfigPlayer(Lnet/minecraft/server/MinecraftServer;Ljava/util/UUID;)Lnet/minecraft/server/network/ServerConfigurationPacketListenerImpl;
+private static unconfig(Lnet/minecraft/commands/CommandSourceStack;Ljava/util/UUID;)I
+private static showDialog(Lnet/minecraft/commands/CommandSourceStack;Ljava/util/UUID;Lnet/minecraft/core/Holder;)I
+private static synthetic lambda$config$0(Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$register$4(Lcom/mojang/brigadier/context/CommandContext;)I
+private static synthetic lambda$register$3(Lcom/mojang/brigadier/context/CommandContext;Lcom/mojang/brigadier/suggestion/SuggestionsBuilder;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$register$2(Lcom/mojang/brigadier/context/CommandContext;)I
+private static synthetic lambda$register$1(Lcom/mojang/brigadier/context/CommandContext;Lcom/mojang/brigadier/suggestion/SuggestionsBuilder;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$register$0(Lcom/mojang/brigadier/context/CommandContext;)I
 ```

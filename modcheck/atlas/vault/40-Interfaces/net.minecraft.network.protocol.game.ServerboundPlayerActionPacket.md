@@ -11,34 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/network/protocol/game/ServerboundPlayerActio` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket$Ac` | exact | invokespecial@10 in `MultiPlayerGameModeMixin.lambda$fabric_fireAttackBlockCallback$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (5 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.protocol.game.ServerboundPlayerActionPacket implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ServerGamePacketListener> {
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.FriendlyByteBuf, net.minecraft.network.protocol.game.ServerboundPlayerActionPacket> STREAM_CODEC;
-    private final net.minecraft.core.BlockPos pos;
-    private final net.minecraft.core.Direction direction;
-    private final net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action action;
-    private final int sequence;
-    public net.minecraft.network.protocol.game.ServerboundPlayerActionPacket(net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action, net.minecraft.core.BlockPos, net.minecraft.core.Direction, int);
-    public net.minecraft.network.protocol.game.ServerboundPlayerActionPacket(net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    private net.minecraft.network.protocol.game.ServerboundPlayerActionPacket(net.minecraft.network.FriendlyByteBuf);
-    private void write(net.minecraft.network.FriendlyByteBuf);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.game.ServerboundPlayerActionPacket> type();
-    public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener);
-    public net.minecraft.core.BlockPos getPos();
-    public net.minecraft.core.Direction getDirection();
-    public net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action getAction();
-    public int getSequence();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private final pos : Lnet/minecraft/core/BlockPos;
+private final direction : Lnet/minecraft/core/Direction;
+private final action : Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket$Action;
+private final sequence : I
+public <init>(Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket$Action;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;I)V
+public <init>(Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket$Action;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)V
+private <init>(Lnet/minecraft/network/FriendlyByteBuf;)V
+private write(Lnet/minecraft/network/FriendlyByteBuf;)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V
+public getPos()Lnet/minecraft/core/BlockPos;
+public getDirection()Lnet/minecraft/core/Direction;
+public getAction()Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket$Action;
+public getSequence()I
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

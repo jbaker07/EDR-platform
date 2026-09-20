@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.afterAddEffect` | `LivingEntity.onEffectAdded` @Inject at RETURN | both | static_inference |
+| `LivingEntityMixin.afterAddEffect` @25 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`onEffectAdded` @Inject RETURN | unknown | static_inference |
 
 ## Contract
 

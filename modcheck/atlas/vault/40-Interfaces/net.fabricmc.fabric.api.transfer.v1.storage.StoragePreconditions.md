@@ -13,7 +13,7 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
 
 ```java
-public static void notBlank(net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant<?>)
+public static void notBlank(net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant)
 public static void notNegative(long)
-public static void notBlankNotNegative(net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant<?>, long)
+public static void notBlankNotNegative(net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant, long)
 ```

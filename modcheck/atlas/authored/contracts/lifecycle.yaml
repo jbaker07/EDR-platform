@@ -1,147 +1,223 @@
-# Analyst-stated subscriber contracts. `basis` says what each claim rests on;
-# nothing here is observed. Sites come from edges.json (publishes_event joined to
-# the handler's injects_into edge) and are direct_reference for the injection,
-# static_inference for the fire.
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK
   kind: event
   asserted:
-    - claim: Callback signature is onEndTick(MinecraftServer); no return value, so a listener cannot cancel or alter anything through the event itself.
-      basis: declared
-      evidence: [extracted:edges.json#callback_of, extracted:fabric_api.json#fabric-lifecycle-events-v1]
-    - claim: Fired from MinecraftServerMixin.onEndTick, an @Inject at TAIL of MinecraftServer.tickServer, so it runs after every level and player has ticked for that server tick.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Runs on the server thread, because tickServer is called from the server run loop and the injection is inline.
-      basis: analyst_inference
-      evidence: [extracted:minecraft_members.json, type:net.minecraft.server.MinecraftServer]
-    - claim: Applies on both the dedicated server and the integrated server (mixin environment is both).
-      basis: declared
-      evidence: [extracted:fabric_api.json#fabric-lifecycle-events-v1]
+  - claim: Callback signature is onEndTick(MinecraftServer); no return value, so a listener cannot cancel or alter
+      anything through the event itself.
+    basis: declared
+    evidence:
+    - extracted:edges.json#callback_of
+    - extracted:fabric_api.json#fabric-lifecycle-events-v1
+  - claim: Fired from MinecraftServerMixin.onEndTick, an @Inject at TAIL of MinecraftServer.tickServer, so it runs
+      after every level and player has ticked for that server tick.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Runs on the server thread, because tickServer is called from the server run loop and the injection is
+      inline.
+    basis: analyst_inference
+    evidence:
+    - extracted:minecraft_surface.json.gz
+    - type:net.minecraft.server.MinecraftServer
+  - claim: Applies on both the dedicated server and the integrated server (mixin environment is both).
+    basis: declared
+    evidence:
+    - extracted:fabric_api.json#fabric-lifecycle-events-v1
   not_established:
-    - That the callback is invoked at all in a running 26.3 game (question:q.runtime_event_delivery).
-    - The order in which listeners from different mods run (question:q.event_phase_ordering).
-    - The tick-time cost a listener can afford (question:q.runtime_performance).
-  evidence: [record:capability/subscribe_event.fabric_server_tick, extracted:edges.json#publishes_event]
-  questions: [question:q.runtime_event_delivery, question:q.event_phase_ordering]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - That the callback is invoked at all in a running 26.3 game (question:q.runtime_event_delivery).
+  - The order in which listeners from different mods run (question:q.event_phase_ordering).
+  - The tick-time cost a listener can afford (question:q.runtime_performance).
+  evidence:
+  - record:capability/subscribe_event.fabric_server_tick
+  - extracted:edges.json#publishes_event
+  questions:
+  - question:q.runtime_event_delivery
+  - question:q.event_phase_ordering
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_LEVEL_TICK
   kind: event
   asserted:
-    - claim: Callback signature is onEndTick(ServerLevel); the level is the unit, so the listener is called once per loaded level per tick.
-      basis: declared
-      evidence: [extracted:edges.json#callback_of]
-    - claim: Fired from ServerLevelMixin.endLevelTick, an @Inject at TAIL of ServerLevel.tick.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: The ServerLevel handed in is the one whose weather, game rules (getGameRules() is declared on ServerLevel, not Level) and saved data a per-level feature should read.
-      basis: direct_reference
-      evidence: [extracted:minecraft_members.json, type:net.minecraft.server.level.ServerLevel]
-    - claim: This is the event the reference lantern uses; the earlier name END_WORLD_TICK does not exist in this Fabric API and fails to compile.
-      basis: direct_reference
-      evidence: [record:capability/subscribe_event.fabric_server_tick]
+  - claim: Callback signature is onEndTick(ServerLevel); the level is the unit, so the listener is called once per
+      loaded level per tick.
+    basis: declared
+    evidence:
+    - extracted:edges.json#callback_of
+  - claim: Fired from ServerLevelMixin.endLevelTick, an @Inject at TAIL of ServerLevel.tick.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: The ServerLevel handed in is the one whose weather, game rules (getGameRules() is declared on ServerLevel,
+      not Level) and saved data a per-level feature should read.
+    basis: direct_reference
+    evidence:
+    - extracted:minecraft_surface.json.gz
+    - type:net.minecraft.server.level.ServerLevel
+  - claim: This is the event ModCheck's server-tick generator subscribes to (used by the discarded lantern scaffold,
+      not by the hand-authored reference lantern, which ticks per block entity); the earlier name END_WORLD_TICK
+      does not exist in this Fabric API and fails to compile.
+    basis: direct_reference
+    evidence:
+    - record:capability/subscribe_event.fabric_server_tick
   not_established:
-    - Whether ServerLevel.tick can be invoked off the server thread for any level in 26.3 (assumed not; unobserved).
-    - Listener ordering across mods.
-  evidence: [record:capability/subscribe_event.fabric_server_tick, extracted:edges.json#injects_into]
-  questions: [question:q.runtime_event_delivery]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether ServerLevel.tick can be invoked off the server thread for any level in 26.3 (assumed not; unobserved).
+  - Listener ordering across mods.
+  evidence:
+  - record:capability/subscribe_event.fabric_server_tick
+  - extracted:edges.json#injects_into
+  questions:
+  - question:q.runtime_event_delivery
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING
   kind: event
   asserted:
-    - claim: Fired from an @Inject into MinecraftServer.runServer at the INVOKE of initServer, so it runs before the server initialises levels.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Levels are not yet available in the callback; a listener that needs a ServerLevel must wait for SERVER_STARTED or ServerLevelEvents.LOAD.
-      basis: analyst_inference
-      evidence: [extracted:edges.json#injects_into]
+  - claim: Fired from an @Inject into MinecraftServer.runServer at the INVOKE of initServer, so it runs before the
+      server initialises levels.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Levels are not yet available in the callback; a listener that needs a ServerLevel must wait for SERVER_STARTED
+      or ServerLevelEvents.LOAD.
+    basis: analyst_inference
+    evidence:
+    - extracted:edges.json#injects_into
   not_established:
-    - Exactly which server fields are initialised at that point (runServer's body is not disassembled in the atlas; question:q.injection_points_not_resolved).
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Exactly which server fields are initialised at that point (runServer's body is not disassembled in the atlas;
+    question:q.injection_points_not_resolved).
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED
   kind: event
   asserted:
-    - claim: Fired from an @Inject into MinecraftServer.runServer at the INVOKE of buildServerStatus, after initServer has returned, so levels exist.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Callback signature onServerStarted(MinecraftServer); no return value.
-      basis: declared
-      evidence: [extracted:edges.json#callback_of]
+  - claim: Fired from an @Inject into MinecraftServer.runServer at the INVOKE of buildServerStatus, after initServer
+      has returned, so levels exist.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Callback signature onServerStarted(MinecraftServer); no return value.
+    basis: declared
+    evidence:
+    - extracted:edges.json#callback_of
   not_established:
-    - Whether every level has finished its initial chunk load by then.
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether every level has finished its initial chunk load by then.
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING
   kind: event
   asserted:
-    - claim: Fired from an @Inject at HEAD of MinecraftServer.stopServer, so levels are still loaded and saveable when the listener runs.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
+  - claim: Fired from an @Inject at HEAD of MinecraftServer.stopServer, so levels are still loaded and saveable
+      when the listener runs.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
   not_established:
-    - Whether stopServer is reached on every shutdown path (a crash may bypass it).
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether stopServer is reached on every shutdown path (a crash may bypass it).
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS
   kind: event
   asserted:
-    - claim: Has two publication sites -- PlayerList.placeNewPlayer (per joining player, at the construction of the recipes packet) and PlayerList.reloadResources (per player, after a reload) -- so a listener receives every player once on join and again on each reload.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Callback carries (ServerPlayer, boolean joined); the boolean distinguishes the two sites.
-      basis: declared
-      evidence: [extracted:edges.json#callback_of]
-    - claim: This is the correct point to send a mod's data-driven content to a client, and the wrong point to send per-player state that exists before login.
-      basis: analyst_inference
-      evidence: [extracted:edges.json#injects_into]
+  - claim: Has two publication sites -- PlayerList.placeNewPlayer (per joining player, at the construction of the
+      recipes packet) and PlayerList.reloadResources (per player, after a reload) -- so a listener receives every
+      player once on join and again on each reload.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Callback carries (ServerPlayer, boolean joined); the boolean distinguishes the two sites.
+    basis: declared
+    evidence:
+    - extracted:edges.json#callback_of
+  - claim: This is the correct point to send a mod's data-driven content to a client, and the wrong point to send
+      per-player state that exists before login.
+    basis: analyst_inference
+    evidence:
+    - extracted:edges.json#injects_into
   not_established:
-    - Whether the client is ready to receive custom payloads at the placeNewPlayer site (networking readiness is ServerPlayConnectionEvents.JOIN's concern).
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether the client is ready to receive custom payloads at the placeNewPlayer site (networking readiness is ServerPlayConnectionEvents.JOIN's
+    concern).
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_LOAD
   kind: event
   asserted:
-    - claim: Fired from an @Inject at TAIL of ServerLevel$EntityCallbacks.onTrackingStart, so it fires whenever an entity starts being tracked in a level -- on spawn and on chunk load alike.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Callback onLoad(Entity, ServerLevel); a listener must therefore be idempotent per entity because chunk unload/reload fires it again.
-      basis: analyst_inference
-      evidence: [extracted:edges.json#callback_of]
+  - claim: Fired from an @Inject at TAIL of ServerLevel$EntityCallbacks.onTrackingStart, so it fires whenever an
+      entity starts being tracked in a level -- on spawn and on chunk load alike.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Callback onLoad(Entity, ServerLevel); a listener must therefore be idempotent per entity because chunk
+      unload/reload fires it again.
+    basis: analyst_inference
+    evidence:
+    - extracted:edges.json#callback_of
   not_established:
-    - Whether the entity's own data (attachments, NBT) is fully loaded before onTrackingStart.
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether the entity's own data (attachments, NBT) is fully loaded before onTrackingStart.
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_GENERATE
   kind: event
   asserted:
-    - claim: Fired from ChunkStatusTasksMixin.onChunkLoad, an @Inject at TAIL of ChunkStatusTasks.lambda$full$0 -- inside the chunk status task pipeline, not from ServerLevel.tick.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Callback onChunkGenerate(ServerLevel, LevelChunk).
-      basis: declared
-      evidence: [extracted:edges.json#callback_of]
+  - claim: Fired from ChunkStatusTasksMixin.onChunkLoad, an @Inject at TAIL of ChunkStatusTasks.lambda$full$0 --
+      inside the chunk status task pipeline, not from ServerLevel.tick.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Callback onChunkGenerate(ServerLevel, LevelChunk).
+    basis: declared
+    evidence:
+    - extracted:edges.json#callback_of
   not_established:
-    - The thread this lambda runs on (question:q.worldgen_threading). A listener must not assume the server thread.
-  evidence: [extracted:edges.json#publishes_event]
-  questions: [question:q.worldgen_threading]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - The thread this lambda runs on (question:q.worldgen_threading). A listener must not assume the server thread.
+  evidence:
+  - extracted:edges.json#publishes_event
+  questions:
+  - question:q.worldgen_threading
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT
   kind: event
   asserted:
-    - claim: Fired from an @Inject into the Commands constructor at the INVOKE of CommandDispatcher.setConsumer, so every mod command is registered while the dispatcher is being built, on both sides.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Callback receives the dispatcher, a CommandBuildContext and a CommandSelection; registration must be repeatable because Commands is constructed again on data pack reload.
-      basis: analyst_inference
-      evidence: [extracted:edges.json#callback_of]
+  - claim: Fired from an @Inject into the Commands constructor at the INVOKE of CommandDispatcher.setConsumer, so
+      every mod command is registered while the dispatcher is being built, on both sides.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Callback receives the dispatcher, a CommandBuildContext and a CommandSelection; registration must be
+      repeatable because Commands is constructed again on data pack reload.
+    basis: analyst_inference
+    evidence:
+    - extracted:edges.json#callback_of
   not_established:
-    - Whether registering a command whose literal collides with a vanilla one replaces or errors.
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
+  - Whether registering a command whose literal collides with a vanilla one replaces or errors.
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'

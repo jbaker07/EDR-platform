@@ -11,36 +11,43 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `max(II)I` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `pack(II)I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `block` | `(I)I` | exact | invokestatic@159 in `QuadView.toBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `max` | `(II)I` | exact | invokestatic@101 in `BlockModelRenderStateMixin.submitMesh` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `pack` | `(II)I` | exact | invokestatic@149 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `sky` | `(I)I` | exact | invokestatic@166 in `QuadView.toBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `smoothBlock` | `(I)I` | exact | invokestatic@1 in `ExtraLightCoordsUtil.smoothMax` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `smoothBlock` | `(I)I` | exact | invokestatic@6 in `ExtraLightCoordsUtil.smoothMax` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `smoothPack` | `(II)I` | exact | invokestatic@34 in `ExtraLightCoordsUtil.smoothMax` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `smoothSky` | `(I)I` | exact | invokestatic@11 in `ExtraLightCoordsUtil.smoothMax` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `smoothSky` | `(I)I` | exact | invokestatic@17 in `ExtraLightCoordsUtil.smoothMax` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (18, all visibilities)
+## Declared members (3 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.LightCoordsUtil {
-    public static final int FULL_BRIGHT;
-    public static final int FULL_SKY;
-    private static final int MAX_SMOOTH_LIGHT_LEVEL;
-    public net.minecraft.util.LightCoordsUtil();
-    public static int pack(int, int);
-    public static int block(int);
-    public static int sky(int);
-    public static int withBlock(int, int);
-    public static int smoothPack(int, int);
-    public static int smoothBlock(int);
-    public static int smoothSky(int);
-    public static int addSmoothBlockEmission(int, float);
-    public static int max(int, int);
-    public static int lightCoordsWithEmission(int, int);
-    public static int smoothBlend(int, int, int, int);
-    public static int smoothWeightedBlend(int, int, int, int, float, float, float, float);
-    public static int getLightCoords(net.minecraft.world.level.BlockAndLightGetter, net.minecraft.core.BlockPos);
-    public static int getLightCoords(net.minecraft.util.LightCoordsUtil$BrightnessGetter, net.minecraft.world.level.BlockAndLightGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
-}
+```
+public static final FULL_BRIGHT : I
+public static final FULL_SKY : I
+private static final MAX_SMOOTH_LIGHT_LEVEL : I
+public <init>()V
+public static pack(II)I
+public static block(I)I
+public static sky(I)I
+public static withBlock(II)I
+public static smoothPack(II)I
+public static smoothBlock(I)I
+public static smoothSky(I)I
+public static addSmoothBlockEmission(IF)I
+public static max(II)I
+public static lightCoordsWithEmission(II)I
+public static smoothBlend(IIII)I
+public static smoothWeightedBlend(IIIIFFFF)I
+public static getLightCoords(Lnet/minecraft/world/level/BlockAndLightGetter;Lnet/minecraft/core/BlockPos;)I
+public static getLightCoords(Lnet/minecraft/util/LightCoordsUtil$BrightnessGetter;Lnet/minecraft/world/level/BlockAndLightGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)I
 ```

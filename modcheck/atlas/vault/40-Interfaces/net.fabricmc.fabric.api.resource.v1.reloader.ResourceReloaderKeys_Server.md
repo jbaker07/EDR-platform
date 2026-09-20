@@ -14,5 +14,4 @@ Module: [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] --
 
 ```java
 public static final net.minecraft.resources.Identifier FUNCTIONS
-static {}
 ```

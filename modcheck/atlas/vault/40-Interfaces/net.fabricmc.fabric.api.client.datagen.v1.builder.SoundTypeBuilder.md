@@ -15,7 +15,7 @@ Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api
 ```java
 public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder of(net.minecraft.sounds.SoundEvent)
 public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder of()
-public default net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder source(net.minecraft.sounds.SoundSource)
+public net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder source(net.minecraft.sounds.SoundSource)
 public abstract net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder replace(boolean)
 public abstract net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder subtitle(java.lang.String)
 public abstract net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder sound(net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder)

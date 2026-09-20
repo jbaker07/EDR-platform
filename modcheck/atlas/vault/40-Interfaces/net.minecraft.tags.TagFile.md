@@ -11,31 +11,33 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.tags|net.minecraft.tags]]
 
+`record` public final; extends `java/lang/Record`; implements `net/fabricmc/fabric/api/tag/v1/FabricTagFile`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `entries()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `remove()Ljava/util/List;` | `` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `remove()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `replace()Z` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `entries` | `()Ljava/util/List;` | exact | invokevirtual@128 in `ClientTagsLoader.loadTag` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `remove` | `()Ljava/util/List;` | inherited_exact | invokevirtual@138 in `ClientTagsLoader.loadTag` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `remove` | `()Ljava/util/List;` | inherited_exact | invokevirtual@2 in `TagLoaderMixin.loadRemoveEntries` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `replace` | `()Z` | exact | invokevirtual@111 in `ClientTagsLoader.loadTag` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| injects_into | `<clinit>` | `()V` | exact | @ModifyExpressionValue at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@70 in `ClientTagsLoader.loadTag` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (3 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.tags.TagFile extends java.lang.Record {
-    private final java.util.List<net.minecraft.tags.TagEntry> entries;
-    private final boolean replace;
-    public static final com.mojang.serialization.Codec<net.minecraft.tags.TagFile> CODEC;
-    public net.minecraft.tags.TagFile(java.util.List<net.minecraft.tags.TagEntry>, boolean);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.List<net.minecraft.tags.TagEntry> entries();
-    public boolean replace();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final entries : Ljava/util/List;
+private final replace : Z
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public <init>(Ljava/util/List;Z)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public entries()Ljava/util/List;
+public replace()Z
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

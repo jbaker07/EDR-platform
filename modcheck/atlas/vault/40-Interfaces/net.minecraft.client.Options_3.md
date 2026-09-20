@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client|net.minecraft.client]]
 
+`class` ; extends `java/lang/Object`; implements `net/minecraft/client/Options$FieldAccess`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `process(Ljava/lang/String;Ljava/lang/Object;Ljava/util/function/Function;Ljava/util/function/Function;)Ljava/lang/Object;` | `@ModifyArg at INVOKE Ljava/util/function/Function;apply(Ljava/lang/Object;)Ljava` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `process` | `(Ljava/lang/String;Ljava/lang/Object;Ljava/util/function/Function;Ljav` | exact | @ModifyArg at ['INVOKE'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (1 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.client.Options$3 implements net.minecraft.client.Options$FieldAccess {
-    final java.io.PrintWriter val$writer;
-    net.minecraft.client.Options$3();
-    public void writePrefix(java.lang.String);
-    public <T> void process(java.lang.String, net.minecraft.client.OptionInstance<T>);
-    public int process(java.lang.String, int);
-    public boolean process(java.lang.String, boolean);
-    public java.lang.String process(java.lang.String, java.lang.String);
-    public float process(java.lang.String, float);
-    public <T> T process(java.lang.String, T, java.util.function.Function<java.lang.String, T>, java.util.function.Function<T, java.lang.String>);
-    private void lambda$process$1(java.lang.String, java.io.PrintWriter, com.google.gson.JsonElement);
-    private static void lambda$process$0(net.minecraft.client.OptionInstance, com.mojang.serialization.DataResult$Error);
-}
+```
+final synthetic val$writer : Ljava/io/PrintWriter;
+ <init>(Lnet/minecraft/client/Options;Ljava/io/PrintWriter;)V
+public writePrefix(Ljava/lang/String;)V
+public process(Ljava/lang/String;Lnet/minecraft/client/OptionInstance;)V
+public process(Ljava/lang/String;I)I
+public process(Ljava/lang/String;Z)Z
+public process(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+public process(Ljava/lang/String;F)F
+public process(Ljava/lang/String;Ljava/lang/Object;Ljava/util/function/Function;Ljava/util/function/Function;)Ljava/lang/Object;
+private synthetic lambda$process$1(Ljava/lang/String;Ljava/io/PrintWriter;Lcom/google/gson/JsonElement;)V
+private static synthetic lambda$process$0(Lnet/minecraft/client/OptionInstance;Lcom/mojang/serialization/DataResult$Error;)V
 ```

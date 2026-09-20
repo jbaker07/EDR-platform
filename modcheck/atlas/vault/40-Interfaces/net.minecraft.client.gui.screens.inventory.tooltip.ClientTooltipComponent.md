@@ -11,25 +11,25 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `create(Lnet/minecraft/world/inventory/tooltip/TooltipComponent;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent;` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `create(Lnet/minecraft/world/inventory/tooltip/TooltipComponent;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent;` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `create` | `(Lnet/minecraft/world/inventory/tooltip/TooltipComponent;)Lnet/minecra` | exact | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `create` | `(Lnet/minecraft/world/inventory/tooltip/TooltipComponent;)Lnet/minecra` | exact | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (0 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent {
-    public static net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent create(net.minecraft.util.FormattedCharSequence);
-    public static net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent create(net.minecraft.world.inventory.tooltip.TooltipComponent);
-    public abstract int getHeight(net.minecraft.client.gui.Font);
-    public abstract int getWidth(net.minecraft.client.gui.Font);
-    public default boolean showTooltipWithItemInHand();
-    public default void extractText(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.gui.Font, int, int);
-    public default void extractImage(net.minecraft.client.gui.Font, int, int, int, int, net.minecraft.client.gui.GuiGraphicsExtractor);
-}
+```
+public static create(Lnet/minecraft/util/FormattedCharSequence;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent;
+public static create(Lnet/minecraft/world/inventory/tooltip/TooltipComponent;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent;
+public abstract getHeight(Lnet/minecraft/client/gui/Font;)I
+public abstract getWidth(Lnet/minecraft/client/gui/Font;)I
+public showTooltipWithItemInHand()Z
+public extractText(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Font;II)V
+public extractImage(Lnet/minecraft/client/gui/Font;IIIILnet/minecraft/client/gui/GuiGraphicsExtractor;)V
 ```

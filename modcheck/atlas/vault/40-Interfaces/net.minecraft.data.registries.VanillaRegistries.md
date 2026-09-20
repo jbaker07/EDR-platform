@@ -11,34 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.registries|net.minecraft.data.registries]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `createWorldLookup()Lnet/minecraft/core/HolderLookup$Provider;` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `validateThatAllBiomeFeaturesHaveBiomeFilter(Lnet/minecraft/core/HolderLookup$Provider;)V` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `createWorldLookup` | `()Lnet/minecraft/core/HolderLookup$Provider;` | exact | invokestatic@0 in `BuiltInResourceKeys.<clinit>` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `validateThatAllBiomeFeaturesHaveBiomeFilter` | `(Lnet/minecraft/core/HolderLookup$Provider;)V` | exact | invokestatic@176 in `FabricDataGenHelper.createWorldLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `RELOADABLE_BUILDER` | `Lnet/minecraft/core/RegistrySetBuilder;` | exact | getstatic@16 in `FabricDataGenHelper.createReloadableLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `RELOADABLE_BUILDER` | `Lnet/minecraft/core/RegistrySetBuilder;` | exact | getstatic@113 in `FabricDataGenHelper.createReloadableLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `WORLD_BUILDER` | `Lnet/minecraft/core/RegistrySetBuilder;` | exact | getstatic@16 in `FabricDataGenHelper.createWorldLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `WORLD_BUILDER` | `Lnet/minecraft/core/RegistrySetBuilder;` | exact | getstatic@110 in `FabricDataGenHelper.createWorldLookupProvider` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (3 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.registries.VanillaRegistries {
-    private static final org.slf4j.Logger LOGGER;
-    private static final net.minecraft.core.RegistrySetBuilder WORLD_BUILDER;
-    private static final net.minecraft.core.RegistrySetBuilder RELOADABLE_BUILDER;
-    public net.minecraft.data.registries.VanillaRegistries();
-    public static void validateThatAllBiomeFeaturesHaveBiomeFilter(net.minecraft.core.HolderLookup$Provider);
-    private static boolean validatePlacedFeature(net.minecraft.world.level.levelgen.placement.PlacedFeature);
-    public static void validateLootData(net.minecraft.core.HolderLookup$Provider);
-    public static net.minecraft.core.HolderLookup$Provider createWorldLookup();
-    public static net.minecraft.core.HolderLookup$Provider createReloadableLookup(net.minecraft.core.HolderLookup$Provider);
-    private static void lambda$validateLootData$1(java.lang.String, net.minecraft.util.ProblemReporter$Problem);
-    private static void lambda$validateLootData$0(net.minecraft.world.level.storage.loot.ValidationContextSource, net.minecraft.core.HolderLookup$Provider, net.minecraft.world.level.storage.loot.LootDataType);
-    private static void lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$0(net.minecraft.core.HolderLookup$RegistryLookup, net.minecraft.core.Holder$Reference);
-    private static void lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$1(net.minecraft.core.HolderLookup$RegistryLookup, net.minecraft.resources.Identifier, net.minecraft.core.Holder$Reference, net.minecraft.core.Holder);
-    private static void lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$3(net.minecraft.core.Holder$Reference, net.minecraft.world.level.levelgen.placement.PlacedFeature);
-    private static void lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$2(net.minecraft.core.HolderLookup$RegistryLookup, net.minecraft.resources.Identifier, net.minecraft.resources.ResourceKey);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final WORLD_BUILDER : Lnet/minecraft/core/RegistrySetBuilder;
+private static final RELOADABLE_BUILDER : Lnet/minecraft/core/RegistrySetBuilder;
+public <init>()V
+public static validateThatAllBiomeFeaturesHaveBiomeFilter(Lnet/minecraft/core/HolderLookup$Provider;)V
+private static validatePlacedFeature(Lnet/minecraft/world/level/levelgen/placement/PlacedFeature;)Z
+public static validateLootData(Lnet/minecraft/core/HolderLookup$Provider;)V
+public static createWorldLookup()Lnet/minecraft/core/HolderLookup$Provider;
+public static createReloadableLookup(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/core/HolderLookup$Provider;
+private static synthetic lambda$validateLootData$1(Ljava/lang/String;Lnet/minecraft/util/ProblemReporter$Problem;)V
+private static synthetic lambda$validateLootData$0(Lnet/minecraft/world/level/storage/loot/ValidationContextSource;Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/world/level/storage/loot/LootDataType;)V
+private static synthetic lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$0(Lnet/minecraft/core/HolderLookup$RegistryLookup;Lnet/minecraft/core/Holder$Reference;)V
+private static synthetic lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$1(Lnet/minecraft/core/HolderLookup$RegistryLookup;Lnet/minecraft/resources/Identifier;Lnet/minecraft/core/Holder$Reference;Lnet/minecraft/core/Holder;)V
+private static synthetic lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$3(Lnet/minecraft/core/Holder$Reference;Lnet/minecraft/world/level/levelgen/placement/PlacedFeature;)V
+private static synthetic lambda$validateThatAllBiomeFeaturesHaveBiomeFilter$2(Lnet/minecraft/core/HolderLookup$RegistryLookup;Lnet/minecraft/resources/Identifier;Lnet/minecraft/resources/ResourceKey;)V
+static <clinit>()V
 ```

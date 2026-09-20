@@ -11,18 +11,18 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getMenu()Lnet/minecraft/world/inventory/AbstractContainerMenu;` | `` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getMenu` | `()Lnet/minecraft/world/inventory/AbstractContainerMenu;` | exact | invokeinterface@139 in `ClientNetworking.openScreen` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
 
-## Declared members (1, all visibilities)
+## Declared members (0 fields, 1 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.gui.screens.inventory.MenuAccess<T extends net.minecraft.world.inventory.AbstractContainerMenu> {
-    public abstract T getMenu();
-}
+```
+public abstract getMenu()Lnet/minecraft/world/inventory/AbstractContainerMenu;
 ```

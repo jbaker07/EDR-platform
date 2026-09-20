@@ -11,38 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `bounds(IIII)Lnet/minecraft/client/gui/components/Button$Builder;` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `bounds(IIII)Lnet/minecraft/client/gui/components/Button$Builder;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `build()Lnet/minecraft/client/gui/components/Button;` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `build()Lnet/minecraft/client/gui/components/Button;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `build()Lnet/minecraft/client/gui/components/Button;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `width(I)Lnet/minecraft/client/gui/components/Button$Builder;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `bounds` | `(IIII)Lnet/minecraft/client/gui/components/Button$Builder;` | exact | invokevirtual@81 in `EnumRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `bounds` | `(IIII)Lnet/minecraft/client/gui/components/Button$Builder;` | exact | invokevirtual@61 in `DetailedBackupConfirmScreen.init` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/client/gui/components/Button;` | exact | invokevirtual@84 in `EnumRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/client/gui/components/Button;` | exact | invokevirtual@64 in `DetailedBackupConfirmScreen.init` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/client/gui/components/Button;` | exact | invokevirtual@22 in `DetailsScreen.addFooter` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `width` | `(I)Lnet/minecraft/client/gui/components/Button$Builder;` | exact | invokevirtual@19 in `DetailsScreen.addFooter` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (8 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.components.Button$Builder {
-    private final net.minecraft.network.chat.Component message;
-    private final net.minecraft.client.gui.components.Button$OnPress onPress;
-    private net.minecraft.client.gui.components.Tooltip tooltip;
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private net.minecraft.client.gui.components.Button$CreateNarration createNarration;
-    public net.minecraft.client.gui.components.Button$Builder(net.minecraft.network.chat.Component, net.minecraft.client.gui.components.Button$OnPress);
-    public net.minecraft.client.gui.components.Button$Builder pos(int, int);
-    public net.minecraft.client.gui.components.Button$Builder width(int);
-    public net.minecraft.client.gui.components.Button$Builder size(int, int);
-    public net.minecraft.client.gui.components.Button$Builder bounds(int, int, int, int);
-    public net.minecraft.client.gui.components.Button$Builder tooltip(net.minecraft.client.gui.components.Tooltip);
-    public net.minecraft.client.gui.components.Button$Builder createNarration(net.minecraft.client.gui.components.Button$CreateNarration);
-    public net.minecraft.client.gui.components.Button build();
-}
+```
+private final message : Lnet/minecraft/network/chat/Component;
+private final onPress : Lnet/minecraft/client/gui/components/Button$OnPress;
+private tooltip : Lnet/minecraft/client/gui/components/Tooltip;
+private x : I
+private y : I
+private width : I
+private height : I
+private createNarration : Lnet/minecraft/client/gui/components/Button$CreateNarration;
+public <init>(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;)V
+public pos(II)Lnet/minecraft/client/gui/components/Button$Builder;
+public width(I)Lnet/minecraft/client/gui/components/Button$Builder;
+public size(II)Lnet/minecraft/client/gui/components/Button$Builder;
+public bounds(IIII)Lnet/minecraft/client/gui/components/Button$Builder;
+public tooltip(Lnet/minecraft/client/gui/components/Tooltip;)Lnet/minecraft/client/gui/components/Button$Builder;
+public createNarration(Lnet/minecraft/client/gui/components/Button$CreateNarration;)Lnet/minecraft/client/gui/components/Button$Builder;
+public build()Lnet/minecraft/client/gui/components/Button;
 ```

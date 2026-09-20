@@ -13,8 +13,8 @@ sha256: "3a5f0ccef440552828d9469420547dc3cdbe3e206af73fa98d0bfcfb5b75c1ba"
 Module: [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] -- kind: interface
 
 ```java
-public default net.minecraft.world.entity.EntityType$Builder<T> alwaysUpdateVelocity(boolean)
-public default net.minecraft.world.entity.EntityType$Builder<T> canPotentiallyExecuteCommands(boolean)
-public static <T extends net.minecraft.world.entity.LivingEntity> net.minecraft.world.entity.EntityType$Builder<T> createLiving(net.minecraft.world.entity.EntityType$EntityFactory<T>, net.minecraft.world.entity.MobCategory, java.util.function.UnaryOperator<net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Living<T>>)
-public static <T extends net.minecraft.world.entity.Mob> net.minecraft.world.entity.EntityType$Builder<T> createMob(net.minecraft.world.entity.EntityType$EntityFactory<T>, net.minecraft.world.entity.MobCategory, java.util.function.UnaryOperator<net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob<T>>)
+public net.minecraft.world.entity.EntityType$Builder alwaysUpdateVelocity(boolean)
+public net.minecraft.world.entity.EntityType$Builder canPotentiallyExecuteCommands(boolean)
+public static net.minecraft.world.entity.EntityType$Builder createLiving(net.minecraft.world.entity.EntityType$EntityFactory, net.minecraft.world.entity.MobCategory, java.util.function.UnaryOperator)
+public static net.minecraft.world.entity.EntityType$Builder createMob(net.minecraft.world.entity.EntityType$EntityFactory, net.minecraft.world.entity.MobCategory, java.util.function.UnaryOperator)
 ```

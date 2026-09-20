@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientPlayNetworkAddon.invokeRegisterEvent` | (impl code, not a mixin) | unknown | static_inference |
+| `ClientPlayNetworkAddon.invokeRegisterEvent` @22 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

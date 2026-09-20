@@ -1,77 +1,98 @@
 - id: wf.multiplayer.networking
   area: multiplayer
   title: Send state between server and client
-  intent: >-
-    The client must know something only the server knows (or the reverse): a
-    counter to display, a request to act. The creator wants it to arrive for every
-    player, including those who join late, and to fail loudly on a version mismatch.
+  intent: 'The client must know something only the server knows (or the reverse): a counter to display, a request
+    to act. The creator wants it to arrive for every player, including those who join late, and to fail loudly on
+    a version mismatch.'
   preserve:
-    - "Server authority: the client never decides game state, it displays it."
-    - "Bandwidth: send deltas or on change, not every tick."
+  - 'Server authority: the client never decides game state, it displays it.'
+  - 'Bandwidth: send deltas or on change, not every tick.'
   mechanisms:
-    - mechanism:fabric-networking-api-v1 -- custom payload types registered per side with a StreamCodec; global receivers; per-player senders (record:capability/sync_state.fabric_custom_payload, which was corrected from playS2C() to clientboundPlay() against the real artifact).
-    - event:net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN -- initial sync to a joining player through the handed PacketSender.
-    - Attachment sync as a no-code alternative for attached state (workflow:wf.state.persistence).
-    - Registry sync (mechanism:fabric-registry-sync-v0) ensures both sides agree on ids before play.
+  - mechanism:fabric-networking-api-v1 -- custom payload types registered per side with a StreamCodec; global receivers;
+    per-player senders (record:capability/sync_state.fabric_custom_payload, which was corrected from playS2C() to
+    clientboundPlay() against the real artifact).
+  - event:net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN -- initial sync to a joining player
+    through the handed PacketSender.
+  - Attachment sync as a no-code alternative for attached state (workflow:wf.state.persistence).
+  - Registry sync (mechanism:fabric-registry-sync-v0) ensures both sides agree on ids before play.
   tools_today:
-    - The generated payload record, codec and registration; a client receiver updating a client-held copy.
+  - The generated payload record, codec and registration; a client receiver updating a client-held copy.
   decisions:
-    - Payload versus attachment sync versus vanilla data-tracker for entity fields.
-    - "When to send: on change, on join, periodically."
-    - What the client does when the mod is absent on one side (the payload id is unknown; the loader rejects the client only if the mod declares itself required).
+  - Payload versus attachment sync versus vanilla data-tracker for entity fields.
+  - 'When to send: on change, on join, periodically.'
+  - What the client does when the mod is absent on one side (the payload id is unknown; the loader rejects the client
+    only if the mod declares itself required).
   information_needed:
-    - The receiver's thread (question:q.payload_receiver_thread).
-    - Readiness point for the first send (ServerPlayConnectionEvents.JOIN contract).
+  - The receiver's thread (question:q.payload_receiver_thread).
+  - Readiness point for the first send (ServerPlayConnectionEvents.JOIN contract).
   automation_existing:
-    - Payload generator in ModCheck.
+  - Payload generator in ModCheck.
   remaining_manual:
-    - Delta logic; join-time sync wiring.
+  - Delta logic; join-time sync wiring.
   modcheck_contribution:
-    - Delivered for the payload; a join-sync capability is the next increment.
+  - Delivered for the payload; a join-sync capability is the next increment.
   interactions_to_check:
-    - Payload id collisions between mods (namespaced; collision only within one namespace).
-    - Protocol version mismatch (777) between client and server -- vanilla's own check precedes any mod code.
+  - Payload id collisions between mods (namespaced; collision only within one namespace).
+  - Protocol version mismatch (777) between client and server -- vanilla's own check precedes any mod code.
   evidence:
-    - record:capability/sync_state.fabric_custom_payload
-    - extracted:fabric_api.json#fabric-networking-api-v1
-    - extracted:edges.json#callback_of
-  questions: [question:q.payload_receiver_thread]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "payload generator compiles against the pinned corpus; exercised by the reference lantern's JUnit tests with fakes"}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - record:capability/sync_state.fabric_custom_payload
+  - extracted:fabric_api.json#fabric-networking-api-v1
+  - extracted:edges.json#callback_of
+  questions:
+  - question:q.payload_receiver_thread
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: true
+    validated_scope: payload generator compiles against the pinned corpus; the reference lantern's payload and recipients
+      (PlayerLookup.tracking) are hand-authored, with the client cache unit-tested (11 tests); no game run
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.multiplayer.side_separation
   area: multiplayer
   title: Keep client and server code apart
-  intent: >-
-    The mod must run on a dedicated server without client classes, on a client
-    with its integrated server, and on a client connecting to a modded server --
-    with the same jar.
+  intent: The mod must run on a dedicated server without client classes, on a client with its integrated server,
+    and on a client connecting to a modded server -- with the same jar.
   preserve:
-    - "Dedicated-server startup: one client-class reference in common code is a crash."
+  - 'Dedicated-server startup: one client-class reference in common code is a crash.'
   mechanisms:
-    - "Entrypoints: type:net.fabricmc.api.ModInitializer (both), type:net.fabricmc.api.ClientModInitializer, type:net.fabricmc.api.DedicatedServerModInitializer (loader surface in extracted:fabric_api.json)."
-    - Mixin config client/server lists and the @Environment annotation (the source of every edge's applies_to.environment).
-    - "Fabric API modules declaring environment: client (14 of 47 in extracted:fabric_api.json) can only be depended on from client code."
+  - 'Entrypoints: type:net.fabricmc.api.ModInitializer (both), type:net.fabricmc.api.ClientModInitializer, type:net.fabricmc.api.DedicatedServerModInitializer
+    (loader surface in extracted:fabric_api.json).'
+  - Mixin config client/server lists and the @Environment annotation (the source of every edge's applies_to.environment).
+  - 'Fabric API modules declaring environment: client (14 of 47 in extracted:fabric_api.json) can only be depended
+    on from client code.'
   tools_today:
-    - Separate client source set or package; the client entrypoint recipe (record:recipe/fabric_add_client_entrypoint).
+  - Separate client source set or package; the client entrypoint recipe (record:recipe/fabric_add_client_entrypoint).
   decisions:
-    - Source-set split versus package discipline.
-    - Which events are two-sided (interaction events fire on both sides; the contracts say so).
+  - Source-set split versus package discipline.
+  - Which events are two-sided (interaction events fire on both sides; the contracts say so).
   information_needed:
-    - Per-module environment (extracted).
-    - Per-event side (extracted through the injection's environment).
+  - Per-module environment (extracted).
+  - Per-event side (extracted through the injection's environment).
   automation_existing:
-    - Client entrypoint generator.
+  - Client entrypoint generator.
   remaining_manual:
-    - Reviewing common code for client references.
+  - Reviewing common code for client references.
   modcheck_contribution:
-    - A static check that flags a client-only module or class referenced from a common entrypoint (question:q.contract_checker).
+  - A static check that flags a client-only module or class referenced from a common entrypoint (question:q.contract_checker).
   interactions_to_check:
-    - "Single-player: server-side and client-side listeners both run in one JVM; shared static state is a bug."
+  - 'Single-player: server-side and client-side listeners both run in one JVM; shared static state is a bug.'
   evidence:
-    - extracted:fabric_api.json
-    - record:recipe/fabric_add_client_entrypoint
-    - record:capability/subscribe_event.fabric_add_client_entrypoint
-  questions: [question:q.contract_checker]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "client entrypoint generator compiles against the pinned corpus; no side-reference check exists"}
-  provenance: {author: analyst, added: '2026-09-20'}
+  - extracted:fabric_api.json
+  - record:recipe/fabric_add_client_entrypoint
+  - record:capability/subscribe_event.fabric_add_client_entrypoint
+  questions:
+  - question:q.contract_checker
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: true
+    interaction_analysed: true
+    implemented_in_modcheck: true
+    validated_scope: client entrypoint generator compiles against the pinned corpus; no side-reference check exists
+  provenance:
+    author: analyst
+    added: '2026-09-20'

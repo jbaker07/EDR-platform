@@ -13,7 +13,7 @@ sha256: "6d0660544189cee8ed9a0d7a668ff69c30068799de633e4813924c0b6d3d49ed"
 Module: [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] -- kind: class
 
 ```java
-public static java.util.List<net.minecraft.client.gui.components.AbstractWidget> getWidgets(net.minecraft.client.gui.screens.Screen)
+public static java.util.List getWidgets(net.minecraft.client.gui.screens.Screen)
 public static net.minecraft.client.gui.Font getFont(net.minecraft.client.gui.screens.Screen)
 public static net.minecraft.client.Minecraft getMinecraft(net.minecraft.client.gui.screens.Screen)
 ```

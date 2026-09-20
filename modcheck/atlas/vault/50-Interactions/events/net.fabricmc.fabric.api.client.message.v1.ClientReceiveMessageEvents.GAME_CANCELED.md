@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ChatListenerMixin.fabric_allowSystemMessage` | `ChatListener.handleSystemMessage` @Inject at HEAD | client | static_inference |
-| `ChatListenerMixin.fabric_allowOverlayMessage` | `ChatListener.handleOverlay` @Inject at HEAD | client | static_inference |
+| `ChatListenerMixin.fabric_allowSystemMessage` @108 | [[40-Interfaces/net.minecraft.client.multiplayer.chat.ChatListener|ChatListener]].`handleSystemMessage` @Inject HEAD | unknown | static_inference |
+| `ChatListenerMixin.fabric_allowOverlayMessage` @103 | [[40-Interfaces/net.minecraft.client.multiplayer.chat.ChatListener|ChatListener]].`handleOverlay` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

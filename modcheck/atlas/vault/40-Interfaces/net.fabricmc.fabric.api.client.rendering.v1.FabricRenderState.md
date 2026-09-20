@@ -13,8 +13,8 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: interface
 
 ```java
-public default <T> T getData(net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey<T>)
-public default <T> T getDataOrDefault(net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey<T>, T)
-public default <T> void setData(net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey<T>, T)
-public default void clearExtraData()
+public java.lang.Object getData(net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey)
+public java.lang.Object getDataOrDefault(net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey, java.lang.Object)
+public void setData(net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey, java.lang.Object)
+public void clearExtraData()
 ```

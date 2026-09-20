@@ -13,5 +13,5 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
-public static <E extends net.minecraft.world.level.block.entity.BlockEntity, S extends net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState> void register(net.minecraft.world.level.block.entity.BlockEntityType<E>, net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider<? super E, ? super S>)
+public static void register(net.minecraft.world.level.block.entity.BlockEntityType, net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider)
 ```

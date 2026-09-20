@@ -11,35 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.commands|net.minecraft.server.commands]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `enchant` | `@Redirect at INVOKE Lnet/minecraft/world/item/enchantment/Enchantment;canEnchant` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `enchant` | `(Lnet/minecraft/commands/CommandSourceStack;Ljava/util/Collection;Lnet` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (18, all visibilities)
+## Declared members (6 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.commands.EnchantCommand {
-    private static final com.mojang.brigadier.exceptions.DynamicCommandExceptionType ERROR_NOT_LIVING_ENTITY;
-    private static final com.mojang.brigadier.exceptions.DynamicCommandExceptionType ERROR_NO_ITEM;
-    private static final com.mojang.brigadier.exceptions.DynamicCommandExceptionType ERROR_INCOMPATIBLE;
-    private static final com.mojang.brigadier.exceptions.Dynamic2CommandExceptionType ERROR_LEVEL_TOO_HIGH;
-    private static final com.mojang.brigadier.exceptions.SimpleCommandExceptionType ERROR_NOTHING_HAPPENED;
-    private static final net.minecraft.server.commands.CommandResponseTracker$MessagesWithArgs<net.minecraft.world.entity.Entity, net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>, java.lang.Integer> RESPONSE_ENCHANT;
-    public net.minecraft.server.commands.EnchantCommand();
-    public static void register(com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack>, net.minecraft.commands.CommandBuildContext);
-    private static int enchant(net.minecraft.commands.CommandSourceStack, java.util.Collection<? extends net.minecraft.world.entity.Entity>, net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>, int) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static int lambda$register$1(com.mojang.brigadier.context.CommandContext) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static int lambda$register$0(com.mojang.brigadier.context.CommandContext) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    private static net.minecraft.network.chat.Component lambda$static$5(int, int, net.minecraft.core.Holder, java.lang.Integer);
-    private static net.minecraft.network.chat.Component lambda$static$4(net.minecraft.world.entity.Entity, int, net.minecraft.core.Holder, java.lang.Integer);
-    private static com.mojang.brigadier.Message lambda$static$3(java.lang.Object, java.lang.Object);
-    private static com.mojang.brigadier.Message lambda$static$2(java.lang.Object);
-    private static com.mojang.brigadier.Message lambda$static$1(java.lang.Object);
-    private static com.mojang.brigadier.Message lambda$static$0(java.lang.Object);
-    static {};
-}
+```
+private static final ERROR_NOT_LIVING_ENTITY : Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;
+private static final ERROR_NO_ITEM : Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;
+private static final ERROR_INCOMPATIBLE : Lcom/mojang/brigadier/exceptions/DynamicCommandExceptionType;
+private static final ERROR_LEVEL_TOO_HIGH : Lcom/mojang/brigadier/exceptions/Dynamic2CommandExceptionType;
+private static final ERROR_NOTHING_HAPPENED : Lcom/mojang/brigadier/exceptions/SimpleCommandExceptionType;
+private static final RESPONSE_ENCHANT : Lnet/minecraft/server/commands/CommandResponseTracker$MessagesWithArgs;
+public <init>()V
+public static register(Lcom/mojang/brigadier/CommandDispatcher;Lnet/minecraft/commands/CommandBuildContext;)V
+private static enchant(Lnet/minecraft/commands/CommandSourceStack;Ljava/util/Collection;Lnet/minecraft/core/Holder;I)I
+private static synthetic lambda$register$1(Lcom/mojang/brigadier/context/CommandContext;)I
+private static synthetic lambda$register$0(Lcom/mojang/brigadier/context/CommandContext;)I
+private static synthetic lambda$static$5(IILnet/minecraft/core/Holder;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$static$4(Lnet/minecraft/world/entity/Entity;ILnet/minecraft/core/Holder;Ljava/lang/Integer;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$static$3(Ljava/lang/Object;Ljava/lang/Object;)Lcom/mojang/brigadier/Message;
+private static synthetic lambda$static$2(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;
+private static synthetic lambda$static$1(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;
+private static synthetic lambda$static$0(Ljava/lang/Object;)Lcom/mojang/brigadier/Message;
+static <clinit>()V
 ```

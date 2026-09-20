@@ -11,33 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/level/storage/loot/functions/FunctionUserBuilder`, `net/fabricmc/fabric/api/loot/v3/FabricLootTableBuilder`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `apply(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/stor` | `` | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `build()Lnet/minecraft/world/level/storage/loot/LootTable;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `build()Lnet/minecraft/world/level/storage/loot/LootTable;` | `` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| calls | `setParamSet(Lnet/minecraft/util/context/ContextKeySet;)Lnet/minecraft/w` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `apply` | `(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/L` | exact | invokevirtual@8 in `LootTableBuilderMixin.apply` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/world/level/storage/loot/LootTable;` | exact | invokevirtual@29 in `FabricLootTableProviderImpl.lambda$run$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/world/level/storage/loot/LootTable;` | exact | invokevirtual@59 in `LootUtil.modifyLootTable` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `pools` | `(Ljava/util/Collection;)Lnet/minecraft/world/level/storage/loot/LootTa` | inherited_exact | invokevirtual@25 in `FabricLootTableBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| calls | `setParamSet` | `(Lnet/minecraft/util/context/ContextKeySet;)Lnet/minecraft/world/level` | exact | invokevirtual@26 in `FabricLootTableProviderImpl.lambda$run$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `setParamSet` | `(Lnet/minecraft/util/context/ContextKeySet;)Lnet/minecraft/world/level` | exact | invokevirtual@14 in `FabricLootTableBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| reads | `pools` | `Lcom/google/common/collect/ImmutableList$Builder;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | declared |
 
-## Declared members (13, all visibilities)
+## Declared members (4 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.loot.LootTable$Builder implements net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder<net.minecraft.world.level.storage.loot.LootTable$Builder> {
-    private final com.google.common.collect.ImmutableList$Builder<net.minecraft.world.level.storage.loot.LootPool> pools;
-    private final com.google.common.collect.ImmutableList$Builder<net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.functions.LootItemFunction>> functions;
-    private net.minecraft.util.context.ContextKeySet paramSet;
-    private java.util.Optional<net.minecraft.resources.Identifier> randomSequence;
-    public net.minecraft.world.level.storage.loot.LootTable$Builder();
-    public net.minecraft.world.level.storage.loot.LootTable$Builder withPool(net.minecraft.world.level.storage.loot.LootPool$Builder);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder setParamSet(net.minecraft.util.context.ContextKeySet);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder setRandomSequence(net.minecraft.resources.Identifier);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder apply(net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.functions.LootItemFunction>);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder unwrap();
-    public net.minecraft.world.level.storage.loot.LootTable build();
-    public net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder unwrap();
-    public net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder apply(net.minecraft.core.Holder);
-}
+```
+private final pools : Lcom/google/common/collect/ImmutableList$Builder;
+private final functions : Lcom/google/common/collect/ImmutableList$Builder;
+private paramSet : Lnet/minecraft/util/context/ContextKeySet;
+private randomSequence : Ljava/util/Optional;
+public <init>()V
+public withPool(Lnet/minecraft/world/level/storage/loot/LootPool$Builder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public setParamSet(Lnet/minecraft/util/context/ContextKeySet;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public setRandomSequence(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public apply(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public unwrap()Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public build()Lnet/minecraft/world/level/storage/loot/LootTable;
+public synthetic unwrap()Lnet/minecraft/world/level/storage/loot/functions/FunctionUserBuilder;
+public synthetic apply(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/functions/FunctionUserBuilder;
 ```

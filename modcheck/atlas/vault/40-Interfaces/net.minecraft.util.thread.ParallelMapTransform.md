@@ -11,22 +11,22 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util.thread|net.minecraft.util.thread]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `schedule(Ljava/util/Map;Ljava/util/function/BiFunction;Ljava/util/co` | `` | client | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `schedule` | `(Ljava/util/Map;Ljava/util/function/BiFunction;Ljava/util/concurrent/E` | exact | invokestatic@23 in `ModelBakeryMixin.withExtraModels` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
 
-## Declared members (5, all visibilities)
+## Declared members (1 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.thread.ParallelMapTransform {
-    private static final int DEFAULT_TASKS_PER_THREAD;
-    public net.minecraft.util.thread.ParallelMapTransform();
-    public static <K, U, V> java.util.concurrent.CompletableFuture<java.util.Map<K, V>> schedule(java.util.Map<K, U>, java.util.function.BiFunction<K, U, V>, int, java.util.concurrent.Executor);
-    public static <K, U, V> java.util.concurrent.CompletableFuture<java.util.Map<K, V>> schedule(java.util.Map<K, U>, java.util.function.BiFunction<K, U, V>, java.util.concurrent.Executor);
-    private static java.util.Map lambda$schedule$0(java.util.function.BiFunction, java.lang.Object, java.lang.Object);
-}
+```
+private static final DEFAULT_TASKS_PER_THREAD : I
+public <init>()V
+public static schedule(Ljava/util/Map;Ljava/util/function/BiFunction;ILjava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+public static schedule(Ljava/util/Map;Ljava/util/function/BiFunction;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$schedule$0(Ljava/util/function/BiFunction;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;
 ```

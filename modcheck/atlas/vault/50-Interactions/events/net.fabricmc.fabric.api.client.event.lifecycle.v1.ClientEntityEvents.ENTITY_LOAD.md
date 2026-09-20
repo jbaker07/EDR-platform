@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientLevelEntityCallbacksMixin.invokeLoadEntity` | `ClientLevel$EntityCallbacks.onTrackingStart(Lnet/minecraft/world/entity/Entity;)V` @Inject at TAIL | client | static_inference |
+| `ClientLevelEntityCallbacksMixin.invokeLoadEntity` @14 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientLevel_EntityCallbacks|ClientLevel$EntityCallbacks]].`onTrackingStart` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

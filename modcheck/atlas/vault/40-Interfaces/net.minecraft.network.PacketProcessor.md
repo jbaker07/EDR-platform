@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network|net.minecraft.network]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `isSameThread()Z` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `isSameThread()Z` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `scheduleIfPossible(Lnet/minecraft/network/PacketListener;Lnet/minecraft/networ` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `scheduleIfPossible(Lnet/minecraft/network/PacketListener;Lnet/minecraft/networ` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `scheduleIfPossible(Lnet/minecraft/network/PacketListener;Lnet/minecraft/networ` | `` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `isSameThread` | `()Z` | exact | invokevirtual@7 in `ClientPlayNetworkAddon.isOnReceiveThread` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `isSameThread` | `()Z` | exact | invokevirtual@7 in `ServerPlayNetworkAddon.isOnReceiveThread` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `scheduleIfPossible` | `(Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/protocol` | exact | invokevirtual@73 in `ServerCommonPacketListenerImplMixin.handleCustomPayloadReceivedAsync` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `scheduleIfPossible` | `(Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/protocol` | exact | invokevirtual@31 in `ServerGamePacketListenerImplMixin.handleCustomPayloadReceivedAsync` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `scheduleIfPossible` | `(Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/protocol` | exact | invokevirtual@105 in `ClientCommonPacketListenerImplMixin.onCustomPayload` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (4 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.PacketProcessor implements java.lang.AutoCloseable {
-    private static final org.slf4j.Logger LOGGER;
-    private final java.util.Queue<net.minecraft.network.PacketProcessor$ListenerAndPacket<?>> packetsToBeHandled;
-    private final java.lang.Thread runningThread;
-    private boolean closed;
-    public net.minecraft.network.PacketProcessor(java.lang.Thread);
-    public boolean isSameThread();
-    public <T extends net.minecraft.network.PacketListener> void scheduleIfPossible(T, net.minecraft.network.protocol.Packet<T>);
-    public void processQueuedPackets();
-    public void close();
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final packetsToBeHandled : Ljava/util/Queue;
+private final runningThread : Ljava/lang/Thread;
+private closed : Z
+public <init>(Ljava/lang/Thread;)V
+public isSameThread()Z
+public scheduleIfPossible(Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/protocol/Packet;)V
+public processQueuedPackets()V
+public close()V
+static <clinit>()V
 ```

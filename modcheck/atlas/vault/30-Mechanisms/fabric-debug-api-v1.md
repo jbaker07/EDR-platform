@@ -20,19 +20,23 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `["fabric-debug-api-v1.mixins.json", {"config": "fabric-debug-api-v1.client.mixins.json", "environment": "client"}]`
 - access widener: `fabric-debug-api-v1.accesswidener`
+- mixin classes: 4 found by annotation, 4 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.client.multiplayer.ClientDebugSubscriber|ClientDebugSubscriber]] | `requestedSubscriptions` | injects_into `@Inject at RETURN` | client | `ClientDebugSubscriberMixin.addSubscribers` |
-| [[40-Interfaces/net.minecraft.client.renderer.debug.DebugRenderer|DebugRenderer]] | `refreshRendererList` | injects_into `@Inject at RETURN` | client | `DebugRendererMixin.registerRenderers` |
-| [[40-Interfaces/net.minecraft.world.entity.Entity|Entity]] | `registerDebugValues` | injects_into `@Inject at HEAD` | both | `EntityMixin.addDebugValues` |
-| [[40-Interfaces/net.minecraft.world.entity.Mob|Mob]] | `registerDebugValues` | injects_into `@Inject at HEAD` | both | `EntityMixin.addDebugValues` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.multiplayer.ClientDebugSubscriber|ClientDebugSubscriber]].`requestedSubscriptions` | `()Ljava/util/Set;` | name_only | @Inject | RETURN | client | 1000 (default) | `ClientDebugSubscriberMixin.addSubscribers` |
+| [[40-Interfaces/net.minecraft.client.renderer.debug.DebugRenderer|DebugRenderer]].`refreshRendererList` | `()V` | name_only | @Inject | RETURN | client | 1000 (default) | `DebugRendererMixin.registerRenderers` |
+| [[40-Interfaces/net.minecraft.util.debug.ServerDebugSubscribers|ServerDebugSubscribers]].`hasRequiredPermissions` | `(Lnet/minecraft/server/level/ServerPlayer;)Z` | name_only | @WrapOperation | MIXINEXTRAS:EXPRESSION (selector_unsupported) | both | 1000 (default) | `ServerDebugSubscribersMixin.requireInIde` |
+| [[40-Interfaces/net.minecraft.world.entity.Entity|Entity]].`registerDebugValues` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/debug/DebugValueSource$Registration;)V` | name_only | @Inject | HEAD | both | 1000 (default) | `EntityMixin.addDebugValues` |
+| [[40-Interfaces/net.minecraft.world.entity.Mob|Mob]].`registerDebugValues` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/debug/DebugValueSource$Registration;)V` | name_only | @Inject | HEAD | both | 1000 (default) | `EntityMixin.addDebugValues` |
 
 ## API surface
 
@@ -44,6 +48,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

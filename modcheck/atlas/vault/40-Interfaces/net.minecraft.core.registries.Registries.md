@@ -11,191 +11,247 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core.registries|net.minecraft.core.registries]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `tagsDirPath(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| reads | `ADVANCEMENTLnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| reads | `ADVANCEMENTLnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
-| reads | `BIOMELnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| reads | `ITEMLnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| reads | `LEVEL_STEMLnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
-| reads | `LOOT_TABLELnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| reads | `LOOT_TABLELnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
-| reads | `TEST_INSTANCELnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `tagsDirPath` | `(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;` | exact | invokestatic@1 in `ClientTagsLoader.getTagFiles` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| injects_into | `elementsDirPath` | `(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;` | name_only | @ModifyReturnValue at ['RETURN'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| injects_into | `tagsDirPath` | `(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;` | name_only | @ModifyReturnValue at ['RETURN'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `ADVANCEMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@11 in `ReloadableServerRegistriesMixin.lambda$modifyAdvancements$0` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| reads | `ADVANCEMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@34 in `ResourceManagerRegistryLoadTaskMixin.modifyAdvancement` | unknown | [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]] | direct_reference |
+| reads | `ADVANCEMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@11 in `FabricAdvancementProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `ADVANCEMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@22 in `FabricRecipeProvider$2.lookup` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `ADVANCEMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@29 in `FabricRecipeProvider.lambda$run$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `ADVANCEMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@90 in `FabricRecipeProvider.lambda$run$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `BIOME` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@16 in `BiomeModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `BIOME` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@21 in `BiomeSelectionContextImpl.<init>` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `BIOME` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `BiomeSelectionContextImpl.hasTag` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `BIOME` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@3 in `BuiltInResourceKeys.biomeHolderGetter` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `BIOME` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `TheEndBiomeSourceMixin.lambda$modifyCodec$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `BIOME` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@30 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `BIOME` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@733 in `FabricRegistryInit.onInitialize` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `BLOCK` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@0 in `BlockFunctionalityTags.create` | unknown | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| reads | `BLOCK` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@17 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `BLOCK` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@2 in `FabricTagsProvider$BlockTagsProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `BLOCK_ENTITY_TYPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@2 in `FabricTagsProvider$BlockEntityTypeTagsProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `CARVER` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@22 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.<init>` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `CARVER` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `FabricDynamicRegistryProvider$Entries.configuredCarvers` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `DIMENSION` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@30 in `TestAnnotationLocator$TestMethod.testData` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `DIMENSION_TYPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@12 in `DimensionModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| reads | `ENCHANTMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@82 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `ENCHANTMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@748 in `FabricRegistryInit.onInitialize` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `ENTITY_TYPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@69 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `ENTITY_TYPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@2 in `FabricTagsProvider$EntityTypeTagsProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `FEATURE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `BiomeSelectionContextImpl.getFeatureKey` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `FLUID` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@56 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `FLUID` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@2 in `FabricTagsProvider$FluidTagsProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `FLUID` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@68 in `VariantCodecs.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `ITEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `ITEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@8 in `TranslationConventionLogWarnings.lambda$setupUntranslatedItemTagWarning$0` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `ITEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@2 in `FabricTagsProvider$ItemTagsProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `ITEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@0 in `DataComponentInitializersPendingComponentsMixin.apply` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `ITEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@11 in `RegistryContainsResourceCondition.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `ITEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@11 in `TagsPopulatedResourceCondition.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `ITEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@27 in `VariantCodecs.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `LEVEL_STEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@267 in `BiomeModificationImpl.finalizeWorldGen` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `LEVEL_STEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `BiomeSelectionContextImpl.canGenerateIn` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `LEVEL_STEM` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@5 in `WorldDimensionsMixin.useFailSoftMap` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| reads | `LOOT_TABLE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `FabricLootTableContext.accept` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `LOOT_TABLE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `FabricLootTableProviderImpl.getOutputPath` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `LOOT_TABLE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@12 in `LootUtil.getEntryOrDirect` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| reads | `LOOT_TABLE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `ReloadableServerRegistriesMixin.lambda$modifyLootTables$0` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| reads | `LOOT_TABLE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@34 in `ResourceManagerRegistryLoadTaskMixin.modifyLootTable` | unknown | [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] | direct_reference |
+| reads | `PLACED_FEATURE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@41 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.<init>` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `PLACED_FEATURE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `BiomeSelectionContextImpl.getPlacedFeatureKey` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `PLACED_FEATURE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `FabricDynamicRegistryProvider$Entries.placedFeatures` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `POINT_OF_INTEREST_TYPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@3 in `PoiHelper.register` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| reads | `POTION` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@95 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `RECIPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `FabricRecipeProvider$2.lookup` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `RECIPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@2 in `FabricRecipeProvider$RecipeBootstrapContext.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `RECIPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@78 in `FabricRecipeProvider.lambda$run$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `RECIPE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@70 in `ClientboundRecipeSyncPayload$Entry.read` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `STRUCTURE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `BiomeSelectionContextImpl.validForStructure` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `STRUCTURE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `BiomeSelectionContextImpl.getStructureKey` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `STRUCTURE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@43 in `TagRegistration.<clinit>` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `TEST_ENVIRONMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@77 in `FabricGameTestModInitializer.registerDynamicEntries` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `TEST_ENVIRONMENT` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `TestAnnotationLocator$TestMethod.testData` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `TEST_FUNCTION` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `TestAnnotationLocator$TestMethod.testInstance` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `TEST_INSTANCE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@64 in `FabricGameTestModInitializer.registerDynamicEntries` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `TEST_INSTANCE` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@4 in `RegistryDataLoaderMixin.lambda$loadFromResources$0` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `WORLD_PRESET` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@7 in `TestWorldBuilderImpl.setConsistentSettings` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (166, all visibilities)
+## Declared members (157 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.registries.Registries {
-    public static final net.minecraft.resources.Identifier ROOT_REGISTRY_NAME;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.schedule.Activity>> ACTIVITY;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.attributes.Attribute>> ATTRIBUTE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.biome.BiomeSource>>> BIOME_SOURCE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.BlockEntityType<?>>> BLOCK_ENTITY_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType<?>>> BLOCK_PREDICATE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>>> BLOCK_STATE_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.Block>> BLOCK;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.carver.WorldCarver>>> CARVER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.chunk.ChunkGenerator>>> CHUNK_GENERATOR;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.chunk.status.ChunkStatus>> CHUNK_STATUS;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.commands.synchronization.ArgumentTypeInfo<?, ?>>> COMMAND_ARGUMENT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.consume_effects.ConsumeEffect$Type<?>>> CONSUME_EFFECT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.CreativeModeTab>> CREATIVE_MODE_TAB;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.resources.Identifier>> CUSTOM_STAT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.predicates.DataComponentPredicate$Type<?>>> DATA_COMPONENT_PREDICATE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.DataComponentType<?>>> DATA_COMPONENT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.gamerules.GameRule<?>>> GAME_RULE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.util.debug.DebugSubscription<?>>> DEBUG_SUBSCRIPTION;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.densityfunction.DensityFunction>>> DENSITY_FUNCTION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.body.DialogBody>>> DIALOG_BODY_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.Dialog>>> DIALOG_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.DataComponentType<?>>> ENCHANTMENT_EFFECT_COMPONENT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect>>> ENCHANTMENT_ENTITY_EFFECT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.LevelBasedValue>>> ENCHANTMENT_LEVEL_BASED_VALUE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentLocationBasedEffect>>> ENCHANTMENT_LOCATION_BASED_EFFECT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.providers.EnchantmentProvider>>> ENCHANTMENT_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect>>> ENCHANTMENT_VALUE_EFFECT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.Codec<? extends net.minecraft.advancements.predicates.entity.EntitySubPredicate>>> ENTITY_SUB_PREDICATE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.EntityType<?>>> ENTITY_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.attribute.EnvironmentAttribute<?>>> ENVIRONMENT_ATTRIBUTE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.attribute.AttributeType<?>>> ATTRIBUTE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.featuresize.FeatureSizeType<?>>> FEATURE_SIZE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.feature.Feature>>> FEATURE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.util.valueproviders.FloatProvider>>> FLOAT_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.material.Fluid>> FLUID;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType<?>>> FOLIAGE_PLACER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.gameevent.GameEvent>> GAME_EVENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.heightproviders.HeightProviderType<?>>> HEIGHT_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.input.InputControl>>> INPUT_CONTROL_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.util.valueproviders.IntProvider>>> INT_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.Item>> ITEM;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.slot.SlotSource>>> SLOT_SOURCE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.predicates.LootItemCondition>>> LOOT_CONDITION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.functions.LootItemFunction>>> LOOT_FUNCTION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.nbt.NbtProvider>>> LOOT_NBT_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider>>> CONTEXT_FLOAT_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>>> CONTEXT_INT_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer>>> LOOT_POOL_ENTRY_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.score.ScoreboardNameProvider>>> LOOT_SCORE_PROVIDER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.saveddata.maps.MapDecorationType>> MAP_DECORATION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.material.condition.MaterialCondition>>> MATERIAL_CONDITION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.material.rule.MaterialRule>>> MATERIAL_RULE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.memory.MemoryModuleType<?>>> MEMORY_MODULE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.inventory.MenuType<?>>> MENU;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.effect.MobEffect>> MOB_EFFECT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.network.chat.numbers.NumberFormatType<?>>> NUMBER_FORMAT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.particles.ParticleType<?>>> PARTICLE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.placement.PlacementModifier>>> PLACEMENT_MODIFIER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.village.poi.PoiType>> POINT_OF_INTEREST_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBinding>>> POOL_ALIAS_BINDING;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.gameevent.PositionSourceType<?>>> POSITION_SOURCE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.PosRuleTestType<?>>> POS_RULE_TEST;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.alchemy.Potion>> POTION;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeBookCategory>> RECIPE_BOOK_CATEGORY;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.display.RecipeDisplay$Type<?>>> RECIPE_DISPLAY;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeSerializer<?>>> RECIPE_SERIALIZER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeType<?>>> RECIPE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType<?>>> ROOT_PLACER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifierType<?>>> RULE_BLOCK_ENTITY_MODIFIER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType<?>>> RULE_TEST;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.sensing.SensorType<?>>> SENSOR_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.display.SlotDisplay$Type<?>>> SLOT_DISPLAY;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.sounds.SoundEvent>> SOUND_EVENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.entity.variant.SpawnCondition>>> SPAWN_CONDITION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.stats.StatType<?>>> STAT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType>> STRUCTURE_PIECE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.placement.StructurePlacement>>> STRUCTURE_PLACEMENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementType<?>>> STRUCTURE_POOL_ELEMENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor>>> STRUCTURE_PROCESSOR;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.StructureType<?>>> STRUCTURE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.action.Action>>> DIALOG_ACTION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.gametest.framework.TestEnvironmentDefinition<?>>>> TEST_ENVIRONMENT_DEFINITION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<java.util.function.Consumer<net.minecraft.gametest.framework.GameTestHelper>>> TEST_FUNCTION;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.gametest.framework.GameTestInstance>>> TEST_INSTANCE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.level.TicketType>> TICKET_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType<?>>> TREE_DECORATOR_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType<?>>> TRUNK_PLACER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.npc.villager.VillagerProfession>> VILLAGER_PROFESSION;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.npc.villager.VillagerType>> VILLAGER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.jsonrpc.IncomingRpcMethod<?, ?>>> INCOMING_RPC_METHOD;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.jsonrpc.OutgoingRpcMethod<?, ?>>> OUTGOING_RPC_METHOD;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.permissions.Permission>>> PERMISSION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.permissions.PermissionCheck>>> PERMISSION_CHECK_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.util.context.ContextKeySet>> CONTEXT_KEY_SET;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.BannerPattern>> BANNER_PATTERN;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.biome.Biome>> BIOME;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>> BLOCK_STATE_PROVIDER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.feline.CatSoundVariant>> CAT_SOUND_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.feline.CatVariant>> CAT_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.carver.WorldCarver>> CARVER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.network.chat.ChatType>> CHAT_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.chicken.ChickenSoundVariant>> CHICKEN_SOUND_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.chicken.ChickenVariant>> CHICKEN_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.nautilus.ZombieNautilusVariant>> ZOMBIE_NAUTILUS_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.Feature>> FEATURE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.cow.CowSoundVariant>> COW_SOUND_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.cow.CowVariant>> COW_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.damagesource.DamageType>> DAMAGE_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.densityfunction.DensityFunction>> DENSITY_FUNCTION;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.dialog.Dialog>> DIALOG;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.dimension.DimensionType>> DIMENSION_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.enchantment.providers.EnchantmentProvider>> ENCHANTMENT_PROVIDER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.enchantment.Enchantment>> ENCHANTMENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorPreset>> FLAT_LEVEL_GENERATOR_PRESET;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.frog.FrogVariant>> FROG_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.Instrument>> INSTRUMENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.JukeboxSong>> JUKEBOX_SONG;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.material.condition.MaterialCondition>> MATERIAL_CONDITION;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.material.rule.MaterialRule>> MATERIAL_RULE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList>> MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.NoiseGeneratorSettings>> NOISE_SETTINGS;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.synth.NormalNoise>> NOISE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.decoration.painting.PaintingVariant>> PAINTING_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.pig.PigSoundVariant>> PIG_SOUND_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.pig.PigVariant>> PIG_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.placement.PlacedFeature>> PLACED_FEATURE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList>> PROCESSOR_LIST;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.StructureSet>> STRUCTURE_SET;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.Structure>> STRUCTURE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.SulfurCubeArchetype>> SULFUR_CUBE_ARCHETYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool>> TEMPLATE_POOL;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.gametest.framework.TestEnvironmentDefinition<?>>> TEST_ENVIRONMENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.gametest.framework.GameTestInstance>> TEST_INSTANCE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.timeline.Timeline>> TIMELINE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.trading.TradeSet>> TRADE_SET;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerConfig>> TRIAL_SPAWNER_CONFIG;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.advancements.triggers.CriterionTrigger<?>>> TRIGGER_TYPE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.equipment.trim.TrimMaterial>> TRIM_MATERIAL;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.equipment.trim.TrimPattern>> TRIM_PATTERN;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.trading.VillagerTrade>> VILLAGER_TRADE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.wolf.WolfVariant>> WOLF_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.wolf.WolfSoundVariant>> WOLF_SOUND_VARIANT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.clock.WorldClock>> WORLD_CLOCK;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.presets.WorldPreset>> WORLD_PRESET;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.DecoratedPotPattern>> DECORATED_POT_PATTERN;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.BlockTransformer>> BLOCK_TRANSFORMER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.Level>> DIMENSION;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.dimension.LevelStem>> LEVEL_STEM;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.LootTable>> LOOT_TABLE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.functions.LootItemFunction>> ITEM_MODIFIER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.predicates.LootItemCondition>> PREDICATE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.slot.SlotSource>> SLOT_SOURCE;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider>> CONTEXT_FLOAT_PROVIDER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>> CONTEXT_INT_PROVIDER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.advancements.Advancement>> ADVANCEMENT;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.Recipe<?>>> RECIPE;
-    public net.minecraft.core.registries.Registries();
-    public static net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> levelStemToLevel(net.minecraft.resources.ResourceKey<net.minecraft.world.level.dimension.LevelStem>);
-    public static net.minecraft.resources.ResourceKey<net.minecraft.world.level.dimension.LevelStem> levelToLevelStem(net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>);
-    private static <T> net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<T>> createRegistryKey(java.lang.String);
-    private static java.lang.String registryDirPath(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    public static java.lang.String elementsDirPath(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    public static java.lang.String tagsDirPath(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    public static java.lang.String componentsDirPath(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
-    static {};
-}
+```
+public static final ROOT_REGISTRY_NAME : Lnet/minecraft/resources/Identifier;
+public static final ACTIVITY : Lnet/minecraft/resources/ResourceKey;
+public static final ATTRIBUTE : Lnet/minecraft/resources/ResourceKey;
+public static final BIOME_SOURCE : Lnet/minecraft/resources/ResourceKey;
+public static final BLOCK_ENTITY_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final BLOCK_PREDICATE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final BLOCK_STATE_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final BLOCK : Lnet/minecraft/resources/ResourceKey;
+public static final CARVER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final CHUNK_GENERATOR : Lnet/minecraft/resources/ResourceKey;
+public static final CHUNK_STATUS : Lnet/minecraft/resources/ResourceKey;
+public static final COMMAND_ARGUMENT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final CONSUME_EFFECT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final CREATIVE_MODE_TAB : Lnet/minecraft/resources/ResourceKey;
+public static final CUSTOM_STAT : Lnet/minecraft/resources/ResourceKey;
+public static final DATA_COMPONENT_PREDICATE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final DATA_COMPONENT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final GAME_RULE : Lnet/minecraft/resources/ResourceKey;
+public static final DEBUG_SUBSCRIPTION : Lnet/minecraft/resources/ResourceKey;
+public static final DENSITY_FUNCTION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final DIALOG_BODY_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final DIALOG_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT_EFFECT_COMPONENT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT_ENTITY_EFFECT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT_LEVEL_BASED_VALUE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT_LOCATION_BASED_EFFECT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT_VALUE_EFFECT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENTITY_SUB_PREDICATE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENTITY_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENVIRONMENT_ATTRIBUTE : Lnet/minecraft/resources/ResourceKey;
+public static final ATTRIBUTE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final FEATURE_SIZE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final FEATURE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final FLOAT_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final FLUID : Lnet/minecraft/resources/ResourceKey;
+public static final FOLIAGE_PLACER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final GAME_EVENT : Lnet/minecraft/resources/ResourceKey;
+public static final HEIGHT_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final INPUT_CONTROL_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final INT_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ITEM : Lnet/minecraft/resources/ResourceKey;
+public static final SLOT_SOURCE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final LOOT_CONDITION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final LOOT_FUNCTION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final LOOT_NBT_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final CONTEXT_FLOAT_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final CONTEXT_INT_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final LOOT_POOL_ENTRY_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final LOOT_SCORE_PROVIDER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final MAP_DECORATION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final MATERIAL_CONDITION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final MATERIAL_RULE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final MEMORY_MODULE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final MENU : Lnet/minecraft/resources/ResourceKey;
+public static final MOB_EFFECT : Lnet/minecraft/resources/ResourceKey;
+public static final NUMBER_FORMAT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final PARTICLE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final PLACEMENT_MODIFIER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final POINT_OF_INTEREST_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final POOL_ALIAS_BINDING : Lnet/minecraft/resources/ResourceKey;
+public static final POSITION_SOURCE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final POS_RULE_TEST : Lnet/minecraft/resources/ResourceKey;
+public static final POTION : Lnet/minecraft/resources/ResourceKey;
+public static final RECIPE_BOOK_CATEGORY : Lnet/minecraft/resources/ResourceKey;
+public static final RECIPE_DISPLAY : Lnet/minecraft/resources/ResourceKey;
+public static final RECIPE_SERIALIZER : Lnet/minecraft/resources/ResourceKey;
+public static final RECIPE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ROOT_PLACER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final RULE_BLOCK_ENTITY_MODIFIER : Lnet/minecraft/resources/ResourceKey;
+public static final RULE_TEST : Lnet/minecraft/resources/ResourceKey;
+public static final SENSOR_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final SLOT_DISPLAY : Lnet/minecraft/resources/ResourceKey;
+public static final SOUND_EVENT : Lnet/minecraft/resources/ResourceKey;
+public static final SPAWN_CONDITION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final STAT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final STRUCTURE_PIECE : Lnet/minecraft/resources/ResourceKey;
+public static final STRUCTURE_PLACEMENT : Lnet/minecraft/resources/ResourceKey;
+public static final STRUCTURE_POOL_ELEMENT : Lnet/minecraft/resources/ResourceKey;
+public static final STRUCTURE_PROCESSOR : Lnet/minecraft/resources/ResourceKey;
+public static final STRUCTURE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final DIALOG_ACTION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final TEST_ENVIRONMENT_DEFINITION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final TEST_FUNCTION : Lnet/minecraft/resources/ResourceKey;
+public static final TEST_INSTANCE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final TICKET_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final TREE_DECORATOR_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final TRUNK_PLACER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final VILLAGER_PROFESSION : Lnet/minecraft/resources/ResourceKey;
+public static final VILLAGER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final INCOMING_RPC_METHOD : Lnet/minecraft/resources/ResourceKey;
+public static final OUTGOING_RPC_METHOD : Lnet/minecraft/resources/ResourceKey;
+public static final PERMISSION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final PERMISSION_CHECK_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final CONTEXT_KEY_SET : Lnet/minecraft/resources/ResourceKey;
+public static final BANNER_PATTERN : Lnet/minecraft/resources/ResourceKey;
+public static final BIOME : Lnet/minecraft/resources/ResourceKey;
+public static final BLOCK_STATE_PROVIDER : Lnet/minecraft/resources/ResourceKey;
+public static final CAT_SOUND_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final CAT_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final CARVER : Lnet/minecraft/resources/ResourceKey;
+public static final CHAT_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final CHICKEN_SOUND_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final CHICKEN_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final ZOMBIE_NAUTILUS_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final FEATURE : Lnet/minecraft/resources/ResourceKey;
+public static final COW_SOUND_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final COW_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final DAMAGE_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final DENSITY_FUNCTION : Lnet/minecraft/resources/ResourceKey;
+public static final DIALOG : Lnet/minecraft/resources/ResourceKey;
+public static final DIMENSION_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT_PROVIDER : Lnet/minecraft/resources/ResourceKey;
+public static final ENCHANTMENT : Lnet/minecraft/resources/ResourceKey;
+public static final FLAT_LEVEL_GENERATOR_PRESET : Lnet/minecraft/resources/ResourceKey;
+public static final FROG_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final INSTRUMENT : Lnet/minecraft/resources/ResourceKey;
+public static final JUKEBOX_SONG : Lnet/minecraft/resources/ResourceKey;
+public static final MATERIAL_CONDITION : Lnet/minecraft/resources/ResourceKey;
+public static final MATERIAL_RULE : Lnet/minecraft/resources/ResourceKey;
+public static final MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST : Lnet/minecraft/resources/ResourceKey;
+public static final NOISE_SETTINGS : Lnet/minecraft/resources/ResourceKey;
+public static final NOISE : Lnet/minecraft/resources/ResourceKey;
+public static final PAINTING_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final PIG_SOUND_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final PIG_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final PLACED_FEATURE : Lnet/minecraft/resources/ResourceKey;
+public static final PROCESSOR_LIST : Lnet/minecraft/resources/ResourceKey;
+public static final STRUCTURE_SET : Lnet/minecraft/resources/ResourceKey;
+public static final STRUCTURE : Lnet/minecraft/resources/ResourceKey;
+public static final SULFUR_CUBE_ARCHETYPE : Lnet/minecraft/resources/ResourceKey;
+public static final TEMPLATE_POOL : Lnet/minecraft/resources/ResourceKey;
+public static final TEST_ENVIRONMENT : Lnet/minecraft/resources/ResourceKey;
+public static final TEST_INSTANCE : Lnet/minecraft/resources/ResourceKey;
+public static final TIMELINE : Lnet/minecraft/resources/ResourceKey;
+public static final TRADE_SET : Lnet/minecraft/resources/ResourceKey;
+public static final TRIAL_SPAWNER_CONFIG : Lnet/minecraft/resources/ResourceKey;
+public static final TRIGGER_TYPE : Lnet/minecraft/resources/ResourceKey;
+public static final TRIM_MATERIAL : Lnet/minecraft/resources/ResourceKey;
+public static final TRIM_PATTERN : Lnet/minecraft/resources/ResourceKey;
+public static final VILLAGER_TRADE : Lnet/minecraft/resources/ResourceKey;
+public static final WOLF_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final WOLF_SOUND_VARIANT : Lnet/minecraft/resources/ResourceKey;
+public static final WORLD_CLOCK : Lnet/minecraft/resources/ResourceKey;
+public static final WORLD_PRESET : Lnet/minecraft/resources/ResourceKey;
+public static final DECORATED_POT_PATTERN : Lnet/minecraft/resources/ResourceKey;
+public static final BLOCK_TRANSFORMER : Lnet/minecraft/resources/ResourceKey;
+public static final DIMENSION : Lnet/minecraft/resources/ResourceKey;
+public static final LEVEL_STEM : Lnet/minecraft/resources/ResourceKey;
+public static final LOOT_TABLE : Lnet/minecraft/resources/ResourceKey;
+public static final ITEM_MODIFIER : Lnet/minecraft/resources/ResourceKey;
+public static final PREDICATE : Lnet/minecraft/resources/ResourceKey;
+public static final SLOT_SOURCE : Lnet/minecraft/resources/ResourceKey;
+public static final CONTEXT_FLOAT_PROVIDER : Lnet/minecraft/resources/ResourceKey;
+public static final CONTEXT_INT_PROVIDER : Lnet/minecraft/resources/ResourceKey;
+public static final ADVANCEMENT : Lnet/minecraft/resources/ResourceKey;
+public static final RECIPE : Lnet/minecraft/resources/ResourceKey;
+public <init>()V
+public static levelStemToLevel(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+public static levelToLevelStem(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+private static createRegistryKey(Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
+private static registryDirPath(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;
+public static elementsDirPath(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;
+public static tagsDirPath(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;
+public static componentsDirPath(Lnet/minecraft/resources/ResourceKey;)Ljava/lang/String;
+static <clinit>()V
 ```

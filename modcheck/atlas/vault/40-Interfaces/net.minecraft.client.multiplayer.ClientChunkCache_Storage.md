@@ -11,43 +11,43 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` final; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `inRange(II)Z` | `` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `inRange` | `(II)Z` | exact | invokevirtual@11 in `ClientChunkCacheMixin.onUpdateLoadDistance` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
 
-## Declared members (26, all visibilities)
+## Declared members (13 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-final class net.minecraft.client.multiplayer.ClientChunkCache$Storage {
-    private static final int UPDATE_TRACKING_BUFFERS;
-    private final java.util.concurrent.atomic.AtomicReferenceArray<net.minecraft.world.level.chunk.LevelChunk> chunks;
-    private final it.unimi.dsi.fastutil.longs.LongOpenHashSet[] addedEmptySections;
-    private final it.unimi.dsi.fastutil.longs.LongOpenHashSet[] removedEmptySections;
-    private final it.unimi.dsi.fastutil.longs.LongOpenHashSet[] addedLoadedChunks;
-    private final it.unimi.dsi.fastutil.longs.LongOpenHashSet[] removedLoadedChunks;
-    private int updatingSetsIndex;
-    private final int chunkRadius;
-    private final int viewRange;
-    private volatile int viewCenterX;
-    private volatile int viewCenterZ;
-    private int chunkCount;
-    final net.minecraft.client.multiplayer.ClientChunkCache this$0;
-    private net.minecraft.client.multiplayer.ClientChunkCache$Storage(net.minecraft.client.multiplayer.ClientChunkCache, int);
-    private int getIndex(int, int);
-    private void replace(int, net.minecraft.world.level.chunk.LevelChunk);
-    private void drop(int, net.minecraft.world.level.chunk.LevelChunk);
-    public void onSectionEmptinessChanged(int, int, int, boolean);
-    private void onChunkRemoved(net.minecraft.world.level.chunk.LevelChunk);
-    private void onChunkAdded(net.minecraft.world.level.chunk.LevelChunk);
-    private void refreshEmptySections(net.minecraft.world.level.chunk.LevelChunk);
-    private void markSectionEmpty(long);
-    private void markSectionNotEmpty(long);
-    private boolean inRange(int, int);
-    public net.minecraft.world.level.chunk.LevelChunk getChunk(int);
-    private void dumpChunks(java.lang.String);
-}
+```
+private static final UPDATE_TRACKING_BUFFERS : I
+private final chunks : Ljava/util/concurrent/atomic/AtomicReferenceArray;
+private final addedEmptySections : [Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+private final removedEmptySections : [Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+private final addedLoadedChunks : [Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+private final removedLoadedChunks : [Lit/unimi/dsi/fastutil/longs/LongOpenHashSet;
+private updatingSetsIndex : I
+private final chunkRadius : I
+private final viewRange : I
+private viewCenterX : I
+private viewCenterZ : I
+private chunkCount : I
+final synthetic this$0 : Lnet/minecraft/client/multiplayer/ClientChunkCache;
+private <init>(Lnet/minecraft/client/multiplayer/ClientChunkCache;I)V
+private getIndex(II)I
+private replace(ILnet/minecraft/world/level/chunk/LevelChunk;)V
+private drop(ILnet/minecraft/world/level/chunk/LevelChunk;)V
+public onSectionEmptinessChanged(IIIZ)V
+private onChunkRemoved(Lnet/minecraft/world/level/chunk/LevelChunk;)V
+private onChunkAdded(Lnet/minecraft/world/level/chunk/LevelChunk;)V
+private refreshEmptySections(Lnet/minecraft/world/level/chunk/LevelChunk;)V
+private markSectionEmpty(J)V
+private markSectionNotEmpty(J)V
+private inRange(II)Z
+public getChunk(I)Lnet/minecraft/world/level/chunk/LevelChunk;
+private dumpChunks(Ljava/lang/String;)V
 ```

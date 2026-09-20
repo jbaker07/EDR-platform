@@ -11,30 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.data|net.minecraft.client.data]]
 
+`class` ; extends `java/lang/Object`; implements `net/minecraft/client/data/models/ItemModelOutput`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `finalizeAndValidate` | `@ModifyArg at INVOKE Ljava/util/stream/Stream;filter(Ljava/util/function/Predica` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `finalizeAndValidate` | `()V` | name_only | @ModifyArg at ['INVOKE'] | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| wraps | `lambda$finalizeAndValidate$0` | `(Lnet/minecraft/world/item/Item;)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (2 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.client.data.models.ModelProvider$ItemInfoCollector implements net.minecraft.client.data.models.ItemModelOutput {
-    private final java.util.Map<net.minecraft.world.item.Item, net.minecraft.client.renderer.item.ClientItem> itemInfos;
-    private final java.util.Map<net.minecraft.world.item.Item, net.minecraft.world.item.Item> copies;
-    private net.minecraft.client.data.models.ModelProvider$ItemInfoCollector();
-    public void accept(net.minecraft.world.item.Item, net.minecraft.client.renderer.item.ItemModel$Unbaked, net.minecraft.client.renderer.item.ClientItem$Properties);
-    private void register(net.minecraft.world.item.Item, net.minecraft.client.renderer.item.ClientItem);
-    public void copy(net.minecraft.world.item.Item, net.minecraft.world.item.Item);
-    public void finalizeAndValidate();
-    public java.util.concurrent.CompletableFuture<?> save(net.minecraft.data.CachedOutput, net.minecraft.data.PackOutput$PathProvider);
-    private static java.nio.file.Path lambda$save$0(net.minecraft.data.PackOutput$PathProvider, net.minecraft.world.item.Item);
-    private static net.minecraft.resources.Identifier lambda$finalizeAndValidate$3(net.minecraft.core.Holder$Reference);
-    private boolean lambda$finalizeAndValidate$2(net.minecraft.core.Holder$Reference);
-    private void lambda$finalizeAndValidate$1(net.minecraft.world.item.Item, net.minecraft.world.item.Item);
-    private void lambda$finalizeAndValidate$0(net.minecraft.world.item.Item);
-}
+```
+private final itemInfos : Ljava/util/Map;
+private final copies : Ljava/util/Map;
+private <init>()V
+public accept(Lnet/minecraft/world/item/Item;Lnet/minecraft/client/renderer/item/ItemModel$Unbaked;Lnet/minecraft/client/renderer/item/ClientItem$Properties;)V
+private register(Lnet/minecraft/world/item/Item;Lnet/minecraft/client/renderer/item/ClientItem;)V
+public copy(Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/Item;)V
+public finalizeAndValidate()V
+public save(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/data/PackOutput$PathProvider;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$save$0(Lnet/minecraft/data/PackOutput$PathProvider;Lnet/minecraft/world/item/Item;)Ljava/nio/file/Path;
+private static synthetic lambda$finalizeAndValidate$3(Lnet/minecraft/core/Holder$Reference;)Lnet/minecraft/resources/Identifier;
+private synthetic lambda$finalizeAndValidate$2(Lnet/minecraft/core/Holder$Reference;)Z
+private synthetic lambda$finalizeAndValidate$1(Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/Item;)V
+private synthetic lambda$finalizeAndValidate$0(Lnet/minecraft/world/item/Item;)V
 ```

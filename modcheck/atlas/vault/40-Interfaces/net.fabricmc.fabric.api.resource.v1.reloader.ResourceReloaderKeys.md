@@ -15,5 +15,4 @@ Module: [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] --
 ```java
 public static final net.minecraft.resources.Identifier BEFORE_VANILLA
 public static final net.minecraft.resources.Identifier AFTER_VANILLA
-static {}
 ```

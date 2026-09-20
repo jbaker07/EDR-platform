@@ -13,5 +13,5 @@ sha256: "a3a82771b3fd9f2eb36e1098c5f90759ac877982b9ac297831a1fce9b2185bf8"
 Module: [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] -- kind: interface
 
 ```java
-public abstract java.util.concurrent.CompletableFuture<java.util.function.Consumer<net.fabricmc.fabric.api.permission.v1.MutablePermissionContext>> prepareOfflinePlayer(net.fabricmc.fabric.api.permission.v1.PermissionContext, net.minecraft.server.MinecraftServer)
+public abstract java.util.concurrent.CompletableFuture prepareOfflinePlayer(net.fabricmc.fabric.api.permission.v1.PermissionContext, net.minecraft.server.MinecraftServer)
 ```

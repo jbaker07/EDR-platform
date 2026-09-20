@@ -11,31 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.tags|net.minecraft.tags]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `LAVALnet/minecraft/tags/TagKey;` | `` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| reads | `WATERLnet/minecraft/tags/TagKey;` | `` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `LAVA` | `Lnet/minecraft/tags/TagKey;` | exact | getstatic@13 in `EntityMixin.isInFluid` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `WATER` | `Lnet/minecraft/tags/TagKey;` | exact | getstatic@1 in `EntityMixin.isInFluid` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `WATER` | `Lnet/minecraft/tags/TagKey;` | exact | getstatic@17 in `HudStatusBarHeightRegistryImpl.lambda$static$5` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (10 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.tags.FluidTags {
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> WATER;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> LAVA;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> SUPPORTS_SUGAR_CANE_ADJACENTLY;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> SUPPORTS_LILY_PAD;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> SUPPORTS_FROGSPAWN;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> BUBBLE_COLUMN_CAN_OCCUPY;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> AXOLOTL_TRIES_TO_FIND;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> DOLPHIN_TRIES_TO_FIND;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> FROG_TRIES_TO_FIND_LAND_NEAR;
-    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> ENTITY_FLOATABLE;
-    private net.minecraft.tags.FluidTags();
-    private static net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> create(java.lang.String);
-    static {};
-}
+```
+public static final WATER : Lnet/minecraft/tags/TagKey;
+public static final LAVA : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_SUGAR_CANE_ADJACENTLY : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_LILY_PAD : Lnet/minecraft/tags/TagKey;
+public static final SUPPORTS_FROGSPAWN : Lnet/minecraft/tags/TagKey;
+public static final BUBBLE_COLUMN_CAN_OCCUPY : Lnet/minecraft/tags/TagKey;
+public static final AXOLOTL_TRIES_TO_FIND : Lnet/minecraft/tags/TagKey;
+public static final DOLPHIN_TRIES_TO_FIND : Lnet/minecraft/tags/TagKey;
+public static final FROG_TRIES_TO_FIND_LAND_NEAR : Lnet/minecraft/tags/TagKey;
+public static final ENTITY_FLOATABLE : Lnet/minecraft/tags/TagKey;
+private <init>()V
+private static create(Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
+static <clinit>()V
 ```

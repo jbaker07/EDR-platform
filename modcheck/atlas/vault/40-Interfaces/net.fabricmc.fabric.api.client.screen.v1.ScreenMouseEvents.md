@@ -13,16 +13,16 @@ sha256: "6d0660544189cee8ed9a0d7a668ff69c30068799de633e4813924c0b6d3d49ed"
 Module: [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] -- kind: class
 
 ```java
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AllowMouseClick> allowMouseClick(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$BeforeMouseClick> beforeMouseClick(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AfterMouseClick> afterMouseClick(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AllowMouseRelease> allowMouseRelease(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$BeforeMouseRelease> beforeMouseRelease(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AfterMouseRelease> afterMouseRelease(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AllowMouseDrag> allowMouseDrag(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$BeforeMouseDrag> beforeMouseDrag(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AfterMouseDrag> afterMouseDrag(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AllowMouseScroll> allowMouseScroll(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$BeforeMouseScroll> beforeMouseScroll(net.minecraft.client.gui.screens.Screen)
-public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents$AfterMouseScroll> afterMouseScroll(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event allowMouseClick(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event beforeMouseClick(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event afterMouseClick(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event allowMouseRelease(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event beforeMouseRelease(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event afterMouseRelease(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event allowMouseDrag(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event beforeMouseDrag(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event afterMouseDrag(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event allowMouseScroll(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event beforeMouseScroll(net.minecraft.client.gui.screens.Screen)
+public static net.fabricmc.fabric.api.event.Event afterMouseScroll(net.minecraft.client.gui.screens.Screen)
 ```

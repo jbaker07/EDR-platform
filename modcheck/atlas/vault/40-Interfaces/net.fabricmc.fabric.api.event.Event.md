@@ -13,12 +13,11 @@ sha256: "88485b1edbcb642fa28b8f53e173835b19f6b6e49aa5b088e3fe16653ef67a13"
 Module: [[30-Mechanisms/fabric-api-base|fabric-api-base]] -- kind: abstract_class
 
 ```java
-protected volatile T invoker
+protected java.lang.Object invoker
 public static final net.minecraft.resources.Identifier DEFAULT_PHASE
-public net.fabricmc.fabric.api.event.Event()
-public final T invoker()
-public abstract void register(T)
-public void register(net.minecraft.resources.Identifier, T)
+public <init>()
+public final java.lang.Object invoker()
+public abstract void register(java.lang.Object)
+public void register(net.minecraft.resources.Identifier, java.lang.Object)
 public void addPhaseOrdering(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier)
-static {}
 ```

@@ -1,5 +1,10 @@
 - id: request.lantern_moth
   title: Lantern moth -- an animated flying entity that circles lit lanterns
+  analyst_exercise: true
+  canonical_request:
+    id: exercise.lantern_moth
+    kind: analyst_exercise
+    requirement_ids: []
   family: workflow:wf.presentation.models_animation
   request: >-
     Analyst-authored exercise request: a small moth entity with flapping wings that
@@ -37,6 +42,6 @@
   evidence:
     - extracted:corpus.json
     - extracted:fabric_api.json#fabric-rendering-v1
-    - extracted:minecraft_members.json
+    - extracted:minecraft_surface.json.gz
   status: {analysed: true, implemented: none, validated_scope: none}
   provenance: {author: analyst, added: '2026-09-20'}

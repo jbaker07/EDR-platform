@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/level/material/FlowingFluid`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `spreadTo` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `spreadTo` | `(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (2 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.level.material.LavaFluid extends net.minecraft.world.level.material.FlowingFluid {
-    public static final int LIGHT_EMISSION;
-    public static final float MIN_LEVEL_CUTOFF;
-    public net.minecraft.world.level.material.LavaFluid();
-    public net.minecraft.world.level.material.Fluid getFlowing();
-    public net.minecraft.world.level.material.Fluid getSource();
-    public net.minecraft.world.item.Item getBucket();
-    public void animateTick(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.material.FluidState, net.minecraft.util.RandomSource);
-    public void randomTick(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.material.FluidState, net.minecraft.util.RandomSource);
-    protected void entityInside(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.entity.Entity, net.minecraft.world.entity.InsideBlockEffectApplier);
-    private boolean hasFlammableNeighbours(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos);
-    private boolean isFlammable(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos);
-    public net.minecraft.core.particles.ParticleOptions getDripParticle();
-    protected void beforeDestroyingBlock(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public int getSlopeFindDistance(net.minecraft.world.level.LevelReader);
-    public net.minecraft.world.level.block.state.BlockState createLegacyBlock(net.minecraft.world.level.material.FluidState);
-    public boolean isSame(net.minecraft.world.level.material.Fluid);
-    public int getDropOff(net.minecraft.world.level.LevelReader);
-    public boolean canBeReplacedWith(net.minecraft.world.level.material.FluidState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.material.Fluid, net.minecraft.core.Direction);
-    public int getTickDelay(net.minecraft.world.level.LevelReader);
-    public int getSpreadDelay(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.material.FluidState, net.minecraft.world.level.material.FluidState);
-    private void fizz(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
-    protected boolean canConvertToSource(net.minecraft.server.level.ServerLevel);
-    protected void spreadTo(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.world.level.material.FluidState);
-    protected boolean isRandomlyTicking();
-    protected float getExplosionResistance();
-    public java.util.Optional<net.minecraft.sounds.SoundEvent> getPickupSound();
-    private static boolean isFastLava(net.minecraft.world.level.LevelReader);
-}
+```
+public static final LIGHT_EMISSION : I
+public static final MIN_LEVEL_CUTOFF : F
+public <init>()V
+public getFlowing()Lnet/minecraft/world/level/material/Fluid;
+public getSource()Lnet/minecraft/world/level/material/Fluid;
+public getBucket()Lnet/minecraft/world/item/Item;
+public animateTick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/util/RandomSource;)V
+public randomTick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/util/RandomSource;)V
+protected entityInside(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/InsideBlockEffectApplier;)V
+private hasFlammableNeighbours(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+private isFlammable(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+public getDripParticle()Lnet/minecraft/core/particles/ParticleOptions;
+protected beforeDestroyingBlock(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public getSlopeFindDistance(Lnet/minecraft/world/level/LevelReader;)I
+public createLegacyBlock(Lnet/minecraft/world/level/material/FluidState;)Lnet/minecraft/world/level/block/state/BlockState;
+public isSame(Lnet/minecraft/world/level/material/Fluid;)Z
+public getDropOff(Lnet/minecraft/world/level/LevelReader;)I
+public canBeReplacedWith(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/Direction;)Z
+public getTickDelay(Lnet/minecraft/world/level/LevelReader;)I
+public getSpreadDelay(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/material/FluidState;)I
+private fizz(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V
+protected canConvertToSource(Lnet/minecraft/server/level/ServerLevel;)Z
+protected spreadTo(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)V
+protected isRandomlyTicking()Z
+protected getExplosionResistance()F
+public getPickupSound()Ljava/util/Optional;
+private static isFastLava(Lnet/minecraft/world/level/LevelReader;)Z
 ```

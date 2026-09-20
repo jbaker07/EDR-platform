@@ -15,5 +15,5 @@ Module: [[30-Mechanisms/fabric-resource-loader-v0|fabric-resource-loader-v0]] --
 ```java
 public abstract net.fabricmc.loader.api.metadata.ModMetadata getFabricModMetadata()
 public abstract net.fabricmc.fabric.api.resource.ModResourcePack createOverlay(java.lang.String)
-public default net.fabricmc.fabric.api.resource.v1.pack.ModPackResources createOverlay(java.lang.String)
+public net.fabricmc.fabric.api.resource.v1.pack.ModPackResources createOverlay(java.lang.String)
 ```

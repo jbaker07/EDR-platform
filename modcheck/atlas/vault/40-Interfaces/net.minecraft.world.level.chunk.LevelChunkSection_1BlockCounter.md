@@ -11,24 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` ; extends `java/lang/Object`; implements `net/minecraft/world/level/chunk/PalettedContainer$CountConsumer`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `accept(Lnet/minecraft/world/level/block/state/BlockState;I)V` | `@Redirect at INVOKE Lnet/minecraft/world/level/block/state/BlockState;isAir()Z` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `accept` | `(Lnet/minecraft/world/level/block/state/BlockState;I)V` | exact | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (4 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.world.level.chunk.LevelChunkSection$1BlockCounter implements net.minecraft.world.level.chunk.PalettedContainer$CountConsumer<net.minecraft.world.level.block.state.BlockState> {
-    public int nonEmptyBlockCount;
-    public int fluidCount;
-    public int tickingBlockCount;
-    public int tickingFluidCount;
-    net.minecraft.world.level.chunk.LevelChunkSection$1BlockCounter(net.minecraft.world.level.chunk.LevelChunkSection);
-    public void accept(net.minecraft.world.level.block.state.BlockState, int);
-    public void accept(java.lang.Object, int);
-}
+```
+public nonEmptyBlockCount : I
+public fluidCount : I
+public tickingBlockCount : I
+public tickingFluidCount : I
+ <init>(Lnet/minecraft/world/level/chunk/LevelChunkSection;)V
+public accept(Lnet/minecraft/world/level/block/state/BlockState;I)V
+public synthetic accept(Ljava/lang/Object;I)V
 ```

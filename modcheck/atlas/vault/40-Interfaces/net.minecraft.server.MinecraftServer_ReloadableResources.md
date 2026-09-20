@@ -11,27 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`record` final; extends `java/lang/Record`; implements `java/lang/AutoCloseable`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `managers()Lnet/minecraft/server/ReloadableServerResources;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `resourceManager()Lnet/minecraft/server/packs/resources/CloseableResourceMan` | `` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `managers` | `()Lnet/minecraft/server/ReloadableServerResources;` | exact | invokevirtual@4 in `MinecraftServerMixin.getOrThrow` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `resourceManager` | `()Lnet/minecraft/server/packs/resources/CloseableResourceManager;` | exact | invokevirtual@17 in `MinecraftServerMixin.startResourceReload` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| calls | `resourceManager` | `()Lnet/minecraft/server/packs/resources/CloseableResourceManager;` | exact | invokevirtual@17 in `MinecraftServerMixin.lambda$endResourceReload$0` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (2 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-final class net.minecraft.server.MinecraftServer$ReloadableResources extends java.lang.Record implements java.lang.AutoCloseable {
-    private final net.minecraft.server.packs.resources.CloseableResourceManager resourceManager;
-    private final net.minecraft.server.ReloadableServerResources managers;
-    private net.minecraft.server.MinecraftServer$ReloadableResources(net.minecraft.server.packs.resources.CloseableResourceManager, net.minecraft.server.ReloadableServerResources);
-    public void close();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.server.packs.resources.CloseableResourceManager resourceManager();
-    public net.minecraft.server.ReloadableServerResources managers();
-}
+```
+private final resourceManager : Lnet/minecraft/server/packs/resources/CloseableResourceManager;
+private final managers : Lnet/minecraft/server/ReloadableServerResources;
+private <init>(Lnet/minecraft/server/packs/resources/CloseableResourceManager;Lnet/minecraft/server/ReloadableServerResources;)V
+public close()V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public resourceManager()Lnet/minecraft/server/packs/resources/CloseableResourceManager;
+public managers()Lnet/minecraft/server/ReloadableServerResources;
 ```

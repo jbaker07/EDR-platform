@@ -11,49 +11,54 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util.random|net.minecraft.util.random]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getRandomOrThrow(Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `of(Ljava/util/List;)Lnet/minecraft/util/random/WeightedList;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `unwrap()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `unwrap()Ljava/util/List;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getRandomOrThrow` | `(Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;` | exact | invokevirtual@6 in `WeightedVariantsMixin.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getRandomOrThrow` | `(Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;` | exact | invokevirtual@6 in `WeightedVariantsMixin.createGeometryKey` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getRandomOrThrow` | `(Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;` | exact | invokevirtual@6 in `WeightedVariantsMixin.materialFlags` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `of` | `(Ljava/util/List;)Lnet/minecraft/util/random/WeightedList;` | exact | invokestatic@56 in `BiomeModificationContextImpl$SpawnSettingsContextImpl.applyPendingChan | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `of` | `(Ljava/util/List;)Lnet/minecraft/util/random/WeightedList;` | exact | invokestatic@13 in `CustomUnbakedBlockStateModelRegistry.lambda$static$2` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `unwrap` | `()Ljava/util/List;` | exact | invokevirtual@58 in `BiomeSelectors.lambda$spawnsOneOf$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `unwrap` | `()Ljava/util/List;` | exact | invokevirtual@157 in `BiomeModificationContextImpl$SpawnSettingsContextImpl.reload` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `unwrap` | `()Ljava/util/List;` | exact | invokevirtual@4 in `CustomUnbakedBlockStateModelRegistry.lambda$static$5` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `unwrap` | `()Ljava/util/List;` | exact | invokevirtual@4 in `WeightedVariantsMixin.particleMaterial` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (29, all visibilities)
+## Declared members (4 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.util.random.WeightedList<E> {
-    private static final int FLAT_THRESHOLD;
-    private final int totalWeight;
-    private final java.util.List<net.minecraft.util.random.Weighted<E>> items;
-    private final net.minecraft.util.random.WeightedList$Selector<E> selector;
-    private net.minecraft.util.random.WeightedList(java.util.List<? extends net.minecraft.util.random.Weighted<E>>);
-    public static <E> net.minecraft.util.random.WeightedList<E> of();
-    public static <E> net.minecraft.util.random.WeightedList<E> of(E);
-    public static <E> net.minecraft.util.random.WeightedList<E> of(E...);
-    public static <E> net.minecraft.util.random.WeightedList<E> of(net.minecraft.util.random.Weighted<E>...);
-    public static <E> net.minecraft.util.random.WeightedList<E> of(java.util.List<net.minecraft.util.random.Weighted<E>>);
-    public static <E> net.minecraft.util.random.WeightedList$Builder<E> builder();
-    public boolean isEmpty();
-    public <T> net.minecraft.util.random.WeightedList<T> map(java.util.function.Function<E, T>);
-    public java.util.Optional<E> getRandom(net.minecraft.util.RandomSource);
-    public E getRandomOrThrow(net.minecraft.util.RandomSource);
-    public java.util.List<net.minecraft.util.random.Weighted<E>> unwrap();
-    private static <E> com.mojang.serialization.Codec<net.minecraft.util.random.WeightedList<E>> entryToListCodec(com.mojang.serialization.Codec<net.minecraft.util.random.Weighted<E>>);
-    public static <E> com.mojang.serialization.Codec<net.minecraft.util.random.WeightedList<E>> codec(com.mojang.serialization.Codec<E>);
-    public static <E> com.mojang.serialization.Codec<net.minecraft.util.random.WeightedList<E>> codec(com.mojang.serialization.MapCodec<E>);
-    private static <E> com.mojang.serialization.Codec<net.minecraft.util.random.WeightedList<E>> entryToNonEmptyListCodec(com.mojang.serialization.Codec<net.minecraft.util.random.Weighted<E>>);
-    public static <E> com.mojang.serialization.Codec<net.minecraft.util.random.WeightedList<E>> nonEmptyCodec(com.mojang.serialization.Codec<E>);
-    public static <E> com.mojang.serialization.Codec<net.minecraft.util.random.WeightedList<E>> nonEmptyCodec(com.mojang.serialization.MapCodec<E>);
-    public static <E, B extends io.netty.buffer.ByteBuf> net.minecraft.network.codec.StreamCodec<B, net.minecraft.util.random.WeightedList<E>> streamCodec(net.minecraft.network.codec.StreamCodec<B, E>);
-    public boolean contains(E);
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    private static com.mojang.serialization.DataResult lambda$entryToNonEmptyListCodec$0(net.minecraft.util.random.WeightedList);
-    private static java.lang.String lambda$entryToNonEmptyListCodec$1();
-    private static net.minecraft.util.random.Weighted lambda$map$0(java.util.function.Function, net.minecraft.util.random.Weighted);
-}
+```
+private static final FLAT_THRESHOLD : I
+private final totalWeight : I
+private final items : Ljava/util/List;
+private final selector : Lnet/minecraft/util/random/WeightedList$Selector;
+private <init>(Ljava/util/List;)V
+public static of()Lnet/minecraft/util/random/WeightedList;
+public static of(Ljava/lang/Object;)Lnet/minecraft/util/random/WeightedList;
+public static of([Ljava/lang/Object;)Lnet/minecraft/util/random/WeightedList;
+public static of([Lnet/minecraft/util/random/Weighted;)Lnet/minecraft/util/random/WeightedList;
+public static of(Ljava/util/List;)Lnet/minecraft/util/random/WeightedList;
+public static builder()Lnet/minecraft/util/random/WeightedList$Builder;
+public isEmpty()Z
+public map(Ljava/util/function/Function;)Lnet/minecraft/util/random/WeightedList;
+public getRandom(Lnet/minecraft/util/RandomSource;)Ljava/util/Optional;
+public getRandomOrThrow(Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;
+public unwrap()Ljava/util/List;
+private static entryToListCodec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;
+public static codec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;
+public static codec(Lcom/mojang/serialization/MapCodec;)Lcom/mojang/serialization/Codec;
+private static entryToNonEmptyListCodec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;
+public static nonEmptyCodec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;
+public static nonEmptyCodec(Lcom/mojang/serialization/MapCodec;)Lcom/mojang/serialization/Codec;
+public static streamCodec(Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+public contains(Ljava/lang/Object;)Z
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+private static synthetic lambda$entryToNonEmptyListCodec$0(Lnet/minecraft/util/random/WeightedList;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$entryToNonEmptyListCodec$1()Ljava/lang/String;
+private static synthetic lambda$map$0(Ljava/util/function/Function;Lnet/minecraft/util/random/Weighted;)Lnet/minecraft/util/random/Weighted;
 ```

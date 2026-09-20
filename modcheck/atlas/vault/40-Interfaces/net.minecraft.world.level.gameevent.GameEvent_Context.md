@@ -11,28 +11,29 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `of(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/min` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `of` | `(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/wor` | exact | invokestatic@57 in `ComposterWrapper.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `of` | `(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/wor` | exact | invokestatic@234 in `ComposterWrapper.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.gameevent.GameEvent$Context extends java.lang.Record {
-    private final net.minecraft.world.entity.Entity sourceEntity;
-    private final net.minecraft.world.level.block.state.BlockState affectedState;
-    public net.minecraft.world.level.gameevent.GameEvent$Context(net.minecraft.world.entity.Entity, net.minecraft.world.level.block.state.BlockState);
-    public static net.minecraft.world.level.gameevent.GameEvent$Context of(net.minecraft.world.entity.Entity);
-    public static net.minecraft.world.level.gameevent.GameEvent$Context of(net.minecraft.world.level.block.state.BlockState);
-    public static net.minecraft.world.level.gameevent.GameEvent$Context of(net.minecraft.world.entity.Entity, net.minecraft.world.level.block.state.BlockState);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.world.entity.Entity sourceEntity();
-    public net.minecraft.world.level.block.state.BlockState affectedState();
-}
+```
+private final sourceEntity : Lnet/minecraft/world/entity/Entity;
+private final affectedState : Lnet/minecraft/world/level/block/state/BlockState;
+public <init>(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/state/BlockState;)V
+public static of(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/level/gameevent/GameEvent$Context;
+public static of(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/gameevent/GameEvent$Context;
+public static of(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/gameevent/GameEvent$Context;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public sourceEntity()Lnet/minecraft/world/entity/Entity;
+public affectedState()Lnet/minecraft/world/level/block/state/BlockState;
 ```

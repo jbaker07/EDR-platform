@@ -11,34 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `shouldKeep(B)Z` | `` | client | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `shouldKeep` | `(B)Z` | exact | invokevirtual@6 in `ClientPacketListenerMixin.copyAttachmentsOnClientRespawn` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (6 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.protocol.game.ClientboundRespawnPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ClientGamePacketListener> {
-    private final net.minecraft.network.protocol.game.CommonPlayerSpawnInfo commonPlayerSpawnInfo;
-    private final byte dataToKeep;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.network.protocol.game.ClientboundRespawnPacket> STREAM_CODEC;
-    public static final byte KEEP_ATTRIBUTE_MODIFIERS;
-    public static final byte KEEP_ENTITY_DATA;
-    public static final byte KEEP_ALL_DATA;
-    public net.minecraft.network.protocol.game.ClientboundRespawnPacket(net.minecraft.network.protocol.game.CommonPlayerSpawnInfo, byte);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.game.ClientboundRespawnPacket> type();
-    public void handle(net.minecraft.network.protocol.game.ClientGamePacketListener);
-    public boolean shouldKeep(byte);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.network.protocol.game.CommonPlayerSpawnInfo commonPlayerSpawnInfo();
-    public byte dataToKeep();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+private final commonPlayerSpawnInfo : Lnet/minecraft/network/protocol/game/CommonPlayerSpawnInfo;
+private final dataToKeep : B
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final KEEP_ATTRIBUTE_MODIFIERS : B
+public static final KEEP_ENTITY_DATA : B
+public static final KEEP_ALL_DATA : B
+public <init>(Lnet/minecraft/network/protocol/game/CommonPlayerSpawnInfo;B)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/game/ClientGamePacketListener;)V
+public shouldKeep(B)Z
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public commonPlayerSpawnInfo()Lnet/minecraft/network/protocol/game/CommonPlayerSpawnInfo;
+public dataToKeep()B
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

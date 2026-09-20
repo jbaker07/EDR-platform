@@ -70,7 +70,7 @@
   extension_points:
     - mechanism:fabric-rendering-v1 exposes level render passes as events (for example event:net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN) and entity renderer/model-layer registration.
     - Feature render layers on living entities through event:net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT.
-    - mechanism:fabric-renderer-api-v1 and mechanism:fabric-renderer-indigo define the mesh/quad emitting model used by block models (the unresolved emitQuads targets in extracted:minecraft_members.json are interface-declared members of this pipeline).
+    - mechanism:fabric-renderer-api-v1 and mechanism:fabric-renderer-indigo define the mesh/quad emitting model used by block models (the unresolved emitQuads targets in extracted:minecraft_surface.json.gz are interface-declared members of this pipeline).
     - mechanism:fabric-model-loading-api-v1 hooks model loading and baking.
   interactions:
     - Every level render event is per frame; work there is paid at frame rate, not tick rate.

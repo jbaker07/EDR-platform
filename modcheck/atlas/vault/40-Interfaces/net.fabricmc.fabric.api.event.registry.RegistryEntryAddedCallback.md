@@ -13,7 +13,7 @@ sha256: "039a5c3dee042ff156c52c4bec64a384e766e830a37cc9f6bf68f1e7dc3646b1"
 Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: interface
 
 ```java
-public abstract void onEntryAdded(int, net.minecraft.resources.Identifier, T)
-public static <T> net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback<T>> event(net.minecraft.core.Registry<T>)
-public static <T> void allEntries(net.minecraft.core.Registry<T>, java.util.function.Consumer<net.minecraft.core.Holder$Reference<T>>)
+public abstract void onEntryAdded(int, net.minecraft.resources.Identifier, java.lang.Object)
+public static net.fabricmc.fabric.api.event.Event event(net.minecraft.core.Registry)
+public static void allEntries(net.minecraft.core.Registry, java.util.function.Consumer)
 ```

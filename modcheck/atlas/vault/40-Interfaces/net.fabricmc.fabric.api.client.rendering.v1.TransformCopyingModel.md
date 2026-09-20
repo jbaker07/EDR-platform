@@ -13,10 +13,10 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
-public static <S, D> net.fabricmc.fabric.api.client.rendering.v1.TransformCopyingModel<S, D> create(net.minecraft.client.model.Model<? super S>, net.minecraft.client.model.Model<? super D>, boolean)
-public void setupAnim(com.mojang.datafixers.util.Pair<S, D>)
+public static net.fabricmc.fabric.api.client.rendering.v1.TransformCopyingModel create(net.minecraft.client.model.Model, net.minecraft.client.model.Model, boolean)
+public void setupAnim(com.mojang.datafixers.util.Pair)
 public void fabric$calculateChildParts(net.minecraft.client.model.geom.ModelPart)
 public net.minecraft.client.model.geom.ModelPart getChildPart(java.lang.String)
-public void copyTransforms(net.minecraft.client.model.Model<?>)
+public void copyTransforms(net.minecraft.client.model.Model)
 public void setupAnim(java.lang.Object)
 ```

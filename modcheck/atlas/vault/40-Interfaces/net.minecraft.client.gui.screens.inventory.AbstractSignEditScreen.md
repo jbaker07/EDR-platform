@@ -11,54 +11,54 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`abstract_class` public abstract; extends `net/minecraft/client/gui/screens/Screen`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lne` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lne` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraf` | exact | invokespecial@4 in `HangingSignEditScreenMixin.<init>` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraf` | exact | invokespecial@4 in `SignEditScreenMixin.<init>` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (36, all visibilities)
+## Declared members (12 fields, 24 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen extends net.minecraft.client.gui.screens.Screen {
-    private static final int LINE_COUNT;
-    protected final net.minecraft.world.level.block.entity.SignBlockEntity sign;
-    private final net.minecraft.world.level.block.entity.SignText$Mutable text;
-    private final java.lang.String[] messages;
-    private final net.minecraft.world.level.block.entity.SignTextSlot slot;
-    private final int textColor;
-    protected final net.minecraft.world.level.block.state.properties.WoodType woodType;
-    private long cursorBlinkStartTime;
-    private int line;
-    private final net.minecraft.client.gui.font.TextFieldHelper signField;
-    private net.minecraft.client.gui.components.IMEPreeditOverlay preeditOverlay;
-    private final org.joml.Vector2f cursorPosScratch;
-    public net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen(net.minecraft.world.level.block.entity.SignBlockEntity, net.minecraft.world.level.block.entity.SignTextSlot, boolean);
-    public net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen(net.minecraft.world.level.block.entity.SignBlockEntity, net.minecraft.world.level.block.entity.SignTextSlot, boolean, net.minecraft.network.chat.Component);
-    protected void init();
-    public void tick();
-    private boolean isValid();
-    public boolean keyPressed(net.minecraft.client.input.KeyEvent);
-    public boolean isInputCaptured();
-    public boolean charTyped(net.minecraft.client.input.CharacterEvent);
-    public boolean preeditUpdated(net.minecraft.client.input.PreeditEvent);
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    public void onClose();
-    public void removed();
-    public boolean isPauseScreen();
-    public boolean isInGameUi();
-    protected abstract void extractSignBackground(net.minecraft.client.gui.GuiGraphicsExtractor);
-    protected abstract org.joml.Vector3fc getSignTextScale();
-    protected abstract float getSignYOffset();
-    private void extractSign(net.minecraft.client.gui.GuiGraphicsExtractor);
-    private void extractSignText(net.minecraft.client.gui.GuiGraphicsExtractor, org.joml.Vector2f);
-    private void setMessage(java.lang.String);
-    private void onDone();
-    private void lambda$init$0(net.minecraft.client.gui.components.Button);
-    private boolean lambda$new$1(net.minecraft.world.level.block.entity.SignBlockEntity, java.lang.String);
-    private java.lang.String lambda$new$0();
-}
+```
+private static final LINE_COUNT : I
+protected final sign : Lnet/minecraft/world/level/block/entity/SignBlockEntity;
+private final text : Lnet/minecraft/world/level/block/entity/SignText$Mutable;
+private final messages : [Ljava/lang/String;
+private final slot : Lnet/minecraft/world/level/block/entity/SignTextSlot;
+private final textColor : I
+protected final woodType : Lnet/minecraft/world/level/block/state/properties/WoodType;
+private cursorBlinkStartTime : J
+private line : I
+private final signField : Lnet/minecraft/client/gui/font/TextFieldHelper;
+private preeditOverlay : Lnet/minecraft/client/gui/components/IMEPreeditOverlay;
+private final cursorPosScratch : Lorg/joml/Vector2f;
+public <init>(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraft/world/level/block/entity/SignTextSlot;Z)V
+public <init>(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraft/world/level/block/entity/SignTextSlot;ZLnet/minecraft/network/chat/Component;)V
+protected init()V
+public tick()V
+private isValid()Z
+public keyPressed(Lnet/minecraft/client/input/KeyEvent;)Z
+public isInputCaptured()Z
+public charTyped(Lnet/minecraft/client/input/CharacterEvent;)Z
+public preeditUpdated(Lnet/minecraft/client/input/PreeditEvent;)Z
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+public onClose()V
+public removed()V
+public isPauseScreen()Z
+public isInGameUi()Z
+protected abstract extractSignBackground(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+protected abstract getSignTextScale()Lorg/joml/Vector3fc;
+protected abstract getSignYOffset()F
+private extractSign(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+private extractSignText(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lorg/joml/Vector2f;)V
+private setMessage(Ljava/lang/String;)V
+private onDone()V
+private synthetic lambda$init$0(Lnet/minecraft/client/gui/components/Button;)V
+private synthetic lambda$new$1(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Ljava/lang/String;)Z
+private synthetic lambda$new$0()Ljava/lang/String;
 ```

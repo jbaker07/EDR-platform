@@ -11,29 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.network|net.minecraft.server.network]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/server/network/ConfigurationTask`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `handleResponse` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `sendRegistries` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `start` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `sendRegistries` | `(Ljava/util/function/Consumer;Ljava/util/Set;)V` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
+| injects_into | `handleResponse` | `(Ljava/util/List;Ljava/util/function/Consumer;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `sendRegistries` | `(Ljava/util/function/Consumer;Ljava/util/Set;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `start` | `(Ljava/util/function/Consumer;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| reads | `requestedPacks` | `Ljava/util/List;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
 
-## Declared members (10, all visibilities)
+## Declared members (3 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.network.config.SynchronizeRegistriesTask implements net.minecraft.server.network.ConfigurationTask {
-    public static final net.minecraft.server.network.ConfigurationTask$Type TYPE;
-    private final java.util.List<net.minecraft.server.packs.repository.KnownPack> requestedPacks;
-    private final net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer> registries;
-    public net.minecraft.server.network.config.SynchronizeRegistriesTask(java.util.List<net.minecraft.server.packs.repository.KnownPack>, net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>);
-    public void start(java.util.function.Consumer<net.minecraft.network.protocol.Packet<?>>);
-    private void sendRegistries(java.util.function.Consumer<net.minecraft.network.protocol.Packet<?>>, java.util.Set<net.minecraft.server.packs.repository.KnownPack>);
-    public void handleResponse(java.util.List<net.minecraft.server.packs.repository.KnownPack>, java.util.function.Consumer<net.minecraft.network.protocol.Packet<?>>);
-    public net.minecraft.server.network.ConfigurationTask$Type type();
-    private static void lambda$sendRegistries$0(java.util.function.Consumer, net.minecraft.resources.ResourceKey, java.util.List);
-    static {};
-}
+```
+public static final TYPE : Lnet/minecraft/server/network/ConfigurationTask$Type;
+private final requestedPacks : Ljava/util/List;
+private final registries : Lnet/minecraft/core/LayeredRegistryAccess;
+public <init>(Ljava/util/List;Lnet/minecraft/core/LayeredRegistryAccess;)V
+public start(Ljava/util/function/Consumer;)V
+private sendRegistries(Ljava/util/function/Consumer;Ljava/util/Set;)V
+public handleResponse(Ljava/util/List;Ljava/util/function/Consumer;)V
+public type()Lnet/minecraft/server/network/ConfigurationTask$Type;
+private static synthetic lambda$sendRegistries$0(Ljava/util/function/Consumer;Lnet/minecraft/resources/ResourceKey;Ljava/util/List;)V
+static <clinit>()V
 ```

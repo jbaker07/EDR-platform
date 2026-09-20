@@ -11,39 +11,39 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.model|net.minecraft.client.model]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `createRoots` | `@Inject at INVOKE Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/go` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `createRoots` | `()Ljava/util/Map;` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (22, all visibilities)
+## Declared members (8 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.model.geom.LayerDefinitions {
-    private static final net.minecraft.client.model.geom.builders.CubeDeformation FISH_PATTERN_DEFORMATION;
-    private static final net.minecraft.client.model.geom.builders.CubeDeformation OUTER_ARMOR_DEFORMATION;
-    private static final net.minecraft.client.model.geom.builders.CubeDeformation INNER_ARMOR_DEFORMATION;
-    private static final net.minecraft.client.model.geom.builders.CubeDeformation BABY_OUTER_ARMOR_DEFORMATION;
-    private static final net.minecraft.client.model.geom.builders.CubeDeformation BABY_INNER_ARMOR_DEFORMATION;
-    private static final net.minecraft.client.model.geom.builders.CubeDeformation BABY_PIGLIN_INNER_ARMOR_DEFORMATION;
-    private static final net.minecraft.client.model.geom.builders.CubeDeformation BABY_PIGLIN_OUTER_ARMOR_DEFORMATION;
-    private static final net.minecraft.client.model.geom.PartPose BABY_PIGLIN_ARMOR_ARM_OFFSET;
-    public net.minecraft.client.model.geom.LayerDefinitions();
-    public static java.util.Map<net.minecraft.client.model.geom.ModelLayerLocation, net.minecraft.client.model.geom.builders.LayerDefinition> createRoots();
-    private static boolean lambda$createRoots$10(com.google.common.collect.ImmutableMap, net.minecraft.client.model.geom.ModelLayerLocation);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$9(net.minecraft.client.model.geom.builders.MeshDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$8(net.minecraft.client.model.geom.builders.MeshTransformer, net.minecraft.client.model.geom.builders.LayerDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$7(net.minecraft.client.model.geom.builders.MeshTransformer, net.minecraft.client.model.geom.builders.LayerDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$6(net.minecraft.client.model.geom.builders.MeshTransformer, net.minecraft.client.model.geom.builders.LayerDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$5(net.minecraft.client.model.geom.builders.LayerDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$4(net.minecraft.client.model.geom.builders.MeshDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$3(net.minecraft.client.model.geom.builders.MeshDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$2(net.minecraft.client.model.geom.builders.MeshDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$1(net.minecraft.client.model.geom.builders.MeshDefinition);
-    private static net.minecraft.client.model.geom.builders.LayerDefinition lambda$createRoots$0(net.minecraft.client.model.geom.builders.MeshDefinition);
-    static {};
-}
+```
+private static final FISH_PATTERN_DEFORMATION : Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+private static final OUTER_ARMOR_DEFORMATION : Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+private static final INNER_ARMOR_DEFORMATION : Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+private static final BABY_OUTER_ARMOR_DEFORMATION : Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+private static final BABY_INNER_ARMOR_DEFORMATION : Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+private static final BABY_PIGLIN_INNER_ARMOR_DEFORMATION : Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+private static final BABY_PIGLIN_OUTER_ARMOR_DEFORMATION : Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+private static final BABY_PIGLIN_ARMOR_ARM_OFFSET : Lnet/minecraft/client/model/geom/PartPose;
+public <init>()V
+public static createRoots()Ljava/util/Map;
+private static synthetic lambda$createRoots$10(Lcom/google/common/collect/ImmutableMap;Lnet/minecraft/client/model/geom/ModelLayerLocation;)Z
+private static synthetic lambda$createRoots$9(Lnet/minecraft/client/model/geom/builders/MeshDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$8(Lnet/minecraft/client/model/geom/builders/MeshTransformer;Lnet/minecraft/client/model/geom/builders/LayerDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$7(Lnet/minecraft/client/model/geom/builders/MeshTransformer;Lnet/minecraft/client/model/geom/builders/LayerDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$6(Lnet/minecraft/client/model/geom/builders/MeshTransformer;Lnet/minecraft/client/model/geom/builders/LayerDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$5(Lnet/minecraft/client/model/geom/builders/LayerDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$4(Lnet/minecraft/client/model/geom/builders/MeshDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$3(Lnet/minecraft/client/model/geom/builders/MeshDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$2(Lnet/minecraft/client/model/geom/builders/MeshDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$1(Lnet/minecraft/client/model/geom/builders/MeshDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+private static synthetic lambda$createRoots$0(Lnet/minecraft/client/model/geom/builders/MeshDefinition;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;
+static <clinit>()V
 ```

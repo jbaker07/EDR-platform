@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `CapeLayerMixin.injectCapeRenderCheck` | `CapeLayer.submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/AvatarRenderState;FF)V` @Inject at HEAD | client | static_inference |
+| `CapeLayerMixin.injectCapeRenderCheck` @11 | [[40-Interfaces/net.minecraft.client.renderer.entity.layers.CapeLayer|CapeLayer]].`submit` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

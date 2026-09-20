@@ -13,8 +13,7 @@ sha256: "dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544"
 Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents$Init> INIT
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents$QueryStart> QUERY_START
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents$Disconnect> DISCONNECT
-static {}
+public static final net.fabricmc.fabric.api.event.Event INIT
+public static final net.fabricmc.fabric.api.event.Event QUERY_START
+public static final net.fabricmc.fabric.api.event.Event DISCONNECT
 ```

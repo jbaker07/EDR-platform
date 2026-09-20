@@ -13,14 +13,13 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: interface
 
 ```java
-public static final com.mojang.serialization.Codec<net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant> CODEC
-public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant> PACKET_CODEC
+public static final com.mojang.serialization.Codec CODEC
+public static final net.minecraft.network.codec.StreamCodec PACKET_CODEC
 public static net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant blank()
 public static net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant of(net.minecraft.world.level.material.Fluid)
 public static net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant of(net.minecraft.world.level.material.Fluid, net.minecraft.core.component.DataComponentPatch)
-public default net.minecraft.world.level.material.Fluid getFluid()
-public default net.minecraft.core.Holder<net.minecraft.world.level.material.Fluid> typeHolder()
+public net.minecraft.world.level.material.Fluid getFluid()
+public net.minecraft.core.Holder typeHolder()
 public abstract net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant withComponents(net.minecraft.core.component.DataComponentPatch)
-public default net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant withComponents(net.minecraft.core.component.DataComponentPatch)
-static {}
+public net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant withComponents(net.minecraft.core.component.DataComponentPatch)
 ```

@@ -13,6 +13,5 @@ sha256: "0bf0c29bd7f1803eac7c5d4aec1af51bb25790ba41583108a2320740043cd0c2"
 Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents$AllowTerrainParticleTint> ALLOW_TERRAIN_PARTICLE_TINT
-static {}
+public static final net.fabricmc.fabric.api.event.Event ALLOW_TERRAIN_PARTICLE_TINT
 ```

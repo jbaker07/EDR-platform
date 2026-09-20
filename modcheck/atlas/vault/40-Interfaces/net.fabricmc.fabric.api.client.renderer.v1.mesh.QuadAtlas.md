@@ -10,7 +10,7 @@ sha256: "2e4aaeb20f8615e8176f30bc82616cee25f8727323bfef7a70d5a6555ae8e9ee"
 
 # net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadAtlas
 
-Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind: class
+Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadAtlas BLOCK
@@ -21,5 +21,4 @@ public static net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadAtlas ofLocati
 public static net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadAtlas ofId(net.minecraft.resources.Identifier)
 public net.minecraft.resources.Identifier getTextureLocation()
 public net.minecraft.resources.Identifier getId()
-static {}
 ```

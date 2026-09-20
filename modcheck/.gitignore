@@ -12,3 +12,5 @@ helpers/*/target/
 # Reference implementations installed on demand for cross-validation
 helpers/*/node_modules/
 helpers/*/package-lock.json
+.cache/
+atlas/harness/mixin_transform/build/

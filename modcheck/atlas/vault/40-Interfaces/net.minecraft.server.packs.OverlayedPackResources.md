@@ -11,27 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/server/packs/PackResources`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/server/packs/PackResources;Ljava/util/List;)` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/server/packs/PackResources;Ljava/util/List;)V` | exact | invokespecial@98 in `ResourceLoaderImpl$1.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/server/packs/PackResources;Ljava/util/List;)V` | exact | invokespecial@98 in `ModPackResourcesFactory.openResources` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (2 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.packs.OverlayedPackResources implements net.minecraft.server.packs.PackResources {
-    private final net.minecraft.server.packs.PackMetadataResources primaryPackMetadataResources;
-    private final java.util.List<net.minecraft.server.packs.PackResources> packResourcesStack;
-    public net.minecraft.server.packs.OverlayedPackResources(net.minecraft.server.packs.PackResources, java.util.List<net.minecraft.server.packs.PackResources>);
-    public net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream> getRootResource(java.lang.String...);
-    public net.minecraft.server.packs.resources.IoSupplier<java.io.InputStream> getResource(net.minecraft.server.packs.PackType, net.minecraft.resources.Identifier);
-    public void listResources(net.minecraft.server.packs.PackType, java.lang.String, java.lang.String, net.minecraft.server.packs.PackResources$ResourceOutput);
-    public java.util.Set<java.lang.String> getNamespaces(net.minecraft.server.packs.PackType);
-    public <T> T getMetadataSection(net.minecraft.server.packs.metadata.MetadataSectionType<T>) throws java.io.IOException;
-    public net.minecraft.server.packs.PackLocationInfo location();
-    public void close();
-}
+```
+private final primaryPackMetadataResources : Lnet/minecraft/server/packs/PackMetadataResources;
+private final packResourcesStack : Ljava/util/List;
+public <init>(Lnet/minecraft/server/packs/PackResources;Ljava/util/List;)V
+public getRootResource([Ljava/lang/String;)Lnet/minecraft/server/packs/resources/IoSupplier;
+public getResource(Lnet/minecraft/server/packs/PackType;Lnet/minecraft/resources/Identifier;)Lnet/minecraft/server/packs/resources/IoSupplier;
+public listResources(Lnet/minecraft/server/packs/PackType;Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/server/packs/PackResources$ResourceOutput;)V
+public getNamespaces(Lnet/minecraft/server/packs/PackType;)Ljava/util/Set;
+public getMetadataSection(Lnet/minecraft/server/packs/metadata/MetadataSectionType;)Ljava/lang/Object;
+public location()Lnet/minecraft/server/packs/PackLocationInfo;
+public close()V
 ```

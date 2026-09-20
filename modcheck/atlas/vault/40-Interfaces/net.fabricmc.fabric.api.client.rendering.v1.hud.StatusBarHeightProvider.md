@@ -14,6 +14,6 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: inter
 
 ```java
 public abstract int getStatusBarHeight(net.minecraft.world.entity.player.Player)
-public default int applyAsInt(net.minecraft.world.entity.player.Player)
-public default int applyAsInt(java.lang.Object)
+public int applyAsInt(net.minecraft.world.entity.player.Player)
+public int applyAsInt(java.lang.Object)
 ```

@@ -11,45 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/entity/BlockEntity`; implements `net/minecraft/world/ticks/ContainerSingleItem$BlockContainerSingleItem`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `setTheItem` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `setTheItem` | `(Lnet/minecraft/world/item/ItemStack;)V` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | declared |
+| injects_into | `setTheItem` | `(Lnet/minecraft/world/item/ItemStack;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `item` | `Lnet/minecraft/world/item/ItemStack;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | declared |
 
-## Declared members (28, all visibilities)
+## Declared members (4 fields, 24 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.entity.JukeboxBlockEntity extends net.minecraft.world.level.block.entity.BlockEntity implements net.minecraft.world.ticks.ContainerSingleItem$BlockContainerSingleItem {
-    public static final java.lang.String SONG_ITEM_TAG_ID;
-    public static final java.lang.String TICKS_SINCE_SONG_STARTED_TAG_ID;
-    private net.minecraft.world.item.ItemStack item;
-    private final net.minecraft.world.item.JukeboxSongPlayer jukeboxSongPlayer;
-    public net.minecraft.world.level.block.entity.JukeboxBlockEntity(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.item.JukeboxSongPlayer getSongPlayer();
-    public void onSongChanged();
-    private void notifyItemChangedInJukebox(boolean);
-    public void popOutTheItem();
-    public static void tick(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.JukeboxBlockEntity);
-    public int getComparatorOutput();
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput);
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput);
-    public net.minecraft.world.item.ItemStack getTheItem();
-    public net.minecraft.world.item.ItemStack splitTheItem(int);
-    public void setTheItem(net.minecraft.world.item.ItemStack);
-    public void setRemoved();
-    public int getMaxStackSize();
-    public net.minecraft.world.level.block.entity.BlockEntity getContainerBlockEntity();
-    public boolean canPlaceItem(int, net.minecraft.world.item.ItemStack);
-    public boolean canTakeItem(net.minecraft.world.Container, int, net.minecraft.world.item.ItemStack);
-    public void preRemoveSideEffects(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public void setSongItemWithoutPlaying(net.minecraft.world.item.ItemStack);
-    public void tryForcePlaySong();
-    private void lambda$tryForcePlaySong$0(net.minecraft.core.Holder);
-    private void lambda$setSongItemWithoutPlaying$0(net.minecraft.core.Holder);
-    private void lambda$loadAdditional$0(java.lang.Long);
-    private void lambda$loadAdditional$1(java.lang.Long, net.minecraft.core.Holder);
-}
+```
+public static final SONG_ITEM_TAG_ID : Ljava/lang/String;
+public static final TICKS_SINCE_SONG_STARTED_TAG_ID : Ljava/lang/String;
+private item : Lnet/minecraft/world/item/ItemStack;
+private final jukeboxSongPlayer : Lnet/minecraft/world/item/JukeboxSongPlayer;
+public <init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public getSongPlayer()Lnet/minecraft/world/item/JukeboxSongPlayer;
+public onSongChanged()V
+private notifyItemChangedInJukebox(Z)V
+public popOutTheItem()V
+public static tick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/JukeboxBlockEntity;)V
+public getComparatorOutput()I
+protected loadAdditional(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected saveAdditional(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public getTheItem()Lnet/minecraft/world/item/ItemStack;
+public splitTheItem(I)Lnet/minecraft/world/item/ItemStack;
+public setTheItem(Lnet/minecraft/world/item/ItemStack;)V
+public setRemoved()V
+public getMaxStackSize()I
+public getContainerBlockEntity()Lnet/minecraft/world/level/block/entity/BlockEntity;
+public canPlaceItem(ILnet/minecraft/world/item/ItemStack;)Z
+public canTakeItem(Lnet/minecraft/world/Container;ILnet/minecraft/world/item/ItemStack;)Z
+public preRemoveSideEffects(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+public setSongItemWithoutPlaying(Lnet/minecraft/world/item/ItemStack;)V
+public tryForcePlaySong()V
+private synthetic lambda$tryForcePlaySong$0(Lnet/minecraft/core/Holder;)V
+private synthetic lambda$setSongItemWithoutPlaying$0(Lnet/minecraft/core/Holder;)V
+private synthetic lambda$loadAdditional$0(Ljava/lang/Long;)V
+private synthetic lambda$loadAdditional$1(Ljava/lang/Long;Lnet/minecraft/core/Holder;)V
 ```

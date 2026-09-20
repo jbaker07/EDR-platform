@@ -11,34 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.players|net.minecraft.server.players]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lcom/mojang/authlib/GameProfile;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `"<init>"(Lcom/mojang/authlib/GameProfile;)V` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lcom/mojang/authlib/GameProfile;)V` | exact | invokespecial@16 in `DedicatedServerImplUtil.lambda$whitelistClient$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lcom/mojang/authlib/GameProfile;)V` | exact | invokespecial@15 in `RegistrySyncManager.configureClient` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `<init>` | `(Ljava/util/UUID;Ljava/lang/String;)V` | exact | invokespecial@22 in `PermissionContext.offlinePlayer` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `id` | `()Ljava/util/UUID;` | exact | invokevirtual@30 in `PermissionContext.offlinePlayer` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `name` | `()Ljava/lang/String;` | exact | invokevirtual@46 in `PermissionContext.offlinePlayer` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (3 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.server.players.NameAndId extends java.lang.Record {
-    private final java.util.UUID id;
-    private final java.lang.String name;
-    public static final com.mojang.serialization.Codec<net.minecraft.server.players.NameAndId> CODEC;
-    public net.minecraft.server.players.NameAndId(com.mojang.authlib.GameProfile);
-    public net.minecraft.server.players.NameAndId(com.mojang.authlib.services.response.NameAndId);
-    public net.minecraft.server.players.NameAndId(java.util.UUID, java.lang.String);
-    public static net.minecraft.server.players.NameAndId fromJson(com.google.gson.JsonObject);
-    public void appendTo(com.google.gson.JsonObject);
-    public static net.minecraft.server.players.NameAndId createOffline(java.lang.String);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.UUID id();
-    public java.lang.String name();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final id : Ljava/util/UUID;
+private final name : Ljava/lang/String;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public <init>(Lcom/mojang/authlib/GameProfile;)V
+public <init>(Lcom/mojang/authlib/services/response/NameAndId;)V
+public <init>(Ljava/util/UUID;Ljava/lang/String;)V
+public static fromJson(Lcom/google/gson/JsonObject;)Lnet/minecraft/server/players/NameAndId;
+public appendTo(Lcom/google/gson/JsonObject;)V
+public static createOffline(Ljava/lang/String;)Lnet/minecraft/server/players/NameAndId;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public id()Ljava/util/UUID;
+public name()Ljava/lang/String;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

@@ -11,25 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `none()Lnet/minecraft/resources/RegistryValidator;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `none` | `()Lnet/minecraft/resources/RegistryValidator;` | exact | invokestatic@61 in `DynamicRegistriesImpl.register` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `none` | `()Lnet/minecraft/resources/RegistryValidator;` | exact | invokestatic@52 in `DynamicRegistriesImpl.addSyncedRegistry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `none` | `()Lnet/minecraft/resources/RegistryValidator;` | exact | invokestatic@61 in `DynamicRegistriesImpl.registerReloadable` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.resources.RegistryValidator<T> {
-    public static final net.minecraft.resources.RegistryValidator<?> NONE;
-    public static final net.minecraft.resources.RegistryValidator<?> NON_EMPTY;
-    public static <T> net.minecraft.resources.RegistryValidator<T> none();
-    public static <T> net.minecraft.resources.RegistryValidator<T> nonEmpty();
-    public abstract void validate(net.minecraft.core.Registry<T>, java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>);
-    private static void lambda$static$1(net.minecraft.core.Registry, java.util.Map);
-    private static void lambda$static$0(net.minecraft.core.Registry, java.util.Map);
-    static {};
-}
+```
+public static final NONE : Lnet/minecraft/resources/RegistryValidator;
+public static final NON_EMPTY : Lnet/minecraft/resources/RegistryValidator;
+public static none()Lnet/minecraft/resources/RegistryValidator;
+public static nonEmpty()Lnet/minecraft/resources/RegistryValidator;
+public abstract validate(Lnet/minecraft/core/Registry;Ljava/util/Map;)V
+private static synthetic lambda$static$1(Lnet/minecraft/core/Registry;Ljava/util/Map;)V
+private static synthetic lambda$static$0(Lnet/minecraft/core/Registry;Ljava/util/Map;)V
+static <clinit>()V
 ```

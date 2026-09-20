@@ -11,38 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `instabuildZ` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `instabuild` | `Z` | exact | getfield@10 in `MultiPlayerGameModeMixin.method_2902` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (14 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.entity.player.Abilities {
-    private static final boolean DEFAULT_INVULNERABLE;
-    private static final boolean DEFAULY_FLYING;
-    private static final boolean DEFAULT_MAY_FLY;
-    private static final boolean DEFAULT_INSTABUILD;
-    private static final boolean DEFAULT_MAY_BUILD;
-    private static final float DEFAULT_FLYING_SPEED;
-    private static final float DEFAULT_WALKING_SPEED;
-    public boolean invulnerable;
-    public boolean flying;
-    public boolean mayfly;
-    public boolean instabuild;
-    public boolean mayBuild;
-    private float flyingSpeed;
-    private float walkingSpeed;
-    public net.minecraft.world.entity.player.Abilities();
-    public float getFlyingSpeed();
-    public void setFlyingSpeed(float);
-    public float getWalkingSpeed();
-    public void setWalkingSpeed(float);
-    public net.minecraft.world.entity.player.Abilities$Packed pack();
-    public void apply(net.minecraft.world.entity.player.Abilities$Packed);
-}
+```
+private static final DEFAULT_INVULNERABLE : Z
+private static final DEFAULY_FLYING : Z
+private static final DEFAULT_MAY_FLY : Z
+private static final DEFAULT_INSTABUILD : Z
+private static final DEFAULT_MAY_BUILD : Z
+private static final DEFAULT_FLYING_SPEED : F
+private static final DEFAULT_WALKING_SPEED : F
+public invulnerable : Z
+public flying : Z
+public mayfly : Z
+public instabuild : Z
+public mayBuild : Z
+private flyingSpeed : F
+private walkingSpeed : F
+public <init>()V
+public getFlyingSpeed()F
+public setFlyingSpeed(F)V
+public getWalkingSpeed()F
+public setWalkingSpeed(F)V
+public pack()Lnet/minecraft/world/entity/player/Abilities$Packed;
+public apply(Lnet/minecraft/world/entity/player/Abilities$Packed;)V
 ```

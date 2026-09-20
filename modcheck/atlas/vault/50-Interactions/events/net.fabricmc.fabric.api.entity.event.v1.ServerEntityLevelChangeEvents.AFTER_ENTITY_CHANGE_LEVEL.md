@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `EntityMixin.afterDimensionChanged` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `EntityMixin.afterDimensionChanged` @68 | [[40-Interfaces/net.minecraft.world.entity.Entity|Entity]].`teleport` @WrapOperation INVOKE `Lnet/minecraft/world/entity/Entity;teleportCrossDimension(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/world/entity/Entity;` | unknown | static_inference |
 
 ## Contract
 

@@ -15,6 +15,5 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] -- kind: c
 ```java
 public static final net.minecraft.resources.Identifier CONTENT_PHASE
 public static final net.minecraft.resources.Identifier STYLING_PHASE
-public static final net.fabricmc.fabric.api.event.Event<net.minecraft.network.chat.ChatDecorator> EVENT
-static {}
+public static final net.fabricmc.fabric.api.event.Event EVENT
 ```

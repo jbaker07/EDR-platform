@@ -11,36 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.network|net.minecraft.server.network]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getConnections()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getConnections` | `()Ljava/util/List;` | exact | invokevirtual@14 in `GlobalAttachmentsImpl.fabric_syncChange` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (7 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.network.ServerConnectionListener {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.server.MinecraftServer server;
-    public volatile boolean running;
-    private volatile java.util.UUID sessionId;
-    private final java.util.List<io.netty.channel.ChannelFuture> channels;
-    private final java.util.List<net.minecraft.network.Connection> connections;
-    private final java.util.Queue<net.minecraft.network.Connection> pendingConnections;
-    public net.minecraft.server.network.ServerConnectionListener(net.minecraft.server.MinecraftServer);
-    public void startTcpServerListener(java.net.InetAddress, int) throws java.io.IOException;
-    public java.net.SocketAddress startMemoryChannel();
-    public void stop();
-    public void stopTcpServerListener();
-    public void tick();
-    public net.minecraft.server.MinecraftServer getServer();
-    private void addPendingConnections();
-    public java.util.List<net.minecraft.network.Connection> getConnections();
-    public java.util.UUID getSessionId();
-    private static void lambda$tick$0(net.minecraft.network.Connection, net.minecraft.network.chat.Component);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final server : Lnet/minecraft/server/MinecraftServer;
+public running : Z
+private sessionId : Ljava/util/UUID;
+private final channels : Ljava/util/List;
+private final connections : Ljava/util/List;
+private final pendingConnections : Ljava/util/Queue;
+public <init>(Lnet/minecraft/server/MinecraftServer;)V
+public startTcpServerListener(Ljava/net/InetAddress;I)V
+public startMemoryChannel()Ljava/net/SocketAddress;
+public stop()V
+public stopTcpServerListener()V
+public tick()V
+public getServer()Lnet/minecraft/server/MinecraftServer;
+private addPendingConnections()V
+public getConnections()Ljava/util/List;
+public getSessionId()Ljava/util/UUID;
+private static synthetic lambda$tick$0(Lnet/minecraft/network/Connection;Lnet/minecraft/network/chat/Component;)V
+static <clinit>()V
 ```

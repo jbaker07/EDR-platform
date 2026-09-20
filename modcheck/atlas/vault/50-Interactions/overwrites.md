@@ -7,7 +7,8 @@ type: "index"
 
 # Overwrites
 
-`@Overwrite` replaces a vanilla method body. Two overwrites of one method cannot both apply.
+`@Overwrite` replaces a vanilla method body. What that does to other mods' injections into the same method was executed, not assumed: see [[30-Mechanisms/Transformation_Tests]] (HEAD/TAIL/RETURN injections survive; INVOKE-point ones are refused unless they outrank the overwrite).
 
-| vanilla method | module | mixin |
-|---|---|---|
+| vanilla method | module | mixin | env |
+|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.renderer.block.model.BlockStateModelWrapper|BlockStateModelWrapper]].`update(Lnet/minecraft/client/renderer/block/BlockModelRenderState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/client/renderer/block/model/BlockDisplayContext;J)V` | fabric-renderer-api-v1 | `BlockStateModelWrapperMixin` | client |

@@ -11,71 +11,72 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity`; implements `net/minecraft/world/level/block/entity/Hopper`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `ejectItems` | `@Inject at INVOKE_ASSIGN Lnet/minecraft/world/level/block/entity/HopperBlockEnti` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| injects_into | `suckInItems(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;)Z` | `@Inject at INVOKE_ASSIGN Lnet/minecraft/world/level/block/entity/HopperBlockEnti` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `ejectItems` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/mi` | name_only | @Inject at ['INVOKE_ASSIGN'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| injects_into | `suckInItems` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/ent` | exact | @Inject at ['INVOKE_ASSIGN'] | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `facing` | `Lnet/minecraft/core/Direction;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | declared |
 
-## Declared members (53, all visibilities)
+## Declared members (9 fields, 44 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.entity.HopperBlockEntity extends net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity implements net.minecraft.world.level.block.entity.Hopper {
-    public static final int MOVE_ITEM_SPEED;
-    public static final int HOPPER_CONTAINER_SIZE;
-    private static final int[][] CACHED_SLOTS;
-    private static final int NO_COOLDOWN_TIME;
-    private static final net.minecraft.network.chat.Component DEFAULT_NAME;
-    private net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> items;
-    private int cooldownTime;
-    private long tickedGameTime;
-    private net.minecraft.core.Direction facing;
-    public net.minecraft.world.level.block.entity.HopperBlockEntity(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput);
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput);
-    public int getContainerSize();
-    public net.minecraft.world.item.ItemStack removeItem(int, int);
-    public void setItem(int, net.minecraft.world.item.ItemStack);
-    public void setBlockState(net.minecraft.world.level.block.state.BlockState);
-    protected net.minecraft.network.chat.Component getDefaultName();
-    public static void pushItemsTick(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.HopperBlockEntity);
-    private static boolean tryMoveItems(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.HopperBlockEntity, java.util.function.BooleanSupplier);
-    private boolean inventoryFull();
-    private static boolean ejectItems(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.HopperBlockEntity);
-    private static int[] getSlots(net.minecraft.world.Container, net.minecraft.core.Direction);
-    private static int[] createFlatSlots(int);
-    private static boolean isFullContainer(net.minecraft.world.Container, net.minecraft.core.Direction);
-    public static boolean suckInItems(net.minecraft.world.level.Level, net.minecraft.world.level.block.entity.Hopper);
-    private static boolean tryTakeInItemFromSlot(net.minecraft.world.level.block.entity.Hopper, net.minecraft.world.Container, int, net.minecraft.core.Direction);
-    public static boolean addItem(net.minecraft.world.Container, net.minecraft.world.entity.item.ItemEntity);
-    public static net.minecraft.world.item.ItemStack addItem(net.minecraft.world.Container, net.minecraft.world.Container, net.minecraft.world.item.ItemStack, net.minecraft.core.Direction);
-    private static boolean canPlaceItemInContainer(net.minecraft.world.Container, net.minecraft.world.item.ItemStack, int, net.minecraft.core.Direction);
-    private static boolean canTakeItemFromContainer(net.minecraft.world.Container, net.minecraft.world.Container, net.minecraft.world.item.ItemStack, int, net.minecraft.core.Direction);
-    private static net.minecraft.world.item.ItemStack tryMoveInItem(net.minecraft.world.Container, net.minecraft.world.Container, net.minecraft.world.item.ItemStack, int, net.minecraft.core.Direction);
-    private static net.minecraft.world.Container getAttachedContainer(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.HopperBlockEntity);
-    private static net.minecraft.world.Container getSourceContainer(net.minecraft.world.level.Level, net.minecraft.world.level.block.entity.Hopper, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public static java.util.List<net.minecraft.world.entity.item.ItemEntity> getItemsAtAndAbove(net.minecraft.world.level.Level, net.minecraft.world.level.block.entity.Hopper);
-    public static net.minecraft.world.Container getContainerAt(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    private static net.minecraft.world.Container getContainerAt(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, double, double, double);
-    private static net.minecraft.world.Container getBlockContainer(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private static net.minecraft.world.Container getEntityContainer(net.minecraft.world.level.Level, double, double, double);
-    private static boolean canMergeItems(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
-    public double getLevelX();
-    public double getLevelY();
-    public double getLevelZ();
-    public boolean isGridAligned();
-    private void setCooldown(int);
-    private boolean isOnCooldown();
-    private boolean isOnCustomCooldown();
-    protected net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getItems();
-    protected void setItems(net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack>);
-    public static void entityInside(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.Entity, net.minecraft.world.level.block.entity.HopperBlockEntity);
-    protected net.minecraft.world.inventory.AbstractContainerMenu createMenu(int, net.minecraft.world.entity.player.Inventory);
-    private static boolean lambda$entityInside$0(net.minecraft.world.level.block.entity.HopperBlockEntity, net.minecraft.world.entity.item.ItemEntity);
-    private static boolean lambda$pushItemsTick$0(net.minecraft.world.level.Level, net.minecraft.world.level.block.entity.HopperBlockEntity);
-    static {};
-}
+```
+public static final MOVE_ITEM_SPEED : I
+public static final HOPPER_CONTAINER_SIZE : I
+private static final CACHED_SLOTS : [[I
+private static final NO_COOLDOWN_TIME : I
+private static final DEFAULT_NAME : Lnet/minecraft/network/chat/Component;
+private items : Lnet/minecraft/core/NonNullList;
+private cooldownTime : I
+private tickedGameTime : J
+private facing : Lnet/minecraft/core/Direction;
+public <init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected loadAdditional(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected saveAdditional(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public getContainerSize()I
+public removeItem(II)Lnet/minecraft/world/item/ItemStack;
+public setItem(ILnet/minecraft/world/item/ItemStack;)V
+public setBlockState(Lnet/minecraft/world/level/block/state/BlockState;)V
+protected getDefaultName()Lnet/minecraft/network/chat/Component;
+public static pushItemsTick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)V
+private static tryMoveItems(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;Ljava/util/function/BooleanSupplier;)Z
+private inventoryFull()Z
+private static ejectItems(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)Z
+private static getSlots(Lnet/minecraft/world/Container;Lnet/minecraft/core/Direction;)[I
+private static createFlatSlots(I)[I
+private static isFullContainer(Lnet/minecraft/world/Container;Lnet/minecraft/core/Direction;)Z
+public static suckInItems(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;)Z
+private static tryTakeInItemFromSlot(Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/world/Container;ILnet/minecraft/core/Direction;)Z
+public static addItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/entity/item/ItemEntity;)Z
+public static addItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/Container;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Lnet/minecraft/world/item/ItemStack;
+private static canPlaceItemInContainer(Lnet/minecraft/world/Container;Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/core/Direction;)Z
+private static canTakeItemFromContainer(Lnet/minecraft/world/Container;Lnet/minecraft/world/Container;Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/core/Direction;)Z
+private static tryMoveInItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/Container;Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/core/Direction;)Lnet/minecraft/world/item/ItemStack;
+private static getAttachedContainer(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)Lnet/minecraft/world/Container;
+private static getSourceContainer(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/Container;
+public static getItemsAtAndAbove(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;)Ljava/util/List;
+public static getContainerAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/Container;
+private static getContainerAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;DDD)Lnet/minecraft/world/Container;
+private static getBlockContainer(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/Container;
+private static getEntityContainer(Lnet/minecraft/world/level/Level;DDD)Lnet/minecraft/world/Container;
+private static canMergeItems(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z
+public getLevelX()D
+public getLevelY()D
+public getLevelZ()D
+public isGridAligned()Z
+private setCooldown(I)V
+private isOnCooldown()Z
+private isOnCustomCooldown()Z
+protected getItems()Lnet/minecraft/core/NonNullList;
+protected setItems(Lnet/minecraft/core/NonNullList;)V
+public static entityInside(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)V
+protected createMenu(ILnet/minecraft/world/entity/player/Inventory;)Lnet/minecraft/world/inventory/AbstractContainerMenu;
+private static synthetic lambda$entityInside$0(Lnet/minecraft/world/level/block/entity/HopperBlockEntity;Lnet/minecraft/world/entity/item/ItemEntity;)Z
+private static synthetic lambda$pushItemsTick$0(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;)Z
+static <clinit>()V
 ```

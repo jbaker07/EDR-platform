@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftServerMixin.lambda$endResourceReload$0` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `MinecraftServerMixin.lambda$endResourceReload$0` @29 | (handler is not itself an injector: fired from a helper or impl method) | unknown | static_inference |
 
 ## Contract
 

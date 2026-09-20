@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.getEquipmentChanges` | `LivingEntity.collectEquipmentChanges` @Inject at INVOKE Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; | both | static_inference |
+| `LivingEntityMixin.getEquipmentChanges` @17 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`collectEquipmentChanges` @Inject INVOKE `Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;` | unknown | static_inference |
 
 ## Contract
 

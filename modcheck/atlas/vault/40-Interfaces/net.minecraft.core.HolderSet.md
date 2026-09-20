@@ -11,34 +11,45 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `java/lang/Iterable`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `contains(Lnet/minecraft/core/Holder;)Z` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `direct(Ljava/util/List;)Lnet/minecraft/core/HolderSet$Direct;` | `` | both | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `direct([Lnet/minecraft/core/Holder;)Lnet/minecraft/core/HolderSet$` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `contains` | `(Lnet/minecraft/core/Holder;)Z` | exact | invokeinterface@64 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.addFeatu | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `contains` | `(Lnet/minecraft/core/Holder;)Z` | exact | invokeinterface@36 in `BiomeSelectionContextImpl.validForStructure` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `direct` | `(Ljava/util/List;)Lnet/minecraft/core/HolderSet$Direct;` | exact | invokestatic@101 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.removeFeat | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `direct` | `(Ljava/util/List;)Lnet/minecraft/core/HolderSet$Direct;` | exact | invokestatic@29 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.addFeature` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `direct` | `(Ljava/util/List;)Lnet/minecraft/core/HolderSet$Direct;` | exact | invokestatic@60 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.removeCarve | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `direct` | `(Ljava/util/List;)Lnet/minecraft/core/HolderSet$Direct;` | exact | invokestatic@44 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.plus` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `direct` | `(Ljava/util/List;)Lnet/minecraft/core/HolderSet$Direct;` | exact | invokestatic@17 in `IngredientMixin.onGetEntries` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `direct` | `([Lnet/minecraft/core/Holder;)Lnet/minecraft/core/HolderSet$Direct;` | exact | invokestatic@12 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.plus` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `direct` | `([Lnet/minecraft/core/Holder;)Lnet/minecraft/core/HolderSet$Direct;` | exact | invokestatic@14 in `CustomIngredientImpl.<init>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `iterator` | `()Ljava/util/Iterator;` | inherited_exact | invokeinterface@42 in `BiomeSelectionContext.hasFeature` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `iterator` | `()Ljava/util/Iterator;` | inherited_exact | invokeinterface@42 in `BiomeSelectionContext.hasPlacedFeature` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `stream` | `()Ljava/util/stream/Stream;` | exact | invokeinterface@64 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.removeFe | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `stream` | `()Ljava/util/stream/Stream;` | exact | invokeinterface@26 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.removeCa | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `stream` | `()Ljava/util/stream/Stream;` | exact | invokeinterface@21 in `BiomeModificationContextImpl$GenerationSettingsContextImpl.plus` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
 
-## Declared members (15, all visibilities)
+## Declared members (0 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.core.HolderSet<T> extends java.lang.Iterable<net.minecraft.core.Holder<T>> {
-    public abstract java.util.stream.Stream<net.minecraft.core.Holder<T>> stream();
-    public abstract int size();
-    public abstract boolean isBound();
-    public abstract com.mojang.datafixers.util.Either<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>> unwrap();
-    public abstract java.util.Optional<net.minecraft.core.Holder<T>> getRandomElement(net.minecraft.util.RandomSource);
-    public abstract net.minecraft.core.Holder<T> get(int);
-    public abstract boolean contains(net.minecraft.core.Holder<T>);
-    public abstract boolean canSerializeIn(net.minecraft.core.HolderOwner<T>);
-    public abstract java.util.Optional<net.minecraft.tags.TagKey<T>> unwrapKey();
-    public static <T> net.minecraft.core.HolderSet$Named<T> emptyNamed(net.minecraft.core.HolderOwner<T>, net.minecraft.tags.TagKey<T>);
-    public static <T> net.minecraft.core.HolderSet<T> empty();
-    public static <T> net.minecraft.core.HolderSet$Direct<T> direct(net.minecraft.core.Holder<T>...);
-    public static <T> net.minecraft.core.HolderSet$Direct<T> direct(java.util.List<? extends net.minecraft.core.Holder<T>>);
-    public static <E, T> net.minecraft.core.HolderSet$Direct<T> direct(java.util.function.Function<E, net.minecraft.core.Holder<T>>, E...);
-    public static <E, T> net.minecraft.core.HolderSet$Direct<T> direct(java.util.function.Function<E, net.minecraft.core.Holder<T>>, java.util.Collection<E>);
-}
+```
+public abstract stream()Ljava/util/stream/Stream;
+public abstract size()I
+public abstract isBound()Z
+public abstract unwrap()Lcom/mojang/datafixers/util/Either;
+public abstract getRandomElement(Lnet/minecraft/util/RandomSource;)Ljava/util/Optional;
+public abstract get(I)Lnet/minecraft/core/Holder;
+public abstract contains(Lnet/minecraft/core/Holder;)Z
+public abstract canSerializeIn(Lnet/minecraft/core/HolderOwner;)Z
+public abstract unwrapKey()Ljava/util/Optional;
+public static emptyNamed(Lnet/minecraft/core/HolderOwner;Lnet/minecraft/tags/TagKey;)Lnet/minecraft/core/HolderSet$Named;
+public static empty()Lnet/minecraft/core/HolderSet;
+public static direct([Lnet/minecraft/core/Holder;)Lnet/minecraft/core/HolderSet$Direct;
+public static direct(Ljava/util/List;)Lnet/minecraft/core/HolderSet$Direct;
+public static direct(Ljava/util/function/Function;[Ljava/lang/Object;)Lnet/minecraft/core/HolderSet$Direct;
+public static direct(Ljava/util/function/Function;Ljava/util/Collection;)Lnet/minecraft/core/HolderSet$Direct;
 ```

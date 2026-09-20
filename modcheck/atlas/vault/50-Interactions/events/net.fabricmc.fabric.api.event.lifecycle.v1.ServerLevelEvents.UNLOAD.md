@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `MinecraftServerMixin.onUnloadWorldAtShutdown` | `MinecraftServer.stopServer` @Inject at INVOKE Lnet/minecraft/server/level/ServerLevel;close()V | both | static_inference |
+| `MinecraftServerMixin.onUnloadWorldAtShutdown` @14 | [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]].`stopServer` @Inject INVOKE `Lnet/minecraft/server/level/ServerLevel;close()V` | unknown | static_inference |
 
 ## Contract
 

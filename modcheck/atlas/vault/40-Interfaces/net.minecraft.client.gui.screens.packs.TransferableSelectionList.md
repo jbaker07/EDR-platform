@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/components/ObjectSelectionList`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `maxScrollAmount()I` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `maxScrollAmount` | `()I` | inherited_exact | invokevirtual@73 in `TransferableSelectionListPackEntryMixin.onExtractContent` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (13 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.packs.TransferableSelectionList extends net.minecraft.client.gui.components.ObjectSelectionList<net.minecraft.client.gui.screens.packs.TransferableSelectionList$Entry> {
-    private static final net.minecraft.resources.Identifier SELECT_HIGHLIGHTED_SPRITE;
-    private static final net.minecraft.resources.Identifier SELECT_SPRITE;
-    private static final net.minecraft.resources.Identifier UNSELECT_HIGHLIGHTED_SPRITE;
-    private static final net.minecraft.resources.Identifier UNSELECT_SPRITE;
-    private static final net.minecraft.resources.Identifier MOVE_UP_HIGHLIGHTED_SPRITE;
-    private static final net.minecraft.resources.Identifier MOVE_UP_SPRITE;
-    private static final net.minecraft.resources.Identifier MOVE_DOWN_HIGHLIGHTED_SPRITE;
-    private static final net.minecraft.resources.Identifier MOVE_DOWN_SPRITE;
-    private static final net.minecraft.network.chat.Component INCOMPATIBLE_TITLE;
-    private static final net.minecraft.network.chat.Component INCOMPATIBLE_CONFIRM_TITLE;
-    private static final int ENTRY_PADDING;
-    private final net.minecraft.network.chat.Component title;
-    private final net.minecraft.client.gui.screens.packs.PackSelectionScreen screen;
-    public net.minecraft.client.gui.screens.packs.TransferableSelectionList(net.minecraft.client.Minecraft, net.minecraft.client.gui.screens.packs.PackSelectionScreen, int, int, net.minecraft.network.chat.Component);
-    public int getRowWidth();
-    protected int scrollBarX();
-    public boolean keyPressed(net.minecraft.client.input.KeyEvent);
-    public void updateList(java.util.stream.Stream<net.minecraft.client.gui.screens.packs.PackSelectionModel$Entry>, net.minecraft.client.gui.screens.packs.PackSelectionModel$EntryBase);
-    static boolean access$000(net.minecraft.client.gui.screens.packs.TransferableSelectionList);
-    static void access$100(net.minecraft.client.gui.screens.packs.TransferableSelectionList, net.minecraft.client.gui.GuiGraphicsExtractor);
-    static void access$200(net.minecraft.client.gui.screens.packs.TransferableSelectionList, net.minecraft.client.gui.GuiGraphicsExtractor);
-    static void access$300(net.minecraft.client.gui.screens.packs.TransferableSelectionList, net.minecraft.client.gui.GuiGraphicsExtractor);
-    static void access$400(net.minecraft.client.gui.screens.packs.TransferableSelectionList, net.minecraft.client.gui.GuiGraphicsExtractor);
-    static boolean access$500(net.minecraft.client.gui.screens.packs.TransferableSelectionList);
-    static boolean access$600(net.minecraft.client.gui.screens.packs.TransferableSelectionList);
-    private void lambda$updateList$0(net.minecraft.client.gui.screens.packs.PackSelectionModel$EntryBase, net.minecraft.client.gui.screens.packs.PackSelectionModel$Entry);
-    static {};
-}
+```
+private static final SELECT_HIGHLIGHTED_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final SELECT_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final UNSELECT_HIGHLIGHTED_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final UNSELECT_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final MOVE_UP_HIGHLIGHTED_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final MOVE_UP_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final MOVE_DOWN_HIGHLIGHTED_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final MOVE_DOWN_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final INCOMPATIBLE_TITLE : Lnet/minecraft/network/chat/Component;
+private static final INCOMPATIBLE_CONFIRM_TITLE : Lnet/minecraft/network/chat/Component;
+private static final ENTRY_PADDING : I
+private final title : Lnet/minecraft/network/chat/Component;
+private final screen : Lnet/minecraft/client/gui/screens/packs/PackSelectionScreen;
+public <init>(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/screens/packs/PackSelectionScreen;IILnet/minecraft/network/chat/Component;)V
+public getRowWidth()I
+protected scrollBarX()I
+public keyPressed(Lnet/minecraft/client/input/KeyEvent;)Z
+public updateList(Ljava/util/stream/Stream;Lnet/minecraft/client/gui/screens/packs/PackSelectionModel$EntryBase;)V
+static synthetic access$000(Lnet/minecraft/client/gui/screens/packs/TransferableSelectionList;)Z
+static synthetic access$100(Lnet/minecraft/client/gui/screens/packs/TransferableSelectionList;Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+static synthetic access$200(Lnet/minecraft/client/gui/screens/packs/TransferableSelectionList;Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+static synthetic access$300(Lnet/minecraft/client/gui/screens/packs/TransferableSelectionList;Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+static synthetic access$400(Lnet/minecraft/client/gui/screens/packs/TransferableSelectionList;Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V
+static synthetic access$500(Lnet/minecraft/client/gui/screens/packs/TransferableSelectionList;)Z
+static synthetic access$600(Lnet/minecraft/client/gui/screens/packs/TransferableSelectionList;)Z
+private synthetic lambda$updateList$0(Lnet/minecraft/client/gui/screens/packs/PackSelectionModel$EntryBase;Lnet/minecraft/client/gui/screens/packs/PackSelectionModel$Entry;)V
+static <clinit>()V
 ```

@@ -11,30 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `(Lnet/minecraft/client/renderer/RenderBuffers;Lnet/minecraft/client/re` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `featureRenderers` | `Lnet/minecraft/client/renderer/feature/FeatureRendererMap;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
 
-## Declared members (13, all visibilities)
+## Declared members (7 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.feature.FeatureRenderDispatcher implements java.lang.AutoCloseable {
-    private final net.minecraft.client.resources.model.ModelManager modelManager;
-    private final net.minecraft.client.resources.model.sprite.AtlasManager atlasManager;
-    private final net.minecraft.client.gui.Font font;
-    private final net.minecraft.client.renderer.state.GameRenderState gameRenderState;
-    private final net.minecraft.client.renderer.StagedVertexBuffer stagedVertexBuffer;
-    private final net.minecraft.client.renderer.feature.FeatureRendererMap featureRenderers;
-    private final net.minecraft.client.renderer.feature.FeatureRenderDispatcher$PreparedFrame preparedFrame;
-    public net.minecraft.client.renderer.feature.FeatureRenderDispatcher(net.minecraft.client.renderer.RenderBuffers, net.minecraft.client.resources.model.ModelManager, net.minecraft.client.resources.model.sprite.AtlasManager, net.minecraft.client.gui.Font, net.minecraft.client.renderer.state.GameRenderState);
-    public net.minecraft.client.renderer.feature.FeatureRenderDispatcher$PreparedFrame prepareFrame(net.minecraft.client.renderer.SubmitNodeStorage);
-    private net.minecraft.client.renderer.feature.FeatureRenderDispatcher$PreparedFrame prepareFrameWithContext(net.minecraft.client.renderer.feature.FeatureFrameContext, net.minecraft.client.renderer.SubmitNodeStorage);
-    public static void renderAllFeatures(com.mojang.renderpearl.api.commands.RenderPass, net.minecraft.client.renderer.feature.FeatureRenderDispatcher$PreparedFrame);
-    public void close();
-    private static void lambda$prepareFrameWithContext$0(net.minecraft.client.renderer.feature.FeatureRenderDispatcher$PreparedFrame, net.minecraft.client.renderer.feature.phase.FeatureRenderPhase);
-}
+```
+private final modelManager : Lnet/minecraft/client/resources/model/ModelManager;
+private final atlasManager : Lnet/minecraft/client/resources/model/sprite/AtlasManager;
+private final font : Lnet/minecraft/client/gui/Font;
+private final gameRenderState : Lnet/minecraft/client/renderer/state/GameRenderState;
+private final stagedVertexBuffer : Lnet/minecraft/client/renderer/StagedVertexBuffer;
+private final featureRenderers : Lnet/minecraft/client/renderer/feature/FeatureRendererMap;
+private final preparedFrame : Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;
+public <init>(Lnet/minecraft/client/renderer/RenderBuffers;Lnet/minecraft/client/resources/model/ModelManager;Lnet/minecraft/client/resources/model/sprite/AtlasManager;Lnet/minecraft/client/gui/Font;Lnet/minecraft/client/renderer/state/GameRenderState;)V
+public prepareFrame(Lnet/minecraft/client/renderer/SubmitNodeStorage;)Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;
+private prepareFrameWithContext(Lnet/minecraft/client/renderer/feature/FeatureFrameContext;Lnet/minecraft/client/renderer/SubmitNodeStorage;)Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;
+public static renderAllFeatures(Lcom/mojang/renderpearl/api/commands/RenderPass;Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;)V
+public close()V
+private static synthetic lambda$prepareFrameWithContext$0(Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher$PreparedFrame;Lnet/minecraft/client/renderer/feature/phase/FeatureRenderPhase;)V
 ```

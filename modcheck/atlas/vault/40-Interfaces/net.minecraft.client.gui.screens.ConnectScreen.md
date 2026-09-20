@@ -11,39 +11,39 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/screens/Screen`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `startConnecting(Lnet/minecraft/client/gui/screens/Screen;Lnet/minecraft/cli` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `startConnecting` | `(Lnet/minecraft/client/gui/screens/Screen;Lnet/minecraft/client/Minecr` | exact | invokestatic@35 in `TestDedicatedServerContextImpl.lambda$connect$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (22, all visibilities)
+## Declared members (12 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.ConnectScreen extends net.minecraft.client.gui.screens.Screen {
-    private static final java.util.concurrent.atomic.AtomicInteger UNIQUE_THREAD_ID;
-    private static final org.slf4j.Logger LOGGER;
-    private static final long NARRATION_DELAY_MS;
-    public static final net.minecraft.network.chat.Component ABORT_CONNECTION;
-    public static final net.minecraft.network.chat.Component UNKNOWN_HOST_MESSAGE;
-    private volatile net.minecraft.network.Connection connection;
-    private io.netty.channel.ChannelFuture channelFuture;
-    private volatile boolean aborted;
-    private final net.minecraft.client.gui.screens.Screen parent;
-    private net.minecraft.network.chat.Component status;
-    private long lastNarration;
-    private final net.minecraft.network.chat.Component connectFailedTitle;
-    private net.minecraft.client.gui.screens.ConnectScreen(net.minecraft.client.gui.screens.Screen, net.minecraft.network.chat.Component);
-    public static void startConnecting(net.minecraft.client.gui.screens.Screen, net.minecraft.client.Minecraft, net.minecraft.client.multiplayer.resolver.ServerAddress, net.minecraft.client.multiplayer.ServerData, boolean, net.minecraft.client.multiplayer.TransferState);
-    private void connect(net.minecraft.client.Minecraft, net.minecraft.client.multiplayer.resolver.ServerAddress, net.minecraft.client.multiplayer.ServerData, net.minecraft.client.multiplayer.TransferState);
-    private void updateStatus(net.minecraft.network.chat.Component);
-    public void tick();
-    public boolean shouldCloseOnEsc();
-    protected void init();
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    private void lambda$init$0(net.minecraft.client.gui.components.Button);
-    static {};
-}
+```
+private static final UNIQUE_THREAD_ID : Ljava/util/concurrent/atomic/AtomicInteger;
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final NARRATION_DELAY_MS : J
+public static final ABORT_CONNECTION : Lnet/minecraft/network/chat/Component;
+public static final UNKNOWN_HOST_MESSAGE : Lnet/minecraft/network/chat/Component;
+private connection : Lnet/minecraft/network/Connection;
+private channelFuture : Lio/netty/channel/ChannelFuture;
+private aborted : Z
+private final parent : Lnet/minecraft/client/gui/screens/Screen;
+private status : Lnet/minecraft/network/chat/Component;
+private lastNarration : J
+private final connectFailedTitle : Lnet/minecraft/network/chat/Component;
+private <init>(Lnet/minecraft/client/gui/screens/Screen;Lnet/minecraft/network/chat/Component;)V
+public static startConnecting(Lnet/minecraft/client/gui/screens/Screen;Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/multiplayer/resolver/ServerAddress;Lnet/minecraft/client/multiplayer/ServerData;ZLnet/minecraft/client/multiplayer/TransferState;)V
+private connect(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/multiplayer/resolver/ServerAddress;Lnet/minecraft/client/multiplayer/ServerData;Lnet/minecraft/client/multiplayer/TransferState;)V
+private updateStatus(Lnet/minecraft/network/chat/Component;)V
+public tick()V
+public shouldCloseOnEsc()Z
+protected init()V
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+private synthetic lambda$init$0(Lnet/minecraft/client/gui/components/Button;)V
+static <clinit>()V
 ```

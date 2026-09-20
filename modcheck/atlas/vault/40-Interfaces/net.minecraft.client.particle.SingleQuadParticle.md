@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.particle|net.minecraft.client.particle]]
 
+`abstract_class` public abstract; extends `net/minecraft/client/particle/Particle`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minec` | `` | client | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/clien` | exact | invokespecial@6 in `TerrainParticleMixin.<init>` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (8 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.particle.SingleQuadParticle extends net.minecraft.client.particle.Particle {
-    protected float quadSize;
-    protected float rCol;
-    protected float gCol;
-    protected float bCol;
-    protected float alpha;
-    protected float roll;
-    protected float oRoll;
-    protected net.minecraft.client.renderer.texture.TextureAtlasSprite sprite;
-    protected net.minecraft.client.particle.SingleQuadParticle(net.minecraft.client.multiplayer.ClientLevel, double, double, double, net.minecraft.client.renderer.texture.TextureAtlasSprite);
-    protected net.minecraft.client.particle.SingleQuadParticle(net.minecraft.client.multiplayer.ClientLevel, double, double, double, double, double, double, net.minecraft.client.renderer.texture.TextureAtlasSprite);
-    public net.minecraft.client.particle.SingleQuadParticle$FacingCameraMode getFacingCameraMode();
-    public void extract(net.minecraft.client.renderer.state.level.QuadParticleRenderState, net.minecraft.client.Camera, float);
-    protected void extractRotatedQuad(net.minecraft.client.renderer.state.level.QuadParticleRenderState, net.minecraft.client.Camera, org.joml.Quaternionf, float);
-    protected void extractRotatedQuad(net.minecraft.client.renderer.state.level.QuadParticleRenderState, org.joml.Quaternionf, float, float, float, float);
-    public float getQuadSize(float);
-    public net.minecraft.client.particle.Particle scale(float);
-    public net.minecraft.client.particle.ParticleRenderType getGroup();
-    public void setSpriteFromAge(net.minecraft.client.particle.SpriteSet);
-    protected void setSprite(net.minecraft.client.renderer.texture.TextureAtlasSprite);
-    protected float getU0();
-    protected float getU1();
-    protected float getV0();
-    protected float getV1();
-    protected abstract net.minecraft.client.particle.SingleQuadParticle$Layer getLayer();
-    public void setColor(float, float, float);
-    protected void setAlpha(float);
-    public java.lang.String toString();
-}
+```
+protected quadSize : F
+protected rCol : F
+protected gCol : F
+protected bCol : F
+protected alpha : F
+protected roll : F
+protected oRoll : F
+protected sprite : Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+protected <init>(Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
+protected <init>(Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
+public getFacingCameraMode()Lnet/minecraft/client/particle/SingleQuadParticle$FacingCameraMode;
+public extract(Lnet/minecraft/client/renderer/state/level/QuadParticleRenderState;Lnet/minecraft/client/Camera;F)V
+protected extractRotatedQuad(Lnet/minecraft/client/renderer/state/level/QuadParticleRenderState;Lnet/minecraft/client/Camera;Lorg/joml/Quaternionf;F)V
+protected extractRotatedQuad(Lnet/minecraft/client/renderer/state/level/QuadParticleRenderState;Lorg/joml/Quaternionf;FFFF)V
+public getQuadSize(F)F
+public scale(F)Lnet/minecraft/client/particle/Particle;
+public getGroup()Lnet/minecraft/client/particle/ParticleRenderType;
+public setSpriteFromAge(Lnet/minecraft/client/particle/SpriteSet;)V
+protected setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
+protected getU0()F
+protected getU1()F
+protected getV0()F
+protected getV1()F
+protected abstract getLayer()Lnet/minecraft/client/particle/SingleQuadParticle$Layer;
+public setColor(FFF)V
+protected setAlpha(F)V
+public toString()Ljava/lang/String;
 ```

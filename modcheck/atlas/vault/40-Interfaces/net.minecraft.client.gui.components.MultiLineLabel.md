@@ -11,26 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getLineCount()I` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getLineCount` | `()I` | exact | invokeinterface@13 in `DetailedBackupConfirmScreen.init` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (9, all visibilities)
+## Declared members (1 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.gui.components.MultiLineLabel {
-    public static final net.minecraft.client.gui.components.MultiLineLabel EMPTY;
-    public static net.minecraft.client.gui.components.MultiLineLabel create(net.minecraft.client.gui.Font, net.minecraft.network.chat.Component...);
-    public static net.minecraft.client.gui.components.MultiLineLabel create(net.minecraft.client.gui.Font, int, net.minecraft.network.chat.Component...);
-    public static net.minecraft.client.gui.components.MultiLineLabel create(net.minecraft.client.gui.Font, net.minecraft.network.chat.Component, int);
-    public static net.minecraft.client.gui.components.MultiLineLabel create(net.minecraft.client.gui.Font, int, int, net.minecraft.network.chat.Component...);
-    public abstract int visitLines(net.minecraft.client.gui.TextAlignment, int, int, int, net.minecraft.client.gui.ActiveTextCollector);
-    public abstract int getLineCount();
-    public abstract int getWidth();
-    static {};
-}
+```
+public static final EMPTY : Lnet/minecraft/client/gui/components/MultiLineLabel;
+public static create(Lnet/minecraft/client/gui/Font;[Lnet/minecraft/network/chat/Component;)Lnet/minecraft/client/gui/components/MultiLineLabel;
+public static create(Lnet/minecraft/client/gui/Font;I[Lnet/minecraft/network/chat/Component;)Lnet/minecraft/client/gui/components/MultiLineLabel;
+public static create(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;I)Lnet/minecraft/client/gui/components/MultiLineLabel;
+public static create(Lnet/minecraft/client/gui/Font;II[Lnet/minecraft/network/chat/Component;)Lnet/minecraft/client/gui/components/MultiLineLabel;
+public abstract visitLines(Lnet/minecraft/client/gui/TextAlignment;IIILnet/minecraft/client/gui/ActiveTextCollector;)I
+public abstract getLineCount()I
+public abstract getWidth()I
+static <clinit>()V
 ```

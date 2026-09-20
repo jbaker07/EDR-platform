@@ -9,7 +9,7 @@ module: "fabric-loader"
 
 # net.fabricmc.api.Environment
 
-fabric-loader 0.19.5 -- kind: interface
+fabric-loader 0.19.5 -- kind: annotation
 
 ```java
 public abstract net.fabricmc.api.EnvType value()

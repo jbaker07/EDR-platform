@@ -13,8 +13,8 @@ sha256: "09d7d48475eef47a347c12c51bd32c6cffc065a6785f3023f5aa6be4b815cd38"
 Module: [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] -- kind: interface
 
 ```java
-public abstract SELF disableCounterPrefix()
-public abstract SELF withDeltaTicks(float)
-public abstract SELF withSize(int, int)
-public abstract SELF withDestinationDir(java.nio.file.Path)
+public abstract net.fabricmc.fabric.api.client.gametest.v1.screenshot.TestScreenshotCommonOptions disableCounterPrefix()
+public abstract net.fabricmc.fabric.api.client.gametest.v1.screenshot.TestScreenshotCommonOptions withDeltaTicks(float)
+public abstract net.fabricmc.fabric.api.client.gametest.v1.screenshot.TestScreenshotCommonOptions withSize(int, int)
+public abstract net.fabricmc.fabric.api.client.gametest.v1.screenshot.TestScreenshotCommonOptions withDestinationDir(java.nio.file.Path)
 ```

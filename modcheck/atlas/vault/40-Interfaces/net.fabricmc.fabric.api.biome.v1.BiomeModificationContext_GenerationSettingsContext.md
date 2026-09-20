@@ -13,9 +13,9 @@ sha256: "ce9698da6dd365c6ee59ad5f5e85602cefaaddaebf6d80fad76925e84cda5176"
 Module: [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] -- kind: interface
 
 ```java
-public abstract boolean removeFeature(net.minecraft.world.level.levelgen.GenerationStep$Decoration, net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.placement.PlacedFeature>)
-public default boolean removeFeature(net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.placement.PlacedFeature>)
-public abstract void addFeature(net.minecraft.world.level.levelgen.GenerationStep$Decoration, net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.placement.PlacedFeature>)
-public abstract void addCarver(net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.carver.WorldCarver>)
-public abstract boolean removeCarver(net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.carver.WorldCarver>)
+public abstract boolean removeFeature(net.minecraft.world.level.levelgen.GenerationStep$Decoration, net.minecraft.resources.ResourceKey)
+public boolean removeFeature(net.minecraft.resources.ResourceKey)
+public abstract void addFeature(net.minecraft.world.level.levelgen.GenerationStep$Decoration, net.minecraft.resources.ResourceKey)
+public abstract void addCarver(net.minecraft.resources.ResourceKey)
+public abstract boolean removeCarver(net.minecraft.resources.ResourceKey)
 ```

@@ -11,46 +11,58 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`enum` public final; extends `java/lang/Enum`; implements `java/util/function/Predicate`, `net/minecraft/util/StringRepresentable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `isVertical()Z` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `ordinal()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `isVertical` | `()Z` | exact | invokevirtual@8 in `ComposterWrapper.get` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@15 in `GeometryHelper$1.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@30 in `GeometryHelper$1.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@45 in `GeometryHelper$1.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@4 in `GeometryHelper.isQuadParallelToFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@6 in `GeometryHelper.isParallelQuadOnFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ordinal` | `()I` | inherited_exact | invokevirtual@14 in `GeometryHelper.lightFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `values` | `()[Lnet/minecraft/core/Direction$Axis;` | exact | invokestatic@0 in `GeometryHelper$1.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `X` | `Lnet/minecraft/core/Direction$Axis;` | exact | getstatic@12 in `GeometryHelper$1.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `X` | `Lnet/minecraft/core/Direction$Axis;` | exact | getstatic@24 in `GeometryHelper.longestAxis` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `Y` | `Lnet/minecraft/core/Direction$Axis;` | exact | getstatic@27 in `GeometryHelper$1.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `Y` | `Lnet/minecraft/core/Direction$Axis;` | exact | getstatic@0 in `GeometryHelper.longestAxis` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `Z` | `Lnet/minecraft/core/Direction$Axis;` | exact | getstatic@42 in `GeometryHelper$1.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `Z` | `Lnet/minecraft/core/Direction$Axis;` | exact | getstatic@42 in `GeometryHelper.longestAxis` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (28, all visibilities)
+## Declared members (7 fields, 21 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.core.Direction$Axis extends java.lang.Enum<net.minecraft.core.Direction$Axis> implements java.util.function.Predicate<net.minecraft.core.Direction>, net.minecraft.util.StringRepresentable {
-    public static final net.minecraft.core.Direction$Axis X;
-    public static final net.minecraft.core.Direction$Axis Y;
-    public static final net.minecraft.core.Direction$Axis Z;
-    public static final net.minecraft.core.Direction$Axis[] VALUES;
-    public static final net.minecraft.util.StringRepresentable$EnumCodec<net.minecraft.core.Direction$Axis> CODEC;
-    private final java.lang.String name;
-    private static final net.minecraft.core.Direction$Axis[] $VALUES;
-    public static net.minecraft.core.Direction$Axis[] values();
-    public static net.minecraft.core.Direction$Axis valueOf(java.lang.String);
-    private net.minecraft.core.Direction$Axis(java.lang.String);
-    public static net.minecraft.core.Direction$Axis byName(java.lang.String);
-    public java.lang.String getName();
-    public boolean isVertical();
-    public boolean isHorizontal();
-    public net.minecraft.core.Direction getPositive();
-    public net.minecraft.core.Direction getNegative();
-    public net.minecraft.core.Direction[] getDirections();
-    public java.lang.String toString();
-    public static net.minecraft.core.Direction$Axis getRandom(net.minecraft.util.RandomSource);
-    public boolean test(net.minecraft.core.Direction);
-    public net.minecraft.core.Direction$Plane getPlane();
-    public java.lang.String getSerializedName();
-    public int choose(int, int, int);
-    public double choose(double, double, double);
-    public boolean choose(boolean, boolean, boolean);
-    public boolean test(java.lang.Object);
-    private static net.minecraft.core.Direction$Axis[] $values();
-    static {};
-}
+```
+public static final X : Lnet/minecraft/core/Direction$Axis;
+public static final Y : Lnet/minecraft/core/Direction$Axis;
+public static final Z : Lnet/minecraft/core/Direction$Axis;
+public static final VALUES : [Lnet/minecraft/core/Direction$Axis;
+public static final CODEC : Lnet/minecraft/util/StringRepresentable$EnumCodec;
+private final name : Ljava/lang/String;
+private static final synthetic $VALUES : [Lnet/minecraft/core/Direction$Axis;
+public static values()[Lnet/minecraft/core/Direction$Axis;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/core/Direction$Axis;
+private <init>(Ljava/lang/String;ILjava/lang/String;)V
+public static byName(Ljava/lang/String;)Lnet/minecraft/core/Direction$Axis;
+public getName()Ljava/lang/String;
+public isVertical()Z
+public isHorizontal()Z
+public getPositive()Lnet/minecraft/core/Direction;
+public getNegative()Lnet/minecraft/core/Direction;
+public getDirections()[Lnet/minecraft/core/Direction;
+public toString()Ljava/lang/String;
+public static getRandom(Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/Direction$Axis;
+public test(Lnet/minecraft/core/Direction;)Z
+public getPlane()Lnet/minecraft/core/Direction$Plane;
+public getSerializedName()Ljava/lang/String;
+public choose(III)I
+public choose(DDD)D
+public choose(ZZZ)Z
+public synthetic test(Ljava/lang/Object;)Z
+private static synthetic $values()[Lnet/minecraft/core/Direction$Axis;
+static <clinit>()V
 ```

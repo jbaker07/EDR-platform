@@ -1,5 +1,10 @@
 - id: request.crystal_caves
   title: Crystal caves -- crystal-lined cave pockets in mountain biomes
+  analyst_exercise: true
+  canonical_request:
+    id: exercise.crystal_caves
+    kind: analyst_exercise
+    requirement_ids: []
   family: workflow:wf.world.features_biomes
   request: >-
     Analyst-authored exercise request (not from a creator): in mountain biomes,

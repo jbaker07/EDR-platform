@@ -11,48 +11,55 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/world/item/ItemInstance`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/D` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/D` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/DataCompone` | exact | invokespecial@14 in `ComponentsIngredient.createEntryDisplay` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/DataCompone` | exact | invokespecial@31 in `CustomDataIngredient.createEntryDisplay` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/DataCompone` | exact | invokespecial@149 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `components` | `()Lnet/minecraft/core/component/DataComponentPatch;` | exact | invokevirtual@146 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `count` | `()I` | exact | invokevirtual@85 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `count` | `()I` | exact | invokevirtual@98 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `count` | `()I` | exact | invokevirtual@138 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `create` | `()Lnet/minecraft/world/item/ItemStack;` | exact | invokevirtual@43 in `BundleContentsStorage$BundleSlotWrapper.getStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `item` | `()Lnet/minecraft/core/Holder;` | exact | invokevirtual@133 in `BundleContentsStorage$BundleSlotWrapper.extract` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (30, all visibilities)
+## Declared members (7 fields, 23 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.ItemStackTemplate extends java.lang.Record implements net.minecraft.world.item.ItemInstance {
-    private final net.minecraft.core.Holder<net.minecraft.world.item.Item> item;
-    private final int count;
-    private final net.minecraft.core.component.DataComponentPatch components;
-    private static final org.slf4j.Logger LOGGER;
-    public static final com.mojang.serialization.MapCodec<net.minecraft.world.item.ItemStackTemplate> MAP_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.item.ItemStackTemplate> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.ItemStackTemplate> STREAM_CODEC;
-    public net.minecraft.world.item.ItemStackTemplate(net.minecraft.world.item.Item);
-    public net.minecraft.world.item.ItemStackTemplate(net.minecraft.world.item.Item, int);
-    public net.minecraft.world.item.ItemStackTemplate(net.minecraft.world.item.Item, net.minecraft.core.component.DataComponentPatch);
-    public net.minecraft.world.item.ItemStackTemplate(net.minecraft.core.Holder<net.minecraft.world.item.Item>, int, net.minecraft.core.component.DataComponentPatch);
-    public static net.minecraft.world.item.ItemStackTemplate fromNonEmptyStack(net.minecraft.world.item.ItemStack);
-    public static net.minecraft.world.item.ItemStackTemplate fromStack(net.minecraft.world.item.ItemStack);
-    public static net.minecraft.world.item.ItemStackTemplate fromNonEmptyStack(net.minecraft.world.item.ItemStack, int);
-    public net.minecraft.world.item.ItemStackTemplate withCount(int);
-    public net.minecraft.world.item.ItemStack create();
-    private net.minecraft.world.item.ItemStack validate(net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.item.ItemStack apply(net.minecraft.core.component.DataComponentPatch);
-    public net.minecraft.world.item.ItemStack apply(int, net.minecraft.core.component.DataComponentPatch);
-    public net.minecraft.core.Holder<net.minecraft.world.item.Item> typeHolder();
-    public <T> T get(net.minecraft.core.component.DataComponentType<? extends T>);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.Holder<net.minecraft.world.item.Item> item();
-    public int count();
-    public net.minecraft.core.component.DataComponentPatch components();
-    private static net.minecraft.world.item.ItemStackTemplate lambda$static$1(net.minecraft.core.Holder);
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final item : Lnet/minecraft/core/Holder;
+private final count : I
+private final components : Lnet/minecraft/core/component/DataComponentPatch;
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final MAP_CODEC : Lcom/mojang/serialization/MapCodec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/world/item/Item;)V
+public <init>(Lnet/minecraft/world/item/Item;I)V
+public <init>(Lnet/minecraft/world/item/Item;Lnet/minecraft/core/component/DataComponentPatch;)V
+public <init>(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/DataComponentPatch;)V
+public static fromNonEmptyStack(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStackTemplate;
+public static fromStack(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStackTemplate;
+public static fromNonEmptyStack(Lnet/minecraft/world/item/ItemStack;I)Lnet/minecraft/world/item/ItemStackTemplate;
+public withCount(I)Lnet/minecraft/world/item/ItemStackTemplate;
+public create()Lnet/minecraft/world/item/ItemStack;
+private validate(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+public apply(Lnet/minecraft/core/component/DataComponentPatch;)Lnet/minecraft/world/item/ItemStack;
+public apply(ILnet/minecraft/core/component/DataComponentPatch;)Lnet/minecraft/world/item/ItemStack;
+public typeHolder()Lnet/minecraft/core/Holder;
+public get(Lnet/minecraft/core/component/DataComponentType;)Ljava/lang/Object;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public item()Lnet/minecraft/core/Holder;
+public count()I
+public components()Lnet/minecraft/core/component/DataComponentPatch;
+private static synthetic lambda$static$1(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/item/ItemStackTemplate;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

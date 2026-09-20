@@ -11,40 +11,40 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `validatePath([Ljava/lang/String;)V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `validatePath` | `([Ljava/lang/String;)V` | exact | invokestatic@1 in `ModNioPackResources.getRootResource` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (4 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.FileUtil {
-    private static final java.util.regex.Pattern COPY_COUNTER_PATTERN;
-    private static final int MAX_FILE_NAME;
-    private static final java.util.regex.Pattern RESERVED_WINDOWS_FILENAMES;
-    private static final java.util.regex.Pattern STRICT_PATH_SEGMENT_CHECK;
-    public net.minecraft.util.FileUtil();
-    public static java.lang.String sanitizeName(java.lang.String);
-    public static java.lang.String findAvailableName(java.nio.file.Path, java.lang.String, java.lang.String) throws java.io.IOException;
-    public static boolean isPathPortable(java.nio.file.Path);
-    public static boolean isPathPartPortable(java.lang.String);
-    public static java.lang.String getFullResourcePath(java.lang.String);
-    public static java.lang.String normalizeResourcePath(java.lang.String);
-    public static com.mojang.serialization.DataResult<java.util.List<java.lang.String>> decomposePath(java.lang.String);
-    public static java.nio.file.Path resolvePath(java.nio.file.Path, java.util.List<java.lang.String>);
-    private static boolean containsAllowedCharactersOnly(java.lang.String);
-    public static boolean isValidPathSegment(java.lang.String);
-    public static void validatePath(java.lang.String...);
-    public static void createDirectoriesSafe(java.nio.file.Path) throws java.io.IOException;
-    public static boolean isEmptyPath(java.nio.file.Path);
-    private static java.lang.String lambda$decomposePath$3(java.lang.String, java.lang.String);
-    private static java.lang.String lambda$decomposePath$2(java.lang.String, java.lang.String);
-    private static java.lang.String lambda$decomposePath$1(java.lang.String);
-    private static java.lang.String lambda$decomposePath$0(java.lang.String);
-    static {};
-}
+```
+private static final COPY_COUNTER_PATTERN : Ljava/util/regex/Pattern;
+private static final MAX_FILE_NAME : I
+private static final RESERVED_WINDOWS_FILENAMES : Ljava/util/regex/Pattern;
+private static final STRICT_PATH_SEGMENT_CHECK : Ljava/util/regex/Pattern;
+public <init>()V
+public static sanitizeName(Ljava/lang/String;)Ljava/lang/String;
+public static findAvailableName(Ljava/nio/file/Path;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+public static isPathPortable(Ljava/nio/file/Path;)Z
+public static isPathPartPortable(Ljava/lang/String;)Z
+public static getFullResourcePath(Ljava/lang/String;)Ljava/lang/String;
+public static normalizeResourcePath(Ljava/lang/String;)Ljava/lang/String;
+public static decomposePath(Ljava/lang/String;)Lcom/mojang/serialization/DataResult;
+public static resolvePath(Ljava/nio/file/Path;Ljava/util/List;)Ljava/nio/file/Path;
+private static containsAllowedCharactersOnly(Ljava/lang/String;)Z
+public static isValidPathSegment(Ljava/lang/String;)Z
+public static validatePath([Ljava/lang/String;)V
+public static createDirectoriesSafe(Ljava/nio/file/Path;)V
+public static isEmptyPath(Ljava/nio/file/Path;)Z
+private static synthetic lambda$decomposePath$3(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$decomposePath$2(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$decomposePath$1(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$decomposePath$0(Ljava/lang/String;)Ljava/lang/String;
+static <clinit>()V
 ```

@@ -13,7 +13,7 @@ sha256: "a5a9e382e4f9875f7450dbf0d45221ca70afc00cf84aa02023104bb15a530ade"
 Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] -- kind: interface
 
 ```java
-public default void onEffectAdded(net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.entity.LivingEntity)
-public default void onEffectStarted(net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.entity.LivingEntity)
-public default void onEffectRemoved(net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.entity.LivingEntity)
+public void onEffectAdded(net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.entity.LivingEntity)
+public void onEffectStarted(net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.entity.LivingEntity)
+public void onEffectRemoved(net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.entity.LivingEntity)
 ```

@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.injectElytraTick` | `LivingEntity.updateFallFlying()V` @Inject at INVOKE Lnet/minecraft/util/Util;getRandom(Ljava/util/List;Lnet/minecraft/util/RandomSource;)Ljava/lang/Object; | both | static_inference |
-| `LivingEntityMixin.injectElytraCheck` | `LivingEntity.canGlide` @Inject at FIELD Lnet/minecraft/world/entity/EquipmentSlot;VALUES:Ljava/util/List; | both | static_inference |
+| `LivingEntityMixin.injectElytraTick` @15 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`updateFallFlying` @Inject INVOKE `Lnet/minecraft/util/Util;getRandom(Ljava/util/List;Lnet/minecraft/util/RandomSource;)Ljava/lang/Object;` | unknown | static_inference |
+| `LivingEntityMixin.injectElytraCheck` @15 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`canGlide` @Inject FIELD `Lnet/minecraft/world/entity/EquipmentSlot;VALUES:Ljava/util/List;` | unknown | static_inference |
 
 ## Contract
 

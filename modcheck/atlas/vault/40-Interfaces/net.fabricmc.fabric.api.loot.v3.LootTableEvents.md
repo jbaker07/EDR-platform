@@ -13,9 +13,8 @@ sha256: "569540023c6d19e4b4854e14ea4bb99aed401946d5470f761ac1f1388cc7de2c"
 Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.loot.v3.LootTableEvents$Replace> REPLACE
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.loot.v3.LootTableEvents$Modify> MODIFY
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.loot.v3.LootTableEvents$Loaded> ALL_LOADED
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.loot.v3.LootTableEvents$ModifyDrops> MODIFY_DROPS
-static {}
+public static final net.fabricmc.fabric.api.event.Event REPLACE
+public static final net.fabricmc.fabric.api.event.Event MODIFY
+public static final net.fabricmc.fabric.api.event.Event ALL_LOADED
+public static final net.fabricmc.fabric.api.event.Event MODIFY_DROPS
 ```

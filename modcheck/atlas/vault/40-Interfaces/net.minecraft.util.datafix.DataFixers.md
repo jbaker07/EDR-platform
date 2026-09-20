@@ -11,52 +11,52 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util.datafix|net.minecraft.util.datafix]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getDataFixer()Lcom/mojang/datafixers/DataFixer;` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getDataFixer` | `()Lcom/mojang/datafixers/DataFixer;` | exact | invokestatic@74 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (35, all visibilities)
+## Declared members (5 fields, 30 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.datafix.DataFixers {
-    private static final java.util.function.BiFunction<java.lang.Integer, com.mojang.datafixers.schemas.Schema, com.mojang.datafixers.schemas.Schema> SAME;
-    private static final java.util.function.BiFunction<java.lang.Integer, com.mojang.datafixers.schemas.Schema, com.mojang.datafixers.schemas.Schema> SAME_NAMESPACED;
-    private static final com.mojang.datafixers.DataFixerBuilder$Result DATA_FIXER;
-    private static final net.minecraft.util.filefix.FileFixerUpper FILE_FIXER;
-    public static final int BLENDING_VERSION;
-    private net.minecraft.util.datafix.DataFixers();
-    public static com.mojang.datafixers.DataFixer getDataFixer();
-    public static net.minecraft.util.filefix.FileFixerUpper getFileFixer();
-    public static java.util.concurrent.CompletableFuture<?> optimize(java.util.Set<com.mojang.datafixers.DSL$TypeReference>);
-    private static void addFixers(com.mojang.datafixers.DataFixerBuilder, net.minecraft.util.filefix.FileFixerUpper$Builder);
-    private static java.util.function.UnaryOperator<java.lang.String> createRenamerNoNamespace(java.util.Map<java.lang.String, java.lang.String>);
-    private static java.util.function.UnaryOperator<java.lang.String> createRenamer(java.util.Map<java.lang.String, java.lang.String>);
-    private static java.util.function.UnaryOperator<java.lang.String> createRenamer(java.lang.String, java.lang.String);
-    private static java.lang.String lambda$createRenamer$1(java.lang.String, java.lang.String, java.lang.String);
-    private static java.lang.String lambda$createRenamer$0(java.util.Map, java.lang.String);
-    private static java.lang.String lambda$createRenamerNoNamespace$0(java.util.Map, java.lang.String);
-    private static com.mojang.serialization.Dynamic lambda$addFixers$17(com.mojang.serialization.Dynamic);
-    private static com.mojang.serialization.Dynamic lambda$addFixers$16(com.mojang.serialization.Dynamic);
-    private static java.lang.String lambda$addFixers$15(java.lang.String);
-    private static java.lang.String lambda$addFixers$14(java.lang.String);
-    private static double lambda$addFixers$13(double);
-    private static double lambda$addFixers$12(double);
-    private static double lambda$addFixers$11(double);
-    private static double lambda$addFixers$10(double);
-    private static double lambda$addFixers$9(double);
-    private static double lambda$addFixers$8(double);
-    private static java.lang.String lambda$addFixers$7(java.lang.String);
-    private static java.lang.String lambda$addFixers$6(java.util.Map, java.lang.String);
-    private static void lambda$addFixers$5(it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap);
-    private static java.lang.String lambda$addFixers$4(com.google.common.collect.ImmutableMap, java.lang.String);
-    private static void lambda$addFixers$3(it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap);
-    private static java.lang.String lambda$addFixers$2(java.lang.String);
-    private static java.lang.String lambda$addFixers$1(java.lang.String);
-    private static java.lang.String lambda$addFixers$0(java.lang.String);
-    static {};
-}
+```
+private static final SAME : Ljava/util/function/BiFunction;
+private static final SAME_NAMESPACED : Ljava/util/function/BiFunction;
+private static final DATA_FIXER : Lcom/mojang/datafixers/DataFixerBuilder$Result;
+private static final FILE_FIXER : Lnet/minecraft/util/filefix/FileFixerUpper;
+public static final BLENDING_VERSION : I
+private <init>()V
+public static getDataFixer()Lcom/mojang/datafixers/DataFixer;
+public static getFileFixer()Lnet/minecraft/util/filefix/FileFixerUpper;
+public static optimize(Ljava/util/Set;)Ljava/util/concurrent/CompletableFuture;
+private static addFixers(Lcom/mojang/datafixers/DataFixerBuilder;Lnet/minecraft/util/filefix/FileFixerUpper$Builder;)V
+private static createRenamerNoNamespace(Ljava/util/Map;)Ljava/util/function/UnaryOperator;
+private static createRenamer(Ljava/util/Map;)Ljava/util/function/UnaryOperator;
+private static createRenamer(Ljava/lang/String;Ljava/lang/String;)Ljava/util/function/UnaryOperator;
+private static synthetic lambda$createRenamer$1(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$createRenamer$0(Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$createRenamerNoNamespace$0(Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$17(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/Dynamic;
+private static synthetic lambda$addFixers$16(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/Dynamic;
+private static synthetic lambda$addFixers$15(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$14(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$13(D)D
+private static synthetic lambda$addFixers$12(D)D
+private static synthetic lambda$addFixers$11(D)D
+private static synthetic lambda$addFixers$10(D)D
+private static synthetic lambda$addFixers$9(D)D
+private static synthetic lambda$addFixers$8(D)D
+private static synthetic lambda$addFixers$7(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$6(Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$5(Lit/unimi/dsi/fastutil/ints/Int2ObjectOpenHashMap;)V
+private static synthetic lambda$addFixers$4(Lcom/google/common/collect/ImmutableMap;Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$3(Lit/unimi/dsi/fastutil/ints/Int2ObjectOpenHashMap;)V
+private static synthetic lambda$addFixers$2(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$1(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$addFixers$0(Ljava/lang/String;)Ljava/lang/String;
+static <clinit>()V
 ```

@@ -10,7 +10,7 @@ sha256: "569540023c6d19e4b4854e14ea4bb99aed401946d5470f761ac1f1388cc7de2c"
 
 # net.fabricmc.fabric.api.loot.v3.LootTableSource
 
-Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] -- kind: class
+Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.loot.v3.LootTableSource VANILLA
@@ -20,5 +20,4 @@ public static final net.fabricmc.fabric.api.loot.v3.LootTableSource REPLACED
 public static net.fabricmc.fabric.api.loot.v3.LootTableSource[] values()
 public static net.fabricmc.fabric.api.loot.v3.LootTableSource valueOf(java.lang.String)
 public boolean isBuiltin()
-static {}
 ```

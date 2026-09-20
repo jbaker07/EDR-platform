@@ -15,7 +15,9 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]]
 
 ## Published from
 
-- no publisher found by extraction (may be fired from generated or non-module code)
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
+|---|---|---|---|
+| `MinecraftServerMixin.lambda$onGetChatDecorator$0` @11 | (handler is not itself an injector: fired from a helper or impl method) | unknown | static_inference |
 
 ## Contract
 

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ReloadableServerRegistriesMixin.lambda$modifyLootTables$0` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `ReloadableServerRegistriesMixin.lambda$modifyLootTables$0` @21 | (handler is not itself an injector: fired from a helper or impl method) | unknown | static_inference |
 
 ## Contract
 

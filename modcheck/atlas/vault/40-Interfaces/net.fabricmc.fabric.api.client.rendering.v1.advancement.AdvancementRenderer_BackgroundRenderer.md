@@ -14,5 +14,5 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: inter
 
 ```java
 public abstract void extractAdvancementBackground(net.fabricmc.fabric.api.client.rendering.v1.advancement.AdvancementRenderContext$Background)
-public default boolean shouldRenderOriginalBackground()
+public boolean shouldRenderOriginalBackground()
 ```

@@ -11,37 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/entity/PathfinderMob`; implements `net/minecraft/world/entity/monster/Enemy`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world` | `` | both | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world` | `` | both | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Lev` | exact | invokespecial@3 in `BreezeMixin.<init>` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Lev` | exact | invokespecial@3 in `WardenMixin.<init>` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (0 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.entity.monster.Monster extends net.minecraft.world.entity.PathfinderMob implements net.minecraft.world.entity.monster.Enemy {
-    protected net.minecraft.world.entity.monster.Monster(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Monster>, net.minecraft.world.level.Level);
-    public net.minecraft.sounds.SoundSource getSoundSource();
-    public void aiStep();
-    protected void updateNoActionTime();
-    protected net.minecraft.sounds.SoundEvent getSwimSound();
-    protected net.minecraft.sounds.SoundEvent getSwimSplashSound();
-    protected net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource);
-    protected net.minecraft.sounds.SoundEvent getDeathSound();
-    public net.minecraft.world.entity.LivingEntity$Fallsounds getFallSounds();
-    public float getWalkTargetValue(net.minecraft.core.BlockPos, net.minecraft.world.level.LevelReader);
-    public static boolean isDarkEnoughToSpawn(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public static boolean checkMonsterSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob>, net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public static boolean checkAnyLightMonsterSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.monster.Monster>, net.minecraft.world.level.LevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public static boolean checkSurfaceMonstersSpawnRules(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob>, net.minecraft.world.level.ServerLevelAccessor, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public static net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder createMonsterAttributes();
-    public boolean shouldDropExperience();
-    protected boolean shouldDropLoot(net.minecraft.server.level.ServerLevel);
-    public boolean isPreventingPlayerRest(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.player.Player);
-    public net.minecraft.world.item.ItemStack getProjectile(net.minecraft.world.item.ItemStack);
-}
+```
+protected <init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V
+public getSoundSource()Lnet/minecraft/sounds/SoundSource;
+public aiStep()V
+protected updateNoActionTime()V
+protected getSwimSound()Lnet/minecraft/sounds/SoundEvent;
+protected getSwimSplashSound()Lnet/minecraft/sounds/SoundEvent;
+protected getHurtSound(Lnet/minecraft/world/damagesource/DamageSource;)Lnet/minecraft/sounds/SoundEvent;
+protected getDeathSound()Lnet/minecraft/sounds/SoundEvent;
+public getFallSounds()Lnet/minecraft/world/entity/LivingEntity$Fallsounds;
+public getWalkTargetValue(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/LevelReader;)F
+public static isDarkEnoughToSpawn(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Z
+public static checkMonsterSpawnRules(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Z
+public static checkAnyLightMonsterSpawnRules(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Z
+public static checkSurfaceMonstersSpawnRules(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Z
+public static createMonsterAttributes()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;
+public shouldDropExperience()Z
+protected shouldDropLoot(Lnet/minecraft/server/level/ServerLevel;)Z
+public isPreventingPlayerRest(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/player/Player;)Z
+public getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
 ```

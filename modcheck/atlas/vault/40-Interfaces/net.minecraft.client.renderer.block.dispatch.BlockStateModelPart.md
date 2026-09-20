@@ -11,25 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/renderer/v1/model/FabricBlockStateModelPart`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `emitQuads(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadEmitte` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `emitQuads(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadEmitte` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `getQuads(Lnet/minecraft/core/Direction;)Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `getQuads(Lnet/minecraft/core/Direction;)Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `useAmbientOcclusion()Z` | `` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `emitQuads` | `(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadEmitter;Ljava/ut` | inherited_exact | invokeinterface@101 in `FabricBlockStateModel.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `emitQuads` | `(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadEmitter;Ljava/ut` | inherited_exact | invokespecial@73 in `SimpleModelWrapperMixin.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `emitQuads` | `(Lnet/fabricmc/fabric/api/client/renderer/v1/mesh/QuadEmitter;Ljava/ut` | inherited_exact | invokeinterface@52 in `SingleVariantMixin.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getQuads` | `(Lnet/minecraft/core/Direction;)Ljava/util/List;` | exact | invokeinterface@53 in `VanillaBlockModelPartEncoder.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `getQuads` | `(Lnet/minecraft/core/Direction;)Ljava/util/List;` | exact | invokeinterface@30 in `ExtendedBlockModelFeatureRenderer.putPartQuads` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `getQuads` | `(Lnet/minecraft/core/Direction;)Ljava/util/List;` | exact | invokeinterface@111 in `ExtendedBlockModelFeatureRenderer.putPartQuads` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `useAmbientOcclusion` | `()Z` | exact | invokeinterface@1 in `VanillaBlockModelPartEncoder.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (4, all visibilities)
+## Declared members (0 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.renderer.block.dispatch.BlockStateModelPart {
-    public abstract java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getQuads(net.minecraft.core.Direction);
-    public abstract boolean useAmbientOcclusion();
-    public abstract net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
-    public abstract int materialFlags();
-}
+```
+public abstract getQuads(Lnet/minecraft/core/Direction;)Ljava/util/List;
+public abstract useAmbientOcclusion()Z
+public abstract particleMaterial()Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+public abstract materialFlags()I
 ```

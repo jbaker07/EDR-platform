@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.onIsSleepingInBed` | `LivingEntity.checkBedExists` @Inject at RETURN | both | static_inference |
-| `LivingEntityMixin.modifyBedForOccupiedState` | `LivingEntity.lambda$stopSleeping$0` @ModifyVariable at INVOKE_ASSIGN Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;; `LivingEntity.startSleeping` @ModifyVariable at INVOKE_ASSIGN Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState; | both | static_inference |
+| `LivingEntityMixin.onIsSleepingInBed` @48 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`checkBedExists` @Inject RETURN | unknown | static_inference |
+| `LivingEntityMixin.modifyBedForOccupiedState` @22 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`lambda$stopSleeping$0` @ModifyVariable INVOKE_ASSIGN `Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;`; [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`startSleeping` @ModifyVariable INVOKE_ASSIGN `Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;` | unknown | static_inference |
 
 ## Contract
 

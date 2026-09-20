@@ -11,59 +11,60 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.chat|net.minecraft.network.chat]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/network/chat/ComponentContents`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getKey()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getKey` | `()Ljava/lang/String;` | exact | invokevirtual@39 in `ClientGameTestImpl.isExperimentalWarningScreen` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `getKey` | `()Ljava/lang/String;` | exact | invokevirtual@42 in `FabricLanguageProvider$TranslationBuilder.addCreativeModeTab` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (42, all visibilities)
+## Declared members (12 fields, 30 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.chat.contents.TranslatableContents implements net.minecraft.network.chat.ComponentContents {
-    public static final java.lang.Object[] NO_ARGS;
-    private static final com.mojang.serialization.Codec<java.lang.Object> PRIMITIVE_ARG_CODEC;
-    private static final com.mojang.serialization.Codec<java.lang.Object> ARG_CODEC;
-    public static final com.mojang.serialization.MapCodec<net.minecraft.network.chat.contents.TranslatableContents> MAP_CODEC;
-    private static final net.minecraft.network.chat.FormattedText TEXT_PERCENT;
-    private static final net.minecraft.network.chat.FormattedText TEXT_NULL;
-    private final java.lang.String key;
-    private final java.lang.String fallback;
-    private final java.lang.Object[] args;
-    private net.minecraft.locale.Language decomposedWith;
-    private java.util.List<net.minecraft.network.chat.FormattedText> decomposedParts;
-    private static final java.util.regex.Pattern FORMAT_PATTERN;
-    private static com.mojang.serialization.DataResult<java.lang.Object> filterAllowedArguments(java.lang.Object);
-    public static boolean isAllowedPrimitiveArgument(java.lang.Object);
-    private static java.util.Optional<java.util.List<java.lang.Object>> adjustArgs(java.lang.Object[]);
-    private static java.lang.Object[] adjustArgs(java.util.Optional<java.util.List<java.lang.Object>>);
-    private static net.minecraft.network.chat.contents.TranslatableContents create(java.lang.String, java.util.Optional<java.lang.String>, java.util.Optional<java.util.List<java.lang.Object>>);
-    public net.minecraft.network.chat.contents.TranslatableContents(java.lang.String, java.lang.String, java.lang.Object[]);
-    public com.mojang.serialization.MapCodec<net.minecraft.network.chat.contents.TranslatableContents> codec();
-    private void decompose();
-    private void decomposeTemplate(java.lang.String, java.util.function.Consumer<net.minecraft.network.chat.FormattedText>);
-    private net.minecraft.network.chat.FormattedText getArgument(int);
-    public <T> java.util.Optional<T> visit(net.minecraft.network.chat.FormattedText$StyledContentConsumer<T>, net.minecraft.network.chat.Style);
-    public <T> java.util.Optional<T> visit(net.minecraft.network.chat.FormattedText$ContentConsumer<T>);
-    public net.minecraft.network.chat.MutableComponent resolve(net.minecraft.network.chat.ResolutionContext, int) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public java.lang.String toString();
-    public java.lang.String getKey();
-    public java.lang.String getFallback();
-    public java.lang.Object[] getArgs();
-    private static java.lang.Object[] lambda$adjustArgs$0(java.util.List);
-    private static com.mojang.datafixers.kinds.App lambda$static$4(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    private static java.util.Optional lambda$static$7(net.minecraft.network.chat.contents.TranslatableContents);
-    private static java.util.Optional lambda$static$6(net.minecraft.network.chat.contents.TranslatableContents);
-    private static java.lang.String lambda$static$5(net.minecraft.network.chat.contents.TranslatableContents);
-    private static com.mojang.datafixers.util.Either lambda$static$3(java.lang.Object);
-    private static java.lang.Object lambda$static$0(com.mojang.datafixers.util.Either);
-    private static java.lang.Object lambda$static$2(net.minecraft.network.chat.Component);
-    private static java.lang.Object lambda$static$1(java.lang.Object);
-    private static java.lang.String lambda$filterAllowedArguments$0();
-    static {};
-}
+```
+public static final NO_ARGS : [Ljava/lang/Object;
+private static final PRIMITIVE_ARG_CODEC : Lcom/mojang/serialization/Codec;
+private static final ARG_CODEC : Lcom/mojang/serialization/Codec;
+public static final MAP_CODEC : Lcom/mojang/serialization/MapCodec;
+private static final TEXT_PERCENT : Lnet/minecraft/network/chat/FormattedText;
+private static final TEXT_NULL : Lnet/minecraft/network/chat/FormattedText;
+private final key : Ljava/lang/String;
+private final fallback : Ljava/lang/String;
+private final args : [Ljava/lang/Object;
+private decomposedWith : Lnet/minecraft/locale/Language;
+private decomposedParts : Ljava/util/List;
+private static final FORMAT_PATTERN : Ljava/util/regex/Pattern;
+private static filterAllowedArguments(Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;
+public static isAllowedPrimitiveArgument(Ljava/lang/Object;)Z
+private static adjustArgs([Ljava/lang/Object;)Ljava/util/Optional;
+private static adjustArgs(Ljava/util/Optional;)[Ljava/lang/Object;
+private static create(Ljava/lang/String;Ljava/util/Optional;Ljava/util/Optional;)Lnet/minecraft/network/chat/contents/TranslatableContents;
+public <init>(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)V
+public codec()Lcom/mojang/serialization/MapCodec;
+private decompose()V
+private decomposeTemplate(Ljava/lang/String;Ljava/util/function/Consumer;)V
+public final getArgument(I)Lnet/minecraft/network/chat/FormattedText;
+public visit(Lnet/minecraft/network/chat/FormattedText$StyledContentConsumer;Lnet/minecraft/network/chat/Style;)Ljava/util/Optional;
+public visit(Lnet/minecraft/network/chat/FormattedText$ContentConsumer;)Ljava/util/Optional;
+public resolve(Lnet/minecraft/network/chat/ResolutionContext;I)Lnet/minecraft/network/chat/MutableComponent;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public toString()Ljava/lang/String;
+public getKey()Ljava/lang/String;
+public getFallback()Ljava/lang/String;
+public getArgs()[Ljava/lang/Object;
+private static synthetic lambda$adjustArgs$0(Ljava/util/List;)[Ljava/lang/Object;
+private static synthetic lambda$static$4(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+private static synthetic lambda$static$7(Lnet/minecraft/network/chat/contents/TranslatableContents;)Ljava/util/Optional;
+private static synthetic lambda$static$6(Lnet/minecraft/network/chat/contents/TranslatableContents;)Ljava/util/Optional;
+private static synthetic lambda$static$5(Lnet/minecraft/network/chat/contents/TranslatableContents;)Ljava/lang/String;
+private static synthetic lambda$static$3(Ljava/lang/Object;)Lcom/mojang/datafixers/util/Either;
+private static synthetic lambda$static$0(Lcom/mojang/datafixers/util/Either;)Ljava/lang/Object;
+private static synthetic lambda$static$2(Lnet/minecraft/network/chat/Component;)Ljava/lang/Object;
+private static synthetic lambda$static$1(Ljava/lang/Object;)Ljava/lang/Object;
+private static synthetic lambda$filterAllowedArguments$0()Ljava/lang/String;
+static <clinit>()V
 ```

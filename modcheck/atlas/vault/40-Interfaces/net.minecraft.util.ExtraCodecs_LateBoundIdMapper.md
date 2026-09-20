@@ -11,26 +11,26 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `codec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `put(Ljava/lang/Object;Ljava/lang/Object;)Lnet/minecraft/util/Ex` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `put(Ljava/lang/Object;Ljava/lang/Object;)Lnet/minecraft/util/Ex` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `()V` | exact | invokespecial@4 in `CustomUnbakedBlockStateModelRegistry.<clinit>` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `codec` | `(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;` | exact | invokevirtual@16 in `CustomUnbakedBlockStateModelRegistry.<clinit>` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `put` | `(Ljava/lang/Object;Ljava/lang/Object;)Lnet/minecraft/util/ExtraCodecs$` | exact | invokevirtual@5 in `CustomUnbakedBlockStateModelRegistry.register` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `put` | `(Ljava/lang/Object;Ljava/lang/Object;)Lnet/minecraft/util/ExtraCodecs$` | exact | invokevirtual@19 in `SpriteSourceRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (1 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.ExtraCodecs$LateBoundIdMapper<I, V> {
-    private final com.google.common.collect.BiMap<I, V> idToValue;
-    public net.minecraft.util.ExtraCodecs$LateBoundIdMapper();
-    public com.mojang.serialization.Codec<V> codec(com.mojang.serialization.Codec<I>);
-    public net.minecraft.util.ExtraCodecs$LateBoundIdMapper<I, V> put(I, V);
-    public java.util.Set<V> values();
-    private static java.lang.String lambda$put$0(java.lang.Object);
-}
+```
+private final idToValue : Lcom/google/common/collect/BiMap;
+public <init>()V
+public codec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;
+public put(Ljava/lang/Object;Ljava/lang/Object;)Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
+public values()Ljava/util/Set;
+private static synthetic lambda$put$0(Ljava/lang/Object;)Ljava/lang/String;
 ```

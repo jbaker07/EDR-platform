@@ -11,66 +11,77 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getAdvancement()Lnet/minecraft/advancements/AdvancementHolder;` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `extractHover` | `@Inject at INVOKE Ljava/util/List;isEmpty()Z` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getAdvancement` | `()Lnet/minecraft/advancements/AdvancementHolder;` | exact | invokevirtual@4 in `AdvancementTabMixin.preBackgroundRender` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getAdvancement` | `()Lnet/minecraft/advancements/AdvancementHolder;` | exact | invokevirtual@43 in `AdvancementTabMixin.extractAdvancementBackground` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `extractHover` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| reads | `advancementNode` | `Lnet/minecraft/advancements/AdvancementNode;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
+| reads | `progress` | `Lnet/minecraft/advancements/AdvancementProgress;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | declared |
+| wraps | `extractHover` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHover` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHover` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V` | name_only | @WrapWithCondition at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHover` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V` | name_only | @WrapWithCondition at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHover` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V` | name_only | @WrapWithCondition at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractHover` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V` | name_only | @WrapWithCondition at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| wraps | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (48, all visibilities)
+## Declared members (28 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.advancements.AdvancementWidget {
-    private static final net.minecraft.resources.Identifier TITLE_BOX_SPRITE;
-    private static final int HEIGHT;
-    private static final int BOX_X;
-    private static final int BOX_WIDTH;
-    private static final int FRAME_WIDTH;
-    private static final int ICON_X;
-    private static final int ICON_Y;
-    private static final int ICON_WIDTH;
-    private static final int TITLE_PADDING_LEFT;
-    private static final int TITLE_PADDING_RIGHT;
-    private static final int TITLE_X;
-    private static final int TITLE_PADDING_TOP;
-    private static final int TITLE_PADDING_BOTTOM;
-    private static final int TITLE_MAX_WIDTH;
-    private static final int TITLE_MIN_WIDTH;
-    private static final int[] TEST_SPLIT_OFFSETS;
-    private final net.minecraft.advancements.AdvancementNode advancementNode;
-    private final net.minecraft.advancements.DisplayInfo display;
-    private final net.minecraft.world.item.ItemStack icon;
-    private final java.util.List<net.minecraft.util.FormattedCharSequence> titleLines;
-    private final int width;
-    private final java.util.List<net.minecraft.util.FormattedCharSequence> description;
-    private final net.minecraft.client.Minecraft minecraft;
-    private net.minecraft.client.gui.screens.advancements.AdvancementWidget parent;
-    private final java.util.List<net.minecraft.client.gui.screens.advancements.AdvancementWidget> children;
-    private net.minecraft.advancements.AdvancementProgress progress;
-    private final int x;
-    private final int y;
-    private net.minecraft.client.gui.screens.advancements.AdvancementWidget(net.minecraft.client.Minecraft, net.minecraft.advancements.AdvancementNode, net.minecraft.advancements.DisplayInfo);
-    public static net.minecraft.client.gui.screens.advancements.AdvancementWidget createWidget(net.minecraft.client.Minecraft, net.minecraft.advancements.AdvancementNode);
-    private int getMaxProgressWidth();
-    private static float getMaxWidth(net.minecraft.client.StringSplitter, java.util.List<net.minecraft.network.chat.FormattedText>);
-    private java.util.List<net.minecraft.network.chat.FormattedText> findOptimalLines(net.minecraft.network.chat.Component, int);
-    private static net.minecraft.advancements.AdvancementHolder findFirstVisibleParent(net.minecraft.advancements.AdvancementNode);
-    public void extractConnectivity(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, boolean);
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    public int getWidth();
-    public void setProgress(net.minecraft.advancements.AdvancementProgress);
-    public void addChild(net.minecraft.client.gui.screens.advancements.AdvancementWidget);
-    public void extractHover(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float, int, int, int);
-    private void extractMultilineText(net.minecraft.client.gui.GuiGraphicsExtractor, java.util.List<net.minecraft.util.FormattedCharSequence>, int, int, int);
-    public boolean isMouseOver(int, int, int, int);
-    public void attachToParent(net.minecraft.client.gui.screens.advancements.AdvancementTab);
-    public int getY();
-    public int getX();
-    public net.minecraft.advancements.AdvancementHolder getAdvancement();
-    public net.minecraft.advancements.DisplayInfo getDisplay();
-    static {};
-}
+```
+private static final TITLE_BOX_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final HEIGHT : I
+private static final BOX_X : I
+private static final BOX_WIDTH : I
+private static final FRAME_WIDTH : I
+private static final ICON_X : I
+private static final ICON_Y : I
+private static final ICON_WIDTH : I
+private static final TITLE_PADDING_LEFT : I
+private static final TITLE_PADDING_RIGHT : I
+private static final TITLE_X : I
+private static final TITLE_PADDING_TOP : I
+private static final TITLE_PADDING_BOTTOM : I
+private static final TITLE_MAX_WIDTH : I
+private static final TITLE_MIN_WIDTH : I
+private static final TEST_SPLIT_OFFSETS : [I
+private final advancementNode : Lnet/minecraft/advancements/AdvancementNode;
+private final display : Lnet/minecraft/advancements/DisplayInfo;
+private final icon : Lnet/minecraft/world/item/ItemStack;
+private final titleLines : Ljava/util/List;
+private final width : I
+private final description : Ljava/util/List;
+private final minecraft : Lnet/minecraft/client/Minecraft;
+private parent : Lnet/minecraft/client/gui/screens/advancements/AdvancementWidget;
+private final children : Ljava/util/List;
+private progress : Lnet/minecraft/advancements/AdvancementProgress;
+private final x : I
+private final y : I
+private <init>(Lnet/minecraft/client/Minecraft;Lnet/minecraft/advancements/AdvancementNode;Lnet/minecraft/advancements/DisplayInfo;)V
+public static createWidget(Lnet/minecraft/client/Minecraft;Lnet/minecraft/advancements/AdvancementNode;)Lnet/minecraft/client/gui/screens/advancements/AdvancementWidget;
+private getMaxProgressWidth()I
+private static getMaxWidth(Lnet/minecraft/client/StringSplitter;Ljava/util/List;)F
+private findOptimalLines(Lnet/minecraft/network/chat/Component;I)Ljava/util/List;
+private static findFirstVisibleParent(Lnet/minecraft/advancements/AdvancementNode;)Lnet/minecraft/advancements/AdvancementHolder;
+public extractConnectivity(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIZ)V
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+public getWidth()I
+public setProgress(Lnet/minecraft/advancements/AdvancementProgress;)V
+public addChild(Lnet/minecraft/client/gui/screens/advancements/AdvancementWidget;)V
+public extractHover(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIFIII)V
+private extractMultilineText(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Ljava/util/List;III)V
+public isMouseOver(IIII)Z
+public attachToParent(Lnet/minecraft/client/gui/screens/advancements/AdvancementTab;)V
+public getY()I
+public getX()I
+public getAdvancement()Lnet/minecraft/advancements/AdvancementHolder;
+public getDisplay()Lnet/minecraft/advancements/DisplayInfo;
+static <clinit>()V
 ```

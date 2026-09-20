@@ -13,7 +13,7 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: interface
 
 ```java
-public default java.util.Optional<java.lang.Boolean> usePipelineDrawModeForGui()
+public java.util.Optional usePipelineDrawModeForGui()
 public static com.mojang.renderpearl.api.pipeline.RenderPipeline$Snippet withPipelineDrawModeForGui(com.mojang.renderpearl.api.pipeline.RenderPipeline$Snippet, boolean)
 public static com.mojang.renderpearl.api.pipeline.RenderPipeline$Snippet withoutPipelineDrawModeForGui(com.mojang.renderpearl.api.pipeline.RenderPipeline$Snippet)
 ```

@@ -11,34 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/serialization/v1/value/FabricValueOutput`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `store(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lan` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `putLong` | `(Ljava/lang/String;J)V` | exact | invokeinterface@20 in `SingleVariantStorage.writeValue` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `store` | `(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)` | exact | invokeinterface@78 in `AttachmentSerializingImpl.serializeAttachmentData` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `store` | `(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)` | exact | invokeinterface@9 in `FabricValueOutput.putLongArray` | unknown | [[30-Mechanisms/fabric-serialization-api-v1|fabric-serialization-api-v1]] | direct_reference |
+| calls | `store` | `(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)` | exact | invokeinterface@9 in `FabricValueOutput.putByteArray` | unknown | [[30-Mechanisms/fabric-serialization-api-v1|fabric-serialization-api-v1]] | direct_reference |
+| calls | `store` | `(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)` | exact | invokeinterface@8 in `SingleVariantStorage.writeValue` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (0 fields, 17 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.level.storage.ValueOutput {
-    public abstract <T> void store(java.lang.String, com.mojang.serialization.Codec<T>, T);
-    public abstract <T> void storeNullable(java.lang.String, com.mojang.serialization.Codec<T>, T);
-    public abstract <T> void store(com.mojang.serialization.MapCodec<T>, T);
-    public abstract void putBoolean(java.lang.String, boolean);
-    public abstract void putByte(java.lang.String, byte);
-    public abstract void putShort(java.lang.String, short);
-    public abstract void putInt(java.lang.String, int);
-    public abstract void putLong(java.lang.String, long);
-    public abstract void putFloat(java.lang.String, float);
-    public abstract void putDouble(java.lang.String, double);
-    public abstract void putString(java.lang.String, java.lang.String);
-    public abstract void putIntArray(java.lang.String, int[]);
-    public abstract net.minecraft.world.level.storage.ValueOutput child(java.lang.String);
-    public abstract net.minecraft.world.level.storage.ValueOutput$ValueOutputList childrenList(java.lang.String);
-    public abstract <T> net.minecraft.world.level.storage.ValueOutput$TypedOutputList<T> list(java.lang.String, com.mojang.serialization.Codec<T>);
-    public abstract void discard(java.lang.String);
-    public abstract boolean isEmpty();
-}
+```
+public abstract store(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V
+public abstract storeNullable(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V
+public abstract store(Lcom/mojang/serialization/MapCodec;Ljava/lang/Object;)V
+public abstract putBoolean(Ljava/lang/String;Z)V
+public abstract putByte(Ljava/lang/String;B)V
+public abstract putShort(Ljava/lang/String;S)V
+public abstract putInt(Ljava/lang/String;I)V
+public abstract putLong(Ljava/lang/String;J)V
+public abstract putFloat(Ljava/lang/String;F)V
+public abstract putDouble(Ljava/lang/String;D)V
+public abstract putString(Ljava/lang/String;Ljava/lang/String;)V
+public abstract putIntArray(Ljava/lang/String;[I)V
+public abstract child(Ljava/lang/String;)Lnet/minecraft/world/level/storage/ValueOutput;
+public abstract childrenList(Ljava/lang/String;)Lnet/minecraft/world/level/storage/ValueOutput$ValueOutputList;
+public abstract list(Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/level/storage/ValueOutput$TypedOutputList;
+public abstract discard(Ljava/lang/String;)V
+public abstract isEmpty()Z
 ```

@@ -13,5 +13,5 @@ sha256: "2d406ae5995d2249b2f76faf3046e68683449a96d0214aabe7f8b16b35ec50e6"
 Module: [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] -- kind: interface
 
 ```java
-public abstract T create(int, net.minecraft.world.entity.player.Inventory, D)
+public abstract net.minecraft.world.inventory.AbstractContainerMenu create(int, net.minecraft.world.entity.player.Inventory, java.lang.Object)
 ```

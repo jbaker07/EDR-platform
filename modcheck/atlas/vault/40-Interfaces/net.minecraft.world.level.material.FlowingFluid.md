@@ -11,62 +11,62 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/level/material/Fluid`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getSource()Lnet/minecraft/world/level/material/Fluid;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| injects_into | `spreadTo` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getSource` | `()Lnet/minecraft/world/level/material/Fluid;` | exact | invokevirtual@45 in `FluidVariantImpl.of` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| injects_into | `spreadTo` | `(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
 
-## Declared members (44, all visibilities)
+## Declared members (5 fields, 39 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.level.material.FlowingFluid extends net.minecraft.world.level.material.Fluid {
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty FALLING;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty LEVEL;
-    private static final int CACHE_SIZE;
-    private static final java.lang.ThreadLocal<it.unimi.dsi.fastutil.objects.Object2ByteLinkedOpenHashMap<net.minecraft.world.level.material.FlowingFluid$BlockStatePairKey>> OCCLUSION_CACHE;
-    private final java.util.Map<net.minecraft.world.level.material.FluidState, net.minecraft.world.phys.shapes.VoxelShape> shapes;
-    public net.minecraft.world.level.material.FlowingFluid();
-    protected void createFluidStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.material.Fluid, net.minecraft.world.level.material.FluidState>);
-    public net.minecraft.world.phys.Vec3 getFlow(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.material.FluidState);
-    private boolean affectsFlow(net.minecraft.world.level.material.FluidState);
-    protected boolean isSolidFace(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    protected void spread(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState);
-    private void spreadToSides(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.material.FluidState, net.minecraft.world.level.block.state.BlockState);
-    protected net.minecraft.world.level.material.FluidState getNewLiquid(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private static boolean canPassThroughWall(net.minecraft.core.Direction, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public abstract net.minecraft.world.level.material.Fluid getFlowing();
-    public net.minecraft.world.level.material.FluidState getFlowing(int, boolean);
-    public abstract net.minecraft.world.level.material.Fluid getSource();
-    public net.minecraft.world.level.material.FluidState getSource(boolean);
-    protected abstract boolean canConvertToSource(net.minecraft.server.level.ServerLevel);
-    protected void spreadTo(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.world.level.material.FluidState);
-    protected abstract void beforeDestroyingBlock(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected int getSlopeDistance(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos, int, net.minecraft.core.Direction, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FlowingFluid$SpreadContext);
-    private boolean isWaterHole(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private boolean canPassThrough(net.minecraft.world.level.BlockGetter, net.minecraft.world.level.material.Fluid, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState);
-    private boolean canMaybePassThrough(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState);
-    private boolean isSourceBlockOfThisType(net.minecraft.world.level.material.FluidState);
-    protected abstract int getSlopeFindDistance(net.minecraft.world.level.LevelReader);
-    private int sourceNeighborCount(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos);
-    protected java.util.Map<net.minecraft.core.Direction, net.minecraft.world.level.material.FluidState> getSpread(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    private static boolean canHoldAnyFluid(net.minecraft.world.level.block.state.BlockState);
-    private static boolean canHoldFluid(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.Fluid);
-    private static boolean canHoldSpecificFluid(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.Fluid);
-    protected abstract int getDropOff(net.minecraft.world.level.LevelReader);
-    protected int getSpreadDelay(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.material.FluidState, net.minecraft.world.level.material.FluidState);
-    public void tick(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState);
-    protected static int getLegacyLevel(net.minecraft.world.level.material.FluidState);
-    private static boolean hasSameAbove(net.minecraft.world.level.material.FluidState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    public float getHeight(net.minecraft.world.level.material.FluidState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    public float getOwnHeight(net.minecraft.world.level.material.FluidState);
-    public abstract int getAmount(net.minecraft.world.level.material.FluidState);
-    public net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.material.FluidState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    private static net.minecraft.world.phys.shapes.VoxelShape lambda$getShape$0(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.material.FluidState);
-    private static it.unimi.dsi.fastutil.objects.Object2ByteLinkedOpenHashMap lambda$static$0();
-    static {};
-}
+```
+public static final FALLING : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final LEVEL : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+private static final CACHE_SIZE : I
+private static final OCCLUSION_CACHE : Ljava/lang/ThreadLocal;
+private final shapes : Ljava/util/Map;
+public <init>()V
+protected createFluidStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+public getFlow(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;)Lnet/minecraft/world/phys/Vec3;
+private affectsFlow(Lnet/minecraft/world/level/material/FluidState;)Z
+protected isSolidFace(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z
+protected spread(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)V
+private spreadToSides(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected getNewLiquid(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/material/FluidState;
+private static canPassThroughWall(Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
+public abstract getFlowing()Lnet/minecraft/world/level/material/Fluid;
+public getFlowing(IZ)Lnet/minecraft/world/level/material/FluidState;
+public abstract getSource()Lnet/minecraft/world/level/material/Fluid;
+public getSource(Z)Lnet/minecraft/world/level/material/FluidState;
+protected abstract canConvertToSource(Lnet/minecraft/server/level/ServerLevel;)Z
+protected spreadTo(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)V
+protected abstract beforeDestroyingBlock(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected getSlopeDistance(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;ILnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FlowingFluid$SpreadContext;)I
+private isWaterHole(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
+private canPassThrough(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Z
+private canMaybePassThrough(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Z
+private isSourceBlockOfThisType(Lnet/minecraft/world/level/material/FluidState;)Z
+protected abstract getSlopeFindDistance(Lnet/minecraft/world/level/LevelReader;)I
+private sourceNeighborCount(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)I
+protected getSpread(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/Map;
+private static canHoldAnyFluid(Lnet/minecraft/world/level/block/state/BlockState;)Z
+private static canHoldFluid(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/Fluid;)Z
+private static canHoldSpecificFluid(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/Fluid;)Z
+protected abstract getDropOff(Lnet/minecraft/world/level/LevelReader;)I
+protected getSpreadDelay(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/material/FluidState;)I
+public tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)V
+protected static getLegacyLevel(Lnet/minecraft/world/level/material/FluidState;)I
+private static hasSameAbove(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+public getHeight(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F
+public getOwnHeight(Lnet/minecraft/world/level/material/FluidState;)F
+public abstract getAmount(Lnet/minecraft/world/level/material/FluidState;)I
+public getShape(Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+private static synthetic lambda$getShape$0(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+private static synthetic lambda$static$0()Lit/unimi/dsi/fastutil/objects/Object2ByteLinkedOpenHashMap;
+static <clinit>()V
 ```

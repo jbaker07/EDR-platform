@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `BlockBehaviourBlockStateBaseMixin.callUseWithoutItemEvent` | `BlockBehaviour$BlockStateBase.useWithoutItem` @Inject at HEAD | both | static_inference |
+| `BlockBehaviourBlockStateBaseMixin.callUseWithoutItemEvent` @20 | [[40-Interfaces/net.minecraft.world.level.block.state.BlockBehaviour_BlockStateBase|BlockBehaviour$BlockStateBase]].`useWithoutItem` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

@@ -11,66 +11,68 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/BaseFireBlock`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| injects_into | `getBurnOdds` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| injects_into | `getIgniteOdds(Lnet/minecraft/world/level/block/state/BlockState;)I` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getBurnOdds` | `(Lnet/minecraft/world/level/block/state/BlockState;)I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| calls | `getIgniteOdds` | `(Lnet/minecraft/world/level/block/state/BlockState;)I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
+| injects_into | `<init>` | `(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `getBurnOdds` | `(Lnet/minecraft/world/level/block/state/BlockState;)I` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| injects_into | `getIgniteOdds` | `(Lnet/minecraft/world/level/block/state/BlockState;)I` | exact | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
 
-## Declared members (47, all visibilities)
+## Declared members (19 fields, 28 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.FireBlock extends net.minecraft.world.level.block.BaseFireBlock {
-    public static final int MAX_AGE;
-    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty NORTH;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty EAST;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SOUTH;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty WEST;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty UP;
-    public static final java.util.Map<net.minecraft.core.Direction, net.minecraft.world.level.block.state.properties.BooleanProperty> PROPERTY_BY_DIRECTION;
-    private final java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.shapes.VoxelShape> shapes;
-    private static final int IGNITE_INSTANT;
-    private static final int IGNITE_EASY;
-    private static final int IGNITE_MEDIUM;
-    private static final int IGNITE_HARD;
-    private static final int BURN_INSTANT;
-    private static final int BURN_EASY;
-    private static final int BURN_MEDIUM;
-    private static final int BURN_HARD;
-    private final it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.world.level.block.Block> igniteOdds;
-    private final it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.world.level.block.Block> burnOdds;
-    public net.minecraft.world.level.block.FireBlock(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    private java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.phys.shapes.VoxelShape> makeShapes();
-    protected net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelReader, net.minecraft.world.level.ScheduledTickAccess, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource);
-    protected net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext);
-    protected net.minecraft.world.level.block.state.BlockState getStateForPlacement(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    protected boolean canSurvive(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos);
-    protected void tick(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    protected boolean isNearRain(net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    private int getBurnOdds(net.minecraft.world.level.block.state.BlockState);
-    private int getIgniteOdds(net.minecraft.world.level.block.state.BlockState);
-    private void checkBurnOut(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, int, net.minecraft.util.RandomSource, int);
-    private net.minecraft.world.level.block.state.BlockState getStateWithAge(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos, int);
-    private boolean isValidFireLocation(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    private int getIgniteOdds(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos);
-    protected boolean canBurn(net.minecraft.world.level.block.state.BlockState);
-    protected void onPlace(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, boolean);
-    private static int getFireTickDelay(net.minecraft.util.RandomSource);
-    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
-    private void setFlammable(net.minecraft.world.level.block.Block, int, int);
-    public static void bootStrap();
-    private static void lambda$bootStrap$3(net.minecraft.world.level.block.FireBlock, net.minecraft.world.level.block.Block);
-    private static void lambda$bootStrap$2(net.minecraft.world.level.block.FireBlock, net.minecraft.world.level.block.Block);
-    private static void lambda$bootStrap$1(net.minecraft.world.level.block.FireBlock, net.minecraft.world.level.block.Block);
-    private static void lambda$bootStrap$0(net.minecraft.world.level.block.FireBlock, net.minecraft.world.level.block.Block);
-    private static net.minecraft.world.phys.shapes.VoxelShape lambda$makeShapes$0(java.util.Map, net.minecraft.world.level.block.state.BlockState);
-    private static boolean lambda$static$0(java.util.Map$Entry);
-    static {};
-}
+```
+public static final MAX_AGE : I
+public static final AGE : Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
+public static final NORTH : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final EAST : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final SOUTH : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final WEST : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final UP : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final PROPERTY_BY_DIRECTION : Ljava/util/Map;
+private final shapes : Ljava/util/function/Function;
+private static final IGNITE_INSTANT : I
+private static final IGNITE_EASY : I
+private static final IGNITE_MEDIUM : I
+private static final IGNITE_HARD : I
+private static final BURN_INSTANT : I
+private static final BURN_EASY : I
+private static final BURN_MEDIUM : I
+private static final BURN_HARD : I
+private final igniteOdds : Lit/unimi/dsi/fastutil/objects/Object2IntMap;
+private final burnOdds : Lit/unimi/dsi/fastutil/objects/Object2IntMap;
+public <init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+private makeShapes()Ljava/util/function/Function;
+protected updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/block/state/BlockState;
+protected getShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;
+protected getStateForPlacement(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+protected canSurvive(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+protected tick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V
+protected isNearRain(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z
+private getBurnOdds(Lnet/minecraft/world/level/block/state/BlockState;)I
+private getIgniteOdds(Lnet/minecraft/world/level/block/state/BlockState;)I
+private checkBurnOut(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;ILnet/minecraft/util/RandomSource;I)V
+private getStateWithAge(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;I)Lnet/minecraft/world/level/block/state/BlockState;
+private isValidFireLocation(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+private getIgniteOdds(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)I
+protected canBurn(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected onPlace(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)V
+private static getFireTickDelay(Lnet/minecraft/util/RandomSource;)I
+protected createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+private setFlammable(Lnet/minecraft/world/level/block/Block;II)V
+public static bootStrap()V
+private static synthetic lambda$bootStrap$3(Lnet/minecraft/world/level/block/FireBlock;Lnet/minecraft/world/level/block/Block;)V
+private static synthetic lambda$bootStrap$2(Lnet/minecraft/world/level/block/FireBlock;Lnet/minecraft/world/level/block/Block;)V
+private static synthetic lambda$bootStrap$1(Lnet/minecraft/world/level/block/FireBlock;Lnet/minecraft/world/level/block/Block;)V
+private static synthetic lambda$bootStrap$0(Lnet/minecraft/world/level/block/FireBlock;Lnet/minecraft/world/level/block/Block;)V
+private static synthetic lambda$makeShapes$0(Ljava/util/Map;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+private static synthetic lambda$static$0(Ljava/util/Map$Entry;)Z
+static <clinit>()V
 ```

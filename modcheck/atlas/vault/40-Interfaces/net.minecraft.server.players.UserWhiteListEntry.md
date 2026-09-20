@@ -11,20 +11,20 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.players|net.minecraft.server.players]]
 
+`class` public; extends `net/minecraft/server/players/StoredUserEntry`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/server/players/NameAndId;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/server/players/NameAndId;)V` | exact | invokespecial@19 in `DedicatedServerImplUtil.lambda$whitelistClient$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (3, all visibilities)
+## Declared members (0 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.players.UserWhiteListEntry extends net.minecraft.server.players.StoredUserEntry<net.minecraft.server.players.NameAndId> {
-    public net.minecraft.server.players.UserWhiteListEntry(net.minecraft.server.players.NameAndId);
-    public net.minecraft.server.players.UserWhiteListEntry(com.google.gson.JsonObject);
-    protected void serialize(com.google.gson.JsonObject);
-}
+```
+public <init>(Lnet/minecraft/server/players/NameAndId;)V
+public <init>(Lcom/google/gson/JsonObject;)V
+protected serialize(Lcom/google/gson/JsonObject;)V
 ```

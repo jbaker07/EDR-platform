@@ -11,33 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `generator()Lnet/minecraft/world/level/chunk/ChunkGenerator;` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `generator()Lnet/minecraft/world/level/chunk/ChunkGenerator;` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| reads | `CODECLcom/mojang/serialization/Codec;` | `` | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `generator` | `()Lnet/minecraft/world/level/chunk/ChunkGenerator;` | exact | invokevirtual@1 in `BiomeModificationImpl.lambda$finalizeWorldGen$1` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `generator` | `()Lnet/minecraft/world/level/chunk/ChunkGenerator;` | exact | invokevirtual@1 in `BiomeModificationImpl.lambda$finalizeWorldGen$2` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `generator` | `()Lnet/minecraft/world/level/chunk/ChunkGenerator;` | exact | invokevirtual@1 in `BiomeModificationImpl.lambda$finalizeWorldGen$3` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `generator` | `()Lnet/minecraft/world/level/chunk/ChunkGenerator;` | exact | invokevirtual@29 in `BiomeSelectionContextImpl.canGenerateIn` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@11 in `WorldDimensionsMixin.useFailSoftMap` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| reads | `END` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `BiomeSelectors.lambda$foundInTheEnd$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `NETHER` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `BiomeSelectors.lambda$foundInTheNether$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `OVERWORLD` | `Lnet/minecraft/resources/ResourceKey;` | exact | getstatic@1 in `BiomeSelectors.lambda$foundInOverworld$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (6 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.dimension.LevelStem extends java.lang.Record {
-    private final net.minecraft.core.Holder<net.minecraft.world.level.dimension.DimensionType> type;
-    private final net.minecraft.world.level.chunk.ChunkGenerator generator;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.dimension.LevelStem> CODEC;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.dimension.LevelStem> OVERWORLD;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.dimension.LevelStem> NETHER;
-    public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.dimension.LevelStem> END;
-    public net.minecraft.world.level.dimension.LevelStem(net.minecraft.core.Holder<net.minecraft.world.level.dimension.DimensionType>, net.minecraft.world.level.chunk.ChunkGenerator);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.Holder<net.minecraft.world.level.dimension.DimensionType> type();
-    public net.minecraft.world.level.chunk.ChunkGenerator generator();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final type : Lnet/minecraft/core/Holder;
+private final generator : Lnet/minecraft/world/level/chunk/ChunkGenerator;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final OVERWORLD : Lnet/minecraft/resources/ResourceKey;
+public static final NETHER : Lnet/minecraft/resources/ResourceKey;
+public static final END : Lnet/minecraft/resources/ResourceKey;
+public <init>(Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/chunk/ChunkGenerator;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public type()Lnet/minecraft/core/Holder;
+public generator()Lnet/minecraft/world/level/chunk/ChunkGenerator;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

@@ -13,5 +13,5 @@ sha256: "4ff3be674760c602b4ed59c10d74d2d52597e8a562489ecd4b68ebf7f71d466c"
 Module: [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] -- kind: interface
 
 ```java
-public abstract L get(net.minecraft.resources.Identifier, java.lang.Class<?>, java.lang.Class<?>)
+public abstract java.lang.Object get(net.minecraft.resources.Identifier, java.lang.Class, java.lang.Class)
 ```

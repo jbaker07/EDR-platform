@@ -11,40 +11,40 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/world/level/CommonLevelAccessor`, `net/minecraft/world/level/ScheduledTickAccess`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getFluidState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/ma` | `` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
-| calls | `getFluidState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/ma` | `` | both | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getFluidState` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/Flu` | inherited_exact | invokeinterface@31 in `FlowingFluidMixin.shouldSpreadLiquid` | unknown | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| calls | `getFluidState` | `(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/Flu` | inherited_exact | invokeinterface@19 in `LavaFluidMixin.shouldSpreadLiquid` | unknown | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
 
-## Declared members (22, all visibilities)
+## Declared members (0 fields, 22 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.level.LevelAccessor extends net.minecraft.world.level.CommonLevelAccessor,net.minecraft.world.level.ScheduledTickAccess {
-    public abstract long nextSubTickCount();
-    public default <T> net.minecraft.world.ticks.ScheduledTick<T> createTick(net.minecraft.core.BlockPos, T, int, net.minecraft.world.ticks.TickPriority);
-    public default <T> net.minecraft.world.ticks.ScheduledTick<T> createTick(net.minecraft.core.BlockPos, T, int);
-    public abstract net.minecraft.world.level.storage.LevelData getLevelData();
-    public default long getGameTime();
-    public abstract net.minecraft.server.MinecraftServer getServer();
-    public default net.minecraft.world.Difficulty getDifficulty();
-    public abstract net.minecraft.world.level.chunk.ChunkSource getChunkSource();
-    public default boolean hasChunk(int, int);
-    public abstract net.minecraft.util.RandomSource getRandom();
-    public default void updateNeighborsAt(net.minecraft.core.BlockPos, net.minecraft.world.level.block.Block);
-    public default void neighborShapeChanged(net.minecraft.core.Direction, net.minecraft.core.BlockPos, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, int, int);
-    public default void playSound(net.minecraft.world.entity.Entity, net.minecraft.core.BlockPos, net.minecraft.sounds.SoundEvent, net.minecraft.sounds.SoundSource);
-    public abstract void playSound(net.minecraft.world.entity.Entity, net.minecraft.core.BlockPos, net.minecraft.sounds.SoundEvent, net.minecraft.sounds.SoundSource, float, float);
-    public abstract void addParticle(net.minecraft.core.particles.ParticleOptions, double, double, double, double, double, double);
-    public abstract void levelEvent(net.minecraft.world.entity.Entity, int, net.minecraft.core.BlockPos, int);
-    public default void levelEvent(int, net.minecraft.core.BlockPos, int);
-    public abstract void gameEvent(net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.world.phys.Vec3, net.minecraft.world.level.gameevent.GameEvent$Context);
-    public default void gameEvent(net.minecraft.world.entity.Entity, net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.world.phys.Vec3);
-    public default void gameEvent(net.minecraft.world.entity.Entity, net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.core.BlockPos);
-    public default void gameEvent(net.minecraft.core.Holder<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.core.BlockPos, net.minecraft.world.level.gameevent.GameEvent$Context);
-    public default void gameEvent(net.minecraft.resources.ResourceKey<net.minecraft.world.level.gameevent.GameEvent>, net.minecraft.core.BlockPos, net.minecraft.world.level.gameevent.GameEvent$Context);
-}
+```
+public abstract nextSubTickCount()J
+public createTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;ILnet/minecraft/world/ticks/TickPriority;)Lnet/minecraft/world/ticks/ScheduledTick;
+public createTick(Lnet/minecraft/core/BlockPos;Ljava/lang/Object;I)Lnet/minecraft/world/ticks/ScheduledTick;
+public abstract getLevelData()Lnet/minecraft/world/level/storage/LevelData;
+public getGameTime()J
+public abstract getServer()Lnet/minecraft/server/MinecraftServer;
+public getDifficulty()Lnet/minecraft/world/Difficulty;
+public abstract getChunkSource()Lnet/minecraft/world/level/chunk/ChunkSource;
+public hasChunk(II)Z
+public abstract getRandom()Lnet/minecraft/util/RandomSource;
+public updateNeighborsAt(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;)V
+public neighborShapeChanged(Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V
+public playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;)V
+public abstract playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V
+public abstract addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V
+public abstract levelEvent(Lnet/minecraft/world/entity/Entity;ILnet/minecraft/core/BlockPos;I)V
+public levelEvent(ILnet/minecraft/core/BlockPos;I)V
+public abstract gameEvent(Lnet/minecraft/core/Holder;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/gameevent/GameEvent$Context;)V
+public gameEvent(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/Holder;Lnet/minecraft/world/phys/Vec3;)V
+public gameEvent(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/Holder;Lnet/minecraft/core/BlockPos;)V
+public gameEvent(Lnet/minecraft/core/Holder;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/gameevent/GameEvent$Context;)V
+public gameEvent(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/gameevent/GameEvent$Context;)V
 ```

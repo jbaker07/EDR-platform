@@ -13,6 +13,6 @@ sha256: "12df8ce066403f03483ef89d13600072b56c5be290fb12260035fdaf5604761f"
 Module: [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] -- kind: interface
 
 ```java
-public default net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.Block> blockId()
-public default net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.Block> blockIdOrThrow()
+public net.minecraft.resources.ResourceKey blockId()
+public net.minecraft.resources.ResourceKey blockIdOrThrow()
 ```

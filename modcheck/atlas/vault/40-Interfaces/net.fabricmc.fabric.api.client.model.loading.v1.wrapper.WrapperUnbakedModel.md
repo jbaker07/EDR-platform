@@ -14,8 +14,8 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 
 ```java
 protected net.minecraft.client.resources.model.UnbakedModel wrapped
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedModel()
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedModel(net.minecraft.client.resources.model.UnbakedModel)
+protected <init>()
+protected <init>(net.minecraft.client.resources.model.UnbakedModel)
 public java.lang.Boolean ambientOcclusion()
 public net.minecraft.client.resources.model.UnbakedModel$GuiLight guiLight()
 public net.minecraft.client.resources.model.cuboid.ItemTransforms transforms()

@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ChunkMapMixin.onChunkUnload` | `ChunkMap.lambda$scheduleUnload$0` @Inject at INVOKE Lnet/minecraft/server/level/ChunkMap;save(Lnet/minecraft/world/level/chunk/ChunkAccess;)Z | both | static_inference |
+| `ChunkMapMixin.onChunkUnload` @30 | [[40-Interfaces/net.minecraft.server.level.ChunkMap|ChunkMap]].`lambda$scheduleUnload$0` @Inject INVOKE `Lnet/minecraft/server/level/ChunkMap;save(Lnet/minecraft/world/level/chunk/ChunkAccess;)Z` | unknown | static_inference |
 
 ## Contract
 

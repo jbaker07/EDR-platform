@@ -11,54 +11,59 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`, `net/minecraft/client/renderer/texture/Stitcher$Entry`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `isAnimated()Z` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `name()Lnet/minecraft/resources/Identifier;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `computeTransparency` | `(FFFF)Lcom/mojang/blaze3d/platform/Transparency;` | exact | invokevirtual@171 in `ModelHelper.computeTransparency` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `isAnimated` | `()Z` | exact | invokevirtual@35 in `MutableQuadView.postMaterialBake` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `isAnimated` | `()Z` | exact | invokevirtual@218 in `MutableQuadViewImpl.fromBakedQuad` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `name` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@173 in `SimpleUnbakedExtraModel.bakeResolved` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `name` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@67 in `SimpleUnbakedExtraModel.lambda$bakeResolved$0` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `name` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@75 in `SpriteFinderImpl$Node.add` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `name` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@71 in `SimpleModelWrapperMixin.lambda$analyzeMesh$0` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (36, all visibilities)
+## Declared members (12 fields, 24 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.texture.SpriteContents implements java.lang.AutoCloseable,net.minecraft.client.renderer.texture.Stitcher$Entry {
-    private static final org.slf4j.Logger LOGGER;
-    public static final int UBO_SIZE;
-    private final net.minecraft.resources.Identifier name;
-    private final int width;
-    private final int height;
-    private final com.mojang.blaze3d.platform.NativeImage originalImage;
-    private com.mojang.blaze3d.platform.NativeImage[] byMipLevel;
-    private final net.minecraft.client.renderer.texture.SpriteContents$AnimatedTexture animatedTexture;
-    private final java.util.List<net.minecraft.server.packs.metadata.MetadataSectionType$WithValue<?>> additionalMetadata;
-    private final net.minecraft.client.renderer.texture.MipmapStrategy mipmapStrategy;
-    private final float alphaCutoffBias;
-    private final com.mojang.blaze3d.platform.Transparency transparency;
-    public net.minecraft.client.renderer.texture.SpriteContents(net.minecraft.resources.Identifier, net.minecraft.client.resources.metadata.animation.FrameSize, com.mojang.blaze3d.platform.NativeImage);
-    public net.minecraft.client.renderer.texture.SpriteContents(net.minecraft.resources.Identifier, net.minecraft.client.resources.metadata.animation.FrameSize, com.mojang.blaze3d.platform.NativeImage, java.util.Optional<net.minecraft.client.resources.metadata.animation.AnimationMetadataSection>, java.util.List<net.minecraft.server.packs.metadata.MetadataSectionType$WithValue<?>>, java.util.Optional<net.minecraft.client.resources.metadata.texture.TextureMetadataSection>);
-    public void increaseMipLevel(int);
-    private int getFrameCount();
-    public boolean isAnimated();
-    public com.mojang.blaze3d.platform.Transparency transparency();
-    private net.minecraft.client.renderer.texture.SpriteContents$AnimatedTexture createAnimatedTexture(net.minecraft.client.resources.metadata.animation.FrameSize, int, int, net.minecraft.client.resources.metadata.animation.AnimationMetadataSection);
-    public int width();
-    public int height();
-    public net.minecraft.resources.Identifier name();
-    public it.unimi.dsi.fastutil.ints.IntList getUniqueFrames();
-    public net.minecraft.client.renderer.texture.SpriteContents$AnimationState createAnimationState(com.mojang.renderpearl.api.buffers.GpuBufferSlice, int);
-    public <T> java.util.Optional<T> getAdditionalMetadata(net.minecraft.server.packs.metadata.MetadataSectionType<T>);
-    public void close();
-    public java.lang.String toString();
-    public boolean isTransparent(int, int, int);
-    public com.mojang.blaze3d.platform.Transparency computeTransparency(float, float, float, float);
-    public void uploadFirstFrame(com.mojang.renderpearl.api.textures.GpuTexture, int);
-    private static boolean lambda$createAnimatedTexture$0(it.unimi.dsi.fastutil.ints.IntSet, int);
-    private java.lang.String lambda$increaseMipLevel$2() throws java.lang.Exception;
-    private java.lang.String lambda$increaseMipLevel$1() throws java.lang.Exception;
-    private java.lang.String lambda$increaseMipLevel$0() throws java.lang.Exception;
-    private net.minecraft.client.renderer.texture.SpriteContents$AnimatedTexture lambda$new$0(net.minecraft.client.resources.metadata.animation.FrameSize, com.mojang.blaze3d.platform.NativeImage, net.minecraft.client.resources.metadata.animation.AnimationMetadataSection);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final UBO_SIZE : I
+private final name : Lnet/minecraft/resources/Identifier;
+private final width : I
+private final height : I
+private final originalImage : Lcom/mojang/blaze3d/platform/NativeImage;
+private byMipLevel : [Lcom/mojang/blaze3d/platform/NativeImage;
+private final animatedTexture : Lnet/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture;
+private final additionalMetadata : Ljava/util/List;
+private final mipmapStrategy : Lnet/minecraft/client/renderer/texture/MipmapStrategy;
+private final alphaCutoffBias : F
+private final transparency : Lcom/mojang/blaze3d/platform/Transparency;
+public <init>(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/resources/metadata/animation/FrameSize;Lcom/mojang/blaze3d/platform/NativeImage;)V
+public <init>(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/resources/metadata/animation/FrameSize;Lcom/mojang/blaze3d/platform/NativeImage;Ljava/util/Optional;Ljava/util/List;Ljava/util/Optional;)V
+public increaseMipLevel(I)V
+private getFrameCount()I
+public isAnimated()Z
+public transparency()Lcom/mojang/blaze3d/platform/Transparency;
+private createAnimatedTexture(Lnet/minecraft/client/resources/metadata/animation/FrameSize;IILnet/minecraft/client/resources/metadata/animation/AnimationMetadataSection;)Lnet/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture;
+public width()I
+public height()I
+public name()Lnet/minecraft/resources/Identifier;
+public getUniqueFrames()Lit/unimi/dsi/fastutil/ints/IntList;
+public createAnimationState(Lcom/mojang/renderpearl/api/buffers/GpuBufferSlice;I)Lnet/minecraft/client/renderer/texture/SpriteContents$AnimationState;
+public getAdditionalMetadata(Lnet/minecraft/server/packs/metadata/MetadataSectionType;)Ljava/util/Optional;
+public close()V
+public toString()Ljava/lang/String;
+public isTransparent(III)Z
+public computeTransparency(FFFF)Lcom/mojang/blaze3d/platform/Transparency;
+public uploadFirstFrame(Lcom/mojang/renderpearl/api/textures/GpuTexture;I)V
+private static synthetic lambda$createAnimatedTexture$0(Lit/unimi/dsi/fastutil/ints/IntSet;I)Z
+private synthetic lambda$increaseMipLevel$2()Ljava/lang/String;
+private synthetic lambda$increaseMipLevel$1()Ljava/lang/String;
+private synthetic lambda$increaseMipLevel$0()Ljava/lang/String;
+private synthetic lambda$new$0(Lnet/minecraft/client/resources/metadata/animation/FrameSize;Lcom/mojang/blaze3d/platform/NativeImage;Lnet/minecraft/client/resources/metadata/animation/AnimationMetadataSection;)Lnet/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture;
+static <clinit>()V
 ```

@@ -11,73 +11,91 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `net/minecraft/core/BlockPos`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `move(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `move(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `set(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos$Mut` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `set(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos$Mut` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `setWithOffset(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Ln` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `setWithOffset(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Ln` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `()V` | exact | invokespecial@9 in `AoCalculator.<init>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `<init>` | `()V` | exact | invokespecial@20 in `AoCalculator.<init>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `<init>` | `()V` | exact | invokespecial@9 in `FlatLighter.<init>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `<init>` | `()V` | exact | invokespecial@27 in `AltModelBlockRendererImpl.<init>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@125 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@212 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@299 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@386 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@453 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@550 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@647 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@744 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@26 in `FlatLighter.light` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `move` | `(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBl` | exact | invokevirtual@72 in `FlatLighter.light` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos$MutableBlockP` | exact | invokevirtual@50 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos$MutableBlockP` | exact | invokevirtual@5 in `FlatLighter.light` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@39 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@71 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@158 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@245 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@332 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@443 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@540 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@637 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@734 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@801 in `AoCalculator.computeFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `setWithOffset` | `(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecra` | exact | invokevirtual@45 in `AltModelBlockRendererImpl.shouldCullFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (48, all visibilities)
+## Declared members (0 fields, 48 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.BlockPos$MutableBlockPos extends net.minecraft.core.BlockPos {
-    public net.minecraft.core.BlockPos$MutableBlockPos();
-    public net.minecraft.core.BlockPos$MutableBlockPos(int, int, int);
-    public net.minecraft.core.BlockPos$MutableBlockPos(double, double, double);
-    public net.minecraft.core.BlockPos offset(int, int, int);
-    public net.minecraft.core.BlockPos multiply(int);
-    public net.minecraft.core.BlockPos relative(net.minecraft.core.Direction, int);
-    public net.minecraft.core.BlockPos relative(net.minecraft.core.Direction$Axis, int);
-    public net.minecraft.core.BlockPos rotate(net.minecraft.world.level.block.Rotation);
-    public net.minecraft.core.BlockPos$MutableBlockPos set(int, int, int);
-    public net.minecraft.core.BlockPos$MutableBlockPos set(double, double, double);
-    public net.minecraft.core.BlockPos$MutableBlockPos set(net.minecraft.core.Vec3i);
-    public net.minecraft.core.BlockPos$MutableBlockPos set(long);
-    public net.minecraft.core.BlockPos$MutableBlockPos set(net.minecraft.core.AxisCycle, int, int, int);
-    public net.minecraft.core.BlockPos$MutableBlockPos setWithOffset(net.minecraft.core.Vec3i, net.minecraft.core.Direction);
-    public net.minecraft.core.BlockPos$MutableBlockPos setWithOffset(net.minecraft.core.Vec3i, int, int, int);
-    public net.minecraft.core.BlockPos$MutableBlockPos setWithOffset(net.minecraft.core.Vec3i, net.minecraft.core.Vec3i);
-    public net.minecraft.core.BlockPos$MutableBlockPos move(net.minecraft.core.Direction);
-    public net.minecraft.core.BlockPos$MutableBlockPos move(net.minecraft.core.Direction, int);
-    public net.minecraft.core.BlockPos$MutableBlockPos move(int, int, int);
-    public net.minecraft.core.BlockPos$MutableBlockPos move(net.minecraft.core.Vec3i);
-    public net.minecraft.core.BlockPos$MutableBlockPos clamp(net.minecraft.core.Direction$Axis, int, int);
-    public net.minecraft.core.BlockPos$MutableBlockPos setX(int);
-    public net.minecraft.core.BlockPos$MutableBlockPos setY(int);
-    public net.minecraft.core.BlockPos$MutableBlockPos setZ(int);
-    public net.minecraft.core.BlockPos immutable();
-    public net.minecraft.core.Vec3i cross(net.minecraft.core.Vec3i);
-    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction$Axis, int);
-    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction, int);
-    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction);
-    public net.minecraft.core.Vec3i east(int);
-    public net.minecraft.core.Vec3i east();
-    public net.minecraft.core.Vec3i west(int);
-    public net.minecraft.core.Vec3i west();
-    public net.minecraft.core.Vec3i south(int);
-    public net.minecraft.core.Vec3i south();
-    public net.minecraft.core.Vec3i north(int);
-    public net.minecraft.core.Vec3i north();
-    public net.minecraft.core.Vec3i below(int);
-    public net.minecraft.core.Vec3i below();
-    public net.minecraft.core.Vec3i above(int);
-    public net.minecraft.core.Vec3i above();
-    public net.minecraft.core.Vec3i multiply(int);
-    public net.minecraft.core.Vec3i subtract(net.minecraft.core.Vec3i);
-    public net.minecraft.core.Vec3i offset(net.minecraft.core.Vec3i);
-    public net.minecraft.core.Vec3i offset(int, int, int);
-    public net.minecraft.core.Vec3i setZ(int);
-    public net.minecraft.core.Vec3i setY(int);
-    public net.minecraft.core.Vec3i setX(int);
-}
+```
+public <init>()V
+public <init>(III)V
+public <init>(DDD)V
+public offset(III)Lnet/minecraft/core/BlockPos;
+public multiply(I)Lnet/minecraft/core/BlockPos;
+public relative(Lnet/minecraft/core/Direction;I)Lnet/minecraft/core/BlockPos;
+public relative(Lnet/minecraft/core/Direction$Axis;I)Lnet/minecraft/core/BlockPos;
+public rotate(Lnet/minecraft/world/level/block/Rotation;)Lnet/minecraft/core/BlockPos;
+public set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public set(DDD)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public set(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public set(J)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public set(Lnet/minecraft/core/AxisCycle;III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public setWithOffset(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public setWithOffset(Lnet/minecraft/core/Vec3i;III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public setWithOffset(Lnet/minecraft/core/Vec3i;Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public move(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public move(Lnet/minecraft/core/Direction;I)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public move(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public move(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public clamp(Lnet/minecraft/core/Direction$Axis;II)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public setX(I)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public setY(I)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public setZ(I)Lnet/minecraft/core/BlockPos$MutableBlockPos;
+public immutable()Lnet/minecraft/core/BlockPos;
+public synthetic cross(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/Vec3i;
+public synthetic relative(Lnet/minecraft/core/Direction$Axis;I)Lnet/minecraft/core/Vec3i;
+public synthetic relative(Lnet/minecraft/core/Direction;I)Lnet/minecraft/core/Vec3i;
+public synthetic relative(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/Vec3i;
+public synthetic east(I)Lnet/minecraft/core/Vec3i;
+public synthetic east()Lnet/minecraft/core/Vec3i;
+public synthetic west(I)Lnet/minecraft/core/Vec3i;
+public synthetic west()Lnet/minecraft/core/Vec3i;
+public synthetic south(I)Lnet/minecraft/core/Vec3i;
+public synthetic south()Lnet/minecraft/core/Vec3i;
+public synthetic north(I)Lnet/minecraft/core/Vec3i;
+public synthetic north()Lnet/minecraft/core/Vec3i;
+public synthetic below(I)Lnet/minecraft/core/Vec3i;
+public synthetic below()Lnet/minecraft/core/Vec3i;
+public synthetic above(I)Lnet/minecraft/core/Vec3i;
+public synthetic above()Lnet/minecraft/core/Vec3i;
+public synthetic multiply(I)Lnet/minecraft/core/Vec3i;
+public synthetic subtract(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/Vec3i;
+public synthetic offset(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/Vec3i;
+public synthetic offset(III)Lnet/minecraft/core/Vec3i;
+public synthetic setZ(I)Lnet/minecraft/core/Vec3i;
+public synthetic setY(I)Lnet/minecraft/core/Vec3i;
+public synthetic setX(I)Lnet/minecraft/core/Vec3i;
 ```

@@ -11,20 +11,21 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getClass()Ljava/lang/Class;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getClass` | `()Ljava/lang/Class;` | inherited_exact | invokeinterface@20 in `ResourceLoaderImpl.getResourceReloaderIdForSorting` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `reload` | `(Lnet/minecraft/server/packs/resources/PreparableReloadListener$Shared` | exact | invokeinterface@35 in `ResourceManagerHelperImpl$1.reload` | unknown | [[30-Mechanisms/fabric-resource-loader-v0|fabric-resource-loader-v0]] | direct_reference |
 
-## Declared members (3, all visibilities)
+## Declared members (0 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.packs.resources.PreparableReloadListener {
-    public abstract java.util.concurrent.CompletableFuture<java.lang.Void> reload(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor, net.minecraft.server.packs.resources.PreparableReloadListener$PreparationBarrier, java.util.concurrent.Executor);
-    public default void prepareSharedState(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState);
-    public default java.lang.String getName();
-}
+```
+public abstract reload(Lnet/minecraft/server/packs/resources/PreparableReloadListener$SharedState;Ljava/util/concurrent/Executor;Lnet/minecraft/server/packs/resources/PreparableReloadListener$PreparationBarrier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+public prepareSharedState(Lnet/minecraft/server/packs/resources/PreparableReloadListener$SharedState;)V
+public getName()Ljava/lang/String;
 ```

@@ -11,46 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`class` public; extends `net/minecraft/world/entity/ai/behavior/Behavior`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<clinit>` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<clinit>` | `()V` | exact | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `GIFTS` | `Ljava/util/Map;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | declared |
 
-## Declared members (29, all visibilities)
+## Declared members (9 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.entity.ai.behavior.GiveGiftToHero extends net.minecraft.world.entity.ai.behavior.Behavior<net.minecraft.world.entity.npc.villager.Villager> {
-    private static final int THROW_GIFT_AT_DISTANCE;
-    private static final int MIN_TIME_BETWEEN_GIFTS;
-    private static final int MAX_TIME_BETWEEN_GIFTS;
-    private static final int TIME_TO_DELAY_FOR_HEAD_TO_FINISH_TURNING;
-    private static final java.util.Map<net.minecraft.resources.ResourceKey<net.minecraft.world.entity.npc.villager.VillagerProfession>, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> GIFTS;
-    private static final float SPEED_MODIFIER;
-    private int timeUntilNextGift;
-    private boolean giftGivenDuringThisRun;
-    private long timeSinceStart;
-    public net.minecraft.world.entity.ai.behavior.GiveGiftToHero(int);
-    protected boolean checkExtraStartConditions(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.npc.villager.Villager);
-    protected void start(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.npc.villager.Villager, long);
-    protected boolean canStillUse(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.npc.villager.Villager, long);
-    protected void tick(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.npc.villager.Villager, long);
-    protected void stop(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.npc.villager.Villager, long);
-    private void throwGift(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.npc.villager.Villager, net.minecraft.world.entity.LivingEntity);
-    private static net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> getLootTableToThrow(net.minecraft.world.entity.npc.villager.Villager);
-    private boolean isHeroVisible(net.minecraft.world.entity.npc.villager.Villager);
-    private java.util.Optional<net.minecraft.world.entity.player.Player> getNearestTargetableHero(net.minecraft.world.entity.npc.villager.Villager);
-    private boolean isHero(net.minecraft.world.entity.player.Player);
-    private boolean isWithinThrowingDistance(net.minecraft.world.entity.npc.villager.Villager, net.minecraft.world.entity.player.Player);
-    private static int calculateTimeUntilNextGift(net.minecraft.server.level.ServerLevel);
-    protected boolean checkExtraStartConditions(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity);
-    protected boolean canStillUse(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, long);
-    protected void stop(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, long);
-    protected void tick(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, long);
-    protected void start(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.LivingEntity, long);
-    private static void lambda$throwGift$0(net.minecraft.world.entity.npc.villager.Villager, net.minecraft.world.entity.LivingEntity, net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    static {};
-}
+```
+private static final THROW_GIFT_AT_DISTANCE : I
+private static final MIN_TIME_BETWEEN_GIFTS : I
+private static final MAX_TIME_BETWEEN_GIFTS : I
+private static final TIME_TO_DELAY_FOR_HEAD_TO_FINISH_TURNING : I
+private static final GIFTS : Ljava/util/Map;
+private static final SPEED_MODIFIER : F
+private timeUntilNextGift : I
+private giftGivenDuringThisRun : Z
+private timeSinceStart : J
+public <init>(I)V
+protected checkExtraStartConditions(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/npc/villager/Villager;)Z
+protected start(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/npc/villager/Villager;J)V
+protected canStillUse(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/npc/villager/Villager;J)Z
+protected tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/npc/villager/Villager;J)V
+protected stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/npc/villager/Villager;J)V
+private throwGift(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/npc/villager/Villager;Lnet/minecraft/world/entity/LivingEntity;)V
+private static getLootTableToThrow(Lnet/minecraft/world/entity/npc/villager/Villager;)Lnet/minecraft/resources/ResourceKey;
+private isHeroVisible(Lnet/minecraft/world/entity/npc/villager/Villager;)Z
+private getNearestTargetableHero(Lnet/minecraft/world/entity/npc/villager/Villager;)Ljava/util/Optional;
+private isHero(Lnet/minecraft/world/entity/player/Player;)Z
+private isWithinThrowingDistance(Lnet/minecraft/world/entity/npc/villager/Villager;Lnet/minecraft/world/entity/player/Player;)Z
+private static calculateTimeUntilNextGift(Lnet/minecraft/server/level/ServerLevel;)I
+protected synthetic checkExtraStartConditions(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;)Z
+protected synthetic canStillUse(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;J)Z
+protected synthetic stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;J)V
+protected synthetic tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;J)V
+protected synthetic start(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;J)V
+private static synthetic lambda$throwGift$0(Lnet/minecraft/world/entity/npc/villager/Villager;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)V
+static <clinit>()V
 ```

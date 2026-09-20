@@ -11,31 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/components/AbstractStringWidget`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getMessage()Lnet/minecraft/network/chat/Component;` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getWidth()I` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getMessage` | `()Lnet/minecraft/network/chat/Component;` | inherited_exact | invokevirtual@29 in `TransferableSelectionListPackEntryMixin.onExtractContent` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getMessage` | `()Lnet/minecraft/network/chat/Component;` | inherited_exact | invokevirtual@47 in `TransferableSelectionListPackEntryMixin.onExtractContent` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getWidth` | `()I` | exact | invokevirtual@15 in `TransferableSelectionListPackEntryMixin.onExtractContent` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (5 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.components.StringWidget extends net.minecraft.client.gui.components.AbstractStringWidget {
-    private static final int TEXT_MARGIN;
-    private int maxWidth;
-    private int cachedWidth;
-    private boolean cachedWidthDirty;
-    private net.minecraft.client.gui.components.StringWidget$TextOverflow textOverflow;
-    public net.minecraft.client.gui.components.StringWidget(net.minecraft.network.chat.Component, net.minecraft.client.gui.Font);
-    public net.minecraft.client.gui.components.StringWidget(int, int, net.minecraft.network.chat.Component, net.minecraft.client.gui.Font);
-    public net.minecraft.client.gui.components.StringWidget(int, int, int, int, net.minecraft.network.chat.Component, net.minecraft.client.gui.Font);
-    public void setMessage(net.minecraft.network.chat.Component);
-    public net.minecraft.client.gui.components.StringWidget setMaxWidth(int);
-    public net.minecraft.client.gui.components.StringWidget setMaxWidth(int, net.minecraft.client.gui.components.StringWidget$TextOverflow);
-    public int getWidth();
-    public void visitLines(net.minecraft.client.gui.ActiveTextCollector);
-}
+```
+private static final TEXT_MARGIN : I
+private maxWidth : I
+private cachedWidth : I
+private cachedWidthDirty : Z
+private textOverflow : Lnet/minecraft/client/gui/components/StringWidget$TextOverflow;
+public <init>(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;)V
+public <init>(IILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;)V
+public <init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;)V
+public setMessage(Lnet/minecraft/network/chat/Component;)V
+public setMaxWidth(I)Lnet/minecraft/client/gui/components/StringWidget;
+public setMaxWidth(ILnet/minecraft/client/gui/components/StringWidget$TextOverflow;)Lnet/minecraft/client/gui/components/StringWidget;
+public getWidth()I
+public visitLines(Lnet/minecraft/client/gui/ActiveTextCollector;)V
 ```

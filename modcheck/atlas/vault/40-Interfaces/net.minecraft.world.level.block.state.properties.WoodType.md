@@ -11,53 +11,61 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `name()Ljava/lang/String;` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `name()Ljava/lang/String;` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/String;Lnet/minecraft/world/level/block/state/properties/B` | exact | invokespecial@25 in `WoodTypeBuilder.build` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `fenceGateClose` | `()Lnet/minecraft/sounds/SoundEvent;` | exact | invokevirtual@28 in `WoodTypeBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `fenceGateOpen` | `()Lnet/minecraft/sounds/SoundEvent;` | exact | invokevirtual@37 in `WoodTypeBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `hangingSignSoundType` | `()Lnet/minecraft/world/level/block/SoundType;` | exact | invokevirtual@19 in `WoodTypeBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `name` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `HangingSignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `name` | `()Ljava/lang/String;` | exact | invokevirtual@20 in `HangingSignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `name` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `SignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `name` | `()Ljava/lang/String;` | exact | invokevirtual@20 in `SignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `register` | `(Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/mine` | exact | invokestatic@6 in `WoodTypeBuilder.register` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `soundType` | `()Lnet/minecraft/world/level/block/SoundType;` | exact | invokevirtual@10 in `WoodTypeBuilder.copyOf` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (35, all visibilities)
+## Declared members (21 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.block.state.properties.WoodType extends java.lang.Record {
-    private final java.lang.String name;
-    private final net.minecraft.world.level.block.state.properties.BlockSetType setType;
-    private final net.minecraft.world.level.block.SoundType soundType;
-    private final net.minecraft.world.level.block.SoundType hangingSignSoundType;
-    private final net.minecraft.sounds.SoundEvent fenceGateClose;
-    private final net.minecraft.sounds.SoundEvent fenceGateOpen;
-    private static final java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.WoodType> TYPES;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.block.state.properties.WoodType> CODEC;
-    public static final net.minecraft.world.level.block.state.properties.WoodType OAK;
-    public static final net.minecraft.world.level.block.state.properties.WoodType SPRUCE;
-    public static final net.minecraft.world.level.block.state.properties.WoodType BIRCH;
-    public static final net.minecraft.world.level.block.state.properties.WoodType ACACIA;
-    public static final net.minecraft.world.level.block.state.properties.WoodType CHERRY;
-    public static final net.minecraft.world.level.block.state.properties.WoodType JUNGLE;
-    public static final net.minecraft.world.level.block.state.properties.WoodType DARK_OAK;
-    public static final net.minecraft.world.level.block.state.properties.WoodType PALE_OAK;
-    public static final net.minecraft.world.level.block.state.properties.WoodType POPLAR;
-    public static final net.minecraft.world.level.block.state.properties.WoodType CRIMSON;
-    public static final net.minecraft.world.level.block.state.properties.WoodType WARPED;
-    public static final net.minecraft.world.level.block.state.properties.WoodType MANGROVE;
-    public static final net.minecraft.world.level.block.state.properties.WoodType BAMBOO;
-    public net.minecraft.world.level.block.state.properties.WoodType(java.lang.String, net.minecraft.world.level.block.state.properties.BlockSetType);
-    public net.minecraft.world.level.block.state.properties.WoodType(java.lang.String, net.minecraft.world.level.block.state.properties.BlockSetType, net.minecraft.world.level.block.SoundType, net.minecraft.world.level.block.SoundType, net.minecraft.sounds.SoundEvent, net.minecraft.sounds.SoundEvent);
-    private static net.minecraft.world.level.block.state.properties.WoodType register(net.minecraft.world.level.block.state.properties.WoodType);
-    public static java.util.stream.Stream<net.minecraft.world.level.block.state.properties.WoodType> values();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.lang.String name();
-    public net.minecraft.world.level.block.state.properties.BlockSetType setType();
-    public net.minecraft.world.level.block.SoundType soundType();
-    public net.minecraft.world.level.block.SoundType hangingSignSoundType();
-    public net.minecraft.sounds.SoundEvent fenceGateClose();
-    public net.minecraft.sounds.SoundEvent fenceGateOpen();
-    static {};
-}
+```
+private final name : Ljava/lang/String;
+private final setType : Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+private final soundType : Lnet/minecraft/world/level/block/SoundType;
+private final hangingSignSoundType : Lnet/minecraft/world/level/block/SoundType;
+private final fenceGateClose : Lnet/minecraft/sounds/SoundEvent;
+private final fenceGateOpen : Lnet/minecraft/sounds/SoundEvent;
+private static final TYPES : Ljava/util/Map;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final OAK : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final SPRUCE : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final BIRCH : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final ACACIA : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final CHERRY : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final JUNGLE : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final DARK_OAK : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final PALE_OAK : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final POPLAR : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final CRIMSON : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final WARPED : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final MANGROVE : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static final BAMBOO : Lnet/minecraft/world/level/block/state/properties/WoodType;
+public <init>(Ljava/lang/String;Lnet/minecraft/world/level/block/state/properties/BlockSetType;)V
+public <init>(Ljava/lang/String;Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/SoundType;Lnet/minecraft/world/level/block/SoundType;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundEvent;)V
+private static register(Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
+public static values()Ljava/util/stream/Stream;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public name()Ljava/lang/String;
+public setType()Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+public soundType()Lnet/minecraft/world/level/block/SoundType;
+public hangingSignSoundType()Lnet/minecraft/world/level/block/SoundType;
+public fenceGateClose()Lnet/minecraft/sounds/SoundEvent;
+public fenceGateOpen()Lnet/minecraft/sounds/SoundEvent;
+static <clinit>()V
 ```

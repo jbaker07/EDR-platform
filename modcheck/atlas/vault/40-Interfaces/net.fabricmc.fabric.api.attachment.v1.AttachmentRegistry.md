@@ -13,9 +13,9 @@ sha256: "916e1b1046113d5289920fb4058d26ac184e2581f2403b3a482848a2e1dcf7cc"
 Module: [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] -- kind: class
 
 ```java
-public static <A> net.fabricmc.fabric.api.attachment.v1.AttachmentType<A> create(net.minecraft.resources.Identifier, java.util.function.Consumer<net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry$Builder<A>>)
-public static <A> net.fabricmc.fabric.api.attachment.v1.AttachmentType<A> create(net.minecraft.resources.Identifier)
-public static <A> net.fabricmc.fabric.api.attachment.v1.AttachmentType<A> createDefaulted(net.minecraft.resources.Identifier, java.util.function.Supplier<A>)
-public static <A> net.fabricmc.fabric.api.attachment.v1.AttachmentType<A> createPersistent(net.minecraft.resources.Identifier, com.mojang.serialization.Codec<A>)
-public static <A> net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry$Builder<A> builder()
+public static net.fabricmc.fabric.api.attachment.v1.AttachmentType create(net.minecraft.resources.Identifier, java.util.function.Consumer)
+public static net.fabricmc.fabric.api.attachment.v1.AttachmentType create(net.minecraft.resources.Identifier)
+public static net.fabricmc.fabric.api.attachment.v1.AttachmentType createDefaulted(net.minecraft.resources.Identifier, java.util.function.Supplier)
+public static net.fabricmc.fabric.api.attachment.v1.AttachmentType createPersistent(net.minecraft.resources.Identifier, com.mojang.serialization.Codec)
+public static net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry$Builder builder()
 ```

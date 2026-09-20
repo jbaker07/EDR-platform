@@ -13,11 +13,11 @@ area: "integration"
 
 ## Must be preserved
 
-- Fabric API's injections (never Overwrite an injected method).
+- Fabric API's injections: know, per injector pair, what the transformer does ([[30-Mechanisms/Mixin|Mixin]], executed_transformation).
 
 ## Mechanisms that can serve it
 
-- [[30-Mechanisms/Mixin|Mixin]]; the generated contested-method list; the analyst note under _authored/mechanisms.
+- [[30-Mechanisms/Mixin|Mixin]]; the generated shared-target index (potential interactions only); the composition table in _authored/mechanisms/mixin.md.
 
 ## Tools and artifacts used today
 
@@ -25,12 +25,13 @@ area: "integration"
 
 ## Decisions the creator must make
 
-- Injector kind and priority; whether to require or soft-fail the injection.
+- Injector kind and priority; whether to require or soft-fail the injection (require=0 does not avoid the merged-by refusal: [[30-Mechanisms/Transformation_Tests#B2|scenario B2]]).
 
 ## Information those decisions need
 
-- Both mods' targets (extractable with atlas/extract/jvm.py, not yet wired into inspection: [[80-Unresolved/q.inspector_mixin_targets|q.inspector_mixin_targets]]).
-- Application order ([[80-Unresolved/q.mixin_docs_application_order|q.mixin_docs_application_order]]).
+- Both mods' targets, exactly resolved (atlas/extract/jvm.py + resolve.py do this for Fabric API; not yet wired into inspection: [[80-Unresolved/q.inspector_mixin_targets|q.inspector_mixin_targets]]).
+- Applicability: environment of both mixins.
+- The composition rule for the injector pair (`extracted/mixin_transformation_tests.json`).
 
 ## Existing automation
 
@@ -38,7 +39,7 @@ area: "integration"
 
 ## Remaining manual or unsupported work
 
-- The pairwise check for arbitrary jars ([[80-Unresolved/q.mixin_collision_analyser|q.mixin_collision_analyser]]).
+- The pairwise check for arbitrary jars, in the order index -> exact resolution -> applicability -> composition rule ([[80-Unresolved/q.mixin_collision_analyser|q.mixin_collision_analyser]]).
 
 ## ModCheck's contribution
 
@@ -46,13 +47,13 @@ area: "integration"
 
 ## Interactions to check
 
-- Same-method injections; same-call-site redirects; any Overwrite.
+- Same-method injections (potential); same-call-site redirects (fail: [[30-Mechanisms/Transformation_Tests#C|scenario C]]); overwrites versus INVOKE-point injections (priority-dependent: [[30-Mechanisms/Transformation_Tests#B|scenario B]], [[30-Mechanisms/Transformation_Tests#K|scenario K]]); cancelling HEAD injections ([[30-Mechanisms/Transformation_Tests#H|scenario H]]).
 
 ## Evidence
 
+- `extracted/edges.json#shared_targets`
 - `extracted/edges.json#injects_into`
-- `extracted/edges.json#wraps`
-- `extracted/fabric_api.json`
+- `extracted/mixin_transformation_tests.json`
 
 ## Open questions
 

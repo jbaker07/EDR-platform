@@ -11,38 +11,38 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/lang/Comparable;)V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/Comparable;)V` | exact | invokespecial@10 in `ModPackResourcesUtil.getMetadataPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (3 fields, 18 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.util.InclusiveRange<T extends java.lang.Comparable<T>> extends java.lang.Record {
-    private final T minInclusive;
-    private final T maxInclusive;
-    public static final com.mojang.serialization.Codec<net.minecraft.util.InclusiveRange<java.lang.Integer>> INT;
-    public net.minecraft.util.InclusiveRange(T, T);
-    public net.minecraft.util.InclusiveRange(T);
-    public static <T extends java.lang.Comparable<T>> com.mojang.serialization.Codec<net.minecraft.util.InclusiveRange<T>> codec(com.mojang.serialization.Codec<T>);
-    public static <T extends java.lang.Comparable<T>> com.mojang.serialization.Codec<net.minecraft.util.InclusiveRange<T>> codec(com.mojang.serialization.Codec<T>, T, T);
-    public static <T extends java.lang.Comparable<T>> com.mojang.serialization.DataResult<net.minecraft.util.InclusiveRange<T>> create(T, T);
-    public <S extends java.lang.Comparable<S>> net.minecraft.util.InclusiveRange<S> map(java.util.function.Function<? super T, ? extends S>);
-    public boolean isValueInRange(T);
-    public boolean contains(net.minecraft.util.InclusiveRange<T>);
-    public java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public T minInclusive();
-    public T maxInclusive();
-    private static java.lang.String lambda$create$0();
-    private static com.mojang.serialization.DataResult lambda$codec$0(java.lang.Comparable, java.lang.Comparable, net.minecraft.util.InclusiveRange);
-    private static java.lang.String lambda$codec$2(java.lang.Comparable, net.minecraft.util.InclusiveRange);
-    private static java.lang.String lambda$codec$1(java.lang.Comparable, net.minecraft.util.InclusiveRange);
-    static {};
-}
+```
+private final minInclusive : Ljava/lang/Comparable;
+private final maxInclusive : Ljava/lang/Comparable;
+public static final INT : Lcom/mojang/serialization/Codec;
+public <init>(Ljava/lang/Comparable;Ljava/lang/Comparable;)V
+public <init>(Ljava/lang/Comparable;)V
+public static codec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/Codec;
+public static codec(Lcom/mojang/serialization/Codec;Ljava/lang/Comparable;Ljava/lang/Comparable;)Lcom/mojang/serialization/Codec;
+public static create(Ljava/lang/Comparable;Ljava/lang/Comparable;)Lcom/mojang/serialization/DataResult;
+public map(Ljava/util/function/Function;)Lnet/minecraft/util/InclusiveRange;
+public isValueInRange(Ljava/lang/Comparable;)Z
+public contains(Lnet/minecraft/util/InclusiveRange;)Z
+public toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public minInclusive()Ljava/lang/Comparable;
+public maxInclusive()Ljava/lang/Comparable;
+private static synthetic lambda$create$0()Ljava/lang/String;
+private static synthetic lambda$codec$0(Ljava/lang/Comparable;Ljava/lang/Comparable;Lnet/minecraft/util/InclusiveRange;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$codec$2(Ljava/lang/Comparable;Lnet/minecraft/util/InclusiveRange;)Ljava/lang/String;
+private static synthetic lambda$codec$1(Ljava/lang/Comparable;Lnet/minecraft/util/InclusiveRange;)Ljava/lang/String;
+static <clinit>()V
 ```

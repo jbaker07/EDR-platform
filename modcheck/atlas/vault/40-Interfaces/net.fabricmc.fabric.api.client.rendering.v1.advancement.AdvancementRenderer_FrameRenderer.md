@@ -14,6 +14,6 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: inter
 
 ```java
 public abstract void extractAdvancementFrame(net.fabricmc.fabric.api.client.rendering.v1.advancement.AdvancementRenderContext$Frame)
-public default boolean shouldRenderOriginalFrame()
-public default boolean shouldRenderTooltip()
+public boolean shouldRenderOriginalFrame()
+public boolean shouldRenderTooltip()
 ```

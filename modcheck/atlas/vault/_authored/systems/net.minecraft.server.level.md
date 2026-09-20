@@ -9,7 +9,7 @@ side: "server"
 
 # ServerLevel, chunks and entity tracking
 
-Package `net.minecraft.server.level` -- generated view: [[20-Systems/net.minecraft.server.level|hooked types]]
+Package `net.minecraft.server.level` -- generated view: [[20-Systems/net.minecraft.server.level|inventory and hooked types]]
 
 **Responsibility.** The authoritative per-dimension world on the server: ServerLevel.tick, chunk loading and status tasks, entity callbacks (tracking start/end), the ServerEntity pairing that decides which players receive an entity, and ServerPlayer.
 
@@ -17,7 +17,7 @@ Package `net.minecraft.server.level` -- generated view: [[20-Systems/net.minecra
 
 **Threads.** ServerLevel.tick is called from the server thread's tickChildren. Chunk status tasks run through a scheduler whose executor is not yet extracted ([[80-Unresolved/q.worldgen_threading|q.worldgen_threading]]), so listeners published from ChunkStatusTasks (CHUNK_GENERATE) have no stated thread.
 
-**Persistence.** Per-level saved data and chunk storage are accessed through this package; the lantern's SavedData lives at this scope (`capability/persist_state.fabric_saveddata`).
+**Persistence.** Per-level saved data and chunk storage are accessed through this package; the reference lantern's charge is per block entity, saved with the chunk, not level-scoped SavedData (`capability/persist_state.fabric_saveddata` is what the discarded scaffold used).
 
 ## Extension points
 
@@ -33,7 +33,7 @@ Package `net.minecraft.server.level` -- generated view: [[20-Systems/net.minecra
 ## Evidence
 
 - `extracted/edges.json#publishes_event`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `capability/subscribe_event.fabric_server_tick`
 
 ## Open questions

@@ -11,108 +11,111 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `definition()Lnet/minecraft/world/item/enchantment/Enchantment$Enchantm` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `description()Lnet/minecraft/network/chat/Component;` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `effects()Lnet/minecraft/core/component/DataComponentMap;` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `enchantment(Lnet/minecraft/world/item/enchantment/Enchantment$Enchantme` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `exclusiveSet()Lnet/minecraft/core/HolderSet;` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/item/encha` | exact | invokespecial@169 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `canEnchant` | `(Lnet/minecraft/world/item/ItemStack;)Z` | exact | invokevirtual@33 in `FabricItem.canBeEnchantedWith` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `definition` | `()Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefinit` | exact | invokevirtual@1 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `description` | `()Lnet/minecraft/network/chat/Component;` | exact | invokevirtual@142 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `effects` | `()Lnet/minecraft/core/component/DataComponentMap;` | exact | invokevirtual@41 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `effects` | `()Lnet/minecraft/core/component/DataComponentMap;` | exact | invokevirtual@49 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `enchantment` | `(Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefiniti` | exact | invokestatic@4 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `exclusiveSet` | `()Lnet/minecraft/core/HolderSet;` | exact | invokevirtual@26 in `EnchantmentUtil.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `isPrimaryItem` | `(Lnet/minecraft/world/item/ItemStack;)Z` | exact | invokevirtual@17 in `FabricItem.canBeEnchantedWith` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (86, all visibilities)
+## Declared members (8 fields, 78 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.enchantment.Enchantment extends java.lang.Record {
-    private final net.minecraft.network.chat.Component description;
-    private final net.minecraft.world.item.enchantment.Enchantment$EnchantmentDefinition definition;
-    private final net.minecraft.core.HolderSet<net.minecraft.world.item.enchantment.Enchantment> exclusiveSet;
-    private final net.minecraft.core.component.DataComponentMap effects;
-    public static final int MAX_LEVEL;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.item.enchantment.Enchantment> DIRECT_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>> STREAM_CODEC;
-    public net.minecraft.world.item.enchantment.Enchantment(net.minecraft.network.chat.Component, net.minecraft.world.item.enchantment.Enchantment$EnchantmentDefinition, net.minecraft.core.HolderSet<net.minecraft.world.item.enchantment.Enchantment>, net.minecraft.core.component.DataComponentMap);
-    public static net.minecraft.world.item.enchantment.Enchantment$Cost constantCost(int);
-    public static net.minecraft.world.item.enchantment.Enchantment$Cost dynamicCost(int, int);
-    public static net.minecraft.world.item.enchantment.Enchantment$EnchantmentDefinition definition(net.minecraft.core.HolderSet<net.minecraft.world.item.Item>, net.minecraft.core.HolderSet<net.minecraft.world.item.Item>, int, int, net.minecraft.world.item.enchantment.Enchantment$Cost, net.minecraft.world.item.enchantment.Enchantment$Cost, int, net.minecraft.world.entity.EquipmentSlotGroup...);
-    public static net.minecraft.world.item.enchantment.Enchantment$EnchantmentDefinition definition(net.minecraft.core.HolderSet<net.minecraft.world.item.Item>, int, int, net.minecraft.world.item.enchantment.Enchantment$Cost, net.minecraft.world.item.enchantment.Enchantment$Cost, int, net.minecraft.world.entity.EquipmentSlotGroup...);
-    public java.util.Map<net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack> getSlotItems(net.minecraft.world.entity.LivingEntity);
-    public net.minecraft.core.HolderSet<net.minecraft.world.item.Item> getSupportedItems();
-    public boolean matchingSlot(net.minecraft.world.entity.EquipmentSlot);
-    public boolean isPrimaryItem(net.minecraft.world.item.ItemStack);
-    public boolean isSupportedItem(net.minecraft.world.item.ItemStack);
-    public int getWeight();
-    public int getAnvilCost();
-    public int getMinLevel();
-    public int getMaxLevel();
-    public int getMinCost(int);
-    public int getMaxCost(int);
-    public java.lang.String toString();
-    public static boolean areCompatible(net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>, net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>);
-    public static net.minecraft.network.chat.Component getFullname(net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment>, int);
-    public boolean canEnchant(net.minecraft.world.item.ItemStack);
-    public <T> java.util.List<T> getEffects(net.minecraft.core.component.DataComponentType<java.util.List<T>>);
-    public boolean isImmuneToDamage(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-    public void modifyDamageProtection(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyDurabilityChange(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyAmmoCount(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyPiercingCount(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyBlockExperience(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyMobExperience(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyDurabilityToRepairFromXp(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyTridentReturnToOwnerAcceleration(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyTridentSpinAttackStrength(net.minecraft.util.RandomSource, int, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyFishingTimeReduction(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyFishingLuckBonus(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyDamage(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyFallBasedDamage(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyKnockback(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyArmorEffectivness(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, org.apache.commons.lang3.mutable.MutableFloat);
-    public void doPostAttack(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.item.enchantment.EnchantmentTarget, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-    public static void doPostAttack(net.minecraft.world.item.enchantment.TargetedConditionalEffect<net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect>, net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-    public void doPostPiercingAttack(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity);
-    public void modifyProjectileCount(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyProjectileSpread(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyCrossbowChargeTime(net.minecraft.util.RandomSource, int, org.apache.commons.lang3.mutable.MutableFloat);
-    public void modifyUnfilteredValue(net.minecraft.core.component.DataComponentType<net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect>, net.minecraft.util.RandomSource, int, org.apache.commons.lang3.mutable.MutableFloat);
-    public void tick(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity);
-    public void onProjectileSpawned(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity);
-    public void onHitBlock(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity, net.minecraft.world.phys.Vec3, net.minecraft.world.level.block.state.BlockState);
-    private void modifyItemFilteredCount(net.minecraft.core.component.DataComponentType<java.util.List<net.minecraft.world.item.enchantment.ConditionalEffect<net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect>>>, net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemInstance, org.apache.commons.lang3.mutable.MutableFloat);
-    private void modifyEntityFilteredValue(net.minecraft.core.component.DataComponentType<java.util.List<net.minecraft.world.item.enchantment.ConditionalEffect<net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect>>>, net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, org.apache.commons.lang3.mutable.MutableFloat);
-    private void modifyDamageFilteredValue(net.minecraft.core.component.DataComponentType<java.util.List<net.minecraft.world.item.enchantment.ConditionalEffect<net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect>>>, net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource, org.apache.commons.lang3.mutable.MutableFloat);
-    public static net.minecraft.world.level.storage.loot.LootContext damageContext(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-    private static net.minecraft.world.level.storage.loot.LootContext itemContext(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.ItemInstance);
-    private static net.minecraft.world.level.storage.loot.LootContext locationContext(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.entity.Entity, boolean);
-    private static net.minecraft.world.level.storage.loot.LootContext entityContext(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.entity.Entity, net.minecraft.world.phys.Vec3);
-    private static net.minecraft.world.level.storage.loot.LootContext blockHitContext(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.entity.Entity, net.minecraft.world.phys.Vec3, net.minecraft.world.level.block.state.BlockState);
-    private static <T> void applyEffects(java.util.List<net.minecraft.world.item.enchantment.ConditionalEffect<T>>, net.minecraft.world.level.storage.loot.LootContext, net.minecraft.world.item.enchantment.Enchantment$GenericAction<T>);
-    private static <T> void applyEffects(java.util.List<net.minecraft.world.item.enchantment.ConditionalEffect<T>>, net.minecraft.world.level.storage.loot.LootContext, org.apache.commons.lang3.mutable.MutableFloat, net.minecraft.world.item.enchantment.Enchantment$FloatAction<T>);
-    public void runLocationChangedEffects(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.LivingEntity);
-    public void stopLocationBasedEffects(int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.LivingEntity);
-    public static net.minecraft.world.item.enchantment.Enchantment$Builder enchantment(net.minecraft.world.item.enchantment.Enchantment$EnchantmentDefinition);
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.network.chat.Component description();
-    public net.minecraft.world.item.enchantment.Enchantment$EnchantmentDefinition definition();
-    public net.minecraft.core.HolderSet<net.minecraft.world.item.enchantment.Enchantment> exclusiveSet();
-    public net.minecraft.core.component.DataComponentMap effects();
-    private static void lambda$runLocationChangedEffects$0(net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.LivingEntity, int, net.minecraft.world.item.enchantment.effects.EnchantmentLocationBasedEffect);
-    private static float lambda$modifyDamageFilteredValue$0(int, net.minecraft.world.entity.Entity, net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect, float);
-    private static float lambda$modifyEntityFilteredValue$0(int, net.minecraft.world.entity.Entity, net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect, float);
-    private static float lambda$modifyItemFilteredCount$0(int, net.minecraft.server.level.ServerLevel, net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect, float);
-    private static void lambda$onHitBlock$0(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity, net.minecraft.world.phys.Vec3, net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect);
-    private static void lambda$onProjectileSpawned$0(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity, net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect);
-    private static void lambda$tick$0(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity, net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect);
-    private static void lambda$doPostPiercingAttack$0(net.minecraft.server.level.ServerLevel, int, net.minecraft.world.item.enchantment.EnchantedItemInUse, net.minecraft.world.entity.Entity, net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect);
-    private static float lambda$modifyDamageProtection$0(int, net.minecraft.world.entity.Entity, net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect, float);
-    private static boolean lambda$matchingSlot$0(net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.entity.EquipmentSlotGroup);
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final description : Lnet/minecraft/network/chat/Component;
+private final definition : Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefinition;
+private final exclusiveSet : Lnet/minecraft/core/HolderSet;
+private final effects : Lnet/minecraft/core/component/DataComponentMap;
+public static final MAX_LEVEL : I
+public static final DIRECT_CODEC : Lcom/mojang/serialization/Codec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefinition;Lnet/minecraft/core/HolderSet;Lnet/minecraft/core/component/DataComponentMap;)V
+public static constantCost(I)Lnet/minecraft/world/item/enchantment/Enchantment$Cost;
+public static dynamicCost(II)Lnet/minecraft/world/item/enchantment/Enchantment$Cost;
+public static definition(Lnet/minecraft/core/HolderSet;Lnet/minecraft/core/HolderSet;IILnet/minecraft/world/item/enchantment/Enchantment$Cost;Lnet/minecraft/world/item/enchantment/Enchantment$Cost;I[Lnet/minecraft/world/entity/EquipmentSlotGroup;)Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefinition;
+public static definition(Lnet/minecraft/core/HolderSet;IILnet/minecraft/world/item/enchantment/Enchantment$Cost;Lnet/minecraft/world/item/enchantment/Enchantment$Cost;I[Lnet/minecraft/world/entity/EquipmentSlotGroup;)Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefinition;
+public getSlotItems(Lnet/minecraft/world/entity/LivingEntity;)Ljava/util/Map;
+public getSupportedItems()Lnet/minecraft/core/HolderSet;
+public matchingSlot(Lnet/minecraft/world/entity/EquipmentSlot;)Z
+public isPrimaryItem(Lnet/minecraft/world/item/ItemStack;)Z
+public isSupportedItem(Lnet/minecraft/world/item/ItemStack;)Z
+public getWeight()I
+public getAnvilCost()I
+public getMinLevel()I
+public getMaxLevel()I
+public getMinCost(I)I
+public getMaxCost(I)I
+public toString()Ljava/lang/String;
+public static areCompatible(Lnet/minecraft/core/Holder;Lnet/minecraft/core/Holder;)Z
+public static getFullname(Lnet/minecraft/core/Holder;I)Lnet/minecraft/network/chat/Component;
+public canEnchant(Lnet/minecraft/world/item/ItemStack;)Z
+public getEffects(Lnet/minecraft/core/component/DataComponentType;)Ljava/util/List;
+public isImmuneToDamage(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)Z
+public modifyDamageProtection(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyDurabilityChange(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyAmmoCount(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyPiercingCount(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyBlockExperience(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyMobExperience(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyDurabilityToRepairFromXp(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyTridentReturnToOwnerAcceleration(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyTridentSpinAttackStrength(Lnet/minecraft/util/RandomSource;ILorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyFishingTimeReduction(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyFishingLuckBonus(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyDamage(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyFallBasedDamage(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyKnockback(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyArmorEffectivness(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public doPostAttack(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/item/enchantment/EnchantmentTarget;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)V
+public static doPostAttack(Lnet/minecraft/world/item/enchantment/TargetedConditionalEffect;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)V
+public doPostPiercingAttack(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;)V
+public modifyProjectileCount(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyProjectileSpread(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyCrossbowChargeTime(Lnet/minecraft/util/RandomSource;ILorg/apache/commons/lang3/mutable/MutableFloat;)V
+public modifyUnfilteredValue(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/util/RandomSource;ILorg/apache/commons/lang3/mutable/MutableFloat;)V
+public tick(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;)V
+public onProjectileSpawned(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;)V
+public onHitBlock(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/block/state/BlockState;)V
+public final modifyItemFilteredCount(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemInstance;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public final modifyEntityFilteredValue(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public final modifyDamageFilteredValue(Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+public static damageContext(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)Lnet/minecraft/world/level/storage/loot/LootContext;
+public static itemContext(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemInstance;)Lnet/minecraft/world/level/storage/loot/LootContext;
+public static locationContext(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/entity/Entity;Z)Lnet/minecraft/world/level/storage/loot/LootContext;
+public static entityContext(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/level/storage/loot/LootContext;
+public static blockHitContext(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/storage/loot/LootContext;
+public static applyEffects(Ljava/util/List;Lnet/minecraft/world/level/storage/loot/LootContext;Lnet/minecraft/world/item/enchantment/Enchantment$GenericAction;)V
+public static applyEffects(Ljava/util/List;Lnet/minecraft/world/level/storage/loot/LootContext;Lorg/apache/commons/lang3/mutable/MutableFloat;Lnet/minecraft/world/item/enchantment/Enchantment$FloatAction;)V
+public runLocationChangedEffects(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/LivingEntity;)V
+public stopLocationBasedEffects(ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/LivingEntity;)V
+public static enchantment(Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefinition;)Lnet/minecraft/world/item/enchantment/Enchantment$Builder;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public description()Lnet/minecraft/network/chat/Component;
+public definition()Lnet/minecraft/world/item/enchantment/Enchantment$EnchantmentDefinition;
+public exclusiveSet()Lnet/minecraft/core/HolderSet;
+public effects()Lnet/minecraft/core/component/DataComponentMap;
+private static synthetic lambda$runLocationChangedEffects$0(Lnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/LivingEntity;ILnet/minecraft/world/item/enchantment/effects/EnchantmentLocationBasedEffect;)V
+private static synthetic lambda$modifyDamageFilteredValue$0(ILnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/enchantment/effects/EnchantmentValueEffect;F)F
+private static synthetic lambda$modifyEntityFilteredValue$0(ILnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/enchantment/effects/EnchantmentValueEffect;F)F
+private static synthetic lambda$modifyItemFilteredCount$0(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/enchantment/effects/EnchantmentValueEffect;F)F
+private static synthetic lambda$onHitBlock$0(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/item/enchantment/effects/EnchantmentEntityEffect;)V
+private static synthetic lambda$onProjectileSpawned$0(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/enchantment/effects/EnchantmentEntityEffect;)V
+private static synthetic lambda$tick$0(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/enchantment/effects/EnchantmentEntityEffect;)V
+private static synthetic lambda$doPostPiercingAttack$0(Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/enchantment/EnchantedItemInUse;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/enchantment/effects/EnchantmentEntityEffect;)V
+private static synthetic lambda$modifyDamageProtection$0(ILnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/enchantment/effects/EnchantmentValueEffect;F)F
+private static synthetic lambda$matchingSlot$0(Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/world/entity/EquipmentSlotGroup;)Z
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

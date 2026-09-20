@@ -11,20 +11,21 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.commands|net.minecraft.server.commands]]
 
+`class` ; extends `java/lang/Object`; implements `net/minecraft/world/level/gamerules/GameRuleTypeVisitor`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `visit` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `visit` | `(Lnet/minecraft/world/level/gamerules/GameRule;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| reads | `val$base` | `Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | declared |
 
-## Declared members (3, all visibilities)
+## Declared members (1 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.server.commands.GameRuleCommand$1 implements net.minecraft.world.level.gamerules.GameRuleTypeVisitor {
-    final com.mojang.brigadier.builder.LiteralArgumentBuilder val$base;
-    net.minecraft.server.commands.GameRuleCommand$1();
-    public <T> void visit(net.minecraft.world.level.gamerules.GameRule<T>);
-}
+```
+final synthetic val$base : Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;
+ <init>(Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;)V
+public visit(Lnet/minecraft/world/level/gamerules/GameRule;)V
 ```

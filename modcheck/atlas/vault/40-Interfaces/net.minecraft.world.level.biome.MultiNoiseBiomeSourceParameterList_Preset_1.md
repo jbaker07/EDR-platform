@@ -11,19 +11,19 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` ; extends `java/lang/Object`; implements `net/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset$SourceProvider`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `apply` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `apply` | `(Ljava/util/function/Function;)Lnet/minecraft/world/level/biome/Climat` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
 
-## Declared members (2, all visibilities)
+## Declared members (0 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset$1 implements net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset$SourceProvider {
-    net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList$Preset$1();
-    public <T> net.minecraft.world.level.biome.Climate$ParameterList<T> apply(java.util.function.Function<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>, T>);
-}
+```
+ <init>()V
+public apply(Ljava/util/function/Function;)Lnet/minecraft/world/level/biome/Climate$ParameterList;
 ```

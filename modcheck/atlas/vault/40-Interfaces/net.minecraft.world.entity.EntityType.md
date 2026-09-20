@@ -11,108 +11,112 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/level/entity/EntityTypeTest`, `net/minecraft/world/flag/FeatureElement`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `create(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entit` | `` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
-| calls | `updateInterval()I` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| injects_into | `create(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;)Lnet/minecraft/world/entity/Entity;` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `onlyOpCanSetNbt` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| injects_into | `trackDeltas` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `create` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySp` | exact | invokevirtual@36 in `EntityApiLookupImpl.lambda$checkSelfImplementingTypes$0` | unknown | [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] | direct_reference |
+| calls | `getCategory` | `()Lnet/minecraft/world/entity/MobCategory;` | exact | invokevirtual@1 in `BiomeModifications.addSpawn` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `getDefaultLootTable` | `()Ljava/util/Optional;` | exact | invokevirtual@203 in `FabricEntityLootSubProvider.generate` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getDescriptionId` | `()Ljava/lang/String;` | exact | invokevirtual@2 in `FabricLanguageProvider$TranslationBuilder.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `updateInterval` | `()I` | exact | invokevirtual@48 in `TestServerConnectionImpl.waitForClientboundEntityUpdates` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `updateInterval` | `()I` | exact | invokevirtual@83 in `TestServerConnectionImpl.waitForClientboundEntityUpdates` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| injects_into | `create` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySp` | exact | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `onlyOpCanSetNbt` | `()Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| injects_into | `trackDeltas` | `()Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (87, all visibilities)
+## Declared members (22 fields, 65 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.entity.EntityType<T extends net.minecraft.world.entity.Entity> implements net.minecraft.world.level.entity.EntityTypeTest<net.minecraft.world.entity.Entity, T>, net.minecraft.world.flag.FeatureElement {
-    private static final org.slf4j.Logger LOGGER;
-    private final net.minecraft.core.Holder$Reference<net.minecraft.world.entity.EntityType<?>> builtInRegistryHolder;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.entity.EntityType<?>> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.entity.EntityType<?>> STREAM_CODEC;
-    public static final int NO_UPDATE_INTERVAL;
-    private final net.minecraft.world.entity.EntityType$EntityFactory<T> factory;
-    private final net.minecraft.world.entity.MobCategory category;
-    private final net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> immuneTo;
-    private final boolean serialize;
-    private final boolean summon;
-    private final boolean fireImmune;
-    private final boolean canSpawnFarFromPlayer;
-    private final int clientTrackingRange;
-    private final int updateInterval;
-    private final java.lang.String descriptionId;
-    private net.minecraft.network.chat.Component description;
-    private final java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> lootTable;
-    private final net.minecraft.world.entity.EntityDimensions dimensions;
-    private final float spawnDimensionsScale;
-    private final net.minecraft.world.flag.FeatureFlagSet requiredFeatures;
-    private final boolean allowedInPeaceful;
-    private final boolean trackDeltas;
-    public static net.minecraft.resources.Identifier getKey(net.minecraft.world.entity.EntityType<?>);
-    public net.minecraft.world.entity.EntityType(net.minecraft.world.entity.EntityType$EntityFactory<T>, net.minecraft.world.entity.MobCategory, boolean, boolean, boolean, boolean, net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>, net.minecraft.world.entity.EntityDimensions, float, int, int, java.lang.String, java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>>, net.minecraft.world.flag.FeatureFlagSet, boolean, boolean);
-    public T spawn(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.LivingEntity, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason, boolean, boolean);
-    public static <T extends net.minecraft.world.entity.Entity> net.minecraft.world.entity.PostSpawnProcessor<T> createDefaultStackConfig(net.minecraft.world.level.Level, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.LivingEntity);
-    public static <T extends net.minecraft.world.entity.Entity> net.minecraft.world.entity.PostSpawnProcessor<T> appendDefaultStackConfig(net.minecraft.world.entity.PostSpawnProcessor<T>, net.minecraft.world.level.Level, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.LivingEntity);
-    public static <T extends net.minecraft.world.entity.Entity> net.minecraft.world.entity.PostSpawnProcessor<T> appendComponentsConfig(net.minecraft.world.entity.PostSpawnProcessor<T>, net.minecraft.world.item.ItemStack);
-    public static <T extends net.minecraft.world.entity.Entity> net.minecraft.world.entity.PostSpawnProcessor<T> appendCustomEntityStackConfig(net.minecraft.world.entity.PostSpawnProcessor<T>, net.minecraft.world.level.Level, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.LivingEntity);
-    public T spawn(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason);
-    public T spawn(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.PostSpawnProcessor<T>, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason, boolean, boolean);
-    public T create(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.PostSpawnProcessor<T>, net.minecraft.core.BlockPos, net.minecraft.world.entity.EntitySpawnReason, boolean, boolean);
-    protected static double getYOffset(net.minecraft.world.level.LevelReader, net.minecraft.core.BlockPos, boolean, net.minecraft.world.phys.AABB);
-    public static void updateCustomEntityTag(net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, net.minecraft.world.entity.Entity, net.minecraft.world.item.component.TypedEntityData<net.minecraft.world.entity.EntityType<?>>);
-    public boolean canSerialize();
-    public boolean canSummon();
-    public boolean fireImmune();
-    public boolean canSpawnFarFromPlayer();
-    public net.minecraft.world.entity.MobCategory getCategory();
-    public java.lang.String getDescriptionId();
-    public net.minecraft.network.chat.Component getDescription();
-    public java.lang.String toString();
-    public java.lang.String toShortString();
-    public java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> getDefaultLootTable();
-    public float getWidth();
-    public float getHeight();
-    public net.minecraft.world.flag.FeatureFlagSet requiredFeatures();
-    public boolean canSpawn(net.minecraft.world.level.Level);
-    public T create(net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason);
-    public T create(net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest);
-    public static java.util.Optional<net.minecraft.world.entity.Entity> create(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest);
-    public static java.util.Optional<net.minecraft.world.entity.Entity> create(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason);
-    public net.minecraft.world.phys.AABB getSpawnAABB(net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.phys.AABB getSpawnAABB(double, double, double);
-    public boolean isBlockDangerous(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.entity.EntityDimensions getDimensions();
-    public static java.util.Optional<net.minecraft.world.entity.EntityType<?>> by(net.minecraft.world.level.storage.ValueInput);
-    public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.nbt.CompoundTag, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest, net.minecraft.world.entity.EntityProcessor);
-    public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.world.entity.EntityType<?>, net.minecraft.nbt.CompoundTag, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.EntityProcessor);
-    public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.EntityProcessor);
-    public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest, net.minecraft.world.entity.EntityProcessor);
-    public static net.minecraft.world.entity.Entity loadEntityRecursive(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.EntityProcessor);
-    private static net.minecraft.world.entity.Entity loadPassengersRecursive(net.minecraft.world.entity.Entity, net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest, net.minecraft.world.entity.EntityProcessor);
-    public static java.util.stream.Stream<net.minecraft.world.entity.Entity> loadEntitiesRecursive(net.minecraft.world.level.storage.ValueInput$ValueInputList, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason);
-    private static java.util.Optional<net.minecraft.world.entity.Entity> loadStaticEntity(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest);
-    private static java.util.Optional<net.minecraft.world.entity.Entity> loadStaticEntity(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason);
-    public int clientTrackingRange();
-    public int updateInterval();
-    public boolean hasUpdateInterval();
-    public boolean trackDeltas();
-    public T tryCast(net.minecraft.world.entity.Entity);
-    public java.lang.Class<? extends net.minecraft.world.entity.Entity> getBaseClass();
-    public net.minecraft.core.Holder$Reference<net.minecraft.world.entity.EntityType<?>> builtInRegistryHolder();
-    public boolean isAllowedInPeaceful();
-    public boolean onlyOpCanSetNbt();
-    public java.lang.Object tryCast(java.lang.Object);
-    private static void lambda$loadEntitiesRecursive$0(net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.level.storage.ValueInput, java.util.function.Consumer);
-    private static net.minecraft.world.entity.Entity lambda$loadEntitiesRecursive$1(java.util.function.Consumer, net.minecraft.world.entity.Entity);
-    private static net.minecraft.world.entity.Entity lambda$loadEntityRecursive$1(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.entity.EntityProcessor, net.minecraft.world.entity.Entity);
-    private static net.minecraft.world.entity.Entity lambda$loadEntityRecursive$0(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest, net.minecraft.world.entity.EntityProcessor, net.minecraft.world.entity.Entity);
-    private static void lambda$create$3(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.entity.Entity);
-    private static void lambda$create$2(net.minecraft.world.level.storage.ValueInput);
-    private static void lambda$create$1(net.minecraft.world.level.storage.ValueInput, net.minecraft.world.entity.Entity);
-    private static net.minecraft.world.entity.Entity lambda$create$0(net.minecraft.world.level.Level, net.minecraft.world.entity.EntitySpawnRequest, net.minecraft.world.entity.EntityType);
-    private static void lambda$appendCustomEntityStackConfig$0(net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.component.TypedEntityData, net.minecraft.world.entity.Entity);
-    private static void lambda$appendComponentsConfig$0(net.minecraft.world.item.ItemStack, net.minecraft.world.entity.Entity);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final builtInRegistryHolder : Lnet/minecraft/core/Holder$Reference;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final NO_UPDATE_INTERVAL : I
+private final factory : Lnet/minecraft/world/entity/EntityType$EntityFactory;
+private final category : Lnet/minecraft/world/entity/MobCategory;
+private final immuneTo : Lnet/minecraft/tags/TagKey;
+private final serialize : Z
+private final summon : Z
+private final fireImmune : Z
+private final canSpawnFarFromPlayer : Z
+private final clientTrackingRange : I
+private final updateInterval : I
+private final descriptionId : Ljava/lang/String;
+private description : Lnet/minecraft/network/chat/Component;
+private final lootTable : Ljava/util/Optional;
+private final dimensions : Lnet/minecraft/world/entity/EntityDimensions;
+private final spawnDimensionsScale : F
+private final requiredFeatures : Lnet/minecraft/world/flag/FeatureFlagSet;
+private final allowedInPeaceful : Z
+private final trackDeltas : Z
+public static getKey(Lnet/minecraft/world/entity/EntityType;)Lnet/minecraft/resources/Identifier;
+public <init>(Lnet/minecraft/world/entity/EntityType$EntityFactory;Lnet/minecraft/world/entity/MobCategory;ZZZZLnet/minecraft/tags/TagKey;Lnet/minecraft/world/entity/EntityDimensions;FIILjava/lang/String;Ljava/util/Optional;Lnet/minecraft/world/flag/FeatureFlagSet;ZZ)V
+public spawn(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntitySpawnReason;ZZ)Lnet/minecraft/world/entity/Entity;
+public static createDefaultStackConfig(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/entity/PostSpawnProcessor;
+public static appendDefaultStackConfig(Lnet/minecraft/world/entity/PostSpawnProcessor;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/entity/PostSpawnProcessor;
+public static appendComponentsConfig(Lnet/minecraft/world/entity/PostSpawnProcessor;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/PostSpawnProcessor;
+public static appendCustomEntityStackConfig(Lnet/minecraft/world/entity/PostSpawnProcessor;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/entity/PostSpawnProcessor;
+public spawn(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntitySpawnReason;)Lnet/minecraft/world/entity/Entity;
+public spawn(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/PostSpawnProcessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntitySpawnReason;ZZ)Lnet/minecraft/world/entity/Entity;
+public create(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/PostSpawnProcessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntitySpawnReason;ZZ)Lnet/minecraft/world/entity/Entity;
+protected static getYOffset(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;ZLnet/minecraft/world/phys/AABB;)D
+public static updateCustomEntityTag(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/component/TypedEntityData;)V
+public canSerialize()Z
+public canSummon()Z
+public fireImmune()Z
+public canSpawnFarFromPlayer()Z
+public getCategory()Lnet/minecraft/world/entity/MobCategory;
+public getDescriptionId()Ljava/lang/String;
+public getDescription()Lnet/minecraft/network/chat/Component;
+public toString()Ljava/lang/String;
+public toShortString()Ljava/lang/String;
+public getDefaultLootTable()Ljava/util/Optional;
+public getWidth()F
+public getHeight()F
+public requiredFeatures()Lnet/minecraft/world/flag/FeatureFlagSet;
+public canSpawn(Lnet/minecraft/world/level/Level;)Z
+public create(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;)Lnet/minecraft/world/entity/Entity;
+public create(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;)Lnet/minecraft/world/entity/Entity;
+public static create(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;)Ljava/util/Optional;
+public static create(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;)Ljava/util/Optional;
+public getSpawnAABB(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/AABB;
+public getSpawnAABB(DDD)Lnet/minecraft/world/phys/AABB;
+public isBlockDangerous(Lnet/minecraft/world/level/block/state/BlockState;)Z
+public getDimensions()Lnet/minecraft/world/entity/EntityDimensions;
+public static by(Lnet/minecraft/world/level/storage/ValueInput;)Ljava/util/Optional;
+public static loadEntityRecursive(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;Lnet/minecraft/world/entity/EntityProcessor;)Lnet/minecraft/world/entity/Entity;
+public static loadEntityRecursive(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/EntityProcessor;)Lnet/minecraft/world/entity/Entity;
+public static loadEntityRecursive(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/EntityProcessor;)Lnet/minecraft/world/entity/Entity;
+public static loadEntityRecursive(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;Lnet/minecraft/world/entity/EntityProcessor;)Lnet/minecraft/world/entity/Entity;
+public static loadEntityRecursive(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/EntityProcessor;)Lnet/minecraft/world/entity/Entity;
+private static loadPassengersRecursive(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;Lnet/minecraft/world/entity/EntityProcessor;)Lnet/minecraft/world/entity/Entity;
+public static loadEntitiesRecursive(Lnet/minecraft/world/level/storage/ValueInput$ValueInputList;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;)Ljava/util/stream/Stream;
+private static loadStaticEntity(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;)Ljava/util/Optional;
+private static loadStaticEntity(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;)Ljava/util/Optional;
+public clientTrackingRange()I
+public updateInterval()I
+public hasUpdateInterval()Z
+public trackDeltas()Z
+public tryCast(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/entity/Entity;
+public getBaseClass()Ljava/lang/Class;
+public builtInRegistryHolder()Lnet/minecraft/core/Holder$Reference;
+public isAllowedInPeaceful()Z
+public onlyOpCanSetNbt()Z
+public synthetic tryCast(Ljava/lang/Object;)Ljava/lang/Object;
+private static synthetic lambda$loadEntitiesRecursive$0(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/level/storage/ValueInput;Ljava/util/function/Consumer;)V
+private static synthetic lambda$loadEntitiesRecursive$1(Ljava/util/function/Consumer;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/entity/Entity;
+private static synthetic lambda$loadEntityRecursive$1(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/EntityProcessor;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/entity/Entity;
+private static synthetic lambda$loadEntityRecursive$0(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;Lnet/minecraft/world/entity/EntityProcessor;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/entity/Entity;
+private static synthetic lambda$create$3(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/entity/Entity;)V
+private static synthetic lambda$create$2(Lnet/minecraft/world/level/storage/ValueInput;)V
+private static synthetic lambda$create$1(Lnet/minecraft/world/level/storage/ValueInput;Lnet/minecraft/world/entity/Entity;)V
+private static synthetic lambda$create$0(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;Lnet/minecraft/world/entity/EntityType;)Lnet/minecraft/world/entity/Entity;
+private static synthetic lambda$appendCustomEntityStackConfig$0(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/component/TypedEntityData;Lnet/minecraft/world/entity/Entity;)V
+private static synthetic lambda$appendComponentsConfig$0(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;)V
+static <clinit>()V
 ```

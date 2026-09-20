@@ -15,9 +15,10 @@ Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `CombinedProvidersImpl.lambda$createEvent$1` | (impl code, not a mixin) | unknown | static_inference |
+| `FluidStorage.lambda$static$1` @10 | (impl code, not a mixin) | unknown | static_inference |
+| `CombinedProvidersImpl.lambda$createEvent$1` @86 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

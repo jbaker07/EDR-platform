@@ -11,25 +11,25 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/render/pip/PictureInPictureRenderer`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `()V` | exact | invokespecial@4 in `PictureInPictureRendererRegistryImpl.lambda$registerVanillaFactories$4 | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (0 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.render.pip.GuiProfilerChartRenderer extends net.minecraft.client.gui.render.pip.PictureInPictureRenderer<net.minecraft.client.renderer.state.gui.pip.GuiProfilerChartRenderState> {
-    public net.minecraft.client.gui.render.pip.GuiProfilerChartRenderer();
-    public java.lang.Class<net.minecraft.client.renderer.state.gui.pip.GuiProfilerChartRenderState> getRenderStateClass();
-    protected void renderToTexture(net.minecraft.client.renderer.state.gui.pip.GuiProfilerChartRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector);
-    protected float getTranslateY(int, int);
-    protected java.lang.String getTextureLabel();
-    protected void renderToTexture(net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector);
-    private static void lambda$renderToTexture$1(int, double, double, int, com.mojang.blaze3d.vertex.PoseStack$Pose, com.mojang.blaze3d.vertex.VertexConsumer);
-    private static void lambda$renderToTexture$0(int, int, double, double, com.mojang.blaze3d.vertex.PoseStack$Pose, com.mojang.blaze3d.vertex.VertexConsumer);
-}
+```
+public <init>()V
+public getRenderStateClass()Ljava/lang/Class;
+protected renderToTexture(Lnet/minecraft/client/renderer/state/gui/pip/GuiProfilerChartRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V
+protected getTranslateY(II)F
+protected getTextureLabel()Ljava/lang/String;
+protected synthetic renderToTexture(Lnet/minecraft/client/renderer/state/gui/pip/PictureInPictureRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V
+private static synthetic lambda$renderToTexture$1(IDDILcom/mojang/blaze3d/vertex/PoseStack$Pose;Lcom/mojang/blaze3d/vertex/VertexConsumer;)V
+private static synthetic lambda$renderToTexture$0(IIDDLcom/mojang/blaze3d/vertex/PoseStack$Pose;Lcom/mojang/blaze3d/vertex/VertexConsumer;)V
 ```

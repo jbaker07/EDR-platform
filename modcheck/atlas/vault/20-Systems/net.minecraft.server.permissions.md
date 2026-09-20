@@ -8,7 +8,18 @@ package: "net.minecraft.server.permissions"
 
 # net.minecraft.server.permissions
 
-18 classes in the jar. Hooked types: 2
+18 classes (12 top-level) across 1 packages in the processed jar; 0 changed by Loom processing; 4 hooked by Fabric API.
 
-- [[40-Interfaces/net.minecraft.server.permissions.LevelBasedPermissionSet|LevelBasedPermissionSet]] -- calls:1 -- by fabric-permission-api-v1
-- [[40-Interfaces/net.minecraft.server.permissions.PermissionSet|PermissionSet]] -- calls:1 -- by fabric-permission-api-v1
+## Hooked types
+
+- [[40-Interfaces/net.minecraft.server.permissions.LevelBasedPermissionSet|LevelBasedPermissionSet]] -- calls:3 -- by fabric-permission-api-v1
+- [[40-Interfaces/net.minecraft.server.permissions.PermissionLevel|PermissionLevel]] -- calls:2, reads:8 -- by fabric-permission-api-v1
+- [[40-Interfaces/net.minecraft.server.permissions.PermissionSet|PermissionSet]] -- calls:1, reads:2 -- by fabric-permission-api-v1
+- [[40-Interfaces/net.minecraft.server.permissions.Permissions|Permissions]] -- reads:4 -- by fabric-permission-api-v1
+
+## Declared inventory
+
+### `net.minecraft.server.permissions` (12 top-level)
+
+[[40-Interfaces/net.minecraft.server.permissions.LevelBasedPermissionSet|LevelBasedPermissionSet]], `Permission`, `PermissionCheck`, `PermissionCheckTypes`, [[40-Interfaces/net.minecraft.server.permissions.PermissionLevel|PermissionLevel]], `PermissionProviderCheck`, [[40-Interfaces/net.minecraft.server.permissions.PermissionSet|PermissionSet]], `PermissionSetSupplier`, `PermissionSetUnion`, `PermissionTypes`, [[40-Interfaces/net.minecraft.server.permissions.Permissions|Permissions]], `package-info`
+

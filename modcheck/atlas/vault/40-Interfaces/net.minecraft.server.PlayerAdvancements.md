@@ -11,63 +11,64 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `award` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| injects_into | `setPlayer` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `award` | `(Lnet/minecraft/advancements/AdvancementHolder;Ljava/lang/String;)Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| injects_into | `setPlayer` | `(Lnet/minecraft/server/level/ServerPlayer;)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `player` | `Lnet/minecraft/server/level/ServerPlayer;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | declared |
 
-## Declared members (45, all visibilities)
+## Declared members (14 fields, 31 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.PlayerAdvancements {
-    private static final org.slf4j.Logger LOGGER;
-    private static final com.google.gson.Gson GSON;
-    private final net.minecraft.server.players.PlayerList playerList;
-    private final java.nio.file.Path playerSavePath;
-    private net.minecraft.advancements.AdvancementTree tree;
-    private final java.util.Map<net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.AdvancementProgress> progress;
-    private final java.util.Set<net.minecraft.advancements.AdvancementHolder> visible;
-    private final java.util.Set<net.minecraft.advancements.AdvancementHolder> progressChanged;
-    private final java.util.Set<net.minecraft.advancements.AdvancementNode> rootsToUpdate;
-    private net.minecraft.server.level.ServerPlayer player;
-    private net.minecraft.advancements.AdvancementHolder lastSelectedTab;
-    private boolean isFirstPacket;
-    private final com.mojang.serialization.Codec<net.minecraft.server.PlayerAdvancements$Data> codec;
-    private final java.util.Map<net.minecraft.advancements.triggers.CriterionTrigger<?>, java.util.Map<net.minecraft.server.PlayerAdvancements$TriggerInstanceKey, ? extends net.minecraft.advancements.CriterionTriggerInstance>> activeTriggers;
-    public net.minecraft.server.PlayerAdvancements(com.mojang.datafixers.DataFixer, net.minecraft.server.players.PlayerList, net.minecraft.server.ServerAdvancementManager, java.nio.file.Path, net.minecraft.server.level.ServerPlayer);
-    public void setPlayer(net.minecraft.server.level.ServerPlayer);
-    public void clearTriggers();
-    public void reload(net.minecraft.server.ServerAdvancementManager);
-    private void registerListeners(net.minecraft.server.ServerAdvancementManager);
-    private void checkForAutomaticTriggers(net.minecraft.server.ServerAdvancementManager);
-    private void load(net.minecraft.server.ServerAdvancementManager);
-    public void save();
-    private void applyFrom(net.minecraft.server.ServerAdvancementManager, net.minecraft.server.PlayerAdvancements$Data);
-    private net.minecraft.server.PlayerAdvancements$Data asData();
-    public boolean award(net.minecraft.advancements.AdvancementHolder, java.lang.String);
-    public boolean revoke(net.minecraft.advancements.AdvancementHolder, java.lang.String);
-    private void markForVisibilityUpdate(net.minecraft.advancements.AdvancementHolder);
-    private void registerListeners(net.minecraft.advancements.AdvancementHolder);
-    private void unregisterListeners(net.minecraft.advancements.AdvancementHolder);
-    public void flushDirty(net.minecraft.server.level.ServerPlayer, boolean);
-    public void setSelectedTab(net.minecraft.advancements.AdvancementHolder);
-    public net.minecraft.advancements.AdvancementProgress getOrStartProgress(net.minecraft.advancements.AdvancementHolder);
-    private void startProgress(net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.AdvancementProgress);
-    private void updateTreeVisibility(net.minecraft.advancements.AdvancementNode, java.util.Set<net.minecraft.advancements.AdvancementNode>, java.util.Set<net.minecraft.resources.Identifier>);
-    private <T extends net.minecraft.advancements.CriterionTriggerInstance> java.util.Map<net.minecraft.server.PlayerAdvancements$TriggerInstanceKey, T> getOrCreateTriggerMapForType(net.minecraft.advancements.triggers.CriterionTrigger<T>);
-    private <T extends net.minecraft.advancements.CriterionTriggerInstance> void addListener(net.minecraft.advancements.triggers.Criterion<T>, net.minecraft.server.PlayerAdvancements$TriggerInstanceKey);
-    public <T extends net.minecraft.advancements.CriterionTriggerInstance> java.util.Map<net.minecraft.server.PlayerAdvancements$TriggerInstanceKey, T> getTriggerMapForType(net.minecraft.advancements.triggers.CriterionTrigger<T>);
-    private <T extends net.minecraft.advancements.CriterionTriggerInstance> void removeListener(net.minecraft.advancements.triggers.CriterionTrigger<T>, net.minecraft.server.PlayerAdvancements$TriggerInstanceKey);
-    private static java.util.Map lambda$getOrCreateTriggerMapForType$0(net.minecraft.advancements.triggers.CriterionTrigger);
-    private void lambda$updateTreeVisibility$1(java.util.Set, java.util.Set, net.minecraft.advancements.AdvancementNode, boolean);
-    private boolean lambda$updateTreeVisibility$0(net.minecraft.advancements.AdvancementNode);
-    private void lambda$award$0(net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.DisplayInfo);
-    private static void lambda$asData$0(java.util.Map, net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.AdvancementProgress);
-    private void lambda$applyFrom$0(net.minecraft.server.ServerAdvancementManager, net.minecraft.resources.Identifier, net.minecraft.advancements.AdvancementProgress);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final GSON : Lcom/google/gson/Gson;
+private final playerList : Lnet/minecraft/server/players/PlayerList;
+private final playerSavePath : Ljava/nio/file/Path;
+private tree : Lnet/minecraft/advancements/AdvancementTree;
+private final progress : Ljava/util/Map;
+private final visible : Ljava/util/Set;
+private final progressChanged : Ljava/util/Set;
+private final rootsToUpdate : Ljava/util/Set;
+private player : Lnet/minecraft/server/level/ServerPlayer;
+private lastSelectedTab : Lnet/minecraft/advancements/AdvancementHolder;
+private isFirstPacket : Z
+private final codec : Lcom/mojang/serialization/Codec;
+private final activeTriggers : Ljava/util/Map;
+public <init>(Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/server/players/PlayerList;Lnet/minecraft/server/ServerAdvancementManager;Ljava/nio/file/Path;Lnet/minecraft/server/level/ServerPlayer;)V
+public setPlayer(Lnet/minecraft/server/level/ServerPlayer;)V
+public clearTriggers()V
+public reload(Lnet/minecraft/server/ServerAdvancementManager;)V
+private registerListeners(Lnet/minecraft/server/ServerAdvancementManager;)V
+private checkForAutomaticTriggers(Lnet/minecraft/server/ServerAdvancementManager;)V
+private load(Lnet/minecraft/server/ServerAdvancementManager;)V
+public save()V
+private applyFrom(Lnet/minecraft/server/ServerAdvancementManager;Lnet/minecraft/server/PlayerAdvancements$Data;)V
+private asData()Lnet/minecraft/server/PlayerAdvancements$Data;
+public award(Lnet/minecraft/advancements/AdvancementHolder;Ljava/lang/String;)Z
+public revoke(Lnet/minecraft/advancements/AdvancementHolder;Ljava/lang/String;)Z
+private markForVisibilityUpdate(Lnet/minecraft/advancements/AdvancementHolder;)V
+private registerListeners(Lnet/minecraft/advancements/AdvancementHolder;)V
+private unregisterListeners(Lnet/minecraft/advancements/AdvancementHolder;)V
+public flushDirty(Lnet/minecraft/server/level/ServerPlayer;Z)V
+public setSelectedTab(Lnet/minecraft/advancements/AdvancementHolder;)V
+public getOrStartProgress(Lnet/minecraft/advancements/AdvancementHolder;)Lnet/minecraft/advancements/AdvancementProgress;
+private startProgress(Lnet/minecraft/advancements/AdvancementHolder;Lnet/minecraft/advancements/AdvancementProgress;)V
+private updateTreeVisibility(Lnet/minecraft/advancements/AdvancementNode;Ljava/util/Set;Ljava/util/Set;)V
+private getOrCreateTriggerMapForType(Lnet/minecraft/advancements/triggers/CriterionTrigger;)Ljava/util/Map;
+private addListener(Lnet/minecraft/advancements/triggers/Criterion;Lnet/minecraft/server/PlayerAdvancements$TriggerInstanceKey;)V
+public getTriggerMapForType(Lnet/minecraft/advancements/triggers/CriterionTrigger;)Ljava/util/Map;
+private removeListener(Lnet/minecraft/advancements/triggers/CriterionTrigger;Lnet/minecraft/server/PlayerAdvancements$TriggerInstanceKey;)V
+private static synthetic lambda$getOrCreateTriggerMapForType$0(Lnet/minecraft/advancements/triggers/CriterionTrigger;)Ljava/util/Map;
+private synthetic lambda$updateTreeVisibility$1(Ljava/util/Set;Ljava/util/Set;Lnet/minecraft/advancements/AdvancementNode;Z)V
+private synthetic lambda$updateTreeVisibility$0(Lnet/minecraft/advancements/AdvancementNode;)Z
+private synthetic lambda$award$0(Lnet/minecraft/advancements/AdvancementHolder;Lnet/minecraft/advancements/DisplayInfo;)V
+private static synthetic lambda$asData$0(Ljava/util/Map;Lnet/minecraft/advancements/AdvancementHolder;Lnet/minecraft/advancements/AdvancementProgress;)V
+private synthetic lambda$applyFrom$0(Lnet/minecraft/server/ServerAdvancementManager;Lnet/minecraft/resources/Identifier;Lnet/minecraft/advancements/AdvancementProgress;)V
+static <clinit>()V
 ```

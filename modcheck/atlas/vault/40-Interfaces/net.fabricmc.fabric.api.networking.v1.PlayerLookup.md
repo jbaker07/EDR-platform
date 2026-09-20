@@ -13,12 +13,12 @@ sha256: "dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544"
 Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- kind: class
 
 ```java
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> all(net.minecraft.server.MinecraftServer)
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> level(net.minecraft.server.level.ServerLevel)
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> tracking(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.ChunkPos)
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> tracking(net.minecraft.world.entity.Entity)
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> tracking(net.minecraft.world.level.block.entity.BlockEntity)
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> tracking(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos)
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> around(net.minecraft.server.level.ServerLevel, net.minecraft.world.phys.Vec3, double)
-public static java.util.Collection<net.minecraft.server.level.ServerPlayer> around(net.minecraft.server.level.ServerLevel, net.minecraft.core.Vec3i, double)
+public static java.util.Collection all(net.minecraft.server.MinecraftServer)
+public static java.util.Collection level(net.minecraft.server.level.ServerLevel)
+public static java.util.Collection tracking(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.ChunkPos)
+public static java.util.Collection tracking(net.minecraft.world.entity.Entity)
+public static java.util.Collection tracking(net.minecraft.world.level.block.entity.BlockEntity)
+public static java.util.Collection tracking(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos)
+public static java.util.Collection around(net.minecraft.server.level.ServerLevel, net.minecraft.world.phys.Vec3, double)
+public static java.util.Collection around(net.minecraft.server.level.ServerLevel, net.minecraft.core.Vec3i, double)
 ```

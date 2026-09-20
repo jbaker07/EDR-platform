@@ -3,25 +3,102 @@
   "$id": "modcheck/atlas/contract",
   "title": "Analyst-stated subscriber contract for one event or hook",
   "type": "object",
-  "required": ["id", "kind", "asserted", "not_established", "evidence", "provenance"],
+  "required": [
+    "id",
+    "kind",
+    "asserted",
+    "not_established",
+    "evidence",
+    "provenance"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": {"type": "string", "description": "event:<fqcn.FIELD> or type:<fqcn> or mechanism:<module>", "pattern": "^(event|type|mechanism):"},
-    "kind": {"type": "string", "enum": ["event", "hook", "api"]},
+    "id": {
+      "type": "string",
+      "description": "event:<fqcn.FIELD> or type:<fqcn> or mechanism:<module>",
+      "pattern": "^(event|type|mechanism):"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "event",
+        "hook",
+        "api"
+      ]
+    },
     "asserted": {
-      "type": "array", "minItems": 1,
+      "type": "array",
+      "minItems": 1,
       "items": {
-        "type": "object", "required": ["claim", "basis", "evidence"], "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim",
+          "basis",
+          "evidence"
+        ],
+        "additionalProperties": false,
         "properties": {
-          "claim": {"type": "string", "minLength": 15},
-          "basis": {"type": "string", "enum": ["declared", "direct_reference", "static_inference", "documented", "analyst_inference"]},
-          "evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+          "claim": {
+            "type": "string",
+            "minLength": 15
+          },
+          "basis": {
+            "type": "string",
+            "enum": [
+              "declared",
+              "direct_reference",
+              "static_inference",
+              "documented",
+              "executed_transformation",
+              "analyst_inference"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
-    "not_established": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 15}},
-    "evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-    "questions": {"type": "array", "items": {"type": "string", "pattern": "^question:"}},
-    "provenance": {"type": "object", "required": ["author", "added"], "properties": {"author": {"const": "analyst"}, "added": {"type": "string"}}}
+    "not_established": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 15
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^question:"
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "author",
+        "added"
+      ],
+      "properties": {
+        "author": {
+          "const": "analyst"
+        },
+        "added": {
+          "type": "string"
+        }
+      }
+    }
   }
 }

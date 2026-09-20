@@ -11,24 +11,24 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `lambda$load$0` | `@ModifyArg at INVOKE Lnet/minecraft/resources/RegistryDataLoader;load(Lnet/minec` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `lambda$load$0` | `(Ljava/util/concurrent/Executor;Lnet/minecraft/server/WorldLoader$Worl` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (7, all visibilities)
+## Declared members (0 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.WorldLoader {
-    public net.minecraft.server.WorldLoader();
-    public static <D, R> java.util.concurrent.CompletableFuture<R> load(net.minecraft.server.WorldLoader$InitConfig, net.minecraft.server.WorldLoader$WorldDataSupplier<D>, net.minecraft.server.WorldLoader$ResultFactory<D, R>, java.util.concurrent.Executor, java.util.concurrent.Executor);
-    private static java.util.concurrent.CompletionStage lambda$load$0(java.util.concurrent.Executor, net.minecraft.server.WorldLoader$WorldDataSupplier, net.minecraft.server.WorldLoader$InitConfig, java.util.concurrent.Executor, net.minecraft.server.WorldLoader$ResultFactory, com.mojang.datafixers.util.Pair);
-    private static java.util.concurrent.CompletionStage lambda$load$1(java.util.List, net.minecraft.server.packs.resources.CloseableResourceManager, java.util.concurrent.Executor, com.mojang.datafixers.util.Pair, net.minecraft.server.WorldLoader$WorldDataSupplier, net.minecraft.core.LayeredRegistryAccess, java.util.List, net.minecraft.server.WorldLoader$InitConfig, java.util.concurrent.Executor, net.minecraft.server.WorldLoader$ResultFactory, net.minecraft.core.RegistryAccess$Frozen);
-    private static java.util.concurrent.CompletionStage lambda$load$2(com.mojang.datafixers.util.Pair, java.util.List, net.minecraft.server.WorldLoader$WorldDataSupplier, net.minecraft.server.packs.resources.CloseableResourceManager, net.minecraft.core.LayeredRegistryAccess, net.minecraft.core.RegistryAccess$Frozen, java.util.List, net.minecraft.server.WorldLoader$InitConfig, java.util.concurrent.Executor, java.util.concurrent.Executor, net.minecraft.server.WorldLoader$ResultFactory, net.minecraft.core.RegistryAccess$Frozen);
-    private static java.lang.Object lambda$load$4(net.minecraft.server.WorldLoader$ResultFactory, net.minecraft.server.packs.resources.CloseableResourceManager, net.minecraft.core.LayeredRegistryAccess, net.minecraft.server.WorldLoader$DataLoadOutput, net.minecraft.server.ReloadableServerResources);
-    private static void lambda$load$3(net.minecraft.server.packs.resources.CloseableResourceManager, net.minecraft.server.ReloadableServerResources, java.lang.Throwable);
-}
+```
+public <init>()V
+public static load(Lnet/minecraft/server/WorldLoader$InitConfig;Lnet/minecraft/server/WorldLoader$WorldDataSupplier;Lnet/minecraft/server/WorldLoader$ResultFactory;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$load$0(Ljava/util/concurrent/Executor;Lnet/minecraft/server/WorldLoader$WorldDataSupplier;Lnet/minecraft/server/WorldLoader$InitConfig;Ljava/util/concurrent/Executor;Lnet/minecraft/server/WorldLoader$ResultFactory;Lcom/mojang/datafixers/util/Pair;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$load$1(Ljava/util/List;Lnet/minecraft/server/packs/resources/CloseableResourceManager;Ljava/util/concurrent/Executor;Lcom/mojang/datafixers/util/Pair;Lnet/minecraft/server/WorldLoader$WorldDataSupplier;Lnet/minecraft/core/LayeredRegistryAccess;Ljava/util/List;Lnet/minecraft/server/WorldLoader$InitConfig;Ljava/util/concurrent/Executor;Lnet/minecraft/server/WorldLoader$ResultFactory;Lnet/minecraft/core/RegistryAccess$Frozen;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$load$2(Lcom/mojang/datafixers/util/Pair;Ljava/util/List;Lnet/minecraft/server/WorldLoader$WorldDataSupplier;Lnet/minecraft/server/packs/resources/CloseableResourceManager;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/core/RegistryAccess$Frozen;Ljava/util/List;Lnet/minecraft/server/WorldLoader$InitConfig;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Lnet/minecraft/server/WorldLoader$ResultFactory;Lnet/minecraft/core/RegistryAccess$Frozen;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$load$4(Lnet/minecraft/server/WorldLoader$ResultFactory;Lnet/minecraft/server/packs/resources/CloseableResourceManager;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/server/WorldLoader$DataLoadOutput;Lnet/minecraft/server/ReloadableServerResources;)Ljava/lang/Object;
+private static synthetic lambda$load$3(Lnet/minecraft/server/packs/resources/CloseableResourceManager;Lnet/minecraft/server/ReloadableServerResources;Ljava/lang/Throwable;)V
 ```

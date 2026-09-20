@@ -13,7 +13,7 @@ sha256: "18afa6466d69ff68e1eeb74088d210a55004d11380ec14aad6ea66faa7da1922"
 Module: [[30-Mechanisms/fabric-resource-loader-v0|fabric-resource-loader-v0]] -- kind: interface
 
 ```java
-public default java.util.concurrent.CompletableFuture<java.lang.Void> reload(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor, net.minecraft.server.packs.resources.PreparableReloadListener$PreparationBarrier, java.util.concurrent.Executor)
-public abstract java.util.concurrent.CompletableFuture<T> load(net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor)
-public abstract java.util.concurrent.CompletableFuture<java.lang.Void> apply(T, net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor)
+public java.util.concurrent.CompletableFuture reload(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor, net.minecraft.server.packs.resources.PreparableReloadListener$PreparationBarrier, java.util.concurrent.Executor)
+public abstract java.util.concurrent.CompletableFuture load(net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor)
+public abstract java.util.concurrent.CompletableFuture apply(java.lang.Object, net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor)
 ```

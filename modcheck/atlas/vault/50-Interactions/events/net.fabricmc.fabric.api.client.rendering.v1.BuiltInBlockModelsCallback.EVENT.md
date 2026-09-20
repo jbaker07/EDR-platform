@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `BuiltInBlockModelsMixin.createBlockModels` | `BuiltInBlockModels.createBlockModels` @Inject at INVOKE Lnet/minecraft/client/renderer/block/BuiltInBlockModels$Builder;build()Ljava/util/Map; | client | static_inference |
+| `BuiltInBlockModelsMixin.createBlockModels` @10 | [[40-Interfaces/net.minecraft.client.renderer.block.BuiltInBlockModels|BuiltInBlockModels]].`createBlockModels` @Inject INVOKE `Lnet/minecraft/client/renderer/block/BuiltInBlockModels$Builder;build()Ljava/util/Map;` | unknown | static_inference |
 
 ## Contract
 

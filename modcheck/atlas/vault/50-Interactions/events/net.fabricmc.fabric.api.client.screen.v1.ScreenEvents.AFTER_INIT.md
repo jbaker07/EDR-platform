@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ScreenMixin.afterInit` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `ScreenMixin.afterInit` @18 | (handler is not itself an injector: fired from a helper or impl method) | unknown | static_inference |
 
 ## Contract
 

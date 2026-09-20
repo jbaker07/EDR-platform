@@ -13,15 +13,15 @@ sha256: "dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544"
 Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- kind: class
 
 ```java
-public static <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> boolean registerGlobalReceiver(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler<T>)
-public static net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler<?> unregisterGlobalReceiver(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<?>)
-public static java.util.Set<net.minecraft.resources.Identifier> getGlobalReceivers()
-public static <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> boolean registerReceiver(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler<T>)
-public static net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler<?> unregisterReceiver(net.minecraft.resources.Identifier)
-public static java.util.Set<net.minecraft.resources.Identifier> getReceived() throws java.lang.IllegalStateException
-public static java.util.Set<net.minecraft.resources.Identifier> getSendable() throws java.lang.IllegalStateException
-public static boolean canSend(net.minecraft.resources.Identifier) throws java.lang.IllegalArgumentException
-public static boolean canSend(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<?>)
-public static net.fabricmc.fabric.api.networking.v1.PacketSender getSender() throws java.lang.IllegalStateException
+public static boolean registerGlobalReceiver(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type, net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler)
+public static net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler unregisterGlobalReceiver(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type)
+public static java.util.Set getGlobalReceivers()
+public static boolean registerReceiver(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type, net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler)
+public static net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking$ConfigurationPayloadHandler unregisterReceiver(net.minecraft.resources.Identifier)
+public static java.util.Set getReceived()
+public static java.util.Set getSendable()
+public static boolean canSend(net.minecraft.resources.Identifier)
+public static boolean canSend(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type)
+public static net.fabricmc.fabric.api.networking.v1.PacketSender getSender()
 public static void send(net.minecraft.network.protocol.common.custom.CustomPacketPayload)
 ```

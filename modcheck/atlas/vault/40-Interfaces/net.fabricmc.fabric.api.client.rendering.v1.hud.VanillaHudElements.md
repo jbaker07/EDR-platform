@@ -36,5 +36,4 @@ public static final net.minecraft.resources.Identifier TITLE_AND_SUBTITLE
 public static final net.minecraft.resources.Identifier CHAT
 public static final net.minecraft.resources.Identifier PLAYER_LIST
 public static final net.minecraft.resources.Identifier SUBTITLES
-static {}
 ```

@@ -10,7 +10,7 @@ sha256: "a3a82771b3fd9f2eb36e1098c5f90759ac877982b9ac297831a1fce9b2185bf8"
 
 # net.fabricmc.fabric.api.permission.v1.PermissionContext$Type
 
-Module: [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] -- kind: class
+Module: [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.permission.v1.PermissionContext$Type PLAYER
@@ -19,5 +19,4 @@ public static final net.fabricmc.fabric.api.permission.v1.PermissionContext$Type
 public static final net.fabricmc.fabric.api.permission.v1.PermissionContext$Type OTHER
 public static net.fabricmc.fabric.api.permission.v1.PermissionContext$Type[] values()
 public static net.fabricmc.fabric.api.permission.v1.PermissionContext$Type valueOf(java.lang.String)
-static {}
 ```

@@ -14,12 +14,12 @@ Module: [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] -- kind: inter
 
 ```java
 public abstract void setCreatureGenerationProbability(float)
-public abstract java.util.List<net.minecraft.util.random.Weighted<net.minecraft.world.level.biome.MobSpawnSettings$SpawnerData>> getMobs(net.minecraft.world.entity.MobCategory)
+public abstract java.util.List getMobs(net.minecraft.world.entity.MobCategory)
 public abstract void addSpawn(net.minecraft.world.entity.MobCategory, net.minecraft.world.level.biome.MobSpawnSettings$SpawnerData, int)
-public abstract boolean removeSpawns(java.util.function.BiPredicate<net.minecraft.world.entity.MobCategory, net.minecraft.world.level.biome.MobSpawnSettings$SpawnerData>)
-public default boolean removeSpawnsOfEntityType(net.minecraft.world.entity.EntityType<?>)
-public default void clearSpawns(net.minecraft.world.entity.MobCategory)
-public default void clearSpawns()
-public abstract void addMobCharge(net.minecraft.world.entity.EntityType<?>, double, double)
-public abstract void clearMobCharge(net.minecraft.world.entity.EntityType<?>)
+public abstract boolean removeSpawns(java.util.function.BiPredicate)
+public boolean removeSpawnsOfEntityType(net.minecraft.world.entity.EntityType)
+public void clearSpawns(net.minecraft.world.entity.MobCategory)
+public void clearSpawns()
+public abstract void addMobCharge(net.minecraft.world.entity.EntityType, double, double)
+public abstract void clearMobCharge(net.minecraft.world.entity.EntityType)
 ```

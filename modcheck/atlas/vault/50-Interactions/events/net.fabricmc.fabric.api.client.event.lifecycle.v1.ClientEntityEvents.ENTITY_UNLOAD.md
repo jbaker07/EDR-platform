@@ -15,12 +15,12 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientLevelEntityCallbacksMixin.invokeUnloadEntity` | `ClientLevel$EntityCallbacks.onTrackingEnd(Lnet/minecraft/world/entity/Entity;)V` @Inject at HEAD | client | static_inference |
-| `ClientPacketListenerMixin.onPlayerRespawn` | `ClientPacketListener.handleRespawn` @Inject at NEW net/minecraft/client/multiplayer/ClientLevel | client | static_inference |
-| `ClientPacketListenerMixin.onGameJoin` | `ClientPacketListener.handleLogin` @Inject at NEW net/minecraft/client/multiplayer/ClientLevel | client | static_inference |
-| `ClientPacketListenerMixin.onClearLevel` | `ClientPacketListener.clearLevel` @Inject at HEAD | client | static_inference |
+| `ClientLevelEntityCallbacksMixin.invokeUnloadEntity` @14 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientLevel_EntityCallbacks|ClientLevel$EntityCallbacks]].`onTrackingEnd` @Inject HEAD | unknown | static_inference |
+| `ClientPacketListenerMixin.onPlayerRespawn` @55 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`handleRespawn` @Inject NEW `net/minecraft/client/multiplayer/ClientLevel` | unknown | static_inference |
+| `ClientPacketListenerMixin.onGameJoin` @55 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`handleLogin` @Inject NEW `net/minecraft/client/multiplayer/ClientLevel` | unknown | static_inference |
+| `ClientPacketListenerMixin.onClearLevel` @53 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`clearLevel` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

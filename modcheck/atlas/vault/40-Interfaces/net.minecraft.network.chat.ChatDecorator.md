@@ -11,21 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.chat|net.minecraft.network.chat]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `decorate(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/net` | `` | both | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `decorate` | `(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/` | exact | invokeinterface@31 in `ServerMessageDecoratorEvent.lambda$static$1` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| calls | `decorate` | `(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/` | exact | invokeinterface@11 in `MinecraftServerMixin.lambda$onGetChatDecorator$0` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| calls | `getClass` | `()Ljava/lang/Class;` | inherited_exact | invokeinterface@1 in `ServerMessageDecoratorEvent.handle` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
 
-## Declared members (4, all visibilities)
+## Declared members (1 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.network.chat.ChatDecorator {
-    public static final net.minecraft.network.chat.ChatDecorator PLAIN;
-    public abstract net.minecraft.network.chat.Component decorate(net.minecraft.server.level.ServerPlayer, net.minecraft.network.chat.Component);
-    private static net.minecraft.network.chat.Component lambda$static$0(net.minecraft.server.level.ServerPlayer, net.minecraft.network.chat.Component);
-    static {};
-}
+```
+public static final PLAIN : Lnet/minecraft/network/chat/ChatDecorator;
+public abstract decorate(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$static$0(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/Component;
+static <clinit>()V
 ```

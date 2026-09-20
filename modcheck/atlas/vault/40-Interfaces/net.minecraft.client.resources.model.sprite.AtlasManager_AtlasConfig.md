@@ -11,31 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.resources|net.minecraft.client.resources]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `definitionLocation()Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `textureId()Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `definitionLocation` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@62 in `AtlasRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `definitionLocation` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@78 in `AtlasRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `definitionLocation` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@107 in `AtlasRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `definitionLocation` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@75 in `AtlasRegistryImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `textureId` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@27 in `AtlasRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `textureId` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@43 in `AtlasRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `textureId` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@120 in `AtlasRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `textureId` | `()Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@62 in `AtlasRegistryImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (4 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig extends java.lang.Record {
-    private final net.minecraft.resources.Identifier textureId;
-    private final net.minecraft.resources.Identifier definitionLocation;
-    private final boolean createMipmaps;
-    private final java.util.Set<net.minecraft.server.packs.metadata.MetadataSectionType<?>> additionalMetadata;
-    public net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier, boolean);
-    public net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier, boolean, java.util.Set<net.minecraft.server.packs.metadata.MetadataSectionType<?>>);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.resources.Identifier textureId();
-    public net.minecraft.resources.Identifier definitionLocation();
-    public boolean createMipmaps();
-    public java.util.Set<net.minecraft.server.packs.metadata.MetadataSectionType<?>> additionalMetadata();
-}
+```
+private final textureId : Lnet/minecraft/resources/Identifier;
+private final definitionLocation : Lnet/minecraft/resources/Identifier;
+private final createMipmaps : Z
+private final additionalMetadata : Ljava/util/Set;
+public <init>(Lnet/minecraft/resources/Identifier;Lnet/minecraft/resources/Identifier;Z)V
+public <init>(Lnet/minecraft/resources/Identifier;Lnet/minecraft/resources/Identifier;ZLjava/util/Set;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public textureId()Lnet/minecraft/resources/Identifier;
+public definitionLocation()Lnet/minecraft/resources/Identifier;
+public createMipmaps()Z
+public additionalMetadata()Ljava/util/Set;
 ```

@@ -15,11 +15,11 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientChunkCacheMixin.onChunkUnload` | `ClientChunkCache.replaceWithPacketData` @Inject at NEW net/minecraft/world/level/chunk/LevelChunk; `ClientChunkCache.drop` @Inject at INVOKE Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;drop(ILnet/minecraft/world/level/chunk/LevelChunk;)V | client | static_inference |
-| `ClientChunkCacheMixin.onChunkUnload` | `ClientChunkCache.replaceWithPacketData` @Inject at NEW net/minecraft/world/level/chunk/LevelChunk; `ClientChunkCache.drop` @Inject at INVOKE Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;drop(ILnet/minecraft/world/level/chunk/LevelChunk;)V | client | static_inference |
-| `ClientChunkCacheMixin.onUpdateLoadDistance` | `ClientChunkCache.updateViewRadius` @Inject at INVOKE Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;inRange(II)Z | client | static_inference |
+| `ClientChunkCacheMixin.onChunkUnload` @20 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientChunkCache|ClientChunkCache]].`replaceWithPacketData` @Inject NEW `net/minecraft/world/level/chunk/LevelChunk`; [[40-Interfaces/net.minecraft.client.multiplayer.ClientChunkCache|ClientChunkCache]].`drop` @Inject INVOKE `Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;drop(ILnet/minecraft/world/level/chunk/LevelChunk;)V` | unknown | static_inference |
+| `ClientChunkCacheMixin.onChunkUnload` @14 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientChunkCache|ClientChunkCache]].`replaceWithPacketData` @Inject NEW `net/minecraft/world/level/chunk/LevelChunk`; [[40-Interfaces/net.minecraft.client.multiplayer.ClientChunkCache|ClientChunkCache]].`drop` @Inject INVOKE `Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;drop(ILnet/minecraft/world/level/chunk/LevelChunk;)V` | unknown | static_inference |
+| `ClientChunkCacheMixin.onUpdateLoadDistance` @32 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientChunkCache|ClientChunkCache]].`updateViewRadius` @Inject INVOKE `Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;inRange(II)Z` | unknown | static_inference |
 
 ## Contract
 

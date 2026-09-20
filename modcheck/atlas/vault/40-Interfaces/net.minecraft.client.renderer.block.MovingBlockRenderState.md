@@ -11,34 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/client/renderer/block/BlockAndTintGetter`, `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `blockPosLnet/minecraft/core/BlockPos;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| reads | `blockStateLnet/minecraft/world/level/block/state/BlockState;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| reads | `randomSeedPosLnet/minecraft/core/BlockPos;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `biome` | `Lnet/minecraft/core/Holder;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-block-getter-api-v2|fabric-block-getter-api-v2]] | declared |
+| reads | `blockPos` | `Lnet/minecraft/core/BlockPos;` | exact | getfield@27 in `SubmitNodeCollectionMixin.hasMaterialFlagProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `blockState` | `Lnet/minecraft/world/level/block/state/BlockState;` | exact | getfield@1 in `SubmitNodeCollectionMixin.hasMaterialFlagProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `randomSeedPos` | `Lnet/minecraft/core/BlockPos;` | exact | getfield@9 in `SubmitNodeCollectionMixin.hasMaterialFlagProxy` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (15, all visibilities)
+## Declared members (6 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.block.MovingBlockRenderState implements net.minecraft.client.renderer.block.BlockAndTintGetter {
-    public net.minecraft.core.BlockPos randomSeedPos;
-    public net.minecraft.core.BlockPos blockPos;
-    public net.minecraft.world.level.block.state.BlockState blockState;
-    public net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> biome;
-    public net.minecraft.world.level.CardinalLighting cardinalLighting;
-    public net.minecraft.world.level.lighting.LevelLightEngine lightEngine;
-    public net.minecraft.client.renderer.block.MovingBlockRenderState();
-    public net.minecraft.world.level.CardinalLighting cardinalLighting();
-    public net.minecraft.world.level.lighting.LevelLightEngine getLightEngine();
-    public int getBlockTint(net.minecraft.core.BlockPos, net.minecraft.world.level.ColorResolver);
-    public net.minecraft.world.level.block.entity.BlockEntity getBlockEntity(net.minecraft.core.BlockPos);
-    public net.minecraft.world.level.block.state.BlockState getBlockState(net.minecraft.core.BlockPos);
-    public net.minecraft.world.level.material.FluidState getFluidState(net.minecraft.core.BlockPos);
-    public int getHeight();
-    public int getMinY();
-}
+```
+public randomSeedPos : Lnet/minecraft/core/BlockPos;
+public blockPos : Lnet/minecraft/core/BlockPos;
+public blockState : Lnet/minecraft/world/level/block/state/BlockState;
+public biome : Lnet/minecraft/core/Holder;
+public cardinalLighting : Lnet/minecraft/world/level/CardinalLighting;
+public lightEngine : Lnet/minecraft/world/level/lighting/LevelLightEngine;
+public <init>()V
+public cardinalLighting()Lnet/minecraft/world/level/CardinalLighting;
+public getLightEngine()Lnet/minecraft/world/level/lighting/LevelLightEngine;
+public getBlockTint(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/ColorResolver;)I
+public getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+public getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+public getFluidState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/FluidState;
+public getHeight()I
+public getMinY()I
 ```

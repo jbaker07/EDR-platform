@@ -18,5 +18,4 @@ public static int toFaceIndex(net.minecraft.core.Direction)
 public static net.minecraft.core.Direction faceFromIndex(int)
 public static com.mojang.blaze3d.platform.Transparency computeTransparency(net.minecraft.client.renderer.texture.TextureAtlasSprite, net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadView)
 public static int computeMaterialFlags(net.fabricmc.fabric.api.client.renderer.v1.mesh.QuadView)
-static {}
 ```

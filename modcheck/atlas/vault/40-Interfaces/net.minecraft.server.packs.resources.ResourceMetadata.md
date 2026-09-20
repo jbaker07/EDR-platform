@@ -11,28 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `fromJsonStream(Ljava/io/InputStream;)Lnet/minecraft/server/packs/resources` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getSection(Lnet/minecraft/server/packs/metadata/MetadataSectionType;)L` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `fromJsonStream` | `(Ljava/io/InputStream;)Lnet/minecraft/server/packs/resources/ResourceM` | exact | invokestatic@23 in `ModNioPackResources.getMetadataSection` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getSection` | `(Lnet/minecraft/server/packs/metadata/MetadataSectionType;)Ljava/util/` | exact | invokeinterface@29 in `ModNioPackResources.getMetadataSection` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (10, all visibilities)
+## Declared members (2 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.packs.resources.ResourceMetadata {
-    public static final net.minecraft.server.packs.resources.ResourceMetadata EMPTY;
-    public static final net.minecraft.server.packs.resources.IoSupplier<net.minecraft.server.packs.resources.ResourceMetadata> EMPTY_SUPPLIER;
-    public static net.minecraft.server.packs.resources.ResourceMetadata fromJsonStream(java.io.InputStream) throws java.io.IOException;
-    public abstract <T> java.util.Optional<T> getSection(net.minecraft.server.packs.metadata.MetadataSectionType<T>);
-    public default <T> java.util.Optional<net.minecraft.server.packs.metadata.MetadataSectionType$WithValue<T>> getTypedSection(net.minecraft.server.packs.metadata.MetadataSectionType<T>);
-    public static <T> net.minecraft.server.packs.resources.ResourceMetadata of(net.minecraft.server.packs.metadata.MetadataSectionType<T>, T);
-    public static <T1, T2> net.minecraft.server.packs.resources.ResourceMetadata of(net.minecraft.server.packs.metadata.MetadataSectionType<T1>, T1, net.minecraft.server.packs.metadata.MetadataSectionType<T2>, T2);
-    public default java.util.List<net.minecraft.server.packs.metadata.MetadataSectionType$WithValue<?>> getTypedSections(java.util.Collection<net.minecraft.server.packs.metadata.MetadataSectionType<?>>);
-    private static net.minecraft.server.packs.resources.ResourceMetadata lambda$static$0() throws java.io.IOException;
-    static {};
-}
+```
+public static final EMPTY : Lnet/minecraft/server/packs/resources/ResourceMetadata;
+public static final EMPTY_SUPPLIER : Lnet/minecraft/server/packs/resources/IoSupplier;
+public static fromJsonStream(Ljava/io/InputStream;)Lnet/minecraft/server/packs/resources/ResourceMetadata;
+public abstract getSection(Lnet/minecraft/server/packs/metadata/MetadataSectionType;)Ljava/util/Optional;
+public getTypedSection(Lnet/minecraft/server/packs/metadata/MetadataSectionType;)Ljava/util/Optional;
+public static of(Lnet/minecraft/server/packs/metadata/MetadataSectionType;Ljava/lang/Object;)Lnet/minecraft/server/packs/resources/ResourceMetadata;
+public static of(Lnet/minecraft/server/packs/metadata/MetadataSectionType;Ljava/lang/Object;Lnet/minecraft/server/packs/metadata/MetadataSectionType;Ljava/lang/Object;)Lnet/minecraft/server/packs/resources/ResourceMetadata;
+public getTypedSections(Ljava/util/Collection;)Ljava/util/List;
+private static synthetic lambda$static$0()Lnet/minecraft/server/packs/resources/ResourceMetadata;
+static <clinit>()V
 ```

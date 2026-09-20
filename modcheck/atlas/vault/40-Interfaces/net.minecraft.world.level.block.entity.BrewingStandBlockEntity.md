@@ -11,62 +11,62 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/entity/BaseContainerBlockEntity`; implements `net/minecraft/world/WorldlyContainer`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `doBrew` | `@Redirect at INVOKE Lnet/minecraft/world/item/Item;getCraftingRemainder()Lnet/mi` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `doBrew` | `(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (45, all visibilities)
+## Declared members (26 fields, 19 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.entity.BrewingStandBlockEntity extends net.minecraft.world.level.block.entity.BaseContainerBlockEntity implements net.minecraft.world.WorldlyContainer {
-    private static final int INGREDIENT_SLOT;
-    private static final int FUEL_SLOT;
-    private static final int[] SLOTS_FOR_UP;
-    private static final int[] SLOTS_FOR_DOWN;
-    private static final int[] SLOTS_FOR_SIDES;
-    public static final int DATA_BREW_TIME;
-    public static final int DATA_FUEL_USES;
-    public static final int DATA_TOTAL_BREW_TIME;
-    public static final int DATA_TOTAL_FUEL_USES;
-    public static final int NUM_DATA_VALUES;
-    private static final int DEFAULT_BREW_TIME;
-    public static final int BREWING_TIME_SECONDS;
-    private static final int DEFAULT_FUEL;
-    private static final float DEFAULT_SPEED_MULTIPLIER;
-    private static final int DEFAULT_FUEL_USES;
-    private static final net.minecraft.network.chat.Component DEFAULT_NAME;
-    private net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> items;
-    private int brewTime;
-    private int totalBrewTime;
-    private boolean[] lastPotionCount;
-    private net.minecraft.world.item.Item ingredient;
-    private int fuel;
-    private int totalFuel;
-    private float speedMultiplier;
-    protected final net.minecraft.world.inventory.ContainerData dataAccess;
-    private final net.minecraft.world.item.crafting.RecipeManager$CachedCheck<net.minecraft.world.item.crafting.BrewingInput, net.minecraft.world.item.crafting.BrewingRecipe> quickCheck;
-    public net.minecraft.world.level.block.entity.BrewingStandBlockEntity(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected net.minecraft.network.chat.Component getDefaultName();
-    public int getContainerSize();
-    protected net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getItems();
-    protected void setItems(net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack>);
-    protected int getUses(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.component.BrewingFuel);
-    protected float getSpeedMultiplier(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.component.BrewingFuel);
-    public static void serverTick(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.BrewingStandBlockEntity);
-    private boolean[] getPotionBits();
-    private static boolean isBrewable(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.block.entity.BrewingStandBlockEntity);
-    private static void doBrew(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.entity.BrewingStandBlockEntity);
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput);
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput);
-    public boolean canPlaceItem(int, net.minecraft.world.item.ItemStack);
-    public int[] getSlotsForFace(net.minecraft.core.Direction);
-    public boolean canPlaceItemThroughFace(int, net.minecraft.world.item.ItemStack, net.minecraft.core.Direction);
-    public boolean canTakeItemThroughFace(int, net.minecraft.world.item.ItemStack, net.minecraft.core.Direction);
-    protected net.minecraft.world.inventory.AbstractContainerMenu createMenu(int, net.minecraft.world.entity.player.Inventory);
-    static {};
-}
+```
+private static final INGREDIENT_SLOT : I
+private static final FUEL_SLOT : I
+private static final SLOTS_FOR_UP : [I
+private static final SLOTS_FOR_DOWN : [I
+private static final SLOTS_FOR_SIDES : [I
+public static final DATA_BREW_TIME : I
+public static final DATA_FUEL_USES : I
+public static final DATA_TOTAL_BREW_TIME : I
+public static final DATA_TOTAL_FUEL_USES : I
+public static final NUM_DATA_VALUES : I
+private static final DEFAULT_BREW_TIME : I
+public static final BREWING_TIME_SECONDS : I
+private static final DEFAULT_FUEL : I
+private static final DEFAULT_SPEED_MULTIPLIER : F
+private static final DEFAULT_FUEL_USES : I
+private static final DEFAULT_NAME : Lnet/minecraft/network/chat/Component;
+private items : Lnet/minecraft/core/NonNullList;
+private brewTime : I
+private totalBrewTime : I
+private lastPotionCount : [Z
+private ingredient : Lnet/minecraft/world/item/Item;
+private fuel : I
+private totalFuel : I
+private speedMultiplier : F
+protected final dataAccess : Lnet/minecraft/world/inventory/ContainerData;
+private final quickCheck : Lnet/minecraft/world/item/crafting/RecipeManager$CachedCheck;
+public <init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected getDefaultName()Lnet/minecraft/network/chat/Component;
+public getContainerSize()I
+protected getItems()Lnet/minecraft/core/NonNullList;
+protected setItems(Lnet/minecraft/core/NonNullList;)V
+protected getUses(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/component/BrewingFuel;)I
+protected getSpeedMultiplier(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/component/BrewingFuel;)F
+public static serverTick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BrewingStandBlockEntity;)V
+private getPotionBits()[Z
+private static isBrewable(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/block/entity/BrewingStandBlockEntity;)Z
+private static doBrew(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BrewingStandBlockEntity;)V
+protected loadAdditional(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected saveAdditional(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public canPlaceItem(ILnet/minecraft/world/item/ItemStack;)Z
+public getSlotsForFace(Lnet/minecraft/core/Direction;)[I
+public canPlaceItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z
+public canTakeItemThroughFace(ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z
+protected createMenu(ILnet/minecraft/world/entity/player/Inventory;)Lnet/minecraft/world/inventory/AbstractContainerMenu;
+static <clinit>()V
 ```

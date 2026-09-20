@@ -11,25 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.particle|net.minecraft.client.particle]]
 
+`class` ; extends `java/lang/Object`; implements `net/minecraft/client/particle/SpriteSet`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `first()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;` | `` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
-| calls | `get(II)Lnet/minecraft/client/renderer/texture/TextureAtlasSprit` | `` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
-| calls | `get(Lnet/minecraft/util/RandomSource;)Lnet/minecraft/client/ren` | `` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `()V` | exact | invokespecial@4 in `ParticleProviderRegistryImpl$DirectParticleProviderRegistry.register` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `first` | `()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;` | exact | invokevirtual@4 in `FabricSpriteSetImpl.first` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `get` | `(II)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;` | exact | invokevirtual@6 in `FabricSpriteSetImpl.get` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `get` | `(Lnet/minecraft/util/RandomSource;)Lnet/minecraft/client/renderer/text` | exact | invokevirtual@5 in `FabricSpriteSetImpl.get` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| reads | `sprites` | `Ljava/util/List;` | exact | getfield@4 in `FabricSpriteSetImpl.getSprites` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (1 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.client.particle.ParticleResources$MutableSpriteSet implements net.minecraft.client.particle.SpriteSet {
-    private java.util.List<net.minecraft.client.renderer.texture.TextureAtlasSprite> sprites;
-    private net.minecraft.client.particle.ParticleResources$MutableSpriteSet();
-    public net.minecraft.client.renderer.texture.TextureAtlasSprite get(int, int);
-    public net.minecraft.client.renderer.texture.TextureAtlasSprite get(net.minecraft.util.RandomSource);
-    public net.minecraft.client.renderer.texture.TextureAtlasSprite first();
-    public void rebind(java.util.List<net.minecraft.client.renderer.texture.TextureAtlasSprite>);
-}
+```
+private sprites : Ljava/util/List;
+private <init>()V
+public get(II)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+public get(Lnet/minecraft/util/RandomSource;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+public first()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+public rebind(Ljava/util/List;)V
 ```

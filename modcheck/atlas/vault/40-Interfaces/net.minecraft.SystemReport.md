@@ -11,82 +11,83 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft|net.minecraft]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-crash-report-info-v1|fabric-crash-report-info-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `setDetail` | `(Ljava/lang/String;Lnet/minecraft/CrashReportDetail;)V` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-crash-report-info-v1|fabric-crash-report-info-v1]] | declared |
+| injects_into | `<init>` | `()V` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-crash-report-info-v1|fabric-crash-report-info-v1]] | direct_reference |
 
-## Declared members (65, all visibilities)
+## Declared members (7 fields, 58 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.SystemReport {
-    public static final long BYTES_PER_MEBIBYTE;
-    private static final long ONE_GIGA;
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.lang.String OPERATING_SYSTEM;
-    private static final java.lang.String JAVA_VERSION;
-    private static final java.lang.String JAVA_VM_VERSION;
-    private final java.util.List<net.minecraft.CrashReportCategory$Entry> entries;
-    public net.minecraft.SystemReport();
-    private static java.lang.String printMemoryUsage(java.lang.management.MemoryUsage);
-    private static java.lang.String printJvmFlags(java.util.function.Predicate<java.lang.String>);
-    public void setDetail(java.lang.String, java.lang.String);
-    public void setDetail(java.lang.String, net.minecraft.CrashReportDetail<java.lang.Object>);
-    private void putHardware(oshi.SystemInfo);
-    private void putSoftware(oshi.SystemInfo);
-    private void ignoreErrors(java.lang.String, java.lang.Runnable);
-    public static float sizeInMiB(long);
-    private void putPhysicalMemory(java.util.List<oshi.hardware.PhysicalMemory>);
-    private void putVirtualMemory(oshi.hardware.VirtualMemory);
-    private void putMemory(oshi.hardware.GlobalMemory);
-    private void putGraphics(java.util.List<oshi.hardware.GraphicsCard>);
-    private void putProcessor(oshi.hardware.CentralProcessor);
-    private void putStorage();
-    private void putProcessDetails(oshi.software.os.OSProcess);
-    private void putSpaceForProperty(java.lang.String);
-    private void putSpaceForPath(java.lang.String, java.util.function.Supplier<java.lang.String>);
-    public void appendToCrashReportString(java.lang.StringBuilder);
-    public java.lang.String toLineSeparatedString();
-    private static java.lang.String lambda$toLineSeparatedString$0(net.minecraft.CrashReportCategory$Entry);
-    private static void lambda$appendToCrashReportString$0(java.lang.StringBuilder, net.minecraft.CrashReportCategory$Entry);
-    private static java.lang.Object lambda$putSpaceForPath$0(java.nio.file.FileStore) throws java.lang.Exception;
-    private static java.lang.String lambda$putSpaceForProperty$0(java.lang.String);
-    private static java.lang.Object lambda$putProcessDetails$2(oshi.software.os.OSProcess) throws java.lang.Exception;
-    private static java.lang.Object lambda$putProcessDetails$1(oshi.software.os.OSProcess) throws java.lang.Exception;
-    private static java.lang.Object lambda$putProcessDetails$0(oshi.software.os.OSProcess) throws java.lang.Exception;
-    private static java.lang.String lambda$putStorage$0();
-    private static java.lang.Object lambda$putProcessor$3(oshi.hardware.CentralProcessor) throws java.lang.Exception;
-    private static java.lang.Object lambda$putProcessor$2(oshi.hardware.CentralProcessor) throws java.lang.Exception;
-    private static java.lang.Object lambda$putProcessor$1(oshi.hardware.CentralProcessor) throws java.lang.Exception;
-    private static java.lang.Object lambda$putProcessor$0(oshi.hardware.CentralProcessor$ProcessorIdentifier) throws java.lang.Exception;
-    private static java.lang.Object lambda$putGraphics$0(oshi.hardware.GraphicsCard) throws java.lang.Exception;
-    private void lambda$putMemory$1(oshi.hardware.GlobalMemory);
-    private void lambda$putMemory$0(oshi.hardware.GlobalMemory);
-    private static java.lang.Object lambda$putVirtualMemory$3(oshi.hardware.VirtualMemory) throws java.lang.Exception;
-    private static java.lang.Object lambda$putVirtualMemory$2(oshi.hardware.VirtualMemory) throws java.lang.Exception;
-    private static java.lang.Object lambda$putVirtualMemory$1(oshi.hardware.VirtualMemory) throws java.lang.Exception;
-    private static java.lang.Object lambda$putVirtualMemory$0(oshi.hardware.VirtualMemory) throws java.lang.Exception;
-    private static java.lang.Object lambda$putPhysicalMemory$1(oshi.hardware.PhysicalMemory) throws java.lang.Exception;
-    private static java.lang.Object lambda$putPhysicalMemory$0(oshi.hardware.PhysicalMemory) throws java.lang.Exception;
-    private void lambda$putSoftware$0(oshi.software.os.OperatingSystem);
-    private void lambda$putHardware$2(oshi.hardware.HardwareAbstractionLayer);
-    private void lambda$putHardware$1(oshi.hardware.HardwareAbstractionLayer);
-    private void lambda$putHardware$0(oshi.hardware.HardwareAbstractionLayer);
-    private static java.lang.Object lambda$new$10() throws java.lang.Exception;
-    private static boolean lambda$new$11(java.lang.String);
-    private static java.lang.Object lambda$new$8() throws java.lang.Exception;
-    private static boolean lambda$new$9(java.lang.String);
-    private void lambda$new$7();
-    private void lambda$new$6();
-    private static java.lang.Object lambda$new$5() throws java.lang.Exception;
-    private static java.lang.Object lambda$new$4() throws java.lang.Exception;
-    private static java.lang.Object lambda$new$3() throws java.lang.Exception;
-    private static java.lang.Object lambda$new$2() throws java.lang.Exception;
-    private static java.lang.Object lambda$new$1() throws java.lang.Exception;
-    private static java.lang.Object lambda$new$0() throws java.lang.Exception;
-    static {};
-}
+```
+public static final BYTES_PER_MEBIBYTE : J
+private static final ONE_GIGA : J
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final OPERATING_SYSTEM : Ljava/lang/String;
+private static final JAVA_VERSION : Ljava/lang/String;
+private static final JAVA_VM_VERSION : Ljava/lang/String;
+private final entries : Ljava/util/List;
+public <init>()V
+private static printMemoryUsage(Ljava/lang/management/MemoryUsage;)Ljava/lang/String;
+private static printJvmFlags(Ljava/util/function/Predicate;)Ljava/lang/String;
+public setDetail(Ljava/lang/String;Ljava/lang/String;)V
+public setDetail(Ljava/lang/String;Lnet/minecraft/CrashReportDetail;)V
+private putHardware(Loshi/SystemInfo;)V
+private putSoftware(Loshi/SystemInfo;)V
+private ignoreErrors(Ljava/lang/String;Ljava/lang/Runnable;)V
+public static sizeInMiB(J)F
+private putPhysicalMemory(Ljava/util/List;)V
+private putVirtualMemory(Loshi/hardware/VirtualMemory;)V
+private putMemory(Loshi/hardware/GlobalMemory;)V
+private putGraphics(Ljava/util/List;)V
+private putProcessor(Loshi/hardware/CentralProcessor;)V
+private putStorage()V
+private putProcessDetails(Loshi/software/os/OSProcess;)V
+private putSpaceForProperty(Ljava/lang/String;)V
+private putSpaceForPath(Ljava/lang/String;Ljava/util/function/Supplier;)V
+public appendToCrashReportString(Ljava/lang/StringBuilder;)V
+public toLineSeparatedString()Ljava/lang/String;
+private static synthetic lambda$toLineSeparatedString$0(Lnet/minecraft/CrashReportCategory$Entry;)Ljava/lang/String;
+private static synthetic lambda$appendToCrashReportString$0(Ljava/lang/StringBuilder;Lnet/minecraft/CrashReportCategory$Entry;)V
+private static synthetic lambda$putSpaceForPath$0(Ljava/nio/file/FileStore;)Ljava/lang/Object;
+private static synthetic lambda$putSpaceForProperty$0(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$putProcessDetails$2(Loshi/software/os/OSProcess;)Ljava/lang/Object;
+private static synthetic lambda$putProcessDetails$1(Loshi/software/os/OSProcess;)Ljava/lang/Object;
+private static synthetic lambda$putProcessDetails$0(Loshi/software/os/OSProcess;)Ljava/lang/Object;
+private static synthetic lambda$putStorage$0()Ljava/lang/String;
+private static synthetic lambda$putProcessor$3(Loshi/hardware/CentralProcessor;)Ljava/lang/Object;
+private static synthetic lambda$putProcessor$2(Loshi/hardware/CentralProcessor;)Ljava/lang/Object;
+private static synthetic lambda$putProcessor$1(Loshi/hardware/CentralProcessor;)Ljava/lang/Object;
+private static synthetic lambda$putProcessor$0(Loshi/hardware/CentralProcessor$ProcessorIdentifier;)Ljava/lang/Object;
+private static synthetic lambda$putGraphics$0(Loshi/hardware/GraphicsCard;)Ljava/lang/Object;
+private synthetic lambda$putMemory$1(Loshi/hardware/GlobalMemory;)V
+private synthetic lambda$putMemory$0(Loshi/hardware/GlobalMemory;)V
+private static synthetic lambda$putVirtualMemory$3(Loshi/hardware/VirtualMemory;)Ljava/lang/Object;
+private static synthetic lambda$putVirtualMemory$2(Loshi/hardware/VirtualMemory;)Ljava/lang/Object;
+private static synthetic lambda$putVirtualMemory$1(Loshi/hardware/VirtualMemory;)Ljava/lang/Object;
+private static synthetic lambda$putVirtualMemory$0(Loshi/hardware/VirtualMemory;)Ljava/lang/Object;
+private static synthetic lambda$putPhysicalMemory$1(Loshi/hardware/PhysicalMemory;)Ljava/lang/Object;
+private static synthetic lambda$putPhysicalMemory$0(Loshi/hardware/PhysicalMemory;)Ljava/lang/Object;
+private synthetic lambda$putSoftware$0(Loshi/software/os/OperatingSystem;)V
+private synthetic lambda$putHardware$2(Loshi/hardware/HardwareAbstractionLayer;)V
+private synthetic lambda$putHardware$1(Loshi/hardware/HardwareAbstractionLayer;)V
+private synthetic lambda$putHardware$0(Loshi/hardware/HardwareAbstractionLayer;)V
+private static synthetic lambda$new$10()Ljava/lang/Object;
+private static synthetic lambda$new$11(Ljava/lang/String;)Z
+private static synthetic lambda$new$8()Ljava/lang/Object;
+private static synthetic lambda$new$9(Ljava/lang/String;)Z
+private synthetic lambda$new$7()V
+private synthetic lambda$new$6()V
+private static synthetic lambda$new$5()Ljava/lang/Object;
+private static synthetic lambda$new$4()Ljava/lang/Object;
+private static synthetic lambda$new$3()Ljava/lang/Object;
+private static synthetic lambda$new$2()Ljava/lang/Object;
+private static synthetic lambda$new$1()Ljava/lang/Object;
+private static synthetic lambda$new$0()Ljava/lang/Object;
+static <clinit>()V
 ```

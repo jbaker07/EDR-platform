@@ -13,5 +13,5 @@ sha256: "4889e5947bb2f9d899f72c17676b27aaef7d2594ecaaf75e89626e1eea169711"
 Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] -- kind: interface
 
 ```java
-public abstract java.util.concurrent.CompletableFuture<T> load(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor)
+public abstract java.util.concurrent.CompletableFuture load(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor)
 ```

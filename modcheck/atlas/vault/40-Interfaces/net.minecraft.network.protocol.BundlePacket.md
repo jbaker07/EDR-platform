@@ -11,22 +11,22 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `subPackets()Ljava/lang/Iterable;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| injects_into | `<init>` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `subPackets` | `()Ljava/lang/Iterable;` | exact | invokevirtual@41 in `BundlePacketMixin.iterateBundle` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Ljava/lang/Iterable;)V` | name_only | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
 
-## Declared members (4, all visibilities)
+## Declared members (1 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.network.protocol.BundlePacket<T extends net.minecraft.network.PacketListener> implements net.minecraft.network.protocol.Packet<T> {
-    private final java.lang.Iterable<net.minecraft.network.protocol.Packet<? super T>> packets;
-    protected net.minecraft.network.protocol.BundlePacket(java.lang.Iterable<net.minecraft.network.protocol.Packet<? super T>>);
-    public final java.lang.Iterable<net.minecraft.network.protocol.Packet<? super T>> subPackets();
-    public abstract net.minecraft.network.protocol.PacketType<? extends net.minecraft.network.protocol.BundlePacket<T>> type();
-}
+```
+private final packets : Ljava/lang/Iterable;
+protected <init>(Ljava/lang/Iterable;)V
+public final subPackets()Ljava/lang/Iterable;
+public abstract type()Lnet/minecraft/network/protocol/PacketType;
 ```

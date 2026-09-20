@@ -15,13 +15,13 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ChunkHolderMixin.updateFutures$inaccessibleToFull` | `ChunkHolder.updateFutures` @Inject at INVOKE Lnet/minecraft/server/level/ChunkHolder;addSaveDependency(Ljava/util/concurrent/CompletableFuture;)V | both | static_inference |
-| `ChunkHolderMixin.updateFutures$fullToBlockTicking` | `ChunkHolder.updateFutures` @Inject at INVOKE Lnet/minecraft/server/level/ChunkHolder;addSaveDependency(Ljava/util/concurrent/CompletableFuture;)V | both | static_inference |
-| `ChunkHolderMixin.updateFutures$blockTickingToEntityTicking` | `ChunkHolder.updateFutures` @Inject at INVOKE Lnet/minecraft/server/level/ChunkHolder;addSaveDependency(Ljava/util/concurrent/CompletableFuture;)V | both | static_inference |
-| `ChunkHolderMixin.decreaseLevel` | `ChunkHolder.demoteFullChunk` @Inject at HEAD | both | static_inference |
-| `ChunkStatusTasksMixin.onChunkLoad` | `ChunkStatusTasks.lambda$full$0` @Inject at TAIL | both | static_inference |
+| `ChunkHolderMixin.updateFutures$inaccessibleToFull` @55 | [[40-Interfaces/net.minecraft.server.level.ChunkHolder|ChunkHolder]].`updateFutures` @Inject INVOKE `Lnet/minecraft/server/level/ChunkHolder;addSaveDependency(Ljava/util/concurrent/CompletableFuture;)V` | unknown | static_inference |
+| `ChunkHolderMixin.updateFutures$fullToBlockTicking` @42 | [[40-Interfaces/net.minecraft.server.level.ChunkHolder|ChunkHolder]].`updateFutures` @Inject INVOKE `Lnet/minecraft/server/level/ChunkHolder;addSaveDependency(Ljava/util/concurrent/CompletableFuture;)V` | unknown | static_inference |
+| `ChunkHolderMixin.updateFutures$blockTickingToEntityTicking` @42 | [[40-Interfaces/net.minecraft.server.level.ChunkHolder|ChunkHolder]].`updateFutures` @Inject INVOKE `Lnet/minecraft/server/level/ChunkHolder;addSaveDependency(Ljava/util/concurrent/CompletableFuture;)V` | unknown | static_inference |
+| `ChunkHolderMixin.decreaseLevel` @89 | [[40-Interfaces/net.minecraft.server.level.ChunkHolder|ChunkHolder]].`demoteFullChunk` @Inject HEAD | unknown | static_inference |
+| `ChunkStatusTasksMixin.onChunkLoad` @137 | [[40-Interfaces/net.minecraft.world.level.chunk.status.ChunkStatusTasks|ChunkStatusTasks]].`lambda$full$0` @Inject TAIL | unknown | static_inference |
 
 ## Contract
 

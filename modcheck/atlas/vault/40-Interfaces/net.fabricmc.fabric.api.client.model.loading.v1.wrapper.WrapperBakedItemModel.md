@@ -14,7 +14,7 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 
 ```java
 protected net.minecraft.client.renderer.item.ItemModel wrapped
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBakedItemModel()
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBakedItemModel(net.minecraft.client.renderer.item.ItemModel)
+protected <init>()
+protected <init>(net.minecraft.client.renderer.item.ItemModel)
 public void update(net.minecraft.client.renderer.item.ItemStackRenderState, net.minecraft.world.item.ItemStack, net.minecraft.client.renderer.item.ItemModelResolver, net.minecraft.world.item.ItemDisplayContext, net.minecraft.client.multiplayer.ClientLevel, net.minecraft.world.entity.ItemOwner, int)
 ```

@@ -23,6 +23,7 @@ What is checked
 from __future__ import annotations
 
 import collections
+import hashlib
 import json
 import re
 import sys
@@ -40,8 +41,8 @@ SCHEMA = ROOT / "schema"
 AUTHORED = ROOT / "authored"
 VAULT = ROOT / "vault"
 
-EVIDENCE_CLASSES = {"direct_reference", "static_inference", "declared", "documented", "observed"}
-REF_RE = re.compile(r"\b(mechanism|question|workflow|event|type|source|extracted|record|request):([A-Za-z0-9_/#$-]+(?:\.[A-Za-z0-9_/#$-]+)*)")
+EVIDENCE_CLASSES = {"direct_reference", "static_inference", "declared", "documented", "executed_transformation", "observed"}
+REF_RE = re.compile(r"\b(mechanism|question|workflow|event|type|source|extracted|record|request|scenario):([A-Za-z0-9_/#$-]+(?:\.[A-Za-z0-9_/#$-]+)*)")
 WIKI_RE = re.compile(r"\[\[([^\]|#]+)(#[^\]|]+)?(\|[^\]]*)?\]\]")
 CERTAINTY_RE = re.compile(r"(game[- ]tested|verified in[- ]game|observed (at|in) runtime|confirmed (at|in) (runtime|the game)|runtime[- ]verified|tested in[- ]game)", re.I)
 NEGATION_RE = re.compile(r"\b(not|no|never|nothing|none|would|needs|unavailable|untested|cannot|has not|is not|until|before)\b", re.I)
@@ -92,7 +93,13 @@ class Universe:
         self.corpus = json.loads((EXTRACTED / "corpus.json").read_text()) if (EXTRACTED / "corpus.json").exists() else None
         self.fabric = json.loads((EXTRACTED / "fabric_api.json").read_text()) if (EXTRACTED / "fabric_api.json").exists() else None
         self.edges = json.loads((EXTRACTED / "edges.json").read_text()) if (EXTRACTED / "edges.json").exists() else None
-        self.members = json.loads((EXTRACTED / "minecraft_members.json").read_text()) if (EXTRACTED / "minecraft_members.json").exists() else None
+        self.surface_classes: set[str] = set()
+        if (EXTRACTED / "minecraft_surface.json.gz").exists():
+            import gzip
+            with gzip.open(EXTRACTED / "minecraft_surface.json.gz", "rt") as fh:
+                self.surface_classes = {k.replace("/", ".") for k in json.load(fh)["classes"]}
+        self.transformation = json.loads((EXTRACTED / "mixin_transformation_tests.json").read_text()) \
+            if (EXTRACTED / "mixin_transformation_tests.json").exists() else None
         self.store = Store()
         self.pack = self.store.pack("minecraft")
         src = self.pack.sources
@@ -130,7 +137,13 @@ class Universe:
         if kind == "type":
             if not self.edges and not self.fabric:
                 return None
-            return None if ident in self.types else f"type {ident} has no interface note (not a hooked vanilla type or API class)"
+            if ident in self.types or ident in self.surface_classes:
+                return None
+            return f"type {ident} is neither in the Minecraft surface nor a Fabric API/loader class"
+        if kind == "scenario":
+            if not self.transformation:
+                return None
+            return None if ident in {s["id"] for s in self.transformation["scenarios"]} else f"unknown transformation scenario {ident}"
         if kind == "source":
             return None if ident in self.sources else f"unknown source {ident}"
         if kind == "extracted":
@@ -139,8 +152,9 @@ class Universe:
                 return f"extracted file {path} does not exist"
             if frag and path == "fabric_api.json" and self.fabric and frag not in self.modules:
                 return f"fabric_api.json has no module {frag}"
-            if frag and path == "edges.json" and self.edges and not (frag in self.edges["counts"] or re.match(r"^e\d{6}$", frag)):
-                return f"edges.json fragment {frag} is neither a relation nor an edge id"
+            if frag and path == "edges.json" and self.edges and not (frag in self.edges["counts"] or frag in self.edges
+                                                                        or re.match(r"^e\d{6}$", frag)):
+                return f"edges.json fragment {frag} is neither a relation, a top-level key nor an edge id"
             return None
         if kind == "record":
             rk, _, rid = ident.partition("/")
@@ -168,6 +182,8 @@ def check_edges(u: Universe, rep: Report) -> None:
             rep.err(f"edge {e['id']}: evidence class {e.get('evidence_class')}")
         if e.get("evidence_class") == "observed" and not str(prov.get("method", "")).startswith("runtime:"):
             rep.err(f"edge {e['id']}: 'observed' without runtime provenance")
+        if e.get("evidence_class") == "executed_transformation" and "mixin_transformation_tests" not in str(prov.get("method", "")):
+            rep.err(f"edge {e['id']}: 'executed_transformation' without harness provenance")
         if not e.get("applies_to", {}).get("game_versions"):
             rep.err(f"edge {e['id']}: applies_to.game_versions missing")
     rep.counts["edges_observed"] = u.edges["evidence_classes"].get("observed", 0)
@@ -206,6 +222,14 @@ def check_authored(u: Universe, rep: Report) -> list[tuple[str, Path, dict]]:
             for a in entry.get("asserted", []):
                 if a["basis"] == "observed":
                     rep.err(f"{path.name}: contract asserts observed basis")
+        if kind == "request":
+            cr = entry.get("canonical_request")
+            if cr and cr.get("path"):
+                path = ROOT.parents[1] / cr["path"]  # repository-relative
+                if not path.exists():
+                    rep.err(f"{path.name}: canonical request {cr['path']} does not exist")
+                elif cr.get("sha256") and hashlib.sha256(path.read_bytes()).hexdigest() != cr["sha256"]:
+                    rep.err(f"{entry['id']}: canonical request {cr['path']} changed since the analysis was bound (sha256 mismatch)")
         if kind == "workflow":
             s = entry["status"]
             if s.get("implemented_in_modcheck") and not any(t.startswith("record:") for t in entry.get("evidence", [])):

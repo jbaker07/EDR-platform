@@ -11,29 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/core/IdMap`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `addMapping(Ljava/lang/Object;I)V` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `addMapping` | `(Ljava/lang/Object;I)V` | exact | invokevirtual@28 in `IdMapperTracker.onEntryAdded` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `idToT` | `Ljava/util/List;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| reads | `nextId` | `I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
+| reads | `tToId` | `Lit/unimi/dsi/fastutil/objects/Reference2IntMap;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | declared |
 
-## Declared members (12, all visibilities)
+## Declared members (3 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.IdMapper<T> implements net.minecraft.core.IdMap<T> {
-    private int nextId;
-    private final it.unimi.dsi.fastutil.objects.Reference2IntMap<T> tToId;
-    private final java.util.List<T> idToT;
-    public net.minecraft.core.IdMapper();
-    public net.minecraft.core.IdMapper(int);
-    public void addMapping(T, int);
-    public void add(T);
-    public int getId(T);
-    public final T byId(int);
-    public java.util.Iterator<T> iterator();
-    public boolean contains(int);
-    public int size();
-}
+```
+private nextId : I
+private final tToId : Lit/unimi/dsi/fastutil/objects/Reference2IntMap;
+private final idToT : Ljava/util/List;
+public <init>()V
+public <init>(I)V
+public addMapping(Ljava/lang/Object;I)V
+public add(Ljava/lang/Object;)V
+public getId(Ljava/lang/Object;)I
+public final byId(I)Ljava/lang/Object;
+public iterator()Ljava/util/Iterator;
+public contains(I)Z
+public size()I
 ```

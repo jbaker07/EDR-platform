@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-loot-api-v3|fabric-loot-api-v3]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LootUtil.modifyLootTable` | (impl code, not a mixin) | unknown | static_inference |
+| `LootUtil.modifyLootTable` @52 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

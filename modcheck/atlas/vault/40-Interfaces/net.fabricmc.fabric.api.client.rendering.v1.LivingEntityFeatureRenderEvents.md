@@ -13,6 +13,5 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRenderEvents$AllowCapeRender> ALLOW_CAPE_RENDER
-static {}
+public static final net.fabricmc.fabric.api.event.Event ALLOW_CAPE_RENDER
 ```

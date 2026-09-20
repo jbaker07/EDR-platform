@@ -8,9 +8,20 @@ package: "net.minecraft.advancements"
 
 # net.minecraft.advancements
 
-16 classes in the jar. Hooked types: 4
+16 classes (13 top-level) across 1 packages in the processed jar; 2 changed by Loom processing; 6 hooked by Fabric API.
 
-- [[40-Interfaces/net.minecraft.advancements.Advancement_Builder|Advancement$Builder]] -- calls:1, injects_into:1 -- by fabric-advancement-api-v1
-- [[40-Interfaces/net.minecraft.advancements.AdvancementHolder|AdvancementHolder]] -- calls:6 -- by fabric-advancement-api-v1, fabric-rendering-v1
-- [[40-Interfaces/net.minecraft.advancements.AdvancementNode|AdvancementNode]] -- calls:1 -- by fabric-rendering-v1
-- [[40-Interfaces/net.minecraft.advancements.AdvancementRequirements|AdvancementRequirements]] -- calls:2, reads:1 -- by fabric-advancement-api-v1
+## Hooked types
+
+- [[40-Interfaces/net.minecraft.advancements.Advancement|Advancement]] -- calls:7, reads:2 -- by fabric-advancement-api-v1, fabric-data-generation-api-v1, fabric-rendering-v1
+- [[40-Interfaces/net.minecraft.advancements.Advancement_Builder|Advancement$Builder]] -- calls:8, injects_into:1, reads:6, wraps:1 -- by fabric-advancement-api-v1, fabric-data-generation-api-v1
+- [[40-Interfaces/net.minecraft.advancements.AdvancementHolder|AdvancementHolder]] -- calls:14 -- by fabric-advancement-api-v1, fabric-data-generation-api-v1, fabric-rendering-v1
+- [[40-Interfaces/net.minecraft.advancements.AdvancementNode|AdvancementNode]] -- calls:5 -- by fabric-rendering-v1
+- [[40-Interfaces/net.minecraft.advancements.AdvancementProgress|AdvancementProgress]] -- calls:1 -- by fabric-rendering-v1
+- [[40-Interfaces/net.minecraft.advancements.AdvancementRequirements|AdvancementRequirements]] -- calls:4, reads:1 -- by fabric-advancement-api-v1
+
+## Declared inventory
+
+### `net.minecraft.advancements` (13 top-level)
+
+[[40-Interfaces/net.minecraft.advancements.Advancement|Advancement]], [[40-Interfaces/net.minecraft.advancements.AdvancementHolder|AdvancementHolder]], [[40-Interfaces/net.minecraft.advancements.AdvancementNode|AdvancementNode]], [[40-Interfaces/net.minecraft.advancements.AdvancementProgress|AdvancementProgress]], [[40-Interfaces/net.minecraft.advancements.AdvancementRequirements|AdvancementRequirements]], `AdvancementRewards`, `AdvancementTree`, `AdvancementType`, `CriterionProgress`, `CriterionTriggerInstance`, `DisplayInfo`, `TreeNodePosition`, `package-info`
+

@@ -11,30 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.network|net.minecraft.server.network]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `createInitial(Lcom/mojang/authlib/GameProfile;Z)Lnet/minecraft/server/net` | `` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `createInitial` | `(Lcom/mojang/authlib/GameProfile;Z)Lnet/minecraft/server/network/Commo` | exact | invokestatic@17 in `FakePlayerPacketListener.<init>` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (4 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.server.network.CommonListenerCookie extends java.lang.Record {
-    private final com.mojang.authlib.GameProfile gameProfile;
-    private final int latency;
-    private final net.minecraft.server.level.ClientInformation clientInformation;
-    private final boolean transferred;
-    public net.minecraft.server.network.CommonListenerCookie(com.mojang.authlib.GameProfile, int, net.minecraft.server.level.ClientInformation, boolean);
-    public static net.minecraft.server.network.CommonListenerCookie createInitial(com.mojang.authlib.GameProfile, boolean);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public com.mojang.authlib.GameProfile gameProfile();
-    public int latency();
-    public net.minecraft.server.level.ClientInformation clientInformation();
-    public boolean transferred();
-}
+```
+private final gameProfile : Lcom/mojang/authlib/GameProfile;
+private final latency : I
+private final clientInformation : Lnet/minecraft/server/level/ClientInformation;
+private final transferred : Z
+public <init>(Lcom/mojang/authlib/GameProfile;ILnet/minecraft/server/level/ClientInformation;Z)V
+public static createInitial(Lcom/mojang/authlib/GameProfile;Z)Lnet/minecraft/server/network/CommonListenerCookie;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public gameProfile()Lcom/mojang/authlib/GameProfile;
+public latency()I
+public clientInformation()Lnet/minecraft/server/level/ClientInformation;
+public transferred()Z
 ```

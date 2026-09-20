@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PlayerListMixin.onSendChatMessage` | `PlayerList.broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatType$Bound;)V` @Inject at HEAD | both | static_inference |
-| `PlayerListMixin.onSendCommandMessage` | `PlayerList.broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/commands/CommandSourceStack;Lnet/minecraft/network/chat/ChatType$Bound;)V` @Inject at HEAD | both | static_inference |
+| `PlayerListMixin.onSendChatMessage` @38 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`broadcastChatMessage` @Inject HEAD | unknown | static_inference |
+| `PlayerListMixin.onSendCommandMessage` @95 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`broadcastChatMessage` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

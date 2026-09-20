@@ -8,6 +8,16 @@ package: "net.minecraft.client.sounds"
 
 # net.minecraft.client.sounds
 
-30 classes in the jar. Hooked types: 1
+30 classes (17 top-level) across 1 packages in the processed jar; 0 changed by Loom processing; 2 hooked by Fabric API.
 
+## Hooked types
+
+- [[40-Interfaces/net.minecraft.client.sounds.SoundBufferLibrary|SoundBufferLibrary]] -- calls:1 -- by fabric-sound-api-v1
 - [[40-Interfaces/net.minecraft.client.sounds.SoundEngine|SoundEngine]] -- wraps:1 -- by fabric-sound-api-v1
+
+## Declared inventory
+
+### `net.minecraft.client.sounds` (17 top-level)
+
+`AudioStream`, `ChannelAccess`, `ChunkedSampleByteBuf`, `FiniteAudioStream`, `FloatSampleSource`, `JOrbisAudioStream`, `LoopingAudioStream`, `MusicManager`, [[40-Interfaces/net.minecraft.client.sounds.SoundBufferLibrary|SoundBufferLibrary]], [[40-Interfaces/net.minecraft.client.sounds.SoundEngine|SoundEngine]], `SoundEngineExecutor`, `SoundEventListener`, `SoundManager`, `SoundPreviewHandler`, `WeighedSoundEvents`, `Weighted`, `package-info`
+

@@ -11,24 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.data|net.minecraft.client.data]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/data/DataProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| injects_into | `run` | `@Inject at INVOKE Lnet/minecraft/client/data/models/BlockModelGenerators;run()V` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/data/PackOutput;)V` | exact | invokespecial@2 in `FabricModelProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/data/PackOutput;)V` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `run` | `(Lnet/minecraft/data/CachedOutput;)Ljava/util/concurrent/CompletableFu` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| wraps | `run` | `(Lnet/minecraft/data/CachedOutput;)Ljava/util/concurrent/CompletableFu` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| wraps | `run` | `(Lnet/minecraft/data/CachedOutput;)Ljava/util/concurrent/CompletableFu` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (3 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.data.models.ModelProvider implements net.minecraft.data.DataProvider {
-    private final net.minecraft.data.PackOutput$PathProvider blockStatePathProvider;
-    private final net.minecraft.data.PackOutput$PathProvider itemInfoPathProvider;
-    private final net.minecraft.data.PackOutput$PathProvider modelPathProvider;
-    public net.minecraft.client.data.models.ModelProvider(net.minecraft.data.PackOutput);
-    public java.util.concurrent.CompletableFuture<?> run(net.minecraft.data.CachedOutput);
-    public final java.lang.String getName();
-}
+```
+private final blockStatePathProvider : Lnet/minecraft/data/PackOutput$PathProvider;
+private final itemInfoPathProvider : Lnet/minecraft/data/PackOutput$PathProvider;
+private final modelPathProvider : Lnet/minecraft/data/PackOutput$PathProvider;
+public <init>(Lnet/minecraft/data/PackOutput;)V
+public run(Lnet/minecraft/data/CachedOutput;)Ljava/util/concurrent/CompletableFuture;
+public getName()Ljava/lang/String;
 ```

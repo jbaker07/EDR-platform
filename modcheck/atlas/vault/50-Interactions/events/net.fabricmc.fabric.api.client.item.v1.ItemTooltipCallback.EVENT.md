@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ItemStackMixin.getTooltip` | `ItemStack.getTooltipLines` @Inject at RETURN | client | static_inference |
+| `ItemStackMixin.getTooltip` @23 | [[40-Interfaces/net.minecraft.world.item.ItemStack|ItemStack]].`getTooltipLines` @Inject RETURN | unknown | static_inference |
 
 ## Contract
 

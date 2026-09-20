@@ -13,11 +13,10 @@ sha256: "58266b2e28d20444584f22f1940b99656437728bd45e1b226c4869637e704638"
 Module: [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] -- kind: class
 
 ```java
-net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder(boolean)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder category(net.minecraft.world.level.gamerules.GameRuleCategory)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder codec(com.mojang.serialization.Codec<java.lang.Boolean>)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder argumentType(com.mojang.brigadier.arguments.ArgumentType<java.lang.Boolean>)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder commandResultSupplier(java.util.function.ToIntFunction<java.lang.Boolean>)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder codec(com.mojang.serialization.Codec)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder argumentType(com.mojang.brigadier.arguments.ArgumentType)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder commandResultSupplier(java.util.function.ToIntFunction)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$BooleanRuleBuilder requiredFeatures(net.minecraft.world.flag.FeatureFlagSet)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder requiredFeatures(net.minecraft.world.flag.FeatureFlagSet)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder commandResultSupplier(java.util.function.ToIntFunction)

@@ -11,36 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.nbt|net.minecraft.nbt]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `unlimitedHeap()Lnet/minecraft/nbt/NbtAccounter;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `unlimitedHeap()Lnet/minecraft/nbt/NbtAccounter;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `unlimitedHeap` | `()Lnet/minecraft/nbt/NbtAccounter;` | exact | invokestatic@16 in `RegistryCustomContentState.readFile` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `unlimitedHeap` | `()Lnet/minecraft/nbt/NbtAccounter;` | exact | invokestatic@139 in `DefaultResourcePackStorage.read` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (18, all visibilities)
+## Declared members (7 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.nbt.NbtAccounter {
-    public static final int DEFAULT_NBT_QUOTA;
-    public static final int UNCOMPRESSED_NBT_QUOTA;
-    private static final int MAX_STACK_DEPTH;
-    private final long quota;
-    private long usage;
-    private final int maxDepth;
-    private int depth;
-    public net.minecraft.nbt.NbtAccounter(long, int);
-    public static net.minecraft.nbt.NbtAccounter create(long);
-    public static net.minecraft.nbt.NbtAccounter defaultQuota();
-    public static net.minecraft.nbt.NbtAccounter uncompressedQuota();
-    public static net.minecraft.nbt.NbtAccounter unlimitedHeap();
-    public void accountBytes(long, long);
-    public void accountBytes(long);
-    public void pushDepth();
-    public void popDepth();
-    public long getUsage();
-    public int getDepth();
-}
+```
+public static final DEFAULT_NBT_QUOTA : I
+public static final UNCOMPRESSED_NBT_QUOTA : I
+private static final MAX_STACK_DEPTH : I
+private final quota : J
+private usage : J
+private final maxDepth : I
+private depth : I
+public <init>(JI)V
+public static create(J)Lnet/minecraft/nbt/NbtAccounter;
+public static defaultQuota()Lnet/minecraft/nbt/NbtAccounter;
+public static uncompressedQuota()Lnet/minecraft/nbt/NbtAccounter;
+public static unlimitedHeap()Lnet/minecraft/nbt/NbtAccounter;
+public accountBytes(JJ)V
+public accountBytes(J)V
+public pushDepth()V
+public popDepth()V
+public getUsage()J
+public getDepth()I
 ```

@@ -11,57 +11,57 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getLevelPath(Lnet/minecraft/world/level/storage/LevelResource;)Ljava/nio` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getLevelPath` | `(Lnet/minecraft/world/level/storage/LevelResource;)Ljava/nio/file/Path` | exact | invokevirtual@4 in `RegistryCustomContentState.getPath` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (40, all visibilities)
+## Declared members (5 fields, 35 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess implements java.lang.AutoCloseable {
-    private net.minecraft.util.DirectoryLock lock;
-    private final net.minecraft.world.level.storage.LevelStorageSource$LevelDirectory levelDirectory;
-    private final java.lang.String levelId;
-    private final java.util.Map<net.minecraft.world.level.storage.LevelResource, java.nio.file.Path> resources;
-    final net.minecraft.world.level.storage.LevelStorageSource this$0;
-    private net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess(net.minecraft.world.level.storage.LevelStorageSource, java.lang.String, java.nio.file.Path) throws java.io.IOException;
-    private void createLock() throws java.io.IOException;
-    public void releaseTemporarilyAndRun(org.apache.commons.io.function.IORunnable) throws java.io.IOException;
-    public long estimateDiskSpace();
-    public boolean checkForLowDiskSpace();
-    public void safeClose();
-    public net.minecraft.world.level.storage.LevelStorageSource parent();
-    public net.minecraft.world.level.storage.LevelStorageSource$LevelDirectory getLevelDirectory();
-    public java.lang.String getLevelId();
-    public java.nio.file.Path getLevelPath(net.minecraft.world.level.storage.LevelResource);
-    public java.nio.file.Path getDimensionPath(net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>);
-    private void checkLock();
-    public net.minecraft.world.level.storage.PlayerDataStorage createPlayerStorage();
-    public void collectIssues(boolean) throws java.io.IOException;
-    public net.minecraft.world.level.storage.LevelSummary fixAndGetSummary() throws java.io.IOException;
-    public net.minecraft.world.level.storage.LevelSummary fixAndGetSummaryFromTag(com.mojang.serialization.Dynamic<?>);
-    public com.mojang.serialization.Dynamic<?> getUnfixedDataTagWithFallback() throws java.io.IOException;
-    public com.mojang.serialization.Dynamic<?> getUnfixedDataTag(boolean) throws java.io.IOException;
-    private java.nio.file.Path getDataFile(boolean);
-    public void saveDataTag(net.minecraft.world.level.storage.WorldData);
-    public void saveDataTag(net.minecraft.world.level.storage.WorldData, java.util.UUID);
-    public void saveLevelData(com.mojang.serialization.Dynamic<?>);
-    private void saveLevelData(net.minecraft.nbt.CompoundTag);
-    public java.util.Optional<java.nio.file.Path> getIconFile();
-    public void deleteLevel() throws java.io.IOException;
-    public void renameLevel(java.lang.String) throws java.io.IOException;
-    public void renameAndDropPlayer(java.lang.String) throws java.io.IOException;
-    private void modifyLevelDataWithoutDatafix(java.util.function.Consumer<net.minecraft.nbt.CompoundTag>) throws java.io.IOException;
-    public long makeWorldBackup() throws java.io.IOException;
-    public boolean hasWorldData();
-    public void close() throws java.io.IOException;
-    public boolean restoreLevelDataFromOld();
-    public java.time.Instant getFileModificationTime(boolean);
-    private static void lambda$renameAndDropPlayer$0(java.lang.String, net.minecraft.nbt.CompoundTag);
-    private static void lambda$renameLevel$0(java.lang.String, net.minecraft.nbt.CompoundTag);
-}
+```
+private lock : Lnet/minecraft/util/DirectoryLock;
+private final levelDirectory : Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;
+private final levelId : Ljava/lang/String;
+private final resources : Ljava/util/Map;
+final synthetic this$0 : Lnet/minecraft/world/level/storage/LevelStorageSource;
+private <init>(Lnet/minecraft/world/level/storage/LevelStorageSource;Ljava/lang/String;Ljava/nio/file/Path;)V
+private createLock()V
+public releaseTemporarilyAndRun(Lorg/apache/commons/io/function/IORunnable;)V
+public estimateDiskSpace()J
+public checkForLowDiskSpace()Z
+public safeClose()V
+public parent()Lnet/minecraft/world/level/storage/LevelStorageSource;
+public getLevelDirectory()Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;
+public getLevelId()Ljava/lang/String;
+public getLevelPath(Lnet/minecraft/world/level/storage/LevelResource;)Ljava/nio/file/Path;
+public getDimensionPath(Lnet/minecraft/resources/ResourceKey;)Ljava/nio/file/Path;
+private checkLock()V
+public createPlayerStorage()Lnet/minecraft/world/level/storage/PlayerDataStorage;
+public collectIssues(Z)V
+public fixAndGetSummary()Lnet/minecraft/world/level/storage/LevelSummary;
+public fixAndGetSummaryFromTag(Lcom/mojang/serialization/Dynamic;)Lnet/minecraft/world/level/storage/LevelSummary;
+public getUnfixedDataTagWithFallback()Lcom/mojang/serialization/Dynamic;
+public getUnfixedDataTag(Z)Lcom/mojang/serialization/Dynamic;
+private getDataFile(Z)Ljava/nio/file/Path;
+public saveDataTag(Lnet/minecraft/world/level/storage/WorldData;)V
+public saveDataTag(Lnet/minecraft/world/level/storage/WorldData;Ljava/util/UUID;)V
+public saveLevelData(Lcom/mojang/serialization/Dynamic;)V
+private saveLevelData(Lnet/minecraft/nbt/CompoundTag;)V
+public getIconFile()Ljava/util/Optional;
+public deleteLevel()V
+public renameLevel(Ljava/lang/String;)V
+public renameAndDropPlayer(Ljava/lang/String;)V
+private modifyLevelDataWithoutDatafix(Ljava/util/function/Consumer;)V
+public makeWorldBackup()J
+public hasWorldData()Z
+public close()V
+public restoreLevelDataFromOld()Z
+public getFileModificationTime(Z)Ljava/time/Instant;
+private static synthetic lambda$renameAndDropPlayer$0(Ljava/lang/String;Lnet/minecraft/nbt/CompoundTag;)V
+private static synthetic lambda$renameLevel$0(Ljava/lang/String;Lnet/minecraft/nbt/CompoundTag;)V
 ```

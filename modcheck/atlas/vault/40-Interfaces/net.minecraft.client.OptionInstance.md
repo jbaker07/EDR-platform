@@ -11,54 +11,61 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client|net.minecraft.client]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `get()Ljava/lang/Object;` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `set(Ljava/lang/Object;)V` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `get` | `()Ljava/lang/Object;` | exact | invokevirtual@5 in `ClientGameTestContextImpl$1.process` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `get` | `()Ljava/lang/Object;` | exact | invokevirtual@9 in `FabricBlockStateModel.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `get` | `()Ljava/lang/Object;` | exact | invokevirtual@9 in `SingleVariantMixin.emitQuads` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `set` | `(Ljava/lang/Object;)V` | exact | invokevirtual@10 in `ClientGameTestContextImpl$2.process` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Ljava/lang/Object;)V` | exact | invokevirtual@14 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Ljava/lang/Object;)V` | exact | invokevirtual@25 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Ljava/lang/Object;)V` | exact | invokevirtual@36 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Ljava/lang/Object;)V` | exact | invokevirtual@52 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Ljava/lang/Object;)V` | exact | invokevirtual@66 in `ClientGameTestContextImpl.initGameOptions` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (36, all visibilities)
+## Declared members (12 fields, 24 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.OptionInstance<T> {
-    private static final org.slf4j.Logger LOGGER;
-    public static final net.minecraft.client.OptionInstance$Enum<java.lang.Boolean> BOOLEAN_VALUES;
-    public static final net.minecraft.client.OptionInstance$CaptionBasedToString<java.lang.Boolean> BOOLEAN_TO_STRING;
-    public static final net.minecraft.client.OptionInstance$ValueUpdateListener<java.lang.Object> NO_ACTION;
-    private final net.minecraft.client.OptionInstance$TooltipSupplier<T> tooltip;
-    private final java.util.function.Function<T, net.minecraft.network.chat.Component> toString;
-    private final net.minecraft.client.OptionInstance$ValueSet<T> values;
-    private final com.mojang.serialization.Codec<T> codec;
-    private final T initialValue;
-    private final net.minecraft.client.OptionInstance$ValueUpdateListener<? super T> onValueUpdate;
-    private final net.minecraft.network.chat.Component caption;
-    private T value;
-    public static net.minecraft.client.OptionInstance<java.lang.Boolean> createBoolean(java.lang.String, boolean, net.minecraft.client.OptionInstance$ValueUpdateListener<? super java.lang.Boolean>);
-    public static net.minecraft.client.OptionInstance<java.lang.Boolean> createBoolean(java.lang.String, boolean);
-    public static net.minecraft.client.OptionInstance<java.lang.Boolean> createBoolean(java.lang.String, net.minecraft.client.OptionInstance$TooltipSupplier<java.lang.Boolean>, boolean);
-    public static net.minecraft.client.OptionInstance<java.lang.Boolean> createBoolean(java.lang.String, net.minecraft.client.OptionInstance$TooltipSupplier<java.lang.Boolean>, boolean, net.minecraft.client.OptionInstance$ValueUpdateListener<? super java.lang.Boolean>);
-    public static net.minecraft.client.OptionInstance<java.lang.Boolean> createBoolean(java.lang.String, net.minecraft.client.OptionInstance$TooltipSupplier<java.lang.Boolean>, net.minecraft.client.OptionInstance$CaptionBasedToString<java.lang.Boolean>, boolean, net.minecraft.client.OptionInstance$ValueUpdateListener<? super java.lang.Boolean>);
-    public net.minecraft.client.OptionInstance(java.lang.String, net.minecraft.client.OptionInstance$TooltipSupplier<T>, net.minecraft.client.OptionInstance$CaptionBasedToString<T>, net.minecraft.client.OptionInstance$ValueSet<T>, T, net.minecraft.client.OptionInstance$ValueUpdateListener<? super T>);
-    public net.minecraft.client.OptionInstance(java.lang.String, net.minecraft.client.OptionInstance$TooltipSupplier<T>, net.minecraft.client.OptionInstance$CaptionBasedToString<T>, net.minecraft.client.OptionInstance$ValueSet<T>, com.mojang.serialization.Codec<T>, T, net.minecraft.client.OptionInstance$ValueUpdateListener<? super T>);
-    public static <T> net.minecraft.client.OptionInstance$TooltipSupplier<T> noTooltip();
-    public static <T> net.minecraft.client.OptionInstance$TooltipSupplier<T> cachedConstantTooltip(net.minecraft.network.chat.Component);
-    public net.minecraft.client.gui.components.AbstractWidget createButton(net.minecraft.client.Options);
-    public net.minecraft.client.gui.components.AbstractWidget createButton(net.minecraft.client.Options, int, int, int);
-    public net.minecraft.client.gui.components.AbstractWidget createButton(net.minecraft.client.Options, int, int, int, net.minecraft.client.OptionInstance$ValueUpdateListener<? super T>);
-    public T get();
-    public com.mojang.serialization.Codec<T> codec();
-    public java.lang.String toString();
-    public void set(T);
-    public net.minecraft.client.OptionInstance$ValueSet<T> values();
-    private java.lang.Object lambda$set$0(java.lang.Object);
-    private static net.minecraft.client.gui.components.Tooltip lambda$cachedConstantTooltip$0(net.minecraft.network.chat.Component, java.lang.Object);
-    private static net.minecraft.client.gui.components.Tooltip lambda$noTooltip$0(java.lang.Object);
-    private net.minecraft.network.chat.Component lambda$new$0(net.minecraft.client.OptionInstance$CaptionBasedToString, java.lang.Object);
-    private static void lambda$static$1(java.lang.Object);
-    private static net.minecraft.network.chat.Component lambda$static$0(net.minecraft.network.chat.Component, java.lang.Boolean);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final BOOLEAN_VALUES : Lnet/minecraft/client/OptionInstance$Enum;
+public static final BOOLEAN_TO_STRING : Lnet/minecraft/client/OptionInstance$CaptionBasedToString;
+public static final NO_ACTION : Lnet/minecraft/client/OptionInstance$ValueUpdateListener;
+private final tooltip : Lnet/minecraft/client/OptionInstance$TooltipSupplier;
+private final toString : Ljava/util/function/Function;
+private final values : Lnet/minecraft/client/OptionInstance$ValueSet;
+private final codec : Lcom/mojang/serialization/Codec;
+private final initialValue : Ljava/lang/Object;
+private final onValueUpdate : Lnet/minecraft/client/OptionInstance$ValueUpdateListener;
+private final caption : Lnet/minecraft/network/chat/Component;
+private value : Ljava/lang/Object;
+public static createBoolean(Ljava/lang/String;ZLnet/minecraft/client/OptionInstance$ValueUpdateListener;)Lnet/minecraft/client/OptionInstance;
+public static createBoolean(Ljava/lang/String;Z)Lnet/minecraft/client/OptionInstance;
+public static createBoolean(Ljava/lang/String;Lnet/minecraft/client/OptionInstance$TooltipSupplier;Z)Lnet/minecraft/client/OptionInstance;
+public static createBoolean(Ljava/lang/String;Lnet/minecraft/client/OptionInstance$TooltipSupplier;ZLnet/minecraft/client/OptionInstance$ValueUpdateListener;)Lnet/minecraft/client/OptionInstance;
+public static createBoolean(Ljava/lang/String;Lnet/minecraft/client/OptionInstance$TooltipSupplier;Lnet/minecraft/client/OptionInstance$CaptionBasedToString;ZLnet/minecraft/client/OptionInstance$ValueUpdateListener;)Lnet/minecraft/client/OptionInstance;
+public <init>(Ljava/lang/String;Lnet/minecraft/client/OptionInstance$TooltipSupplier;Lnet/minecraft/client/OptionInstance$CaptionBasedToString;Lnet/minecraft/client/OptionInstance$ValueSet;Ljava/lang/Object;Lnet/minecraft/client/OptionInstance$ValueUpdateListener;)V
+public <init>(Ljava/lang/String;Lnet/minecraft/client/OptionInstance$TooltipSupplier;Lnet/minecraft/client/OptionInstance$CaptionBasedToString;Lnet/minecraft/client/OptionInstance$ValueSet;Lcom/mojang/serialization/Codec;Ljava/lang/Object;Lnet/minecraft/client/OptionInstance$ValueUpdateListener;)V
+public static noTooltip()Lnet/minecraft/client/OptionInstance$TooltipSupplier;
+public static cachedConstantTooltip(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/client/OptionInstance$TooltipSupplier;
+public createButton(Lnet/minecraft/client/Options;)Lnet/minecraft/client/gui/components/AbstractWidget;
+public createButton(Lnet/minecraft/client/Options;III)Lnet/minecraft/client/gui/components/AbstractWidget;
+public createButton(Lnet/minecraft/client/Options;IIILnet/minecraft/client/OptionInstance$ValueUpdateListener;)Lnet/minecraft/client/gui/components/AbstractWidget;
+public get()Ljava/lang/Object;
+public codec()Lcom/mojang/serialization/Codec;
+public toString()Ljava/lang/String;
+public set(Ljava/lang/Object;)V
+public values()Lnet/minecraft/client/OptionInstance$ValueSet;
+private synthetic lambda$set$0(Ljava/lang/Object;)Ljava/lang/Object;
+private static synthetic lambda$cachedConstantTooltip$0(Lnet/minecraft/network/chat/Component;Ljava/lang/Object;)Lnet/minecraft/client/gui/components/Tooltip;
+private static synthetic lambda$noTooltip$0(Ljava/lang/Object;)Lnet/minecraft/client/gui/components/Tooltip;
+private synthetic lambda$new$0(Lnet/minecraft/client/OptionInstance$CaptionBasedToString;Ljava/lang/Object;)Lnet/minecraft/network/chat/Component;
+private static synthetic lambda$static$1(Ljava/lang/Object;)V
+private static synthetic lambda$static$0(Lnet/minecraft/network/chat/Component;Ljava/lang/Boolean;)Lnet/minecraft/network/chat/Component;
+static <clinit>()V
 ```

@@ -11,29 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util.profiling|net.minecraft.util.profiling]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `get()Lnet/minecraft/util/profiling/ProfilerFiller;` | `` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `get` | `()Lnet/minecraft/util/profiling/ProfilerFiller;` | exact | invokestatic@0 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `get` | `()Lnet/minecraft/util/profiling/ProfilerFiller;` | exact | invokestatic@37 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `get` | `()Lnet/minecraft/util/profiling/ProfilerFiller;` | exact | invokestatic@58 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `get` | `()Lnet/minecraft/util/profiling/ProfilerFiller;` | exact | invokestatic@98 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `get` | `()Lnet/minecraft/util/profiling/ProfilerFiller;` | exact | invokestatic@134 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `get` | `()Lnet/minecraft/util/profiling/ProfilerFiller;` | exact | invokestatic@174 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `get` | `()Lnet/minecraft/util/profiling/ProfilerFiller;` | exact | invokestatic@187 in `ClientCommandInternals.executeCommand` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (3 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.util.profiling.Profiler {
-    private static final java.lang.ThreadLocal<net.minecraft.util.profiling.TracyZoneFiller> TRACY_FILLER;
-    private static final java.lang.ThreadLocal<net.minecraft.util.profiling.ProfilerFiller> ACTIVE;
-    private static final java.util.concurrent.atomic.AtomicInteger ACTIVE_COUNT;
-    private net.minecraft.util.profiling.Profiler();
-    public static net.minecraft.util.profiling.Profiler$Scope use(net.minecraft.util.profiling.ProfilerFiller);
-    private static void startUsing(net.minecraft.util.profiling.ProfilerFiller);
-    private static void stopUsing();
-    private static net.minecraft.util.profiling.ProfilerFiller decorateFiller(net.minecraft.util.profiling.ProfilerFiller);
-    public static net.minecraft.util.profiling.ProfilerFiller get();
-    private static net.minecraft.util.profiling.ProfilerFiller getDefaultFiller();
-    private static void lambda$use$0();
-    static {};
-}
+```
+private static final TRACY_FILLER : Ljava/lang/ThreadLocal;
+private static final ACTIVE : Ljava/lang/ThreadLocal;
+private static final ACTIVE_COUNT : Ljava/util/concurrent/atomic/AtomicInteger;
+private <init>()V
+public static use(Lnet/minecraft/util/profiling/ProfilerFiller;)Lnet/minecraft/util/profiling/Profiler$Scope;
+private static startUsing(Lnet/minecraft/util/profiling/ProfilerFiller;)V
+private static stopUsing()V
+private static decorateFiller(Lnet/minecraft/util/profiling/ProfilerFiller;)Lnet/minecraft/util/profiling/ProfilerFiller;
+public static get()Lnet/minecraft/util/profiling/ProfilerFiller;
+private static getDefaultFiller()Lnet/minecraft/util/profiling/ProfilerFiller;
+private static synthetic lambda$use$0()V
+static <clinit>()V
 ```

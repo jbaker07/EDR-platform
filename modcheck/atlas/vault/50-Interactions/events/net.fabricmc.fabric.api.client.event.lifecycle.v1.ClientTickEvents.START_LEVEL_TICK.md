@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientLevelMixin.startLevelTick` | `ClientLevel.tickEntities` @Inject at HEAD | client | static_inference |
+| `ClientLevelMixin.startLevelTick` @13 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientLevel|ClientLevel]].`tickEntities` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

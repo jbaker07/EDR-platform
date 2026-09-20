@@ -15,7 +15,7 @@ Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api
 ```java
 protected final net.fabricmc.fabric.api.datagen.v1.FabricPackOutput output
 protected final net.minecraft.util.context.ContextKeySet contextParamSet
-public net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>, net.minecraft.util.context.ContextKeySet)
-public java.util.concurrent.CompletableFuture<?> run(net.minecraft.data.CachedOutput)
+public <init>(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture, net.minecraft.util.context.ContextKeySet)
+public java.util.concurrent.CompletableFuture run(net.minecraft.data.CachedOutput)
 public java.lang.String getName()
 ```

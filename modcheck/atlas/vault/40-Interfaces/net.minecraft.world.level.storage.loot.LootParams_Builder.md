@@ -11,32 +11,33 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/server/level/ServerLevel;)V` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `create(Lnet/minecraft/util/context/ContextKeySet;)Lnet/minecraft/w` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `withParameter(Lnet/minecraft/util/context/ContextKey;Ljava/lang/Object;)L` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/server/level/ServerLevel;)V` | exact | invokespecial@9 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `create` | `(Lnet/minecraft/util/context/ContextKeySet;)Lnet/minecraft/world/level` | exact | invokevirtual@32 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `withParameter` | `(Lnet/minecraft/util/context/ContextKey;Ljava/lang/Object;)Lnet/minecr` | exact | invokevirtual@16 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `withParameter` | `(Lnet/minecraft/util/context/ContextKey;Ljava/lang/Object;)Lnet/minecr` | exact | invokevirtual@26 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (4 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.loot.LootParams$Builder {
-    private final net.minecraft.server.level.ServerLevel level;
-    private final net.minecraft.util.context.ContextMap$Builder params;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.world.level.storage.loot.LootParams$DynamicDrop> dynamicDrops;
-    private float luck;
-    public net.minecraft.world.level.storage.loot.LootParams$Builder(net.minecraft.server.level.ServerLevel);
-    public net.minecraft.server.level.ServerLevel getLevel();
-    public <T> net.minecraft.world.level.storage.loot.LootParams$Builder withParameter(net.minecraft.util.context.ContextKey<T>, T);
-    public <T> net.minecraft.world.level.storage.loot.LootParams$Builder withOptionalParameter(net.minecraft.util.context.ContextKey<T>, T);
-    public <T> T getParameter(net.minecraft.util.context.ContextKey<T>);
-    public <T> T getOptionalParameter(net.minecraft.util.context.ContextKey<T>);
-    public net.minecraft.world.level.storage.loot.LootParams$Builder withDynamicDrop(net.minecraft.resources.Identifier, net.minecraft.world.level.storage.loot.LootParams$DynamicDrop);
-    public net.minecraft.world.level.storage.loot.LootParams$Builder withLuck(float);
-    public net.minecraft.world.level.storage.loot.LootParams create(net.minecraft.util.context.ContextKeySet);
-}
+```
+private final level : Lnet/minecraft/server/level/ServerLevel;
+private final params : Lnet/minecraft/util/context/ContextMap$Builder;
+private final dynamicDrops : Ljava/util/Map;
+private luck : F
+public <init>(Lnet/minecraft/server/level/ServerLevel;)V
+public getLevel()Lnet/minecraft/server/level/ServerLevel;
+public withParameter(Lnet/minecraft/util/context/ContextKey;Ljava/lang/Object;)Lnet/minecraft/world/level/storage/loot/LootParams$Builder;
+public withOptionalParameter(Lnet/minecraft/util/context/ContextKey;Ljava/lang/Object;)Lnet/minecraft/world/level/storage/loot/LootParams$Builder;
+public getParameter(Lnet/minecraft/util/context/ContextKey;)Ljava/lang/Object;
+public getOptionalParameter(Lnet/minecraft/util/context/ContextKey;)Ljava/lang/Object;
+public withDynamicDrop(Lnet/minecraft/resources/Identifier;Lnet/minecraft/world/level/storage/loot/LootParams$DynamicDrop;)Lnet/minecraft/world/level/storage/loot/LootParams$Builder;
+public withLuck(F)Lnet/minecraft/world/level/storage/loot/LootParams$Builder;
+public create(Lnet/minecraft/util/context/ContextKeySet;)Lnet/minecraft/world/level/storage/loot/LootParams;
 ```

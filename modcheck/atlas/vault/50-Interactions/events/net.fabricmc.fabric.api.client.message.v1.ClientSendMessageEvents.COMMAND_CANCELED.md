@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientPacketListenerMixin.fabric_allowSendCommandMessage` | `ClientPacketListener.sendCommand` @Inject at HEAD | client | static_inference |
+| `ClientPacketListenerMixin.fabric_allowSendCommandMessage` @99 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`sendCommand` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

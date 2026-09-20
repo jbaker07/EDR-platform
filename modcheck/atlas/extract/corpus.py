@@ -30,9 +30,20 @@ TOOLING = {"tiny-remapper", "stitch", "mercury", "mercurymixin", "mapping-io",
 LOADER_RUNTIME = {"class-tweaker"}
 
 
+# Paths on the reference build's resolved classpaths (atlas/extract/resolved_env.py input).
+# A Gradle-cache artifact that is on the runtime classpath but is neither Fabric nor
+# tooling is one of Minecraft's own libraries (Brigadier, DataFixerUpper, Guava, ...).
+_RESOLVED = Path(__file__).resolve().parents[1] / "extracted" / "resolved_classpaths.tsv"
+RESOLVED_PATHS = {l.split("\t", 1)[1].strip() for l in _RESOLVED.read_text().splitlines() if "\t" in l} \
+    if _RESOLVED.exists() else set()
+
+
 def classify(path: Path) -> tuple[str, str, str]:
     """(group, artifact_name, version)."""
     parts = path.parts
+    if "loom-cache" in parts and "minecraftMaven" in parts:
+        # the Loom-PROCESSED jar a project compiles against (access widened, interfaces injected)
+        return "minecraft_processed", path.stem, "26.3"
     if "fabric-loom" in parts:
         version = parts[parts.index("fabric-loom") + 1] if parts[-2] != "26.3" else "26.3"
         return "minecraft", path.stem, "26.3"
@@ -41,6 +52,10 @@ def classify(path: Path) -> tuple[str, str, str]:
     except ValueError:
         return "unclassified", path.stem, "?"
     group, name, version = parts[idx + 1], parts[idx + 2], parts[idx + 3]
+    if group == "io.github.llamalad7" and name.startswith("mixinextras"):
+        return "mixin_runtime_extras", name, version
+    if not group.startswith("net.fabricmc") and str(path) in RESOLVED_PATHS:
+        return "minecraft_library", f"{group}:{name}", version
     if group == "net.fabricmc.fabric-api":
         return "fabric_api_module", name, version
     if group == "net.fabricmc":

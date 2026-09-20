@@ -11,29 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/core/Holder;)V` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;)V` | exact | invokespecial@12 in `BlockTransformerHelperImpl.createStripping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;)V` | exact | invokespecial@12 in `BlockTransformerHelperImpl.createOxidationScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;)V` | exact | invokespecial@12 in `BlockTransformerHelperImpl.createWaxScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (2 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider extends java.lang.Record implements net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider {
-    private final net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider> source;
-    public static final com.mojang.serialization.MapCodec<net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider> CODEC;
-    public net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider(net.minecraft.world.level.block.Block);
-    public net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider(net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>);
-    public com.mojang.serialization.MapCodec<net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider> codec();
-    public net.minecraft.world.level.block.state.BlockState getState(net.minecraft.world.level.LevelAccessor, net.minecraft.util.RandomSource, net.minecraft.core.BlockPos);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider> source();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final source : Lnet/minecraft/core/Holder;
+public static final CODEC : Lcom/mojang/serialization/MapCodec;
+public <init>(Lnet/minecraft/world/level/block/Block;)V
+public <init>(Lnet/minecraft/core/Holder;)V
+public codec()Lcom/mojang/serialization/MapCodec;
+public getState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public source()Lnet/minecraft/core/Holder;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

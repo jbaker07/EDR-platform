@@ -13,7 +13,6 @@ sha256: "58266b2e28d20444584f22f1940b99656437728bd45e1b226c4869637e704638"
 Module: [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] -- kind: abstract_class
 
 ```java
-net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$NumberRuleBuilder(T)
-public abstract net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$NumberRuleBuilder<T> minValue(T)
-public abstract net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$NumberRuleBuilder<T> range(T, T)
+public abstract net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$NumberRuleBuilder minValue(java.lang.Number)
+public abstract net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$NumberRuleBuilder range(java.lang.Number, java.lang.Number)
 ```

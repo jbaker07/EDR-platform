@@ -13,6 +13,6 @@ sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
 Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: interface
 
 ```java
-public default com.mojang.renderpearl.api.pipeline.RenderPipeline$Builder withUsePipelineDrawModeForGui(boolean)
-public default com.mojang.renderpearl.api.pipeline.RenderPipeline$Builder withoutUsePipelineDrawModeForGui()
+public com.mojang.renderpearl.api.pipeline.RenderPipeline$Builder withUsePipelineDrawModeForGui(boolean)
+public com.mojang.renderpearl.api.pipeline.RenderPipeline$Builder withoutUsePipelineDrawModeForGui()
 ```

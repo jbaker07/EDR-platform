@@ -8,7 +8,18 @@ package: "net.minecraft.data.tags"
 
 # net.minecraft.data.tags
 
-37 classes in the jar. Hooked types: 2
+37 classes (29 top-level) across 1 packages in the processed jar; 2 changed by Loom processing; 4 hooked by Fabric API.
 
-- [[40-Interfaces/net.minecraft.data.tags.TagAppender|TagAppender]] -- calls:1 -- by fabric-data-generation-api-v1
-- [[40-Interfaces/net.minecraft.data.tags.TagsProvider|TagsProvider]] -- injects_into:3 -- by fabric-data-generation-api-v1
+## Hooked types
+
+- [[40-Interfaces/net.minecraft.data.tags.BlockItemTagAppender|BlockItemTagAppender]] -- calls:2, reads:1 -- by fabric-data-generation-api-v1
+- [[40-Interfaces/net.minecraft.data.tags.TagAppender|TagAppender]] -- calls:8 -- by fabric-data-generation-api-v1
+- [[40-Interfaces/net.minecraft.data.tags.TagAppender_1|TagAppender$1]] -- reads:1 -- by fabric-data-generation-api-v1
+- [[40-Interfaces/net.minecraft.data.tags.TagsProvider|TagsProvider]] -- calls:1, injects_into:3, reads:1, wraps:1 -- by fabric-data-generation-api-v1
+
+## Declared inventory
+
+### `net.minecraft.data.tags` (29 top-level)
+
+`BannerPatternTagsProvider`, `BiomeTagsProvider`, [[40-Interfaces/net.minecraft.data.tags.BlockItemTagAppender|BlockItemTagAppender]], `BlockItemTagsProvider`, `DamageTypeTagsProvider`, `DialogTagsProvider`, `EnchantmentTagsProvider`, `EntityTypeTagsProvider`, `FeatureTagsProvider`, `FlatLevelGeneratorPresetTagsProvider`, `FluidTagsProvider`, `GameEventTagsProvider`, `InstrumentTagsProvider`, `PaintingVariantTagsProvider`, `PoiTypeTagsProvider`, `PotionTagsProvider`, `StructureTagsProvider`, [[40-Interfaces/net.minecraft.data.tags.TagAppender|TagAppender]], [[40-Interfaces/net.minecraft.data.tags.TagsProvider|TagsProvider]], `TimelineTagsProvider`, `TradeRebalanceEnchantmentTagsProvider`, `TradeRebalanceTradeTagsProvider`, `VanillaBlockItemTagsProvider`, `VanillaBlockTagsProvider`, `VanillaEnchantmentTagsProvider`, `VanillaItemTagsProvider`, `VillagerTradesTagsProvider`, `WorldPresetTagsProvider`, `package-info`
+

@@ -20,7 +20,7 @@ status: "open"
 
 **Evidence already available.**
 - `extracted/corpus.json`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 
 **Best remaining source.** The merged 26.3 jar, already resolved and hashed.
 

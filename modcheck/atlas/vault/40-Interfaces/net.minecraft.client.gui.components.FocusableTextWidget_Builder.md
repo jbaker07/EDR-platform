@@ -11,33 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `alwaysShowBorder(Z)Lnet/minecraft/client/gui/components/FocusableTextWidget$` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `backgroundFill(Lnet/minecraft/client/gui/components/FocusableTextWidget$Ba` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `build()Lnet/minecraft/client/gui/components/FocusableTextWidget;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `maxWidth(I)Lnet/minecraft/client/gui/components/FocusableTextWidget$` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `alwaysShowBorder` | `(Z)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;` | exact | invokevirtual@64 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `alwaysShowBorder` | `(Z)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;` | exact | invokevirtual@139 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `backgroundFill` | `(Lnet/minecraft/client/gui/components/FocusableTextWidget$BackgroundFi` | exact | invokevirtual@70 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `backgroundFill` | `(Lnet/minecraft/client/gui/components/FocusableTextWidget$BackgroundFi` | exact | invokevirtual@145 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/client/gui/components/FocusableTextWidget;` | exact | invokevirtual@73 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `build` | `()Lnet/minecraft/client/gui/components/FocusableTextWidget;` | exact | invokevirtual@148 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `maxWidth` | `(I)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;` | exact | invokevirtual@60 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `maxWidth` | `(I)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;` | exact | invokevirtual@135 in `DetailsScreen.addContents` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (6 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.components.FocusableTextWidget$Builder {
-    private final net.minecraft.network.chat.Component message;
-    private final net.minecraft.client.gui.Font font;
-    private final int padding;
-    private int maxWidth;
-    private boolean alwaysShowBorder;
-    private net.minecraft.client.gui.components.FocusableTextWidget$BackgroundFill backgroundFill;
-    private net.minecraft.client.gui.components.FocusableTextWidget$Builder(net.minecraft.network.chat.Component, net.minecraft.client.gui.Font);
-    private net.minecraft.client.gui.components.FocusableTextWidget$Builder(net.minecraft.network.chat.Component, net.minecraft.client.gui.Font, int);
-    public net.minecraft.client.gui.components.FocusableTextWidget$Builder maxWidth(int);
-    public net.minecraft.client.gui.components.FocusableTextWidget$Builder textWidth(int);
-    public net.minecraft.client.gui.components.FocusableTextWidget$Builder alwaysShowBorder(boolean);
-    public net.minecraft.client.gui.components.FocusableTextWidget$Builder backgroundFill(net.minecraft.client.gui.components.FocusableTextWidget$BackgroundFill);
-    public net.minecraft.client.gui.components.FocusableTextWidget build();
-}
+```
+private final message : Lnet/minecraft/network/chat/Component;
+private final font : Lnet/minecraft/client/gui/Font;
+private final padding : I
+private maxWidth : I
+private alwaysShowBorder : Z
+private backgroundFill : Lnet/minecraft/client/gui/components/FocusableTextWidget$BackgroundFill;
+private <init>(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;)V
+private <init>(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;I)V
+public maxWidth(I)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;
+public textWidth(I)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;
+public alwaysShowBorder(Z)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;
+public backgroundFill(Lnet/minecraft/client/gui/components/FocusableTextWidget$BackgroundFill;)Lnet/minecraft/client/gui/components/FocusableTextWidget$Builder;
+public build()Lnet/minecraft/client/gui/components/FocusableTextWidget;
 ```

@@ -59,7 +59,7 @@ area: "content"
 ## Evidence
 
 - `extracted/minecraft_registries.json`
-- `extracted/minecraft_members.json`
+- `extracted/minecraft_surface.json.gz`
 - `extracted/edges.json#callback_of`
 
 ## Open questions

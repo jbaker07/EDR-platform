@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PlayerListMixin.hookOnPlayerConnect` | `PlayerList.placeNewPlayer` @Inject at NEW net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket | both | static_inference |
-| `PlayerListMixin.hookOnDataPacksReloaded` | `PlayerList.reloadResources` @Inject at INVOKE Lnet/minecraft/network/protocol/common/ClientboundUpdateTagsPacket;<init>(Ljava/util/Map;)V | both | static_inference |
+| `PlayerListMixin.hookOnPlayerConnect` @11 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`placeNewPlayer` @Inject NEW `net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket` | unknown | static_inference |
+| `PlayerListMixin.hookOnDataPacksReloaded` @43 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`reloadResources` @Inject INVOKE `Lnet/minecraft/network/protocol/common/ClientboundUpdateTagsPacket;<init>(Ljava/util/Map;)V` | unknown | static_inference |
 
 ## Contract
 

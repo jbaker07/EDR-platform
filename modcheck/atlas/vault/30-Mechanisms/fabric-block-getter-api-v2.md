@@ -20,17 +20,20 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `["fabric-block-getter-api-v2.mixins.json", {"config": "fabric-block-getter-api-v2.client.mixins.json", "environment": "client"}]`
 - access widener: `fabric-block-getter-api-v2.classtweaker`
+- mixin classes: 6 found by annotation, 6 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.client.renderer.chunk.RenderRegionCache|RenderRegionCache]] | `createRegion` | injects_into `@Inject at INVOKE Lnet/minecraft/client/renderer/chunk/RenderRegionCache;getSectionDataCopy(Lnet/minecraft/world/level/Level;III)Lnet/minecraft/client/renderer/chunk/SectionCopy;` | client | `RenderRegionCacheMixin.copyDataForChunk` |
-| [[40-Interfaces/net.minecraft.client.renderer.chunk.RenderRegionCache|RenderRegionCache]] | `createRegion` | injects_into `@Inject at RETURN` | client | `RenderRegionCacheMixin.createDataMap` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.renderer.chunk.RenderRegionCache|RenderRegionCache]].`createRegion` | `(Lnet/minecraft/client/multiplayer/ClientLevel;J)Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;` | name_only | @Inject | INVOKE `Lnet/minecraft/client/renderer/chunk/RenderRegionCache;getSectionDataCopy(Lnet/minecraft/world/level/Level;III)Lnet/minecraft/client/renderer/chunk/SectionCopy;` (exact) | client | 1000 (default) | `RenderRegionCacheMixin.copyDataForChunk` |
+| [[40-Interfaces/net.minecraft.client.renderer.chunk.RenderRegionCache|RenderRegionCache]].`createRegion` | `(Lnet/minecraft/client/multiplayer/ClientLevel;J)Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;` | name_only | @Inject | RETURN | client | 1000 (default) | `RenderRegionCacheMixin.createDataMap` |
 
 ## API surface
 
@@ -39,6 +42,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

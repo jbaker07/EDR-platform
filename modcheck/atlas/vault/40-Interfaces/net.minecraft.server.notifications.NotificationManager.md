@@ -11,59 +11,59 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.notifications|net.minecraft.server.notifications]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/server/notifications/NotificationService`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `serverStarted()V` | `` | server | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `serverStarted` | `()V` | exact | invokevirtual@8 in `DedicatedServerMixin.afterServerStartedEvent` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
 
-## Declared members (42, all visibilities)
+## Declared members (2 fields, 40 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.notifications.NotificationManager implements net.minecraft.server.notifications.NotificationService {
-    private final java.util.List<net.minecraft.server.notifications.NotificationService> notificationServices;
-    private net.minecraft.server.dedicated.DedicatedServer server;
-    public net.minecraft.server.notifications.NotificationManager();
-    public void registerService(net.minecraft.server.notifications.NotificationService);
-    public void setServer(net.minecraft.server.dedicated.DedicatedServer);
-    public net.minecraft.server.dedicated.DedicatedServer server();
-    public void playerJoined(net.minecraft.server.level.ServerPlayer);
-    public void playerLeft(net.minecraft.server.level.ServerPlayer);
-    public void serverStarted();
-    public void serverShuttingDown();
-    public void serverSaveStarted();
-    public void serverSaveCompleted();
-    public void serverActivityOccured();
-    public void worldUpgradeStarted();
-    public void worldUpgradeProgress(float);
-    public void worldUpgradeFinished();
-    public void worldUpgradeFailed(java.lang.String);
-    public void playerOped(net.minecraft.server.players.ServerOpListEntry);
-    public void playerDeoped(net.minecraft.server.players.ServerOpListEntry);
-    public void playerAddedToAllowlist(net.minecraft.server.players.NameAndId);
-    public void playerRemovedFromAllowlist(net.minecraft.server.players.NameAndId);
-    public void ipBanned(net.minecraft.server.players.IpBanListEntry);
-    public void ipUnbanned(java.lang.String);
-    public void playerBanned(net.minecraft.server.players.UserBanListEntry);
-    public void playerUnbanned(net.minecraft.server.players.NameAndId);
-    public <T> void onGameRuleChanged(net.minecraft.world.level.gamerules.GameRule<T>, T);
-    public void statusHeartbeat();
-    private static void lambda$onGameRuleChanged$0(net.minecraft.world.level.gamerules.GameRule, java.lang.Object, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerUnbanned$0(net.minecraft.server.players.NameAndId, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerBanned$0(net.minecraft.server.players.UserBanListEntry, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$ipUnbanned$0(java.lang.String, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$ipBanned$0(net.minecraft.server.players.IpBanListEntry, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerRemovedFromAllowlist$0(net.minecraft.server.players.NameAndId, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerAddedToAllowlist$0(net.minecraft.server.players.NameAndId, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerDeoped$0(net.minecraft.server.players.ServerOpListEntry, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerOped$0(net.minecraft.server.players.ServerOpListEntry, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$worldUpgradeFailed$0(java.lang.String, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$worldUpgradeFinished$0(net.minecraft.server.notifications.NotificationService);
-    private static void lambda$worldUpgradeProgress$0(float, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$worldUpgradeStarted$0(net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerLeft$0(net.minecraft.server.level.ServerPlayer, net.minecraft.server.notifications.NotificationService);
-    private static void lambda$playerJoined$0(net.minecraft.server.level.ServerPlayer, net.minecraft.server.notifications.NotificationService);
-}
+```
+private final notificationServices : Ljava/util/List;
+private server : Lnet/minecraft/server/dedicated/DedicatedServer;
+public <init>()V
+public registerService(Lnet/minecraft/server/notifications/NotificationService;)V
+public setServer(Lnet/minecraft/server/dedicated/DedicatedServer;)V
+public server()Lnet/minecraft/server/dedicated/DedicatedServer;
+public playerJoined(Lnet/minecraft/server/level/ServerPlayer;)V
+public playerLeft(Lnet/minecraft/server/level/ServerPlayer;)V
+public serverStarted()V
+public serverShuttingDown()V
+public serverSaveStarted()V
+public serverSaveCompleted()V
+public serverActivityOccured()V
+public worldUpgradeStarted()V
+public worldUpgradeProgress(F)V
+public worldUpgradeFinished()V
+public worldUpgradeFailed(Ljava/lang/String;)V
+public playerOped(Lnet/minecraft/server/players/ServerOpListEntry;)V
+public playerDeoped(Lnet/minecraft/server/players/ServerOpListEntry;)V
+public playerAddedToAllowlist(Lnet/minecraft/server/players/NameAndId;)V
+public playerRemovedFromAllowlist(Lnet/minecraft/server/players/NameAndId;)V
+public ipBanned(Lnet/minecraft/server/players/IpBanListEntry;)V
+public ipUnbanned(Ljava/lang/String;)V
+public playerBanned(Lnet/minecraft/server/players/UserBanListEntry;)V
+public playerUnbanned(Lnet/minecraft/server/players/NameAndId;)V
+public onGameRuleChanged(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;)V
+public statusHeartbeat()V
+private static synthetic lambda$onGameRuleChanged$0(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerUnbanned$0(Lnet/minecraft/server/players/NameAndId;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerBanned$0(Lnet/minecraft/server/players/UserBanListEntry;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$ipUnbanned$0(Ljava/lang/String;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$ipBanned$0(Lnet/minecraft/server/players/IpBanListEntry;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerRemovedFromAllowlist$0(Lnet/minecraft/server/players/NameAndId;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerAddedToAllowlist$0(Lnet/minecraft/server/players/NameAndId;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerDeoped$0(Lnet/minecraft/server/players/ServerOpListEntry;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerOped$0(Lnet/minecraft/server/players/ServerOpListEntry;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$worldUpgradeFailed$0(Ljava/lang/String;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$worldUpgradeFinished$0(Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$worldUpgradeProgress$0(FLnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$worldUpgradeStarted$0(Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerLeft$0(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/notifications/NotificationService;)V
+private static synthetic lambda$playerJoined$0(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/notifications/NotificationService;)V
 ```

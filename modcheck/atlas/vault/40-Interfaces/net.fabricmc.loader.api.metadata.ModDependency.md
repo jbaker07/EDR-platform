@@ -15,6 +15,6 @@ fabric-loader 0.19.5 -- kind: interface
 public abstract net.fabricmc.loader.api.metadata.ModDependency$Kind getKind()
 public abstract java.lang.String getModId()
 public abstract boolean matches(net.fabricmc.loader.api.Version)
-public abstract java.util.Collection<net.fabricmc.loader.api.metadata.version.VersionPredicate> getVersionRequirements()
-public abstract java.util.List<net.fabricmc.loader.api.metadata.version.VersionInterval> getVersionIntervals()
+public abstract java.util.Collection getVersionRequirements()
+public abstract java.util.List getVersionIntervals()
 ```

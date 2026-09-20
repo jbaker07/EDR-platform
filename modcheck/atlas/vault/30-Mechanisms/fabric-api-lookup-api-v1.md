@@ -19,15 +19,18 @@ lifecycle: "stable"
 - depends: `{"fabricloader": ">=0.19.3", "fabric-api-base": "*", "fabric-lifecycle-events-v1": "*"}`
 - entrypoints: `{"main": ["net.fabricmc.fabric.impl.lookup.ApiLookupImpl"]}`
 - mixin configs: `["fabric-api-lookup-api-v1.mixins.json"]`
+- mixin classes: 2 found by annotation, 2 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
 
 ## API surface
 
@@ -40,6 +43,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

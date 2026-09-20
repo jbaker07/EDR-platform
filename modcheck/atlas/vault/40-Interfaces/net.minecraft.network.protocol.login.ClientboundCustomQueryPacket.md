@@ -11,41 +11,43 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/network/protocol/Packet`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(ILnet/minecraft/network/protocol/login/custom/CustomQueryPa` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `payload()Lnet/minecraft/network/protocol/login/custom/CustomQueryPa` | `` | client | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `payload()Lnet/minecraft/network/protocol/login/custom/CustomQueryPa` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `payload()Lnet/minecraft/network/protocol/login/custom/CustomQueryPa` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `transactionId()I` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `transactionId()I` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| injects_into | `readPayload` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(ILnet/minecraft/network/protocol/login/custom/CustomQueryPayload;)V` | exact | invokespecial@24 in `ServerLoginNetworkAddon.createPacket` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `payload` | `()Lnet/minecraft/network/protocol/login/custom/CustomQueryPayload;` | exact | invokevirtual@1 in `ClientLoginNetworkAddon.handlePacket` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `payload` | `()Lnet/minecraft/network/protocol/login/custom/CustomQueryPayload;` | exact | invokevirtual@14 in `ClientLoginNetworkAddon.handlePacket` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `payload` | `()Lnet/minecraft/network/protocol/login/custom/CustomQueryPayload;` | exact | invokevirtual@12 in `ServerLoginNetworkAddon.registerOutgoingPacket` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `payload` | `()Lnet/minecraft/network/protocol/login/custom/CustomQueryPayload;` | exact | invokevirtual@1 in `ClientHandshakePacketListenerImplMixin.handleQueryRequest` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `transactionId` | `()I` | exact | invokevirtual@10 in `ClientLoginNetworkAddon.handlePacket` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `transactionId` | `()I` | exact | invokevirtual@5 in `ServerLoginNetworkAddon.registerOutgoingPacket` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| injects_into | `readPayload` | `(Lnet/minecraft/resources/Identifier;Lnet/minecraft/network/FriendlyBy` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `MAX_PAYLOAD_SIZE` | `I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
 
-## Declared members (18, all visibilities)
+## Declared members (4 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.network.protocol.login.ClientboundCustomQueryPacket extends java.lang.Record implements net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.login.ClientLoginPacketListener> {
-    private final int transactionId;
-    private final net.minecraft.network.protocol.login.custom.CustomQueryPayload payload;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.FriendlyByteBuf, net.minecraft.network.protocol.login.ClientboundCustomQueryPacket> STREAM_CODEC;
-    private static final int MAX_PAYLOAD_SIZE;
-    private net.minecraft.network.protocol.login.ClientboundCustomQueryPacket(net.minecraft.network.FriendlyByteBuf);
-    public net.minecraft.network.protocol.login.ClientboundCustomQueryPacket(int, net.minecraft.network.protocol.login.custom.CustomQueryPayload);
-    private static net.minecraft.network.protocol.login.custom.CustomQueryPayload readPayload(net.minecraft.resources.Identifier, net.minecraft.network.FriendlyByteBuf);
-    private static net.minecraft.network.protocol.login.custom.DiscardedQueryPayload readUnknownPayload(net.minecraft.resources.Identifier, net.minecraft.network.FriendlyByteBuf);
-    private void write(net.minecraft.network.FriendlyByteBuf);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.login.ClientboundCustomQueryPacket> type();
-    public void handle(net.minecraft.network.protocol.login.ClientLoginPacketListener);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public int transactionId();
-    public net.minecraft.network.protocol.login.custom.CustomQueryPayload payload();
-    public void handle(net.minecraft.network.PacketListener);
-    static {};
-}
+```
+private final transactionId : I
+private final payload : Lnet/minecraft/network/protocol/login/custom/CustomQueryPayload;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private static final MAX_PAYLOAD_SIZE : I
+private <init>(Lnet/minecraft/network/FriendlyByteBuf;)V
+public <init>(ILnet/minecraft/network/protocol/login/custom/CustomQueryPayload;)V
+private static readPayload(Lnet/minecraft/resources/Identifier;Lnet/minecraft/network/FriendlyByteBuf;)Lnet/minecraft/network/protocol/login/custom/CustomQueryPayload;
+private static readUnknownPayload(Lnet/minecraft/resources/Identifier;Lnet/minecraft/network/FriendlyByteBuf;)Lnet/minecraft/network/protocol/login/custom/DiscardedQueryPayload;
+private write(Lnet/minecraft/network/FriendlyByteBuf;)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/login/ClientLoginPacketListener;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public transactionId()I
+public payload()Lnet/minecraft/network/protocol/login/custom/CustomQueryPayload;
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
+static <clinit>()V
 ```

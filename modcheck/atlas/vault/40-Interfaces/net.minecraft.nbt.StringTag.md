@@ -11,47 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.nbt|net.minecraft.nbt]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/nbt/PrimitiveTag`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `value()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `valueOf(Ljava/lang/String;)Lnet/minecraft/nbt/StringTag;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `value` | `()Ljava/lang/String;` | exact | invokevirtual@174 in `RegistryCustomContentState.fromNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `valueOf` | `(Ljava/lang/String;)Lnet/minecraft/nbt/StringTag;` | exact | invokestatic@113 in `RegistryCustomContentState.toNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (29, all visibilities)
+## Declared members (8 fields, 21 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.nbt.StringTag extends java.lang.Record implements net.minecraft.nbt.PrimitiveTag {
-    private final java.lang.String value;
-    private static final int SELF_SIZE_IN_BYTES;
-    public static final net.minecraft.nbt.TagType<net.minecraft.nbt.StringTag> TYPE;
-    private static final net.minecraft.nbt.StringTag EMPTY;
-    private static final char DOUBLE_QUOTE;
-    private static final char SINGLE_QUOTE;
-    private static final char ESCAPE;
-    private static final char NOT_SET;
-    public net.minecraft.nbt.StringTag(java.lang.String);
-    public static void skipString(java.io.DataInput) throws java.io.IOException;
-    public static net.minecraft.nbt.StringTag valueOf(java.lang.String);
-    public void write(java.io.DataOutput) throws java.io.IOException;
-    public int sizeInBytes();
-    public byte getId();
-    public net.minecraft.nbt.TagType<net.minecraft.nbt.StringTag> getType();
-    public java.lang.String toString();
-    public net.minecraft.nbt.StringTag copy();
-    public java.util.Optional<java.lang.String> asString();
-    public void accept(net.minecraft.nbt.TagVisitor);
-    public static java.lang.String quoteAndEscape(java.lang.String);
-    public static void quoteAndEscape(java.lang.String, java.lang.StringBuilder);
-    public static java.lang.String escapeWithoutQuotes(java.lang.String);
-    public static void escapeWithoutQuotes(java.lang.String, java.lang.StringBuilder);
-    public net.minecraft.nbt.StreamTagVisitor$ValueResult accept(net.minecraft.nbt.StreamTagVisitor);
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.lang.String value();
-    public net.minecraft.nbt.Tag copy();
-    static {};
-}
+```
+private final value : Ljava/lang/String;
+private static final SELF_SIZE_IN_BYTES : I
+public static final TYPE : Lnet/minecraft/nbt/TagType;
+private static final EMPTY : Lnet/minecraft/nbt/StringTag;
+private static final DOUBLE_QUOTE : C
+private static final SINGLE_QUOTE : C
+private static final ESCAPE : C
+private static final NOT_SET : C
+public <init>(Ljava/lang/String;)V
+public static skipString(Ljava/io/DataInput;)V
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/nbt/StringTag;
+public write(Ljava/io/DataOutput;)V
+public sizeInBytes()I
+public getId()B
+public getType()Lnet/minecraft/nbt/TagType;
+public toString()Ljava/lang/String;
+public copy()Lnet/minecraft/nbt/StringTag;
+public asString()Ljava/util/Optional;
+public accept(Lnet/minecraft/nbt/TagVisitor;)V
+public static quoteAndEscape(Ljava/lang/String;)Ljava/lang/String;
+public static quoteAndEscape(Ljava/lang/String;Ljava/lang/StringBuilder;)V
+public static escapeWithoutQuotes(Ljava/lang/String;)Ljava/lang/String;
+public static escapeWithoutQuotes(Ljava/lang/String;Ljava/lang/StringBuilder;)V
+public accept(Lnet/minecraft/nbt/StreamTagVisitor;)Lnet/minecraft/nbt/StreamTagVisitor$ValueResult;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public value()Ljava/lang/String;
+public synthetic copy()Lnet/minecraft/nbt/Tag;
+static <clinit>()V
 ```

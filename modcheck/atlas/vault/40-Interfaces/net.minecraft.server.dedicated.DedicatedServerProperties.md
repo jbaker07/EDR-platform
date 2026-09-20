@@ -11,102 +11,102 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.dedicated|net.minecraft.server.dedicated]]
 
+`class` public; extends `net/minecraft/server/dedicated/Settings`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `<init>` | `@Redirect at FIELD Lnet/minecraft/world/level/WorldDataConfiguration;DEFAULT:Lne` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `<init>` | `(Ljava/util/Properties;)V` | name_only | @Redirect at ['FIELD'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (85, all visibilities)
+## Declared members (69 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.dedicated.DedicatedServerProperties extends net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties> {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.util.regex.Pattern SHA1;
-    private static final com.google.common.base.Splitter COMMA_SPLITTER;
-    public static final java.lang.String MANAGEMENT_SERVER_TLS_ENABLED_KEY;
-    public static final java.lang.String MANAGEMENT_SERVER_TLS_KEYSTORE_KEY;
-    public static final java.lang.String MANAGEMENT_SERVER_TLS_KEYSTORE_PASSWORD_KEY;
-    public final boolean onlineMode;
-    public final boolean preventProxyConnections;
-    public final java.lang.String serverIp;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Boolean> allowFlight;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.String> motd;
-    public final boolean codeOfConduct;
-    public final java.lang.String bugReportLink;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Boolean> forceGameMode;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Boolean> enforceWhitelist;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<net.minecraft.world.Difficulty> difficulty;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<net.minecraft.world.level.GameType> gameMode;
-    public final java.lang.String levelName;
-    public final int serverPort;
-    public final boolean managementServerEnabled;
-    public final java.lang.String managementServerHost;
-    public final int managementServerPort;
-    public final java.lang.String managementServerSecret;
-    public final boolean managementServerTlsEnabled;
-    public final java.lang.String managementServerTlsKeystore;
-    public final java.lang.String managementServerTlsKeystorePassword;
-    public final java.lang.String managementServerAllowedOrigins;
-    public final java.lang.Boolean announcePlayerAchievements;
-    public final boolean enableQuery;
-    public final int queryPort;
-    public final boolean enableRcon;
-    public final int rconPort;
-    public final java.lang.String rconPassword;
-    public final boolean hardcore;
-    public final boolean useNativeTransport;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> spawnProtection;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<net.minecraft.server.permissions.LevelBasedPermissionSet> opPermissions;
-    public final net.minecraft.server.permissions.LevelBasedPermissionSet functionPermissions;
-    public final long maxTickTime;
-    public final int maxChainedNeighborUpdates;
-    public final int rateLimitPacketsPerSecond;
-    public final int commandSpamThresholdSeconds;
-    public final int chatSpamThresholdSeconds;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> viewDistance;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> simulationDistance;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> maxPlayers;
-    public final int networkCompressionThreshold;
-    public final boolean broadcastRconToOps;
-    public final boolean broadcastConsoleToOps;
-    public final int maxWorldSize;
-    public final boolean syncChunkWrites;
-    public final java.lang.String regionFileComression;
-    public final boolean enableJmxMonitoring;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Boolean> enableStatus;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Boolean> hideOnlinePlayers;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> entityBroadcastRangePercentage;
-    public final java.lang.String textFilteringConfig;
-    public final int textFilteringVersion;
-    public final java.util.Optional<net.minecraft.server.MinecraftServer$ServerResourcePackInfo> serverResourcePackInfo;
-    public final net.minecraft.world.level.DataPackConfig initialDataPackConfiguration;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> playerIdleTimeout;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> statusHeartbeatInterval;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Boolean> whiteList;
-    public final boolean enforceSecureProfile;
-    public final boolean logIPs;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Integer> pauseWhenEmptySeconds;
-    private final net.minecraft.server.dedicated.DedicatedServerProperties$WorldDimensionData worldDimensionData;
-    public final net.minecraft.world.level.levelgen.WorldOptions worldOptions;
-    public final net.minecraft.server.dedicated.Settings<net.minecraft.server.dedicated.DedicatedServerProperties>.MutableValue<java.lang.Boolean> acceptsTransfers;
-    public net.minecraft.server.dedicated.DedicatedServerProperties(java.util.Properties);
-    public static net.minecraft.server.dedicated.DedicatedServerProperties fromFile(java.nio.file.Path);
-    protected net.minecraft.server.dedicated.DedicatedServerProperties reload(net.minecraft.core.RegistryAccess, java.util.Properties);
-    private static net.minecraft.network.chat.Component parseResourcePackPrompt(java.lang.String);
-    private static java.util.Optional<net.minecraft.server.MinecraftServer$ServerResourcePackInfo> getServerPackInfo(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String);
-    private static net.minecraft.world.level.DataPackConfig getDatapackConfig(java.lang.String, java.lang.String);
-    public static net.minecraft.server.permissions.LevelBasedPermissionSet deserializePermission(java.lang.String);
-    public static java.lang.String serializePermission(net.minecraft.server.permissions.LevelBasedPermissionSet);
-    public net.minecraft.world.level.levelgen.WorldDimensions createDimensions(net.minecraft.core.HolderLookup$Provider);
-    protected net.minecraft.server.dedicated.Settings reload(net.minecraft.core.RegistryAccess, java.util.Properties);
-    private static void lambda$parseResourcePackPrompt$0(java.lang.String, java.lang.String);
-    private static java.lang.String lambda$new$3(java.lang.String);
-    private static com.google.gson.JsonObject lambda$new$2(java.lang.String);
-    private static java.lang.Integer lambda$new$1(java.lang.String);
-    private static java.lang.Integer lambda$new$0(java.lang.Integer);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final SHA1 : Ljava/util/regex/Pattern;
+private static final COMMA_SPLITTER : Lcom/google/common/base/Splitter;
+public static final MANAGEMENT_SERVER_TLS_ENABLED_KEY : Ljava/lang/String;
+public static final MANAGEMENT_SERVER_TLS_KEYSTORE_KEY : Ljava/lang/String;
+public static final MANAGEMENT_SERVER_TLS_KEYSTORE_PASSWORD_KEY : Ljava/lang/String;
+public final onlineMode : Z
+public final preventProxyConnections : Z
+public final serverIp : Ljava/lang/String;
+public final allowFlight : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final motd : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final codeOfConduct : Z
+public final bugReportLink : Ljava/lang/String;
+public final forceGameMode : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final enforceWhitelist : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final difficulty : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final gameMode : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final levelName : Ljava/lang/String;
+public final serverPort : I
+public final managementServerEnabled : Z
+public final managementServerHost : Ljava/lang/String;
+public final managementServerPort : I
+public final managementServerSecret : Ljava/lang/String;
+public final managementServerTlsEnabled : Z
+public final managementServerTlsKeystore : Ljava/lang/String;
+public final managementServerTlsKeystorePassword : Ljava/lang/String;
+public final managementServerAllowedOrigins : Ljava/lang/String;
+public final announcePlayerAchievements : Ljava/lang/Boolean;
+public final enableQuery : Z
+public final queryPort : I
+public final enableRcon : Z
+public final rconPort : I
+public final rconPassword : Ljava/lang/String;
+public final hardcore : Z
+public final useNativeTransport : Z
+public final spawnProtection : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final opPermissions : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final functionPermissions : Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+public final maxTickTime : J
+public final maxChainedNeighborUpdates : I
+public final rateLimitPacketsPerSecond : I
+public final commandSpamThresholdSeconds : I
+public final chatSpamThresholdSeconds : I
+public final viewDistance : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final simulationDistance : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final maxPlayers : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final networkCompressionThreshold : I
+public final broadcastRconToOps : Z
+public final broadcastConsoleToOps : Z
+public final maxWorldSize : I
+public final syncChunkWrites : Z
+public final regionFileComression : Ljava/lang/String;
+public final enableJmxMonitoring : Z
+public final enableStatus : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final hideOnlinePlayers : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final entityBroadcastRangePercentage : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final textFilteringConfig : Ljava/lang/String;
+public final textFilteringVersion : I
+public final serverResourcePackInfo : Ljava/util/Optional;
+public final initialDataPackConfiguration : Lnet/minecraft/world/level/DataPackConfig;
+public final playerIdleTimeout : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final statusHeartbeatInterval : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final whiteList : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public final enforceSecureProfile : Z
+public final logIPs : Z
+public final pauseWhenEmptySeconds : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+private final worldDimensionData : Lnet/minecraft/server/dedicated/DedicatedServerProperties$WorldDimensionData;
+public final worldOptions : Lnet/minecraft/world/level/levelgen/WorldOptions;
+public final acceptsTransfers : Lnet/minecraft/server/dedicated/Settings$MutableValue;
+public <init>(Ljava/util/Properties;)V
+public static fromFile(Ljava/nio/file/Path;)Lnet/minecraft/server/dedicated/DedicatedServerProperties;
+protected reload(Lnet/minecraft/core/RegistryAccess;Ljava/util/Properties;)Lnet/minecraft/server/dedicated/DedicatedServerProperties;
+private static parseResourcePackPrompt(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;
+private static getServerPackInfo(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)Ljava/util/Optional;
+private static getDatapackConfig(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/world/level/DataPackConfig;
+public static deserializePermission(Ljava/lang/String;)Lnet/minecraft/server/permissions/LevelBasedPermissionSet;
+public static serializePermission(Lnet/minecraft/server/permissions/LevelBasedPermissionSet;)Ljava/lang/String;
+public createDimensions(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/level/levelgen/WorldDimensions;
+protected synthetic reload(Lnet/minecraft/core/RegistryAccess;Ljava/util/Properties;)Lnet/minecraft/server/dedicated/Settings;
+private static synthetic lambda$parseResourcePackPrompt$0(Ljava/lang/String;Ljava/lang/String;)V
+private static synthetic lambda$new$3(Ljava/lang/String;)Ljava/lang/String;
+private static synthetic lambda$new$2(Ljava/lang/String;)Lcom/google/gson/JsonObject;
+private static synthetic lambda$new$1(Ljava/lang/String;)Ljava/lang/Integer;
+private static synthetic lambda$new$0(Ljava/lang/Integer;)Ljava/lang/Integer;
+static <clinit>()V
 ```

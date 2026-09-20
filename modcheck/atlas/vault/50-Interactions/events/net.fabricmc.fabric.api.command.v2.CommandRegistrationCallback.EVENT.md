@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `CommandsMixin.fabric_addCommands` | `Commands.<init>` @Inject at INVOKE Lcom/mojang/brigadier/CommandDispatcher;setConsumer(Lcom/mojang/brigadier/ResultConsumer;)V | both | static_inference |
+| `CommandsMixin.fabric_addCommands` @15 | [[40-Interfaces/net.minecraft.commands.Commands|Commands]].`<init>` @Inject INVOKE `Lcom/mojang/brigadier/CommandDispatcher;setConsumer(Lcom/mojang/brigadier/ResultConsumer;)V` | unknown | static_inference |
 
 ## Contract
 

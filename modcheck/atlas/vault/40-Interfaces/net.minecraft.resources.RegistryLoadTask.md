@@ -11,34 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `registryLnet/minecraft/core/WritableRegistry;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `registry` | `Lnet/minecraft/core/WritableRegistry;` | exact | getfield@42 in `FabricGameTestModInitializer.registerDynamicEntries` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `registry` | `Lnet/minecraft/core/WritableRegistry;` | exact | getfield@51 in `FabricGameTestModInitializer.registerDynamicEntries` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| reads | `registry` | `Lnet/minecraft/core/WritableRegistry;` | exact | getfield@62 in `RegistryDataLoaderMixin.beforeLoad` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| reads | `registry` | `Lnet/minecraft/core/WritableRegistry;` | exact | getfield@72 in `RegistryDataLoaderMixin.beforeLoad` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (6 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.resources.RegistryLoadTask<T> {
-    private final java.lang.Object registryWriteLock;
-    protected final net.minecraft.resources.RegistryDataLoader$RegistryData<T> data;
-    private final net.minecraft.core.WritableRegistry<T> registry;
-    protected final net.minecraft.core.registries.ConcurrentHolderGetter<T> concurrentRegistrationGetter;
-    protected final java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception> loadingErrors;
-    private volatile boolean elementsRegistered;
-    protected net.minecraft.resources.RegistryLoadTask(net.minecraft.resources.RegistryDataLoader$RegistryData<T>, com.mojang.serialization.Lifecycle, java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>);
-    protected net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> registryKey();
-    protected net.minecraft.core.Registry<T> readOnlyRegistry();
-    public abstract java.util.concurrent.CompletableFuture<?> load(net.minecraft.resources.RegistryOps$RegistryInfoLookup, java.util.concurrent.Executor);
-    protected void registerElements(java.util.stream.Stream<net.minecraft.resources.RegistryLoadTask$PendingRegistration<T>>);
-    protected void registerTags(java.util.Map<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>>);
-    public boolean freezeRegistry(java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>);
-    public java.util.Optional<net.minecraft.core.Registry<T>> validateRegistry(java.util.Map<net.minecraft.resources.ResourceKey<?>, java.lang.Exception>);
-    private void lambda$registerElements$0(net.minecraft.resources.RegistryLoadTask$PendingRegistration);
-    private void lambda$registerElements$2(net.minecraft.resources.RegistryLoadTask$PendingRegistration, java.lang.Exception);
-    private void lambda$registerElements$1(net.minecraft.resources.RegistryLoadTask$PendingRegistration, java.lang.Object);
-}
+```
+private final registryWriteLock : Ljava/lang/Object;
+protected final data : Lnet/minecraft/resources/RegistryDataLoader$RegistryData;
+private final registry : Lnet/minecraft/core/WritableRegistry;
+protected final concurrentRegistrationGetter : Lnet/minecraft/core/registries/ConcurrentHolderGetter;
+protected final loadingErrors : Ljava/util/Map;
+private elementsRegistered : Z
+protected <init>(Lnet/minecraft/resources/RegistryDataLoader$RegistryData;Lcom/mojang/serialization/Lifecycle;Ljava/util/Map;)V
+protected registryKey()Lnet/minecraft/resources/ResourceKey;
+protected readOnlyRegistry()Lnet/minecraft/core/Registry;
+public abstract load(Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+protected registerElements(Ljava/util/stream/Stream;)V
+protected registerTags(Ljava/util/Map;)V
+public freezeRegistry(Ljava/util/Map;)Z
+public validateRegistry(Ljava/util/Map;)Ljava/util/Optional;
+private synthetic lambda$registerElements$0(Lnet/minecraft/resources/RegistryLoadTask$PendingRegistration;)V
+private synthetic lambda$registerElements$2(Lnet/minecraft/resources/RegistryLoadTask$PendingRegistration;Ljava/lang/Exception;)V
+private synthetic lambda$registerElements$1(Lnet/minecraft/resources/RegistryLoadTask$PendingRegistration;Ljava/lang/Object;)V
 ```

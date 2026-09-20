@@ -11,39 +11,39 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.recipes|net.minecraft.data.recipes]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/data/recipes/RecipeBuilder`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `save` | `(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/Res` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (22, all visibilities)
+## Declared members (9 fields, 13 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.recipes.SimpleCookingRecipeBuilder implements net.minecraft.data.recipes.RecipeBuilder {
-    private final net.minecraft.data.recipes.RecipeCategory craftingCategory;
-    private final net.minecraft.world.item.crafting.CookingBookCategory cookingCategory;
-    private final net.minecraft.world.item.ItemStackTemplate result;
-    private final net.minecraft.world.item.crafting.Ingredient ingredient;
-    private final float experience;
-    private final int cookingTime;
-    private final net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder advancementBuilder;
-    private java.lang.String group;
-    private final net.minecraft.world.item.crafting.AbstractCookingRecipe$Factory<?> factory;
-    private net.minecraft.data.recipes.SimpleCookingRecipeBuilder(net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.crafting.CookingBookCategory, net.minecraft.world.item.ItemStackTemplate, net.minecraft.world.item.crafting.Ingredient, float, int, net.minecraft.world.item.crafting.AbstractCookingRecipe$Factory<?>);
-    private net.minecraft.data.recipes.SimpleCookingRecipeBuilder(net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.crafting.CookingBookCategory, net.minecraft.world.level.ItemLike, net.minecraft.world.item.crafting.Ingredient, float, int, net.minecraft.world.item.crafting.AbstractCookingRecipe$Factory<?>);
-    public static <T extends net.minecraft.world.item.crafting.AbstractCookingRecipe> net.minecraft.data.recipes.SimpleCookingRecipeBuilder generic(net.minecraft.world.item.crafting.Ingredient, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.crafting.CookingBookCategory, net.minecraft.world.level.ItemLike, float, int, net.minecraft.world.item.crafting.AbstractCookingRecipe$Factory<T>);
-    public static net.minecraft.data.recipes.SimpleCookingRecipeBuilder campfireCooking(net.minecraft.world.item.crafting.Ingredient, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.level.ItemLike, float, int);
-    public static net.minecraft.data.recipes.SimpleCookingRecipeBuilder blasting(net.minecraft.world.item.crafting.Ingredient, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.crafting.CookingBookCategory, net.minecraft.world.level.ItemLike, float, int);
-    public static net.minecraft.data.recipes.SimpleCookingRecipeBuilder smelting(net.minecraft.world.item.crafting.Ingredient, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.crafting.CookingBookCategory, net.minecraft.world.level.ItemLike, float, int);
-    public static net.minecraft.data.recipes.SimpleCookingRecipeBuilder smoking(net.minecraft.world.item.crafting.Ingredient, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.level.ItemLike, float, int);
-    public net.minecraft.data.recipes.SimpleCookingRecipeBuilder unlockedBy(java.lang.String, net.minecraft.advancements.triggers.Criterion<?>);
-    public net.minecraft.data.recipes.SimpleCookingRecipeBuilder group(java.lang.String);
-    public net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> defaultId();
-    public void save(net.minecraft.data.recipes.RecipeOutput, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>);
-    public net.minecraft.data.recipes.RecipeBuilder group(java.lang.String);
-    public net.minecraft.data.recipes.RecipeBuilder unlockedBy(java.lang.String, net.minecraft.advancements.triggers.Criterion);
-}
+```
+private final craftingCategory : Lnet/minecraft/data/recipes/RecipeCategory;
+private final cookingCategory : Lnet/minecraft/world/item/crafting/CookingBookCategory;
+private final result : Lnet/minecraft/world/item/ItemStackTemplate;
+private final ingredient : Lnet/minecraft/world/item/crafting/Ingredient;
+private final experience : F
+private final cookingTime : I
+private final advancementBuilder : Lnet/minecraft/data/recipes/RecipeUnlockAdvancementBuilder;
+private group : Ljava/lang/String;
+private final factory : Lnet/minecraft/world/item/crafting/AbstractCookingRecipe$Factory;
+private <init>(Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/CookingBookCategory;Lnet/minecraft/world/item/ItemStackTemplate;Lnet/minecraft/world/item/crafting/Ingredient;FILnet/minecraft/world/item/crafting/AbstractCookingRecipe$Factory;)V
+private <init>(Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/CookingBookCategory;Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/item/crafting/Ingredient;FILnet/minecraft/world/item/crafting/AbstractCookingRecipe$Factory;)V
+public static generic(Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/CookingBookCategory;Lnet/minecraft/world/level/ItemLike;FILnet/minecraft/world/item/crafting/AbstractCookingRecipe$Factory;)Lnet/minecraft/data/recipes/SimpleCookingRecipeBuilder;
+public static campfireCooking(Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;FI)Lnet/minecraft/data/recipes/SimpleCookingRecipeBuilder;
+public static blasting(Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/CookingBookCategory;Lnet/minecraft/world/level/ItemLike;FI)Lnet/minecraft/data/recipes/SimpleCookingRecipeBuilder;
+public static smelting(Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/CookingBookCategory;Lnet/minecraft/world/level/ItemLike;FI)Lnet/minecraft/data/recipes/SimpleCookingRecipeBuilder;
+public static smoking(Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;FI)Lnet/minecraft/data/recipes/SimpleCookingRecipeBuilder;
+public unlockedBy(Ljava/lang/String;Lnet/minecraft/advancements/triggers/Criterion;)Lnet/minecraft/data/recipes/SimpleCookingRecipeBuilder;
+public group(Ljava/lang/String;)Lnet/minecraft/data/recipes/SimpleCookingRecipeBuilder;
+public defaultId()Lnet/minecraft/resources/ResourceKey;
+public save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V
+public synthetic group(Ljava/lang/String;)Lnet/minecraft/data/recipes/RecipeBuilder;
+public synthetic unlockedBy(Ljava/lang/String;Lnet/minecraft/advancements/triggers/Criterion;)Lnet/minecraft/data/recipes/RecipeBuilder;
 ```

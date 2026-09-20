@@ -11,37 +11,40 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world|net.minecraft.world]]
 
+`enum` public final; extends `java/lang/Enum`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `values()[Lnet/minecraft/world/InteractionHand;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| reads | `MAIN_HANDLnet/minecraft/world/InteractionHand;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `MAIN_HANDLnet/minecraft/world/InteractionHand;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `MAIN_HANDLnet/minecraft/world/InteractionHand;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `MAIN_HANDLnet/minecraft/world/InteractionHand;` | `` | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| reads | `OFF_HANDLnet/minecraft/world/InteractionHand;` | `` | client | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `values` | `()[Lnet/minecraft/world/InteractionHand;` | exact | invokestatic@22 in `PlayerInventoryStorageImpl.offer` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `MAIN_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@31 in `PlayerMixin.onPlayerInteractEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `MAIN_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@25 in `ServerPlayerGameModeMixin.startBlockBreak` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `MAIN_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@23 in `MultiPlayerGameModeMixin.fabric_fireAttackBlockCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `MAIN_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@14 in `MultiPlayerGameModeMixin.attackEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `MAIN_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@27 in `FirstPersonHandsAndItemsMixin.modifyProgressAnimation` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `MAIN_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@4 in `PlayerInventoryStorageImpl.getHandSlot` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `OFF_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@75 in `FirstPersonHandsAndItemsMixin.modifyProgressAnimation` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| reads | `OFF_HAND` | `Lnet/minecraft/world/InteractionHand;` | exact | getstatic@56 in `PlayerInventoryStorageImpl.getHandSlot` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (15, all visibilities)
+## Declared members (6 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.InteractionHand extends java.lang.Enum<net.minecraft.world.InteractionHand> {
-    public static final net.minecraft.world.InteractionHand MAIN_HAND;
-    public static final net.minecraft.world.InteractionHand OFF_HAND;
-    private static final java.util.function.IntFunction<net.minecraft.world.InteractionHand> BY_ID;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.InteractionHand> STREAM_CODEC;
-    private final int id;
-    private static final net.minecraft.world.InteractionHand[] $VALUES;
-    public static net.minecraft.world.InteractionHand[] values();
-    public static net.minecraft.world.InteractionHand valueOf(java.lang.String);
-    private net.minecraft.world.InteractionHand(int);
-    public net.minecraft.world.entity.HumanoidArm asArm(net.minecraft.world.entity.HumanoidArm);
-    public net.minecraft.world.entity.EquipmentSlot asEquipmentSlot();
-    private static net.minecraft.world.InteractionHand[] $values();
-    private static int lambda$static$1(net.minecraft.world.InteractionHand);
-    private static int lambda$static$0(net.minecraft.world.InteractionHand);
-    static {};
-}
+```
+public static final MAIN_HAND : Lnet/minecraft/world/InteractionHand;
+public static final OFF_HAND : Lnet/minecraft/world/InteractionHand;
+private static final BY_ID : Ljava/util/function/IntFunction;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+private final id : I
+private static final synthetic $VALUES : [Lnet/minecraft/world/InteractionHand;
+public static values()[Lnet/minecraft/world/InteractionHand;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/world/InteractionHand;
+private <init>(Ljava/lang/String;II)V
+public asArm(Lnet/minecraft/world/entity/HumanoidArm;)Lnet/minecraft/world/entity/HumanoidArm;
+public asEquipmentSlot()Lnet/minecraft/world/entity/EquipmentSlot;
+private static synthetic $values()[Lnet/minecraft/world/InteractionHand;
+private static synthetic lambda$static$1(Lnet/minecraft/world/InteractionHand;)I
+private static synthetic lambda$static$0(Lnet/minecraft/world/InteractionHand;)I
+static <clinit>()V
 ```

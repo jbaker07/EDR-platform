@@ -13,12 +13,12 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: interface
 
 ```java
-public default net.minecraft.data.tags.TagAppender<T> setReplace(boolean)
-public default net.minecraft.data.tags.TagAppender<T> forceAddTag(net.minecraft.tags.TagKey<T>)
-public default net.minecraft.data.tags.TagAppender<T> remove(net.minecraft.resources.ResourceKey<T>)
-public default net.minecraft.data.tags.TagAppender<T> remove(net.minecraft.resources.ResourceKey<T>...)
-public default net.minecraft.data.tags.TagAppender<T> removeAll(java.util.Collection<net.minecraft.resources.ResourceKey<T>>)
-public default net.minecraft.data.tags.TagAppender<T> removeAll(java.util.stream.Stream<net.minecraft.resources.ResourceKey<T>>)
-public default net.minecraft.data.tags.TagAppender<T> removeTag(net.minecraft.tags.TagKey<T>)
-public default net.minecraft.tags.TagBuilder getBuilder()
+public net.minecraft.data.tags.TagAppender setReplace(boolean)
+public net.minecraft.data.tags.TagAppender forceAddTag(net.minecraft.tags.TagKey)
+public net.minecraft.data.tags.TagAppender remove(net.minecraft.resources.ResourceKey)
+public net.minecraft.data.tags.TagAppender remove(net.minecraft.resources.ResourceKey[])
+public net.minecraft.data.tags.TagAppender removeAll(java.util.Collection)
+public net.minecraft.data.tags.TagAppender removeAll(java.util.stream.Stream)
+public net.minecraft.data.tags.TagAppender removeTag(net.minecraft.tags.TagKey)
+public net.minecraft.tags.TagBuilder getBuilder()
 ```

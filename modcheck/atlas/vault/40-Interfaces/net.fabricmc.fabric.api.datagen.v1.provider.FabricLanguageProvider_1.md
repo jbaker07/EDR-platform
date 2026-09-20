@@ -13,8 +13,6 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: class
 
 ```java
-final java.util.TreeMap val$translationEntries
-net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider$1()
 public boolean has(java.lang.String)
 public java.lang.String overwrite(java.lang.String, java.lang.String)
 ```

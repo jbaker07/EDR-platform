@@ -11,37 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data|net.minecraft.data]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| wraps | `lambda$purgeStaleAndWrite$0` | `@Redirect at INVOKE Ljava/time/ZonedDateTime;now()Ljava/time/ZonedDateTime;` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| wraps | `lambda$purgeStaleAndWrite$0` | `(Ljava/util/Set;Ljava/lang/String;Lnet/minecraft/data/HashCache$Provid` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (20, all visibilities)
+## Declared members (10 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.HashCache {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.lang.String HEADER_MARKER;
-    private final java.nio.file.Path rootDir;
-    private final java.nio.file.Path cacheDir;
-    private final java.lang.String versionId;
-    private final java.util.Map<java.lang.String, net.minecraft.data.HashCache$ProviderCache> caches;
-    private final java.util.Set<java.lang.String> cachesToWrite;
-    private final java.util.Set<java.nio.file.Path> cachePaths;
-    private final int initialCount;
-    private int writes;
-    private java.nio.file.Path getProviderCachePath(java.lang.String);
-    public net.minecraft.data.HashCache(java.nio.file.Path, java.util.Collection<java.lang.String>, net.minecraft.WorldVersion) throws java.io.IOException;
-    private static net.minecraft.data.HashCache$ProviderCache readCache(java.nio.file.Path, java.nio.file.Path);
-    public boolean shouldRunInThisVersion(java.lang.String);
-    public java.util.concurrent.CompletableFuture<net.minecraft.data.HashCache$UpdateResult> generateUpdate(java.lang.String, net.minecraft.data.HashCache$UpdateFunction);
-    public void applyUpdate(net.minecraft.data.HashCache$UpdateResult);
-    public void purgeStaleAndWrite() throws java.io.IOException;
-    private void lambda$purgeStaleAndWrite$0(java.util.Set, java.lang.String, net.minecraft.data.HashCache$ProviderCache);
-    private static net.minecraft.data.HashCache$UpdateResult lambda$generateUpdate$0(net.minecraft.data.HashCache$CacheUpdater, java.lang.Object);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final HEADER_MARKER : Ljava/lang/String;
+private final rootDir : Ljava/nio/file/Path;
+private final cacheDir : Ljava/nio/file/Path;
+private final versionId : Ljava/lang/String;
+private final caches : Ljava/util/Map;
+private final cachesToWrite : Ljava/util/Set;
+private final cachePaths : Ljava/util/Set;
+private final initialCount : I
+private writes : I
+private getProviderCachePath(Ljava/lang/String;)Ljava/nio/file/Path;
+public <init>(Ljava/nio/file/Path;Ljava/util/Collection;Lnet/minecraft/WorldVersion;)V
+private static readCache(Ljava/nio/file/Path;Ljava/nio/file/Path;)Lnet/minecraft/data/HashCache$ProviderCache;
+public shouldRunInThisVersion(Ljava/lang/String;)Z
+public generateUpdate(Ljava/lang/String;Lnet/minecraft/data/HashCache$UpdateFunction;)Ljava/util/concurrent/CompletableFuture;
+public applyUpdate(Lnet/minecraft/data/HashCache$UpdateResult;)V
+public purgeStaleAndWrite()V
+private synthetic lambda$purgeStaleAndWrite$0(Ljava/util/Set;Ljava/lang/String;Lnet/minecraft/data/HashCache$ProviderCache;)V
+private static synthetic lambda$generateUpdate$0(Lnet/minecraft/data/HashCache$CacheUpdater;Ljava/lang/Object;)Lnet/minecraft/data/HashCache$UpdateResult;
+static <clinit>()V
 ```

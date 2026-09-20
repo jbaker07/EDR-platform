@@ -11,26 +11,27 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`enum` public final; extends `java/lang/Enum`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `BOTTOMLnet/minecraft/world/item/CreativeModeTab$Row;` | `` | both | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| reads | `TOPLnet/minecraft/world/item/CreativeModeTab$Row;` | `` | both | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `BOTTOM` | `Lnet/minecraft/world/item/CreativeModeTab$Row;` | exact | getstatic@241 in `CreativeModeTabsMixin.paginateTabs` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| reads | `TOP` | `Lnet/minecraft/world/item/CreativeModeTab$Row;` | exact | getstatic@235 in `CreativeModeTabsMixin.paginateTabs` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| reads | `TOP` | `Lnet/minecraft/world/item/CreativeModeTab$Row;` | exact | getstatic@259 in `CreativeModeTabsMixin.paginateTabs` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (3 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.CreativeModeTab$Row extends java.lang.Enum<net.minecraft.world.item.CreativeModeTab$Row> {
-    public static final net.minecraft.world.item.CreativeModeTab$Row TOP;
-    public static final net.minecraft.world.item.CreativeModeTab$Row BOTTOM;
-    private static final net.minecraft.world.item.CreativeModeTab$Row[] $VALUES;
-    public static net.minecraft.world.item.CreativeModeTab$Row[] values();
-    public static net.minecraft.world.item.CreativeModeTab$Row valueOf(java.lang.String);
-    private net.minecraft.world.item.CreativeModeTab$Row();
-    private static net.minecraft.world.item.CreativeModeTab$Row[] $values();
-    static {};
-}
+```
+public static final TOP : Lnet/minecraft/world/item/CreativeModeTab$Row;
+public static final BOTTOM : Lnet/minecraft/world/item/CreativeModeTab$Row;
+private static final synthetic $VALUES : [Lnet/minecraft/world/item/CreativeModeTab$Row;
+public static values()[Lnet/minecraft/world/item/CreativeModeTab$Row;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/world/item/CreativeModeTab$Row;
+private <init>(Ljava/lang/String;I)V
+private static synthetic $values()[Lnet/minecraft/world/item/CreativeModeTab$Row;
+static <clinit>()V
 ```

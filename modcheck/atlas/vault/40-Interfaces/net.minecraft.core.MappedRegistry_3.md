@@ -11,27 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` ; extends `java/lang/Object`; implements `net/minecraft/core/Registry$PendingTags`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `apply` | `@Inject at INVOKE Lnet/minecraft/core/MappedRegistry;refreshTagsInHolders()V` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `apply` | `()V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| reads | `this$0` | `Lnet/minecraft/core/MappedRegistry;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | declared |
 
-## Declared members (10, all visibilities)
+## Declared members (4 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-class net.minecraft.core.MappedRegistry$3 implements net.minecraft.core.Registry$PendingTags<T> {
-    final java.util.Map val$pendingContents;
-    final net.minecraft.core.HolderLookup$RegistryLookup val$patchedHolder;
-    final com.google.common.collect.ImmutableMap val$pendingTags;
-    final net.minecraft.core.MappedRegistry this$0;
-    net.minecraft.core.MappedRegistry$3(net.minecraft.core.MappedRegistry, java.util.Map, net.minecraft.core.HolderLookup$RegistryLookup, com.google.common.collect.ImmutableMap);
-    public net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<? extends T>> key();
-    public int size();
-    public net.minecraft.core.HolderLookup$RegistryLookup<T> lookup();
-    public void apply();
-    private static void lambda$apply$0(java.util.Map, net.minecraft.tags.TagKey, net.minecraft.core.HolderSet$Named);
-}
+```
+final synthetic val$pendingContents : Ljava/util/Map;
+final synthetic val$patchedHolder : Lnet/minecraft/core/HolderLookup$RegistryLookup;
+final synthetic val$pendingTags : Lcom/google/common/collect/ImmutableMap;
+final synthetic this$0 : Lnet/minecraft/core/MappedRegistry;
+ <init>(Lnet/minecraft/core/MappedRegistry;Ljava/util/Map;Lnet/minecraft/core/HolderLookup$RegistryLookup;Lcom/google/common/collect/ImmutableMap;)V
+public key()Lnet/minecraft/resources/ResourceKey;
+public size()I
+public lookup()Lnet/minecraft/core/HolderLookup$RegistryLookup;
+public apply()V
+private static synthetic lambda$apply$0(Ljava/util/Map;Lnet/minecraft/tags/TagKey;Lnet/minecraft/core/HolderSet$Named;)V
 ```

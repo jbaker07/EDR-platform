@@ -1,0 +1,25 @@
+{
+ "required": true,
+ "minVersion": "0.8",
+ "package": "fixtures.moda",
+ "compatibilityLevel": "JAVA_17",
+ "mixins": [
+  "A_Overwrite",
+  "B_Overwrite",
+  "B2_Overwrite",
+  "C_Redirect",
+  "D_Redirect",
+  "E_Inject",
+  "F_Overwrite",
+  "G_Inject1100",
+  "H_Cancel",
+  "J_OverwriteKeepsStep",
+  "K_OverwriteKeepsStep",
+  "L_Overwrite",
+  "M_OverwriteNoStep",
+  "N_Overwrite"
+ ],
+ "injectors": {
+  "defaultRequire": 1
+ }
+}

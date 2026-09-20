@@ -11,91 +11,98 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `net/minecraft/client/gui/screens/inventory/AbstractContainerScreen`; implements `net/fabricmc/fabric/api/client/creativetab/v1/FabricCreativeModeInventoryScreen`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `checkTabClicked` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| injects_into | `checkTabHovering` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| injects_into | `extractTabButton` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| injects_into | `init` | `@Inject at INVOKE Lnet/minecraft/client/gui/components/EditBox;setTextColor(I)V` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| injects_into | `keyPressed` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| injects_into | `selectTab` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getCurrentPage` | `()I` | inherited_exact | invokevirtual@153 in `FabricCreativeGuiComponents$CreativeModeTabButton.extractContents` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `getCurrentPage` | `()I` | inherited_exact | invokevirtual@1 in `FabricCreativeGuiComponents$Type.lambda$static$1` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `getCurrentPage` | `()I` | inherited_exact | invokevirtual@1 in `FabricCreativeGuiComponents$Type.lambda$static$0` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `getPageCount` | `()I` | inherited_exact | invokevirtual@7 in `FabricCreativeGuiComponents$Type.lambda$static$0` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `hasAdditionalPages` | `()Z` | inherited_exact | invokevirtual@25 in `FabricCreativeGuiComponents$CreativeModeTabButton.extractContents` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `selectTab` | `(Lnet/minecraft/world/item/CreativeModeTab;)V` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | declared |
+| injects_into | `checkTabClicked` | `(Lnet/minecraft/world/item/CreativeModeTab;DD)Z` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| injects_into | `checkTabHovering` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/i` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| injects_into | `extractTabButton` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IILnet/minecraft/world` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| injects_into | `init` | `?` | ambiguous | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| injects_into | `keyPressed` | `(Lnet/minecraft/client/input/KeyEvent;)Z` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| injects_into | `selectTab` | `(Lnet/minecraft/world/item/CreativeModeTab;)V` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| reads | `selectedTab` | `Lnet/minecraft/world/item/CreativeModeTab;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | declared |
 
-## Declared members (69, all visibilities)
+## Declared members (26 fields, 43 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen extends net.minecraft.client.gui.screens.inventory.AbstractContainerScreen<net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen$ItemPickerMenu> {
-    private static final net.minecraft.resources.Identifier SCROLLER_SPRITE;
-    private static final net.minecraft.resources.Identifier SCROLLER_DISABLED_SPRITE;
-    private static final net.minecraft.resources.Identifier[] UNSELECTED_TOP_TABS;
-    private static final net.minecraft.resources.Identifier[] SELECTED_TOP_TABS;
-    private static final net.minecraft.resources.Identifier[] UNSELECTED_BOTTOM_TABS;
-    private static final net.minecraft.resources.Identifier[] SELECTED_BOTTOM_TABS;
-    private static final int NUM_ROWS;
-    private static final int NUM_COLS;
-    private static final int TAB_WIDTH;
-    private static final int TAB_HEIGHT;
-    private static final int SCROLLER_WIDTH;
-    private static final int SCROLLER_HEIGHT;
-    private static final net.minecraft.world.SimpleContainer CONTAINER;
-    private static final net.minecraft.network.chat.Component TRASH_SLOT_TOOLTIP;
-    private static net.minecraft.world.item.CreativeModeTab selectedTab;
-    private float scrollOffs;
-    private boolean scrolling;
-    private net.minecraft.client.gui.components.EditBox searchBox;
-    private java.util.List<net.minecraft.world.inventory.Slot> originalSlots;
-    private net.minecraft.world.inventory.Slot destroyItemSlot;
-    private net.minecraft.client.gui.screens.inventory.CreativeInventoryListener listener;
-    private boolean ignoreTextInput;
-    private boolean hasClickedOutside;
-    private final java.util.Set<net.minecraft.tags.TagKey<net.minecraft.world.item.Item>> visibleTags;
-    private final boolean displayOperatorCreativeTab;
-    private final net.minecraft.client.gui.screens.inventory.EffectsInInventory effects;
-    public net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen(net.minecraft.client.player.LocalPlayer, net.minecraft.world.flag.FeatureFlagSet, boolean);
-    private boolean hasPermissions(net.minecraft.world.entity.player.Player);
-    private void tryRefreshInvalidatedTabs(net.minecraft.world.flag.FeatureFlagSet, boolean, net.minecraft.core.HolderLookup$Provider);
-    private boolean tryRebuildTabContents(net.minecraft.client.multiplayer.SessionSearchTrees, net.minecraft.world.flag.FeatureFlagSet, boolean, net.minecraft.core.HolderLookup$Provider);
-    private void refreshCurrentTabContents(java.util.Collection<net.minecraft.world.item.ItemStack>);
-    public void containerTick();
-    protected void slotClicked(net.minecraft.world.inventory.Slot, int, int, net.minecraft.world.inventory.ContainerInput);
-    private boolean isCreativeSlot(net.minecraft.world.inventory.Slot);
-    protected void init();
-    public void resize(int, int);
-    public void removed();
-    public boolean charTyped(net.minecraft.client.input.CharacterEvent);
-    public boolean preeditUpdated(net.minecraft.client.input.PreeditEvent);
-    public boolean keyPressed(net.minecraft.client.input.KeyEvent);
-    public boolean keyReleased(net.minecraft.client.input.KeyEvent);
-    public boolean isInputCaptured();
-    private void refreshSearchResults();
-    private void updateVisibleTags(java.lang.String);
-    protected void extractLabels(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent, boolean);
-    public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent);
-    private boolean canScroll();
-    private void selectTab(net.minecraft.world.item.CreativeModeTab);
-    public boolean mouseScrolled(double, double, double, double);
-    protected boolean hasClickedOutside(double, double, int, int);
-    protected boolean insideScrollbar(double, double);
-    public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent, double, double);
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    public boolean showsActiveEffects();
-    public java.util.List<net.minecraft.network.chat.Component> getTooltipFromContainerItem(net.minecraft.world.item.ItemStack);
-    public void extractBackground(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    private int getTabX(net.minecraft.world.item.CreativeModeTab);
-    private int getTabY(net.minecraft.world.item.CreativeModeTab);
-    protected boolean checkTabClicked(net.minecraft.world.item.CreativeModeTab, double, double);
-    protected boolean checkTabHovering(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.world.item.CreativeModeTab, int, int);
-    protected void extractTabButton(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, net.minecraft.world.item.CreativeModeTab);
-    public boolean isInventoryOpen();
-    public static void handleHotbarLoadOrSave(net.minecraft.client.Minecraft, int, boolean, boolean);
-    private static void lambda$getTooltipFromContainerItem$0(net.minecraft.world.item.ItemStack, java.util.List, net.minecraft.tags.TagKey);
-    private static boolean lambda$updateVisibleTags$2(java.util.function.Predicate, net.minecraft.tags.TagKey);
-    private static boolean lambda$updateVisibleTags$1(java.lang.String, java.lang.String, net.minecraft.resources.Identifier);
-    private static boolean lambda$updateVisibleTags$0(java.lang.String, net.minecraft.resources.Identifier);
-    static {};
-}
+```
+private static final SCROLLER_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final SCROLLER_DISABLED_SPRITE : Lnet/minecraft/resources/Identifier;
+private static final UNSELECTED_TOP_TABS : [Lnet/minecraft/resources/Identifier;
+private static final SELECTED_TOP_TABS : [Lnet/minecraft/resources/Identifier;
+private static final UNSELECTED_BOTTOM_TABS : [Lnet/minecraft/resources/Identifier;
+private static final SELECTED_BOTTOM_TABS : [Lnet/minecraft/resources/Identifier;
+private static final NUM_ROWS : I
+private static final NUM_COLS : I
+private static final TAB_WIDTH : I
+private static final TAB_HEIGHT : I
+private static final SCROLLER_WIDTH : I
+private static final SCROLLER_HEIGHT : I
+private static final CONTAINER : Lnet/minecraft/world/SimpleContainer;
+private static final TRASH_SLOT_TOOLTIP : Lnet/minecraft/network/chat/Component;
+private static selectedTab : Lnet/minecraft/world/item/CreativeModeTab;
+private scrollOffs : F
+private scrolling : Z
+private searchBox : Lnet/minecraft/client/gui/components/EditBox;
+private originalSlots : Ljava/util/List;
+private destroyItemSlot : Lnet/minecraft/world/inventory/Slot;
+private listener : Lnet/minecraft/client/gui/screens/inventory/CreativeInventoryListener;
+private ignoreTextInput : Z
+private hasClickedOutside : Z
+private final visibleTags : Ljava/util/Set;
+private final displayOperatorCreativeTab : Z
+private final effects : Lnet/minecraft/client/gui/screens/inventory/EffectsInInventory;
+public <init>(Lnet/minecraft/client/player/LocalPlayer;Lnet/minecraft/world/flag/FeatureFlagSet;Z)V
+private hasPermissions(Lnet/minecraft/world/entity/player/Player;)Z
+private tryRefreshInvalidatedTabs(Lnet/minecraft/world/flag/FeatureFlagSet;ZLnet/minecraft/core/HolderLookup$Provider;)V
+private tryRebuildTabContents(Lnet/minecraft/client/multiplayer/SessionSearchTrees;Lnet/minecraft/world/flag/FeatureFlagSet;ZLnet/minecraft/core/HolderLookup$Provider;)Z
+private refreshCurrentTabContents(Ljava/util/Collection;)V
+public containerTick()V
+protected slotClicked(Lnet/minecraft/world/inventory/Slot;IILnet/minecraft/world/inventory/ContainerInput;)V
+private isCreativeSlot(Lnet/minecraft/world/inventory/Slot;)Z
+protected init()V
+public resize(II)V
+public removed()V
+public charTyped(Lnet/minecraft/client/input/CharacterEvent;)Z
+public preeditUpdated(Lnet/minecraft/client/input/PreeditEvent;)Z
+public keyPressed(Lnet/minecraft/client/input/KeyEvent;)Z
+public keyReleased(Lnet/minecraft/client/input/KeyEvent;)Z
+public isInputCaptured()Z
+private refreshSearchResults()V
+private updateVisibleTags(Ljava/lang/String;)V
+protected extractLabels(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+public mouseClicked(Lnet/minecraft/client/input/MouseButtonEvent;Z)Z
+public mouseReleased(Lnet/minecraft/client/input/MouseButtonEvent;)Z
+private canScroll()Z
+private selectTab(Lnet/minecraft/world/item/CreativeModeTab;)V
+public mouseScrolled(DDDD)Z
+protected hasClickedOutside(DDII)Z
+protected insideScrollbar(DD)Z
+public mouseDragged(Lnet/minecraft/client/input/MouseButtonEvent;DD)Z
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+public showsActiveEffects()Z
+public getTooltipFromContainerItem(Lnet/minecraft/world/item/ItemStack;)Ljava/util/List;
+public extractBackground(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+private getTabX(Lnet/minecraft/world/item/CreativeModeTab;)I
+private getTabY(Lnet/minecraft/world/item/CreativeModeTab;)I
+protected checkTabClicked(Lnet/minecraft/world/item/CreativeModeTab;DD)Z
+protected checkTabHovering(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/item/CreativeModeTab;II)Z
+protected extractTabButton(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IILnet/minecraft/world/item/CreativeModeTab;)V
+public isInventoryOpen()Z
+public static handleHotbarLoadOrSave(Lnet/minecraft/client/Minecraft;IZZ)V
+private static synthetic lambda$getTooltipFromContainerItem$0(Lnet/minecraft/world/item/ItemStack;Ljava/util/List;Lnet/minecraft/tags/TagKey;)V
+private static synthetic lambda$updateVisibleTags$2(Ljava/util/function/Predicate;Lnet/minecraft/tags/TagKey;)Z
+private static synthetic lambda$updateVisibleTags$1(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/resources/Identifier;)Z
+private static synthetic lambda$updateVisibleTags$0(Ljava/lang/String;Lnet/minecraft/resources/Identifier;)Z
+static <clinit>()V
 ```

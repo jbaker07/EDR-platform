@@ -15,8 +15,8 @@ Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: class
 ```java
 public static net.minecraft.core.particles.SimpleParticleType simple()
 public static net.minecraft.core.particles.SimpleParticleType simple(boolean)
-public static <T extends net.minecraft.core.particles.ParticleOptions> net.minecraft.core.particles.ParticleType<T> complex(com.mojang.serialization.MapCodec<T>, net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, T>)
-public static <T extends net.minecraft.core.particles.ParticleOptions> net.minecraft.core.particles.ParticleType<T> complex(boolean, com.mojang.serialization.MapCodec<T>, net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, T>)
-public static <T extends net.minecraft.core.particles.ParticleOptions> net.minecraft.core.particles.ParticleType<T> complex(java.util.function.Function<net.minecraft.core.particles.ParticleType<T>, com.mojang.serialization.MapCodec<T>>, java.util.function.Function<net.minecraft.core.particles.ParticleType<T>, net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, T>>)
-public static <T extends net.minecraft.core.particles.ParticleOptions> net.minecraft.core.particles.ParticleType<T> complex(boolean, java.util.function.Function<net.minecraft.core.particles.ParticleType<T>, com.mojang.serialization.MapCodec<T>>, java.util.function.Function<net.minecraft.core.particles.ParticleType<T>, net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, T>>)
+public static net.minecraft.core.particles.ParticleType complex(com.mojang.serialization.MapCodec, net.minecraft.network.codec.StreamCodec)
+public static net.minecraft.core.particles.ParticleType complex(boolean, com.mojang.serialization.MapCodec, net.minecraft.network.codec.StreamCodec)
+public static net.minecraft.core.particles.ParticleType complex(java.util.function.Function, java.util.function.Function)
+public static net.minecraft.core.particles.ParticleType complex(boolean, java.util.function.Function, java.util.function.Function)
 ```

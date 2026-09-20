@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ClientPacketListenerMixin.onGameJoin` | `ClientPacketListener.handleLogin` @Inject at RETURN | client | static_inference |
+| `ClientPacketListenerMixin.onGameJoin` @33 | [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`handleLogin` @Inject RETURN | unknown | static_inference |
 
 ## Contract
 

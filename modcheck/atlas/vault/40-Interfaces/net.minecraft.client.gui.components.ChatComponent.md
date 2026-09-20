@@ -11,88 +11,88 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `addClientSystemMessage(Lnet/minecraft/network/chat/Component;)V` | `` | client | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `addClientSystemMessage` | `(Lnet/minecraft/network/chat/Component;)V` | exact | invokevirtual@14 in `ClientSuggestionProviderMixin.sendFeedback` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
 
-## Declared members (71, all visibilities)
+## Declared members (24 fields, 47 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.components.ChatComponent {
-    private static final org.slf4j.Logger LOGGER;
-    private static final int MAX_CHAT_HISTORY;
-    private static final int MESSAGE_INDENT;
-    private static final int BOTTOM_MARGIN;
-    private static final int TOOLTIP_MAX_WIDTH;
-    private static final int TIME_BEFORE_MESSAGE_DELETION;
-    private static final net.minecraft.network.chat.Component DELETED_CHAT_MESSAGE;
-    public static final int MESSAGE_BOTTOM_TO_MESSAGE_TOP;
-    public static final net.minecraft.resources.Identifier QUEUE_EXPAND_ID;
-    private static final net.minecraft.network.chat.Style QUEUE_EXPAND_TEXT_STYLE;
-    public static final net.minecraft.resources.Identifier GO_TO_RESTRICTIONS_SCREEN;
-    private static final net.minecraft.network.chat.Component RESTRICTED_CHAT_MESSAGE;
-    private static final net.minecraft.network.chat.Component RESTRICTED_CHAT_MESSAGE_WITH_HOVER;
-    private final net.minecraft.client.Minecraft minecraft;
-    private final net.minecraft.client.CommandHistory commandHistory;
-    private final net.minecraft.util.ArrayListDeque<java.lang.String> recentChat;
-    private final java.util.List<net.minecraft.client.multiplayer.chat.GuiMessage> allMessages;
-    private final java.util.List<net.minecraft.client.multiplayer.chat.GuiMessage$Line> trimmedMessages;
-    private int chatScrollbarPos;
-    private boolean newMessageSinceScroll;
-    private net.minecraft.client.gui.components.ChatComponent$Draft latestDraft;
-    private net.minecraft.client.gui.screens.ChatScreen preservedScreen;
-    private final java.util.List<net.minecraft.client.gui.components.ChatComponent$DelayedMessageDeletion> messageDeletionQueue;
-    private java.util.function.Predicate<net.minecraft.client.multiplayer.chat.GuiMessage> visibleMessageFilter;
-    public net.minecraft.client.gui.components.ChatComponent(net.minecraft.client.Minecraft);
-    public void tick();
-    public void setVisibleMessageFilter(java.util.function.Predicate<net.minecraft.client.multiplayer.chat.GuiMessage>);
-    private int forEachLine(net.minecraft.client.gui.components.ChatComponent$AlphaCalculator, net.minecraft.client.gui.components.ChatComponent$LineConsumer);
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, net.minecraft.client.gui.Font, int, int, int, net.minecraft.client.gui.components.ChatComponent$DisplayMode, boolean);
-    public void captureClickableText(net.minecraft.client.gui.ActiveTextCollector, int, int, net.minecraft.client.gui.components.ChatComponent$DisplayMode);
-    private void extractRenderState(net.minecraft.client.gui.components.ChatComponent$ChatGraphicsAccess, int, int, net.minecraft.client.gui.components.ChatComponent$DisplayMode);
-    public void clearMessages(boolean);
-    public void addClientSystemMessage(net.minecraft.network.chat.Component);
-    public void addServerSystemMessage(net.minecraft.network.chat.Component);
-    public void addPlayerMessage(net.minecraft.network.chat.Component, net.minecraft.network.chat.MessageSignature, net.minecraft.client.multiplayer.chat.GuiMessageTag);
-    private void addMessage(net.minecraft.network.chat.Component, net.minecraft.network.chat.MessageSignature, net.minecraft.client.multiplayer.chat.GuiMessageSource, net.minecraft.client.multiplayer.chat.GuiMessageTag);
-    private void logChatMessage(net.minecraft.client.multiplayer.chat.GuiMessage);
-    private void addMessageToDisplayQueue(net.minecraft.client.multiplayer.chat.GuiMessage);
-    private void addMessageToQueue(net.minecraft.client.multiplayer.chat.GuiMessage);
-    private void processMessageDeletionQueue();
-    public void deleteMessage(net.minecraft.network.chat.MessageSignature);
-    private net.minecraft.client.gui.components.ChatComponent$DelayedMessageDeletion deleteMessageOrDelay(net.minecraft.network.chat.MessageSignature);
-    private static net.minecraft.client.multiplayer.chat.GuiMessage createDeletedMarker(net.minecraft.client.multiplayer.chat.GuiMessage);
-    public void rescaleChat();
-    private void refreshTrimmedMessages();
-    public net.minecraft.util.ArrayListDeque<java.lang.String> getRecentChat();
-    public void addRecentChat(java.lang.String);
-    public void resetChatScroll();
-    public void scrollChat(int);
-    public boolean isChatFocused();
-    private int getWidth();
-    private int getHeight();
-    private double getScale();
-    public static int getWidth(double);
-    public static int getHeight(double);
-    public static double defaultUnfocusedPct();
-    public int getLinesPerPage();
-    private int getLineHeight();
-    public void saveAsDraft(java.lang.String);
-    public void discardDraft();
-    public <T extends net.minecraft.client.gui.screens.ChatScreen> T createScreen(net.minecraft.client.gui.components.ChatComponent$ChatMethod, net.minecraft.client.gui.screens.ChatScreen$ChatConstructor<T>);
-    public void openScreen(net.minecraft.client.gui.components.ChatComponent$ChatMethod, net.minecraft.client.gui.screens.ChatScreen$ChatConstructor<?>);
-    public void preserveCurrentChatScreen();
-    public net.minecraft.client.gui.screens.ChatScreen restoreChatScreen();
-    public net.minecraft.client.gui.components.ChatComponent$State storeState();
-    public void restoreState(net.minecraft.client.gui.components.ChatComponent$State);
-    private boolean lambda$processMessageDeletionQueue$0(int, net.minecraft.client.gui.components.ChatComponent$DelayedMessageDeletion);
-    private static void lambda$extractRenderState$1(int, int, net.minecraft.client.gui.components.ChatComponent$ChatGraphicsAccess, int, float, net.minecraft.client.multiplayer.chat.GuiMessage$Line, int, float);
-    private static void lambda$extractRenderState$0(float, org.joml.Matrix3x2f);
-    private static boolean lambda$new$0(net.minecraft.client.multiplayer.chat.GuiMessage);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final MAX_CHAT_HISTORY : I
+private static final MESSAGE_INDENT : I
+private static final BOTTOM_MARGIN : I
+private static final TOOLTIP_MAX_WIDTH : I
+private static final TIME_BEFORE_MESSAGE_DELETION : I
+private static final DELETED_CHAT_MESSAGE : Lnet/minecraft/network/chat/Component;
+public static final MESSAGE_BOTTOM_TO_MESSAGE_TOP : I
+public static final QUEUE_EXPAND_ID : Lnet/minecraft/resources/Identifier;
+private static final QUEUE_EXPAND_TEXT_STYLE : Lnet/minecraft/network/chat/Style;
+public static final GO_TO_RESTRICTIONS_SCREEN : Lnet/minecraft/resources/Identifier;
+private static final RESTRICTED_CHAT_MESSAGE : Lnet/minecraft/network/chat/Component;
+private static final RESTRICTED_CHAT_MESSAGE_WITH_HOVER : Lnet/minecraft/network/chat/Component;
+private final minecraft : Lnet/minecraft/client/Minecraft;
+private final commandHistory : Lnet/minecraft/client/CommandHistory;
+private final recentChat : Lnet/minecraft/util/ArrayListDeque;
+private final allMessages : Ljava/util/List;
+private final trimmedMessages : Ljava/util/List;
+private chatScrollbarPos : I
+private newMessageSinceScroll : Z
+private latestDraft : Lnet/minecraft/client/gui/components/ChatComponent$Draft;
+private preservedScreen : Lnet/minecraft/client/gui/screens/ChatScreen;
+private final messageDeletionQueue : Ljava/util/List;
+private visibleMessageFilter : Ljava/util/function/Predicate;
+public <init>(Lnet/minecraft/client/Minecraft;)V
+public tick()V
+public setVisibleMessageFilter(Ljava/util/function/Predicate;)V
+private forEachLine(Lnet/minecraft/client/gui/components/ChatComponent$AlphaCalculator;Lnet/minecraft/client/gui/components/ChatComponent$LineConsumer;)I
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Font;IIILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;Z)V
+public captureClickableText(Lnet/minecraft/client/gui/ActiveTextCollector;IILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;)V
+private extractRenderState(Lnet/minecraft/client/gui/components/ChatComponent$ChatGraphicsAccess;IILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;)V
+public clearMessages(Z)V
+public addClientSystemMessage(Lnet/minecraft/network/chat/Component;)V
+public addServerSystemMessage(Lnet/minecraft/network/chat/Component;)V
+public addPlayerMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/multiplayer/chat/GuiMessageTag;)V
+private addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/multiplayer/chat/GuiMessageSource;Lnet/minecraft/client/multiplayer/chat/GuiMessageTag;)V
+private logChatMessage(Lnet/minecraft/client/multiplayer/chat/GuiMessage;)V
+private addMessageToDisplayQueue(Lnet/minecraft/client/multiplayer/chat/GuiMessage;)V
+private addMessageToQueue(Lnet/minecraft/client/multiplayer/chat/GuiMessage;)V
+private processMessageDeletionQueue()V
+public deleteMessage(Lnet/minecraft/network/chat/MessageSignature;)V
+private deleteMessageOrDelay(Lnet/minecraft/network/chat/MessageSignature;)Lnet/minecraft/client/gui/components/ChatComponent$DelayedMessageDeletion;
+private static createDeletedMarker(Lnet/minecraft/client/multiplayer/chat/GuiMessage;)Lnet/minecraft/client/multiplayer/chat/GuiMessage;
+public rescaleChat()V
+private refreshTrimmedMessages()V
+public getRecentChat()Lnet/minecraft/util/ArrayListDeque;
+public addRecentChat(Ljava/lang/String;)V
+public resetChatScroll()V
+public scrollChat(I)V
+public isChatFocused()Z
+private getWidth()I
+private getHeight()I
+private getScale()D
+public static getWidth(D)I
+public static getHeight(D)I
+public static defaultUnfocusedPct()D
+public getLinesPerPage()I
+private getLineHeight()I
+public saveAsDraft(Ljava/lang/String;)V
+public discardDraft()V
+public createScreen(Lnet/minecraft/client/gui/components/ChatComponent$ChatMethod;Lnet/minecraft/client/gui/screens/ChatScreen$ChatConstructor;)Lnet/minecraft/client/gui/screens/ChatScreen;
+public openScreen(Lnet/minecraft/client/gui/components/ChatComponent$ChatMethod;Lnet/minecraft/client/gui/screens/ChatScreen$ChatConstructor;)V
+public preserveCurrentChatScreen()V
+public restoreChatScreen()Lnet/minecraft/client/gui/screens/ChatScreen;
+public storeState()Lnet/minecraft/client/gui/components/ChatComponent$State;
+public restoreState(Lnet/minecraft/client/gui/components/ChatComponent$State;)V
+private synthetic lambda$processMessageDeletionQueue$0(ILnet/minecraft/client/gui/components/ChatComponent$DelayedMessageDeletion;)Z
+private static synthetic lambda$extractRenderState$1(IILnet/minecraft/client/gui/components/ChatComponent$ChatGraphicsAccess;IFLnet/minecraft/client/multiplayer/chat/GuiMessage$Line;IF)V
+private static synthetic lambda$extractRenderState$0(FLorg/joml/Matrix3x2f;)V
+private static synthetic lambda$new$0(Lnet/minecraft/client/multiplayer/chat/GuiMessage;)Z
+static <clinit>()V
 ```

@@ -26,5 +26,4 @@ public static int getTemperature(net.fabricmc.fabric.api.transfer.v1.fluid.Fluid
 public static int getViscosity(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.world.level.Level)
 public static boolean isLighterThanAir(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
 public static void enableColoredVanillaFluidNames()
-static {}
 ```

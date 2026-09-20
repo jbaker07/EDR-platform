@@ -13,10 +13,10 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.transfer.v1.fluid.base.EmptyItemFluidStorage(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, net.minecraft.world.item.Item, net.minecraft.world.level.material.Fluid, long)
-public net.fabricmc.fabric.api.transfer.v1.fluid.base.EmptyItemFluidStorage(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, java.util.function.Function<net.fabricmc.fabric.api.transfer.v1.item.ItemVariant, net.fabricmc.fabric.api.transfer.v1.item.ItemVariant>, net.minecraft.world.level.material.Fluid, long)
+public <init>(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, net.minecraft.world.item.Item, net.minecraft.world.level.material.Fluid, long)
+public <init>(net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext, java.util.function.Function, net.minecraft.world.level.material.Fluid, long)
 public long insert(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
-public java.util.Iterator<net.fabricmc.fabric.api.transfer.v1.storage.StorageView<net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant>> iterator()
+public java.util.Iterator iterator()
 public java.lang.String toString()
 public long insert(java.lang.Object, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
 ```

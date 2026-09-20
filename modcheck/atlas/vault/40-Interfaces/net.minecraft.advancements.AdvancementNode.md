@@ -11,38 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.advancements|net.minecraft.advancements]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `holder()Lnet/minecraft/advancements/AdvancementHolder;` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `holder` | `()Lnet/minecraft/advancements/AdvancementHolder;` | exact | invokevirtual@4 in `AdvancementWidgetMixin.extractAdvancementIcon` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `holder` | `()Lnet/minecraft/advancements/AdvancementHolder;` | exact | invokevirtual@53 in `AdvancementWidgetMixin.extractAdvancementIcon` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `holder` | `()Lnet/minecraft/advancements/AdvancementHolder;` | exact | invokevirtual@4 in `AdvancementWidgetMixin.extractAdvancementFrame` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `holder` | `()Lnet/minecraft/advancements/AdvancementHolder;` | exact | invokevirtual@53 in `AdvancementWidgetMixin.extractAdvancementFrame` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `holder` | `()Lnet/minecraft/advancements/AdvancementHolder;` | exact | invokevirtual@4 in `AdvancementWidgetMixin.captureExtractTooltip` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (5 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.advancements.AdvancementNode {
-    private final net.minecraft.advancements.AdvancementHolder holder;
-    private final net.minecraft.advancements.AdvancementNode parent;
-    private final java.util.Set<net.minecraft.advancements.AdvancementNode> children;
-    private float x;
-    private float y;
-    public net.minecraft.advancements.AdvancementNode(net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.AdvancementNode);
-    public net.minecraft.advancements.Advancement advancement();
-    public net.minecraft.advancements.AdvancementHolder holder();
-    public boolean isTask();
-    public boolean isRoot();
-    public net.minecraft.advancements.AdvancementNode parent();
-    public net.minecraft.advancements.AdvancementNode root();
-    public static net.minecraft.advancements.AdvancementNode getRoot(net.minecraft.advancements.AdvancementNode);
-    public java.lang.Iterable<net.minecraft.advancements.AdvancementNode> children();
-    public void addChild(net.minecraft.advancements.AdvancementNode);
-    public void setLocation(float, float);
-    public float x();
-    public float y();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public java.lang.String toString();
-}
+```
+private final holder : Lnet/minecraft/advancements/AdvancementHolder;
+private final parent : Lnet/minecraft/advancements/AdvancementNode;
+private final children : Ljava/util/Set;
+private x : F
+private y : F
+public <init>(Lnet/minecraft/advancements/AdvancementHolder;Lnet/minecraft/advancements/AdvancementNode;)V
+public advancement()Lnet/minecraft/advancements/Advancement;
+public holder()Lnet/minecraft/advancements/AdvancementHolder;
+public isTask()Z
+public isRoot()Z
+public parent()Lnet/minecraft/advancements/AdvancementNode;
+public root()Lnet/minecraft/advancements/AdvancementNode;
+public static getRoot(Lnet/minecraft/advancements/AdvancementNode;)Lnet/minecraft/advancements/AdvancementNode;
+public children()Ljava/lang/Iterable;
+public addChild(Lnet/minecraft/advancements/AdvancementNode;)V
+public setLocation(FF)V
+public x()F
+public y()F
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public toString()Ljava/lang/String;
 ```

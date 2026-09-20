@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `java/util/AbstractList`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `set(ILjava/lang/Object;)Ljava/lang/Object;` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `set(ILjava/lang/Object;)Ljava/lang/Object;` | `` | both | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `set` | `(ILjava/lang/Object;)Ljava/lang/Object;` | exact | invokevirtual@13 in `AbstractFurnaceBlockEntityMixin.setStackSuppressUpdate` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `set` | `(ILjava/lang/Object;)Ljava/lang/Object;` | exact | invokevirtual@13 in `ChiseledBookShelfBlockEntityMixin.setStackBypass` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (2 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.NonNullList<E> extends java.util.AbstractList<E> {
-    private final java.util.List<E> list;
-    private final E defaultValue;
-    public static <E> net.minecraft.core.NonNullList<E> create();
-    public static <E> net.minecraft.core.NonNullList<E> createWithCapacity(int);
-    public static <E> net.minecraft.core.NonNullList<E> withSize(int, E);
-    public static <E> net.minecraft.core.NonNullList<E> of(E, E...);
-    protected net.minecraft.core.NonNullList(java.util.List<E>, E);
-    public E get(int);
-    public E set(int, E);
-    public void add(int, E);
-    public E remove(int);
-    public int size();
-    public void clear();
-}
+```
+private final list : Ljava/util/List;
+private final defaultValue : Ljava/lang/Object;
+public static create()Lnet/minecraft/core/NonNullList;
+public static createWithCapacity(I)Lnet/minecraft/core/NonNullList;
+public static withSize(ILjava/lang/Object;)Lnet/minecraft/core/NonNullList;
+public static of(Ljava/lang/Object;[Ljava/lang/Object;)Lnet/minecraft/core/NonNullList;
+protected <init>(Ljava/util/List;Ljava/lang/Object;)V
+public get(I)Ljava/lang/Object;
+public set(ILjava/lang/Object;)Ljava/lang/Object;
+public add(ILjava/lang/Object;)V
+public remove(I)Ljava/lang/Object;
+public size()I
+public clear()V
 ```

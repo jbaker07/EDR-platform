@@ -13,7 +13,7 @@ sha256: "1ef63bc24f6319cc43d2d4add8a2df5e8c3986b5bd1f39b920a5bd7738ec52e3"
 Module: [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.debug.v1.EntityDebugSubscriptionRegistry()
-public static <T, E extends net.minecraft.world.entity.Entity> void register(net.minecraft.util.debug.DebugSubscription<T>, java.util.function.Predicate<net.minecraft.world.entity.Entity>, net.fabricmc.fabric.api.debug.v1.DebugValueFactory<E, T>)
-public static <T, E extends net.minecraft.world.entity.Entity> void register(net.minecraft.util.debug.DebugSubscription<T>, java.util.function.Predicate<net.minecraft.world.entity.Entity>, net.fabricmc.fabric.api.debug.v1.DebugValueFactory<E, T>, boolean)
+public <init>()
+public static void register(net.minecraft.util.debug.DebugSubscription, java.util.function.Predicate, net.fabricmc.fabric.api.debug.v1.DebugValueFactory)
+public static void register(net.minecraft.util.debug.DebugSubscription, java.util.function.Predicate, net.fabricmc.fabric.api.debug.v1.DebugValueFactory, boolean)
 ```

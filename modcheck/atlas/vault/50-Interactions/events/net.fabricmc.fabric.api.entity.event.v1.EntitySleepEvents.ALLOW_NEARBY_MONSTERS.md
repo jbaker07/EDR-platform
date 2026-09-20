@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerPlayerMixin.hasNoMonstersNearby` | `ServerPlayer.startSleepInBed` @Redirect at INVOKE Ljava/util/List;isEmpty()Z | both | static_inference |
+| `ServerPlayerMixin.hasNoMonstersNearby` @25 | [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`startSleepInBed` @Redirect INVOKE `Ljava/util/List;isEmpty()Z` | unknown | static_inference |
 
 ## Contract
 

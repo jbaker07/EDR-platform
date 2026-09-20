@@ -14,10 +14,10 @@ Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api
 
 ```java
 protected final net.fabricmc.fabric.api.datagen.v1.FabricPackOutput output
-protected net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>)
-public abstract void generateAdvancement(net.minecraft.core.HolderLookup$Provider, java.util.function.Consumer<net.minecraft.advancements.AdvancementHolder>)
-protected java.util.function.Consumer<net.minecraft.advancements.AdvancementHolder> withConditions(java.util.function.Consumer<net.minecraft.advancements.AdvancementHolder>, net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition...)
+protected <init>(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture)
+public abstract void generateAdvancement(net.minecraft.core.HolderLookup$Provider, java.util.function.Consumer)
+protected java.util.function.Consumer withConditions(java.util.function.Consumer, net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition[])
 public static net.minecraft.advancements.AdvancementHolder createPlaceholder(net.minecraft.resources.Identifier)
-public java.util.concurrent.CompletableFuture<?> run(net.minecraft.data.CachedOutput)
+public java.util.concurrent.CompletableFuture run(net.minecraft.data.CachedOutput)
 public java.lang.String getName()
 ```

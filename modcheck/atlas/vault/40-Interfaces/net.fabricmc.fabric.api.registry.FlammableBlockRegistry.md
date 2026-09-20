@@ -15,6 +15,6 @@ Module: [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v
 ```java
 public static net.fabricmc.fabric.api.registry.FlammableBlockRegistry getDefaultInstance()
 public static net.fabricmc.fabric.api.registry.FlammableBlockRegistry getInstance(net.minecraft.world.level.block.Block)
-public default void add(net.minecraft.world.level.block.Block, int, int)
-public default void add(net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>, int, int)
+public void add(net.minecraft.world.level.block.Block, int, int)
+public void add(net.minecraft.tags.TagKey, int, int)
 ```

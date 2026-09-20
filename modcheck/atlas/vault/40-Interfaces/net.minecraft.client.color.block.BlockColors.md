@@ -11,31 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.color|net.minecraft.client.color]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getTintSources(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/ut` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `getTintSources(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/ut` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `register(Ljava/util/List;[Lnet/minecraft/world/level/block/Block;)V` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `createDefault` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getTintSources` | `(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/List;` | exact | invokevirtual@5 in `AltModelBlockRendererImpl.configureTintCache` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `getTintSources` | `(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/List;` | exact | invokevirtual@75 in `BlockColorRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `register` | `(Ljava/util/List;[Lnet/minecraft/world/level/block/Block;)V` | exact | invokevirtual@72 in `BlockColorRegistryImpl.register` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `register` | `(Ljava/util/List;[Lnet/minecraft/world/level/block/Block;)V` | exact | invokevirtual@10 in `BlockColorRegistryImpl.lambda$initialize$0` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `createDefault` | `()Lnet/minecraft/client/color/block/BlockColors;` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (4 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.color.block.BlockColors {
-    public static final int LILY_PAD_IN_WORLD;
-    public static final int LILY_PAD_DEFAULT;
-    private static final net.minecraft.client.color.block.BlockTintSource BLANK_LAYER;
-    private final java.util.Map<net.minecraft.world.level.block.Block, java.util.List<net.minecraft.client.color.block.BlockTintSource>> sources;
-    public net.minecraft.client.color.block.BlockColors();
-    public static net.minecraft.client.color.block.BlockColors createDefault();
-    public java.util.List<net.minecraft.client.color.block.BlockTintSource> getTintSources(net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.client.color.block.BlockTintSource getTintSource(net.minecraft.world.level.block.state.BlockState, int);
-    public void register(java.util.List<net.minecraft.client.color.block.BlockTintSource>, net.minecraft.world.level.block.Block...);
-    public java.util.Set<net.minecraft.world.level.block.state.properties.Property<?>> getColoringProperties(net.minecraft.world.level.block.Block);
-    static {};
-}
+```
+public static final LILY_PAD_IN_WORLD : I
+public static final LILY_PAD_DEFAULT : I
+private static final BLANK_LAYER : Lnet/minecraft/client/color/block/BlockTintSource;
+private final sources : Ljava/util/Map;
+public <init>()V
+public static createDefault()Lnet/minecraft/client/color/block/BlockColors;
+public getTintSources(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/List;
+public getTintSource(Lnet/minecraft/world/level/block/state/BlockState;I)Lnet/minecraft/client/color/block/BlockTintSource;
+public register(Ljava/util/List;[Lnet/minecraft/world/level/block/Block;)V
+public getColoringProperties(Lnet/minecraft/world/level/block/Block;)Ljava/util/Set;
+static <clinit>()V
 ```

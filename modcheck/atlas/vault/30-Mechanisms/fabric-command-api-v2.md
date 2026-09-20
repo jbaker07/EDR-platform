@@ -20,36 +20,40 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `["fabric-command-api-v2.mixins.json", {"config": "fabric-command-api-v2.client.mixins.json", "environment": "client"}]`
 - access widener: `fabric-command-api-v2.classtweaker`
+- mixin classes: 8 found by annotation, 8 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - [[50-Interactions/events/net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback.EVENT|ClientCommandRegistrationCallback.EVENT]]
 - [[50-Interactions/events/net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT|CommandRegistrationCallback.EVENT]]
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]] | `<init>` | injects_into `@Inject at RETURN` | client | `ClientPacketListenerMixin.init` |
-| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]] | `handleCommands` | injects_into `@Inject at RETURN` | client | `ClientPacketListenerMixin.onOnCommandTree` |
-| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]] | `handleCommands` | injects_into `@Inject at INVOKE Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V` | client | `ClientPacketListenerMixin.setLastReceivedCommandsPacket` |
-| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]] | `handleLogin` | injects_into `@Inject at RETURN` | client | `ClientPacketListenerMixin.onGameJoin` |
-| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]] | `sendCommand` | injects_into `@Inject at HEAD` | client | `ClientPacketListenerMixin.onSendCommand` |
-| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]] | `sendUnattendedCommand` | injects_into `@Inject at HEAD` | client | `ClientPacketListenerMixin.onSendCommand` |
-| [[40-Interfaces/net.minecraft.commands.Commands|Commands]] | `<init>` | injects_into `@Inject at INVOKE Lcom/mojang/brigadier/CommandDispatcher;setConsumer(Lcom/mojang/brigadier/ResultConsumer;)V` | both | `CommandsMixin.fabric_addCommands` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`<init>` | `(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/Connection;Lnet/minecraft/client/multiplayer/CommonListenerCookie;)V` | name_only | @Inject | RETURN | client | 1000 (default) | `ClientPacketListenerMixin.init` |
+| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`handleCommands` | `(Lnet/minecraft/network/protocol/game/ClientboundCommandsPacket;)V` | name_only | @Inject | RETURN | client | 1000 (default) | `ClientPacketListenerMixin.onOnCommandTree` |
+| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`handleCommands` | `(Lnet/minecraft/network/protocol/game/ClientboundCommandsPacket;)V` | name_only | @Inject | INVOKE `Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/network/PacketProcessor;)V` (exact) | client | 1000 (default) | `ClientPacketListenerMixin.setLastReceivedCommandsPacket` |
+| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`handleLogin` | `(Lnet/minecraft/network/protocol/game/ClientboundLoginPacket;)V` | name_only | @Inject | RETURN | client | 1000 (default) | `ClientPacketListenerMixin.onGameJoin` |
+| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`sendCommand` | `(Ljava/lang/String;)V` | name_only | @Inject | HEAD | client | 1000 (default) | `ClientPacketListenerMixin.onSendCommand` |
+| [[40-Interfaces/net.minecraft.client.multiplayer.ClientPacketListener|ClientPacketListener]].`sendUnattendedCommand` | `(Ljava/lang/String;Lnet/minecraft/client/gui/screens/Screen;)V` | name_only | @Inject | HEAD | client | 1000 (default) | `ClientPacketListenerMixin.onSendCommand` |
+| [[40-Interfaces/net.minecraft.commands.Commands|Commands]].`<init>` | `(Lnet/minecraft/commands/Commands$CommandSelection;Lnet/minecraft/commands/CommandBuildContext;)V` | name_only | @Inject | INVOKE `Lcom/mojang/brigadier/CommandDispatcher;setConsumer(Lcom/mojang/brigadier/ResultConsumer;)V` (exact) | both | 1000 (default) | `CommandsMixin.fabric_addCommands` |
 
 ## API surface
 
-- [[40-Interfaces/net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback|ClientCommandRegistrationCallback]] (interface, 3 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback|ClientCommandRegistrationCallback]] (interface, 2 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.client.command.v2.ClientCommands|ClientCommands]] (class, 4 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource|FabricClientCommandSource]] (interface, 10 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry|ArgumentTypeRegistry]] (class, 1 members)
-- [[40-Interfaces/net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback|CommandRegistrationCallback]] (interface, 3 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback|CommandRegistrationCallback]] (interface, 2 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.command.v2.EntitySelectorOptionRegistry|EntitySelectorOptionRegistry]] (class, 2 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.command.v2.FabricEntitySelectorParser|FabricEntitySelectorParser]] (interface, 2 members)
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

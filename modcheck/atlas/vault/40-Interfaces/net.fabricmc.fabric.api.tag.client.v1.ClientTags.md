@@ -13,8 +13,8 @@ sha256: "6c2fa7a4d870ee33305c946e5dce6870f92f7f909fa0aa84011d976527e1b3cb"
 Module: [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] -- kind: class
 
 ```java
-public static java.util.Set<net.minecraft.resources.Identifier> getOrCreateLocalTag(net.minecraft.tags.TagKey<?>)
-public static <T> boolean isInWithLocalFallback(net.minecraft.tags.TagKey<T>, T)
-public static <T> boolean isInWithLocalFallback(net.minecraft.tags.TagKey<T>, net.minecraft.core.Holder<T>)
-public static <T> boolean isInLocal(net.minecraft.tags.TagKey<T>, net.minecraft.resources.ResourceKey<T>)
+public static java.util.Set getOrCreateLocalTag(net.minecraft.tags.TagKey)
+public static boolean isInWithLocalFallback(net.minecraft.tags.TagKey, java.lang.Object)
+public static boolean isInWithLocalFallback(net.minecraft.tags.TagKey, net.minecraft.core.Holder)
+public static boolean isInLocal(net.minecraft.tags.TagKey, net.minecraft.resources.ResourceKey)
 ```

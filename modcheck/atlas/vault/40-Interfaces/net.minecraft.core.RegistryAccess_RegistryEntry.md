@@ -11,30 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `key()Lnet/minecraft/resources/ResourceKey;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `value()Lnet/minecraft/core/Registry;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `value()Lnet/minecraft/core/Registry;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry;)V` | exact | invokespecial@11 in `DynamicRegistryViewImpl$1.entry` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/resources/ResourceKey;` | exact | invokevirtual@4 in `RegistrySynchronizationMixin.filterNonSyncedEntries` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/core/Registry;` | exact | invokevirtual@18 in `RegistrySynchronizationMixin.filterNonSyncedEntries` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `value` | `()Lnet/minecraft/core/Registry;` | exact | invokevirtual@34 in `TagAliasLoader.applyToDynamicRegistries` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (11, all visibilities)
+## Declared members (2 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.core.RegistryAccess$RegistryEntry<T> extends java.lang.Record {
-    private final net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key;
-    private final net.minecraft.core.Registry<T> value;
-    public net.minecraft.core.RegistryAccess$RegistryEntry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.core.Registry<T>);
-    private static <T, R extends net.minecraft.core.Registry<? extends T>> net.minecraft.core.RegistryAccess$RegistryEntry<T> fromMapEntry(java.util.Map$Entry<? extends net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, R>);
-    private static <T> net.minecraft.core.RegistryAccess$RegistryEntry<T> fromUntyped(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>, net.minecraft.core.Registry<?>);
-    private net.minecraft.core.RegistryAccess$RegistryEntry<T> freeze();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key();
-    public net.minecraft.core.Registry<T> value();
-}
+```
+private final key : Lnet/minecraft/resources/ResourceKey;
+private final value : Lnet/minecraft/core/Registry;
+public <init>(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry;)V
+private static fromMapEntry(Ljava/util/Map$Entry;)Lnet/minecraft/core/RegistryAccess$RegistryEntry;
+private static fromUntyped(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry;)Lnet/minecraft/core/RegistryAccess$RegistryEntry;
+private freeze()Lnet/minecraft/core/RegistryAccess$RegistryEntry;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public key()Lnet/minecraft/resources/ResourceKey;
+public value()Lnet/minecraft/core/Registry;
 ```

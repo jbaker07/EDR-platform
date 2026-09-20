@@ -14,10 +14,10 @@ Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api
 
 ```java
 protected final net.fabricmc.fabric.api.datagen.v1.FabricPackOutput output
-public net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup$Provider>)
-protected abstract net.minecraft.data.recipes.RecipeProvider createRecipeProvider(net.minecraft.core.HolderLookup$Provider, net.minecraft.data.worldgen.BootstrapContext<net.minecraft.world.item.crafting.Recipe<?>>, net.minecraft.data.worldgen.BootstrapContext<net.minecraft.advancements.Advancement>)
-protected net.minecraft.data.recipes.RecipeOutput withConditions(net.minecraft.data.recipes.RecipeOutput, net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition...)
-public java.util.concurrent.CompletableFuture<?> run(net.minecraft.data.CachedOutput)
+public <init>(net.fabricmc.fabric.api.datagen.v1.FabricPackOutput, java.util.concurrent.CompletableFuture)
+protected abstract net.minecraft.data.recipes.RecipeProvider createRecipeProvider(net.minecraft.core.HolderLookup$Provider, net.minecraft.data.worldgen.BootstrapContext, net.minecraft.data.worldgen.BootstrapContext)
+protected net.minecraft.data.recipes.RecipeOutput withConditions(net.minecraft.data.recipes.RecipeOutput, net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition[])
+public java.util.concurrent.CompletableFuture run(net.minecraft.data.CachedOutput)
 protected net.minecraft.resources.Identifier getRecipeIdentifier(net.minecraft.resources.Identifier)
 public java.lang.String getName()
 ```

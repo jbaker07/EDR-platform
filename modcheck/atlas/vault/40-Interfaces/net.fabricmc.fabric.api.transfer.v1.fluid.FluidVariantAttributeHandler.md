@@ -13,13 +13,13 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: interface
 
 ```java
-public default net.minecraft.network.chat.Component getName(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public default net.minecraft.network.chat.Component getColoredName(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public default int getAssociatedColor(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public default java.util.Optional<net.minecraft.sounds.SoundEvent> getFillSound(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public default java.util.Optional<net.minecraft.sounds.SoundEvent> getEmptySound(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public default int getLightEmission(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public default int getTemperature(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
-public default int getViscosity(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.world.level.Level)
-public default boolean isLighterThanAir(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public net.minecraft.network.chat.Component getName(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public net.minecraft.network.chat.Component getColoredName(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public int getAssociatedColor(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public java.util.Optional getFillSound(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public java.util.Optional getEmptySound(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public int getLightEmission(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public int getTemperature(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
+public int getViscosity(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant, net.minecraft.world.level.Level)
+public boolean isLighterThanAir(net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant)
 ```

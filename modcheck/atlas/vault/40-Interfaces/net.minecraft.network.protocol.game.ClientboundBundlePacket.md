@@ -11,21 +11,21 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.protocol|net.minecraft.network.protocol]]
 
+`class` public; extends `net/minecraft/network/protocol/BundlePacket`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/lang/Iterable;)V` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/Iterable;)V` | exact | invokespecial@85 in `AttachmentSync.trySync` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (4, all visibilities)
+## Declared members (0 fields, 4 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.network.protocol.game.ClientboundBundlePacket extends net.minecraft.network.protocol.BundlePacket<net.minecraft.network.protocol.game.ClientGamePacketListener> {
-    public net.minecraft.network.protocol.game.ClientboundBundlePacket(java.lang.Iterable<net.minecraft.network.protocol.Packet<? super net.minecraft.network.protocol.game.ClientGamePacketListener>>);
-    public net.minecraft.network.protocol.PacketType<net.minecraft.network.protocol.game.ClientboundBundlePacket> type();
-    public void handle(net.minecraft.network.protocol.game.ClientGamePacketListener);
-    public void handle(net.minecraft.network.PacketListener);
-}
+```
+public <init>(Ljava/lang/Iterable;)V
+public type()Lnet/minecraft/network/protocol/PacketType;
+public handle(Lnet/minecraft/network/protocol/game/ClientGamePacketListener;)V
+public synthetic handle(Lnet/minecraft/network/PacketListener;)V
 ```

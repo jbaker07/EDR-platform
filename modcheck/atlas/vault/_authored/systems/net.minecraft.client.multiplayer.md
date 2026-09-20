@@ -9,7 +9,7 @@ side: "client"
 
 # Client-side world and connection
 
-Package `net.minecraft.client.multiplayer` -- generated view: [[20-Systems/net.minecraft.client.multiplayer|hooked types]]
+Package `net.minecraft.client.multiplayer` -- generated view: [[20-Systems/net.minecraft.client.multiplayer|inventory and hooked types]]
 
 **Responsibility.** ClientLevel, ClientPacketListener (the client end of the connection), MultiPlayerGameMode (client-initiated interactions and prediction). 15 hooked types.
 

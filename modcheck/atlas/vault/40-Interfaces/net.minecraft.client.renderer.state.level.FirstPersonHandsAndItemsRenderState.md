@@ -11,44 +11,44 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `clearExtraData()V` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `clearExtraData` | `()V` | inherited_exact | invokevirtual@13 in `PlayerRenderStateMixin.clearExtraRenderData` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (27, all visibilities)
+## Declared members (26 fields, 1 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.state.level.FirstPersonHandsAndItemsRenderState {
-    public net.minecraft.world.InteractionHand attackHand;
-    public float viewXRot;
-    public float viewYRot;
-    public float xBob;
-    public float yBob;
-    public boolean isScoping;
-    public int useItemRemainingTicks;
-    public int mainHandUseDuration;
-    public int offHandUseDuration;
-    public int mainHandChargeDuration;
-    public int offHandChargeDuration;
-    public float mainHandSwapScale;
-    public float offHandSwapScale;
-    public net.minecraft.client.renderer.state.level.FirstPersonHandsAndItemsRenderState$HandRenderSelection handRenderSelection;
-    public net.minecraft.world.item.ItemStack mainHandItem;
-    public net.minecraft.world.item.ItemStack offHandItem;
-    public float mainHandHeight;
-    public float oldMainHandHeight;
-    public float offHandHeight;
-    public float oldOffHandHeight;
-    public final net.minecraft.client.renderer.item.ItemStackRenderState mainHandRenderState;
-    public final net.minecraft.client.renderer.item.ItemStackRenderState offHandRenderState;
-    public final net.minecraft.client.renderer.state.MapRenderState mainHandMapRenderState;
-    public final net.minecraft.client.renderer.state.MapRenderState offHandMapRenderState;
-    public boolean hasMainHandMapData;
-    public boolean hasOffHandMapData;
-    public net.minecraft.client.renderer.state.level.FirstPersonHandsAndItemsRenderState();
-}
+```
+public attackHand : Lnet/minecraft/world/InteractionHand;
+public viewXRot : F
+public viewYRot : F
+public xBob : F
+public yBob : F
+public isScoping : Z
+public useItemRemainingTicks : I
+public mainHandUseDuration : I
+public offHandUseDuration : I
+public mainHandChargeDuration : I
+public offHandChargeDuration : I
+public mainHandSwapScale : F
+public offHandSwapScale : F
+public handRenderSelection : Lnet/minecraft/client/renderer/state/level/FirstPersonHandsAndItemsRenderState$HandRenderSelection;
+public mainHandItem : Lnet/minecraft/world/item/ItemStack;
+public offHandItem : Lnet/minecraft/world/item/ItemStack;
+public mainHandHeight : F
+public oldMainHandHeight : F
+public offHandHeight : F
+public oldOffHandHeight : F
+public final mainHandRenderState : Lnet/minecraft/client/renderer/item/ItemStackRenderState;
+public final offHandRenderState : Lnet/minecraft/client/renderer/item/ItemStackRenderState;
+public final mainHandMapRenderState : Lnet/minecraft/client/renderer/state/MapRenderState;
+public final offHandMapRenderState : Lnet/minecraft/client/renderer/state/MapRenderState;
+public hasMainHandMapData : Z
+public hasOffHandMapData : Z
+public <init>()V
 ```

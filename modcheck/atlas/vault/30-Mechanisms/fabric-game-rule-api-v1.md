@@ -20,18 +20,24 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `["fabric-game-rule-api-v1.mixins.json", {"config": "fabric-game-rule-api-v1.client.mixins.json", "environment": "client"}]`
 - access widener: `fabric-game-rule-api-v1.classtweaker`
+- mixin classes: 8 found by annotation, 8 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]] | `onGameRuleChanged` | injects_into `@Inject at RETURN` | both | `MinecraftServerMixin.handleGameRuleUpdate` |
-| [[40-Interfaces/net.minecraft.server.commands.GameRuleCommand_1|GameRuleCommand$1]] | `visit` | injects_into `@Inject at HEAD` | both | `GameRuleCommandVisitorMixin.onRegisterCommand` |
-| [[40-Interfaces/net.minecraft.server.jsonrpc.methods.GameRulesService_GameRuleUpdate|GameRulesService$GameRuleUpdate]] | `<init>` | injects_into `@Inject at RETURN` | both | `GameRulesServiceGameRuleUpdateMixin.updateFabricType` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen_RuleList_1|AbstractGameRulesScreen$RuleList$1]].`addEntry` | `(Lnet/minecraft/world/level/gamerules/GameRule;Lnet/minecraft/client/gui/screens/worldselection/AbstractGameRulesScreen$EntryFactory;)V` | exact | @WrapOperation | INVOKE `Lnet/minecraft/world/level/gamerules/GameRule;serialize(Ljava/lang/Object;)Ljava/lang/String;` (exact) | client | 1000 (default) | `RuleListEntryTypeVisitorMixin.displayProperEnumName` |
+| [[40-Interfaces/net.minecraft.server.MinecraftServer|MinecraftServer]].`onGameRuleChanged` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;)V` | name_only | @Inject | RETURN | both | 1000 (default) | `MinecraftServerMixin.handleGameRuleUpdate` |
+| [[40-Interfaces/net.minecraft.server.commands.GameRuleCommand_1|GameRuleCommand$1]].`visit` | `(Lnet/minecraft/world/level/gamerules/GameRule;)V` | name_only | @Inject | HEAD | both | 1000 (default) | `GameRuleCommandVisitorMixin.onRegisterCommand` |
+| [[40-Interfaces/net.minecraft.server.jsonrpc.methods.GameRulesService_GameRuleUpdate|GameRulesService$GameRuleUpdate]].`<init>` | `(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;)V` | name_only | @Inject | RETURN | both | 1000 (default) | `GameRulesServiceGameRuleUpdateMixin.updateFabricType` |
+| [[40-Interfaces/net.minecraft.server.jsonrpc.methods.GameRulesService_GameRuleUpdate|GameRulesService$GameRuleUpdate]].`getValueAndTypeCodec` | `(Lnet/minecraft/world/level/gamerules/GameRule;)Lcom/mojang/serialization/MapCodec;` | name_only | @ModifyReturnValue | RETURN | both | 1000 (default) | `GameRulesServiceGameRuleUpdateMixin.getValueAndFabricTypeCodec` |
+| [[40-Interfaces/net.minecraft.world.level.gamerules.GameRule|GameRule]].`deserialize` | `(Ljava/lang/String;)Lcom/mojang/serialization/DataResult;` | name_only | @WrapMethod | - | both | 1000 (default) | `GameRuleMixin.deserializeEnum` |
 
 ## API surface
 
@@ -41,6 +47,7 @@ lifecycle: "stable"
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

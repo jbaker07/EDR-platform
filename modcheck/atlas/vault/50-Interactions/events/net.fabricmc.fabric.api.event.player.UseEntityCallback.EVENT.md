@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerGamePacketListenerImplMixin.handleInteract` | `ServerGamePacketListenerImpl.handleInteract` @Inject at INVOKE Lnet/minecraft/server/level/ServerPlayer;getItemInHand(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack; | both | static_inference |
-| `MinecraftMixin.injectUseEntityCallback` | `Minecraft.startUseItem` @Inject at INVOKE Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/EntityHitResult;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult; | client | static_inference |
+| `ServerGamePacketListenerImplMixin.handleInteract` @60 | [[40-Interfaces/net.minecraft.server.network.ServerGamePacketListenerImpl|ServerGamePacketListenerImpl]].`handleInteract` @Inject INVOKE `Lnet/minecraft/server/level/ServerPlayer;getItemInHand(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;` | unknown | static_inference |
+| `MinecraftMixin.injectUseEntityCallback` @25 | [[40-Interfaces/net.minecraft.client.Minecraft|Minecraft]].`startUseItem` @Inject INVOKE `Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/EntityHitResult;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;` | unknown | static_inference |
 
 ## Contract
 

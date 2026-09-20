@@ -11,33 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core.component|net.minecraft.core.component]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/util/List;)V` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `transforms()Ljava/util/List;` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| injects_into | `<clinit>` | `@ModifyArg at INVOKE Lcom/mojang/serialization/Codec;listOf(II)Lcom/mojang/seria` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/List;)V` | exact | invokespecial@135 in `BlockTransformerHelperImpl.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `transforms` | `()Ljava/util/List;` | exact | invokevirtual@5 in `BlockTransformerHelperImpl.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `transforms` | `()Ljava/util/List;` | exact | invokevirtual@104 in `BlockTransformerHelperImpl.modify` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `transforms` | `()Ljava/util/List;` | exact | invokevirtual@4 in `BlockTransformerHelperImpl.registerAxe` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `transforms` | `()Ljava/util/List;` | exact | invokevirtual@4 in `BlockTransformerHelperImpl.registerHoe` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `transforms` | `()Ljava/util/List;` | exact | invokevirtual@4 in `BlockTransformerHelperImpl.registerShovel` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| injects_into | `<clinit>` | `()V` | exact | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (4 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.core.component.BlockTransformer extends java.lang.Record {
-    private final java.util.List<net.minecraft.core.component.BlockTransformer$BlockTransformData> transforms;
-    public static final com.mojang.serialization.Codec<net.minecraft.core.component.BlockTransformer> DIRECT_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.core.Holder<net.minecraft.core.component.BlockTransformer>> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.core.Holder<net.minecraft.core.component.BlockTransformer>> STREAM_CODEC;
-    public net.minecraft.core.component.BlockTransformer(java.util.List<net.minecraft.core.component.BlockTransformer$BlockTransformData>);
-    public net.minecraft.world.InteractionResult transformBlock(net.minecraft.world.item.context.UseOnContext);
-    private static boolean playerHasBlockingItemUseIntent(net.minecraft.world.item.context.UseOnContext);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.List<net.minecraft.core.component.BlockTransformer$BlockTransformData> transforms();
-    private static void lambda$transformBlock$0(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.player.Player, net.minecraft.core.component.BlockTransformer$BlockTransformData, net.minecraft.core.Direction, net.minecraft.resources.ResourceKey);
-    private static void lambda$transformBlock$1(net.minecraft.core.component.BlockTransformer$BlockTransformData, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.server.level.ServerLevel, net.minecraft.world.item.ItemStack);
-    static {};
-}
+```
+private final transforms : Ljava/util/List;
+public static final DIRECT_CODEC : Lcom/mojang/serialization/Codec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Ljava/util/List;)V
+public transformBlock(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;
+private static playerHasBlockingItemUseIntent(Lnet/minecraft/world/item/context/UseOnContext;)Z
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public transforms()Ljava/util/List;
+private static synthetic lambda$transformBlock$0(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;Lnet/minecraft/core/Direction;Lnet/minecraft/resources/ResourceKey;)V
+private static synthetic lambda$transformBlock$1(Lnet/minecraft/core/component/BlockTransformer$BlockTransformData;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)V
+static <clinit>()V
 ```

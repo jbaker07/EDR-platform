@@ -11,25 +11,25 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `holdSpin()V` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `holdSpin` | `()V` | exact | invokevirtual@9 in `ScreenMixin.disableRotatingPanoramaForClientGameTests` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (3 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.Panorama {
-    public static final net.minecraft.resources.Identifier PANORAMA_OVERLAY;
-    private float spin;
-    private boolean shouldSpin;
-    public net.minecraft.client.renderer.Panorama();
-    public void startSpin();
-    public void holdSpin();
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    static {};
-}
+```
+public static final PANORAMA_OVERLAY : Lnet/minecraft/resources/Identifier;
+private spin : F
+private shouldSpin : Z
+public <init>()V
+public startSpin()V
+public holdSpin()V
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+static <clinit>()V
 ```

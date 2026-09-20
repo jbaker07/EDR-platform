@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `PlayerListMixin.onSendGameMessage` | `PlayerList.broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;Z)V` @Inject at HEAD | both | static_inference |
+| `PlayerListMixin.onSendGameMessage` @15 | [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]].`broadcastSystemMessage` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

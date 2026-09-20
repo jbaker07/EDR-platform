@@ -11,35 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`class` public; extends `net/minecraft/server/packs/repository/BuiltInPackSource`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/level/validation/DirectoryValidator;)V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/level/validation/DirectoryValidator;)V` | exact | invokespecial@26 in `ModPackResourcesUtil.createModdedRepository` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (18, all visibilities)
+## Declared members (7 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.packs.repository.ServerPacksSource extends net.minecraft.server.packs.repository.BuiltInPackSource {
-    private static final net.minecraft.server.packs.metadata.pack.PackMetadataSection VERSION_METADATA_SECTION;
-    private static final net.minecraft.server.packs.FeatureFlagsMetadataSection FEATURE_FLAGS_METADATA_SECTION;
-    private static final net.minecraft.server.packs.resources.ResourceMetadata BUILT_IN_METADATA;
-    private static final net.minecraft.server.packs.PackLocationInfo VANILLA_PACK_INFO;
-    private static final net.minecraft.server.packs.PackSelectionConfig VANILLA_SELECTION_CONFIG;
-    private static final net.minecraft.server.packs.PackSelectionConfig FEATURE_SELECTION_CONFIG;
-    private static final net.minecraft.resources.Identifier PACKS_DIR;
-    public net.minecraft.server.packs.repository.ServerPacksSource(net.minecraft.world.level.validation.DirectoryValidator);
-    private static net.minecraft.server.packs.PackLocationInfo createBuiltInPackLocation(java.lang.String, net.minecraft.network.chat.Component);
-    public static net.minecraft.server.packs.VanillaPackResources createVanillaPackSource();
-    protected net.minecraft.network.chat.Component getPackTitle(java.lang.String);
-    protected net.minecraft.server.packs.repository.Pack createVanillaPack(net.minecraft.server.packs.repository.Pack$ResourcesSupplier);
-    protected net.minecraft.server.packs.repository.Pack createBuiltinPack(java.lang.String, net.minecraft.server.packs.repository.Pack$ResourcesSupplier, net.minecraft.network.chat.Component);
-    public static net.minecraft.server.packs.repository.PackRepository createPackRepository(java.nio.file.Path, net.minecraft.world.level.validation.DirectoryValidator);
-    public static net.minecraft.server.packs.repository.PackRepository createVanillaTrustedRepository();
-    public static net.minecraft.server.packs.repository.PackRepository createPackRepository(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess);
-    private static boolean lambda$createVanillaTrustedRepository$0(java.nio.file.Path);
-    static {};
-}
+```
+private static final VERSION_METADATA_SECTION : Lnet/minecraft/server/packs/metadata/pack/PackMetadataSection;
+private static final FEATURE_FLAGS_METADATA_SECTION : Lnet/minecraft/server/packs/FeatureFlagsMetadataSection;
+private static final BUILT_IN_METADATA : Lnet/minecraft/server/packs/resources/ResourceMetadata;
+private static final VANILLA_PACK_INFO : Lnet/minecraft/server/packs/PackLocationInfo;
+private static final VANILLA_SELECTION_CONFIG : Lnet/minecraft/server/packs/PackSelectionConfig;
+private static final FEATURE_SELECTION_CONFIG : Lnet/minecraft/server/packs/PackSelectionConfig;
+private static final PACKS_DIR : Lnet/minecraft/resources/Identifier;
+public <init>(Lnet/minecraft/world/level/validation/DirectoryValidator;)V
+private static createBuiltInPackLocation(Ljava/lang/String;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/server/packs/PackLocationInfo;
+public static createVanillaPackSource()Lnet/minecraft/server/packs/VanillaPackResources;
+protected getPackTitle(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;
+protected createVanillaPack(Lnet/minecraft/server/packs/repository/Pack$ResourcesSupplier;)Lnet/minecraft/server/packs/repository/Pack;
+protected createBuiltinPack(Ljava/lang/String;Lnet/minecraft/server/packs/repository/Pack$ResourcesSupplier;Lnet/minecraft/network/chat/Component;)Lnet/minecraft/server/packs/repository/Pack;
+public static createPackRepository(Ljava/nio/file/Path;Lnet/minecraft/world/level/validation/DirectoryValidator;)Lnet/minecraft/server/packs/repository/PackRepository;
+public static createVanillaTrustedRepository()Lnet/minecraft/server/packs/repository/PackRepository;
+public static createPackRepository(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;)Lnet/minecraft/server/packs/repository/PackRepository;
+private static synthetic lambda$createVanillaTrustedRepository$0(Ljava/nio/file/Path;)Z
+static <clinit>()V
 ```

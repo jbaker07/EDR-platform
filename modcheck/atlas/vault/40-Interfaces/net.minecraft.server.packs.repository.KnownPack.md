@@ -11,32 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V` | exact | invokespecial@282 in `ModNioPackResources.create` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (15, all visibilities)
+## Declared members (5 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.server.packs.repository.KnownPack extends java.lang.Record {
-    private final java.lang.String namespace;
-    private final java.lang.String id;
-    private final java.lang.String version;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.server.packs.repository.KnownPack> STREAM_CODEC;
-    public static final java.lang.String VANILLA_NAMESPACE;
-    public net.minecraft.server.packs.repository.KnownPack(java.lang.String, java.lang.String, java.lang.String);
-    public static net.minecraft.server.packs.repository.KnownPack vanilla(java.lang.String);
-    public boolean isVanilla();
-    public java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.lang.String namespace();
-    public java.lang.String id();
-    public java.lang.String version();
-    static {};
-}
+```
+private final namespace : Ljava/lang/String;
+private final id : Ljava/lang/String;
+private final version : Ljava/lang/String;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final VANILLA_NAMESPACE : Ljava/lang/String;
+public <init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+public static vanilla(Ljava/lang/String;)Lnet/minecraft/server/packs/repository/KnownPack;
+public isVanilla()Z
+public toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public namespace()Ljava/lang/String;
+public id()Ljava/lang/String;
+public version()Ljava/lang/String;
+static <clinit>()V
 ```

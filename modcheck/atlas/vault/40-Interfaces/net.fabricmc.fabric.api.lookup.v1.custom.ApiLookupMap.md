@@ -13,7 +13,7 @@ sha256: "4ff3be674760c602b4ed59c10d74d2d52597e8a562489ecd4b68ebf7f71d466c"
 Module: [[30-Mechanisms/fabric-api-lookup-api-v1|fabric-api-lookup-api-v1]] -- kind: interface
 
 ```java
-public static <L> net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap<L> create(net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap$LookupConstructor<L>)
-public abstract L getLookup(net.minecraft.resources.Identifier, java.lang.Class<?>, java.lang.Class<?>)
-public static <L> net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap<L> create(net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap$LookupFactory<L>)
+public static net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap create(net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap$LookupConstructor)
+public abstract java.lang.Object getLookup(net.minecraft.resources.Identifier, java.lang.Class, java.lang.Class)
+public static net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap create(net.fabricmc.fabric.api.lookup.v1.custom.ApiLookupMap$LookupFactory)
 ```

@@ -11,60 +11,64 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/world/item/component/ConsumableListener`, `net/minecraft/world/item/component/TooltipProvider`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `potion()Ljava/util/Optional;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/core/Holder;)V` | exact | invokespecial@18 in `FluidStorage.lambda$static$4` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `potion` | `()Ljava/util/Optional;` | exact | invokevirtual@39 in `FabricItem.getCreatorNamespace` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `potion` | `()Ljava/util/Optional;` | exact | invokevirtual@41 in `WaterPotionStorage.isWaterPotion` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `EMPTY` | `Lnet/minecraft/world/item/alchemy/PotionContents;` | exact | getstatic@16 in `WaterPotionStorage.isWaterPotion` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `EMPTY` | `Lnet/minecraft/world/item/alchemy/PotionContents;` | exact | getstatic@19 in `WaterPotionStorage.mapToGlassBottle` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (43, all visibilities)
+## Declared members (10 fields, 33 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.alchemy.PotionContents extends java.lang.Record implements net.minecraft.world.item.component.ConsumableListener,net.minecraft.world.item.component.TooltipProvider {
-    private final java.util.Optional<net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>> potion;
-    private final java.util.Optional<java.lang.Integer> customColor;
-    private final java.util.List<net.minecraft.world.effect.MobEffectInstance> customEffects;
-    private final java.util.Optional<java.lang.String> customName;
-    public static final net.minecraft.world.item.alchemy.PotionContents EMPTY;
-    private static final net.minecraft.network.chat.Component NO_EFFECT;
-    public static final int BASE_POTION_COLOR;
-    private static final com.mojang.serialization.Codec<net.minecraft.world.item.alchemy.PotionContents> FULL_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.item.alchemy.PotionContents> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.alchemy.PotionContents> STREAM_CODEC;
-    public net.minecraft.world.item.alchemy.PotionContents(net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>);
-    public net.minecraft.world.item.alchemy.PotionContents(java.util.Optional<net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>>, java.util.Optional<java.lang.Integer>, java.util.List<net.minecraft.world.effect.MobEffectInstance>, java.util.Optional<java.lang.String>);
-    public static net.minecraft.world.item.ItemStack createItemStack(net.minecraft.world.item.Item, net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>);
-    public boolean is(net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>);
-    public boolean is(net.minecraft.tags.TagKey<net.minecraft.world.item.alchemy.Potion>);
-    public boolean isPotionWithoutCustomEffects();
-    public java.lang.Iterable<net.minecraft.world.effect.MobEffectInstance> getAllEffects();
-    public void forEachEffect(java.util.function.Consumer<net.minecraft.world.effect.MobEffectInstance>, float);
-    public net.minecraft.world.item.alchemy.PotionContents withPotion(net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>);
-    public net.minecraft.world.item.alchemy.PotionContents withEffectAdded(net.minecraft.world.effect.MobEffectInstance);
-    public int getColor();
-    public int getColorOr(int);
-    public net.minecraft.network.chat.Component getName(java.lang.String);
-    public static java.util.OptionalInt getColorOptional(java.lang.Iterable<net.minecraft.world.effect.MobEffectInstance>);
-    public boolean hasEffects();
-    public java.util.List<net.minecraft.world.effect.MobEffectInstance> customEffects();
-    public void applyToLivingEntity(net.minecraft.world.entity.LivingEntity, float);
-    public static void addPotionTooltip(java.lang.Iterable<net.minecraft.world.effect.MobEffectInstance>, java.util.function.Consumer<net.minecraft.network.chat.Component>, float, float);
-    public static net.minecraft.network.chat.MutableComponent getPotionDescription(net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>, int);
-    public void onConsume(net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.ItemStack, net.minecraft.world.item.component.Consumable);
-    public void addToTooltip(net.minecraft.world.item.Item$TooltipContext, java.util.function.Consumer<net.minecraft.network.chat.Component>, net.minecraft.world.item.TooltipFlag, net.minecraft.core.component.DataComponentGetter);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public java.util.Optional<net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion>> potion();
-    public java.util.Optional<java.lang.Integer> customColor();
-    public java.util.Optional<java.lang.String> customName();
-    private static void lambda$addPotionTooltip$0(java.util.List, net.minecraft.core.Holder, net.minecraft.world.entity.ai.attributes.AttributeModifier);
-    private static void lambda$applyToLivingEntity$0(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.player.Player, net.minecraft.world.entity.LivingEntity, net.minecraft.world.effect.MobEffectInstance);
-    private java.util.Optional lambda$getName$0();
-    private static java.lang.String lambda$getName$1(net.minecraft.core.Holder);
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final potion : Ljava/util/Optional;
+private final customColor : Ljava/util/Optional;
+private final customEffects : Ljava/util/List;
+private final customName : Ljava/util/Optional;
+public static final EMPTY : Lnet/minecraft/world/item/alchemy/PotionContents;
+private static final NO_EFFECT : Lnet/minecraft/network/chat/Component;
+public static final BASE_POTION_COLOR : I
+private static final FULL_CODEC : Lcom/mojang/serialization/Codec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/core/Holder;)V
+public <init>(Ljava/util/Optional;Ljava/util/Optional;Ljava/util/List;Ljava/util/Optional;)V
+public static createItemStack(Lnet/minecraft/world/item/Item;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/item/ItemStack;
+public is(Lnet/minecraft/core/Holder;)Z
+public is(Lnet/minecraft/tags/TagKey;)Z
+public isPotionWithoutCustomEffects()Z
+public getAllEffects()Ljava/lang/Iterable;
+public forEachEffect(Ljava/util/function/Consumer;F)V
+public withPotion(Lnet/minecraft/core/Holder;)Lnet/minecraft/world/item/alchemy/PotionContents;
+public withEffectAdded(Lnet/minecraft/world/effect/MobEffectInstance;)Lnet/minecraft/world/item/alchemy/PotionContents;
+public getColor()I
+public getColorOr(I)I
+public getName(Ljava/lang/String;)Lnet/minecraft/network/chat/Component;
+public static getColorOptional(Ljava/lang/Iterable;)Ljava/util/OptionalInt;
+public hasEffects()Z
+public customEffects()Ljava/util/List;
+public applyToLivingEntity(Lnet/minecraft/world/entity/LivingEntity;F)V
+public static addPotionTooltip(Ljava/lang/Iterable;Ljava/util/function/Consumer;FF)V
+public static getPotionDescription(Lnet/minecraft/core/Holder;I)Lnet/minecraft/network/chat/MutableComponent;
+public onConsume(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/component/Consumable;)V
+public addToTooltip(Lnet/minecraft/world/item/Item$TooltipContext;Ljava/util/function/Consumer;Lnet/minecraft/world/item/TooltipFlag;Lnet/minecraft/core/component/DataComponentGetter;)V
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public potion()Ljava/util/Optional;
+public customColor()Ljava/util/Optional;
+public customName()Ljava/util/Optional;
+private static synthetic lambda$addPotionTooltip$0(Ljava/util/List;Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;)V
+private static synthetic lambda$applyToLivingEntity$0(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/effect/MobEffectInstance;)V
+private synthetic lambda$getName$0()Ljava/util/Optional;
+private static synthetic lambda$getName$1(Lnet/minecraft/core/Holder;)Ljava/lang/String;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

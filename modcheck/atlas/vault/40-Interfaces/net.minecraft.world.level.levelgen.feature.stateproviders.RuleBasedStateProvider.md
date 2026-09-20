@@ -11,38 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `builder()Lnet/minecraft/world/level/levelgen/feature/stateproviders` | `` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `builder` | `()Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBased` | exact | invokestatic@0 in `BlockTransformerHelperImpl.createStripping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBased` | exact | invokestatic@0 in `BlockTransformerHelperImpl.createTilling` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBased` | exact | invokestatic@0 in `BlockTransformerHelperImpl.createFlattening` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBased` | exact | invokestatic@0 in `BlockTransformerHelperImpl.createOxidationScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBased` | exact | invokestatic@0 in `BlockTransformerHelperImpl.createWaxScraping` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (3 fields, 18 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider extends java.lang.Record implements net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider {
-    private final net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider> fallback;
-    private final java.util.List<net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider$Rule> rules;
-    public static final com.mojang.serialization.MapCodec<net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider> CODEC;
-    private net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider(java.util.Optional<net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>>, java.util.List<net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider$Rule>);
-    public net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider(net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>, java.util.List<net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider$Rule>);
-    public static net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider ifTrueThenProvide(net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate, net.minecraft.world.level.block.Block);
-    public static net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider ifTrueThenProvide(net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate, net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider);
-    public com.mojang.serialization.MapCodec<net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider> codec();
-    public net.minecraft.world.level.block.state.BlockState getState(net.minecraft.world.level.LevelAccessor, net.minecraft.util.RandomSource, net.minecraft.core.BlockPos);
-    public net.minecraft.world.level.block.state.BlockState getOptionalState(net.minecraft.world.level.LevelAccessor, net.minecraft.util.RandomSource, net.minecraft.core.BlockPos);
-    public static net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider$Builder builder();
-    public static net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider$Builder builder(net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.Holder<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider> fallback();
-    public java.util.List<net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider$Rule> rules();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    private static java.util.List lambda$static$2(net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider);
-    private static java.util.Optional lambda$static$1(net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider);
-    static {};
-}
+```
+private final fallback : Lnet/minecraft/core/Holder;
+private final rules : Ljava/util/List;
+public static final CODEC : Lcom/mojang/serialization/MapCodec;
+private <init>(Ljava/util/Optional;Ljava/util/List;)V
+public <init>(Lnet/minecraft/core/Holder;Ljava/util/List;)V
+public static ifTrueThenProvide(Lnet/minecraft/world/level/levelgen/blockpredicates/BlockPredicate;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBasedStateProvider;
+public static ifTrueThenProvide(Lnet/minecraft/world/level/levelgen/blockpredicates/BlockPredicate;Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;)Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBasedStateProvider;
+public codec()Lcom/mojang/serialization/MapCodec;
+public getState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+public getOptionalState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+public static builder()Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBasedStateProvider$Builder;
+public static builder(Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;)Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBasedStateProvider$Builder;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public fallback()Lnet/minecraft/core/Holder;
+public rules()Ljava/util/List;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+private static synthetic lambda$static$2(Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBasedStateProvider;)Ljava/util/List;
+private static synthetic lambda$static$1(Lnet/minecraft/world/level/levelgen/feature/stateproviders/RuleBasedStateProvider;)Ljava/util/Optional;
+static <clinit>()V
 ```

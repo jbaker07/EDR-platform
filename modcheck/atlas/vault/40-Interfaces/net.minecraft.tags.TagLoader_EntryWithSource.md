@@ -11,28 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.tags|net.minecraft.tags]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/tags/TagEntry;Ljava/lang/String;)V` | `` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/tags/TagEntry;Ljava/lang/String;)V` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `entry()Lnet/minecraft/tags/TagEntry;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `source()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/tags/TagEntry;Ljava/lang/String;)V` | exact | invokespecial@107 in `TagRemovalInternals.addRemoveEntry` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/tags/TagEntry;Ljava/lang/String;)V` | exact | invokespecial@42 in `TagLoaderMixin.loadRemoveEntries` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `entry` | `()Lnet/minecraft/tags/TagEntry;` | exact | invokevirtual@42 in `TagRemovalInternals.addRemoveEntry` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `source` | `()Ljava/lang/String;` | exact | invokevirtual@104 in `TagRemovalInternals.addRemoveEntry` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `source` | `()Ljava/lang/String;` | exact | invokevirtual@1 in `TagRemovalInternals.lambda$mergeAddedAndRemovedEntries$1` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `source` | `()Ljava/lang/String;` | exact | invokevirtual@1 in `TagRemovalInternals.lambda$mergeAddedAndRemovedEntries$0` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.tags.TagLoader$EntryWithSource extends java.lang.Record {
-    private final net.minecraft.tags.TagEntry entry;
-    private final java.lang.String source;
-    public net.minecraft.tags.TagLoader$EntryWithSource(net.minecraft.tags.TagEntry, java.lang.String);
-    public java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.tags.TagEntry entry();
-    public java.lang.String source();
-}
+```
+private final entry : Lnet/minecraft/tags/TagEntry;
+private final source : Ljava/lang/String;
+public <init>(Lnet/minecraft/tags/TagEntry;Ljava/lang/String;)V
+public toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public entry()Lnet/minecraft/tags/TagEntry;
+public source()Ljava/lang/String;
 ```

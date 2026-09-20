@@ -13,5 +13,5 @@ sha256: "88485b1edbcb642fa28b8f53e173835b19f6b6e49aa5b088e3fe16653ef67a13"
 Module: [[30-Mechanisms/fabric-api-base|fabric-api-base]] -- kind: interface
 
 ```java
-public abstract R apply(boolean)
+public abstract java.lang.Object apply(boolean)
 ```

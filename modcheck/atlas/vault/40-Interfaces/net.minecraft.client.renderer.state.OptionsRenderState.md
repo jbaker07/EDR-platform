@@ -11,40 +11,40 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `ambientOcclusionZ` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `ambientOcclusion` | `Z` | exact | getfield@9 in `MovingBlockFeatureRendererMixin.beforeInitBlockRenderer` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (21 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.state.OptionsRenderState {
-    public int cloudRange;
-    public boolean cutoutLeaves;
-    public boolean improvedTransparency;
-    public boolean ambientOcclusion;
-    public int menuBackgroundBlurriness;
-    public double panoramaSpeed;
-    public int maxAnisotropyValue;
-    public net.minecraft.client.TextureFilteringMethod textureFiltering;
-    public boolean bobView;
-    public float screenEffectScale;
-    public double glintSpeed;
-    public double glintStrength;
-    public double damageTiltStrength;
-    public boolean backgroundForChatOnly;
-    public float textBackgroundOpacity;
-    public net.minecraft.client.CloudStatus cloudStatus;
-    public net.minecraft.client.CameraType cameraType;
-    public int renderDistance;
-    public double chunkSectionFadeInTime;
-    public net.minecraft.client.PrioritizeChunkUpdates prioritizeChunkUpdates;
-    public int fov;
-    public net.minecraft.client.renderer.state.OptionsRenderState();
-    public float getBackgroundOpacity(float);
-}
+```
+public cloudRange : I
+public cutoutLeaves : Z
+public improvedTransparency : Z
+public ambientOcclusion : Z
+public menuBackgroundBlurriness : I
+public panoramaSpeed : D
+public maxAnisotropyValue : I
+public textureFiltering : Lnet/minecraft/client/TextureFilteringMethod;
+public bobView : Z
+public screenEffectScale : F
+public glintSpeed : D
+public glintStrength : D
+public damageTiltStrength : D
+public backgroundForChatOnly : Z
+public textBackgroundOpacity : F
+public cloudStatus : Lnet/minecraft/client/CloudStatus;
+public cameraType : Lnet/minecraft/client/CameraType;
+public renderDistance : I
+public chunkSectionFadeInTime : D
+public prioritizeChunkUpdates : Lnet/minecraft/client/PrioritizeChunkUpdates;
+public fov : I
+public <init>()V
+public getBackgroundOpacity(F)F
 ```

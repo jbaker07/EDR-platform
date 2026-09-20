@@ -20,7 +20,7 @@ public static final int DEFAULT_ATTENUATION_DISTANCE
 public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder create(net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationType, net.minecraft.resources.Identifier)
 public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder ofFile(net.minecraft.resources.Identifier)
 public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder ofEvent(net.minecraft.sounds.SoundEvent)
-public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder ofEvent(net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>)
+public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder ofEvent(net.minecraft.core.Holder)
 public abstract net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder volume(float)
 public abstract net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder pitch(float)
 public abstract net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationBuilder attenuationDistance(int)

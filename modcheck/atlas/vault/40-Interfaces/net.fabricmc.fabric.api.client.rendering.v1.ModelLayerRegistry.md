@@ -14,5 +14,5 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 
 ```java
 public static void registerModelLayer(net.minecraft.client.model.geom.ModelLayerLocation, net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry$TexturedLayerDefinitionProvider)
-public static void registerArmorModelLayers(net.minecraft.client.renderer.entity.ArmorModelSet<net.minecraft.client.model.geom.ModelLayerLocation>, net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry$TexturedArmorModelSetProvider)
+public static void registerArmorModelLayers(net.minecraft.client.renderer.entity.ArmorModelSet, net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry$TexturedArmorModelSetProvider)
 ```

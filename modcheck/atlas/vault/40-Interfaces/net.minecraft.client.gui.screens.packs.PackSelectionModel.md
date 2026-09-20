@@ -11,32 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `findNewPacks` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `(Ljava/util/function/Consumer;Ljava/util/function/Function;Lnet/minecr` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `findNewPacks` | `()V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| reads | `selected` | `Ljava/util/List;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
+| reads | `unselected` | `Ljava/util/List;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
 
-## Declared members (14, all visibilities)
+## Declared members (6 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.packs.PackSelectionModel {
-    private final net.minecraft.server.packs.repository.PackRepository repository;
-    private final java.util.List<net.minecraft.server.packs.repository.Pack> selected;
-    private final java.util.List<net.minecraft.server.packs.repository.Pack> unselected;
-    private final java.util.function.Function<net.minecraft.server.packs.repository.Pack, net.minecraft.resources.Identifier> iconGetter;
-    private final java.util.function.Consumer<net.minecraft.client.gui.screens.packs.PackSelectionModel$EntryBase> onListChanged;
-    private final java.util.function.Consumer<net.minecraft.server.packs.repository.PackRepository> output;
-    public net.minecraft.client.gui.screens.packs.PackSelectionModel(java.util.function.Consumer<net.minecraft.client.gui.screens.packs.PackSelectionModel$EntryBase>, java.util.function.Function<net.minecraft.server.packs.repository.Pack, net.minecraft.resources.Identifier>, net.minecraft.server.packs.repository.PackRepository, java.util.function.Consumer<net.minecraft.server.packs.repository.PackRepository>);
-    public java.util.stream.Stream<net.minecraft.client.gui.screens.packs.PackSelectionModel$Entry> getUnselected();
-    public java.util.stream.Stream<net.minecraft.client.gui.screens.packs.PackSelectionModel$Entry> getSelected();
-    private void updateRepoSelectedList();
-    public void commit();
-    public void findNewPacks();
-    private net.minecraft.client.gui.screens.packs.PackSelectionModel$Entry lambda$getSelected$0(net.minecraft.server.packs.repository.Pack);
-    private net.minecraft.client.gui.screens.packs.PackSelectionModel$Entry lambda$getUnselected$0(net.minecraft.server.packs.repository.Pack);
-}
+```
+private final repository : Lnet/minecraft/server/packs/repository/PackRepository;
+private final selected : Ljava/util/List;
+private final unselected : Ljava/util/List;
+private final iconGetter : Ljava/util/function/Function;
+private final onListChanged : Ljava/util/function/Consumer;
+private final output : Ljava/util/function/Consumer;
+public <init>(Ljava/util/function/Consumer;Ljava/util/function/Function;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/util/function/Consumer;)V
+public getUnselected()Ljava/util/stream/Stream;
+public getSelected()Ljava/util/stream/Stream;
+private updateRepoSelectedList()V
+public commit()V
+public findNewPacks()V
+private synthetic lambda$getSelected$0(Lnet/minecraft/server/packs/repository/Pack;)Lnet/minecraft/client/gui/screens/packs/PackSelectionModel$Entry;
+private synthetic lambda$getUnselected$0(Lnet/minecraft/server/packs/repository/Pack;)Lnet/minecraft/client/gui/screens/packs/PackSelectionModel$Entry;
 ```

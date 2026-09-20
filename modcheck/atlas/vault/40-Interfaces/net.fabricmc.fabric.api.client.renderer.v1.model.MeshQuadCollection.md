@@ -13,7 +13,7 @@ sha256: "2e4aaeb20f8615e8176f30bc82616cee25f8727323bfef7a70d5a6555ae8e9ee"
 Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.client.renderer.v1.model.MeshQuadCollection(net.fabricmc.fabric.api.client.renderer.v1.mesh.Mesh)
+public <init>(net.fabricmc.fabric.api.client.renderer.v1.mesh.Mesh)
 public net.fabricmc.fabric.api.client.renderer.v1.mesh.Mesh getMesh()
 public int materialFlags()
 ```

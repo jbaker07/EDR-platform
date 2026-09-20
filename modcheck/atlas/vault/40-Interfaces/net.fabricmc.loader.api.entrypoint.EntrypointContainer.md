@@ -12,7 +12,7 @@ module: "fabric-loader"
 fabric-loader 0.19.5 -- kind: interface
 
 ```java
-public abstract T getEntrypoint()
+public abstract java.lang.Object getEntrypoint()
 public abstract net.fabricmc.loader.api.ModContainer getProvider()
-public default java.lang.String getDefinition()
+public java.lang.String getDefinition()
 ```

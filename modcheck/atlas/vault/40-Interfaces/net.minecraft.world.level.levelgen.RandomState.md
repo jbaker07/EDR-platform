@@ -11,46 +11,47 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `createClimateSampler` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `createClimateSampler` | `(Lnet/minecraft/world/level/levelgen/densityfunction/SamplerContext;)L` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| reads | `seed` | `J` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | declared |
 
-## Declared members (29, all visibilities)
+## Declared members (12 fields, 17 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.levelgen.RandomState {
-    private static final int MAX_BUFFER_POOLS;
-    private static final int MAX_BUFFER_AGE_TICKS;
-    private final long seed;
-    private final net.minecraft.world.level.levelgen.PositionalRandomFactory random;
-    private final net.minecraft.core.HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise> noises;
-    private final net.minecraft.world.level.levelgen.NoiseRouter router;
-    private final net.minecraft.world.level.levelgen.material.MaterialSystem materialSystem;
-    private final java.util.Map<net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.synth.NormalNoise>, net.minecraft.world.level.levelgen.synth.Noise> noiseInstances;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.world.level.levelgen.PositionalRandomFactory> positionalRandoms;
-    private final net.minecraft.world.level.levelgen.densityfunction.DensityFunctionCompiler densityFunctionCompiler;
-    private final java.util.concurrent.locks.ReentrantLock densityBufferPoolLock;
-    private final java.util.List<net.minecraft.world.level.levelgen.densityfunction.DensityBufferPool> densityBufferPools;
-    public static net.minecraft.world.level.levelgen.RandomState create(net.minecraft.core.HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise>, long, net.minecraft.world.level.levelgen.NoiseGeneratorSettings);
-    public static net.minecraft.world.level.levelgen.RandomState create(net.minecraft.core.HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise>, long, boolean, net.minecraft.world.level.block.state.BlockState, int, net.minecraft.world.level.levelgen.NoiseRouter);
-    private net.minecraft.world.level.levelgen.RandomState(net.minecraft.core.HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise>, long, boolean, net.minecraft.world.level.block.state.BlockState, int, net.minecraft.world.level.levelgen.NoiseRouter);
-    public net.minecraft.world.level.levelgen.densityfunction.DensitySamplerSet samplersWithContext(net.minecraft.world.level.levelgen.densityfunction.SamplerContext);
-    public net.minecraft.world.level.biome.Climate$Sampler createClimateSampler(net.minecraft.world.level.levelgen.densityfunction.SamplerContext);
-    public net.minecraft.world.level.levelgen.synth.Noise getOrCreateNoise(net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.synth.NormalNoise>);
-    public net.minecraft.world.level.levelgen.PositionalRandomFactory getOrCreateRandomFactory(net.minecraft.resources.Identifier);
-    public net.minecraft.world.level.levelgen.material.MaterialSystem surfaceSystem();
-    public net.minecraft.world.level.levelgen.densityfunction.DensitySampler getSampler(net.minecraft.world.level.levelgen.densityfunction.DensityFunction);
-    public float sampleBlockValueUncached(net.minecraft.world.level.levelgen.densityfunction.DensityFunction, int, int, int);
-    public net.minecraft.world.level.levelgen.densityfunction.DensityBufferPool acquireDensityBufferPool();
-    public void releaseDensityBufferPool(net.minecraft.world.level.levelgen.densityfunction.DensityBufferPool);
-    public void garbageCollect();
-    public long seed();
-    private static boolean lambda$garbageCollect$0(net.minecraft.world.level.levelgen.densityfunction.DensityBufferPool);
-    private net.minecraft.world.level.levelgen.PositionalRandomFactory lambda$getOrCreateRandomFactory$0(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier);
-    private net.minecraft.world.level.levelgen.synth.Noise lambda$getOrCreateNoise$0(net.minecraft.resources.ResourceKey, net.minecraft.resources.ResourceKey);
-}
+```
+private static final MAX_BUFFER_POOLS : I
+private static final MAX_BUFFER_AGE_TICKS : I
+private final seed : J
+private final random : Lnet/minecraft/world/level/levelgen/PositionalRandomFactory;
+private final noises : Lnet/minecraft/core/HolderGetter;
+private final router : Lnet/minecraft/world/level/levelgen/NoiseRouter;
+private final materialSystem : Lnet/minecraft/world/level/levelgen/material/MaterialSystem;
+private final noiseInstances : Ljava/util/Map;
+private final positionalRandoms : Ljava/util/Map;
+private final densityFunctionCompiler : Lnet/minecraft/world/level/levelgen/densityfunction/DensityFunctionCompiler;
+private final densityBufferPoolLock : Ljava/util/concurrent/locks/ReentrantLock;
+private final densityBufferPools : Ljava/util/List;
+public static create(Lnet/minecraft/core/HolderGetter;JLnet/minecraft/world/level/levelgen/NoiseGeneratorSettings;)Lnet/minecraft/world/level/levelgen/RandomState;
+public static create(Lnet/minecraft/core/HolderGetter;JZLnet/minecraft/world/level/block/state/BlockState;ILnet/minecraft/world/level/levelgen/NoiseRouter;)Lnet/minecraft/world/level/levelgen/RandomState;
+private <init>(Lnet/minecraft/core/HolderGetter;JZLnet/minecraft/world/level/block/state/BlockState;ILnet/minecraft/world/level/levelgen/NoiseRouter;)V
+public samplersWithContext(Lnet/minecraft/world/level/levelgen/densityfunction/SamplerContext;)Lnet/minecraft/world/level/levelgen/densityfunction/DensitySamplerSet;
+public createClimateSampler(Lnet/minecraft/world/level/levelgen/densityfunction/SamplerContext;)Lnet/minecraft/world/level/biome/Climate$Sampler;
+public getOrCreateNoise(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/levelgen/synth/Noise;
+public getOrCreateRandomFactory(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/world/level/levelgen/PositionalRandomFactory;
+public surfaceSystem()Lnet/minecraft/world/level/levelgen/material/MaterialSystem;
+public getSampler(Lnet/minecraft/world/level/levelgen/densityfunction/DensityFunction;)Lnet/minecraft/world/level/levelgen/densityfunction/DensitySampler;
+public sampleBlockValueUncached(Lnet/minecraft/world/level/levelgen/densityfunction/DensityFunction;III)F
+public acquireDensityBufferPool()Lnet/minecraft/world/level/levelgen/densityfunction/DensityBufferPool;
+public releaseDensityBufferPool(Lnet/minecraft/world/level/levelgen/densityfunction/DensityBufferPool;)V
+public garbageCollect()V
+public seed()J
+private static synthetic lambda$garbageCollect$0(Lnet/minecraft/world/level/levelgen/densityfunction/DensityBufferPool;)Z
+private synthetic lambda$getOrCreateRandomFactory$0(Lnet/minecraft/resources/Identifier;Lnet/minecraft/resources/Identifier;)Lnet/minecraft/world/level/levelgen/PositionalRandomFactory;
+private synthetic lambda$getOrCreateNoise$0(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/levelgen/synth/Noise;
 ```

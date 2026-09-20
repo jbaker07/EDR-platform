@@ -61,4 +61,4 @@ area: "presentation"
 - contract_mapped: False
 - interaction_analysed: True
 - implemented_in_modcheck: True
-- validated_scope: compiles against the pinned corpus; the reference lantern's HUD element is unit-tested with fakes
+- validated_scope: HUD element generator compiles against the pinned corpus; the reference lantern's HUD (viewed-lantern selection, staleness) is hand-authored and unit-tested with fakes (12 tests); no game run

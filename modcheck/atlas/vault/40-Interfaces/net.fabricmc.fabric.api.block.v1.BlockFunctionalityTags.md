@@ -13,6 +13,5 @@ sha256: "12df8ce066403f03483ef89d13600072b56c5be290fb12260035fdaf5604761f"
 Module: [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] -- kind: class
 
 ```java
-public static final net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> CAN_CLIMB_TRAPDOOR_ABOVE
-static {}
+public static final net.minecraft.tags.TagKey CAN_CLIMB_TRAPDOOR_ABOVE
 ```

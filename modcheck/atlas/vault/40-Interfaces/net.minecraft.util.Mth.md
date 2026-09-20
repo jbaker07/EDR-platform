@@ -11,170 +11,201 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `ceil(F)I` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `ceil(F)I` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `ceillog2(I)I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `clamp(FFF)F` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `clamp(FFF)F` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `clamp(III)I` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `equal(FF)Z` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `equal(FF)Z` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `sqrt(F)F` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `ceil` | `(F)I` | exact | invokestatic@34 in `BlockInitTracker.postFreeze` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `ceil` | `(F)I` | exact | invokestatic@48 in `BlockInitTracker.postFreeze` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `ceil` | `(F)I` | exact | invokestatic@11 in `HudStatusBarHeightRegistryImpl.lambda$static$1` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `ceil` | `(F)I` | exact | invokestatic@51 in `HudStatusBarHeightRegistryImpl.lambda$static$1` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `ceil` | `(F)I` | exact | invokestatic@68 in `HudStatusBarHeightRegistryImpl.lambda$static$1` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@218 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@227 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@236 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@245 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@254 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@263 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@272 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@281 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@290 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@299 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `ceillog2` | `(I)I` | exact | invokestatic@308 in `EncodingFormat.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@14 in `WeightedPicker.pickFromNoise` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@4 in `NormalHelper.packNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@12 in `NormalHelper.packNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@20 in `NormalHelper.packNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@28 in `NormalHelper.packNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@4 in `NormalHelper.packNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@12 in `NormalHelper.packNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(FFF)F` | exact | invokestatic@20 in `NormalHelper.packNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `clamp` | `(III)I` | exact | invokestatic@184 in `ComposterWrapper.onFinalCommit` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@164 in `AoCalculator.compute` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@14 in `AoCalculator.gatherInsetFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@32 in `AoCalculator.gatherInsetFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@87 in `AoCalculator.irregularFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@226 in `AoCalculator.irregularFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@380 in `AoCalculator.irregularFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@26 in `GeometryHelper.isQuadParallelToFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@41 in `GeometryHelper.isQuadParallelToFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `equal` | `(FF)Z` | exact | invokestatic@56 in `GeometryHelper.isQuadParallelToFace` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `floor` | `(D)I` | exact | invokestatic@92 in `StorageUtil.getRedstoneSignal` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `sqrt` | `(F)F` | exact | invokestatic@31 in `BlockInitTracker.postFreeze` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `square` | `(I)I` | exact | invokestatic@65 in `TestScreenshotComparisonAlgorithms$MeanSquaredDifference.lambda$findGr | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `square` | `(I)I` | exact | invokestatic@99 in `TestScreenshotComparisonAlgorithms$MeanSquaredDifference.lambda$findCo | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `square` | `(I)I` | exact | invokestatic@107 in `TestScreenshotComparisonAlgorithms$MeanSquaredDifference.lambda$findC | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `square` | `(I)I` | exact | invokestatic@116 in `TestScreenshotComparisonAlgorithms$MeanSquaredDifference.lambda$findC | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (145, all visibilities)
+## Declared members (26 fields, 119 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.Mth {
-    private static final long UUID_VERSION;
-    private static final long UUID_VERSION_TYPE_4;
-    private static final long UUID_VARIANT;
-    private static final long UUID_VARIANT_2;
-    public static final float PI;
-    public static final float HALF_PI;
-    public static final float TWO_PI;
-    public static final float DEG_TO_RAD;
-    public static final float RAD_TO_DEG;
-    public static final float EPSILON;
-    public static final float SQRT_OF_TWO;
-    public static final org.joml.Vector3fc Y_AXIS;
-    public static final org.joml.Vector3fc X_AXIS;
-    public static final org.joml.Vector3fc Z_AXIS;
-    private static final int SIN_QUANTIZATION;
-    private static final int SIN_MASK;
-    private static final int COS_OFFSET;
-    private static final double SIN_SCALE;
-    private static final float[] SIN;
-    private static final int[] MULTIPLY_DE_BRUIJN_BIT_POSITION;
-    private static final double ONE_SIXTH;
-    private static final int FRAC_EXP;
-    private static final int LUT_SIZE;
-    private static final double FRAC_BIAS;
-    private static final double[] ASIN_TAB;
-    private static final double[] COS_TAB;
-    public net.minecraft.util.Mth();
-    public static float sin(double);
-    public static float cos(double);
-    public static float sqrt(float);
-    public static int floor(float);
-    public static int floor(double);
-    public static long lfloor(double);
-    public static float abs(float);
-    public static int abs(int);
-    public static int ceil(float);
-    public static int ceil(double);
-    public static long ceilLong(double);
-    public static int clamp(int, int, int);
-    public static long clamp(long, long, long);
-    public static float clamp(float, float, float);
-    public static double clamp(double, double, double);
-    public static double clampedLerp(double, double, double);
-    public static float clampedLerp(float, float, float);
-    public static int absMax(int, int);
-    public static float absMax(float, float);
-    public static double absMax(double, double);
-    public static int chessboardDistance(int, int, int, int);
-    public static int floorDiv(int, int);
-    public static int nextInt(net.minecraft.util.RandomSource, int, int);
-    public static float nextFloat(net.minecraft.util.RandomSource, float, float);
-    public static double nextDouble(net.minecraft.util.RandomSource, double, double);
-    public static boolean equal(float, float);
-    public static boolean equal(double, double);
-    public static int positiveModulo(int, int);
-    public static float positiveModulo(float, float);
-    public static double positiveModulo(double, double);
-    public static boolean isMultipleOf(int, int);
-    public static byte packDegrees(float);
-    public static float unpackDegrees(byte);
-    public static int wrapDegrees(int);
-    public static float wrapDegrees(long);
-    public static float wrapDegrees(float);
-    public static double wrapDegrees(double);
-    public static float wrapDegrees90(float);
-    public static float degreesDifference(float, float);
-    public static float degreesDifferenceAbs(float, float);
-    public static float rotateIfNecessary(float, float, float);
-    public static float approach(float, float, float);
-    public static float approachDegrees(float, float, float);
-    public static int getInt(java.lang.String, int);
-    public static int smallestEncompassingPowerOfTwo(int);
-    public static int smallestSquareSide(int);
-    public static boolean isPowerOfTwo(int);
-    public static boolean isPowerOfTwo(long);
-    public static int ceillog2(int);
-    public static int log2(int);
-    public static float frac(float);
-    public static double frac(double);
-    public static long getSeed(net.minecraft.core.Vec3i);
-    public static long getSeed(int, int, int);
-    public static java.util.UUID createInsecureUUID(net.minecraft.util.RandomSource);
-    public static double inverseLerp(double, double, double);
-    public static float inverseLerp(float, float, float);
-    public static boolean rayIntersectsAABB(net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.AABB);
-    public static double atan2(double, double);
-    public static float invSqrt(float);
-    public static double invSqrt(double);
-    public static double fastInvSqrt(double);
-    public static float fastInvCubeRoot(float);
-    public static int hsvToRgb(float, float, float);
-    public static int hsvToArgb(float, float, float, int);
-    public static int murmurHash3Mixer(int);
-    public static int binarySearch(int, int, java.util.function.IntPredicate);
-    public static int lerpInt(float, int, int);
-    public static int lerpDiscrete(float, int, int);
-    public static float lerp(float, float, float);
-    public static float lerp2(float, float, float, float, float, float);
-    public static float lerp3(float, float, float, float, float, float, float, float, float, float, float);
-    public static net.minecraft.world.phys.Vec3 lerp(double, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3);
-    public static double lerp(double, double, double);
-    public static double lerp2(double, double, double, double, double, double);
-    public static double lerp3(double, double, double, double, double, double, double, double, double, double, double);
-    public static float catmullrom(float, float, float, float, float);
-    public static float smoothstep(float);
-    public static float smoothstepDerivative(float);
-    public static int sign(double);
-    public static float rotLerp(float, float, float);
-    public static double rotLerp(double, double, double);
-    public static float rotLerpRad(float, float, float);
-    public static float triangleWave(float, float);
-    public static float square(float);
-    public static float cube(float);
-    public static double square(double);
-    public static int square(int);
-    public static long square(long);
-    public static double clampedMap(double, double, double, double, double);
-    public static float clampedMap(float, float, float, float, float);
-    public static double map(double, double, double, double, double);
-    public static float map(float, float, float, float, float);
-    public static double wobble(double);
-    public static int roundToward(int, int);
-    public static long roundToward(long, long);
-    public static int positiveCeilDiv(int, int);
-    public static long positiveCeilDiv(long, long);
-    public static int randomBetweenInclusive(net.minecraft.util.RandomSource, int, int);
-    public static float randomBetween(net.minecraft.util.RandomSource, float, float);
-    public static float normal(net.minecraft.util.RandomSource, float, float);
-    public static double lengthSquared(double, double);
-    public static float lengthSquared(float, float);
-    public static double length(double, double);
-    public static float length(float, float);
-    public static double lengthSquared(double, double, double);
-    public static double length(double, double, double);
-    public static float length(float, float, float);
-    public static float lengthSquared(float, float, float);
-    public static int quantize(double, int);
-    public static java.util.stream.IntStream outFromOrigin(int, int, int);
-    public static java.util.stream.IntStream outFromOrigin(int, int, int, int);
-    public static org.joml.Quaternionf rotationAroundAxis(org.joml.Vector3fc, org.joml.Quaternionf, org.joml.Quaternionf);
-    public static int mulAndTruncate(org.apache.commons.lang3.math.Fraction, int);
-    private static int lambda$outFromOrigin$1(int, int, int, int, int);
-    private static boolean lambda$outFromOrigin$0(int, int, int, int);
-    private static void lambda$static$0(float[]);
-    static {};
-}
+```
+private static final UUID_VERSION : J
+private static final UUID_VERSION_TYPE_4 : J
+private static final UUID_VARIANT : J
+private static final UUID_VARIANT_2 : J
+public static final PI : F
+public static final HALF_PI : F
+public static final TWO_PI : F
+public static final DEG_TO_RAD : F
+public static final RAD_TO_DEG : F
+public static final EPSILON : F
+public static final SQRT_OF_TWO : F
+public static final Y_AXIS : Lorg/joml/Vector3fc;
+public static final X_AXIS : Lorg/joml/Vector3fc;
+public static final Z_AXIS : Lorg/joml/Vector3fc;
+private static final SIN_QUANTIZATION : I
+private static final SIN_MASK : I
+private static final COS_OFFSET : I
+private static final SIN_SCALE : D
+private static final SIN : [F
+private static final MULTIPLY_DE_BRUIJN_BIT_POSITION : [I
+private static final ONE_SIXTH : D
+private static final FRAC_EXP : I
+private static final LUT_SIZE : I
+private static final FRAC_BIAS : D
+private static final ASIN_TAB : [D
+private static final COS_TAB : [D
+public <init>()V
+public static sin(D)F
+public static cos(D)F
+public static sqrt(F)F
+public static floor(F)I
+public static floor(D)I
+public static lfloor(D)J
+public static abs(F)F
+public static abs(I)I
+public static ceil(F)I
+public static ceil(D)I
+public static ceilLong(D)J
+public static clamp(III)I
+public static clamp(JJJ)J
+public static clamp(FFF)F
+public static clamp(DDD)D
+public static clampedLerp(DDD)D
+public static clampedLerp(FFF)F
+public static absMax(II)I
+public static absMax(FF)F
+public static absMax(DD)D
+public static chessboardDistance(IIII)I
+public static floorDiv(II)I
+public static nextInt(Lnet/minecraft/util/RandomSource;II)I
+public static nextFloat(Lnet/minecraft/util/RandomSource;FF)F
+public static nextDouble(Lnet/minecraft/util/RandomSource;DD)D
+public static equal(FF)Z
+public static equal(DD)Z
+public static positiveModulo(II)I
+public static positiveModulo(FF)F
+public static positiveModulo(DD)D
+public static isMultipleOf(II)Z
+public static packDegrees(F)B
+public static unpackDegrees(B)F
+public static wrapDegrees(I)I
+public static wrapDegrees(J)F
+public static wrapDegrees(F)F
+public static wrapDegrees(D)D
+public static wrapDegrees90(F)F
+public static degreesDifference(FF)F
+public static degreesDifferenceAbs(FF)F
+public static rotateIfNecessary(FFF)F
+public static approach(FFF)F
+public static approachDegrees(FFF)F
+public static getInt(Ljava/lang/String;I)I
+public static smallestEncompassingPowerOfTwo(I)I
+public static smallestSquareSide(I)I
+public static isPowerOfTwo(I)Z
+public static isPowerOfTwo(J)Z
+public static ceillog2(I)I
+public static log2(I)I
+public static frac(F)F
+public static frac(D)D
+public static getSeed(Lnet/minecraft/core/Vec3i;)J
+public static getSeed(III)J
+public static createInsecureUUID(Lnet/minecraft/util/RandomSource;)Ljava/util/UUID;
+public static inverseLerp(DDD)D
+public static inverseLerp(FFF)F
+public static rayIntersectsAABB(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;)Z
+public static atan2(DD)D
+public static invSqrt(F)F
+public static invSqrt(D)D
+public static fastInvSqrt(D)D
+public static fastInvCubeRoot(F)F
+public static hsvToRgb(FFF)I
+public static hsvToArgb(FFFI)I
+public static murmurHash3Mixer(I)I
+public static binarySearch(IILjava/util/function/IntPredicate;)I
+public static lerpInt(FII)I
+public static lerpDiscrete(FII)I
+public static lerp(FFF)F
+public static lerp2(FFFFFF)F
+public static lerp3(FFFFFFFFFFF)F
+public static lerp(DLnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public static lerp(DDD)D
+public static lerp2(DDDDDD)D
+public static lerp3(DDDDDDDDDDD)D
+public static catmullrom(FFFFF)F
+public static smoothstep(F)F
+public static smoothstepDerivative(F)F
+public static sign(D)I
+public static rotLerp(FFF)F
+public static rotLerp(DDD)D
+public static rotLerpRad(FFF)F
+public static triangleWave(FF)F
+public static square(F)F
+public static cube(F)F
+public static square(D)D
+public static square(I)I
+public static square(J)J
+public static clampedMap(DDDDD)D
+public static clampedMap(FFFFF)F
+public static map(DDDDD)D
+public static map(FFFFF)F
+public static wobble(D)D
+public static roundToward(II)I
+public static roundToward(JJ)J
+public static positiveCeilDiv(II)I
+public static positiveCeilDiv(JJ)J
+public static randomBetweenInclusive(Lnet/minecraft/util/RandomSource;II)I
+public static randomBetween(Lnet/minecraft/util/RandomSource;FF)F
+public static normal(Lnet/minecraft/util/RandomSource;FF)F
+public static lengthSquared(DD)D
+public static lengthSquared(FF)F
+public static length(DD)D
+public static length(FF)F
+public static lengthSquared(DDD)D
+public static length(DDD)D
+public static length(FFF)F
+public static lengthSquared(FFF)F
+public static quantize(DI)I
+public static outFromOrigin(III)Ljava/util/stream/IntStream;
+public static outFromOrigin(IIII)Ljava/util/stream/IntStream;
+public static rotationAroundAxis(Lorg/joml/Vector3fc;Lorg/joml/Quaternionf;Lorg/joml/Quaternionf;)Lorg/joml/Quaternionf;
+public static mulAndTruncate(Lorg/apache/commons/lang3/math/Fraction;I)I
+private static synthetic lambda$outFromOrigin$1(IIIII)I
+private static synthetic lambda$outFromOrigin$0(IIII)Z
+private static synthetic lambda$static$0([F)V
+static <clinit>()V
 ```

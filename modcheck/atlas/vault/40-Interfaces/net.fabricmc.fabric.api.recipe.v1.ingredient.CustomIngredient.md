@@ -14,9 +14,9 @@ Module: [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] -- kind: int
 
 ```java
 public abstract boolean test(net.minecraft.world.item.ItemStack)
-public abstract java.util.stream.Stream<net.minecraft.core.Holder<net.minecraft.world.item.Item>> items()
+public abstract java.util.stream.Stream items()
 public abstract boolean requiresTesting()
-public abstract net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer<?> getSerializer()
-public default net.minecraft.world.item.crafting.display.SlotDisplay display()
-public default net.minecraft.world.item.crafting.Ingredient toVanilla()
+public abstract net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer getSerializer()
+public net.minecraft.world.item.crafting.display.SlotDisplay display()
+public net.minecraft.world.item.crafting.Ingredient toVanilla()
 ```

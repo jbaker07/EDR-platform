@@ -11,34 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.resources|net.minecraft.client.resources]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/sound/v1/FabricSoundInstance`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getAudioStream(Lnet/minecraft/client/sounds/SoundBufferLibrary;Lnet/minecr` | `` | client | [[30-Mechanisms/fabric-sound-api-v1|fabric-sound-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getAudioStream` | `(Lnet/minecraft/client/sounds/SoundBufferLibrary;Lnet/minecraft/resour` | inherited_exact | invokeinterface@5 in `SoundEngineMixin.getStream` | unknown | [[30-Mechanisms/fabric-sound-api-v1|fabric-sound-api-v1]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (0 fields, 17 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.client.resources.sounds.SoundInstance {
-    public abstract net.minecraft.resources.Identifier getIdentifier();
-    public abstract net.minecraft.client.sounds.WeighedSoundEvents getOrResolve(net.minecraft.client.sounds.SoundManager);
-    public abstract net.minecraft.client.resources.sounds.Sound getSound();
-    public abstract net.minecraft.client.sounds.WeighedSoundEvents getSoundEvent();
-    public abstract net.minecraft.sounds.SoundSource getSource();
-    public abstract boolean isLooping();
-    public abstract boolean isRelative();
-    public abstract int getDelay();
-    public abstract float getVolume();
-    public abstract float getPitch();
-    public abstract double getX();
-    public abstract double getY();
-    public abstract double getZ();
-    public abstract net.minecraft.client.resources.sounds.SoundInstance$Attenuation getAttenuation();
-    public default boolean canStartSilent();
-    public default boolean canPlaySound();
-    public static net.minecraft.util.RandomSource createUnseededRandom();
-}
+```
+public abstract getIdentifier()Lnet/minecraft/resources/Identifier;
+public abstract getOrResolve(Lnet/minecraft/client/sounds/SoundManager;)Lnet/minecraft/client/sounds/WeighedSoundEvents;
+public abstract getSound()Lnet/minecraft/client/resources/sounds/Sound;
+public abstract getSoundEvent()Lnet/minecraft/client/sounds/WeighedSoundEvents;
+public abstract getSource()Lnet/minecraft/sounds/SoundSource;
+public abstract isLooping()Z
+public abstract isRelative()Z
+public abstract getDelay()I
+public abstract getVolume()F
+public abstract getPitch()F
+public abstract getX()D
+public abstract getY()D
+public abstract getZ()D
+public abstract getAttenuation()Lnet/minecraft/client/resources/sounds/SoundInstance$Attenuation;
+public canStartSilent()Z
+public canPlaySound()Z
+public static createUnseededRandom()Lnet/minecraft/util/RandomSource;
 ```

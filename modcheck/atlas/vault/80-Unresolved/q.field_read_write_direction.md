@@ -2,7 +2,7 @@
 type: "question"
 id: "q.field_read_write_direction"
 kind: "incomplete_extraction"
-status: "open"
+status: "resolved"
 ---
 
 > [!warning] Analyst-authored
@@ -12,7 +12,7 @@ status: "open"
 
 **Question.** Of the 168 `reads` edges, which are actually writes (putfield/putstatic) rather than reads (getfield/getstatic)?
 
-**Kind.** `incomplete_extraction` -- **Status.** open
+**Kind.** `incomplete_extraction` -- **Status.** resolved
 
 **Why it matters.** Shared mutable state between mods is a write, not a read. The Fieldref scan does not distinguish them, so the atlas cannot yet say which vanilla fields Fabric API mutates.
 
@@ -29,3 +29,5 @@ status: "open"
 
 **Conclusions affected while open.**
 - No shares_mutable_state edge can be derived.
+
+**Resolved by.** Opcodes are read from the Code attribute (atlas/extract/classfile.py); edges.json now separates `extracted/edges.json#reads` (get*) from `extracted/edges.json#writes` (put*), each with the caller method and instruction offset. Type references (new, anewarray, instanceof) are counted, not edges.

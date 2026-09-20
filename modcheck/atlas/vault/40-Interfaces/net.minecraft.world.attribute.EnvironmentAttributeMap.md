@@ -11,39 +11,45 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.attribute|net.minecraft.world.attribute]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `builder()Lnet/minecraft/world/attribute/EnvironmentAttributeMap$Bui` | `` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `applyModifier` | `(Lnet/minecraft/world/attribute/EnvironmentAttribute;Ljava/lang/Object` | exact | invokevirtual@21 in `BiomeSelectors.lambda$spawnsOneOf$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/attribute/EnvironmentAttributeMap$Builder;` | exact | invokestatic@0 in `BiomeModificationContextImpl$AttributesContextImpl.addAllRaw` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/attribute/EnvironmentAttributeMap$Builder;` | exact | invokestatic@0 in `BiomeModificationContextImpl$AttributesContextImpl.setRaw` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/attribute/EnvironmentAttributeMap$Builder;` | exact | invokestatic@0 in `BiomeModificationContextImpl$AttributesContextImpl.setModifierRaw` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `builder` | `()Lnet/minecraft/world/attribute/EnvironmentAttributeMap$Builder;` | exact | invokestatic@13 in `DimensionModificationImpl.applyChanges` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| calls | `contains` | `(Lnet/minecraft/world/attribute/EnvironmentAttribute;)Z` | exact | invokevirtual@4 in `BiomeModificationContextImpl$AttributesContextImpl.addAll` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@47 in `DimensionModificationImpl.applyChanges` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| calls | `get` | `(Lnet/minecraft/world/attribute/EnvironmentAttribute;)Lnet/minecraft/w` | exact | invokevirtual@13 in `BiomeModificationContextImpl$SpawnSettingsContextImpl.reload` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (5 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.attribute.EnvironmentAttributeMap {
-    public static final net.minecraft.world.attribute.EnvironmentAttributeMap EMPTY;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.attribute.EnvironmentAttributeMap> CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.attribute.EnvironmentAttributeMap> NETWORK_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.attribute.EnvironmentAttributeMap> CODEC_ONLY_POSITIONAL;
-    private final java.util.Map<net.minecraft.world.attribute.EnvironmentAttribute<?>, net.minecraft.world.attribute.EnvironmentAttributeMap$Entry<?, ?>> entries;
-    private static net.minecraft.world.attribute.EnvironmentAttributeMap filterSyncable(net.minecraft.world.attribute.EnvironmentAttributeMap);
-    private net.minecraft.world.attribute.EnvironmentAttributeMap(java.util.Map<net.minecraft.world.attribute.EnvironmentAttribute<?>, net.minecraft.world.attribute.EnvironmentAttributeMap$Entry<?, ?>>);
-    public static net.minecraft.world.attribute.EnvironmentAttributeMap$Builder builder();
-    public <Value> net.minecraft.world.attribute.EnvironmentAttributeMap$Entry<Value, ?> get(net.minecraft.world.attribute.EnvironmentAttribute<Value>);
-    public <Value> Value applyModifier(net.minecraft.world.attribute.EnvironmentAttribute<Value>, Value);
-    public boolean contains(net.minecraft.world.attribute.EnvironmentAttribute<?>);
-    public java.util.Set<net.minecraft.world.attribute.EnvironmentAttribute<?>> keySet();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public java.lang.String toString();
-    private static com.mojang.serialization.DataResult lambda$static$2(net.minecraft.world.attribute.EnvironmentAttributeMap);
-    private static java.lang.String lambda$static$4(java.util.List);
-    private static boolean lambda$static$3(net.minecraft.world.attribute.EnvironmentAttribute);
-    private static com.mojang.serialization.Codec lambda$static$0();
-    private static java.util.Map lambda$static$1(net.minecraft.world.attribute.EnvironmentAttributeMap);
-    static {};
-}
+```
+public static final EMPTY : Lnet/minecraft/world/attribute/EnvironmentAttributeMap;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final NETWORK_CODEC : Lcom/mojang/serialization/Codec;
+public static final CODEC_ONLY_POSITIONAL : Lcom/mojang/serialization/Codec;
+private final entries : Ljava/util/Map;
+private static filterSyncable(Lnet/minecraft/world/attribute/EnvironmentAttributeMap;)Lnet/minecraft/world/attribute/EnvironmentAttributeMap;
+private <init>(Ljava/util/Map;)V
+public static builder()Lnet/minecraft/world/attribute/EnvironmentAttributeMap$Builder;
+public get(Lnet/minecraft/world/attribute/EnvironmentAttribute;)Lnet/minecraft/world/attribute/EnvironmentAttributeMap$Entry;
+public applyModifier(Lnet/minecraft/world/attribute/EnvironmentAttribute;Ljava/lang/Object;)Ljava/lang/Object;
+public contains(Lnet/minecraft/world/attribute/EnvironmentAttribute;)Z
+public keySet()Ljava/util/Set;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public toString()Ljava/lang/String;
+private static synthetic lambda$static$2(Lnet/minecraft/world/attribute/EnvironmentAttributeMap;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$4(Ljava/util/List;)Ljava/lang/String;
+private static synthetic lambda$static$3(Lnet/minecraft/world/attribute/EnvironmentAttribute;)Z
+private static synthetic lambda$static$0()Lcom/mojang/serialization/Codec;
+private static synthetic lambda$static$1(Lnet/minecraft/world/attribute/EnvironmentAttributeMap;)Ljava/util/Map;
+static <clinit>()V
 ```

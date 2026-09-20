@@ -11,27 +11,28 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<clinit>*` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<clinit>` | `?` | selector_unsupported | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| reads | `SUPPLIERS` | `Ljava/util/Map;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | declared |
 
-## Declared members (10, all visibilities)
+## Declared members (2 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.entity.ai.attributes.DefaultAttributes {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.util.Map<net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.LivingEntity>, net.minecraft.world.entity.ai.attributes.AttributeSupplier> SUPPLIERS;
-    public net.minecraft.world.entity.ai.attributes.DefaultAttributes();
-    public static net.minecraft.world.entity.ai.attributes.AttributeSupplier getSupplier(net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.LivingEntity>);
-    public static boolean hasSupplier(net.minecraft.world.entity.EntityType<?>);
-    public static void validate();
-    private static void lambda$validate$2(net.minecraft.resources.Identifier);
-    private static boolean lambda$validate$1(net.minecraft.world.entity.EntityType);
-    private static boolean lambda$validate$0(net.minecraft.world.entity.EntityType);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final SUPPLIERS : Ljava/util/Map;
+public <init>()V
+public static getSupplier(Lnet/minecraft/world/entity/EntityType;)Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier;
+public static hasSupplier(Lnet/minecraft/world/entity/EntityType;)Z
+public static validate()V
+private static synthetic lambda$validate$2(Lnet/minecraft/resources/Identifier;)V
+private static synthetic lambda$validate$1(Lnet/minecraft/world/entity/EntityType;)Z
+private static synthetic lambda$validate$0(Lnet/minecraft/world/entity/EntityType;)Z
+static <clinit>()V
 ```

@@ -11,32 +11,53 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world|net.minecraft.world]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `consumesAction()Z` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `consumesAction()Z` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `PASSLnet/minecraft/world/InteractionResult$Pass;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `PASSLnet/minecraft/world/InteractionResult$Pass;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `PASSLnet/minecraft/world/InteractionResult$Pass;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `PASSLnet/minecraft/world/InteractionResult$Pass;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `PASSLnet/minecraft/world/InteractionResult$Pass;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `SUCCESSLnet/minecraft/world/InteractionResult$Success;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `consumesAction` | `()Z` | exact | invokeinterface@42 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `consumesAction` | `()Z` | exact | invokeinterface@65 in `MultiPlayerGameModeMixin.fabric_fireAttackBlockCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `consumesAction` | `()Z` | exact | invokeinterface@41 in `MultiPlayerGameModeMixin.interactBlock` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `FAIL` | `Lnet/minecraft/world/InteractionResult$Fail;` | exact | getstatic@36 in `InteractionEventsRouter.lambda$onInitialize$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `FAIL` | `Lnet/minecraft/world/InteractionResult$Fail;` | exact | getstatic@75 in `InteractionEventsRouter.lambda$onInitialize$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@43 in `AttackBlockCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@58 in `AttackBlockCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@43 in `AttackEntityCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@58 in `AttackEntityCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@41 in `UseBlockCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@56 in `UseBlockCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@43 in `UseEntityCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@58 in `UseEntityCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@39 in `UseItemCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@54 in `UseItemCallback.lambda$static$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@79 in `InteractionEventsRouter.lambda$onInitialize$0` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@45 in `PlayerMixin.onPlayerInteractEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@69 in `ServerGamePacketListenerImplMixin.handleInteract` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@39 in `ServerPlayerGameModeMixin.startBlockBreak` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@24 in `ServerPlayerGameModeMixin.interactBlock` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@22 in `ServerPlayerGameModeMixin.interactItem` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@34 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@37 in `MultiPlayerGameModeMixin.fabric_fireAttackBlockCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@33 in `MultiPlayerGameModeMixin.interactBlock` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@24 in `MultiPlayerGameModeMixin.interactItem` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `PASS` | `Lnet/minecraft/world/InteractionResult$Pass;` | exact | getstatic@28 in `MultiPlayerGameModeMixin.attackEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `SUCCESS` | `Lnet/minecraft/world/InteractionResult$Success;` | exact | getstatic@46 in `MultiPlayerGameModeMixin.fabric_fireAttackBlockCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `SUCCESS` | `Lnet/minecraft/world/InteractionResult$Success;` | exact | getstatic@32 in `MultiPlayerGameModeMixin.interactItem` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `SUCCESS` | `Lnet/minecraft/world/InteractionResult$Success;` | exact | getstatic@36 in `MultiPlayerGameModeMixin.attackEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (6 fields, 2 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.world.InteractionResult {
-    public static final net.minecraft.world.InteractionResult$Success SUCCESS;
-    public static final net.minecraft.world.InteractionResult$Success SUCCESS_SERVER;
-    public static final net.minecraft.world.InteractionResult$Success CONSUME;
-    public static final net.minecraft.world.InteractionResult$Fail FAIL;
-    public static final net.minecraft.world.InteractionResult$Pass PASS;
-    public static final net.minecraft.world.InteractionResult$TryEmptyHandInteraction TRY_WITH_EMPTY_HAND;
-    public default boolean consumesAction();
-    static {};
-}
+```
+public static final SUCCESS : Lnet/minecraft/world/InteractionResult$Success;
+public static final SUCCESS_SERVER : Lnet/minecraft/world/InteractionResult$Success;
+public static final CONSUME : Lnet/minecraft/world/InteractionResult$Success;
+public static final FAIL : Lnet/minecraft/world/InteractionResult$Fail;
+public static final PASS : Lnet/minecraft/world/InteractionResult$Pass;
+public static final TRY_WITH_EMPTY_HAND : Lnet/minecraft/world/InteractionResult$TryEmptyHandInteraction;
+public consumesAction()Z
+static <clinit>()V
 ```

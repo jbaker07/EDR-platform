@@ -8,9 +8,18 @@ package: "net.minecraft.server.players"
 
 # net.minecraft.server.players
 
-31 classes in the jar. Hooked types: 4
+31 classes (19 top-level) across 1 packages in the processed jar; 0 changed by Loom processing; 4 hooked by Fabric API.
 
-- [[40-Interfaces/net.minecraft.server.players.NameAndId|NameAndId]] -- calls:2 -- by fabric-client-gametest-api-v1, fabric-registry-sync-v0
-- [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]] -- calls:2, injects_into:9 -- by fabric-client-gametest-api-v1, fabric-entity-events-v1, fabric-lifecycle-events-v1, fabric-message-api-v1, fabric-networking-api-v1
+## Hooked types
+
+- [[40-Interfaces/net.minecraft.server.players.NameAndId|NameAndId]] -- calls:5 -- by fabric-client-gametest-api-v1, fabric-permission-api-v1, fabric-registry-sync-v0
+- [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]] -- calls:3, injects_into:9, reads:1 -- by fabric-client-gametest-api-v1, fabric-entity-events-v1, fabric-lifecycle-events-v1, fabric-message-api-v1, fabric-networking-api-v1
 - [[40-Interfaces/net.minecraft.server.players.UserWhiteList|UserWhiteList]] -- calls:1 -- by fabric-client-gametest-api-v1
 - [[40-Interfaces/net.minecraft.server.players.UserWhiteListEntry|UserWhiteListEntry]] -- calls:1 -- by fabric-client-gametest-api-v1
+
+## Declared inventory
+
+### `net.minecraft.server.players` (19 top-level)
+
+`BanListEntry`, `CachedUserNameToIdResolver`, `IpBanList`, `IpBanListEntry`, [[40-Interfaces/net.minecraft.server.players.NameAndId|NameAndId]], `OldUsersConverter`, [[40-Interfaces/net.minecraft.server.players.PlayerList|PlayerList]], `ProfileResolver`, `ServerOpList`, `ServerOpListEntry`, `SleepStatus`, `StoredUserEntry`, `StoredUserList`, `UserBanList`, `UserBanListEntry`, `UserNameToIdResolver`, [[40-Interfaces/net.minecraft.server.players.UserWhiteList|UserWhiteList]], [[40-Interfaces/net.minecraft.server.players.UserWhiteListEntry|UserWhiteListEntry]], `package-info`
+

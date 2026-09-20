@@ -11,112 +11,120 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.network.codec|net.minecraft.network.codec]]
 
+`interface` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `collection(Ljava/util/function/IntFunction;Lnet/minecraft/network/code` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `collection(Ljava/util/function/IntFunction;)Lnet/minecraft/network/cod` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `collection(Ljava/util/function/IntFunction;Lnet/minecraft/network/code` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `collection(Ljava/util/function/IntFunction;Lnet/minecraft/network/code` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `holderRegistry(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/networ` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `list()Lnet/minecraft/network/codec/StreamCodec$CodecOperation;` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `collection` | `(Ljava/util/function/IntFunction;)Lnet/minecraft/network/codec/StreamC` | exact | invokestatic@39 in `CommonRegisterPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `collection` | `(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCo` | exact | invokestatic@8 in `ServerboundAcceptedAttachmentsPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `collection` | `(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCo` | exact | invokestatic@16 in `ServerboundCustomIngredientPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `collection` | `(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCo` | exact | invokestatic@8 in `ServerboundSupportedRecipeSerializersPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `holderRegistry` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/network/codec/St` | exact | invokestatic@30 in `VariantCodecs.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `holderRegistry` | `(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/network/codec/St` | exact | invokestatic@71 in `VariantCodecs.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `list` | `()Lnet/minecraft/network/codec/StreamCodec$CodecOperation;` | exact | invokestatic@18 in `CombinedIngredient$Serializer.<init>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `list` | `()Lnet/minecraft/network/codec/StreamCodec$CodecOperation;` | exact | invokestatic@3 in `ClientboundRecipeSyncPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `BYTE` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@0 in `AttachmentTargetInfo.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `COMPOUND_TAG` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@29 in `CustomDataIngredient$Serializer.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `VAR_INT` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@0 in `AttachmentTargetInfo$EntityTarget.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `VAR_INT` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@0 in `ClientboundCustomIngredientPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `VAR_INT` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@0 in `ServerboundCustomIngredientPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `VAR_LONG` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@0 in `AttachmentTargetInfo$ChunkTarget.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (90, all visibilities)
+## Declared members (34 fields, 56 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.network.codec.ByteBufCodecs {
-    public static final int MAX_INITIAL_COLLECTION_SIZE;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Boolean> BOOL;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Byte> BYTE;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Float> ROTATION_BYTE;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Short> SHORT;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Integer> UNSIGNED_SHORT;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Integer> INT;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Integer> VAR_INT;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.OptionalInt> OPTIONAL_VAR_INT;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Long> LONG;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Long> VAR_LONG;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Float> FLOAT;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Double> DOUBLE;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, byte[]> BYTE_ARRAY;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, long[]> LONG_ARRAY;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.BitSet> BIT_SET;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.String> STRING_UTF8;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.nbt.Tag> TAG;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.nbt.Tag> TRUSTED_TAG;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.nbt.CompoundTag> COMPOUND_TAG;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.nbt.CompoundTag> TRUSTED_COMPOUND_TAG;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.Optional<net.minecraft.nbt.CompoundTag>> OPTIONAL_COMPOUND_TAG;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, org.joml.Vector3fc> VECTOR3F;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, org.joml.Quaternionfc> QUATERNIONF;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Integer> CONTAINER_ID;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, com.mojang.authlib.properties.PropertyMap> GAME_PROFILE_PROPERTIES;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.String> PLAYER_NAME;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, com.mojang.authlib.GameProfile> GAME_PROFILE;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.Integer> RGB_COLOR;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.time.Instant> INSTANT;
-    public static final int PUBLIC_KEY_SIZE;
-    public static final int MAX_PUBLIC_KEY_HEADER_SIZE;
-    public static final int MAX_PUBLIC_KEY_LENGTH;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.security.PublicKey> PUBLIC_KEY;
-    public static net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, byte[]> byteArray(int);
-    public static net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.lang.String> stringUtf8(int);
-    public static net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.BitSet> fixedBitSet(int);
-    public static net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.Optional<net.minecraft.nbt.Tag>> optionalTagCodec(java.util.function.Supplier<net.minecraft.nbt.NbtAccounter>);
-    public static net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.nbt.Tag> tagCodec(java.util.function.Supplier<net.minecraft.nbt.NbtAccounter>);
-    public static net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.nbt.CompoundTag> compoundTagCodec(java.util.function.Supplier<net.minecraft.nbt.NbtAccounter>);
-    public static <T> net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, T> fromCodecTrusted(com.mojang.serialization.Codec<T>);
-    public static <T> net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, T> fromCodec(com.mojang.serialization.Codec<T>);
-    public static <T, B extends io.netty.buffer.ByteBuf, V> net.minecraft.network.codec.StreamCodec$CodecOperation<B, T, V> fromCodec(com.mojang.serialization.DynamicOps<T>, com.mojang.serialization.Codec<V>);
-    public static <T> net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, T> fromCodec(com.mojang.serialization.Codec<T>, java.util.function.Supplier<net.minecraft.nbt.NbtAccounter>);
-    public static <T> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, T> fromCodecWithRegistriesTrusted(com.mojang.serialization.Codec<T>);
-    public static <T> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, T> fromCodecWithRegistries(com.mojang.serialization.Codec<T>);
-    public static <T> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, T> fromCodecWithRegistries(com.mojang.serialization.Codec<T>, java.util.function.Supplier<net.minecraft.nbt.NbtAccounter>);
-    public static <B extends io.netty.buffer.ByteBuf, V> net.minecraft.network.codec.StreamCodec<B, java.util.Optional<V>> optional(net.minecraft.network.codec.StreamCodec<? super B, V>);
-    public static int readCount(io.netty.buffer.ByteBuf, int);
-    public static void writeCount(io.netty.buffer.ByteBuf, int, int);
-    public static <B extends io.netty.buffer.ByteBuf, V, C extends java.util.Collection<V>> net.minecraft.network.codec.StreamCodec<B, C> collection(java.util.function.IntFunction<C>, net.minecraft.network.codec.StreamCodec<? super B, V>);
-    public static <B extends io.netty.buffer.ByteBuf, V, C extends java.util.Collection<V>> net.minecraft.network.codec.StreamCodec<B, C> collection(java.util.function.IntFunction<C>, net.minecraft.network.codec.StreamCodec<? super B, V>, int);
-    public static <B extends io.netty.buffer.ByteBuf, V, C extends java.util.Collection<V>> net.minecraft.network.codec.StreamCodec$CodecOperation<B, V, C> collection(java.util.function.IntFunction<C>);
-    public static <B extends io.netty.buffer.ByteBuf, V, C extends java.util.Collection<V>> net.minecraft.network.codec.StreamCodec$CodecOperation<B, V, C> collection(java.util.function.IntFunction<C>, int);
-    public static <B extends io.netty.buffer.ByteBuf, V> net.minecraft.network.codec.StreamCodec$CodecOperation<B, V, java.util.List<V>> list();
-    public static <B extends io.netty.buffer.ByteBuf, V> net.minecraft.network.codec.StreamCodec$CodecOperation<B, V, java.util.List<V>> list(int);
-    public static <B extends io.netty.buffer.ByteBuf, V, C extends java.util.Collection<V>> net.minecraft.network.codec.StreamCodec<B, C> fixedSizeCollection(java.util.function.IntFunction<C>, net.minecraft.network.codec.StreamCodec<? super B, V>, int);
-    public static <B extends io.netty.buffer.ByteBuf, V, C extends java.util.Collection<V>> net.minecraft.network.codec.StreamCodec$CodecOperation<B, V, C> fixedSizeCollection(java.util.function.IntFunction<C>, int);
-    public static <B extends io.netty.buffer.ByteBuf, V> net.minecraft.network.codec.StreamCodec$CodecOperation<B, V, java.util.List<V>> fixedSizeList(int);
-    public static <B extends io.netty.buffer.ByteBuf, K, V, M extends java.util.Map<K, V>> net.minecraft.network.codec.StreamCodec<B, M> map(java.util.function.IntFunction<? extends M>, net.minecraft.network.codec.StreamCodec<? super B, K>, net.minecraft.network.codec.StreamCodec<? super B, V>);
-    public static <B extends io.netty.buffer.ByteBuf, K, V, M extends java.util.Map<K, V>> net.minecraft.network.codec.StreamCodec<B, M> map(java.util.function.IntFunction<? extends M>, net.minecraft.network.codec.StreamCodec<? super B, K>, net.minecraft.network.codec.StreamCodec<? super B, V>, int);
-    public static <B extends io.netty.buffer.ByteBuf, L, R> net.minecraft.network.codec.StreamCodec<B, com.mojang.datafixers.util.Either<L, R>> either(net.minecraft.network.codec.StreamCodec<? super B, L>, net.minecraft.network.codec.StreamCodec<? super B, R>);
-    public static <B extends io.netty.buffer.ByteBuf, V> net.minecraft.network.codec.StreamCodec$CodecOperation<B, V, V> lengthPrefixed(int, java.util.function.BiFunction<B, io.netty.buffer.ByteBuf, B>);
-    public static <V> net.minecraft.network.codec.StreamCodec$CodecOperation<io.netty.buffer.ByteBuf, V, V> lengthPrefixed(int);
-    public static <V> net.minecraft.network.codec.StreamCodec$CodecOperation<net.minecraft.network.RegistryFriendlyByteBuf, V, V> registryFriendlyLengthPrefixed(int);
-    public static <T> net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, T> idMapper(java.util.function.IntFunction<T>, java.util.function.ToIntFunction<T>);
-    public static <T> net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, T> idMapper(net.minecraft.core.IdMap<T>);
-    private static <T, R> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, R> registry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, java.util.function.Function<net.minecraft.core.Registry<T>, net.minecraft.core.IdMap<R>>);
-    public static <T> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, T> registry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
-    public static <T> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.core.Holder<T>> holderRegistry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
-    public static <T> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.core.Holder<T>> holder(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, T>);
-    public static <T> net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.core.HolderSet<T>> holderSet(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
-    public static net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, com.google.gson.JsonElement> lenientJson(int);
-    private static java.security.PublicKey lambda$static$2(byte[]);
-    private static net.minecraft.core.IdMap lambda$registry$0(net.minecraft.core.Registry);
-    private static net.minecraft.network.RegistryFriendlyByteBuf lambda$registryFriendlyLengthPrefixed$0(net.minecraft.network.RegistryFriendlyByteBuf, io.netty.buffer.ByteBuf);
-    private static io.netty.buffer.ByteBuf lambda$lengthPrefixed$1(io.netty.buffer.ByteBuf, io.netty.buffer.ByteBuf);
-    private static net.minecraft.network.codec.StreamCodec lambda$lengthPrefixed$0(int, java.util.function.BiFunction, net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.network.codec.StreamCodec lambda$fixedSizeList$0(int, net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.network.codec.StreamCodec lambda$fixedSizeCollection$0(java.util.function.IntFunction, int, net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.network.codec.StreamCodec lambda$list$1(int, net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.network.codec.StreamCodec lambda$list$0(net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.network.codec.StreamCodec lambda$collection$1(java.util.function.IntFunction, int, net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.network.codec.StreamCodec lambda$collection$0(java.util.function.IntFunction, net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.network.codec.StreamCodec lambda$fromCodec$0(com.mojang.serialization.Codec, com.mojang.serialization.DynamicOps, net.minecraft.network.codec.StreamCodec);
-    private static net.minecraft.nbt.Tag lambda$compoundTagCodec$1(net.minecraft.nbt.CompoundTag);
-    private static net.minecraft.nbt.CompoundTag lambda$compoundTagCodec$0(net.minecraft.nbt.Tag);
-    private static java.lang.Integer lambda$static$1(java.util.OptionalInt);
-    private static java.util.OptionalInt lambda$static$0(java.lang.Integer);
-    static {};
-}
+```
+public static final MAX_INITIAL_COLLECTION_SIZE : I
+public static final BOOL : Lnet/minecraft/network/codec/StreamCodec;
+public static final BYTE : Lnet/minecraft/network/codec/StreamCodec;
+public static final ROTATION_BYTE : Lnet/minecraft/network/codec/StreamCodec;
+public static final SHORT : Lnet/minecraft/network/codec/StreamCodec;
+public static final UNSIGNED_SHORT : Lnet/minecraft/network/codec/StreamCodec;
+public static final INT : Lnet/minecraft/network/codec/StreamCodec;
+public static final VAR_INT : Lnet/minecraft/network/codec/StreamCodec;
+public static final OPTIONAL_VAR_INT : Lnet/minecraft/network/codec/StreamCodec;
+public static final LONG : Lnet/minecraft/network/codec/StreamCodec;
+public static final VAR_LONG : Lnet/minecraft/network/codec/StreamCodec;
+public static final FLOAT : Lnet/minecraft/network/codec/StreamCodec;
+public static final DOUBLE : Lnet/minecraft/network/codec/StreamCodec;
+public static final BYTE_ARRAY : Lnet/minecraft/network/codec/StreamCodec;
+public static final LONG_ARRAY : Lnet/minecraft/network/codec/StreamCodec;
+public static final BIT_SET : Lnet/minecraft/network/codec/StreamCodec;
+public static final STRING_UTF8 : Lnet/minecraft/network/codec/StreamCodec;
+public static final TAG : Lnet/minecraft/network/codec/StreamCodec;
+public static final TRUSTED_TAG : Lnet/minecraft/network/codec/StreamCodec;
+public static final COMPOUND_TAG : Lnet/minecraft/network/codec/StreamCodec;
+public static final TRUSTED_COMPOUND_TAG : Lnet/minecraft/network/codec/StreamCodec;
+public static final OPTIONAL_COMPOUND_TAG : Lnet/minecraft/network/codec/StreamCodec;
+public static final VECTOR3F : Lnet/minecraft/network/codec/StreamCodec;
+public static final QUATERNIONF : Lnet/minecraft/network/codec/StreamCodec;
+public static final CONTAINER_ID : Lnet/minecraft/network/codec/StreamCodec;
+public static final GAME_PROFILE_PROPERTIES : Lnet/minecraft/network/codec/StreamCodec;
+public static final PLAYER_NAME : Lnet/minecraft/network/codec/StreamCodec;
+public static final GAME_PROFILE : Lnet/minecraft/network/codec/StreamCodec;
+public static final RGB_COLOR : Lnet/minecraft/network/codec/StreamCodec;
+public static final INSTANT : Lnet/minecraft/network/codec/StreamCodec;
+public static final PUBLIC_KEY_SIZE : I
+public static final MAX_PUBLIC_KEY_HEADER_SIZE : I
+public static final MAX_PUBLIC_KEY_LENGTH : I
+public static final PUBLIC_KEY : Lnet/minecraft/network/codec/StreamCodec;
+public static byteArray(I)Lnet/minecraft/network/codec/StreamCodec;
+public static stringUtf8(I)Lnet/minecraft/network/codec/StreamCodec;
+public static fixedBitSet(I)Lnet/minecraft/network/codec/StreamCodec;
+public static optionalTagCodec(Ljava/util/function/Supplier;)Lnet/minecraft/network/codec/StreamCodec;
+public static tagCodec(Ljava/util/function/Supplier;)Lnet/minecraft/network/codec/StreamCodec;
+public static compoundTagCodec(Ljava/util/function/Supplier;)Lnet/minecraft/network/codec/StreamCodec;
+public static fromCodecTrusted(Lcom/mojang/serialization/Codec;)Lnet/minecraft/network/codec/StreamCodec;
+public static fromCodec(Lcom/mojang/serialization/Codec;)Lnet/minecraft/network/codec/StreamCodec;
+public static fromCodec(Lcom/mojang/serialization/DynamicOps;Lcom/mojang/serialization/Codec;)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static fromCodec(Lcom/mojang/serialization/Codec;Ljava/util/function/Supplier;)Lnet/minecraft/network/codec/StreamCodec;
+public static fromCodecWithRegistriesTrusted(Lcom/mojang/serialization/Codec;)Lnet/minecraft/network/codec/StreamCodec;
+public static fromCodecWithRegistries(Lcom/mojang/serialization/Codec;)Lnet/minecraft/network/codec/StreamCodec;
+public static fromCodecWithRegistries(Lcom/mojang/serialization/Codec;Ljava/util/function/Supplier;)Lnet/minecraft/network/codec/StreamCodec;
+public static optional(Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+public static readCount(Lio/netty/buffer/ByteBuf;I)I
+public static writeCount(Lio/netty/buffer/ByteBuf;II)V
+public static collection(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+public static collection(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCodec;I)Lnet/minecraft/network/codec/StreamCodec;
+public static collection(Ljava/util/function/IntFunction;)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static collection(Ljava/util/function/IntFunction;I)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static list()Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static list(I)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static fixedSizeCollection(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCodec;I)Lnet/minecraft/network/codec/StreamCodec;
+public static fixedSizeCollection(Ljava/util/function/IntFunction;I)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static fixedSizeList(I)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static map(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCodec;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+public static map(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCodec;Lnet/minecraft/network/codec/StreamCodec;I)Lnet/minecraft/network/codec/StreamCodec;
+public static either(Lnet/minecraft/network/codec/StreamCodec;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+public static lengthPrefixed(ILjava/util/function/BiFunction;)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static lengthPrefixed(I)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static registryFriendlyLengthPrefixed(I)Lnet/minecraft/network/codec/StreamCodec$CodecOperation;
+public static idMapper(Ljava/util/function/IntFunction;Ljava/util/function/ToIntFunction;)Lnet/minecraft/network/codec/StreamCodec;
+public static idMapper(Lnet/minecraft/core/IdMap;)Lnet/minecraft/network/codec/StreamCodec;
+private static registry(Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;)Lnet/minecraft/network/codec/StreamCodec;
+public static registry(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/network/codec/StreamCodec;
+public static holderRegistry(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/network/codec/StreamCodec;
+public static holder(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+public static holderSet(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/network/codec/StreamCodec;
+public static lenientJson(I)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$static$2([B)Ljava/security/PublicKey;
+private static synthetic lambda$registry$0(Lnet/minecraft/core/Registry;)Lnet/minecraft/core/IdMap;
+private static synthetic lambda$registryFriendlyLengthPrefixed$0(Lnet/minecraft/network/RegistryFriendlyByteBuf;Lio/netty/buffer/ByteBuf;)Lnet/minecraft/network/RegistryFriendlyByteBuf;
+private static synthetic lambda$lengthPrefixed$1(Lio/netty/buffer/ByteBuf;Lio/netty/buffer/ByteBuf;)Lio/netty/buffer/ByteBuf;
+private static synthetic lambda$lengthPrefixed$0(ILjava/util/function/BiFunction;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$fixedSizeList$0(ILnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$fixedSizeCollection$0(Ljava/util/function/IntFunction;ILnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$list$1(ILnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$list$0(Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$collection$1(Ljava/util/function/IntFunction;ILnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$collection$0(Ljava/util/function/IntFunction;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$fromCodec$0(Lcom/mojang/serialization/Codec;Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/codec/StreamCodec;
+private static synthetic lambda$compoundTagCodec$1(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/nbt/Tag;
+private static synthetic lambda$compoundTagCodec$0(Lnet/minecraft/nbt/Tag;)Lnet/minecraft/nbt/CompoundTag;
+private static synthetic lambda$static$1(Ljava/util/OptionalInt;)Ljava/lang/Integer;
+private static synthetic lambda$static$0(Ljava/lang/Integer;)Ljava/util/OptionalInt;
+static <clinit>()V
 ```

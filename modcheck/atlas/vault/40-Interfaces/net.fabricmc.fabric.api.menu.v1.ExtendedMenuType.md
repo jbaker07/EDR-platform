@@ -13,8 +13,8 @@ sha256: "2d406ae5995d2249b2f76faf3046e68683449a96d0214aabe7f8b16b35ec50e6"
 Module: [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.menu.v1.ExtendedMenuType(net.fabricmc.fabric.api.menu.v1.ExtendedMenuType$ExtendedFactory<T, D>, net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, D>)
-public final T create(int, net.minecraft.world.entity.player.Inventory)
-public T create(int, net.minecraft.world.entity.player.Inventory, D)
-public net.minecraft.network.codec.StreamCodec<? super net.minecraft.network.RegistryFriendlyByteBuf, D> getStreamCodec()
+public <init>(net.fabricmc.fabric.api.menu.v1.ExtendedMenuType$ExtendedFactory, net.minecraft.network.codec.StreamCodec)
+public final net.minecraft.world.inventory.AbstractContainerMenu create(int, net.minecraft.world.entity.player.Inventory)
+public net.minecraft.world.inventory.AbstractContainerMenu create(int, net.minecraft.world.entity.player.Inventory, java.lang.Object)
+public net.minecraft.network.codec.StreamCodec getStreamCodec()
 ```

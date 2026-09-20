@@ -13,11 +13,11 @@ sha256: "dfff56a878bba654646e986d90cf05913d7a914ad6c1292874de1ad505474544"
 Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- kind: interface
 
 ```java
-public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> register(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec.StreamCodec<? super B, T>)
-public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec.StreamCodec<? super B, T>, int)
-public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec.StreamCodec<? super B, T>, java.util.function.IntSupplier)
-public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.FriendlyByteBuf> serverboundConfiguration()
-public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.FriendlyByteBuf> clientboundConfiguration()
-public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.RegistryFriendlyByteBuf> serverboundPlay()
-public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.RegistryFriendlyByteBuf> clientboundPlay()
+public abstract net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec register(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type, net.minecraft.network.codec.StreamCodec)
+public abstract net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type, net.minecraft.network.codec.StreamCodec, int)
+public abstract net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type, net.minecraft.network.codec.StreamCodec, java.util.function.IntSupplier)
+public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry serverboundConfiguration()
+public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry clientboundConfiguration()
+public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry serverboundPlay()
+public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry clientboundPlay()
 ```

@@ -11,71 +11,71 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `register(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/g` | `` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `register` | `(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/gui/compone` | exact | invokestatic@14 in `DebugOverlayClient.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (54, all visibilities)
+## Declared members (48 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.components.debug.DebugScreenEntries {
-    private static final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.gui.components.debug.DebugScreenEntry> ENTRIES_BY_ID;
-    public static final net.minecraft.resources.Identifier GAME_VERSION;
-    public static final net.minecraft.resources.Identifier FPS;
-    public static final net.minecraft.resources.Identifier TPS;
-    public static final net.minecraft.resources.Identifier MEMORY;
-    public static final net.minecraft.resources.Identifier DETAILED_MEMORY;
-    public static final net.minecraft.resources.Identifier SYSTEM_SPECS;
-    public static final net.minecraft.resources.Identifier LOOKING_AT_BLOCK_STATE;
-    public static final net.minecraft.resources.Identifier LOOKING_AT_BLOCK_TAGS;
-    public static final net.minecraft.resources.Identifier LOOKING_AT_FLUID_STATE;
-    public static final net.minecraft.resources.Identifier LOOKING_AT_FLUID_TAGS;
-    public static final net.minecraft.resources.Identifier LOOKING_AT_ENTITY;
-    public static final net.minecraft.resources.Identifier LOOKING_AT_ENTITY_TAGS;
-    public static final net.minecraft.resources.Identifier CHUNK_RENDER_STATS;
-    public static final net.minecraft.resources.Identifier CHUNK_GENERATION_STATS;
-    public static final net.minecraft.resources.Identifier ENTITY_RENDER_STATS;
-    public static final net.minecraft.resources.Identifier PARTICLE_RENDER_STATS;
-    public static final net.minecraft.resources.Identifier CHUNK_SOURCE_STATS;
-    public static final net.minecraft.resources.Identifier PLAYER_POSITION;
-    public static final net.minecraft.resources.Identifier PLAYER_SECTION_POSITION;
-    public static final net.minecraft.resources.Identifier PLAYER_SPEED;
-    public static final net.minecraft.resources.Identifier LIGHT_LEVELS;
-    public static final net.minecraft.resources.Identifier HEIGHTMAP;
-    public static final net.minecraft.resources.Identifier BIOME;
-    public static final net.minecraft.resources.Identifier LOCAL_DIFFICULTY;
-    public static final net.minecraft.resources.Identifier DAY_COUNT;
-    public static final net.minecraft.resources.Identifier ENTITY_SPAWN_COUNTS;
-    public static final net.minecraft.resources.Identifier SOUND_MOOD;
-    public static final net.minecraft.resources.Identifier SOUND_CACHE;
-    public static final net.minecraft.resources.Identifier POST_EFFECTS;
-    public static final net.minecraft.resources.Identifier ENTITY_HITBOXES;
-    public static final net.minecraft.resources.Identifier CHUNK_BORDERS;
-    public static final net.minecraft.resources.Identifier THREE_DIMENSIONAL_CROSSHAIR;
-    public static final net.minecraft.resources.Identifier CHUNK_SECTION_PATHS;
-    public static final net.minecraft.resources.Identifier GPU_UTILIZATION;
-    public static final net.minecraft.resources.Identifier SIMPLE_PERFORMANCE_IMPACTORS;
-    public static final net.minecraft.resources.Identifier CHUNK_SECTION_OCTREE;
-    public static final net.minecraft.resources.Identifier VISUALIZE_WATER_LEVELS;
-    public static final net.minecraft.resources.Identifier VISUALIZE_HEIGHTMAP;
-    public static final net.minecraft.resources.Identifier VISUALIZE_COLLISION_BOXES;
-    public static final net.minecraft.resources.Identifier VISUALIZE_ENTITY_SUPPORTING_BLOCKS;
-    public static final net.minecraft.resources.Identifier VISUALIZE_BLOCK_LIGHT_LEVELS;
-    public static final net.minecraft.resources.Identifier VISUALIZE_SKY_LIGHT_LEVELS;
-    public static final net.minecraft.resources.Identifier VISUALIZE_SOLID_FACES;
-    public static final net.minecraft.resources.Identifier VISUALIZE_CHUNKS_ON_SERVER;
-    public static final net.minecraft.resources.Identifier VISUALIZE_SKY_LIGHT_SECTIONS;
-    public static final net.minecraft.resources.Identifier CHUNK_SECTION_VISIBILITY;
-    public static final java.util.Map<net.minecraft.client.gui.components.debug.DebugScreenProfile, java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.gui.components.debug.DebugScreenEntryStatus>> PROFILES;
-    public net.minecraft.client.gui.components.debug.DebugScreenEntries();
-    private static net.minecraft.resources.Identifier register(java.lang.String, net.minecraft.client.gui.components.debug.DebugScreenEntry);
-    private static net.minecraft.resources.Identifier register(net.minecraft.resources.Identifier, net.minecraft.client.gui.components.debug.DebugScreenEntry);
-    public static java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.gui.components.debug.DebugScreenEntry> allEntries();
-    public static net.minecraft.client.gui.components.debug.DebugScreenEntry getEntry(net.minecraft.resources.Identifier);
-    static {};
-}
+```
+private static final ENTRIES_BY_ID : Ljava/util/Map;
+public static final GAME_VERSION : Lnet/minecraft/resources/Identifier;
+public static final FPS : Lnet/minecraft/resources/Identifier;
+public static final TPS : Lnet/minecraft/resources/Identifier;
+public static final MEMORY : Lnet/minecraft/resources/Identifier;
+public static final DETAILED_MEMORY : Lnet/minecraft/resources/Identifier;
+public static final SYSTEM_SPECS : Lnet/minecraft/resources/Identifier;
+public static final LOOKING_AT_BLOCK_STATE : Lnet/minecraft/resources/Identifier;
+public static final LOOKING_AT_BLOCK_TAGS : Lnet/minecraft/resources/Identifier;
+public static final LOOKING_AT_FLUID_STATE : Lnet/minecraft/resources/Identifier;
+public static final LOOKING_AT_FLUID_TAGS : Lnet/minecraft/resources/Identifier;
+public static final LOOKING_AT_ENTITY : Lnet/minecraft/resources/Identifier;
+public static final LOOKING_AT_ENTITY_TAGS : Lnet/minecraft/resources/Identifier;
+public static final CHUNK_RENDER_STATS : Lnet/minecraft/resources/Identifier;
+public static final CHUNK_GENERATION_STATS : Lnet/minecraft/resources/Identifier;
+public static final ENTITY_RENDER_STATS : Lnet/minecraft/resources/Identifier;
+public static final PARTICLE_RENDER_STATS : Lnet/minecraft/resources/Identifier;
+public static final CHUNK_SOURCE_STATS : Lnet/minecraft/resources/Identifier;
+public static final PLAYER_POSITION : Lnet/minecraft/resources/Identifier;
+public static final PLAYER_SECTION_POSITION : Lnet/minecraft/resources/Identifier;
+public static final PLAYER_SPEED : Lnet/minecraft/resources/Identifier;
+public static final LIGHT_LEVELS : Lnet/minecraft/resources/Identifier;
+public static final HEIGHTMAP : Lnet/minecraft/resources/Identifier;
+public static final BIOME : Lnet/minecraft/resources/Identifier;
+public static final LOCAL_DIFFICULTY : Lnet/minecraft/resources/Identifier;
+public static final DAY_COUNT : Lnet/minecraft/resources/Identifier;
+public static final ENTITY_SPAWN_COUNTS : Lnet/minecraft/resources/Identifier;
+public static final SOUND_MOOD : Lnet/minecraft/resources/Identifier;
+public static final SOUND_CACHE : Lnet/minecraft/resources/Identifier;
+public static final POST_EFFECTS : Lnet/minecraft/resources/Identifier;
+public static final ENTITY_HITBOXES : Lnet/minecraft/resources/Identifier;
+public static final CHUNK_BORDERS : Lnet/minecraft/resources/Identifier;
+public static final THREE_DIMENSIONAL_CROSSHAIR : Lnet/minecraft/resources/Identifier;
+public static final CHUNK_SECTION_PATHS : Lnet/minecraft/resources/Identifier;
+public static final GPU_UTILIZATION : Lnet/minecraft/resources/Identifier;
+public static final SIMPLE_PERFORMANCE_IMPACTORS : Lnet/minecraft/resources/Identifier;
+public static final CHUNK_SECTION_OCTREE : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_WATER_LEVELS : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_HEIGHTMAP : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_COLLISION_BOXES : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_ENTITY_SUPPORTING_BLOCKS : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_BLOCK_LIGHT_LEVELS : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_SKY_LIGHT_LEVELS : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_SOLID_FACES : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_CHUNKS_ON_SERVER : Lnet/minecraft/resources/Identifier;
+public static final VISUALIZE_SKY_LIGHT_SECTIONS : Lnet/minecraft/resources/Identifier;
+public static final CHUNK_SECTION_VISIBILITY : Lnet/minecraft/resources/Identifier;
+public static final PROFILES : Ljava/util/Map;
+public <init>()V
+private static register(Ljava/lang/String;Lnet/minecraft/client/gui/components/debug/DebugScreenEntry;)Lnet/minecraft/resources/Identifier;
+public static register(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/gui/components/debug/DebugScreenEntry;)Lnet/minecraft/resources/Identifier;
+public static allEntries()Ljava/util/Map;
+public static getEntry(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/gui/components/debug/DebugScreenEntry;
+static <clinit>()V
 ```

@@ -13,7 +13,6 @@ sha256: "a3a82771b3fd9f2eb36e1098c5f90759ac877982b9ac297831a1fce9b2185bf8"
 Module: [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] -- kind: class
 
 ```java
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.permission.v1.PermissionEvents$OnRequest> ON_REQUEST
-public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.permission.v1.PermissionEvents$PrepareOfflinePlayer> PREPARE_OFFLINE_PLAYER
-static {}
+public static final net.fabricmc.fabric.api.event.Event ON_REQUEST
+public static final net.fabricmc.fabric.api.event.Event PREPARE_OFFLINE_PLAYER
 ```

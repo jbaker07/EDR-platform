@@ -11,49 +11,49 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `requestedSubscriptions` | `@Inject at RETURN` | client | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `requestedSubscriptions` | `()Ljava/util/Set;` | name_only | @Inject at ['RETURN'] | client | [[30-Mechanisms/fabric-debug-api-v1|fabric-debug-api-v1]] | direct_reference |
 
-## Declared members (32, all visibilities)
+## Declared members (4 fields, 28 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.multiplayer.ClientDebugSubscriber {
-    private final net.minecraft.client.multiplayer.ClientPacketListener connection;
-    private final net.minecraft.client.gui.components.DebugScreenOverlay debugScreenOverlay;
-    private java.util.Set<net.minecraft.util.debug.DebugSubscription<?>> remoteSubscriptions;
-    private final java.util.Map<net.minecraft.util.debug.DebugSubscription<?>, net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMaps<?>> valuesBySubscription;
-    public net.minecraft.client.multiplayer.ClientDebugSubscriber(net.minecraft.client.multiplayer.ClientPacketListener, net.minecraft.client.gui.components.DebugScreenOverlay);
-    private static void addFlag(java.util.Set<net.minecraft.util.debug.DebugSubscription<?>>, net.minecraft.util.debug.DebugSubscription<?>, boolean);
-    private java.util.Set<net.minecraft.util.debug.DebugSubscription<?>> requestedSubscriptions();
-    public void clear();
-    public void tick(long);
-    private void onSubscriptionsChanged(java.util.Set<net.minecraft.util.debug.DebugSubscription<?>>);
-    private void initializeSubscriptions(java.util.Set<net.minecraft.util.debug.DebugSubscription<?>>);
-    private <V> net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMaps<V> getValueMaps(net.minecraft.util.debug.DebugSubscription<V>);
-    private <K, V> net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMap<K, V> getValueMap(net.minecraft.util.debug.DebugSubscription<V>, net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMapType<K, V>);
-    private <K, V> V getValue(net.minecraft.util.debug.DebugSubscription<V>, K, net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMapType<K, V>);
-    public net.minecraft.util.debug.DebugValueAccess createDebugValueAccess(net.minecraft.world.level.Level);
-    public <T> void updateChunk(long, net.minecraft.world.level.ChunkPos, net.minecraft.util.debug.DebugSubscription$Update<T>);
-    public <T> void updateBlock(long, net.minecraft.core.BlockPos, net.minecraft.util.debug.DebugSubscription$Update<T>);
-    public <T> void updateEntity(long, net.minecraft.world.entity.Entity, net.minecraft.util.debug.DebugSubscription$Update<T>);
-    public <T> void pushEvent(long, net.minecraft.util.debug.DebugSubscription$Event<T>);
-    private <K, V> void updateMap(long, K, net.minecraft.util.debug.DebugSubscription$Update<V>, net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMapType<K, V>);
-    private <K, V> void forEachValue(net.minecraft.util.debug.DebugSubscription<V>, net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMapType<K, V>, java.util.function.BiConsumer<K, V>);
-    public void dropLevel();
-    public void dropChunk(net.minecraft.world.level.ChunkPos);
-    public void dropEntity(net.minecraft.world.entity.Entity);
-    private static <T> net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMapType<java.util.UUID, T> entities();
-    private static <T> net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMapType<net.minecraft.core.BlockPos, T> blocks();
-    private static <T> net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMapType<net.minecraft.world.level.ChunkPos, T> chunks();
-    private static net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMap lambda$chunks$0(net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMaps);
-    private static net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMap lambda$blocks$0(net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMaps);
-    private static net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMap lambda$entities$0(net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMaps);
-    private static net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMaps lambda$initializeSubscriptions$0(net.minecraft.util.debug.DebugSubscription);
-    private static void lambda$tick$0(long, net.minecraft.util.debug.DebugSubscription, net.minecraft.client.multiplayer.ClientDebugSubscriber$ValueMaps);
-}
+```
+private final connection : Lnet/minecraft/client/multiplayer/ClientPacketListener;
+private final debugScreenOverlay : Lnet/minecraft/client/gui/components/DebugScreenOverlay;
+private remoteSubscriptions : Ljava/util/Set;
+private final valuesBySubscription : Ljava/util/Map;
+public <init>(Lnet/minecraft/client/multiplayer/ClientPacketListener;Lnet/minecraft/client/gui/components/DebugScreenOverlay;)V
+private static addFlag(Ljava/util/Set;Lnet/minecraft/util/debug/DebugSubscription;Z)V
+private requestedSubscriptions()Ljava/util/Set;
+public clear()V
+public tick(J)V
+private onSubscriptionsChanged(Ljava/util/Set;)V
+private initializeSubscriptions(Ljava/util/Set;)V
+private getValueMaps(Lnet/minecraft/util/debug/DebugSubscription;)Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMaps;
+private getValueMap(Lnet/minecraft/util/debug/DebugSubscription;Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMapType;)Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMap;
+private getValue(Lnet/minecraft/util/debug/DebugSubscription;Ljava/lang/Object;Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMapType;)Ljava/lang/Object;
+public createDebugValueAccess(Lnet/minecraft/world/level/Level;)Lnet/minecraft/util/debug/DebugValueAccess;
+public updateChunk(JLnet/minecraft/world/level/ChunkPos;Lnet/minecraft/util/debug/DebugSubscription$Update;)V
+public updateBlock(JLnet/minecraft/core/BlockPos;Lnet/minecraft/util/debug/DebugSubscription$Update;)V
+public updateEntity(JLnet/minecraft/world/entity/Entity;Lnet/minecraft/util/debug/DebugSubscription$Update;)V
+public pushEvent(JLnet/minecraft/util/debug/DebugSubscription$Event;)V
+private updateMap(JLjava/lang/Object;Lnet/minecraft/util/debug/DebugSubscription$Update;Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMapType;)V
+private forEachValue(Lnet/minecraft/util/debug/DebugSubscription;Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMapType;Ljava/util/function/BiConsumer;)V
+public dropLevel()V
+public dropChunk(Lnet/minecraft/world/level/ChunkPos;)V
+public dropEntity(Lnet/minecraft/world/entity/Entity;)V
+private static entities()Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMapType;
+private static blocks()Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMapType;
+private static chunks()Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMapType;
+private static synthetic lambda$chunks$0(Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMaps;)Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMap;
+private static synthetic lambda$blocks$0(Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMaps;)Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMap;
+private static synthetic lambda$entities$0(Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMaps;)Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMap;
+private static synthetic lambda$initializeSubscriptions$0(Lnet/minecraft/util/debug/DebugSubscription;)Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMaps;
+private static synthetic lambda$tick$0(JLnet/minecraft/util/debug/DebugSubscription;Lnet/minecraft/client/multiplayer/ClientDebugSubscriber$ValueMaps;)V
 ```

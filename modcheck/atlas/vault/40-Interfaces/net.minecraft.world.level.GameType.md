@@ -11,53 +11,53 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`enum` public final; extends `java/lang/Enum`; implements `net/minecraft/util/StringRepresentable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `SURVIVALLnet/minecraft/world/level/GameType;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `SURVIVAL` | `Lnet/minecraft/world/level/GameType;` | exact | getstatic@8 in `ServerPlayerMixin.fakePlayerGameMode` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
 
-## Declared members (36, all visibilities)
+## Declared members (15 fields, 21 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.GameType extends java.lang.Enum<net.minecraft.world.level.GameType> implements net.minecraft.util.StringRepresentable {
-    public static final net.minecraft.world.level.GameType SURVIVAL;
-    public static final net.minecraft.world.level.GameType CREATIVE;
-    public static final net.minecraft.world.level.GameType ADVENTURE;
-    public static final net.minecraft.world.level.GameType SPECTATOR;
-    public static final net.minecraft.world.level.GameType DEFAULT_MODE;
-    public static final net.minecraft.util.StringRepresentable$EnumCodec<net.minecraft.world.level.GameType> CODEC;
-    private static final java.util.function.IntFunction<net.minecraft.world.level.GameType> BY_ID;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.level.GameType> STREAM_CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.Optional<net.minecraft.world.level.GameType>> OPTIONAL_STREAM_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.GameType> LEGACY_ID_CODEC;
-    private final int id;
-    private final java.lang.String name;
-    private final net.minecraft.network.chat.Component shortName;
-    private final net.minecraft.network.chat.Component longName;
-    private static final net.minecraft.world.level.GameType[] $VALUES;
-    public static net.minecraft.world.level.GameType[] values();
-    public static net.minecraft.world.level.GameType valueOf(java.lang.String);
-    private net.minecraft.world.level.GameType(int, java.lang.String);
-    public int getId();
-    public java.lang.String getName();
-    public java.lang.String getSerializedName();
-    public net.minecraft.network.chat.Component getLongDisplayName();
-    public net.minecraft.network.chat.Component getShortDisplayName();
-    public void updatePlayerAbilities(net.minecraft.world.entity.player.Abilities);
-    public boolean isBlockPlacingRestricted();
-    public boolean isCreative();
-    public boolean isSurvival();
-    public static net.minecraft.world.level.GameType byId(int);
-    public static net.minecraft.world.level.GameType byName(java.lang.String);
-    public static net.minecraft.world.level.GameType byName(java.lang.String, net.minecraft.world.level.GameType);
-    public static boolean isValidId(int);
-    private static net.minecraft.world.level.GameType[] $values();
-    private static boolean lambda$isValidId$0(int, net.minecraft.world.level.GameType);
-    private static java.util.OptionalInt lambda$static$1(java.util.Optional);
-    private static java.util.Optional lambda$static$0(java.util.OptionalInt);
-    static {};
-}
+```
+public static final SURVIVAL : Lnet/minecraft/world/level/GameType;
+public static final CREATIVE : Lnet/minecraft/world/level/GameType;
+public static final ADVENTURE : Lnet/minecraft/world/level/GameType;
+public static final SPECTATOR : Lnet/minecraft/world/level/GameType;
+public static final DEFAULT_MODE : Lnet/minecraft/world/level/GameType;
+public static final CODEC : Lnet/minecraft/util/StringRepresentable$EnumCodec;
+private static final BY_ID : Ljava/util/function/IntFunction;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final OPTIONAL_STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final LEGACY_ID_CODEC : Lcom/mojang/serialization/Codec;
+private final id : I
+private final name : Ljava/lang/String;
+private final shortName : Lnet/minecraft/network/chat/Component;
+private final longName : Lnet/minecraft/network/chat/Component;
+private static final synthetic $VALUES : [Lnet/minecraft/world/level/GameType;
+public static values()[Lnet/minecraft/world/level/GameType;
+public static valueOf(Ljava/lang/String;)Lnet/minecraft/world/level/GameType;
+private <init>(Ljava/lang/String;IILjava/lang/String;)V
+public getId()I
+public getName()Ljava/lang/String;
+public getSerializedName()Ljava/lang/String;
+public getLongDisplayName()Lnet/minecraft/network/chat/Component;
+public getShortDisplayName()Lnet/minecraft/network/chat/Component;
+public updatePlayerAbilities(Lnet/minecraft/world/entity/player/Abilities;)V
+public isBlockPlacingRestricted()Z
+public isCreative()Z
+public isSurvival()Z
+public static byId(I)Lnet/minecraft/world/level/GameType;
+public static byName(Ljava/lang/String;)Lnet/minecraft/world/level/GameType;
+public static byName(Ljava/lang/String;Lnet/minecraft/world/level/GameType;)Lnet/minecraft/world/level/GameType;
+public static isValidId(I)Z
+private static synthetic $values()[Lnet/minecraft/world/level/GameType;
+private static synthetic lambda$isValidId$0(ILnet/minecraft/world/level/GameType;)Z
+private static synthetic lambda$static$1(Ljava/util/Optional;)Ljava/util/OptionalInt;
+private static synthetic lambda$static$0(Ljava/util/OptionalInt;)Ljava/util/Optional;
+static <clinit>()V
 ```

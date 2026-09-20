@@ -13,10 +13,10 @@ sha256: "2e4aaeb20f8615e8176f30bc82616cee25f8727323bfef7a70d5a6555ae8e9ee"
 Module: [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] -- kind: record
 
 ```java
-public static final net.minecraft.client.renderer.feature.FeatureRendererType<net.fabricmc.fabric.api.client.renderer.v1.render.submit.ExtendedItemSubmit> TYPE
-public net.fabricmc.fabric.api.client.renderer.v1.render.submit.ExtendedItemSubmit(com.mojang.blaze3d.vertex.PoseStack$Pose, net.minecraft.world.item.ItemDisplayContext, int, int, int, int[], java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, net.fabricmc.fabric.api.client.renderer.v1.mesh.MeshView, net.minecraft.client.renderer.item.ItemStackRenderState$FoilType)
+public static final net.minecraft.client.renderer.feature.FeatureRendererType TYPE
+public <init>(com.mojang.blaze3d.vertex.PoseStack$Pose, net.minecraft.world.item.ItemDisplayContext, int, int, int, int[], java.util.List, net.fabricmc.fabric.api.client.renderer.v1.mesh.MeshView, net.minecraft.client.renderer.item.ItemStackRenderState$FoilType)
 public float distanceToCameraSq()
-public net.minecraft.client.renderer.feature.FeatureRendererType<? extends net.minecraft.client.renderer.feature.submit.TranslucentSubmit> featureType()
+public net.minecraft.client.renderer.feature.FeatureRendererType featureType()
 public final java.lang.String toString()
 public final int hashCode()
 public final boolean equals(java.lang.Object)
@@ -26,8 +26,7 @@ public int lightCoords()
 public int overlayCoords()
 public int outlineColor()
 public int[] tintLayers()
-public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> quads()
+public java.util.List quads()
 public net.fabricmc.fabric.api.client.renderer.v1.mesh.MeshView mesh()
 public net.minecraft.client.renderer.item.ItemStackRenderState$FoilType foilType()
-static {}
 ```

@@ -11,34 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` final; extends `java/lang/Object`; implements `net/minecraft/world/level/entity/LevelCallback`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `onTrackingEnd(Lnet/minecraft/world/entity/Entity;)V` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `onTrackingStart(Lnet/minecraft/world/entity/Entity;)V` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `onTrackingEnd` | `(Lnet/minecraft/world/entity/Entity;)V` | exact | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `onTrackingStart` | `(Lnet/minecraft/world/entity/Entity;)V` | exact | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| reads | `this$0` | `Lnet/minecraft/client/multiplayer/ClientLevel;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | declared |
 
-## Declared members (16, all visibilities)
+## Declared members (1 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-final class net.minecraft.client.multiplayer.ClientLevel$EntityCallbacks implements net.minecraft.world.level.entity.LevelCallback<net.minecraft.world.entity.Entity> {
-    final net.minecraft.client.multiplayer.ClientLevel this$0;
-    private net.minecraft.client.multiplayer.ClientLevel$EntityCallbacks(net.minecraft.client.multiplayer.ClientLevel);
-    public void onCreated(net.minecraft.world.entity.Entity);
-    public void onDestroyed(net.minecraft.world.entity.Entity);
-    public void onTickingStart(net.minecraft.world.entity.Entity);
-    public void onTickingEnd(net.minecraft.world.entity.Entity);
-    public void onTrackingStart(net.minecraft.world.entity.Entity);
-    public void onTrackingEnd(net.minecraft.world.entity.Entity);
-    public void onSectionChange(net.minecraft.world.entity.Entity);
-    public void onSectionChange(java.lang.Object);
-    public void onTrackingEnd(java.lang.Object);
-    public void onTrackingStart(java.lang.Object);
-    public void onTickingEnd(java.lang.Object);
-    public void onTickingStart(java.lang.Object);
-    public void onDestroyed(java.lang.Object);
-    public void onCreated(java.lang.Object);
-}
+```
+final synthetic this$0 : Lnet/minecraft/client/multiplayer/ClientLevel;
+private <init>(Lnet/minecraft/client/multiplayer/ClientLevel;)V
+public onCreated(Lnet/minecraft/world/entity/Entity;)V
+public onDestroyed(Lnet/minecraft/world/entity/Entity;)V
+public onTickingStart(Lnet/minecraft/world/entity/Entity;)V
+public onTickingEnd(Lnet/minecraft/world/entity/Entity;)V
+public onTrackingStart(Lnet/minecraft/world/entity/Entity;)V
+public onTrackingEnd(Lnet/minecraft/world/entity/Entity;)V
+public onSectionChange(Lnet/minecraft/world/entity/Entity;)V
+public synthetic onSectionChange(Ljava/lang/Object;)V
+public synthetic onTrackingEnd(Ljava/lang/Object;)V
+public synthetic onTrackingStart(Ljava/lang/Object;)V
+public synthetic onTickingEnd(Ljava/lang/Object;)V
+public synthetic onTickingStart(Ljava/lang/Object;)V
+public synthetic onDestroyed(Ljava/lang/Object;)V
+public synthetic onCreated(Ljava/lang/Object;)V
 ```

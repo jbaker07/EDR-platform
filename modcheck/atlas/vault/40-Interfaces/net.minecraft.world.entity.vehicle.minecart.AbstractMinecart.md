@@ -11,92 +11,92 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.entity|net.minecraft.world.entity]]
 
+`abstract_class` public abstract; extends `net/minecraft/world/entity/vehicle/VehicleEntity`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getType()Lnet/minecraft/world/entity/EntityType;` | `` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getType` | `()Lnet/minecraft/world/entity/EntityType;` | inherited_exact | invokevirtual@64 in `DetectorRailBlockMixin.getCustomComparatorOutput` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (75, all visibilities)
+## Declared members (10 fields, 65 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.entity.vehicle.minecart.AbstractMinecart extends net.minecraft.world.entity.vehicle.VehicleEntity {
-    private static final net.minecraft.world.phys.Vec3 LOWERED_PASSENGER_ATTACHMENT;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.util.Optional<net.minecraft.world.level.block.state.BlockState>> DATA_ID_CUSTOM_DISPLAY_BLOCK;
-    private static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Integer> DATA_ID_DISPLAY_OFFSET;
-    private static final com.google.common.collect.ImmutableMap<net.minecraft.world.entity.Pose, com.google.common.collect.ImmutableList<java.lang.Integer>> POSE_DISMOUNT_HEIGHTS;
-    protected static final float WATER_SLOWDOWN_FACTOR;
-    private static final boolean DEFAULT_FLIPPED_ROTATION;
-    private boolean onRails;
-    private boolean flipped;
-    private final net.minecraft.world.entity.vehicle.minecart.MinecartBehavior behavior;
-    private static final java.util.Map<net.minecraft.world.level.block.state.properties.RailShape, com.mojang.datafixers.util.Pair<net.minecraft.core.Vec3i, net.minecraft.core.Vec3i>> EXITS;
-    protected net.minecraft.world.entity.vehicle.minecart.AbstractMinecart(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.Level);
-    protected net.minecraft.world.entity.vehicle.minecart.AbstractMinecart(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.Level, double, double, double);
-    public void setInitialPos(double, double, double);
-    public static <T extends net.minecraft.world.entity.vehicle.minecart.AbstractMinecart> T createMinecart(net.minecraft.world.level.Level, double, double, double, net.minecraft.world.entity.EntityType<T>, net.minecraft.world.entity.EntitySpawnReason, net.minecraft.world.item.ItemStack, net.minecraft.world.entity.player.Player);
-    public net.minecraft.world.entity.vehicle.minecart.MinecartBehavior getBehavior();
-    protected net.minecraft.world.entity.Entity$MovementEmission getMovementEmission();
-    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData$Builder);
-    public boolean canCollideWith(net.minecraft.world.entity.Entity);
-    public boolean isPushable();
-    public net.minecraft.world.phys.Vec3 getRelativePortalPosition(net.minecraft.core.Direction$Axis, net.minecraft.util.BlockUtil$FoundRectangle);
-    protected net.minecraft.world.phys.Vec3 getPassengerAttachmentPoint(net.minecraft.world.entity.Entity, net.minecraft.world.entity.EntityDimensions, float);
-    public net.minecraft.world.phys.Vec3 getDismountLocationForPassenger(net.minecraft.world.entity.LivingEntity);
-    protected float getBlockSpeedFactor();
-    public void animateHurt(float);
-    public boolean isPickable();
-    public static com.mojang.datafixers.util.Pair<net.minecraft.core.Vec3i, net.minecraft.core.Vec3i> exits(net.minecraft.world.level.block.state.properties.RailShape);
-    public net.minecraft.core.Direction getMotionDirection();
-    protected double getDefaultGravity();
-    public void tick();
-    public boolean isFirstTick();
-    public net.minecraft.core.BlockPos getCurrentBlockPosOrRailBelow();
-    protected double getMaxSpeed(net.minecraft.server.level.ServerLevel);
-    public void activateMinecart(net.minecraft.server.level.ServerLevel, int, int, int, boolean);
-    public void lerpPositionAndRotationStep(int, double, double, double, double, double);
-    public void applyGravity();
-    public void reapplyPosition();
-    public boolean updateFluidInteraction();
-    public net.minecraft.world.phys.Vec3 getKnownMovement();
-    protected net.minecraft.world.entity.InterpolationHandler createInterpolationHandler();
-    public void onInterpolationStart(net.minecraft.world.entity.InterpolationHandler);
-    public void recreateFromPacket(net.minecraft.network.protocol.game.ClientboundAddEntityPacket);
-    public void lerpMotion(net.minecraft.world.phys.Vec3);
-    protected void moveAlongTrack(net.minecraft.server.level.ServerLevel);
-    protected void comeOffTrack(net.minecraft.server.level.ServerLevel);
-    protected float getAirDrag();
-    protected double makeStepAlongTrack(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.properties.RailShape, double);
-    public void move(net.minecraft.world.entity.MoverType, net.minecraft.world.phys.Vec3);
-    public void applyEffectsFromBlocks();
-    public boolean isOnRails();
-    public void setOnRails(boolean);
-    public boolean isFlipped();
-    public void setFlipped(boolean);
-    public net.minecraft.world.phys.Vec3 getRedstoneDirection(net.minecraft.core.BlockPos);
-    public boolean isRedstoneConductor(net.minecraft.core.BlockPos);
-    protected net.minecraft.world.phys.Vec3 applyNaturalSlowdown(net.minecraft.world.phys.Vec3);
-    protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput);
-    protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput);
-    public void push(net.minecraft.world.entity.Entity);
-    private void pushOtherMinecart(net.minecraft.world.entity.vehicle.minecart.AbstractMinecart, double, double);
-    public net.minecraft.world.level.block.state.BlockState getDisplayBlockState();
-    private java.util.Optional<net.minecraft.world.level.block.state.BlockState> getCustomDisplayBlockState();
-    public net.minecraft.world.level.block.state.BlockState getDefaultDisplayBlockState();
-    public int getDisplayOffset();
-    public int getDefaultDisplayOffset();
-    public void setCustomDisplayBlockState(java.util.Optional<net.minecraft.world.level.block.state.BlockState>);
-    public void setDisplayOffset(int);
-    public static boolean useExperimentalMovement(net.minecraft.world.level.Level);
-    public abstract net.minecraft.world.item.ItemStack getPickResult();
-    public boolean isRideable();
-    public boolean isFurnace();
-    private static void lambda$addAdditionalSaveData$0(net.minecraft.world.level.storage.ValueOutput, net.minecraft.world.level.block.state.BlockState);
-    private static com.google.common.collect.ImmutableMap lambda$static$0();
-    private net.minecraft.world.phys.shapes.VoxelShape lambda$getDismountLocationForPassenger$1(net.minecraft.core.BlockPos);
-    private net.minecraft.world.phys.shapes.VoxelShape lambda$getDismountLocationForPassenger$0(net.minecraft.core.BlockPos$MutableBlockPos);
-    static {};
-}
+```
+private static final LOWERED_PASSENGER_ATTACHMENT : Lnet/minecraft/world/phys/Vec3;
+private static final DATA_ID_CUSTOM_DISPLAY_BLOCK : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final DATA_ID_DISPLAY_OFFSET : Lnet/minecraft/network/syncher/EntityDataAccessor;
+private static final POSE_DISMOUNT_HEIGHTS : Lcom/google/common/collect/ImmutableMap;
+protected static final WATER_SLOWDOWN_FACTOR : F
+private static final DEFAULT_FLIPPED_ROTATION : Z
+private onRails : Z
+private flipped : Z
+private final behavior : Lnet/minecraft/world/entity/vehicle/minecart/MinecartBehavior;
+private static final EXITS : Ljava/util/Map;
+protected <init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V
+protected <init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;DDD)V
+public setInitialPos(DDD)V
+public static createMinecart(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/entity/vehicle/minecart/AbstractMinecart;
+public getBehavior()Lnet/minecraft/world/entity/vehicle/minecart/MinecartBehavior;
+protected getMovementEmission()Lnet/minecraft/world/entity/Entity$MovementEmission;
+protected defineSynchedData(Lnet/minecraft/network/syncher/SynchedEntityData$Builder;)V
+public canCollideWith(Lnet/minecraft/world/entity/Entity;)Z
+public isPushable()Z
+public getRelativePortalPosition(Lnet/minecraft/core/Direction$Axis;Lnet/minecraft/util/BlockUtil$FoundRectangle;)Lnet/minecraft/world/phys/Vec3;
+protected getPassengerAttachmentPoint(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/EntityDimensions;F)Lnet/minecraft/world/phys/Vec3;
+public getDismountLocationForPassenger(Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/phys/Vec3;
+protected getBlockSpeedFactor()F
+public animateHurt(F)V
+public isPickable()Z
+public static exits(Lnet/minecraft/world/level/block/state/properties/RailShape;)Lcom/mojang/datafixers/util/Pair;
+public getMotionDirection()Lnet/minecraft/core/Direction;
+protected getDefaultGravity()D
+public tick()V
+public isFirstTick()Z
+public getCurrentBlockPosOrRailBelow()Lnet/minecraft/core/BlockPos;
+protected getMaxSpeed(Lnet/minecraft/server/level/ServerLevel;)D
+public activateMinecart(Lnet/minecraft/server/level/ServerLevel;IIIZ)V
+public lerpPositionAndRotationStep(IDDDDD)V
+public applyGravity()V
+public reapplyPosition()V
+public updateFluidInteraction()Z
+public getKnownMovement()Lnet/minecraft/world/phys/Vec3;
+protected createInterpolationHandler()Lnet/minecraft/world/entity/InterpolationHandler;
+public onInterpolationStart(Lnet/minecraft/world/entity/InterpolationHandler;)V
+public recreateFromPacket(Lnet/minecraft/network/protocol/game/ClientboundAddEntityPacket;)V
+public lerpMotion(Lnet/minecraft/world/phys/Vec3;)V
+protected moveAlongTrack(Lnet/minecraft/server/level/ServerLevel;)V
+protected comeOffTrack(Lnet/minecraft/server/level/ServerLevel;)V
+protected getAirDrag()F
+protected makeStepAlongTrack(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/properties/RailShape;D)D
+public move(Lnet/minecraft/world/entity/MoverType;Lnet/minecraft/world/phys/Vec3;)V
+public applyEffectsFromBlocks()V
+public isOnRails()Z
+public setOnRails(Z)V
+public isFlipped()Z
+public setFlipped(Z)V
+public getRedstoneDirection(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/Vec3;
+public isRedstoneConductor(Lnet/minecraft/core/BlockPos;)Z
+protected applyNaturalSlowdown(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+protected readAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected addAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public push(Lnet/minecraft/world/entity/Entity;)V
+private pushOtherMinecart(Lnet/minecraft/world/entity/vehicle/minecart/AbstractMinecart;DD)V
+public getDisplayBlockState()Lnet/minecraft/world/level/block/state/BlockState;
+private getCustomDisplayBlockState()Ljava/util/Optional;
+public getDefaultDisplayBlockState()Lnet/minecraft/world/level/block/state/BlockState;
+public getDisplayOffset()I
+public getDefaultDisplayOffset()I
+public setCustomDisplayBlockState(Ljava/util/Optional;)V
+public setDisplayOffset(I)V
+public static useExperimentalMovement(Lnet/minecraft/world/level/Level;)Z
+public abstract getPickResult()Lnet/minecraft/world/item/ItemStack;
+public isRideable()Z
+public isFurnace()Z
+private static synthetic lambda$addAdditionalSaveData$0(Lnet/minecraft/world/level/storage/ValueOutput;Lnet/minecraft/world/level/block/state/BlockState;)V
+private static synthetic lambda$static$0()Lcom/google/common/collect/ImmutableMap;
+private synthetic lambda$getDismountLocationForPassenger$1(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+private synthetic lambda$getDismountLocationForPassenger$0(Lnet/minecraft/core/BlockPos$MutableBlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+static <clinit>()V
 ```

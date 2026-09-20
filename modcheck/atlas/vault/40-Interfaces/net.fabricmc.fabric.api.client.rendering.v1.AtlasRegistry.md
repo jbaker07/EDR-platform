@@ -15,5 +15,5 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
 ```java
 public static void register(net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig)
 public static net.minecraft.resources.Identifier generateTextureLocation(net.minecraft.resources.Identifier)
-public static java.util.List<net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig> getAtlases()
+public static java.util.List getAtlases()
 ```

@@ -11,326 +11,354 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.level|net.minecraft.server.level]]
 
+`class` public; extends `net/minecraft/world/entity/player/Player`; implements `net/fabricmc/fabric/api/networking/v1/context/PacketContextProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `commandSource()Lnet/minecraft/commands/CommandSource;` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `getDisplayName()Lnet/minecraft/network/chat/Component;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `getGameProfile()Lcom/mojang/authlib/GameProfile;` | `` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `level()Lnet/minecraft/server/level/ServerLevel;` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| injects_into | `calculateGameModeForNewPlayer` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| injects_into | `die` | `@Inject at INVOKE Lnet/minecraft/server/level/ServerPlayer;getKillCredit()Lnet/m` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| injects_into | `die` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| injects_into | `openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | `@Inject at INVOKE Lnet/minecraft/server/network/ServerGamePacketListenerImpl;sen` | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| injects_into | `restoreFrom` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| injects_into | `triggerDimensionChangeTriggers(Lnet/minecraft/server/level/ServerLevel;)V` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
-| reads | `connectionLnet/minecraft/server/network/ServerGamePacketListenerImpl;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| reads | `connectionLnet/minecraft/server/network/ServerGamePacketListenerImpl;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| wraps | `openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | `@Redirect at INVOKE Lnet/minecraft/server/level/ServerPlayer;closeContainer()V` | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| wraps | `openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | `@Redirect at INVOKE Lnet/minecraft/server/network/ServerGamePacketListenerImpl;s` | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| wraps | `startSleepInBed` | `@Redirect at INVOKE Ljava/util/List;isEmpty()Z` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/Ser` | exact | invokespecial@10 in `FakePlayer.<init>` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `closeContainer` | `()V` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | declared |
+| calls | `commandSource` | `()Lnet/minecraft/commands/CommandSource;` | exact | invokevirtual@97 in `EntityPermissionContext.get` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `distanceToSqr` | `(DDD)D` | inherited_exact | invokevirtual@16 in `PlayerLookup.lambda$around$1` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `distanceToSqr` | `(Lnet/minecraft/world/phys/Vec3;)D` | inherited_exact | invokevirtual@2 in `PlayerLookup.lambda$around$0` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `getDisplayName` | `()Lnet/minecraft/network/chat/Component;` | inherited_exact | invokevirtual@9 in `ServerPlayNetworkAddon.<init>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `getGameProfile` | `()Lcom/mojang/authlib/GameProfile;` | inherited_exact | invokevirtual@13 in `FakePlayerPacketListener.<init>` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@9 in `AttachmentSync.lambda$onInitialize$2` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@36 in `AttachmentSync.lambda$onInitialize$2` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | declared |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@29 in `PlayerListMixin.afterRespawn` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@34 in `PlayerListMixin.afterRespawn` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@52 in `PlayerListMixin.afterRespawn` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@57 in `PlayerListMixin.afterRespawn` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@2 in `FakePlayerPacketListener.<init>` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@28 in `PlayerMixin.onPlayerInteractEntity` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@4 in `ServerGamePacketListenerImplMixin.handleInteract` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@7 in `ServerPlayNetworkAddon.schedule` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `level` | `()Lnet/minecraft/server/level/ServerLevel;` | exact | invokevirtual@33 in `RecipeSyncImpl.sendRecipes` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| injects_into | `calculateGameModeForNewPlayer` | `(Lnet/minecraft/world/level/GameType;)Lnet/minecraft/world/level/GameT` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| injects_into | `checkFallDamage` | `(DZLnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/co` | name_only | @ModifyExpressionValue at ['NEW'] | both | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| injects_into | `die` | `(Lnet/minecraft/world/damagesource/DamageSource;)V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| injects_into | `die` | `(Lnet/minecraft/world/damagesource/DamageSource;)V` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| injects_into | `openMenu` | `(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | exact | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| injects_into | `restoreFrom` | `?` | ambiguous | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| injects_into | `triggerDimensionChangeTriggers` | `(Lnet/minecraft/server/level/ServerLevel;)V` | exact | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@1 in `AttachmentSync.trySync` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@9 in `AttachmentSync.trySync` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@25 in `AttachmentSync.trySync` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@40 in `InteractionEventsRouter.lambda$onInitialize$1` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@49 in `ServerPlayerGameModeMixin.startBlockBreak` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@112 in `ServerPlayerGameModeMixin.startBlockBreak` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | declared |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@6 in `ServerPlayNetworking$Context.packetContext` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@8 in `ServerPlayNetworking.getReceived` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@8 in `ServerPlayNetworking.getSendable` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@8 in `ServerPlayNetworking.canSend` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@8 in `ServerPlayNetworking.canSend` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@8 in `ServerPlayNetworking.getSender` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@39 in `ServerPlayNetworking.send` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@8 in `ServerPlayNetworking.reconfigure` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@1 in `PlayerListMixin.handlePlayerConnection` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `connection` | `Lnet/minecraft/server/network/ServerGamePacketListenerImpl;` | exact | getfield@12 in `RecipeSyncImpl.sendRecipes` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `containerCounter` | `I` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | declared |
+| wraps | `openMenu` | `(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | exact | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| wraps | `openMenu` | `(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;` | exact | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| wraps | `startSleepInBed` | `(Lnet/minecraft/world/level/block/AbstractBedBlock;Lnet/minecraft/worl` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| wraps | `startSleepInBed` | `(Lnet/minecraft/world/level/block/AbstractBedBlock;Lnet/minecraft/worl` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| wraps | `startSleepInBed` | `(Lnet/minecraft/world/level/block/AbstractBedBlock;Lnet/minecraft/worl` | name_only | @Redirect at ['INVOKE'] | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
 
-## Declared members (289, all visibilities)
+## Declared members (73 fields, 216 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.level.ServerPlayer extends net.minecraft.world.entity.player.Player {
-    private static final org.slf4j.Logger LOGGER;
-    private static final int NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_XZ;
-    private static final int NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_Y;
-    private static final int FLY_STAT_RECORDING_SPEED;
-    public static final double BLOCK_INTERACTION_DISTANCE_VERIFICATION_BUFFER;
-    public static final double ENTITY_INTERACTION_DISTANCE_VERIFICATION_BUFFER;
-    public static final int ENDER_PEARL_TICKET_RADIUS;
-    public static final java.lang.String ENDER_PEARLS_TAG;
-    public static final java.lang.String ENDER_PEARL_DIMENSION_TAG;
-    public static final java.lang.String TAG_DIMENSION;
-    private static final net.minecraft.world.entity.ai.attributes.AttributeModifier CREATIVE_BLOCK_INTERACTION_RANGE_MODIFIER;
-    private static final net.minecraft.world.entity.ai.attributes.AttributeModifier CREATIVE_ENTITY_INTERACTION_RANGE_MODIFIER;
-    private static final net.minecraft.network.chat.Component SPAWN_SET_MESSAGE;
-    private static final net.minecraft.world.entity.ai.attributes.AttributeModifier WAYPOINT_TRANSMIT_RANGE_CROUCH_MODIFIER;
-    private static final boolean DEFAULT_SEEN_CREDITS;
-    private static final boolean DEFAULT_SPAWN_EXTRA_PARTICLES_ON_FALL;
-    public net.minecraft.server.network.ServerGamePacketListenerImpl connection;
-    private final net.minecraft.server.MinecraftServer server;
-    public final net.minecraft.server.level.ServerPlayerGameMode gameMode;
-    private final net.minecraft.server.PlayerAdvancements advancements;
-    private final net.minecraft.stats.ServerStatsCounter stats;
-    private float lastRecordedHealthAndAbsorption;
-    private int lastRecordedFoodLevel;
-    private int lastRecordedAirLevel;
-    private int lastRecordedArmor;
-    private int lastRecordedLevel;
-    private int lastRecordedExperience;
-    private float lastSentHealth;
-    private int lastSentFood;
-    private boolean lastFoodSaturationZero;
-    private int lastSentExp;
-    private net.minecraft.world.entity.player.ChatVisiblity chatVisibility;
-    private net.minecraft.server.level.ParticleStatus particleStatus;
-    private boolean canChatColor;
-    private long lastActionTime;
-    private net.minecraft.world.entity.Entity camera;
-    private boolean isChangingDimension;
-    public boolean seenCredits;
-    private final net.minecraft.stats.ServerRecipeBook recipeBook;
-    private net.minecraft.world.phys.Vec3 levitationStartPos;
-    private int levitationStartTime;
-    private boolean disconnected;
-    private int requestedViewDistance;
-    private java.lang.String language;
-    private net.minecraft.world.phys.Vec3 startingToFallPosition;
-    private net.minecraft.world.phys.Vec3 enteredNetherPosition;
-    private net.minecraft.world.phys.Vec3 enteredLavaOnVehiclePosition;
-    private net.minecraft.world.phys.Vec3 currentExplosionImpactPos;
-    private net.minecraft.world.entity.Entity currentExplosionCause;
-    private net.minecraft.core.SectionPos lastSectionPos;
-    private net.minecraft.server.level.ChunkTrackingView chunkTrackingView;
-    private net.minecraft.server.level.ServerPlayer$RespawnConfig respawnConfig;
-    private final net.minecraft.server.network.TextFilter textFilter;
-    private boolean textFilteringEnabled;
-    private boolean allowsListing;
-    private boolean spawnExtraParticlesOnFall;
-    private net.minecraft.world.entity.monster.warden.WardenSpawnTracker wardenSpawnTracker;
-    private net.minecraft.core.BlockPos raidOmenPosition;
-    private net.minecraft.world.phys.Vec3 lastKnownClientMovement;
-    private net.minecraft.world.entity.player.Input lastClientInput;
-    private final java.util.Set<net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl> enderPearls;
-    private boolean postEffectsDirty;
-    private long timeEntitySatOnShoulder;
-    private net.minecraft.nbt.CompoundTag shoulderEntityLeft;
-    private net.minecraft.nbt.CompoundTag shoulderEntityRight;
-    private final net.minecraft.world.inventory.ContainerSynchronizer containerSynchronizer;
-    private final net.minecraft.world.inventory.ContainerListener containerListener;
-    private net.minecraft.network.chat.RemoteChatSession chatSession;
-    public final java.lang.Object object;
-    private final net.minecraft.commands.CommandSource commandSource;
-    private java.util.Set<net.minecraft.util.debug.DebugSubscription<?>> requestedDebugSubscriptions;
-    private int containerCounter;
-    public boolean wonGame;
-    public net.minecraft.server.level.ServerPlayer(net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, com.mojang.authlib.GameProfile, net.minecraft.server.level.ClientInformation);
-    public net.minecraft.core.BlockPos adjustSpawnLocation(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos);
-    protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput);
-    protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput);
-    private void saveParentVehicle(net.minecraft.world.level.storage.ValueOutput);
-    public void loadAndSpawnParentVehicle(net.minecraft.world.level.storage.ValueInput);
-    private void saveEnderPearls(net.minecraft.world.level.storage.ValueOutput);
-    public void loadAndSpawnEnderPearls(net.minecraft.world.level.storage.ValueInput);
-    private void loadAndSpawnEnderPearl(net.minecraft.world.level.storage.ValueInput);
-    public void setExperiencePoints(int);
-    public void setExperienceLevels(int);
-    public void giveExperienceLevels(int);
-    public void onEnchantmentPerformed(net.minecraft.world.item.ItemStack, int);
-    private void initMenu(net.minecraft.world.inventory.AbstractContainerMenu);
-    public void initInventoryMenu();
-    public void onEnterCombat();
-    public void onLeaveCombat();
-    public void onInsideBlock(net.minecraft.world.level.block.state.BlockState);
-    protected net.minecraft.world.item.ItemCooldowns createItemCooldowns();
-    public void tick();
-    private void updatePlayerAttributes();
-    public void doTick();
-    private void synchronizeSpecialItemUpdates(net.minecraft.world.item.ItemStack);
-    protected void tickRegeneration();
-    public void handleShoulderEntities();
-    private void playShoulderEntityAmbientSound(net.minecraft.nbt.CompoundTag);
-    public boolean setEntityOnShoulder(net.minecraft.nbt.CompoundTag);
-    protected void removeEntitiesOnShoulder();
-    private void respawnEntityOnShoulder(net.minecraft.nbt.CompoundTag);
-    public void resetFallDistance();
-    public void trackStartFallingPosition();
-    public void trackEnteredOrExitedLavaOnVehicle();
-    private void updateScoreForCriteria(net.minecraft.world.scores.criteria.ObjectiveCriteria, int);
-    public void die(net.minecraft.world.damagesource.DamageSource);
-    private void tellNeutralMobsThatIDied();
-    public void awardKillScore(net.minecraft.world.entity.Entity, net.minecraft.world.damagesource.DamageSource);
-    private void handleTeamKill(net.minecraft.world.scores.ScoreHolder, net.minecraft.world.scores.ScoreHolder, java.util.Map<net.minecraft.world.scores.TeamColor, net.minecraft.world.scores.criteria.ObjectiveCriteria>);
-    public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
-    public boolean canHarmPlayer(net.minecraft.world.entity.player.Player);
-    private boolean isPvpAllowed();
-    public net.minecraft.world.level.portal.TeleportTransition findRespawnPositionAndUseSpawnBlock(boolean, net.minecraft.world.level.portal.TeleportTransition$PostTeleportTransition);
-    public boolean isReceivingWaypoints();
-    protected void onAttributeUpdated(net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>);
-    public void sendPostEffects();
-    public boolean addPostEffect(net.minecraft.resources.Identifier);
-    public boolean clearPostEffects();
-    public java.util.List<net.minecraft.resources.Identifier> getPostEffects();
-    public boolean removePostEffect(net.minecraft.resources.Identifier);
-    private static java.util.Optional<net.minecraft.server.level.ServerPlayer$RespawnPosAngle> findRespawnAndUseSpawnBlock(net.minecraft.server.level.ServerLevel, net.minecraft.server.level.ServerPlayer$RespawnConfig, boolean);
-    public void showEndCredits();
-    public net.minecraft.server.level.ServerPlayer teleport(net.minecraft.world.level.portal.TeleportTransition);
-    public void forceSetRotation(float, boolean, float, boolean);
-    private void triggerDimensionChangeTriggers(net.minecraft.server.level.ServerLevel);
-    public boolean broadcastToPlayer(net.minecraft.server.level.ServerPlayer);
-    public void take(net.minecraft.world.entity.Entity, int);
-    public com.mojang.datafixers.util.Either<net.minecraft.world.entity.player.Player$BedSleepingProblem, net.minecraft.util.Unit> startSleepInBed(net.minecraft.world.level.block.AbstractBedBlock, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.attribute.BedRule, net.minecraft.core.BlockPos);
-    public boolean startSleeping(net.minecraft.core.BlockPos);
-    private boolean bedInRange(net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    private boolean isReachableBedBlock(net.minecraft.core.BlockPos);
-    private boolean bedBlocked(net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    public void stopSleepInBed(boolean, boolean);
-    public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
-    protected void onChangedBlock(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos);
-    protected void checkFallDamage(double, boolean, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
-    public void onExplosionHit(net.minecraft.world.entity.Entity);
-    protected void pushEntities();
-    public void openTextEdit(net.minecraft.world.level.block.entity.SignBlockEntity, net.minecraft.world.level.block.entity.SignTextSlot);
-    public void openDialog(net.minecraft.core.Holder<net.minecraft.server.dialog.Dialog>);
-    private void nextContainerCounter();
-    public java.util.OptionalInt openMenu(net.minecraft.world.MenuProvider);
-    public void sendMerchantOffers(int, net.minecraft.world.item.trading.MerchantOffers, int, int, boolean, boolean);
-    public void openHorseInventory(net.minecraft.world.entity.animal.equine.AbstractHorse, net.minecraft.world.Container);
-    public void openNautilusInventory(net.minecraft.world.entity.animal.nautilus.AbstractNautilus, net.minecraft.world.Container);
-    public void openItemGui(net.minecraft.world.item.ItemStack, net.minecraft.world.InteractionHand);
-    public void openCommandBlock(net.minecraft.world.level.block.entity.CommandBlockEntity);
-    public void closeContainer();
-    public void doCloseContainer();
-    public void rideTick();
-    public void checkMovementStatistics(double, double, double);
-    private void checkRidingStatistics(double, double, double);
-    private static boolean didNotMove(double, double, double);
-    public void awardStat(net.minecraft.stats.Stat<?>, int);
-    public void resetStat(net.minecraft.stats.Stat<?>);
-    public int awardRecipes(java.util.Collection<net.minecraft.world.item.crafting.RecipeHolder<?>>);
-    public void triggerRecipeCrafted(net.minecraft.world.item.crafting.RecipeHolder<?>, java.util.List<net.minecraft.world.item.ItemStack>);
-    public void awardRecipesByKey(java.util.List<net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>>);
-    public int resetRecipes(java.util.Collection<net.minecraft.world.item.crafting.RecipeHolder<?>>);
-    public void jumpFromGround();
-    public void giveExperiencePoints(int);
-    public void disconnect();
-    public boolean hasDisconnected();
-    public void resetSentInfo();
-    protected void completeUsingItem();
-    public void lookAt(net.minecraft.commands.arguments.EntityAnchorArgument$Anchor, net.minecraft.world.phys.Vec3);
-    public void lookAt(net.minecraft.commands.arguments.EntityAnchorArgument$Anchor, net.minecraft.world.entity.Entity, net.minecraft.commands.arguments.EntityAnchorArgument$Anchor);
-    public void restoreFrom(net.minecraft.server.level.ServerPlayer, boolean);
-    private void transferInventoryXpAndScore(net.minecraft.world.entity.player.Player);
-    protected void onEffectAdded(net.minecraft.world.effect.MobEffectInstance, net.minecraft.world.entity.Entity);
-    protected void onEffectUpdated(net.minecraft.world.effect.MobEffectInstance, boolean, net.minecraft.world.entity.Entity);
-    protected void onEffectsRemoved(java.util.Collection<net.minecraft.world.effect.MobEffectInstance>);
-    public void teleportTo(double, double, double);
-    public void teleportRelative(double, double, double);
-    public boolean teleportTo(net.minecraft.server.level.ServerLevel, double, double, double, java.util.Set<net.minecraft.world.entity.Relative>, float, float, boolean);
-    public void snapTo(double, double, double);
-    public void crit(net.minecraft.world.entity.Entity);
-    public void magicCrit(net.minecraft.world.entity.Entity);
-    public void onUpdateAbilities();
-    public net.minecraft.server.level.ServerLevel level();
-    public boolean setGameMode(net.minecraft.world.level.GameType);
-    public net.minecraft.world.level.GameType gameMode();
-    public net.minecraft.commands.CommandSource commandSource();
-    public net.minecraft.commands.CommandSourceStack createCommandSourceStack();
-    public void sendSystemMessage(net.minecraft.network.chat.Component);
-    public void sendOverlayMessage(net.minecraft.network.chat.Component);
-    public void sendBuildLimitMessage(boolean, int);
-    public void sendSpawnProtectionMessage(net.minecraft.core.BlockPos);
-    public void sendSystemMessage(net.minecraft.network.chat.Component, boolean);
-    public void sendChatMessage(net.minecraft.network.chat.OutgoingChatMessage, boolean, net.minecraft.network.chat.ChatType$Bound);
-    public java.lang.String getIpAddress();
-    public void updateOptions(net.minecraft.server.level.ClientInformation);
-    public net.minecraft.server.level.ClientInformation clientInformation();
-    public boolean canChatInColor();
-    public net.minecraft.world.entity.player.ChatVisiblity getChatVisibility();
-    private boolean acceptsSystemMessages(boolean);
-    private boolean acceptsChatMessages();
-    public int requestedViewDistance();
-    public void sendServerStatus(net.minecraft.network.protocol.status.ServerStatus);
-    public net.minecraft.server.permissions.PermissionSet permissions();
-    public void resetLastActionTime();
-    public net.minecraft.stats.ServerStatsCounter getStats();
-    public net.minecraft.stats.ServerRecipeBook getRecipeBook();
-    protected void updateInvisibilityStatus();
-    public net.minecraft.world.entity.Entity getCamera();
-    public void setCamera(net.minecraft.world.entity.Entity);
-    protected void processPortalCooldown();
-    public long getLastActionTime();
-    public net.minecraft.network.chat.Component getTabListDisplayName();
-    public int getTabListOrder();
-    public boolean isChangingDimension();
-    public void hasChangedDimension();
-    public net.minecraft.server.PlayerAdvancements getAdvancements();
-    public net.minecraft.server.level.ServerPlayer$RespawnConfig getRespawnConfig();
-    public void copyRespawnPosition(net.minecraft.server.level.ServerPlayer);
-    public void setRespawnPosition(net.minecraft.server.level.ServerPlayer$RespawnConfig, boolean);
-    public net.minecraft.core.SectionPos getLastSectionPos();
-    public void setLastSectionPos(net.minecraft.core.SectionPos);
-    public net.minecraft.server.level.ChunkTrackingView getChunkTrackingView();
-    public void setChunkTrackingView(net.minecraft.server.level.ChunkTrackingView);
-    public net.minecraft.world.entity.item.ItemEntity drop(net.minecraft.world.item.ItemStack, boolean, net.minecraft.util.Prediction);
-    public net.minecraft.server.network.TextFilter getTextFilter();
-    public void setServerLevel(net.minecraft.server.level.ServerLevel);
-    private static net.minecraft.world.level.GameType readPlayerMode(net.minecraft.world.level.storage.ValueInput, java.lang.String);
-    private net.minecraft.world.level.GameType calculateGameModeForNewPlayer(net.minecraft.world.level.GameType);
-    private void storeGameTypes(net.minecraft.world.level.storage.ValueOutput);
-    public boolean isTextFilteringEnabled();
-    public boolean shouldFilterMessageTo(net.minecraft.server.level.ServerPlayer);
-    public boolean mayInteract(net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos);
-    protected void updateUsingItem(net.minecraft.world.item.ItemStack);
-    public void drop(boolean);
-    public void handleExtraItemsCreatedOnUse(net.minecraft.world.item.ItemStack);
-    public boolean allowsListing();
-    public net.minecraft.world.entity.monster.warden.WardenSpawnTracker getWardenSpawnTracker();
-    public void setSpawnExtraParticlesOnFall(boolean);
-    public void onItemPickup(net.minecraft.world.entity.item.ItemEntity);
-    public void setChatSession(net.minecraft.network.chat.RemoteChatSession);
-    public net.minecraft.network.chat.RemoteChatSession getChatSession();
-    public void indicateDamage(double, double);
-    public boolean startRiding(net.minecraft.world.entity.Entity, boolean, boolean);
-    public void removeVehicle();
-    public net.minecraft.network.protocol.game.CommonPlayerSpawnInfo createCommonSpawnInfo(net.minecraft.server.level.ServerLevel);
-    public void setRaidOmenPosition(net.minecraft.core.BlockPos);
-    public void clearRaidOmenPosition();
-    public net.minecraft.core.BlockPos getRaidOmenPosition();
-    public net.minecraft.world.phys.Vec3 getKnownMovement();
-    public net.minecraft.world.phys.Vec3 getKnownSpeed();
-    public void setKnownMovement(net.minecraft.world.phys.Vec3);
-    protected float getEnchantedDamage(net.minecraft.world.entity.Entity, float, net.minecraft.world.damagesource.DamageSource);
-    public void onEquippedItemBroken(net.minecraft.world.item.ItemStack, net.minecraft.world.entity.EquipmentSlot);
-    public net.minecraft.world.entity.player.Input getLastClientInput();
-    public void setLastClientInput(net.minecraft.world.entity.player.Input);
-    public net.minecraft.world.phys.Vec3 getLastClientMoveIntent();
-    public void registerEnderPearl(net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl);
-    public void deregisterEnderPearl(net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl);
-    public java.util.Set<net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl> getEnderPearls();
-    public net.minecraft.nbt.CompoundTag getShoulderEntityLeft();
-    protected void setShoulderEntityLeft(net.minecraft.nbt.CompoundTag);
-    public net.minecraft.nbt.CompoundTag getShoulderEntityRight();
-    protected void setShoulderEntityRight(net.minecraft.nbt.CompoundTag);
-    public long registerAndUpdateEnderPearlTicket(net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl);
-    public static long placeEnderPearlTicket(net.minecraft.server.level.ServerLevel, net.minecraft.world.level.ChunkPos);
-    public void requestDebugSubscriptions(java.util.Set<net.minecraft.util.debug.DebugSubscription<?>>);
-    public java.util.Set<net.minecraft.util.debug.DebugSubscription<?>> debugSubscriptions();
-    public void swingAndResetAttackStrength(net.minecraft.world.InteractionHand, net.minecraft.world.item.component.SwingAnimation, boolean);
-    public net.minecraft.world.level.Level level();
-    public net.minecraft.world.entity.Entity teleport(net.minecraft.world.level.portal.TeleportTransition);
-    private void lambda$drop$0(net.minecraft.world.entity.player.Inventory, int);
-    private net.minecraft.network.protocol.Packet lambda$sendSystemMessage$0(net.minecraft.network.chat.Component);
-    private java.util.stream.Stream lambda$awardRecipesByKey$0(net.minecraft.resources.ResourceKey);
-    private static void lambda$awardStat$0(int, net.minecraft.world.scores.ScoreAccess);
-    private void lambda$startSleepInBed$1(net.minecraft.world.level.block.AbstractBedBlock, boolean, net.minecraft.util.Unit);
-    private boolean lambda$startSleepInBed$0(net.minecraft.world.entity.monster.Monster);
-    private static net.minecraft.server.level.ServerPlayer$RespawnPosAngle lambda$findRespawnAndUseSpawnBlock$1(net.minecraft.core.BlockPos, net.minecraft.world.phys.Vec3);
-    private static net.minecraft.server.level.ServerPlayer$RespawnPosAngle lambda$findRespawnAndUseSpawnBlock$0(net.minecraft.core.BlockPos, net.minecraft.world.phys.Vec3);
-    private void lambda$tellNeutralMobsThatIDied$1(net.minecraft.world.entity.Mob);
-    private static boolean lambda$tellNeutralMobsThatIDied$0(net.minecraft.world.entity.Mob);
-    private net.minecraft.network.protocol.Packet lambda$die$0(net.minecraft.network.chat.Component);
-    private static net.minecraft.network.chat.Style lambda$die$1(net.minecraft.network.chat.Component, net.minecraft.network.chat.Style);
-    private static void lambda$updateScoreForCriteria$0(int, net.minecraft.world.scores.ScoreAccess);
-    private void lambda$respawnEntityOnShoulder$1(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
-    private static java.lang.String lambda$respawnEntityOnShoulder$0();
-    private static net.minecraft.world.entity.Entity lambda$loadAndSpawnEnderPearl$0(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
-    private static net.minecraft.world.entity.Entity lambda$loadAndSpawnParentVehicle$0(net.minecraft.server.level.ServerLevel, net.minecraft.world.entity.Entity);
-    private void lambda$readAdditionalSaveData$0(net.minecraft.stats.ServerRecipeBook$Packed);
-    private boolean lambda$readAdditionalSaveData$1(net.minecraft.resources.ResourceKey);
-    private static void lambda$new$0(net.minecraft.server.MinecraftServer, net.minecraft.resources.ResourceKey, java.util.function.Consumer);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_XZ : I
+private static final NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_Y : I
+private static final FLY_STAT_RECORDING_SPEED : I
+public static final BLOCK_INTERACTION_DISTANCE_VERIFICATION_BUFFER : D
+public static final ENTITY_INTERACTION_DISTANCE_VERIFICATION_BUFFER : D
+public static final ENDER_PEARL_TICKET_RADIUS : I
+public static final ENDER_PEARLS_TAG : Ljava/lang/String;
+public static final ENDER_PEARL_DIMENSION_TAG : Ljava/lang/String;
+public static final TAG_DIMENSION : Ljava/lang/String;
+private static final CREATIVE_BLOCK_INTERACTION_RANGE_MODIFIER : Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;
+private static final CREATIVE_ENTITY_INTERACTION_RANGE_MODIFIER : Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;
+private static final SPAWN_SET_MESSAGE : Lnet/minecraft/network/chat/Component;
+private static final WAYPOINT_TRANSMIT_RANGE_CROUCH_MODIFIER : Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;
+private static final DEFAULT_SEEN_CREDITS : Z
+private static final DEFAULT_SPAWN_EXTRA_PARTICLES_ON_FALL : Z
+public connection : Lnet/minecraft/server/network/ServerGamePacketListenerImpl;
+private final server : Lnet/minecraft/server/MinecraftServer;
+public final gameMode : Lnet/minecraft/server/level/ServerPlayerGameMode;
+private final advancements : Lnet/minecraft/server/PlayerAdvancements;
+private final stats : Lnet/minecraft/stats/ServerStatsCounter;
+private lastRecordedHealthAndAbsorption : F
+private lastRecordedFoodLevel : I
+private lastRecordedAirLevel : I
+private lastRecordedArmor : I
+private lastRecordedLevel : I
+private lastRecordedExperience : I
+private lastSentHealth : F
+private lastSentFood : I
+private lastFoodSaturationZero : Z
+private lastSentExp : I
+private chatVisibility : Lnet/minecraft/world/entity/player/ChatVisiblity;
+private particleStatus : Lnet/minecraft/server/level/ParticleStatus;
+private canChatColor : Z
+private lastActionTime : J
+private camera : Lnet/minecraft/world/entity/Entity;
+private isChangingDimension : Z
+public seenCredits : Z
+private final recipeBook : Lnet/minecraft/stats/ServerRecipeBook;
+private levitationStartPos : Lnet/minecraft/world/phys/Vec3;
+private levitationStartTime : I
+private disconnected : Z
+private requestedViewDistance : I
+private language : Ljava/lang/String;
+private startingToFallPosition : Lnet/minecraft/world/phys/Vec3;
+private enteredNetherPosition : Lnet/minecraft/world/phys/Vec3;
+private enteredLavaOnVehiclePosition : Lnet/minecraft/world/phys/Vec3;
+private currentExplosionImpactPos : Lnet/minecraft/world/phys/Vec3;
+private currentExplosionCause : Lnet/minecraft/world/entity/Entity;
+private lastSectionPos : Lnet/minecraft/core/SectionPos;
+private chunkTrackingView : Lnet/minecraft/server/level/ChunkTrackingView;
+private respawnConfig : Lnet/minecraft/server/level/ServerPlayer$RespawnConfig;
+private final textFilter : Lnet/minecraft/server/network/TextFilter;
+private textFilteringEnabled : Z
+private allowsListing : Z
+private spawnExtraParticlesOnFall : Z
+private wardenSpawnTracker : Lnet/minecraft/world/entity/monster/warden/WardenSpawnTracker;
+private raidOmenPosition : Lnet/minecraft/core/BlockPos;
+private lastKnownClientMovement : Lnet/minecraft/world/phys/Vec3;
+private lastClientInput : Lnet/minecraft/world/entity/player/Input;
+private final enderPearls : Ljava/util/Set;
+private postEffectsDirty : Z
+private timeEntitySatOnShoulder : J
+private shoulderEntityLeft : Lnet/minecraft/nbt/CompoundTag;
+private shoulderEntityRight : Lnet/minecraft/nbt/CompoundTag;
+private final containerSynchronizer : Lnet/minecraft/world/inventory/ContainerSynchronizer;
+private final containerListener : Lnet/minecraft/world/inventory/ContainerListener;
+private chatSession : Lnet/minecraft/network/chat/RemoteChatSession;
+public final object : Ljava/lang/Object;
+private final commandSource : Lnet/minecraft/commands/CommandSource;
+private requestedDebugSubscriptions : Ljava/util/Set;
+private containerCounter : I
+public wonGame : Z
+public <init>(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/server/level/ServerLevel;Lcom/mojang/authlib/GameProfile;Lnet/minecraft/server/level/ClientInformation;)V
+public adjustSpawnLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+protected readAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueInput;)V
+protected addAdditionalSaveData(Lnet/minecraft/world/level/storage/ValueOutput;)V
+private saveParentVehicle(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public loadAndSpawnParentVehicle(Lnet/minecraft/world/level/storage/ValueInput;)V
+private saveEnderPearls(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public loadAndSpawnEnderPearls(Lnet/minecraft/world/level/storage/ValueInput;)V
+private loadAndSpawnEnderPearl(Lnet/minecraft/world/level/storage/ValueInput;)V
+public setExperiencePoints(I)V
+public setExperienceLevels(I)V
+public giveExperienceLevels(I)V
+public onEnchantmentPerformed(Lnet/minecraft/world/item/ItemStack;I)V
+private initMenu(Lnet/minecraft/world/inventory/AbstractContainerMenu;)V
+public initInventoryMenu()V
+public onEnterCombat()V
+public onLeaveCombat()V
+public onInsideBlock(Lnet/minecraft/world/level/block/state/BlockState;)V
+protected createItemCooldowns()Lnet/minecraft/world/item/ItemCooldowns;
+public tick()V
+private updatePlayerAttributes()V
+public doTick()V
+private synchronizeSpecialItemUpdates(Lnet/minecraft/world/item/ItemStack;)V
+protected tickRegeneration()V
+public handleShoulderEntities()V
+private playShoulderEntityAmbientSound(Lnet/minecraft/nbt/CompoundTag;)V
+public setEntityOnShoulder(Lnet/minecraft/nbt/CompoundTag;)Z
+protected removeEntitiesOnShoulder()V
+private respawnEntityOnShoulder(Lnet/minecraft/nbt/CompoundTag;)V
+public resetFallDistance()V
+public trackStartFallingPosition()V
+public trackEnteredOrExitedLavaOnVehicle()V
+private updateScoreForCriteria(Lnet/minecraft/world/scores/criteria/ObjectiveCriteria;I)V
+public die(Lnet/minecraft/world/damagesource/DamageSource;)V
+private tellNeutralMobsThatIDied()V
+public awardKillScore(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)V
+private handleTeamKill(Lnet/minecraft/world/scores/ScoreHolder;Lnet/minecraft/world/scores/ScoreHolder;Ljava/util/Map;)V
+public hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z
+public canHarmPlayer(Lnet/minecraft/world/entity/player/Player;)Z
+private isPvpAllowed()Z
+public findRespawnPositionAndUseSpawnBlock(ZLnet/minecraft/world/level/portal/TeleportTransition$PostTeleportTransition;)Lnet/minecraft/world/level/portal/TeleportTransition;
+public isReceivingWaypoints()Z
+protected onAttributeUpdated(Lnet/minecraft/core/Holder;)V
+public sendPostEffects()V
+public addPostEffect(Lnet/minecraft/resources/Identifier;)Z
+public clearPostEffects()Z
+public getPostEffects()Ljava/util/List;
+public removePostEffect(Lnet/minecraft/resources/Identifier;)Z
+private static findRespawnAndUseSpawnBlock(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer$RespawnConfig;Z)Ljava/util/Optional;
+public showEndCredits()V
+public teleport(Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/server/level/ServerPlayer;
+public forceSetRotation(FZFZ)V
+private triggerDimensionChangeTriggers(Lnet/minecraft/server/level/ServerLevel;)V
+public broadcastToPlayer(Lnet/minecraft/server/level/ServerPlayer;)Z
+public take(Lnet/minecraft/world/entity/Entity;I)V
+public startSleepInBed(Lnet/minecraft/world/level/block/AbstractBedBlock;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/attribute/BedRule;Lnet/minecraft/core/BlockPos;)Lcom/mojang/datafixers/util/Either;
+public startSleeping(Lnet/minecraft/core/BlockPos;)Z
+private bedInRange(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z
+private isReachableBedBlock(Lnet/minecraft/core/BlockPos;)Z
+private bedBlocked(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z
+public stopSleepInBed(ZZ)V
+public isInvulnerableTo(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)Z
+protected onChangedBlock(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)V
+protected checkFallDamage(DZLnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V
+public onExplosionHit(Lnet/minecraft/world/entity/Entity;)V
+protected pushEntities()V
+public openTextEdit(Lnet/minecraft/world/level/block/entity/SignBlockEntity;Lnet/minecraft/world/level/block/entity/SignTextSlot;)V
+public openDialog(Lnet/minecraft/core/Holder;)V
+private nextContainerCounter()V
+public openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;
+public sendMerchantOffers(ILnet/minecraft/world/item/trading/MerchantOffers;IIZZ)V
+public openHorseInventory(Lnet/minecraft/world/entity/animal/equine/AbstractHorse;Lnet/minecraft/world/Container;)V
+public openNautilusInventory(Lnet/minecraft/world/entity/animal/nautilus/AbstractNautilus;Lnet/minecraft/world/Container;)V
+public openItemGui(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;)V
+public openCommandBlock(Lnet/minecraft/world/level/block/entity/CommandBlockEntity;)V
+public closeContainer()V
+public doCloseContainer()V
+public rideTick()V
+public checkMovementStatistics(DDD)V
+private checkRidingStatistics(DDD)V
+private static didNotMove(DDD)Z
+public awardStat(Lnet/minecraft/stats/Stat;I)V
+public resetStat(Lnet/minecraft/stats/Stat;)V
+public awardRecipes(Ljava/util/Collection;)I
+public triggerRecipeCrafted(Lnet/minecraft/world/item/crafting/RecipeHolder;Ljava/util/List;)V
+public awardRecipesByKey(Ljava/util/List;)V
+public resetRecipes(Ljava/util/Collection;)I
+public jumpFromGround()V
+public giveExperiencePoints(I)V
+public disconnect()V
+public hasDisconnected()Z
+public resetSentInfo()V
+protected completeUsingItem()V
+public lookAt(Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;Lnet/minecraft/world/phys/Vec3;)V
+public lookAt(Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;)V
+public restoreFrom(Lnet/minecraft/server/level/ServerPlayer;Z)V
+private transferInventoryXpAndScore(Lnet/minecraft/world/entity/player/Player;)V
+protected onEffectAdded(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)V
+protected onEffectUpdated(Lnet/minecraft/world/effect/MobEffectInstance;ZLnet/minecraft/world/entity/Entity;)V
+protected onEffectsRemoved(Ljava/util/Collection;)V
+public teleportTo(DDD)V
+public teleportRelative(DDD)V
+public teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDLjava/util/Set;FFZ)Z
+public snapTo(DDD)V
+public crit(Lnet/minecraft/world/entity/Entity;)V
+public magicCrit(Lnet/minecraft/world/entity/Entity;)V
+public onUpdateAbilities()V
+public level()Lnet/minecraft/server/level/ServerLevel;
+public setGameMode(Lnet/minecraft/world/level/GameType;)Z
+public gameMode()Lnet/minecraft/world/level/GameType;
+public commandSource()Lnet/minecraft/commands/CommandSource;
+public createCommandSourceStack()Lnet/minecraft/commands/CommandSourceStack;
+public sendSystemMessage(Lnet/minecraft/network/chat/Component;)V
+public sendOverlayMessage(Lnet/minecraft/network/chat/Component;)V
+public sendBuildLimitMessage(ZI)V
+public sendSpawnProtectionMessage(Lnet/minecraft/core/BlockPos;)V
+public sendSystemMessage(Lnet/minecraft/network/chat/Component;Z)V
+public sendChatMessage(Lnet/minecraft/network/chat/OutgoingChatMessage;ZLnet/minecraft/network/chat/ChatType$Bound;)V
+public getIpAddress()Ljava/lang/String;
+public updateOptions(Lnet/minecraft/server/level/ClientInformation;)V
+public clientInformation()Lnet/minecraft/server/level/ClientInformation;
+public canChatInColor()Z
+public getChatVisibility()Lnet/minecraft/world/entity/player/ChatVisiblity;
+private acceptsSystemMessages(Z)Z
+private acceptsChatMessages()Z
+public requestedViewDistance()I
+public sendServerStatus(Lnet/minecraft/network/protocol/status/ServerStatus;)V
+public permissions()Lnet/minecraft/server/permissions/PermissionSet;
+public resetLastActionTime()V
+public getStats()Lnet/minecraft/stats/ServerStatsCounter;
+public getRecipeBook()Lnet/minecraft/stats/ServerRecipeBook;
+protected updateInvisibilityStatus()V
+public getCamera()Lnet/minecraft/world/entity/Entity;
+public setCamera(Lnet/minecraft/world/entity/Entity;)V
+protected processPortalCooldown()V
+public getLastActionTime()J
+public getTabListDisplayName()Lnet/minecraft/network/chat/Component;
+public getTabListOrder()I
+public isChangingDimension()Z
+public hasChangedDimension()V
+public getAdvancements()Lnet/minecraft/server/PlayerAdvancements;
+public getRespawnConfig()Lnet/minecraft/server/level/ServerPlayer$RespawnConfig;
+public copyRespawnPosition(Lnet/minecraft/server/level/ServerPlayer;)V
+public setRespawnPosition(Lnet/minecraft/server/level/ServerPlayer$RespawnConfig;Z)V
+public getLastSectionPos()Lnet/minecraft/core/SectionPos;
+public setLastSectionPos(Lnet/minecraft/core/SectionPos;)V
+public getChunkTrackingView()Lnet/minecraft/server/level/ChunkTrackingView;
+public setChunkTrackingView(Lnet/minecraft/server/level/ChunkTrackingView;)V
+public drop(Lnet/minecraft/world/item/ItemStack;ZLnet/minecraft/util/Prediction;)Lnet/minecraft/world/entity/item/ItemEntity;
+public getTextFilter()Lnet/minecraft/server/network/TextFilter;
+public setServerLevel(Lnet/minecraft/server/level/ServerLevel;)V
+private static readPlayerMode(Lnet/minecraft/world/level/storage/ValueInput;Ljava/lang/String;)Lnet/minecraft/world/level/GameType;
+private calculateGameModeForNewPlayer(Lnet/minecraft/world/level/GameType;)Lnet/minecraft/world/level/GameType;
+private storeGameTypes(Lnet/minecraft/world/level/storage/ValueOutput;)V
+public isTextFilteringEnabled()Z
+public shouldFilterMessageTo(Lnet/minecraft/server/level/ServerPlayer;)Z
+public mayInteract(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Z
+protected updateUsingItem(Lnet/minecraft/world/item/ItemStack;)V
+public drop(Z)V
+public handleExtraItemsCreatedOnUse(Lnet/minecraft/world/item/ItemStack;)V
+public allowsListing()Z
+public getWardenSpawnTracker()Lnet/minecraft/world/entity/monster/warden/WardenSpawnTracker;
+public setSpawnExtraParticlesOnFall(Z)V
+public onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V
+public setChatSession(Lnet/minecraft/network/chat/RemoteChatSession;)V
+public getChatSession()Lnet/minecraft/network/chat/RemoteChatSession;
+public indicateDamage(DD)V
+public startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z
+public removeVehicle()V
+public createCommonSpawnInfo(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/network/protocol/game/CommonPlayerSpawnInfo;
+public setRaidOmenPosition(Lnet/minecraft/core/BlockPos;)V
+public clearRaidOmenPosition()V
+public getRaidOmenPosition()Lnet/minecraft/core/BlockPos;
+public getKnownMovement()Lnet/minecraft/world/phys/Vec3;
+public getKnownSpeed()Lnet/minecraft/world/phys/Vec3;
+public setKnownMovement(Lnet/minecraft/world/phys/Vec3;)V
+protected getEnchantedDamage(Lnet/minecraft/world/entity/Entity;FLnet/minecraft/world/damagesource/DamageSource;)F
+public onEquippedItemBroken(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;)V
+public getLastClientInput()Lnet/minecraft/world/entity/player/Input;
+public setLastClientInput(Lnet/minecraft/world/entity/player/Input;)V
+public getLastClientMoveIntent()Lnet/minecraft/world/phys/Vec3;
+public registerEnderPearl(Lnet/minecraft/world/entity/projectile/throwableitemprojectile/ThrownEnderpearl;)V
+public deregisterEnderPearl(Lnet/minecraft/world/entity/projectile/throwableitemprojectile/ThrownEnderpearl;)V
+public getEnderPearls()Ljava/util/Set;
+public getShoulderEntityLeft()Lnet/minecraft/nbt/CompoundTag;
+protected setShoulderEntityLeft(Lnet/minecraft/nbt/CompoundTag;)V
+public getShoulderEntityRight()Lnet/minecraft/nbt/CompoundTag;
+protected setShoulderEntityRight(Lnet/minecraft/nbt/CompoundTag;)V
+public registerAndUpdateEnderPearlTicket(Lnet/minecraft/world/entity/projectile/throwableitemprojectile/ThrownEnderpearl;)J
+public static placeEnderPearlTicket(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ChunkPos;)J
+public requestDebugSubscriptions(Ljava/util/Set;)V
+public debugSubscriptions()Ljava/util/Set;
+public swingAndResetAttackStrength(Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/component/SwingAnimation;Z)V
+public synthetic level()Lnet/minecraft/world/level/Level;
+public synthetic teleport(Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/world/entity/Entity;
+private synthetic lambda$drop$0(Lnet/minecraft/world/entity/player/Inventory;I)V
+private synthetic lambda$sendSystemMessage$0(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/protocol/Packet;
+private synthetic lambda$awardRecipesByKey$0(Lnet/minecraft/resources/ResourceKey;)Ljava/util/stream/Stream;
+private static synthetic lambda$awardStat$0(ILnet/minecraft/world/scores/ScoreAccess;)V
+private synthetic lambda$startSleepInBed$1(Lnet/minecraft/world/level/block/AbstractBedBlock;ZLnet/minecraft/util/Unit;)V
+private synthetic lambda$startSleepInBed$0(Lnet/minecraft/world/entity/monster/Monster;)Z
+private static synthetic lambda$findRespawnAndUseSpawnBlock$1(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/server/level/ServerPlayer$RespawnPosAngle;
+private static synthetic lambda$findRespawnAndUseSpawnBlock$0(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/server/level/ServerPlayer$RespawnPosAngle;
+private synthetic lambda$tellNeutralMobsThatIDied$1(Lnet/minecraft/world/entity/Mob;)V
+private static synthetic lambda$tellNeutralMobsThatIDied$0(Lnet/minecraft/world/entity/Mob;)Z
+private synthetic lambda$die$0(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/protocol/Packet;
+private static synthetic lambda$die$1(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/network/chat/Style;
+private static synthetic lambda$updateScoreForCriteria$0(ILnet/minecraft/world/scores/ScoreAccess;)V
+private synthetic lambda$respawnEntityOnShoulder$1(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)V
+private static synthetic lambda$respawnEntityOnShoulder$0()Ljava/lang/String;
+private static synthetic lambda$loadAndSpawnEnderPearl$0(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/entity/Entity;
+private static synthetic lambda$loadAndSpawnParentVehicle$0(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/entity/Entity;
+private synthetic lambda$readAdditionalSaveData$0(Lnet/minecraft/stats/ServerRecipeBook$Packed;)V
+private synthetic lambda$readAdditionalSaveData$1(Lnet/minecraft/resources/ResourceKey;)Z
+private static synthetic lambda$new$0(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Consumer;)V
+static <clinit>()V
 ```

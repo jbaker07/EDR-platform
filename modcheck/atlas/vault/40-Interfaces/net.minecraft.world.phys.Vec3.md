@@ -11,93 +11,105 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.phys|net.minecraft.world.phys]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/core/Position`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(DDD)V` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `add(DDD)Lnet/minecraft/world/phys/Vec3;` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `add(DDD)Lnet/minecraft/world/phys/Vec3;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
-| calls | `atCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `atCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `multiply(DDD)Lnet/minecraft/world/phys/Vec3;` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
-| calls | `subtract(DDD)Lnet/minecraft/world/phys/Vec3;` | `` | client | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(DDD)V` | exact | invokespecial@110 in `SimpleConfiguredFluidBehavior.lambda$static$1` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `add` | `(DDD)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@102 in `SimpleConfiguredFluidBehavior.travelInFluid` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `add` | `(DDD)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@170 in `SimpleConfiguredFluidBehavior.travelInFluid` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `add` | `(DDD)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@30 in `ServerGamePacketListenerImplMixin.handleInteract` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| calls | `atCenterOf` | `(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;` | exact | invokestatic@26 in `TestInputImpl.lambda$lookAt$1` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `atCenterOf` | `(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;` | exact | invokestatic@23 in `ComposterWrapper.getLayersToAdd` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `multiply` | `(DDD)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@7 in `SimpleConfiguredFluidBehavior$Builder.lambda$movementSlowdown$1` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `multiply` | `(DDD)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@24 in `SimpleConfiguredFluidBehavior$Builder.lambda$new$1` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `multiply` | `(DDD)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@124 in `SimpleConfiguredFluidBehavior.lambda$static$1` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `scale` | `(D)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@26 in `FluidBehavior.travelFlyingInFluid` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `scale` | `(D)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@9 in `SimpleConfiguredFluidBehavior$Builder.lambda$movementSlowdown$2` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `scale` | `(D)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@3 in `SimpleConfiguredFluidBehavior$Builder.lambda$movementSlowdown$0` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `scale` | `(D)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@8 in `SimpleConfiguredFluidBehavior$Builder.lambda$new$1` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `subtract` | `(DDD)Lnet/minecraft/world/phys/Vec3;` | exact | invokevirtual@70 in `MinecraftMixin.injectUseEntityCallback` | unknown | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+| reads | `x` | `D` | exact | getfield@100 in `SimpleConfiguredFluidBehavior.lambda$static$1` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `x` | `D` | exact | getfield@17 in `AltModelBlockRendererImpl.tesselateBlock` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `y` | `D` | exact | getfield@25 in `AltModelBlockRendererImpl.tesselateBlock` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| reads | `z` | `D` | exact | getfield@107 in `SimpleConfiguredFluidBehavior.lambda$static$1` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| reads | `z` | `D` | exact | getfield@34 in `AltModelBlockRendererImpl.tesselateBlock` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (70, all visibilities)
+## Declared members (10 fields, 60 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.phys.Vec3 implements net.minecraft.core.Position {
-    public static final com.mojang.serialization.Codec<net.minecraft.world.phys.Vec3> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.phys.Vec3> STREAM_CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.phys.Vec3> LP_STREAM_CODEC;
-    public static final net.minecraft.world.phys.Vec3 ZERO;
-    public static final net.minecraft.world.phys.Vec3 X_AXIS;
-    public static final net.minecraft.world.phys.Vec3 Y_AXIS;
-    public static final net.minecraft.world.phys.Vec3 Z_AXIS;
-    public final double x;
-    public final double y;
-    public final double z;
-    public static net.minecraft.world.phys.Vec3 atLowerCornerOf(net.minecraft.core.Vec3i);
-    public static net.minecraft.world.phys.Vec3 atLowerCornerWithOffset(net.minecraft.core.Vec3i, double, double, double);
-    public static net.minecraft.world.phys.Vec3 atCenterOf(net.minecraft.core.Vec3i);
-    public static net.minecraft.world.phys.Vec3 atCenterOfWithY(net.minecraft.core.Vec3i, double);
-    public static net.minecraft.world.phys.Vec3 atBottomCenterOf(net.minecraft.core.Vec3i);
-    public static net.minecraft.world.phys.Vec3 upFromBottomCenterOf(net.minecraft.core.Vec3i, double);
-    public net.minecraft.world.phys.Vec3(double, double, double);
-    public net.minecraft.world.phys.Vec3(org.joml.Vector3fc);
-    public net.minecraft.world.phys.Vec3(net.minecraft.core.Vec3i);
-    public net.minecraft.world.phys.Vec3 vectorTo(net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.phys.Vec3 normalize();
-    public double dot(net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.phys.Vec3 cross(net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.phys.Vec3 subtract(net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.phys.Vec3 subtract(double);
-    public net.minecraft.world.phys.Vec3 subtract(double, double, double);
-    public net.minecraft.world.phys.Vec3 add(double);
-    public net.minecraft.world.phys.Vec3 add(net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.phys.Vec3 add(double, double, double);
-    public boolean closerThan(net.minecraft.core.Position, double);
-    public double distanceTo(net.minecraft.world.phys.Vec3);
-    public double distanceToSqr(net.minecraft.world.phys.Vec3);
-    public double distanceToSqr(double, double, double);
-    public boolean closerThan(net.minecraft.world.phys.Vec3, double, double);
-    public net.minecraft.world.phys.Vec3 scale(double);
-    public net.minecraft.world.phys.Vec3 reverse();
-    public net.minecraft.world.phys.Vec3 multiply(net.minecraft.world.phys.Vec3);
-    public net.minecraft.world.phys.Vec3 multiply(double, double, double);
-    public net.minecraft.world.phys.Vec3 horizontal();
-    public net.minecraft.world.phys.Vec3 offsetRandom(net.minecraft.util.RandomSource, float);
-    public net.minecraft.world.phys.Vec3 offsetRandomXZ(net.minecraft.util.RandomSource, float);
-    public double length();
-    public double lengthSqr();
-    public double horizontalDistance();
-    public double horizontalDistanceSqr();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public java.lang.String toString();
-    public net.minecraft.world.phys.Vec3 lerp(net.minecraft.world.phys.Vec3, double);
-    public net.minecraft.world.phys.Vec3 xRot(float);
-    public net.minecraft.world.phys.Vec3 yRot(float);
-    public net.minecraft.world.phys.Vec3 zRot(float);
-    public net.minecraft.world.phys.Vec3 rotateClockwise90();
-    public static net.minecraft.world.phys.Vec3 directionFromRotation(net.minecraft.world.phys.Vec2);
-    public static net.minecraft.world.phys.Vec3 directionFromRotation(float, float);
-    public net.minecraft.world.phys.Vec2 rotation();
-    public net.minecraft.world.phys.Vec3 align(java.util.EnumSet<net.minecraft.core.Direction$Axis>);
-    public double get(net.minecraft.core.Direction$Axis);
-    public net.minecraft.world.phys.Vec3 with(net.minecraft.core.Direction$Axis, double);
-    public net.minecraft.world.phys.Vec3 relative(net.minecraft.core.Direction, double);
-    public final double x();
-    public final double y();
-    public final double z();
-    public org.joml.Vector3f toVector3f();
-    public net.minecraft.world.phys.Vec3 projectedOn(net.minecraft.world.phys.Vec3);
-    public boolean isFinite();
-    private static java.util.List lambda$static$2(net.minecraft.world.phys.Vec3);
-    private static com.mojang.serialization.DataResult lambda$static$0(java.util.List);
-    private static net.minecraft.world.phys.Vec3 lambda$static$1(java.util.List);
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final LP_STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final ZERO : Lnet/minecraft/world/phys/Vec3;
+public static final X_AXIS : Lnet/minecraft/world/phys/Vec3;
+public static final Y_AXIS : Lnet/minecraft/world/phys/Vec3;
+public static final Z_AXIS : Lnet/minecraft/world/phys/Vec3;
+public final x : D
+public final y : D
+public final z : D
+public static atLowerCornerOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;
+public static atLowerCornerWithOffset(Lnet/minecraft/core/Vec3i;DDD)Lnet/minecraft/world/phys/Vec3;
+public static atCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;
+public static atCenterOfWithY(Lnet/minecraft/core/Vec3i;D)Lnet/minecraft/world/phys/Vec3;
+public static atBottomCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;
+public static upFromBottomCenterOf(Lnet/minecraft/core/Vec3i;D)Lnet/minecraft/world/phys/Vec3;
+public <init>(DDD)V
+public <init>(Lorg/joml/Vector3fc;)V
+public <init>(Lnet/minecraft/core/Vec3i;)V
+public vectorTo(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public normalize()Lnet/minecraft/world/phys/Vec3;
+public dot(Lnet/minecraft/world/phys/Vec3;)D
+public cross(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public subtract(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public subtract(D)Lnet/minecraft/world/phys/Vec3;
+public subtract(DDD)Lnet/minecraft/world/phys/Vec3;
+public add(D)Lnet/minecraft/world/phys/Vec3;
+public add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public add(DDD)Lnet/minecraft/world/phys/Vec3;
+public closerThan(Lnet/minecraft/core/Position;D)Z
+public distanceTo(Lnet/minecraft/world/phys/Vec3;)D
+public distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D
+public distanceToSqr(DDD)D
+public closerThan(Lnet/minecraft/world/phys/Vec3;DD)Z
+public scale(D)Lnet/minecraft/world/phys/Vec3;
+public reverse()Lnet/minecraft/world/phys/Vec3;
+public multiply(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public multiply(DDD)Lnet/minecraft/world/phys/Vec3;
+public horizontal()Lnet/minecraft/world/phys/Vec3;
+public offsetRandom(Lnet/minecraft/util/RandomSource;F)Lnet/minecraft/world/phys/Vec3;
+public offsetRandomXZ(Lnet/minecraft/util/RandomSource;F)Lnet/minecraft/world/phys/Vec3;
+public length()D
+public lengthSqr()D
+public horizontalDistance()D
+public horizontalDistanceSqr()D
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public toString()Ljava/lang/String;
+public lerp(Lnet/minecraft/world/phys/Vec3;D)Lnet/minecraft/world/phys/Vec3;
+public xRot(F)Lnet/minecraft/world/phys/Vec3;
+public yRot(F)Lnet/minecraft/world/phys/Vec3;
+public zRot(F)Lnet/minecraft/world/phys/Vec3;
+public rotateClockwise90()Lnet/minecraft/world/phys/Vec3;
+public static directionFromRotation(Lnet/minecraft/world/phys/Vec2;)Lnet/minecraft/world/phys/Vec3;
+public static directionFromRotation(FF)Lnet/minecraft/world/phys/Vec3;
+public rotation()Lnet/minecraft/world/phys/Vec2;
+public align(Ljava/util/EnumSet;)Lnet/minecraft/world/phys/Vec3;
+public get(Lnet/minecraft/core/Direction$Axis;)D
+public with(Lnet/minecraft/core/Direction$Axis;D)Lnet/minecraft/world/phys/Vec3;
+public relative(Lnet/minecraft/core/Direction;D)Lnet/minecraft/world/phys/Vec3;
+public final x()D
+public final y()D
+public final z()D
+public toVector3f()Lorg/joml/Vector3f;
+public projectedOn(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+public isFinite()Z
+private static synthetic lambda$static$2(Lnet/minecraft/world/phys/Vec3;)Ljava/util/List;
+private static synthetic lambda$static$0(Ljava/util/List;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$1(Ljava/util/List;)Lnet/minecraft/world/phys/Vec3;
+static <clinit>()V
 ```

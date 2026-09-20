@@ -13,7 +13,7 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: interface
 
 ```java
-public default void add(net.minecraft.sounds.SoundEvent, net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder)
-public default void add(net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>, net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder)
+public void add(net.minecraft.sounds.SoundEvent, net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder)
+public void add(net.minecraft.core.Holder, net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder)
 public abstract void add(net.minecraft.resources.Identifier, net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder)
 ```

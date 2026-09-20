@@ -11,123 +11,127 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.inventory|net.minecraft.world.inventory]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getCarried()Lnet/minecraft/world/item/ItemStack;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `getType()Lnet/minecraft/world/inventory/MenuType;` | `` | both | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| calls | `getType()Lnet/minecraft/world/inventory/MenuType;` | `` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| calls | `getType()Lnet/minecraft/world/inventory/MenuType;` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| calls | `setCarried(Lnet/minecraft/world/item/ItemStack;)V` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
-| injects_into | `tryItemClickBehaviourOverride` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `createCarriedSlotAccess` | `()Lnet/minecraft/world/entity/SlotAccess;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | declared |
+| calls | `getCarried` | `()Lnet/minecraft/world/item/ItemStack;` | exact | invokevirtual@4 in `CursorSlotWrapper.getStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/inventory/MenuType;` | exact | invokevirtual@25 in `Networking.sendOpenPacket` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/inventory/MenuType;` | exact | invokevirtual@40 in `ServerPlayerMixin.fabric_storeOpenedMenu` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/inventory/MenuType;` | exact | invokevirtual@53 in `ServerPlayerMixin.fabric_storeOpenedMenu` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/inventory/MenuType;` | exact | invokevirtual@65 in `ServerPlayerMixin.fabric_replaceVanillaScreenPacket` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/inventory/MenuType;` | exact | invokevirtual@97 in `ServerPlayerMixin.fabric_replaceVanillaScreenPacket` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `getType` | `()Lnet/minecraft/world/inventory/MenuType;` | exact | invokevirtual@14 in `CursorSlotWrapper.toString` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `setCarried` | `(Lnet/minecraft/world/item/ItemStack;)V` | exact | invokevirtual@5 in `CursorSlotWrapper.setStack` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| injects_into | `tryItemClickBehaviourOverride` | `(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/invent` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
 
-## Declared members (101, all visibilities)
+## Declared members (29 fields, 72 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.world.inventory.AbstractContainerMenu {
-    private static final org.slf4j.Logger LOGGER;
-    public static final int SLOT_CLICKED_OUTSIDE;
-    public static final int CONTAINER_CLICK_PRIMARY;
-    public static final int CONTAINER_CLICK_SECONDARY;
-    public static final int QUICKCRAFT_TYPE_CHARITABLE;
-    public static final int QUICKCRAFT_TYPE_GREEDY;
-    public static final int QUICKCRAFT_TYPE_CLONE;
-    public static final int QUICKCRAFT_HEADER_START;
-    public static final int QUICKCRAFT_HEADER_CONTINUE;
-    public static final int QUICKCRAFT_HEADER_END;
-    public static final int CARRIED_SLOT_SIZE;
-    public static final int SLOTS_PER_ROW;
-    public static final int SLOT_SIZE;
-    private final net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> lastSlots;
-    public final net.minecraft.core.NonNullList<net.minecraft.world.inventory.Slot> slots;
-    private final java.util.List<net.minecraft.world.inventory.DataSlot> dataSlots;
-    private net.minecraft.world.item.ItemStack carried;
-    private final net.minecraft.core.NonNullList<net.minecraft.world.inventory.RemoteSlot> remoteSlots;
-    private final it.unimi.dsi.fastutil.ints.IntList remoteDataSlots;
-    private net.minecraft.world.inventory.RemoteSlot remoteCarried;
-    private int stateId;
-    private final net.minecraft.world.inventory.MenuType<?> menuType;
-    public final int containerId;
-    private int quickcraftType;
-    private int quickcraftStatus;
-    private final java.util.Set<net.minecraft.world.inventory.Slot> quickcraftSlots;
-    private final java.util.List<net.minecraft.world.inventory.ContainerListener> containerListeners;
-    private net.minecraft.world.inventory.ContainerSynchronizer synchronizer;
-    private boolean suppressRemoteUpdates;
-    protected net.minecraft.world.inventory.AbstractContainerMenu(net.minecraft.world.inventory.MenuType<?>, int);
-    protected void addInventoryHotbarSlots(net.minecraft.world.Container, int, int);
-    protected void addInventoryExtendedSlots(net.minecraft.world.Container, int, int);
-    protected void addStandardInventorySlots(net.minecraft.world.Container, int, int);
-    protected static boolean stillValid(net.minecraft.world.inventory.ContainerLevelAccess, net.minecraft.world.entity.player.Player, net.minecraft.world.level.block.Block);
-    public net.minecraft.world.inventory.MenuType<?> getType();
-    protected static void checkContainerSize(net.minecraft.world.Container, int);
-    protected static void checkContainerDataCount(net.minecraft.world.inventory.ContainerData, int);
-    public boolean isValidSlotIndex(int);
-    protected net.minecraft.world.inventory.Slot addSlot(net.minecraft.world.inventory.Slot);
-    protected net.minecraft.world.inventory.DataSlot addDataSlot(net.minecraft.world.inventory.DataSlot);
-    protected void addDataSlots(net.minecraft.world.inventory.ContainerData);
-    public void addSlotListener(net.minecraft.world.inventory.ContainerListener);
-    public void setSynchronizer(net.minecraft.world.inventory.ContainerSynchronizer);
-    public void sendAllDataToRemote();
-    public void removeSlotListener(net.minecraft.world.inventory.ContainerListener);
-    public net.minecraft.core.NonNullList<net.minecraft.world.item.ItemStack> getItems();
-    public void broadcastChanges();
-    public void broadcastFullState();
-    private void updateDataSlotListeners(int, int);
-    private void triggerSlotListeners(int, net.minecraft.world.item.ItemStack, java.util.function.Supplier<net.minecraft.world.item.ItemStack>);
-    private void synchronizeSlotToRemote(int, net.minecraft.world.item.ItemStack, java.util.function.Supplier<net.minecraft.world.item.ItemStack>);
-    private void synchronizeDataSlotToRemote(int, int);
-    private void synchronizeCarriedToRemote();
-    public void setRemoteSlot(int, net.minecraft.world.item.ItemStack);
-    public void setRemoteSlotUnsafe(int, net.minecraft.network.HashedStack);
-    public void setRemoteCarried(net.minecraft.network.HashedStack);
-    public boolean clickMenuButton(net.minecraft.world.entity.player.Player, int);
-    public net.minecraft.world.inventory.Slot getSlot(int);
-    public abstract net.minecraft.world.item.ItemStack quickMoveStack(net.minecraft.world.entity.player.Player, int);
-    public void setSelectedBundleItemIndex(int, int);
-    public void clicked(int, int, net.minecraft.world.inventory.ContainerInput, net.minecraft.world.entity.player.Player);
-    private void doClick(int, int, net.minecraft.world.inventory.ContainerInput, net.minecraft.world.entity.player.Player);
-    private static boolean isContainerClickButton(int);
-    private static net.minecraft.world.inventory.ClickAction getClickAction(int);
-    private boolean tryItemClickBehaviourOverride(net.minecraft.world.entity.player.Player, net.minecraft.world.inventory.ClickAction, net.minecraft.world.inventory.Slot, net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack);
-    private net.minecraft.world.entity.SlotAccess createCarriedSlotAccess();
-    public boolean canTakeItemForPickAll(net.minecraft.world.item.ItemStack, net.minecraft.world.inventory.Slot);
-    public void removed(net.minecraft.world.entity.player.Player);
-    private static void dropOrPlaceInInventory(net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack);
-    protected void clearContainer(net.minecraft.world.entity.player.Player, net.minecraft.world.Container);
-    public void slotsChanged(net.minecraft.world.Container);
-    public void setItem(int, int, net.minecraft.world.item.ItemStack);
-    public void initializeContents(int, java.util.List<net.minecraft.world.item.ItemStack>, net.minecraft.world.item.ItemStack);
-    public void setData(int, int);
-    public abstract boolean stillValid(net.minecraft.world.entity.player.Player);
-    protected boolean moveItemStackTo(net.minecraft.world.item.ItemStack, int, int, boolean);
-    public static int getQuickcraftType(int);
-    public static int getQuickcraftHeader(int);
-    public static int getQuickcraftMask(int, int);
-    public static boolean isValidQuickcraftType(int, net.minecraft.world.entity.player.Player);
-    protected void resetQuickCraft();
-    public static boolean canItemQuickReplace(net.minecraft.world.inventory.Slot, net.minecraft.world.item.ItemStack, boolean);
-    public static int getQuickCraftPlaceCount(int, int, net.minecraft.world.item.ItemStack);
-    public boolean canDragTo(net.minecraft.world.inventory.Slot);
-    public static int getRedstoneSignalFromBlockEntity(net.minecraft.world.level.block.entity.BlockEntity);
-    public static int getRedstoneSignalFromContainer(net.minecraft.world.Container);
-    public void setCarried(net.minecraft.world.item.ItemStack);
-    public net.minecraft.world.item.ItemStack getCarried();
-    public void suppressRemoteUpdates();
-    public void resumeRemoteUpdates();
-    public void transferState(net.minecraft.world.inventory.AbstractContainerMenu);
-    public java.util.OptionalInt findSlot(net.minecraft.world.Container, int);
-    public int getStateId();
-    public int incrementStateId();
-    private static void lambda$doClick$1(net.minecraft.world.item.ItemStack, net.minecraft.world.inventory.Slot, net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack);
-    private void lambda$doClick$0(net.minecraft.world.inventory.Slot, net.minecraft.world.entity.player.Player, net.minecraft.world.item.ItemStack);
-    private java.lang.String lambda$clicked$1() throws java.lang.Exception;
-    private java.lang.String lambda$clicked$0() throws java.lang.Exception;
-    private static net.minecraft.world.inventory.RemoteSlot lambda$setSynchronizer$0(net.minecraft.world.inventory.ContainerSynchronizer, net.minecraft.world.inventory.RemoteSlot);
-    private static java.lang.Boolean lambda$stillValid$0(net.minecraft.world.level.block.Block, net.minecraft.world.entity.player.Player, net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final SLOT_CLICKED_OUTSIDE : I
+public static final CONTAINER_CLICK_PRIMARY : I
+public static final CONTAINER_CLICK_SECONDARY : I
+public static final QUICKCRAFT_TYPE_CHARITABLE : I
+public static final QUICKCRAFT_TYPE_GREEDY : I
+public static final QUICKCRAFT_TYPE_CLONE : I
+public static final QUICKCRAFT_HEADER_START : I
+public static final QUICKCRAFT_HEADER_CONTINUE : I
+public static final QUICKCRAFT_HEADER_END : I
+public static final CARRIED_SLOT_SIZE : I
+public static final SLOTS_PER_ROW : I
+public static final SLOT_SIZE : I
+private final lastSlots : Lnet/minecraft/core/NonNullList;
+public final slots : Lnet/minecraft/core/NonNullList;
+private final dataSlots : Ljava/util/List;
+private carried : Lnet/minecraft/world/item/ItemStack;
+private final remoteSlots : Lnet/minecraft/core/NonNullList;
+private final remoteDataSlots : Lit/unimi/dsi/fastutil/ints/IntList;
+private remoteCarried : Lnet/minecraft/world/inventory/RemoteSlot;
+private stateId : I
+private final menuType : Lnet/minecraft/world/inventory/MenuType;
+public final containerId : I
+private quickcraftType : I
+private quickcraftStatus : I
+private final quickcraftSlots : Ljava/util/Set;
+private final containerListeners : Ljava/util/List;
+private synchronizer : Lnet/minecraft/world/inventory/ContainerSynchronizer;
+private suppressRemoteUpdates : Z
+protected <init>(Lnet/minecraft/world/inventory/MenuType;I)V
+protected addInventoryHotbarSlots(Lnet/minecraft/world/Container;II)V
+protected addInventoryExtendedSlots(Lnet/minecraft/world/Container;II)V
+protected addStandardInventorySlots(Lnet/minecraft/world/Container;II)V
+protected static stillValid(Lnet/minecraft/world/inventory/ContainerLevelAccess;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/block/Block;)Z
+public getType()Lnet/minecraft/world/inventory/MenuType;
+protected static checkContainerSize(Lnet/minecraft/world/Container;I)V
+protected static checkContainerDataCount(Lnet/minecraft/world/inventory/ContainerData;I)V
+public isValidSlotIndex(I)Z
+protected addSlot(Lnet/minecraft/world/inventory/Slot;)Lnet/minecraft/world/inventory/Slot;
+protected addDataSlot(Lnet/minecraft/world/inventory/DataSlot;)Lnet/minecraft/world/inventory/DataSlot;
+protected addDataSlots(Lnet/minecraft/world/inventory/ContainerData;)V
+public addSlotListener(Lnet/minecraft/world/inventory/ContainerListener;)V
+public setSynchronizer(Lnet/minecraft/world/inventory/ContainerSynchronizer;)V
+public sendAllDataToRemote()V
+public removeSlotListener(Lnet/minecraft/world/inventory/ContainerListener;)V
+public getItems()Lnet/minecraft/core/NonNullList;
+public broadcastChanges()V
+public broadcastFullState()V
+private updateDataSlotListeners(II)V
+private triggerSlotListeners(ILnet/minecraft/world/item/ItemStack;Ljava/util/function/Supplier;)V
+private synchronizeSlotToRemote(ILnet/minecraft/world/item/ItemStack;Ljava/util/function/Supplier;)V
+private synchronizeDataSlotToRemote(II)V
+private synchronizeCarriedToRemote()V
+public setRemoteSlot(ILnet/minecraft/world/item/ItemStack;)V
+public setRemoteSlotUnsafe(ILnet/minecraft/network/HashedStack;)V
+public setRemoteCarried(Lnet/minecraft/network/HashedStack;)V
+public clickMenuButton(Lnet/minecraft/world/entity/player/Player;I)Z
+public getSlot(I)Lnet/minecraft/world/inventory/Slot;
+public abstract quickMoveStack(Lnet/minecraft/world/entity/player/Player;I)Lnet/minecraft/world/item/ItemStack;
+public setSelectedBundleItemIndex(II)V
+public clicked(IILnet/minecraft/world/inventory/ContainerInput;Lnet/minecraft/world/entity/player/Player;)V
+private doClick(IILnet/minecraft/world/inventory/ContainerInput;Lnet/minecraft/world/entity/player/Player;)V
+private static isContainerClickButton(I)Z
+private static getClickAction(I)Lnet/minecraft/world/inventory/ClickAction;
+private tryItemClickBehaviourOverride(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/inventory/ClickAction;Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z
+private createCarriedSlotAccess()Lnet/minecraft/world/entity/SlotAccess;
+public canTakeItemForPickAll(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/inventory/Slot;)Z
+public removed(Lnet/minecraft/world/entity/player/Player;)V
+private static dropOrPlaceInInventory(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V
+protected clearContainer(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/Container;)V
+public slotsChanged(Lnet/minecraft/world/Container;)V
+public setItem(IILnet/minecraft/world/item/ItemStack;)V
+public initializeContents(ILjava/util/List;Lnet/minecraft/world/item/ItemStack;)V
+public setData(II)V
+public abstract stillValid(Lnet/minecraft/world/entity/player/Player;)Z
+protected moveItemStackTo(Lnet/minecraft/world/item/ItemStack;IIZ)Z
+public static getQuickcraftType(I)I
+public static getQuickcraftHeader(I)I
+public static getQuickcraftMask(II)I
+public static isValidQuickcraftType(ILnet/minecraft/world/entity/player/Player;)Z
+protected resetQuickCraft()V
+public static canItemQuickReplace(Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/item/ItemStack;Z)Z
+public static getQuickCraftPlaceCount(IILnet/minecraft/world/item/ItemStack;)I
+public canDragTo(Lnet/minecraft/world/inventory/Slot;)Z
+public static getRedstoneSignalFromBlockEntity(Lnet/minecraft/world/level/block/entity/BlockEntity;)I
+public static getRedstoneSignalFromContainer(Lnet/minecraft/world/Container;)I
+public setCarried(Lnet/minecraft/world/item/ItemStack;)V
+public getCarried()Lnet/minecraft/world/item/ItemStack;
+public suppressRemoteUpdates()V
+public resumeRemoteUpdates()V
+public transferState(Lnet/minecraft/world/inventory/AbstractContainerMenu;)V
+public findSlot(Lnet/minecraft/world/Container;I)Ljava/util/OptionalInt;
+public getStateId()I
+public incrementStateId()I
+private static synthetic lambda$doClick$1(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V
+private synthetic lambda$doClick$0(Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V
+private synthetic lambda$clicked$1()Ljava/lang/String;
+private synthetic lambda$clicked$0()Ljava/lang/String;
+private static synthetic lambda$setSynchronizer$0(Lnet/minecraft/world/inventory/ContainerSynchronizer;Lnet/minecraft/world/inventory/RemoteSlot;)Lnet/minecraft/world/inventory/RemoteSlot;
+private static synthetic lambda$stillValid$0(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Ljava/lang/Boolean;
+static <clinit>()V
 ```

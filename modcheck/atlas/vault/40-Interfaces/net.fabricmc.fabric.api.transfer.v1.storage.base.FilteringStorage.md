@@ -13,20 +13,20 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: abstract_class
 
 ```java
-protected final java.util.function.Supplier<net.fabricmc.fabric.api.transfer.v1.storage.Storage<T>> backingStorage
-public static <T> net.fabricmc.fabric.api.transfer.v1.storage.Storage<T> insertOnlyOf(net.fabricmc.fabric.api.transfer.v1.storage.Storage<T>)
-public static <T> net.fabricmc.fabric.api.transfer.v1.storage.Storage<T> extractOnlyOf(net.fabricmc.fabric.api.transfer.v1.storage.Storage<T>)
-public static <T> net.fabricmc.fabric.api.transfer.v1.storage.Storage<T> readOnlyOf(net.fabricmc.fabric.api.transfer.v1.storage.Storage<T>)
-public static <T> net.fabricmc.fabric.api.transfer.v1.storage.Storage<T> of(net.fabricmc.fabric.api.transfer.v1.storage.Storage<T>, boolean, boolean)
-public net.fabricmc.fabric.api.transfer.v1.storage.base.FilteringStorage(net.fabricmc.fabric.api.transfer.v1.storage.Storage<T>)
-public net.fabricmc.fabric.api.transfer.v1.storage.base.FilteringStorage(java.util.function.Supplier<net.fabricmc.fabric.api.transfer.v1.storage.Storage<T>>)
-protected boolean canInsert(T)
-protected boolean canExtract(T)
+protected final java.util.function.Supplier backingStorage
+public static net.fabricmc.fabric.api.transfer.v1.storage.Storage insertOnlyOf(net.fabricmc.fabric.api.transfer.v1.storage.Storage)
+public static net.fabricmc.fabric.api.transfer.v1.storage.Storage extractOnlyOf(net.fabricmc.fabric.api.transfer.v1.storage.Storage)
+public static net.fabricmc.fabric.api.transfer.v1.storage.Storage readOnlyOf(net.fabricmc.fabric.api.transfer.v1.storage.Storage)
+public static net.fabricmc.fabric.api.transfer.v1.storage.Storage of(net.fabricmc.fabric.api.transfer.v1.storage.Storage, boolean, boolean)
+public <init>(net.fabricmc.fabric.api.transfer.v1.storage.Storage)
+public <init>(java.util.function.Supplier)
+protected boolean canInsert(java.lang.Object)
+protected boolean canExtract(java.lang.Object)
 public boolean supportsInsertion()
-public long insert(T, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
+public long insert(java.lang.Object, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
 public boolean supportsExtraction()
-public long extract(T, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
-public java.util.Iterator<net.fabricmc.fabric.api.transfer.v1.storage.StorageView<T>> iterator()
+public long extract(java.lang.Object, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
+public java.util.Iterator iterator()
 public long getVersion()
 public java.lang.String toString()
 ```

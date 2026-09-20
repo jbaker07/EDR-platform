@@ -15,7 +15,7 @@ Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- k
 ```java
 public static boolean registerGlobalReceiver(net.minecraft.resources.Identifier, net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking$LoginQueryResponseHandler)
 public static net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking$LoginQueryResponseHandler unregisterGlobalReceiver(net.minecraft.resources.Identifier)
-public static java.util.Set<net.minecraft.resources.Identifier> getGlobalReceivers()
+public static java.util.Set getGlobalReceivers()
 public static boolean registerReceiver(net.minecraft.server.network.ServerLoginPacketListenerImpl, net.minecraft.resources.Identifier, net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking$LoginQueryResponseHandler)
 public static net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking$LoginQueryResponseHandler unregisterReceiver(net.minecraft.server.network.ServerLoginPacketListenerImpl, net.minecraft.resources.Identifier)
 public static net.minecraft.server.MinecraftServer getServer(net.minecraft.server.network.ServerLoginPacketListenerImpl)

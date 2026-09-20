@@ -10,14 +10,13 @@ sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
 
 # net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationType
 
-Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: class
+Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationType FILE
 public static final net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationType SOUND_EVENT
-public static final com.mojang.serialization.Codec<net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationType> CODEC
+public static final com.mojang.serialization.Codec CODEC
 public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationType[] values()
 public static net.fabricmc.fabric.api.client.datagen.v1.builder.SoundTypeBuilder$RegistrationType valueOf(java.lang.String)
 public java.lang.String getSerializedName()
-static {}
 ```

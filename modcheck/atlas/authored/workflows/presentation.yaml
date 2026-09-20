@@ -1,130 +1,165 @@
 - id: wf.presentation.hud_screens
   area: presentation
   title: Show information on the HUD or in a screen
-  intent: >-
-    The player should see something: a counter, a status, a menu. It must render
-    only on the client, never load on a dedicated server, and reflect state the
-    server owns.
+  intent: 'The player should see something: a counter, a status, a menu. It must render only on the client, never
+    load on a dedicated server, and reflect state the server owns.'
   preserve:
-    - Vanilla HUD layout and other mods' HUD elements.
-    - Dedicated-server startup (no client class references from common code).
+  - Vanilla HUD layout and other mods' HUD elements.
+  - Dedicated-server startup (no client class references from common code).
   mechanisms:
-    - mechanism:fabric-rendering-v1 -- HUD element registration; HudElement in 26.3 uses extractRenderState(GuiGraphicsExtractor, DeltaTracker) (record:capability/display_information.fabric_hud_element).
-    - mechanism:fabric-screen-api-v1 -- screen events (event:net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT).
-    - mechanism:fabric-key-mapping-api-v1 -- key bindings to open a screen.
-    - Client entrypoint (record:capability/subscribe_event.fabric_add_client_entrypoint).
+  - mechanism:fabric-rendering-v1 -- HUD element registration; HudElement in 26.3 uses extractRenderState(GuiGraphicsExtractor,
+    DeltaTracker) (record:capability/display_information.fabric_hud_element).
+  - mechanism:fabric-screen-api-v1 -- screen events (event:net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT).
+  - mechanism:fabric-key-mapping-api-v1 -- key bindings to open a screen.
+  - Client entrypoint (record:capability/subscribe_event.fabric_add_client_entrypoint).
   tools_today:
-    - The generated HUD element with a client-held copy of server state (workflow:wf.multiplayer.networking).
+  - The generated HUD element with a client-held copy of server state (workflow:wf.multiplayer.networking).
   decisions:
-    - HUD element (always visible) versus screen (opened).
-    - What state the client needs and how it arrives (payload).
+  - HUD element (always visible) versus screen (opened).
+  - What state the client needs and how it arrives (payload).
   information_needed:
-    - The 26.3 GUI render-state API; the earlier GuiGraphics signature does not exist (corrected record).
+  - The 26.3 GUI render-state API; the earlier GuiGraphics signature does not exist (corrected record).
   automation_existing:
-    - HUD element generator in ModCheck.
+  - HUD element generator in ModCheck.
   remaining_manual:
-    - Screens; layout; key bindings.
+  - Screens; layout; key bindings.
   modcheck_contribution:
-    - Delivered for HUD elements; the client-only check belongs to workflow:wf.multiplayer.side_separation.
+  - Delivered for HUD elements; the client-only check belongs to workflow:wf.multiplayer.side_separation.
   evidence:
-    - record:capability/display_information.fabric_hud_element
-    - record:capability/subscribe_event.fabric_add_client_entrypoint
-    - extracted:fabric_api.json#fabric-rendering-v1
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "compiles against the pinned corpus; the reference lantern's HUD element is unit-tested with fakes"}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - record:capability/display_information.fabric_hud_element
+  - record:capability/subscribe_event.fabric_add_client_entrypoint
+  - extracted:fabric_api.json#fabric-rendering-v1
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: false
+    interaction_analysed: true
+    implemented_in_modcheck: true
+    validated_scope: HUD element generator compiles against the pinned corpus; the reference lantern's HUD (viewed-lantern
+      selection, staleness) is hand-authored and unit-tested with fakes (12 tests); no game run
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.presentation.models_animation
   area: presentation
   title: Models, textures and animation
-  intent: >-
-    Blocks, items and entities should look the way the creator designed them,
-    including animated entity models, in the current pack format.
+  intent: Blocks, items and entities should look the way the creator designed them, including animated entity models,
+    in the current pack format.
   preserve:
-    - Pack format compatibility with players' own resource packs (question:q.pack_format_old_packs).
+  - Pack format compatibility with players' own resource packs (question:q.pack_format_old_packs).
   mechanisms:
-    - "Resource packs: the 15 asset entry types shipped in the jar, format 97.1 (extracted:corpus.json)."
-    - mechanism:fabric-model-loading-api-v1 -- model loading hooks.
-    - mechanism:fabric-rendering-v1 -- entity renderer and model layer registration; event:net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT for feature layers.
-    - Vanilla keyframe animation classes in net.minecraft.client.animation (29 classes in the jar; unhooked, members not extracted).
+  - 'Resource packs: the 15 asset entry types shipped in the jar, format 97.1 (extracted:corpus.json).'
+  - mechanism:fabric-model-loading-api-v1 -- model loading hooks.
+  - mechanism:fabric-rendering-v1 -- entity renderer and model layer registration; event:net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT
+    for feature layers.
+  - Vanilla keyframe animation classes in net.minecraft.client.animation (29 classes in the jar; unhooked, members
+    not extracted).
   tools_today:
-    - An external modelling tool exporting Java model code or JSON (question:q.external_asset_tools); textures from an image editor.
+  - An external modelling tool exporting Java model code or JSON (question:q.external_asset_tools); textures from
+    an image editor.
   decisions:
-    - JSON block/item models (data only) versus coded entity models.
-    - Vanilla keyframe animation versus procedural animation in the renderer.
+  - JSON block/item models (data only) versus coded entity models.
+  - Vanilla keyframe animation versus procedural animation in the renderer.
   information_needed:
-    - The animation API's 26.3 members (question:q.unhooked_vanilla_members).
-    - Pack format changes since the creator's last version (question:q.mojang_changelog_26_3).
+  - The animation API's 26.3 members (question:q.unhooked_vanilla_members).
+  - Pack format changes since the creator's last version (question:q.mojang_changelog_26_3).
   automation_existing:
-    - None in ModCheck.
+  - None in ModCheck.
   remaining_manual:
-    - All authoring.
+  - All authoring.
   modcheck_contribution:
-    - Extraction of the animation and model packages; a pack.mcmeta format check.
+  - Extraction of the animation and model packages; a pack.mcmeta format check.
   evidence:
-    - extracted:corpus.json
-    - extracted:fabric_api.json#fabric-model-loading-api-v1
-    - extracted:edges.json#callback_of
-  questions: [question:q.external_asset_tools, question:q.unhooked_vanilla_members, question:q.pack_format_old_packs]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - extracted:corpus.json
+  - extracted:fabric_api.json#fabric-model-loading-api-v1
+  - extracted:edges.json#callback_of
+  questions:
+  - question:q.external_asset_tools
+  - question:q.unhooked_vanilla_members
+  - question:q.pack_format_old_packs
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: false
+    interaction_analysed: false
+    implemented_in_modcheck: false
+    validated_scope: none
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.presentation.particles_sounds
   area: presentation
   title: Particles and sounds
-  intent: >-
-    Feedback the player perceives: a particle effect at an event, a sound on an
-    action, with the right attenuation and category.
+  intent: 'Feedback the player perceives: a particle effect at an event, a sound on an action, with the right attenuation
+    and category.'
   preserve:
-    - Vanilla sound categories and volume settings.
+  - Vanilla sound categories and volume settings.
   mechanisms:
-    - mechanism:Registries -- PARTICLE_TYPE and SOUND_EVENT.
-    - mechanism:fabric-particles-v1 -- particle factory registration on the client.
-    - mechanism:fabric-sound-api-v1.
-    - Resource pack sounds.json and particle JSON (asset entry types in extracted:corpus.json).
+  - mechanism:Registries -- PARTICLE_TYPE and SOUND_EVENT.
+  - mechanism:fabric-particles-v1 -- particle factory registration on the client.
+  - mechanism:fabric-sound-api-v1.
+  - Resource pack sounds.json and particle JSON (asset entry types in extracted:corpus.json).
   tools_today:
-    - Registration in code plus JSON and audio files.
+  - Registration in code plus JSON and audio files.
   decisions:
-    - Server-spawned particles (visible to all) versus client-only.
+  - Server-spawned particles (visible to all) versus client-only.
   information_needed:
-    - "The 26.3 particle registration signature (particle package hooked: 6 types in extracted:minecraft_members.json)."
+  - 'The 26.3 particle registration signature (particle package hooked: 6 types in extracted:minecraft_surface.json.gz).'
   automation_existing:
-    - None.
+  - None.
   remaining_manual:
-    - All.
+  - All.
   modcheck_contribution:
-    - Not yet planned.
+  - Not yet planned.
   evidence:
-    - extracted:minecraft_registries.json
-    - extracted:fabric_api.json#fabric-particles-v1
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - extracted:minecraft_registries.json
+  - extracted:fabric_api.json#fabric-particles-v1
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: false
+    interaction_analysed: false
+    implemented_in_modcheck: false
+    validated_scope: none
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: wf.presentation.world_rendering
   area: presentation
   title: Custom world rendering
-  intent: >-
-    Draw something in the world that is not a block or entity: outlines, overlays,
-    effects tied to the level render passes.
+  intent: 'Draw something in the world that is not a block or entity: outlines, overlays, effects tied to the level
+    render passes.'
   preserve:
-    - Frame time; these hooks run every frame.
+  - Frame time; these hooks run every frame.
   mechanisms:
-    - mechanism:fabric-rendering-v1 -- level render pass events (for example event:net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN), 14 pass events in extracted:edges.json#callback_of.
-    - mechanism:fabric-renderer-api-v1 / mechanism:fabric-renderer-indigo for custom block model quads.
+  - mechanism:fabric-rendering-v1 -- level render pass events (for example event:net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN),
+    14 pass events in extracted:edges.json#callback_of.
+  - mechanism:fabric-renderer-api-v1 / mechanism:fabric-renderer-indigo for custom block model quads.
   tools_today:
-    - A listener on the pass event using the render state handed in.
+  - A listener on the pass event using the render state handed in.
   decisions:
-    - Which pass; whether extraction (state capture) or submission (draw) is the right phase in the 26.x split renderer.
+  - Which pass; whether extraction (state capture) or submission (draw) is the right phase in the 26.x split renderer.
   information_needed:
-    - "The extraction/render split semantics in 26.3 (LevelExtractionEvents versus LevelRenderEvents both exist; no documentation cached: question:q.fabric_docs_module_pages)."
+  - 'The extraction/render split semantics in 26.3 (LevelExtractionEvents versus LevelRenderEvents both exist; no
+    documentation cached: question:q.fabric_docs_module_pages).'
   automation_existing:
-    - None.
+  - None.
   remaining_manual:
-    - All.
+  - All.
   modcheck_contribution:
-    - Not yet planned.
+  - Not yet planned.
   evidence:
-    - extracted:edges.json#callback_of
-    - extracted:fabric_api.json#fabric-rendering-v1
-  questions: [question:q.fabric_docs_module_pages]
-  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
-  provenance: {author: analyst, added: '2026-09-20'}
+  - extracted:edges.json#callback_of
+  - extracted:fabric_api.json#fabric-rendering-v1
+  questions:
+  - question:q.fabric_docs_module_pages
+  status:
+    inventoried: true
+    mechanically_inspected: true
+    contract_mapped: false
+    interaction_analysed: false
+    implemented_in_modcheck: false
+    validated_scope: none
+  provenance:
+    author: analyst
+    added: '2026-09-20'

@@ -11,35 +11,35 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"()V` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `prepareQuadAmbientOcclusion(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lne` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `()V` | exact | invokespecial@74 in `AoCalculator.<init>` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `prepareQuadAmbientOcclusion` | `(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraf` | exact | invokevirtual@79 in `AoCalculator.calcVanilla` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (17, all visibilities)
+## Declared members (8 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.block.BlockModelLighter {
-    private static final int CACHE_SIZE;
-    private static final java.lang.ThreadLocal<net.minecraft.client.renderer.block.BlockModelLighter$Cache> CACHE;
-    public static final int CHECK_LIGHT;
-    private final net.minecraft.client.renderer.block.BlockModelLighter$Cache cache;
-    private final net.minecraft.core.BlockPos$MutableBlockPos scratchPos;
-    private boolean faceCubic;
-    private boolean facePartial;
-    private final float[] faceShape;
-    public net.minecraft.client.renderer.block.BlockModelLighter();
-    public int getLightCoords(net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos);
-    public void prepareQuadAmbientOcclusion(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance);
-    public void prepareQuadFlat(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, int, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance);
-    private void prepareQuadShape(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.client.resources.model.geometry.BakedQuad, boolean);
-    private static float getDirectionalBrightness(net.minecraft.world.level.CardinalLighting, net.minecraft.client.resources.model.geometry.BakedQuad, net.minecraft.core.Direction);
-    public static void enableCaching();
-    public static void clearCache();
-    static {};
-}
+```
+private static final CACHE_SIZE : I
+private static final CACHE : Ljava/lang/ThreadLocal;
+public static final CHECK_LIGHT : I
+private final cache : Lnet/minecraft/client/renderer/block/BlockModelLighter$Cache;
+private final scratchPos : Lnet/minecraft/core/BlockPos$MutableBlockPos;
+private faceCubic : Z
+private facePartial : Z
+private final faceShape : [F
+public <init>()V
+public getLightCoords(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;)I
+public prepareQuadAmbientOcclusion(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/client/resources/model/geometry/BakedQuad;Lcom/mojang/blaze3d/vertex/QuadInstance;)V
+public prepareQuadFlat(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;ILnet/minecraft/client/resources/model/geometry/BakedQuad;Lcom/mojang/blaze3d/vertex/QuadInstance;)V
+private prepareQuadShape(Lnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/client/resources/model/geometry/BakedQuad;Z)V
+private static getDirectionalBrightness(Lnet/minecraft/world/level/CardinalLighting;Lnet/minecraft/client/resources/model/geometry/BakedQuad;Lnet/minecraft/core/Direction;)F
+public static enableCaching()V
+public static clearCache()V
+static <clinit>()V
 ```

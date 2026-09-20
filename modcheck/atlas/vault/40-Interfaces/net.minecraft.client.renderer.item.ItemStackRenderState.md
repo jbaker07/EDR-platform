@@ -11,41 +11,41 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.renderer|net.minecraft.client.renderer]]
 
+`class` public; extends `java/lang/Object`; implements `net/fabricmc/fabric/api/client/rendering/v1/FabricRenderState`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `clear` | `@Inject at TAIL` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| injects_into | `visitExtents(Ljava/util/function/Consumer;)V` | `@Inject at NEW com/mojang/blaze3d/vertex/PoseStack$Pose` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| injects_into | `visitExtents(Ljava/util/function/Consumer;)V` | `@Inject at INVOKE Lcom/mojang/blaze3d/vertex/PoseStack$Pose;setIdentity()V` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `clear` | `()V` | name_only | @Inject at ['TAIL'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| injects_into | `visitExtents` | `(Ljava/util/function/Consumer;)V` | exact | @Inject at ['NEW'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| injects_into | `visitExtents` | `(Ljava/util/function/Consumer;)V` | exact | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (22, all visibilities)
+## Declared members (6 fields, 16 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.renderer.item.ItemStackRenderState {
-    net.minecraft.world.item.ItemDisplayContext displayContext;
-    private int activeLayerCount;
-    private boolean animated;
-    private boolean oversizedInGui;
-    private net.minecraft.world.phys.AABB cachedModelBoundingBox;
-    private net.minecraft.client.renderer.item.ItemStackRenderState$LayerRenderState[] layers;
-    public net.minecraft.client.renderer.item.ItemStackRenderState();
-    public void ensureCapacity(int);
-    public net.minecraft.client.renderer.item.ItemStackRenderState$LayerRenderState newLayer();
-    public void clear();
-    public void setAnimated();
-    public boolean isAnimated();
-    public void appendModelIdentityElement(java.lang.Object);
-    private net.minecraft.client.renderer.item.ItemStackRenderState$LayerRenderState firstLayer();
-    public boolean isEmpty();
-    public boolean usesBlockLight();
-    public net.minecraft.client.resources.model.sprite.Material$Baked pickParticleMaterial(net.minecraft.util.RandomSource);
-    public void visitExtents(java.util.function.Consumer<org.joml.Vector3fc>);
-    public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, int, int);
-    public net.minecraft.world.phys.AABB getModelBoundingBox();
-    public void setOversizedInGui(boolean);
-    public boolean isOversizedInGui();
-}
+```
+ displayContext : Lnet/minecraft/world/item/ItemDisplayContext;
+private activeLayerCount : I
+private animated : Z
+private oversizedInGui : Z
+private cachedModelBoundingBox : Lnet/minecraft/world/phys/AABB;
+private layers : [Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;
+public <init>()V
+public ensureCapacity(I)V
+public newLayer()Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;
+public clear()V
+public setAnimated()V
+public isAnimated()Z
+public appendModelIdentityElement(Ljava/lang/Object;)V
+private firstLayer()Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;
+public isEmpty()Z
+public usesBlockLight()Z
+public pickParticleMaterial(Lnet/minecraft/util/RandomSource;)Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+public visitExtents(Ljava/util/function/Consumer;)V
+public submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;III)V
+public getModelBoundingBox()Lnet/minecraft/world/phys/AABB;
+public setOversizedInGui(Z)V
+public isOversizedInGui()Z
 ```

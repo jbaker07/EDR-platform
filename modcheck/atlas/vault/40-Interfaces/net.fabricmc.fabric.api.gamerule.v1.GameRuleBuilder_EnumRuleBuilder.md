@@ -13,14 +13,13 @@ sha256: "58266b2e28d20444584f22f1940b99656437728bd45e1b226c4869637e704638"
 Module: [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] -- kind: class
 
 ```java
-net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder(E)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder<E> category(net.minecraft.world.level.gamerules.GameRuleCategory)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder<E> codec(com.mojang.serialization.Codec<E>)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder<E> argumentType(com.mojang.brigadier.arguments.ArgumentType<E>)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder<E> commandResultSupplier(java.util.function.ToIntFunction<E>)
-public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder<E> requiredFeatures(net.minecraft.world.flag.FeatureFlagSet)
-public final net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder<E> supportedValues(E...)
-public net.minecraft.world.level.gamerules.GameRule<E> build()
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder category(net.minecraft.world.level.gamerules.GameRuleCategory)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder codec(com.mojang.serialization.Codec)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder argumentType(com.mojang.brigadier.arguments.ArgumentType)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder commandResultSupplier(java.util.function.ToIntFunction)
+public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder requiredFeatures(net.minecraft.world.flag.FeatureFlagSet)
+public final net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder$EnumRuleBuilder supportedValues(java.lang.Enum[])
+public net.minecraft.world.level.gamerules.GameRule build()
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder requiredFeatures(net.minecraft.world.flag.FeatureFlagSet)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder commandResultSupplier(java.util.function.ToIntFunction)
 public net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder argumentType(com.mojang.brigadier.arguments.ArgumentType)

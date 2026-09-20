@@ -11,41 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/BaseRailBlock`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `getAnalogOutputSignal` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| reads | `POWEREDLnet/minecraft/world/level/block/state/properties/BooleanPro` | `` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getInteractingMinecartOfType` | `(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/l` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | declared |
+| injects_into | `getAnalogOutputSignal` | `(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/worl` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| reads | `POWERED` | `Lnet/minecraft/world/level/block/state/properties/BooleanProperty;` | exact | getstatic@1 in `DetectorRailBlockMixin.getCustomComparatorOutput` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (3 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.DetectorRailBlock extends net.minecraft.world.level.block.BaseRailBlock {
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.RailShape> SHAPE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty POWERED;
-    private static final int PRESSED_CHECK_PERIOD;
-    public net.minecraft.world.level.block.DetectorRailBlock(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    protected boolean isSignalSource(net.minecraft.world.level.block.state.BlockState);
-    protected int ownSignal(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    protected void entityInside(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.entity.Entity, net.minecraft.world.entity.InsideBlockEffectApplier, boolean);
-    protected void tick(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    protected int getDirectSignal(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    private void checkPressed(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    protected void updatePowerToConnected(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, boolean);
-    protected void onPlace(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, boolean);
-    public net.minecraft.world.level.block.state.properties.Property<net.minecraft.world.level.block.state.properties.RailShape> getShapeProperty();
-    protected boolean hasAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState);
-    protected int getAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    private <T extends net.minecraft.world.entity.vehicle.minecart.AbstractMinecart> java.util.List<T> getInteractingMinecartOfType(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, java.lang.Class<T>, java.util.function.Predicate<net.minecraft.world.entity.Entity>);
-    private net.minecraft.world.phys.AABB getSearchBB(net.minecraft.core.BlockPos);
-    protected net.minecraft.world.level.block.state.BlockState rotate(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.Rotation);
-    protected net.minecraft.world.level.block.state.BlockState mirror(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.Mirror);
-    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
-    private static boolean lambda$getAnalogOutputSignal$0(net.minecraft.world.entity.Entity);
-    private static boolean lambda$checkPressed$0(net.minecraft.world.entity.Entity);
-    static {};
-}
+```
+public static final SHAPE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final POWERED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+private static final PRESSED_CHECK_PERIOD : I
+public <init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+protected isSignalSource(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected ownSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)I
+protected entityInside(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/InsideBlockEffectApplier;Z)V
+protected tick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V
+protected getDirectSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I
+private checkPressed(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+protected updatePowerToConnected(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)V
+protected onPlace(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)V
+public getShapeProperty()Lnet/minecraft/world/level/block/state/properties/Property;
+protected hasAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected getAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I
+private getInteractingMinecartOfType(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/lang/Class;Ljava/util/function/Predicate;)Ljava/util/List;
+private getSearchBB(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/AABB;
+protected rotate(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/Rotation;)Lnet/minecraft/world/level/block/state/BlockState;
+protected mirror(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/Mirror;)Lnet/minecraft/world/level/block/state/BlockState;
+protected createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+private static synthetic lambda$getAnalogOutputSignal$0(Lnet/minecraft/world/entity/Entity;)Z
+private static synthetic lambda$checkPressed$0(Lnet/minecraft/world/entity/Entity;)Z
+static <clinit>()V
 ```

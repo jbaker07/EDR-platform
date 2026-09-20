@@ -1,6 +1,8 @@
 ---
 type: "request"
 id: "request.port_1_21_mod"
+canonical: "exercise.port_1_21_mod"
+kind: "analyst_exercise"
 family: "workflow:wf.engineering.version_migration"
 ---
 
@@ -9,11 +11,16 @@ family: "workflow:wf.engineering.version_migration"
 
 # Port a 1.21-era Fabric mod with saved data to 26.3
 
+**Canonical request.** `exercise.port_1_21_mod` (analyst_exercise)
+
+> [!note] Analyst exercise
+> No creator wrote this request. Nothing in it is approved intent.
+
 ## Request
 
 Analyst-authored exercise request: a mod written for Minecraft 1.21 (Yarn or Mojang mappings, Java 21) that stores a custom per-level compound must build and run on 26.3, and worlds saved by the old version must load with their data intact.
 
-## Approved behaviour and constraints
+## Approved behaviour (the request's own words or acceptance criteria)
 
 - Provisional: same features; old saved compounds migrated on first load; no behaviour change beyond what the version forces.
 
@@ -77,3 +84,8 @@ Analyst-authored exercise request: a mod written for Minecraft 1.21 (Yarn or Moj
 - [[00-Scope/Sources|fabric_example_mod_build_26_3]]
 - `extracted/corpus.json`
 
+## Status
+
+- analysed: True
+- implemented: none
+- validated_scope: none

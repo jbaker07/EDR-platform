@@ -11,31 +11,34 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `net/minecraft/core/HolderSet$ListBacked`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `key()Lnet/minecraft/tags/TagKey;` | `` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
-| reads | `contentsLjava/util/List;` | `` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `key` | `()Lnet/minecraft/tags/TagKey;` | exact | invokevirtual@1 in `TranslationConventionLogWarnings.lambda$setupUntranslatedItemTagWarnin | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/tags/TagKey;` | exact | invokevirtual@21 in `TranslationConventionLogWarnings.lambda$setupUntranslatedItemTagWarni | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `key` | `()Lnet/minecraft/tags/TagKey;` | exact | invokevirtual@35 in `TranslationConventionLogWarnings.lambda$setupUntranslatedItemTagWarni | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| reads | `contents` | `Ljava/util/List;` | exact | getfield@118 in `MappedRegistryMixin.fabric_applyPendingTagAliases` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| writes | `contents` | `Ljava/util/List;` | exact | putfield@279 in `MappedRegistryMixin.fabric_applyPendingTagAliases` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (13, all visibilities)
+## Declared members (3 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.HolderSet$Named<T> extends net.minecraft.core.HolderSet$ListBacked<T> {
-    private final net.minecraft.core.HolderOwner<T> owner;
-    private final net.minecraft.tags.TagKey<T> key;
-    private java.util.List<net.minecraft.core.Holder<T>> contents;
-    net.minecraft.core.HolderSet$Named(net.minecraft.core.HolderOwner<T>, net.minecraft.tags.TagKey<T>);
-    void bind(java.util.List<net.minecraft.core.Holder<T>>);
-    public net.minecraft.tags.TagKey<T> key();
-    protected java.util.List<net.minecraft.core.Holder<T>> contents();
-    public boolean isBound();
-    public com.mojang.datafixers.util.Either<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>> unwrap();
-    public java.util.Optional<net.minecraft.tags.TagKey<T>> unwrapKey();
-    public boolean contains(net.minecraft.core.Holder<T>);
-    public java.lang.String toString();
-    public boolean canSerializeIn(net.minecraft.core.HolderOwner<T>);
-}
+```
+private final owner : Lnet/minecraft/core/HolderOwner;
+private final key : Lnet/minecraft/tags/TagKey;
+private contents : Ljava/util/List;
+ <init>(Lnet/minecraft/core/HolderOwner;Lnet/minecraft/tags/TagKey;)V
+ bind(Ljava/util/List;)V
+public key()Lnet/minecraft/tags/TagKey;
+protected contents()Ljava/util/List;
+public isBound()Z
+public unwrap()Lcom/mojang/datafixers/util/Either;
+public unwrapKey()Ljava/util/Optional;
+public contains(Lnet/minecraft/core/Holder;)Z
+public toString()Ljava/lang/String;
+public canSerializeIn(Lnet/minecraft/core/HolderOwner;)Z
 ```

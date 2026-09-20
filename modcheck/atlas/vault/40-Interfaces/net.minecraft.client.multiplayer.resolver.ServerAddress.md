@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public final; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `parseString(Ljava/lang/String;)Lnet/minecraft/client/multiplayer/resolv` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `parseString` | `(Ljava/lang/String;)Lnet/minecraft/client/multiplayer/resolver/ServerA` | exact | invokestatic@29 in `TestDedicatedServerContextImpl.lambda$connect$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (3 fields, 11 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.multiplayer.resolver.ServerAddress {
-    private static final org.slf4j.Logger LOGGER;
-    private final com.google.common.net.HostAndPort hostAndPort;
-    private static final net.minecraft.client.multiplayer.resolver.ServerAddress INVALID;
-    public net.minecraft.client.multiplayer.resolver.ServerAddress(java.lang.String, int);
-    private net.minecraft.client.multiplayer.resolver.ServerAddress(com.google.common.net.HostAndPort);
-    public java.lang.String getHost();
-    public int getPort();
-    public static net.minecraft.client.multiplayer.resolver.ServerAddress parseString(java.lang.String);
-    public static boolean isValidAddress(java.lang.String);
-    public static int parsePort(java.lang.String);
-    public java.lang.String toString();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final hostAndPort : Lcom/google/common/net/HostAndPort;
+private static final INVALID : Lnet/minecraft/client/multiplayer/resolver/ServerAddress;
+public <init>(Ljava/lang/String;I)V
+private <init>(Lcom/google/common/net/HostAndPort;)V
+public getHost()Ljava/lang/String;
+public getPort()I
+public static parseString(Ljava/lang/String;)Lnet/minecraft/client/multiplayer/resolver/ServerAddress;
+public static isValidAddress(Ljava/lang/String;)Z
+public static parsePort(Ljava/lang/String;)I
+public toString()Ljava/lang/String;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+static <clinit>()V
 ```

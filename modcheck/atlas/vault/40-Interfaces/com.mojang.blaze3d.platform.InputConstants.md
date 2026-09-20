@@ -11,195 +11,196 @@ side: "vanilla"
 
 System: [[20-Systems/com.mojang.blaze3d.platform|com.mojang.blaze3d.platform]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `grabMouse` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| injects_into | `isKeyDown` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| injects_into | `releaseMouse` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `grabMouse` | `(Lcom/mojang/blaze3d/platform/Window;DD)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| injects_into | `isKeyDown` | `(I)Z` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| injects_into | `releaseMouse` | `(Lcom/mojang/blaze3d/platform/Window;DD)V` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| reads | `UNKNOWN` | `Lcom/mojang/blaze3d/platform/InputConstants$Key;` | exact | getstatic@11 in `TestInputImpl.getBoundKey` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (176, all visibilities)
+## Declared members (169 fields, 7 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class com.mojang.blaze3d.platform.InputConstants {
-    private static final org.slf4j.Logger LOGGER;
-    public static final int KEY_0;
-    public static final int KEY_1;
-    public static final int KEY_2;
-    public static final int KEY_3;
-    public static final int KEY_4;
-    public static final int KEY_5;
-    public static final int KEY_6;
-    public static final int KEY_7;
-    public static final int KEY_8;
-    public static final int KEY_9;
-    public static final int KEY_A;
-    public static final int KEY_B;
-    public static final int KEY_C;
-    public static final int KEY_D;
-    public static final int KEY_E;
-    public static final int KEY_F;
-    public static final int KEY_G;
-    public static final int KEY_H;
-    public static final int KEY_I;
-    public static final int KEY_J;
-    public static final int KEY_K;
-    public static final int KEY_L;
-    public static final int KEY_M;
-    public static final int KEY_N;
-    public static final int KEY_O;
-    public static final int KEY_P;
-    public static final int KEY_Q;
-    public static final int KEY_R;
-    public static final int KEY_S;
-    public static final int KEY_T;
-    public static final int KEY_U;
-    public static final int KEY_V;
-    public static final int KEY_W;
-    public static final int KEY_X;
-    public static final int KEY_Y;
-    public static final int KEY_Z;
-    public static final int KEY_F1;
-    public static final int KEY_F2;
-    public static final int KEY_F3;
-    public static final int KEY_F4;
-    public static final int KEY_F5;
-    public static final int KEY_F6;
-    public static final int KEY_F7;
-    public static final int KEY_F8;
-    public static final int KEY_F9;
-    public static final int KEY_F10;
-    public static final int KEY_F11;
-    public static final int KEY_F12;
-    public static final int KEY_F13;
-    public static final int KEY_F14;
-    public static final int KEY_F15;
-    public static final int KEY_F16;
-    public static final int KEY_F17;
-    public static final int KEY_F18;
-    public static final int KEY_F19;
-    public static final int KEY_F20;
-    public static final int KEY_F21;
-    public static final int KEY_F22;
-    public static final int KEY_F23;
-    public static final int KEY_F24;
-    public static final int KEY_NUMLOCK;
-    public static final int KEY_NUMPAD0;
-    public static final int KEY_NUMPAD1;
-    public static final int KEY_NUMPAD2;
-    public static final int KEY_NUMPAD3;
-    public static final int KEY_NUMPAD4;
-    public static final int KEY_NUMPAD5;
-    public static final int KEY_NUMPAD6;
-    public static final int KEY_NUMPAD7;
-    public static final int KEY_NUMPAD8;
-    public static final int KEY_NUMPAD9;
-    public static final int KEY_NUMPADCOMMA;
-    public static final int KEY_NUMPADENTER;
-    public static final int KEY_NUMPADEQUALS;
-    public static final int KEY_DOWN;
-    public static final int KEY_LEFT;
-    public static final int KEY_RIGHT;
-    public static final int KEY_UP;
-    public static final int KEY_ADD;
-    public static final int KEY_APOSTROPHE;
-    public static final int KEY_BACKSLASH;
-    public static final int KEY_COMMA;
-    public static final int KEY_EQUALS;
-    public static final int KEY_GRAVE;
-    public static final int KEY_LBRACKET;
-    public static final int KEY_MINUS;
-    public static final int KEY_MULTIPLY;
-    public static final int KEY_PERIOD;
-    public static final int KEY_RBRACKET;
-    public static final int KEY_SEMICOLON;
-    public static final int KEY_SLASH;
-    public static final int KEY_SPACE;
-    public static final int KEY_TAB;
-    public static final int KEY_LALT;
-    public static final int KEY_LCONTROL;
-    public static final int KEY_LSHIFT;
-    public static final int KEY_LGUI;
-    public static final int KEY_RALT;
-    public static final int KEY_RCONTROL;
-    public static final int KEY_RSHIFT;
-    public static final int KEY_RGUI;
-    public static final int KEY_RETURN;
-    public static final int KEY_ESCAPE;
-    public static final int KEY_BACKSPACE;
-    public static final int KEY_DELETE;
-    public static final int KEY_END;
-    public static final int KEY_HOME;
-    public static final int KEY_INSERT;
-    public static final int KEY_PAGEDOWN;
-    public static final int KEY_PAGEUP;
-    public static final int KEY_CAPSLOCK;
-    public static final int KEY_PAUSE;
-    public static final int KEY_SCROLLLOCK;
-    public static final int KEY_PRINTSCREEN;
-    public static final int PRESS;
-    public static final int RELEASE;
-    public static final int REPEAT;
-    public static final int MOUSE_BUTTON_LEFT;
-    public static final int MOUSE_BUTTON_MIDDLE;
-    public static final int MOUSE_BUTTON_RIGHT;
-    public static final int MOUSE_BUTTON_4;
-    public static final int MOUSE_BUTTON_5;
-    public static final int MOUSE_BUTTON_6;
-    public static final int MOUSE_BUTTON_7;
-    public static final int MOUSE_BUTTON_8;
-    public static final int MOD_SHIFT;
-    public static final int MOD_CONTROL;
-    public static final int MOD_ALT;
-    public static final int MOD_SUPER;
-    public static final int MOD_CAPS_LOCK;
-    public static final int MOD_NUM_LOCK;
-    public static final int KEYCODE_A;
-    public static final int KEYCODE_B;
-    public static final int KEYCODE_C;
-    public static final int KEYCODE_E;
-    public static final int KEYCODE_F;
-    public static final int KEYCODE_L;
-    public static final int KEYCODE_M;
-    public static final int KEYCODE_O;
-    public static final int KEYCODE_R;
-    public static final int KEYCODE_U;
-    public static final int KEYCODE_V;
-    public static final int KEYCODE_W;
-    public static final int KEYCODE_X;
-    public static final int KEYCODE_Y;
-    public static final int KEYCODE_Z;
-    public static final int KEYCODE_RETURN;
-    public static final int KEYCODE_NUMPADENTER;
-    public static final int KEYCODE_PAGEUP;
-    public static final int KEYCODE_PAGEDOWN;
-    public static final int KEYCODE_BACKSPACE;
-    public static final int KEYCODE_UP;
-    public static final int KEYCODE_DOWN;
-    public static final int KEYCODE_FORWARD;
-    public static final int KEYCODE_BACKWARD;
-    public static final int KEYCODE_LEFT;
-    public static final int KEYCODE_RIGHT;
-    public static final int KEYCODE_NUMPAD9;
-    public static final int KEYCODE_NUMPAD3;
-    public static final int KEYCODE_DELETE;
-    public static final int KEYCODE_HOME;
-    public static final int KEYCODE_END;
-    public static final int KEYCODE_F5;
-    public static final int KEYCODE_TAB;
-    public static final int KEYCODE_LCONTROL;
-    public static final int KEYCODE_RCONTROL;
-    public static final int KEYCODE_SPACE;
-    public static final com.mojang.blaze3d.platform.InputConstants$Key UNKNOWN;
-    public com.mojang.blaze3d.platform.InputConstants();
-    public static com.mojang.blaze3d.platform.InputConstants$Key getKey(net.minecraft.client.input.KeyEvent);
-    public static com.mojang.blaze3d.platform.InputConstants$Key getKey(java.lang.String);
-    public static boolean isKeyDown(int);
-    public static void grabMouse(com.mojang.blaze3d.platform.Window, double, double);
-    public static void releaseMouse(com.mojang.blaze3d.platform.Window, double, double);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final KEY_0 : I
+public static final KEY_1 : I
+public static final KEY_2 : I
+public static final KEY_3 : I
+public static final KEY_4 : I
+public static final KEY_5 : I
+public static final KEY_6 : I
+public static final KEY_7 : I
+public static final KEY_8 : I
+public static final KEY_9 : I
+public static final KEY_A : I
+public static final KEY_B : I
+public static final KEY_C : I
+public static final KEY_D : I
+public static final KEY_E : I
+public static final KEY_F : I
+public static final KEY_G : I
+public static final KEY_H : I
+public static final KEY_I : I
+public static final KEY_J : I
+public static final KEY_K : I
+public static final KEY_L : I
+public static final KEY_M : I
+public static final KEY_N : I
+public static final KEY_O : I
+public static final KEY_P : I
+public static final KEY_Q : I
+public static final KEY_R : I
+public static final KEY_S : I
+public static final KEY_T : I
+public static final KEY_U : I
+public static final KEY_V : I
+public static final KEY_W : I
+public static final KEY_X : I
+public static final KEY_Y : I
+public static final KEY_Z : I
+public static final KEY_F1 : I
+public static final KEY_F2 : I
+public static final KEY_F3 : I
+public static final KEY_F4 : I
+public static final KEY_F5 : I
+public static final KEY_F6 : I
+public static final KEY_F7 : I
+public static final KEY_F8 : I
+public static final KEY_F9 : I
+public static final KEY_F10 : I
+public static final KEY_F11 : I
+public static final KEY_F12 : I
+public static final KEY_F13 : I
+public static final KEY_F14 : I
+public static final KEY_F15 : I
+public static final KEY_F16 : I
+public static final KEY_F17 : I
+public static final KEY_F18 : I
+public static final KEY_F19 : I
+public static final KEY_F20 : I
+public static final KEY_F21 : I
+public static final KEY_F22 : I
+public static final KEY_F23 : I
+public static final KEY_F24 : I
+public static final KEY_NUMLOCK : I
+public static final KEY_NUMPAD0 : I
+public static final KEY_NUMPAD1 : I
+public static final KEY_NUMPAD2 : I
+public static final KEY_NUMPAD3 : I
+public static final KEY_NUMPAD4 : I
+public static final KEY_NUMPAD5 : I
+public static final KEY_NUMPAD6 : I
+public static final KEY_NUMPAD7 : I
+public static final KEY_NUMPAD8 : I
+public static final KEY_NUMPAD9 : I
+public static final KEY_NUMPADCOMMA : I
+public static final KEY_NUMPADENTER : I
+public static final KEY_NUMPADEQUALS : I
+public static final KEY_DOWN : I
+public static final KEY_LEFT : I
+public static final KEY_RIGHT : I
+public static final KEY_UP : I
+public static final KEY_ADD : I
+public static final KEY_APOSTROPHE : I
+public static final KEY_BACKSLASH : I
+public static final KEY_COMMA : I
+public static final KEY_EQUALS : I
+public static final KEY_GRAVE : I
+public static final KEY_LBRACKET : I
+public static final KEY_MINUS : I
+public static final KEY_MULTIPLY : I
+public static final KEY_PERIOD : I
+public static final KEY_RBRACKET : I
+public static final KEY_SEMICOLON : I
+public static final KEY_SLASH : I
+public static final KEY_SPACE : I
+public static final KEY_TAB : I
+public static final KEY_LALT : I
+public static final KEY_LCONTROL : I
+public static final KEY_LSHIFT : I
+public static final KEY_LGUI : I
+public static final KEY_RALT : I
+public static final KEY_RCONTROL : I
+public static final KEY_RSHIFT : I
+public static final KEY_RGUI : I
+public static final KEY_RETURN : I
+public static final KEY_ESCAPE : I
+public static final KEY_BACKSPACE : I
+public static final KEY_DELETE : I
+public static final KEY_END : I
+public static final KEY_HOME : I
+public static final KEY_INSERT : I
+public static final KEY_PAGEDOWN : I
+public static final KEY_PAGEUP : I
+public static final KEY_CAPSLOCK : I
+public static final KEY_PAUSE : I
+public static final KEY_SCROLLLOCK : I
+public static final KEY_PRINTSCREEN : I
+public static final PRESS : I
+public static final RELEASE : I
+public static final REPEAT : I
+public static final MOUSE_BUTTON_LEFT : I
+public static final MOUSE_BUTTON_MIDDLE : I
+public static final MOUSE_BUTTON_RIGHT : I
+public static final MOUSE_BUTTON_4 : I
+public static final MOUSE_BUTTON_5 : I
+public static final MOUSE_BUTTON_6 : I
+public static final MOUSE_BUTTON_7 : I
+public static final MOUSE_BUTTON_8 : I
+public static final MOD_SHIFT : I
+public static final MOD_CONTROL : I
+public static final MOD_ALT : I
+public static final MOD_SUPER : I
+public static final MOD_CAPS_LOCK : I
+public static final MOD_NUM_LOCK : I
+public static final KEYCODE_A : I
+public static final KEYCODE_B : I
+public static final KEYCODE_C : I
+public static final KEYCODE_E : I
+public static final KEYCODE_F : I
+public static final KEYCODE_L : I
+public static final KEYCODE_M : I
+public static final KEYCODE_O : I
+public static final KEYCODE_R : I
+public static final KEYCODE_U : I
+public static final KEYCODE_V : I
+public static final KEYCODE_W : I
+public static final KEYCODE_X : I
+public static final KEYCODE_Y : I
+public static final KEYCODE_Z : I
+public static final KEYCODE_RETURN : I
+public static final KEYCODE_NUMPADENTER : I
+public static final KEYCODE_PAGEUP : I
+public static final KEYCODE_PAGEDOWN : I
+public static final KEYCODE_BACKSPACE : I
+public static final KEYCODE_UP : I
+public static final KEYCODE_DOWN : I
+public static final KEYCODE_FORWARD : I
+public static final KEYCODE_BACKWARD : I
+public static final KEYCODE_LEFT : I
+public static final KEYCODE_RIGHT : I
+public static final KEYCODE_NUMPAD9 : I
+public static final KEYCODE_NUMPAD3 : I
+public static final KEYCODE_DELETE : I
+public static final KEYCODE_HOME : I
+public static final KEYCODE_END : I
+public static final KEYCODE_F5 : I
+public static final KEYCODE_TAB : I
+public static final KEYCODE_LCONTROL : I
+public static final KEYCODE_RCONTROL : I
+public static final KEYCODE_SPACE : I
+public static final UNKNOWN : Lcom/mojang/blaze3d/platform/InputConstants$Key;
+public <init>()V
+public static getKey(Lnet/minecraft/client/input/KeyEvent;)Lcom/mojang/blaze3d/platform/InputConstants$Key;
+public static getKey(Ljava/lang/String;)Lcom/mojang/blaze3d/platform/InputConstants$Key;
+public static isKeyDown(I)Z
+public static grabMouse(Lcom/mojang/blaze3d/platform/Window;DD)V
+public static releaseMouse(Lcom/mojang/blaze3d/platform/Window;DD)V
+static <clinit>()V
 ```

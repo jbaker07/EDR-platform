@@ -15,7 +15,7 @@ Module: [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] -- k
 ```java
 public static boolean registerGlobalReceiver(net.minecraft.resources.Identifier, net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking$LoginQueryRequestHandler)
 public static net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking$LoginQueryRequestHandler unregisterGlobalReceiver(net.minecraft.resources.Identifier)
-public static java.util.Set<net.minecraft.resources.Identifier> getGlobalReceivers()
-public static boolean registerReceiver(net.minecraft.resources.Identifier, net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking$LoginQueryRequestHandler) throws java.lang.IllegalStateException
-public static net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking$LoginQueryRequestHandler unregisterReceiver(net.minecraft.resources.Identifier) throws java.lang.IllegalStateException
+public static java.util.Set getGlobalReceivers()
+public static boolean registerReceiver(net.minecraft.resources.Identifier, net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking$LoginQueryRequestHandler)
+public static net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking$LoginQueryRequestHandler unregisterReceiver(net.minecraft.resources.Identifier)
 ```

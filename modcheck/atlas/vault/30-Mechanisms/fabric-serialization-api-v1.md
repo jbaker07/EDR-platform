@@ -20,24 +20,28 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `["fabric-serialization-api-v1.mixins.json"]`
 - access widener: `fabric-serialization-api-v1.classtweaker`
+- mixin classes: 4 found by annotation, 4 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
 
 ## API surface
 
-- [[40-Interfaces/net.fabricmc.fabric.api.serialization.v1.MoreCodecs|MoreCodecs]] (interface, 3 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.serialization.v1.MoreCodecs|MoreCodecs]] (interface, 2 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.serialization.v1.value.FabricValueInput|FabricValueInput]] (interface, 4 members)
 - [[40-Interfaces/net.fabricmc.fabric.api.serialization.v1.value.FabricValueOutput|FabricValueOutput]] (interface, 2 members)
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

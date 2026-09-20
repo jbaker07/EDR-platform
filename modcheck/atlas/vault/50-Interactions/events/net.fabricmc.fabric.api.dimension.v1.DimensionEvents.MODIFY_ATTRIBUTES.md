@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `DimensionModificationImpl.applyChanges` | (impl code, not a mixin) | unknown | static_inference |
+| `DimensionModificationImpl.applyChanges` @33 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

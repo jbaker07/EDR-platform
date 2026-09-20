@@ -11,48 +11,51 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"([Lnet/minecraft/server/packs/repository/RepositorySource;)V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getPack(Ljava/lang/String;)Lnet/minecraft/server/packs/repository/P` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getPack(Ljava/lang/String;)Lnet/minecraft/server/packs/repository/P` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getSelectedPacks()Ljava/util/Collection;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `<init>` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `addPack` | `@Inject at INVOKE Ljava/util/List;add(Ljava/lang/Object;)Z` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `rebuildSelected` | `@Inject at INVOKE Lcom/google/common/collect/ImmutableList;copyOf(Ljava/util/Col` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `removePack` | `@Inject at INVOKE Ljava/util/List;remove(Ljava/lang/Object;)Z` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| reads | `sourcesLjava/util/Set;` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `([Lnet/minecraft/server/packs/repository/RepositorySource;)V` | exact | invokespecial@44 in `ModPackResourcesUtil.createModdedRepository` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getPack` | `(Ljava/lang/String;)Lnet/minecraft/server/packs/repository/Pack;` | exact | invokevirtual@23 in `MinecraftServerMixin.onCheckDisabled` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getPack` | `(Ljava/lang/String;)Lnet/minecraft/server/packs/repository/Pack;` | exact | invokevirtual@51 in `GameOptionsWriteVisitorMixin.toPackListString` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getSelectedPacks` | `()Ljava/util/Collection;` | exact | invokevirtual@1 in `DataPackCommandMixin.filterEnabledPackSuggestions` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `<init>` | `([Lnet/minecraft/server/packs/repository/RepositorySource;)V` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `addPack` | `(Ljava/lang/String;)Z` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `rebuildSelected` | `(Ljava/util/Collection;)Ljava/util/List;` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `removePack` | `(Ljava/lang/String;)Z` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| reads | `available` | `Ljava/util/Map;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
+| reads | `sources` | `Ljava/util/Set;` | exact | @Shadow declaration | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | declared |
+| reads | `sources` | `Ljava/util/Set;` | exact | getfield@1 in `CreateWorldScreenMixin.onCreateResManagerInit` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| reads | `sources` | `Ljava/util/Set;` | exact | getfield@4 in `CreateWorldScreenMixin.onScanPacks` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (3 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.packs.repository.PackRepository {
-    private final java.util.Set<net.minecraft.server.packs.repository.RepositorySource> sources;
-    private java.util.Map<java.lang.String, net.minecraft.server.packs.repository.Pack> available;
-    private java.util.List<net.minecraft.server.packs.repository.Pack> selected;
-    public net.minecraft.server.packs.repository.PackRepository(net.minecraft.server.packs.repository.RepositorySource...);
-    public static java.lang.String displayPackList(java.util.Collection<net.minecraft.server.packs.repository.Pack>);
-    public void reload();
-    private java.util.Map<java.lang.String, net.minecraft.server.packs.repository.Pack> discoverAvailable();
-    public boolean isAbleToClearAnyPack();
-    public void setSelected(java.util.Collection<java.lang.String>);
-    public boolean addPack(java.lang.String);
-    public boolean removePack(java.lang.String);
-    private java.util.List<net.minecraft.server.packs.repository.Pack> rebuildSelected(java.util.Collection<java.lang.String>);
-    private java.util.stream.Stream<net.minecraft.server.packs.repository.Pack> getAvailablePacks(java.util.Collection<java.lang.String>);
-    public java.util.Collection<java.lang.String> getAvailableIds();
-    public java.util.Collection<net.minecraft.server.packs.repository.Pack> getAvailablePacks();
-    public java.util.Collection<java.lang.String> getSelectedIds();
-    public net.minecraft.world.flag.FeatureFlagSet getRequestedFeatureFlags();
-    public java.util.Collection<net.minecraft.server.packs.repository.Pack> getSelectedPacks();
-    public net.minecraft.server.packs.repository.Pack getPack(java.lang.String);
-    public boolean isAvailable(java.lang.String);
-    public java.util.List<net.minecraft.server.packs.PackResources> openAllSelected();
-    private static void lambda$discoverAvailable$0(java.util.Map, net.minecraft.server.packs.repository.Pack);
-    private static java.lang.String lambda$displayPackList$0(net.minecraft.server.packs.repository.Pack);
-}
+```
+private final sources : Ljava/util/Set;
+private available : Ljava/util/Map;
+private selected : Ljava/util/List;
+public <init>([Lnet/minecraft/server/packs/repository/RepositorySource;)V
+public static displayPackList(Ljava/util/Collection;)Ljava/lang/String;
+public reload()V
+private discoverAvailable()Ljava/util/Map;
+public isAbleToClearAnyPack()Z
+public setSelected(Ljava/util/Collection;)V
+public addPack(Ljava/lang/String;)Z
+public removePack(Ljava/lang/String;)Z
+private rebuildSelected(Ljava/util/Collection;)Ljava/util/List;
+private getAvailablePacks(Ljava/util/Collection;)Ljava/util/stream/Stream;
+public getAvailableIds()Ljava/util/Collection;
+public getAvailablePacks()Ljava/util/Collection;
+public getSelectedIds()Ljava/util/Collection;
+public getRequestedFeatureFlags()Lnet/minecraft/world/flag/FeatureFlagSet;
+public getSelectedPacks()Ljava/util/Collection;
+public getPack(Ljava/lang/String;)Lnet/minecraft/server/packs/repository/Pack;
+public isAvailable(Ljava/lang/String;)Z
+public openAllSelected()Ljava/util/List;
+private static synthetic lambda$discoverAvailable$0(Ljava/util/Map;Lnet/minecraft/server/packs/repository/Pack;)V
+private static synthetic lambda$displayPackList$0(Lnet/minecraft/server/packs/repository/Pack;)Ljava/lang/String;
 ```

@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.onGetSleepingDirection` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
-| `ServerPlayerMixin.redirectSleepDirection` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `LivingEntityMixin.onGetSleepingDirection` @39 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`getBedOrientation` @WrapOperation INVOKE `Lnet/minecraft/world/level/block/BedBlock;getBedOrientation(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Direction;` | unknown | static_inference |
+| `ServerPlayerMixin.redirectSleepDirection` @55 | [[40-Interfaces/net.minecraft.server.level.ServerPlayer|ServerPlayer]].`startSleepInBed` @WrapOperation INVOKE `Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;` | unknown | static_inference |
 
 ## Contract
 

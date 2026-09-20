@@ -11,30 +11,30 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/resources/Identifier;Ljava/util/function/Sup` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/resources/Identifier;Ljava/util/function/Sup` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/resources/Identifier;Ljava/util/function/Supplier;Lcom` | exact | invokespecial@35 in `MinecraftServerMixin.initGlobalAttachments` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/resources/Identifier;Ljava/util/function/Supplier;Lcom` | exact | invokespecial@23 in `ServerLevelMixin.createAttachmentsPersistentState` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (4 fields, 8 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.saveddata.SavedDataType<T extends net.minecraft.world.level.saveddata.SavedData> extends java.lang.Record {
-    private final net.minecraft.resources.Identifier id;
-    private final java.util.function.Supplier<T> constructor;
-    private final com.mojang.serialization.Codec<T> codec;
-    private final net.minecraft.util.datafix.DataFixTypes dataFixType;
-    public net.minecraft.world.level.saveddata.SavedDataType(net.minecraft.resources.Identifier, java.util.function.Supplier<T>, com.mojang.serialization.Codec<T>, net.minecraft.util.datafix.DataFixTypes);
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public java.lang.String toString();
-    public net.minecraft.resources.Identifier id();
-    public java.util.function.Supplier<T> constructor();
-    public com.mojang.serialization.Codec<T> codec();
-    public net.minecraft.util.datafix.DataFixTypes dataFixType();
-}
+```
+private final id : Lnet/minecraft/resources/Identifier;
+private final constructor : Ljava/util/function/Supplier;
+private final codec : Lcom/mojang/serialization/Codec;
+private final dataFixType : Lnet/minecraft/util/datafix/DataFixTypes;
+public <init>(Lnet/minecraft/resources/Identifier;Ljava/util/function/Supplier;Lcom/mojang/serialization/Codec;Lnet/minecraft/util/datafix/DataFixTypes;)V
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public toString()Ljava/lang/String;
+public id()Lnet/minecraft/resources/Identifier;
+public constructor()Ljava/util/function/Supplier;
+public codec()Lcom/mojang/serialization/Codec;
+public dataFixType()Lnet/minecraft/util/datafix/DataFixTypes;
 ```

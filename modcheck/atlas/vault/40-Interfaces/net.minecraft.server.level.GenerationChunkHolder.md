@@ -11,58 +11,58 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.level|net.minecraft.server.level]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/level/ChunkPos;)V` | `` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| calls | `getFullStatus()Lnet/minecraft/server/level/FullChunkStatus;` | `` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/level/ChunkPos;)V` | exact | invokespecial@2 in `ChunkHolderMixin.<init>` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| calls | `getFullStatus` | `()Lnet/minecraft/server/level/FullChunkStatus;` | exact | invokevirtual@91 in `ChunkStatusTasksMixin.onChunkLoad` | unknown | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
 
-## Declared members (40, all visibilities)
+## Declared members (11 fields, 29 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.server.level.GenerationChunkHolder {
-    private static final java.util.List<net.minecraft.world.level.chunk.status.ChunkStatus> CHUNK_STATUSES;
-    private static final net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess> NOT_DONE_YET;
-    public static final net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess> UNLOADED_CHUNK;
-    public static final java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>> UNLOADED_CHUNK_FUTURE;
-    protected final net.minecraft.world.level.ChunkPos pos;
-    private volatile net.minecraft.world.level.chunk.status.ChunkStatus highestAllowedStatus;
-    private final java.util.concurrent.atomic.AtomicReference<net.minecraft.world.level.chunk.status.ChunkStatus> startedWork;
-    private final java.util.concurrent.atomic.AtomicReferenceArray<java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>>> futures;
-    private final java.util.concurrent.atomic.AtomicReference<net.minecraft.server.level.ChunkGenerationTask> task;
-    private final java.util.concurrent.atomic.AtomicInteger generationRefCount;
-    private volatile java.util.concurrent.CompletableFuture<java.lang.Void> generationSaveSyncFuture;
-    public net.minecraft.server.level.GenerationChunkHolder(net.minecraft.world.level.ChunkPos);
-    public java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>> scheduleChunkGenerationTask(net.minecraft.world.level.chunk.status.ChunkStatus, net.minecraft.server.level.ChunkMap);
-    java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>> applyStep(net.minecraft.world.level.chunk.status.ChunkStep, net.minecraft.server.level.GeneratingChunkMap, net.minecraft.util.StaticCache2D<net.minecraft.server.level.GenerationChunkHolder>);
-    protected void updateHighestAllowedStatus(net.minecraft.server.level.ChunkMap);
-    public void replaceProtoChunk(net.minecraft.world.level.chunk.ImposterProtoChunk);
-    void removeTask(net.minecraft.server.level.ChunkGenerationTask);
-    private void rescheduleChunkTask(net.minecraft.server.level.ChunkMap, net.minecraft.world.level.chunk.status.ChunkStatus);
-    private java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>> getOrCreateFuture(net.minecraft.world.level.chunk.status.ChunkStatus);
-    private void failAndClearPendingFuturesBetween(net.minecraft.world.level.chunk.status.ChunkStatus, net.minecraft.world.level.chunk.status.ChunkStatus);
-    private void failAndClearPendingFuture(int, java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>>);
-    private void completeFuture(net.minecraft.world.level.chunk.status.ChunkStatus, net.minecraft.world.level.chunk.ChunkAccess);
-    private net.minecraft.world.level.chunk.status.ChunkStatus findHighestStatusWithPendingFuture(net.minecraft.world.level.chunk.status.ChunkStatus);
-    private boolean acquireStatusBump(net.minecraft.world.level.chunk.status.ChunkStatus);
-    private boolean isStatusDisallowed(net.minecraft.world.level.chunk.status.ChunkStatus);
-    protected abstract void addSaveDependency(java.util.concurrent.CompletableFuture<?>);
-    public void increaseGenerationRefCount();
-    public void decreaseGenerationRefCount();
-    public net.minecraft.world.level.chunk.ChunkAccess getChunkIfPresentUnchecked(net.minecraft.world.level.chunk.status.ChunkStatus);
-    public net.minecraft.world.level.chunk.ChunkAccess getChunkIfPresent(net.minecraft.world.level.chunk.status.ChunkStatus);
-    public net.minecraft.world.level.chunk.ChunkAccess getLatestChunk();
-    public net.minecraft.world.level.chunk.status.ChunkStatus getPersistedStatus();
-    public net.minecraft.world.level.ChunkPos getPos();
-    public net.minecraft.server.level.FullChunkStatus getFullStatus();
-    public abstract int getTicketLevel();
-    public abstract int getQueueLevel();
-    public java.util.List<com.mojang.datafixers.util.Pair<net.minecraft.world.level.chunk.status.ChunkStatus, java.util.concurrent.CompletableFuture<net.minecraft.server.level.ChunkResult<net.minecraft.world.level.chunk.ChunkAccess>>>> getAllFutures();
-    public net.minecraft.world.level.chunk.status.ChunkStatus getLatestStatus();
-    private net.minecraft.server.level.ChunkResult lambda$applyStep$0(net.minecraft.world.level.chunk.status.ChunkStep, net.minecraft.world.level.chunk.ChunkAccess, java.lang.Throwable);
-    static {};
-}
+```
+private static final CHUNK_STATUSES : Ljava/util/List;
+private static final NOT_DONE_YET : Lnet/minecraft/server/level/ChunkResult;
+public static final UNLOADED_CHUNK : Lnet/minecraft/server/level/ChunkResult;
+public static final UNLOADED_CHUNK_FUTURE : Ljava/util/concurrent/CompletableFuture;
+protected final pos : Lnet/minecraft/world/level/ChunkPos;
+private highestAllowedStatus : Lnet/minecraft/world/level/chunk/status/ChunkStatus;
+private final startedWork : Ljava/util/concurrent/atomic/AtomicReference;
+private final futures : Ljava/util/concurrent/atomic/AtomicReferenceArray;
+private final task : Ljava/util/concurrent/atomic/AtomicReference;
+private final generationRefCount : Ljava/util/concurrent/atomic/AtomicInteger;
+private generationSaveSyncFuture : Ljava/util/concurrent/CompletableFuture;
+public <init>(Lnet/minecraft/world/level/ChunkPos;)V
+public scheduleChunkGenerationTask(Lnet/minecraft/world/level/chunk/status/ChunkStatus;Lnet/minecraft/server/level/ChunkMap;)Ljava/util/concurrent/CompletableFuture;
+ applyStep(Lnet/minecraft/world/level/chunk/status/ChunkStep;Lnet/minecraft/server/level/GeneratingChunkMap;Lnet/minecraft/util/StaticCache2D;)Ljava/util/concurrent/CompletableFuture;
+protected updateHighestAllowedStatus(Lnet/minecraft/server/level/ChunkMap;)V
+public replaceProtoChunk(Lnet/minecraft/world/level/chunk/ImposterProtoChunk;)V
+ removeTask(Lnet/minecraft/server/level/ChunkGenerationTask;)V
+private rescheduleChunkTask(Lnet/minecraft/server/level/ChunkMap;Lnet/minecraft/world/level/chunk/status/ChunkStatus;)V
+private getOrCreateFuture(Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Ljava/util/concurrent/CompletableFuture;
+private failAndClearPendingFuturesBetween(Lnet/minecraft/world/level/chunk/status/ChunkStatus;Lnet/minecraft/world/level/chunk/status/ChunkStatus;)V
+private failAndClearPendingFuture(ILjava/util/concurrent/CompletableFuture;)V
+private completeFuture(Lnet/minecraft/world/level/chunk/status/ChunkStatus;Lnet/minecraft/world/level/chunk/ChunkAccess;)V
+private findHighestStatusWithPendingFuture(Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Lnet/minecraft/world/level/chunk/status/ChunkStatus;
+private acquireStatusBump(Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Z
+private isStatusDisallowed(Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Z
+protected abstract addSaveDependency(Ljava/util/concurrent/CompletableFuture;)V
+public increaseGenerationRefCount()V
+public decreaseGenerationRefCount()V
+public getChunkIfPresentUnchecked(Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Lnet/minecraft/world/level/chunk/ChunkAccess;
+public getChunkIfPresent(Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Lnet/minecraft/world/level/chunk/ChunkAccess;
+public getLatestChunk()Lnet/minecraft/world/level/chunk/ChunkAccess;
+public getPersistedStatus()Lnet/minecraft/world/level/chunk/status/ChunkStatus;
+public getPos()Lnet/minecraft/world/level/ChunkPos;
+public getFullStatus()Lnet/minecraft/server/level/FullChunkStatus;
+public abstract getTicketLevel()I
+public abstract getQueueLevel()I
+public getAllFutures()Ljava/util/List;
+public getLatestStatus()Lnet/minecraft/world/level/chunk/status/ChunkStatus;
+private synthetic lambda$applyStep$0(Lnet/minecraft/world/level/chunk/status/ChunkStep;Lnet/minecraft/world/level/chunk/ChunkAccess;Ljava/lang/Throwable;)Lnet/minecraft/server/level/ChunkResult;
+static <clinit>()V
 ```

@@ -11,41 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.resources|net.minecraft.client.resources]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`, `net/minecraft/server/packs/resources/PreparableReloadListener`, `net/minecraft/client/resources/model/sprite/SpriteGetter`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getAtlasOrThrow(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/` | `` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getAtlasOrThrow` | `(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/t` | exact | invokevirtual@9 in `FabricSpriteSetImpl.getAtlas` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/client/renderer/texture/TextureManager;I)V` | name_only | @ModifyExpressionValue at ['FIELD'] | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
 
-## Declared members (24, all visibilities)
+## Declared members (7 fields, 17 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.resources.model.sprite.AtlasManager implements java.lang.AutoCloseable,net.minecraft.server.packs.resources.PreparableReloadListener,net.minecraft.client.resources.model.sprite.SpriteGetter {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.util.List<net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig> KNOWN_ATLASES;
-    public static final net.minecraft.server.packs.resources.PreparableReloadListener$StateKey<net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitchResults> PENDING_STITCH;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.resources.model.sprite.AtlasManager$AtlasEntry> atlasByTexture;
-    private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.resources.model.sprite.AtlasManager$AtlasEntry> atlasById;
-    private java.util.Map<net.minecraft.client.resources.model.sprite.SpriteId, net.minecraft.client.renderer.texture.TextureAtlasSprite> spriteLookup;
-    private int maxMipmapLevels;
-    public net.minecraft.client.resources.model.sprite.AtlasManager(net.minecraft.client.renderer.texture.TextureManager, int);
-    public net.minecraft.client.renderer.texture.TextureAtlas getAtlasOrThrow(net.minecraft.resources.Identifier);
-    public void forEach(java.util.function.BiConsumer<net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.TextureAtlas>);
-    public void updateMaxMipLevel(int);
-    public void close();
-    public net.minecraft.client.renderer.texture.TextureAtlasSprite get(net.minecraft.client.resources.model.sprite.SpriteId);
-    public void prepareSharedState(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState);
-    public java.util.concurrent.CompletableFuture<java.lang.Void> reload(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor, net.minecraft.server.packs.resources.PreparableReloadListener$PreparationBarrier, java.util.concurrent.Executor);
-    private void updateSpriteMaps(net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitchResults);
-    private static void lambda$updateSpriteMaps$0(java.util.Map, net.minecraft.client.resources.model.sprite.SpriteId, net.minecraft.client.renderer.texture.TextureAtlasSprite);
-    private void lambda$reload$2(net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitchResults, java.lang.Object);
-    private void lambda$reload$0(net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor, net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitch);
-    private static void lambda$reload$1(net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitch, net.minecraft.client.renderer.texture.SpriteLoader$Preparations, java.lang.Throwable);
-    private static java.util.concurrent.CompletableFuture[] lambda$prepareSharedState$1(int);
-    private static void lambda$prepareSharedState$0(java.util.Map, java.util.List, java.util.List, net.minecraft.resources.Identifier, net.minecraft.client.resources.model.sprite.AtlasManager$AtlasEntry);
-    private static void lambda$forEach$0(java.util.function.BiConsumer, net.minecraft.resources.Identifier, net.minecraft.client.resources.model.sprite.AtlasManager$AtlasEntry);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final KNOWN_ATLASES : Ljava/util/List;
+public static final PENDING_STITCH : Lnet/minecraft/server/packs/resources/PreparableReloadListener$StateKey;
+private final atlasByTexture : Ljava/util/Map;
+private final atlasById : Ljava/util/Map;
+private spriteLookup : Ljava/util/Map;
+private maxMipmapLevels : I
+public <init>(Lnet/minecraft/client/renderer/texture/TextureManager;I)V
+public getAtlasOrThrow(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/texture/TextureAtlas;
+public forEach(Ljava/util/function/BiConsumer;)V
+public updateMaxMipLevel(I)V
+public close()V
+public get(Lnet/minecraft/client/resources/model/sprite/SpriteId;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;
+public prepareSharedState(Lnet/minecraft/server/packs/resources/PreparableReloadListener$SharedState;)V
+public reload(Lnet/minecraft/server/packs/resources/PreparableReloadListener$SharedState;Ljava/util/concurrent/Executor;Lnet/minecraft/server/packs/resources/PreparableReloadListener$PreparationBarrier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+private updateSpriteMaps(Lnet/minecraft/client/resources/model/sprite/AtlasManager$PendingStitchResults;)V
+private static synthetic lambda$updateSpriteMaps$0(Ljava/util/Map;Lnet/minecraft/client/resources/model/sprite/SpriteId;Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
+private synthetic lambda$reload$2(Lnet/minecraft/client/resources/model/sprite/AtlasManager$PendingStitchResults;Ljava/lang/Object;)V
+private synthetic lambda$reload$0(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/concurrent/Executor;Lnet/minecraft/client/resources/model/sprite/AtlasManager$PendingStitch;)V
+private static synthetic lambda$reload$1(Lnet/minecraft/client/resources/model/sprite/AtlasManager$PendingStitch;Lnet/minecraft/client/renderer/texture/SpriteLoader$Preparations;Ljava/lang/Throwable;)V
+private static synthetic lambda$prepareSharedState$1(I)[Ljava/util/concurrent/CompletableFuture;
+private static synthetic lambda$prepareSharedState$0(Ljava/util/Map;Ljava/util/List;Ljava/util/List;Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/resources/model/sprite/AtlasManager$AtlasEntry;)V
+private static synthetic lambda$forEach$0(Ljava/util/function/BiConsumer;Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/resources/model/sprite/AtlasManager$AtlasEntry;)V
+static <clinit>()V
 ```

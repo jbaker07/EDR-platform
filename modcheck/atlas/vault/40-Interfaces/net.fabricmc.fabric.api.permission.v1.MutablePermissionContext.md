@@ -13,5 +13,5 @@ sha256: "a3a82771b3fd9f2eb36e1098c5f90759ac877982b9ac297831a1fce9b2185bf8"
 Module: [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] -- kind: interface
 
 ```java
-public abstract <T> net.fabricmc.fabric.api.permission.v1.MutablePermissionContext set(net.fabricmc.fabric.api.permission.v1.PermissionContext$Key<T>, T)
+public abstract net.fabricmc.fabric.api.permission.v1.MutablePermissionContext set(net.fabricmc.fabric.api.permission.v1.PermissionContext$Key, java.lang.Object)
 ```

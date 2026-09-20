@@ -13,5 +13,5 @@ sha256: "6c2fa7a4d870ee33305c946e5dce6870f92f7f909fa0aa84011d976527e1b3cb"
 Module: [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] -- kind: interface
 
 ```java
-public default java.util.List<net.minecraft.tags.TagEntry> remove()
+public java.util.List remove()
 ```

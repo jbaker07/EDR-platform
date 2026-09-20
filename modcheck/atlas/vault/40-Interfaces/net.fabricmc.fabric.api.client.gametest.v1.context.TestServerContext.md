@@ -14,8 +14,8 @@ Module: [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api
 
 ```java
 public abstract void runCommand(java.lang.String)
-public abstract <E extends java.lang.Throwable> void runOnServer(org.apache.commons.lang3.function.FailableConsumer<net.minecraft.server.MinecraftServer, E>) throws E
-public abstract <T, E extends java.lang.Throwable> T computeOnServer(org.apache.commons.lang3.function.FailableFunction<net.minecraft.server.MinecraftServer, T, E>) throws E
-public abstract int waitFor(java.util.function.Predicate<net.minecraft.server.MinecraftServer>)
-public abstract int waitFor(java.util.function.Predicate<net.minecraft.server.MinecraftServer>, int)
+public abstract void runOnServer(org.apache.commons.lang3.function.FailableConsumer)
+public abstract java.lang.Object computeOnServer(org.apache.commons.lang3.function.FailableFunction)
+public abstract int waitFor(java.util.function.Predicate)
+public abstract int waitFor(java.util.function.Predicate, int)
 ```

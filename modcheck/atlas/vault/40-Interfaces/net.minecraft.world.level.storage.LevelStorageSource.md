@@ -11,65 +11,65 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getBaseDir()Ljava/nio/file/Path;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getBaseDir` | `()Ljava/nio/file/Path;` | exact | invokevirtual@89 in `TestWorldBuilderImpl.lambda$navigateCreateWorldScreen$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (48, all visibilities)
+## Declared members (10 fields, 38 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.LevelStorageSource {
-    private static final org.slf4j.Logger LOGGER;
-    public static final java.lang.String TAG_DATA;
-    private static final java.nio.file.PathMatcher NO_SYMLINKS_ALLOWED;
-    public static final java.lang.String ALLOWED_SYMLINKS_CONFIG_NAME;
-    private static final int DISK_SPACE_WARNING_THRESHOLD;
-    private static final net.minecraft.network.chat.Component LOAD_FOLDER_ACCESS_MESSAGE;
-    private final java.nio.file.Path baseDir;
-    private final java.nio.file.Path backupDir;
-    private final com.mojang.datafixers.DataFixer fixerUpper;
-    private final net.minecraft.world.level.validation.DirectoryValidator worldDirValidator;
-    public net.minecraft.world.level.storage.LevelStorageSource(java.nio.file.Path, java.nio.file.Path, net.minecraft.world.level.validation.DirectoryValidator, com.mojang.datafixers.DataFixer);
-    public static net.minecraft.world.level.validation.DirectoryValidator parseValidator(java.nio.file.Path);
-    public static net.minecraft.world.level.storage.LevelStorageSource createDefault(java.nio.file.Path);
-    public static net.minecraft.world.level.WorldDataConfiguration readDataConfig(com.mojang.serialization.Dynamic<?>);
-    public static net.minecraft.server.WorldLoader$PackConfig getPackConfig(com.mojang.serialization.Dynamic<?>, net.minecraft.server.packs.repository.PackRepository, boolean);
-    public static net.minecraft.world.level.storage.LevelDataAndDimensions getLevelDataAndDimensions(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, com.mojang.serialization.Dynamic<?>, net.minecraft.world.level.WorldDataConfiguration, net.minecraft.core.Registry<net.minecraft.world.level.dimension.LevelStem>, net.minecraft.core.HolderLookup$Provider);
-    public static <T extends net.minecraft.world.level.saveddata.SavedData> com.mojang.serialization.DataResult<T> readExistingSavedData(net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.core.HolderLookup$Provider, net.minecraft.world.level.saveddata.SavedDataType<T>);
-    public static void writeGameRules(net.minecraft.world.level.storage.WorldData, java.nio.file.Path, net.minecraft.world.level.gamerules.GameRules) throws java.io.IOException;
-    public static void writeWorldGenSettings(net.minecraft.core.RegistryAccess, java.nio.file.Path, net.minecraft.world.level.levelgen.WorldGenSettings) throws java.io.IOException;
-    private static <T> void writeSavedData(java.nio.file.Path, com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag>, net.minecraft.world.level.saveddata.SavedDataType<?>, com.mojang.serialization.Codec<T>, T) throws java.io.IOException;
-    public java.lang.String getName();
-    public net.minecraft.world.level.storage.LevelStorageSource$LevelCandidates findLevelCandidates() throws net.minecraft.world.level.storage.LevelStorageException;
-    public java.util.concurrent.CompletableFuture<java.util.List<net.minecraft.world.level.storage.LevelSummary>> loadLevelSummaries(net.minecraft.world.level.storage.LevelStorageSource$LevelCandidates);
-    private int getStorageVersion();
-    private static net.minecraft.nbt.CompoundTag readLevelDataTagRaw(java.nio.file.Path) throws java.io.IOException;
-    private net.minecraft.world.level.storage.LevelSummary readLevelSummary(net.minecraft.world.level.storage.LevelStorageSource$LevelDirectory, boolean);
-    private static long getFileModificationTime(net.minecraft.world.level.storage.LevelStorageSource$LevelDirectory);
-    private static java.time.Instant getFileModificationTime(java.nio.file.Path);
-    private net.minecraft.world.level.storage.LevelSummary makeLevelSummary(com.mojang.serialization.Dynamic<?>, net.minecraft.world.level.storage.LevelStorageSource$LevelDirectory, boolean, int);
-    private static net.minecraft.world.flag.FeatureFlagSet parseFeatureFlagsFromSummary(com.mojang.serialization.Dynamic<?>);
-    private static net.minecraft.nbt.Tag readLightweightData(java.nio.file.Path) throws java.io.IOException;
-    public boolean isNewLevelIdAcceptable(java.lang.String);
-    public boolean levelExists(java.lang.String);
-    public java.nio.file.Path getLevelPath(java.lang.String);
-    public java.nio.file.Path getBaseDir();
-    public java.nio.file.Path getBackupPath();
-    public net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess validateAndCreateAccess(java.lang.String) throws java.io.IOException, net.minecraft.world.level.validation.ContentValidationException;
-    public net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess createAccess(java.lang.String) throws java.io.IOException;
-    public net.minecraft.world.level.validation.DirectoryValidator getWorldDirValidator();
-    private static void lambda$parseFeatureFlagsFromSummary$1(net.minecraft.resources.Identifier);
-    private static java.util.stream.Stream lambda$parseFeatureFlagsFromSummary$0(com.mojang.serialization.Dynamic);
-    private static java.util.List lambda$loadLevelSummaries$1(java.util.List);
-    private net.minecraft.world.level.storage.LevelSummary lambda$loadLevelSummaries$0(net.minecraft.world.level.storage.LevelStorageSource$LevelDirectory);
-    private static boolean lambda$findLevelCandidates$1(net.minecraft.world.level.storage.LevelStorageSource$LevelDirectory);
-    private static boolean lambda$findLevelCandidates$0(java.nio.file.Path);
-    private static net.minecraft.world.level.levelgen.WorldGenSettings lambda$getLevelDataAndDimensions$0(net.minecraft.core.Registry, com.mojang.serialization.DataResult$Error);
-    private static boolean lambda$static$0(java.nio.file.Path);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public static final TAG_DATA : Ljava/lang/String;
+private static final NO_SYMLINKS_ALLOWED : Ljava/nio/file/PathMatcher;
+public static final ALLOWED_SYMLINKS_CONFIG_NAME : Ljava/lang/String;
+private static final DISK_SPACE_WARNING_THRESHOLD : I
+private static final LOAD_FOLDER_ACCESS_MESSAGE : Lnet/minecraft/network/chat/Component;
+private final baseDir : Ljava/nio/file/Path;
+private final backupDir : Ljava/nio/file/Path;
+private final fixerUpper : Lcom/mojang/datafixers/DataFixer;
+private final worldDirValidator : Lnet/minecraft/world/level/validation/DirectoryValidator;
+public <init>(Ljava/nio/file/Path;Ljava/nio/file/Path;Lnet/minecraft/world/level/validation/DirectoryValidator;Lcom/mojang/datafixers/DataFixer;)V
+public static parseValidator(Ljava/nio/file/Path;)Lnet/minecraft/world/level/validation/DirectoryValidator;
+public static createDefault(Ljava/nio/file/Path;)Lnet/minecraft/world/level/storage/LevelStorageSource;
+public static readDataConfig(Lcom/mojang/serialization/Dynamic;)Lnet/minecraft/world/level/WorldDataConfiguration;
+public static getPackConfig(Lcom/mojang/serialization/Dynamic;Lnet/minecraft/server/packs/repository/PackRepository;Z)Lnet/minecraft/server/WorldLoader$PackConfig;
+public static getLevelDataAndDimensions(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;Lnet/minecraft/world/level/WorldDataConfiguration;Lnet/minecraft/core/Registry;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/level/storage/LevelDataAndDimensions;
+public static readExistingSavedData(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/world/level/saveddata/SavedDataType;)Lcom/mojang/serialization/DataResult;
+public static writeGameRules(Lnet/minecraft/world/level/storage/WorldData;Ljava/nio/file/Path;Lnet/minecraft/world/level/gamerules/GameRules;)V
+public static writeWorldGenSettings(Lnet/minecraft/core/RegistryAccess;Ljava/nio/file/Path;Lnet/minecraft/world/level/levelgen/WorldGenSettings;)V
+private static writeSavedData(Ljava/nio/file/Path;Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/world/level/saveddata/SavedDataType;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V
+public getName()Ljava/lang/String;
+public findLevelCandidates()Lnet/minecraft/world/level/storage/LevelStorageSource$LevelCandidates;
+public loadLevelSummaries(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelCandidates;)Ljava/util/concurrent/CompletableFuture;
+private getStorageVersion()I
+private static readLevelDataTagRaw(Ljava/nio/file/Path;)Lnet/minecraft/nbt/CompoundTag;
+private readLevelSummary(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;Z)Lnet/minecraft/world/level/storage/LevelSummary;
+private static getFileModificationTime(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;)J
+private static getFileModificationTime(Ljava/nio/file/Path;)Ljava/time/Instant;
+private makeLevelSummary(Lcom/mojang/serialization/Dynamic;Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;ZI)Lnet/minecraft/world/level/storage/LevelSummary;
+private static parseFeatureFlagsFromSummary(Lcom/mojang/serialization/Dynamic;)Lnet/minecraft/world/flag/FeatureFlagSet;
+private static readLightweightData(Ljava/nio/file/Path;)Lnet/minecraft/nbt/Tag;
+public isNewLevelIdAcceptable(Ljava/lang/String;)Z
+public levelExists(Ljava/lang/String;)Z
+public getLevelPath(Ljava/lang/String;)Ljava/nio/file/Path;
+public getBaseDir()Ljava/nio/file/Path;
+public getBackupPath()Ljava/nio/file/Path;
+public validateAndCreateAccess(Ljava/lang/String;)Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;
+public createAccess(Ljava/lang/String;)Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;
+public getWorldDirValidator()Lnet/minecraft/world/level/validation/DirectoryValidator;
+private static synthetic lambda$parseFeatureFlagsFromSummary$1(Lnet/minecraft/resources/Identifier;)V
+private static synthetic lambda$parseFeatureFlagsFromSummary$0(Lcom/mojang/serialization/Dynamic;)Ljava/util/stream/Stream;
+private static synthetic lambda$loadLevelSummaries$1(Ljava/util/List;)Ljava/util/List;
+private synthetic lambda$loadLevelSummaries$0(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;)Lnet/minecraft/world/level/storage/LevelSummary;
+private static synthetic lambda$findLevelCandidates$1(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;)Z
+private static synthetic lambda$findLevelCandidates$0(Ljava/nio/file/Path;)Z
+private static synthetic lambda$getLevelDataAndDimensions$0(Lnet/minecraft/core/Registry;Lcom/mojang/serialization/DataResult$Error;)Lnet/minecraft/world/level/levelgen/WorldGenSettings;
+private static synthetic lambda$static$0(Ljava/nio/file/Path;)Z
+static <clinit>()V
 ```

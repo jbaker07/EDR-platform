@@ -14,9 +14,9 @@ Module: [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api
 
 ```java
 public abstract net.minecraft.resources.Identifier identifier()
-public abstract com.mojang.serialization.Codec<A> persistenceCodec()
-public default boolean isPersistent()
-public abstract java.util.function.Supplier<A> initializer()
+public abstract com.mojang.serialization.Codec persistenceCodec()
+public boolean isPersistent()
+public abstract java.util.function.Supplier initializer()
 public abstract boolean isSynced()
 public abstract boolean copyOnDeath()
 ```

@@ -11,36 +11,36 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`record` public final; extends `java/lang/Record`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `pos()Lnet/minecraft/core/BlockPos;` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `pos` | `()Lnet/minecraft/core/BlockPos;` | exact | invokevirtual@14 in `ServerPlayerMixin.onSetSpawnPoint` | unknown | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
 
-## Declared members (19, all visibilities)
+## Declared members (7 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.storage.LevelData$RespawnData extends java.lang.Record {
-    private final net.minecraft.core.GlobalPos globalPos;
-    private final float yaw;
-    private final float pitch;
-    public static final net.minecraft.world.level.storage.LevelData$RespawnData DEFAULT;
-    public static final com.mojang.serialization.MapCodec<net.minecraft.world.level.storage.LevelData$RespawnData> MAP_CODEC;
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.storage.LevelData$RespawnData> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.level.storage.LevelData$RespawnData> STREAM_CODEC;
-    public net.minecraft.world.level.storage.LevelData$RespawnData(net.minecraft.core.GlobalPos, float, float);
-    public static net.minecraft.world.level.storage.LevelData$RespawnData of(net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>, net.minecraft.core.BlockPos, float, float);
-    public net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension();
-    public net.minecraft.core.BlockPos pos();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.core.GlobalPos globalPos();
-    public float yaw();
-    public float pitch();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final globalPos : Lnet/minecraft/core/GlobalPos;
+private final yaw : F
+private final pitch : F
+public static final DEFAULT : Lnet/minecraft/world/level/storage/LevelData$RespawnData;
+public static final MAP_CODEC : Lcom/mojang/serialization/MapCodec;
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public <init>(Lnet/minecraft/core/GlobalPos;FF)V
+public static of(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/BlockPos;FF)Lnet/minecraft/world/level/storage/LevelData$RespawnData;
+public dimension()Lnet/minecraft/resources/ResourceKey;
+public pos()Lnet/minecraft/core/BlockPos;
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public globalPos()Lnet/minecraft/core/GlobalPos;
+public yaw()F
+public pitch()F
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

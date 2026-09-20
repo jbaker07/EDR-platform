@@ -9,7 +9,7 @@ side: "client"
 
 # Rendering: level, entities, block and item models
 
-Package `net.minecraft.client.renderer` -- generated view: [[20-Systems/net.minecraft.client.renderer|hooked types]]
+Package `net.minecraft.client.renderer` -- generated view: [[20-Systems/net.minecraft.client.renderer|inventory and hooked types]]
 
 **Responsibility.** The client render pipeline (1006 classes): level rendering passes, entity and block-entity renderers, model baking and dispatch, render state extraction, textures and sprites. 66 hooked types.
 
@@ -21,7 +21,7 @@ Package `net.minecraft.client.renderer` -- generated view: [[20-Systems/net.mine
 
 - [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] exposes level render passes as events (for example [[50-Interactions/events/net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN|AFTER_TRANSLUCENT_TERRAIN]]) and entity renderer/model-layer registration.
 - Feature render layers on living entities through [[50-Interactions/events/net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT|EVENT]].
-- [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] and [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] define the mesh/quad emitting model used by block models (the unresolved emitQuads targets in `extracted/minecraft_members.json` are interface-declared members of this pipeline).
+- [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] and [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] define the mesh/quad emitting model used by block models (the unresolved emitQuads targets in `extracted/minecraft_surface.json.gz` are interface-declared members of this pipeline).
 - [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] hooks model loading and baking.
 
 ## Interactions to expect

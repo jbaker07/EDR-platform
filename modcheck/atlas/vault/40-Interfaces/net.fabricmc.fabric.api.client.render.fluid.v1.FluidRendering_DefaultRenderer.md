@@ -13,5 +13,5 @@ sha256: "ce4c943f676d105275247800ce1a7ed4a6410c95b3b98ef1b39aba4dcf8a4264"
 Module: [[30-Mechanisms/fabric-rendering-fluids-v1|fabric-rendering-fluids-v1]] -- kind: interface
 
 ```java
-public default void render(net.minecraft.client.renderer.block.FluidRenderer, net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.client.renderer.block.FluidRenderer$Output, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState)
+public void render(net.minecraft.client.renderer.block.FluidRenderer, net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.client.renderer.block.FluidRenderer$Output, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.FluidState)
 ```

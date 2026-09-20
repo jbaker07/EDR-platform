@@ -20,23 +20,27 @@ lifecycle: "stable"
 - entrypoints: `null`
 - mixin configs: `[{"config": "fabric-sound-api-v1.mixins.json", "environment": "client"}]`
 - access widener: `fabric-sound-api-v1.classtweaker`
+- mixin classes: 2 found by annotation, 2 declared in configs; extraction failures: 0
 
 ## Events this module publishes
 
 - none found by extraction
 
-## Vanilla types this module modifies (mixins)
+## Vanilla methods this module modifies
 
-| vanilla type | method | how | environment | mixin |
-|---|---|---|---|---|
-| [[40-Interfaces/net.minecraft.client.sounds.SoundEngine|SoundEngine]] | `play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;` | wraps `@Redirect at INVOKE Lnet/minecraft/client/sounds/SoundBufferLibrary;getStream(Lnet/minecraft/resources/Identifier;Z)Ljava/util/concurrent/CompletableFuture;` | client | `SoundEngineMixin.getStream` |
+One row per (injection, selector). `resolution` says how the selector matched the processed jar; `points` are the @At targets with their own resolution.
+
+| vanilla method | descriptor | resolution | injector | points | env | priority | handler |
+|---|---|---|---|---|---|---|---|
+| [[40-Interfaces/net.minecraft.client.sounds.SoundEngine|SoundEngine]].`play` | `(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;` | exact | @Redirect | INVOKE `Lnet/minecraft/client/sounds/SoundBufferLibrary;getStream(Lnet/minecraft/resources/Identifier;Z)Ljava/util/concurrent/CompletableFuture;` (exact) | client | 1000 (default) | `SoundEngineMixin.getStream` |
 
 ## API surface
 
-- [[40-Interfaces/net.fabricmc.fabric.api.client.sound.v1.FabricSoundInstance|FabricSoundInstance]] (interface, 3 members)
+- [[40-Interfaces/net.fabricmc.fabric.api.client.sound.v1.FabricSoundInstance|FabricSoundInstance]] (interface, 2 members)
 
 ## What this establishes, and does not
 
-- Injection targets and API signatures are `direct_reference`: read from the jar.
+- Injection targets, points and API signatures are `direct_reference`: read from the class files.
 - Event publication is `static_inference`: a bytecode pattern, labelled as such.
+- How two injections compose is `executed_transformation` evidence in [[30-Mechanisms/Transformation_Tests]], not established per module.
 - Nothing here is `observed`. No game ran.

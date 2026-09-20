@@ -110,6 +110,7 @@
         "static_inference",
         "declared",
         "documented",
+        "executed_transformation",
         "observed"
       ]
     },
@@ -172,6 +173,10 @@
         },
         "extracted_at": {
           "type": "string"
+        },
+        "resolved_against": {
+          "type": "string",
+          "description": "sha256 of the jar member resolution ran against"
         }
       }
     },
@@ -182,6 +187,57 @@
     "callback": {
       "type": "string",
       "description": "publishes_event only: callback interface method the invoker calls"
+    },
+    "effect": {
+      "type": "string",
+      "description": "what the injector does to the target method (jvm.INJECTOR_EFFECT)"
+    },
+    "injector": {
+      "type": "string"
+    },
+    "selector": {
+      "type": "string",
+      "description": "the raw Mixin selector or @Desc form this edge came from"
+    },
+    "points": {
+      "type": "array",
+      "description": "injection points (@At) with their resolved call/field targets",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "resolution": {
+            "$ref": "#/$defs/endpoint/properties/resolution"
+          }
+        }
+      }
+    },
+    "priority": {
+      "type": "integer"
+    },
+    "priority_source": {
+      "type": "string",
+      "enum": [
+        "annotation",
+        "default"
+      ]
+    },
+    "site": {
+      "type": "object",
+      "description": "instruction in the caller: offset and opcode",
+      "properties": {
+        "offset": {
+          "type": "integer"
+        },
+        "opcode": {
+          "type": "string"
+        }
+      }
     }
   },
   "$defs": {
@@ -221,6 +277,46 @@
         },
         "descriptor": {
           "type": "string"
+        },
+        "resolution": {
+          "type": "object",
+          "description": "exact member resolution of this endpoint (resolve.py)",
+          "properties": {
+            "state": {
+              "type": "string",
+              "enum": [
+                "exact",
+                "inherited_exact",
+                "name_only",
+                "ambiguous",
+                "unresolved",
+                "owner_missing",
+                "selector_unsupported",
+                "not_attempted"
+              ]
+            },
+            "declared_in": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "candidates": {
+              "type": "array"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "walk_depth": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "state"
+          ]
+        },
+        "static": {
+          "type": "boolean"
         }
       }
     }

@@ -11,77 +11,80 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/Comparable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getX()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `getY()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
-| calls | `getZ()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getX` | `()I` | exact | invokevirtual@2 in `PlayerLookup.lambda$around$1` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `getX` | `()I` | exact | invokevirtual@26 in `NormalHelper.computeFaceNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `getY` | `()I` | exact | invokevirtual@7 in `PlayerLookup.lambda$around$1` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `getY` | `()I` | exact | invokevirtual@31 in `NormalHelper.computeFaceNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `getZ` | `()I` | exact | invokevirtual@12 in `PlayerLookup.lambda$around$1` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `getZ` | `()I` | exact | invokevirtual@36 in `NormalHelper.computeFaceNormal` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
 
-## Declared members (58, all visibilities)
+## Declared members (6 fields, 52 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.core.Vec3i implements java.lang.Comparable<net.minecraft.core.Vec3i> {
-    public static final com.mojang.serialization.Codec<net.minecraft.core.Vec3i> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.core.Vec3i> STREAM_CODEC;
-    public static final net.minecraft.core.Vec3i ZERO;
-    private int x;
-    private int y;
-    private int z;
-    public static com.mojang.serialization.Codec<net.minecraft.core.Vec3i> offsetCodec(int);
-    public net.minecraft.core.Vec3i(int, int, int);
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public int compareTo(net.minecraft.core.Vec3i);
-    public int getX();
-    public int getY();
-    public int getZ();
-    protected net.minecraft.core.Vec3i setX(int);
-    protected net.minecraft.core.Vec3i setY(int);
-    protected net.minecraft.core.Vec3i setZ(int);
-    public net.minecraft.core.Vec3i offset(int, int, int);
-    public net.minecraft.core.Vec3i offset(net.minecraft.core.Vec3i);
-    public net.minecraft.core.Vec3i subtract(net.minecraft.core.Vec3i);
-    public net.minecraft.core.Vec3i multiply(int);
-    public net.minecraft.core.Vec3i multiply(int, int, int);
-    public net.minecraft.core.Vec3i above();
-    public net.minecraft.core.Vec3i above(int);
-    public net.minecraft.core.Vec3i below();
-    public net.minecraft.core.Vec3i below(int);
-    public net.minecraft.core.Vec3i north();
-    public net.minecraft.core.Vec3i north(int);
-    public net.minecraft.core.Vec3i south();
-    public net.minecraft.core.Vec3i south(int);
-    public net.minecraft.core.Vec3i west();
-    public net.minecraft.core.Vec3i west(int);
-    public net.minecraft.core.Vec3i east();
-    public net.minecraft.core.Vec3i east(int);
-    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction);
-    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction, int);
-    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction$Axis, int);
-    public net.minecraft.core.Vec3i cross(net.minecraft.core.Vec3i);
-    public boolean closerThan(net.minecraft.core.Vec3i, double);
-    public boolean closerToCenterThan(net.minecraft.core.Position, double);
-    public double distSqr(net.minecraft.core.Vec3i);
-    public double distToCenterSqr(net.minecraft.core.Position);
-    public double distToCenterSqr(double, double, double);
-    public double distToLowCornerSqr(double, double, double);
-    public int distManhattan(net.minecraft.core.Vec3i);
-    public int distChessboard(net.minecraft.core.Vec3i);
-    public boolean differsHorizontally(net.minecraft.core.Vec3i);
-    public int get(net.minecraft.core.Direction$Axis);
-    public org.joml.Vector3i toMutable();
-    public java.lang.String toString();
-    public java.lang.String toShortString();
-    public int compareTo(java.lang.Object);
-    private static com.mojang.serialization.DataResult lambda$offsetCodec$0(int, net.minecraft.core.Vec3i);
-    private static java.lang.String lambda$offsetCodec$1(int, net.minecraft.core.Vec3i);
-    private static java.util.stream.IntStream lambda$static$2(net.minecraft.core.Vec3i);
-    private static com.mojang.serialization.DataResult lambda$static$0(java.util.stream.IntStream);
-    private static net.minecraft.core.Vec3i lambda$static$1(int[]);
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final ZERO : Lnet/minecraft/core/Vec3i;
+private x : I
+private y : I
+private z : I
+public static offsetCodec(I)Lcom/mojang/serialization/Codec;
+public <init>(III)V
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public compareTo(Lnet/minecraft/core/Vec3i;)I
+public getX()I
+public getY()I
+public getZ()I
+protected setX(I)Lnet/minecraft/core/Vec3i;
+protected setY(I)Lnet/minecraft/core/Vec3i;
+protected setZ(I)Lnet/minecraft/core/Vec3i;
+public offset(III)Lnet/minecraft/core/Vec3i;
+public offset(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/Vec3i;
+public subtract(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/Vec3i;
+public multiply(I)Lnet/minecraft/core/Vec3i;
+public multiply(III)Lnet/minecraft/core/Vec3i;
+public above()Lnet/minecraft/core/Vec3i;
+public above(I)Lnet/minecraft/core/Vec3i;
+public below()Lnet/minecraft/core/Vec3i;
+public below(I)Lnet/minecraft/core/Vec3i;
+public north()Lnet/minecraft/core/Vec3i;
+public north(I)Lnet/minecraft/core/Vec3i;
+public south()Lnet/minecraft/core/Vec3i;
+public south(I)Lnet/minecraft/core/Vec3i;
+public west()Lnet/minecraft/core/Vec3i;
+public west(I)Lnet/minecraft/core/Vec3i;
+public east()Lnet/minecraft/core/Vec3i;
+public east(I)Lnet/minecraft/core/Vec3i;
+public relative(Lnet/minecraft/core/Direction;)Lnet/minecraft/core/Vec3i;
+public relative(Lnet/minecraft/core/Direction;I)Lnet/minecraft/core/Vec3i;
+public relative(Lnet/minecraft/core/Direction$Axis;I)Lnet/minecraft/core/Vec3i;
+public cross(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/Vec3i;
+public closerThan(Lnet/minecraft/core/Vec3i;D)Z
+public closerToCenterThan(Lnet/minecraft/core/Position;D)Z
+public distSqr(Lnet/minecraft/core/Vec3i;)D
+public distToCenterSqr(Lnet/minecraft/core/Position;)D
+public distToCenterSqr(DDD)D
+public distToLowCornerSqr(DDD)D
+public distManhattan(Lnet/minecraft/core/Vec3i;)I
+public distChessboard(Lnet/minecraft/core/Vec3i;)I
+public differsHorizontally(Lnet/minecraft/core/Vec3i;)Z
+public get(Lnet/minecraft/core/Direction$Axis;)I
+public toMutable()Lorg/joml/Vector3i;
+public toString()Ljava/lang/String;
+public toShortString()Ljava/lang/String;
+public synthetic compareTo(Ljava/lang/Object;)I
+private static synthetic lambda$offsetCodec$0(ILnet/minecraft/core/Vec3i;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$offsetCodec$1(ILnet/minecraft/core/Vec3i;)Ljava/lang/String;
+private static synthetic lambda$static$2(Lnet/minecraft/core/Vec3i;)Ljava/util/stream/IntStream;
+private static synthetic lambda$static$0(Ljava/util/stream/IntStream;)Lcom/mojang/serialization/DataResult;
+private static synthetic lambda$static$1([I)Lnet/minecraft/core/Vec3i;
+static <clinit>()V
 ```

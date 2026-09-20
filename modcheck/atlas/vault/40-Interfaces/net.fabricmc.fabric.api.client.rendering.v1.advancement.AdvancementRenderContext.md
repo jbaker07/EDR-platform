@@ -16,7 +16,7 @@ Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: inter
 public abstract net.minecraft.client.gui.GuiGraphicsExtractor graphics()
 public abstract net.minecraft.advancements.AdvancementHolder holder()
 public abstract net.minecraft.advancements.AdvancementProgress progress()
-public default net.minecraft.advancements.Advancement advancement()
-public default net.minecraft.advancements.DisplayInfo display()
-public default boolean isObtained()
+public net.minecraft.advancements.Advancement advancement()
+public net.minecraft.advancements.DisplayInfo display()
+public boolean isObtained()
 ```

@@ -9,9 +9,9 @@ module: "fabric-loader"
 
 # net.fabricmc.api.EnvironmentInterface
 
-fabric-loader 0.19.5 -- kind: interface
+fabric-loader 0.19.5 -- kind: annotation
 
 ```java
 public abstract net.fabricmc.api.EnvType value()
-public abstract java.lang.Class<?> itf()
+public abstract java.lang.Class itf()
 ```

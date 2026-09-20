@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `RegistryDataLoaderMixin.beforeLoad` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `RegistryDataLoaderMixin.beforeLoad` @101 | [[40-Interfaces/net.minecraft.resources.RegistryDataLoader|RegistryDataLoader]].`lambda$load$0` @WrapOperation INVOKE `Lnet/minecraft/resources/RegistryDataLoader;createContext(Ljava/util/List;Ljava/util/List;)Lnet/minecraft/resources/RegistryOps$RegistryInfoLookup;` | unknown | static_inference |
 
 ## Contract
 

@@ -11,18 +11,18 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.packs|net.minecraft.server.packs]]
 
+`interface` public abstract; extends `java/lang/Object`; implements `net/minecraft/server/packs/resources/ResourceManager`, `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `listPacks()Ljava/util/stream/Stream;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `listPacks` | `()Ljava/util/stream/Stream;` | inherited_exact | invokeinterface@6 in `MinecraftServerMixin.init` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (1, all visibilities)
+## Declared members (0 fields, 1 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public interface net.minecraft.server.packs.resources.CloseableResourceManager extends net.minecraft.server.packs.resources.ResourceManager,java.lang.AutoCloseable {
-    public abstract void close();
-}
+```
+public abstract close()V
 ```

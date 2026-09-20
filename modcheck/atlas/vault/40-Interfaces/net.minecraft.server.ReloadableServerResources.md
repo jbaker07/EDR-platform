@@ -11,45 +11,45 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server|net.minecraft.server]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `<init>` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `<init>` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| injects_into | `lambda$loadResources$2` | `@ModifyArg at INVOKE Lnet/minecraft/server/packs/resources/SimpleReloadInstance;` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| injects_into | `loadResources` | `@Inject at HEAD` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
-| injects_into | `updateComponentsAndStaticRegistryTags` | `@Inject at TAIL` | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
-| injects_into | `updateComponentsAndStaticRegistryTags` | `@Inject at RETURN` | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `<init>` | `(Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;Lnet/mine` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `<init>` | `(Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;Lnet/mine` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| injects_into | `lambda$loadResources$2` | `(Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;Lnet/mine` | name_only | @ModifyArg at ['INVOKE'] | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| injects_into | `loadResources` | `(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/` | name_only | @Inject at ['HEAD'] | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| injects_into | `updateComponentsAndStaticRegistryTags` | `()V` | name_only | @Inject at ['TAIL'] | both | [[30-Mechanisms/fabric-lifecycle-events-v1|fabric-lifecycle-events-v1]] | direct_reference |
+| injects_into | `updateComponentsAndStaticRegistryTags` | `()V` | name_only | @Inject at ['RETURN'] | both | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (23, all visibilities)
+## Declared members (9 fields, 14 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.ReloadableServerResources {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.util.concurrent.CompletableFuture<net.minecraft.util.Unit> DATA_RELOAD_INITIAL_TASK;
-    private final net.minecraft.server.ReloadableServerRegistries$Holder fullRegistryHolder;
-    private final net.minecraft.commands.Commands commands;
-    private final net.minecraft.world.item.crafting.RecipeManager recipes;
-    private final net.minecraft.server.ServerAdvancementManager advancements;
-    private final net.minecraft.server.ServerFunctionLibrary functionLibrary;
-    private final java.util.List<net.minecraft.core.Registry$PendingTags<?>> postponedTags;
-    private final java.util.List<net.minecraft.core.component.DataComponentInitializers$PendingComponents<?>> newComponents;
-    private net.minecraft.server.ReloadableServerResources(net.minecraft.server.ReloadableServerRegistries$LoadResult, net.minecraft.world.flag.FeatureFlagSet, net.minecraft.commands.Commands$CommandSelection, java.util.List<net.minecraft.core.Registry$PendingTags<?>>, net.minecraft.server.permissions.PermissionSet, java.util.List<net.minecraft.core.component.DataComponentInitializers$PendingComponents<?>>);
-    public net.minecraft.server.ServerFunctionLibrary getFunctionLibrary();
-    public net.minecraft.server.ReloadableServerRegistries$Holder fullRegistries();
-    public net.minecraft.world.item.crafting.RecipeManager getRecipeManager();
-    public net.minecraft.commands.Commands getCommands();
-    public net.minecraft.server.ServerAdvancementManager getAdvancements();
-    public java.util.List<net.minecraft.server.packs.resources.PreparableReloadListener> listeners();
-    public static java.util.concurrent.CompletableFuture<net.minecraft.server.ReloadableServerResources> loadResources(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>, java.util.List<net.minecraft.core.Registry$PendingTags<?>>, net.minecraft.world.flag.FeatureFlagSet, net.minecraft.commands.Commands$CommandSelection, net.minecraft.server.permissions.PermissionSet, java.util.concurrent.Executor, java.util.concurrent.Executor);
-    public void updateComponentsAndStaticRegistryTags();
-    private static java.util.concurrent.CompletionStage lambda$loadResources$0(java.util.concurrent.Executor, net.minecraft.world.flag.FeatureFlagSet, net.minecraft.commands.Commands$CommandSelection, java.util.List, net.minecraft.server.permissions.PermissionSet, net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor, net.minecraft.server.ReloadableServerRegistries$LoadResult);
-    private static java.util.concurrent.CompletionStage lambda$loadResources$2(net.minecraft.server.ReloadableServerRegistries$LoadResult, net.minecraft.world.flag.FeatureFlagSet, net.minecraft.commands.Commands$CommandSelection, java.util.List, net.minecraft.server.permissions.PermissionSet, net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor, java.util.concurrent.Executor, java.util.List);
-    private static net.minecraft.server.ReloadableServerResources lambda$loadResources$3(net.minecraft.server.ReloadableServerResources, java.lang.Object);
-    private static java.util.List lambda$loadResources$1(net.minecraft.server.ReloadableServerRegistries$LoadResult);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final DATA_RELOAD_INITIAL_TASK : Ljava/util/concurrent/CompletableFuture;
+private final fullRegistryHolder : Lnet/minecraft/server/ReloadableServerRegistries$Holder;
+private final commands : Lnet/minecraft/commands/Commands;
+private final recipes : Lnet/minecraft/world/item/crafting/RecipeManager;
+private final advancements : Lnet/minecraft/server/ServerAdvancementManager;
+private final functionLibrary : Lnet/minecraft/server/ServerFunctionLibrary;
+private final postponedTags : Ljava/util/List;
+private final newComponents : Ljava/util/List;
+private <init>(Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/commands/Commands$CommandSelection;Ljava/util/List;Lnet/minecraft/server/permissions/PermissionSet;Ljava/util/List;)V
+public getFunctionLibrary()Lnet/minecraft/server/ServerFunctionLibrary;
+public fullRegistries()Lnet/minecraft/server/ReloadableServerRegistries$Holder;
+public getRecipeManager()Lnet/minecraft/world/item/crafting/RecipeManager;
+public getCommands()Lnet/minecraft/commands/Commands;
+public getAdvancements()Lnet/minecraft/server/ServerAdvancementManager;
+public listeners()Ljava/util/List;
+public static loadResources(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/core/LayeredRegistryAccess;Ljava/util/List;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/commands/Commands$CommandSelection;Lnet/minecraft/server/permissions/PermissionSet;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+public updateComponentsAndStaticRegistryTags()V
+private static synthetic lambda$loadResources$0(Ljava/util/concurrent/Executor;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/commands/Commands$CommandSelection;Ljava/util/List;Lnet/minecraft/server/permissions/PermissionSet;Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/concurrent/Executor;Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$loadResources$2(Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/commands/Commands$CommandSelection;Ljava/util/List;Lnet/minecraft/server/permissions/PermissionSet;Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/concurrent/Executor;Ljava/util/concurrent/Executor;Ljava/util/List;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$loadResources$3(Lnet/minecraft/server/ReloadableServerResources;Ljava/lang/Object;)Lnet/minecraft/server/ReloadableServerResources;
+private static synthetic lambda$loadResources$1(Lnet/minecraft/server/ReloadableServerRegistries$LoadResult;)Ljava/util/List;
+static <clinit>()V
 ```

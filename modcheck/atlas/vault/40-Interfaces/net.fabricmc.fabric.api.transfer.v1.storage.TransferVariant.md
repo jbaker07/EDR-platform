@@ -14,11 +14,11 @@ Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind:
 
 ```java
 public abstract boolean isBlank()
-public abstract O getObject()
+public abstract java.lang.Object getObject()
 public abstract net.minecraft.core.component.DataComponentPatch getComponentsPatch()
 public abstract net.minecraft.core.component.DataComponentMap getComponents()
-public default boolean hasComponents()
-public default boolean componentsMatch(net.minecraft.core.component.DataComponentPatch)
-public default boolean isOf(O)
-public default net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant<O> withComponents(net.minecraft.core.component.DataComponentPatch)
+public boolean hasComponents()
+public boolean componentsMatch(net.minecraft.core.component.DataComponentPatch)
+public boolean isOf(java.lang.Object)
+public net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant withComponents(net.minecraft.core.component.DataComponentPatch)
 ```

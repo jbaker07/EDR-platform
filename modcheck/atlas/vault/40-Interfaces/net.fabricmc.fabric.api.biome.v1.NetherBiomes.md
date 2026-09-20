@@ -13,7 +13,7 @@ sha256: "ce9698da6dd365c6ee59ad5f5e85602cefaaddaebf6d80fad76925e84cda5176"
 Module: [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] -- kind: class
 
 ```java
-public static void addNetherBiome(net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>, net.minecraft.world.level.biome.Climate$TargetPoint)
-public static void addNetherBiome(net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>, net.minecraft.world.level.biome.Climate$ParameterPoint)
-public static boolean canGenerateInNether(net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>)
+public static void addNetherBiome(net.minecraft.resources.ResourceKey, net.minecraft.world.level.biome.Climate$TargetPoint)
+public static void addNetherBiome(net.minecraft.resources.ResourceKey, net.minecraft.world.level.biome.Climate$ParameterPoint)
+public static boolean canGenerateInNether(net.minecraft.resources.ResourceKey)
 ```

@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `LivingEntityMixin.beforeAddEffect` | `LivingEntity.addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z` @Inject at INVOKE Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object; | both | static_inference |
-| `LivingEntityMixin.beforeForceAddEffect` | `LivingEntity.forceAddEffect` @Inject at INVOKE Lnet/minecraft/world/entity/LivingEntity;canBeAffected(Lnet/minecraft/world/effect/MobEffectInstance;)Z | both | static_inference |
+| `LivingEntityMixin.beforeAddEffect` @25 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`addEffect` @Inject INVOKE `Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;` | unknown | static_inference |
+| `LivingEntityMixin.beforeForceAddEffect` @25 | [[40-Interfaces/net.minecraft.world.entity.LivingEntity|LivingEntity]].`forceAddEffect` @Inject INVOKE `Lnet/minecraft/world/entity/LivingEntity;canBeAffected(Lnet/minecraft/world/effect/MobEffectInstance;)Z` | unknown | static_inference |
 
 ## Contract
 

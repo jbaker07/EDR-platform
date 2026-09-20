@@ -11,25 +11,25 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getConstructor(Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/cli` | `` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getConstructor` | `(Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/sc` | exact | invokestatic@76 in `ClientNetworking.openScreen` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
 
-## Declared members (8, all visibilities)
+## Declared members (2 fields, 6 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.screens.MenuScreens {
-    private static final org.slf4j.Logger LOGGER;
-    private static final java.util.Map<net.minecraft.world.inventory.MenuType<?>, net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor<?, ?>> SCREENS;
-    public net.minecraft.client.gui.screens.MenuScreens();
-    public static <T extends net.minecraft.world.inventory.AbstractContainerMenu> void create(net.minecraft.world.inventory.MenuType<T>, net.minecraft.client.Minecraft, int, net.minecraft.network.chat.Component);
-    private static <T extends net.minecraft.world.inventory.AbstractContainerMenu> net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor<T, ?> getConstructor(net.minecraft.world.inventory.MenuType<T>);
-    private static <M extends net.minecraft.world.inventory.AbstractContainerMenu, U extends net.minecraft.client.gui.screens.Screen & net.minecraft.client.gui.screens.inventory.MenuAccess<M>> void register(net.minecraft.world.inventory.MenuType<? extends M>, net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor<M, U>);
-    public static boolean selfTest();
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private static final SCREENS : Ljava/util/Map;
+public <init>()V
+public static create(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/Minecraft;ILnet/minecraft/network/chat/Component;)V
+private static getConstructor(Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+public static register(Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
+public static selfTest()Z
+static <clinit>()V
 ```

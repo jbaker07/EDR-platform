@@ -11,40 +11,40 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/world/item/crafting/RecipeInput`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getItem(I)Lnet/minecraft/world/item/ItemStack;` | `` | both | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `ingredientCount()I` | `` | both | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `size()I` | `` | both | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getItem` | `(I)Lnet/minecraft/world/item/ItemStack;` | exact | invokevirtual@35 in `ShapelessRecipeMixin.customIngredientMatch` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `ingredientCount` | `()I` | exact | invokevirtual@12 in `ShapelessRecipeMixin.customIngredientMatch` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `size` | `()I` | exact | invokevirtual@26 in `ShapelessRecipeMixin.customIngredientMatch` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (21, all visibilities)
+## Declared members (6 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.item.crafting.CraftingInput implements net.minecraft.world.item.crafting.RecipeInput {
-    public static final net.minecraft.world.item.crafting.CraftingInput EMPTY;
-    private final int width;
-    private final int height;
-    private final java.util.List<net.minecraft.world.item.ItemStack> items;
-    private final net.minecraft.world.entity.player.StackedItemContents stackedContents;
-    private final int ingredientCount;
-    private net.minecraft.world.item.crafting.CraftingInput(int, int, java.util.List<net.minecraft.world.item.ItemStack>);
-    public static net.minecraft.world.item.crafting.CraftingInput of(int, int, java.util.List<net.minecraft.world.item.ItemStack>);
-    public static net.minecraft.world.item.crafting.CraftingInput$Positioned ofPositioned(int, int, java.util.List<net.minecraft.world.item.ItemStack>);
-    public net.minecraft.world.item.ItemStack getItem(int);
-    public net.minecraft.world.item.ItemStack getItem(int, int);
-    public int size();
-    public boolean isEmpty();
-    public net.minecraft.world.entity.player.StackedItemContents stackedContents();
-    public java.util.List<net.minecraft.world.item.ItemStack> items();
-    public int ingredientCount();
-    public int width();
-    public int height();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    static {};
-}
+```
+public static final EMPTY : Lnet/minecraft/world/item/crafting/CraftingInput;
+private final width : I
+private final height : I
+private final items : Ljava/util/List;
+private final stackedContents : Lnet/minecraft/world/entity/player/StackedItemContents;
+private final ingredientCount : I
+private <init>(IILjava/util/List;)V
+public static of(IILjava/util/List;)Lnet/minecraft/world/item/crafting/CraftingInput;
+public static ofPositioned(IILjava/util/List;)Lnet/minecraft/world/item/crafting/CraftingInput$Positioned;
+public getItem(I)Lnet/minecraft/world/item/ItemStack;
+public getItem(II)Lnet/minecraft/world/item/ItemStack;
+public size()I
+public isEmpty()Z
+public stackedContents()Lnet/minecraft/world/entity/player/StackedItemContents;
+public items()Ljava/util/List;
+public ingredientCount()I
+public width()I
+public height()I
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+static <clinit>()V
 ```

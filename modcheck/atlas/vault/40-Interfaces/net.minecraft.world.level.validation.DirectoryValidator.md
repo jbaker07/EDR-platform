@@ -11,23 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/nio/file/PathMatcher;)V` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/nio/file/PathMatcher;)V` | exact | invokespecial@23 in `ModPackResourcesUtil.createModdedRepository` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (6, all visibilities)
+## Declared members (1 fields, 5 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.validation.DirectoryValidator {
-    private final java.nio.file.PathMatcher symlinkTargetAllowList;
-    public net.minecraft.world.level.validation.DirectoryValidator(java.nio.file.PathMatcher);
-    public void validateSymlink(java.nio.file.Path, java.util.List<net.minecraft.world.level.validation.ForbiddenSymlinkInfo>) throws java.io.IOException;
-    public java.util.List<net.minecraft.world.level.validation.ForbiddenSymlinkInfo> validateSymlink(java.nio.file.Path) throws java.io.IOException;
-    public java.util.List<net.minecraft.world.level.validation.ForbiddenSymlinkInfo> validateDirectory(java.nio.file.Path, boolean) throws java.io.IOException;
-    public void validateKnownDirectory(java.nio.file.Path, java.util.List<net.minecraft.world.level.validation.ForbiddenSymlinkInfo>) throws java.io.IOException;
-}
+```
+private final symlinkTargetAllowList : Ljava/nio/file/PathMatcher;
+public <init>(Ljava/nio/file/PathMatcher;)V
+public validateSymlink(Ljava/nio/file/Path;Ljava/util/List;)V
+public validateSymlink(Ljava/nio/file/Path;)Ljava/util/List;
+public validateDirectory(Ljava/nio/file/Path;Z)Ljava/util/List;
+public validateKnownDirectory(Ljava/nio/file/Path;Ljava/util/List;)V
 ```

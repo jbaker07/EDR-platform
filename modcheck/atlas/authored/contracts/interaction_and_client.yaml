@@ -1,105 +1,218 @@
 - id: event:net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT
   kind: event
   asserted:
-    - claim: Two publication sites -- @Inject at HEAD of ServerPlayerGameMode.useItemOn (server) and @Inject into MultiPlayerGameMode.useItemOn before startPrediction (client) -- so the same listener runs on both sides in single-player and multiplayer alike.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: The callback returns InteractionResult; returning anything other than PASS stops vanilla's own use logic at that site, which on the client also prevents the packet from being sent.
-      basis: analyst_inference
-      evidence: [extracted:edges.json#callback_of, extracted:edges.json#injects_into]
-    - claim: Because the server site is at HEAD, a listener that returns a non-PASS result suppresses every other mod's block-use handling that vanilla would have invoked.
-      basis: analyst_inference
-      evidence: [extracted:edges.json#injects_into]
+  - claim: Two publication sites -- @Inject at HEAD of ServerPlayerGameMode.useItemOn (server) and @Inject into
+      MultiPlayerGameMode.useItemOn before startPrediction (client) -- so the same listener runs on both sides in
+      single-player and multiplayer alike.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: The callback returns InteractionResult; returning anything other than PASS stops vanilla's own use logic
+      at that site, which on the client also prevents the packet from being sent.
+    basis: analyst_inference
+    evidence:
+    - extracted:edges.json#callback_of
+    - extracted:edges.json#injects_into
+  - claim: Because the server site is at HEAD, a listener that returns a non-PASS result suppresses every other
+      mod's block-use handling that vanilla would have invoked.
+    basis: analyst_inference
+    evidence:
+    - extracted:edges.json#injects_into
   not_established:
-    - Which result values the client site treats as consumed versus failed (the redirected call's semantics are not extracted; question:q.injection_points_not_resolved).
-  evidence: [extracted:edges.json#publishes_event]
-  questions: [question:q.contested_method_policy]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Which result values the client site treats as consumed versus failed (the redirected call's semantics are not
+    extracted; question:q.injection_points_not_resolved).
+  evidence:
+  - extracted:edges.json#publishes_event
+  questions:
+  - question:q.contested_method_policy
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE
   kind: event
   asserted:
-    - claim: Fired from an @Inject into ServerPlayerGameMode.destroyBlock at the INVOKE of Block.playerWillDestroy, so it runs on the server after the block has been resolved but before it is removed.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Callback returns boolean and receives (Level, Player, BlockPos, BlockState, BlockEntity); returning false is the cancel path (the CANCELED event exists alongside).
-      basis: declared
-      evidence: [extracted:edges.json#callback_of]
+  - claim: Fired from an @Inject into ServerPlayerGameMode.destroyBlock at the INVOKE of Block.playerWillDestroy,
+      so it runs on the server after the block has been resolved but before it is removed.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Callback returns boolean and receives (Level, Player, BlockPos, BlockState, BlockEntity); returning false
+      is the cancel path (the CANCELED event exists alongside).
+    basis: declared
+    evidence:
+    - extracted:edges.json#callback_of
   not_established:
-    - Whether creative-mode breaks pass through the same site.
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether creative-mode breaks pass through the same site.
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DEATH
   kind: event
   asserted:
-    - claim: Implemented as a @Redirect of LivingEntity.isDeadOrDying inside LivingEntity.hurtServer, so the listener's boolean stands in for the vanilla death check at that call site only.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#wraps]
-    - claim: A mod that redirects the same call site cannot coexist with this event (one redirect per call site).
-      basis: analyst_inference
-      evidence: [mechanism:Mixin, extracted:edges.json#wraps]
+  - claim: Implemented as a @Redirect of LivingEntity.isDeadOrDying inside LivingEntity.hurtServer, so the listener's
+      boolean stands in for the vanilla death check at that call site only.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#wraps
+  - claim: 'A mod that @Redirects the same isDeadOrDying call site cannot coexist with this event''s redirect: the
+      second redirect finds no target and, with a required config, fails at transformation (scenario:C).'
+    basis: executed_transformation
+    evidence:
+    - scenario:C
+    - extracted:edges.json#wraps
   not_established:
-    - Whether other death paths (void, /kill) reach hurtServer at all.
-  evidence: [extracted:edges.json#wraps]
-  questions: [question:q.mixin_docs_application_order]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether other death paths (void, /kill) reach hurtServer at all.
+  evidence:
+  - extracted:edges.json#wraps
+  questions:
+  - question:q.mixin_docs_application_order
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.JOIN
   kind: event
   asserted:
-    - claim: Fired from an @Inject at RETURN of PlayerList.placeNewPlayer, so the ServerPlayer is already in its level and the player list when the listener runs.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: Server thread, both environments.
-      basis: analyst_inference
-      evidence: [extracted:fabric_api.json#fabric-entity-events-v1]
+  - claim: Fired from an @Inject at RETURN of PlayerList.placeNewPlayer, so the ServerPlayer is already in its level
+      and the player list when the listener runs.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: Server thread, both environments.
+    basis: analyst_inference
+    evidence:
+    - extracted:fabric_api.json#fabric-entity-events-v1
   not_established:
-    - Whether the player's client has completed the play-phase handshake (ServerPlayConnectionEvents.JOIN is the networking-ready signal).
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Whether the player's client has completed the play-phase handshake (ServerPlayConnectionEvents.JOIN is the networking-ready
+    signal).
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN
   kind: event
   asserted:
-    - claim: Published from ServerPlayNetworkAddon.onClientReady in the networking module's impl code, not from a mixin; the extraction therefore does not place it in the vanilla call graph.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event]
-    - claim: Callback onPlayReady(ServerGamePacketListenerImpl, PacketSender, MinecraftServer) hands a sender, which is the intended way to push initial state to a client that has just become able to receive custom payloads.
-      basis: declared
-      evidence: [extracted:edges.json#callback_of, record:capability/sync_state.fabric_custom_payload]
+  - claim: Published from ServerPlayNetworkAddon.onClientReady in the networking module's impl code, not from a
+      mixin; the extraction therefore does not place it in the vanilla call graph.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+  - claim: Callback onPlayReady(ServerGamePacketListenerImpl, PacketSender, MinecraftServer) hands a sender, which
+      is the intended way to push initial state to a client that has just become able to receive custom payloads.
+    basis: declared
+    evidence:
+    - extracted:edges.json#callback_of
+    - record:capability/sync_state.fabric_custom_payload
   not_established:
-    - The vanilla method from which onClientReady is reached, and its thread (question:q.payload_receiver_thread, question:q.event_publishers_missing).
-  evidence: [extracted:edges.json#publishes_event]
-  questions: [question:q.payload_receiver_thread]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - The vanilla method from which onClientReady is reached, and its thread (question:q.payload_receiver_thread,
+    question:q.event_publishers_missing).
+  evidence:
+  - extracted:edges.json#publishes_event
+  questions:
+  - question:q.payload_receiver_thread
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: event:net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK
   kind: event
   asserted:
-    - claim: Fired from MinecraftMixin.onEndTick, an @Inject at RETURN of Minecraft.tick; client environment only.
-      basis: static_inference
-      evidence: [extracted:edges.json#publishes_event, extracted:edges.json#injects_into]
-    - claim: A dedicated server never loads this class; referencing it from a common entrypoint is a class-loading failure on the server.
-      basis: declared
-      evidence: [extracted:fabric_api.json#fabric-lifecycle-events-v1]
+  - claim: Fired from MinecraftMixin.onEndTick, an @Inject at RETURN of Minecraft.tick; client environment only.
+    basis: static_inference
+    evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  - claim: A dedicated server never loads this class; referencing it from a common entrypoint is a class-loading
+      failure on the server.
+    basis: declared
+    evidence:
+    - extracted:fabric_api.json#fabric-lifecycle-events-v1
   not_established:
-    - Thread identity of Minecraft.tick beyond "the client's main thread" by convention.
-  evidence: [extracted:edges.json#publishes_event]
-  provenance: {author: analyst, added: '2026-09-20'}
-
+  - Thread identity of Minecraft.tick beyond "the client's main thread" by convention.
+  evidence:
+  - extracted:edges.json#publishes_event
+  provenance:
+    author: analyst
+    added: '2026-09-20'
 - id: mechanism:Mixin
   kind: hook
   asserted:
-    - claim: Mixin priority defaults to 1000 and the target list to empty; a mod that leaves priority at default has no ordering relationship with Fabric API's own mixins.
-      basis: direct_reference
-      evidence: [extracted:corpus.json, mechanism:Mixin]
-    - claim: Fabric API 0.161.0+26.3 uses no @Overwrite; a mod's @Overwrite of any of the 479 injected methods removes Fabric's injection and the events it fires.
-      basis: direct_reference
-      evidence: [extracted:edges.json#injects_into, extracted:fabric_api.json]
+  - claim: Mixin priority defaults to 1000 and the target list to empty (annotation defaults read from the pinned
+      jar).
+    basis: direct_reference
+    evidence:
+    - extracted:fabric_api.json
+    - mechanism:Mixin
+  - claim: Fabric API 0.161.0+26.3 carries exactly one @Overwrite (fabric-renderer-api-v1 BlockStateModelWrapperMixin.update,
+      client) and 199 MixinExtras injections; the earlier 'zero overwrites' figure came from a parser that could
+      not see marker annotations.
+    basis: direct_reference
+    evidence:
+    - extracted:edges.json#replaces
+    - extracted:fabric_api.json
+  - claim: 'An @Overwrite does NOT remove another mixin''s HEAD, TAIL or RETURN injections into the same method:
+      they apply to the overwritten body, at any priority (scenario:A, scenario:L, scenario:N).'
+    basis: executed_transformation
+    evidence:
+    - extracted:mixin_transformation_tests.json
+    - scenario:A
+    - scenario:L
+    - scenario:N
+  - claim: 'An INVOKE-point @Inject or a @Redirect into a method overwritten by a mixin of equal or higher priority
+      is refused at transformation time (''cannot inject into ... merged by ... with priority''), which with a required
+      config is a startup failure, not a silent removal (scenario:B, scenario:B2, scenario:J). The rule is InjectionPoint.checkPriority:
+      MethodHead, BeforeReturn and BeforeFinalReturn override it to true; BeforeInvoke and the other points do not.'
+    basis: executed_transformation
+    evidence:
+    - extracted:mixin_transformation_tests.json
+    - scenario:B
+    - scenario:B2
+    - scenario:J
+  - claim: With a HIGHER priority than the overwrite, an INVOKE-point injection applies to the overwritten body
+      and fires if the body still contains the call (scenario:K); if the overwritten body no longer contains the
+      call it fails the injection count check with require=1 (scenario:M).
+    basis: executed_transformation
+    evidence:
+    - scenario:K
+    - scenario:M
+  - claim: 'Two @Redirects of one call site from two mods do not both apply: the second finds no target and fails
+      with require=1 (scenario:C). A MixinExtras @WrapOperation over a @Redirect composes: the wrapper runs around
+      the redirect handler (scenario:D).'
+    basis: executed_transformation
+    evidence:
+    - scenario:C
+    - scenario:D
+  - claim: 'Two @Overwrites of one method at equal priority: no error; the first configuration''s body is what runs
+      (scenario:F). Lower priority is applied first and its HEAD injection runs first (scenario:G); at equal priority,
+      configuration order decides (scenario:E).'
+    basis: executed_transformation
+    evidence:
+    - scenario:F
+    - scenario:G
+    - scenario:E
+  - claim: A cancelling HEAD injection suppresses every later injection in that method, including another mod's
+      TAIL and RETURN (scenario:H).
+    basis: executed_transformation
+    evidence:
+    - scenario:H
   not_established:
-    - Application order between equal-priority mixins from different mods (question:q.mixin_docs_application_order).
-    - Whether any given mixin applies at runtime (question:q.runtime_mixin_application).
-  evidence: [extracted:corpus.json, extracted:edges.json#injects_into]
-  questions: [question:q.mixin_docs_application_order, question:q.runtime_mixin_application]
-  provenance: {author: analyst, added: '2026-09-20'}
+  - 'That any of this holds inside a running Minecraft with fabric-loader''s Knot classloader: the tests ran the
+    transformer alone (question:q.runtime_mixin_application).'
+  - The documented rule for equal-priority ordering across mods (question:q.mixin_docs_application_order).
+  - Same-point versus same-method overlap for the 34 shared targets (question:q.injection_points_not_resolved).
+  evidence:
+  - extracted:mixin_transformation_tests.json
+  - extracted:edges.json#shared_targets
+  - extracted:fabric_api.json
+  questions:
+  - question:q.mixin_docs_application_order
+  - question:q.runtime_mixin_application
+  - question:q.injection_points_not_resolved
+  provenance:
+    author: analyst
+    added: '2026-09-20'

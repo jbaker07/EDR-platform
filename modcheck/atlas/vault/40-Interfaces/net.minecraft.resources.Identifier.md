@@ -11,171 +11,357 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.resources|net.minecraft.resources]]
 
+`class` public final; extends `java/lang/Object`; implements `java/lang/Comparable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | both | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `equals(Ljava/lang/Object;)Z` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
-| calls | `fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resourc` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | client | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `getNamespace()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `getPath()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `toShortString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | client | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | both | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `toString()Ljava/lang/String;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `tryParse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
-| calls | `withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
-| calls | `withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | both | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | `` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `withPath(Ljava/util/function/UnaryOperator;)Lnet/minecraft/resources` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `withPath(Ljava/util/function/UnaryOperator;)Lnet/minecraft/resources` | `` | client | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
-| calls | `withPath(Ljava/util/function/UnaryOperator;)Lnet/minecraft/resources` | `` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@16 in `ArrayBackedEvent.addPhaseOrdering` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@22 in `EventFactoryImpl.ensureContainsDefault` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@24 in `EventFactoryImpl.ensureNoDuplicates` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@41 in `BiomeModificationImpl.changeOrder` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@13 in `DataComponentInitializersPendingComponentsMixin.apply` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@145 in `SimpleUnbakedExtraModel.bakeResolved` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@38 in `AbstractChanneledNetworkAddon.handle` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@56 in `AbstractChanneledNetworkAddon.handle` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@4 in `NetworkingImpl.isReservedCommonChannel` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@14 in `NetworkingImpl.isReservedCommonChannel` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@128 in `MappedRegistryMixin.addAlias` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@275 in `MappedRegistryMixin.addAlias` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@82 in `MutableQuadView.postMaterialBake` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@4 in `QuadAtlas.ofLocation` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@18 in `QuadAtlas.ofLocation` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@4 in `QuadAtlas.ofId` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@18 in `QuadAtlas.ofId` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@4 in `MaterialBakerMixin.spriteFinder` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@22 in `MaterialBakerMixin.spriteFinder` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@7 in `HudElementRegistryImpl.lambda$findLayer$0` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@7 in `HudElementRegistryImpl.lambda$validateUnique$0` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@69 in `HudStatusBarHeightRegistryImpl.resolveYPosProvider` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@16 in `ResourceLoaderImpl.addListenerOrdering` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `equals` | `(Ljava/lang/Object;)Z` | exact | invokevirtual@21 in `ClientTags.isInLocal` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `Event.<clinit>` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@6 in `BlockFunctionalityTags.create` | unknown | [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@27 in `GameTestSyncPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@3 in `ConventionalBlockItemTags.register` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@7 in `TagRegistration.registerFabric` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@7 in `TagRegistration.registerC` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `FabricCreativeGuiComponents.<clinit>` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@12 in `AttachmentSavedData.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@6 in `AttachmentSync.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@23 in `ClientboundAttachmentSyncPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@14 in `ClientboundRequestAcceptedAttachmentsPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@31 in `ServerboundAcceptedAttachmentsPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@20 in `FabricLanguageProvider.getLangFilePath` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@11 in `FabricRecipeProvider.getRecipeIdentifier` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@8 in `FabricTagsProvider.aliasGroup` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@51 in `TestAnnotationLocator$TestMethod.identifier` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@12 in `Networking.<clinit>` | unknown | [[30-Mechanisms/fabric-menu-api-v1|fabric-menu-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `ServerMessageDecoratorEvent.<clinit>` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@14 in `ServerMessageDecoratorEvent.<clinit>` | unknown | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `ModelModifier.<clinit>` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@20 in `ModelModifier.<clinit>` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@30 in `ModelModifier.<clinit>` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `CustomUnbakedBlockStateModelInit.onInitializeClient` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@3 in `PacketContextImpl.fabricKey` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@8 in `FabricSplitPacketPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@11 in `PassthroughPacket.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@12 in `FabricEntityDataRegistryImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `ExtendedBlockParticleOptionSync.<clinit>` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@17 in `ExtendedBlockParticleOptionSync.<clinit>` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@16 in `PermissionNode.of` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@16 in `PermissionNode.ofInteger` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@16 in `PermissionNode.ofString` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@30 in `PermissionNode.ofCustom` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@16 in `PermissionNode.ofCustom` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@7 in `PermissionContextKey.fabricKey` | unknown | [[30-Mechanisms/fabric-permission-api-v1|fabric-permission-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `CustomIngredientSync.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@14 in `CustomIngredientSync.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@39 in `AllIngredient.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@39 in `AnyIngredient.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `ComponentsIngredient$Serializer.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `CustomDataIngredient$Serializer.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `DifferenceIngredient$Serializer.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@37 in `ClientboundRecipeSyncPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@14 in `RecipeSyncImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@35 in `ServerboundSupportedRecipeSerializersPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@18 in `SyncCompletePayload.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@169 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@206 in `RegistrySyncPayload.read` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@10 in `RegistrySyncPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `DebugOverlayClient.<clinit>` | unknown | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@3 in `DefaultResourceConditionTypes.createResourceConditionType` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `ResourceReloaderKeys.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@14 in `ResourceReloaderKeys.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `FabricSoundInstance.<clinit>` | unknown | [[30-Mechanisms/fabric-sound-api-v1|fabric-sound-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@6 in `TagAliasLoader.<clinit>` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `FluidStorage.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@22 in `FluidStorage.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@4 in `ItemStorage.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `fromNamespaceAndPath` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@22 in `ItemStorage.<clinit>` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@9 in `BiomeSelectors.lambda$vanilla$0` | unknown | [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@35 in `FabricTagKey.getTranslationKey` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@48 in `FabricTagKey.getTranslationKey` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@82 in `FabricTagKey.getTranslationKey` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@7 in `TranslationConventionLogWarnings.lambda$setupUntranslatedItemTagWarnin | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@1 in `CreativeModeTabsMixin.compareNamespaceFirst` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@5 in `CreativeModeTabsMixin.compareNamespaceFirst` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@2 in `FabricSoundsProvider.lambda$run$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@132 in `FabricBlockLootSubProvider.generate` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@185 in `FabricBlockLootSubProvider.generate` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `FabricDynamicRegistryProvider$Entries.lambda$addAll$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@11 in `FabricDynamicRegistryProvider.writeHolders` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@63 in `FabricDynamicRegistryProvider.writeHolders` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@167 in `FabricEntityLootSubProvider.generate` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@5 in `FabricEntityLootSubProvider.lambda$generate$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@11 in `TagAliasGenerator.getDirectory` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@22 in `TagAliasGenerator.getDirectory` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@7 in `VanillaAdventureAdvancementsMixin.lambda$onlyCheckVanillaEntities$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@7 in `ModelProviderBlockStateGeneratorCollectorMixin.lambda$filterBlocksForP | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@42 in `ModelProviderItemInfoCollectorMixin.filterItemsForProcessingMod` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@7 in `ModelProviderItemInfoCollectorMixin.lambda$filterItemsForProcessingMod | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@9 in `BlockLootSubProviderMixin.lambda$onlyVanillaBlocks$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@7 in `EntityLootSubProviderMixin.lambda$onlyVanillaEntities$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@23 in `RecipeProviderMixin.adjustIdStonecutter` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@18 in `RecipeProviderMixin.adjustIdWaxRecipes` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@31 in `RecipeProviderMixin.dontGenerateNonVanillaWaxingRecipes` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@36 in `RecipeProviderMixin.dontGenerateNonVanillaWaxingRecipes` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@47 in `RecipeProviderMixin.dontGenerateNonVanillaWaxingRecipes` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `WorldDimensionsMixin.betterModdedStabilityCheck` | unknown | [[30-Mechanisms/fabric-dimensions-v1|fabric-dimensions-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@135 in `FabricItem.getCreatorNamespace` | unknown | [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@17 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@55 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@62 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@5 in `EntityTypeBuilderMixin.allowNoModdedDatafixers` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@9 in `RegistrySyncPayload.lambda$write$1` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@177 in `RegistryCustomContentState$Missing.asDetails` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@1 in `RegistryCustomContentState.lambda$construct$2` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@13 in `MappedRegistryMixin.onChange` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@6 in `RegistriesMixin.prependDirectoryWithNamespace` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@18 in `RegistriesMixin.prependDirectoryWithNamespace` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@6 in `RegistriesMixin.prependTagDirectoryWithNamespace` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@18 in `RegistriesMixin.prependTagDirectoryWithNamespace` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@3 in `DebugOptionsComparator.compare` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@13 in `DebugOptionsComparator.compare` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@44 in `DebugOptionsComparator.compare` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@48 in `DebugOptionsComparator.compare` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@3 in `DebugOptionsScreenEntryMixin.showNamespace` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@10 in `DebugOptionsScreenOptionListMixin.searchPath` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `ResourceManagerHelper.registerBuiltinResourcePack` | unknown | [[30-Mechanisms/fabric-resource-loader-v0|fabric-resource-loader-v0]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `ResourceLoaderImpl.registerBuiltinPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@20 in `ModNioPackResources.getFilename` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@11 in `TagAliasLoader.getDirectory` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@22 in `TagAliasLoader.getDirectory` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `getNamespace` | `()Ljava/lang/String;` | exact | invokevirtual@9 in `ClientTagsLoader.getTagFiles` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@62 in `FabricTagKey.getTranslationKey` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@95 in `FabricTagKey.getTranslationKey` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@19 in `CreativeModeTabsMixin.compareNamespaceFirst` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@23 in `CreativeModeTabsMixin.compareNamespaceFirst` | unknown | [[30-Mechanisms/fabric-creative-tab-api-v1|fabric-creative-tab-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@19 in `FabricSoundsProvider.lambda$run$1` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@15 in `FabricDataGenerator.createBuiltinResourcePack` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@52 in `FabricDynamicRegistryProvider.writeHolders` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@71 in `FabricDynamicRegistryProvider.writeHolders` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@8 in `FabricRecipeProvider.getRecipeIdentifier` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@33 in `TagAliasGenerator.getDirectory` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@8 in `SoundTypeBuilderImpl$RegistrationBuilderImpl.ofFile` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@82 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@89 in `CategoryComparator.compare` | unknown | [[30-Mechanisms/fabric-key-mapping-api-v1|fabric-key-mapping-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@53 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@520 in `RegistrySyncPayload.lambda$write$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@193 in `RegistryCustomContentState$Missing.asDetails` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@22 in `RegistriesMixin.prependDirectoryWithNamespace` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@22 in `RegistriesMixin.prependTagDirectoryWithNamespace` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@65 in `DebugOptionsComparator.compare` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@69 in `DebugOptionsComparator.compare` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@8 in `ResourceManagerHelper.registerBuiltinResourcePack` | unknown | [[30-Mechanisms/fabric-resource-loader-v0|fabric-resource-loader-v0]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@2 in `ResourceLoader.registerBuiltinPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@2 in `ResourceLoader.registerBuiltinPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@8 in `ResourceLoaderImpl.registerBuiltinPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@27 in `ModNioPackResources.getFilename` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@33 in `TagAliasLoader.getDirectory` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `getPath` | `()Ljava/lang/String;` | exact | invokevirtual@20 in `ClientTagsLoader.getTagFiles` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@13 in `TestAnnotationLocator$TestMethod.testData` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@42 in `TestAnnotationLocator$TestMethod.testData` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@57 in `TestAnnotationLocator$TestMethod.testData` | unknown | [[30-Mechanisms/fabric-gametest-api-v1|fabric-gametest-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@103 in `UnbakedModelJsonDeserializer.deserialize` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@6 in `CommonRegisterPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@22 in `CommonVersionPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@7 in `RegistrationPayload.addId` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@23 in `HangingSignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@23 in `SignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@46 in `ParticleGroupRegistry.getId` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@112 in `RegistryMapSerializer.fromNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@135 in `RegistryMapSerializer.fromNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `parse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@187 in `RegistryCustomContentState.fromNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toDebugFileName` | `()Ljava/lang/String;` | exact | invokevirtual@1 in `EntitySelectorOptionRegistry.register` | unknown | [[30-Mechanisms/fabric-command-api-v2|fabric-command-api-v2]] | direct_reference |
+| calls | `toLanguageKey` | `()Ljava/lang/String;` | exact | invokevirtual@2 in `FabricLanguageProvider$TranslationBuilder.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `toShortString` | `()Ljava/lang/String;` | exact | invokevirtual@134 in `RegistryCustomContentState.toNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `EventPhaseData.getDescription` | unknown | [[30-Mechanisms/fabric-api-base|fabric-api-base]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@13 in `FabricTagKey.getName` | unknown | [[30-Mechanisms/fabric-convention-tags-v2|fabric-convention-tags-v2]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@15 in `AttachmentRegistryImpl$BuilderImpl.buildAndRegister` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@40 in `AttachmentRegistryImpl$BuilderImpl.buildAndRegister` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@7 in `AttachmentSync$AttachmentSyncTask.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@18 in `AttachmentSync.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@31 in `FabricDataGenerator.createBuiltinResourcePack` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@10 in `FabricLanguageProvider$TranslationBuilder.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@32 in `AbstractChanneledNetworkAddon.registerChannel` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@10 in `CommonPacketsImpl$CommonRegisterConfigurationTask.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@10 in `CommonPacketsImpl$CommonVersionConfigurationTask.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@55 in `GlobalReceiverRegistry.assertPayloadType` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@1 in `PayloadTypeRegistryImpl.padAndSetMaxPacketSize` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@50 in `RegistrationPayload.write` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@88 in `IdDispatchCodecMixin.encode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@5 in `BlockSetTypeBuilder.build` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@5 in `WoodTypeBuilder.build` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `ParticleGroupRegistryImpl$ParticleTextureNode.getDescription` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@7 in `CustomIngredientSync$IngredientSyncTask.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@5 in `FabricRegistryBuilder.createDefaulted` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@109 in `ClientRegistrySyncHandler.missingRegistriesError` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@54 in `RegistryMapSerializer.lambda$toNbt$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@72 in `RegistryMapSerializer.lambda$toNbt$0` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@136 in `RegistrySyncManager.createAndPopulateRegistryMap` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@264 in `RegistrySyncManager.createAndPopulateRegistryMap` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@490 in `RegistryCustomContentState$Missing.asDetails` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@596 in `RegistryCustomContentState$Missing.asDetails` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@110 in `RegistryCustomContentState.toNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@634 in `MappedRegistryMixin.remap` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@655 in `MappedRegistryMixin.remap` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@13 in `DebugOptionsScreenEntryMixin.showNamespace` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@17 in `RegistryLoadTaskPendingRegistrationMixin.loadFromResource` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@39 in `ResourceLoaderImpl.registerBuiltinPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@56 in `ResourceLoaderImpl.registerBuiltinPack` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `ResourceLoaderImpl.lambda$sort$1` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@4 in `ResourceReloaderPhaseData.getDescription` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `toString` | `()Ljava/lang/String;` | exact | invokevirtual@71 in `FluidVariantRendering.getTooltip` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `tryBuild` | `(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identif` | exact | invokestatic@30 in `ModNioPackResources$1.visitFile` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `tryParse` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@95 in `RegistryCustomContentState.fromNbt` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@10 in `NetworkingImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@18 in `NetworkingImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@38 in `ParticleGroupRegistry.getId` | unknown | [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@2 in `DetailsScreen.<clinit>` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@2 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@10 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@18 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@26 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@34 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@42 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@50 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@58 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@66 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@74 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@82 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@90 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@98 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@106 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@114 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@122 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@130 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@138 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@146 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@154 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@162 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@170 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@178 in `VanillaHudElements.<clinit>` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@2 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@10 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@18 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@26 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@34 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@42 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@50 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@58 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@66 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@74 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@82 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@90 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@98 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@106 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@114 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@122 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@130 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@138 in `ResourceReloaderKeys$Client.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@2 in `ResourceReloaderKeys$Server.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@46 in `ResourceLoaderImpl.getResourceReloaderIdForSorting` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@45 in `ServerFunctionLibraryMixin.fabric$getId` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withDefaultNamespace` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokestatic@317 in `KeyedClientResourceReloadListenerMixin.fabric$getId` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `withPath` | `(Ljava/util/function/UnaryOperator;)Lnet/minecraft/resources/Identifie` | exact | invokevirtual@33 in `HangingSignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `withPath` | `(Ljava/util/function/UnaryOperator;)Lnet/minecraft/resources/Identifie` | exact | invokevirtual@33 in `SignEditScreenMixin.init` | unknown | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
+| calls | `withPath` | `(Ljava/util/function/UnaryOperator;)Lnet/minecraft/resources/Identifie` | exact | invokevirtual@13 in `AtlasRegistryImpl.generateTextureLocation` | unknown | [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] | direct_reference |
+| calls | `withSuffix` | `(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;` | exact | invokevirtual@18 in `SoundTypeBuilderImpl$RegistrationBuilderImpl.build` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@8 in `AttachmentSerializingImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@1 in `SoundTypeBuilderImpl$Entry.lambda$static$0` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@11 in `SoundTypeBuilderImpl$Entry.<clinit>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@13 in `CustomUnbakedBlockStateModelRegistry.<clinit>` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@10 in `CustomIngredientImpl.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@0 in `ResourceConditionType.<clinit>` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@1 in `FeaturesEnabledResourceCondition.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@1 in `RegistryContainsResourceCondition.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@28 in `RegistryContainsResourceCondition.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@1 in `TagsPopulatedResourceCondition.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `CODEC` | `Lcom/mojang/serialization/Codec;` | exact | getstatic@28 in `TagsPopulatedResourceCondition.lambda$static$0` | unknown | [[30-Mechanisms/fabric-resource-conditions-api-v1|fabric-resource-conditions-api-v1]] | direct_reference |
+| reads | `STREAM_CODEC` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@21 in `AttachmentChange.encodePacket` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `STREAM_CODEC` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@13 in `AttachmentChange.decodePacket` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `STREAM_CODEC` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@5 in `ServerboundAcceptedAttachmentsPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| reads | `STREAM_CODEC` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@31 in `CommonRegisterPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `STREAM_CODEC` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@272 in `FabricPacketMerger.decode` | unknown | [[30-Mechanisms/fabric-networking-api-v1|fabric-networking-api-v1]] | direct_reference |
+| reads | `STREAM_CODEC` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@13 in `ServerboundCustomIngredientPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| reads | `STREAM_CODEC` | `Lnet/minecraft/network/codec/StreamCodec;` | exact | getstatic@5 in `ServerboundSupportedRecipeSerializersPayload.<clinit>` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (50, all visibilities)
+## Declared members (10 fields, 40 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.resources.Identifier implements java.lang.Comparable<net.minecraft.resources.Identifier> {
-    public static final com.mojang.serialization.Codec<net.minecraft.resources.Identifier> CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.resources.Identifier> STREAM_CODEC;
-    public static final com.mojang.brigadier.exceptions.SimpleCommandExceptionType ERROR_INVALID;
-    public static final char NAMESPACE_SEPARATOR;
-    public static final java.lang.String DEFAULT_NAMESPACE;
-    public static final java.lang.String REALMS_NAMESPACE;
-    public static final java.lang.String ALLOWED_NAMESPACE_CHARACTERS;
-    private final java.lang.String namespace;
-    private final java.lang.String path;
-    static final boolean $assertionsDisabled;
-    private net.minecraft.resources.Identifier(java.lang.String, java.lang.String);
-    private static net.minecraft.resources.Identifier createUntrusted(java.lang.String, java.lang.String);
-    public static net.minecraft.resources.Identifier fromNamespaceAndPath(java.lang.String, java.lang.String);
-    public static net.minecraft.resources.Identifier parse(java.lang.String);
-    public static net.minecraft.resources.Identifier withDefaultNamespace(java.lang.String);
-    public static net.minecraft.resources.Identifier tryParse(java.lang.String);
-    public static net.minecraft.resources.Identifier tryBuild(java.lang.String, java.lang.String);
-    public static net.minecraft.resources.Identifier bySeparator(java.lang.String, char);
-    public static net.minecraft.resources.Identifier tryBySeparator(java.lang.String, char);
-    public static com.mojang.serialization.DataResult<net.minecraft.resources.Identifier> read(java.lang.String);
-    public java.lang.String getPath();
-    public java.lang.String getNamespace();
-    public net.minecraft.resources.Identifier withPath(java.lang.String);
-    public net.minecraft.resources.Identifier withPath(java.util.function.UnaryOperator<java.lang.String>);
-    public net.minecraft.resources.Identifier withPrefix(java.lang.String);
-    public net.minecraft.resources.Identifier withSuffix(java.lang.String);
-    public java.lang.String toString();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    public int compareTo(net.minecraft.resources.Identifier);
-    public java.nio.file.Path resolveAgainst(java.nio.file.Path);
-    public java.lang.String toDebugFileName();
-    public java.lang.String toLanguageKey();
-    public java.lang.String toShortLanguageKey();
-    public java.lang.String toShortString();
-    public java.lang.String toLanguageKey(java.lang.String);
-    public java.lang.String toLanguageKey(java.lang.String, java.lang.String);
-    private static java.lang.String readGreedy(com.mojang.brigadier.StringReader);
-    public static net.minecraft.resources.Identifier read(com.mojang.brigadier.StringReader) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public static net.minecraft.resources.Identifier readNonEmpty(com.mojang.brigadier.StringReader) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
-    public static boolean isAllowedInIdentifier(char);
-    public static boolean isValidPath(java.lang.String);
-    public static boolean isValidNamespace(java.lang.String);
-    private static java.lang.String assertValidNamespace(java.lang.String, java.lang.String);
-    public static boolean validPathChar(char);
-    private static boolean validNamespaceChar(char);
-    private static java.lang.String assertValidPath(java.lang.String, java.lang.String);
-    public int compareTo(java.lang.Object);
-    private static java.lang.String lambda$read$0(java.lang.String, net.minecraft.IdentifierException);
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final ERROR_INVALID : Lcom/mojang/brigadier/exceptions/SimpleCommandExceptionType;
+public static final NAMESPACE_SEPARATOR : C
+public static final DEFAULT_NAMESPACE : Ljava/lang/String;
+public static final REALMS_NAMESPACE : Ljava/lang/String;
+public static final ALLOWED_NAMESPACE_CHARACTERS : Ljava/lang/String;
+private final namespace : Ljava/lang/String;
+private final path : Ljava/lang/String;
+static final synthetic $assertionsDisabled : Z
+private <init>(Ljava/lang/String;Ljava/lang/String;)V
+private static createUntrusted(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public static fromNamespaceAndPath(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public static parse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public static withDefaultNamespace(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public static tryParse(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public static tryBuild(Ljava/lang/String;Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public static bySeparator(Ljava/lang/String;C)Lnet/minecraft/resources/Identifier;
+public static tryBySeparator(Ljava/lang/String;C)Lnet/minecraft/resources/Identifier;
+public static read(Ljava/lang/String;)Lcom/mojang/serialization/DataResult;
+public getPath()Ljava/lang/String;
+public getNamespace()Ljava/lang/String;
+public withPath(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public withPath(Ljava/util/function/UnaryOperator;)Lnet/minecraft/resources/Identifier;
+public withPrefix(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public withSuffix(Ljava/lang/String;)Lnet/minecraft/resources/Identifier;
+public toString()Ljava/lang/String;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+public compareTo(Lnet/minecraft/resources/Identifier;)I
+public resolveAgainst(Ljava/nio/file/Path;)Ljava/nio/file/Path;
+public toDebugFileName()Ljava/lang/String;
+public toLanguageKey()Ljava/lang/String;
+public toShortLanguageKey()Ljava/lang/String;
+public toShortString()Ljava/lang/String;
+public toLanguageKey(Ljava/lang/String;)Ljava/lang/String;
+public toLanguageKey(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+private static readGreedy(Lcom/mojang/brigadier/StringReader;)Ljava/lang/String;
+public static read(Lcom/mojang/brigadier/StringReader;)Lnet/minecraft/resources/Identifier;
+public static readNonEmpty(Lcom/mojang/brigadier/StringReader;)Lnet/minecraft/resources/Identifier;
+public static isAllowedInIdentifier(C)Z
+public static isValidPath(Ljava/lang/String;)Z
+public static isValidNamespace(Ljava/lang/String;)Z
+private static assertValidNamespace(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+public static validPathChar(C)Z
+private static validNamespaceChar(C)Z
+private static assertValidPath(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+public synthetic compareTo(Ljava/lang/Object;)I
+private static synthetic lambda$read$0(Ljava/lang/String;Lnet/minecraft/IdentifierException;)Ljava/lang/String;
+static <clinit>()V
 ```

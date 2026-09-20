@@ -11,21 +11,23 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.util|net.minecraft.util]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `parse(Ljava/io/Reader;)Lcom/google/gson/JsonElement;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
-| calls | `parse(Ljava/io/Reader;)Lcom/google/gson/JsonElement;` | `` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `parse` | `(Ljava/io/Reader;)Lcom/google/gson/JsonElement;` | exact | invokestatic@6 in `FabricLanguageProvider$TranslationBuilder.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/io/Reader;)Lcom/google/gson/JsonElement;` | exact | invokestatic@6 in `FabricLanguageProvider$TranslationBuilder.overwriteWith` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/io/Reader;)Lcom/google/gson/JsonElement;` | exact | invokestatic@145 in `TagAliasLoader.prepare` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
+| calls | `parse` | `(Ljava/io/Reader;)Lcom/google/gson/JsonElement;` | exact | invokestatic@65 in `ClientTagsLoader.loadTag` | unknown | [[30-Mechanisms/fabric-tag-api-v1|fabric-tag-api-v1]] | direct_reference |
 
-## Declared members (3, all visibilities)
+## Declared members (0 fields, 3 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.util.StrictJsonParser {
-    public net.minecraft.util.StrictJsonParser();
-    public static com.google.gson.JsonElement parse(java.io.Reader) throws com.google.gson.JsonIOException, com.google.gson.JsonSyntaxException;
-    public static com.google.gson.JsonElement parse(java.lang.String) throws com.google.gson.JsonSyntaxException;
-}
+```
+public <init>()V
+public static parse(Ljava/io/Reader;)Lcom/google/gson/JsonElement;
+public static parse(Ljava/lang/String;)Lcom/google/gson/JsonElement;
 ```

@@ -13,10 +13,10 @@ sha256: "599f69de9e7e693b4b8ca2f2792f129d8bd2e17fced9ae7b66f7e20b5a674db6"
 Module: [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] -- kind: class
 
 ```java
-public net.fabricmc.fabric.api.transfer.v1.storage.base.BlankVariantView(T, long)
-public long extract(T, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
+public <init>(net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant, long)
+public long extract(net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant, long, net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext)
 public boolean isResourceBlank()
-public T getResource()
+public net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant getResource()
 public long getAmount()
 public long getCapacity()
 public java.lang.Object getResource()

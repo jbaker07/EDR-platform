@@ -26,5 +26,4 @@ public static net.minecraft.network.FriendlyByteBuf slice(io.netty.buffer.ByteBu
 public static net.minecraft.network.FriendlyByteBuf retainedSlice(io.netty.buffer.ByteBuf, int, int)
 public static net.minecraft.network.FriendlyByteBuf duplicate(io.netty.buffer.ByteBuf)
 public static net.minecraft.network.FriendlyByteBuf retainedDuplicate(io.netty.buffer.ByteBuf)
-static {}
 ```

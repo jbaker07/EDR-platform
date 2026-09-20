@@ -11,62 +11,64 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `net/minecraft/world/level/block/AbstractChestBlock`; implements `net/minecraft/world/level/block/SimpleWaterloggedBlock`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getConnectedDirection(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/min` | `` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getConnectedDirection` | `(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/cor` | exact | invokestatic@60 in `ContainerSlotWrapper.updateSnapshots` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| calls | `getContainer` | `(Lnet/minecraft/world/level/block/ChestBlock;Lnet/minecraft/world/leve` | exact | invokestatic@115 in `ItemStorage.lambda$static$2` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
+| reads | `TYPE` | `Lnet/minecraft/world/level/block/state/properties/EnumProperty;` | exact | getstatic@40 in `ContainerSlotWrapper.updateSnapshots` | unknown | [[30-Mechanisms/fabric-transfer-api-v1|fabric-transfer-api-v1]] | direct_reference |
 
-## Declared members (45, all visibilities)
+## Declared members (10 fields, 35 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.block.ChestBlock extends net.minecraft.world.level.block.AbstractChestBlock<net.minecraft.world.level.block.entity.ChestBlockEntity> implements net.minecraft.world.level.block.SimpleWaterloggedBlock {
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.core.Direction> FACING;
-    public static final net.minecraft.world.level.block.state.properties.EnumProperty<net.minecraft.world.level.block.state.properties.ChestType> TYPE;
-    public static final net.minecraft.world.level.block.state.properties.BooleanProperty WATERLOGGED;
-    public static final int EVENT_SET_OPEN_COUNT;
-    private static final net.minecraft.world.phys.shapes.VoxelShape SHAPE;
-    private static final java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> HALF_SHAPES;
-    private final net.minecraft.sounds.SoundEvent openSound;
-    private final net.minecraft.sounds.SoundEvent closeSound;
-    private static final net.minecraft.world.level.block.DoubleBlockCombiner$Combiner<net.minecraft.world.level.block.entity.ChestBlockEntity, java.util.Optional<net.minecraft.world.Container>> CHEST_COMBINER;
-    private static final net.minecraft.world.level.block.DoubleBlockCombiner$Combiner<net.minecraft.world.level.block.entity.ChestBlockEntity, java.util.Optional<net.minecraft.world.MenuProvider>> MENU_PROVIDER_COMBINER;
-    protected net.minecraft.world.level.block.ChestBlock(java.util.function.Supplier<net.minecraft.world.level.block.entity.BlockEntityType<? extends net.minecraft.world.level.block.entity.ChestBlockEntity>>, net.minecraft.sounds.SoundEvent, net.minecraft.sounds.SoundEvent, net.minecraft.world.level.block.state.BlockBehaviour$Properties);
-    public static net.minecraft.world.level.block.DoubleBlockCombiner$BlockType getBlockType(net.minecraft.world.level.block.state.BlockState);
-    protected net.minecraft.world.level.block.state.BlockState updateShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.LevelReader, net.minecraft.world.level.ScheduledTickAccess, net.minecraft.core.BlockPos, net.minecraft.core.Direction, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.util.RandomSource);
-    public boolean chestCanConnectTo(net.minecraft.world.level.block.state.BlockState);
-    protected net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
-    public static net.minecraft.core.Direction getConnectedDirection(net.minecraft.world.level.block.state.BlockState);
-    public static net.minecraft.core.BlockPos getConnectedBlockPos(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public net.minecraft.world.level.block.state.BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext);
-    protected net.minecraft.world.level.block.state.properties.ChestType getChestType(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    protected net.minecraft.world.level.material.FluidState getFluidState(net.minecraft.world.level.block.state.BlockState);
-    private net.minecraft.core.Direction candidatePartnerFacing(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    protected void affectNeighborsAfterRemoval(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, boolean);
-    protected net.minecraft.world.InteractionResult useWithoutItem(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.world.entity.player.Player, net.minecraft.world.phys.BlockHitResult);
-    protected net.minecraft.stats.Stat<net.minecraft.resources.Identifier> getOpenChestStat();
-    public net.minecraft.world.level.block.entity.BlockEntityType<? extends net.minecraft.world.level.block.entity.ChestBlockEntity> blockEntityType();
-    public static net.minecraft.world.Container getContainer(net.minecraft.world.level.block.ChestBlock, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, boolean);
-    public net.minecraft.world.level.block.DoubleBlockCombiner$NeighborCombineResult<? extends net.minecraft.world.level.block.entity.ChestBlockEntity> combine(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, boolean);
-    protected net.minecraft.world.MenuProvider getMenuProvider(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos);
-    public static net.minecraft.world.level.block.DoubleBlockCombiner$Combiner<net.minecraft.world.level.block.entity.ChestBlockEntity, it.unimi.dsi.fastutil.floats.Float2FloatFunction> opennessCombiner(net.minecraft.world.level.block.entity.LidBlockEntity);
-    public net.minecraft.world.level.block.entity.BlockEntity newBlockEntity(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-    public <T extends net.minecraft.world.level.block.entity.BlockEntity> net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(net.minecraft.world.level.Level, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.BlockEntityType<T>);
-    public static boolean isChestBlockedAt(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
-    private static boolean isBlockedChestByBlock(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
-    private static boolean isCatSittingOnChest(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
-    protected boolean hasAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState);
-    protected int getAnalogOutputSignal(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.Level, net.minecraft.core.BlockPos, net.minecraft.core.Direction);
-    protected net.minecraft.world.level.block.state.BlockState rotate(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.Rotation);
-    protected net.minecraft.world.level.block.state.BlockState mirror(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.Mirror);
-    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
-    protected boolean isPathfindable(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.pathfinder.PathComputationType);
-    protected void tick(net.minecraft.world.level.block.state.BlockState, net.minecraft.server.level.ServerLevel, net.minecraft.core.BlockPos, net.minecraft.util.RandomSource);
-    public net.minecraft.sounds.SoundEvent getOpenChestSound();
-    public net.minecraft.sounds.SoundEvent getCloseChestSound();
-    private static boolean lambda$combine$0(net.minecraft.world.level.LevelAccessor, net.minecraft.core.BlockPos);
-    static {};
-}
+```
+public static final FACING : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final TYPE : Lnet/minecraft/world/level/block/state/properties/EnumProperty;
+public static final WATERLOGGED : Lnet/minecraft/world/level/block/state/properties/BooleanProperty;
+public static final EVENT_SET_OPEN_COUNT : I
+private static final SHAPE : Lnet/minecraft/world/phys/shapes/VoxelShape;
+private static final HALF_SHAPES : Ljava/util/Map;
+private final openSound : Lnet/minecraft/sounds/SoundEvent;
+private final closeSound : Lnet/minecraft/sounds/SoundEvent;
+private static final CHEST_COMBINER : Lnet/minecraft/world/level/block/DoubleBlockCombiner$Combiner;
+private static final MENU_PROVIDER_COMBINER : Lnet/minecraft/world/level/block/DoubleBlockCombiner$Combiner;
+public <init>(Ljava/util/function/Supplier;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+public static getBlockType(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/DoubleBlockCombiner$BlockType;
+protected updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/block/state/BlockState;
+public chestCanConnectTo(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected getShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;
+public static getConnectedDirection(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/core/Direction;
+public static getConnectedBlockPos(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/core/BlockPos;
+public getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;
+protected getChestType(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Lnet/minecraft/world/level/block/state/properties/ChestType;
+protected getFluidState(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/material/FluidState;
+private candidatePartnerFacing(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Lnet/minecraft/core/Direction;
+protected affectNeighborsAfterRemoval(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Z)V
+protected useWithoutItem(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;
+protected getOpenChestStat()Lnet/minecraft/stats/Stat;
+public blockEntityType()Lnet/minecraft/world/level/block/entity/BlockEntityType;
+public static getContainer(Lnet/minecraft/world/level/block/ChestBlock;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Z)Lnet/minecraft/world/Container;
+public combine(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Z)Lnet/minecraft/world/level/block/DoubleBlockCombiner$NeighborCombineResult;
+protected getMenuProvider(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/MenuProvider;
+public static opennessCombiner(Lnet/minecraft/world/level/block/entity/LidBlockEntity;)Lnet/minecraft/world/level/block/DoubleBlockCombiner$Combiner;
+public newBlockEntity(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/entity/BlockEntity;
+public getTicker(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntityType;)Lnet/minecraft/world/level/block/entity/BlockEntityTicker;
+public static isChestBlockedAt(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
+private static isBlockedChestByBlock(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+private static isCatSittingOnChest(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
+protected hasAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;)Z
+protected getAnalogOutputSignal(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I
+protected rotate(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/Rotation;)Lnet/minecraft/world/level/block/state/BlockState;
+protected mirror(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/Mirror;)Lnet/minecraft/world/level/block/state/BlockState;
+protected createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V
+protected isPathfindable(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/pathfinder/PathComputationType;)Z
+protected tick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V
+public getOpenChestSound()Lnet/minecraft/sounds/SoundEvent;
+public getCloseChestSound()Lnet/minecraft/sounds/SoundEvent;
+private static synthetic lambda$combine$0(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
+static <clinit>()V
 ```

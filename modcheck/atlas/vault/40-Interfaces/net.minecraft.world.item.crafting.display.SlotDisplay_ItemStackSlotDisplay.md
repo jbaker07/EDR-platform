@@ -11,32 +11,32 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.item|net.minecraft.world.item]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/world/item/crafting/display/SlotDisplay`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Lnet/minecraft/world/item/ItemStackTemplate;)V` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
-| calls | `"<init>"(Lnet/minecraft/world/item/ItemStackTemplate;)V` | `` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/world/item/ItemStackTemplate;)V` | exact | invokespecial@17 in `ComponentsIngredient.createEntryDisplay` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
+| calls | `<init>` | `(Lnet/minecraft/world/item/ItemStackTemplate;)V` | exact | invokespecial@34 in `CustomDataIngredient.createEntryDisplay` | unknown | [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (4 fields, 10 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.item.crafting.display.SlotDisplay$ItemStackSlotDisplay extends java.lang.Record implements net.minecraft.world.item.crafting.display.SlotDisplay {
-    private final net.minecraft.world.item.ItemStackTemplate stack;
-    public static final com.mojang.serialization.MapCodec<net.minecraft.world.item.crafting.display.SlotDisplay$ItemStackSlotDisplay> MAP_CODEC;
-    public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.crafting.display.SlotDisplay$ItemStackSlotDisplay> STREAM_CODEC;
-    public static final net.minecraft.world.item.crafting.display.SlotDisplay$Type<net.minecraft.world.item.crafting.display.SlotDisplay$ItemStackSlotDisplay> TYPE;
-    public net.minecraft.world.item.crafting.display.SlotDisplay$ItemStackSlotDisplay(net.minecraft.world.item.ItemStackTemplate);
-    public net.minecraft.world.item.crafting.display.SlotDisplay$Type<net.minecraft.world.item.crafting.display.SlotDisplay$ItemStackSlotDisplay> type();
-    public <T> java.util.stream.Stream<T> resolve(net.minecraft.util.context.ContextMap, net.minecraft.world.item.crafting.display.DisplayContentsFactory<T>);
-    public boolean isEnabled(net.minecraft.world.flag.FeatureFlagSet);
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.world.item.ItemStackTemplate stack();
-    private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
-    static {};
-}
+```
+private final stack : Lnet/minecraft/world/item/ItemStackTemplate;
+public static final MAP_CODEC : Lcom/mojang/serialization/MapCodec;
+public static final STREAM_CODEC : Lnet/minecraft/network/codec/StreamCodec;
+public static final TYPE : Lnet/minecraft/world/item/crafting/display/SlotDisplay$Type;
+public <init>(Lnet/minecraft/world/item/ItemStackTemplate;)V
+public type()Lnet/minecraft/world/item/crafting/display/SlotDisplay$Type;
+public resolve(Lnet/minecraft/util/context/ContextMap;Lnet/minecraft/world/item/crafting/display/DisplayContentsFactory;)Ljava/util/stream/Stream;
+public isEnabled(Lnet/minecraft/world/flag/FeatureFlagSet;)Z
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public stack()Lnet/minecraft/world/item/ItemStackTemplate;
+private static synthetic lambda$static$0(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;
+static <clinit>()V
 ```

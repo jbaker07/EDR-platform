@@ -10,7 +10,7 @@ sha256: "039a5c3dee042ff156c52c4bec64a384e766e830a37cc9f6bf68f1e7dc3646b1"
 
 # net.fabricmc.fabric.api.event.registry.RegistryAttribute
 
-Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: class
+Module: [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] -- kind: enum
 
 ```java
 public static final net.fabricmc.fabric.api.event.registry.RegistryAttribute SYNCED
@@ -19,5 +19,4 @@ public static final net.fabricmc.fabric.api.event.registry.RegistryAttribute OPT
 public static final net.fabricmc.fabric.api.event.registry.RegistryAttribute SAVE_DATA_VALIDATED
 public static net.fabricmc.fabric.api.event.registry.RegistryAttribute[] values()
 public static net.fabricmc.fabric.api.event.registry.RegistryAttribute valueOf(java.lang.String)
-static {}
 ```

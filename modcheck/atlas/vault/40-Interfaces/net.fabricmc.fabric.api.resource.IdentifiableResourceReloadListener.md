@@ -14,5 +14,5 @@ Module: [[30-Mechanisms/fabric-resource-loader-v0|fabric-resource-loader-v0]] --
 
 ```java
 public abstract net.minecraft.resources.Identifier getFabricId()
-public default java.util.Collection<net.minecraft.resources.Identifier> getFabricDependencies()
+public java.util.Collection getFabricDependencies()
 ```

@@ -2,7 +2,7 @@
 type: "question"
 id: "q.team_counter_scope"
 kind: "ambiguous_creator_intent"
-status: "open"
+status: "wont_resolve"
 ---
 
 > [!warning] Analyst-authored
@@ -12,7 +12,7 @@ status: "open"
 
 **Question.** For the team resource counter, is a "team" the vanilla scoreboard team, a mod-defined group, or every player on the server; and must the count survive a player changing team?
 
-**Kind.** `ambiguous_creator_intent` -- **Status.** open
+**Kind.** `ambiguous_creator_intent` -- **Status.** wont_resolve
 
 **Why it matters.** Scoreboard teams are managed by operators with /team and can be dissolved; a mod-defined team needs its own persistence and UI. The persistence shape and the sync predicate both depend on the answer.
 
@@ -30,3 +30,5 @@ status: "open"
 
 **Conclusions affected while open.**
 - The request note's candidate data shape is provisional.
+
+**Resolved by.** Analyst exercise with no creator: both definitions (T1 scoreboard team, T2 mod-defined group) are carried explicitly in [[70-Requests/request.team_counter|request.team_counter]] and neither blocks the analysis.

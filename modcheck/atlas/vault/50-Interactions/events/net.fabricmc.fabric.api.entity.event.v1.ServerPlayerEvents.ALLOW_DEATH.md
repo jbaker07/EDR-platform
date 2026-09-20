@@ -15,7 +15,9 @@ Module: [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]]
 
 ## Published from
 
-- no publisher found by extraction (may be fired from generated or non-module code)
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
+|---|---|---|---|
+| `ServerPlayerEvents.lambda$static$10` @24 | (impl code, not a mixin) | unknown | static_inference |
 
 ## Contract
 

@@ -14,8 +14,8 @@ Module: [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api
 
 ```java
 public abstract net.fabricmc.fabric.api.client.gametest.v1.world.TestWorldBuilder setUseConsistentSettings(boolean)
-public abstract net.fabricmc.fabric.api.client.gametest.v1.world.TestWorldBuilder adjustSettings(java.util.function.Consumer<net.minecraft.client.gui.screens.worldselection.WorldCreationUiState>)
+public abstract net.fabricmc.fabric.api.client.gametest.v1.world.TestWorldBuilder adjustSettings(java.util.function.Consumer)
 public abstract net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext create()
-public default net.fabricmc.fabric.api.client.gametest.v1.context.TestDedicatedServerContext createServer()
+public net.fabricmc.fabric.api.client.gametest.v1.context.TestDedicatedServerContext createServer()
 public abstract net.fabricmc.fabric.api.client.gametest.v1.context.TestDedicatedServerContext createServer(java.util.Properties)
 ```

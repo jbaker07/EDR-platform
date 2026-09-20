@@ -11,29 +11,29 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.players|net.minecraft.server.players]]
 
+`class` public; extends `net/minecraft/server/players/StoredUserList`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `add(Lnet/minecraft/server/players/UserWhiteListEntry;)Z` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `add` | `(Lnet/minecraft/server/players/UserWhiteListEntry;)Z` | exact | invokevirtual@22 in `DedicatedServerImplUtil.lambda$whitelistClient$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (12, all visibilities)
+## Declared members (0 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.players.UserWhiteList extends net.minecraft.server.players.StoredUserList<net.minecraft.server.players.NameAndId, net.minecraft.server.players.UserWhiteListEntry> {
-    public net.minecraft.server.players.UserWhiteList(java.io.File, net.minecraft.server.notifications.NotificationService);
-    protected net.minecraft.server.players.StoredUserEntry<net.minecraft.server.players.NameAndId> createEntry(com.google.gson.JsonObject);
-    public boolean isWhiteListed(net.minecraft.server.players.NameAndId);
-    public boolean add(net.minecraft.server.players.UserWhiteListEntry);
-    public boolean remove(net.minecraft.server.players.NameAndId);
-    public void clear();
-    public java.lang.String[] getUserList();
-    protected java.lang.String getKeyForUser(net.minecraft.server.players.NameAndId);
-    protected java.lang.String getKeyForUser(java.lang.Object);
-    public boolean remove(java.lang.Object);
-    public boolean add(net.minecraft.server.players.StoredUserEntry);
-    private static java.lang.String[] lambda$getUserList$0(int);
-}
+```
+public <init>(Ljava/io/File;Lnet/minecraft/server/notifications/NotificationService;)V
+protected createEntry(Lcom/google/gson/JsonObject;)Lnet/minecraft/server/players/StoredUserEntry;
+public isWhiteListed(Lnet/minecraft/server/players/NameAndId;)Z
+public add(Lnet/minecraft/server/players/UserWhiteListEntry;)Z
+public remove(Lnet/minecraft/server/players/NameAndId;)Z
+public clear()V
+public getUserList()[Ljava/lang/String;
+protected getKeyForUser(Lnet/minecraft/server/players/NameAndId;)Ljava/lang/String;
+protected synthetic getKeyForUser(Ljava/lang/Object;)Ljava/lang/String;
+public synthetic remove(Ljava/lang/Object;)Z
+public synthetic add(Lnet/minecraft/server/players/StoredUserEntry;)Z
+private static synthetic lambda$getUserList$0(I)[Ljava/lang/String;
 ```

@@ -11,42 +11,42 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public final; extends `net/minecraft/world/level/saveddata/SavedData`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| reads | `TYPELnet/minecraft/world/level/saveddata/SavedDataType;` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| reads | `TYPE` | `Lnet/minecraft/world/level/saveddata/SavedDataType;` | exact | getstatic@98 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (25, all visibilities)
+## Declared members (3 fields, 22 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.world.level.gamerules.GameRuleMap extends net.minecraft.world.level.saveddata.SavedData {
-    public static final com.mojang.serialization.Codec<net.minecraft.world.level.gamerules.GameRuleMap> CODEC;
-    public static final net.minecraft.world.level.saveddata.SavedDataType<net.minecraft.world.level.gamerules.GameRuleMap> TYPE;
-    private final it.unimi.dsi.fastutil.objects.Reference2ObjectMap<net.minecraft.world.level.gamerules.GameRule<?>, java.lang.Object> map;
-    private net.minecraft.world.level.gamerules.GameRuleMap(it.unimi.dsi.fastutil.objects.Reference2ObjectMap<net.minecraft.world.level.gamerules.GameRule<?>, java.lang.Object>);
-    private static net.minecraft.world.level.gamerules.GameRuleMap ofTrusted(java.util.Map<net.minecraft.world.level.gamerules.GameRule<?>, java.lang.Object>);
-    public static net.minecraft.world.level.gamerules.GameRuleMap of();
-    public static net.minecraft.world.level.gamerules.GameRuleMap of(java.util.stream.Stream<net.minecraft.world.level.gamerules.GameRule<?>>);
-    public static net.minecraft.world.level.gamerules.GameRuleMap copyOf(net.minecraft.world.level.gamerules.GameRuleMap);
-    public boolean has(net.minecraft.world.level.gamerules.GameRule<?>);
-    public <T> T get(net.minecraft.world.level.gamerules.GameRule<T>);
-    public <T> void set(net.minecraft.world.level.gamerules.GameRule<T>, T);
-    public <T> void reset(net.minecraft.world.level.gamerules.GameRule<T>);
-    public <T> T remove(net.minecraft.world.level.gamerules.GameRule<T>);
-    public java.util.Set<net.minecraft.world.level.gamerules.GameRule<?>> keySet();
-    public int size();
-    public java.lang.String toString();
-    public net.minecraft.world.level.gamerules.GameRuleMap withOther(net.minecraft.world.level.gamerules.GameRuleMap);
-    public void setFromIf(net.minecraft.world.level.gamerules.GameRuleMap, java.util.function.Predicate<net.minecraft.world.level.gamerules.GameRule<?>>);
-    private static <T> void setGameRule(net.minecraft.world.level.gamerules.GameRuleMap, net.minecraft.world.level.gamerules.GameRule<T>, net.minecraft.world.level.gamerules.GameRuleMap);
-    private it.unimi.dsi.fastutil.objects.Reference2ObjectMap<net.minecraft.world.level.gamerules.GameRule<?>, java.lang.Object> map();
-    public boolean equals(java.lang.Object);
-    public int hashCode();
-    private static boolean lambda$withOther$0(net.minecraft.world.level.gamerules.GameRule);
-    private static void lambda$of$0(it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap, net.minecraft.world.level.gamerules.GameRule);
-    static {};
-}
+```
+public static final CODEC : Lcom/mojang/serialization/Codec;
+public static final TYPE : Lnet/minecraft/world/level/saveddata/SavedDataType;
+private final map : Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;
+private <init>(Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;)V
+private static ofTrusted(Ljava/util/Map;)Lnet/minecraft/world/level/gamerules/GameRuleMap;
+public static of()Lnet/minecraft/world/level/gamerules/GameRuleMap;
+public static of(Ljava/util/stream/Stream;)Lnet/minecraft/world/level/gamerules/GameRuleMap;
+public static copyOf(Lnet/minecraft/world/level/gamerules/GameRuleMap;)Lnet/minecraft/world/level/gamerules/GameRuleMap;
+public has(Lnet/minecraft/world/level/gamerules/GameRule;)Z
+public get(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;
+public set(Lnet/minecraft/world/level/gamerules/GameRule;Ljava/lang/Object;)V
+public reset(Lnet/minecraft/world/level/gamerules/GameRule;)V
+public remove(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;
+public keySet()Ljava/util/Set;
+public size()I
+public toString()Ljava/lang/String;
+public withOther(Lnet/minecraft/world/level/gamerules/GameRuleMap;)Lnet/minecraft/world/level/gamerules/GameRuleMap;
+public setFromIf(Lnet/minecraft/world/level/gamerules/GameRuleMap;Ljava/util/function/Predicate;)V
+private static setGameRule(Lnet/minecraft/world/level/gamerules/GameRuleMap;Lnet/minecraft/world/level/gamerules/GameRule;Lnet/minecraft/world/level/gamerules/GameRuleMap;)V
+private map()Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;
+public equals(Ljava/lang/Object;)Z
+public hashCode()I
+private static synthetic lambda$withOther$0(Lnet/minecraft/world/level/gamerules/GameRule;)Z
+private static synthetic lambda$of$0(Lit/unimi/dsi/fastutil/objects/Reference2ObjectOpenHashMap;Lnet/minecraft/world/level/gamerules/GameRule;)V
+static <clinit>()V
 ```

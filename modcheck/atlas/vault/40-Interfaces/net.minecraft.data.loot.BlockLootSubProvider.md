@@ -11,98 +11,100 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.loot|net.minecraft.data.loot]]
 
+`abstract_class` public abstract; extends `java/lang/Object`; implements `net/minecraft/data/loot/LootTableSubProvider`, `net/fabricmc/fabric/api/datagen/v1/loot/FabricBlockLootSubProvider`; **changed by Loom processing** (see [[00-Scope/Processed_Jar_Diff]]).
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/util/Set;Lnet/minecraft/world/flag/FeatureFlagSet;Lne` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
-| calls | `add(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world` | `` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/util/Set;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraf` | exact | invokespecial@24 in `FabricBlockLootSubProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `<init>` | `(Ljava/util/Set;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraf` | exact | invokespecial@19 in `ConditionBlockLootSubProvider.<init>` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| calls | `add` | `(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/sto` | exact | invokevirtual@14 in `ConditionBlockLootSubProvider.add` | unknown | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| injects_into | `run` | `()V` | name_only | @ModifyExpressionValue at ['INVOKE'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (80, all visibilities)
+## Declared members (10 fields, 70 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.data.loot.BlockLootSubProvider implements net.minecraft.data.loot.LootTableSubProvider {
-    protected final net.minecraft.data.loot.LootTableSubProvider$Context output;
-    protected final net.minecraft.core.HolderGetter<net.minecraft.world.item.enchantment.Enchantment> enchantments;
-    protected final net.minecraft.core.HolderGetter<net.minecraft.world.item.Item> items;
-    protected final net.minecraft.core.HolderGetter<net.minecraft.world.level.block.Block> blocks;
-    protected final net.minecraft.core.HolderGetter<net.minecraft.world.level.storage.loot.predicates.LootItemCondition> predicates;
-    private final java.util.Set<net.minecraft.world.item.Item> explosionResistant;
-    private final net.minecraft.world.flag.FeatureFlagSet enabledFeatures;
-    private final java.util.Map<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>, net.minecraft.world.level.storage.loot.LootTable$Builder> map;
-    protected static final float[] NORMAL_LEAVES_SAPLING_CHANCES;
-    private static final float[] NORMAL_LEAVES_STICK_CHANCES;
-    protected net.minecraft.data.loot.BlockLootSubProvider(java.util.Set<net.minecraft.world.item.Item>, net.minecraft.world.flag.FeatureFlagSet, net.minecraft.data.loot.LootTableSubProvider$Context);
-    protected net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.predicates.LootItemCondition> hasSilkTouch();
-    protected net.minecraft.world.level.storage.loot.predicates.LootItemCondition$Builder doesNotHaveSilkTouch();
-    protected net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.predicates.LootItemCondition> hasShears();
-    private net.minecraft.world.level.storage.loot.predicates.LootItemCondition$Builder hasShearsOrSilkTouch();
-    private net.minecraft.world.level.storage.loot.predicates.LootItemCondition$Builder doesNotHaveShearsOrSilkTouch();
-    protected <T extends net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder<T>> T applyExplosionDecay(net.minecraft.world.level.ItemLike, net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder<T>);
-    protected <T extends net.minecraft.world.level.storage.loot.predicates.ConditionUserBuilder<T>> T applyExplosionCondition(net.minecraft.world.level.ItemLike, net.minecraft.world.level.storage.loot.predicates.ConditionUserBuilder<T>);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder createSingleItemTable(net.minecraft.world.level.ItemLike);
-    private static net.minecraft.world.level.storage.loot.LootTable$Builder createSelfDropDispatchTable(net.minecraft.world.level.block.Block, net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.predicates.LootItemCondition>, net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Builder<?>);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createSilkTouchDispatchTable(net.minecraft.world.level.block.Block, net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Builder<?>);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createShearsDispatchTable(net.minecraft.world.level.block.Block, net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Builder<?>);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createSilkTouchOrShearsDispatchTable(net.minecraft.world.level.block.Block, net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Builder<?>);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createSingleItemTableWithSilkTouch(net.minecraft.world.level.block.Block, net.minecraft.world.level.ItemLike);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createSingleItemTable(net.minecraft.world.level.ItemLike, net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createSingleItemTableWithSilkTouch(net.minecraft.world.level.block.Block, net.minecraft.world.level.ItemLike, net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>);
-    private net.minecraft.world.level.storage.loot.LootTable$Builder createSilkTouchOnlyTable(net.minecraft.world.level.ItemLike);
-    private net.minecraft.world.level.storage.loot.LootTable$Builder createPotFlowerItemTable(net.minecraft.world.level.ItemLike);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createSlabItemTable(net.minecraft.world.level.block.Block);
-    protected <T extends java.lang.Comparable<T> & net.minecraft.util.StringRepresentable> net.minecraft.world.level.storage.loot.LootTable$Builder createSinglePropConditionTable(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.properties.Property<T>, T);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createNameableBlockEntityTable(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createShulkerBoxDrop(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createCopperOreDrops(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createLapisOreDrops(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createRedstoneOreDrops(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createBannerDrop(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createBeeNestDrop(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createBeeHiveDrop(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createCaveVinesDrop(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createCopperGolemStatueBlock(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createOreDrop(net.minecraft.world.level.block.Block, net.minecraft.world.item.Item);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createMushroomBlockDrop(net.minecraft.world.level.block.Block, net.minecraft.world.level.ItemLike);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createGrassDrops(net.minecraft.world.level.block.Block);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder createStemDrops(net.minecraft.world.level.block.Block, net.minecraft.world.item.Item);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder createAttachedStemDrops(net.minecraft.world.level.block.Block, net.minecraft.world.item.Item);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createShearsOnlyDrop(net.minecraft.world.level.ItemLike);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createShearsOrSilkTouchOnlyDrop(net.minecraft.world.level.ItemLike);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createMultifaceBlockDrops(net.minecraft.world.level.block.Block, net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.predicates.LootItemCondition>);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createMultifaceBlockDrops(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createMossyCarpetBlockDrops(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createLeavesDrops(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.Block, float...);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createOakLeavesDrops(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.Block, float...);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createMangroveLeavesDrops(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createCropDrops(net.minecraft.world.level.block.Block, net.minecraft.world.item.Item, net.minecraft.world.item.Item, net.minecraft.world.level.storage.loot.predicates.LootItemCondition$Builder);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createDoublePlantShearsDrop(net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createDoublePlantWithSeedDrops(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createCandleDrops(net.minecraft.world.level.block.Block);
-    public net.minecraft.world.level.storage.loot.LootTable$Builder createSegmentedBlockDrops(net.minecraft.world.level.block.Block);
-    protected static net.minecraft.world.level.storage.loot.LootTable$Builder createCandleCakeDrops(net.minecraft.world.level.block.Block);
-    public static net.minecraft.world.level.storage.loot.LootTable$Builder noDrop();
-    protected abstract void generate();
-    public void run();
-    protected void addNetherVinesDropTable(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.Block);
-    protected net.minecraft.world.level.storage.loot.LootTable$Builder createDoorTable(net.minecraft.world.level.block.Block);
-    protected void dropPottedContents(net.minecraft.world.level.block.Block);
-    protected void otherWhenSilkTouch(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.Block);
-    protected void dropOther(net.minecraft.world.level.block.Block, net.minecraft.world.level.ItemLike);
-    protected void dropWhenSilkTouch(net.minecraft.world.level.block.Block);
-    protected void dropSelf(net.minecraft.world.level.block.Block);
-    protected void add(net.minecraft.world.level.block.Block, java.util.function.Function<net.minecraft.world.level.block.Block, net.minecraft.world.level.storage.loot.LootTable$Builder>);
-    protected void add(net.minecraft.world.level.block.Block, net.minecraft.world.level.storage.loot.LootTable$Builder);
-    private static java.lang.IllegalStateException lambda$add$0(net.minecraft.world.level.block.Block);
-    private net.minecraft.world.level.storage.loot.LootTable$Builder lambda$dropPottedContents$0(net.minecraft.world.level.block.Block);
-    private void lambda$run$0(java.util.Set, net.minecraft.world.level.block.Block, net.minecraft.resources.ResourceKey);
-    private net.minecraft.world.level.storage.loot.functions.LootItemFunction$Builder lambda$createSegmentedBlockDrops$0(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.SegmentableBlock, java.lang.Integer);
-    private net.minecraft.world.level.storage.loot.functions.LootItemFunction$Builder lambda$createCandleDrops$0(net.minecraft.world.level.block.Block, java.lang.Integer);
-    private net.minecraft.world.level.storage.loot.functions.LootItemFunction$Builder lambda$createMultifaceBlockDrops$1(net.minecraft.world.level.block.Block, net.minecraft.core.Direction);
-    private net.minecraft.world.level.storage.loot.functions.LootItemFunction$Builder lambda$createMultifaceBlockDrops$0(net.minecraft.world.level.block.Block, net.minecraft.core.Direction);
-    private net.minecraft.world.level.storage.loot.functions.LootItemFunction$Builder lambda$createStemDrops$0(net.minecraft.world.level.block.Block, java.lang.Integer);
-    static {};
-}
+```
+protected final output : Lnet/minecraft/data/loot/LootTableSubProvider$Context;
+protected final enchantments : Lnet/minecraft/core/HolderGetter;
+protected final items : Lnet/minecraft/core/HolderGetter;
+protected final blocks : Lnet/minecraft/core/HolderGetter;
+protected final predicates : Lnet/minecraft/core/HolderGetter;
+private final explosionResistant : Ljava/util/Set;
+private final enabledFeatures : Lnet/minecraft/world/flag/FeatureFlagSet;
+private final map : Ljava/util/Map;
+protected static final NORMAL_LEAVES_SAPLING_CHANCES : [F
+private static final NORMAL_LEAVES_STICK_CHANCES : [F
+protected <init>(Ljava/util/Set;Lnet/minecraft/world/flag/FeatureFlagSet;Lnet/minecraft/data/loot/LootTableSubProvider$Context;)V
+public hasSilkTouch()Lnet/minecraft/core/Holder;
+public doesNotHaveSilkTouch()Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
+public hasShears()Lnet/minecraft/core/Holder;
+public final hasShearsOrSilkTouch()Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
+public final doesNotHaveShearsOrSilkTouch()Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
+public applyExplosionDecay(Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/level/storage/loot/functions/FunctionUserBuilder;)Lnet/minecraft/world/level/storage/loot/functions/FunctionUserBuilder;
+public applyExplosionCondition(Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/level/storage/loot/predicates/ConditionUserBuilder;)Lnet/minecraft/world/level/storage/loot/predicates/ConditionUserBuilder;
+public createSingleItemTable(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public static createSelfDropDispatchTable(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer$Builder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSilkTouchDispatchTable(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer$Builder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createShearsDispatchTable(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer$Builder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSilkTouchOrShearsDispatchTable(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer$Builder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSingleItemTableWithSilkTouch(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSingleItemTable(Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSingleItemTableWithSilkTouch(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public final createSilkTouchOnlyTable(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public final createPotFlowerItemTable(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSlabItemTable(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSinglePropConditionTable(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Comparable;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createNameableBlockEntityTable(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createShulkerBoxDrop(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createCopperOreDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createLapisOreDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createRedstoneOreDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createBannerDrop(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createBeeNestDrop(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createBeeHiveDrop(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createCaveVinesDrop(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createCopperGolemStatueBlock(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createOreDrop(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createMushroomBlockDrop(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createGrassDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createStemDrops(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createAttachedStemDrops(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createShearsOnlyDrop(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createShearsOrSilkTouchOnlyDrop(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createMultifaceBlockDrops(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createMultifaceBlockDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createMossyCarpetBlockDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createLeavesDrops(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;[F)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createOakLeavesDrops(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;[F)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createMangroveLeavesDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createCropDrops(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/Item;Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createDoublePlantShearsDrop(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createDoublePlantWithSeedDrops(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createCandleDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public createSegmentedBlockDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public static createCandleCakeDrops(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public static noDrop()Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public abstract generate()V
+public run()V
+public addNetherVinesDropTable(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;)V
+public createDoorTable(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+public dropPottedContents(Lnet/minecraft/world/level/block/Block;)V
+public otherWhenSilkTouch(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;)V
+public dropOther(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/ItemLike;)V
+public dropWhenSilkTouch(Lnet/minecraft/world/level/block/Block;)V
+public dropSelf(Lnet/minecraft/world/level/block/Block;)V
+public add(Lnet/minecraft/world/level/block/Block;Ljava/util/function/Function;)V
+public add(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/storage/loot/LootTable$Builder;)V
+private static synthetic lambda$add$0(Lnet/minecraft/world/level/block/Block;)Ljava/lang/IllegalStateException;
+private synthetic lambda$dropPottedContents$0(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
+private synthetic lambda$run$0(Ljava/util/Set;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/resources/ResourceKey;)V
+private synthetic lambda$createSegmentedBlockDrops$0(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/SegmentableBlock;Ljava/lang/Integer;)Lnet/minecraft/world/level/storage/loot/functions/LootItemFunction$Builder;
+private synthetic lambda$createCandleDrops$0(Lnet/minecraft/world/level/block/Block;Ljava/lang/Integer;)Lnet/minecraft/world/level/storage/loot/functions/LootItemFunction$Builder;
+private synthetic lambda$createMultifaceBlockDrops$1(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/Direction;)Lnet/minecraft/world/level/storage/loot/functions/LootItemFunction$Builder;
+private synthetic lambda$createMultifaceBlockDrops$0(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/Direction;)Lnet/minecraft/world/level/storage/loot/functions/LootItemFunction$Builder;
+private synthetic lambda$createStemDrops$0(Lnet/minecraft/world/level/block/Block;Ljava/lang/Integer;)Lnet/minecraft/world/level/storage/loot/functions/LootItemFunction$Builder;
+static <clinit>()V
 ```

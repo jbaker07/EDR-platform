@@ -11,48 +11,48 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `split(Lnet/minecraft/network/chat/FormattedText;I)Ljava/util/List` | `` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
-| calls | `split(Lnet/minecraft/network/chat/FormattedText;I)Ljava/util/List` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
-| calls | `width(Lnet/minecraft/util/FormattedCharSequence;)I` | `` | client | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `split` | `(Lnet/minecraft/network/chat/FormattedText;I)Ljava/util/List;` | exact | invokevirtual@29 in `EnumRuleEntry.<init>` | unknown | [[30-Mechanisms/fabric-game-rule-api-v1|fabric-game-rule-api-v1]] | direct_reference |
+| calls | `split` | `(Lnet/minecraft/network/chat/FormattedText;I)Ljava/util/List;` | exact | invokevirtual@86 in `TransferableSelectionListPackEntryMixin.onExtractContent` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
+| calls | `width` | `(Lnet/minecraft/util/FormattedCharSequence;)I` | exact | invokevirtual@37 in `TransferableSelectionListPackEntryMixin.onExtractContent` | unknown | [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] | direct_reference |
 
-## Declared members (29, all visibilities)
+## Declared members (8 fields, 21 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.gui.Font {
-    private static final float EFFECT_DEPTH;
-    private static final float OVER_EFFECT_DEPTH;
-    private static final float UNDER_EFFECT_DEPTH;
-    public static final float SHADOW_DEPTH;
-    public final int lineHeight;
-    private final net.minecraft.util.RandomSource random;
-    private final net.minecraft.client.gui.Font$Provider provider;
-    private final net.minecraft.client.StringSplitter splitter;
-    public net.minecraft.client.gui.Font(net.minecraft.client.gui.Font$Provider);
-    private net.minecraft.client.gui.GlyphSource getGlyphSource(net.minecraft.network.chat.FontDescription);
-    public java.lang.String bidirectionalShaping(java.lang.String);
-    public net.minecraft.client.gui.Font$PreparedText prepare8xTextOutline(net.minecraft.util.FormattedCharSequence, float, float, int);
-    public net.minecraft.client.gui.font.TextRenderable prepareBackground(float, float, float, float, int);
-    private net.minecraft.client.gui.font.glyphs.BakedGlyph getGlyph(int, net.minecraft.network.chat.Style);
-    public net.minecraft.client.gui.Font$PreparedText prepareText(java.lang.String, float, float, int, boolean, int);
-    public net.minecraft.client.gui.Font$PreparedText prepareText(net.minecraft.util.FormattedCharSequence, float, float, int, boolean, boolean, int);
-    public int width(java.lang.String);
-    public int width(net.minecraft.network.chat.FormattedText);
-    public int width(net.minecraft.util.FormattedCharSequence);
-    public java.lang.String plainSubstrByWidth(java.lang.String, int, boolean);
-    public java.lang.String plainSubstrByWidth(java.lang.String, int);
-    public net.minecraft.network.chat.FormattedText substrByWidth(net.minecraft.network.chat.FormattedText, int);
-    public int wordWrapHeight(net.minecraft.network.chat.FormattedText, int);
-    public java.util.List<net.minecraft.util.FormattedCharSequence> split(net.minecraft.network.chat.FormattedText, int);
-    public java.util.List<net.minecraft.network.chat.FormattedText> splitIgnoringLanguage(net.minecraft.network.chat.FormattedText, int);
-    public boolean isBidirectional();
-    public net.minecraft.client.StringSplitter getSplitter();
-    private boolean lambda$prepare8xTextOutline$0(net.minecraft.client.gui.Font$PreparedTextBuilder, float[], int, float, int, int, int, net.minecraft.network.chat.Style, int);
-    private float lambda$new$0(int, net.minecraft.network.chat.Style);
-}
+```
+private static final EFFECT_DEPTH : F
+private static final OVER_EFFECT_DEPTH : F
+private static final UNDER_EFFECT_DEPTH : F
+public static final SHADOW_DEPTH : F
+public final lineHeight : I
+private final random : Lnet/minecraft/util/RandomSource;
+private final provider : Lnet/minecraft/client/gui/Font$Provider;
+private final splitter : Lnet/minecraft/client/StringSplitter;
+public <init>(Lnet/minecraft/client/gui/Font$Provider;)V
+private getGlyphSource(Lnet/minecraft/network/chat/FontDescription;)Lnet/minecraft/client/gui/GlyphSource;
+public bidirectionalShaping(Ljava/lang/String;)Ljava/lang/String;
+public prepare8xTextOutline(Lnet/minecraft/util/FormattedCharSequence;FFI)Lnet/minecraft/client/gui/Font$PreparedText;
+public prepareBackground(FFFFI)Lnet/minecraft/client/gui/font/TextRenderable;
+private getGlyph(ILnet/minecraft/network/chat/Style;)Lnet/minecraft/client/gui/font/glyphs/BakedGlyph;
+public prepareText(Ljava/lang/String;FFIZI)Lnet/minecraft/client/gui/Font$PreparedText;
+public prepareText(Lnet/minecraft/util/FormattedCharSequence;FFIZZI)Lnet/minecraft/client/gui/Font$PreparedText;
+public width(Ljava/lang/String;)I
+public width(Lnet/minecraft/network/chat/FormattedText;)I
+public width(Lnet/minecraft/util/FormattedCharSequence;)I
+public plainSubstrByWidth(Ljava/lang/String;IZ)Ljava/lang/String;
+public plainSubstrByWidth(Ljava/lang/String;I)Ljava/lang/String;
+public substrByWidth(Lnet/minecraft/network/chat/FormattedText;I)Lnet/minecraft/network/chat/FormattedText;
+public wordWrapHeight(Lnet/minecraft/network/chat/FormattedText;I)I
+public split(Lnet/minecraft/network/chat/FormattedText;I)Ljava/util/List;
+public splitIgnoringLanguage(Lnet/minecraft/network/chat/FormattedText;I)Ljava/util/List;
+public isBidirectional()Z
+public getSplitter()Lnet/minecraft/client/StringSplitter;
+private synthetic lambda$prepare8xTextOutline$0(Lnet/minecraft/client/gui/Font$PreparedTextBuilder;[FIFIIILnet/minecraft/network/chat/Style;I)Z
+private synthetic lambda$new$0(ILnet/minecraft/network/chat/Style;)F
 ```

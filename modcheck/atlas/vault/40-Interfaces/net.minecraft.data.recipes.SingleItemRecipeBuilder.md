@@ -11,31 +11,31 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.data.recipes|net.minecraft.data.recipes]]
 
+`class` public; extends `java/lang/Object`; implements `net/minecraft/data/recipes/RecipeBuilder`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V` | `@ModifyVariable at HEAD` | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `save` | `(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/Res` | exact | @ModifyVariable at ['HEAD'] | both | [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] | direct_reference |
 
-## Declared members (14, all visibilities)
+## Declared members (5 fields, 9 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.data.recipes.SingleItemRecipeBuilder implements net.minecraft.data.recipes.RecipeBuilder {
-    private final net.minecraft.data.recipes.RecipeCategory category;
-    private final net.minecraft.world.item.ItemStackTemplate result;
-    private final net.minecraft.world.item.crafting.Ingredient ingredient;
-    private final net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder advancementBuilder;
-    private final net.minecraft.world.item.crafting.SingleItemRecipe$Factory<?> factory;
-    private net.minecraft.data.recipes.SingleItemRecipeBuilder(net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.crafting.SingleItemRecipe$Factory<?>, net.minecraft.world.item.crafting.Ingredient, net.minecraft.world.item.ItemStackTemplate);
-    public net.minecraft.data.recipes.SingleItemRecipeBuilder(net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.item.crafting.SingleItemRecipe$Factory<?>, net.minecraft.world.item.crafting.Ingredient, net.minecraft.world.level.ItemLike, int);
-    public static net.minecraft.data.recipes.SingleItemRecipeBuilder stonecutting(net.minecraft.world.item.crafting.Ingredient, net.minecraft.data.recipes.RecipeCategory, net.minecraft.world.level.ItemLike, int);
-    public net.minecraft.data.recipes.SingleItemRecipeBuilder unlockedBy(java.lang.String, net.minecraft.advancements.triggers.Criterion<?>);
-    public net.minecraft.data.recipes.SingleItemRecipeBuilder group(java.lang.String);
-    public net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> defaultId();
-    public void save(net.minecraft.data.recipes.RecipeOutput, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>>);
-    public net.minecraft.data.recipes.RecipeBuilder group(java.lang.String);
-    public net.minecraft.data.recipes.RecipeBuilder unlockedBy(java.lang.String, net.minecraft.advancements.triggers.Criterion);
-}
+```
+private final category : Lnet/minecraft/data/recipes/RecipeCategory;
+private final result : Lnet/minecraft/world/item/ItemStackTemplate;
+private final ingredient : Lnet/minecraft/world/item/crafting/Ingredient;
+private final advancementBuilder : Lnet/minecraft/data/recipes/RecipeUnlockAdvancementBuilder;
+private final factory : Lnet/minecraft/world/item/crafting/SingleItemRecipe$Factory;
+private <init>(Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/SingleItemRecipe$Factory;Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/world/item/ItemStackTemplate;)V
+public <init>(Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/item/crafting/SingleItemRecipe$Factory;Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/world/level/ItemLike;I)V
+public static stonecutting(Lnet/minecraft/world/item/crafting/Ingredient;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;I)Lnet/minecraft/data/recipes/SingleItemRecipeBuilder;
+public unlockedBy(Ljava/lang/String;Lnet/minecraft/advancements/triggers/Criterion;)Lnet/minecraft/data/recipes/SingleItemRecipeBuilder;
+public group(Ljava/lang/String;)Lnet/minecraft/data/recipes/SingleItemRecipeBuilder;
+public defaultId()Lnet/minecraft/resources/ResourceKey;
+public save(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/resources/ResourceKey;)V
+public synthetic group(Ljava/lang/String;)Lnet/minecraft/data/recipes/RecipeBuilder;
+public synthetic unlockedBy(Ljava/lang/String;Lnet/minecraft/advancements/triggers/Criterion;)Lnet/minecraft/data/recipes/RecipeBuilder;
 ```

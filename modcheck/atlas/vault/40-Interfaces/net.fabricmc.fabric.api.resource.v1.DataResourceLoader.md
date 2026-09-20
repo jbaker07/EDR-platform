@@ -13,8 +13,7 @@ sha256: "2d2fb907728c895640c1261ff3dd115b5087913d88d1ba1d9f3a8a4cfd1ca87e"
 Module: [[30-Mechanisms/fabric-resource-loader-v1|fabric-resource-loader-v1]] -- kind: interface
 
 ```java
-public static final net.minecraft.server.packs.resources.PreparableReloadListener$StateKey<net.fabricmc.fabric.api.resource.v1.DataResourceStore$Mutable> DATA_RESOURCE_STORE_KEY
+public static final net.minecraft.server.packs.resources.PreparableReloadListener$StateKey DATA_RESOURCE_STORE_KEY
 public static net.fabricmc.fabric.api.resource.v1.DataResourceLoader get()
-public abstract void registerReloadListener(net.minecraft.resources.Identifier, java.util.function.Function<net.minecraft.core.HolderLookup$Provider, net.minecraft.server.packs.resources.PreparableReloadListener>)
-static {}
+public abstract void registerReloadListener(net.minecraft.resources.Identifier, java.util.function.Function)
 ```

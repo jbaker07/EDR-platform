@@ -11,51 +11,51 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.multiplayer|net.minecraft.client.multiplayer]]
 
+`class` public; extends `java/lang/Object`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `handleOverlay` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
-| injects_into | `handleSystemMessage` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
-| injects_into | `lambda$handleDisguisedChatMessage$0` | `@Inject at HEAD` | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
-| injects_into | `showMessageToPlayer` | `@Inject at INVOKE Lnet/minecraft/client/gui/Hud;getChat()Lnet/minecraft/client/g` | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
-| injects_into | `showMessageToPlayer` | `@Inject at INVOKE Lnet/minecraft/client/gui/Hud;getChat()Lnet/minecraft/client/g` | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `handleOverlay` | `(Lnet/minecraft/network/chat/Component;)V` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| injects_into | `handleSystemMessage` | `(Lnet/minecraft/network/chat/Component;Z)V` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| injects_into | `lambda$handleDisguisedChatMessage$0` | `(Lnet/minecraft/network/chat/ChatType$Bound;Lnet/minecraft/network/cha` | name_only | @Inject at ['HEAD'] | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| injects_into | `showMessageToPlayer` | `(Lnet/minecraft/network/chat/ChatType$Bound;Lnet/minecraft/network/cha` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
+| injects_into | `showMessageToPlayer` | `(Lnet/minecraft/network/chat/ChatType$Bound;Lnet/minecraft/network/cha` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-message-api-v1|fabric-message-api-v1]] | direct_reference |
 
-## Declared members (30, all visibilities)
+## Declared members (5 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.client.multiplayer.chat.ChatListener {
-    private static final net.minecraft.network.chat.Component CHAT_VALIDATION_ERROR;
-    private final net.minecraft.client.Minecraft minecraft;
-    private final java.util.Deque<net.minecraft.client.multiplayer.chat.ChatListener$Message> delayedMessageQueue;
-    private long messageDelay;
-    private long previousMessageTime;
-    public net.minecraft.client.multiplayer.chat.ChatListener(net.minecraft.client.Minecraft);
-    public void tick();
-    public void setMessageDelay(double);
-    public void acceptNextDelayedMessage();
-    public long queueSize();
-    public void flushQueue();
-    public boolean removeFromDelayedMessageQueue(net.minecraft.network.chat.MessageSignature);
-    private void handleMessage(net.minecraft.network.chat.MessageSignature, java.util.function.BooleanSupplier);
-    public void handlePlayerChatMessage(net.minecraft.network.chat.PlayerChatMessage, com.mojang.authlib.GameProfile, net.minecraft.network.chat.ChatType$Bound);
-    public void handleChatMessageError(java.util.UUID, net.minecraft.network.chat.MessageSignature, net.minecraft.network.chat.ChatType$Bound);
-    public void handleDisguisedChatMessage(net.minecraft.network.chat.Component, net.minecraft.network.chat.ChatType$Bound);
-    private boolean showMessageToPlayer(net.minecraft.network.chat.ChatType$Bound, net.minecraft.network.chat.PlayerChatMessage, net.minecraft.network.chat.Component, com.mojang.authlib.GameProfile, boolean, java.time.Instant);
-    private void narrateChatMessage(net.minecraft.network.chat.ChatType$Bound, net.minecraft.network.chat.Component);
-    private net.minecraft.client.multiplayer.chat.ChatTrustLevel evaluateTrustLevel(net.minecraft.network.chat.PlayerChatMessage, net.minecraft.network.chat.Component, java.time.Instant);
-    private void logPlayerMessage(net.minecraft.network.chat.PlayerChatMessage, com.mojang.authlib.GameProfile, net.minecraft.client.multiplayer.chat.ChatTrustLevel);
-    private void logSystemMessage(net.minecraft.network.chat.Component, java.time.Instant);
-    public void handleSystemMessage(net.minecraft.network.chat.Component, boolean);
-    public void handleOverlay(net.minecraft.network.chat.Component);
-    private java.util.UUID guessChatUUID(net.minecraft.network.chat.Component);
-    private boolean isSenderLocalPlayer(java.util.UUID);
-    private boolean lambda$handleDisguisedChatMessage$0(net.minecraft.network.chat.ChatType$Bound, net.minecraft.network.chat.Component, java.time.Instant);
-    private boolean lambda$handleChatMessageError$0(net.minecraft.network.chat.MessageSignature, java.util.UUID, net.minecraft.network.chat.ChatType$Bound);
-    private boolean lambda$handlePlayerChatMessage$0(net.minecraft.network.chat.ChatType$Bound, net.minecraft.network.chat.PlayerChatMessage, net.minecraft.network.chat.Component, com.mojang.authlib.GameProfile, boolean, java.time.Instant);
-    private static boolean lambda$removeFromDelayedMessageQueue$0(net.minecraft.network.chat.MessageSignature, net.minecraft.client.multiplayer.chat.ChatListener$Message);
-    static {};
-}
+```
+private static final CHAT_VALIDATION_ERROR : Lnet/minecraft/network/chat/Component;
+private final minecraft : Lnet/minecraft/client/Minecraft;
+private final delayedMessageQueue : Ljava/util/Deque;
+private messageDelay : J
+private previousMessageTime : J
+public <init>(Lnet/minecraft/client/Minecraft;)V
+public tick()V
+public setMessageDelay(D)V
+public acceptNextDelayedMessage()V
+public queueSize()J
+public flushQueue()V
+public removeFromDelayedMessageQueue(Lnet/minecraft/network/chat/MessageSignature;)Z
+private handleMessage(Lnet/minecraft/network/chat/MessageSignature;Ljava/util/function/BooleanSupplier;)V
+public handlePlayerChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lcom/mojang/authlib/GameProfile;Lnet/minecraft/network/chat/ChatType$Bound;)V
+public handleChatMessageError(Ljava/util/UUID;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/network/chat/ChatType$Bound;)V
+public handleDisguisedChatMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType$Bound;)V
+private showMessageToPlayer(Lnet/minecraft/network/chat/ChatType$Bound;Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/network/chat/Component;Lcom/mojang/authlib/GameProfile;ZLjava/time/Instant;)Z
+private narrateChatMessage(Lnet/minecraft/network/chat/ChatType$Bound;Lnet/minecraft/network/chat/Component;)V
+private evaluateTrustLevel(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/network/chat/Component;Ljava/time/Instant;)Lnet/minecraft/client/multiplayer/chat/ChatTrustLevel;
+private logPlayerMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lcom/mojang/authlib/GameProfile;Lnet/minecraft/client/multiplayer/chat/ChatTrustLevel;)V
+private logSystemMessage(Lnet/minecraft/network/chat/Component;Ljava/time/Instant;)V
+public handleSystemMessage(Lnet/minecraft/network/chat/Component;Z)V
+public handleOverlay(Lnet/minecraft/network/chat/Component;)V
+private guessChatUUID(Lnet/minecraft/network/chat/Component;)Ljava/util/UUID;
+private isSenderLocalPlayer(Ljava/util/UUID;)Z
+private synthetic lambda$handleDisguisedChatMessage$0(Lnet/minecraft/network/chat/ChatType$Bound;Lnet/minecraft/network/chat/Component;Ljava/time/Instant;)Z
+private synthetic lambda$handleChatMessageError$0(Lnet/minecraft/network/chat/MessageSignature;Ljava/util/UUID;Lnet/minecraft/network/chat/ChatType$Bound;)Z
+private synthetic lambda$handlePlayerChatMessage$0(Lnet/minecraft/network/chat/ChatType$Bound;Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/network/chat/Component;Lcom/mojang/authlib/GameProfile;ZLjava/time/Instant;)Z
+private static synthetic lambda$removeFromDelayedMessageQueue$0(Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/multiplayer/chat/ChatListener$Message;)Z
+static <clinit>()V
 ```

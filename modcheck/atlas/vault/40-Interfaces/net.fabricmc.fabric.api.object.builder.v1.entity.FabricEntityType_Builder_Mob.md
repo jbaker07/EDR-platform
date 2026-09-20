@@ -13,7 +13,7 @@ sha256: "3a5f0ccef440552828d9469420547dc3cdbe3e206af73fa98d0bfcfb5b75c1ba"
 Module: [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] -- kind: interface
 
 ```java
-public abstract net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob<T> spawnPlacement(net.minecraft.world.entity.SpawnPlacementType, net.minecraft.world.level.levelgen.Heightmap$Types, net.minecraft.world.entity.SpawnPlacements$SpawnPredicate<T>)
-public abstract net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob<T> defaultAttributes(java.util.function.Supplier<net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder>)
-public default net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Living defaultAttributes(java.util.function.Supplier)
+public abstract net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob spawnPlacement(net.minecraft.world.entity.SpawnPlacementType, net.minecraft.world.level.levelgen.Heightmap$Types, net.minecraft.world.entity.SpawnPlacements$SpawnPredicate)
+public abstract net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob defaultAttributes(java.util.function.Supplier)
+public net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Living defaultAttributes(java.util.function.Supplier)
 ```

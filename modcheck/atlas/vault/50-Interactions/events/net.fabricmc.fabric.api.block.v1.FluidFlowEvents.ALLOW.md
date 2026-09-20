@@ -15,11 +15,11 @@ Module: [[30-Mechanisms/fabric-block-api-v1|fabric-block-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `FlowingFluidMixin.shouldSpreadLiquid` | `FlowingFluid.spreadTo` @Inject at HEAD | both | static_inference |
-| `LavaFluidMixin.shouldSpreadLiquid` | `LavaFluid.spreadTo` @Inject at HEAD | both | static_inference |
-| `LiquidBlockMixin.shouldSpreadLiquid` | `LiquidBlock.shouldSpreadLiquid` @Inject at HEAD | both | static_inference |
+| `FlowingFluidMixin.shouldSpreadLiquid` @38 | [[40-Interfaces/net.minecraft.world.level.material.FlowingFluid|FlowingFluid]].`spreadTo` @Inject HEAD | unknown | static_inference |
+| `LavaFluidMixin.shouldSpreadLiquid` @26 | [[40-Interfaces/net.minecraft.world.level.material.LavaFluid|LavaFluid]].`spreadTo` @Inject HEAD | unknown | static_inference |
+| `LiquidBlockMixin.shouldSpreadLiquid` @16 | [[40-Interfaces/net.minecraft.world.level.block.LiquidBlock|LiquidBlock]].`shouldSpreadLiquid` @Inject HEAD | unknown | static_inference |
 
 ## Contract
 

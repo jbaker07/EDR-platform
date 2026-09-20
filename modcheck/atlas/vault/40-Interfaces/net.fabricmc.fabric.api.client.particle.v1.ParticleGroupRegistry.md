@@ -13,7 +13,7 @@ sha256: "0bf0c29bd7f1803eac7c5d4aec1af51bb25790ba41583108a2320740043cd0c2"
 Module: [[30-Mechanisms/fabric-particles-v1|fabric-particles-v1]] -- kind: class
 
 ```java
-public static void register(net.minecraft.client.particle.ParticleRenderType, java.util.function.Function<net.minecraft.client.particle.ParticleEngine, net.minecraft.client.particle.ParticleGroup<?>>)
+public static void register(net.minecraft.client.particle.ParticleRenderType, java.util.function.Function)
 public static void registerOrdering(net.minecraft.client.particle.ParticleRenderType, net.minecraft.resources.Identifier)
 public static void registerOrdering(net.minecraft.client.particle.ParticleRenderType, net.minecraft.client.particle.ParticleRenderType)
 public static void registerOrdering(net.minecraft.resources.Identifier, net.minecraft.client.particle.ParticleRenderType)

@@ -15,10 +15,10 @@ Module: [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ServerPlayerGameModeMixin.interactBlock` | `ServerPlayerGameMode.useItemOn` @Inject at HEAD | both | static_inference |
-| `MultiPlayerGameModeMixin.interactBlock` | `MultiPlayerGameMode.useItemOn` @Inject at INVOKE Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;startPrediction(Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/client/multiplayer/prediction/PredictiveAction;)V | client | static_inference |
+| `ServerPlayerGameModeMixin.interactBlock` @15 | [[40-Interfaces/net.minecraft.server.level.ServerPlayerGameMode|ServerPlayerGameMode]].`useItemOn` @Inject HEAD | unknown | static_inference |
+| `MultiPlayerGameModeMixin.interactBlock` @24 | [[40-Interfaces/net.minecraft.client.multiplayer.MultiPlayerGameMode|MultiPlayerGameMode]].`useItemOn` @Inject INVOKE `Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;startPrediction(Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/client/multiplayer/prediction/PredictiveAction;)V` | unknown | static_inference |
 
 ## Contract
 

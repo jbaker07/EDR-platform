@@ -13,10 +13,10 @@ sha256: "aff8cffc3d6da5475f21060e45cd28307676974674c4e10504c0fcc89c7746c4"
 Module: [[30-Mechanisms/fabric-item-api-v1|fabric-item-api-v1]] -- kind: interface
 
 ```java
-public abstract void modify(java.util.function.Predicate<net.minecraft.world.item.Item>, net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyConsumer)
-public default void modify(net.minecraft.world.item.Item, net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyConsumer)
-public default void modify(java.util.Collection<net.minecraft.world.item.Item>, net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyConsumer)
-public default void modify(java.util.function.Predicate<net.minecraft.world.item.Item>, java.util.function.BiConsumer<net.minecraft.core.component.DataComponentMap$Builder, net.minecraft.world.item.Item>)
-public default void modify(net.minecraft.world.item.Item, java.util.function.Consumer<net.minecraft.core.component.DataComponentMap$Builder>)
-public default void modify(java.util.Collection<net.minecraft.world.item.Item>, java.util.function.BiConsumer<net.minecraft.core.component.DataComponentMap$Builder, net.minecraft.world.item.Item>)
+public abstract void modify(java.util.function.Predicate, net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyConsumer)
+public void modify(net.minecraft.world.item.Item, net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyConsumer)
+public void modify(java.util.Collection, net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyConsumer)
+public void modify(java.util.function.Predicate, java.util.function.BiConsumer)
+public void modify(net.minecraft.world.item.Item, java.util.function.Consumer)
+public void modify(java.util.Collection, java.util.function.BiConsumer)
 ```

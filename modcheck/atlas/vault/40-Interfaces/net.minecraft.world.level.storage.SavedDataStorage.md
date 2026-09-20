@@ -11,54 +11,57 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
 
+`class` public; extends `java/lang/Object`; implements `java/lang/AutoCloseable`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `"<init>"(Ljava/nio/file/Path;Lcom/mojang/datafixers/DataFixer;Lnet/m` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `close()V` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `computeIfAbsent(Lnet/minecraft/world/level/saveddata/SavedDataType;)Lnet/mi` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `computeIfAbsent(Lnet/minecraft/world/level/saveddata/SavedDataType;)Lnet/mi` | `` | both | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
-| calls | `saveAndJoin()V` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
-| calls | `set(Lnet/minecraft/world/level/saveddata/SavedDataType;Lnet/min` | `` | both | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Ljava/nio/file/Path;Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/c` | exact | invokespecial@81 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `close` | `()V` | exact | invokevirtual@121 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `close` | `()V` | exact | invokevirtual@131 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `computeIfAbsent` | `(Lnet/minecraft/world/level/saveddata/SavedDataType;)Lnet/minecraft/wo` | exact | invokevirtual@44 in `MinecraftServerMixin.initGlobalAttachments` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `computeIfAbsent` | `(Lnet/minecraft/world/level/saveddata/SavedDataType;)Lnet/minecraft/wo` | exact | invokevirtual@32 in `ServerLevelMixin.createAttachmentsPersistentState` | unknown | [[30-Mechanisms/fabric-data-attachment-api-v1|fabric-data-attachment-api-v1]] | direct_reference |
+| calls | `saveAndJoin` | `()V` | exact | invokevirtual@116 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/saveddata/SavedDataType;Lnet/minecraft/wor` | exact | invokevirtual@93 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| calls | `set` | `(Lnet/minecraft/world/level/saveddata/SavedDataType;Lnet/minecraft/wor` | exact | invokevirtual@111 in `CreateWorldScreenMixin.createLevelDataForServers` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| wraps | `readTagFromDisk` | `(Ljava/nio/file/Path;Lnet/minecraft/util/datafix/DataFixTypes;I)Lnet/m` | name_only | @WrapOperation at ['INVOKE'] | both | [[30-Mechanisms/fabric-object-builder-api-v1|fabric-object-builder-api-v1]] | direct_reference |
 
-## Declared members (32, all visibilities)
+## Declared members (7 fields, 25 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.world.level.storage.SavedDataStorage implements java.lang.AutoCloseable {
-    private static final org.slf4j.Logger LOGGER;
-    private final java.util.Map<net.minecraft.world.level.saveddata.SavedDataType<?>, java.util.Optional<net.minecraft.world.level.saveddata.SavedData>> cache;
-    private final com.mojang.datafixers.DataFixer fixerUpper;
-    private final net.minecraft.core.HolderLookup$Provider registries;
-    private final java.nio.file.Path dataFolder;
-    private java.util.concurrent.CompletableFuture<?> pendingWriteFuture;
-    private boolean closed;
-    public net.minecraft.world.level.storage.SavedDataStorage(java.nio.file.Path, com.mojang.datafixers.DataFixer, net.minecraft.core.HolderLookup$Provider);
-    private java.nio.file.Path getDataFile(net.minecraft.resources.Identifier);
-    public <T extends net.minecraft.world.level.saveddata.SavedData> T computeIfAbsent(net.minecraft.world.level.saveddata.SavedDataType<T>);
-    public <T extends net.minecraft.world.level.saveddata.SavedData> T get(net.minecraft.world.level.saveddata.SavedDataType<T>);
-    private <T extends net.minecraft.world.level.saveddata.SavedData> T readSavedData(net.minecraft.world.level.saveddata.SavedDataType<T>);
-    public <T extends net.minecraft.world.level.saveddata.SavedData> void set(net.minecraft.world.level.saveddata.SavedDataType<T>, T);
-    public net.minecraft.nbt.CompoundTag readTagFromDisk(java.nio.file.Path, net.minecraft.util.datafix.DataFixTypes, int) throws java.io.IOException;
-    private boolean isGzip(java.io.PushbackInputStream) throws java.io.IOException;
-    public java.util.concurrent.CompletableFuture<?> scheduleSave();
-    private java.util.Map<net.minecraft.world.level.saveddata.SavedDataType<?>, net.minecraft.nbt.CompoundTag> collectDirtyTagsToSave();
-    private <T extends net.minecraft.world.level.saveddata.SavedData> net.minecraft.nbt.CompoundTag encodeUnchecked(net.minecraft.world.level.saveddata.SavedDataType<T>, net.minecraft.world.level.saveddata.SavedData, net.minecraft.resources.RegistryOps<net.minecraft.nbt.Tag>);
-    private void tryWrite(net.minecraft.world.level.saveddata.SavedDataType<?>, net.minecraft.nbt.CompoundTag);
-    public void saveAndJoin();
-    public void close();
-    private void lambda$collectDirtyTagsToSave$0(java.util.Map, net.minecraft.resources.RegistryOps, net.minecraft.world.level.saveddata.SavedDataType, java.util.Optional);
-    private void lambda$collectDirtyTagsToSave$1(java.util.Map, net.minecraft.world.level.saveddata.SavedDataType, net.minecraft.resources.RegistryOps, net.minecraft.world.level.saveddata.SavedData);
-    private java.util.concurrent.CompletionStage lambda$scheduleSave$3(java.util.Map, java.lang.Object);
-    private static java.util.concurrent.CompletableFuture[] lambda$scheduleSave$6(int);
-    private java.util.concurrent.CompletableFuture lambda$scheduleSave$4(java.util.Map$Entry);
-    private void lambda$scheduleSave$5(java.util.Map$Entry);
-    private java.util.concurrent.CompletionStage lambda$scheduleSave$0(int, int, java.util.Map, java.lang.Object);
-    private static java.util.concurrent.CompletableFuture[] lambda$scheduleSave$2(int);
-    private void lambda$scheduleSave$1(java.util.List);
-    private static void lambda$readSavedData$0(net.minecraft.world.level.saveddata.SavedDataType, java.lang.String);
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+private final cache : Ljava/util/Map;
+private final fixerUpper : Lcom/mojang/datafixers/DataFixer;
+private final registries : Lnet/minecraft/core/HolderLookup$Provider;
+private final dataFolder : Ljava/nio/file/Path;
+private pendingWriteFuture : Ljava/util/concurrent/CompletableFuture;
+private closed : Z
+public <init>(Ljava/nio/file/Path;Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/core/HolderLookup$Provider;)V
+private getDataFile(Lnet/minecraft/resources/Identifier;)Ljava/nio/file/Path;
+public computeIfAbsent(Lnet/minecraft/world/level/saveddata/SavedDataType;)Lnet/minecraft/world/level/saveddata/SavedData;
+public get(Lnet/minecraft/world/level/saveddata/SavedDataType;)Lnet/minecraft/world/level/saveddata/SavedData;
+private readSavedData(Lnet/minecraft/world/level/saveddata/SavedDataType;)Lnet/minecraft/world/level/saveddata/SavedData;
+public set(Lnet/minecraft/world/level/saveddata/SavedDataType;Lnet/minecraft/world/level/saveddata/SavedData;)V
+public readTagFromDisk(Ljava/nio/file/Path;Lnet/minecraft/util/datafix/DataFixTypes;I)Lnet/minecraft/nbt/CompoundTag;
+private isGzip(Ljava/io/PushbackInputStream;)Z
+public scheduleSave()Ljava/util/concurrent/CompletableFuture;
+private collectDirtyTagsToSave()Ljava/util/Map;
+private encodeUnchecked(Lnet/minecraft/world/level/saveddata/SavedDataType;Lnet/minecraft/world/level/saveddata/SavedData;Lnet/minecraft/resources/RegistryOps;)Lnet/minecraft/nbt/CompoundTag;
+private tryWrite(Lnet/minecraft/world/level/saveddata/SavedDataType;Lnet/minecraft/nbt/CompoundTag;)V
+public saveAndJoin()V
+public close()V
+private synthetic lambda$collectDirtyTagsToSave$0(Ljava/util/Map;Lnet/minecraft/resources/RegistryOps;Lnet/minecraft/world/level/saveddata/SavedDataType;Ljava/util/Optional;)V
+private synthetic lambda$collectDirtyTagsToSave$1(Ljava/util/Map;Lnet/minecraft/world/level/saveddata/SavedDataType;Lnet/minecraft/resources/RegistryOps;Lnet/minecraft/world/level/saveddata/SavedData;)V
+private synthetic lambda$scheduleSave$3(Ljava/util/Map;Ljava/lang/Object;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$scheduleSave$6(I)[Ljava/util/concurrent/CompletableFuture;
+private synthetic lambda$scheduleSave$4(Ljava/util/Map$Entry;)Ljava/util/concurrent/CompletableFuture;
+private synthetic lambda$scheduleSave$5(Ljava/util/Map$Entry;)V
+private synthetic lambda$scheduleSave$0(IILjava/util/Map;Ljava/lang/Object;)Ljava/util/concurrent/CompletionStage;
+private static synthetic lambda$scheduleSave$2(I)[Ljava/util/concurrent/CompletableFuture;
+private synthetic lambda$scheduleSave$1(Ljava/util/List;)V
+private static synthetic lambda$readSavedData$0(Lnet/minecraft/world/level/saveddata/SavedDataType;Ljava/lang/String;)V
+static <clinit>()V
 ```

@@ -11,39 +11,39 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.gui|net.minecraft.client.gui]]
 
+`abstract_class` public abstract; extends `net/minecraft/client/gui/screens/inventory/AbstractContainerScreen`; implements `net/minecraft/client/gui/screens/recipebook/RecipeUpdateListener`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `extractRenderState` | `@Inject at INVOKE Lnet/minecraft/client/gui/screens/recipebook/RecipeBookCompone` | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| injects_into | `extractRenderState` | `(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V` | name_only | @Inject at ['INVOKE'] | both | [[30-Mechanisms/fabric-screen-api-v1|fabric-screen-api-v1]] | direct_reference |
 
-## Declared members (22, all visibilities)
+## Declared members (2 fields, 20 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public abstract class net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen<T extends net.minecraft.world.inventory.RecipeBookMenu> extends net.minecraft.client.gui.screens.inventory.AbstractContainerScreen<T> implements net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener {
-    private final net.minecraft.client.gui.screens.recipebook.RecipeBookComponent<?> recipeBookComponent;
-    private boolean widthTooNarrow;
-    public net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen(T, net.minecraft.client.gui.screens.recipebook.RecipeBookComponent<?>, net.minecraft.world.entity.player.Inventory, net.minecraft.network.chat.Component);
-    protected void init();
-    protected abstract net.minecraft.client.gui.navigation.ScreenPosition getRecipeBookButtonPosition();
-    private void initButton();
-    protected void onRecipeBookButtonClick();
-    public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor, int, int, float);
-    protected void extractSlots(net.minecraft.client.gui.GuiGraphicsExtractor, int, int);
-    protected boolean isBiggerResultSlot();
-    public boolean charTyped(net.minecraft.client.input.CharacterEvent);
-    public boolean keyPressed(net.minecraft.client.input.KeyEvent);
-    public boolean isInputCaptured();
-    public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent, boolean);
-    public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent, double, double);
-    protected boolean isHovering(int, int, int, int, double, double);
-    protected boolean hasClickedOutside(double, double, int, int);
-    protected void slotClicked(net.minecraft.world.inventory.Slot, int, int, net.minecraft.world.inventory.ContainerInput);
-    public void containerTick();
-    public void recipesUpdated();
-    public void fillGhostRecipe(net.minecraft.world.item.crafting.display.RecipeDisplay);
-    private void lambda$initButton$0(net.minecraft.client.gui.components.Button);
-}
+```
+private final recipeBookComponent : Lnet/minecraft/client/gui/screens/recipebook/RecipeBookComponent;
+private widthTooNarrow : Z
+public <init>(Lnet/minecraft/world/inventory/RecipeBookMenu;Lnet/minecraft/client/gui/screens/recipebook/RecipeBookComponent;Lnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/network/chat/Component;)V
+protected init()V
+protected abstract getRecipeBookButtonPosition()Lnet/minecraft/client/gui/navigation/ScreenPosition;
+private initButton()V
+protected onRecipeBookButtonClick()V
+public extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V
+protected extractSlots(Lnet/minecraft/client/gui/GuiGraphicsExtractor;II)V
+protected isBiggerResultSlot()Z
+public charTyped(Lnet/minecraft/client/input/CharacterEvent;)Z
+public keyPressed(Lnet/minecraft/client/input/KeyEvent;)Z
+public isInputCaptured()Z
+public mouseClicked(Lnet/minecraft/client/input/MouseButtonEvent;Z)Z
+public mouseDragged(Lnet/minecraft/client/input/MouseButtonEvent;DD)Z
+protected isHovering(IIIIDD)Z
+protected hasClickedOutside(DDII)Z
+protected slotClicked(Lnet/minecraft/world/inventory/Slot;IILnet/minecraft/world/inventory/ContainerInput;)V
+public containerTick()V
+public recipesUpdated()V
+public fillGhostRecipe(Lnet/minecraft/world/item/crafting/display/RecipeDisplay;)V
+private synthetic lambda$initButton$0(Lnet/minecraft/client/gui/components/Button;)V
 ```

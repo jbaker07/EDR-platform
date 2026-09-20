@@ -11,33 +11,33 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.server.dedicated|net.minecraft.server.dedicated]]
 
+`class` public; extends `net/minecraft/server/players/PlayerList`; implements nothing; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| calls | `getWhiteList()Lnet/minecraft/server/players/UserWhiteList;` | `` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `getWhiteList` | `()Lnet/minecraft/server/players/UserWhiteList;` | inherited_exact | invokevirtual@4 in `DedicatedServerImplUtil.lambda$whitelistClient$0` | unknown | [[30-Mechanisms/fabric-client-gametest-api-v1|fabric-client-gametest-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (1 fields, 15 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public class net.minecraft.server.dedicated.DedicatedPlayerList extends net.minecraft.server.players.PlayerList {
-    private static final org.slf4j.Logger LOGGER;
-    public net.minecraft.server.dedicated.DedicatedPlayerList(net.minecraft.server.dedicated.DedicatedServer, net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer>, net.minecraft.world.level.storage.PlayerDataStorage);
-    public void reloadWhiteList();
-    private void saveIpBanList();
-    private void saveUserBanList();
-    private void loadIpBanList();
-    private void loadUserBanList();
-    private void loadOps();
-    private void saveOps();
-    private void loadWhiteList();
-    private void saveWhiteList();
-    public boolean isWhiteListed(net.minecraft.server.players.NameAndId);
-    public net.minecraft.server.dedicated.DedicatedServer getServer();
-    public boolean canBypassPlayerLimit(net.minecraft.server.players.NameAndId);
-    public net.minecraft.server.MinecraftServer getServer();
-    static {};
-}
+```
+private static final LOGGER : Lorg/slf4j/Logger;
+public <init>(Lnet/minecraft/server/dedicated/DedicatedServer;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/PlayerDataStorage;)V
+public reloadWhiteList()V
+private saveIpBanList()V
+private saveUserBanList()V
+private loadIpBanList()V
+private loadUserBanList()V
+private loadOps()V
+private saveOps()V
+private loadWhiteList()V
+private saveWhiteList()V
+public isWhiteListed(Lnet/minecraft/server/players/NameAndId;)Z
+public getServer()Lnet/minecraft/server/dedicated/DedicatedServer;
+public canBypassPlayerLimit(Lnet/minecraft/server/players/NameAndId;)Z
+public synthetic getServer()Lnet/minecraft/server/MinecraftServer;
+static <clinit>()V
 ```

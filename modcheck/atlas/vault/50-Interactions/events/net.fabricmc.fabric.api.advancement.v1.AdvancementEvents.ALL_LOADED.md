@@ -15,9 +15,9 @@ Module: [[30-Mechanisms/fabric-advancement-api-v1|fabric-advancement-api-v1]]
 
 ## Published from
 
-| site | vanilla injection | environment | evidence |
+| site | vanilla injection (handler's own injects/wraps edges) | environment | evidence |
 |---|---|---|---|
-| `ReloadableServerRegistriesMixin.lambda$modifyAdvancements$0` | (handler is not itself an injector method: fired from a helper or impl class) | both | static_inference |
+| `ReloadableServerRegistriesMixin.lambda$modifyAdvancements$0` @20 | (handler is not itself an injector: fired from a helper or impl method) | unknown | static_inference |
 
 ## Contract
 

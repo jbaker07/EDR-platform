@@ -11,33 +11,37 @@ side: "vanilla"
 
 System: [[20-Systems/net.minecraft.client.resources|net.minecraft.client.resources]]
 
+`record` public final; extends `java/lang/Record`; implements `net/minecraft/client/renderer/block/dispatch/BlockStateModelPart`; identical to the cache jar.
+
 ## How Fabric API modules touch this type
 
-| relation | member | operation | environment | by | evidence |
-|---|---|---|---|---|---|
-| injects_into | `findNonBlockSprites` | `@Inject at INVOKE Lnet/minecraft/client/resources/model/geometry/QuadCollection;` | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| relation | member | descriptor | resolution | operation / site | env | by | evidence |
+|---|---|---|---|---|---|---|---|
+| calls | `<init>` | `(Lnet/minecraft/client/resources/model/geometry/QuadCollection;ZLnet/m` | exact | invokespecial@225 in `SimpleUnbakedExtraModel.bakeResolved` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| injects_into | `findNonBlockSprites` | `(Lnet/minecraft/client/resources/model/geometry/QuadCollection;)Lcom/g` | name_only | @Inject at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
+| reads | `quads` | `Lnet/minecraft/client/resources/model/geometry/QuadCollection;` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| reads | `useAmbientOcclusion` | `Z` | exact | @Shadow declaration | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | declared |
+| wraps | `bake` | `(Lnet/minecraft/client/resources/model/ModelBaker;Lnet/minecraft/resou` | name_only | @WrapOperation at ['INVOKE'] | client | [[30-Mechanisms/fabric-renderer-api-v1|fabric-renderer-api-v1]] | direct_reference |
 
-## Declared members (16, all visibilities)
+## Declared members (4 fields, 12 methods, all visibilities)
 
-From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+From the processed jar `97a090f2e55dbcee`. Inherited members are not listed; the resolver walks them (`inherited_exact`).
 
-```java
-public final class net.minecraft.client.resources.model.SimpleModelWrapper extends java.lang.Record implements net.minecraft.client.renderer.block.dispatch.BlockStateModelPart {
-    private final net.minecraft.client.resources.model.geometry.QuadCollection quads;
-    private final boolean useAmbientOcclusion;
-    private final net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial;
-    private static final org.slf4j.Logger LOGGER;
-    public net.minecraft.client.resources.model.SimpleModelWrapper(net.minecraft.client.resources.model.geometry.QuadCollection, boolean, net.minecraft.client.resources.model.sprite.Material$Baked);
-    public static net.minecraft.client.renderer.block.dispatch.BlockStateModelPart bake(net.minecraft.client.resources.model.ModelBaker, net.minecraft.resources.Identifier, net.minecraft.client.renderer.block.dispatch.ModelState);
-    public static com.google.common.collect.Multimap<net.minecraft.resources.Identifier, net.minecraft.resources.Identifier> findNonBlockSprites(net.minecraft.client.resources.model.geometry.QuadCollection);
-    public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getQuads(net.minecraft.core.Direction);
-    public int materialFlags();
-    public final java.lang.String toString();
-    public final int hashCode();
-    public final boolean equals(java.lang.Object);
-    public net.minecraft.client.resources.model.geometry.QuadCollection quads();
-    public boolean useAmbientOcclusion();
-    public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
-    static {};
-}
+```
+private final quads : Lnet/minecraft/client/resources/model/geometry/QuadCollection;
+private final useAmbientOcclusion : Z
+private final particleMaterial : Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+private static final LOGGER : Lorg/slf4j/Logger;
+public <init>(Lnet/minecraft/client/resources/model/geometry/QuadCollection;ZLnet/minecraft/client/resources/model/sprite/Material$Baked;)V
+public static bake(Lnet/minecraft/client/resources/model/ModelBaker;Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/renderer/block/dispatch/ModelState;)Lnet/minecraft/client/renderer/block/dispatch/BlockStateModelPart;
+public static findNonBlockSprites(Lnet/minecraft/client/resources/model/geometry/QuadCollection;)Lcom/google/common/collect/Multimap;
+public getQuads(Lnet/minecraft/core/Direction;)Ljava/util/List;
+public materialFlags()I
+public final toString()Ljava/lang/String;
+public final hashCode()I
+public final equals(Ljava/lang/Object;)Z
+public quads()Lnet/minecraft/client/resources/model/geometry/QuadCollection;
+public useAmbientOcclusion()Z
+public particleMaterial()Lnet/minecraft/client/resources/model/sprite/Material$Baked;
+static <clinit>()V
 ```

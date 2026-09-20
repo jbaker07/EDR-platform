@@ -14,7 +14,7 @@ Module: [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] -- kind: inter
 
 ```java
 public abstract void addAll(net.minecraft.world.attribute.EnvironmentAttributeMap)
-public default void addAll(net.minecraft.world.attribute.EnvironmentAttributeMap$Builder)
-public abstract <T> void set(net.minecraft.world.attribute.EnvironmentAttribute<T>, T)
-public abstract <T, M> void setModifier(net.minecraft.world.attribute.EnvironmentAttribute<T>, net.minecraft.world.attribute.modifier.AttributeModifier<T, M>, M)
+public void addAll(net.minecraft.world.attribute.EnvironmentAttributeMap$Builder)
+public abstract void set(net.minecraft.world.attribute.EnvironmentAttribute, java.lang.Object)
+public abstract void setModifier(net.minecraft.world.attribute.EnvironmentAttribute, net.minecraft.world.attribute.modifier.AttributeModifier, java.lang.Object)
 ```

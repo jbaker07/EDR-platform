@@ -13,6 +13,6 @@ sha256: "7d63b44a449ddd84d4988ef17cec1894ef1890b2844079500ea47c3dc678d967"
 Module: [[30-Mechanisms/fabric-recipe-api-v1|fabric-recipe-api-v1]] -- kind: interface
 
 ```java
-public default <I extends net.minecraft.world.item.crafting.RecipeInput, T extends net.minecraft.world.item.crafting.Recipe<I>> java.util.stream.Stream<net.minecraft.world.item.crafting.RecipeHolder<T>> getAllMatches(net.minecraft.world.item.crafting.RecipeType<T>, I, net.minecraft.world.level.Level)
-public default <I extends net.minecraft.world.item.crafting.RecipeInput, T extends net.minecraft.world.item.crafting.Recipe<I>> java.util.Collection<net.minecraft.world.item.crafting.RecipeHolder<T>> getAllOfType(net.minecraft.world.item.crafting.RecipeType<T>)
+public java.util.stream.Stream getAllMatches(net.minecraft.world.item.crafting.RecipeType, net.minecraft.world.item.crafting.RecipeInput, net.minecraft.world.level.Level)
+public java.util.Collection getAllOfType(net.minecraft.world.item.crafting.RecipeType)
 ```

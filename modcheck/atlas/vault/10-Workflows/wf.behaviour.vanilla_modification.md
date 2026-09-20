@@ -13,7 +13,7 @@ area: "behaviour"
 
 ## Must be preserved
 
-- Every Fabric API event fired from the modified method (removed by @Overwrite).
+- Every Fabric API injection into the modified method and the events fired from it. What an @Overwrite does to them depends on the injection point and priority, established by transformation tests ([[30-Mechanisms/Mixin|Mixin]]).
 - Other mods' injections into the same method.
 
 ## Mechanisms that can serve it
@@ -28,14 +28,14 @@ area: "behaviour"
 ## Decisions the creator must make
 
 - Event or mixin.
-- For a mixin: injector kind (Inject adds, Redirect replaces one call, Overwrite replaces the body) -- see the mixin note under [[30-Mechanisms/Mixin|Mixin]].
-- Whether to cancel, and where (a HEAD cancel on a contested method suppresses other mods).
+- For a mixin: injector kind. @Inject adds; @Redirect replaces one call site and cannot share it with another @Redirect ([[30-Mechanisms/Transformation_Tests#C|scenario C]]) but composes under a @WrapOperation ([[30-Mechanisms/Transformation_Tests#D|scenario D]]); @Overwrite replaces the body and keeps other mods' HEAD/TAIL/RETURN injections while refusing their INVOKE-point injections unless theirs outrank it ([[30-Mechanisms/Transformation_Tests#A|scenario A]], [[30-Mechanisms/Transformation_Tests#B|scenario B]], [[30-Mechanisms/Transformation_Tests#K|scenario K]]).
+- Whether to cancel, and where: a cancelling HEAD suppresses every later injection in the method, other mods' included ([[30-Mechanisms/Transformation_Tests#H|scenario H]]).
 
 ## Information those decisions need
 
-- The exact target method signature in 26.3 (`extracted/minecraft_members.json` for hooked types).
-- Whether the target is contested (generated list under 50-Interactions).
-- Application order relative to other mods ([[80-Unresolved/q.mixin_docs_application_order|q.mixin_docs_application_order]]).
+- The exact target method in the processed compile jar (`extracted/minecraft_surface.json.gz`; note it differs from Mojang's jar in 363 classes: `extracted/resolved_environment.json`).
+- Whether the target is a shared target (`extracted/edges.json#shared_targets`) and with which injector effects.
+- Application order relative to other mods: lower priority first, configuration order at equal priority in the harness ([[30-Mechanisms/Transformation_Tests#E|scenario E]], [[30-Mechanisms/Transformation_Tests#G|scenario G]]); the documented rule is [[80-Unresolved/q.mixin_docs_application_order|q.mixin_docs_application_order]].
 
 ## Existing automation
 
@@ -47,7 +47,7 @@ area: "behaviour"
 
 ## ModCheck's contribution
 
-- Target-existence check from minecraft_members.json; contested-method warning; the policy from [[80-Unresolved/q.contested_method_policy|q.contested_method_policy]] once decided.
+- Target-existence check from the surface; shared-target warning; the policy from [[80-Unresolved/q.contested_method_policy|q.contested_method_policy]] once decided, encoded with the composition table.
 
 ## Interactions to check
 
@@ -57,7 +57,8 @@ area: "behaviour"
 
 - `capability/modify_behaviour.fabric_extend_behaviour_with_mixin`
 - `extracted/edges.json#injects_into`
-- `extracted/minecraft_members.json`
+- `extracted/mixin_transformation_tests.json`
+- `extracted/minecraft_surface.json.gz`
 
 ## Open questions
 

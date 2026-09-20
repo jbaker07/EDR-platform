@@ -14,9 +14,9 @@ Module: [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]
 
 ```java
 protected net.minecraft.client.renderer.item.ItemModel$Unbaked wrapped
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedItemModel()
-protected net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedItemModel(net.minecraft.client.renderer.item.ItemModel$Unbaked)
+protected <init>()
+protected <init>(net.minecraft.client.renderer.item.ItemModel$Unbaked)
 public void resolveDependencies(net.minecraft.client.resources.model.ResolvableModel$Resolver)
-public com.mojang.serialization.MapCodec<? extends net.minecraft.client.renderer.item.ItemModel$Unbaked> type()
+public com.mojang.serialization.MapCodec type()
 public net.minecraft.client.renderer.item.ItemModel bake(net.minecraft.client.renderer.item.ItemModel$BakingContext, org.joml.Matrix4fc)
 ```

@@ -32,7 +32,7 @@ area: "presentation"
 
 ## Information those decisions need
 
-- The 26.3 particle registration signature (particle package hooked: 6 types in `extracted/minecraft_members.json`).
+- The 26.3 particle registration signature (particle package hooked: 6 types in `extracted/minecraft_surface.json.gz`).
 
 ## Existing automation
 
