@@ -44,6 +44,7 @@ CODES: frozenset[str] = frozenset({
     # analyze/contentpatcher.py, via collisions
     "contentpatcher.competition_unresolved",
     "contentpatcher.exclusive_conflict",
+    "contentpatcher.field_requires_newer_format",
     "contentpatcher.exclusive_supersedes",
     "contentpatcher.priority_selection",
     # report.py

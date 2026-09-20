@@ -70,6 +70,7 @@ CASES = {
     "sv_selected_replacement": {"bear": True, "probe": "High"},
     "sv_conditional_behaviour": {"bear": True, "probe": None,
                                  "config": {"UseSaddle": "true"}},
+    "sv_composing_edit": {"bear": True, "probe": "Late", "probe_mode": "overlay"},
 }
 
 _TOKEN = re.compile(r"\{\{(?P<name>\w+)\}\}")
@@ -257,7 +258,8 @@ def main() -> int:
 
     if plan.get("probe") is not None:
         priority = None if plan["probe"] == "exclusive" else plan["probe"]
-        digests = build_probe_pack.build(priority, out / PROBE_DIR)
+        digests = build_probe_pack.build(priority, out / PROBE_DIR,
+                                         mode=plan.get("probe_mode", "load"))
         installed += [{"path": f"{PROBE_DIR}/{name}", "sha256": digest}
                       for name, digest in digests.items()]
 

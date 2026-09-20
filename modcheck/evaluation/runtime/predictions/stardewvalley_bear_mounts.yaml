@@ -118,11 +118,11 @@
       redistributed to set up this case.
   inputs:
   - path: evaluation/runtime/packs/modcheck-conflict-probe/content.json
-    sha256: b743cddab2e478acc0d569f292113577aee37309b601697a8e87c53d612148ce
+    sha256: cab029771d9a6c7c450f6bc8598f4316c4f729ee20d401c12a2c3c10def849b7
     bytes: 186
     note: probe with no Priority field, i.e. Exclusive by omission
   - path: evaluation/runtime/packs/modcheck-conflict-probe/manifest.json
-    sha256: b929518f5410d00056ecdcc5f8ef81402c8add5ebca0c8384d62691a4b9d6cc8
+    sha256: 304ca42bc6949d75d10003de574597b67bfb31287529b51e4422a9236dcbaaf1
     bytes: 379
   - path: evaluation/runtime/packs/modcheck-conflict-probe/assets/probe_horse.png
     sha256: c7fefcb5f1e1fd21788966fcd7af9d757206b12b97b666c81c9110da5fae782e
@@ -181,16 +181,23 @@
       exactly one field, the probe's Priority, set from absent to "High". Rebuild
       with `python evaluation/runtime/build_probe_pack.py --priority High`. Nothing
       about Bear Mounts is modified; it is the published release throughout.
+      The probe declares Format 2.0 in both variants, so the Format is not a
+      second variable between them.
     restart: >-
       a full game restart, not `patch reload`, because the probe's manifest and
       ConfigSchema handling are not refreshed by a reload.
   inputs:
   - path: evaluation/runtime/packs/modcheck-conflict-probe/content.json
-    sha256: 840b12dfa63b1b0cdbe615c841298a96e1a66e570303c67f152e3edcfa8900fd
-    bytes: 206
+    sha256: beb12c697bcb8434a9644299c6721a8fbc5530fbbbc6868c61944253c1835684
+    bytes: 212
     note: >-
-      probe with "Priority": "High". This is a DIFFERENT hash from the conflict
-      case on purpose, so a transcript cannot be filed against the wrong variant.
+      probe with "Priority": "High" at Format 2.0. This is a DIFFERENT hash from
+      the conflict case on purpose, so a transcript cannot be filed against the
+      wrong variant. The Format matters: Content Patcher's Migration_2_0 rejects
+      an entire pack that uses Priority while declaring an older Format, and the
+      probe first declared 1.3. Had that shipped, this case would have observed
+      a rejected pack while claiming a superseded patch -- the same "did not
+      apply" outcome for a completely different reason.
   commands:
   - patch summary asset "Animals/horse" full
   - patch dump applied
@@ -282,5 +289,90 @@
       a Load supplies the asset and edits compose on top of it, so the load must
       precede the edit in the reported apply order. If the order were reversed
       the overlay would be painting onto an asset that is about to be replaced.
+  observation:
+    status: not_yet_observed
+
+- id: sv_composing_edit
+  case: achievable_request
+  game: stardewvalley
+  question: >-
+    When the creator's request is one the ecosystem can actually grant -- a
+    cosmetic mark drawn over the horse rather than a replacement of it -- do
+    BOTH packs apply: Bear Mounts supplying the asset, and the probe's EditImage
+    composing on top of it?
+  recorded_at: '2026-09-20'
+  derived_from: >-
+    modcheck.analyze.collisions.stardewvalley over both packs produces NO
+    Content Patcher finding once the probe's Load becomes an EditImage. Edit
+    patches compose rather than compete, so there is nothing for the Load
+    resolution rule to resolve. This is the positive case: not an error cleared,
+    but the outcome the creator asked for.
+  requires:
+    installed_packs: [Bear Mounts, ModCheck Conflict Probe]
+    config: defaults, as in sv_baseline_bear_mounts
+    game_state: as in sv_baseline_bear_mounts
+    controlled_change: >-
+      the probe's patch becomes Action EditImage with PatchMode Overlay, a
+      ToArea confined to an 8x8 corner, and Priority Late -- Content Patcher's
+      own documented advice for "a cosmetic overlay meant to be applied over
+      base edits from all mods". Rebuild with
+      `python evaluation/runtime/build_probe_pack.py --mode overlay --priority Late`.
+      Bear Mounts is the published release throughout.
+    restart: a full game restart, since the probe's manifest changes.
+    visible_check: >-
+      the horse should be Bear Mounts' bear with a magenta 8x8 mark in the top
+      left of its sprite sheet. A fully magenta horse would mean the probe is
+      still replacing rather than composing, which the transcripts would also
+      show but which a human can see immediately.
+  inputs:
+  - path: evaluation/runtime/packs/modcheck-conflict-probe/content.json
+    sha256: 88711ddc7998d95e79cd28622c281c6f22f1802afca72320c3afb65666137b40
+    bytes: 351
+    note: probe as a Late-priority overlay edit rather than a Load
+  - path: evaluation/runtime/packs/modcheck-conflict-probe/assets/probe_mark.png
+    sha256: 3b62ceab4381672d4e6531c7d606e7a9bfba8fa4d041a0019256489cc1fdd531
+    bytes: 76
+    note: >-
+      an 8x8 opaque marker. Deliberately small: a full-size opaque overlay would
+      look like a replacement on screen, which is the distinction this case
+      exists to demonstrate.
+  - path: evaluation/runtime/packs/modcheck-conflict-probe/manifest.json
+    sha256: 304ca42bc6949d75d10003de574597b67bfb31287529b51e4422a9236dcbaaf1
+    bytes: 379
+  commands:
+  - patch summary asset "Animals/horse" full
+  - patch dump applied
+  claims:
+  - kind: load_winner_for_target
+    target: Animals/horse
+    expect: The Bear
+    because: >-
+      Bear Mounts still supplies the asset. The probe no longer contests it, so
+      there is exactly one Load and no conflict to resolve.
+  - kind: patch_applied
+    patch: Probe Saddle Mark
+    expect: true
+    because: >-
+      the claim that makes this a success rather than a surrender. In the
+      selected-replacement case the probe lost; here it applies, alongside the
+      pack it used to break. Both authors get what they wanted.
+  - kind: patch_loaded
+    patch: Probe Saddle Mark
+    expect: true
+  - kind: apply_order
+    target: Animals/horse
+    order: [The Bear, Probe Saddle Mark]
+    because: >-
+      a Load supplies the asset and edits compose onto it, and Late ranks after
+      Default, so the probe's overlay must come after Bear Mounts' own edits.
+      Reversed, the overlay would be painting onto an asset about to be
+      replaced.
+  - kind: patch_applied
+    patch: Stable overlay
+    expect: true
+    because: >-
+      the control. Bear Mounts' own patches must be unaffected: the creator
+      asked not to break it, and that is a claim about the other pack, not about
+      their own.
   observation:
     status: not_yet_observed

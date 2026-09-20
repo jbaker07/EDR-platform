@@ -103,11 +103,14 @@ def smapi_mod(path: Path, unique_id: str = "Example.CodeMod", deps: list[dict] |
 
 
 def content_patcher_pack_with_changes(path: Path, unique_id: str,
-                                      changes: list[dict]) -> Path:
+                                      changes: list[dict],
+                                      content_format: str = "2.9.0") -> Path:
     """A content pack carrying exact patch instructions.
 
     Used where the analysis turns on the content.json itself -- Priority, When,
-    LogName, patch order -- rather than on the manifest.
+    LogName, patch order -- rather than on the manifest. `content_format` is
+    parameterised because some fields are rejected below a minimum Format, and
+    that rule needs a pack declaring an old one to test against.
     """
     manifest = {
         "Name": unique_id, "Author": "example", "Version": "1.0.0",
@@ -115,7 +118,7 @@ def content_patcher_pack_with_changes(path: Path, unique_id: str,
         "ContentPackFor": {"UniqueID": "Pathoschild.ContentPatcher",
                            "MinimumVersion": "2.0.0"},
     }
-    content = {"Format": "2.9.0", "Changes": changes}
+    content = {"Format": content_format, "Changes": changes}
     return _zip(path, {f"{unique_id}/manifest.json": json.dumps(manifest, indent=2),
                        f"{unique_id}/content.json": json.dumps(content, indent=2)})
 

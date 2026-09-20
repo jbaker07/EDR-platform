@@ -37,6 +37,10 @@ WIDTH, HEIGHT = 128, 32
 # Opaque magenta: unmistakable on screen, so a human looking at the game can
 # tell which pack won without reading a log.
 PIXEL = bytes((255, 0, 255, 255))
+# The overlay marker is deliberately small, so that in overlay mode the horse
+# underneath stays visible. A full-size opaque overlay would look exactly like a
+# replacement on screen, which is the thing this case exists to distinguish.
+MARK_WIDTH, MARK_HEIGHT = 8, 8
 
 
 def _chunk(kind: bytes, payload: bytes) -> bytes:
@@ -61,12 +65,45 @@ MANIFEST = {
         "A deliberate collision probe. Loads Animals/horse so a second pack "
         "targeting the same asset can be observed resolving against it."),
     "UniqueID": "ModCheck.ConflictProbe",
-    "ContentPackFor": {"UniqueID": "Pathoschild.ContentPatcher", "MinimumVersion": "1.3.0"},
+    # Priority needs Content Patcher 2.0; see FORMAT below.
+    "ContentPackFor": {"UniqueID": "Pathoschild.ContentPatcher", "MinimumVersion": "2.0.0"},
 }
 
+# Content Patcher's Migration_2_0 REJECTS a pack that uses `Priority` while
+# declaring an older Format -- the whole pack fails to load with
+# "using Priority ... isn't supported before Content Patcher 2.0", rather than
+# the field being ignored. Declaring 1.3 here (as the probe first did) would
+# have meant the selected-replacement case tested a rejected pack while the
+# prediction claimed the patch was loaded and merely superseded: the same
+# "did not apply" outcome for an entirely different reason.
+FORMAT = "2.0"
 
-def content(priority: str | None) -> dict:
-    patch: dict[str, object] = {
+
+def content(priority: str | None, mode: str = "load") -> dict:
+    """The probe's one patch.
+
+    `mode` is what makes the positive demonstration possible:
+
+    * ``load`` competes for the asset -- two Loads on one asset is the conflict.
+    * ``overlay`` composes with it. An EditImage does not contest the Load, so
+      both packs apply: Bear Mounts supplies the horse and the probe draws over
+      part of it. `Priority: Late` follows Content Patcher's own advice for
+      "a cosmetic overlay meant to be applied over base edits from all mods".
+    """
+    if mode == "overlay":
+        patch: dict[str, object] = {
+            "LogName": "Probe Saddle Mark",
+            "Action": "EditImage",
+            "Target": "Animals/horse",
+            "FromFile": "assets/probe_mark.png",
+            "PatchMode": "Overlay",
+            "ToArea": {"X": 0, "Y": 0, "Width": MARK_WIDTH, "Height": MARK_HEIGHT},
+        }
+        if priority is not None:
+            patch["Priority"] = priority
+        return {"Format": FORMAT, "Changes": [patch]}
+
+    patch = {
         "LogName": "Probe Horse",
         "Action": "Load",
         "Target": "Animals/horse",
@@ -74,19 +111,23 @@ def content(priority: str | None) -> dict:
     }
     if priority is not None:
         patch["Priority"] = priority
-    return {"Format": "1.3", "Changes": [patch]}
+    return {"Format": FORMAT, "Changes": [patch]}
 
 
-def build(priority: str | None = None, root: Path = PACK) -> dict[str, str]:
+def build(priority: str | None = None, root: Path = PACK,
+          mode: str = "load") -> dict[str, str]:
     """Write the pack and return each file's sha256, for pinning in a prediction."""
     root.mkdir(parents=True, exist_ok=True)
     (root / "assets").mkdir(exist_ok=True)
 
     files = {
         "manifest.json": json.dumps(MANIFEST, indent=2).encode() + b"\n",
-        "content.json": json.dumps(content(priority), indent=2).encode() + b"\n",
-        "assets/probe_horse.png": png_bytes(),
+        "content.json": json.dumps(content(priority, mode), indent=2).encode() + b"\n",
     }
+    if mode == "overlay":
+        files["assets/probe_mark.png"] = png_bytes(MARK_WIDTH, MARK_HEIGHT)
+    else:
+        files["assets/probe_horse.png"] = png_bytes()
     digests = {}
     for name, data in files.items():
         (root / name).write_bytes(data)
@@ -97,12 +138,15 @@ def build(priority: str | None = None, root: Path = PACK) -> dict[str, str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--priority", default=None,
-                        help="Priority for the Load patch; omit for Content "
-                             "Patcher's default, which is Exclusive")
+                        help="Priority for the patch; omit for Content Patcher's "
+                             "default (Exclusive for a Load, Default for an edit)")
+    parser.add_argument("--mode", default="load", choices=("load", "overlay"),
+                        help="load competes for the asset; overlay composes with it")
     args = parser.parse_args()
-    digests = build(args.priority)
-    label = args.priority or "Exclusive (by omission)"
-    print(f"built {PACK} with Load priority {label}")
+    digests = build(args.priority, mode=args.mode)
+    label = args.priority or ("Exclusive (by omission)" if args.mode == "load"
+                              else "Default (by omission)")
+    print(f"built {PACK} in {args.mode} mode with priority {label}")
     for name, digest in digests.items():
         print(f"  {digest}  {name}  ({(PACK / name).stat().st_size} bytes)")
     return 0

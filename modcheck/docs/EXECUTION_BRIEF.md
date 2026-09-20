@@ -103,17 +103,43 @@ transcript is not a prediction, however well it fits.
 
 | Step | Where it lives | State |
 |---|---|---|
-| 1. predict, pinned to exact input hashes | `evaluation/runtime/predictions/` | **done** — 4 cases, 21 claims, all `not_yet_observed` |
+| 1. predict, pinned to exact input hashes | `evaluation/runtime/predictions/` | **done** — 5 cases, 26 claims, all `not_yet_observed` |
 | 2. observe via the runtime's own diagnostics | `modcheck.observe.contentpatcher` | **done** — parses `patch summary`, `patch dump applied`, `patch dump order` |
-| 3. make a controlled change | `evaluation/runtime/build_probe_pack.py` | **done** — one field, reviewable diff, both variants hashed |
-| 4. observe the new outcome | `evaluation/runtime/transcripts/` | **BLOCKED** — no game, no SMAPI, no licence in this environment |
+| 3. make a controlled change | `evaluation/runtime/build_probe_pack.py` | **done** — one field, reviewable diff, every variant hashed |
+| 4. bind an observation to one real run | `modcheck.observe.capture` | **done** — `observe` issues nothing without it |
+| 5. provision the install | `evaluation/runtime/provision.py` | **done** — complete packs, pre-filled manifest |
+| 6. observe the new outcome | `evaluation/runtime/transcripts/` | **BLOCKED** — no game, no SMAPI, no licence in this environment |
 
-The four cases are external baseline, deliberate conflict, selected
-replacement, and conditional behaviour. Each names the exact commands whose
-output may judge it; `modcheck runtime verify` re-hashes the pinned inputs
-before any comparison, and `compare` marks a claim the supplied transcripts
-cannot answer as `unobserved`, never as a pass — so running fewer commands
-cannot produce a better result.
+The five cases are external baseline, deliberate conflict, selected
+replacement, conditional behaviour, and achievable request. Each names the
+exact commands whose output may judge it.
+
+#### What the verifier refuses to conclude
+
+A verification product has to be strictest about its own verifier, so these are
+stated as rules rather than left to the reading of the code:
+
+* **A claim the supplied transcripts cannot answer is `unobserved`, never
+  `matched`.** Running fewer commands cannot produce a better result.
+* **A negative claim needs affirmative coverage.** "No Load applied" is only
+  confirmed from a transcript that demonstrably enumerated that asset —
+  unfiltered `patch summary`, or one filtered to it, with every row parsed. An
+  empty parse and an empty game are otherwise identical.
+* **Loads and edits are never conflated.** A replacement winning while an
+  overlay composes on top of it is the healthy case, so the claims are stated
+  about Loads. A patch whose action the transcript did not print leaves the
+  claim unresolved; the action is never inferred from the name.
+* **Asset identity is exact.** `Animals/horseFancy` does not answer for
+  `Animals/horse`, and an ambiguous patch fragment is unresolved rather than
+  attributed to one row.
+* **Definition order is not application order.** `patch dump order` lists
+  patches that never applied; only `patch dump applied` answers an apply-order
+  claim, and only its checked rows.
+* **An unbound observation is refused outright.** `observe` requires a capture
+  manifest and validates it before reading anything: the prediction's id, the
+  hashes of the files in the *game's* mod directory, the three versions, and
+  each transcript's own hash. A refused binding prints no claim verdicts at
+  all — it is `unbound`, neither contradiction nor pass.
 
 Two things this design deliberately refuses:
 

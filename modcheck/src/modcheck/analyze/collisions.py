@@ -148,6 +148,65 @@ def stardewvalley(installation: Installation) -> list[Finding]:
             findings.append(finding)
 
     findings += _edit_findings(installation)
+    findings += _format_findings(installation)
+    return findings
+
+
+def _format_findings(installation) -> list[Finding]:
+    """Patches using a field their declared Format is too old for.
+
+    Content Patcher rejects the whole pack for this, rather than ignoring the
+    field, and the visible symptom -- the patch does not apply -- is identical
+    to losing a priority contest. A pack failing this way is easily read as a
+    compatibility outcome it has nothing to do with.
+    """
+    from . import contentpatcher as cp
+
+    findings = []
+    for artifact in installation.artifacts:
+        ins = artifact.inspection
+        if ins is None:
+            continue
+        declared = ins.fact("content_format")
+        for change in ins.fact("content_changes") or []:
+            for field, required in cp.fields_below_minimum_format(change, declared):
+                name = (change.get("log_name") or change.get("from_file")
+                        or f"patch #{change.get('index', 0)}")
+                findings.append(Finding(
+                    code="contentpatcher.field_requires_newer_format",
+                    severity="error",
+                    subject=artifact.name,
+                    summary=(f"{artifact.name} uses {field.title()} but declares "
+                             f"Format {declared}; Content Patcher requires "
+                             f"Format {required} for that field"),
+                    detail=(f"The patch {name!r} sets {field.title()}. Content "
+                            f"Patcher's Format {required} migration rejects a pack "
+                            f"that uses it while declaring an older Format -- the "
+                            f"whole pack fails to load, rather than the field being "
+                            f"ignored. The symptom is that none of this pack's "
+                            f"patches apply, which looks exactly like losing a "
+                            f"priority contest and is not one."),
+                    evidence_class="derived",
+                    targets=[{"kind": "file_path",
+                              "id": change.get("source_file") or "content.json"}],
+                    sources=[cp.RULE_SOURCE],
+                    resolutions=[
+                        {"method": "configuration_change", "audience": "creator",
+                         "step": (f"Raise the pack's Format to {required} or later, and "
+                                  f"raise ContentPackFor.MinimumVersion to match, so "
+                                  f"players on an older Content Patcher are told to "
+                                  f"update rather than seeing the pack silently do "
+                                  f"nothing. Alternatively remove {field.title()} and "
+                                  "accept the default.")},
+                        {"method": "installation_change", "audience": "player",
+                         "step": (f"This pack cannot load as written; none of its "
+                                  f"changes will appear. It is the author's to fix -- "
+                                  f"reporting this finding to them is the useful "
+                                  "step.")},
+                    ],
+                    not_established=("whether the author meant the newer behaviour or "
+                                     "the older Format"),
+                ))
     return findings
 
 

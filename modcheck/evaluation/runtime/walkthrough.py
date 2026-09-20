@@ -18,8 +18,13 @@ would see at each step:
     7. the creator report and the player report      -- same evidence, two readers
 
 Step 6 is the honest one. This container has no game, so the loop stops there
-and says so rather than printing a conclusion it did not earn. Steps 1-5 and 7
-run on the pinned published pack and produce real output.
+and says so rather than printing a conclusion it did not earn. Every other step
+runs on the pinned published pack and produces real output.
+
+Steps 5 and 7 are a pair, and the pairing is the point. Step 5 refuses to call
+a cleared error a success. Step 7 then finds the request that IS achievable and
+says what the creator gives up to get it -- because an assistant that only ever
+says no is no more useful than one that only ever says yes.
 
 Run:  python evaluation/runtime/walkthrough.py
 """
@@ -179,15 +184,48 @@ def main() -> int:
     print("  static analysis of a documented rule -- not a verified prediction")
     print("  about a running game.")
 
-    _rule("7. the two reports, from the same evidence")
+    _rule("7. the achievable request, and what it costs")
+    print("  The creator's second question is the one worth answering:")
+    print()
+    print("    \"Then what CAN I do that works alongside Bear Mounts?\"")
+    print()
+    overlay_dir = work / "overlay" / "modcheck-conflict-probe"
+    build_probe_pack.build("Late", overlay_dir, mode="overlay")
+    diff2 = difflib.unified_diff(
+        (before_dir / "content.json").read_text().splitlines(keepends=True),
+        (overlay_dir / "content.json").read_text().splitlines(keepends=True),
+        fromfile="modcheck-conflict-probe/content.json",
+        tofile="modcheck-conflict-probe/content.json", n=8)
+    print("".join(f"  {line}" for line in diff2).rstrip())
+    print()
+    composed = _analyse(bear, overlay_dir)
+    print(f"  static re-check: {_findings(composed)}")
+    print()
+    print("  Nothing to resolve, because nothing competes. An Edit composes onto")
+    print("  whatever Load supplies the asset, so Bear Mounts keeps supplying the")
+    print("  horse and the probe draws over part of it. Both packs apply.")
+    print()
+    print("  What it costs the creator, stated plainly: this is no longer a horse")
+    print("  replacement. They get a mark on someone else's horse. If they wanted")
+    print("  their own bear, no arrangement of priorities delivers it while Bear")
+    print("  Mounts holds an Exclusive load -- that is what step 5 established,")
+    print("  and this step does not undo it.")
+    print()
+    print(f"  prediction: {predictions['sv_composing_edit'].id} "
+          f"({predictions['sv_composing_edit'].observation_status})")
+
+    _rule("8. the two reports, from the same evidence")
     print("-- player --")
     print(render(before, "player"))
     print()
     print("-- creator --")
     print(render(before, "creator"))
 
-    _rule("appendix: the prediction record for the change in step 3")
+    _rule("appendix A: the prediction for the change in step 3")
     print(render_prediction(predictions["sv_selected_replacement"]))
+
+    _rule("appendix B: the prediction for the achievable request in step 7")
+    print(render_prediction(predictions["sv_composing_edit"]))
     return 0
 
 

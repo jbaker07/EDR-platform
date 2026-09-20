@@ -24,8 +24,9 @@ from modcheck.report import analyze_installation, render_creator, render_player
 ASSET = "Portraits/Abigail"     # Content Patcher's own documentation example
 
 
-def pack(tmp_path, name, changes):
-    return build.content_patcher_pack_with_changes(tmp_path / f"{name}.zip", name, changes)
+def pack(tmp_path, name, changes, content_format="2.9.0"):
+    return build.content_patcher_pack_with_changes(
+        tmp_path / f"{name}.zip", name, changes, content_format=content_format)
 
 
 def load_patch(target=ASSET, priority=None, log_name=None, when=None,
@@ -298,3 +299,79 @@ def test_a_player_with_no_actionable_step_is_told_so_not_shown_nothing():
     player = render(report, "player")
     assert "none you can act on yourself" in player
     assert "restructure the patch" not in player
+
+
+# -- a field used below its minimum Format --------------------------------
+#
+# Content Patcher rejects the WHOLE pack for this, rather than ignoring the
+# field. The symptom -- none of the pack's patches apply -- is identical to
+# losing a priority contest, so a pack failing this way reads as a compatibility
+# outcome it has nothing to do with. Caught in our own probe pack before its
+# first runtime run.
+
+def test_priority_below_format_2_0_is_an_error_not_a_silent_ignore(tmp_path):
+    from modcheck.analyze import contentpatcher as cp
+    change = {"priority": "High", "log_name": "x"}
+    assert cp.fields_below_minimum_format(change, "1.3") == [("priority", "2.0")]
+    assert cp.fields_below_minimum_format(change, "2.0") == []
+    assert cp.fields_below_minimum_format(change, "2.6") == []
+
+
+def test_a_patch_without_the_field_is_never_flagged():
+    from modcheck.analyze import contentpatcher as cp
+    assert cp.fields_below_minimum_format({"log_name": "x"}, "1.3") == []
+    assert cp.fields_below_minimum_format({"priority": None}, "1.3") == []
+
+
+def test_an_unparsable_format_yields_no_finding_rather_than_a_guess():
+    from modcheck.analyze import contentpatcher as cp
+    for declared in (None, "", "latest", "two point oh"):
+        assert cp.fields_below_minimum_format({"priority": "High"}, declared) == []
+
+
+def test_format_parsing_handles_the_shapes_packs_actually_declare():
+    from modcheck.analyze import contentpatcher as cp
+    assert cp.parse_format("1.3") == (1, 3)
+    assert cp.parse_format("2.0.0") == (2, 0)
+    assert cp.parse_format(" 2.6 ") == (2, 6)
+    assert cp.parse_format("1.10") == (1, 10)
+    assert (1, 10) > (1, 3), "minor versions must compare numerically, not as text"
+    assert cp.parse_format("nonsense") is None
+
+
+def test_the_finding_names_the_symptom_that_would_mislead(tmp_path):
+    a = pack(tmp_path, "Aria.X", [{"Action": "Load", "Target": ASSET,
+                                   "FromFile": "assets/x.png", "Priority": "High",
+                                   "LogName": "mine"}], content_format="1.3")
+    findings = [f for f in collisions.analyze(install(a))
+                if f.code == "contentpatcher.field_requires_newer_format"]
+    assert len(findings) == 1
+    finding = findings[0]
+    assert finding.severity == "error"
+    assert "Format 2.0" in finding.summary
+    assert "whole pack fails to load" in finding.detail
+    assert "looks exactly like losing a priority contest" in finding.detail
+
+
+def test_a_pack_declaring_a_new_enough_format_is_silent(tmp_path):
+    a = pack(tmp_path, "Aria.X", [{"Action": "Load", "Target": ASSET,
+                                   "FromFile": "assets/x.png", "Priority": "High",
+                                   "LogName": "mine"}], content_format="2.0")
+    assert not [f for f in collisions.analyze(install(a))
+                if f.code == "contentpatcher.field_requires_newer_format"]
+
+
+def test_the_probe_pack_we_ship_declares_a_format_its_fields_require(tmp_path):
+    """The regression that caught this: our own pack was wrong."""
+    import sys
+
+    from modcheck.paths import project_root
+    sys.path.insert(0, str(project_root() / "evaluation" / "runtime"))
+    import build_probe_pack
+
+    for mode, priority in (("load", "High"), ("overlay", "Late")):
+        content = build_probe_pack.content(priority, mode)
+        from modcheck.analyze import contentpatcher as cp
+        change = {k.lower(): v for k, v in content["Changes"][0].items()}
+        assert cp.fields_below_minimum_format(change, content["Format"]) == [], (
+            f"{mode} mode declares Format {content['Format']} but uses a newer field")

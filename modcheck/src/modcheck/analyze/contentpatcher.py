@@ -58,6 +58,48 @@ GOVERNING_RULE_LOAD = (
 RULE_SOURCE = "content_patcher_load"
 
 
+# Fields Content Patcher rejects a pack for using below a given Format version.
+# These are not "ignored if too old": Migration_2_0.TryMigrate returns an error
+# and the ENTIRE pack fails to load. That matters because the visible symptom --
+# the patch does not apply -- looks identical to losing a priority contest, so a
+# pack rejected this way can be mistaken for a pack that resolved unfavourably.
+#
+# Read from ContentPatcher/Framework/Migrations/Migration_2_0.cs at
+# Pathoschild/StardewMods 76565e83ede4bc8b3c293f1c659032ba9c39c213.
+FIELD_MINIMUM_FORMAT: dict[str, tuple[int, int]] = {
+    "priority": (2, 0),
+}
+
+
+def parse_format(raw: Any) -> tuple[int, int] | None:
+    """Parse a content pack's `Format` as (major, minor); None if unparsable."""
+    if raw is None:
+        return None
+    match = re.match(r"^\s*(\d+)\.(\d+)", str(raw))
+    if not match:
+        return None
+    return int(match.group(1)), int(match.group(2))
+
+
+def fields_below_minimum_format(change: dict, declared_format: Any) -> list[tuple[str, str]]:
+    """Fields this patch uses that its declared Format is too old for.
+
+    Returns (field, required_format) pairs. An unparsable or absent Format
+    yields nothing: we do not know what was declared, and guessing would invent
+    a failure.
+    """
+    version = parse_format(declared_format)
+    if version is None:
+        return []
+    problems = []
+    for field, minimum in FIELD_MINIMUM_FORMAT.items():
+        if change.get(field) in (None, ""):
+            continue
+        if version < minimum:
+            problems.append((field, f"{minimum[0]}.{minimum[1]}"))
+    return problems
+
+
 @dataclasses.dataclass(frozen=True)
 class Priority:
     kind: str           # "exclusive" | "numeric" | "unparsed"
