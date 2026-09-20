@@ -23,19 +23,10 @@ from modcheck.store import Store
 
 CASES = project_root() / "evaluation" / "cases"
 
-# Builders an evaluation case may name. Kept explicit: a case cannot reach
-# arbitrary code, only these.
-BUILDERS = {
-    "bethesda_plugin": build.bethesda_plugin,
-    "bethesda_plugin_with_record": build.bethesda_plugin_with_record,
-    "fabric_jar": build.fabric_jar,
-    "dbpf_package": build.dbpf_package,
-    "ts4script": build.ts4script,
-    "rimworld_mod": build.rimworld_mod,
-    "pz_mod": build.pz_mod,
-    "content_patcher_pack_with_changes": build.content_patcher_pack_with_changes,
-    "smapi_mod": build.smapi_mod,
-}
+# The builder registry is defined once, in fixtures.build, and loaded by the
+# CLI gate through evaluate.load_builders. Importing it here rather than
+# restating it keeps the gate and these tests on the same set.
+BUILDERS = build.BUILDERS
 
 
 @pytest.fixture(scope="module")

@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import tempfile
 from pathlib import Path
 
 from . import evaluate as evaluate_mod
@@ -395,22 +396,34 @@ def cmd_impact(args) -> int:
 def cmd_evaluate(args) -> int:
     store = _store(args)
     directory = Path(args.cases) if args.cases else project_root() / "evaluation" / "cases"
-    results = evaluate_mod.run(directory, store, game=args.game)
-    if not results:
-        print(f"no evaluation cases found in {directory}", file=sys.stderr)
-        return 2
-    summary = evaluate_mod.summarize(results)
-    if args.json:
-        print(json.dumps({"summary": summary,
-                          "results": [{"id": r.case.id, "kind": r.case.kind,
-                                       "passed": r.passed, "missed": r.missed,
-                                       "false_warnings": r.unexpected_present,
-                                       "produced": r.produced,
-                                       "seconds": round(r.seconds, 4)}
-                                      for r in results]}, indent=2))
-    else:
-        print(evaluate_mod.render(results, summary))
-    return 0 if summary["failed"] == 0 else 1
+    # The gate builds the inputs its cases declare. Running without builders
+    # silently skips every case that needs an artifact, and a skipped case must
+    # never contribute to a pass -- so when the builders cannot be loaded the
+    # gate reports itself blocked instead.
+    builders, blocked_reason = evaluate_mod.load_builders()
+    with tempfile.TemporaryDirectory(prefix="modcheck-evaluate-") as tmp:
+        results = evaluate_mod.run(directory, store, game=args.game,
+                                   builders=builders, workdir=Path(tmp))
+        if not results:
+            print(f"no evaluation cases found in {directory}", file=sys.stderr)
+            return 2
+        summary = evaluate_mod.summarize(results)
+        verdict = evaluate_mod.gate_verdict(summary, blocked_reason)
+        if args.json:
+            print(json.dumps({"gate": verdict,
+                              "blocked_reason": blocked_reason,
+                              "summary": summary,
+                              "results": [{"id": r.case.id, "kind": r.case.kind,
+                                           "passed": r.passed, "skipped": r.skipped,
+                                           "missed": r.missed,
+                                           "false_warnings": r.unexpected_present,
+                                           "produced": r.produced,
+                                           "notes": r.notes,
+                                           "seconds": round(r.seconds, 4)}
+                                          for r in results]}, indent=2))
+        else:
+            print(evaluate_mod.render(results, summary, blocked_reason))
+    return 0 if verdict == "passed" else 1
 
 
 def build_parser() -> argparse.ArgumentParser:

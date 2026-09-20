@@ -18,12 +18,14 @@ as not yet measured.
 from __future__ import annotations
 
 import dataclasses
+import sys
 import time
 from pathlib import Path
 from typing import Any
 
 from . import yamlio
 from .analyze.config import Installation, InstalledArtifact
+from .paths import project_root
 from .report import analyze_installation
 from .store import Store
 
@@ -92,6 +94,31 @@ def load_cases(directory: Path) -> list[Case]:
         for entry in (data if isinstance(data, list) else [data]):
             cases.append(Case.from_dict(entry, path))
     return cases
+
+
+def load_builders() -> tuple[dict[str, Any] | None, str | None]:
+    """Load the artifact builders the evaluation cases name.
+
+    The gate is required to build the inputs its cases declare, or to say it
+    could not. Returning ``(None, reason)`` is the second of those: the caller
+    must report the run blocked rather than let the affected cases quietly skip
+    and still exit zero.
+    """
+    root = project_root()
+    candidate = root / "tests"
+    if not (candidate / "fixtures" / "build.py").exists():
+        return None, (f"artifact builders not found: {candidate / 'fixtures' / 'build.py'} "
+                      "does not exist, so cases needing built artifacts cannot run")
+    if str(candidate) not in sys.path:
+        sys.path.insert(0, str(candidate))
+    try:
+        from fixtures import build  # type: ignore[import-not-found]
+    except Exception as exc:  # pragma: no cover - environment-dependent
+        return None, f"artifact builders could not be imported: {exc!r}"
+    registry = getattr(build, "BUILDERS", None)
+    if not registry:
+        return None, "artifact builders module defines no BUILDERS registry"
+    return dict(registry), None
 
 
 def _build_artifacts(case: Case, builders, workdir: Path) -> list[str]:
@@ -210,6 +237,24 @@ def run(directory: Path, store: Store | None = None, game: str | None = None,
     return [run_case(case, store, builders=builders, workdir=workdir) for case in cases]
 
 
+def gate_verdict(summary: dict[str, Any], blocked_reason: str | None = None) -> str:
+    """The single pass/fail/blocked answer the evaluation gate reports.
+
+    A skipped case establishes nothing, so it can never contribute to a pass.
+    Where cases were skipped -- or the builders could not be loaded at all --
+    the gate reports itself ``blocked``: not a pass with an asterisk, and not a
+    failure of the analysis either, but a run that did not measure what it was
+    supposed to measure.
+    """
+    if blocked_reason:
+        return "blocked"
+    if summary["failed"]:
+        return "failed"
+    if summary["skipped"]:
+        return "blocked"
+    return "passed"
+
+
 def summarize(results: list[CaseResult]) -> dict[str, Any]:
     positives = [r for r in results if r.case.kind == "positive" and not r.skipped]
     controls = [r for r in results if r.case.kind == "control" and not r.skipped]
@@ -235,6 +280,7 @@ def summarize(results: list[CaseResult]) -> dict[str, Any]:
         "false_warnings": false_warnings,
         "error_findings_on_controls": control_errors,
         "unresolved_findings": sum(r.unresolved_count for r in results),
+        "skipped_case_ids": [r.case.id for r in results if r.skipped],
         "total_seconds": round(sum(r.seconds for r in results), 4),
         "slowest_case_seconds": round(max((r.seconds for r in results), default=0), 4),
     }
@@ -250,8 +296,13 @@ NOT_YET_MEASURED = [
 ]
 
 
-def render(results: list[CaseResult], summary: dict[str, Any]) -> str:
-    lines = ["Evaluation", ""]
+def render(results: list[CaseResult], summary: dict[str, Any],
+           blocked_reason: str | None = None) -> str:
+    verdict = gate_verdict(summary, blocked_reason)
+    lines = [f"Evaluation -- gate {verdict.upper()}", ""]
+    if blocked_reason:
+        lines.append(f"  gate could not build its inputs: {blocked_reason}")
+        lines.append("")
     for result in results:
         mark = "SKIP" if result.skipped else ("PASS" if result.passed else "FAIL")
         lines.append(f"[{mark}] {result.case.kind:8} {result.case.id}")
@@ -264,6 +315,7 @@ def render(results: list[CaseResult], summary: dict[str, Any]) -> str:
             lines.append(f"         {note}")
     lines.append("")
     lines.append("-- summary --")
+    lines.append(f"  {'gate':32} {verdict}")
     for key, value in summary.items():
         lines.append(f"  {key:32} {value}")
     lines.append("")
@@ -278,6 +330,8 @@ def render(results: list[CaseResult], summary: dict[str, Any]) -> str:
     if skipped:
         for result in skipped:
             lines.append(f"  {result.case.id}: {'; '.join(result.notes)}")
+        lines.append("  The gate is blocked, not passed: a case that did not run")
+        lines.append("  has neither detected nor failed to detect anything.")
     else:
         lines.append("  none skipped in this run")
     lines.append("")

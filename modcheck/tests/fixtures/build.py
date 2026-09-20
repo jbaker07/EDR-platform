@@ -384,3 +384,21 @@ def bethesda_plugin(path: Path, masters: list[str] | None = None, light: bool = 
     # plugin. esplugin's full parse rejects that, which is how we found it.
     path.write_bytes(record)
     return path
+
+
+# Builders an evaluation case may name. Kept explicit: a case names a key here,
+# it cannot reach arbitrary code. This is the single registry -- the CLI's
+# evaluation gate loads it through ``evaluate.load_builders`` so that the gate
+# builds the inputs its cases declare instead of skipping them, and the witness
+# tests import the same dict rather than keeping a second copy that could drift.
+BUILDERS = {
+    "bethesda_plugin": bethesda_plugin,
+    "bethesda_plugin_with_record": bethesda_plugin_with_record,
+    "fabric_jar": fabric_jar,
+    "dbpf_package": dbpf_package,
+    "ts4script": ts4script,
+    "rimworld_mod": rimworld_mod,
+    "pz_mod": pz_mod,
+    "content_patcher_pack_with_changes": content_patcher_pack_with_changes,
+    "smapi_mod": smapi_mod,
+}
