@@ -1,0 +1,280 @@
+# Predictions recorded BEFORE the game was run.
+#
+# Every entry here was committed with `observation.status: not_yet_observed`.
+# The ordering is the point: an explanation written after reading a transcript
+# is not a prediction, however well it fits. `modcheck runtime verify` re-hashes
+# the inputs before comparing, so a prediction cannot be quietly retargeted at
+# different bytes once the answer is known.
+#
+# The claims are derived from ModCheck's own static analysis of the pinned
+# artifacts -- `modcheck runtime predict --id <id> --explain` prints the finding
+# each one came from. They are not hand-written expectations.
+
+- id: sv_baseline_bear_mounts
+  case: external_baseline
+  game: stardewvalley
+  question: >-
+    With only the published Bear Mounts pack installed at its default config, on
+    a day outside Spirit's Eve, which of its twelve patches does Content Patcher
+    report as loaded, condition-matching and applied?
+  recorded_at: '2026-09-20'
+  derived_from: >-
+    modcheck.inspect.smapi on the pinned pack (12 changes: 1 Load, 11 EditImage)
+    plus the ConfigSchema defaults declared in the same file. No collision
+    finding is produced, because a single pack's patches do not compete.
+  requires:
+    stardew_valley: licensed installation, not present in the analysis container
+    smapi: '>=2.6 (the pack declares MinimumApiVersion 2.6)'
+    content_patcher: '>=1.3.0 (declared by ContentPackFor)'
+    installed_packs: [Bear Mounts]
+    config: defaults as declared in ConfigSchema (WhichBear=brown, UseSaddle=false,
+      ShowReins=false, ChangeStable=true, SkeletonForSpiritsEve=true)
+    game_state: >-
+      a save loaded on any day that is NOT Fall 22-28, so the Spirit's Eve
+      condition is false. The horse must have been summoned at least once so the
+      game has requested Animals/horse; until it does, 'applied' is false for a
+      reason that is not a defect.
+  inputs:
+  - path: evidence_cache/17/1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e.json
+    sha256: 1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e
+    bytes: 3820
+    note: Bear Mounts content.json, pinned commit b3b227790164b68c8877544121092670ac71f644
+  - path: evidence_cache/0e/0ebb1577ab1eadb414f98ed19b4a7a5946e49831f934804f551d09b970df5049.json
+    sha256: 0ebb1577ab1eadb414f98ed19b4a7a5946e49831f934804f551d09b970df5049
+    bytes: 366
+    note: Bear Mounts manifest.json, same commit
+  commands:
+  - patch summary "MouseyPounds.BearMounts" full
+  - patch summary asset "Animals/horse" full
+  - patch dump applied
+  - patch parse "assets/BearMount_{{WhichBear}}.png" "MouseyPounds.BearMounts"
+  claims:
+  - kind: patch_loaded
+    patch: The Bear
+    expect: true
+    because: the only Load in the pack, with no parse error reported by our inspector
+  - kind: patch_priority
+    patch: The Bear
+    expect: Exclusive
+    because: >-
+      the patch declares no Priority, and Content Patcher's documented default
+      for a Load is Exclusive. This is the claim that shows the default is real
+      rather than assumed.
+  - kind: patch_applied
+    patch: The Bear
+    expect: true
+    because: nothing else loads Animals/horse, so the single Exclusive load applies
+  - kind: conditions_match
+    patch: Saddle Overlay
+    expect: false
+    because: it applies When UseSaddle is true, and the declared default is false
+  - kind: conditions_match
+    patch: Spirit's Eve Special
+    expect: false
+    because: >-
+      it needs Season Fall and Day 22-28; this run is deliberately scheduled
+      outside that window, so a true here would contradict our reading of When
+  - kind: conditions_match
+    patch: Male Farmer Reins
+    expect: true
+    because: it applies When ShowReins is false, and the declared default is false
+  - kind: conditions_match
+    patch: Stable overlay
+    expect: true
+    because: it applies When ChangeStable is true, and the declared default is true
+  - kind: winner_for_target
+    target: Animals/horse
+    expect: The Bear
+    because: >-
+      the decisive claim against misclassification. Our inspector reads eleven
+      EditImage patches, three of which target Animals/horse. If we had read
+      them as competing Load actions we would predict a conflict here instead of
+      a single applied load.
+  observation:
+    status: not_yet_observed
+
+- id: sv_deliberate_conflict
+  case: deliberate_conflict
+  game: stardewvalley
+  question: >-
+    With a second pack loading Animals/horse at the default Exclusive priority
+    alongside Bear Mounts, does Content Patcher apply neither load and report an
+    error, as the documented rule says?
+  recorded_at: '2026-09-20'
+  derived_from: >-
+    modcheck.analyze.collisions.stardewvalley over both packs produces
+    contentpatcher.exclusive_conflict (severity error): "2 patches load
+    Animals/horse at Exclusive priority, so Content Patcher applies NONE of
+    them".
+  requires:
+    installed_packs: [Bear Mounts, ModCheck Conflict Probe]
+    config: defaults, as in sv_baseline_bear_mounts
+    game_state: as in sv_baseline_bear_mounts
+    note: >-
+      The probe pack is ModCheck's own content, generated by
+      evaluation/runtime/build_probe_pack.py. No third-party artwork is
+      redistributed to set up this case.
+  inputs:
+  - path: evaluation/runtime/packs/modcheck-conflict-probe/content.json
+    sha256: b743cddab2e478acc0d569f292113577aee37309b601697a8e87c53d612148ce
+    bytes: 186
+    note: probe with no Priority field, i.e. Exclusive by omission
+  - path: evaluation/runtime/packs/modcheck-conflict-probe/manifest.json
+    sha256: b929518f5410d00056ecdcc5f8ef81402c8add5ebca0c8384d62691a4b9d6cc8
+    bytes: 379
+  - path: evaluation/runtime/packs/modcheck-conflict-probe/assets/probe_horse.png
+    sha256: c7fefcb5f1e1fd21788966fcd7af9d757206b12b97b666c81c9110da5fae782e
+    bytes: 138
+  commands:
+  - patch summary asset "Animals/horse" full
+  - patch dump applied
+  claims:
+  - kind: no_patch_applied
+    target: Animals/horse
+    expect: true
+    because: >-
+      the rule says that where several Exclusive patches load one asset, none
+      is applied. This is the claim that separates our model from the intuitive
+      wrong answer, which is that the later or higher pack wins.
+  - kind: patch_applied
+    patch: The Bear
+    expect: false
+    because: the published pack loses too; a conflict is not resolved in its favour
+  - kind: patch_applied
+    patch: Probe Horse
+    expect: false
+    because: and neither is it resolved in the probe's favour
+  - kind: patch_loaded
+    patch: Probe Horse
+    expect: true
+    because: >-
+      both patches remain loaded and valid. The failure is in resolution, not in
+      parsing, and reading 'loaded' as false here would mean we had the reason
+      wrong even with the outcome right.
+  observation:
+    status: not_yet_observed
+
+- id: sv_selected_replacement
+  case: selected_replacement
+  game: stardewvalley
+  question: >-
+    After the controlled change -- giving the probe's Load an explicit High
+    priority and changing nothing else -- does the error clear, with Bear Mounts'
+    Exclusive load applying and the probe's ignored?
+  recorded_at: '2026-09-20'
+  derived_from: >-
+    The same two packs re-analysed with the probe at Priority High produce
+    contentpatcher.exclusive_supersedes (severity warning) instead of the error:
+    "bearmounts loads Animals/horse at Exclusive priority, so the 1 other
+    patch(es) for it are ignored".
+  requires:
+    installed_packs: [Bear Mounts, ModCheck Conflict Probe]
+    config: defaults, as in sv_baseline_bear_mounts
+    game_state: as in sv_baseline_bear_mounts
+    controlled_change: >-
+      exactly one field, the probe's Priority, set from absent to "High". Rebuild
+      with `python evaluation/runtime/build_probe_pack.py --priority High`. Nothing
+      about Bear Mounts is modified; it is the published release throughout.
+    restart: >-
+      a full game restart, not `patch reload`, because the probe's manifest and
+      ConfigSchema handling are not refreshed by a reload.
+  inputs:
+  - path: evaluation/runtime/packs/modcheck-conflict-probe/content.json
+    sha256: 840b12dfa63b1b0cdbe615c841298a96e1a66e570303c67f152e3edcfa8900fd
+    bytes: 206
+    note: >-
+      probe with "Priority": "High". This is a DIFFERENT hash from the conflict
+      case on purpose, so a transcript cannot be filed against the wrong variant.
+  commands:
+  - patch summary asset "Animals/horse" full
+  - patch dump applied
+  - patch dump order
+  claims:
+  - kind: patch_applied
+    patch: The Bear
+    expect: true
+    because: >-
+      High is 1000; Exclusive is int.MaxValue. Nothing outranks Exclusive, so
+      raising the probe to High does not make it win -- it makes it lose
+      cleanly instead of failing loudly. A naive reading of "High beats the
+      default" predicts the opposite, and this claim is where that reading
+      would be caught.
+  - kind: patch_applied
+    patch: Probe Horse
+    expect: false
+    because: it is superseded, not conflicting
+  - kind: patch_loaded
+    patch: Probe Horse
+    expect: true
+    because: being ignored is not being unloaded
+  - kind: winner_for_target
+    target: Animals/horse
+    expect: The Bear
+    because: exactly one load applies now, where the previous case had none
+  observation:
+    status: not_yet_observed
+
+- id: sv_conditional_behaviour
+  case: conditional_behaviour
+  game: stardewvalley
+  question: >-
+    Does setting UseSaddle to true flip the Saddle Overlay patch's conditions to
+    matching and make it apply, without disturbing any other patch?
+  recorded_at: '2026-09-20'
+  derived_from: >-
+    modcheck.inspect.smapi reads patch #2 as EditImage on Animals/horse with
+    When {"UseSaddle": "true"}, and the ConfigSchema in the same file declares
+    UseSaddle's default as false. The prediction is that the condition is the
+    only thing standing between the patch and application.
+  requires:
+    installed_packs: [Bear Mounts]
+    controlled_change: >-
+      UseSaddle set to true in the pack's config.json, generated by Content
+      Patcher on first run. No file in the published pack is edited.
+    restart: >-
+      a full game restart. Content Patcher's own documentation states that
+      `patch reload` does not refresh ConfigSchema or dynamic tokens, so
+      reloading after a config change would not test what this case claims.
+    game_state: as in sv_baseline_bear_mounts
+  inputs:
+  - path: evidence_cache/17/1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e.json
+    sha256: 1700837712028ded37fd7b7d4c238a1338fcbd8ddfa8eb9c430acc9fb336bc0e
+    bytes: 3820
+  commands:
+  - patch summary "MouseyPounds.BearMounts" full
+  - patch summary asset "Animals/horse" full
+  - patch dump applied
+  claims:
+  - kind: conditions_match
+    patch: Saddle Overlay
+    expect: true
+    because: the condition it declares is now satisfied
+  - kind: patch_applied
+    patch: Saddle Overlay
+    expect: true
+    because: >-
+      an EditImage whose conditions match composes onto the loaded asset. If
+      this is false while conditions are true, the cause is elsewhere -- an
+      asset not yet requested, or a missing FromFile -- and the summary will say
+      which.
+  - kind: patch_applied
+    patch: The Bear
+    expect: true
+    because: >-
+      the control. A config change that also disturbed the Load would mean we
+      had attributed the wrong cause to the observed change.
+  - kind: conditions_match
+    patch: Spirit's Eve Special
+    expect: false
+    because: >-
+      the second control. UseSaddle has nothing to do with the season, and a
+      flip here would mean the run's game state was not what we recorded.
+  - kind: apply_order
+    target: Animals/horse
+    order: [The Bear, Saddle Overlay]
+    because: >-
+      a Load supplies the asset and edits compose on top of it, so the load must
+      precede the edit in the reported apply order. If the order were reversed
+      the overlay would be painting onto an asset that is about to be replaced.
+  observation:
+    status: not_yet_observed

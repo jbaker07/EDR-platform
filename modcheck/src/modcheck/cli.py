@@ -426,6 +426,75 @@ def cmd_evaluate(args) -> int:
     return 0 if verdict == "passed" else 1
 
 
+def cmd_runtime(args) -> int:
+    from .observe import compare, load_predictions
+    from .observe import contentpatcher as cp_observe
+    from .observe import render as observe_render
+
+    directory = (Path(args.predictions) if args.predictions
+                 else project_root() / "evaluation" / "runtime" / "predictions")
+    predictions = load_predictions(directory)
+    if args.id:
+        predictions = [p for p in predictions if p.id == args.id]
+        if not predictions:
+            print(f"no prediction with id {args.id!r} in {directory}", file=sys.stderr)
+            return 2
+
+    if args.runtime_command == "predict":
+        if args.id:
+            print(observe_render.render_prediction(predictions[0]))
+        else:
+            print(observe_render.render_predictions(predictions))
+        return 0
+
+    if args.runtime_command == "verify":
+        # Re-hash what each prediction claims to be about. A prediction whose
+        # inputs have changed is about different bytes than it was written for,
+        # and must not be judged against a transcript as if it were the same.
+        root = project_root()
+        problems = 0
+        for prediction in predictions:
+            for item in prediction.inputs:
+                problem = item.verify(root)
+                status = "ok" if problem is None else problem
+                if problem is not None:
+                    problems += 1
+                print(f"  {prediction.id:26} {status}")
+        if problems:
+            print(f"\n{problems} input(s) could not be confirmed. Where the file is "
+                  "simply absent -- the evidence cache is not committed -- fetch it "
+                  "with `modcheck sources fetch` before judging any transcript "
+                  "against these predictions.", file=sys.stderr)
+        return 1 if problems else 0
+
+    # observe
+    prediction = predictions[0] if args.id else None
+    if prediction is None:
+        print("observe needs --id", file=sys.stderr)
+        return 2
+    summary = applied = order = None
+    if args.summary:
+        summary = cp_observe.parse_summary(Path(args.summary).read_text())
+    if args.dump_applied:
+        applied = cp_observe.parse_dump_applied(Path(args.dump_applied).read_text())
+    if args.dump_order:
+        order = cp_observe.parse_dump_order(Path(args.dump_order).read_text())
+    if summary is None and applied is None and order is None:
+        print("observe needs at least one transcript (--summary / --dump-applied / "
+              "--dump-order). Without one, every claim is unobserved -- which is "
+              "not a pass.", file=sys.stderr)
+        return 2
+    comparison = compare(prediction, summary, applied, order)
+    if args.json:
+        print(json.dumps({
+            "prediction": prediction.id, "verdict": comparison.verdict,
+            "claims": [{"claim": r.claim.describe(), "verdict": r.verdict,
+                        "observed": r.observed} for r in comparison.results]}, indent=2))
+    else:
+        print(observe_render.render_comparison(comparison))
+    return 0 if comparison.verdict == "matched" else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="modcheck", description=__doc__)
     p.add_argument("--packs", help="override the packs/ directory")
@@ -538,6 +607,24 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--cases", help="cases directory (default: evaluation/cases)")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_evaluate)
+
+    runtime = sub.add_parser(
+        "runtime",
+        help="predictions recorded before a game run, and the transcripts that judge them")
+    rsub = runtime.add_subparsers(dest="runtime_command", required=True)
+    for name, helptext in (
+            ("predict", "show the predictions recorded before observation"),
+            ("verify", "re-hash the inputs a prediction is pinned to"),
+            ("observe", "judge a prediction against captured game diagnostics")):
+        rp = rsub.add_parser(name, help=helptext)
+        rp.add_argument("--id", help="a single prediction id")
+        rp.add_argument("--predictions", help="predictions directory")
+        if name == "observe":
+            rp.add_argument("--summary", help="captured `patch summary` output")
+            rp.add_argument("--dump-applied", help="captured `patch dump applied` output")
+            rp.add_argument("--dump-order", help="captured `patch dump order` output")
+            rp.add_argument("--json", action="store_true")
+        rp.set_defaults(func=cmd_runtime)
 
     sources = sub.add_parser("sources", help="knowledge acquisition")
     ssub = sources.add_subparsers(dest="sources_command", required=True)

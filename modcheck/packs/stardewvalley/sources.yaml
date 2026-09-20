@@ -107,6 +107,29 @@ sources:
     on how multiple patches interact, and the known-limitations table. Fetched from the Pathoschild/StardewMods
     repository, whose LICENSE was fetched separately (source pathoschild_stardewmods_license) and reads
     ''The MIT License (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)''.'
+- id: content_patcher_dump_command_source
+  title: Content Patcher DumpCommand.cs (emits 'patch dump order' and 'patch dump applied')
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/76565e83ede4bc8b3c293f1c659032ba9c39c213/ContentPatcher/Framework/Commands/Commands/DumpCommand.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T01:08:07+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license).
+  sha256: fdb67c404113c16652b7a4be3ee4a84055b6daeb5eeef6dc8642871a654bbe24
+  bytes: 4976
+  content_sha256: b9be466aca5aaabba3f435e2ae58856c1e2418010213ce6b30bbcfc3267b1d7d
+  content_type: text/plain
+  upstream_revision: W/"ffeb6be5232eb7b893de711de5dad8741a962bf8181a9b5d211d231f304ebff1
+  evidence_path: fd/fdb67c404113c16652b7a4be3ee4a84055b6daeb5eeef6dc8642871a654bbe24.cs
+  publisher: Pathoschild
+  license: MIT
+  notes: Authoritative grammar for `patch dump order` and `patch dump applied`. `dump applied` is the
+    only diagnostic that prints each patch's action type, so it is what distinguishes a competing Load
+    from a composing Edit in an observation.
 - id: content_patcher_editdata
   title: 'Content Patcher author guide: EditData action'
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/action-editdata.md
@@ -177,6 +200,31 @@ sources:
     the collision documented in failures/. Fetched from the Pathoschild/StardewMods repository, whose
     LICENSE was fetched separately (source pathoschild_stardewmods_license) and reads 'The MIT License
     (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard (Pathoschild)'.
+- id: content_patcher_patch_manager_source
+  title: Content Patcher PatchManager.cs (resolves competing loads; emits the Exclusive-conflict error)
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/76565e83ede4bc8b3c293f1c659032ba9c39c213/ContentPatcher/Framework/PatchManager.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T01:08:07+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license).
+  sha256: 5f884c792742985c65879d763a84475721af1242bd2c48a164e66c2937310b73
+  bytes: 34889
+  content_sha256: 35f95544c5b03398402ecd4afb1e010239d16bfc0cd0562d5ac3964a732a357c
+  content_type: text/plain
+  upstream_revision: W/"5ef109f6397939390813f97fbec118ea828358a8093493589fa885e47d15b718
+  evidence_path: 5f/5f884c792742985c65879d763a84475721af1242bd2c48a164e66c2937310b73.cs
+  publisher: Pathoschild
+  license: MIT
+  notes: 'ApplyPatchesToAsset is the code that actually resolves competing Load patches. It confirmed
+    two things our analyzer asserts: several Exclusive loaders cause the selected loader to be discarded
+    entirely, so NEITHER applies, and the exact error text a player is shown. Edits are not discarded
+    with it, which is why a suppressed Load still leaves the other pack''s edits composing onto the game''s
+    original asset.'
 - id: content_patcher_release_notes
   title: Content Patcher release notes (version history)
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/release-notes.md
@@ -201,6 +249,31 @@ sources:
     Fetched from the Pathoschild/StardewMods repository, whose LICENSE was fetched separately (source
     pathoschild_stardewmods_license) and reads 'The MIT License (MIT) / Copyright 2016-2025 Jesse Plamondon-Willard
     (Pathoschild)'.
+- id: content_patcher_summary_command_source
+  title: Content Patcher SummaryCommand.cs (the code that emits 'patch summary')
+  url: https://raw.githubusercontent.com/Pathoschild/StardewMods/76565e83ede4bc8b3c293f1c659032ba9c39c213/ContentPatcher/Framework/Commands/Commands/SummaryCommand.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T01:07:54+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: MIT per the Pathoschild/StardewMods LICENSE (source pathoschild_stardewmods_license).
+  sha256: d307375f5be445355b5408aa1954c7afee11a56795264c732b4b636ac7d60c80
+  bytes: 28337
+  content_sha256: 3e531e9bf00ab5b9b65b573436859342c693d6a29c45bf8ff10f48327928f182
+  content_type: text/plain
+  upstream_revision: W/"bc5095d93fc3bff36ebce306211f58210461a18642115185afd0ab5200810e6d
+  evidence_path: d3/d307375f5be445355b5408aa1954c7afee11a56795264c732b4b636ac7d60c80.cs
+  publisher: Pathoschild
+  license: MIT
+  notes: Authoritative grammar for `patch summary`, which modcheck.observe.contentpatcher parses. That
+    output's column widths are computed at runtime (the priority column pads to the widest value in the
+    group, asset names to the longest target), so the parser was written against this emitter rather than
+    a pasted sample, whose spacing would not generalise. Read as data; never executed. We reuse the output
+    format, not the code.
 - id: content_patcher_tokens
   title: 'Content Patcher author guide: tokens and conditions'
   url: https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/docs/author-guide/tokens.md
@@ -387,6 +460,54 @@ sources:
   notes: 'Index of the wiki''s modding documentation. stardewvalleywiki.com. Its Stardew Valley Wiki:Copyrights
     page (source sdv_wiki_copyrights) states the site''s content is under CC BY-NC-SA 3.0 Unported: share
     and remix with attribution, no commercial use, share alike.'
+- id: smapi_asset_edit_priority_source
+  title: SMAPI AssetEditPriority enum (Early=-1000, Default=0, Late=1000)
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/src/SMAPI/Events/AssetEditPriority.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T01:08:08+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: 'LGPL-3.0 per SMAPI''s own LICENSE.txt, read at the same time. Recorded because it differs from
+      StardewMods'' MIT: the two repositories are not under the same terms.'
+  sha256: ec8df0c274416048250acaebf3d9218d826fcd8e1f5b3f2d43646c9e031b3339
+  bytes: 599
+  content_sha256: cb672c269a0118cad264ae1753168050ca7441626d5bcc6bf0d440c71d2c0f9e
+  content_type: text/plain
+  upstream_revision: W/"2585b09489ec7bc65ae9e1c61e1a6c51c846e3a95be38fe444a02ae0e6bcb640
+  evidence_path: ec/ec8df0c274416048250acaebf3d9218d826fcd8e1f5b3f2d43646c9e031b3339.cs
+  publisher: Pathoschild
+  license: LGPL-3.0
+  notes: Early/Default/Late = -1000/0/1000, with arbitrary offsets permitted. Confirms the edit-priority
+    levels modcheck.analyze.contentpatcher parses.
+- id: smapi_asset_load_priority_source
+  title: SMAPI AssetLoadPriority enum (Low=-1000, Medium=0, High=1000, Exclusive=int.MaxValue)
+  url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/src/SMAPI/Events/AssetLoadPriority.cs
+  kind: source_repo
+  access: public
+  retrieved_at: '2026-09-20T01:08:08+00:00'
+  http_status: 200
+  reuse:
+    redistribute: attribution_required
+    commercial: 'yes'
+    derive: attribution_required
+    note: 'LGPL-3.0 per SMAPI''s own LICENSE.txt, read at the same time. Recorded because it differs from
+      StardewMods'' MIT: the two repositories are not under the same terms.'
+  sha256: a7c8d8676a737a7b935c06ac1b302aea675553a8f8865372cbbaccf313eb494f
+  bytes: 1145
+  content_sha256: 83dd0050e330b5d91d13dde0bc3f158c974269aabb941b6d2ce7c39d477a34f1
+  content_type: text/plain
+  upstream_revision: W/"fc0c4ad59de0129e423376c1437a39f17d60cd533c2e0503cba2b601860fcf8c
+  evidence_path: a7/a7c8d8676a737a7b935c06ac1b302aea675553a8f8865372cbbaccf313eb494f.cs
+  publisher: Pathoschild
+  license: LGPL-3.0
+  notes: 'Exclusive is int.MaxValue, not a fourth level just above High. This corrected a recommendation
+    of ours that told a creator to declare a priority outranking an Exclusive patch, which is impossible:
+    the only nearby move, a second Exclusive, makes both patches fail rather than one win. Read as data
+    to establish the enum''s values; no SMAPI code is copied or linked.'
 - id: smapi_license
   title: SMAPI repository LICENSE.txt
   url: https://raw.githubusercontent.com/Pathoschild/SMAPI/develop/LICENSE.txt

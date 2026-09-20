@@ -1,0 +1,11 @@
+{
+  "Format": "1.3",
+  "Changes": [
+    {
+      "LogName": "Probe Horse",
+      "Action": "Load",
+      "Target": "Animals/horse",
+      "FromFile": "assets/probe_horse.png"
+    }
+  ]
+}

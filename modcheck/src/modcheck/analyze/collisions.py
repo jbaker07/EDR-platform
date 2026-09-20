@@ -214,11 +214,14 @@ def _load_finding(resolution):
             sources=[cp.RULE_SOURCE],
             resolutions=[
                 {"method": "configuration_change",
-                 "step": (f"If you wanted the other pack's replacement, it must declare a "
-                          f"priority that outranks {winner.artifact}'s Exclusive patch, "
-                          "or that pack's competing Load must be removed. Either way, "
-                          "check that the superseded pack's remaining patches still "
-                          "work against the asset that is actually loaded.")},
+                 "step": (f"Nothing outranks Exclusive: SMAPI defines it as int.MaxValue, "
+                          f"and a second Exclusive patch does not win, it makes both fail. "
+                          f"So if you wanted the other pack's replacement, the options are "
+                          f"to remove or disable {winner.artifact}'s competing Load, or for "
+                          f"{winner.artifact} to declare an explicit Low/Medium/High "
+                          "priority the other patch can outrank. Then check that the "
+                          "superseded pack's remaining patches still work against the "
+                          "asset that is actually loaded.")},
             ],
             not_established="whether the ignored patches were meant to be overridden",
         )
