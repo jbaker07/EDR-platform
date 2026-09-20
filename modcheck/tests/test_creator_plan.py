@@ -282,3 +282,70 @@ def test_the_first_version_still_plans_against_the_old_one():
     storage = next(r for r in plan.resolutions
                    if r.requirement.id == "retain_charge_across_reload")
     assert storage.record.id == "persist_state.fabric_saveddata"
+
+
+# -- the planner's decision must survive into emission ----------------------
+
+def test_a_join_carries_the_record_the_planner_selected():
+    """Re-looking-up at emission time re-ran the choice without the checks."""
+    plan = build(Request.load(REQUESTS / "rain_charged_lantern_v2.yaml"), Store())
+    issue = next(i for i in plan.composition if i.needed_capability)
+    assert issue.record is not None
+    assert issue.record.id == "sync_state.fabric_custom_payload"
+    assert issue.record.get("capability") == "sync_state"
+
+
+def test_a_join_cannot_reach_a_record_a_requirement_could_not():
+    """Same eligibility for an implied capability as for a declared one."""
+    request = Request.from_dict({
+        "id": "t", "game": "minecraft", "title": "T",
+        "game_version": "1.16.5", "loader": "fabric",
+        "requirements": [
+            {"id": "store", "statement": "s", "capability": "persist_state",
+             "side": "server", "scope": "level"},
+            {"id": "show", "statement": "s", "capability": "display_information",
+             "side": "client", "reads_from": ["store"]}]})
+    plan = build(request, Store())
+    issue = next((i for i in plan.composition if i.needed_capability), None)
+    if issue is not None:
+        assert issue.record is None, (
+            "a version the requirements are ineligible for must not be reachable "
+            "through a join")
+        assert issue.status == REQUIRES_INVESTIGATION
+
+
+def test_a_requirement_can_pin_an_exact_mechanism():
+    resolution = _only(_request(requirements=[
+        {"id": "r", "statement": "s", "capability": "persist_state",
+         "side": "server", "mechanism": "persist_state.fabric_attachment"}]))
+    assert resolution.status == GROUNDED
+    assert resolution.record.id == "persist_state.fabric_attachment"
+
+
+def test_pinning_a_mechanism_that_does_not_exist_is_reported():
+    resolution = _only(_request(requirements=[
+        {"id": "r", "statement": "s", "capability": "persist_state",
+         "side": "server", "mechanism": "persist_state.invented"}]))
+    assert resolution.status == REQUIRES_INVESTIGATION
+    assert "pins mechanism" in resolution.missing_fact
+
+
+def test_two_independent_state_requirements_do_not_collapse():
+    """Two stores asked for, two stores emitted."""
+    from modcheck.creator.pipeline import run
+    from modcheck.paths import project_root
+    project = project_root() / "build_workspaces" / "lantern"
+    if not (project / "src" / "main" / "resources" / "fabric.mod.json").exists():
+        pytest.skip("scaffolded project not present")
+    request = Request.from_dict({
+        "id": "two", "game": "minecraft", "title": "Two", "game_version": "26.3",
+        "loader": "fabric",
+        "requirements": [
+            {"id": "a", "statement": "first", "capability": "persist_state",
+             "side": "server", "scope": "level"},
+            {"id": "b", "statement": "second", "capability": "persist_state",
+             "side": "server", "scope": "block"}]})
+    outcome = run(request, project, naming={"name": "twostore"})
+    paths = [f for step in outcome.wired for f in step.files]
+    assert len(paths) == 2, paths
+    assert len(set(paths)) == 2, "the second emission must not overwrite the first"

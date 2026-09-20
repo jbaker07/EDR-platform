@@ -94,8 +94,12 @@ def _remember(naming: dict[str, str], capability: str, emission, record) -> None
 
 
 def _arguments(request: Request, requirement_id: str, capability: str,
-               naming: dict[str, str]) -> dict[str, Any]:
+               naming: dict[str, str], *, instance: int = 0) -> dict[str, Any]:
     name = naming.get("name", request.id.replace("_", " "))
+    if instance:
+        # A second independent instance of the same capability needs its own
+        # class, or the second emission overwrites the first.
+        name = f"{name} {requirement_id}"
     args: dict[str, Any] = {"name": name}
     if capability == "add_configuration":
         args["default"] = int(naming.get("default", 20))
@@ -156,6 +160,7 @@ def run(request: Request, project: Path, *, store: Store | None = None,
     # (sync_state feeds display_information), so wiring it afterwards
     # would leave the consumer referencing a class not yet emitted.
     seen: set[str] = set()
+    wired_keys: dict[tuple, str] = {}
     for issue in plan.composition:
         capability = issue.needed_capability
         if not capability or capability in seen:
@@ -166,8 +171,10 @@ def run(request: Request, project: Path, *, store: Store | None = None,
                 capability=capability, status=issue.status,
                 skipped_because=issue.detail))
             continue
-        record = next((r for r in store.pack(request.game).records("capability")
-                       if r.get("capability") == capability), None)
+        # The record the PLANNER chose, not a fresh lookup. Re-resolving here
+        # re-ran the choice with none of the eligibility, side or scope checks,
+        # so whichever record happened to be first on disk won.
+        record = issue.record
         generator = for_record(record) if record is not None else None
         if record is None or generator is None:
             steps.append(Step(
@@ -197,11 +204,19 @@ def run(request: Request, project: Path, *, store: Store | None = None,
                     resolution.conflict or resolution.missing_fact
                     or "not grounded")))
             continue
-        if capability in seen:
+        # Deduplicate by the MECHANISM a requirement selected, not by its
+        # capability. Two requirements can both need persist_state and mean two
+        # independent stores; collapsing them would silently give one value
+        # where the request asked for two.
+        key = (capability, resolution.record.id if resolution.record else None,
+               resolution.requirement.scope)
+        if key in wired_keys:
             steps.append(Step(
                 requirement=resolution.requirement.id, capability=capability,
                 status=resolution.status,
-                skipped_because=f"already wired for this request as {capability}"))
+                skipped_because=(
+                    f"already wired in this request by {wired_keys[key]}, which "
+                    f"selected the same mechanism at the same scope")))
             continue
         generator = for_record(resolution.record)
         if generator is None:
@@ -217,11 +232,13 @@ def run(request: Request, project: Path, *, store: Store | None = None,
                     "no generator for, because that output would look plausible and "
                     "be wrong.")))
             continue
+        instance = sum(1 for k in wired_keys if k[0] == capability)
         emission = generator(project, resolution.record,
                              **_arguments(request, resolution.requirement.id,
-                                          capability, naming))
+                                          capability, naming, instance=instance))
         emissions.append(emission)
         seen.add(capability)
+        wired_keys[key] = resolution.requirement.id
         _remember(naming, capability, emission, resolution.record)
         steps.append(Step(
             requirement=resolution.requirement.id, capability=capability,

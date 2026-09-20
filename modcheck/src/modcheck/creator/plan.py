@@ -60,6 +60,10 @@ class Requirement:
     # and "one charge per world" are both persist_state, and only this tells
     # them apart.
     scope: str = "unspecified"
+    # Pin an exact capability record. The honest way for a creator to settle a
+    # choice the library cannot settle for them -- two equally established
+    # mechanisms that are not interchangeable.
+    mechanism: str | None = None
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "Requirement":
@@ -74,7 +78,8 @@ class Requirement:
                    capability=data["capability"], side=side,
                    acceptance=data.get("acceptance", ""), notes=data.get("notes", ""),
                    reads_from=list(data.get("reads_from") or []),
-                   scope=data.get("scope", "unspecified"))
+                   scope=data.get("scope", "unspecified"),
+                   mechanism=data.get("mechanism"))
 
 
 @dataclasses.dataclass
@@ -224,6 +229,19 @@ def resolve(request: Request, store: Store | None = None) -> list[Resolution]:
     out: list[Resolution] = []
     for requirement in request.requirements:
         candidates = [r for r in records if r.get("capability") == requirement.capability]
+        if requirement.mechanism:
+            pinned = [r for r in candidates if r.id == requirement.mechanism]
+            if not pinned:
+                out.append(Resolution(
+                    requirement=requirement, status=REQUIRES_INVESTIGATION,
+                    missing_fact=(
+                        f"the requirement pins mechanism {requirement.mechanism!r}, "
+                        f"which is not a {requirement.capability} record in the "
+                        f"{request.game} pack"),
+                    procedure="Correct the id, or record the mechanism.",
+                    ineligible=[f"{r.id}: not the pinned mechanism" for r in candidates]))
+                continue
+            candidates = pinned
         eligible: list[Record] = []
         ineligible: list[str] = []
         for record in candidates:
@@ -364,6 +382,10 @@ class CompositionIssue:
     detail: str
     needed_capability: str | None = None
     status: str = REQUIRES_INVESTIGATION
+    # The record the PLANNER selected, carried through to emission. Looking the
+    # capability up again at generation time re-ran the choice with none of the
+    # eligibility, side or scope checks, so record order decided it.
+    record: Record | None = None
 
 
 def check_composition(request: Request, resolutions: list[Resolution],
@@ -389,8 +411,20 @@ def check_composition(request: Request, resolutions: list[Resolution],
         return resolution.requirement.side
 
     pack = store.pack(request.game)
-    have_sync = [r for r in pack.records("capability")
-                 if r.get("capability") == "sync_state"]
+    ecosystem_loaders = len(
+        ((pack.manifest or {}).get("ecosystem") or {}).get("loaders") or [])
+
+    def select(capability: str) -> tuple[Record | None, str]:
+        """Resolve an implied capability the same way a requirement is resolved.
+
+        Same eligibility, same fitness, same ambiguity rule. A join must not be
+        able to reach a record a requirement could not.
+        """
+        synthetic = Requirement(id=f"join:{capability}", statement="implied by a join",
+                                capability=capability, side="either")
+        resolution = resolve(
+            dataclasses.replace(request, requirements=[synthetic]), store)[0]
+        return resolution.record, resolution.status
 
     for resolution in resolutions:
         for producer_id in resolution.requirement.reads_from:
@@ -411,18 +445,20 @@ def check_composition(request: Request, resolutions: list[Resolution],
                 "Both requirements are grounded on their own, and the combination "
                 "still does not work: nothing carries the value across. The build "
                 "will succeed and the display will show a default forever.")
-            if have_sync:
+            record, status = select("sync_state")
+            if status == GROUNDED and record is not None:
                 issues.append(CompositionIssue(
                     consumer=resolution.requirement.id, producer=producer_id,
                     kind="cross_side_read", detail=detail,
-                    needed_capability="sync_state", status=GROUNDED))
+                    needed_capability="sync_state", status=GROUNDED,
+                    record=record))
             else:
                 issues.append(CompositionIssue(
                     consumer=resolution.requirement.id, producer=producer_id,
                     kind="cross_side_read",
                     detail=detail + " This request therefore also needs a "
-                           "sync_state mechanism, and no capability record for "
-                           f"sync_state exists in the {request.game} pack.",
+                           f"sync_state mechanism, and the {request.game} pack "
+                           f"cannot supply one here ({status}).",
                     needed_capability="sync_state",
                     status=REQUIRES_INVESTIGATION))
     return issues
@@ -466,7 +502,12 @@ class Plan:
             "game_version": self.request.game_version,
             "loader": self.request.loader,
             "ready": self.ready,
-            "composition": [dataclasses.asdict(i) for i in self.composition],
+            "composition": [
+                {"consumer": i.consumer, "producer": i.producer, "kind": i.kind,
+                 "detail": i.detail, "needed_capability": i.needed_capability,
+                 "status": i.status,
+                 "selected": i.record.id if i.record else None}
+                for i in self.composition],
             "weakest_evidence": self.weakest_evidence(),
             "requirements": [
                 {
