@@ -91,3 +91,32 @@ def test_cli_evaluate_exits_zero_only_when_nothing_skipped(capsys):
     args = build_parser().parse_args(["evaluate"])
     assert args.func(args) == 0
     assert "gate PASSED" in capsys.readouterr().out
+
+
+def test_the_creator_walkthrough_runs_or_says_why_not(capsys, monkeypatch):
+    """The end-to-end loop must not silently no-op.
+
+    It either runs on the pinned artifacts, or reports the evidence cache
+    missing. What it must never do is print a conclusion it did not derive.
+    """
+    import subprocess
+    import sys
+
+    from modcheck.paths import project_root
+    script = project_root() / "evaluation" / "runtime" / "walkthrough.py"
+    result = subprocess.run([sys.executable, str(script)], capture_output=True,
+                            text=True, timeout=180)
+    assert result.returncode in (0, 2), result.stderr
+    if result.returncode == 2:
+        assert "BLOCKED" in result.stdout
+        return
+    # It ran. The steps that matter must all be present, including the one that
+    # says the runtime half did not happen.
+    for marker in ("1. requested outcome", "3. proposed change",
+                   "4. static re-check", "6. native observation",
+                   "-- player --", "-- creator --"):
+        assert marker in result.stdout, marker
+    assert "BLOCKED in this environment" in result.stdout
+    assert "not_yet_observed" in result.stdout
+    # And it must not claim the creator got what they asked for.
+    assert "does NOT settle" in result.stdout

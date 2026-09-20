@@ -326,6 +326,20 @@ def render_text(report: Report) -> str:
     return "\n".join(lines)
 
 
+def _for_audience(resolutions: list, audience: str) -> list:
+    """Filter resolutions a reader cannot act on.
+
+    A resolution may declare `audience: creator` where the step is an authoring
+    decision -- restructuring a patch, choosing a different extension point --
+    that a player has no standing to make. Nothing is rewritten for the player:
+    a step they cannot take is omitted, never softened into one they can.
+    Resolutions that declare no audience are shown to everyone, so the default
+    stays inclusive and a step is only ever hidden deliberately.
+    """
+    return [r for r in resolutions
+            if r.get("audience") in (None, "any", audience)]
+
+
 def render_player(report: Report) -> str:
     """What competes, what the rule establishes, and the choices available.
 
@@ -344,10 +358,15 @@ def render_player(report: Report) -> str:
         lines.append(f"  [{label}] {finding.summary}")
         for condition in finding.conditions:
             lines.append(f"      only when: {condition.get('description')}")
-        if finding.resolutions:
+        options = _for_audience(finding.resolutions, "player")
+        if options:
             lines.append("      your options:")
-            for resolution in finding.resolutions:
+            for resolution in options:
                 lines.append(f"        - {resolution.get('step')}")
+        elif finding.resolutions:
+            lines.append("      your options: none you can act on yourself -- the "
+                         "available changes are the pack authors' to make. The "
+                         "creator view lists them.")
         if finding.not_established:
             lines.append(f"      not established: {finding.not_established}")
         lines.append("")
@@ -376,9 +395,10 @@ def render_creator(report: Report) -> str:
             lines.append(f"    target: {target.get('kind')} {target.get('id')}")
         for condition in finding.conditions:
             lines.append(f"    condition: {condition.get('description')}")
-        if finding.resolutions:
+        alternatives = _for_audience(finding.resolutions, "creator")
+        if alternatives:
             lines.append("    implementation alternatives:")
-            for resolution in finding.resolutions:
+            for resolution in alternatives:
                 lines.append(f"      - ({resolution.get('method')}) {resolution.get('step')}")
         lines.append(f"    evidence: {finding.evidence_class}"
                      + (f"; source {', '.join(finding.sources)}" if finding.sources else ""))

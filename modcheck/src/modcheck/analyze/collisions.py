@@ -180,7 +180,7 @@ def _load_finding(resolution):
             targets=targets,
             sources=[cp.RULE_SOURCE],
             resolutions=[
-                {"method": "configuration_change",
+                {"method": "configuration_change", "audience": "creator",
                  "step": ("Changing priority selects which replacement is used. Choose "
                           "the intended replacement, then check whether the other "
                           "pack's remaining patches still work with that asset. "
@@ -188,12 +188,20 @@ def _load_finding(resolution):
                           "Content Patcher's own documentation says Exclusive is the "
                           "default precisely because it cannot know whether a pack "
                           "still works when a different replacement is selected.")},
-                {"method": "alternative_extension_point",
+                {"method": "alternative_extension_point", "audience": "creator",
                  "step": ("If a pack only changes part of the asset, an Edit action may "
                           "be an alternative, since Edit patches compose instead of "
                           "competing. This is not an automatic compatibility "
                           "guarantee: the edit still has to make sense against "
                           "whichever asset ends up loaded.")},
+                {"method": "installation_change", "audience": "player",
+                 "step": (f"Keep one of these packs installed and remove or disable the "
+                          f"other ({', '.join(packs)}). While both are installed neither "
+                          f"replacement is applied, so {target} stays as the game ships "
+                          "it -- removing one is what makes a replacement appear. The "
+                          "packs' own authors can also change this, by agreeing which "
+                          "one declares a lower priority; the finding above is worth "
+                          "reporting to them.")},
             ],
             not_established=("which pack the player wants to win, and whether either "
                              "pack's asset would look correct layered over the other"),

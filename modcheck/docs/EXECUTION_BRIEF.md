@@ -74,7 +74,7 @@ Current position per inspector:
 | sims4 (DBPF) | 1, 2, 5, 6 | no **published** package (tier 4) |
 | bg3 (LSPK) | 1, 4, 5 | no **executed** LSLib comparison (tier 6) |
 | rimworld | 1, 3 | no published complete package (tier 4) |
-| smapi | 1, 3, 5 | no published content pack; schema compared, SMAPI not run |
+| smapi | 1, 3, 4, 5 | published pack read (Bear Mounts, pinned); SMAPI not run (tier 6), game not observed (tier 7) |
 | cyberpunk | 1 | no external artifact at all |
 | projectzomboid | 1 | no external artifact at all |
 | bethesda | 1, 6 | no published plugin (tier 4) |
@@ -87,6 +87,65 @@ comparison for BG3. Nothing here is "complete".
 Evaluation counts are likewise scoped: 0 false warnings across the evaluation
 cases is a statement about those cases, not a population-wide false-warning
 rate.
+
+**Tier 7 has not been reached by any inspector.** No claim anywhere in this
+repository is backed by observation of a running game. The machinery to reach
+it exists and is described in A.1b; what is missing is a licensed game
+installation, which this environment does not have.
+
+### A.1b The runtime loop: predict, observe, change, observe
+
+Tiers 1–6 all share a weakness: they measure whether we read an artifact the
+way a reference implementation reads it. None of them measures whether our
+*prediction about the game* is right. Closing that needs four steps in order,
+and the order is the whole point — an explanation written after reading a
+transcript is not a prediction, however well it fits.
+
+| Step | Where it lives | State |
+|---|---|---|
+| 1. predict, pinned to exact input hashes | `evaluation/runtime/predictions/` | **done** — 4 cases, 21 claims, all `not_yet_observed` |
+| 2. observe via the runtime's own diagnostics | `modcheck.observe.contentpatcher` | **done** — parses `patch summary`, `patch dump applied`, `patch dump order` |
+| 3. make a controlled change | `evaluation/runtime/build_probe_pack.py` | **done** — one field, reviewable diff, both variants hashed |
+| 4. observe the new outcome | `evaluation/runtime/transcripts/` | **BLOCKED** — no game, no SMAPI, no licence in this environment |
+
+The four cases are external baseline, deliberate conflict, selected
+replacement, and conditional behaviour. Each names the exact commands whose
+output may judge it; `modcheck runtime verify` re-hashes the pinned inputs
+before any comparison, and `compare` marks a claim the supplied transcripts
+cannot answer as `unobserved`, never as a pass — so running fewer commands
+cannot produce a better result.
+
+Two things this design deliberately refuses:
+
+* **We do not re-derive runtime detail.** Content Patcher already reports
+  which patches loaded, matched conditions, and applied. We parse its output.
+  The grammars were written against the code that emits them, not a pasted
+  sample, because those tables compute their column widths at runtime.
+* **We do not simulate the missing step.** A synthetic transcript would make
+  the gate green and mean nothing. The transcript directory is empty and its
+  README says why.
+
+What a filed transcript would and would not establish: it would establish that
+our prediction about *that* configuration on *those* versions was right. It
+would not make any other prediction verified, and a prediction confirmed on
+one Content Patcher version is not confirmed on all — which is why the capture
+rules require the versions to be recorded.
+
+### A.1c Evaluation gate
+
+`modcheck evaluate` reports one of three verdicts, and only one of them is a
+pass:
+
+* `failed` — a case ran and did not produce what it should.
+* `blocked` — a case was skipped, or the artifact builders could not be
+  loaded at all. A skipped case has neither detected nor failed to detect
+  anything, so it cannot contribute to a pass.
+* `passed` — every case ran, and every case passed.
+
+`failed` outranks `blocked`, so "blocked" can never soften a real failure. The
+gate builds the artifacts its cases declare rather than skipping them; before
+this, the CLI supplied no builders and exited zero on a run in which no witness
+had executed.
 
 ### A.2 Implemented but tested ONLY against fixtures we wrote
 
@@ -262,6 +321,33 @@ Each carries the six-part contract. No task says "understand X".
   Control: equal priority → outcome reported as undetermined, not guessed.
 - **LIMITATIONS**: predicts Content Patcher's resolution; does not establish the
   visual or gameplay result.
+
+**T4 status: delivered, with the resolution engine and both audience
+presentations built and tested against a pinned published pack.** Three
+outcomes are demonstrated on real bytes — confirmed conflict, priority
+selection, and unresolved — and `evaluation/runtime/walkthrough.py` runs the
+creator loop end to end: requested outcome, static analysis, reviewable diff,
+static re-check, and the two reports.
+
+Three corrections the work forced, recorded because each was a wrong claim we
+had already made:
+
+1. Our inspector read the pinned pack as **zero changes**, because the
+   published `content.json` uses trailing commas and strict `json.loads`
+   rejects it. A pack full of patches was reported as clean. `modcheck.jsonc`
+   now parses content packs the way SMAPI's own loader does.
+2. Our `exclusive_supersedes` recommendation told creators to declare a
+   priority that outranks an `Exclusive` patch. SMAPI defines
+   `AssetLoadPriority.Exclusive` as `int.MaxValue`, so no such priority exists,
+   and the only nearby move — a second `Exclusive` — makes both patches fail
+   rather than one win. The advice could not be followed.
+3. The player view was handing players authoring decisions ("use an Edit action
+   instead") they have no standing to make. Resolutions now carry an optional
+   `audience`; a step a reader cannot act on is omitted, never softened into
+   one they can, and the default stays inclusive.
+
+What T4 still does not establish: that any of this matches a running game. That
+is A.1b, and it is blocked on a licensed installation.
 
 ### T5 — BG3 `.pak` file list
 

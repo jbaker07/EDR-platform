@@ -247,3 +247,54 @@ def test_player_view_labels_an_unresolved_case_as_cannot_tell(tmp_path):
     player = render_player(analyze_installation(install(a, b)))
     assert "[Cannot tell]" in player
     assert "not established" in player
+
+
+# -- audience split ---------------------------------------------------------
+
+def _conflict_report(tmp_path):
+    """Two packs, both loading one asset at the default Exclusive priority."""
+    a = pack(tmp_path, "Aria.X", [load_patch(log_name="mine")])
+    b = pack(tmp_path, "Bex.X", [load_patch(log_name="theirs")])
+    return analyze_installation(install(a, b))
+
+
+def test_the_player_is_not_handed_an_authoring_decision(tmp_path):
+    """A player cannot choose someone else's extension point."""
+    from modcheck.report import render
+    report = _conflict_report(tmp_path)
+    player = render(report, "player")
+    creator = render(report, "creator")
+
+    assert "an Edit action may be an alternative" in creator
+    assert "an Edit action may be an alternative" not in player
+    # and the player still gets something they can actually do
+    assert "remove or disable the other" in player
+
+
+def test_the_creator_is_not_told_to_uninstall_a_pack(tmp_path):
+    from modcheck.report import render
+    creator = render(_conflict_report(tmp_path), "creator")
+    assert "remove or disable the other" not in creator
+
+
+def test_a_resolution_with_no_audience_reaches_both():
+    """The default stays inclusive: a step is only ever hidden on purpose."""
+    from modcheck.report import _for_audience
+    everyone = [{"step": "x"}, {"step": "y", "audience": "any"}]
+    assert len(_for_audience(everyone, "player")) == 2
+    assert len(_for_audience(everyone, "creator")) == 2
+    assert _for_audience([{"step": "z", "audience": "creator"}], "player") == []
+
+
+def test_a_player_with_no_actionable_step_is_told_so_not_shown_nothing():
+    from modcheck.analyze.findings import Finding
+    from modcheck.report import Report, render
+    report = Report(kind="installation", game="stardewvalley")
+    report.findings.append(Finding(
+        code="contentpatcher.exclusive_conflict", severity="error", subject="a, b",
+        summary="two packs load one asset", detail="", evidence_class="derived",
+        resolutions=[{"method": "alternative_extension_point", "audience": "creator",
+                      "step": "restructure the patch"}]))
+    player = render(report, "player")
+    assert "none you can act on yourself" in player
+    assert "restructure the patch" not in player
