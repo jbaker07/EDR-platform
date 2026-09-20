@@ -613,6 +613,27 @@ def cmd_plan(args) -> int:
     return 0 if plan.ready else 1
 
 
+def cmd_create(args) -> int:
+    from .creator.plan import Request
+    from .creator.pipeline import render, run
+    request = Request.load(Path(args.request))
+    naming = dict(pair.split("=", 1) for pair in (args.set or []))
+    outcome = run(request, Path(args.project), store=_store(args), naming=naming,
+                  write=args.write, allow_execute=args.allow_execute)
+    if args.json:
+        print(json.dumps(outcome.as_dict(), indent=2, default=str))
+    elif args.diff and outcome.changeset is not None:
+        print(outcome.changeset.diff())
+    else:
+        print(render(outcome))
+        if outcome.changeset is not None and not args.write:
+            print()
+            print("  nothing written. Review with --diff, then pass --write.")
+    if outcome.build is not None and not outcome.build.ok:
+        return 1
+    return 0 if outcome.plan.ready else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="modcheck", description=__doc__)
     p.add_argument("--packs", help="override the packs/ directory")
@@ -725,6 +746,21 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--cases", help="cases directory (default: evaluation/cases)")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=cmd_evaluate)
+
+    sp = sub.add_parser(
+        "create",
+        help="run a creator request through plan -> reviewable changes -> build")
+    sp.add_argument("request")
+    sp.add_argument("project")
+    sp.add_argument("--set", action="append", metavar="KEY=VALUE",
+                    help="naming for the generated code, e.g. name='rain lantern'")
+    sp.add_argument("--diff", action="store_true", help="print the diff only")
+    sp.add_argument("--write", action="store_true",
+                    help="write the changes (they are reviewed first by default)")
+    sp.add_argument("--allow-execute", action="store_true",
+                    help="run the project's own build after writing")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_create)
 
     sp = sub.add_parser(
         "plan",

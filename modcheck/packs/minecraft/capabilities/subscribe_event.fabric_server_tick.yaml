@@ -18,8 +18,8 @@ mechanism:
     container: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
     label: fires once per tick for the whole server
   - kind: field
-    id: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_WORLD_TICK
-    signature: "Event<ServerTickEvents.EndLevelTick> END_WORLD_TICK"
+    id: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_LEVEL_TICK
+    signature: "Event<ServerTickEvents.EndLevelTick> END_LEVEL_TICK"
     container: net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
     label: fires once per tick per level, with the ServerLevel
   - kind: type
@@ -34,7 +34,7 @@ ordering:
     Callbacks run on the server thread. Blocking work inside one stalls the
     tick loop for every player, so anything slow belongs elsewhere.
   - >-
-    END_WORLD_TICK receives the ServerLevel, which is what per-level state and
+    END_LEVEL_TICK receives the ServerLevel, which is what per-level state and
     per-level weather need; END_SERVER_TICK does not.
 limits:
   - >-
@@ -60,11 +60,17 @@ references:
   - source: fabric_lifecycle_events_v1_jar
     evidence_class: extracted
     locator: net/fabricmc/fabric/api/event/lifecycle/v1/ServerTickEvents.class
-    quote: "public static final Event<ServerTickEvents$EndLevelTick> END_WORLD_TICK"
+    quote: "public static final Event<ServerTickEvents$EndLevelTick> END_LEVEL_TICK"
 evidence_state: source_confirmed
 evidence_note: >-
   Read from fabric-lifecycle-events-v1-4.1.9+ffef5f675d.jar as resolved for our
-  own build (sha256 b9ba49109cf21f96...), using javap.
+  own build (sha256 b9ba49109cf21f96...), using javap. Corrected after a build
+  failure: this record first said END_WORLD_TICK, which is the name from an
+  older Fabric API and does not exist here. The field list had been read
+  through a truncated terminal line, so the wrong half of the name was never
+  actually seen. The build caught it -- "cannot find symbol: variable
+  END_WORLD_TICK" -- which is the point of compiling against the real artifact
+  rather than trusting a record.
 invalidated_by:
   - A Fabric API version bump.
   - A change to the resolved artifact's sha256.
