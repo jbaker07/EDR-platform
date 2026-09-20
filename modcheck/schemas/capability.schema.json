@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modcheck.dev/schemas/capability.schema.json",
+  "title": "Game capability",
+  "description": "One game's answer to one shared capability: the exact mechanism, its preconditions, and the evidence establishing both. The shared `capability` id is navigation; everything under `mechanism` is the evidence a creator's implementation actually rests on.",
+  "type": "object",
+  "required": ["id", "game", "capability", "title", "applies_to", "mechanism", "references", "evidence_state", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string"},
+    "game": {"type": "string"},
+    "capability": {
+      "description": "An id from the shared taxonomy in modcheck.capabilities.",
+      "type": "string"
+    },
+    "title": {"type": "string"},
+    "summary": {"type": "string"},
+    "applies_to": {
+      "type": "object",
+      "required": ["game_versions"],
+      "additionalProperties": false,
+      "properties": {
+        "game_versions": {"$ref": "common.schema.json#/$defs/version_range"},
+        "loader": {"type": "string"},
+        "loader_versions": {"$ref": "common.schema.json#/$defs/version_range"},
+        "toolchain": {"type": "array", "items": {"type": "string"}},
+        "platforms": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "mechanism": {
+      "description": "The exact extension point. This is what an implementation is written against, so it must be specific enough to write code from.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["kind", "id"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": ["class", "interface", "method", "field", "annotation",
+                      "config_key", "file_format", "xml_node", "registry",
+                      "script_function", "cli_tool", "record_type", "asset_action"]
+          },
+          "id": {"type": "string"},
+          "signature": {"type": "string"},
+          "container": {"type": "string"},
+          "label": {"type": "string"}
+        }
+      }
+    },
+    "requirements": {
+      "description": "What must already be true. A precondition is not advice; if it does not hold, the mechanism does not work.",
+      "type": "array", "items": {"type": "string"}
+    },
+    "ordering": {
+      "description": "Lifecycle, threading, authority or load-order rules that govern when this may be used.",
+      "type": "array", "items": {"type": "string"}
+    },
+    "interactions": {"type": "array", "items": {"type": "string"}},
+    "limits": {
+      "description": "What this mechanism cannot do, stated so a plan does not quietly assume it can.",
+      "type": "array", "items": {"type": "string"}
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commands": {"type": "array", "items": {"type": "string"}},
+        "produces": {"type": "string"},
+        "requires_network": {"type": "boolean"},
+        "requires_game_install": {"type": "boolean"}
+      }
+    },
+    "validation": {
+      "description": "How a creator confirms the capability actually works in their project, and what that check does NOT establish.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["method"],
+        "additionalProperties": false,
+        "properties": {
+          "method": {"type": "string"},
+          "command": {"type": "string"},
+          "modcheck_check": {"type": "string"},
+          "limits": {"type": "string"}
+        }
+      }
+    },
+    "recipes": {
+      "description": "Recipes in this pack that implement this capability.",
+      "type": "array", "items": {"type": "string"}
+    },
+    "references": {
+      "type": "array", "minItems": 1,
+      "items": {"$ref": "common.schema.json#/$defs/evidence_ref"}
+    },
+    "evidence_state": {
+      "description": "What the references establish. `documented` is an intent statement; `source_confirmed` means the framework's own source or an installed toolchain definition was read; `example_confirmed` means a working project was read; `build_tested` means our own build ran; `game_tested` requires a real game run and may not be claimed otherwise.",
+      "enum": ["documented", "source_confirmed", "example_confirmed", "build_tested", "game_tested"]
+    },
+    "evidence_note": {"type": "string"},
+    "invalidated_by": {
+      "description": "What would make this record wrong: a version bump, an API removal, a toolchain change.",
+      "type": "array", "items": {"type": "string"}
+    },
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

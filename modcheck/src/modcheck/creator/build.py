@@ -25,6 +25,9 @@ import subprocess
 from pathlib import Path
 from typing import Any, Iterable
 
+from . import toolchain
+
+
 # Anything matching these is never passed to a build process.
 SECRET_PATTERNS = ("TOKEN", "SECRET", "PASSWORD", "PASSWD", "API_KEY", "APIKEY",
                    "CREDENTIAL", "AUTH", "SESSION", "COOKIE", "PRIVATE_KEY")
@@ -84,6 +87,10 @@ class BuildResult:
     started_at: str
     establishes: list[str]
     does_not_establish: list[str]
+    # What the toolchain resolver decided, and why. A build that never ran
+    # because the JDK was too old is a different result from a build that ran
+    # and failed, and the attestation has to say which.
+    toolchain_resolution: dict[str, Any] = dataclasses.field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -91,6 +98,7 @@ class BuildResult:
             "ok": self.ok,
             "started_at": self.started_at,
             "toolchain": self.toolchain,
+            "toolchain_resolution": self.toolchain_resolution,
             "commands": [dataclasses.asdict(r) for r in self.runs],
             "artifacts": [dataclasses.asdict(a) for a in self.artifacts],
             "establishes": self.establishes,
@@ -112,9 +120,15 @@ def toolchain_report(env: dict[str, str]) -> dict[str, str]:
     """Record the exact tools used, so a build can be reproduced or explained."""
     out: dict[str, str] = {}
     java_home = env.get("JAVA_HOME")
-    java = Path(java_home, "bin", "java") if java_home else Path(shutil.which("java") or "")
+    # Resolve against the BUILD's PATH, not this process's. They differ whenever
+    # the toolchain resolver put a provisioned JDK or Gradle in front, and an
+    # attestation naming the version we did not build with is worse than none.
+    search = env.get("PATH")
+    java = (Path(java_home, "bin", "java") if java_home
+            else Path(shutil.which("java", path=search) or ""))
+    gradle = shutil.which("gradle", path=search) or "gradle"
     for name, argv in (("java", [str(java), "-version"]),
-                       ("gradle", [shutil.which("gradle") or "gradle", "--version"])):
+                       ("gradle", [gradle, "--version"])):
         try:
             proc = subprocess.run(argv, capture_output=True, text=True, timeout=90, env=env)
             text = (proc.stdout or "") + (proc.stderr or "")
@@ -141,7 +155,28 @@ def run_build(project: Path, commands: Iterable[str], *, allow_execute: bool = F
     if not project.is_dir():
         raise FileNotFoundError(f"no such project directory: {project}")
 
-    env = scrubbed_env(env_extra)
+    # Resolve the toolchain the project itself declares, rather than trusting
+    # PATH. A JDK or Gradle that is merely present but too old fails in ways
+    # that read as project defects -- "release version 25 not supported", or a
+    # Loom plugin variant mismatch -- so the mismatch is reported as a
+    # toolchain problem before the build runs.
+    resolution = toolchain.resolve(project)
+    env = scrubbed_env({**resolution.env(), **(env_extra or {})})
+    if not resolution.satisfied and resolution.problems():
+        started = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
+        return BuildResult(
+            project=str(project), ok=False,
+            runs=[CommandRun(command="(toolchain resolution)", returncode=1,
+                             duration_seconds=0.0, stdout_tail="",
+                             stderr_tail="\n".join(resolution.problems()))],
+            artifacts=[], toolchain=toolchain_report(env), started_at=started,
+            establishes=["nothing: the build was not attempted"],
+            does_not_establish=[
+                "anything about the project, which was not compiled",
+                "that the project is broken -- the toolchain did not match what it "
+                "declares, which is a different failure",
+            ],
+            toolchain_resolution=resolution.as_dict())
     started = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
     runs: list[CommandRun] = []
     ok = True
@@ -171,6 +206,7 @@ def run_build(project: Path, commands: Iterable[str], *, allow_execute: bool = F
     return BuildResult(
         project=str(project), ok=ok, runs=runs, artifacts=artifacts,
         toolchain=toolchain_report(env), started_at=started,
+        toolchain_resolution=resolution.as_dict(),
         establishes=([
             "the project compiles with the declared toolchain",
             "the build produced the listed artifacts, identified by sha256",

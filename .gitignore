@@ -78,3 +78,8 @@ backend/app/logs/*.json
 # ── Docker / OpenSearch data ────────────────────────────────
 **/data/
 **/opensearch-data/
+
+# Provisioned build toolchains (JDKs, Gradle distributions). Hundreds of MB of
+# third-party binaries: fetched on demand by `modcheck toolchain install`,
+# never committed and never redistributed.
+modcheck/toolchains/

@@ -24,6 +24,7 @@ from . import yamlio
 from .paths import GAMES, packs_dir
 
 RECORD_DIRS = {
+    "capability": "capabilities",
     "recipe": "recipes",
     "failure": "failures",
     "interaction": "interactions",
