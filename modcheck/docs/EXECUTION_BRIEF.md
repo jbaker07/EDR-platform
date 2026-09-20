@@ -217,6 +217,93 @@ not schedule revalidation).
 
 ---
 
+## A.2a Creator capabilities, and how sources reach an implementation
+
+The library's job is to make the next request cheaper than the last. Three
+layers do that, and they are deliberately separate:
+
+| Layer | What it is | Where |
+|---|---|---|
+| taxonomy | ten shared creator capabilities — organizing categories, never a universal API | `creator/capability.py` |
+| capability record | one game's answer: exact mechanism, preconditions, ordering, limits, scope, side | `packs/*/capabilities/` |
+| generator | deterministic wiring for one recorded mechanism | `creator/mechanisms.py` |
+
+Not to be confused with `paths.CAPABILITIES`, which is a different list with
+the same word: what **ModCheck** can do per game, not what a **creator** can do
+in the game.
+
+`modcheck coverage` prints capability × game. The blanks are the point: a blank
+means no recorded mechanism, which is nameable work, not a property of the game.
+
+**Retrieval.** `modcheck lookup` does exactly two things, and stops there. Exact
+symbol lookup over the artifacts Loom resolved for a build — the strongest
+evidence available without running the game, because it is what the creator's
+code compiles against — and exact text search over the evidence cache. Every hit
+carries the hash of the bytes it came from. No embeddings, no graph, no
+relevance model; more elaborate retrieval waits for evidence that this is
+insufficient.
+
+**Why it matters, concretely.** Five Minecraft capability records were written
+from the resolved jars. Four would have been wrong from documentation or memory:
+
+* `SavedDataType(Identifier, Supplier<T>, Codec<T>, DataFixTypes)`, not the
+  older `load`/`save(CompoundTag)`; accessor `ServerLevel.getDataStorage()`
+  returning `SavedDataStorage`, not `DimensionDataStorage`.
+* `HudElementRegistry.addLast(...)`, not `HudRenderCallback`.
+* `GameRuleBuilder` — `GameRuleRegistry` and `GameRuleFactory` do not exist in
+  this version at all.
+* `ServerTickEvents.END_LEVEL_TICK`, not `END_WORLD_TICK`. This one I got wrong
+  *in a record* and the build caught it.
+
+## A.2b The creator path, and what produces what
+
+    request → plan (requirement → evidence) → reviewable diff → build → report
+
+`modcheck plan` gives each requirement one of three statuses. `grounded` means
+the technical premises are established — exact mechanism, version-matched. It
+does **not** mean the behaviour was tested. `requires_investigation` names the
+exact missing fact and the smallest step that settles it.
+`unsupported` means an eligible record's own constraints contradict the
+requirement, and comes with alternatives drawn from the library.
+
+Selection is governed by fitness before evidence strength, on three axes:
+applicability (version, loader), **side** (server/client), and **scope** (what
+one instance attaches to). Each is three-valued, and unknown never reads as a
+match. Ranking by evidence first picks a build-tested client mechanism for a
+server-side requirement: the stronger evidence for the wrong thing.
+
+`check_composition` checks the *joins*. Individually grounded requirements can
+still fail together — a value produced on the server and read on the client
+needs something to carry it, and both halves compile without it. Flows are
+checked only where a request declares them; inferring them from wording would
+invent joins nobody asked for.
+
+**There is no model invocation anywhere in ModCheck.** No language model is
+called. The generators are deterministic and emit the *wiring* a recorded
+mechanism requires, parameterised from the record that establishes it. Each
+generated file cites that record and the artifact hash behind it, and carries an
+explicitly marked seam where the creator's logic goes. One generator per
+mechanism, keyed by (game, loader, capability) — keyed by capability alone, a
+Fabric generator once emitted a Java class for a Project Zomboid record.
+
+What that leaves: ModCheck composes recorded mechanisms and stops where
+composition stops. It does not synthesise novel logic, and a grounded mechanism
+with no generator is declined rather than improvised.
+
+## A.2c What a build establishes
+
+A green build establishes that the generated wiring compiles against the
+recorded signatures. It does not establish that the mod does what was asked:
+the seams are empty and no game ran. Four levels stay separate and are never
+collapsed:
+
+| Level | Reached? |
+|---|---|
+| the plan is grounded | yes, for the three requests and the revision |
+| the wiring compiles | yes — real jars, Java 25.0.4.1, Gradle 9.5.1 |
+| the requested behaviour works | **no** — seams unfilled, no game |
+| no issue within stated coverage | separate question, separate command |
+
 ## B. Shared core — only what is genuinely required
 
 | Component | Why it must be shared | Why not per-game |
