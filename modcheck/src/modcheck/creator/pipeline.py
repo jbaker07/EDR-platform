@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any
 
 from ..store import Store
+from .agent import AgentTask, AgentUnavailable, CreatorAgent, NullCreatorAgent
 from .apply import ChangeSet, FileChange
 from .build import BuildResult, run_build
 from .mechanisms import Emission, for_record
@@ -45,6 +46,9 @@ class Step:
     files: list[str] = dataclasses.field(default_factory=list)
     cites: list[str] = dataclasses.field(default_factory=list)
     skipped_because: str = ""
+    # How this step's code came to exist. Never inferred later: "generated" and
+    # "agent" are different claims and a report that blurs them is wrong.
+    produced_by: str = "generator"
 
 
 @dataclasses.dataclass
@@ -69,6 +73,12 @@ class Outcome:
             "request": self.request.id,
             "plan_ready": self.plan.ready,
             "steps": [dataclasses.asdict(s) for s in self.steps],
+            "produced_by": {
+                "generator": [s.requirement for s in self.wired
+                              if s.produced_by == "generator"],
+                "agent": [s.requirement for s in self.wired
+                          if s.produced_by == "agent"],
+            },
             "written": self.written,
             "build": self.build.as_dict() if self.build else None,
         }
@@ -134,7 +144,8 @@ def _arguments(request: Request, requirement_id: str, capability: str,
 
 def run(request: Request, project: Path, *, store: Store | None = None,
         naming: dict[str, str] | None = None, write: bool = False,
-        allow_execute: bool = False) -> Outcome:
+        allow_execute: bool = False,
+        agent: CreatorAgent | None = None) -> Outcome:
     store = store or Store()
     project = Path(project)
     plan = build_plan(request, store)
@@ -152,6 +163,10 @@ def run(request: Request, project: Path, *, store: Store | None = None,
 
     steps: list[Step] = []
     emissions: list[Emission] = []
+    agent_changes: list[FileChange] = []
+    agent_notes: list[str] = []
+    changeset: ChangeSet | None = None
+    wired_keys: dict[tuple, str] = {}
     # A join the plan found is work the request implies but did not list. The
     # lantern asks for stored charge and a HUD and never mentions networking;
     # the composition check is what noticed, and wiring only the listed
@@ -160,7 +175,6 @@ def run(request: Request, project: Path, *, store: Store | None = None,
     # (sync_state feeds display_information), so wiring it afterwards
     # would leave the consumer referencing a class not yet emitted.
     seen: set[str] = set()
-    wired_keys: dict[tuple, str] = {}
     for issue in plan.composition:
         capability = issue.needed_capability
         if not capability or capability in seen:
@@ -219,6 +233,30 @@ def run(request: Request, project: Path, *, store: Store | None = None,
                     f"selected the same mechanism at the same scope")))
             continue
         generator = for_record(resolution.record)
+        if generator is None and agent is not None:
+            # No deterministic generator targets this mechanism. An agent may
+            # still be able to implement it, and what it returns goes through
+            # the same review and build as generated code.
+            try:
+                produced = agent.implement(AgentTask(
+                    request=request, resolution=resolution, project=project,
+                    context_files={c.path: c.after for c in
+                                   (changeset.changes if changeset else [])}))
+            except AgentUnavailable as exc:
+                steps.append(Step(
+                    requirement=resolution.requirement.id, capability=capability,
+                    status=resolution.status, produced_by="agent",
+                    skipped_because=f"the agent did not implement this: {exc}"))
+                continue
+            agent_changes.extend(produced.changes)
+            agent_notes.extend(produced.notes)
+            steps.append(Step(
+                requirement=resolution.requirement.id, capability=capability,
+                status=resolution.status, generator=produced.generator,
+                files=[c.path for c in produced.changes],
+                cites=[resolution.record.id] if resolution.record else [],
+                produced_by="agent"))
+            continue
         if generator is None:
             steps.append(Step(
                 requirement=resolution.requirement.id, capability=capability,
@@ -245,9 +283,8 @@ def run(request: Request, project: Path, *, store: Store | None = None,
             status=resolution.status, generator=generator.__name__,
             files=[emission.path], cites=emission.cites))
 
-    changeset = None
-    if emissions:
-        changes = []
+    if emissions or agent_changes:
+        changes = list(agent_changes)
         for emission in emissions:
             path = project / emission.path
             before = path.read_text(encoding="utf-8") if path.exists() else None
@@ -255,9 +292,12 @@ def run(request: Request, project: Path, *, store: Store | None = None,
                                       after=emission.content))
         changeset = ChangeSet(
             generator="pipeline",
-            description=f"wire {len(emissions)} recorded mechanism(s) for {request.id}",
+            description=(f"wire {len(emissions)} recorded mechanism(s)"
+                         + (f" and {len(agent_changes)} agent file(s)"
+                            if agent_changes else "")
+                         + f" for {request.id}"),
             changes=changes,
-            notes=[
+            notes=[*agent_notes,
                 "Every file cites the capability record that justified it, and "
                 "through it the artifact hash the signatures came from.",
                 "Files carry a marked seam where the creator's own logic goes. "
@@ -288,7 +328,8 @@ def render(outcome: Outcome) -> str:
     lines.append("-- what the pipeline did --")
     for step in outcome.steps:
         if step.files:
-            lines.append(f"  [wired]   {step.requirement} ({step.capability})")
+            mark = "agent" if step.produced_by == "agent" else "wired"
+            lines.append(f"  [{mark:7}] {step.requirement} ({step.capability})")
             lines.append(f"            generator {step.generator}")
             for path in step.files:
                 lines.append(f"            {path}")
