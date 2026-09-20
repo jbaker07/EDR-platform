@@ -1,0 +1,126 @@
+- id: wf.engineering.project_setup
+  area: engineering
+  title: Set up a buildable project for 26.3
+  intent: >-
+    A project that compiles against the exact game and loader versions, runs, and
+    can be handed to someone else, without guessing at toolchain versions.
+  preserve:
+    - The creator's existing project layout when one exists.
+  mechanisms:
+    - Fabric Loom 1.17.21 in Gradle 9.5.1 on JDK 25 (extracted:corpus.json build_tooling group; source:fabric_example_mod_build_26_3; source:fabric_example_mod_versions_26_3).
+    - "No mappings: 26.3 ships non-obfuscated (record:resolution/remove_mappings_for_non_obfuscated_minecraft; record:failure/mojang_mappings_in_non_obfuscated_environment)."
+  tools_today:
+    - ModCheck's scaffold (record:capability/build_and_test.fabric_project_setup_current_version) using the provisioned toolchain in modcheck/toolchains (gitignored, never redistributed).
+  decisions:
+    - Which Fabric API modules to depend on (all, or the subset the atlas shows the mod uses).
+  information_needed:
+    - Current loader and API versions (source:fabric_loader_meta, source:fabric_api_maven_metadata).
+    - Java version required (version.json java_version 25; record:failure/java_runtime_older_than_the_mod_requires).
+  automation_existing:
+    - Scaffold and build in ModCheck; Loom resolves the game.
+  remaining_manual:
+    - Nothing for the common case.
+  modcheck_contribution:
+    - Delivered.
+  evidence:
+    - record:capability/build_and_test.fabric_project_setup_current_version
+    - record:example/fabric_example_mod
+    - source:fabric_example_mod_build_26_3
+  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "gradle build succeeds against the pinned corpus for the scaffold and the reference lantern"}
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: wf.engineering.testing
+  area: engineering
+  title: Test a mod without a player
+  intent: >-
+    Know that the mod's logic is right before anyone launches the game, and know
+    which claims still need a game.
+  preserve:
+    - "Evidence discipline: unit tests with fakes establish logic, not game behaviour."
+  mechanisms:
+    - "JUnit against the mod's own classes with fakes for game types (the reference lantern: 40 tests)."
+    - "mechanism:fabric-gametest-api-v1 and mechanism:fabric-client-gametest-api-v1 -- in-game tests run by a headless server or client (not exercised here: question:q.runtime_event_delivery)."
+  tools_today:
+    - Gradle test task; gametest modules inspected but not run.
+  decisions:
+    - What to fake versus what to leave to a gametest.
+  information_needed:
+    - A runnable 26.3 server in a sandbox (question:q.runtime_mixin_application).
+  automation_existing:
+    - The creator pipeline runs the build and the JUnit tests it generates.
+  remaining_manual:
+    - Gametests; runtime evidence ingestion.
+  modcheck_contribution:
+    - The `observed` evidence class exists in the schema and is empty; a headless run is the next step.
+  evidence:
+    - extracted:fabric_api.json#fabric-gametest-api-v1
+    - record:capability/build_and_test.fabric_project_setup_current_version
+  questions: [question:q.runtime_mixin_application, question:q.runtime_event_delivery]
+  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: true, validated_scope: "JUnit only; no gametest has run"}
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: wf.engineering.version_migration
+  area: engineering
+  title: Move a mod to 26.3
+  intent: >-
+    A mod written for an earlier version should build and behave on 26.3, with the
+    changes listed and each one tied to evidence rather than folklore.
+  preserve:
+    - Behaviour the creator did not ask to change.
+    - Players' worlds (workflow:wf.state.migration).
+  mechanisms:
+    - "Build script changes: mappings removed, Loom and Java bumped (source:fabric_example_mod_build_1_21 versus source:fabric_example_mod_build_26_3)."
+    - "API renames found by compiling: END_WORLD_TICK to END_LEVEL_TICK, playS2C to clientboundPlay, HudElement's render-state signature, getGameRules moving to ServerLevel (all recorded in the corrected capability records)."
+    - Pack formats 97.1 and 121.0 from version.json.
+  tools_today:
+    - Compile against the pinned corpus and read the errors; the corrected records.
+  decisions:
+    - Support one version or a range (Fabric mods usually branch per version).
+  information_needed:
+    - A member-level diff between the source version and 26.3 (question:q.older_minecraft_versions, question:q.version_diff_tool).
+    - The release notes for pack format changes (question:q.mojang_changelog_26_3).
+  automation_existing:
+    - Build-failure-driven correction, by hand.
+  remaining_manual:
+    - Most of it.
+  modcheck_contribution:
+    - The diff tool once a second corpus exists; until then, the corrected records are the migration notes.
+  evidence:
+    - record:resolution/remove_mappings_for_non_obfuscated_minecraft
+    - record:capability/subscribe_event.fabric_server_tick
+    - record:capability/sync_state.fabric_custom_payload
+    - source:fabric_example_mod_build_1_21
+  questions: [question:q.older_minecraft_versions, question:q.version_diff_tool, question:q.mojang_changelog_26_3]
+  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: wf.engineering.distribution
+  area: engineering
+  title: Package, license and distribute
+  intent: >-
+    Ship a jar players can install, with a license that matches the mod's
+    dependencies, on the channels players use.
+  preserve:
+    - "Third-party licenses (Fabric API is Apache-2.0: source:fabric_api_license; Loom: source:fabric_loom_license)."
+    - No redistribution of Mojang's assets or jars.
+  mechanisms:
+    - Gradle build producing build/libs/<modid>-<version>.jar (record:capability/build_and_test.fabric_project_setup_current_version).
+    - Modrinth (source:modrinth_fabric_api shows the project metadata shape) and Nexus Mods (source:nexusmods_web); CurseForge not retrieved.
+  tools_today:
+    - Manual upload.
+  decisions:
+    - License choice; whether to bundle Fabric API (never) or declare it as a dependency.
+  information_needed:
+    - Channel upload APIs (not cached).
+  automation_existing:
+    - None beyond the build.
+  remaining_manual:
+    - Upload and metadata.
+  modcheck_contribution:
+    - Reuse-terms recording per source is already enforced in the store; a license compatibility check is a candidate.
+  evidence:
+    - source:fabric_api_license
+    - source:modrinth_fabric_api
+    - record:example/fabric_api
+  status: {inventoried: true, mechanically_inspected: false, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}

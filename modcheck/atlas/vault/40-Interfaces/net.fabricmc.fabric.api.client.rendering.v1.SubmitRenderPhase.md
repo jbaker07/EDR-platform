@@ -1,0 +1,18 @@
+---
+type: "interface"
+fqcn: "net.fabricmc.fabric.api.client.rendering.v1.SubmitRenderPhase"
+module: "fabric-rendering-v1"
+sha256: "749427999b4845b129683b1db268a04b524abb6ab351dcaf67cda9a3ab56b5c0"
+---
+
+> [!info] Generated
+> Built by `atlas/extract/vault.py` from the records and extracted facts it links to. Do not edit; edit the source and regenerate.
+
+# net.fabricmc.fabric.api.client.rendering.v1.SubmitRenderPhase
+
+Module: [[30-Mechanisms/fabric-rendering-v1|fabric-rendering-v1]] -- kind: class
+
+```java
+public net.fabricmc.fabric.api.client.rendering.v1.SubmitRenderPhase(java.util.function.Function<net.minecraft.client.renderer.SubmitNodeCollection, net.minecraft.client.renderer.feature.phase.FeatureRenderPhase<? super T>>)
+public void submit(net.minecraft.client.renderer.SubmitNodeCollection, T)
+```

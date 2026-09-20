@@ -1,0 +1,77 @@
+---
+type: "request"
+id: "request.crystal_caves"
+family: "workflow:wf.world.features_biomes"
+---
+
+> [!warning] Analyst-authored
+> Interpretation, not extraction. Claims cite evidence ids; anything uncited is opinion. Reviewed corrections go into the store records or the extractors, never into a generated note.
+
+# Crystal caves -- crystal-lined cave pockets in mountain biomes
+
+## Request
+
+Analyst-authored exercise request (not from a creator): in mountain biomes, generate occasional cave pockets whose walls are studded with a new crystal block; the crystals glow faintly and drop shards; existing worlds get them in new chunks only.
+
+## Approved behaviour and constraints
+
+- Provisional (no creator): mountain biomes by tag; rarity roughly one pocket per several chunks; new chunks only.
+
+## Preservation obligations
+
+- Already-generated chunks are untouched.
+- Other mods' cave features in the same biomes continue to generate.
+
+## Affected systems
+
+- net.minecraft.world.level -- blocks ([[10-Workflows/wf.content.block_item|wf.content.block_item]]) and the levelgen packages (unhooked; members not extracted).
+- net.minecraft.core.registries -- BLOCK, ITEM, FEATURE registries (`extracted/minecraft_registries.json`).
+- net.minecraft.server.packs -- the mod's data pack with configured and placed features.
+
+## Implementation candidates
+
+- Data-first: a configured_feature using a vanilla feature type that places a block cluster (the jar ships such definitions among its worldgen entries: `extracted/corpus.json`) plus a placed_feature with rarity and height modifiers, added to mountain biomes through [[30-Mechanisms/fabric-biome-api-v1|fabric-biome-api-v1]] BiomeModifications. New code: only the crystal block and shard item.
+- Coded feature: a Feature subclass registered into FEATURE when the pocket shape cannot be expressed with vanilla feature types. Its base class members are not extracted ([[80-Unresolved/q.unhooked_vanilla_members|q.unhooked_vanilla_members]]), so the candidate is unverified against 26.3 signatures.
+- Post-generation carving through [[50-Interactions/events/net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_GENERATE|CHUNK_GENERATE]]: rejected as primary -- the thread is not established ([[80-Unresolved/q.worldgen_threading|q.worldgen_threading]]) and it re-runs per generated chunk with no placement budget.
+
+## Data / control / state dependencies
+
+- Data: two JSON files (configured, placed) and the biome selector; the block and item registrations.
+- Control: registration in the main entrypoint before registry freeze ([[80-Unresolved/q.registry_freeze_timing|q.registry_freeze_timing]]); BiomeModifications call in the same entrypoint.
+- State: none at runtime; generation is deterministic from the seed.
+
+## Interactions with the selected environment
+
+- Feature ordering within the same generation step against other mods' features ([[80-Unresolved/q.datapack_load_order|q.datapack_load_order]]); a cycle aborts world load.
+- A second mod replacing the mountain biome JSON removes the modification unless it too uses the biome API.
+- The crystal's light level interacts with vanilla mob spawning rules in caves (light-based spawn checks are vanilla behaviour; unmodified).
+
+## Alternatives and tradeoffs
+
+- Structure-based pockets ([[10-Workflows/wf.world.structures|wf.world.structures]]): needs in-game template authoring; not available here.
+
+## Implementation work
+
+- Block and item ([[10-Workflows/wf.content.block_item|wf.content.block_item]]); feature JSON pair; biome modification call; loot table for shards; language entries.
+- Extraction of the levelgen feature classes as extra types before any coded feature is attempted.
+
+## Verification obligations
+
+- JSON validity against the jar's own examples (mechanical, possible now).
+- Compile of registrations against the pinned corpus (possible now).
+- Generation frequency, visual result, cycle-freedom with other mods: need a headless world load; none observed.
+
+## Unresolved
+
+- [[80-Unresolved/q.datapack_load_order|q.datapack_load_order]]
+- [[80-Unresolved/q.worldgen_threading|q.worldgen_threading]]
+- [[80-Unresolved/q.unhooked_vanilla_members|q.unhooked_vanilla_members]]
+- [[80-Unresolved/q.registry_freeze_timing|q.registry_freeze_timing]]
+
+## Evidence
+
+- `extracted/corpus.json`
+- `extracted/minecraft_registries.json`
+- `extracted/fabric_api.json#fabric-biome-api-v1`
+- `extracted/edges.json#publishes_event`
+

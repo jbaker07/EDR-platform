@@ -1,0 +1,131 @@
+- id: net.minecraft.network.protocol
+  title: Packets and protocol phases
+  side: both
+  responsibility: >-
+    The wire protocol (368 classes): packet types for the handshake, login,
+    configuration and play phases, and the clientbound/serverbound listener
+    interfaces. Custom payloads travel inside the common CustomPayload packets.
+  threads: >-
+    Packets are decoded on netty threads; vanilla re-schedules handling onto the game
+    thread for most packets. Whether Fabric's custom payload receivers follow that
+    re-scheduling is question:q.payload_receiver_thread.
+  extension_points:
+    - mechanism:fabric-networking-api-v1 registers payload types and receivers per phase (record:capability/sync_state.fabric_custom_payload).
+    - Channel registration between sides is announced through event:net.fabricmc.fabric.api.networking.v1.ClientboundPlayChannelEvents.REGISTER and its serverbound counterpart.
+    - "Connection lifecycle: event:net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN (server) and event:net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.JOIN (client)."
+  interactions:
+    - A payload id must be registered on both sides with the same codec; a mismatch disconnects the client.
+    - Protocol version 777 (extracted:corpus.json) is the compatibility boundary; a client and server on different protocols cannot connect at all.
+  evidence:
+    - extracted:corpus.json
+    - extracted:edges.json#callback_of
+    - mechanism:fabric-networking-api-v1
+  questions: [question:q.payload_receiver_thread]
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.server.network
+  title: Server-side connection handling
+  side: server
+  responsibility: >-
+    ServerGamePacketListenerImpl and the configuration/login listeners: the server
+    end of each player's connection, where serverbound packets are handled.
+  threads: Handlers run on the server thread after vanilla's re-scheduling for game packets; login and configuration have their own flow.
+  extension_points:
+    - mechanism:fabric-networking-api-v1 attaches its per-connection addon here; ServerPlayConnectionEvents.JOIN is published from that addon (impl code, not a mixin).
+    - event:net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.JOIN fires at RETURN of PlayerList.placeNewPlayer, after the player is in the level.
+  evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#injects_into
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.server.packs
+  title: Packs, resources and reload
+  side: shared_by_design
+  responsibility: >-
+    Pack repositories, pack resources, the resource manager and reload listeners;
+    the server side loads data packs, the client side resource packs, through the
+    same classes. 25 hooked types.
+  threads: Reloads run partly on worker executors with a completion on the game thread; the split is not extracted.
+  extension_points:
+    - mechanism:fabric-resource-loader-v0 injects mod resources as built-in packs and exposes reload listeners with ordering.
+    - mechanism:fabric-resource-conditions-api-v1 lets a JSON resource load only when a condition (a mod present, a tag populated) holds.
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.END_DATA_PACK_RELOAD signals completion on the server; SYNC_DATA_PACK_CONTENTS fires per player when reloaded data is sent.
+  interactions:
+    - Pack precedence between a mod's built-in pack and a world's data pack decides which same-named JSON wins (question:q.datapack_load_order).
+  evidence:
+    - extracted:edges.json#injects_into
+    - extracted:edges.json#publishes_event
+    - mechanism:fabric-resource-loader-v0
+  questions: [question:q.datapack_load_order]
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.client.renderer
+  title: "Rendering: level, entities, block and item models"
+  side: client
+  responsibility: >-
+    The client render pipeline (1006 classes): level rendering passes, entity and
+    block-entity renderers, model baking and dispatch, render state extraction,
+    textures and sprites. 66 hooked types.
+  threads: The render thread only; anything here referenced from server code crashes a dedicated server with a missing class.
+  extension_points:
+    - mechanism:fabric-rendering-v1 exposes level render passes as events (for example event:net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN) and entity renderer/model-layer registration.
+    - Feature render layers on living entities through event:net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT.
+    - mechanism:fabric-renderer-api-v1 and mechanism:fabric-renderer-indigo define the mesh/quad emitting model used by block models (the unresolved emitQuads targets in extracted:minecraft_members.json are interface-declared members of this pipeline).
+    - mechanism:fabric-model-loading-api-v1 hooks model loading and baking.
+  interactions:
+    - Every level render event is per frame; work there is paid at frame rate, not tick rate.
+  evidence:
+    - extracted:edges.json#injects_into
+    - extracted:corpus.json
+  questions: [question:q.edge_targets_unresolved]
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.client.gui
+  title: "GUI: screens, HUD and widgets"
+  side: client
+  responsibility: >-
+    Screens, the in-game HUD (Gui), widgets, layouts and the GUI render-state
+    extraction introduced with the 26.x renderer. 53 hooked types.
+  threads: The client render thread; nothing here runs on a dedicated server.
+  extension_points:
+    - mechanism:fabric-rendering-v1 provides HUD element registration; HudElement in 26.3 extracts render state (record:capability/display_information.fabric_hud_element records the corrected signature after a build failure).
+    - mechanism:fabric-screen-api-v1 publishes event:net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT and per-screen events for widgets and rendering.
+    - mechanism:fabric-key-mapping-api-v1 registers key bindings.
+  evidence:
+    - record:capability/display_information.fabric_hud_element
+    - extracted:edges.json#injects_into
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.client.multiplayer
+  title: Client-side world and connection
+  side: client
+  responsibility: >-
+    ClientLevel, ClientPacketListener (the client end of the connection),
+    MultiPlayerGameMode (client-initiated interactions and prediction). 15 hooked types.
+  threads: Client thread after packet re-scheduling; interaction methods are called from input handling on the client thread.
+  extension_points:
+    - The client-side halves of the interaction events (UseBlockCallback, AttackEntityCallback) are injected into MultiPlayerGameMode.useItemOn and MultiPlayerGameMode.attack before the packet is sent, so a client-side cancel prevents the packet.
+    - event:net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback.EVENT fires at RETURN of ClientPacketListener.handleLogin.
+    - "Client tick: event:net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK at RETURN of Minecraft.tick."
+  interactions:
+    - Interaction events fire on both sides with the same callback; a listener that is not side-aware runs twice in single-player.
+  evidence:
+    - extracted:edges.json#injects_into
+    - extracted:edges.json#publishes_event
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.util.datafix
+  title: DataFixers -- vanilla save migration
+  side: shared_by_design
+  responsibility: >-
+    Vanilla's schema-versioned migration of saved data (444 classes): every world
+    version bump ships fixes here. Two types are hooked by Fabric API.
+  threads: Runs during world load on the loading thread.
+  persistence: This is the mechanism by which vanilla keeps old worlds loadable; world version 5023 (extracted:corpus.json) is the current schema.
+  extension_points:
+    - No Fabric API in the corpus exposes a mod-facing fixer registration; the two hooks are Fabric's own (extracted:edges.json#injects_into). Mods therefore version their own data (question:q.mod_data_migration_practice).
+  evidence:
+    - extracted:corpus.json
+    - extracted:edges.json#injects_into
+  questions: [question:q.mod_data_migration_practice]
+  provenance: {author: analyst, added: '2026-09-20'}

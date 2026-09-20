@@ -1,0 +1,103 @@
+- id: wf.world.features_biomes
+  area: world
+  title: Add or change world-generation features and biomes
+  intent: >-
+    The creator wants something new in generated terrain -- an ore, a plant, a cave
+    decoration, a whole biome -- appearing where they intend and not elsewhere, in
+    new chunks, without breaking worlds that already exist.
+  preserve:
+    - Already-generated chunks are never regenerated; the change affects new chunks only.
+    - Other mods' features in the same biomes.
+  mechanisms:
+    - "Data packs: configured_feature, placed_feature, biome and worldgen entry types shipped in the jar (extracted:corpus.json)."
+    - mechanism:fabric-biome-api-v1 -- adds features and spawns to existing biomes by selector, without replacing the biome JSON.
+    - mechanism:Registries -- FEATURE for a new feature type in code.
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_GENERATE -- post-generation hook whose thread is not established.
+  tools_today:
+    - JSON definitions (hand-written or data-generated) plus a BiomeModifications call in the main entrypoint.
+    - A new Feature subclass only when no vanilla feature type fits (its base classes are unhooked; question:q.unhooked_vanilla_members).
+  decisions:
+    - Data-only (vanilla feature type with new configuration) or a coded feature.
+    - "Biome selection: by tag, by key list, or all overworld."
+    - Generation step and placement modifiers, which decide frequency and height.
+  information_needed:
+    - The 26.3 configured/placed feature JSON schema (only jar examples in corpus).
+    - Feature ordering rules within a step and how conflicts surface (question:q.datapack_load_order).
+    - The thread of any post-generation listener (question:q.worldgen_threading).
+  automation_existing:
+    - None in ModCheck.
+  remaining_manual:
+    - All of it; the biome API's surface is inspected but no generator exists.
+  modcheck_contribution:
+    - A capability record for BiomeModifications-based feature addition with the JSON pair, compiled and validated against the jar's own placed_feature examples.
+  interactions_to_check:
+    - Same-step feature ordering across mods.
+    - Two mods replacing the same biome JSON.
+  evidence:
+    - extracted:fabric_api.json#fabric-biome-api-v1
+    - extracted:corpus.json
+    - extracted:edges.json#publishes_event
+  questions: [question:q.datapack_load_order, question:q.worldgen_threading, question:q.unhooked_vanilla_members]
+  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: wf.world.dimensions
+  area: world
+  title: Add a dimension
+  intent: >-
+    A separate world with its own generator, sky and rules, reachable from the
+    overworld, that saves and loads like the vanilla dimensions.
+  preserve:
+    - The three vanilla dimensions and any other mod's dimensions.
+  mechanisms:
+    - "Data packs: dimension and dimension_type entries (extracted:corpus.json)."
+    - mechanism:fabric-dimensions-v1 -- event:net.fabricmc.fabric.api.dimension.v1.DimensionEvents.MODIFY_ATTRIBUTES and teleport helpers.
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents.LOAD -- per-level setup point.
+  tools_today:
+    - JSON dimension type plus a chunk generator reference (vanilla noise generator with custom settings, or a coded generator).
+  decisions:
+    - Vanilla noise generator with custom settings (data only) versus a custom ChunkGenerator (code, unhooked base class).
+    - Portal or command travel.
+  information_needed:
+    - The 26.3 dimension_type JSON fields.
+    - Whether a dimension added by data pack after world creation is loaded for existing worlds.
+  automation_existing:
+    - None.
+  remaining_manual:
+    - All.
+  modcheck_contribution:
+    - Not yet planned; listed for completeness of the surface.
+  evidence:
+    - extracted:fabric_api.json#fabric-dimensions-v1
+    - extracted:corpus.json
+  status: {inventoried: true, mechanically_inspected: true, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: wf.world.structures
+  area: world
+  title: Add structures
+  intent: >-
+    A building or ruin generated into terrain from templates, with loot, spawns and
+    a map marker, appearing at the intended rarity.
+  preserve:
+    - Existing structure spacing for other mods and vanilla.
+  mechanisms:
+    - "Data packs: structure, structure_set, template_pool and the structure NBT templates (extracted:corpus.json entry types)."
+    - mechanism:fabric-biome-api-v1 for biome-tag membership; mechanism:fabric-loot-api-v3 for chest loot.
+  tools_today:
+    - Structure blocks in-game to author templates (needs the game), then JSON.
+  decisions:
+    - Single template versus jigsaw pools.
+    - Spacing and salt values in the structure set.
+  information_needed:
+    - Template NBT authoring requires a running game -- not available here (question:q.runtime_event_delivery).
+  automation_existing:
+    - None.
+  remaining_manual:
+    - All.
+  modcheck_contribution:
+    - Not yet planned.
+  evidence:
+    - extracted:corpus.json
+  status: {inventoried: true, mechanically_inspected: false, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}

@@ -1,0 +1,63 @@
+---
+type: "interface"
+fqcn: "net.minecraft.world.level.GameType"
+side: "vanilla"
+---
+
+> [!info] Generated
+> Built by `atlas/extract/vault.py` from the records and extracted facts it links to. Do not edit; edit the source and regenerate.
+
+# net.minecraft.world.level.GameType
+
+System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
+
+## How Fabric API modules touch this type
+
+| relation | member | operation | environment | by | evidence |
+|---|---|---|---|---|---|
+| reads | `SURVIVALLnet/minecraft/world/level/GameType;` | `` | both | [[30-Mechanisms/fabric-events-interaction-v0|fabric-events-interaction-v0]] | direct_reference |
+
+## Declared members (36, all visibilities)
+
+From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+
+```java
+public final class net.minecraft.world.level.GameType extends java.lang.Enum<net.minecraft.world.level.GameType> implements net.minecraft.util.StringRepresentable {
+    public static final net.minecraft.world.level.GameType SURVIVAL;
+    public static final net.minecraft.world.level.GameType CREATIVE;
+    public static final net.minecraft.world.level.GameType ADVENTURE;
+    public static final net.minecraft.world.level.GameType SPECTATOR;
+    public static final net.minecraft.world.level.GameType DEFAULT_MODE;
+    public static final net.minecraft.util.StringRepresentable$EnumCodec<net.minecraft.world.level.GameType> CODEC;
+    private static final java.util.function.IntFunction<net.minecraft.world.level.GameType> BY_ID;
+    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.level.GameType> STREAM_CODEC;
+    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, java.util.Optional<net.minecraft.world.level.GameType>> OPTIONAL_STREAM_CODEC;
+    public static final com.mojang.serialization.Codec<net.minecraft.world.level.GameType> LEGACY_ID_CODEC;
+    private final int id;
+    private final java.lang.String name;
+    private final net.minecraft.network.chat.Component shortName;
+    private final net.minecraft.network.chat.Component longName;
+    private static final net.minecraft.world.level.GameType[] $VALUES;
+    public static net.minecraft.world.level.GameType[] values();
+    public static net.minecraft.world.level.GameType valueOf(java.lang.String);
+    private net.minecraft.world.level.GameType(int, java.lang.String);
+    public int getId();
+    public java.lang.String getName();
+    public java.lang.String getSerializedName();
+    public net.minecraft.network.chat.Component getLongDisplayName();
+    public net.minecraft.network.chat.Component getShortDisplayName();
+    public void updatePlayerAbilities(net.minecraft.world.entity.player.Abilities);
+    public boolean isBlockPlacingRestricted();
+    public boolean isCreative();
+    public boolean isSurvival();
+    public static net.minecraft.world.level.GameType byId(int);
+    public static net.minecraft.world.level.GameType byName(java.lang.String);
+    public static net.minecraft.world.level.GameType byName(java.lang.String, net.minecraft.world.level.GameType);
+    public static boolean isValidId(int);
+    private static net.minecraft.world.level.GameType[] $values();
+    private static boolean lambda$isValidId$0(int, net.minecraft.world.level.GameType);
+    private static java.util.OptionalInt lambda$static$1(java.util.Optional);
+    private static java.util.Optional lambda$static$0(java.util.OptionalInt);
+    static {};
+}
+```

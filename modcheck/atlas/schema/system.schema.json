@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "modcheck/atlas/system",
+  "title": "Analyst note on one game system (a vanilla package)",
+  "type": "object",
+  "required": ["id", "title", "responsibility", "side", "threads", "extension_points", "evidence", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^net\\.minecraft(\\.[a-z_]+)+$", "description": "Package name; matches a depth-4 package in corpus.json"},
+    "title": {"type": "string", "minLength": 3},
+    "responsibility": {"type": "string", "minLength": 40},
+    "side": {"type": "string", "enum": ["server", "client", "both", "shared_by_design"]},
+    "threads": {"type": "string", "minLength": 20, "description": "What is known and NOT known about which thread runs this code"},
+    "persistence": {"type": "string"},
+    "extension_points": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 20}},
+    "interactions": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "questions": {"type": "array", "items": {"type": "string", "pattern": "^question:"}},
+    "provenance": {"type": "object", "required": ["author", "added"], "properties": {"author": {"const": "analyst"}, "added": {"type": "string"}}}
+  }
+}

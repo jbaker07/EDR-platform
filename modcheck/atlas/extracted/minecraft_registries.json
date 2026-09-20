@@ -1,0 +1,1073 @@
+{
+ "generated_at": "2026-09-20T07:33:27+00:00",
+ "artifact": "minecraft-merged",
+ "sha256": "5918174887871ab0d484d4fa9462a4c5f91d90b3b93dd301e3bfa4c109bc4cde",
+ "version": "26.3",
+ "built_in_registries": [
+  {
+   "field": "DATA_COMPONENT_INITIALIZERS",
+   "type": "net.minecraft.core.component.DataComponentInitializers"
+  },
+  {
+   "field": "GAME_EVENT",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.level.gameevent.GameEvent>"
+  },
+  {
+   "field": "SOUND_EVENT",
+   "type": "net.minecraft.core.Registry<net.minecraft.sounds.SoundEvent>"
+  },
+  {
+   "field": "FLUID",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.level.material.Fluid>"
+  },
+  {
+   "field": "MOB_EFFECT",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.effect.MobEffect>"
+  },
+  {
+   "field": "BLOCK",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.level.block.Block>"
+  },
+  {
+   "field": "DEBUG_SUBSCRIPTION",
+   "type": "net.minecraft.core.Registry<net.minecraft.util.debug.DebugSubscription<?>>"
+  },
+  {
+   "field": "ENTITY_TYPE",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.entity.EntityType<?>>"
+  },
+  {
+   "field": "ITEM",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.item.Item>"
+  },
+  {
+   "field": "POTION",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.alchemy.Potion>"
+  },
+  {
+   "field": "PARTICLE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.core.particles.ParticleType<?>>"
+  },
+  {
+   "field": "BLOCK_ENTITY_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.block.entity.BlockEntityType<?>>"
+  },
+  {
+   "field": "CUSTOM_STAT",
+   "type": "net.minecraft.core.Registry<net.minecraft.resources.Identifier>"
+  },
+  {
+   "field": "CHUNK_STATUS",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.level.chunk.status.ChunkStatus>"
+  },
+  {
+   "field": "RULE_TEST",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType<?>>"
+  },
+  {
+   "field": "RULE_BLOCK_ENTITY_MODIFIER",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifierType<?>>"
+  },
+  {
+   "field": "POS_RULE_TEST",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.PosRuleTestType<?>>"
+  },
+  {
+   "field": "MENU",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.inventory.MenuType<?>>"
+  },
+  {
+   "field": "RECIPE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeType<?>>"
+  },
+  {
+   "field": "RECIPE_SERIALIZER",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeSerializer<?>>"
+  },
+  {
+   "field": "ATTRIBUTE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.entity.ai.attributes.Attribute>"
+  },
+  {
+   "field": "POSITION_SOURCE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.gameevent.PositionSourceType<?>>"
+  },
+  {
+   "field": "COMMAND_ARGUMENT_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.commands.synchronization.ArgumentTypeInfo<?, ?>>"
+  },
+  {
+   "field": "STAT_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.stats.StatType<?>>"
+  },
+  {
+   "field": "VILLAGER_TYPE",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.entity.npc.villager.VillagerType>"
+  },
+  {
+   "field": "VILLAGER_PROFESSION",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.entity.npc.villager.VillagerProfession>"
+  },
+  {
+   "field": "POINT_OF_INTEREST_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.entity.ai.village.poi.PoiType>"
+  },
+  {
+   "field": "MEMORY_MODULE_TYPE",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.entity.ai.memory.MemoryModuleType<?>>"
+  },
+  {
+   "field": "SENSOR_TYPE",
+   "type": "net.minecraft.core.DefaultedRegistry<net.minecraft.world.entity.ai.sensing.SensorType<?>>"
+  },
+  {
+   "field": "ACTIVITY",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.entity.schedule.Activity>"
+  },
+  {
+   "field": "LOOT_POOL_ENTRY_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer>>"
+  },
+  {
+   "field": "LOOT_FUNCTION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.functions.LootItemFunction>>"
+  },
+  {
+   "field": "LOOT_CONDITION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.predicates.LootItemCondition>>"
+  },
+  {
+   "field": "CONTEXT_FLOAT_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider>>"
+  },
+  {
+   "field": "CONTEXT_INT_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>>"
+  },
+  {
+   "field": "LOOT_NBT_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.nbt.NbtProvider>>"
+  },
+  {
+   "field": "LOOT_SCORE_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.score.ScoreboardNameProvider>>"
+  },
+  {
+   "field": "FLOAT_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.util.valueproviders.FloatProvider>>"
+  },
+  {
+   "field": "INT_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.util.valueproviders.IntProvider>>"
+  },
+  {
+   "field": "HEIGHT_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.heightproviders.HeightProviderType<?>>"
+  },
+  {
+   "field": "BLOCK_PREDICATE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType<?>>"
+  },
+  {
+   "field": "CARVER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.carver.WorldCarver>>"
+  },
+  {
+   "field": "FEATURE_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.feature.Feature>>"
+  },
+  {
+   "field": "STRUCTURE_PLACEMENT",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.placement.StructurePlacement>>"
+  },
+  {
+   "field": "STRUCTURE_PIECE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType>"
+  },
+  {
+   "field": "STRUCTURE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.StructureType<?>>"
+  },
+  {
+   "field": "PLACEMENT_MODIFIER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.placement.PlacementModifier>>"
+  },
+  {
+   "field": "BLOCK_STATE_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>>"
+  },
+  {
+   "field": "FOLIAGE_PLACER_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType<?>>"
+  },
+  {
+   "field": "TRUNK_PLACER_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType<?>>"
+  },
+  {
+   "field": "ROOT_PLACER_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType<?>>"
+  },
+  {
+   "field": "TREE_DECORATOR_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType<?>>"
+  },
+  {
+   "field": "FEATURE_SIZE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.featuresize.FeatureSizeType<?>>"
+  },
+  {
+   "field": "BIOME_SOURCE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.biome.BiomeSource>>"
+  },
+  {
+   "field": "CHUNK_GENERATOR",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.chunk.ChunkGenerator>>"
+  },
+  {
+   "field": "MATERIAL_CONDITION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.material.condition.MaterialCondition>>"
+  },
+  {
+   "field": "MATERIAL_RULE_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.material.rule.MaterialRule>>"
+  },
+  {
+   "field": "DENSITY_FUNCTION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.densityfunction.DensityFunction>>"
+  },
+  {
+   "field": "STRUCTURE_PROCESSOR",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor>>"
+  },
+  {
+   "field": "STRUCTURE_POOL_ELEMENT",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementType<?>>"
+  },
+  {
+   "field": "POOL_ALIAS_BINDING_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBinding>>"
+  },
+  {
+   "field": "CREATIVE_MODE_TAB",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.CreativeModeTab>"
+  },
+  {
+   "field": "TRIGGER_TYPES",
+   "type": "net.minecraft.core.Registry<net.minecraft.advancements.triggers.CriterionTrigger<?>>"
+  },
+  {
+   "field": "NUMBER_FORMAT_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.network.chat.numbers.NumberFormatType<?>>"
+  },
+  {
+   "field": "DATA_COMPONENT_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.core.component.DataComponentType<?>>"
+  },
+  {
+   "field": "GAME_RULE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.gamerules.GameRule<?>>"
+  },
+  {
+   "field": "ENTITY_SUB_PREDICATE_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.Codec<? extends net.minecraft.advancements.predicates.entity.EntitySubPredicate>>"
+  },
+  {
+   "field": "DATA_COMPONENT_PREDICATE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.core.component.predicates.DataComponentPredicate$Type<?>>"
+  },
+  {
+   "field": "MAP_DECORATION_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.level.saveddata.maps.MapDecorationType>"
+  },
+  {
+   "field": "ENCHANTMENT_EFFECT_COMPONENT_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.core.component.DataComponentType<?>>"
+  },
+  {
+   "field": "ENCHANTMENT_LEVEL_BASED_VALUE_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.LevelBasedValue>>"
+  },
+  {
+   "field": "ENCHANTMENT_ENTITY_EFFECT_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect>>"
+  },
+  {
+   "field": "ENCHANTMENT_LOCATION_BASED_EFFECT_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentLocationBasedEffect>>"
+  },
+  {
+   "field": "ENCHANTMENT_VALUE_EFFECT_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect>>"
+  },
+  {
+   "field": "ENCHANTMENT_PROVIDER_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.providers.EnchantmentProvider>>"
+  },
+  {
+   "field": "CONSUME_EFFECT_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.consume_effects.ConsumeEffect$Type<?>>"
+  },
+  {
+   "field": "RECIPE_DISPLAY",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.crafting.display.RecipeDisplay$Type<?>>"
+  },
+  {
+   "field": "SLOT_DISPLAY",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.crafting.display.SlotDisplay$Type<?>>"
+  },
+  {
+   "field": "RECIPE_BOOK_CATEGORY",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeBookCategory>"
+  },
+  {
+   "field": "TICKET_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.server.level.TicketType>"
+  },
+  {
+   "field": "INCOMING_RPC_METHOD",
+   "type": "net.minecraft.core.Registry<net.minecraft.server.jsonrpc.IncomingRpcMethod<?, ?>>"
+  },
+  {
+   "field": "OUTGOING_RPC_METHOD",
+   "type": "net.minecraft.core.Registry<net.minecraft.server.jsonrpc.OutgoingRpcMethod<?, ?>>"
+  },
+  {
+   "field": "TEST_ENVIRONMENT_DEFINITION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.gametest.framework.TestEnvironmentDefinition<?>>>"
+  },
+  {
+   "field": "TEST_INSTANCE_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.gametest.framework.GameTestInstance>>"
+  },
+  {
+   "field": "SPAWN_CONDITION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.entity.variant.SpawnCondition>>"
+  },
+  {
+   "field": "DIALOG_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.Dialog>>"
+  },
+  {
+   "field": "DIALOG_ACTION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.action.Action>>"
+  },
+  {
+   "field": "INPUT_CONTROL_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.input.InputControl>>"
+  },
+  {
+   "field": "DIALOG_BODY_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.body.DialogBody>>"
+  },
+  {
+   "field": "PERMISSION_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.permissions.Permission>>"
+  },
+  {
+   "field": "PERMISSION_CHECK_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.permissions.PermissionCheck>>"
+  },
+  {
+   "field": "ENVIRONMENT_ATTRIBUTE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.attribute.EnvironmentAttribute<?>>"
+  },
+  {
+   "field": "ATTRIBUTE_TYPE",
+   "type": "net.minecraft.core.Registry<net.minecraft.world.attribute.AttributeType<?>>"
+  },
+  {
+   "field": "SLOT_SOURCE_TYPE",
+   "type": "net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.slot.SlotSource>>"
+  },
+  {
+   "field": "CONTEXT_KEY_SET",
+   "type": "net.minecraft.core.Registry<net.minecraft.util.context.ContextKeySet>"
+  },
+  {
+   "field": "TEST_FUNCTION",
+   "type": "net.minecraft.core.Registry<java.util.function.Consumer<net.minecraft.gametest.framework.GameTestHelper>>"
+  },
+  {
+   "field": "REGISTRY",
+   "type": "net.minecraft.core.Registry<? extends net.minecraft.core.Registry<?>>"
+  }
+ ],
+ "registry_keys": [
+  {
+   "field": "ROOT_REGISTRY_NAME",
+   "type": "net.minecraft.resources.Identifier"
+  },
+  {
+   "field": "ACTIVITY",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.schedule.Activity>>"
+  },
+  {
+   "field": "ATTRIBUTE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.attributes.Attribute>>"
+  },
+  {
+   "field": "BIOME_SOURCE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.biome.BiomeSource>>>"
+  },
+  {
+   "field": "BLOCK_ENTITY_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.BlockEntityType<?>>>"
+  },
+  {
+   "field": "BLOCK_PREDICATE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType<?>>>"
+  },
+  {
+   "field": "BLOCK_STATE_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>>>"
+  },
+  {
+   "field": "BLOCK",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.Block>>"
+  },
+  {
+   "field": "CARVER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.carver.WorldCarver>>>"
+  },
+  {
+   "field": "CHUNK_GENERATOR",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.chunk.ChunkGenerator>>>"
+  },
+  {
+   "field": "CHUNK_STATUS",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.chunk.status.ChunkStatus>>"
+  },
+  {
+   "field": "COMMAND_ARGUMENT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.commands.synchronization.ArgumentTypeInfo<?, ?>>>"
+  },
+  {
+   "field": "CONSUME_EFFECT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.consume_effects.ConsumeEffect$Type<?>>>"
+  },
+  {
+   "field": "CREATIVE_MODE_TAB",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.CreativeModeTab>>"
+  },
+  {
+   "field": "CUSTOM_STAT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.resources.Identifier>>"
+  },
+  {
+   "field": "DATA_COMPONENT_PREDICATE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.predicates.DataComponentPredicate$Type<?>>>"
+  },
+  {
+   "field": "DATA_COMPONENT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.DataComponentType<?>>>"
+  },
+  {
+   "field": "GAME_RULE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.gamerules.GameRule<?>>>"
+  },
+  {
+   "field": "DEBUG_SUBSCRIPTION",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.util.debug.DebugSubscription<?>>>"
+  },
+  {
+   "field": "DENSITY_FUNCTION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.densityfunction.DensityFunction>>>"
+  },
+  {
+   "field": "DIALOG_BODY_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.body.DialogBody>>>"
+  },
+  {
+   "field": "DIALOG_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.Dialog>>>"
+  },
+  {
+   "field": "ENCHANTMENT_EFFECT_COMPONENT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.DataComponentType<?>>>"
+  },
+  {
+   "field": "ENCHANTMENT_ENTITY_EFFECT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect>>>"
+  },
+  {
+   "field": "ENCHANTMENT_LEVEL_BASED_VALUE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.LevelBasedValue>>>"
+  },
+  {
+   "field": "ENCHANTMENT_LOCATION_BASED_EFFECT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentLocationBasedEffect>>>"
+  },
+  {
+   "field": "ENCHANTMENT_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.providers.EnchantmentProvider>>>"
+  },
+  {
+   "field": "ENCHANTMENT_VALUE_EFFECT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect>>>"
+  },
+  {
+   "field": "ENTITY_SUB_PREDICATE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.Codec<? extends net.minecraft.advancements.predicates.entity.EntitySubPredicate>>>"
+  },
+  {
+   "field": "ENTITY_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.EntityType<?>>>"
+  },
+  {
+   "field": "ENVIRONMENT_ATTRIBUTE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.attribute.EnvironmentAttribute<?>>>"
+  },
+  {
+   "field": "ATTRIBUTE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.attribute.AttributeType<?>>>"
+  },
+  {
+   "field": "FEATURE_SIZE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.featuresize.FeatureSizeType<?>>>"
+  },
+  {
+   "field": "FEATURE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.feature.Feature>>>"
+  },
+  {
+   "field": "FLOAT_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.util.valueproviders.FloatProvider>>>"
+  },
+  {
+   "field": "FLUID",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.material.Fluid>>"
+  },
+  {
+   "field": "FOLIAGE_PLACER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType<?>>>"
+  },
+  {
+   "field": "GAME_EVENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.gameevent.GameEvent>>"
+  },
+  {
+   "field": "HEIGHT_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.heightproviders.HeightProviderType<?>>>"
+  },
+  {
+   "field": "INPUT_CONTROL_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.input.InputControl>>>"
+  },
+  {
+   "field": "INT_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.util.valueproviders.IntProvider>>>"
+  },
+  {
+   "field": "ITEM",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.Item>>"
+  },
+  {
+   "field": "SLOT_SOURCE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.item.slot.SlotSource>>>"
+  },
+  {
+   "field": "LOOT_CONDITION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.predicates.LootItemCondition>>>"
+  },
+  {
+   "field": "LOOT_FUNCTION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.functions.LootItemFunction>>>"
+  },
+  {
+   "field": "LOOT_NBT_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.nbt.NbtProvider>>>"
+  },
+  {
+   "field": "CONTEXT_FLOAT_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider>>>"
+  },
+  {
+   "field": "CONTEXT_INT_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>>>"
+  },
+  {
+   "field": "LOOT_POOL_ENTRY_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer>>>"
+  },
+  {
+   "field": "LOOT_SCORE_PROVIDER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.score.ScoreboardNameProvider>>>"
+  },
+  {
+   "field": "MAP_DECORATION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.saveddata.maps.MapDecorationType>>"
+  },
+  {
+   "field": "MATERIAL_CONDITION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.material.condition.MaterialCondition>>>"
+  },
+  {
+   "field": "MATERIAL_RULE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.material.rule.MaterialRule>>>"
+  },
+  {
+   "field": "MEMORY_MODULE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.memory.MemoryModuleType<?>>>"
+  },
+  {
+   "field": "MENU",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.inventory.MenuType<?>>>"
+  },
+  {
+   "field": "MOB_EFFECT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.effect.MobEffect>>"
+  },
+  {
+   "field": "NUMBER_FORMAT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.network.chat.numbers.NumberFormatType<?>>>"
+  },
+  {
+   "field": "PARTICLE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.particles.ParticleType<?>>>"
+  },
+  {
+   "field": "PLACEMENT_MODIFIER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.placement.PlacementModifier>>>"
+  },
+  {
+   "field": "POINT_OF_INTEREST_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.village.poi.PoiType>>"
+  },
+  {
+   "field": "POOL_ALIAS_BINDING",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBinding>>>"
+  },
+  {
+   "field": "POSITION_SOURCE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.gameevent.PositionSourceType<?>>>"
+  },
+  {
+   "field": "POS_RULE_TEST",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.PosRuleTestType<?>>>"
+  },
+  {
+   "field": "POTION",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.alchemy.Potion>>"
+  },
+  {
+   "field": "RECIPE_BOOK_CATEGORY",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeBookCategory>>"
+  },
+  {
+   "field": "RECIPE_DISPLAY",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.display.RecipeDisplay$Type<?>>>"
+  },
+  {
+   "field": "RECIPE_SERIALIZER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeSerializer<?>>>"
+  },
+  {
+   "field": "RECIPE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.RecipeType<?>>>"
+  },
+  {
+   "field": "ROOT_PLACER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType<?>>>"
+  },
+  {
+   "field": "RULE_BLOCK_ENTITY_MODIFIER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifierType<?>>>"
+  },
+  {
+   "field": "RULE_TEST",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType<?>>>"
+  },
+  {
+   "field": "SENSOR_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.ai.sensing.SensorType<?>>>"
+  },
+  {
+   "field": "SLOT_DISPLAY",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.display.SlotDisplay$Type<?>>>"
+  },
+  {
+   "field": "SOUND_EVENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.sounds.SoundEvent>>"
+  },
+  {
+   "field": "SPAWN_CONDITION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.entity.variant.SpawnCondition>>>"
+  },
+  {
+   "field": "STAT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.stats.StatType<?>>>"
+  },
+  {
+   "field": "STRUCTURE_PIECE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType>>"
+  },
+  {
+   "field": "STRUCTURE_PLACEMENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.placement.StructurePlacement>>>"
+  },
+  {
+   "field": "STRUCTURE_POOL_ELEMENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementType<?>>>"
+  },
+  {
+   "field": "STRUCTURE_PROCESSOR",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor>>>"
+  },
+  {
+   "field": "STRUCTURE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.StructureType<?>>>"
+  },
+  {
+   "field": "DIALOG_ACTION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.action.Action>>>"
+  },
+  {
+   "field": "TEST_ENVIRONMENT_DEFINITION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.gametest.framework.TestEnvironmentDefinition<?>>>>"
+  },
+  {
+   "field": "TEST_FUNCTION",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<java.util.function.Consumer<net.minecraft.gametest.framework.GameTestHelper>>>"
+  },
+  {
+   "field": "TEST_INSTANCE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.gametest.framework.GameTestInstance>>>"
+  },
+  {
+   "field": "TICKET_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.level.TicketType>>"
+  },
+  {
+   "field": "TREE_DECORATOR_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType<?>>>"
+  },
+  {
+   "field": "TRUNK_PLACER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType<?>>>"
+  },
+  {
+   "field": "VILLAGER_PROFESSION",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.npc.villager.VillagerProfession>>"
+  },
+  {
+   "field": "VILLAGER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.npc.villager.VillagerType>>"
+  },
+  {
+   "field": "INCOMING_RPC_METHOD",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.jsonrpc.IncomingRpcMethod<?, ?>>>"
+  },
+  {
+   "field": "OUTGOING_RPC_METHOD",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.jsonrpc.OutgoingRpcMethod<?, ?>>>"
+  },
+  {
+   "field": "PERMISSION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.permissions.Permission>>>"
+  },
+  {
+   "field": "PERMISSION_CHECK_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.permissions.PermissionCheck>>>"
+  },
+  {
+   "field": "CONTEXT_KEY_SET",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.util.context.ContextKeySet>>"
+  },
+  {
+   "field": "BANNER_PATTERN",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.BannerPattern>>"
+  },
+  {
+   "field": "BIOME",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.biome.Biome>>"
+  },
+  {
+   "field": "BLOCK_STATE_PROVIDER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider>>"
+  },
+  {
+   "field": "CAT_SOUND_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.feline.CatSoundVariant>>"
+  },
+  {
+   "field": "CAT_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.feline.CatVariant>>"
+  },
+  {
+   "field": "CARVER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.carver.WorldCarver>>"
+  },
+  {
+   "field": "CHAT_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.network.chat.ChatType>>"
+  },
+  {
+   "field": "CHICKEN_SOUND_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.chicken.ChickenSoundVariant>>"
+  },
+  {
+   "field": "CHICKEN_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.chicken.ChickenVariant>>"
+  },
+  {
+   "field": "ZOMBIE_NAUTILUS_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.nautilus.ZombieNautilusVariant>>"
+  },
+  {
+   "field": "FEATURE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.feature.Feature>>"
+  },
+  {
+   "field": "COW_SOUND_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.cow.CowSoundVariant>>"
+  },
+  {
+   "field": "COW_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.cow.CowVariant>>"
+  },
+  {
+   "field": "DAMAGE_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.damagesource.DamageType>>"
+  },
+  {
+   "field": "DENSITY_FUNCTION",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.densityfunction.DensityFunction>>"
+  },
+  {
+   "field": "DIALOG",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.server.dialog.Dialog>>"
+  },
+  {
+   "field": "DIMENSION_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.dimension.DimensionType>>"
+  },
+  {
+   "field": "ENCHANTMENT_PROVIDER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.enchantment.providers.EnchantmentProvider>>"
+  },
+  {
+   "field": "ENCHANTMENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.enchantment.Enchantment>>"
+  },
+  {
+   "field": "FLAT_LEVEL_GENERATOR_PRESET",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorPreset>>"
+  },
+  {
+   "field": "FROG_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.frog.FrogVariant>>"
+  },
+  {
+   "field": "INSTRUMENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.Instrument>>"
+  },
+  {
+   "field": "JUKEBOX_SONG",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.JukeboxSong>>"
+  },
+  {
+   "field": "MATERIAL_CONDITION",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.material.condition.MaterialCondition>>"
+  },
+  {
+   "field": "MATERIAL_RULE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.material.rule.MaterialRule>>"
+  },
+  {
+   "field": "MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList>>"
+  },
+  {
+   "field": "NOISE_SETTINGS",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.NoiseGeneratorSettings>>"
+  },
+  {
+   "field": "NOISE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.synth.NormalNoise>>"
+  },
+  {
+   "field": "PAINTING_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.decoration.painting.PaintingVariant>>"
+  },
+  {
+   "field": "PIG_SOUND_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.pig.PigSoundVariant>>"
+  },
+  {
+   "field": "PIG_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.pig.PigVariant>>"
+  },
+  {
+   "field": "PLACED_FEATURE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.placement.PlacedFeature>>"
+  },
+  {
+   "field": "PROCESSOR_LIST",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList>>"
+  },
+  {
+   "field": "STRUCTURE_SET",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.StructureSet>>"
+  },
+  {
+   "field": "STRUCTURE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.Structure>>"
+  },
+  {
+   "field": "SULFUR_CUBE_ARCHETYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.SulfurCubeArchetype>>"
+  },
+  {
+   "field": "TEMPLATE_POOL",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool>>"
+  },
+  {
+   "field": "TEST_ENVIRONMENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.gametest.framework.TestEnvironmentDefinition<?>>>"
+  },
+  {
+   "field": "TEST_INSTANCE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.gametest.framework.GameTestInstance>>"
+  },
+  {
+   "field": "TIMELINE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.timeline.Timeline>>"
+  },
+  {
+   "field": "TRADE_SET",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.trading.TradeSet>>"
+  },
+  {
+   "field": "TRIAL_SPAWNER_CONFIG",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerConfig>>"
+  },
+  {
+   "field": "TRIGGER_TYPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.advancements.triggers.CriterionTrigger<?>>>"
+  },
+  {
+   "field": "TRIM_MATERIAL",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.equipment.trim.TrimMaterial>>"
+  },
+  {
+   "field": "TRIM_PATTERN",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.equipment.trim.TrimPattern>>"
+  },
+  {
+   "field": "VILLAGER_TRADE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.trading.VillagerTrade>>"
+  },
+  {
+   "field": "WOLF_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.wolf.WolfVariant>>"
+  },
+  {
+   "field": "WOLF_SOUND_VARIANT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.entity.animal.wolf.WolfSoundVariant>>"
+  },
+  {
+   "field": "WORLD_CLOCK",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.clock.WorldClock>>"
+  },
+  {
+   "field": "WORLD_PRESET",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.levelgen.presets.WorldPreset>>"
+  },
+  {
+   "field": "DECORATED_POT_PATTERN",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.entity.DecoratedPotPattern>>"
+  },
+  {
+   "field": "BLOCK_TRANSFORMER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.core.component.BlockTransformer>>"
+  },
+  {
+   "field": "DIMENSION",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.Level>>"
+  },
+  {
+   "field": "LEVEL_STEM",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.dimension.LevelStem>>"
+  },
+  {
+   "field": "LOOT_TABLE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.LootTable>>"
+  },
+  {
+   "field": "ITEM_MODIFIER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.functions.LootItemFunction>>"
+  },
+  {
+   "field": "PREDICATE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.predicates.LootItemCondition>>"
+  },
+  {
+   "field": "SLOT_SOURCE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.slot.SlotSource>>"
+  },
+  {
+   "field": "CONTEXT_FLOAT_PROVIDER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider>>"
+  },
+  {
+   "field": "CONTEXT_INT_PROVIDER",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>>"
+  },
+  {
+   "field": "ADVANCEMENT",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.advancements.Advancement>>"
+  },
+  {
+   "field": "RECIPE",
+   "type": "net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.item.crafting.Recipe<?>>>"
+  }
+ ],
+ "datapack_registry_entry_counts": {
+  "minecraft/advancement": 1866,
+  "minecraft/banner_pattern": 43,
+  "minecraft/block_transformer": 3,
+  "minecraft/cat_sound_variant": 2,
+  "minecraft/cat_variant": 11,
+  "minecraft/chat_type": 7,
+  "minecraft/chicken_sound_variant": 2,
+  "minecraft/chicken_variant": 3,
+  "minecraft/context_float_provider": 4,
+  "minecraft/context_int_provider": 26,
+  "minecraft/cow_sound_variant": 2,
+  "minecraft/cow_variant": 3,
+  "minecraft/damage_type": 51,
+  "minecraft/datapacks": 106,
+  "minecraft/decorated_pot_pattern": 23,
+  "minecraft/dialog": 3,
+  "minecraft/dimension_type": 4,
+  "minecraft/enchantment": 43,
+  "minecraft/enchantment_provider": 7,
+  "minecraft/frog_variant": 3,
+  "minecraft/instrument": 8,
+  "minecraft/jukebox_song": 22,
+  "minecraft/loot_table": 1447,
+  "minecraft/painting_variant": 51,
+  "minecraft/pig_sound_variant": 3,
+  "minecraft/pig_variant": 3,
+  "minecraft/predicate": 3,
+  "minecraft/recipe": 2042,
+  "minecraft/structure": 1511,
+  "minecraft/sulfur_cube_archetype": 12,
+  "minecraft/tags": 883,
+  "minecraft/test_environment": 1,
+  "minecraft/test_instance": 1,
+  "minecraft/timeline": 4,
+  "minecraft/trade_set": 68,
+  "minecraft/trial_spawner": 28,
+  "minecraft/trim_material": 11,
+  "minecraft/trim_pattern": 18,
+  "minecraft/villager_trade": 391,
+  "minecraft/wolf_sound_variant": 7,
+  "minecraft/wolf_variant": 9,
+  "minecraft/world_clock": 2,
+  "minecraft/worldgen": 1144,
+  "minecraft/zombie_nautilus_variant": 2
+ },
+ "note": "built_in_registries are populated in code at startup and are what Registry.register targets. registry_keys include dynamic registries loaded from data packs; the datapack counts are the vanilla entries shipped inside the jar under data/minecraft/<type>/."
+}

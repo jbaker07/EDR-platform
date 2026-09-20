@@ -1,0 +1,42 @@
+- id: request.villager_fear
+  title: Villagers flee from a player holding a cursed totem
+  family: workflow:wf.behaviour.entity_ai
+  request: >-
+    Analyst-authored exercise request: villagers should run away from any player
+    holding a new "cursed totem" item, the way they flee zombies; other villager
+    behaviour is unchanged; it must work on servers.
+  approved_behaviour:
+    - "Provisional: flee radius similar to the vanilla zombie avoidance; server-side only; no change to trading."
+  preserve:
+    - All other villager behaviours and schedules.
+    - Vanilla avoidance of hostile mobs.
+  affected_systems:
+    - net.minecraft.world.entity -- villagers are brain-driven; type:net.minecraft.world.entity.LivingEntity declares getBrain(), and the villager and behaviour classes are unhooked (question:q.villager_ai_architecture).
+    - net.minecraft.world.item -- the totem item (workflow:wf.content.block_item, item half).
+  candidates:
+    - "Brain behaviour injection: a mixin into the villager's brain-building code adding an avoid-entity behaviour with a predicate on the player's held item. Correct architecture for villagers; the target method and its signature are unverified until the villager classes are extracted."
+    - "Sensor extension: extend the villager's nearest-hostile sensing so a totem-holder counts as hostile, reusing vanilla's existing flee behaviour. Fewer moving parts; needs the sensor classes extracted and is a mixin into a method Fabric API does not touch (not contested, per extracted:edges.json#injects_into)."
+    - "GoalSelector approach via event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_LOAD on type:net.minecraft.world.entity.Mob goalSelector: rejected for villagers -- brain-driven mobs do not run goals; listed because it is the right answer for goal-driven mobs."
+  dependencies:
+    - "Data: the totem item id; the flee parameters."
+    - "Control: the mixin config lists the villager mixin (server side, but the class exists on both, so environment both)."
+    - "State: none persisted; the behaviour reads the held item each evaluation."
+  interactions:
+    - "Other mods modifying villager brains (a common category): two mixins into the same brain-building method are same-method injections; additive Injects coexist, a Redirect or Overwrite there does not (mechanism:Mixin)."
+    - Mods that change what villagers consider hostile interact with the sensor approach directly.
+    - The item must exist on the client for rendering; the AI code must not.
+  alternatives:
+    - Attach a status effect to the player instead of checking held items; then vanilla's own fear of the effect could be reused if one exists -- not verified.
+  work:
+    - Extract villager, brain, sensor and behaviour classes as extra types; confirm the injection target; write the mixin from record:recipe/fabric_extend_behaviour_with_mixin; add the item; unit-test the predicate with fakes.
+  verification:
+    - Target existence by extraction (possible now, after the extra-type run).
+    - Compile (possible now).
+    - "Flee behaviour, radius, no regression in trading: need a game; none observed."
+  unresolved: [question:q.villager_ai_architecture, question:q.unhooked_vanilla_members, question:q.contested_method_policy, question:q.injection_points_not_resolved]
+  evidence:
+    - extracted:minecraft_members.json
+    - extracted:edges.json#injects_into
+    - record:recipe/fabric_extend_behaviour_with_mixin
+  status: {analysed: true, implemented: none, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}

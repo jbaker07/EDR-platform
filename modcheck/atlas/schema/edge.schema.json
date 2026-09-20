@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://modcheck.dev/schemas/atlas/edge.schema.json",
+  "title": "Atlas interaction edge",
+  "description": "One typed relationship between two exact endpoints. A shared name is never an edge; every edge states what relationship it is, what establishes it, and where it applies. Absence of an edge is absence of evidence, not evidence of independence.",
+  "type": "object",
+  "required": [
+    "id",
+    "from",
+    "to",
+    "relation",
+    "evidence_class",
+    "applies_to",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "from": {
+      "$ref": "#/$defs/endpoint"
+    },
+    "to": {
+      "$ref": "#/$defs/endpoint"
+    },
+    "relation": {
+      "enum": [
+        "calls",
+        "callback_of",
+        "reads",
+        "writes",
+        "derives_from",
+        "references_asset",
+        "references_record",
+        "registers_into",
+        "looks_up",
+        "publishes_event",
+        "subscribes_event",
+        "may_cancel",
+        "orders_before",
+        "wraps",
+        "replaces",
+        "injects_into",
+        "removes",
+        "initialises",
+        "reloads",
+        "tears_down",
+        "owns_lifetime",
+        "persists",
+        "migrates",
+        "assumes_save_shape",
+        "crosses_side",
+        "sends_message",
+        "receives_message",
+        "runs_on_thread",
+        "shares_mutable_state",
+        "reentrant_with",
+        "owns_resource",
+        "performance_sensitive",
+        "activated_by_config",
+        "assumes_data_shape"
+      ]
+    },
+    "operation": {
+      "type": "string",
+      "description": "What is done at the endpoint: the injection point, the field written, the record type read."
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "activation": {
+      "type": "string",
+      "description": "When this edge is live: environment (client/server), config, mod presence, lifecycle phase."
+    },
+    "ordering": {
+      "type": "string"
+    },
+    "state_scope": {
+      "enum": [
+        "world",
+        "level",
+        "chunk",
+        "block",
+        "entity",
+        "player",
+        "item",
+        "session",
+        "process",
+        "not_applicable"
+      ]
+    },
+    "invariant": {
+      "type": "string",
+      "description": "What the consumer expects to remain true. Stated as an expectation, and attributed."
+    },
+    "evidence_class": {
+      "description": "direct_reference: named in the artifact's constant pool. static_inference: derived by a pattern over bytecode (labelled heuristic). declared: stated in a manifest or config. documented: stated in documentation. observed: seen in a running game. NONE of these is upgraded by being repeated.",
+      "enum": [
+        "direct_reference",
+        "static_inference",
+        "declared",
+        "documented",
+        "observed"
+      ]
+    },
+    "applies_to": {
+      "type": "object",
+      "required": [
+        "game_versions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "game_versions": {
+          "type": "string"
+        },
+        "loader": {
+          "type": "string"
+        },
+        "loader_versions": {
+          "type": "string"
+        },
+        "environment": {
+          "enum": [
+            "client",
+            "server",
+            "both",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What this evidence does not establish."
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "artifact_sha256",
+        "method"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "artifact_sha256": {
+          "type": "string"
+        },
+        "artifact": {
+          "type": "string"
+        },
+        "locator": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "description": "a source id in the store, where the edge comes from a document"
+        },
+        "extracted_at": {
+          "type": "string"
+        }
+      }
+    },
+    "module": {
+      "type": "string",
+      "description": "Fabric API module id the from-endpoint belongs to"
+    },
+    "callback": {
+      "type": "string",
+      "description": "publishes_event only: callback interface method the invoker calls"
+    }
+  },
+  "$defs": {
+    "endpoint": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "type",
+            "method",
+            "field",
+            "event",
+            "registry",
+            "registry_key",
+            "datapack_type",
+            "asset",
+            "record",
+            "config_key",
+            "packet",
+            "thread",
+            "lifecycle_phase",
+            "module",
+            "mod",
+            "file_path"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "descriptor": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

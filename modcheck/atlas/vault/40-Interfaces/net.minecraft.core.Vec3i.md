@@ -1,0 +1,87 @@
+---
+type: "interface"
+fqcn: "net.minecraft.core.Vec3i"
+side: "vanilla"
+---
+
+> [!info] Generated
+> Built by `atlas/extract/vault.py` from the records and extracted facts it links to. Do not edit; edit the source and regenerate.
+
+# net.minecraft.core.Vec3i
+
+System: [[20-Systems/net.minecraft.core|net.minecraft.core]]
+
+## How Fabric API modules touch this type
+
+| relation | member | operation | environment | by | evidence |
+|---|---|---|---|---|---|
+| calls | `getX()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `getY()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+| calls | `getZ()I` | `` | unknown | [[30-Mechanisms/fabric-renderer-indigo|fabric-renderer-indigo]] | direct_reference |
+
+## Declared members (58, all visibilities)
+
+From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+
+```java
+public class net.minecraft.core.Vec3i implements java.lang.Comparable<net.minecraft.core.Vec3i> {
+    public static final com.mojang.serialization.Codec<net.minecraft.core.Vec3i> CODEC;
+    public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.core.Vec3i> STREAM_CODEC;
+    public static final net.minecraft.core.Vec3i ZERO;
+    private int x;
+    private int y;
+    private int z;
+    public static com.mojang.serialization.Codec<net.minecraft.core.Vec3i> offsetCodec(int);
+    public net.minecraft.core.Vec3i(int, int, int);
+    public boolean equals(java.lang.Object);
+    public int hashCode();
+    public int compareTo(net.minecraft.core.Vec3i);
+    public int getX();
+    public int getY();
+    public int getZ();
+    protected net.minecraft.core.Vec3i setX(int);
+    protected net.minecraft.core.Vec3i setY(int);
+    protected net.minecraft.core.Vec3i setZ(int);
+    public net.minecraft.core.Vec3i offset(int, int, int);
+    public net.minecraft.core.Vec3i offset(net.minecraft.core.Vec3i);
+    public net.minecraft.core.Vec3i subtract(net.minecraft.core.Vec3i);
+    public net.minecraft.core.Vec3i multiply(int);
+    public net.minecraft.core.Vec3i multiply(int, int, int);
+    public net.minecraft.core.Vec3i above();
+    public net.minecraft.core.Vec3i above(int);
+    public net.minecraft.core.Vec3i below();
+    public net.minecraft.core.Vec3i below(int);
+    public net.minecraft.core.Vec3i north();
+    public net.minecraft.core.Vec3i north(int);
+    public net.minecraft.core.Vec3i south();
+    public net.minecraft.core.Vec3i south(int);
+    public net.minecraft.core.Vec3i west();
+    public net.minecraft.core.Vec3i west(int);
+    public net.minecraft.core.Vec3i east();
+    public net.minecraft.core.Vec3i east(int);
+    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction);
+    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction, int);
+    public net.minecraft.core.Vec3i relative(net.minecraft.core.Direction$Axis, int);
+    public net.minecraft.core.Vec3i cross(net.minecraft.core.Vec3i);
+    public boolean closerThan(net.minecraft.core.Vec3i, double);
+    public boolean closerToCenterThan(net.minecraft.core.Position, double);
+    public double distSqr(net.minecraft.core.Vec3i);
+    public double distToCenterSqr(net.minecraft.core.Position);
+    public double distToCenterSqr(double, double, double);
+    public double distToLowCornerSqr(double, double, double);
+    public int distManhattan(net.minecraft.core.Vec3i);
+    public int distChessboard(net.minecraft.core.Vec3i);
+    public boolean differsHorizontally(net.minecraft.core.Vec3i);
+    public int get(net.minecraft.core.Direction$Axis);
+    public org.joml.Vector3i toMutable();
+    public java.lang.String toString();
+    public java.lang.String toShortString();
+    public int compareTo(java.lang.Object);
+    private static com.mojang.serialization.DataResult lambda$offsetCodec$0(int, net.minecraft.core.Vec3i);
+    private static java.lang.String lambda$offsetCodec$1(int, net.minecraft.core.Vec3i);
+    private static java.util.stream.IntStream lambda$static$2(net.minecraft.core.Vec3i);
+    private static com.mojang.serialization.DataResult lambda$static$0(java.util.stream.IntStream);
+    private static net.minecraft.core.Vec3i lambda$static$1(int[]);
+    static {};
+}
+```

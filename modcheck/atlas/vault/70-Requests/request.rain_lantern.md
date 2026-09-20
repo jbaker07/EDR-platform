@@ -1,0 +1,85 @@
+---
+type: "request"
+id: "request.rain_lantern"
+family: "workflow:wf.behaviour.lifecycle_events"
+---
+
+> [!warning] Analyst-authored
+> Interpretation, not extraction. Claims cite evidence ids; anything uncited is opinion. Reviewed corrections go into the store records or the extractors, never into a generated note.
+
+# Rain lantern -- a lantern that lights only while it rains
+
+## Request
+
+Faithful paraphrase of the founder's brief: a lantern block whose light depends on whether it is raining; every player must see the same state; the state must survive a restart; operators can switch the feature off per world; players get a small HUD indicator.
+
+## Approved behaviour and constraints
+
+- Per-level state, evaluated on the server once per level tick; the client never decides.
+- Persisted with the level so a restart resumes the last known state.
+- A game rule switches the feature per world (default on).
+- A HUD element on the client shows the synced state.
+
+## Preservation obligations
+
+- Vanilla lantern blocks and weather; the mod adds, it does not alter.
+- Existing worlds load unchanged when the mod is added or removed.
+
+## Affected systems
+
+- net.minecraft.server.level -- the level tick and the per-level SavedData scope.
+- net.minecraft.world.level -- weather queries on [[40-Interfaces/net.minecraft.world.level.Level|Level]] (isRaining, isRainingAt, isThundering; extracted).
+- net.minecraft.network.protocol -- the sync payload.
+- net.minecraft.client.gui -- the HUD element.
+
+## Implementation candidates
+
+- Implemented (reference/rainlantern in this repository): END_LEVEL_TICK listener reads the level's rain flag and the game rule, updates a level-scoped SavedData, and sends a clientbound payload on change; a HUD element renders the client copy. This is the composition of the six ModCheck generators.
+- Alternative A: a block with a block entity per lantern that polls weather itself -- more objects, per-block cost, but supports per-position rain (isRainingAt) which the level-scoped design cannot express.
+- Alternative B: attachment on the ServerLevel with syncWith instead of SavedData plus payload -- less code, but the attachment sync path's thread and timing are not established in the atlas.
+
+## Data / control / state dependencies
+
+- Data: the game rule value (`capability/add_configuration.fabric_gamerule`); the SavedData (`capability/persist_state.fabric_saveddata`); the payload (`capability/sync_state.fabric_custom_payload`).
+- Control: [[50-Interactions/events/net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_LEVEL_TICK|END_LEVEL_TICK]] (`capability/subscribe_event.fabric_server_tick`); client registration through `capability/subscribe_event.fabric_add_client_entrypoint`; HUD through `capability/display_information.fabric_hud_element`.
+- State: server-authoritative flag, one per level; client-held copy per connection.
+
+## Interactions with the selected environment
+
+- END_LEVEL_TICK fires per level; a nether level never rains, so the listener must read the level it is handed, not a cached overworld (contract under _authored/contracts).
+- Late joiners need the current state; a send on change alone misses them -- join-time sync through [[50-Interactions/events/net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN|JOIN]] is the gap in the reference implementation to verify.
+- Another mod cancelling weather changes (a mixin into weather ticking) changes what isRaining returns; the lantern follows it correctly because it reads, not predicts.
+- Contested method: none of the lantern's code injects into vanilla; it subscribes only.
+
+## Alternatives and tradeoffs
+
+- Per-position rain (isRainingAt) would satisfy a creator who means "under open sky"; that is the open intent question, not an engineering choice.
+- A resource-pack-only glow is impossible: light level is server state.
+
+## Implementation work
+
+- Done: six generated components, composed and unit-tested (40 JUnit tests, jar built).
+- Remaining: join-time sync; the intent question on rain semantics; a headless run to observe the tick handler and payload delivery.
+
+## Verification obligations
+
+- Compiles against the pinned corpus (established by the build).
+- Handler logic under fakes (established by JUnit).
+- Payload delivery, tick invocation, HUD rendering: need a game; none observed.
+
+## Unresolved
+
+- [[80-Unresolved/q.lantern_rain_semantics|q.lantern_rain_semantics]]
+- [[80-Unresolved/q.runtime_event_delivery|q.runtime_event_delivery]]
+- [[80-Unresolved/q.payload_receiver_thread|q.payload_receiver_thread]]
+- [[80-Unresolved/q.runtime_performance|q.runtime_performance]]
+
+## Evidence
+
+- `capability/subscribe_event.fabric_server_tick`
+- `capability/persist_state.fabric_saveddata`
+- `capability/sync_state.fabric_custom_payload`
+- `capability/display_information.fabric_hud_element`
+- `capability/add_configuration.fabric_gamerule`
+- `extracted/minecraft_members.json`
+

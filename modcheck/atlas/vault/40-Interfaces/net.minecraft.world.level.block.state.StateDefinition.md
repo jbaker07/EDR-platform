@@ -1,0 +1,63 @@
+---
+type: "interface"
+fqcn: "net.minecraft.world.level.block.state.StateDefinition"
+side: "vanilla"
+---
+
+> [!info] Generated
+> Built by `atlas/extract/vault.py` from the records and extracted facts it links to. Do not edit; edit the source and regenerate.
+
+# net.minecraft.world.level.block.state.StateDefinition
+
+System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
+
+## How Fabric API modules touch this type
+
+| relation | member | operation | environment | by | evidence |
+|---|---|---|---|---|---|
+| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | unknown | [[30-Mechanisms/fabric-content-registries-v0|fabric-content-registries-v0]] | direct_reference |
+| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | unknown | [[30-Mechanisms/fabric-model-loading-api-v1|fabric-model-loading-api-v1]] | direct_reference |
+| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | both | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+| calls | `getPossibleStates()Lcom/google/common/collect/ImmutableList;` | `` | unknown | [[30-Mechanisms/fabric-registry-sync-v0|fabric-registry-sync-v0]] | direct_reference |
+
+## Declared members (32, all visibilities)
+
+From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+
+```java
+public class net.minecraft.world.level.block.state.StateDefinition<O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> {
+    private static final java.util.regex.Pattern NAME_PATTERN;
+    private static final java.lang.Comparable<?>[] EMPTY_VALUES;
+    private static final net.minecraft.world.level.block.state.properties.Property<?>[] EMPTY_KEYS;
+    private static final net.minecraft.world.level.block.state.StateHolder<?, ?>[][] EMPTY_NEIGHBORS;
+    private final O owner;
+    private final com.google.common.collect.ImmutableSortedMap<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>> propertiesByName;
+    private final com.google.common.collect.ImmutableList<S> states;
+    private final com.mojang.serialization.MapCodec<S> propertiesCodec;
+    static final boolean $assertionsDisabled;
+    protected net.minecraft.world.level.block.state.StateDefinition(java.util.function.Function<O, S>, O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
+    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.mojang.serialization.MapCodec<S> createCodec(O, java.util.function.Function<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
+    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.google.common.collect.ImmutableList<S> createSingletonState(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>);
+    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.google.common.collect.ImmutableList<S> createSinglePropertyStates(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
+    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>, T extends java.lang.Comparable<T>> com.google.common.collect.ImmutableList<S> createSinglePropertyStates(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, net.minecraft.world.level.block.state.properties.Property<T>);
+    private static <O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> com.google.common.collect.ImmutableList<S> createMultiPropertyStates(O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
+    private static <S extends net.minecraft.world.level.block.state.StateHolder<?, ?>> S[][] emptyNeighbors();
+    private static <S extends net.minecraft.world.level.block.state.StateHolder<?, S>, T extends java.lang.Comparable<T>> com.mojang.serialization.MapCodec<S> appendPropertyCodec(com.mojang.serialization.MapCodec<S>, java.util.function.Supplier<S>, java.lang.String, net.minecraft.world.level.block.state.properties.Property<T>);
+    public com.google.common.collect.ImmutableList<S> getPossibleStates();
+    public S any();
+    public com.mojang.serialization.MapCodec<S> propertiesCodec();
+    public O getOwner();
+    public java.util.Collection<net.minecraft.world.level.block.state.properties.Property<?>> getProperties();
+    public java.lang.String toString();
+    public net.minecraft.world.level.block.state.properties.Property<?> getProperty(java.lang.String);
+    public boolean isSingletonState();
+    private static com.mojang.datafixers.util.Pair lambda$appendPropertyCodec$3(net.minecraft.world.level.block.state.properties.Property, net.minecraft.world.level.block.state.StateHolder);
+    private static net.minecraft.world.level.block.state.StateHolder lambda$appendPropertyCodec$2(net.minecraft.world.level.block.state.properties.Property, com.mojang.datafixers.util.Pair);
+    private static net.minecraft.world.level.block.state.properties.Property$Value lambda$appendPropertyCodec$1(net.minecraft.world.level.block.state.properties.Property, java.util.function.Supplier);
+    private static void lambda$appendPropertyCodec$0(java.lang.String);
+    private static void lambda$createMultiPropertyStates$0(net.minecraft.world.level.block.state.StateDefinition$StateCollection, net.minecraft.world.level.block.state.properties.Property[], java.util.List, net.minecraft.world.level.block.state.StateHolder);
+    private static net.minecraft.world.level.block.state.StateHolder lambda$createCodec$0(java.util.function.Function, java.lang.Object);
+    static {};
+}
+```

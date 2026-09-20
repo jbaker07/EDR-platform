@@ -1,0 +1,147 @@
+- id: net.minecraft.server
+  title: MinecraftServer -- the server run loop
+  side: server
+  responsibility: >-
+    Owns the server's main loop (runServer, tickServer, tickChildren), startup
+    (initServer) and shutdown (stopServer), the set of loaded levels, the player list,
+    resource reload and the save cycle. Both the dedicated server and the client's
+    integrated server are instances of it.
+  threads: >-
+    The run loop executes on the thread that calls runServer; every injection Fabric
+    API makes into tickServer, runServer and stopServer runs on that thread. Which
+    other threads call into this class (netty, chunk workers) is not modelled here
+    (question:q.payload_receiver_thread).
+  persistence: The save cycle lives here (BEFORE_SAVE / AFTER_SAVE events are published from this package's mixins).
+  extension_points:
+    - type:net.minecraft.server.MinecraftServer is the most-hooked server type; lifecycle and tick events are injected into runServer, tickServer and stopServer (extracted:edges.json#injects_into).
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING fires from an injection into runServer before initServer; SERVER_STARTED after it.
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK fires from an injection at TAIL of tickServer.
+    - Commands are registered through event:net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT, injected into the Commands constructor.
+  interactions:
+    - Every mod's tick listener shares this one thread; total handler time is the tick budget.
+    - Data pack reload re-runs registration paths; listeners must be idempotent across END_DATA_PACK_RELOAD.
+  evidence:
+    - extracted:edges.json#injects_into
+    - extracted:minecraft_members.json
+    - mechanism:fabric-lifecycle-events-v1
+  questions: [question:q.runtime_event_delivery, question:q.registry_freeze_timing]
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.server.level
+  title: ServerLevel, chunks and entity tracking
+  side: server
+  responsibility: >-
+    The authoritative per-dimension world on the server: ServerLevel.tick, chunk
+    loading and status tasks, entity callbacks (tracking start/end), the ServerEntity
+    pairing that decides which players receive an entity, and ServerPlayer.
+  threads: >-
+    ServerLevel.tick is called from the server thread's tickChildren. Chunk status
+    tasks run through a scheduler whose executor is not yet extracted
+    (question:q.worldgen_threading), so listeners published from
+    ChunkStatusTasks (CHUNK_GENERATE) have no stated thread.
+  persistence: Per-level saved data and chunk storage are accessed through this package; the lantern's SavedData lives at this scope (record:capability/persist_state.fabric_saveddata).
+  extension_points:
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_LEVEL_TICK is injected at TAIL of ServerLevel.tick and hands the ServerLevel to the listener.
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_LOAD fires from ServerLevel$EntityCallbacks.onTrackingStart.
+    - event:net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents.START_TRACKING fires from ServerEntity.addPairing, the point at which a player begins receiving an entity.
+    - type:net.minecraft.server.level.ServerLevel declares getGameRules(), which Level does not (record:capability/add_configuration.fabric_gamerule).
+  interactions:
+    - Per-level state keyed by the ServerLevel instance must be cleared on ServerLevelEvents.UNLOAD or it leaks across world reloads.
+  evidence:
+    - extracted:edges.json#publishes_event
+    - extracted:minecraft_members.json
+    - record:capability/subscribe_event.fabric_server_tick
+  questions: [question:q.worldgen_threading]
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.world.level
+  title: Level, blocks, block entities, chunks and world generation
+  side: shared_by_design
+  responsibility: >-
+    The shared world model used by both sides: Level and its subclasses, block and
+    block-state definitions, block entities, chunk data, biomes, dimension types,
+    game rules, storage and the entire world-generation package tree. 2176 top-level
+    classes; 106 of them are hooked by Fabric API, the most of any package.
+  threads: >-
+    Level code runs on whichever side owns the instance (server thread for
+    ServerLevel, render/client thread for ClientLevel). World-generation classes run
+    on chunk workers by design, which is why the thread of anything under
+    levelgen is a separate question (question:q.worldgen_threading).
+  persistence: Block entities, chunk data and SavedData are the three persistence shapes in this package; game rules persist with the level.
+  extension_points:
+    - "type:net.minecraft.world.level.Level declares isRaining(), isThundering() and isRainingAt(BlockPos): the three readings behind question:q.lantern_rain_semantics."
+    - Blocks, block entities and biomes are registered through mechanism:Registries (BLOCK, BLOCK_ENTITY_TYPE) and extended in data through the datapack types listed in extracted:corpus.json.
+    - mechanism:fabric-biome-api-v1 modifies biome generation settings; mechanism:fabric-dimensions-v1 hooks dimension attributes (event:net.fabricmc.fabric.api.dimension.v1.DimensionEvents.MODIFY_ATTRIBUTES).
+    - Block interaction is intercepted before vanilla by event:net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT and event:net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE, both injected into ServerPlayerGameMode.
+  interactions:
+    - Two mods adding placed features to one biome at the same generation step can conflict (question:q.datapack_load_order).
+    - Block-state changes made from a tick listener are visible to all players through vanilla's own sync; block-entity data is not, unless the block entity sends an update packet.
+  evidence:
+    - extracted:corpus.json
+    - extracted:minecraft_members.json
+    - extracted:edges.json#injects_into
+  questions: [question:q.datapack_load_order, question:q.worldgen_threading, question:q.lantern_rain_semantics]
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.world.entity
+  title: Entities, living entities, mobs and AI
+  side: shared_by_design
+  responsibility: >-
+    Entity, LivingEntity, Mob, Player and their subclasses, plus the ai subpackages
+    (goals, brain behaviours, navigation, sensing). Server-side AI ticks here;
+    client-side copies of entities exist for rendering and prediction.
+  threads: Ticks on the owning side's thread; AI runs on the server only.
+  persistence: Entity NBT save/load; attachments from mechanism:fabric-data-attachment-api-v1 attach to entities and can be persisted and synced.
+  extension_points:
+    - type:net.minecraft.world.entity.Mob declares `protected final GoalSelector goalSelector` (extracted); adding a goal from outside the class needs an accessor or access widener.
+    - type:net.minecraft.world.entity.LivingEntity declares getBrain(); brain-driven mobs (villagers) are not modified through goalSelector (question:q.villager_ai_architecture).
+    - event:net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DEATH is a Redirect of LivingEntity.isDeadOrDying inside hurtServer, so a listener returning false keeps the entity alive.
+    - event:net.fabricmc.fabric.api.event.player.AttackEntityCallback.EVENT is injected at HEAD of Player.attack on both sides.
+    - Entity types are registered into mechanism:Registries ENTITY_TYPE; default attributes through event:net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.MODIFY.
+  interactions:
+    - A goal added on ENTITY_LOAD is added on every load of that entity, including chunk reloads; the listener must check for its own goal before adding.
+  evidence:
+    - extracted:minecraft_members.json
+    - extracted:edges.json#wraps
+    - extracted:edges.json#injects_into
+  questions: [question:q.villager_ai_architecture, question:q.unhooked_vanilla_members]
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.world.item
+  title: Items, item stacks and creative tabs
+  side: shared_by_design
+  responsibility: >-
+    Item definitions, ItemStack, enchantment and tooltip logic, creative-mode tabs
+    and the data components attached to stacks (net.minecraft.core.component is the
+    component model itself).
+  threads: Follows the owning side; item use is initiated on the client and authoritative on the server.
+  persistence: Item stacks persist as components; a custom component type is registered into the DATA_COMPONENT_TYPE registry.
+  extension_points:
+    - Items register into mechanism:Registries ITEM; creative tab contents through event:net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.MODIFY_OUTPUT_ALL.
+    - Default components of vanilla items are modifiable through event:net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents.MODIFY (mechanism:fabric-item-api-v1).
+    - Item use is intercepted by event:net.fabricmc.fabric.api.event.player.UseItemCallback.EVENT.
+    - Tooltips on the client through event:net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.
+  evidence:
+    - extracted:edges.json#callback_of
+    - mechanism:fabric-item-api-v1
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: net.minecraft.core.registries
+  title: Built-in registries and registry keys
+  side: shared_by_design
+  responsibility: >-
+    BuiltInRegistries holds the 97 static registries every mod registers content into;
+    Registries holds the 157 keys, including the dynamic (data-driven) ones loaded
+    from data packs.
+  threads: Registration happens during mod initialisation on the main thread of the launching side; the freeze point relative to entrypoints is not extracted (question:q.registry_freeze_timing).
+  extension_points:
+    - mechanism:Registries lists every registry field and key with the element type, read from the jar.
+    - event:net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback.EVENT (mechanism:fabric-registry-sync-v0) fires before dynamic registries load.
+    - mechanism:fabric-registry-sync-v0 synchronises registry ids between server and client so that a client missing a mod's content is rejected rather than desynchronised.
+  interactions:
+    - Two mods registering the same namespaced id is a hard failure at registration, not at use.
+  evidence:
+    - extracted:minecraft_registries.json
+    - extracted:edges.json#registers_into
+  questions: [question:q.registry_freeze_timing]
+  provenance: {author: analyst, added: '2026-09-20'}

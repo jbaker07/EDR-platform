@@ -1,0 +1,173 @@
+# Unresolved questions: incomplete_extraction. Each is a gap in what the
+# extractors read, with the procedure that closes it.
+- id: q.edge_targets_unresolved
+  kind: incomplete_extraction
+  status: open
+  question: >-
+    Which of the edge targets (75 at the time of writing; 90-Coverage carries the current count) that are neither declared on the hooked vanilla type
+    nor on a superclass are (a) declared on an interface, (b) java.lang.Object
+    methods, (c) wildcard targets such as <clinit>*, or (d) members Fabric adds by
+    interface injection and that do not exist in the vanilla jar at all?
+  affects: [workflow:wf.behaviour.vanilla_modification, workflow:wf.integration.mixin_coexistence]
+  why_it_matters: >-
+    A calls edge whose target does not exist in vanilla is either an extraction
+    artefact or a Fabric-injected member. Until each is classified, a mod author
+    reading the interface note for that type may look for a method that is not
+    there.
+  evidence_available:
+    - extracted:minecraft_members.json
+    - extracted:edges.json#calls
+  best_remaining_source: >-
+    The same jars: walk `implements` chains with javap (interfaces were not walked),
+    and read fabric-api's interface-injection declarations from each module's
+    fabric.mod.json custom block.
+  procedure: >-
+    Extend atlas/extract/vanilla_members.py to parse `implements` in javap headers
+    and walk them; read `fabric-api:interface-injections` (or the equivalent custom
+    key) from fabric_api.json declared.custom; re-run and expect the unresolved list
+    to fall to zero with each item tagged by category.
+  completion_condition: >-
+    minecraft_members.json reports 0 unresolved edge targets, or every remaining
+    one carries a category tag with evidence.
+  conclusions_affected_while_open:
+    - Interface notes under 40-Interfaces for the owners of unresolved targets may omit an inherited or injected member that an edge names.
+    - The "targets resolved" count in 90-Coverage is a lower bound.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.injection_points_not_resolved
+  kind: incomplete_extraction
+  status: open
+  question: >-
+    For each injects_into and wraps edge, where exactly inside the target method does
+    the injection apply (bytecode offset, slice, ordinal), and what does a Redirect or
+    ModifyArg change about the call it wraps?
+  affects: [workflow:wf.integration.mixin_coexistence, workflow:wf.behaviour.vanilla_modification, request:request.villager_fear]
+  why_it_matters: >-
+    Two injections into one method only collide if they touch the same point. The
+    atlas records the @At kind and target descriptor as a string, which is enough to
+    say "same method", not "same point".
+  evidence_available:
+    - extracted:edges.json#injects_into
+    - extracted:edges.json#wraps
+    - extracted:fabric_api.json
+  best_remaining_source: >-
+    The vanilla method bodies (javap -c on the hooked types) matched against each
+    @At target descriptor; the sponge-mixin injection-point classes in the corpus.
+  procedure: >-
+    For each edge, disassemble the target method with javap -c, locate the
+    instruction(s) matching the @At target (INVOKE descriptor, NEW type, RETURN,
+    HEAD, TAIL), record the ordinal count, and attach the instruction index to the
+    edge as `operation.offset`. Redirect and ModifyArg then get a `wraps.call`
+    endpoint naming the wrapped callee.
+  completion_condition: >-
+    Every injects_into/wraps edge has an instruction-level locator or a recorded
+    reason it cannot have one.
+  conclusions_affected_while_open:
+    - contested_methods lists methods, not points; two entries there may not actually interfere.
+    - No claim about a Redirect's effect on other injections can be made.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.event_phase_ordering
+  kind: incomplete_extraction
+  status: open
+  question: >-
+    Which Fabric events define phases (Event.addPhaseOrdering / Identifier phases) and
+    which Fabric API code registers listeners into non-default phases, so that the
+    ordering of two subscribers to the same event can be stated?
+  affects: [workflow:wf.behaviour.lifecycle_events, workflow:wf.integration.mixin_coexistence]
+  why_it_matters: >-
+    Subscriber order within an event is the interaction most mods depend on without
+    knowing it. The Event type's phase API is in the corpus but no edge records who
+    uses it.
+  evidence_available:
+    - type:net.fabricmc.fabric.api.event.Event
+    - extracted:fabric_api.json#fabric-api-base
+  best_remaining_source: >-
+    javap -c over every module class for invocations of Event.addPhaseOrdering and
+    Event.register with a phase argument.
+  procedure: >-
+    Add an `orders_before` extractor to atlas/extract/edges.py that scans for
+    addPhaseOrdering(Identifier, Identifier) call sites and register(Identifier,
+    listener) call sites; emit orders_before edges with static_inference evidence.
+  completion_condition: >-
+    edges.json contains an orders_before count and each event note lists its phases.
+  conclusions_affected_while_open:
+    - The contracts under _authored/contracts cannot state any ordering between subscribers.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.event_publishers_missing
+  kind: incomplete_extraction
+  status: open
+  question: >-
+    For events that show no publisher in the extraction, is the invoker call made from
+    generated code, from a lambda in a helper class outside the module's mixin and
+    impl packages, or via a pattern the getstatic/invokeinterface scan does not match?
+  affects: [workflow:wf.behaviour.lifecycle_events]
+  why_it_matters: >-
+    An event with no known publisher cannot be placed in the vanilla call graph, so
+    its contract (thread, side, timing) cannot even be inferred.
+  evidence_available:
+    - extracted:edges.json#publishes_event
+    - extracted:edges.json#callback_of
+  best_remaining_source: >-
+    The module jars themselves, scanned for `invoker()` calls on any class rather
+    than only the mixin and impl packages.
+  procedure: >-
+    Widen atlas/extract/run_hooks.py to run class_refs over every class in each
+    module jar and record event_fires on all of them; compare the publisher count
+    per event before and after.
+  completion_condition: >-
+    Every callback_of event has at least one publishes_event edge, or a recorded
+    "fired only by mods" status.
+  conclusions_affected_while_open:
+    - 50-Interactions/events notes that say "no publisher found by extraction" are silent about timing and side.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.unhooked_vanilla_members
+  kind: incomplete_extraction
+  status: open
+  question: >-
+    What are the members of vanilla types that no Fabric API module hooks but that a
+    request needs to reason about -- for example the villager AI classes, the
+    world-generation feature classes, and the entity animation classes?
+  affects: [request:request.villager_fear, request:request.crystal_caves, request:request.lantern_moth, workflow:wf.behaviour.entity_ai, workflow:wf.world.features_biomes]
+  why_it_matters: >-
+    Member extraction was scoped to the 622 hooked types. A request that touches an
+    unhooked type has only the package inventory to go on, so its candidate list
+    names classes without confirming their signatures.
+  evidence_available:
+    - extracted:corpus.json
+    - extracted:minecraft_members.json
+  best_remaining_source: The merged 26.3 jar, already resolved and hashed.
+  procedure: >-
+    Give atlas/extract/vanilla_members.py an optional list of extra types (from the
+    request notes' affected_systems), extract them the same way, and store them
+    under a separate `requested_types` key so the hooked/unhooked distinction
+    survives.
+  completion_condition: >-
+    Every type named in a request's candidates has an interface note with declared members.
+  conclusions_affected_while_open:
+    - Candidate designs in 70-Requests that name unhooked classes are unverified against 26.3 signatures.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.field_read_write_direction
+  kind: incomplete_extraction
+  status: open
+  question: >-
+    Of the 168 `reads` edges, which are actually writes (putfield/putstatic) rather
+    than reads (getfield/getstatic)?
+  affects: [workflow:wf.integration.mixin_coexistence, workflow:wf.state.persistence]
+  why_it_matters: >-
+    Shared mutable state between mods is a write, not a read. The Fieldref scan does
+    not distinguish them, so the atlas cannot yet say which vanilla fields Fabric API
+    mutates.
+  evidence_available:
+    - extracted:edges.json#reads
+  best_remaining_source: The same javap -c output; the opcode precedes the Fieldref comment.
+  procedure: >-
+    In atlas/extract/jvm.py class_refs, keep the opcode with each Fieldref and emit
+    `writes` edges for putfield/putstatic.
+  completion_condition: edges.json counts contain both `reads` and `writes`.
+  conclusions_affected_while_open:
+    - No shares_mutable_state edge can be derived.
+  provenance: {author: analyst, added: '2026-09-20'}

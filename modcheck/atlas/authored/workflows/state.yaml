@@ -1,0 +1,74 @@
+- id: wf.state.persistence
+  area: state
+  title: Persist mod state with the world
+  intent: >-
+    Whatever the mod remembers -- a counter, a per-player flag, a per-block value --
+    must survive a server restart, belong to the right scope (level, player, entity,
+    chunk, block), and never be written to a player's save except through the game's
+    own save cycle.
+  preserve:
+    - The world's existing data; a mod never rewrites files under the save directory itself.
+    - A stable shape once shipped; changing it is workflow:wf.state.migration.
+  mechanisms:
+    - Level-scoped SavedData (record:capability/persist_state.fabric_saveddata) -- the reference lantern's choice for per-level state.
+    - Attachments (mechanism:fabric-data-attachment-api-v1, record:capability/persist_state.fabric_attachment) on entities, block entities, chunks and levels, with optional persistence and sync (AttachmentRegistry.Builder.syncWith is in the extracted API surface).
+    - Block entity NBT (workflow:wf.content.block_entity) and item stack data components.
+    - event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.BEFORE_SAVE for flush-before-save hooks.
+  tools_today:
+    - The generated SavedData or attachment class; codecs from net.minecraft.core / serialization; mechanism:fabric-serialization-api-v1 helpers.
+  decisions:
+    - "Scope: level, player, entity, chunk, block -- this decides the mechanism."
+    - "Whether the client needs the value (then sync: attachment sync predicate or a payload)."
+    - Codec versioning from day one (question:q.mod_data_migration_practice).
+  information_needed:
+    - The 26.3 SavedData registration signature (corrected during the lantern build; the record carries the compiled form).
+    - Attachment sync predicates available (all / targetOnly / allButTarget in the extracted surface).
+  automation_existing:
+    - SavedData and attachment generators in ModCheck.
+  remaining_manual:
+    - Choosing the scope; the codec.
+  modcheck_contribution:
+    - Delivered for the two generators; a planner rule mapping stated scope to mechanism.
+  interactions_to_check:
+    - Two mods attaching to the same target with the same id.
+    - Save timing relative to SERVER_STOPPING.
+  evidence:
+    - record:capability/persist_state.fabric_saveddata
+    - record:capability/persist_state.fabric_attachment
+    - extracted:fabric_api.json#fabric-data-attachment-api-v1
+  questions: [question:q.mod_data_migration_practice]
+  status: {inventoried: true, mechanically_inspected: true, contract_mapped: true, interaction_analysed: true, implemented_in_modcheck: true, validated_scope: "both generators compile against the pinned corpus; exercised by the reference lantern's JUnit tests"}
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: wf.state.migration
+  area: state
+  title: Change a persisted shape without losing players' data
+  intent: >-
+    A later version of the mod stores something differently. Old worlds must still
+    load, with their data carried across, and the migration must be safe to run
+    twice.
+  preserve:
+    - Every existing world's data; a failed migration must not leave a half-written state.
+  mechanisms:
+    - Codec versioning on read (a version field in the saved compound; migrate then write back on next save).
+    - Vanilla DataFixers exist (net.minecraft.util.datafix, 444 classes) but no mod-facing registration is in the corpus (system note net.minecraft.util.datafix; question:q.mod_data_migration_practice).
+  tools_today:
+    - Hand-written migration in the load path; tests over fixture compounds.
+  decisions:
+    - In-place migrate on load (simple) versus keep both readers.
+    - When to drop support for the oldest shape.
+  information_needed:
+    - Documented Fabric practice (question:q.mod_data_migration_practice).
+    - What vanilla's world version 5023 fixers touch that could interact with mod data (they do not touch mod namespaces by default; not verified).
+  automation_existing:
+    - None.
+  remaining_manual:
+    - All.
+  modcheck_contribution:
+    - Template for a versioned codec in the SavedData generator; a fixture-based migration test scaffold.
+  evidence:
+    - extracted:corpus.json
+    - extracted:edges.json#injects_into
+  questions: [question:q.mod_data_migration_practice, question:q.older_minecraft_versions]
+  status: {inventoried: true, mechanically_inspected: false, contract_mapped: false, interaction_analysed: false, implemented_in_modcheck: false, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}

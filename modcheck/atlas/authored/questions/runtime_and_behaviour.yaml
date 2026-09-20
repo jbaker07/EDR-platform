@@ -1,0 +1,378 @@
+# Unresolved questions: unavailable_runtime_observation, unmodeled_behaviour,
+# ambiguous_creator_intent, conflicting_requirements, unimplemented_automation.
+- id: q.runtime_mixin_application
+  kind: unavailable_runtime_observation
+  status: open
+  question: >-
+    When the 26.3 client or dedicated server starts with Fabric loader 0.19.5 and a
+    given set of mods, which mixins actually apply, in what order, and which fail
+    with a target-not-found or conflict error?
+  affects: [workflow:wf.integration.mixin_coexistence, workflow:wf.engineering.testing, request:request.rain_lantern]
+  why_it_matters: >-
+    Every injects_into edge names a target; none establishes the injection applied.
+    Fabric loader logs mixin application and failures at startup, which is the only
+    ground truth for "these mods coexist".
+  evidence_available:
+    - extracted:edges.json#injects_into
+    - record:capability/build_and_test.fabric_project_setup_current_version
+  best_remaining_source: >-
+    A headless dedicated-server run of 26.3 with the mod set under test, with the
+    Mixin debug flags enabled, capturing the log.
+  procedure: >-
+    Provision a dedicated server run in a sandbox (no user install touched), start
+    it with `-Dmixin.debug.export=true` and the mods, capture the log, and ingest it
+    with `modcheck runtime observe` so each edge can be promoted to `observed` with
+    the run id as provenance.
+  completion_condition: edges.json evidence_classes contains a nonzero `observed` count with run provenance.
+  conclusions_affected_while_open:
+    - Nothing in the atlas is observed. No compatibility verdict is game-tested.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.runtime_event_delivery
+  kind: unavailable_runtime_observation
+  status: open
+  question: >-
+    Does each event fire when its analyst-stated contract says it does, on the thread
+    the contract infers, and once per the unit the callback names (per tick, per
+    level, per player)?
+  affects: [workflow:wf.behaviour.lifecycle_events, request:request.rain_lantern, request:request.team_counter]
+  why_it_matters: >-
+    The reference implementation subscribes to END_LEVEL_TICK and to a player join
+    event; its JUnit tests exercise the handlers with fakes, not the game. Whether
+    the game calls them is the single fact the tests cannot establish.
+  evidence_available:
+    - record:capability/subscribe_event.fabric_server_tick
+    - extracted:edges.json#publishes_event
+  best_remaining_source: The same headless run as q.runtime_mixin_application, with a probe mod that logs each callback with thread name and tick count.
+  procedure: >-
+    Build a probe mod from the atlas' event list that registers a logging listener
+    for every server-side event; run headless; ingest the log; write `observed`
+    edges of relation callback_of with thread and count fields.
+  completion_condition: Each contract note has an "Observed" row or a recorded absence for the pinned versions.
+  conclusions_affected_while_open:
+    - All thread and frequency claims in _authored/contracts are inferences.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.runtime_performance
+  kind: unavailable_runtime_observation
+  status: open
+  question: >-
+    What is the tick-time cost of the reference lantern's per-level tick handler, and
+    of a chunk-generation listener, on a 26.3 dedicated server at a stated player count?
+  affects: [request:request.rain_lantern, request:request.crystal_caves, workflow:wf.world.features_biomes]
+  why_it_matters: >-
+    The tick contracts warn that slow handlers stall every player; the atlas has no
+    measurement to say what slow means for these handlers.
+  evidence_available:
+    - record:capability/subscribe_event.fabric_server_tick
+  best_remaining_source: The vanilla profiler (net.minecraft.util.profiling, in corpus) on a headless run.
+  procedure: Run headless with the profiler enabled around the handler; record ms/tick under a stated load.
+  completion_condition: The request note carries a measured cost with run provenance.
+  conclusions_affected_while_open:
+    - performance_sensitive edges cannot be emitted.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.worldgen_threading
+  kind: unmodeled_behaviour
+  status: open
+  question: >-
+    Which thread executes a feature's place() call and the ServerChunkEvents
+    CHUNK_GENERATE callback -- the server thread, a chunk-generation worker, or either
+    depending on chunk status -- and what state may a listener safely touch from there?
+  affects: [workflow:wf.world.features_biomes, request:request.crystal_caves, workflow:wf.behaviour.lifecycle_events]
+  why_it_matters: >-
+    CHUNK_GENERATE is published from ChunkStatusTasks.lambda$full$0 (an injection at
+    TAIL of a lambda used in the chunk task pipeline). A listener that touches level
+    state from a worker thread corrupts it; the atlas cannot yet say which thread
+    that lambda runs on.
+  evidence_available:
+    - extracted:edges.json#publishes_event
+    - extracted:minecraft_members.json
+  best_remaining_source: >-
+    The vanilla chunk task scheduler classes (net.minecraft.server.level and
+    net.minecraft.world.level.chunk.status), extracted and read for the executor each
+    status task is submitted to; then a runtime probe.
+  procedure: >-
+    Extract ChunkStatusTasks and its scheduler with vanilla_members.py (extra types),
+    read which executor `full` is scheduled on, record a runs_on_thread edge with
+    static_inference, and confirm with the probe from q.runtime_event_delivery.
+  completion_condition: The CHUNK_GENERATE contract has a runs_on_thread row with evidence.
+  conclusions_affected_while_open:
+    - The crystal caves request cannot state where its post-generation logic may run.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.payload_receiver_thread
+  kind: unmodeled_behaviour
+  status: open
+  question: >-
+    On which thread does a ServerPlayNetworking global receiver execute for a custom
+    payload, and does the API re-schedule to the server thread before calling the
+    handler?
+  affects: [workflow:wf.multiplayer.networking, request:request.team_counter, request:request.rain_lantern]
+  why_it_matters: >-
+    A handler that mutates level state from a netty thread is a data race. The
+    reference implementation assumes the handler runs on the server thread; the
+    corpus has the networking module's bytecode but the atlas has not traced the
+    dispatch path.
+  evidence_available:
+    - mechanism:fabric-networking-api-v1
+    - record:capability/sync_state.fabric_custom_payload
+    - extracted:edges.json#calls
+  best_remaining_source: >-
+    fabric-networking-api-v1 impl classes (ServerPlayNetworkAddon and its handler
+    dispatch), read with javap -c for an execute()/submit call on the server before
+    the handler invocation.
+  procedure: >-
+    Trace the receive path in the module's impl classes; record a runs_on_thread
+    edge with static_inference; then confirm at runtime.
+  completion_condition: The networking workflow states the receiver thread with an edge id.
+  conclusions_affected_while_open:
+    - The generated sync_payload code's thread assumptions are unverified.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.registry_freeze_timing
+  kind: unmodeled_behaviour
+  status: open
+  question: >-
+    Relative to ModInitializer.onInitialize and the DynamicRegistrySetupCallback, when
+    are the built-in registries frozen in 26.3, and which registrations after that
+    point fail?
+  affects: [workflow:wf.content.block_item, workflow:wf.content.entity_type, workflow:wf.integration.registry_sync]
+  why_it_matters: >-
+    Register-too-late is a classic startup crash. The atlas lists 97 built-in
+    registries and the entrypoints, but no lifecycle_phase edge orders them.
+  evidence_available:
+    - mechanism:Registries
+    - type:net.fabricmc.api.ModInitializer
+    - event:net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback.EVENT
+  best_remaining_source: >-
+    net.minecraft.core.registries.BuiltInRegistries (freeze call sites) and
+    fabric-loader's entrypoint invocation sites, read with javap -c.
+  procedure: >-
+    Extract the freeze call chain and the entrypoint invocation chain; emit
+    orders_before edges between lifecycle phases with static_inference.
+  completion_condition: A lifecycle note orders entrypoints, registry freeze and dynamic registry load with edge ids.
+  conclusions_affected_while_open:
+    - Content workflows say "register in onInitialize" by convention, not by extracted ordering.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.datapack_load_order
+  kind: unmodeled_behaviour
+  status: open
+  question: >-
+    In what order are data packs (built-in, mod-provided via fabric-resource-loader,
+    world) applied in 26.3, and how are placed-feature ordering conflicts within one
+    generation step detected and reported?
+  affects: [workflow:wf.world.features_biomes, workflow:wf.content.data_driven_content, request:request.crystal_caves]
+  why_it_matters: >-
+    Two mods adding features to the same biome at the same step can produce a
+    feature-order cycle that aborts world load; which pack wins for a same-named JSON
+    decides what a creator sees.
+  evidence_available:
+    - mechanism:fabric-resource-loader-v0
+    - mechanism:fabric-biome-api-v1
+    - extracted:corpus.json
+  best_remaining_source: The resource-loader module's pack ordering code and vanilla's feature-order validation in the world-generation packages, extracted.
+  procedure: Extract the relevant classes as extra types; record orders_before edges; confirm with a headless world load.
+  completion_condition: The world workflow states pack precedence and the cycle failure with evidence.
+  conclusions_affected_while_open:
+    - The crystal caves request cannot promise coexistence with another biome-modifying mod.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.villager_ai_architecture
+  kind: unmodeled_behaviour
+  status: open
+  question: >-
+    Villagers in 26.3 use a Brain (LivingEntity.getBrain() is declared on a hooked
+    type) rather than the GoalSelector that Mob exposes; how are villager behaviours
+    registered, and is there any Fabric API hook into brain construction?
+  affects: [request:request.villager_fear, workflow:wf.behaviour.entity_ai]
+  why_it_matters: >-
+    The two AI systems need different modification strategies. Mob.goalSelector is
+    a protected field (extracted); Brain behaviours are not on any hooked type.
+  evidence_available:
+    - type:net.minecraft.world.entity.Mob
+    - type:net.minecraft.world.entity.LivingEntity
+    - extracted:minecraft_members.json
+  best_remaining_source: net.minecraft.world.entity.npc and net.minecraft.world.entity.ai.behavior packages, extracted as extra types.
+  procedure: Extract Villager, VillagerGoalPackages/behaviour registration classes and Brain; record which method builds the activity map; note the absence or presence of a Fabric event.
+  completion_condition: The villager_fear request lists a verified injection target or a verified API.
+  conclusions_affected_while_open:
+    - Candidate designs for villager behaviour name classes whose 26.3 signatures are unverified.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.lantern_rain_semantics
+  kind: ambiguous_creator_intent
+  status: open
+  question: >-
+    For the rain lantern, does "raining" mean the level's weather flag
+    (Level.isRaining()), rain at the lantern's position (Level.isRainingAt(BlockPos),
+    which accounts for biome and sky exposure), or precipitation of any kind
+    including snow?
+  affects: [request:request.rain_lantern]
+  why_it_matters: >-
+    Both methods exist on the hooked Level type. A lantern under a roof, or in a
+    desert, or in snow, behaves differently under each reading, and the difference is
+    visible to players.
+  evidence_available:
+    - type:net.minecraft.world.level.Level
+    - extracted:minecraft_members.json
+  best_remaining_source: The creator.
+  procedure: Ask, with the three readings and their visible consequences listed; record the answer in the request note's approved_behaviour.
+  completion_condition: approved_behaviour names one method and the expected behaviour under a roof, in a dry biome, and in snow.
+  conclusions_affected_while_open:
+    - The reference implementation's choice is a default, not an approved behaviour.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.team_counter_scope
+  kind: ambiguous_creator_intent
+  status: open
+  question: >-
+    For the team resource counter, is a "team" the vanilla scoreboard team, a
+    mod-defined group, or every player on the server; and must the count survive a
+    player changing team?
+  affects: [request:request.team_counter]
+  why_it_matters: >-
+    Scoreboard teams are managed by operators with /team and can be dissolved; a
+    mod-defined team needs its own persistence and UI. The persistence shape and the
+    sync predicate both depend on the answer.
+  evidence_available:
+    - mechanism:fabric-data-attachment-api-v1
+    - record:capability/persist_state.fabric_saveddata
+  best_remaining_source: The creator.
+  procedure: Ask with the two models and their operator-facing consequences.
+  completion_condition: approved_behaviour names the team model and the behaviour on team change.
+  conclusions_affected_while_open:
+    - The request note's candidate data shape is provisional.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.contested_method_policy
+  kind: conflicting_requirements
+  status: open
+  question: >-
+    When a creator's mixin must target a vanilla method that Fabric API already
+    injects into (a contested method), which of these conflicting requirements wins:
+    "modify vanilla directly" versus "preserve every Fabric API event fired from that
+    method"?
+  affects: [workflow:wf.behaviour.vanilla_modification, workflow:wf.integration.mixin_coexistence, request:request.villager_fear]
+  why_it_matters: >-
+    A cancelling injection at HEAD of ServerPlayerGameMode.useItemOn, for example,
+    would suppress UseBlockCallback for every other mod. The atlas can list the
+    contested methods; it cannot decide the policy.
+  evidence_available:
+    - extracted:edges.json#injects_into
+    - mechanism:Mixin
+  best_remaining_source: A project policy decided by the founder, recorded as a store record.
+  procedure: >-
+    Propose the policy "prefer the Fabric event; if a mixin is unavoidable, never
+    cancel at HEAD of a contested method and never Overwrite it", get it approved,
+    then encode it as a planner constraint.
+  completion_condition: A policy record exists and the planner enforces it.
+  conclusions_affected_while_open:
+    - The planner may select a mixin recipe for a contested method without warning.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.pack_format_old_packs
+  kind: conflicting_requirements
+  status: open
+  question: >-
+    Must a mod's bundled resources target pack format 97.1 exactly (rejecting older
+    formats) or declare a supported range, and how does that interact with players'
+    own older resource packs layered above the mod's?
+  affects: [workflow:wf.presentation.models_animation, workflow:wf.engineering.version_migration]
+  why_it_matters: >-
+    Strict targeting keeps the mod correct; permissive ranges keep players' packs
+    working. The corpus gives the number, not the policy.
+  evidence_available:
+    - extracted:corpus.json
+  best_remaining_source: The 26.3 release notes (q.mojang_changelog_26_3) and the pack.mcmeta schema in the jar.
+  procedure: Extract pack.mcmeta from the jar's own resources; retrieve the notes; decide per project.
+  completion_condition: The migration workflow states the supported-formats policy with evidence.
+  conclusions_affected_while_open:
+    - Generated pack.mcmeta content in scaffolds is a guess at the range field.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.mixin_collision_analyser
+  kind: unimplemented_automation
+  status: open
+  question: >-
+    Given N mod jars, which pairs contain mixins that target the same vanilla method,
+    and which of those pairs contain a Redirect, cancellable Inject at the same point,
+    or Overwrite?
+  affects: [workflow:wf.integration.mixin_coexistence, workflow:wf.engineering.testing]
+  why_it_matters: >-
+    This is the compatibility check creators ask for by name. The atlas has the
+    extractor (atlas/extract/jvm.py mixin_facts) and the vocabulary; ModCheck's
+    inspector and planner do not call it.
+  evidence_available:
+    - extracted:edges.json#injects_into
+    - mechanism:Mixin
+  best_remaining_source: The existing extractor, applied to arbitrary jars.
+  procedure: >-
+    Add `modcheck inspect --mixins` that runs mixin_facts over each jar's declared
+    mixin classes, joins on (owner, method), and reports pairs with severity by
+    injector kind; add a failure record for the Overwrite case with a detector id.
+  completion_condition: The command exists, has tests over the reference lantern jar plus one Fabric API module, and the coverage note counts it.
+  conclusions_affected_while_open:
+    - 90-Coverage item 5 stays "NOT implemented".
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.inspector_mixin_targets
+  kind: unimplemented_automation
+  status: open
+  question: >-
+    Should the jvm inspector's mod facts include each mixin class's targets and
+    injection points, so that inspection of a downloaded mod yields edges directly?
+  affects: [workflow:wf.integration.mixin_coexistence, workflow:wf.integration.dependencies_conditions]
+  why_it_matters: >-
+    The inspector lists mixin_classes only. The atlas extractor reads targets from
+    the same bytes. Two code paths for one fact is the second database the atlas
+    must not become.
+  evidence_available:
+    - extracted:fabric_api.json
+  best_remaining_source: src/modcheck/inspect/jvm.py and atlas/extract/jvm.py, to be merged.
+  procedure: Move mixin_facts into the inspector package; have the atlas extractor import it; add a `mixin_targets` fact key.
+  completion_condition: One implementation, used by both, with the inspector's tests extended.
+  conclusions_affected_while_open:
+    - Downloaded mods are inspected without their targets.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.version_diff_tool
+  kind: unimplemented_automation
+  status: open
+  question: >-
+    Should ModCheck diff two extracted member sets (two Minecraft versions, or two
+    Fabric API versions) and emit migrates edges for renamed or removed members?
+  affects: [workflow:wf.engineering.version_migration, request:request.port_1_21_mod]
+  why_it_matters: >-
+    Migration advice today comes from build failures; a diff would make it
+    mechanical and version-pinned.
+  evidence_available:
+    - extracted:minecraft_members.json
+    - record:capability/subscribe_event.fabric_server_tick
+  best_remaining_source: A second corpus (q.older_minecraft_versions).
+  procedure: Implement after the second corpus exists; output a generated 90-Coverage migration section.
+  completion_condition: A generated migration note lists removed and renamed members between two pinned versions.
+  conclusions_affected_while_open:
+    - wf.engineering.version_migration is manual.
+  provenance: {author: analyst, added: '2026-09-20'}
+
+- id: q.contract_checker
+  kind: unimplemented_automation
+  status: open
+  question: >-
+    Can generated or user code that registers an event listener be checked against
+    the event's analyst-stated contract (side, thread, cancellation return value)
+    before a build?
+  affects: [workflow:wf.behaviour.lifecycle_events, workflow:wf.multiplayer.side_separation]
+  why_it_matters: >-
+    Contracts that nobody checks are documentation. A listener that touches client
+    classes from a server event, or ignores a cancellation return, is detectable statically.
+  evidence_available:
+    - extracted:edges.json#callback_of
+  best_remaining_source: The contracts under _authored/contracts and the generated sources of the creator pipeline.
+  procedure: Add a planner check that reads the contract for each subscribed event and flags side mismatches using the module environment on the edge.
+  completion_condition: The creator pipeline emits a warning for a server-side listener that references a client-only class.
+  conclusions_affected_while_open:
+    - Side-separation mistakes are found at runtime, and no runtime is available.
+  provenance: {author: analyst, added: '2026-09-20'}

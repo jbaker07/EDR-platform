@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "modcheck/atlas/request",
+  "title": "Request-specific engineering analysis",
+  "type": "object",
+  "required": ["id", "title", "family", "request", "approved_behaviour", "preserve", "affected_systems",
+               "candidates", "dependencies", "interactions", "alternatives", "work", "verification",
+               "unresolved", "evidence", "status", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^request\\.[a-z0-9_]+$"},
+    "title": {"type": "string"},
+    "family": {"type": "string", "pattern": "^workflow:"},
+    "request": {"type": "string", "minLength": 40, "description": "The creator's words, or a faithful paraphrase marked as such"},
+    "approved_behaviour": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "preserve": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "affected_systems": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "candidates": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 30}},
+    "dependencies": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "interactions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "alternatives": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "work": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "verification": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "unresolved": {"type": "array", "items": {"type": "string", "pattern": "^question:"}},
+    "evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "status": {"type": "object", "required": ["analysed", "implemented", "validated_scope"],
+               "properties": {"analysed": {"type": "boolean"}, "implemented": {"type": "string"}, "validated_scope": {"type": "string"}}},
+    "provenance": {"type": "object", "required": ["author", "added"], "properties": {"author": {"const": "analyst"}, "added": {"type": "string"}}}
+  }
+}

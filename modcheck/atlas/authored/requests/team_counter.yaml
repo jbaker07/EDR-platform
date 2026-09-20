@@ -1,0 +1,44 @@
+- id: request.team_counter
+  title: Team resource counter shown on every player's HUD
+  family: workflow:wf.multiplayer.networking
+  request: >-
+    Analyst-authored exercise request: each team accumulates a count of gathered
+    resources (say, ores mined); every member sees their team's count on the HUD; the
+    count persists with the world and survives players leaving and rejoining.
+  approved_behaviour:
+    - "Provisional: team means the vanilla scoreboard team (open: question:q.team_counter_scope); counts persist per world; HUD shows own team only."
+  preserve:
+    - Scoreboard teams as operators manage them.
+    - No count is ever decided by the client.
+  affected_systems:
+    - net.minecraft.server.level -- level-scoped (actually server-scoped) persistence; the block-break hook on ServerPlayerGameMode.
+    - net.minecraft.network.protocol -- the sync payload.
+    - net.minecraft.client.gui -- the HUD element.
+  candidates:
+    - "Composition of existing generators: a SavedData keyed by team name (record:capability/persist_state.fabric_saveddata), incremented in a listener on event:net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.AFTER, synced by a payload (record:capability/sync_state.fabric_custom_payload) on change to team members and on join through event:net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN, rendered by a HUD element (record:capability/display_information.fabric_hud_element)."
+    - "Attachment on the server-level with syncWith and a predicate (mechanism:fabric-data-attachment-api-v1): removes the hand-written payload but the sync predicate options extracted (all, targetOnly, allButTarget) do not express \"team members only\", so a filtered send would still be manual."
+    - "Scoreboard objective: vanilla scoreboard already syncs and persists objectives; a per-team objective shown through the vanilla sidebar needs no mod networking at all but gives no custom HUD."
+  dependencies:
+    - "Data: team membership (vanilla scoreboard), the per-team count."
+    - "Control: block-break event (server), join event (server), payload receiver (client), HUD (client)."
+    - "State: server-authoritative count; client copy per player; overworld-scoped SavedData reached from any level's server."
+  interactions:
+    - PlayerBlockBreakEvents.AFTER fires from the server game mode; a mod that cancels breaking at BEFORE prevents the count (correct).
+    - Team changes via /team do not fire a Fabric event in the extracted list; the HUD shows a stale team until the next payload -- a design gap to close by re-sending on team change or polling per tick on the server (cheap, one comparison per player).
+    - "A second mod's HUD element in the same corner: layout is not arbitrated by the API."
+  alternatives:
+    - "Mod-defined teams with their own commands: more work, no dependence on operator-managed teams."
+  work:
+    - Compose the four generators; write the team-keyed SavedData codec with a version field (workflow:wf.state.migration); join-time sync; unit tests with fakes.
+  verification:
+    - Compile and JUnit (possible now).
+    - "Delivery to the right players and persistence across restart: need a game; none observed."
+  unresolved: [question:q.team_counter_scope, question:q.payload_receiver_thread, question:q.runtime_event_delivery, question:q.mod_data_migration_practice]
+  evidence:
+    - record:capability/persist_state.fabric_saveddata
+    - record:capability/sync_state.fabric_custom_payload
+    - record:capability/display_information.fabric_hud_element
+    - extracted:edges.json#publishes_event
+    - extracted:fabric_api.json#fabric-data-attachment-api-v1
+  status: {analysed: true, implemented: none, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}

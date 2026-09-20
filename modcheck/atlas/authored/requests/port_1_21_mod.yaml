@@ -1,0 +1,46 @@
+- id: request.port_1_21_mod
+  title: Port a 1.21-era Fabric mod with saved data to 26.3
+  family: workflow:wf.engineering.version_migration
+  request: >-
+    Analyst-authored exercise request: a mod written for Minecraft 1.21 (Yarn or
+    Mojang mappings, Java 21) that stores a custom per-level compound must build and
+    run on 26.3, and worlds saved by the old version must load with their data intact.
+  approved_behaviour:
+    - "Provisional: same features; old saved compounds migrated on first load; no behaviour change beyond what the version forces."
+  preserve:
+    - Players' worlds and the mod's data in them.
+    - The mod's public ids (mod id, item and block ids, payload ids).
+  affected_systems:
+    - "Build: mappings removed, Loom 1.17.21, Java 25 (extracted:corpus.json build_tooling)."
+    - net.minecraft.util.datafix -- vanilla migrates its own data across world version 5023; the mod's data is its own responsibility.
+    - Every API the mod touched; the corrected records are the known renames.
+  candidates:
+    - "Mechanical pass: apply record:resolution/remove_mappings_for_non_obfuscated_minecraft; bump Java (record:failure/java_runtime_older_than_the_mod_requires); compile; fix each error against the pinned corpus using the interface notes (the same process that corrected the capability records: END_WORLD_TICK to END_LEVEL_TICK, playS2C to clientboundPlay, the HUD signature, getGameRules on ServerLevel)."
+    - "Data migration: add a version field to the SavedData codec; on load of an unversioned compound, map the old keys to the new shape and mark the data dirty so the next save writes the new form."
+    - "Keep two branches (1.21 and 26.3): standard Fabric practice; not a migration of the code but of the project."
+  dependencies:
+    - "Data: the old compound layout (from the old code, not from any corpus artifact)."
+    - "Control: the load path of the SavedData is the only migration point; it must run once per level."
+    - "State: old worlds; new worlds."
+  interactions:
+    - "Pack formats 97.1 and 121.0: the mod's bundled resources must declare them or players see a pack-format warning or failure (question:q.pack_format_old_packs)."
+    - "Protocol 777: any hand-rolled packet code must be re-registered as custom payloads."
+    - Other mods the old version integrated with may not exist for 26.3; the dependency inspection (workflow:wf.integration.dependencies_conditions) lists them.
+  alternatives:
+    - "Drop old-world support and reset data: simpler, hostile to players; not recommended."
+  work:
+    - Build-script migration; compile-fix loop against the pinned corpus; codec versioning; a fixture test loading an old compound; pack.mcmeta update.
+  verification:
+    - Compile against the pinned corpus (possible now).
+    - Fixture-based migration test (possible now).
+    - "Loading a real old world: needs a game and an old-version world; none observed."
+  unresolved: [question:q.older_minecraft_versions, question:q.version_diff_tool, question:q.mod_data_migration_practice, question:q.mojang_changelog_26_3, question:q.pack_format_old_packs]
+  evidence:
+    - record:resolution/remove_mappings_for_non_obfuscated_minecraft
+    - record:failure/mojang_mappings_in_non_obfuscated_environment
+    - record:failure/java_runtime_older_than_the_mod_requires
+    - source:fabric_example_mod_build_1_21
+    - source:fabric_example_mod_build_26_3
+    - extracted:corpus.json
+  status: {analysed: true, implemented: none, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}

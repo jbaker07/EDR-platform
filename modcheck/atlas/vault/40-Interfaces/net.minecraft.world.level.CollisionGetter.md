@@ -1,0 +1,58 @@
+---
+type: "interface"
+fqcn: "net.minecraft.world.level.CollisionGetter"
+side: "vanilla"
+---
+
+> [!info] Generated
+> Built by `atlas/extract/vault.py` from the records and extracted facts it links to. Do not edit; edit the source and regenerate.
+
+# net.minecraft.world.level.CollisionGetter
+
+System: [[20-Systems/net.minecraft.world.level|net.minecraft.world.level]]
+
+## How Fabric API modules touch this type
+
+| relation | member | operation | environment | by | evidence |
+|---|---|---|---|---|---|
+| calls | `getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/bl` | `` | both | [[30-Mechanisms/fabric-entity-events-v1|fabric-entity-events-v1]] | direct_reference |
+
+## Declared members (31, all visibilities)
+
+From `minecraft-merged` `5918174887871ab0` via `javap -p`. Inherited members are not listed here.
+
+```java
+public interface net.minecraft.world.level.CollisionGetter extends net.minecraft.world.level.BlockGetter {
+    public abstract net.minecraft.world.level.border.WorldBorder getWorldBorder();
+    public abstract net.minecraft.world.level.BlockGetter getChunkForCollisions(int, int);
+    public default boolean isUnobstructed(net.minecraft.world.entity.Entity, net.minecraft.world.phys.shapes.VoxelShape);
+    public default boolean isUnobstructed(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
+    public default boolean isUnobstructed(net.minecraft.world.entity.Entity);
+    public default boolean noCollision(net.minecraft.world.phys.AABB);
+    public default boolean noCollision(net.minecraft.world.entity.Entity);
+    public default boolean noCollision(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default boolean noCollision(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB, boolean);
+    public default boolean noBlockCollision(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default boolean noBlockCollision(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB, boolean);
+    public default boolean noEntityCollision(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default boolean noBorderCollision(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public abstract java.util.List<net.minecraft.world.phys.shapes.VoxelShape> getEntityCollisions(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default java.lang.Iterable<net.minecraft.world.phys.shapes.VoxelShape> getCollisions(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default java.lang.Iterable<net.minecraft.world.phys.shapes.VoxelShape> getPreMoveCollisions(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB, net.minecraft.world.phys.Vec3);
+    public default java.lang.Iterable<net.minecraft.world.phys.shapes.VoxelShape> getBlockCollisions(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default java.lang.Iterable<net.minecraft.world.phys.shapes.VoxelShape> getBlockAndLiquidCollisions(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default java.lang.Iterable<net.minecraft.world.phys.shapes.VoxelShape> getBlockCollisionsFromContext(net.minecraft.world.phys.shapes.CollisionContext, net.minecraft.world.phys.AABB);
+    private net.minecraft.world.phys.shapes.VoxelShape borderCollision(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default net.minecraft.world.phys.BlockHitResult clipIncludingBorder(net.minecraft.world.level.ClipContext);
+    public default boolean collidesWithSuffocatingBlock(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default java.util.Optional<net.minecraft.core.BlockPos> findSupportingBlock(net.minecraft.world.entity.Entity, net.minecraft.world.phys.AABB);
+    public default java.util.Optional<net.minecraft.world.phys.Vec3> findFreePosition(net.minecraft.world.entity.Entity, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.Vec3, double, double, double);
+    private static net.minecraft.world.phys.AABB lambda$findFreePosition$2(double, double, double, net.minecraft.world.phys.AABB);
+    private static java.util.stream.Stream lambda$findFreePosition$1(net.minecraft.world.phys.shapes.VoxelShape);
+    private boolean lambda$findFreePosition$0(net.minecraft.world.phys.shapes.VoxelShape);
+    private static net.minecraft.core.BlockPos lambda$findSupportingBlock$0(net.minecraft.core.BlockPos$MutableBlockPos, net.minecraft.world.phys.shapes.VoxelShape);
+    private static net.minecraft.world.phys.shapes.VoxelShape lambda$collidesWithSuffocatingBlock$0(net.minecraft.core.BlockPos$MutableBlockPos, net.minecraft.world.phys.shapes.VoxelShape);
+    private java.util.Iterator lambda$getBlockCollisionsFromContext$0(net.minecraft.world.phys.shapes.CollisionContext, net.minecraft.world.phys.AABB);
+    private static net.minecraft.world.phys.shapes.VoxelShape lambda$getBlockCollisionsFromContext$1(net.minecraft.core.BlockPos$MutableBlockPos, net.minecraft.world.phys.shapes.VoxelShape);
+}
+```

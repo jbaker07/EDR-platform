@@ -1,0 +1,18 @@
+---
+type: "interface"
+fqcn: "net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$BlockTagsProvider$1"
+module: "fabric-data-generation-api-v1"
+sha256: "2c22049cd3a75ddd59bbdcf7f8468637d18a75b6a7917420814920d05a19193c"
+---
+
+> [!info] Generated
+> Built by `atlas/extract/vault.py` from the records and extracted facts it links to. Do not edit; edit the source and regenerate.
+
+# net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$BlockTagsProvider$1
+
+Module: [[30-Mechanisms/fabric-data-generation-api-v1|fabric-data-generation-api-v1]] -- kind: class
+
+```java
+net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$BlockTagsProvider$1(net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider$BlockTagsProvider, net.minecraft.data.tags.TagAppender)
+protected net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.Block> convertElement(net.minecraft.references.BlockItemId)
+```

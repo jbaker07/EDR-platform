@@ -1,0 +1,46 @@
+- id: request.crystal_caves
+  title: Crystal caves -- crystal-lined cave pockets in mountain biomes
+  family: workflow:wf.world.features_biomes
+  request: >-
+    Analyst-authored exercise request (not from a creator): in mountain biomes,
+    generate occasional cave pockets whose walls are studded with a new crystal
+    block; the crystals glow faintly and drop shards; existing worlds get them in
+    new chunks only.
+  approved_behaviour:
+    - "Provisional (no creator): mountain biomes by tag; rarity roughly one pocket per several chunks; new chunks only."
+  preserve:
+    - Already-generated chunks are untouched.
+    - Other mods' cave features in the same biomes continue to generate.
+  affected_systems:
+    - net.minecraft.world.level -- blocks (workflow:wf.content.block_item) and the levelgen packages (unhooked; members not extracted).
+    - net.minecraft.core.registries -- BLOCK, ITEM, FEATURE registries (extracted:minecraft_registries.json).
+    - net.minecraft.server.packs -- the mod's data pack with configured and placed features.
+  candidates:
+    - "Data-first: a configured_feature using a vanilla feature type that places a block cluster (the jar ships such definitions among its worldgen entries: extracted:corpus.json) plus a placed_feature with rarity and height modifiers, added to mountain biomes through mechanism:fabric-biome-api-v1 BiomeModifications. New code: only the crystal block and shard item."
+    - "Coded feature: a Feature subclass registered into FEATURE when the pocket shape cannot be expressed with vanilla feature types. Its base class members are not extracted (question:q.unhooked_vanilla_members), so the candidate is unverified against 26.3 signatures."
+    - "Post-generation carving through event:net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_GENERATE: rejected as primary -- the thread is not established (question:q.worldgen_threading) and it re-runs per generated chunk with no placement budget."
+  dependencies:
+    - "Data: two JSON files (configured, placed) and the biome selector; the block and item registrations."
+    - "Control: registration in the main entrypoint before registry freeze (question:q.registry_freeze_timing); BiomeModifications call in the same entrypoint."
+    - "State: none at runtime; generation is deterministic from the seed."
+  interactions:
+    - Feature ordering within the same generation step against other mods' features (question:q.datapack_load_order); a cycle aborts world load.
+    - A second mod replacing the mountain biome JSON removes the modification unless it too uses the biome API.
+    - The crystal's light level interacts with vanilla mob spawning rules in caves (light-based spawn checks are vanilla behaviour; unmodified).
+  alternatives:
+    - "Structure-based pockets (workflow:wf.world.structures): needs in-game template authoring; not available here."
+  work:
+    - Block and item (workflow:wf.content.block_item); feature JSON pair; biome modification call; loot table for shards; language entries.
+    - Extraction of the levelgen feature classes as extra types before any coded feature is attempted.
+  verification:
+    - JSON validity against the jar's own examples (mechanical, possible now).
+    - Compile of registrations against the pinned corpus (possible now).
+    - "Generation frequency, visual result, cycle-freedom with other mods: need a headless world load; none observed."
+  unresolved: [question:q.datapack_load_order, question:q.worldgen_threading, question:q.unhooked_vanilla_members, question:q.registry_freeze_timing]
+  evidence:
+    - extracted:corpus.json
+    - extracted:minecraft_registries.json
+    - extracted:fabric_api.json#fabric-biome-api-v1
+    - extracted:edges.json#publishes_event
+  status: {analysed: true, implemented: none, validated_scope: none}
+  provenance: {author: analyst, added: '2026-09-20'}
