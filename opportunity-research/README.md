@@ -216,6 +216,23 @@ fragmented share (community + forum + video + code host + blog), and the dominan
 share. A fragmented SERP is a signal to inspect, not a conclusion about answer quality;
 answer quality is a separate manual judgement recorded in the qualitative fields.
 
+### Phase 7 as run (2026-09-21)
+
+Competitor research was delegated per cluster with a fixed protocol: select up to eight distinct sites from the
+cluster's checked results (tool, vendor and official first), fetch each page, answer the twelve questions with a
+verbatim quote per factual field, label judgments "inference:", write "unknown" where the page is silent, never
+state traffic, users, revenue or share unless the page prints it. Records live in `data/competitors/<cluster_id>.yaml`
+and are loaded into the `competitors` table by `pipeline/competitors_import.py`. About one selected page in three
+blocked automated fetching (403, empty body, JavaScript-only), which is recorded per competitor and is itself a
+finding about reproducibility. The web search tool is a US-only proxy, so "dominates_serp" counts are proxy counts.
+
+### Phase 8 as run
+
+The analyst's twenty fields per Top-20 candidate are authored in `data/top20/<cluster_id>.yaml` (fields 1 and
+9-20); `pipeline/report_top20.py` merges them with the measured fields (2-4, 8) from the store and the fetched
+evidence (5-7, 15-16) from the competitor record into `data/exports/top20.md`, so every claim in the report is
+traceable to a measurement, a fetched quote or an authored judgment.
+
 ### Phase 7 competitor record
 
 `competitors` rows carry the twelve questions from the brief as columns (solves, does not

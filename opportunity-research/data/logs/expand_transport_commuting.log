@@ -1,1 +1,6 @@
 {"seed": "train schedule", "skipped": "already expanded"}
+{"seed": "bus route", "new_queries": 702, "suggestions_seen": 912}
+{"seed": "parking ticket", "skipped": "already expanded"}
+{"seed": "transit toll", "new_queries": 427, "suggestions_seen": 568}
+{"seed": "electric scooter", "skipped": "already expanded"}
+{"seed": "e-bike laws", "new_queries": 341, "suggestions_seen": 626}

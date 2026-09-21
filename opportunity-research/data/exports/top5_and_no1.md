@@ -1,0 +1,66 @@
+# Top 5 finalists and the #1 recommendation (free route, evidence as of 2026-09-21)
+
+Basis: 24 clusters carried through Phase 7 (competitor pages fetched, twelve questions each), drawn from the 94
+clusters with web-search fragmentation evidence, drawn from 168 candidate problem clusters, drawn from 17,514
+lexical clusters over 265,088 cleaned autocomplete queries (pass 1). Demand is relative only: no monthly volume,
+traffic, revenue or user count was measured, and none is stated. Ordering rule for the finalists, in this order:
+a reproducible structured dataset or computation that a chat assistant cannot substitute; a product-level long tail
+of legitimate entry pages; measured fragmentation with no complete tool in the checked results; advertising fit;
+maintenance cost. Where a likely incumbent could not be verified, that is stated as the primary risk, not ignored.
+
+## Finalists
+
+| # | cluster | frag | tool hits | pages fetched | why it advances | what would stop it |
+|---|---|---|---|---|---|---|
+| 1 | CPU x motherboard compatibility with minimum BIOS version | 0.56 | 1 | 6 of 8 | public per-model vendor lists, AI-resistant lookup layer, tens of thousands of pair pages, hardware purchase intent | PCPartPicker already surfacing BIOS minimums per pair (unverified, site blocked fetching) |
+| 2 | modpack hardware requirements (RAM, CPU, launcher, install path) | 0.67 | 0 | 5 of 8 | specific need every fetched page answers generically; measurable dataset nobody publishes | measurement cost per pack update; community answers unread (three sources blocked) |
+| 3 | per-game settings by platform, device and patch (two clusters) | 0.89 / 0.68 | 0 / 0 | 6 of 8 / 5 of 8 | highest fragmentation in the set, high repeat use, values readable from the games | prosettings.net, thespike.gg and trophi.ai may already be the database (unverified) |
+| 4 | STL printability check and repair | 0.39 | 0 | 5 of 8 | computation on the user's file, no licensed data, high repeat use | online repair tools exist outside the checked results (not verified) |
+| 5 | move-abroad visa eligibility by passport and occupation | 0.61 | 0 | 7 of 8 | every fetched page defers the real question; high-value adjacent advertisers | maintenance across jurisdictions and liability; incumbents unexplored |
+
+Next two, not finalists: KDP cost and manuscript checker (Amazon may already publish a royalty calculator, not
+verified); Warhammer 40k edition tracker (best AI resilience in the set, capped by rights risk and an official app).
+
+## #1: a cross-brand CPU-to-motherboard compatibility database with minimum BIOS versions
+
+**What it is.** One page per motherboard model and one per CPU, each listing every supported pairing with the
+minimum BIOS version, its release date, and a "flash before install" flag; board-first and CPU-first lookups; a
+one-paragraph explanation of socket, chipset, TDP and BIOS for the pairing on screen. Built from the board makers'
+published CPU support lists, which the fetched pages describe as a consistent "Brand Name, BIOS version, Date" table.
+
+**Why this one (measured).** Of the 18 checked results, four editorial pages restate the same method and defer to
+vendor lists; the only CPU-first lookup is Intel-only and dated 2023; the board-first tool that loaded checks memory
+and SSDs, not CPUs; the BIOS step, which two fetched pages say decides whether the machine boots, exists nowhere in
+the checked results as data. No fetched page completes the task.
+
+**Why this one (inference).** The lookup layer cannot be answered from memory by a chat assistant without being
+wrong in the way that stops a PC booting, so assistants and search engines with retrieval would cite such a table
+rather than replace it. Every board and CPU pair is a legitimate long-tail page. Hardware purchase intent fits
+display advertising and retailer affiliate links on the same page.
+
+**Why not the others.** The modpack database needs continuous manual measurement; the settings database faces at
+least three unverified incumbents and low-CPC traffic; the STL utility is a tool more than a search destination and
+has unverified competitors; the visa engine has the highest correctness cost in the set.
+
+**What must be verified before building (in order).**
+1. Open PCPartPicker's compatibility checker in a browser and record whether it shows the minimum BIOS version per
+   CPU-board pair, or only a generic "may need a BIOS update" note. If it shows the version, the opportunity narrows
+   to long-tail pair pages and explanation.
+2. Fetch three vendors' CPU support lists in a browser (ASRock, MSI, Gigabyte, ASUS) and confirm the table format
+   and whether the pages are served without JavaScript; ASRock returned an empty body to an automated fetch.
+3. Check whether AMD publishes a compatibility tool comparable to Intel's.
+4. Size the demand with one month of keyword data for board-level and CPU-level queries ("<board> cpu support",
+   "<cpu> compatible motherboard", "<board> bios version for <cpu>"); the free route cannot do this.
+
+**Evidence quality.** Fragmentation and competitor evidence moderate; demand evidence weak: the two related pass-1
+clusters hold 25 and 26 members and neither head term is placed on the Trends chain. The recommendation rests on the
+structure of the problem and the shape of the data, not on a measured volume.
+
+## A family seen across domains, not ranked
+
+604 stored queries combine "mod" with compatibility, conflict, crash or "not working" across at least five games
+("cities skylines incompatible mods spreadsheet", "how to check if mods are compatible", "minecraft server mods
+compatibility", "pc gaming mods compatible with skyrim special edition"). Lexical clustering split them by game, so
+no single cluster reached the candidate list and none was SERP-checked. Whether that family is fragmented and
+unserved is unknown from this data; it is listed here because it recurs across domains, not because of any prior
+interest in it.

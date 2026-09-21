@@ -1,1 +1,6 @@
 {"seed": "plumber cost", "skipped": "already expanded"}
+{"seed": "electrician cost", "new_queries": 435, "suggestions_seen": 618}
+{"seed": "house cleaning", "skipped": "already expanded"}
+{"seed": "local service movers", "new_queries": 511, "suggestions_seen": 1563}
+{"seed": "local service haircut", "skipped": "already expanded"}
+{"seed": "local service tattoo", "new_queries": 304, "suggestions_seen": 1258}
