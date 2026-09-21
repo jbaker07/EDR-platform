@@ -1,0 +1,53 @@
+{"seed": "small business llc", "new_queries": 849, "suggestions_seen": 1564}
+{"seed": "small business invoice", "new_queries": 544, "suggestions_seen": 1556}
+{"seed": "small business seo", "new_queries": 580, "suggestions_seen": 1513}
+{"seed": "small business instagram", "new_queries": 672, "suggestions_seen": 1716}
+{"seed": "small business shopify", "new_queries": 574, "suggestions_seen": 1540}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/user/EDR-platform/opportunity-research/pipeline/cli.py", line 137, in <module>
+    main()
+  File "/home/user/EDR-platform/opportunity-research/pipeline/cli.py", line 133, in main
+    a.fn(a)
+  File "/home/user/EDR-platform/opportunity-research/pipeline/cli.py", line 29, in cmd_expand
+    r = expand.expand_seed(con, seed, domain=d["id"], subdomain=sd["id"], soup=not a.no_soup,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/EDR-platform/opportunity-research/pipeline/expand.py", line 54, in expand_seed
+    results = fn(probe, hl=hl, gl=gl) if src == "google" else fn(probe)
+                                                              ^^^^^^^^^
+  File "/home/user/EDR-platform/opportunity-research/pipeline/sources/suggest.py", line 53, in bing
+    code, data = http.get_json(f"https://api.bing.com/osjson.aspx?query={urllib.parse.quote(q)}", min_interval=0.5)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/EDR-platform/opportunity-research/pipeline/http.py", line 44, in get_json
+    code, body = get(url, **kw)
+                 ^^^^^^^^^^^^^^
+  File "/home/user/EDR-platform/opportunity-research/pipeline/http.py", line 27, in get
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/urllib/request.py", line 519, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/urllib/request.py", line 536, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.11/urllib/request.py", line 1391, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/urllib/request.py", line 1352, in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/http/client.py", line 1415, in getresponse
+    response.begin()
+  File "/usr/lib/python3.11/http/client.py", line 330, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/http/client.py", line 299, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response

@@ -606,60 +606,351 @@
    "reads": 13.6,
    "anchor_reads": 54.38,
    "error_pct": 4.6
+  },
+  "prometheus devops \u043a\u0443\u0440\u0441": {
+   "value": 0.0,
+   "anchor": "circuit breaker panel",
+   "reads": 0,
+   "anchor_reads": 54.36,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "github actions runners": {
+   "value": 0.757,
+   "anchor": "circuit breaker panel",
+   "reads": 13.17,
+   "anchor_reads": 54.36,
+   "error_pct": 4.7
+  },
+  "3d game assets blender": {
+   "value": 0.009,
+   "anchor": "stable diffusion",
+   "reads": 0.02,
+   "anchor_reads": 45.64,
+   "error_pct": 101.1
+  },
+  "xcode ios app tutorial": {
+   "value": 0.009,
+   "anchor": "stable diffusion",
+   "reads": 0.02,
+   "anchor_reads": 45.64,
+   "error_pct": 101.1
+  },
+  "php to usd": {
+   "value": 33.004,
+   "anchor": "stable diffusion",
+   "reads": 72.55,
+   "anchor_reads": 45.64,
+   "error_pct": 1.8
+  },
+  "linux commands": {
+   "value": 5.519,
+   "anchor": "stable diffusion",
+   "reads": 12.13,
+   "anchor_reads": 45.64,
+   "error_pct": 5.2
+  },
+  "minecraft seeds": {
+   "value": 18.798,
+   "anchor": "stable diffusion",
+   "reads": 41.3,
+   "anchor_reads": 45.62,
+   "error_pct": 2.3
+  },
+  "unity plane movement": {
+   "value": 0.0,
+   "anchor": "stable diffusion",
+   "reads": 0,
+   "anchor_reads": 45.62,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "best settings for rivals": {
+   "value": 0.644,
+   "anchor": "stable diffusion",
+   "reads": 1.42,
+   "anchor_reads": 45.64,
+   "error_pct": 36.4
+  },
+  "warhammer 40k new edition": {
+   "value": 0.172,
+   "anchor": "stable diffusion",
+   "reads": 0.38,
+   "anchor_reads": 45.64,
+   "error_pct": 101.1
+  },
+  "warhammer 40k rogue trader": {
+   "value": 1.735,
+   "anchor": "stable diffusion",
+   "reads": 3.81,
+   "anchor_reads": 45.62,
+   "error_pct": 14.2
+  },
+  "jetpack projects": {
+   "value": 0.0,
+   "anchor": "stable diffusion",
+   "reads": 0,
+   "anchor_reads": 45.62,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "printer offline error": {
+   "value": 0.094,
+   "anchor": "stable diffusion",
+   "reads": 0.21,
+   "anchor_reads": 45.62,
+   "error_pct": 101.1
+  },
+  "c# replace": {
+   "value": 0.404,
+   "anchor": "stable diffusion",
+   "reads": 0.89,
+   "anchor_reads": 45.6,
+   "error_pct": 57.5
+  },
+  "rest api documentation": {
+   "value": 6.538,
+   "anchor": "stable diffusion",
+   "reads": 14.36,
+   "anchor_reads": 45.6,
+   "error_pct": 4.6
+  },
+  "cost of gaming pc": {
+   "value": 1.609,
+   "anchor": "minecraft seeds",
+   "reads": 6.09,
+   "anchor_reads": 71.19,
+   "error_pct": 8.9
+  },
+  "javascript react": {
+   "value": 3.114,
+   "anchor": "minecraft seeds",
+   "reads": 11.79,
+   "anchor_reads": 71.19,
+   "error_pct": 4.9
+  },
+  "pc gaming mods": {
+   "value": 0.572,
+   "anchor": "minecraft seeds",
+   "reads": 1.91,
+   "anchor_reads": 62.66,
+   "error_pct": 27.0
+  },
+  "password manager google": {
+   "value": 24.922,
+   "anchor": "minecraft seeds",
+   "reads": 83.08,
+   "anchor_reads": 62.66,
+   "error_pct": 1.4
+  },
+  "machine learning pytorch": {
+   "value": 0.827,
+   "anchor": "minecraft seeds",
+   "reads": 3.13,
+   "anchor_reads": 71.19,
+   "error_pct": 16.7
+  },
+  "airflow machine learning": {
+   "value": 0.12,
+   "anchor": "minecraft seeds",
+   "reads": 0.45,
+   "anchor_reads": 71.19,
+   "error_pct": 100.7
+  },
+  "devops azure certification": {
+   "value": 0.04,
+   "anchor": "minecraft seeds",
+   "reads": 0.15,
+   "anchor_reads": 71.17,
+   "error_pct": 100.7
+  },
+  "deep learning pytorch": {
+   "value": 0.758,
+   "anchor": "minecraft seeds",
+   "reads": 2.87,
+   "anchor_reads": 71.17,
+   "error_pct": 18.1
+  },
+  "best warhammer 40k army": {
+   "value": 0.055,
+   "anchor": "minecraft seeds",
+   "reads": 0.21,
+   "anchor_reads": 71.19,
+   "error_pct": 100.7
+  },
+  "java calculator code": {
+   "value": 0.005,
+   "anchor": "minecraft seeds",
+   "reads": 0.02,
+   "anchor_reads": 71.19,
+   "error_pct": 100.7
+  },
+  "password manager pro": {
+   "value": 1.161,
+   "anchor": "minecraft seeds",
+   "reads": 4.4,
+   "anchor_reads": 71.21,
+   "error_pct": 12.1
+  },
+  "board game rule": {
+   "value": 1.056,
+   "anchor": "minecraft seeds",
+   "reads": 4,
+   "anchor_reads": 71.21,
+   "error_pct": 13.2
+  },
+  "cities skylines dlc": {
+   "value": 0.364,
+   "anchor": "minecraft seeds",
+   "reads": 1.38,
+   "anchor_reads": 71.17,
+   "error_pct": 37.0
+  },
+  "steam page": {
+   "value": 8.871,
+   "anchor": "minecraft seeds",
+   "reads": 33.58,
+   "anchor_reads": 71.17,
+   "error_pct": 2.2
+  },
+  "rest api example spring boot": {
+   "value": 0.005,
+   "anchor": "minecraft seeds",
+   "reads": 0.02,
+   "anchor_reads": 71.19,
+   "error_pct": 100.7
+  },
+  "what is angular js": {
+   "value": 0.005,
+   "anchor": "minecraft seeds",
+   "reads": 0.02,
+   "anchor_reads": 71.19,
+   "error_pct": 100.7
+  },
+  "game for playstation 5": {
+   "value": 2.486,
+   "anchor": "minecraft seeds",
+   "reads": 9.42,
+   "anchor_reads": 71.19,
+   "error_pct": 6.0
+  },
+  "improve minecraft performance": {
+   "value": 0.045,
+   "anchor": "minecraft seeds",
+   "reads": 0.17,
+   "anchor_reads": 71.21,
+   "error_pct": 100.7
+  },
+  "javascript vue": {
+   "value": 0.403,
+   "anchor": "minecraft seeds",
+   "reads": 1.53,
+   "anchor_reads": 71.21,
+   "error_pct": 33.4
+  },
+  "fps drops": {
+   "value": 2.182,
+   "anchor": "minecraft seeds",
+   "reads": 8.26,
+   "anchor_reads": 71.21,
+   "error_pct": 6.8
+  },
+  "magic the gathering secret lair": {
+   "value": 0.937,
+   "anchor": "javascript react",
+   "reads": 13.83,
+   "anchor_reads": 45.98,
+   "error_pct": 4.7
+  },
+  "kali linux new version": {
+   "value": 0.005,
+   "anchor": "javascript react",
+   "reads": 0.08,
+   "anchor_reads": 45.98,
+   "error_pct": 101.1
+  },
+  "android studio versions": {
+   "value": 0.018,
+   "anchor": "cities skylines",
+   "reads": 0.08,
+   "anchor_reads": 68.49,
+   "error_pct": 100.7
+  },
+  "printer offline windows 11": {
+   "value": 0.089,
+   "anchor": "cities skylines",
+   "reads": 0.38,
+   "anchor_reads": 68.49,
+   "error_pct": 100.7
+  },
+  "genshin impact characters": {
+   "value": 5.283,
+   "anchor": "cities skylines",
+   "reads": 22.32,
+   "anchor_reads": 68.49,
+   "error_pct": 3.0
+  },
+  "github actions certification": {
+   "value": 0.138,
+   "anchor": "cities skylines",
+   "reads": 0.58,
+   "anchor_reads": 68.49,
+   "error_pct": 86.2
+  },
+  "jetpack compose navigation": {
+   "value": 0.013,
+   "anchor": "cities skylines",
+   "reads": 0.06,
+   "anchor_reads": 68.49,
+   "error_pct": 100.7
+  },
+  "layer shift": {
+   "value": 1.223,
+   "anchor": "cities skylines",
+   "reads": 5.17,
+   "anchor_reads": 68.51,
+   "error_pct": 10.4
+  },
+  "security gdpr": {
+   "value": 3.094,
+   "anchor": "cities skylines",
+   "reads": 13.08,
+   "anchor_reads": 68.51,
+   "error_pct": 4.6
+  },
+  "android gradle plugin version": {
+   "value": 0.527,
+   "anchor": "devops azure",
+   "reads": 1.02,
+   "anchor_reads": 30.92,
+   "error_pct": 50.7
+  },
+  "docker container": {
+   "value": 26.801,
+   "anchor": "devops azure",
+   "reads": 51.85,
+   "anchor_reads": 30.92,
+   "error_pct": 2.6
+  },
+  "php exception handling": {
+   "value": 0.004,
+   "anchor": "cities skylines",
+   "reads": 0.02,
+   "anchor_reads": 68.49,
+   "error_pct": 100.7
+  },
+  "password keeper pc": {
+   "value": 0.004,
+   "anchor": "cities skylines",
+   "reads": 0.02,
+   "anchor_reads": 68.49,
+   "error_pct": 100.7
   }
  },
  "pending": [
-  "3d game assets blender",
-  "github actions runners",
-  "xcode ios app tutorial",
-  "prometheus devops \u043a\u0443\u0440\u0441",
-  "php to usd",
-  "linux commands",
-  "unity plane movement",
-  "best settings for rivals",
-  "warhammer 40k new edition",
-  "minecraft seeds",
-  "warhammer 40k rogue trader",
-  "printer offline error",
-  "c# replace",
-  "jetpack projects",
-  "cost of gaming pc",
-  "rest api documentation",
-  "pc gaming mods",
-  "machine learning pytorch",
-  "javascript react",
-  "password manager google",
-  "airflow machine learning",
-  "devops azure certification",
-  "deep learning pytorch",
-  "best warhammer 40k army",
-  "java calculator code",
-  "password manager pro",
-  "board game rule",
-  "cities skylines dlc",
-  "rest api example spring boot",
-  "what is angular js",
-  "steam page",
-  "improve minecraft performance",
-  "javascript vue",
-  "game for playstation 5",
-  "fps drops",
-  "kali linux new version",
-  "android studio versions",
-  "printer offline windows 11",
-  "magic the gathering secret lair",
-  "github actions certification",
-  "jetpack compose navigation",
-  "layer shift",
-  "genshin impact characters",
-  "android gradle plugin version",
-  "php exception handling",
-  "security gdpr",
-  "docker container",
-  "password keeper pc",
+  "vue js reactive",
   "password manager norton",
   "steam official web page",
-  "vue js reactive",
   "dnd 5e character sheet",
   "php programmer",
   "azure monitor prometheus",
@@ -2366,6 +2657,676 @@
     "best php editor": 0.19,
     "linux vs windows": 13.6
    }
+  },
+  {
+   "at": 1789961570.6858153,
+   "anchor": "game maker",
+   "batch": [
+    "3d game assets blender",
+    "github actions runners",
+    "xcode ios app tutorial",
+    "prometheus devops \u043a\u0443\u0440\u0441"
+   ],
+   "ok": true,
+   "means": {
+    "game maker": 54.38,
+    "3d game assets blender": 0.02,
+    "github actions runners": 1.85,
+    "xcode ios app tutorial": 0.02,
+    "prometheus devops \u043a\u0443\u0440\u0441": 0
+   },
+   "requeued": [
+    "3d game assets blender",
+    "github actions runners",
+    "xcode ios app tutorial",
+    "prometheus devops \u043a\u0443\u0440\u0441"
+   ]
+  },
+  {
+   "at": 1789961627.146098,
+   "anchor": "circuit breaker panel",
+   "batch": [
+    "prometheus devops \u043a\u0443\u0440\u0441",
+    "xcode ios app tutorial",
+    "github actions runners",
+    "3d game assets blender"
+   ],
+   "ok": true,
+   "means": {
+    "circuit breaker panel": 54.36,
+    "prometheus devops \u043a\u0443\u0440\u0441": 0,
+    "xcode ios app tutorial": 0.09,
+    "github actions runners": 13.17,
+    "3d game assets blender": 0.13
+   },
+   "requeued": [
+    "xcode ios app tutorial",
+    "3d game assets blender"
+   ]
+  },
+  {
+   "at": 1789961683.621782,
+   "anchor": "stable diffusion",
+   "batch": [
+    "3d game assets blender",
+    "xcode ios app tutorial",
+    "php to usd",
+    "linux commands"
+   ],
+   "ok": true,
+   "means": {
+    "stable diffusion": 45.64,
+    "3d game assets blender": 0.02,
+    "xcode ios app tutorial": 0.02,
+    "php to usd": 72.55,
+    "linux commands": 12.13
+   }
+  },
+  {
+   "at": 1789961740.053696,
+   "anchor": "stable diffusion",
+   "batch": [
+    "unity plane movement",
+    "best settings for rivals",
+    "warhammer 40k new edition",
+    "minecraft seeds"
+   ],
+   "ok": true,
+   "means": {
+    "stable diffusion": 45.62,
+    "unity plane movement": 0,
+    "best settings for rivals": 1.4,
+    "warhammer 40k new edition": 0.38,
+    "minecraft seeds": 41.3
+   },
+   "requeued": [
+    "unity plane movement",
+    "best settings for rivals",
+    "warhammer 40k new edition"
+   ]
+  },
+  {
+   "at": 1789961796.4064336,
+   "anchor": "stable diffusion",
+   "batch": [
+    "warhammer 40k new edition",
+    "best settings for rivals",
+    "unity plane movement",
+    "warhammer 40k rogue trader"
+   ],
+   "ok": true,
+   "means": {
+    "stable diffusion": 45.62,
+    "warhammer 40k new edition": 0.38,
+    "best settings for rivals": 1.42,
+    "unity plane movement": 0,
+    "warhammer 40k rogue trader": 3.83
+   },
+   "requeued": [
+    "warhammer 40k new edition",
+    "best settings for rivals",
+    "warhammer 40k rogue trader"
+   ]
+  },
+  {
+   "at": 1789961852.7784414,
+   "anchor": "stable diffusion",
+   "batch": [
+    "warhammer 40k rogue trader",
+    "best settings for rivals",
+    "warhammer 40k new edition",
+    "printer offline error"
+   ],
+   "ok": true,
+   "means": {
+    "stable diffusion": 45.64,
+    "warhammer 40k rogue trader": 3.83,
+    "best settings for rivals": 1.42,
+    "warhammer 40k new edition": 0.38,
+    "printer offline error": 0.21
+   },
+   "requeued": [
+    "warhammer 40k rogue trader",
+    "printer offline error"
+   ]
+  },
+  {
+   "at": 1789961914.6725795,
+   "anchor": "stable diffusion",
+   "batch": [
+    "printer offline error",
+    "warhammer 40k rogue trader",
+    "c# replace",
+    "jetpack projects"
+   ],
+   "ok": true,
+   "means": {
+    "stable diffusion": 45.62,
+    "printer offline error": 0.21,
+    "warhammer 40k rogue trader": 3.81,
+    "c# replace": 0.89,
+    "jetpack projects": 0
+   },
+   "requeued": [
+    "printer offline error",
+    "c# replace",
+    "jetpack projects"
+   ]
+  },
+  {
+   "at": 1789961971.275822,
+   "anchor": "stable diffusion",
+   "batch": [
+    "jetpack projects",
+    "c# replace",
+    "printer offline error",
+    "cost of gaming pc"
+   ],
+   "ok": true,
+   "means": {
+    "stable diffusion": 45.62,
+    "jetpack projects": 0,
+    "c# replace": 0.89,
+    "printer offline error": 0.21,
+    "cost of gaming pc": 3.45
+   },
+   "requeued": [
+    "c# replace",
+    "cost of gaming pc"
+   ]
+  },
+  {
+   "at": 1789962027.6403606,
+   "anchor": "stable diffusion",
+   "batch": [
+    "cost of gaming pc",
+    "c# replace",
+    "rest api documentation",
+    "pc gaming mods"
+   ],
+   "ok": true,
+   "means": {
+    "stable diffusion": 45.6,
+    "cost of gaming pc": 3.45,
+    "c# replace": 0.89,
+    "rest api documentation": 14.36,
+    "pc gaming mods": 1.15
+   },
+   "requeued": [
+    "cost of gaming pc",
+    "pc gaming mods"
+   ]
+  },
+  {
+   "at": 1789962084.1898913,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "pc gaming mods",
+    "cost of gaming pc",
+    "machine learning pytorch",
+    "javascript react"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "pc gaming mods": 2.02,
+    "cost of gaming pc": 6.09,
+    "machine learning pytorch": 3.13,
+    "javascript react": 11.79
+   },
+   "requeued": [
+    "pc gaming mods",
+    "machine learning pytorch"
+   ]
+  },
+  {
+   "at": 1789962140.5709338,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "machine learning pytorch",
+    "pc gaming mods",
+    "password manager google",
+    "airflow machine learning"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 62.66,
+    "machine learning pytorch": 2.77,
+    "pc gaming mods": 1.91,
+    "password manager google": 83.08,
+    "airflow machine learning": 0.4
+   },
+   "requeued": [
+    "machine learning pytorch",
+    "airflow machine learning"
+   ]
+  },
+  {
+   "at": 1789962197.0460389,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "airflow machine learning",
+    "machine learning pytorch",
+    "devops azure certification",
+    "deep learning pytorch"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "airflow machine learning": 0.45,
+    "machine learning pytorch": 3.13,
+    "devops azure certification": 0.15,
+    "deep learning pytorch": 2.87
+   },
+   "requeued": [
+    "airflow machine learning",
+    "devops azure certification",
+    "deep learning pytorch"
+   ]
+  },
+  {
+   "at": 1789962258.7006116,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "deep learning pytorch",
+    "devops azure certification",
+    "airflow machine learning",
+    "best warhammer 40k army"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "deep learning pytorch": 2.91,
+    "devops azure certification": 0.15,
+    "airflow machine learning": 0.45,
+    "best warhammer 40k army": 0.21
+   },
+   "requeued": [
+    "deep learning pytorch",
+    "devops azure certification",
+    "best warhammer 40k army"
+   ]
+  },
+  {
+   "at": 1789962315.0699992,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "best warhammer 40k army",
+    "devops azure certification",
+    "deep learning pytorch",
+    "java calculator code"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.17,
+    "best warhammer 40k army": 0.21,
+    "devops azure certification": 0.15,
+    "deep learning pytorch": 2.87,
+    "java calculator code": 0.02
+   },
+   "requeued": [
+    "best warhammer 40k army",
+    "java calculator code"
+   ]
+  },
+  {
+   "at": 1789962371.452096,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "java calculator code",
+    "best warhammer 40k army",
+    "password manager pro",
+    "board game rule"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "java calculator code": 0.02,
+    "best warhammer 40k army": 0.21,
+    "password manager pro": 4.38,
+    "board game rule": 3.96
+   },
+   "requeued": [
+    "java calculator code",
+    "password manager pro",
+    "board game rule"
+   ]
+  },
+  {
+   "at": 1789962428.0151734,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "board game rule",
+    "password manager pro",
+    "java calculator code",
+    "cities skylines dlc"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "board game rule": 3.96,
+    "password manager pro": 4.4,
+    "java calculator code": 0.02,
+    "cities skylines dlc": 1.38
+   },
+   "requeued": [
+    "board game rule",
+    "password manager pro",
+    "cities skylines dlc"
+   ]
+  },
+  {
+   "at": 1789962484.3572783,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "cities skylines dlc",
+    "password manager pro",
+    "board game rule",
+    "rest api example spring boot"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.21,
+    "cities skylines dlc": 1.38,
+    "password manager pro": 4.4,
+    "board game rule": 4,
+    "rest api example spring boot": 0.02
+   },
+   "requeued": [
+    "cities skylines dlc",
+    "rest api example spring boot"
+   ]
+  },
+  {
+   "at": 1789962540.6730545,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "rest api example spring boot",
+    "cities skylines dlc",
+    "what is angular js",
+    "steam page"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.17,
+    "rest api example spring boot": 0.02,
+    "cities skylines dlc": 1.38,
+    "what is angular js": 0.02,
+    "steam page": 33.58
+   },
+   "requeued": [
+    "rest api example spring boot",
+    "what is angular js"
+   ]
+  },
+  {
+   "at": 1789962611.953823,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "what is angular js",
+    "rest api example spring boot",
+    "improve minecraft performance",
+    "javascript vue"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "what is angular js": 0.02,
+    "rest api example spring boot": 0.02,
+    "improve minecraft performance": 0.17,
+    "javascript vue": 1.53
+   },
+   "requeued": [
+    "what is angular js",
+    "improve minecraft performance",
+    "javascript vue"
+   ]
+  },
+  {
+   "at": 1789962668.3475533,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "javascript vue",
+    "improve minecraft performance",
+    "what is angular js",
+    "game for playstation 5"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "javascript vue": 1.53,
+    "improve minecraft performance": 0.17,
+    "what is angular js": 0.02,
+    "game for playstation 5": 9.42
+   },
+   "requeued": [
+    "javascript vue",
+    "improve minecraft performance"
+   ]
+  },
+  {
+   "at": 1789962724.7015512,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "improve minecraft performance",
+    "javascript vue",
+    "fps drops",
+    "kali linux new version"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.21,
+    "improve minecraft performance": 0.17,
+    "javascript vue": 1.53,
+    "fps drops": 8.26,
+    "kali linux new version": 0.02
+   },
+   "requeued": [
+    "kali linux new version"
+   ]
+  },
+  {
+   "at": 1789962781.0482311,
+   "anchor": "minecraft seeds",
+   "batch": [
+    "kali linux new version",
+    "android studio versions",
+    "printer offline windows 11",
+    "magic the gathering secret lair"
+   ],
+   "ok": true,
+   "means": {
+    "minecraft seeds": 71.19,
+    "kali linux new version": 0.02,
+    "android studio versions": 0.08,
+    "printer offline windows 11": 0.3,
+    "magic the gathering secret lair": 3.49
+   },
+   "requeued": [
+    "kali linux new version",
+    "android studio versions",
+    "printer offline windows 11",
+    "magic the gathering secret lair"
+   ]
+  },
+  {
+   "at": 1789962837.351482,
+   "anchor": "javascript react",
+   "batch": [
+    "magic the gathering secret lair",
+    "printer offline windows 11",
+    "android studio versions",
+    "kali linux new version"
+   ],
+   "ok": true,
+   "means": {
+    "javascript react": 45.98,
+    "magic the gathering secret lair": 13.83,
+    "printer offline windows 11": 1.26,
+    "android studio versions": 0.28,
+    "kali linux new version": 0.08
+   },
+   "requeued": [
+    "printer offline windows 11",
+    "android studio versions"
+   ]
+  },
+  {
+   "at": 1789962893.7025,
+   "anchor": "cities skylines",
+   "batch": [
+    "android studio versions",
+    "printer offline windows 11",
+    "github actions certification",
+    "jetpack compose navigation"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.49,
+    "android studio versions": 0.08,
+    "printer offline windows 11": 0.38,
+    "github actions certification": 0.58,
+    "jetpack compose navigation": 0.06
+   },
+   "requeued": [
+    "github actions certification",
+    "jetpack compose navigation"
+   ]
+  },
+  {
+   "at": 1789962958.43334,
+   "anchor": "cities skylines",
+   "batch": [
+    "jetpack compose navigation",
+    "github actions certification",
+    "layer shift",
+    "genshin impact characters"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.49,
+    "jetpack compose navigation": 0.06,
+    "github actions certification": 0.58,
+    "layer shift": 5.13,
+    "genshin impact characters": 22.32
+   },
+   "requeued": [
+    "jetpack compose navigation",
+    "github actions certification",
+    "layer shift"
+   ]
+  },
+  {
+   "at": 1789963014.8323915,
+   "anchor": "cities skylines",
+   "batch": [
+    "layer shift",
+    "github actions certification",
+    "jetpack compose navigation",
+    "android gradle plugin version"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.49,
+    "layer shift": 5.17,
+    "github actions certification": 0.58,
+    "jetpack compose navigation": 0.06,
+    "android gradle plugin version": 2
+   },
+   "requeued": [
+    "layer shift",
+    "android gradle plugin version"
+   ]
+  },
+  {
+   "at": 1789963071.1615565,
+   "anchor": "cities skylines",
+   "batch": [
+    "android gradle plugin version",
+    "layer shift",
+    "php exception handling",
+    "security gdpr"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.51,
+    "android gradle plugin version": 2,
+    "layer shift": 5.17,
+    "php exception handling": 0.02,
+    "security gdpr": 13.08
+   },
+   "requeued": [
+    "android gradle plugin version",
+    "php exception handling"
+   ]
+  },
+  {
+   "at": 1789963127.5727713,
+   "anchor": "devops azure",
+   "batch": [
+    "php exception handling",
+    "android gradle plugin version",
+    "docker container",
+    "password keeper pc"
+   ],
+   "ok": true,
+   "means": {
+    "devops azure": 30.92,
+    "php exception handling": 0.02,
+    "android gradle plugin version": 1.02,
+    "docker container": 51.85,
+    "password keeper pc": 0.02
+   },
+   "requeued": [
+    "php exception handling",
+    "password keeper pc"
+   ]
+  },
+  {
+   "at": 1789963183.9560082,
+   "anchor": "cities skylines",
+   "batch": [
+    "password keeper pc",
+    "php exception handling",
+    "password manager norton",
+    "steam official web page"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.49,
+    "password keeper pc": 0.02,
+    "php exception handling": 0.02,
+    "password manager norton": 2.85,
+    "steam official web page": 0.09
+   },
+   "requeued": [
+    "password keeper pc",
+    "password manager norton",
+    "steam official web page"
+   ]
+  },
+  {
+   "at": 1789963240.3338594,
+   "anchor": "cities skylines",
+   "batch": [
+    "steam official web page",
+    "password manager norton",
+    "password keeper pc",
+    "vue js reactive"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.49,
+    "steam official web page": 0.09,
+    "password manager norton": 2.85,
+    "password keeper pc": 0.02,
+    "vue js reactive": 0
+   },
+   "requeued": [
+    "steam official web page",
+    "password manager norton",
+    "vue js reactive"
+   ]
   }
  ],
  "anchors": [
@@ -2475,6 +3436,57 @@
   "docker database postgres": 3,
   "c# vs c++": 3,
   "best php editor": 3,
-  "linux vs windows": 1
+  "linux vs windows": 1,
+  "3d game assets blender": 3,
+  "github actions runners": 2,
+  "xcode ios app tutorial": 3,
+  "prometheus devops \u043a\u0443\u0440\u0441": 2,
+  "php to usd": 1,
+  "linux commands": 1,
+  "unity plane movement": 2,
+  "best settings for rivals": 3,
+  "warhammer 40k new edition": 3,
+  "minecraft seeds": 1,
+  "warhammer 40k rogue trader": 3,
+  "printer offline error": 3,
+  "c# replace": 3,
+  "jetpack projects": 2,
+  "cost of gaming pc": 3,
+  "rest api documentation": 1,
+  "pc gaming mods": 3,
+  "machine learning pytorch": 3,
+  "javascript react": 1,
+  "password manager google": 1,
+  "airflow machine learning": 3,
+  "devops azure certification": 3,
+  "deep learning pytorch": 3,
+  "best warhammer 40k army": 3,
+  "java calculator code": 3,
+  "password manager pro": 3,
+  "board game rule": 3,
+  "cities skylines dlc": 3,
+  "rest api example spring boot": 3,
+  "what is angular js": 3,
+  "steam page": 1,
+  "improve minecraft performance": 3,
+  "javascript vue": 3,
+  "game for playstation 5": 1,
+  "fps drops": 1,
+  "kali linux new version": 3,
+  "android studio versions": 3,
+  "printer offline windows 11": 3,
+  "magic the gathering secret lair": 2,
+  "github actions certification": 3,
+  "jetpack compose navigation": 3,
+  "layer shift": 3,
+  "genshin impact characters": 1,
+  "android gradle plugin version": 3,
+  "php exception handling": 3,
+  "security gdpr": 1,
+  "docker container": 1,
+  "password keeper pc": 3,
+  "password manager norton": 2,
+  "steam official web page": 2,
+  "vue js reactive": 1
  }
 }
