@@ -1,0 +1,202 @@
+cluster_id: c_25613146
+head_term: "cpu motherboard compatibility"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 6
+pages_failed: 2
+competitors:
+  - name: "PCPartPicker - Motherboard + CPU compatibility (forum topic)"
+    url: "https://pcpartpicker.com/forums/topic/429165-motherboard-cpu-compatibility"
+    site: "pcpartpicker.com"
+    kind: tool
+    fetch_status: "failed: HTTP 403 Forbidden on the forum topic and on the site homepage, no body returned"
+    solves: "unknown beyond the SERP title, which is a forum thread about motherboard and CPU compatibility on a part-picking site; a competing fetched page (apexgamingpcs.com) states that 'many noted compatibilities have been made accessible on sites like PC Part Picker'"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: the underlying facts - socket, chipset and CPU support per board - are published by every board maker, so a compatibility dataset is reproducible in principle; live merchant pricing and the user-build corpus would not be"
+    ai_replaceable: "inference: no for the part-by-part filtering a builder needs, but the page itself was not observed"
+    why_still_searching: "inference: a forum thread ranking above the site's own picker for 'best cpu compatible with my motherboard' suggests the reverse lookup - board first, then CPUs - is not where searchers land"
+    evidence:
+      - "no page text retrieved (HTTP 403 on both the topic URL and https://pcpartpicker.com/); SERP title recorded in the input file: Motherboard + CPU compatibility - PCPartPicker"
+  - name: "Intel Support - How to Find Compatible Motherboards for Your Intel Boxed Desktop Processor"
+    url: "https://www.intel.com/content/www/us/en/support/articles/000005909/processors/intel-core-processors.html"
+    site: "intel.com"
+    kind: vendor
+    fetch_status: ok
+    solves: "The one authoritative lookup route found: a first-party support article that routes the visitor into the Intel Product Compatibility Tool, where entering a processor returns a list of compatible third-party motherboards, with a vendor filter"
+    does_not_solve: "Intel processors only - nothing for AMD; the tool is on a separate domain rather than on the page; and per the fetched page it does not tell the visitor to verify BIOS version afterwards, which every editorial page in this cluster calls decisive"
+    workflow_remaining: "Per the fetched page, the visitor must identify their processor number, open the separate compatibility tool, and read off the list; the page does not specify further verification steps such as checking BIOS versions on the board maker's site"
+    business_model: "First-party vendor support content; no pricing, subscription, ads or affiliate links mentioned"
+    currency: "page shows 'Content Type: Compatibility | Article ID: 000005909 | Last Reviewed: 04/11/2023'"
+    coverage: "Intel Boxed Desktop Processors and third-party motherboards, via compatibleproducts.intel.com; breadth beyond Intel parts is not claimed"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the same board/CPU pairings are published across vendor support lists and could be aggregated, and the Intel tool demonstrates the dataset already exists in structured form on one vendor's side"
+    ai_replaceable: "inference: partly - an assistant can name the socket and chipset generation for a known CPU, but the exact list of boards that support it, and their BIOS revisions, is lookup data an assistant would guess at"
+    why_still_searching: "inference: the page is direction-only (it sends users to another domain), is dated 2023, and covers half the market - an AMD builder or a board-first searcher gets nothing"
+    evidence:
+      - "Intel Boxed Desktop Processors can be sold as retail box to end users who want to build their own desktop PCs."
+      - "To find third-party motherboards that are compatible with Intel Boxed Processors, use the Intel Product Compatibility Tool"
+      - "A list of compatible motherboards will be displayed."
+      - "You can also choose the Motherboard Filter to look for a motherboard vendor."
+      - "Identify your processor number and capture the identifier (i9, i7, i5, or i3)"
+      - "Content Type: Compatibility | Article ID: 000005909 | Last Reviewed: 04/11/2023"
+  - name: "TEAMGROUP - Compatibility Check by Motherboard"
+    url: "https://www.teamgroupinc.com/en/support/compatibility/by-motherboard/"
+    site: "teamgroupinc.com"
+    kind: vendor
+    fetch_status: ok
+    solves: "An interactive board-first lookup: dropdown filters for product category, motherboard manufacturer, chipset and model return compatible parts - but for TEAMGROUP memory and SSD products, not CPUs"
+    does_not_solve: "Does not answer the cluster's question at all: no CPU compatibility, and only one brand's components are covered"
+    workflow_remaining: "Per the fetched page, the visitor must go to product pages or retailers to buy the compatible parts; for a CPU question they must start over elsewhere"
+    business_model: "Component vendor's own support tool promoting its memory and SSD lines; no pricing, subscription, ads or affiliate links mentioned"
+    currency: "no last-updated date shown on the page"
+    coverage: "TEAMGROUP memory and SSD products against motherboards from the listed makers (MSI, GIGABYTE, ASUS and others), selectable by chipset and model"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - this is exactly the shape a CPU-side database would take (manufacturer, chipset, model), built from validation testing that vendors already publish; the fact that a RAM vendor maintains one shows the pattern is economically viable"
+    ai_replaceable: "inference: no - a filtered lookup over a validation matrix is a database job, not a chat answer"
+    why_still_searching: "inference: it ranks for the compatibility-list query but answers the wrong component, so every visitor from this query leaves unserved"
+    evidence:
+      - "Compatibility Check by Motherboard"
+      - "Product Category"
+      - "Memory"
+      - "SSD"
+      - "chipset"
+      - "motherboard"
+  - name: "ASRock - CPU Support List"
+    url: "https://www.asrock.com/support/cpu.asp"
+    site: "asrock.com"
+    kind: vendor
+    fetch_status: "failed: empty response body on both attempts, no text extractable"
+    solves: "unknown beyond the SERP title, which indicates a CPU support list for one board maker's motherboards"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: per-board CPU support lists are published by each board maker - three fetched editorial pages instruct readers to consult exactly these - so an aggregated dataset across makers appears reproducible from public pages, subject to scraping being permitted"
+    ai_replaceable: "inference: no - per-board, per-BIOS support tables are lookup data that an assistant cannot recite reliably; the page itself was not observed"
+    why_still_searching: "inference: a searcher must already know their exact board model and must repeat this on a different site for each brand, which is why a single cross-brand list keeps being searched for"
+    evidence:
+      - "no page text retrieved (empty body on both attempts); SERP title recorded in the input file: ASRock > CPU Support List"
+  - name: "CGDirector - How To Find Out Which CPU is compatible With Your Motherboard"
+    url: "https://www.cgdirector.com/cpu-motherboard-compatibility/"
+    site: "cgdirector.com"
+    kind: editorial
+    fetch_status: ok
+    solves: "Teaches the three-check method - socket, chipset and BIOS - and explains what a CPU support list is and why an out-of-date BIOS stops a new CPU from running"
+    does_not_solve: "No lookup: it is a method, not a database, so it never tells a visitor which CPUs fit their specific board"
+    workflow_remaining: "Per the fetched page, the visitor must identify their motherboard model, search the manufacturer's specifications, find the CPU support list, check their BIOS version and possibly flash a BIOS update before installing"
+    business_model: "Reader-supported editorial with affiliate commissions, disclosed in the footer"
+    currency: "page shows 'Updated November 21, 2022'"
+    coverage: "generic method covering socket, chipset and BIOS for any CPU/board pairing; no per-model data"
+    dominates_serp: "2 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: the method is common knowledge and trivially reproducible; the missing asset - the per-board support data it points at - lives on vendor sites"
+    ai_replaceable: "inference: yes, almost entirely - 'check socket, chipset and BIOS' is a complete conceptual answer a chat assistant delivers in one turn, which is what this page sells"
+    why_still_searching: "inference: the page ends by telling the reader to go look up their own board, so the search continues on a vendor site; a 2022 article also predates current socket generations"
+    evidence:
+      - "When pairing a CPU with a Motherboard, there are three things you have to check"
+      - "The CPU socket is the connector on the motherboard where your CPU plugs in"
+      - "CPU Support List: What Is It?"
+      - "BIOS compatibility is another key feature to check when purchasing a new CPU"
+      - "If you don't update your BIOS before installing the new CPU, it won't be able to run"
+      - "CGDirector is Reader-supported. When you buy through our links, we may earn an affiliate commission."
+  - name: "XDA Developers - What CPUs are compatible with my motherboard?"
+    url: "https://www.xda-developers.com/what-cpus-compatible-motherboard/"
+    site: "xda-developers.com"
+    kind: editorial
+    fetch_status: ok
+    solves: "Explains the method with concrete socket history (LGA1700 across three Intel generations, AM4 across Ryzen 1000-5000) and adds TDP as a third check alongside socket and chipset"
+    does_not_solve: "No compatibility lookup, no BIOS-revision data, and no way to enter a board model; socket facts are a 2024 snapshot"
+    workflow_remaining: "Per the fetched page, the visitor must identify their motherboard model, look up its socket and chipset, cross-reference compatible CPUs and verify TDP themselves"
+    business_model: "Ad-supported enthusiast publisher with an optional sign-in; no affiliate disclosure was identified on the page"
+    currency: "page shows 'Updated May 18, 2024, 6:30 PM EDT'"
+    coverage: "both Intel and AMD socket families at generation level; no per-board or per-BIOS detail"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - socket-to-generation mapping is public specification data and is precisely the join table a compatibility database would need"
+    ai_replaceable: "inference: yes - socket generations and TDP guidance are stable facts a chat assistant states directly, without the reader visiting a page"
+    why_still_searching: "inference: it warns that the reader must check their own board's specifications before buying, which is the unfinished step that sends them back to search"
+    evidence:
+      - "the socket is the interface between the CPU and the rest of the motherboard"
+      - "Intel has used the LGA1700 socket for three generations now"
+      - "AMD used the AM4 socket for the Ryzen 1000 through 5000 series"
+      - "check if the new CPU's TDP will work on your motherboard"
+      - "check your motherboard's specifications before making any buying decisions"
+      - "Updated May 18, 2024, 6:30 PM EDT"
+  - name: "PC Guide - How to tell if a CPU is compatible with your motherboard"
+    url: "https://www.pcguide.com/cpu/how-to/tell-if-compatible-with-motherboard/"
+    site: "pcguide.com"
+    kind: editorial
+    fetch_status: ok
+    solves: "Three-step verification - socket, chipset, BIOS version - and is the most explicit fetched page about consulting the board maker's CPU support list and reading its Brand/BIOS version/Date format"
+    does_not_solve: "No data of its own; cannot resolve a specific board-plus-CPU pair, and offers no BIOS-version lookup"
+    workflow_remaining: "Per the fetched page, the visitor must visit the motherboard manufacturer's site, find their model's CPU support list, cross-reference the desired CPU, check their current BIOS version and possibly download and install a BIOS update"
+    business_model: "Reader-supported editorial with disclosed affiliate commissions plus a newsletter signup"
+    currency: "page shows 'Last Updated on April 18, 2024'"
+    coverage: "generic method for any CPU/board pairing; states the manufacturer's support list is the authority"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: the article is reproducible knowledge; the authoritative artefact it defers to - per-board support lists with BIOS versions and dates - is public vendor data in a consistent format, which suggests an aggregate is buildable"
+    ai_replaceable: "inference: yes - the method and the failure modes are stable general knowledge an assistant states in a paragraph"
+    why_still_searching: "inference: the page claims the information is readily available while still leaving the reader to find it themselves on a vendor site, and the stakes it names (a PC that will not boot) push people to seek confirmation"
+    evidence:
+      - "Search for the CPU support list for your specific motherboard. This will tell you about all the CPUs that you can mount on it."
+      - "If they aren't compatible, your PC won't boot, or it will have severe stability issues."
+      - "if the BIOS version is outdated, your PC won't boot."
+      - "The format should be 'Brand Name, BIOS version, Date.'"
+      - "it is a straightforward process, and all the relevant information is readily available."
+      - "PC Guide is reader-supported. When you buy through links on our site, we may earn an affiliate commission."
+      - "Last Updated on April 18, 2024"
+  - name: "Apex Gaming PCs - How to Tell What CPU is Compatible with Your Motherboard"
+    url: "https://apexgamingpcs.com/blogs/apex-support/what-cpus-compatible-with-motherboard"
+    site: "apexgamingpcs.com"
+    kind: editorial
+    fetch_status: ok
+    solves: "Method guide covering socket types and documentation, and the only fetched page that points readers to a third-party aggregated compatibility source (PC Part Picker); adds board-lifespan context"
+    does_not_solve: "No lookup of its own, and it resolves the question commercially - by offering to build the machine for the reader"
+    workflow_remaining: "Per the fetched page, the visitor must research their specific motherboard and CPU specifications, consult manuals and manufacturer compatibility charts, and possibly update BIOS firmware themselves"
+    business_model: "System builder's content marketing: no prices quoted, but it promotes its own custom PC configurator and prebuilt machines, stating 'At Apex Gaming PCs, we do most of the heavy lifting'; no affiliate links or ads identified"
+    currency: "page shows 'Jan 19, 2024'"
+    coverage: "generic method with Intel socket examples (LGA 1700 for 12th, 13th and 14th generation CPUs); no per-board data"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - nothing here is proprietary; it explicitly defers to a public aggregator for the data layer"
+    ai_replaceable: "inference: yes for the guidance; no for its actual commercial offer, which is a built machine rather than an answer"
+    why_still_searching: "inference: the page's own resolution is to hand the problem to a vendor, which a self-builder will not accept, so they continue searching for the data"
+    evidence:
+      - "To help with this search, many noted compatibilities have been made accessible on sites like PC Part Picker"
+      - "Intel sports the LGA 1700 Socket for all 12th, 13th, and 14th-generation CPUs"
+      - "The system will refuse to boot and hold on to the CPU initialization"
+      - "The typical lifespan for most board revisions is between 5-8 years"
+      - "Jan 19, 2024"
+synthesis:
+  pieced_together_answer: "Every fetched page supplies a different fragment and none completes the task. The method - check socket, then chipset, then BIOS - is stated redundantly by four editorial pages (cgdirector.com, xda-developers.com, pcguide.com, apexgamingpcs.com), with xda-developers.com adding TDP and the concrete socket-to-generation mapping. The authority they all defer to is the board maker's own CPU support list, represented here by asrock.com (which returned an empty body). The only CPU-first lookup is Intel's, and it lives on a different domain from the article that describes it, covers Intel only, and is dated 2023. The BIOS step - which pcguide.com and cgdirector.com both say determines whether the PC boots at all - has no lookup anywhere in the checked results: it is left as manual work on the vendor site. The one interactive board-first database that loaded, teamgroupinc.com, checks memory and SSDs rather than CPUs, and the aggregator two pages point to, pcpartpicker.com, blocked fetching."
+  single_destination_would_need: "A board-first and CPU-first lookup over a single cross-brand table: enter a motherboard model (or a CPU) and get the compatible parts from both Intel and AMD, each row carrying the minimum BIOS version and its release date, a flag for pairings that need a BIOS flash before install, and the socket/chipset/TDP checks resolved automatically rather than explained. Per the fetched pages that is four things no single checked result offers together: cross-vendor coverage (Intel's tool is Intel-only), board-first direction (Intel's is CPU-first), BIOS-revision data (absent from every fetched page as data rather than advice), and currency (the fetched method articles date from Nov 2022, Jan 2024, Apr 2024 and May 2024, and Intel's from Apr 2023)."
+  existing_tools_that_do_this: "Partially: the Intel Product Compatibility Tool at compatibleproducts.intel.com, named and linked by the fetched Intel support page ('use the Intel Product Compatibility Tool', with a motherboard vendor filter) - Intel processors only, and not itself fetched. PCPartPicker is named by a fetched page as an aggregator of 'noted compatibilities' but blocked both fetch attempts, so its coverage and BIOS handling are unverified. TEAMGROUP's Compatibility Check by Motherboard is a working board-first tool but for memory and SSDs, not CPUs. No cross-brand CPU-to-motherboard tool was confirmed in the checked results."
+  data_source_and_reproducibility: "inference: the source data is public and structured - every board maker publishes a per-model CPU support list, and three fetched pages instruct readers to use exactly those lists, with pcguide.com stating the rows follow a 'Brand Name, BIOS version, Date' format. That consistent shape, plus Intel's and TEAMGROUP's existing structured lookups, suggests an aggregated database is reproducible from public vendor pages. Two practical obstacles were observed in this task: asrock.com returned an empty body twice and pcpartpicker.com returned 403 twice, so ingestion would have to handle blocking and JavaScript-rendered tables. Specification data (sockets, chipsets, TDP) is stable; BIOS-version data changes with each vendor release and would need continuous refresh, which is also where the fetched articles are most out of date."
+  ai_resilience: "inference: split sharply. The conceptual layer - socket, chipset, BIOS and TDP, and what happens if you get it wrong - is fully AI-replaceable and is what four of the six fetched pages sell; a chat assistant answers it in one turn without a click. The lookup layer is highly AI-resistant: which specific CPUs a named board accepts, and at which minimum BIOS revision, is per-model data that changes with firmware releases, and an assistant answering from memory would be wrong in the exact way that, per the fetched pages, stops a PC from booting. This cluster's resilient value therefore sits entirely in the data, not the explanation."
+  open_questions:
+    - "pcpartpicker.com blocked both fetch attempts, so whether its compatibility filter already covers CPU-to-board pairings with BIOS caveats - the core of the opportunity - is unverified and is the single biggest gap in this analysis"
+    - "asrock.com returned an empty body, so the structure of a board maker's CPU support list (fields, BIOS columns, whether it is scrapeable) was not directly observed, only described second-hand by pcguide.com"
+    - "no AMD-side equivalent of Intel's compatibility tool appeared in the checked results; whether AMD publishes one is unknown"
+    - "the Intel Product Compatibility Tool itself was not fetched (only the support article pointing to it), so its coverage, currency and whether it surfaces BIOS requirements are unknown"
+    - "shimetadevice.com appeared on both checked queries (2 of 18) and steamcommunity.com twice more, but fell outside the 8-site selection rule; community threads might reveal whether BIOS-flash failures are the real recurring pain"
+    - "en.wikipedia.org ranked 4th on 'cpu motherboard compatibility list' with a generic Hardware compatibility list article - categorised reference and outside the selection rule - suggesting the query returns near-miss results rather than a real list"

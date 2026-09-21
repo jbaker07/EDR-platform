@@ -3467,26 +3467,251 @@
    "reads": 35.7,
    "anchor_reads": 3.6,
    "error_pct": 15.3
+  },
+  "stl files": {
+   "value": 7.98,
+   "anchor": "sourdough starter recipe",
+   "reads": 42.74,
+   "anchor_reads": 57.75,
+   "error_pct": 2.0
+  },
+  "logo design illustrator": {
+   "value": 0.144,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.77,
+   "anchor_reads": 57.74,
+   "error_pct": 65.5
+  },
+  "bed leveling": {
+   "value": 2.562,
+   "anchor": "sourdough starter recipe",
+   "reads": 13.72,
+   "anchor_reads": 57.74,
+   "error_pct": 4.5
+  },
+  "device does not have bluetooth": {
+   "value": 0.082,
+   "anchor": "how to iphone mirror",
+   "reads": 0.58,
+   "anchor_reads": 72.36,
+   "error_pct": 86.2
+  },
+  "daw ableton": {
+   "value": 0.853,
+   "anchor": "how to iphone mirror",
+   "reads": 6.08,
+   "anchor_reads": 72.36,
+   "error_pct": 8.9
+  },
+  "smart tv 32 inch": {
+   "value": 4.343,
+   "anchor": "how to iphone mirror",
+   "reads": 30.92,
+   "anchor_reads": 72.36,
+   "error_pct": 2.3
+  },
+  "zapier office": {
+   "value": 0.546,
+   "anchor": "unreal engine games",
+   "reads": 8.64,
+   "anchor_reads": 48.68,
+   "error_pct": 6.8
+  },
+  "random song id": {
+   "value": 0.013,
+   "anchor": "unreal engine games",
+   "reads": 0.21,
+   "anchor_reads": 48.68,
+   "error_pct": 101.0
+  },
+  "is notion on windows": {
+   "value": 0.101,
+   "anchor": "how to iphone mirror",
+   "reads": 0.72,
+   "anchor_reads": 72.36,
+   "error_pct": 70.4
+  },
+  "protein intake to build muscle": {
+   "value": 0.26,
+   "anchor": "how to iphone mirror",
+   "reads": 1.85,
+   "anchor_reads": 72.36,
+   "error_pct": 27.7
+  },
+  "apple watch se 3 44mm": {
+   "value": 1.24,
+   "anchor": "how to iphone mirror",
+   "reads": 8.83,
+   "anchor_reads": 72.36,
+   "error_pct": 6.4
   }
  },
  "pending": [
-  "logo design illustrator",
-  "stl files",
-  "device does not have bluetooth",
-  "daw ableton",
-  "bed leveling",
-  "smart tv 32 inch",
-  "random song id",
-  "is notion on windows",
-  "protein intake to build muscle",
-  "zapier office",
   "convert linux to windows",
-  "apple watch se 3 44mm",
   "generate chord progression fl studio",
   "math study plan",
   "vinyl record price guide",
   "class a cdl vehicles",
-  "video editing subtitles"
+  "video editing subtitles",
+  "what is language learning",
+  "knee pain",
+  "song identify google",
+  "duolingo app for learning english",
+  "davinci resolve format",
+  "hiking trails",
+  "apple watch ultra",
+  "electronics soldering",
+  "beauty makeup",
+  "beauty outfits",
+  "engineering features",
+  "water cooler plant",
+  "roof leakage repair",
+  "how to clean battery acid",
+  "video games for pc",
+  "fix washing machine not draining",
+  "best cat litter for kittens",
+  "give icd 10 codes",
+  "finance budgeting",
+  "how to remove junk stains",
+  "embroidery machine supplies",
+  "baby sleep sack",
+  "air conditioner not cooling house",
+  "running workout 5k",
+  "farm chickens minecraft",
+  "bluetooth earbuds recommendations",
+  "3d modelling tank",
+  "laptop won't shut down",
+  "elder care",
+  "legal driving limit",
+  "car value calculator south africa",
+  "crypto bitcoin news",
+  "meal prep ideas high protein",
+  "drink cocktails",
+  "photo camera review",
+  "writing headline plans",
+  "where to watch love island",
+  "swiss beauty makeup stick",
+  "air fryer costco ninja",
+  "moving abroad",
+  "best product selling app",
+  "how do i learn algebra",
+  "3d printer plate",
+  "index funds fidelity",
+  "windows xp iso",
+  "gamemaker pathfinding",
+  "sewing machines",
+  "fishing rod",
+  "holiday winter background",
+  "song identifying game",
+  "cheap flights to puerto rico",
+  "photo exposure",
+  "llm and gpt",
+  "sourdough bread plan",
+  "screw size guide",
+  "premiere pro adobe",
+  "google docs guide",
+  "renovation cost for bathroom",
+  "cheap flights to las vegas",
+  "card value",
+  "story writing plan",
+  "3d printer filament guide",
+  "icd 10 code platelet",
+  "local service haircuts",
+  "size chart",
+  "excel compare dates",
+  "fix sewing machine bobbin",
+  "garden irrigation system diy",
+  "shopify small business cost",
+  "engineering tolerance",
+  "music production vs",
+  "does notion work with microsoft",
+  "how to value vinyl records",
+  "electronics lithium",
+  "language learning translation",
+  "fine wire gauges",
+  "product best for dark spots",
+  "vocal range",
+  "candle wax plant",
+  "blenders sunglasses",
+  "anker solar solix 3",
+  "best serum for eye bags",
+  "baby sleep regression",
+  "monitor flickering after power outage",
+  "freight rates database",
+  "visa documents for china",
+  "ac not cooling but running",
+  "3d printer problem",
+  "car boat vehicle",
+  "rest api vs grpc",
+  "washing machine heart",
+  "holiday winterize rv",
+  "garden pruning saw",
+  "men hair fix best product",
+  "laptop won t turn on",
+  "hicks meditation wellbeing",
+  "inventory management system",
+  "warehouse management jobs",
+  "performance review comments",
+  "smart tv source",
+  "ac not cooling",
+  "stl files for 3d printing",
+  "where to find firewall settings",
+  "why is rent so high",
+  "computer outlook",
+  "fishing costa rica",
+  "holiday winter sun",
+  "soccer games schedule world cup",
+  "owasp web security testing guide",
+  "meal prep breakfast",
+  "laptop screen extender",
+  "shipping rates",
+  "music production podcast",
+  "air fryer pork chops",
+  "3d modeling zbrush",
+  "crop rotation in agriculture",
+  "electronics battery charger",
+  "train schedule",
+  "how to calculate dilution factor",
+  "icd 10 codes",
+  "woodworking drill",
+  "interview tips for interviewer",
+  "external hard disk problem",
+  "excel spreadsheet",
+  "cooking keto",
+  "computer chrome",
+  "coin melt value",
+  "security framework gdpr",
+  "stain removal",
+  "plumbing cost per fixture",
+  "zigbee electronics",
+  "smart home technology",
+  "story writing topics",
+  "photography exposure triangle",
+  "kids activities",
+  "my external hard drives",
+  "skincare rout\u0131ne men",
+  "help a song",
+  "3d printer cura settings",
+  "houseplant fertilizer",
+  "nvda screen reader tutorial",
+  "small business llc",
+  "union budget total",
+  "how many times train legs",
+  "diagnosis knee pain",
+  "lesson plan format",
+  "turn off grid blender",
+  "motorcycle atv",
+  "real estate mortgage",
+  "dog training courses",
+  "does health insurance cover therapy",
+  "bluetooth headset recommendations",
+  "phone with large buttons",
+  "dilution calculator mg/ml",
+  "best motorcycle off road",
+  "novel writer",
+  "external hard drive 1tb",
+  "monitor lizard",
+  "guest post website"
  ],
  "log": [
   {
@@ -9467,6 +9692,139 @@
    "requeued": [
     "logo design illustrator"
    ]
+  },
+  {
+   "at": 1789975642.8297627,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "logo design illustrator",
+    "stl files",
+    "device does not have bluetooth",
+    "daw ableton"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.75,
+    "logo design illustrator": 0.77,
+    "stl files": 42.74,
+    "device does not have bluetooth": 0.49,
+    "daw ableton": 4.53
+   },
+   "requeued": [
+    "logo design illustrator",
+    "device does not have bluetooth",
+    "daw ableton"
+   ]
+  },
+  {
+   "at": 1789975699.1642096,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "daw ableton",
+    "device does not have bluetooth",
+    "logo design illustrator",
+    "bed leveling"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "daw ableton": 4.53,
+    "device does not have bluetooth": 0.49,
+    "logo design illustrator": 0.77,
+    "bed leveling": 13.72
+   },
+   "requeued": [
+    "daw ableton",
+    "device does not have bluetooth"
+   ]
+  },
+  {
+   "at": 1789975755.5286782,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "device does not have bluetooth",
+    "daw ableton",
+    "smart tv 32 inch",
+    "random song id"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.36,
+    "device does not have bluetooth": 0.58,
+    "daw ableton": 6.08,
+    "smart tv 32 inch": 30.92,
+    "random song id": 0.09
+   },
+   "requeued": [
+    "random song id"
+   ]
+  },
+  {
+   "at": 1789975812.0919304,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "random song id",
+    "is notion on windows",
+    "protein intake to build muscle",
+    "zapier office"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.4,
+    "random song id": 0.09,
+    "is notion on windows": 0.72,
+    "protein intake to build muscle": 1.85,
+    "zapier office": 3.91
+   },
+   "requeued": [
+    "random song id",
+    "is notion on windows",
+    "protein intake to build muscle",
+    "zapier office"
+   ]
+  },
+  {
+   "at": 1789975868.524858,
+   "anchor": "unreal engine games",
+   "batch": [
+    "zapier office",
+    "protein intake to build muscle",
+    "is notion on windows",
+    "random song id"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.68,
+    "zapier office": 8.64,
+    "protein intake to build muscle": 4.09,
+    "is notion on windows": 1.7,
+    "random song id": 0.21
+   },
+   "requeued": [
+    "protein intake to build muscle",
+    "is notion on windows"
+   ]
+  },
+  {
+   "at": 1789975924.8855758,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "is notion on windows",
+    "protein intake to build muscle",
+    "convert linux to windows",
+    "apple watch se 3 44mm"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.36,
+    "is notion on windows": 0.72,
+    "protein intake to build muscle": 1.85,
+    "convert linux to windows": 1.89,
+    "apple watch se 3 44mm": 8.83
+   },
+   "requeued": [
+    "convert linux to windows"
+   ]
   }
  ],
  "anchors": [
@@ -9949,7 +10307,18 @@
   "logo apple stuck": 1,
   "problems with rental property": 3,
   "book writing plan": 2,
-  "logo design illustrator": 1,
-  "laptop dell": 1
+  "logo design illustrator": 3,
+  "laptop dell": 1,
+  "stl files": 1,
+  "device does not have bluetooth": 3,
+  "daw ableton": 3,
+  "bed leveling": 1,
+  "smart tv 32 inch": 1,
+  "random song id": 3,
+  "is notion on windows": 3,
+  "protein intake to build muscle": 3,
+  "zapier office": 2,
+  "convert linux to windows": 1,
+  "apple watch se 3 44mm": 1
  }
 }

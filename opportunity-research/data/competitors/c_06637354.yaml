@@ -1,0 +1,187 @@
+cluster_id: c_06637354
+head_term: "pc gaming emulator"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 5
+pages_failed: 3
+competitors:
+  - name: "Softonic - Download Emulator Games For Windows"
+    url: "https://en.softonic.com/downloads/emulator-games-for-windows"
+    site: en.softonic.com
+    kind: tool
+    fetch_status: ok
+    solves: "A browsable download directory of Windows emulators with per-program listings, ratings and download buttons - the only fetched page that actually hands over software rather than describing it."
+    does_not_solve: "No guidance on which emulator suits a given console or PC, no BIOS/firmware or controller setup, no per-game compatibility, and no fix path for an emulator that runs badly."
+    workflow_remaining: "After downloading, the visitor must find compatible game files themselves, configure the emulator and load the game - \"none of which the page provides\"."
+    business_model: "Ad- and download-monetised directory; the footer carries advertising and publisher-monetisation offers, and listings are marked Free or Paid."
+    currency: "not stated - no publication or update date visible on the page"
+    coverage: "Multiple emulators spanning Nintendo 64, PlayStation, Xbox 360, Android, arcade and DOS; MAME is described as an \"Emulator that lets you play thousands of games\"."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: yes
+    needs_account: no
+    data_reproducible: "inference: yes - the catalogue is a list of publicly downloadable emulator projects with version and platform metadata that could be rebuilt by tracking the projects' own release pages."
+    ai_replaceable: "inference: partly - an assistant can name the same emulators and link their official sites, which removes the directory's main advantage, but it cannot host a download."
+    why_still_searching: "inference: the directory answers \"where do I get it\" but not \"which one, will it run my game, and why is it stuttering\", which is what most of this cluster's members ask."
+    evidence:
+      - "Download Emulator Games For Windows - Best Software & Apps"
+      - "Emulator that lets you play thousands of games"
+      - "Advertising Opportunities"
+      - "Monetization solutions for Publishers"
+  - name: "Retro Dodo - The Best Emulators For PC Retro Gaming In 2026 [All Tested]"
+    url: "https://retrododo.com/best-emulators-for-pc/"
+    site: retrododo.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A ranked, recently updated list of 12 PC emulators with per-system recommendations and a claim of hands-on testing."
+    does_not_solve: "Does not explain acquiring ROMs, configuring BIOS files, or any of the setup needed to actually run a game - the fetch found this \"not stated\"; no per-game compatibility and no troubleshooting."
+    workflow_remaining: "Choose an emulator from the list, download it from the project itself, supply game files and BIOS, and configure controls and video settings unaided."
+    business_model: "Affiliate-supported editorial with memberships, tipping and a linked accessory shop."
+    currency: "\"Updated on May 13, 2026\""
+    coverage: "12 emulators across multiple systems (N64, PS2, Dreamcast and others), introduced as \"All Tested\"; of RetroArch it says \"It covers all of the retro consoles you could possibly need\"."
+    dominates_serp: "2 of 18 checked results"
+    needs_install: unknown
+    needs_account: no
+    data_reproducible: "inference: yes for the list itself - emulator names, supported systems and release status are public; the \"All Tested\" claim is the non-reproducible part, since it rests on the author's own hardware runs."
+    ai_replaceable: "inference: largely yes - \"which emulator for which console\" is a stable, well-documented answer a chat assistant gives directly; the editorial testing claim is the only differentiator."
+    why_still_searching: "inference: the list ends exactly where the user's problem starts - after picking an emulator they still need BIOS, ROM and per-game fixes, which is why \"pc gaming emulator not working\" and \"compatibility list\" remain separate searches."
+    evidence:
+      - "We've been using the following emulators for years now, so you can trust us when we say that we've picked the best of the best."
+      - "Updated on May 13, 2026"
+      - "It covers all of the retro consoles you could possibly need"
+      - "You can do so by becoming a member, tipping us or taking a look at our gaming accessory company."
+  - name: "PC Gamer Forums - Question about gaming emulators for PC"
+    url: "https://forums.pcgamer.com/threads/question-about-gaming-emulators-for-pc.125881/"
+    site: forums.pcgamer.com
+    kind: community
+    fetch_status: ok
+    solves: "Peer answers to a beginner's orientation questions, mostly about the legality and ethics of emulation and when emulators are worth using at all."
+    does_not_solve: "No emulator recommendations tied to systems, no setup instructions, no performance fixes; the thread's newest post is from 2022."
+    workflow_remaining: "Obtain emulator software, acquire or dump game files, and research console-specific dumping procedures independently."
+    business_model: "Publisher-run forum; no pricing, subscription, ads or affiliate links stated in the fetched content."
+    currency: "most recent post dated \"Apr 4, 2022\""
+    coverage: "Discussion touching Nintendo Switch, Wii U, older cartridge systems and Xbox 360; one poster mentions having \"dumped my own copy of the Wii U version of Breath of the Wild\"."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: yes
+    data_reproducible: "inference: not applicable as data - this is opinion and legal folk-knowledge rather than a dataset; the underlying legal position is public but the thread itself is not a structured source."
+    ai_replaceable: "inference: yes - a chat assistant covers the legality and \"should I bother\" framing at least as well, and more currently than a 2022 thread."
+    why_still_searching: "inference: a four-year-old thread that answers whether emulation is legal leaves the practical questions - which emulator, will my game run, why does it stutter - entirely open."
+    evidence:
+      - "The most important thing before using an emulator is that you should buy an original copy of the game"
+      - "making a personal copy of a game is a bit of a legal grey area"
+      - "You must log in or register to reply here."
+      - "Apr 4, 2022"
+  - name: "Esports.net - Best Emulators for PC in 2025"
+    url: "https://www.esports.net/news/best-emulators-for-pc/"
+    site: esports.net
+    kind: editorial
+    fetch_status: ok
+    solves: "A guide to ten emulators worth downloading, with recommended games for each and an explicit note on cost and on the legality of ROM sources."
+    does_not_solve: "No BIOS/firmware instructions, no per-game compatibility data, no performance troubleshooting; dated 2025 while rival lists are dated 2026."
+    workflow_remaining: "Download the chosen emulators, and obtain game files legitimately - the page warns that \"downloading a bunch of ROMs for free from an unofficial website is not\" legal and suggests creating ROMs from games already owned."
+    business_model: "Ad-supported editorial; the article states most emulators are free but no affiliate disclosure was found in the text."
+    currency: "\"August 28, 2025\""
+    coverage: "Ten emulators \"From single console emulators like SNES9x and ePSXe to multi-platform powerhouses like RetroArch and LaunchBox\"."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: no
+    data_reproducible: "inference: yes - emulator names, cost status and supported consoles are public facts obtainable from each project's site."
+    ai_replaceable: "inference: yes - the list-plus-legality framing is standard knowledge a chat assistant reproduces without the ad load."
+    why_still_searching: "inference: it repeats the same ten names as its competitors without resolving setup or per-game behaviour, so it does not end the search for anyone past the choosing stage."
+    evidence:
+      - "the best emulators for PC that are worth downloading in 2025"
+      - "The good news is that almost every emulator listed here is free, so you don't have to choose just one."
+      - "From single console emulators like SNES9x and ePSXe to multi-platform powerhouses like RetroArch and LaunchBox"
+      - "August 28, 2025"
+  - name: "Beebom - The Best Emulators for PC for Every Gamer in 2026"
+    url: "https://beebom.com/best-emulators-for-pc/"
+    site: beebom.com
+    kind: editorial
+    fetch_status: ok
+    solves: "The most complete fetched answer for choosing: ten emulators grouped by family with pros/cons and selection guidance, and it is the only fetched page that states the BIOS and firmware prerequisites for specific emulators."
+    does_not_solve: "Still no per-game compatibility list, no hardware sizing for the user's PC, and no symptom-based fix flow for an emulator that crashes or stutters."
+    workflow_remaining: "Download and install each emulator individually, then supply the prerequisites yourself - a PlayStation BIOS dump, PS3 firmware for RPCS3, decrypted CCI files for Azahar - before any game runs."
+    business_model: "Ad-supported editorial that reports each emulator's own pricing (free, paid tiers, ad-supported); no affiliate links stated in the fetched content."
+    currency: "\"Updated: February 18, 2026\""
+    coverage: "Ten emulators covering Nintendo, PlayStation and Android families; claims RetroArch reaches \"over 200 gaming systems via Cores\", from Atari 2600 and NES through PS1, N64 and some arcade games."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: no
+    data_reproducible: "inference: yes - emulator capabilities, price tiers and BIOS requirements are documented on the projects' own sites and wikis, so this comparison could be rebuilt and kept current by tracking those sources."
+    ai_replaceable: "inference: mostly yes for the recommendations and the BIOS prerequisites, which are stable and documented; an assistant is weaker on which build is current in 2026."
+    why_still_searching: "inference: it tells a user that a BIOS dump or firmware is needed but not how to get past that step or what to do when a specific game misbehaves, so the search continues into setup and fix queries."
+    evidence:
+      - "Updated: February 18, 2026"
+      - "over 200 gaming systems via Cores"
+      - "make sure you have a PlayStation BIOS dump from your own console"
+      - "Free, Gold costs $5.99"
+      - "Free with ads"
+  - name: "YouTube - The Problematic Games Emulators Still Can't Fix"
+    url: "https://www.youtube.com/watch?v=ZZw67gZ05yQ"
+    site: youtube.com
+    kind: community
+    fetch_status: "failed: empty body on two attempts (only YouTube navigation and footer markup returned; no title, channel, description, date or view count retrievable)"
+    solves: "unknown - from the search-result title only, a video titled \"The Problematic Games Emulators Still Can't Fix\", presumably about games that emulators handle badly."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - no page content was retrieved."
+    ai_replaceable: "inference: unknown; note only that video content is not substitutable by text in the same way, but nothing about this video could be verified."
+    why_still_searching: "inference: unknown - but a video answer to a fix-shaped query is unsearchable and unskimmable, which is a general reason text seekers keep looking."
+    evidence:
+      - "Page body empty. (fetch tool response - only YouTube navigation menu, footer links and copyright information were returned)"
+  - name: "Logical Increments - How to Build the Best PC for Emulation and Retro Gaming"
+    url: "https://www.logicalincrements.com/articles/build-pc-emulation-emulators-retro-gaming"
+    site: logicalincrements.com
+    kind: editorial
+    fetch_status: "failed: empty body on two attempts (page returned only the title \"Logical Increments\" with no article text)"
+    solves: "unknown - from the search-result title only, guidance on building a PC suited to emulation and retro gaming."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - no page content was retrieved."
+    ai_replaceable: "inference: unknown - content not verifiable."
+    why_still_searching: "inference: unknown; the hardware-sizing angle implied by the title was not confirmed by any fetched text."
+    evidence:
+      - "Page body empty. (fetch tool response - only a page title with no body content was returned)"
+  - name: "Marks Angry Review - Best Android Emulators for PC and Mac"
+    url: "https://marksangryreview.com/best-android-emulators/"
+    site: marksangryreview.com
+    kind: editorial
+    fetch_status: "failed: empty body on two attempts (no page text returned)"
+    solves: "unknown - from the search-result title only, a list of Android emulators for PC and Mac, i.e. a different sense of \"emulator\" from the retro-console pages."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - no page content was retrieved."
+    ai_replaceable: "inference: unknown - content not verifiable."
+    why_still_searching: "inference: unknown; its presence in the same SERP does suggest the query is ambiguous between console and Android emulation, but that is a SERP observation, not a claim about this page."
+    evidence:
+      - "Page body empty. (fetch tool response - no body text was returned)"
+synthesis:
+  pieced_together_answer: "Choosing an emulator is answered many times over - retrododo.com (12, \"All Tested\", updated May 2026), beebom.com (10, updated February 2026) and esports.net (10, August 2025) overlap heavily on the same names. Getting the software is a separate stop, en.softonic.com, which hands over downloads but explains nothing. The prerequisites that actually block a first launch appear on exactly one fetched page: beebom.com names the PlayStation BIOS dump, RPCS3 firmware and Azahar CCI requirement. Legality sits on forums.pcgamer.com and in a paragraph of esports.net. Hardware sizing is implied by logicalincrements.com and per-game failure by the YouTube result, but neither could be fetched, so both are unknown. Nothing fetched offers per-game compatibility or a symptom-to-fix path, even though the cluster contains \"pc gaming emulator not working\", \"pc gaming emulator problems\" and \"pc gaming emulator compatibility list\". The SERP is also split between two meanings of emulator: retro-console (retrododo, beebom, esports.net) and Android-on-PC (marksangryreview.com, and memuplay.com in the unfetched results)."
+  single_destination_would_need: "One place that takes the console or game the user wants to play plus their PC's specifications, and returns the emulator to use and its current build, whether that machine can run it, the BIOS/firmware or decryption prerequisites with a legal way to satisfy them, a known-good settings profile for that game, and a symptom-driven fix path (crash, stutter, black screen, audio desync) tied to emulator version - i.e. choosing, setup, compatibility and troubleshooting in one flow rather than across four sites."
+  existing_tools_that_do_this: "Only en.softonic.com among the checked results is a tool in any sense, and it is a download directory, not a compatibility or diagnostic tool (the input file records tool_hits: 1 for this cluster). Per-game compatibility databases maintained by emulator projects were not present in the checked results, so their existence and quality are unknown from this evidence."
+  data_source_and_reproducibility: "inference: the choosing layer is trivially reproducible - emulator names, supported systems, price tiers and BIOS requirements are all published by the projects themselves, which is why three fetched sites carry near-identical lists and why the layer has no defensibility. The layer that would be worth building, per-game and per-version compatibility plus hardware sizing, is not reproducible from a single public feed: it needs either systematic testing (which retrododo.com gestures at with \"All Tested\") or aggregation of emulator-project compatibility wikis and user reports, neither of which appeared in the checked results."
+  ai_resilience: "inference: low for the head term. \"Best PC emulator\" is exactly the stable, well-documented question a chat assistant answers better than an ad-laden listicle, and the fetched lists converge on the same names anyway. Resilience lies in the parts none of the fetched pages hold: current per-game behaviour on a named emulator build, whether a specific PC is fast enough, and a diagnosis that depends on the user's logs, GPU driver and settings - all state-dependent and fast-changing."
+  open_questions:
+    - "Unknown: traffic, audience size or revenue for any of these sites - no fetched page states any such figure."
+    - "Three of eight selected pages could not be read (youtube.com, logicalincrements.com, marksangryreview.com), so the hardware-sizing and per-game-failure corners of this cluster are unassessed."
+    - "Whether the cluster is one problem or two - retro-console emulation versus Android-on-PC emulation - is unresolved; the checked results contain both, and the head term does not disambiguate."
+    - "Whether per-game compatibility data can be aggregated lawfully and kept current, and whether emulator projects' own wikis already satisfy that need, is unknown from the checked results."
+    - "The legal grey area around ROM and BIOS acquisition (raised on forums.pcgamer.com and esports.net) may constrain how completely any single destination can close the workflow; the extent is unknown."

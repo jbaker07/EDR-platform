@@ -1,0 +1,184 @@
+cluster_id: c_51963424
+head_term: "wood stain remover"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 6
+pages_failed: 2
+competitors:
+  - name: "Google Patents - US6979475B2, staining a fiberglass door"
+    url: "https://patents.google.com/patent/US6979475"
+    site: patents.google.com
+    kind: vendor
+    fetch_status: "failed: HTTP 503 Service Unavailable on two attempts"
+    solves: "unknown - from the SERP title only: \"US6979475B2 - Process and product by-process for staining a fiberglass door - Google Patents\"."
+    does_not_solve: "unknown"
+    workflow_remaining: "unknown"
+    business_model: "unknown"
+    currency: "unknown"
+    coverage: "unknown - the SERP title refers to fiberglass doors, not wood."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "unknown"
+    needs_account: "unknown"
+    data_reproducible: "inference: yes - patent text is public-domain bibliographic and legal data, and Google Patents is an index over it rather than an original source, so the underlying corpus is fully rebuildable from public patent offices."
+    ai_replaceable: "inference: unknown for this document; a patent's full claim text is not something an assistant reproduces reliably, but its relevance to a homeowner staining a door is doubtful."
+    why_still_searching: "inference: a patent for an industrial fiberglass-door staining process ranking for \"how to wood stain a door\" is a query-intent mismatch, so a searcher landing here almost certainly returns to search."
+    evidence:
+      - "no page text retrieved; server returned HTTP 503 on two attempts (not a page quote)"
+  - name: "Issuu - Spotless: How to Get Olive Oil Stains Out of Carpet & Fabric"
+    url: "https://issuu.com/spotless_magic_world/docs/spotless-how_to_get_olive_oil_stains_out_of_carpet"
+    site: issuu.com
+    kind: vendor
+    fetch_status: ok
+    solves: "Almost nothing at the landing page - the actual stain-removal content sits inside a flipbook that the page does not render as text; only platform metadata was retrievable."
+    does_not_solve: "The retrieved page shows no removal method, no surfaces, no stain types; and its subject is carpet and fabric, not wood."
+    workflow_remaining: "Reader must open the flipbook viewer to reach any instructions at all, then still perform the removal."
+    business_model: "Publishing platform; the page structure carries advertisements and prominently offers sign-up. No pricing or affiliate links stated for this document."
+    currency: "Published on Jan 3, 2025 per the page."
+    coverage: "unknown from the retrieved text - the document title refers to olive oil stains on carpet and fabric."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - a sign-up option is displayed, but the page does not state that reading requires one."
+    data_reproducible: "inference: yes - the hosted document is ordinary stain-removal advice with no dataset behind it; Issuu itself is a hosting layer, not a data asset."
+    ai_replaceable: "inference: yes - an assistant would answer the stain question directly instead of routing the reader into a flipbook viewer."
+    why_still_searching: "inference: the content is one indirection away from the reader and is about the wrong surface for this cluster, so a searcher gets nothing usable and searches again."
+    evidence:
+      - "Published on Jan 3, 2025"
+      - "Turn static files into dynamic content formats."
+      - "Issuu converts static files into: digital portfolios, online yearbooks, online catalogs, digital photo albums and more."
+  - name: "Rustica - How to Stain a Wood Door"
+    url: "https://rustica.com/how-to-stain-a-wood-door/"
+    site: rustica.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A seven-step staining procedure covering preparation, application and the protective topcoat, and it makes two points most competitors omit: stain alone is not a finish system, and 'dry to touch' is not 'ready for use'."
+    does_not_solve: "Does not state how much stain a door needs, names no specific drying times, recommends no brands, and does not tell the reader how to identify their wood species or existing finish."
+    workflow_remaining: "Reader must identify the wood species and any existing finish, choose and buy a stain and a topcoat, source test material that matches the door, work out drying times elsewhere, and do the work."
+    business_model: "Retail - the page carries links to the site's own barn doors and hardware throughout. No pricing, subscription, ads or affiliate disclosure stated on the page."
+    currency: "Published Tuesday, July 31st, 2018, with an update note dated September 19, 2026 shown on the page."
+    coverage: "Solid and veneered doors; penetrating and gel stains; oil-based and water-based finishes; interior and exterior application. Specific wood species, brand recommendations and precise drying times are not provided."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no - a login option exists but is not required to read the guide."
+    data_reproducible: "inference: yes - generic finishing technique with no underlying dataset; the one thing that would need data (coverage rate per stain per wood species) is exactly what the page omits."
+    ai_replaceable: "inference: yes - the procedure and both caveats are standard finishing knowledge an assistant can state, and an assistant can also adapt it to the reader's wood and product."
+    why_still_searching: "inference: the page tells the reader what to do but not what to buy or how much, so the two decisions that block starting - which stain, how much - are still open, which matches the cluster's calculate-intent members such as \"how much wood stain for a door\"."
+    evidence:
+      - "Stain adds color; the specified protective finish completes the system."
+      - "Do not try to create a darker color by leaving a thick wet stain layer behind."
+      - "Dry-to-touch is not the same as ready for hardware, weather seals or daily use."
+  - name: "RealCraft - How To Stain A Door"
+    url: "https://realcraft.com/blogs/articles/how-to-stain-a-door"
+    site: realcraft.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A worked example with photographs - one specific wood (sapele mahogany) and one specific product (Osmo) - including application technique, the 24-hour wait before turning the door, and the oily-rag fire warning."
+    does_not_solve: "Does not state how much stain the reader's door needs, does not help choose a colour for a different species, and says the process differs for urethane-based stains without saying how."
+    workflow_remaining: "Reader must work out quantity for their own door size, pick a colour for their own species and decor, and allow 24 hours between sides."
+    business_model: "Retail - the page links its own Osmo stain collection, unfinished doors and door hardware. No pricing, subscription, ads or affiliate links stated."
+    currency: "Published June 17, 2022 per the page."
+    coverage: "Narrow - focused on Osmo water-based stains; two wood species referenced (sapele mahogany, white oak); does not address interior versus exterior differences."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - not stated on the page."
+    data_reproducible: "inference: yes - a photographed worked example is reproducible by anyone who stains a door; the original photography is not reproducible, but the information in it is."
+    ai_replaceable: "inference: partly - the steps and safety warning yes, but the visual evidence of how the finish actually looks on a named species is something a text assistant cannot supply."
+    why_still_searching: "inference: it answers for one wood and one product; a reader with oak, pine or an oil-based stain cannot map it onto their job and must find another page."
+    evidence:
+      - "You want to have an even coating. Once you're done with your roller, use a paint brush to get into nooks and crannies."
+      - "These rags are highly flammable and combustible. So you need to dispose of them safely."
+      - "Let the door air dry for 24 hours before turning it over and applying stain to the other side."
+  - name: "ZAR - How to Stain Your Wood Door Like a Pro"
+    url: "https://www.zar.com/blog/diy-door-makeover-how-to-stain-a-wood-door"
+    site: zar.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Manufacturer guidance covering preparation, stain selection across types, application and maintenance - and, uniquely among the pages fetched, it states concrete drying times (24-48 hours for stain, up to 72 hours for sealer)."
+    does_not_solve: "Does not state how much stain is needed for a door, and gives no detailed colour-selection method beyond general descriptions of stain types."
+    workflow_remaining: "Reader must pick a product and colour, find a retailer through the site's store locator, estimate quantity themselves, and plan around the stated drying windows."
+    business_model: "Manufacturer content marketing - product links to its own semi-transparent, solid and clear stains plus a 'Where to Buy' retailer locator. No pricing, ads or affiliate links stated."
+    currency: "unknown - no published or updated date shown on the fetched page."
+    coverage: "Broadest of the staining pages fetched: oil-based, water-based and gel stains; semi-transparent, solid and clear; pine, fir and birch named in relation to blotching; both exterior and interior doors."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - not stated on the page."
+    data_reproducible: "inference: partly - drying times and blotch-prone species are product and material facts that exist on manufacturer technical data sheets and could be compiled from public label and TDS information across brands; the brand's own product line is not reproducible."
+    ai_replaceable: "inference: partly - the technique yes; specific cure times for a specific product are manufacturer data an assistant should not invent, which is the one durable element here."
+    why_still_searching: "inference: the page routes toward one brand's products and a store locator rather than answering 'how much do I need' or 'which colour on my wood', so the purchase decision stays unresolved."
+    evidence:
+      - "Staining is an efficient method for both preserving and enhancing the beauty of wooden doors."
+      - "Gel stains are thicker in consistency and provide a more consistent color."
+      - "Apply a sealer or topcoat annually to protect against UV damage, especially if the door gets direct sunlight."
+  - name: "Krosswood Doors - A Step-by-Step Guide to Staining Your Wood Door Like a Pro"
+    url: "https://www.krosswood.com/blogs/krosswood-doors/a-step-by-step-guide-to-staining-your-wood-door-like-a-pro"
+    site: krosswood.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A step-by-step staining guide from a door manufacturer, with the pre-stain conditioner point for soft or porous species and the reassembly sequence at the end."
+    does_not_solve: "Does not state quantity of stain needed, gives no colour-selection method, defers drying times to the manufacturer's recommendations without stating any, and does not cover stain types, door styles, or interior versus exterior differences."
+    workflow_remaining: "Reader must find the product's own drying times, decide on a colour, estimate quantity, and do the sanding, conditioning, staining, topcoating and rehanging themselves."
+    business_model: "Door manufacturer promoting its own doors, stain samples and consultation services; a Pro Program login exists for trade users. No pricing, ads or affiliate links stated."
+    currency: "March 11, 2024, by Brady Kohl, per the page."
+    coverage: "Limited - soft/porous species (pine, fir) and polyurethane/varnish sealants named; stain types, door styles and exterior versus interior not addressed."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no to read; the site has an optional Pro Program login."
+    data_reproducible: "inference: yes - the guide is commodity finishing advice; the only non-reproducible asset is the company's own door catalogue and stain samples."
+    ai_replaceable: "inference: yes - it is the fourth near-identical procedure among six fetched pages, which is itself evidence that the content is commodity and generatable."
+    why_still_searching: "inference: it explicitly hands the most time-sensitive question - how long to wait - back to the product label, so the reader must go to another source mid-job."
+    evidence:
+      - "Sanding is essential for achieving a smooth and even finish when staining wood."
+      - "Allow the topcoat to dry completely before reattaching any hardware and rehanging the door."
+      - "If you're working with a soft or porous wood species such as pine or fir, applying a pre-stain conditioner can help prevent blotchiness"
+  - name: "Grove Collaborative - How to Get Oil Stains Out of Clothes Naturally"
+    url: "https://www.grove.co/blog/how-to-remove-oil-stains"
+    site: grove.co
+    kind: editorial
+    fetch_status: ok
+    solves: "A step-by-step method for removing oil and grease stains from clothing using household products, with the two operative principles - act fast, and blot rather than rub."
+    does_not_solve: "Covers textiles only. Wood is not mentioned anywhere on the page, so for this cluster's wood-stain intent it solves nothing."
+    workflow_remaining: "Reader performs the multi-step blot, dish soap, baking soda, rinse, soak, wash and air-dry process, repeating if the stain persists, and is nudged toward buying the retailer's products."
+    business_model: "Retail - multiple product links into Grove Collaborative's own store (dish soap, paper towels, baking soda, bleach), with membership signup as a purchase path. No subscription price or affiliate disclosure stated on the page."
+    currency: "Last Updated: August 31, 2022 per the page."
+    coverage: "Clothing fabrics (jeans, synthetics, natural fibers) and stain types (cooking oil, motor oil, grease, set-in stains). Wood is not covered."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - not stated for reading; membership signup is promoted for purchases."
+    data_reproducible: "inference: yes - household stain-removal method with no proprietary dataset; the closest thing to data would be a stain-type by surface-type matrix, which this page does not provide."
+    ai_replaceable: "inference: yes - a chat assistant answers 'how do I get oil out of this' at least as well and can branch on the fabric and the age of the stain."
+    why_still_searching: "inference: this page ranking first for \"ways to remove oil stains best\" shows the query is dominated by laundry intent; a user meaning oil stains on wood gets a clothing answer and must reformulate."
+    evidence:
+      - "The longer you wait, the more absorbed the oil and grease will become."
+      - "Always blot, never rub, a stain, including oil stains."
+      - "Since oils and greases are semi-solid at room temperature, it needs to be liquefied to be fully removed."
+  - name: "Whirlpool - How to Get Oil & Grease Out of Clothes"
+    url: "https://www.whirlpool.com/blog/washers-and-dryers/how-to-get-grease-and-oil-stains-out.html"
+    site: whirlpool.com
+    kind: editorial
+    fetch_status: "failed: HTTP 503 Service Unavailable on two attempts"
+    solves: "unknown - from the SERP title only: \"How to Get Oil & Grease Out of Clothes | Whirlpool\"."
+    does_not_solve: "unknown"
+    workflow_remaining: "unknown"
+    business_model: "unknown"
+    currency: "unknown"
+    coverage: "unknown - the SERP title refers to clothes, not wood."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "unknown"
+    needs_account: "unknown"
+    data_reproducible: "inference: unknown - nothing was read."
+    ai_replaceable: "inference: unknown"
+    why_still_searching: "inference: unknown; as with grove.co, an appliance maker's laundry page ranking for this query points to the same laundry-versus-wood ambiguity, but that is inferred from the title and the SERP, not from the page."
+    evidence:
+      - "no page text retrieved; server returned HTTP 503 on two attempts (not a page quote)"
+synthesis:
+  pieced_together_answer: "This cluster is really two unrelated jobs, and the checked queries land on different sites for each. For applying stain to a door, the procedure is duplicated across four manufacturer and retailer blogs (rustica.com, realcraft.com, zar.com, krosswood.com) that each hold one missing piece: rustica.com supplies the finish-system framing and the dry-to-touch warning, realcraft.com supplies a photographed worked example with a 24-hour between-sides wait but only for one wood and one product, zar.com supplies the only concrete cure times and the broadest coverage of stain types, and krosswood.com supplies the pre-stain conditioner rule for pine and fir while deferring drying times back to the product label. Not one of the six fetched pages states how much stain a door needs, and none gives a method for choosing a colour for a given species. For removing stains, the checked query \"ways to remove oil stains best\" returns laundry content (grove.co, whirlpool.com) and a carpet/fabric flipbook (issuu.com) - none of which mentions wood at all - and the one vendor-category result is a patent for staining fiberglass doors. The cluster's own wood-stain-removal members (\"best stain remover for wood\", \"how to remove old stain\", \"wood stain remover not working\") are served by none of the pages fetched."
+  single_destination_would_need: "One destination would have to (a) disambiguate at the door: applying stain versus stripping old stain versus removing a spill stain from wood versus removing an oil stain from fabric - the checked queries show searchers in all four buckets landing on the same results; (b) compute quantity from door or deck dimensions and the product's stated coverage rate, which no fetched page does and which several cluster members ask for directly (\"how much wood stain for a door\", \"how much wood stain for a deck\", \"wood deck stain calculator\"); (c) branch on wood species, telling the user whether their wood needs a conditioner and how a given colour reads on it, with visual evidence - realcraft.com shows this is possible but only for one species; (d) give the real timeline - recoat, cure, rehang, weather exposure - in one place instead of deferring to a label as krosswood.com does; and (e) for removal, branch by finish type and stain type on wood, which is absent from every page fetched."
+  existing_tools_that_do_this: "none found in the checked results - the cluster's fragmentation record reports tool_hits 0, and all eight selected results were blog articles, a patent document or a hosted flipbook. In particular no stain quantity calculator appeared, despite \"wood deck stain calculator\" being an explicit cluster member and 7 calculate-intent members in the cluster."
+  data_source_and_reproducibility: "inference: the procedural content is commodity and fully reproducible - four fetched pages describe the same sequence. Two genuine data assets are visible but unbuilt in the checked results: (1) coverage rate and cure/recoat times per product, which exist on manufacturers' public technical data sheets and labels and could be compiled across brands - zar.com shows one brand's version of this, and krosswood.com's deferral to the label shows the gap; and (2) how a given stain colour reads on a given species, which realcraft.com demonstrates photographically for sapele mahogany but which would have to be produced, not scraped, since it requires physical samples. Neither is protected by anything but the work of assembling it."
+  ai_resilience: "inference: low for the how-to layer - four of six readable pages are near-identical procedures, which is the strongest available evidence that this content is commodity and an assistant can generate it while also adapting to the user's wood and product. Resilience is higher for three things: product-specific cure times and coverage rates, which an assistant should not invent and which zar.com and krosswood.com both point to as label data; visual colour-on-species evidence, which is photographic; and a quantity calculation tied to real measurements and a real product's coverage rate, which is a computation over data rather than a recall task."
+  open_questions:
+    - "Two of eight selected pages failed with HTTP 503 (patents.google.com, whirlpool.com), so the vendor-category coverage in this cluster is thin; a second pass is needed to confirm whether Google Patents offers anything of use to a homeowner here, which on the title alone looks unlikely."
+    - "The cluster label is \"stain wood apply furniture\" and the head term is \"wood stain remover\", but neither checked query targets removal from wood. The removal half of the cluster - members such as \"best stain remover for wood\", \"how to remove old stain\", \"wood stain remover not working\", \"fix wood water stain\" - has no competitor evidence at all in this pass and should be its own SERP check."
+    - "\"wood deck stain calculator\" is an explicit cluster member and decks appear repeatedly in the member list, but the checked query was about doors, so deck-specific competition and any existing deck stain calculators are unexamined."
+    - "It is unknown from the fetched pages what coverage rates manufacturers publish and whether they are consistent enough across brands to power a quantity calculator; this needs a direct check of technical data sheets rather than blog pages."
+    - "The tie-break between krosswood.com and tomsguide.com (both rank 6, on different checked queries) was resolved in favour of the first-listed query, so tomsguide.com was not fetched; its laundry-side coverage is unassessed."
+    - "No page fetched states traffic, users, revenue or market share, so the relative strength of these manufacturer and retailer blogs is unmeasured; dominates_serp is 1 of 18 for every site here, which is the most fragmented of the three clusters analysed."

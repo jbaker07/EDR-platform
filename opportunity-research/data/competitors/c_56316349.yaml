@@ -1,0 +1,185 @@
+cluster_id: c_56316349
+head_term: "roof leaking"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 7
+pages_failed: 1
+competitors:
+  - name: "The Garage Journal - How to stop nailed on metal roof from leaking"
+    url: "https://www.garagejournal.com/forum/threads/how-to-stop-nailed-on-metal-roof-from-leaking.73363/"
+    site: garagejournal.com
+    kind: community
+    fetch_status: ok
+    solves: "Real practitioner debate on one specific failure mode - nailed (rather than screwed) metal panels leaking at the fastener - with competing remedies: replace nails with gasketed screws, patch with rubber flashing, or coat the roof."
+    does_not_solve: "No consensus answer, no cost figures, no product part numbers, no guidance on which remedy suits which panel condition, and nothing about roof types other than R-panel/corrugated metal."
+    workflow_remaining: "Reader must pick among conflicting recommendations, buy screws, sealant, flashing patches or coating, and do the roof work themselves."
+    business_model: "Advertising; the page shows banner ads and invites registration to remove them, and the fetched page indicates affiliate links via Skimlinks. No subscription price stated."
+    currency: "Thread started August 23, 2010; most recent reply June 17, 2019 - between roughly seven and sixteen years old."
+    coverage: "Narrow - R-panel galvanized metal roofs, nails vs. screws, sealants, rubber flashing patches and roof coatings; corrugated tin mentioned unfavourably."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no to read; an account is required to post replies, and registration is promoted as the way to avoid ads."
+    data_reproducible: "inference: no - the value is accumulated first-hand experience from named posters over nine years; that cannot be rebuilt from any public source, only re-accumulated."
+    ai_replaceable: "inference: partly - an assistant can summarise the same remedies, but it cannot supply the adversarial back-and-forth (\"screws are the only way\" vs. \"paint will stop every leak\") that lets a reader judge which advice to trust."
+    why_still_searching: "inference: the thread ends without resolution and is years old, so a reader leaves knowing the options but not which one applies to their roof."
+    evidence:
+      - "These are the proper nails that have the neoprene gasket. When it rains hard for a long time or when the snow melts some of the nails leak."
+      - "Screws are the only way to go. get the covered gasket types as the gaskets will degrade if exposed to sunlight."
+      - "A couple of decent coats of proper roof paint will stop every leak you have. Been there, done that many times."
+  - name: "Golden Group Roofing - How to Fix a Roof Leak: 8 DIY Quick Fixes"
+    url: "https://goldengrouproofing.com/blog/leaky-roof-problems-quick-fixes"
+    site: goldengrouproofing.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Covers temporary emergency containment - roofing tape, cement, tarps, plastic sheeting, caulk, spray sealant - plus safety warnings and the key diagnostic insight that the leak's entry point is not above the drip."
+    does_not_solve: "Explicitly does not give a permanent repair; no costs, no material quantities, no way to locate the entry point precisely, and the fixes are time-limited."
+    workflow_remaining: "Reader must trace the leak upslope themselves, buy materials, apply a temporary fix, then hire a roofer for the permanent repair within the stated 30-90 day window of a tarp."
+    business_model: "Lead generation for the company's own roofing repair and replacement work, with free consultation and scheduling calls-to-action. No pricing, subscription or affiliate links stated."
+    currency: "unknown - no published or updated date shown on the fetched page."
+    coverage: "Mainly asphalt shingle roofs, with metal and flashing mentioned; ice-dam guidance specific to Massachusetts/New England; the company serves the Greater Boston MetroWest area."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes - generic emergency-repair advice with no proprietary dataset; the only near-specific claim (a tarp lasting 30 to 90 days) is a rule of thumb anyone could publish."
+    ai_replaceable: "inference: yes - the full substance is a list of temporary measures and a warning, which an assistant can deliver and can tailor to the user's roof and weather."
+    why_still_searching: "inference: the page deliberately stops at 'temporary', so the searcher's actual problem - a permanent fix, or what it will cost - is still open when they leave, and the only offered next step is a paid visit in one metro area."
+    evidence:
+      - "These are emergency fixes to tide you over. They protect your home until a professional can make a permanent repair."
+      - "Water rarely drips straight down. It often enters through a small opening, travels several feet along a rafter or the roof decking"
+      - "A properly installed, anchored tarp typically lasts 30 to 90 days."
+  - name: "APM Hexseal - Common Causes of Metal Roof Leaks"
+    url: "https://apmhexseal.com/blog/common-causes-of-metal-roof-leaks/"
+    site: apmhexseal.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Explains the dominant failure mechanism for metal roofs - the fasteners and their degrading rubber washers - and points to sealing hardware as the fix."
+    does_not_solve: "Does not cover non-metal roofs, non-fastener leak paths beyond a mention of flashings and seams, leak location technique, cost, or any product other than the manufacturer's own."
+    workflow_remaining: "Reader must contact the manufacturer or buy its sealing hardware, and still has to identify which fasteners are leaking and replace them on the roof."
+    business_model: "Manufacturer content marketing for its own sealing hardware (Seelskrews, Seelbolts, Seelnuts, Seeloc Washers); products are offered but no pricing is stated, and no ads, subscription or affiliate links are stated."
+    currency: "Published February 16, 2022 per the page - roughly four and a half years old at the analyst date."
+    coverage: "Narrow - metal roofing, focused on screw/fastener leaks, plus flashings and seams; product coverage limited to the manufacturer's own line."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - not stated on the page."
+    data_reproducible: "inference: yes for the diagnosis (fastener washer degradation is common engineering knowledge); no for the product line itself, which is the manufacturer's own catalogue."
+    ai_replaceable: "inference: yes for the explanation - an assistant can state that fastener washers are the usual metal-roof leak point; less so for the specific hardware recommendation, which is vendor-supplied."
+    why_still_searching: "inference: the page converts a diagnosis into a pitch for one vendor's hardware, so a reader wanting a neutral repair procedure, a cost, or a second option must keep searching."
+    evidence:
+      - "The most common cause of metal roof leaks is the roofing screws used to attach the panels"
+      - "Our sealing hardware acts as both a fastener and a seal, so you can ensure the integrity"
+      - "Over time, rubber washers degrade and lose their sealing properties."
+  - name: "Recon Roofing - 10 Roof Leak Repair Tips To Use In A Pinch"
+    url: "https://reconroof.com/blog/roof-leak-repair/"
+    site: reconroof.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Combines temporary and permanent repair options with leak-identification technique, prevention, and criteria for when to stop and hire a professional."
+    does_not_solve: "No cost figures, no roof-type-specific procedure, no material quantities; does not state which roof types the advice applies to."
+    workflow_remaining: "Reader must trace the leak past the visible drip, choose and buy materials, do the work, or book an inspection with the company."
+    business_model: "Lead generation for Recon Roofing & Construction's services, with a contact form for inspections and quotes. No pricing, subscription or affiliate links stated."
+    currency: "Published April 28, 2025; last modified May 9, 2025 per the page - the most recently maintained page fetched in this cluster apart from harbertroofing.com."
+    coverage: "General residential roof leaks (storm damage, aging materials); roof types not specified; company located in Des Moines, IA per the page's schema data."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - not stated on the page."
+    data_reproducible: "inference: yes - the content is generic roofing advice with no dataset behind it."
+    ai_replaceable: "inference: yes - the list format and the 'when to call a pro' criteria are exactly what an assistant produces, conditioned on the user's situation."
+    why_still_searching: "inference: like its neighbours it ends at 'call us', and since the company is local to one metro, most readers cannot act on that call-to-action and return to search."
+    evidence:
+      - "Roof leak repair isn't always something you can wait to address."
+      - "Water can travel down beams, rafters, or insulation before forming a visible drip."
+      - "Multiple leaks across different areas of the roof"
+  - name: "Harbert Roofing - How to Repair a Leaking Roof from the Inside"
+    url: "https://www.harbertroofing.com/blogs/how-to-repair-a-leaking-roof-from-the-inside"
+    site: harbertroofing.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Answers the specific sub-intent 'fix it from the inside' - what an interior fix can and cannot achieve - with steps, safety notes and an FAQ, and is explicit about the limits of the approach."
+    does_not_solve: "States plainly that interior work does not address shingle damage, cracked flashing, membrane tears, gutter overflow or structural problems; no costs and no exterior procedure."
+    workflow_remaining: "Reader contains the water inside, then must still arrange an exterior repair with a professional; the company's phone number is given."
+    business_model: "Lead generation for Harbert Roofing's repair services, with a phone call-to-action and contact form. No pricing, subscription, ads or affiliate links stated."
+    currency: "Published February 20, 2026 per the page, author Waqar Sheikh - the most recent page fetched in this cluster."
+    coverage: "Causes listed include damaged shingles, cracked flashing, clogged gutters, broken vents, skylight failures and flat roof membrane damage; residential roofing generally; company serves the Redding, CA area."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes - generic advice, no dataset; the honest framing about interior fixes is editorial judgement, not proprietary data."
+    ai_replaceable: "inference: yes - an assistant would give the same caveat ('interior fixes are temporary') and could tailor it to the user's ceiling and roof type."
+    why_still_searching: "inference: the page is honest that it does not solve the problem, so by design the reader must go somewhere else for the actual repair, cost or contractor."
+    evidence:
+      - "Repairing a roof leak from the inside is sometimes possible as a temporary solution, but it does not replace a full roof repair."
+      - "Interior fixes do not stop shingle damage, cracked flashing, roof membrane tears, gutter overflow, or structural problems."
+      - "Water will find another path. Small leaks turn into major roof damage quickly."
+  - name: "Gold Shield Exteriors - Fix Roof Leak From Inside: 7 Emergency Steps"
+    url: "https://goldshieldexteriors.com/blog/how-to-fix-roof-leaks-from-the-inside"
+    site: goldshieldexteriors.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A seven-step emergency interior procedure with a tools list, safety warnings and guidance on when to call a professional - near-duplicate in scope to the Harbert page."
+    does_not_solve: "No permanent exterior repair, no costs, no way to locate the roof-side entry point, and no roof-type-specific method."
+    workflow_remaining: "Reader performs a temporary interior fix, then must call a roofer for the permanent repair; the company's phone number is given."
+    business_model: "Lead generation with multiple calls-to-action for free quotes, emergency service and free inspection. No pricing, subscription or affiliate links stated."
+    currency: "Published November 3, 2025 per the page."
+    coverage: "Causes covered include shingles, flashing, valleys and roof deck damage, and the page claims to cover all types of emergency roofing situations; service area is Clark County, Washington and nearby cities including Vancouver, Portland and Beaverton."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - not stated on the page."
+    data_reproducible: "inference: yes - the maintenance/lifespan claim and the step list are generic; there is no underlying dataset to rebuild."
+    ai_replaceable: "inference: yes - the fetched page is structurally interchangeable with the Harbert page, which is itself evidence that the content is commodity and an assistant can generate it."
+    why_still_searching: "inference: a searcher who opens two of these pages gets the same seven steps twice and no permanent answer, which is a strong reason to keep clicking."
+    evidence:
+      - "Water dripping through your ceiling is never a welcome sight."
+      - "Your temporary fix is just that — temporary."
+      - "proper roof maintenance and timely repairs can extend your roof's life by 10-15 years."
+  - name: "12 Stones Roofing - Stop Leaks on Metal Roof: 5 Permanent Fixes"
+    url: "https://12stonesroofing.com/blog/no-more-drips-how-to-permanently-stop-leaks-on-any-metal-roof/"
+    site: 12stonesroofing.com
+    kind: editorial
+    fetch_status: ok
+    solves: "The most complete single page fetched in this cluster: five permanent metal-roof repair methods, DIY-vs-professional guidance, prevention, FAQs, and - uniquely among the pages fetched - actual dollar ranges for professional repair (sealant application, patches, and full coating priced per square foot)."
+    does_not_solve: "Metal roofs only; no per-house estimate, no material quantity calculation, no leak-location tool, and it warns that manufacturer warranties may require a certified installer, which removes the DIY path for many readers."
+    workflow_remaining: "Reader must identify which of the five causes applies to their roof, decide DIY versus professional against the quoted price ranges and the warranty constraint, source materials, and either do the work or get an estimate."
+    business_model: "Lead generation for 12 Stones Roofing & Construction with a free-estimate call-to-action; unusually for this cluster, the page also states professional repair cost ranges. No subscription or affiliate links stated."
+    currency: "unknown - no published or updated date shown on the fetched page."
+    coverage: "Metal roofs including standing seam; five causes (loose fasteners, degraded sealant, flashing damage, rust, impact damage); Pasadena, TX and Gulf Coast climate referenced."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes - the cost ranges are the only quasi-data on any page fetched, and they are unsourced single-market figures that could be re-collected from contractor quotes; the repair methods are generic."
+    ai_replaceable: "inference: partly - the methods yes, but a current, local, sourced price range is the one thing on this page an assistant cannot reliably supply from memory."
+    why_still_searching: "inference: the cost ranges are broad and tied to one Texas market, and the warranty warning pushes readers toward a certified installer, so a reader elsewhere still needs a local price and a local contractor."
+    evidence:
+      - "Loose or Missing Fasteners: This is often the number one culprit."
+      - "A professionally applied repair using premium materials can last 10-20 years, often backed by a warranty."
+      - "Most manufacturers require that all repairs and alterations to their metal roofing systems be performed by a certified professional."
+  - name: "SMI (smi.engin.umich.edu) - 10 Tips to Fix a Leaky Roof"
+    url: "https://smi.engin.umich.edu/roof-leaking-repair"
+    site: smi.engin.umich.edu
+    kind: editorial
+    fetch_status: "failed: DNS resolution error (getaddrinfo ENOTFOUND smi.engin.umich.edu) on two attempts"
+    solves: "unknown - from the SERP title only: \"10 Tips to Fix a Leaky Roof\"."
+    does_not_solve: "unknown"
+    workflow_remaining: "unknown"
+    business_model: "unknown"
+    currency: "unknown"
+    coverage: "unknown - the site's three titles in the checked results cover repair tips, a quick-fix guide and repair cost, which suggests broader topical coverage than any other site here, but none of it was read."
+    dominates_serp: "3 of 18 checked results"
+    needs_install: "unknown"
+    needs_account: "unknown"
+    data_reproducible: "inference: unknown - nothing was read."
+    ai_replaceable: "inference: unknown"
+    why_still_searching: "inference: unknown; the host not resolving means some searchers may not reach it either, though this could be a fetch-path artefact rather than a real outage."
+    evidence:
+      - "no page text retrieved; host did not resolve on two attempts (not a page quote)"
+synthesis:
+  pieced_together_answer: "The cluster's answer is split across three layers, each on different sites. Diagnosis - that water enters far from where it drips - appears only in passing on goldengrouproofing.com and reconroof.com. Emergency containment from inside is on harbertroofing.com and goldshieldexteriors.com, which are near-duplicates of each other and both state their own fixes are temporary. Permanent repair is split by roof type: metal-roof fastener failure is on apmhexseal.com (vendor framing) and 12stonesroofing.com (five methods plus cost ranges), while shingle-roof permanent repair is largely absent from the pages fetched. Peer experience with conflicting remedies is on garagejournal.com, but that thread is from 2010-2019 and ends unresolved. Cost - one of the cluster's four calculate-intent members and several cost-related member queries - appears on exactly one fetched page (12stonesroofing.com), as a broad range tied to one Texas market. Every commercial page ends at a phone number in a single metro area."
+  single_destination_would_need: "One destination would have to (a) locate the leak - take the interior drip position, roof type, pitch and recent weather and narrow the roof-side entry point, which is the step every fetched page names as the hard part and none performs; (b) branch by roof type, since the metal-roof and shingle-roof answers in these results do not overlap; (c) separate the emergency containment decision from the permanent repair decision explicitly, rather than selling one as the other; (d) produce a local cost estimate and a material quantity, which only one fetched page approaches and only as a national-sounding range from one market; and (e) hand off to a contractor the user can actually hire, since each commercial page serves one metro (Boston, Des Moines, Redding, Clark County WA, Pasadena TX). No fetched page does more than two of these."
+  existing_tools_that_do_this: "none found in the checked results - the cluster's fragmentation record reports tool_hits 0, and all eight selected results were forum threads or articles; no calculator, estimator, database or leak-locating tool appeared, despite four calculate-intent members and member queries such as \"roof leaking repair cost\" and \"how much are roof leaks\"."
+  data_source_and_reproducibility: "inference: there is no proprietary dataset in this cluster. The repair knowledge is commodity trade knowledge reproduced nearly verbatim across sites (the two 'from the inside' pages are structurally interchangeable). The only candidate data assets are (1) repair cost by roof type, damage type and geography - present on exactly one fetched page as an unsourced single-market range, and rebuildable only by collecting contractor quotes rather than from any public source; and (2) contractor coverage by service area, which the fetched pages expose one company at a time. Both would have to be assembled, not scraped."
+  ai_resilience: "inference: low for the article layer and moderate for two things. The cause lists, emergency steps and when-to-call-a-pro criteria that make up seven of the eight selected results are exactly what a chat assistant answers, and an assistant can condition on the user's roof type and symptom where these static pages cannot. What resists substitution: the garagejournal.com thread's adversarial first-hand disagreement about what actually held over years, and current local pricing plus a hireable local contractor - the endpoint every commercial page in this cluster is built to capture."
+  open_questions:
+    - "smi.engin.umich.edu holds 3 of 18 checked results - the largest single-site share in this cluster - and did not resolve on two attempts, so the most SERP-dominant site here is entirely unevidenced. A University of Michigan engineering subdomain ranking for consumer roof-repair queries is itself unexplained and worth verifying."
+    - "The selection rule (tool/vendor/official first, then highest-ranked community and editorial) excluded lowes.com, which holds 2 of 18 checked results as a marketplace and ranks 2nd and 3rd on the two checked queries, and excluded statefarm.com and servpro.com. The insurance and restoration angle on roof leaks is therefore unexamined in this pass."
+    - "Cost is a stated intent in this cluster (4 calculate-intent members; members include \"roof leaking repair cost\" and \"roof leak repair cost\"), but only one fetched page states any figures and only for metal roofs in one Texas market. Whether a defensible national cost dataset can be assembled is unknown."
+    - "Flat roofs are prominent in the cluster label and members (\"flat roof leaking at edge\", \"how to fix a leaking flat roof\", \"flat roof leaking in winter\") but the two checked queries were metal-roof and generic, so no fetched page addresses flat roofs directly; flat-roof competition is unmeasured."
+    - "No page fetched states traffic, users, revenue or market share, so the commercial strength of these regional roofing companies is unknown; dominates_serp counts are the only presence evidence available."

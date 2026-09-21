@@ -1,0 +1,173 @@
+cluster_id: c_07440867
+head_term: "unity builds"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 7
+pages_failed: 0
+competitors:
+  - name: "Unity Docs - Troubleshoot common issues (Build Automation)"
+    url: "https://docs.unity.com/en-us/build-automation/check-build-results/troubleshoot-build-failures/overview"
+    site: docs.unity.com
+    kind: vendor
+    fetch_status: ok
+    solves: "The only first-party troubleshooting page in the checked results: a three-step method for Unity Build Automation failures - read the error logs, run a clean build, reproduce the error locally in batch mode - plus an index of platform-specific failure categories."
+    does_not_solve: "Scoped to Unity Build Automation, the cloud service, rather than a build failing in the local Editor; it does not map a specific error string to a cause, and it is a year out of date."
+    workflow_remaining: "Open the linked page for the specific error category, write or adapt the provided build-script template, and run local batch-mode commands with the user's own project path and Unity version."
+    business_model: "First-party product documentation for a cloud service; no pricing, subscription, ads or affiliate links stated on the page."
+    currency: "\"Last updated a year ago\""
+    coverage: "Nine or more error categories across platforms, including \"Android build failures\", \"Errors after migrating to a new Xcode version\", \"OSX Notarization failure\" and \"Problems with iOS Build Automation during XCode export\"."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: unknown
+    needs_account: yes
+    data_reproducible: "inference: partly - the failure categories and remedies are publicly documented here and in release notes, but the log formats and dashboard behaviour belong to Unity's own service and cannot be reconstructed from outside."
+    ai_replaceable: "inference: partly - an assistant can restate \"check the logs, clean build, reproduce in batch mode\", but cannot read the user's build log or the dashboard, which is where the answer actually is."
+    why_still_searching: "inference: someone whose local Editor build fails lands on cloud-service documentation, and even the right reader is sent onward to a per-category page and then to their own logs, so the page ends a step short of an answer."
+    evidence:
+      - "The first step to troubleshoot any Unity Build Automation (UBA) failure is to check the error logs"
+      - "Last updated a year ago"
+      - "Open Unity Dashboard"
+      - "Problems with iOS Build Automation during XCode export"
+  - name: "Unity Learn - Get started in Unity (pathway unit)"
+    url: "https://learn.unity.com/pathway/game-development/unit/get-started-in-unity"
+    site: learn.unity.com
+    kind: vendor
+    fetch_status: ok
+    solves: "A structured, in-Editor learning unit for beginners - an introduction to the pathway, a basics tutorial and a 3D building challenge, with XP and a stated Unity version."
+    does_not_solve: "Does not address build errors at all; the fetch found that \"Someone seeking specific build error solutions would need to look elsewhere\", and no publication or update date is shown."
+    workflow_remaining: "Complete the in-Editor tutorial and the balanced-structure challenge, then continue through the remaining pathway units."
+    business_model: "Free first-party learning platform feeding the Editor; no pricing, subscription, ads or affiliate links stated on this page."
+    currency: "not stated - no published or last-updated date shown; the page does state \"Unity Version: 6.3\""
+    coverage: "This unit sits in a pathway the page shows as 15 missions; \"Unity Version: 6.3\" and \"+60 XP\" are stated, but total hours or tutorial counts are not."
+    dominates_serp: "5 of 19 checked results"
+    needs_install: yes
+    needs_account: unknown
+    data_reproducible: "inference: the teaching content is Unity's own and would have to be re-authored rather than rebuilt from a public dataset; the underlying Editor behaviour it teaches is of course public."
+    ai_replaceable: "inference: no for the in-Editor guided exercise, which needs the Editor's own tutorial runtime; yes for the explanations around it."
+    why_still_searching: "inference: it ranks for \"unity building tutorial\" while answering the construct-a-scene reading of the phrase, so users who meant compiling a build - or who hit an error partway through a pathway - leave and search again."
+    evidence:
+      - "An introduction to the Unity pathway, a tutorial on the basics of Unity, and a 3D building challenge."
+      - "Get Started with Unity: In-Editor Tutorial"
+      - "Unity Version: 6.3"
+      - "+60 XP"
+  - name: "Unity - Getting Started with Unity: How to Use Unity"
+    url: "https://unity.com/learn/get-started"
+    site: unity.com
+    kind: vendor
+    fetch_status: ok
+    solves: "A first-party landing page routing beginners to install instructions, beginner projects such as Roll-a-Ball, and themed pathways including VR."
+    does_not_solve: "It is signposting, not instruction - it hosts no tutorial itself, addresses no build errors, and shows no date."
+    workflow_remaining: "Follow the outbound links to learn.unity.com, download and install the Unity Editor, and work through the projects unaided."
+    business_model: "First-party marketing for a product with paid tiers - the page links to \"Plans and pricing\" while promoting \"Unity Learn: Master Unity skills for free\", and the footer references Unity Ads and affiliate partnerships."
+    currency: "not stated - no published or last-updated date shown on the page"
+    coverage: "Claims a full on-ramp: \"This guided learning pathway includes everything you need to get started\", spanning programming, creative skills, VR, AR and professional development."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: yes
+    needs_account: unknown
+    data_reproducible: "inference: not a data asset - it is a navigation and marketing page over first-party product content."
+    ai_replaceable: "inference: yes - an assistant can list the same starting steps and link the same destinations, which is all this page does."
+    why_still_searching: "inference: it forwards rather than finishes, so every visitor leaves it with the task still ahead of them."
+    evidence:
+      - "New to Unity? Explore learning pathways and resources to help develop your skills and make your own real-time 3D projects."
+      - "Install the Unity Hub and Editor"
+      - "Unity Learn: Master Unity skills for free"
+      - "Plans and pricing"
+  - name: "Unity Discussions - Unity build errors (thread 663364)"
+    url: "https://forum.unity.com/threads/unity-build-errors.663364/"
+    site: forum.unity.com
+    kind: community
+    fetch_status: ok
+    solves: "A worked resolution for one common failure - \"Error building Player because scripts have compile errors in the editor\" - traced to UnityEditor references compiled into a player build, with two concrete remedies (move the script into an Editor folder, or wrap the references in pre-compile flags)."
+    does_not_solve: "One error string only, on Unity 2018.3.4f1 with later posters on 2023 versions; no index across error types, no version-aware guidance, newest post over three years old. The forum.unity.com URL 301-redirects to discussions.unity.com/threads/unity-build-errors.663364/, which is what was fetched."
+    workflow_remaining: "Search one's own codebase for UnityEditor references, decide per file whether to relocate it or guard it, and rebuild - \"Visitors must identify and manually fix their own UnityEditor references\"."
+    business_model: "First-party community forum; no pricing, subscription, ads or affiliate links stated on the page."
+    currency: "most recent post dated \"February 16, 2023, 2:42pm\""
+    coverage: "Unity 2018.3.4f1 and 2023 versions; Windows/PC player builds with a mention of Android."
+    dominates_serp: "2 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes in substance - the error string, its cause and the Editor-folder rule are documented Unity behaviour, and the corpus of error-to-fix pairings sits in public threads like this one; whether that corpus may be aggregated is a terms question not visible on the page."
+    ai_replaceable: "inference: yes for this particular error - it is a well-known, deterministic cause an assistant explains without the thread; no for a user who cannot tell which error they actually have."
+    why_still_searching: "inference: each thread answers one person's error on one version, so a user must first guess whether their failure is the same one, and threads this old carry no assurance it still applies."
+    evidence:
+      - "Error building Player because scripts have compile errors in the editor"
+      - "Run a search through your entire codebase for 'UnityEditor'"
+      - "Any script inside of an 'Editor' folder does not get included in a build"
+      - "February 16, 2023, 2:42pm"
+  - name: "Unity Discussions - Unity Build error (topic 246863)"
+    url: "https://discussions.unity.com/t/unity-build-error/246863"
+    site: discussions.unity.com
+    kind: community
+    fetch_status: ok
+    solves: "A resolution for a different single failure - \"Build path contains project built with 'Create Visual Studio Solution' option, which is incompatible with current build settings\" - fixed by building into a new empty folder, with regenerating project files and restarting as fallbacks."
+    does_not_solve: "Again one error string, no cross-version index, and no way to tell from the page whether the same fix applies to a newer Unity; newest post January 2023."
+    workflow_remaining: "Pick a new empty output folder, change the build path in Build Settings and rebuild by hand."
+    business_model: "First-party community forum; no pricing, subscription, ads or affiliate links stated on the page."
+    currency: "most recent post dated \"January 12, 2023, 3:12am\""
+    coverage: "Windows standalone and Android builds; the newest version referenced is Unity 2022.1.23f1 - \"I have the same issue on Unity 2022.1.23f1 too I can't build to android!\""
+    dominates_serp: "5 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes in substance - this is another public error-string-to-fix pairing; the value of an index over thousands of such threads is precisely that no single thread provides it."
+    ai_replaceable: "inference: partly - an assistant can recognise this quoted error and give the same fix, but the cluster's harder members (\"build fails without errors\", \"unity build failing without showing any other errors\") have no error string to paste and need the user's actual log."
+    why_still_searching: "inference: five of the nineteen checked results are separate discussions.unity.com threads, each a different failure; a user with a build that fails silently has to open several and hope one matches."
+    evidence:
+      - "Build path contains project built with 'Create Visual Studio Solution' option, which is incompatible with current build settings."
+      - "Change your build path, and build it into a new empty folder."
+      - "January 12, 2023, 3:12am"
+      - "I have the same issue on Unity 2022.1.23f1 too I can't build to android!"
+  - name: "GameDev Academy - Create A Unity City Builder Game From Scratch"
+    url: "https://gamedevacademy.org/unity-city-building-game-tutorial/"
+    site: gamedevacademy.org
+    kind: editorial
+    fetch_status: ok
+    solves: "A long written tutorial for a city-building game - camera controller, placeable buildings, population/job/food simulation and a UI - with code, screenshots and downloadable assets and project files."
+    does_not_solve: "Answers the construct-buildings reading of \"unity building tutorial\", not compiling or build errors; the date display is ambiguous and the tutorial ends at a prototype."
+    workflow_remaining: "Download the assets and project, follow the code through in the Editor, and then extend it - \"adding in more buildings, implementing new resources or calculation mechanics, and even updating the visuals\"."
+    business_model: "Free tutorial funnelling to the publisher's paid course academy, with promotional offers on the page."
+    currency: "\"November 21, 2023December 19, 2022\" - two dates run together, apparently a revision history"
+    coverage: "Camera controller, placeable buildings, population/job/food simulation and UI, built on scriptable objects for extensibility; Unity version not stated."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: yes
+    needs_account: unknown
+    data_reproducible: "inference: not a dataset - it is authored instruction plus a sample project; anyone could write an equivalent, but there is nothing public to rebuild it from."
+    ai_replaceable: "inference: partly - an assistant can generate equivalent scripts and explain the architecture, but not the downloadable art assets or a verified end-to-end project."
+    why_still_searching: "inference: it matches the phrase rather than the intent for most of this cluster, and even for its own audience it stops at a prototype the reader must extend."
+    evidence:
+      - "we'll be creating the foundations of a city-building game in Unity. This project will feature a versatile camera controller, different buildings that can be placed, population/job/food simulations, and even a UI to tie it all together."
+      - "Zenva's Strategy Game Development Academy might just be for you. It's an extensive collection of Unity-focused courses"
+      - "Download the required assets here. Download the complete project here."
+      - "November 21, 2023December 19, 2022"
+  - name: "GitHub - humbertodias/unity-calc-lua README"
+    url: "https://github.com/humbertodias/unity-calc-lua/blob/master/README.md"
+    site: github.com
+    kind: community
+    fetch_status: ok
+    solves: "A three-part tutorial repository showing how to build a non-game application - a macOS-style calculator - with Unity3D and its built-in UI system, with companion videos."
+    does_not_solve: "Nothing about build errors or the build pipeline; no date or licence shown in the README; the substance lives in external videos rather than the page."
+    workflow_remaining: "Follow the three-part video series and the repository code in one's own Unity install to actually produce the calculator."
+    business_model: "Open-source repository; no pricing, subscription, ads or affiliate links stated."
+    currency: "not stated - no date or licence information appears in the README"
+    coverage: "One project in three parts - a calculator styled after the built-in macOS calculator - plus linked videos and blog discussion."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: yes
+    needs_account: no
+    data_reproducible: "inference: not a dataset - it is one author's sample project, already public as source."
+    ai_replaceable: "inference: largely yes - a chat assistant can produce a Unity UI calculator walkthrough directly; the repository's advantage is runnable, inspectable code."
+    why_still_searching: "inference: it ranks for the phrase while answering a narrow, unrelated project question, so it sends most visitors straight back to search."
+    evidence:
+      - "This tutorial will demonstrate how to build a non-game application using Unity3D and the UI system built in."
+      - "a simple calculator that will look like the standard calculator that is built into MacOS"
+      - "The video for part 1 of this tutorial can be found at: https://youtu.be/vQsI7wHgobw"
+synthesis:
+  pieced_together_answer: "This cluster's SERP splits along two meanings of \"build\", and no site covers both. For compiling a player, the answer lives in individual community threads: forum.unity.com (redirecting to discussions.unity.com) supplies one error - compile errors from UnityEditor references - and its fix, discussions.unity.com supplies a different one - an incompatible build path - and its fix, each pinned to a 2018-2022 Unity version with no post newer than February 2023. Unity's own troubleshooting page, docs.unity.com, covers only the cloud Build Automation service, is marked \"Last updated a year ago\", and hands the reader on to per-category pages and their own logs. For constructing buildings and learning the Editor, learn.unity.com and unity.com carry first-party pathways (\"Unity Version: 6.3\"), gamedevacademy.org a city-builder tutorial, and github.com an unrelated calculator project. Nothing fetched indexes error strings across versions, and nothing addresses the cluster's slow-build and optimisation members (\"unity build slow\", \"fast unity build\", \"unity build very slow\") at all."
+  single_destination_would_need: "One place where a developer pastes the build log or error text and states their Unity version, target platform and key package versions, and gets back the ranked likely causes for that exact combination, the fix steps, whether it is a known regression in that version, and what changed if it worked before - including the silent-failure case (\"build fails without errors\") where there is no string to paste, plus a build-time diagnosis path for the optimisation half of the cluster. That means version-aware coverage of both local Editor builds and cloud Build Automation, which today sit on different sites."
+  existing_tools_that_do_this: "None found in the checked results. Despite the input file recording tool_hits: 1, every fetched page was documentation, a learning pathway, a forum thread, a written tutorial or a sample repository - there was no error-lookup tool, log analyser or version-aware diagnostic among them."
+  data_source_and_reproducibility: "inference: the raw material is public and abundant - Unity error strings, their causes and their fixes sit in thousands of Unity Discussions threads of the kind fetched here, alongside Unity's release notes and issue tracker, and both fetched threads show the pattern of error string plus confirmed remedy plus affected version. An index over that corpus is therefore reproducible in principle, and its freshness would be the real asset, since the fetched threads are three years stale and the first-party page is a year stale. What is not visible from these pages is whether Unity's forum terms permit bulk aggregation, or how much of a modern failure depends on package and platform-SDK versions not recorded in old threads."
+  ai_resilience: "inference: mixed, and the most resilient of the three clusters. Where a user can paste a distinctive error string, a chat assistant is already competitive with these threads, as both fetched errors have deterministic, documented causes. Resilience concentrates in what the assistant cannot see: the actual Editor.log, the exact Unity and package version combination, and the silent failures that three of the checked results are explicitly about (\"Build fails without errors\", \"Unity Build fails for no reason\", \"Unity Build Failing without showing any other errors\"). Those need the artifact, not the answer - which is the part a tool could own."
+  open_questions:
+    - "Unknown: traffic, audience size or revenue for any of these sites - no fetched page states any such figure."
+    - "Only seven distinct sites qualified under the selection rule (three vendor plus every community and editorial site in the checked results), so an eighth could not be selected without reaching into reference or marketplace results."
+    - "Whether the cluster is one intent or two is unresolved: \"unity build error\" returns compile-failure threads while \"unity building tutorial\" returns construct-a-scene tutorials, and the head term \"unity builds\" does not disambiguate."
+    - "Whether Unity Discussions content may lawfully be aggregated and re-indexed is unknown - no terms statement appeared on the fetched pages."
+    - "The cluster's slow-build and optimisation members had no representation among the checked results at all, so demand there is unmeasured from this evidence."
+    - "Whether the silent-failure cases can be diagnosed from logs alone, without the project, is unknown."

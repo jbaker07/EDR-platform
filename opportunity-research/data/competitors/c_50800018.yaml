@@ -1,0 +1,193 @@
+cluster_id: c_50800018
+head_term: "export settings youtube"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 7
+pages_failed: 1
+competitors:
+  - name: "Adobe Creative Cloud Video Hub - The best Premiere export settings for YouTube"
+    url: "https://www.adobe.com/creativecloud/video/hub/features/best-premiere-pro-export-settings-youtube.html"
+    site: adobe.com
+    kind: vendor
+    fetch_status: ok
+    solves: "Gives recommended YouTube export settings for Adobe Premiere, both as a preset route and as manual parameters, and names the menu path to reach the export dialog."
+    does_not_solve: "Carries no published or updated date; covers only Premiere; does not compute a bitrate from the user's own resolution/frame-rate/footage, and does not cover export failures, slow exports or YouTube-side processing."
+    workflow_remaining: "Open Premiere, enter or pick the settings, run the export, then upload the file to YouTube - the page ends at \"you'll be ready to upload straight to YouTube\"."
+    business_model: "Vendor content marketing for a paid subscription; the page carries Creative Cloud discount promotions."
+    currency: "not stated - no published or last-updated date shown on the page"
+    coverage: "Adobe Premiere only, YouTube only; states \"Format: H.264 (.mp4)\" and lists frame sizes from SD to UHD."
+    dominates_serp: "4 of 18 checked results"
+    needs_install: yes
+    needs_account: unknown
+    data_reproducible: "inference: yes - codec, container, resolution and bitrate figures of this kind are published by YouTube and the editor menu paths are observable in the shipping product, so an equivalent table could be rebuilt from public sources."
+    ai_replaceable: "inference: largely yes for the settings table, which is a short list of stable numbers; less so for the exact current menu wording of a specific Premiere version."
+    why_still_searching: "inference: the page shows no date, so a user cannot tell whether the numbers are current, and it answers only for Premiere - anyone on Resolve, Final Cut or a phone editor, or anyone with a failed or slow export, has to search again."
+    evidence:
+      - "Save 25% off on Creative Cloud All Apps"
+      - "Format: H.264 (.mp4)"
+      - "Choose Export from the header bar at the top of Premiere or select File > Export > Media File from the Export menu."
+      - "you'll be ready to upload straight to YouTube"
+  - name: "Pic-Time Help Center - What are the best video export recommendations?"
+    url: "https://help.pic-time.com/en/articles/10029222-what-are-the-best-video-export-recommendations"
+    site: help.pic-time.com
+    kind: vendor
+    fetch_status: ok
+    solves: "Recommends the Premiere YouTube preset plus concrete specs - H.264/MP4, 12-16 Mbps for 1080p, resolutions to 4K, and supported codecs and surround audio layouts."
+    does_not_solve: "The recommendations are framed for uploading into a Pic-Time gallery rather than for YouTube publishing; no step-by-step per-editor click path beyond naming Premiere, and no troubleshooting of failed exports."
+    workflow_remaining: "Export from the user's own editing software with these settings, then upload - the page says it lists settings \"to apply to your videos before uploading them to a Pic-Time gallery\"."
+    business_model: "Help-centre documentation attached to a hosted product; no pricing, subscription, ads or affiliate links stated on the page."
+    currency: "\"Written by Lauren May 28, 2026\""
+    coverage: "Codecs H.264, H.265, VP8, VP9 and AV1, resolutions up to 4K, \"Surround audio with 5.1 and 7.1 channel layouts\", and \"all video formats supported by Pic-Time Galleries\"; Premiere is the only editor named."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes - codec and bitrate recommendations of this kind restate publicly documented encoder capabilities and platform guidance; the Pic-Time-specific support matrix would have to come from the vendor."
+    ai_replaceable: "inference: mostly yes for the generic codec/bitrate guidance; the Pic-Time gallery support list is vendor-specific and an assistant could be out of date on it."
+    why_still_searching: "inference: a YouTube creator landing here finds advice aimed at a photography-gallery product, so the YouTube-specific parts (Shorts, long-form, processing) are still missing."
+    evidence:
+      - "When exporting from Adobe Premiere, in general we recommend the YouTube preset as it provides the best balance between quality and file size."
+      - "Written by Lauren May 28, 2026"
+      - "all video formats supported by Pic-Time Galleries"
+      - "Surround audio with 5.1 and 7.1 channel layouts"
+      - "here are our recommended export settings to apply to your videos before uploading them to a Pic-Time gallery"
+  - name: "Blackmagic Forum - best export settings for youtube and vimeo ?"
+    url: "https://forum.blackmagicdesign.com/viewtopic.php?f=21&t=177594"
+    site: forum.blackmagicdesign.com
+    kind: community
+    fetch_status: "failed: HTTP 403 Forbidden on two attempts (page body not retrieved)"
+    solves: "unknown - from the search-result title only, a forum thread titled \"best export settings for youtube and vimeo ?\", presumably discussing DaVinci Resolve export settings for both platforms."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - the page could not be read, so nothing can be said about the data behind it."
+    ai_replaceable: "inference: unknown - the thread's content was not retrievable."
+    why_still_searching: "inference: unknown; note only that the page returned 403 to an automated fetch, so it is also unreadable to any tool that would aggregate it."
+    evidence:
+      - "The server returned HTTP 403 Forbidden. (fetch tool response, not page content - no page text was retrieved)"
+  - name: "Animotica Blog - What are the Best Export Settings for YouTube?"
+    url: "https://www.animotica.com/blog/best-export-settings-for-youtube"
+    site: animotica.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Explains the parameter set - resolution and aspect ratio, video and audio bitrate, frame rate, and audio/video codec - as generic YouTube recommendations usable with any editor."
+    does_not_solve: "Dated 2023 and centred on the site's own Windows app; no per-editor click paths for Premiere, Resolve or Final Cut, no Shorts-specific or export-failure guidance."
+    workflow_remaining: "Obtain an editor, apply the settings at export, and upload to YouTube; the download button leads to the Microsoft Store for the site's own app."
+    business_model: "Vendor blog driving installs of its own editor via a store download button; no pricing, subscription or ads stated on the page."
+    currency: "\"By Animotica Team - February 16th , 2023\""
+    coverage: "MP4, resolutions up to 4K, H.264 and AAC, various bitrates and frame rates; YouTube only, with Animotica as the worked example."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes - the page itself refers back to YouTube's own recommendations, which are public."
+    ai_replaceable: "inference: yes - this is a short recital of platform-recommended values that a chat assistant can produce directly."
+    why_still_searching: "inference: a 2023 date on a page whose headline promise is \"best\" settings invites re-checking, and the app-specific framing does not help someone in a different editor."
+    evidence:
+      - "By Animotica Team - February 16th , 2023"
+      - "Video Resolution and Aspect Ratio"
+      - "Video and Audio Bitrate"
+      - "Animotica's default resolution"
+  - name: "SFX Engine - The Best Export Settings for YouTube: A Creator's Guide"
+    url: "https://sfxengine.com/blog/best-export-settings-for-youtube"
+    site: sfxengine.com
+    kind: editorial
+    fetch_status: ok
+    solves: "The broadest single answer among the fetched pages - a reference table plus step-by-step export instructions for three editors, Shorts specs, and troubleshooting notes."
+    does_not_solve: "Still a static table - it does not take the user's source resolution, frame rate or footage length and return a bitrate, and it cannot diagnose an individual failed or soft-looking upload."
+    workflow_remaining: "Open the editor, find the export settings, type in the recommended values, check colour space, run the export, then upload to YouTube."
+    business_model: "Content marketing for the site's own paid-looking product, with a \"Pricing\" link in the header; no affiliate links stated."
+    currency: "\"January 16, 2026 · Kuba Rogut\""
+    coverage: "\"Exporting from Adobe Premiere Pro\", \"Exporting from DaVinci Resolve\" and \"Exporting from Final Cut Pro\"; MP4 with H.264 or HEVC, 1080p and 4K, plus YouTube Shorts at 1080x1920."
+    dominates_serp: "2 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes - the settings restate platform guidance and each editor's export dialog, both publicly observable; the per-editor screenshots would need re-capturing per version."
+    ai_replaceable: "inference: partly - an assistant can reproduce the table and the general steps, but not screenshots or confirmation that a 2026 editor build still uses those field names."
+    why_still_searching: "inference: it is the closest thing to a complete answer in this SERP, yet a visitor with a non-listed editor, an unusual source format, or an export that failed still has to look elsewhere."
+    evidence:
+      - "The best export settings for YouTube really boil down to a few key choices: you'll want to use the H.264 codec inside an MP4 container, paired with a high bitrate and AAC audio."
+      - "January 16, 2026 · Kuba Rogut"
+      - "Exporting from DaVinci Resolve"
+      - "For creators who need custom, high-quality audio on demand, SFX Engine provides an AI-powered sound effect generator to bring your projects to life."
+  - name: "MakeUseOf - What Are the Best Export Settings for YouTube?"
+    url: "https://www.makeuseof.com/best-export-settings-youtube/"
+    site: makeuseof.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Teaches the basics of exporting from Premiere Pro together with YouTube's recommended codec, container, resolutions and bitrates, with instructional screenshots."
+    does_not_solve: "Published in 2021 and Premiere-only; no Shorts guidance, no bitrate calculation for a specific project, no failure diagnosis."
+    workflow_remaining: "Follow the described steps to export, then upload the file - \"sharing your work with the world is as easy as hitting Export\"."
+    business_model: "Ad-supported publisher with optional sign-in; no pricing, subscription or affiliate links stated in the fetched content."
+    currency: "\"Published May 3, 2021, 12:00 PM EDT\""
+    coverage: "Adobe Premiere Pro only; \"H.264 codec wrapped in an MP4 file container\", resolutions up to 4k, 16x9 aspect, bitrate guidance for 1080p and 720p."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: no
+    data_reproducible: "inference: yes - it explicitly restates YouTube's published recommendations."
+    ai_replaceable: "inference: yes - a 2021 recital of platform recommendations is exactly what a chat assistant answers directly."
+    why_still_searching: "inference: the 2021 date undercuts a \"best settings\" claim for creators worried about current 4K/60fps and Shorts handling, so they keep looking for a dated-2026 answer."
+    evidence:
+      - "the basics of exporting your video from Adobe Premiere Pro, as well as the ideal export settings for YouTube"
+      - "Published May 3, 2021, 12:00 PM EDT"
+      - "H.264 codec wrapped in an MP4 file container"
+      - "Once you've crossed your i's and dotted your t's, sharing your work with the world is as easy as hitting Export."
+  - name: "Pixflow - Best Export Settings for YouTube in Premiere Pro (2026)"
+    url: "https://pixflow.net/blog/best-export-settings-youtube-premiere-pro/"
+    site: pixflow.net
+    kind: editorial
+    fetch_status: ok
+    solves: "A 2026-dated walk through every Premiere export setting that matters for YouTube, including the H.264 versus H.265 choice, resolution table, frame rates and Shorts."
+    does_not_solve: "Premiere only - \"It does not address other editors\"; no per-project bitrate computation, no export-failure or upload-processing troubleshooting."
+    workflow_remaining: "Open Premiere, apply the settings manually or via a saved preset, encode, and upload - \"The page provides settings only\"."
+    business_model: "Affiliate and sponsorship disclosure plus sale of its own motion-graphics templates at stated prices."
+    currency: "\"11 Jun,2026\""
+    coverage: "Premiere Pro, H.264 and H.265, resolutions from \"HD: 1280 x 720\" to \"4K UHD: 3840 x 2160\", standard YouTube videos and Shorts, multiple frame rates."
+    dominates_serp: "2 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes - the settings are readable from the Premiere export dialog and from platform guidance; the 2026 framing is editorial rather than proprietary data."
+    ai_replaceable: "inference: partly - the codec and resolution advice yes, but the \"in Premiere Pro 2026\" specificity is what a general assistant is least reliable on."
+    why_still_searching: "inference: the page monetises through templates and affiliate links rather than through finishing the job, so a creator wanting a downloadable preset or a bitrate answer for their exact footage keeps searching."
+    evidence:
+      - "we're breaking down every export setting in Premiere Pro 2026 that matters for YouTube, from format and bitrate to the H.264 vs H.265 debate"
+      - "Disclaimer : If you buy something through our links, we may earn an affiliate commission or have a sponsored relationship with the brand, at no cost to you."
+      - "11 Jun,2026"
+      - "4K UHD: 3840 x 2160"
+  - name: "Alli and Will - Best Export Settings For YouTube Uploads (DaVinci Resolve)"
+    url: "https://www.alliandwill.com/blog/best-export-settings-for-youtube-uploads-davinci-resolve-export-tutorial"
+    site: alliandwill.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Compares three DaVinci Resolve export options - ProRes, H.264 and H.265 - and gives a recommendation, as a video tutorial with an accompanying written page."
+    does_not_solve: "Resolve only; no clearly dated publication year; no Shorts, no bitrate calculation, no coverage of what YouTube does to the file after upload."
+    workflow_remaining: "Export with the recommended settings and then \"upload this file to YouTube\" yourself."
+    business_model: "Affiliate and own-product sales - discounted editing products plus Amazon affiliate gear links."
+    currency: "\"Aug 19\" - day and month only, year not stated on the page"
+    coverage: "DaVinci Resolve, including the studio version, the Mac version and the Windows free version; ProRes, H.264 and H.265; resolutions including 4K."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes - the comparison is of options visible in Resolve's deliver page, which anyone with the free version can inspect."
+    ai_replaceable: "inference: partly - an assistant can state the codec trade-offs, but the value here is a watchable demonstration of one editor's deliver page, which text cannot fully replace."
+    why_still_searching: "inference: it answers one editor and one decision, and the undated \"Aug 19\" gives no reassurance of currency, so users cross-check against newer posts."
+    evidence:
+      - "In this video, Will breaks down 3 different options and gives his recommendation for what the best DaVinci Resolve export settings are."
+      - "GET 50% OFF OUR EDITING PRODUCTS: ➜ https://alliandwill.com/featuredproducts"
+      - "Aug 19"
+      - "upload this file to YouTube"
+synthesis:
+  pieced_together_answer: "The generic numbers - H.264 in MP4, AAC audio, 1080p/4K frame sizes, a bitrate band - are repeated on every fetched page (adobe.com, help.pic-time.com, sfxengine.com, pixflow.net, animotica.com, makeuseof.com), so that part is commodity. Everything version- and editor-specific is split: Premiere click paths on adobe.com, pixflow.net and makeuseof.com; DaVinci Resolve on alliandwill.com; Final Cut Pro only inside sfxengine.com's three-editor guide; the H.264-versus-H.265 decision on pixflow.net; wider codec and surround-audio detail on help.pic-time.com; Shorts/vertical specs only on sfxengine.com and pixflow.net. Currency is scattered across 2021 (makeuseof.com), 2023 (animotica.com), 2026 (sfxengine.com, pixflow.net, help.pic-time.com) and no date at all (adobe.com), which is itself a reason to read several pages. The cluster's fix- and speed-shaped members (\"export settings youtube not working\", \"why is export settings youtube slow\") are not answered by any fetched page; the only results pointed at them are forum threads, and the Blackmagic thread returned 403."
+  single_destination_would_need: "One place that takes the editor and its version, the delivery target (long-form, Shorts, 4K60), and the source clip's resolution, frame rate, length and colour space, then returns the exact field-by-field values for that editor's export dialog, a computed bitrate rather than a band, a downloadable preset file, an explanation of what YouTube re-encodes after upload and why processing looks soft or slow at first, and a symptom-driven path for exports that fail, stall or produce oversized files - all visibly dated and tied to a named editor build."
+  existing_tools_that_do_this: "None found in the checked results. The input file records tool_hits: 0 for this cluster, and all seven fetched pages were articles, vendor guides or help-centre documents; no calculator, preset generator or settings database appeared."
+  data_source_and_reproducibility: "inference: fully reproducible from public sources - the recommended values restate YouTube's published upload encoding guidance (help.pic-time.com and animotica.com both point back at it), and the per-editor field names and menu paths are observable in the shipping editors, including Resolve's free Windows version named on alliandwill.com. The recurring cost is maintenance: screenshots and menu paths have to be re-verified per editor release, which is precisely where the fetched pages decay (makeuseof.com 2021, animotica.com 2023, adobe.com undated)."
+  ai_resilience: "inference: low for the head question. A chat assistant already answers \"what codec, container and bitrate for YouTube\" as well as these pages do, and does it without ads. Resilience only appears where the answer depends on state the assistant does not have - the user's actual project and source footage, the exact dialog of the installed editor version, a downloadable preset artifact, and diagnosis of an export that failed or an upload that looks wrong, which needs logs or the file itself."
+  open_questions:
+    - "Unknown: search volume, traffic or revenue for any of these sites, and whether this cluster's traffic is shifting to assistants - no fetched page states any such figure."
+    - "The fix/slow subset of the cluster (the input file records organic_problem_members: 4 of 21 members) had no fetchable destination; whether real demand sits behind \"export settings youtube not working\" and \"why is export settings youtube slow\" is unresolved."
+    - "forum.blackmagicdesign.com blocks automated fetching with 403, so both its content and whether Resolve users' troubleshooting is well served there remain unknown."
+    - "Whether a downloadable preset or a bitrate calculator would be used, or whether creators simply want a dated table, is untested."
+    - "Whether editors' export dialogs change often enough to make per-version maintenance a real moat or merely a cost is unknown from these pages."

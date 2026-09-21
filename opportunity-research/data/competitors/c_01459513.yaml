@@ -1,0 +1,193 @@
+cluster_id: c_01459513
+head_term: "zapier excel integration"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 5
+pages_failed: 3
+competitors:
+  - name: "Follow Up Boss Help Center - Zapier Integration List"
+    url: "https://help.followupboss.com/hc/en-us/articles/4402378254999-Zapier-Integration-List"
+    site: "help.followupboss.com"
+    kind: vendor
+    fetch_status: "failed: HTTP 403 Forbidden on both attempts, no body returned"
+    solves: "unknown beyond the SERP title, which presents a list of Zapier integrations scoped to one vendor's product (Follow Up Boss)"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: a per-vendor integration list is published by the vendor itself, so an equivalent list could likely be rebuilt from that vendor's public directory - unverified, the page was not retrieved"
+    ai_replaceable: "inference: unknown; a vendor-specific and change-prone list is the kind of content an assistant may answer stale, but nothing on the page was observed"
+    why_still_searching: "inference: the query 'list of zapier integrations' is generic while this result is scoped to one CRM, so a searcher wanting the whole catalogue would not stop here"
+    evidence:
+      - "no page text retrieved (HTTP 403); SERP title recorded in the input file: Zapier Integration List - Follow Up Boss - Help Center"
+  - name: "Zapier Developer Platform UI quickstart tutorial"
+    url: "https://docs.zapier.com/platform/quickstart/ui-tutorial"
+    site: "docs.zapier.com"
+    kind: vendor
+    fetch_status: ok
+    solves: "Gives the official step-by-step path for building a Zapier integration in the Platform UI, covering authentication, triggers, actions, testing, versions and publishing"
+    does_not_solve: "Does not supply the API being integrated, does not list existing integrations, and does not state pricing; no date is shown"
+    workflow_remaining: "Per the fetched page, the visitor must pick an API, create the integration in the Platform UI, configure authentication plus each trigger and action, test them, then manage versions and choose private vs public sharing"
+    business_model: "Vendor documentation for Zapier's own developer platform; no pricing, subscription, ads or affiliate links mentioned on the page"
+    currency: "no published or last-updated date shown on the page"
+    coverage: "scope stated is building one integration on the Zapier Developer Platform UI; page states public integrations 'can be accessed by any Zapier user'"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: yes
+    data_reproducible: "inference: no dataset here - it is procedural documentation about Zapier's own product, so it cannot be rebuilt from public sources independently of Zapier"
+    ai_replaceable: "inference: partly - an assistant can describe the trigger/action/auth concepts, but the actual build happens inside Zapier's UI which the assistant cannot operate"
+    why_still_searching: "inference: the page explains the builder's concepts but the searcher still has to map their own API onto it, so people keep looking for worked examples against a real API"
+    evidence:
+      - "How to build a Zapier integration using Zapier Developer Platform UI."
+      - "Triggers allow users to start Zapier workflows when something is added or updated in the app."
+      - "Actions allow users to create, search, or update records in your app through your API."
+      - "When building an integration, it's important to test the functionality of your authentication, triggers, and actions."
+      - "Versions helps to track and manage changes to your integration over time."
+      - "Public integrations can be accessed by any Zapier user and doesn't require users to be specially invited."
+  - name: "DealMaker - Tutorial: How to connect to the API via Zapier"
+    url: "https://help.dealmaker.tech/api-zapier"
+    site: "help.dealmaker.tech"
+    kind: vendor
+    fetch_status: ok
+    solves: "Walks through connecting one specific vendor API (DealMaker) through Zapier via an embedded video with transcript, covering webhook configuration, access token generation and pulling investor records"
+    does_not_solve: "Only covers DealMaker's own API; no generic API pattern, no pricing information, no date"
+    workflow_remaining: "Per the fetched page, the visitor must create a DealMaker API application with the right permissions, configure webhooks, build each Zapier step (trigger, auth, API call) and then route the data to a destination such as Google Sheets or HubSpot"
+    business_model: "Vendor help content supporting a paid product; no pricing, ads or affiliate links mentioned on the page"
+    currency: "no published or last-updated date shown on the page"
+    coverage: "one vendor's API and its Zapier connection only"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: yes
+    data_reproducible: "inference: not a dataset - it is vendor-specific procedure tied to DealMaker's own API credentials, so it is not reproducible by a third party"
+    ai_replaceable: "inference: weakly - an assistant could explain OAuth token flow generally, but the concrete screens, permission names and token lifetimes shown here are vendor specifics that go stale"
+    why_still_searching: "inference: someone searching the generic phrase 'zapier api integration tutorial' lands on a tutorial for an unrelated product and has to keep looking"
+    evidence:
+      - "Zapier is a third-party service that allows you to connect different services with a no-code or low-code approach."
+      - "The public key will remain there and I can access it whenever I want but the secret key is going to disappear"
+      - "By default, this endpoint is going to give us 25 investors per page."
+      - "Every access token you generate last an hour."
+  - name: "Common Room Docs - Zapier Integration Guide"
+    url: "https://www.commonroom.io/docs/signals/custom-integrations/zapier-api/zapier-integration/"
+    site: "commonroom.io"
+    kind: vendor
+    fetch_status: ok
+    solves: "Documents Common Room's Zapier integration end to end: prerequisites, available triggers and actions, a worked Google Sheets import example and troubleshooting"
+    does_not_solve: "Scoped to Common Room; does not answer the generic 'how do I build a Zapier integration for my own API' question and gives no pricing figures"
+    workflow_remaining: "Per the fetched page, the visitor must obtain an API token, set up an API signal in Common Room, have a Zapier account, build and configure the Zap, then test before publishing"
+    business_model: "Vendor documentation; page states the integration is 'available on all plans' but shows no prices, ads or affiliate links"
+    currency: "page shows 'Last updated Sep 16th, 2026'"
+    coverage: "the Common Room Zapier connector, its triggers and actions, plus a transfer-existing-data path"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: yes
+    data_reproducible: "inference: no - the trigger/action surface described is defined by Common Room's own connector, not by any public dataset"
+    ai_replaceable: "inference: partly - an assistant could restate the steps, but the uniqueness rule for Activity IDs and the cost warning are page-specific details unlikely to be reproduced reliably"
+    why_still_searching: "inference: the page itself flags that the Zapier route is costly, which pushes readers to keep searching for alternatives"
+    evidence:
+      - "The Zapier integration is available on all plans."
+      - "A Zap is an automated workflow where triggers result in specific actions."
+      - "Before you start creating Zaps, make sure you have an API token."
+      - "The ID must be unique for each individual Activity."
+      - "We've found that this is a costly experience through Zapier."
+      - "Last updated Sep 16th, 2026"
+  - name: "Deel Help Center - How To Use Zapier API Integration"
+    url: "https://help.letsdeel.com/hc/en-gb/articles/13327342277777-How-To-Use-Zapier-API-Integration"
+    site: "help.letsdeel.com"
+    kind: vendor
+    fetch_status: "failed: HTTP 403 Forbidden on both attempts, no body returned"
+    solves: "unknown beyond the SERP title, which offers instructions for using Deel's Zapier API integration"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - vendor help content generally describes a proprietary connector rather than a reproducible dataset, but nothing was observed"
+    ai_replaceable: "inference: unknown; no page content was observed"
+    why_still_searching: "inference: another vendor-scoped help page surfacing for a generic tutorial query, so a searcher with a different app gets no usable answer"
+    evidence:
+      - "no page text retrieved (HTTP 403); SERP title recorded in the input file: How To Use Zapier API Integration - Deel"
+  - name: "Fiverr - Zapier integration gigs"
+    url: "https://block.fiverr.com/gigs/zapier-integration?page=4"
+    site: "block.fiverr.com"
+    kind: tool
+    fetch_status: "failed: 301 redirect to https://www.fiverr.com/ which then returned HTTP 403 Forbidden"
+    solves: "unknown beyond the SERP title 'Browse categories'; the URL path indicates a listing of Zapier-integration gigs, i.e. hiring a person rather than an answer"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - a freelancer marketplace's supply is its own proprietary inventory and could not be rebuilt from public sources"
+    ai_replaceable: "inference: no - paying a human to build the integration is an outcome no chat assistant delivers, though the page itself could not be observed"
+    why_still_searching: "inference: a marketplace listing ranking for an informational query suggests some searchers have given up on doing it themselves"
+    evidence:
+      - "no page text retrieved (redirect to www.fiverr.com then HTTP 403); SERP title recorded in the input file: Browse categories"
+  - name: "LiveSession - Best Zapier Integrations for Websites or SaaS in 2025"
+    url: "https://livesession.io/blog/best-zapier-integrations-for-websites-or-saas"
+    site: "livesession.io"
+    kind: editorial
+    fetch_status: ok
+    solves: "Gives a curated, categorised shortlist of Zapier integrations for websites and SaaS, with a description and price band per tool"
+    does_not_solve: "Not the full integration catalogue and not searchable; per the fetched page it is static editorial text rather than a live directory"
+    workflow_remaining: "Per the fetched page, the visitor must visit each tool's site, create accounts, connect the app in Zapier and configure triggers and actions themselves"
+    business_model: "Vendor-owned blog: the page lists its own product among the picks, quotes subscription prices for the tools covered and carries sign-up calls to action"
+    currency: "page shows 'Published April 29, 2025 - Updated April 29, 2025'"
+    coverage: "per the fetched page, 11 integrations across 6 categories (analytics, customer engagement, lead generation, team collaboration, payments, error monitoring); page states Zapier 'connects over 7,000 apps'"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - a hand-picked list of well-known apps plus their public pricing pages is straightforward to rebuild and to keep fresher than an annually updated post"
+    ai_replaceable: "inference: largely yes - 'which Zapier integrations are popular for SaaS' is exactly the kind of list an assistant composes, minus the vendor's promotional slant"
+    why_still_searching: "inference: 11 hand-picked apps out of a catalogue the page itself sizes at over 7,000 will rarely contain the specific app pair a searcher has in mind"
+    evidence:
+      - "Zapier is a powerful no-code automation platform that connects over 7,000 apps"
+      - "Best Zapier Integrations for Websites or SaaS in 2025"
+      - "By creating Zaps-automated triggers and actions-businesses can streamline processes"
+      - "LiveSession is a powerful analytics tool for product, growth, and support teams"
+      - "Published April 29, 2025"
+  - name: "CloudTalk - 10 Best Zapier Integrations for Business Automation in 2026"
+    url: "https://www.cloudtalk.io/blog/best-zapier-integrations/"
+    site: "cloudtalk.io"
+    kind: editorial
+    fetch_status: ok
+    solves: "Explains what a Zapier integration is and ranks ten business-automation integrations with use cases, pricing, pros and cons and a comparison table"
+    does_not_solve: "Not a searchable directory and not a build tutorial; the selection is ten vendor-chosen apps, and it does not cover Excel or Office specifically"
+    workflow_remaining: "Per the fetched page, the visitor must create or log in to accounts on both apps, authorise Zapier, configure the specific triggers and actions and test the workflow before going live"
+    business_model: "Vendor-owned blog leading with its own product; quotes per-seat subscription prices for the listed tools and links to its own demo and signup pages"
+    currency: "page shows 'Santiago Montaldo Updated on May 29, 2026'"
+    coverage: "ten named integrations (CloudTalk, Salesforce, Zendesk, Gorgias, Pipedrive, HubSpot, Front, Zoho CRM, Freshdesk, ActiveCampaign) per the fetched page"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the ten apps and their list prices are public information, so an equivalent or larger comparison could be assembled and auto-refreshed"
+    ai_replaceable: "inference: largely yes for the conceptual part it opens with; the per-plan prices are the only element a stale assistant would get wrong"
+    why_still_searching: "inference: the page warns that integrations break at scale but offers no way to check a specific app pair, so the searcher still has to verify their own combination"
+    evidence:
+      - "A Zapier integration connects your favorite apps so they can talk to each other and automate work in the background."
+      - "Most Zapier integrations are powered by prebuilt connectors (called Zaps), built-in triggers and actions, or the Zapier integrations API."
+      - "Setting up a Zapier integration takes just a few minutes-no coding required."
+      - "The Zap that works for 5 users might break at 50."
+      - "Look for vendors who offer responsive support, not just docs."
+      - "Updated on May 29, 2026"
+synthesis:
+  pieced_together_answer: "The cluster's answer is split three ways and no fetched page holds more than one part. (a) What integrations exist - only partial, hand-picked lists were retrievable (livesession.io: 11 apps in 6 categories; cloudtalk.io: 10 apps), both on vendor blogs that lead with their own product; the authoritative catalogue lives on zapier.com/apps, which ranked 5th-7th on 'list of zapier integrations' in the input file but fell outside the selection rule and was not fetched. (b) How to build an integration against your own API - docs.zapier.com gives the official concept-by-concept path (auth, triggers, actions, testing, versions, public vs private). (c) What it actually looks like against a real API - only vendor-specific walkthroughs (help.dealmaker.tech, commonroom.io), each tied to one product's tokens and endpoints. The head term 'zapier excel integration' was not answered by any fetched page: no page fetched named Excel or Office 365."
+  single_destination_would_need: "A searchable, current app-pair index (does app X connect to app Y, on which trigger/action, on which Zapier plan, and what breaks) joined to a per-pair setup walkthrough and to a build path for apps with no existing connector. Concretely it would need: live coverage of the catalogue the pages size at 7,000-9,000 apps rather than a ten-item editorial pick; per-pair trigger/action detail; plan and cost implications, since commonroom.io warns the Zapier route is 'a costly experience'; and an escape hatch to the developer-platform route when no connector exists."
+  existing_tools_that_do_this: "None found among the fetched pages. The only non-article result selected was a Fiverr gig listing (fetch failed), which sells human labour rather than an answer. Zapier's own app directory (zapier.com/apps) appears in the input file's SERP but was outside the selection rule and unverified here."
+  data_source_and_reproducibility: "inference: the connector catalogue itself is public and machine-readable in principle (Zapier's public app directory plus each vendor's own integration docs, e.g. the Common Room and DealMaker pages fetched here), so a third-party index of app pairs and their triggers/actions looks reproducible; what is not reproducible is anything behind a Zapier account, and the editorial rankings are opinion rather than data. Practical obstacle observed in this task: 3 of 8 selected pages (help.followupboss.com, help.letsdeel.com, fiverr.com) returned HTTP 403 to an automated fetch, so bulk scraping of vendor help centres is likely to be blocked."
+  ai_resilience: "inference: low for the conceptual half of the cluster - 'what is zapier integration', 'how does a Zap work' and 'name some popular integrations' are answered as well by a chat assistant as by the editorial pages fetched. Resilience is higher for the volatile half: whether a specific app pair is supported today, on which plan, and with which triggers, is a live fact that an assistant would answer from stale memory, and it is exactly the half none of the fetched pages covers."
+  open_questions:
+    - "zapier.com's own pages (developer-platform, homepage, /apps) held ranks 5, 6 and 7 on 'list of zapier integrations' and rank 6 on the tutorial query - 4 of 18 results - but were categorised editorial in the input file and fell outside the selection rule; whether zapier.com/apps already is the single destination is unverified"
+    - "the head term is 'zapier excel integration' yet neither checked query mentions Excel or Office, and no fetched page named Excel; whether the Excel/Office 365 side of the cluster is equally fragmented is untested"
+    - "three vendor pages returned 403, so their monetisation, currency and coverage are unknown; a browser-based check could confirm whether they are richer than the SERP titles suggest"
+    - "commonroom.io states the Zapier route is 'a costly experience' - whether per-task Zapier pricing is a recurring complaint across the cluster is unknown from the fetched pages"
+    - "the community result (medium.com, rank 3) and four further editorial results were not fetched under the 8-site rule, so first-person accounts of building an integration are unobserved"

@@ -1,0 +1,195 @@
+cluster_id: c_74700978
+head_term: "obd2 codes"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 6
+pages_failed: 2
+competitors:
+  - name: "AutoZone DIY - OBD 2 Code List"
+    url: "https://www.autozone.com/diy/diagnostic-trouble-codes/obd-2-code-list"
+    site: autozone.com
+    kind: vendor
+    fetch_status: "failed: HTTP 403 Forbidden, response body not retrieved"
+    solves: "unknown - from the SERP title only, the page is presented as \"OBD 2 Code List - AutoZone\"."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "2 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown from this page; generic OBD-II P0-range definitions are standardised and appear in many independent places, including the openly downloadable GitHub CSV in this same result set."
+    ai_replaceable: "inference: unknown - cannot be judged without the page content."
+    why_still_searching: "inference: unknown; the observable fact is that this is the cluster's dominant site at 2 of 19 checked results while refusing automated retrieval."
+    evidence:
+      - "The server returned HTTP 403 Forbidden."
+  - name: "App Store - Obd2 Codes List (iOS app)"
+    url: "https://apps.apple.com/app/id1454079376"
+    site: apps.apple.com
+    kind: vendor
+    fetch_status: ok
+    solves: "The only offline, searchable code database in the selected set, and the one with the largest stated coverage: \"Look up your car check engine code on the go with your phone - OBD ll (obd2) codes list - diagnostics trouble codes definition and possible causes\", working with \"No Internet connection needed.\""
+    does_not_solve: "It defines codes but does not read them from the car, and it does not diagnose or repair; the listing shows no update date, and no methodology or source for the code definitions is stated."
+    workflow_remaining: "Buy or already own a reader - \"If you have cable, bluetooth or WiFi OBDII fault code reader (adapter) (ELM327, PLX Kiwi, OBDLink or any other) you need this app for code description\" - then pull the code, look it up, and still decide what to repair."
+    business_model: "Paid app at \"$0.99\"; no in-app purchases, subscription or ads are stated in the listing."
+    currency: "Not stated - no update date; the only date-like text is \"© 2019 Tu Phan\"."
+    coverage: "The largest breadth claim in the set: \"contains over a hundred thousand fault codes for all vehicle manufacturers\", \"more than 18546 error descriptions for almost 50 car manufacturers\", \"almost 5000 generic OBDII codes\" and \"more than 13500 additional manufacturer specific codes\"."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: yes
+    needs_account: unknown
+    data_reproducible: "inference: the generic OBD-II range is standardised and openly available - the GitHub CSV in this same result set holds 3071 rows for free - but the claimed manufacturer-specific tier (\"more than 13500\") is the scarce part, compiled from service literature rather than a single public source."
+    ai_replaceable: "inference: yes for common generic codes, which a chat assistant recites without a lookup; less so for obscure manufacturer-specific codes, where a definition must be correct rather than plausible and a wrong guess sends someone to buy the wrong part."
+    why_still_searching: "inference: the cluster's members are dominated by free and PDF phrasings (\"obd2 codes list free\", \"obd2 codes list pdf free\", \"obd2 codes list free download\"), so a $0.99 install with no visible update date is a worse fit than a page that just shows the list."
+    evidence:
+      - "$0.99"
+      - "contains over a hundred thousand fault codes for all vehicle manufacturers"
+      - "more than 18546 error descriptions for almost 50 car manufacturers"
+      - "more than 13500 additional manufacturer specific codes"
+      - "No Internet connection needed."
+      - "If you have cable, bluetooth or WiFi OBDII fault code reader (adapter) (ELM327, PLX Kiwi, OBDLink or any other) you need this app for code description"
+      - "© 2019 Tu Phan"
+  - name: "AutoPi - How to Read OBD2 Codes"
+    url: "https://www.autopi.io/blog/how-to-read-obd2-codes/"
+    site: autopi.io
+    kind: editorial
+    fetch_status: ok
+    solves: "Explains the structure of a code (what the letter and digits mean) and walks through reading codes, with a table of eleven examples - P0300, P0420, P0171, P0128, P0442, C0035, C1214, B0020, U0100, U0121, U0073 - covering all four letter families."
+    does_not_solve: "It is not a code list - it says only \"Below are examples of commonly seen codes and what they generally relate to\" - and the method it teaches is tied to the vendor's own hardware, so a reader with a generic ELM327 gets structure but not procedure."
+    workflow_remaining: "Obtain hardware and an account: the page's method requires \"Connect the AutoPi TMU CM4\" and \"Access AutoPi Cloud\", where you \"Log in from a computer or smartphone and open the relevant device or vehicle\"."
+    business_model: "Hardware and subscription sales - \"From EUR 599\" for the CAN-FD Pro and \"EUR 129 + EUR 6/month\" for the Mini, with shop links throughout."
+    currency: "\"Updated 14 Aug, 2025\"."
+    coverage: "Eleven example codes across the P, B, C and U families; the page makes no comprehensiveness claim."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: yes
+    needs_account: yes
+    data_reproducible: "inference: yes - the code-format explanation is the published OBD-II standard and the eleven examples are ubiquitous; nothing here is proprietary except the product workflow."
+    ai_replaceable: "inference: yes - explaining what P, B, C and U mean and what P0420 indicates is textbook material a chat assistant handles fully; the hardware is the only non-replaceable part and it is not what the searcher asked for."
+    why_still_searching: "inference: a reader looking for how to read codes on their own car meets a EUR 599 / EUR 129-plus-monthly telematics device, which does not fit a one-off check-engine-light problem, so they bounce."
+    evidence:
+      - "Updated 14 Aug, 2025"
+      - "Below are examples of commonly seen codes and what they generally relate to"
+      - "From EUR 599"
+      - "EUR 129 + EUR 6/month"
+      - "Log in from a computer or smartphone and open the relevant device or vehicle"
+      - "Connect the AutoPi TMU CM4"
+  - name: "CalAmp blog - All You Need to Know About OBD2 Codes"
+    url: "https://www.calamp.com/blog/obd2-codes/"
+    site: calamp.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A conceptual primer - \"OBD-II codes are like messages from your vehicles, telling you what's going on under the hood\" - covering the four code families and stating there are \"approximately eight types of affected systems\"."
+    does_not_solve: "Despite ranking first for \"obd2 codes list\", it is not a list: it gives only four example codes (P0101, B0020, C1234, U0100). It offers no lookup, no search, and no manufacturer-specific coverage."
+    workflow_remaining: "Go elsewhere to look up the actual code, then use an OBD-II scanner or consult a mechanic to act on it."
+    business_model: "Fleet telematics product marketing - \"The CalAmp iOn enhances this approach by offering real-time insights into code occurrences, vehicle performance, and maintenance needs\" and \"Request a demo today to learn how the CalAmp iOn can help you maintain full visibility across your fleet.\" No pricing, subscription, ads or affiliate links are stated."
+    currency: "\"Published on October 23, 2023, by Mark Gaydos\" - nearly three years before the analyst date, with no update shown."
+    coverage: "Four example codes; all four code categories (P/B/C/U) described; \"approximately eight types of affected systems\"."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes entirely - four example codes and a description of the standard's structure, nothing proprietary."
+    ai_replaceable: "inference: yes, completely - this page's entire informational content is standard-definition material that a chat assistant reproduces more completely and more currently."
+    why_still_searching: "inference: it ranks first for a list query without being a list, so every visitor with that intent leaves unsatisfied - a mismatch that by itself generates repeat searching."
+    evidence:
+      - "OBD-II codes are like messages from your vehicles, telling you what's going on under the hood."
+      - "approximately eight types of affected systems"
+      - "Request a demo today to learn how the CalAmp iOn can help you maintain full visibility across your fleet."
+      - "Published on October 23, 2023, by Mark Gaydos"
+  - name: "GreatWater 360 Auto Care - How to Read OBD-II Codes"
+    url: "https://www.greatwater360autocare.com/news/how-to-read-obd-ii-codes"
+    site: greatwater360autocare.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A short how-to aimed at first-timers, reassuring that the task is doable - \"go for it, it's easier than you think. But first, you'll need a code reader\" - with five example codes including \"P0300: Random/multiple cylinder misfire\"."
+    does_not_solve: "It does not catalogue codes, does not cover manufacturer-specific ranges, and does not carry the reader past the reading step into diagnosis."
+    workflow_remaining: "Buy a code reader and do it yourself, or book the shop - \"Schedule your diagnostic appointment today.\""
+    business_model: "Repair-shop lead generation - \"At GreatWater 360 Auto Care, we've got diagnostic tools that make most...\" and \"Schedule your diagnostic appointment today.\" No subscription, ads or affiliate links are stated."
+    currency: "\"Published on August 13, 2025\"."
+    coverage: "Five example codes; broader categories mentioned but not catalogued."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - five ubiquitous example codes and general procedure, no proprietary input."
+    ai_replaceable: "inference: yes for the content; the shop's physical diagnostic service is the non-replaceable part, and it is a local service rather than a web product."
+    why_still_searching: "inference: the page's answer to a hard code is \"book us\", which is only useful to readers near that shop, so everyone else continues searching."
+    evidence:
+      - "Published on August 13, 2025"
+      - "P0300: Random/multiple cylinder misfire"
+      - "go for it, it's easier than you think. But first, you'll need a code reader"
+      - "Schedule your diagnostic appointment today."
+  - name: "CarHop - How to Read a Car Code Scanner"
+    url: "https://www.carhop.com/news/how-to-read-a-car-code-scanner/"
+    site: carhop.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Basic instruction on operating a scanner, framed by the dealership - \"Welcome to CarHop.com! We're here to guide you on how to read a code on a car code scanner.\""
+    does_not_solve: "It mentions only two codes and explicitly defers the actual lookup, telling readers to \"refer to the manufacturer-specific code list or use an online database\" - that is, it points at the gap rather than filling it."
+    workflow_remaining: "\"consult the scanner's manual or online resources to interpret the alphanumeric codes\", then possibly \"seek professional advice\" from a mechanic for diagnosis and repair."
+    business_model: "Used-car dealership and financing - the site links throughout to vehicle inventory and financing applications. No pricing, subscription or affiliate links for the content itself are stated."
+    currency: "\"May 14th, 2024 by Esmeralda Salgado\"."
+    coverage: "Two codes named: \"The codes can range from simple problems like a loose gas cap (P0442) to complex ones like a faulty oxygen sensor (P0135).\""
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - two example codes and generic scanner instructions; no data asset exists here to rebuild."
+    ai_replaceable: "inference: yes, completely - and more so than most, since the page's own advice is to go find a database elsewhere, which is exactly what an assistant substitutes for."
+    why_still_searching: "inference: the page ends by instructing the reader to find a code list somewhere else, so it directly produces the next search rather than ending it."
+    evidence:
+      - "The codes can range from simple problems like a loose gas cap (P0442) to complex ones like a faulty oxygen sensor (P0135)."
+      - "refer to the manufacturer-specific code list or use an online database"
+      - "consult the scanner's manual or online resources to interpret the alphanumeric codes"
+      - "May 14th, 2024 by Esmeralda Salgado"
+  - name: "GitHub - mytrile/obd-trouble-codes CSV"
+    url: "https://github.com/mytrile/obd-trouble-codes/blob/master/obd-trouble-codes.csv"
+    site: github.com
+    kind: community
+    fetch_status: ok
+    solves: "The only raw, bulk-downloadable dataset in the set - a code-to-description CSV of \"3071 lines (3071 loc) · 164 KB\" with entries such as \"P0100\" paired with \"Mass or Volume Air Flow Circuit Malfunction\" - directly serving the cluster's \"list\", \"pdf\", \"download\" and \"free\" member queries."
+    does_not_solve: "It is data with no interface: no search, no causes, no fixes, and the page states no license, no last-updated date, and no breakdown of which code ranges or whether manufacturer-specific codes are included."
+    workflow_remaining: "Download the raw file, open or import it, find the code by hand, and then go elsewhere entirely for causes and repair - the page \"provides no guidance on diagnostic steps, interpretation methods, or additional resources needed for vehicle diagnosis\"."
+    business_model: "None stated - no pricing, subscription, ads, affiliate links or license terms appear on the page."
+    currency: "Not stated - the page shows a \"Latest commit\" element and links to commit history, but no date appears in the retrieved content."
+    coverage: "\"3071 lines\" of codes; the example row is a P-series code (\"P0100\"). Which of the P/B/C/U ranges are included, and the generic versus manufacturer-specific split, are not stated."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: this page is itself the proof that the generic code table is reproducible - 3071 rows sitting in a public repo, free to download, is the clearest possible evidence that the base dataset has no moat."
+    ai_replaceable: "inference: for a single lookup, yes - an assistant returns the description without the download. The file's advantage is bulk and offline use, i.e. building something with it, not answering one question."
+    why_still_searching: "inference: a bare CSV gives a definition but not a cause, a severity or a fix, so the user who finds their code here immediately searches again for what to do about it - and the cluster's members show exactly that (\"fix obd2 codes\", \"how to clear obd2 codes\")."
+    evidence:
+      - "3071 lines (3071 loc) · 164 KB"
+      - "P0100"
+      - "Mass or Volume Air Flow Circuit Malfunction"
+      - "Download raw file"
+  - name: "Bob Is The Oil Guy forum - OBD 2 codes explained, read your own codes"
+    url: "https://bobistheoilguy.com/forums/threads/obd-2-codes-explained-read-your-own-codes.130754/"
+    site: bobistheoilguy.com
+    kind: community
+    fetch_status: "failed: HTTP 403 Forbidden, response body not retrieved"
+    solves: "unknown - from the SERP title only, the thread is presented as \"obd 2 codes explained read your own codes\"."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - no content was retrieved; an enthusiast thread's value is accumulated first-hand experience, which is not a scrapeable dataset."
+    ai_replaceable: "inference: unknown - cannot be judged without the thread content."
+    why_still_searching: "inference: unknown from this task."
+    evidence:
+      - "The server returned HTTP 403 Forbidden."
+synthesis:
+  pieced_together_answer: "Three separate needs sit behind one head term and no fetched page serves more than one. (1) What the code means: the fullest coverage is a $0.99 iOS app claiming \"more than 18546 error descriptions for almost 50 car manufacturers\", and the freest is a GitHub CSV of \"3071 lines\" with no search interface; the two top-ranked editorial results for \"obd2 codes list\" are not lists at all - calamp.com names four codes and autopi.io eleven. (2) How to get the code out of the car: autopi.io explains the format but ties the procedure to its own EUR 599 / EUR 129-plus-EUR 6-a-month hardware; greatwater360autocare.com says \"you'll need a code reader\"; carhop.com openly hands the reader onward to \"refer to the manufacturer-specific code list or use an online database\". (3) What to actually do about it: nobody. Every fetched page stops at the definition and routes to a mechanic, a demo, or an appointment. The cluster's own member queries show the same seam - \"obd2 codes meaning\" sits next to \"fix obd2 codes\" and \"how to clear obd2 codes\"."
+  single_destination_would_need: "It would have to run the chain the searcher is actually on: read the code (or accept one typed in), resolve it against a table that covers manufacturer-specific ranges and not just the generic P0 set, then narrow it for the specific year/make/model, rank likely causes with a stated basis, indicate severity - is it safe to drive, must it be fixed before an emissions test - give the diagnostic sequence to confirm which cause it is, estimate parts and labour, and say when the code can be cleared and what happens if it returns. Of those steps, the fetched pages collectively deliver only the second. A single destination also needs to be free and instantly readable, since the cluster's members are saturated with \"free\", \"pdf\", \"download\" phrasing, and it needs a visible update date, which four of the six successfully fetched pages do not have."
+  existing_tools_that_do_this: "In the checked results the input file records \"tool_hits\": 0, and of the eight sites selected here only two are data assets rather than articles - the \"Obd2 Codes List\" iOS app at $0.99 (install required, \"No Internet connection needed\") and the mytrile/obd-trouble-codes CSV on GitHub (free, no interface). Note that four lookup-style destinations appear in the cluster's results but were not selected by the sampling rule because they are categorised unclassified: klavkarr.com, edmunds.com, innova.com and repairpal.com; they were not fetched and nothing is claimed about them here."
+  data_source_and_reproducibility: "The generic layer is demonstrably reproducible: a public GitHub repository holds \"3071 lines (3071 loc) · 164 KB\" of code-to-description rows, downloadable with no account and no stated license, and the same standardised definitions recur verbatim across every page fetched. The scarce layer is manufacturer-specific - the iOS app claims \"more than 13500 additional manufacturer specific codes\" against \"almost 5000 generic OBDII codes\", so roughly three-quarters of its value is the non-generic tier, which is compiled from service literature rather than a single download. Beyond definitions, the genuinely unavailable dataset is empirical: which cause actually fixed which code on which vehicle. No fetched page publishes that."
+  ai_resilience: "inference: low for definitions, high for the diagnostic step. Reciting what P0420 or P0300 means is the most AI-replaceable content in all three clusters - carhop.com literally tells readers to go find a database elsewhere, which is the substitution an assistant performs. What resists is anything needing vehicle-specific grounding and real outcomes: which of five plausible causes is likely on a 2014 model with this mileage, what the confirming test is, and what it costs. An assistant that answers confidently but wrongly here sends someone to buy the wrong part, so verified, vehicle-scoped data retains value that a generic table does not."
+  open_questions:
+    - "AutoZone is the cluster's dominant site at 2 of 19 checked results but returned 403; whether its list is complete, searchable, or a lead-in to free in-store code reading is unknown."
+    - "The bobistheoilguy thread returned 403, so what enthusiast communities add beyond code definitions is unknown from this task."
+    - "Four lookup-style destinations in the results - klavkarr.com, edmunds.com, innova.com, repairpal.com - fall outside the selection rule and were not fetched; whether any already offers cause-and-fix depth is unknown."
+    - "The iOS app's coverage claims (\"over a hundred thousand fault codes\", \"more than 18546 error descriptions\") are the listing's own assertions and are unverified; its last update date is not stated and the copyright reads 2019."
+    - "The GitHub CSV shows no license and no visible commit date in the retrieved content, so its reuse terms and currency are unknown."
+    - "No fetched page states how many of the codes users actually search for are manufacturer-specific rather than generic, so the size of the scarce tier relative to real demand is unknown."

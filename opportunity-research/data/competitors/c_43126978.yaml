@@ -1,0 +1,178 @@
+cluster_id: c_43126978
+head_term: "door won't close"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 4
+pages_failed: 4
+competitors:
+  - name: "NYC HPD - Self-Closing Doors"
+    url: "https://www.nyc.gov/site/hpd/services-and-information/self-closing-doors.page"
+    site: nyc.gov
+    kind: official
+    fetch_status: ok
+    solves: "States the NYC legal requirement that apartment and hallway doors swing closed and latch by themselves, gives a test for whether a door self-closes, and names who is responsible when it does not."
+    does_not_solve: "Gives no repair procedure for a door that binds, rubs or will not latch mechanically; names no hardware, no brands, and nothing outside New York City."
+    workflow_remaining: "Tenant must contact the property owner or call 311 to file a complaint; owner must arrange an actual repair. The page itself performs no repair and produces no document."
+    business_model: "unknown - government information page; the fetched page states no pricing, subscription, ads or affiliate links."
+    currency: "unknown - no page-level published or updated date shown; the page refers to annual reports including an FY25 report."
+    coverage: "New York City only; apartment doors, hallway doors and public areas of buildings; cites HMC section 27-2041.1; no brands or door models named."
+    dominates_serp: "4 of 19 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes - the substance is a public statute (NYC Housing Maintenance Code) plus a 311 escalation path, all rebuildable from public legal text."
+    ai_replaceable: "inference: largely yes - the rule and the escalation path are short factual statements a chat assistant could state, though it cannot file the 311 complaint."
+    why_still_searching: "inference: the page answers a legal/responsibility question, not the physical question most searchers in this cluster have; a homeowner with a sticking door leaves with no fix and no diagnosis."
+    evidence:
+      - "Apartment doors and hallway doors are required by law to swing closed and latch by themselves"
+      - "Contact the property owner of your building if your front door doesn't self-close"
+      - "HPD Inspectors look for self-closing doors in any public areas of a building"
+  - name: "Canterbury City Council - Fire door safety information sheet"
+    url: "https://www.canterbury.gov.uk/sites/default/files/2023-11/Fire%20door%20safety%20information%20sheet.pdf"
+    site: canterbury.gov.uk
+    kind: official
+    fetch_status: "failed: PDF returned as binary/unreadable content (application/pdf, 295.2KB, no extractable text)"
+    solves: "unknown - the SERP title is only \"www.canterbury.gov.uk\"; the file name in the URL is \"Fire door safety information sheet.pdf\", which suggests fire-door guidance, but nothing on the page was readable."
+    does_not_solve: "unknown"
+    workflow_remaining: "unknown"
+    business_model: "unknown"
+    currency: "unknown - the URL path contains \"2023-11\", but no date was readable on the document itself."
+    coverage: "unknown"
+    dominates_serp: "1 of 19 checked results"
+    needs_install: "unknown"
+    needs_account: "unknown"
+    data_reproducible: "inference: unknown - nothing was read, so no judgement about the underlying data is supportable."
+    ai_replaceable: "inference: unknown"
+    why_still_searching: "inference: unknown - a PDF that does not render as text is also a poor destination for a searcher, but this is not evidenced by the page."
+    evidence:
+      - "no page text retrieved; the fetch returned binary PDF data only (not a page quote)"
+  - name: "Samsung Support - refrigerator door will not close properly"
+    url: "https://ushl.samsung.com/ph/support/home-appliances/how-to-fix-a-samsung-refrigerator-door-that-will-not-close-properly"
+    site: ushl.samsung.com
+    kind: vendor
+    fetch_status: "failed: DNS resolution error (getaddrinfo ENOTFOUND ushl.samsung.com)"
+    solves: "unknown - from the SERP title only: \"A Samsung refrigerator door will not close properly\"."
+    does_not_solve: "unknown"
+    workflow_remaining: "unknown"
+    business_model: "unknown"
+    currency: "unknown"
+    coverage: "unknown - the SERP title names Samsung refrigerators; nothing else confirmed."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: "unknown"
+    needs_account: "unknown"
+    data_reproducible: "inference: unknown"
+    ai_replaceable: "inference: unknown"
+    why_still_searching: "inference: unknown - though a result about a refrigerator door ranking for a generic \"door won't close\" query is itself a mismatch between the query and the destination."
+    evidence:
+      - "no page text retrieved; host did not resolve (not a page quote)"
+  - name: "Bunnings Workshop community - How to fix door that won't close properly?"
+    url: "https://www.workshop.bunnings.com.au/discussion/278212/how-to-fix-door-that-wont-close-properly"
+    site: workshop.bunnings.com.au
+    kind: community
+    fetch_status: "failed: page body not retrievable (content returned truncated to the title on two attempts)"
+    solves: "unknown - from the SERP title only: \"How to fix door that won't close properly? - Bunnings Workshop community\"."
+    does_not_solve: "unknown"
+    workflow_remaining: "unknown"
+    business_model: "unknown"
+    currency: "unknown"
+    coverage: "unknown"
+    dominates_serp: "2 of 19 checked results"
+    needs_install: "unknown"
+    needs_account: "unknown"
+    data_reproducible: "inference: unknown - forum answers are user-generated, so they are not a dataset that could be rebuilt from a public source, but nothing on the page was read to confirm its contents."
+    ai_replaceable: "inference: unknown"
+    why_still_searching: "inference: unknown"
+    evidence:
+      - "no page text retrieved; body truncated on both attempts (not a page quote)"
+  - name: "Doors Los Angeles - How to Fix a Door That Won't Close Properly"
+    url: "https://doorslosangeles.com/blog/how-to-fix-door-that-wont-close"
+    site: doorslosangeles.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Gives an 11-step troubleshooting sequence plus an FAQ for a door that will not close, covering loose hinges, misaligned strike plates, sticking and warped doors."
+    does_not_solve: "Does not diagnose the specific door from symptoms in any interactive way, does not cover fire-door or code obligations, and explicitly stops short where the door is warped or damaged beyond adjustment."
+    workflow_remaining: "Reader must diagnose which of the 11 causes applies, buy or find tools and parts, perform the adjustment, and if it fails, call a professional - the page gives the company's phone number - or buy a replacement door."
+    business_model: "Lead generation for the site's own door sales and installation service; the page carries promotional banners and a phone number, no pricing stated, and no subscription or affiliate links stated."
+    currency: "Published 2025-07-11 per the page; reading time given as 8 minutes."
+    coverage: "Multiple causes and door types (interior doors, modern doors, concealed hinges); advice is general but the business serves Los Angeles, CA."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes - the content is generic carpentry troubleshooting with no proprietary dataset behind it; any competent writer or tradesperson could reproduce it."
+    ai_replaceable: "inference: yes for the text - a chat assistant can enumerate the same causes and fixes, and can do so conditioned on the user's symptoms, which the static list cannot."
+    why_still_searching: "inference: the page is a list of possible causes rather than an answer for one door; a searcher must self-diagnose, and the page pushes toward a paid LA-area service call they may not want or be able to use."
+    evidence:
+      - "Warped or damaged doors may no longer sit flush in their door frames, no matter how many adjustments you make."
+      - "If you've tried these steps and the door still won't close properly, it's time to get expert help."
+      - "Repair your door if the problem is minor, like a loose hinge, misaligned strike plate, or minor sticking."
+  - name: "FacileThings - Closing Doors Is Key to Your Productivity"
+    url: "https://facilethings.com/blog/en/closing-doors"
+    site: facilethings.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Argues, as a productivity essay, that keeping too many options ('doors') open harms productivity - a metaphorical reading of the query \"should i close all doors\"."
+    does_not_solve: "Nothing about physical doors, fire safety, energy use, HVAC, or whether to close doors in a house; it is a topical mismatch with the home-repair cluster."
+    workflow_remaining: "Reader must either adopt the GTD method independently or sign up for the vendor's trial; nothing about a door is resolved."
+    business_model: "Paid SaaS promotion; the page repeatedly calls the reader to a free trial of the FacileThings product, with links to subscription pages. No ads or affiliate links stated."
+    currency: "unknown - no publication or update date stated; the comment section refers to comments left over ten years ago."
+    coverage: "Narrow - one productivity concept; no coverage of doors as physical objects."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: "no for the article; yes an account for the promoted product - the page promotes registering for a 30-day free trial."
+    needs_account: "no to read the article; the promoted product requires registration."
+    data_reproducible: "inference: yes - it is an opinion essay on a widely discussed productivity idea, with no underlying dataset at all."
+    ai_replaceable: "inference: yes - a chat assistant can restate the loss-aversion/closing-options argument, and can also disambiguate the query, which this page cannot."
+    why_still_searching: "inference: this result is evidence the query \"should i close all doors\" is ambiguous; a searcher who meant interior doors in a house gets a productivity SaaS essay and must search again."
+    evidence:
+      - "Start to shut down all those matters you have open only by inertia"
+      - "TRY FacileThings FOR FREE and start living at your own pace"
+      - "most of the times we make decisions that allow us to continue having available"
+  - name: "Quora - Is it normal that I want all doors in my house to be closed?"
+    url: "https://www.quora.com/Is-it-normal-that-I-want-all-doors-in-my-house-to-be-closed-If-a-household-member-leaves-their-door-half-open-or-open-I-wont-be-able-relax-and-it-really-frustrates-me-to-the-point-that-Ill-have-to-get-up-and-close"
+    site: quora.com
+    kind: community
+    fetch_status: "failed: HTTP 403 Forbidden"
+    solves: "unknown - from the SERP title only, the thread asks whether it is normal to want all doors in a house closed."
+    does_not_solve: "unknown"
+    workflow_remaining: "unknown"
+    business_model: "unknown"
+    currency: "unknown"
+    coverage: "unknown"
+    dominates_serp: "2 of 19 checked results"
+    needs_install: "unknown"
+    needs_account: "unknown"
+    data_reproducible: "inference: no - Quora answers are user-generated opinion, not a dataset that can be rebuilt from a public source."
+    ai_replaceable: "inference: unknown - the thread contents were not read."
+    why_still_searching: "inference: unknown; the 403 itself means a searcher arriving from a proxy or blocked context may not reach the content either."
+    evidence:
+      - "no page text retrieved; server returned HTTP 403 (not a page quote)"
+  - name: "Facebook group post (Spotted in Bowling Green) - door won't close"
+    url: "https://www.facebook.com/groups/spottedinbg/posts/1549323836771890/"
+    site: facebook.com
+    kind: community
+    fetch_status: ok
+    solves: "Almost nothing - the visible content is one person's problem statement posted to a local community group; no diagnosis or fix is present in the retrieved text."
+    does_not_solve: "No cause, no procedure, no parts list, no follow-up; the retrieved page shows the question but no answer."
+    workflow_remaining: "Reader would have to wait for group replies or go elsewhere entirely; the whole repair remains to be done."
+    business_model: "unknown - no pricing, subscription or affiliate links were visible in the retrieved text."
+    currency: "unknown - no date visible in the retrieved text."
+    coverage: "Extremely narrow - a single poster's door in one local group."
+    dominates_serp: "3 of 19 checked results"
+    needs_install: "no"
+    needs_account: "unknown - the post text was visible without signing in, but no statement about account requirements appeared."
+    data_reproducible: "inference: no - it is one person's post; there is no dataset, and the content cannot be regenerated from any public source."
+    ai_replaceable: "inference: yes - the question is generic and a chat assistant would answer it better than an unanswered social post does."
+    why_still_searching: "inference: three of the nineteen checked results are Facebook group posts asking the same question rather than answering it, which suggests searchers are landing on other people's unanswered questions and must keep looking."
+    evidence:
+      - "Hi! I'm having an issue with my door—it won't close anymore"
+      - "Spotted in Bowling Green"
+synthesis:
+  pieced_together_answer: "No single fetched page answers the cluster. The physical diagnosis-and-fix content lives on a commercial door installer's blog (doorslosangeles.com: an 11-step cause list from hinges to strike plates to warped slabs). The legal/landlord angle - who must fix a door that does not self-close and latch, and how to escalate - lives on nyc.gov and is valid only in New York City. The fire-safety framing sits behind a Canterbury City Council PDF that did not render. Peer experience sits on Bunnings Workshop, Quora and Facebook, none of which returned usable answers in this pass; the one Facebook post that did return shows a question with no answer. Separately, the cluster's second checked query, \"should i close all doors\", pulls in an entirely different meaning - a productivity SaaS essay on facilethings.com - showing the head term is ambiguous across at least three unrelated intents (mechanical repair, fire/building code, life advice)."
+  single_destination_would_need: "A symptom-driven diagnostic that takes what the user observes (rubs at the top, does not latch, swings open on its own, new pre-hung door, seasonal) and the door context (interior/exterior, hinge type, hollow or solid, rental or owned) and returns one ranked cause, the specific adjustment, the exact parts and tools, and a decision point for when the frame is racked or the slab is warped and a professional or replacement is the answer. It would also have to resolve the ambiguity in the head term up front (repair vs. fire-door/self-closing obligation vs. should-I-close-interior-doors), and for renters route to the local obligation and complaint path rather than to a DIY fix. None of the fetched pages does more than one of these."
+  existing_tools_that_do_this: "none found in the checked results - the cluster's fragmentation record reports tool_hits 0, and every page fetched was an article, an official information page, a PDF or a social/forum post; no calculator, database or diagnostic tool was found."
+  data_source_and_reproducibility: "inference: there is no proprietary dataset anywhere in this cluster. The repair content is generic carpentry knowledge, freely reproducible. The one piece of structured data is municipal law (NYC Housing Maintenance Code section 27-2041.1 on nyc.gov, and whatever the Canterbury fire-door sheet contains), which is public and rebuildable, but is jurisdiction-by-jurisdiction and would have to be compiled per locality - that compilation, not the repair advice, is the only defensible data asset visible here."
+  ai_resilience: "inference: low for the advice layer. Every fetched page's substance - cause lists, adjustment steps, when to call a pro - is exactly what a chat assistant answers well, and an assistant can condition on the user's symptoms where a static list cannot. Resilience is higher for two things no assistant supplies: a verified local obligation and complaint path for renters (the nyc.gov role), and the physical work itself, which is where every commercial page funnels the reader."
+  open_questions:
+    - "Four of eight selected pages failed to fetch (canterbury.gov.uk PDF unreadable, ushl.samsung.com DNS failure, Bunnings body truncated twice, Quora 403), so the community and official halves of this cluster are under-evidenced; a second pass with a different fetch path is needed before concluding what the forums actually contain."
+    - "The head term is ambiguous across at least three intents. Unknown from the fetched pages: what share of the 21 cluster members mean mechanical repair versus fire-code versus the productivity/metaphor sense - the input file's intent counts (fix 16 of 21) suggest repair dominates, but the checked queries included \"should i close all doors\", which pulled only non-repair results."
+    - "Whether a searcher arriving at nyc.gov actually converts to a 311 complaint, and how many jurisdictions publish an equivalent page, is unknown - only NYC and Canterbury appeared in the checked results."
+    - "The Samsung refrigerator-door result ranking for a generic \"door won't close\" query suggests appliance doors are part of this demand; how large that slice is, is unknown from the fetched pages."
+    - "No page fetched states traffic, users, revenue or market share, so competitive strength in this cluster is unmeasured; dominates_serp counts are the only ranking-presence evidence available."

@@ -3,3 +3,7 @@
 {"seed": "tax return", "skipped": "already expanded"}
 {"seed": "tax deduction", "new_queries": 1327, "suggestions_seen": 1671}
 {"seed": "index fund", "skipped": "already expanded"}
+{"seed": "finance etf", "new_queries": 665, "suggestions_seen": 1022}
+{"seed": "credit score", "skipped": "already expanded"}
+{"seed": "credit card", "new_queries": 1834, "suggestions_seen": 2537}
+{"seed": "crypto bitcoin", "skipped": "already expanded"}

@@ -1,1 +1,7 @@
 {"seed": "excel", "skipped": "already expanded"}
+{"seed": "excel vlookup", "new_queries": 1009, "suggestions_seen": 1576}
+{"seed": "google sheets", "skipped": "already expanded"}
+{"seed": "google docs", "new_queries": 1501, "suggestions_seen": 2299}
+{"seed": "office software notion", "skipped": "already expanded"}
+{"seed": "office software obsidian", "new_queries": 511, "suggestions_seen": 1305}
+{"seed": "office software trello", "skipped": "already expanded"}

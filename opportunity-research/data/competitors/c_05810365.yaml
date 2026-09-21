@@ -1,0 +1,204 @@
+cluster_id: c_05810365
+head_term: "renovation cost per square foot"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 7
+pages_failed: 1
+competitors:
+  - name: "Angi - How Much Does It Cost to Renovate a House?"
+    url: "https://www.angi.com/articles/complete-house-renovation-cost.htm"
+    site: angi.com
+    kind: tool
+    fetch_status: "failed: HTTP 403 Forbidden, response body not retrieved"
+    solves: "unknown - from the SERP title only, the page is presented as \"How Much Does It Cost to Renovate a House? [2026 Data] | Angi\"."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown from this page, but note that two pages that were fetched cite Angi as their source - sofi.com cites \"Angi.com\" and thisoldhouse.com cites \"estimates from Angi\" - so whatever Angi holds is being redistributed rather than kept exclusive."
+    ai_replaceable: "inference: unknown - cannot be judged without the page content."
+    why_still_searching: "inference: unknown; the observable fact is that other fetched pages restate Angi's numbers, so a searcher can meet the same figures without reaching Angi."
+    evidence:
+      - "The server returned HTTP 403 Forbidden."
+  - name: "SoFi - How Much Does It Cost to Remodel or Renovate a House?"
+    url: "https://www.sofi.com/learn/content/average-cost-to-remodel-a-house/"
+    site: sofi.com
+    kind: tool
+    fetch_status: ok
+    solves: "A whole-house per-square-foot range plus room-level dollar ranges, e.g. \"the cost to renovate or remodel a whole house runs between $15 and $60 per square foot\" and kitchen/bathroom work at \"$75-$250 per square foot\"."
+    does_not_solve: "It does not produce a number for the reader's own project, and it is not primary data - the page cites \"Angi.com\" and \"HomeGuide.com\" as sources, so it restates figures published elsewhere. It states no regional breakdown method."
+    workflow_remaining: "Measure the space, pick a tier, and then get real quotes - the page itself says \"The best way to estimate your renovation costs is to talk to a local contractor.\""
+    business_model: "Lending - the page promotes SoFi's financial products, including \"SoFi now offers flexible HELOC options to turn your home equity into cash\", alongside home improvement loans and cash-out refinance, with \"Log In\" and \"Get Started\" prompts throughout."
+    currency: "\"September 17, 2026 · 16 minute read\"."
+    coverage: "Whole-house and room-level US figures: \"$15 and $60 per square foot\" whole house, \"$75-$250 per square foot\" kitchen/bath, kitchen \"$14,589 and $41,550\". No city-level coverage is stated."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the page names its own sources (Angi, HomeGuide), so the dataset is second-hand aggregation of public cost pages, which anyone can repeat."
+    ai_replaceable: "inference: yes - a national range restated from two public sources is exactly what a chat assistant produces, and the loan-product framing is not what the searcher asked for."
+    why_still_searching: "inference: the page ends by telling the reader to talk to a contractor, which is the step they were trying to avoid or prepare for, and the $15-$60 spread is too wide to budget against."
+    evidence:
+      - "the cost to renovate or remodel a whole house runs between $15 and $60 per square foot"
+      - "$75-$250 per square foot"
+      - "The best way to estimate your renovation costs is to talk to a local contractor."
+      - "SoFi now offers flexible HELOC options to turn your home equity into cash"
+      - "September 17, 2026 · 16 minute read"
+  - name: "NerdWallet - How Much Does it Cost to Renovate a House?"
+    url: "https://www.nerdwallet.com/home-ownership/home-improvement/learn/cost-renovate-house"
+    site: nerdwallet.com
+    kind: tool
+    fetch_status: ok
+    solves: "A wide national range with tiered breakdowns and named project averages: \"The cost to renovate a house can range from $15 to $150 per square foot, depending on scope, size, location and labor\" and, for example, \"Major mid-range bathroom renovation: Average renovation cost: $26,138\"."
+    does_not_solve: "It does not compute the reader's number on the page - the calculator is a link elsewhere (\"Check out our home improvement cost calculator\") - and it cites no named data source for the figures."
+    workflow_remaining: "Measure square footage, choose a tier within a ten-fold range, apply it manually, or leave for the separate calculator tool; then still get contractor quotes."
+    business_model: "Advertising and partner compensation: \"partner compensation is one of several factors that may affect which products we highlight\", with a \"HELOC & Home Equity Loans from our partners\" section and a disclosure that \"NerdWallet receives compensation of 0% to 0.85% of assets under management annualized\"."
+    currency: "\"Updated Apr 20, 2026\"."
+    coverage: "National US ranges \"$15 to $150 per square foot\" plus high-end, mid-range and lower-cost tiers with named project averages. No city or regional coverage is stated, and no source dataset is cited."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the project averages match the shape of publicly published remodeling cost reports, and the page cites no proprietary collection of its own."
+    ai_replaceable: "inference: yes - a range and a set of project averages is a summarisation task; the page's differentiator is the lender comparison table, not the cost data."
+    why_still_searching: "inference: a \"$15 to $150 per square foot\" spread is a ten-fold range, which cannot be budgeted against, so the reader keeps searching for something local and narrower."
+    evidence:
+      - "The cost to renovate a house can range from $15 to $150 per square foot, depending on scope, size, location and labor."
+      - "Major mid-range bathroom renovation: Average renovation cost: $26,138"
+      - "Check out our home improvement cost calculator"
+      - "partner compensation is one of several factors that may affect which products we highlight"
+      - "Updated Apr 20, 2026"
+  - name: "HomeAdvisor - How Much Does a House Renovation Cost?"
+    url: "https://www.homeadvisor.com/cost/additions-and-remodels/remodel-multiple-rooms/"
+    site: homeadvisor.com
+    kind: tool
+    fetch_status: ok
+    solves: "Cost ranges backed by a stated primary-data claim - \"We surveyed over 10,000 real customers about their project costs\" - with a per-square-foot figure of \"$15 to $60 per square foot\", plus a zip-code path to local pros."
+    does_not_solve: "The zip field matches contractors rather than localising the cost figure; the page \"does not calculate individualized costs without professional input\", and the number of respondents per region or project type is not stated."
+    workflow_remaining: "Enter a zip code and request quotes - \"Enter a zip below and get matched to top-rated pros near you\" and \"Get quotes from up to 3 pros!\" - then wait for contractors to contact you."
+    business_model: "Lead generation - the page's calls to action are \"Get quotes from up to 3 pros!\" and \"Find Local Pros\"; no subscription, ads or affiliate links were stated."
+    currency: "\"Updated Jun 19, 2026\" in the byline, although the title says \"[2025 Data]\"."
+    coverage: "Stated as based on \"over 10,000 real customers\" plus \"research from reputable sources, including the U.S. Bureau of Labor Statistics, academic journals, market studies, and interviews with industry experts\". Per-square-foot figure \"$15 to $60 per square foot\". Geographic granularity is not stated."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: unknown
+    data_reproducible: "inference: partly - the cited public sources (BLS, market studies) are reproducible, but a survey of over 10,000 of its own customers is a by-product of running the marketplace and could not be rebuilt without equivalent transaction flow."
+    ai_replaceable: "inference: the published ranges are replaceable, but the pro-matching and the proprietary customer survey behind the numbers are not; the page's real product is the introduction to contractors, which a chat assistant does not provide."
+    why_still_searching: "inference: submitting a zip means being contacted by up to three companies, which many researchers are not ready for, so they keep reading pages that give a number without a phone call."
+    evidence:
+      - "We surveyed over 10,000 real customers about their project costs."
+      - "$15 to $60 per square foot"
+      - "Enter a zip below and get matched to top-rated pros near you."
+      - "Get quotes from up to 3 pros!"
+      - "Updated Jun 19, 2026"
+      - "research from reputable sources, including the U.S. Bureau of Labor Statistics, academic journals, market studies, and interviews with industry experts"
+  - name: "Goodreads author blog - The Costs Per Square Foot of Renovating in NYC"
+    url: "https://www.goodreads.com/author_blog_posts/16684069-the-costs-per-square-foot-of-renovating-in-nyc?tab=book"
+    site: goodreads.com
+    kind: tool
+    fetch_status: ok
+    solves: "NYC-specific per-square-foot bands from a practitioner's blog post: \"$100-200-per-square-foot\" for basic renovations and \"$400-500\" for gut renovations with customization, plus a contingency rule to \"allocate an extra 10-15% as a cushion\"."
+    does_not_solve: "It is eight years old and states no data source or methodology for the figures; it is not a calculator and cannot be filtered by borough, building type or scope."
+    workflow_remaining: "Verify against current prices, \"check with the Department of Buildings (DOB)\" on approvals, and get actual contractor bids."
+    business_model: "Author/business promotion - the post carries embedded links to the author's real estate website (elikarealestate.com); no subscription, paywall or explicit ad disclosure is stated."
+    currency: "\"Published on April 17, 2018 09:46\" - eight years before the analyst date."
+    coverage: "New York City only; basic \"$100-200-per-square-foot\" and gut \"$400-500\". Data source is not stated."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the figures are one practitioner's ranges with no underlying dataset disclosed, so equivalent numbers can be assembled from any local contractor or from the other NYC pages in this same result set."
+    ai_replaceable: "inference: yes - an eight-year-old blog range with no cited method is weaker than what a chat assistant can assemble, and its staleness is a liability rather than an asset."
+    why_still_searching: "inference: a 2018 figure is visibly out of date to anyone renovating in 2026, and the classification of this page as a \"tool\" in the results while it is in fact a book-author blog post on Goodreads shows how thin the local supply is."
+    evidence:
+      - "Published on April 17, 2018 09:46"
+      - "$100-200-per-square-foot"
+      - "$400-500"
+      - "allocate an extra 10-15% as a cushion"
+      - "check with the Department of Buildings (DOB)"
+  - name: "This Old House - How Much Does Home Renovation Cost?"
+    url: "https://www.thisoldhouse.com/home-finances/home-renovation-cost"
+    site: thisoldhouse.com
+    kind: editorial
+    fetch_status: ok
+    solves: "The broadest single answer fetched: a \"$15–$150 per square foot\" tiered range, an overall \"$19,500 and $88,400\" with an average of \"$52,275\", room-level ranges (kitchen \"$14,550–$40,400\", bathroom \"$6,600–$28,000\") and cost tables for homes from 1,200 to 4,000 square feet."
+    does_not_solve: "It still does not produce the reader's own number, and its figures are partly second-hand - the page says they rest on \"estimates from Angi\" plus \"two nationwide homeowner surveys conducted in 2026\". No city-level pricing is stated."
+    workflow_remaining: "Enter a zip into the estimate form and be handed to contractors - \"By submitting your information, you are leaving This Old House and will be connected with partners of All Star Pros, who may contact you.\""
+    business_model: "Triple: affiliate (\"We may be compensated if you purchase through links on our website.\"), advertising (\"The compensation we receive from these companies may impact how and where products appear on this site.\") and lead generation into All Star Pros, with \"Join the 4,492 people who received a free, no obligation quote in the last 30 days\"."
+    currency: "\"Updated 03/31/2026\"."
+    coverage: "Per-square-foot \"$15–$150 per square foot\", overall \"$19,500 and $88,400\", average \"$52,275\", kitchen and bathroom ranges, and size tables for 1,200–4,000 square foot homes; source stated as \"estimates from Angi\" plus \"two nationwide homeowner surveys conducted in 2026\"."
+    dominates_serp: "2 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: mostly yes - the page names Angi as an input, and its own surveys are commissionable; nothing here is a defensible proprietary dataset, though running two nationwide surveys a year is a real cost."
+    ai_replaceable: "inference: yes for the numbers, which are aggregated public estimates; the brand trust and the contractor hand-off are what an assistant cannot replicate."
+    why_still_searching: "inference: the page is the top result for both checked queries yet still routes the reader to a quote form, so the search continues either toward a local figure or toward a page that does not require handing over contact details."
+    evidence:
+      - "$15–$150 per square foot"
+      - "$19,500 and $88,400"
+      - "$52,275"
+      - "Updated 03/31/2026"
+      - "We may be compensated if you purchase through links on our website."
+      - "Join the 4,492 people who received a free, no obligation quote in the last 30 days"
+      - "By submitting your information, you are leaving This Old House and will be connected with partners of All Star Pros, who may contact you."
+  - name: "Block Renovation - Remodeling Costs Per Square Foot by Room"
+    url: "https://www.blockrenovation.com/guides/remodeling-costs-per-square-foot-by-room"
+    site: blockrenovation.com
+    kind: editorial
+    fetch_status: ok
+    solves: "The most directly on-query structure fetched - per-square-foot ranges broken out by room for nine room types (kitchens \"$150–$400+\", bathrooms \"$120–$350\", living rooms and bedrooms \"$40–$120\", basements \"$70–$200\", sunrooms \"$100–$300\", whole-home \"$100–$250\") - plus an embedded calculator promising to \"Get an initial estimate based on your space and project details\"."
+    does_not_solve: "It states no data methodology and names no cities or markets, so the ranges are national in character; it also states \"the national estimated average renovation budget for 2026 is $41,500\" without a stated source."
+    workflow_remaining: "Run the on-page calculator and then enter Block's own funnel - \"If you're ready to take the next step, Block Renovation connects you with experienced professionals\" and \"Get Your Estimates\"."
+    business_model: "Its own renovation marketplace plus financing - \"Block Renovation connects you with experienced professionals\" and financing offered through \"our trusted partner\"; no ads or affiliate links were stated."
+    currency: "\"08.11.2025\" published, with schema last-modified \"2026-07-28T17:01:57.810Z\"."
+    coverage: "Nine room types with per-square-foot ranges, plus a stated national average of \"$41,500\" for 2026. City/market coverage is not stated, and the methodology is not stated."
+    dominates_serp: "2 of 19 checked results"
+    needs_install: no
+    needs_account: unknown
+    data_reproducible: "inference: the published ranges are reproducible from public sources, but a renovation platform sits on actual bid and project data from jobs it brokered, which is the one genuinely non-public input in this cluster - and the page does not claim to use it."
+    ai_replaceable: "inference: the room-by-room ranges are replaceable; the calculator plus the contractor network is not, because it converts an estimate into a bookable job."
+    why_still_searching: "inference: the calculator is the gateway to Block's sales funnel, so a reader who only wants a sanity-check number - not a renovation vendor - stops at the ranges and looks for an independent second opinion."
+    evidence:
+      - "$150–$400+"
+      - "$120–$350"
+      - "the national estimated average renovation budget for 2026 is $41,500"
+      - "Get an initial estimate based on your space and project details"
+      - "If you're ready to take the next step, Block Renovation connects you with experienced professionals"
+      - "08.11.2025"
+  - name: "Brick Underground - How much does the average NYC renovation cost?"
+    url: "https://www.brickunderground.com/guides/how-to-renovate/average-NYC-renovation-cost-per-square-foot"
+    site: brickunderground.com
+    kind: editorial
+    fetch_status: ok
+    solves: "The local layer the national pages lack: \"the average cost in NYC is $100 to $200 per square foot\" for basic work, \"$200 to $400 per square foot for higher end renovations\", up to \"$800 per square foot in extreme cases\", with treatment of brownstones, co-ops, condos and apartment combinations."
+    does_not_solve: "It states no data source and no date, and it explicitly warns its own metric is weak: \"As no two projects are going to be exactly the same, per-square-foot averages are slightly less predictive.\" It is also one market only."
+    workflow_remaining: "Check the specific building's board requirements, then hire professionals and obtain actual renovation bids for the project."
+    business_model: "Sponsored and partner content - \"Pro Tip\" sections link to Urban Standard and Bolster, a banner reads \"Presented by The Agency\", and the footer notes \"occasional emails on behalf of our sponsors\"."
+    currency: "Not stated - no publication or last-updated date is visible on the page."
+    coverage: "New York City only; basic \"$100 to $200 per square foot\", high end \"$200 to $400 per square foot\", extreme \"$800 per square foot\". Data source not stated."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - NYC contractor ranges are widely published, including by two other pages in this same result set, and no proprietary dataset is claimed."
+    ai_replaceable: "inference: yes for the ranges; the co-op/condo board and building-specific process knowledge is the part with real local depth, and even that is written rather than computed."
+    why_still_searching: "inference: the page undercuts the very metric the query asks for, telling readers per-square-foot averages are \"slightly less predictive\" - so the reader leaves knowing their question was the wrong shape but without a better one answered."
+    evidence:
+      - "the average cost in NYC is $100 to $200 per square foot"
+      - "$200 to $400 per square foot for higher end renovations"
+      - "$800 per square foot in extreme cases"
+      - "As no two projects are going to be exactly the same, per-square-foot averages are slightly less predictive."
+      - "occasional emails on behalf of our sponsors"
+synthesis:
+  pieced_together_answer: "Four fragments, none co-located. The national range sits on thisoldhouse.com (\"$15–$150 per square foot\"), nerdwallet.com (\"$15 to $150 per square foot\") and sofi.com (\"$15 and $60 per square foot\") - and these three disagree with each other while two of them cite the same upstream source, Angi. The room-level breakdown, which is what \"per square foot\" actually needs, is on blockrenovation.com (nine room types, kitchens \"$150–$400+\" down to bedrooms \"$40–$120\"). The local layer is separate again: brickunderground.com and the 2018 Goodreads post both give NYC bands, and no fetched page gives a second city. The step from a range to a number is on nobody's page - homeadvisor.com says outright that it \"does not calculate individualized costs without professional input\", sofi.com says \"The best way to estimate your renovation costs is to talk to a local contractor\", and thisoldhouse.com converts the reader into a lead for All Star Pros. The reader must therefore combine a national tier, a room mix, a local multiplier they cannot find, and a contingency (\"an extra 10-15% as a cushion\") by hand."
+  single_destination_would_need: "It would have to take scope (which rooms, what finish level), size (square footage per room, not per house), and location, and return one defensible number with a stated range - which means (a) room-level rather than whole-house rates, since the fetched spread between a bedroom and a kitchen is roughly three-to-one, (b) real local multipliers beyond NYC, which no fetched page provides, (c) a visible, dated methodology, since four of seven fetched pages state no source and one is eight years old, (d) the contingency and permit/approval steps that only the two NYC pages mention, and (e) no requirement to surrender contact details to see the number. The gap is not more content; it is the arithmetic and the localisation that every page leaves to the reader."
+  existing_tools_that_do_this: "Partially: Block Renovation has an on-page renovation cost calculator (\"Get an initial estimate based on your space and project details\"), NerdWallet links out to a \"home improvement cost calculator\", and HomeAdvisor and This Old House offer zip-code quote forms that route to contractors rather than compute. None of the fetched pages returns a computed project number without entering a sales funnel. The input file records six tool hits across 19 results, but one of those \"tool\" results is a 2018 Goodreads author blog post."
+  data_source_and_reproducibility: "Largely reproducible, and visibly recycled. sofi.com cites \"Angi.com\" and \"HomeGuide.com\"; thisoldhouse.com cites \"estimates from Angi\" plus \"two nationwide homeowner surveys conducted in 2026\"; brickunderground.com, blockrenovation.com and the Goodreads post state no source at all. The only claimed primary data is HomeAdvisor's - \"We surveyed over 10,000 real customers about their project costs\" - together with public inputs it names including \"the U.S. Bureau of Labor Statistics\". A new entrant could rebuild the national layer from published sources; the genuinely scarce input is actual local bid data, which the marketplaces generate as a by-product and none of them publishes."
+  ai_resilience: "inference: low for what these pages currently publish and moderate for what they withhold. A national per-square-foot range restated from two named public sources is precisely what a chat assistant produces, and the assistant will also do the multiplication the reader is currently left to do. What survives is anything grounded in transaction data - real bids in a specific market at a specific date - and the contractor introduction itself. Note also that brickunderground.com openly says the requested metric is weak (\"per-square-foot averages are slightly less predictive\"), which means the durable answer is a scoped estimate, not a rate."
+  open_questions:
+    - "Angi returned 403 and is cited as the upstream source by two other fetched pages; how its numbers are produced, and how many downstream pages depend on them, is unknown."
+    - "No fetched page states local multipliers outside NYC, so whether city-level per-square-foot data exists at scale anywhere is unknown."
+    - "HomeAdvisor states a survey of \"over 10,000 real customers\" but not the sample per project type or region, so the precision of its ranges is unknown."
+    - "Block Renovation and HomeAdvisor both broker actual jobs; whether their published ranges are derived from their own bid data is not stated on the fetched pages."
+    - "The cluster's members span UK, India, Canada, Toronto, Calgary and London, but the checked results are US/NYC-centric; non-US supply is unknown from this task."
+    - "No fetched page states how far a per-square-foot estimate typically lands from the final bid, so the accuracy ceiling of any calculator is unknown."

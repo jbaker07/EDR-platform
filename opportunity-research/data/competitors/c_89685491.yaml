@@ -1,0 +1,188 @@
+cluster_id: c_89685491
+head_term: "printer offline error"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 5
+pages_failed: 3
+competitors:
+  - name: "Microsoft Q&A thread - My printer keeps going offline"
+    url: "https://learn.microsoft.com/en-us/answers/questions/5635783/my-printer-keeps-going-offline-how-do-i-fix-this-i"
+    site: learn.microsoft.com
+    kind: vendor
+    fetch_status: ok
+    solves: "One user's report of a printer repeatedly going offline, with an accepted answer giving generic Windows troubleshooting steps; the answer asserts \"By following these steps, you should be able to resolve the issue of your printer frequently going offline\"."
+    does_not_solve: "The page does not state which printer brands, models or Windows versions the steps apply to; it does not identify which of the many possible causes applies to the reader's own printer."
+    workflow_remaining: "Physically inspect printer and cables, navigate the reader's own printer control panel, and separately locate and download drivers from the manufacturer - the answer says \"If there are multiple drivers available, use the manufacturer's Universal or Global printer driver if possible\", i.e. the reader must go find them."
+    business_model: "Not stated on the page - no pricing, subscription, ads or affiliate links were found in the fetched content."
+    currency: "Post-level timestamps only: question posted \"2025-11-25T14:29:30.7766667+00:00\" and the accepted answer \"2025-11-25T14:29:41.1266667+00:00\". No page-level last-updated date shown."
+    coverage: "unknown - the page states no coverage (no count of brands, models or OS versions)."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes and trivially - the content is one user's narrative plus generic Windows steps that are documented in public vendor articles; nothing proprietary underlies it."
+    ai_replaceable: "inference: yes for the generic step list, which is exactly the kind of common troubleshooting sequence a chat assistant already reproduces; the only non-replaceable part is a human confirming the steps worked on a specific machine."
+    why_still_searching: "inference: the thread ends with steps, not with a verified outcome for the reader's printer, so a user whose printer is still offline after the checklist has no next move and searches again with a more specific phrasing."
+    evidence:
+      - "By following these steps, you should be able to resolve the issue of your printer frequently going offline"
+      - "If there are multiple drivers available, use the manufacturer's Universal or Global printer driver if possible"
+      - "2025-11-25T14:29:30.7766667+00:00"
+  - name: "HP Support - HP Printer Offline Issues"
+    url: "https://support.hp.com/us-en/help/printer/printer-offline"
+    site: support.hp.com
+    kind: vendor
+    fetch_status: ok
+    solves: "A branded troubleshooting hub for HP printers showing offline, combining written steps with an optional HP app \"Diagnose & Fix\" utility and a Virtual Assistant."
+    does_not_solve: "The page does not state which HP printer models it covers, and it does not close the loop itself - it says \"Still need help? Try these solutions\", routing unresolved cases elsewhere."
+    workflow_remaining: "Download or open the HP app to run the automated fix (\"Open or download the application on Windows or Mac\"), use the Virtual Assistant, follow a linked longer article, or contact support - which needs an account (\"Sign in or create an HP account\")."
+    business_model: "Not stated - no pricing, subscription, ads or affiliate links appeared in the fetched content; the page routes readers into HP's own app and support channel."
+    currency: "No publication or last-updated date shown; the only date-like text is the footer \"© 2024 HP Development Company, L.P.\""
+    coverage: "Platform requirements are stated for the app - \"Requires Windows 10 or later, iOS 14 or later, Android 7.0 and later, or macOS 10.14 and later\" - but printer-model coverage is not stated."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: yes
+    needs_account: yes
+    data_reproducible: "inference: the written steps are reproducible from public knowledge, but the \"Diagnose & Fix\" utility depends on HP's own device/driver telemetry and privileged access to the machine, which a third party could not rebuild."
+    ai_replaceable: "inference: partly - a chat assistant can restate the steps, but it cannot run the local diagnostic that inspects the actual spooler, driver and Wi-Fi state, which is the part that resolves ambiguous cases."
+    why_still_searching: "inference: the page itself concedes the reader may not be done (\"Still need help? Try these solutions\"), and the automated path requires installing an app, which many users will not do before searching for a faster answer."
+    evidence:
+      - "Still need help? Try these solutions"
+      - "Open or download the application on Windows or Mac"
+      - "Sign in or create an HP account"
+      - "Requires Windows 10 or later, iOS 14 or later, Android 7.0 and later, or macOS 10.14 and later"
+      - "© 2024 HP Development Company, L.P."
+  - name: "Canon USA Support - Resolve Printer is Offline Or Not Responding (Windows)"
+    url: "https://support.usa.canon.com/kb/s/article/ART180034"
+    site: support.usa.canon.com
+    kind: vendor
+    fetch_status: "failed: page returned only a \"CSS Error\" shell with a Refresh button; no article content retrieved"
+    solves: "unknown - from the SERP title only, the page is presented as \"Resolve Printer is Offline Or Not Responding - Windows\"."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - no content was retrieved, though a vendor knowledge-base article of this type would normally restate publicly documented Windows steps."
+    ai_replaceable: "inference: unknown - cannot be judged without the page content."
+    why_still_searching: "inference: a knowledge-base page that renders as a client-side error shell for a fetcher is itself a reason users bounce back to search."
+    evidence:
+      - "CSS Error"
+  - name: "Microsoft Support - Troubleshooting offline printer problems in Windows"
+    url: "https://support.microsoft.com/en-us/windows/hardware/printer/troubleshooting-offline-printer-problems-in-windows"
+    site: support.microsoft.com
+    kind: vendor
+    fetch_status: ok
+    solves: "The OS vendor's own step list for the exact symptom: \"If the printer appears as Offline even though it is powered on and connected, follow the below troubleshooting steps to resolve.\" It also points to an automated fix: \"If you are using a Windows 11 device, start by running the automated printer troubleshooter in the Get Help app.\""
+    does_not_solve: "It is scoped to the OS, not to the printer - no printer brand or model coverage is stated, and it notes an issue specific to ARM-based PCs rather than diagnosing the reader's hardware."
+    workflow_remaining: "Run the Get Help troubleshooter, and if the printer is still offline, remove and reinstall the printer or go to the printer manufacturer for brand-specific causes."
+    business_model: "Not stated - no pricing, subscription, ads or affiliate links appeared in the fetched content."
+    currency: "Not stated - no last-updated or publication date appears on the page."
+    coverage: "\"Applies To: Windows 11 Windows 10\"; no printer-brand restriction is stated."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: the written steps are public and reproducible, but the Get Help troubleshooter runs inside Windows with privileged access to spooler and device state - that automated layer cannot be rebuilt by a third party."
+    ai_replaceable: "inference: largely yes for the prose, since these steps are the canonical publicly documented sequence; not replaceable for the machine-local automated repair."
+    why_still_searching: "inference: the article covers the OS side only, so users whose cause is on the printer or network side (sleep mode, changed IP, SNMP, Wi-Fi band) finish the article with the symptom unchanged and search on."
+    evidence:
+      - "If the printer appears as Offline even though it is powered on and connected, follow the below troubleshooting steps to resolve."
+      - "If you are using a Windows 11 device, start by running the automated printer troubleshooter in the Get Help app."
+      - "Applies To: Windows 11 Windows 10"
+      - "Try removing and reinstalling your printer"
+  - name: "CompAndSave blog - Best Non-Wireless Printer for 2025"
+    url: "https://www.compandsave.com/blog/posts/best-non-wireless-printer-for-2025-fast-reliable-printing.html"
+    site: compandsave.com
+    kind: editorial
+    fetch_status: ok
+    solves: "The sibling intent in this cluster - buying a printer that does not depend on a network - by recommending five specific non-wireless models with prices, framed as \"Here are the top printers that deliver consistent results without internet access\"."
+    does_not_solve: "It does not address the offline-error symptom at all, and it does not compare the five models on measured criteria; it does not state testing methodology."
+    workflow_remaining: "Research the chosen model further and buy it; the page leaves the decision open, closing with \"If you want reliable printing without the extra tech setup, printers that are not wireless are a solid pick\"."
+    business_model: "Commerce - listed prices such as \"Starting from $168.18\" and \"$429.99\", with in-body links into CompAndSave's own product pages, e.g. \"Brother TN660 Black Toner Cartridge\"; the site sells ink and toner."
+    currency: "\"Apr 29, 2025\" shown near the author byline."
+    coverage: "Five printers (Brother, Canon, HP, Epson and Pantum models); no wider catalogue or test count is stated."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the page's substance is model names, spec claims and prices, all available from manufacturer pages and retailers; there is no proprietary test data behind it."
+    ai_replaceable: "inference: mostly yes for the shortlist and the reasoning, though current prices and stock are the part an assistant cannot vouch for without live retail data."
+    why_still_searching: "inference: a commerce site's pick list reads as sales-motivated, and the reader still has to verify current price and availability, so they check other lists before committing."
+    evidence:
+      - "Here are the top printers that deliver consistent results without internet access"
+      - "Starting from $168.18"
+      - "$429.99"
+      - "Apr 29, 2025"
+      - "If you want reliable printing without the extra tech setup, printers that are not wireless are a solid pick"
+  - name: "DKOMS blog - Best Offline Printers 2026"
+    url: "https://www.dkoms.co.uk/blog-best-offline-printers-2026"
+    site: dkoms.co.uk
+    kind: editorial
+    fetch_status: "failed: page shell returned but the article body did not render (content area read \"Loading post content...\")"
+    solves: "unknown - from the SERP title only, the page is presented as \"Best Offline Printers 2026: USB & Wi-Fi Options\". The rendered shell does state the site's general offer: \"Printer setup should not feel like a battle with the internet. DKOMS can help you choose, connect or troubleshoot a printer\"."
+    does_not_solve: "unknown - the buyer's-guide body was not retrievable."
+    workflow_remaining: unknown
+    business_model: "Affiliate - the shell discloses \"As an Amazon Associate DKOMS earns commission from qualifying purchases.\""
+    currency: "Not stated - the footer shows \"© 2026 DKOMS\" but no publication or update date."
+    coverage: "unknown - no model count or region scope is stated in the retrievable content."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown for this page; an Amazon-affiliate buyer's guide of this shape is normally assembled from public retail listings and specs."
+    ai_replaceable: "inference: unknown - cannot be judged without the article body."
+    why_still_searching: "inference: a page whose body does not render for a fetcher is a page some users also see slowly or not at all, which sends them back to the results list."
+    evidence:
+      - "Loading post content..."
+      - "As an Amazon Associate DKOMS earns commission from qualifying purchases."
+      - "© 2026 DKOMS"
+      - "Printer setup should not feel like a battle with the internet. DKOMS can help you choose, connect or troubleshoot a printer"
+  - name: "RTINGS - The 6 Best Wireless Printers"
+    url: "https://www.rtings.com/printer/reviews/best/by-features/wireless"
+    site: rtings.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A hub over an owned test database of printers, with reviews, comparison and filtering; the page states the scale of its own testing: \"183 Printers bought and tested\"."
+    does_not_solve: "The ranked list of six printers did not appear in the fetched content, so the actual recommendations sit behind further navigation; the page states no last-updated date and does not address the offline-error symptom."
+    workflow_remaining: "Click through into individual printer reviews or the comparison tool to see the picks and match them to the reader's own requirements."
+    business_model: "Membership plus affiliate: \"Supported by you via membership, and when you purchase through links on our site, we may earn an affiliate commission.\""
+    currency: "Not stated - no last-updated or publication date appears on the page."
+    coverage: "\"183 Printers bought and tested\"."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: unknown
+    data_reproducible: "inference: no, not cheaply - the page's value rests on buying 183 printers and running a standardised test bench, which is a capital- and labour-heavy dataset rather than a scrape."
+    ai_replaceable: "inference: no for the measurements; an assistant can summarise conclusions but cannot generate original lab results, and the numbers are the reason readers come."
+    why_still_searching: "inference: the cluster's query is \"best offline printer\" while this page is about wireless printers, so readers arriving here are one category off and must search again for non-network models."
+    evidence:
+      - "183 Printers bought and tested"
+      - "Supported by you via membership, and when you purchase through links on our site, we may earn an affiliate commission."
+  - name: "JustAnswer - How to Fix Printer Offline Issues"
+    url: "https://www.justanswer.com/printers/nqpxe-cannot-printer-work-says-offline.html"
+    site: justanswer.com
+    kind: community
+    fetch_status: "failed: HTTP 403 Forbidden, response body not retrieved"
+    solves: "unknown - from the SERP title only, the page is presented as \"How to Fix Printer Offline Issues: Expert Solutions\"."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "2 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - no content was retrieved; the underlying asset would be an archive of past expert conversations, which is accumulated rather than scraped."
+    ai_replaceable: "inference: unknown - cannot be judged without the page content."
+    why_still_searching: "inference: unknown; the only observed fact is that this site occupies two of the eighteen checked results while refusing automated retrieval."
+    evidence:
+      - "The server returned HTTP 403 Forbidden."
+synthesis:
+  pieced_together_answer: "The answer is split by layer, and no fetched page holds more than one layer. The OS layer is on support.microsoft.com, which scopes itself with \"Applies To: Windows 11 Windows 10\" and hands off the automated part to a local app. The brand layer is on support.hp.com, which adds a device-specific \"Diagnose & Fix\" utility but ends with \"Still need help? Try these solutions\". The lived-case layer is the Microsoft Q&A thread, one user's situation plus a generic step list. The Canon equivalent could not be read at all. The hardware-avoidance layer - buy a printer that cannot go offline - lives on entirely different pages (compandsave.com's five non-wireless picks, rtings.com's \"183 Printers bought and tested\"), and rtings' page is about wireless printers rather than offline-capable ones. Nothing fetched connects the symptom to a specific cause on the reader's own setup."
+  single_destination_would_need: "One destination would have to (a) identify the reader's actual configuration - OS build, connection type, printer brand and model - rather than assuming it, (b) run or guide the machine-local checks that the vendor pages delegate to installed utilities (spooler state, port and IP, driver, sleep/Wi-Fi behaviour), (c) branch on the answer instead of listing every step, (d) cover brands in one place, since today HP, Canon and Microsoft each hold a separate fragment, and (e) tell the reader when the cause is structural - a printer that keeps dropping off the network - and carry them into the replacement decision that currently sits on unrelated commerce pages."
+  existing_tools_that_do_this: "None found in the checked results. The input file records \"tool_hits\": 0 for this cluster, and no fetched page is a diagnostic tool in its own right; the closest are two vendor-owned local utilities that must be installed or invoked on the user's machine - HP's \"Diagnose & Fix\" (\"Open or download the application on Windows or Mac\") and the Windows troubleshooter (\"start by running the automated printer troubleshooter in the Get Help app\") - plus RTINGS' printer test database, which answers the buying question rather than the error."
+  data_source_and_reproducibility: "Two different data types. The troubleshooting content is public and reproducible - the same step sequences appear across Microsoft, HP and a Q&A thread, none of which claims proprietary data. The two genuinely hard-to-rebuild assets are the vendor diagnostics, which need privileged local access to spooler, driver and device state, and RTINGS' \"183 Printers bought and tested\", which represents purchased hardware and a physical test bench. Neither is a scrape target."
+  ai_resilience: "inference: low for the text, higher for anything touching the machine. Every step list fetched here is generic and already within a chat assistant's reach; what an assistant cannot do is read the user's actual spooler, port, IP and driver state, which is precisely where these pages stop and where the unresolved cases live. Durable value sits in local execution and in measured hardware data, not in another written checklist."
+  open_questions:
+    - "Canon's article could not be read (\"CSS Error\"), so whether brand-specific vendor pages go materially beyond the Windows steps is unknown."
+    - "JustAnswer returned 403 and holds 2 of 18 checked results; its business model, paywall behaviour and answer quality are unknown from this task."
+    - "No fetched page states how often the offline symptom is OS-side versus printer-side versus network-side, so the relative size of each fragment is unknown."
+    - "The cluster mixes a fix intent with a buying intent (\"best offline printer\"); no fetched page serves both, and whether the same users hold both intents is unknown."
+    - "The DKOMS article body did not render, so its coverage and whether it is purely affiliate-driven are unknown."

@@ -1,0 +1,195 @@
+cluster_id: c_10039327
+head_term: "does notion work with microsoft"
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 5
+pages_failed: 3
+competitors:
+  - name: "Notion blog - Notion is now available in the Microsoft Store on Windows"
+    url: "https://www.notion.com/blog/notion-available-in-microsoft-store-on-windows"
+    site: "notion.com"
+    kind: vendor
+    fetch_status: ok
+    solves: "Answers the compatibility half of the query from the vendor's side: a native Windows app in the Microsoft Store, sign-up with an Outlook or Microsoft Office account, Microsoft Entra ID with SAML SSO and SCIM on Business/Enterprise, and AI connectors for Teams, OneDrive and SharePoint"
+    does_not_solve: "Does not compare Notion with Microsoft Loop, OneNote or Lists, and does not tell a Microsoft 365 customer whether they need Notion at all - the 'alternative' intent that makes up 15 of this cluster's 31 members"
+    workflow_remaining: "Per the fetched page, the visitor must download the app from the Microsoft Store, create or sign in to a Notion account, then separately configure the Microsoft integrations (Entra ID, Teams, OneDrive/SharePoint connectors) they actually want"
+    business_model: "Vendor marketing post for a freemium SaaS; no prices are stated on the page, which links out to a pricing page and carries a 'Request a demo' call to action"
+    currency: "page shows 'Published May 27, 2025 in Notion HQ'"
+    coverage: "Windows desktop app plus the named Microsoft touchpoints (Microsoft Store, Outlook/Office sign-in, Entra ID SSO and SCIM, Teams, OneDrive, SharePoint); connector depth per surface is not detailed"
+    dominates_serp: "3 of 18 checked results"
+    needs_install: yes
+    needs_account: yes
+    data_reproducible: "inference: yes in the sense that the integration surface is publicly documented by both vendors, so a third-party compatibility matrix could be rebuilt; the marketing claims about app speed could not be independently verified"
+    ai_replaceable: "inference: partly - an assistant can say Notion has a Windows app and Entra SSO, but which AI connectors exist and on which plan changes release by release, and a May 2025 post is already the vendor's own snapshot"
+    why_still_searching: "inference: the page answers 'can I run Notion on Windows' while much of the cluster is asking the opposite question - whether Microsoft already ships something that replaces Notion - so the vendor page cannot end the search"
+    evidence:
+      - "Notion is now available in the Microsoft Store on Windows"
+      - "You can sign up for Notion using your Outlook or Microsoft Office account"
+      - "The desktop app provides a focused environment where you can write, collaborate, and track tasks"
+      - "Pages load twice as fast in the desktop app compared to a web browser"
+      - "Find Notion in the Microsoft Store on Windows today"
+      - "Published May 27, 2025 in Notion HQ"
+  - name: "Microsoft Store - Notion listing"
+    url: "https://apps.microsoft.com/detail/xpdbvss44r0l9h?hl=en-US&gl=US"
+    site: "apps.microsoft.com"
+    kind: vendor
+    fetch_status: "failed: near-empty body, only the page title was extractable from the JavaScript-rendered store listing"
+    solves: "unknown beyond the title, which shows Notion is distributed through the Microsoft Store for Windows"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: yes
+    needs_account: unknown
+    data_reproducible: "inference: a store listing is first-party distribution metadata; presence in the catalogue is publicly checkable, but the listing itself belongs to Microsoft"
+    ai_replaceable: "inference: no for the install action itself, which requires the store; unknown for the listing's informational content, none of which was observed"
+    why_still_searching: "inference: a store page confirms an app exists but says nothing about how Notion and Microsoft 365 interoperate, which is what the query asks"
+    evidence:
+      - "Notion - Download and install on Windows"
+      - "Microsoft Store"
+  - name: "Microsoft Learn - Configure Notion for Single sign-on with Microsoft Entra ID"
+    url: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/notion-tutorial"
+    site: "learn.microsoft.com"
+    kind: vendor
+    fetch_status: ok
+    solves: "The most definitive 'yes it works with Microsoft' evidence found: a first-party Microsoft tutorial for SAML SSO between Entra ID and Notion, with gallery app, reply URL pattern, required SAML attributes, JIT provisioning and test steps"
+    does_not_solve: "Covers identity only - nothing about content interop, Loop/OneNote comparison, file sync or AI; it is written for tenant administrators, not the individual users much of this cluster represents"
+    workflow_remaining: "Per the fetched page, the admin must add Notion from the gallery, configure SAML, copy the App Federation Metadata Url into the Notion workspace, get email domains approved by Notion support, enable and then enforce SAML, create and assign test users, and verify SP- and IDP-initiated sign-in"
+    business_model: "First-party vendor documentation; no ads or affiliate links, but it presupposes paid entitlements on both sides - an active Microsoft Entra subscription and a Notion SSO-enabled subscription"
+    currency: "page metadata shows 'ms.date: 2025-03-25' and 'updated_at: 2026-06-15T17:40:00.0000000Z'"
+    coverage: "one app (Notion) within Microsoft Entra's SaaS-app gallery; states Notion supports SP and IDP initiated SSO, Just In Time user provisioning, and links to a separate automated provisioning tutorial"
+    dominates_serp: "2 of 18 checked results"
+    needs_install: no
+    needs_account: yes
+    data_reproducible: "inference: the configuration values are public but the gallery entry and admin centre are Microsoft's own property, so a third party could document the procedure but not reproduce the capability"
+    ai_replaceable: "inference: no for execution - the work happens in two admin consoles - and risky from memory, since SAML attribute names and URL patterns must be exact"
+    why_still_searching: "inference: an ordinary user asking 'does notion work with microsoft' gets an enterprise SSO runbook that presumes an admin role and a paid SSO tier, so the question stays unanswered for them"
+    evidence:
+      - "In this article, you learn how to integrate Notion with Microsoft Entra ID."
+      - "Control in Microsoft Entra ID who has access to Notion."
+      - "Notion single sign-on (SSO) enabled subscription."
+      - "Identifier of this application is a fixed string value so one Notion workspace can be configured in one tenant."
+      - "Notion supports Just In Time user provisioning."
+      - "updated_at: 2026-06-15T17:40:00.0000000Z"
+  - name: "G2 - Supernotes competitors and alternatives"
+    url: "https://g2.com/products/supernotes/competitors/alternatives"
+    site: "g2.com"
+    kind: tool
+    fetch_status: "failed: HTTP 403 Forbidden on both attempts, no body returned"
+    solves: "unknown; the input file records only 'g2.com' as the SERP title, and the URL indicates a competitors/alternatives page for a product (Supernotes) that is not Notion and not a Microsoft product"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "4 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: the review corpus that powers such a site is user-contributed and proprietary; the product list is reproducible, the ratings are not"
+    ai_replaceable: "inference: unknown from the page; a ranked alternatives list is the kind of answer an assistant produces, though it cannot supply verified review volumes"
+    why_still_searching: "inference: four of this cluster's eighteen results are g2.com alternatives pages for adjacent note apps (Supernotes, Simplenote, Standard Notes) rather than for Notion, so the searcher is being served near-miss pages"
+    evidence:
+      - "no page text retrieved (HTTP 403); SERP title recorded in the input file: g2.com"
+  - name: "AlternativeTo - Best Notion Alternatives"
+    url: "https://alternativeto.net/software/notion/"
+    site: "alternativeto.net"
+    kind: tool
+    fetch_status: "failed: HTTP 403 Forbidden on both attempts, no body returned"
+    solves: "unknown beyond the SERP title, which offers a ranked list of Notion alternatives and note-taking tools"
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: the catalogue of apps and their platform/licence tags is public information; the community votes that order the list are proprietary to the site"
+    ai_replaceable: "inference: partly - naming alternatives is easy for an assistant, ranking them by user votes is not - but nothing on the page was observed"
+    why_still_searching: "inference: a generic alternatives list is not filtered to 'what Microsoft already gives me', which is the cluster's actual question"
+    evidence:
+      - "no page text retrieved (HTTP 403); SERP title recorded in the input file: Best Notion Alternatives: Top Note-taking Tools in 2026 | AlternativeTo"
+  - name: "Zapier blog - The 9 best Notion alternatives in 2026"
+    url: "https://zapier.com/blog/best-notion-alternatives/"
+    site: "zapier.com"
+    kind: editorial
+    fetch_status: ok
+    solves: "Names Microsoft Loop explicitly as the pick for people already in Microsoft 365, alongside eight non-Microsoft alternatives, with a price band and a use-case verdict for each"
+    does_not_solve: "Does not compare Loop against Notion feature by feature, does not cover OneNote or Lists, and does not address whether Notion interoperates with Microsoft"
+    workflow_remaining: "Per the fetched page, the visitor must try the shortlisted tools themselves; the page tells readers to 'take your time to experiment' using the free plans"
+    business_model: "Editorial content on an automation vendor's blog; quotes per-seat and per-month prices for the tools covered; no ads or affiliate links were identified on the page"
+    currency: "page states 'This article was originally published in April 2022. The most recent update was in November 2025.'"
+    coverage: "nine alternatives; Microsoft Loop is the only Microsoft product given a slot"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the products, their plans and their public prices are all public, and a maintained comparison could be rebuilt and refreshed more often than this three-year-old post"
+    ai_replaceable: "inference: largely yes - 'what is the Microsoft equivalent of Notion' is a one-sentence answer (Loop, with OneNote and Lists nearby) that an assistant gives without a click"
+    why_still_searching: "inference: the page names Loop but does not show what Loop cannot do, so a reader deciding whether to migrate still has to test it themselves"
+    evidence:
+      - "Microsoft Loop is a great option to tie it all together"
+      - "Notion edges ahead in managing documents and creating wikis. Coda is strong in databases"
+      - "Most of the platforms on this list are either free or have a free plan to help you evaluate the features on offer, so take your time to experiment."
+      - "This article was originally published in April 2022. The most recent update was in November 2025."
+      - "High investment, high reward."
+  - name: "ClickUp blog - 15 Best Notion Alternatives & Competitors"
+    url: "https://clickup.com/blog/notion-alternatives/"
+    site: "clickup.com"
+    kind: editorial
+    fetch_status: ok
+    solves: "The broadest Microsoft coverage among the fetched pages: dedicated sections for Microsoft OneNote ('Best for audio and video notes') and Microsoft Loop ('Best if you love CoPilot'), plus Microsoft 365 pricing context, inside a 15-tool comparison with features, limitations and user reviews"
+    does_not_solve: "Does not answer the compatibility question (whether Notion works with Microsoft), is not filterable, and leads with the publisher's own product"
+    workflow_remaining: "Per the fetched page, the visitor must visit each tool's site, sign up for trials, price it for their team size and check the integrations their own workflow needs"
+    business_model: "Vendor-owned blog with repeated calls to action to its own signup ('Try the #1 Notion Alternative!'); quotes competitor plan prices throughout"
+    currency: "page shows 'Jun 08, 2025' with the title claiming content 'Tested for 2026'"
+    coverage: "15 alternatives, of which three Microsoft entries are named (OneNote, Loop, Microsoft 365)"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - the tool list, plan prices and even the review snippets are drawn from public product and review pages, so the artefact is reproducible; its ordering is commercially motivated rather than data-driven"
+    ai_replaceable: "inference: largely yes for the shortlist; the per-plan prices and the 'tested' claim are the parts an assistant cannot vouch for"
+    why_still_searching: "inference: the page is published by a competitor of every tool it ranks, and readers who sense that go looking for a second opinion"
+    evidence:
+      - "Notion is pretty complex to initially set up which can be overwhelming"
+      - "Similar to a physical notebook with pages-easy to use"
+      - "Bi-directional linking between notes, ideas, concepts, etc"
+      - "Automation to create recurring docs and reminders"
+      - "Jun 08, 2025"
+  - name: "ONES blog - Can Microsoft's Tools Truly Replace Notion?"
+    url: "https://ones.com/blog/microsoft-tools-vs-notion-alternatives/"
+    site: "ones.com"
+    kind: editorial
+    fetch_status: ok
+    solves: "Directly frames the cluster's core question - whether Microsoft's stack replaces Notion - naming OneNote, Teams, SharePoint and Microsoft Lists, and concludes it may not fully replicate Notion's all-in-one experience"
+    does_not_solve: "Does not name Microsoft Loop among the products it assesses, gives no feature matrix or pricing, and steers toward the publisher's own product"
+    workflow_remaining: "Per the fetched page, the visitor must evaluate their own team's needs, test the competing tools and choose between Notion, Microsoft, ONES Project, Confluence, Coda or ClickUp"
+    business_model: "Vendor-owned blog; no prices quoted, but repeated signup calls to action ('Try ONES for free', 'Get started for free') for the publisher's own platform"
+    currency: "page shows 'Published: February 27, 2026'"
+    coverage: "four named Microsoft products (OneNote, Teams, SharePoint, Lists) assessed qualitatively against Notion"
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: there is no underlying dataset - it is opinion built on public product descriptions, so the substance is reproducible but carries no proprietary data"
+    ai_replaceable: "inference: yes - a qualitative 'can Microsoft replace Notion' verdict with no data behind it is precisely what an assistant produces on demand"
+    why_still_searching: "inference: the page's own conclusion is that there is 'no one-size-fits-all solution', which sends the reader back to searching rather than ending the task"
+    evidence:
+      - "While these tools offer powerful features individually, the question remains: can they seamlessly replace Notion's all-in-one approach?"
+      - "Notion's strength lies in its flexibility and intuitive interface."
+      - "Microsoft's suite offers robust features and seamless integration within its ecosystem"
+      - "there's no one-size-fits-all solution"
+      - "ONES Project stands out as a comprehensive project management solution."
+      - "Published: February 27, 2026"
+synthesis:
+  pieced_together_answer: "This cluster contains two questions that the checked results answer on entirely different sites. The compatibility question ('does notion work with microsoft') is answered only by first-party pages: notion.com for the Windows app, Microsoft-account sign-up and Teams/OneDrive/SharePoint connectors, and learn.microsoft.com for Entra ID SAML SSO and provisioning - an admin-level answer requiring paid tiers on both sides. The substitution question ('microsoft app similar to notion', 15 of 31 cluster members) is answered only by third-party editorial: zapier.com names Microsoft Loop for Microsoft 365 users, clickup.com is the only fetched page covering both OneNote and Loop with features and pricing, and ones.com asks the exact question but omits Loop from its assessment and concludes with a non-answer. The two directory-style sites that might have merged both views (g2.com, alternativeto.net) both refused automated fetches, and four of the eighteen results are g2.com alternatives pages for note apps other than Notion."
+  single_destination_would_need: "A single page holding, for a named Microsoft 365 tenant tier, both halves at once: (1) a current interop matrix - Windows app, Microsoft-account sign-in, Entra SSO and SCIM, Teams/OneDrive/SharePoint connectors, and which Notion plan each requires; and (2) a like-for-like Loop vs OneNote vs Lists vs Notion capability comparison including what Microsoft's tools cannot do, with migration implications. No fetched page carried both, and no fetched page carried the two halves for the same reader persona - the compatibility pages address tenant admins while the comparison pages address individual users."
+  existing_tools_that_do_this: "None verified. Three results categorised as tools in the input file - g2.com (4 of 18 results), alternativeto.net and the Microsoft Store listing - all failed to return usable content (two 403s and one near-empty JavaScript page), so whether any of them answers the Microsoft-specific question is unconfirmed. Among pages that did load, all five were articles or documentation; none was interactive."
+  data_source_and_reproducibility: "inference: the factual core is highly reproducible from public first-party sources - Microsoft's Entra SaaS-app gallery documentation (which even exposes its own ms.date and updated_at metadata and links its source on GitHub), Notion's own help and connections pages, and both vendors' public pricing pages. What is not reproducible is the review and voting data behind g2.com and alternativeto.net. Practical obstacle: 3 of 8 selected pages could not be fetched automatically, and the Microsoft Store listing rendered empty without JavaScript."
+  ai_resilience: "inference: low for the substitution half - 'what is Microsoft's version of Notion' is a single-sentence answer (Loop, with OneNote and Lists adjacent) that a chat assistant gives better than a vendor-owned listicle, and the cluster's own member queries are phrased as direct questions. Resilience is higher for the compatibility half: which connectors exist, on which plan, and the exact SAML attributes and URL patterns are fast-moving and must be exact, and Microsoft's own tutorial showed an update timestamp of 2026-06-15 - an assistant answering from memory would misstate these."
+  open_questions:
+    - "g2.com supplies 4 of 18 results but blocked both fetch attempts; whether its alternatives pages actually surface Microsoft products, and how it monetises sponsored placement, is unknown"
+    - "christine-payton.com appeared on both checked queries (2 of 18) with a title promising exactly the missing comparison - Notion vs Microsoft Loop and Lists - but fell outside the 8-site selection rule and was not fetched"
+    - "notion.com holds 3 of 18 results; only its blog post was fetched, so the connections/onedrive and Teams AI-connector pages may already answer more of the compatibility question than recorded here"
+    - "no fetched page stated whether Microsoft Loop is included in a standard Microsoft 365 subscription, which is the pivotal cost fact for the 'microsoft alternative to notion free' member queries"
+    - "the cluster contains 'does microsoft own notion' and 'what is microsoft notion ai' - misconception queries that none of the fetched pages addresses directly"
