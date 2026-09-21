@@ -1,14 +1,20 @@
 {"seed": "windows 11", "skipped": "already expanded"}
-{"seed": "windows update", "new_queries": 1606, "suggestions_seen": 2143}
+{"seed": "windows update", "skipped": "already expanded"}
+{"seed": "blue screen", "new_queries": 1371, "suggestions_seen": 1937}
 {"seed": "macos", "skipped": "already expanded"}
-{"seed": "mac slow", "new_queries": 722, "suggestions_seen": 1382}
+{"seed": "mac slow", "skipped": "already expanded"}
+{"seed": "macbook battery", "new_queries": 1310, "suggestions_seen": 2005}
 {"seed": "printer offline", "skipped": "already expanded"}
-{"seed": "printer driver", "new_queries": 1117, "suggestions_seen": 1648}
+{"seed": "printer driver", "skipped": "already expanded"}
+{"seed": "printer not printing", "new_queries": 1119, "suggestions_seen": 1794}
 {"seed": "wifi not working", "skipped": "already expanded"}
-{"seed": "router settings", "new_queries": 901, "suggestions_seen": 1387}
+{"seed": "router settings", "skipped": "already expanded"}
+{"seed": "port forwarding", "new_queries": 1073, "suggestions_seen": 1661}
 {"seed": "computer outlook", "skipped": "already expanded"}
-{"seed": "computer gmail", "new_queries": 694, "suggestions_seen": 946}
+{"seed": "computer gmail", "skipped": "already expanded"}
+{"seed": "microsoft teams", "new_queries": 1662, "suggestions_seen": 2297}
 {"seed": "computer chrome", "skipped": "already expanded"}
-{"seed": "computer firefox", "new_queries": 658, "suggestions_seen": 953}
+{"seed": "computer firefox", "skipped": "already expanded"}
+{"seed": "browser extension", "new_queries": 1051, "suggestions_seen": 1555}
 {"seed": "external hard drive", "skipped": "already expanded"}
-{"seed": "computer nas", "new_queries": 882, "suggestions_seen": 1215}
+{"seed": "computer nas", "skipped": "already expanded"}

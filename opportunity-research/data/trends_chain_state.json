@@ -4396,43 +4396,235 @@
    "reads": 28.6,
    "anchor_reads": 28.09,
    "error_pct": 3.5
+  },
+  "electronics battery charger": {
+   "value": 0.809,
+   "anchor": "unreal engine games",
+   "reads": 12.79,
+   "anchor_reads": 48.62,
+   "error_pct": 4.9
+  },
+  "music production podcast": {
+   "value": 0.215,
+   "anchor": "unreal engine games",
+   "reads": 3.4,
+   "anchor_reads": 48.62,
+   "error_pct": 15.8
+  },
+  "3d modeling zbrush": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 8.51,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "crop rotation in agriculture": {
+   "value": 0.278,
+   "anchor": "game assets",
+   "reads": 0.25,
+   "anchor_reads": 8.51,
+   "error_pct": 105.9
+  },
+  "train schedule": {
+   "value": 76.351,
+   "anchor": "game assets",
+   "reads": 67.4,
+   "anchor_reads": 8.51,
+   "error_pct": 6.6
+  },
+  "icd 10 codes": {
+   "value": 10.652,
+   "anchor": "game assets",
+   "reads": 50.04,
+   "anchor_reads": 45.28,
+   "error_pct": 2.1
+  },
+  "how to calculate dilution factor": {
+   "value": 0.005,
+   "anchor": "baby sleep sack",
+   "reads": 0.04,
+   "anchor_reads": 68.89,
+   "error_pct": 100.7
+  },
+  "woodworking drill": {
+   "value": 0.901,
+   "anchor": "baby sleep sack",
+   "reads": 1.6,
+   "anchor_reads": 17.21,
+   "error_pct": 34.1
+  },
+  "interview tips for interviewer": {
+   "value": 0.011,
+   "anchor": "baby sleep sack",
+   "reads": 0.02,
+   "anchor_reads": 17.21,
+   "error_pct": 102.9
+  },
+  "excel spreadsheet": {
+   "value": 40.877,
+   "anchor": "baby sleep sack",
+   "reads": 72.75,
+   "anchor_reads": 17.21,
+   "error_pct": 3.6
+  },
+  "external hard disk problem": {
+   "value": 0.009,
+   "anchor": "baby sleep sack",
+   "reads": 0.04,
+   "anchor_reads": 40.72,
+   "error_pct": 101.2
+  },
+  "computer chrome": {
+   "value": 11.89,
+   "anchor": "baby sleep sack",
+   "reads": 50.08,
+   "anchor_reads": 40.72,
+   "error_pct": 2.2
+  },
+  "coin melt value": {
+   "value": 2.204,
+   "anchor": "baby sleep sack",
+   "reads": 9.28,
+   "anchor_reads": 40.72,
+   "error_pct": 6.6
+  },
+  "stain removal": {
+   "value": 8.471,
+   "anchor": "air fryer pork chops",
+   "reads": 51.32,
+   "anchor_reads": 59.17,
+   "error_pct": 1.8
+  },
+  "security framework gdpr": {
+   "value": 0.0,
+   "anchor": "baby sleep sack",
+   "reads": 0,
+   "anchor_reads": 68.87,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "cooking keto": {
+   "value": 0.599,
+   "anchor": "baby sleep sack",
+   "reads": 4.26,
+   "anchor_reads": 68.87,
+   "error_pct": 12.5
+  },
+  "plumbing cost per fixture": {
+   "value": 0.013,
+   "anchor": "baby sleep sack",
+   "reads": 0.09,
+   "anchor_reads": 68.91,
+   "error_pct": 100.7
+  },
+  "smart home technology": {
+   "value": 3.37,
+   "anchor": "baby sleep sack",
+   "reads": 24.02,
+   "anchor_reads": 68.91,
+   "error_pct": 2.8
+  },
+  "zigbee electronics": {
+   "value": 0.0,
+   "anchor": "baby sleep sack",
+   "reads": 0,
+   "anchor_reads": 8.68,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "kids activities": {
+   "value": 70.429,
+   "anchor": "baby sleep sack",
+   "reads": 63.23,
+   "anchor_reads": 8.68,
+   "error_pct": 6.6
+  },
+  "story writing topics": {
+   "value": 0.156,
+   "anchor": "baby sleep sack",
+   "reads": 1.11,
+   "anchor_reads": 68.89,
+   "error_pct": 45.6
+  },
+  "skincare rout\u0131ne men": {
+   "value": 0.0,
+   "anchor": "baby sleep sack",
+   "reads": 0,
+   "anchor_reads": 56.94,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "photography exposure triangle": {
+   "value": 0.083,
+   "anchor": "baby sleep sack",
+   "reads": 0.49,
+   "anchor_reads": 56.94,
+   "error_pct": 100.9
+  },
+  "help a song": {
+   "value": 11.632,
+   "anchor": "baby sleep sack",
+   "reads": 68.51,
+   "anchor_reads": 56.94,
+   "error_pct": 1.6
+  },
+  "my external hard drives": {
+   "value": 0.244,
+   "anchor": "air fryer pork chops",
+   "reads": 1.94,
+   "anchor_reads": 77.68,
+   "error_pct": 26.4
+  },
+  "3d printer cura settings": {
+   "value": 0.0,
+   "anchor": "air fryer pork chops",
+   "reads": 0,
+   "anchor_reads": 51.06,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "small business llc": {
+   "value": 9.275,
+   "anchor": "air fryer pork chops",
+   "reads": 48.49,
+   "anchor_reads": 51.06,
+   "error_pct": 2.0
+  },
+  "houseplant fertilizer": {
+   "value": 0.378,
+   "anchor": "baby sleep sack",
+   "reads": 2.7,
+   "anchor_reads": 68.92,
+   "error_pct": 19.3
+  },
+  "nvda screen reader tutorial": {
+   "value": 0.005,
+   "anchor": "baby sleep sack",
+   "reads": 0.04,
+   "anchor_reads": 68.92,
+   "error_pct": 100.7
+  },
+  "how many times train legs": {
+   "value": 0.0,
+   "anchor": "baby sleep sack",
+   "reads": 0,
+   "anchor_reads": 68.92,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "union budget total": {
+   "value": 0.474,
+   "anchor": "baby sleep sack",
+   "reads": 3.38,
+   "anchor_reads": 68.91,
+   "error_pct": 15.5
   }
  },
  "pending": [
-  "music production podcast",
-  "3d modeling zbrush",
-  "crop rotation in agriculture",
-  "electronics battery charger",
-  "train schedule",
-  "how to calculate dilution factor",
-  "icd 10 codes",
-  "woodworking drill",
-  "interview tips for interviewer",
-  "external hard disk problem",
-  "excel spreadsheet",
-  "cooking keto",
-  "computer chrome",
-  "coin melt value",
-  "security framework gdpr",
-  "stain removal",
-  "plumbing cost per fixture",
-  "zigbee electronics",
-  "smart home technology",
-  "story writing topics",
-  "photography exposure triangle",
-  "kids activities",
-  "my external hard drives",
-  "skincare rout\u0131ne men",
-  "help a song",
-  "3d printer cura settings",
-  "houseplant fertilizer",
-  "nvda screen reader tutorial",
-  "small business llc",
-  "union budget total",
-  "how many times train legs",
+  "turn off grid blender",
   "diagnosis knee pain",
   "lesson plan format",
-  "turn off grid blender",
   "motorcycle atv",
   "real estate mortgage",
   "dog training courses",
@@ -12259,6 +12451,407 @@
    "requeued": [
     "music production podcast"
    ]
+  },
+  {
+   "at": 1789982668.7245426,
+   "anchor": "game assets",
+   "batch": [
+    "music production podcast",
+    "3d modeling zbrush",
+    "crop rotation in agriculture",
+    "electronics battery charger"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.28,
+    "music production podcast": 1,
+    "3d modeling zbrush": 0.08,
+    "crop rotation in agriculture": 1.43,
+    "electronics battery charger": 3.81
+   },
+   "requeued": [
+    "music production podcast",
+    "3d modeling zbrush",
+    "crop rotation in agriculture",
+    "electronics battery charger"
+   ]
+  },
+  {
+   "at": 1789982725.0757244,
+   "anchor": "unreal engine games",
+   "batch": [
+    "electronics battery charger",
+    "crop rotation in agriculture",
+    "3d modeling zbrush",
+    "music production podcast"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.62,
+    "electronics battery charger": 12.79,
+    "crop rotation in agriculture": 4.77,
+    "3d modeling zbrush": 0.25,
+    "music production podcast": 3.4
+   },
+   "requeued": [
+    "crop rotation in agriculture",
+    "3d modeling zbrush"
+   ]
+  },
+  {
+   "at": 1789982781.6193688,
+   "anchor": "game assets",
+   "batch": [
+    "3d modeling zbrush",
+    "crop rotation in agriculture",
+    "train schedule",
+    "how to calculate dilution factor"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 8.51,
+    "3d modeling zbrush": 0,
+    "crop rotation in agriculture": 0.25,
+    "train schedule": 67.4,
+    "how to calculate dilution factor": 0
+   },
+   "requeued": [
+    "how to calculate dilution factor"
+   ]
+  },
+  {
+   "at": 1789982838.0163193,
+   "anchor": "game assets",
+   "batch": [
+    "how to calculate dilution factor",
+    "icd 10 codes",
+    "woodworking drill",
+    "interview tips for interviewer"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.28,
+    "how to calculate dilution factor": 0.02,
+    "icd 10 codes": 50.04,
+    "woodworking drill": 4.13,
+    "interview tips for interviewer": 0.04
+   },
+   "requeued": [
+    "how to calculate dilution factor",
+    "woodworking drill",
+    "interview tips for interviewer"
+   ]
+  },
+  {
+   "at": 1789982894.4675915,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "interview tips for interviewer",
+    "woodworking drill",
+    "how to calculate dilution factor",
+    "external hard disk problem"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.89,
+    "interview tips for interviewer": 0.06,
+    "woodworking drill": 6.28,
+    "how to calculate dilution factor": 0.04,
+    "external hard disk problem": 0.06
+   },
+   "requeued": [
+    "interview tips for interviewer",
+    "woodworking drill",
+    "external hard disk problem"
+   ]
+  },
+  {
+   "at": 1789982950.8878622,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "external hard disk problem",
+    "woodworking drill",
+    "interview tips for interviewer",
+    "excel spreadsheet"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 17.21,
+    "external hard disk problem": 0.02,
+    "woodworking drill": 1.6,
+    "interview tips for interviewer": 0.02,
+    "excel spreadsheet": 72.75
+   },
+   "requeued": [
+    "external hard disk problem"
+   ]
+  },
+  {
+   "at": 1789983027.4333322,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "external hard disk problem",
+    "cooking keto",
+    "computer chrome",
+    "coin melt value"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 40.72,
+    "external hard disk problem": 0.04,
+    "cooking keto": 2.55,
+    "computer chrome": 50.08,
+    "coin melt value": 9.28
+   },
+   "requeued": [
+    "cooking keto"
+   ]
+  },
+  {
+   "at": 1789983083.8661458,
+   "anchor": "air fryer pork chops",
+   "batch": [
+    "cooking keto",
+    "security framework gdpr",
+    "stain removal",
+    "plumbing cost per fixture"
+   ],
+   "ok": true,
+   "means": {
+    "air fryer pork chops": 59.17,
+    "cooking keto": 3.53,
+    "security framework gdpr": 0,
+    "stain removal": 51.32,
+    "plumbing cost per fixture": 0.08
+   },
+   "requeued": [
+    "cooking keto",
+    "security framework gdpr",
+    "plumbing cost per fixture"
+   ]
+  },
+  {
+   "at": 1789983140.2892606,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "plumbing cost per fixture",
+    "security framework gdpr",
+    "cooking keto",
+    "zigbee electronics"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.87,
+    "plumbing cost per fixture": 0.09,
+    "security framework gdpr": 0,
+    "cooking keto": 4.26,
+    "zigbee electronics": 0.11
+   },
+   "requeued": [
+    "plumbing cost per fixture",
+    "zigbee electronics"
+   ]
+  },
+  {
+   "at": 1789983196.6580825,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "zigbee electronics",
+    "plumbing cost per fixture",
+    "smart home technology",
+    "story writing topics"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.91,
+    "zigbee electronics": 0.11,
+    "plumbing cost per fixture": 0.09,
+    "smart home technology": 24.02,
+    "story writing topics": 1.11
+   },
+   "requeued": [
+    "zigbee electronics",
+    "story writing topics"
+   ]
+  },
+  {
+   "at": 1789983253.1372688,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "story writing topics",
+    "zigbee electronics",
+    "photography exposure triangle",
+    "kids activities"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 8.68,
+    "story writing topics": 0.02,
+    "zigbee electronics": 0,
+    "photography exposure triangle": 0,
+    "kids activities": 63.23
+   },
+   "requeued": [
+    "story writing topics",
+    "photography exposure triangle"
+   ]
+  },
+  {
+   "at": 1789983309.4863942,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "photography exposure triangle",
+    "story writing topics",
+    "my external hard drives",
+    "skincare rout\u0131ne men"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.89,
+    "photography exposure triangle": 0.55,
+    "story writing topics": 1.11,
+    "my external hard drives": 1.77,
+    "skincare rout\u0131ne men": 0
+   },
+   "requeued": [
+    "photography exposure triangle",
+    "my external hard drives",
+    "skincare rout\u0131ne men"
+   ]
+  },
+  {
+   "at": 1789983388.917069,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "skincare rout\u0131ne men",
+    "my external hard drives",
+    "photography exposure triangle",
+    "help a song"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 56.94,
+    "skincare rout\u0131ne men": 0,
+    "my external hard drives": 1.55,
+    "photography exposure triangle": 0.49,
+    "help a song": 68.51
+   },
+   "requeued": [
+    "my external hard drives"
+   ]
+  },
+  {
+   "at": 1789983445.2471085,
+   "anchor": "air fryer pork chops",
+   "batch": [
+    "my external hard drives",
+    "3d printer cura settings",
+    "houseplant fertilizer",
+    "nvda screen reader tutorial"
+   ],
+   "ok": true,
+   "means": {
+    "air fryer pork chops": 77.68,
+    "my external hard drives": 1.94,
+    "3d printer cura settings": 0,
+    "houseplant fertilizer": 3,
+    "nvda screen reader tutorial": 0.04
+   },
+   "requeued": [
+    "3d printer cura settings",
+    "houseplant fertilizer",
+    "nvda screen reader tutorial"
+   ]
+  },
+  {
+   "at": 1789983501.582181,
+   "anchor": "air fryer pork chops",
+   "batch": [
+    "nvda screen reader tutorial",
+    "houseplant fertilizer",
+    "3d printer cura settings",
+    "small business llc"
+   ],
+   "ok": true,
+   "means": {
+    "air fryer pork chops": 51.06,
+    "nvda screen reader tutorial": 0.04,
+    "houseplant fertilizer": 2.04,
+    "3d printer cura settings": 0,
+    "small business llc": 48.49
+   },
+   "requeued": [
+    "nvda screen reader tutorial",
+    "houseplant fertilizer"
+   ]
+  },
+  {
+   "at": 1789983557.9207988,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "houseplant fertilizer",
+    "nvda screen reader tutorial",
+    "union budget total",
+    "how many times train legs"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.92,
+    "houseplant fertilizer": 2.7,
+    "nvda screen reader tutorial": 0.04,
+    "union budget total": 3.38,
+    "how many times train legs": 0
+   },
+   "requeued": [
+    "union budget total",
+    "how many times train legs"
+   ]
+  },
+  {
+   "at": 1789983614.2767785,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "how many times train legs",
+    "union budget total",
+    "diagnosis knee pain",
+    "lesson plan format"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.92,
+    "how many times train legs": 0,
+    "union budget total": 3.38,
+    "diagnosis knee pain": 7.04,
+    "lesson plan format": 2.25
+   },
+   "requeued": [
+    "union budget total",
+    "diagnosis knee pain",
+    "lesson plan format"
+   ]
+  },
+  {
+   "at": 1789983670.5933957,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "lesson plan format",
+    "diagnosis knee pain",
+    "union budget total",
+    "turn off grid blender"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.91,
+    "lesson plan format": 2.25,
+    "diagnosis knee pain": 7.04,
+    "union budget total": 3.38,
+    "turn off grid blender": 0
+   },
+   "requeued": [
+    "lesson plan format",
+    "diagnosis knee pain",
+    "turn off grid blender"
+   ]
   }
  ],
  "anchors": [
@@ -12871,7 +13464,40 @@
   "meal prep breakfast": 1,
   "laptop screen extender": 1,
   "shipping rates": 1,
-  "music production podcast": 1,
-  "air fryer pork chops": 1
+  "music production podcast": 3,
+  "air fryer pork chops": 1,
+  "3d modeling zbrush": 3,
+  "crop rotation in agriculture": 3,
+  "electronics battery charger": 2,
+  "train schedule": 1,
+  "how to calculate dilution factor": 3,
+  "icd 10 codes": 1,
+  "woodworking drill": 3,
+  "interview tips for interviewer": 3,
+  "external hard disk problem": 3,
+  "excel spreadsheet": 1,
+  "cooking keto": 3,
+  "computer chrome": 1,
+  "coin melt value": 1,
+  "security framework gdpr": 2,
+  "stain removal": 1,
+  "plumbing cost per fixture": 3,
+  "zigbee electronics": 3,
+  "smart home technology": 1,
+  "story writing topics": 3,
+  "photography exposure triangle": 3,
+  "kids activities": 1,
+  "my external hard drives": 3,
+  "skincare rout\u0131ne men": 2,
+  "help a song": 1,
+  "3d printer cura settings": 2,
+  "houseplant fertilizer": 3,
+  "nvda screen reader tutorial": 3,
+  "small business llc": 1,
+  "union budget total": 3,
+  "how many times train legs": 2,
+  "diagnosis knee pain": 2,
+  "lesson plan format": 2,
+  "turn off grid blender": 1
  }
 }

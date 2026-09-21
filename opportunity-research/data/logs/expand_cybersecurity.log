@@ -1,2 +1,15 @@
 {"seed": "password manager", "skipped": "already expanded"}
 {"seed": "security 2fa", "skipped": "already expanded"}
+{"seed": "security phishing", "new_queries": 637, "suggestions_seen": 939}
+{"seed": "security nmap", "skipped": "already expanded"}
+{"seed": "burp suite", "skipped": "already expanded"}
+{"seed": "security metasploit", "new_queries": 370, "suggestions_seen": 814}
+{"seed": "security owasp", "skipped": "already expanded"}
+{"seed": "sql injection", "skipped": "already expanded"}
+{"seed": "security xss", "new_queries": 604, "suggestions_seen": 1183}
+{"seed": "security gdpr", "skipped": "already expanded"}
+{"seed": "soc 2", "skipped": "already expanded"}
+{"seed": "iso 27001", "new_queries": 1034, "suggestions_seen": 1608}
+{"seed": "firewall rules", "skipped": "already expanded"}
+{"seed": "ssl certificate", "skipped": "already expanded"}
+{"seed": "security tls", "new_queries": 678, "suggestions_seen": 1083}

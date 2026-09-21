@@ -1,2 +1,18 @@
 {"seed": "llm chatgpt", "skipped": "already expanded"}
 {"seed": "llm prompt", "skipped": "already expanded"}
+{"seed": "llm", "new_queries": 1612, "suggestions_seen": 2261}
+{"seed": "machine learning pytorch", "skipped": "already expanded"}
+{"seed": "machine learning tensorflow", "skipped": "already expanded"}
+{"seed": "hugging face", "new_queries": 1212, "suggestions_seen": 1888}
+{"seed": "excel formula", "skipped": "already expanded"}
+{"seed": "google sheets formula", "skipped": "already expanded"}
+{"seed": "pivot table", "new_queries": 1410, "suggestions_seen": 2006}
+{"seed": "machine learning airflow", "skipped": "already expanded"}
+{"seed": "machine learning spark", "skipped": "already expanded"}
+{"seed": "machine learning dbt", "new_queries": 585, "suggestions_seen": 990}
+{"seed": "stable diffusion", "skipped": "already expanded"}
+{"seed": "ai image comfyui", "skipped": "already expanded"}
+{"seed": "lora training", "new_queries": 699, "suggestions_seen": 1448}
+{"seed": "gpu for ai", "skipped": "already expanded"}
+{"seed": "machine learning vram", "skipped": "already expanded"}
+{"seed": "run llm locally", "new_queries": 539, "suggestions_seen": 1513}
