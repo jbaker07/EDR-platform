@@ -9,3 +9,10 @@
 {"seed": "pc build bios", "new_queries": 722, "suggestions_seen": 1384}
 {"seed": "laptop", "skipped": "already expanded"}
 {"seed": "laptop battery", "skipped": "already expanded"}
+{"seed": "laptop upgrade", "new_queries": 778, "suggestions_seen": 1304}
+{"seed": "monitor", "skipped": "already expanded"}
+{"seed": "monitor 144hz", "skipped": "already expanded"}
+{"seed": "hdr monitor", "new_queries": 702, "suggestions_seen": 1149}
+{"seed": "cpu cooler", "skipped": "already expanded"}
+{"seed": "pc build aio", "skipped": "already expanded"}
+{"seed": "fan curve", "new_queries": 672, "suggestions_seen": 1547}

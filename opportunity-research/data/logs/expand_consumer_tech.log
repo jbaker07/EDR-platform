@@ -9,3 +9,13 @@
 {"seed": "fire stick", "new_queries": 1769, "suggestions_seen": 2278}
 {"seed": "bluetooth headphones", "skipped": "already expanded"}
 {"seed": "device earbuds", "skipped": "already expanded"}
+{"seed": "device soundbar", "new_queries": 666, "suggestions_seen": 957}
+{"seed": "apple watch", "skipped": "already expanded"}
+{"seed": "device garmin", "skipped": "already expanded"}
+{"seed": "device fitbit", "new_queries": 761, "suggestions_seen": 1037}
+{"seed": "device drone", "skipped": "already expanded"}
+{"seed": "device gopro", "skipped": "already expanded"}
+{"seed": "device dashcam", "new_queries": 588, "suggestions_seen": 901}
+{"seed": "device kindle", "skipped": "already expanded"}
+{"seed": "device ipad", "skipped": "already expanded"}
+{"seed": "device tablet", "new_queries": 838, "suggestions_seen": 1187}

@@ -1,12 +1,18 @@
 {"seed": "photoshop lightroom", "skipped": "already expanded"}
-{"seed": "photoshop", "new_queries": 1697, "suggestions_seen": 2341}
+{"seed": "photoshop", "skipped": "already expanded"}
+{"seed": "camera raw", "new_queries": 1099, "suggestions_seen": 1828}
 {"seed": "photography gimp", "skipped": "already expanded"}
-{"seed": "photography darktable", "new_queries": 407, "suggestions_seen": 945}
+{"seed": "photography darktable", "skipped": "already expanded"}
+{"seed": "affinity photo", "new_queries": 1108, "suggestions_seen": 1884}
 {"seed": "photography camera", "skipped": "already expanded"}
-{"seed": "photography lens", "new_queries": 1036, "suggestions_seen": 1496}
+{"seed": "photography lens", "skipped": "already expanded"}
+{"seed": "sony a7", "new_queries": 1243, "suggestions_seen": 1917}
 {"seed": "photography exposure", "skipped": "already expanded"}
-{"seed": "photography iso", "new_queries": 551, "suggestions_seen": 1075}
+{"seed": "photography iso", "skipped": "already expanded"}
+{"seed": "photography aperture", "new_queries": 479, "suggestions_seen": 989}
 {"seed": "print photos", "skipped": "already expanded"}
-{"seed": "photo scanner", "new_queries": 1088, "suggestions_seen": 1718}
+{"seed": "photo scanner", "skipped": "already expanded"}
+{"seed": "film scan", "new_queries": 947, "suggestions_seen": 1374}
 {"seed": "photo backup", "skipped": "already expanded"}
-{"seed": "duplicate photos", "new_queries": 994, "suggestions_seen": 1577}
+{"seed": "duplicate photos", "skipped": "already expanded"}
+{"seed": "photo organizer", "new_queries": 802, "suggestions_seen": 1677}

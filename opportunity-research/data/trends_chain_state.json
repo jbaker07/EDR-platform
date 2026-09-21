@@ -4619,63 +4619,389 @@
    "reads": 3.38,
    "anchor_reads": 68.91,
    "error_pct": 15.5
+  },
+  "turn off grid blender": {
+   "value": 0.0,
+   "anchor": "baby sleep sack",
+   "reads": 0,
+   "anchor_reads": 68.92,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "diagnosis knee pain": {
+   "value": 0.987,
+   "anchor": "baby sleep sack",
+   "reads": 7.04,
+   "anchor_reads": 68.92,
+   "error_pct": 7.8
+  },
+  "lesson plan format": {
+   "value": 0.315,
+   "anchor": "baby sleep sack",
+   "reads": 2.25,
+   "anchor_reads": 68.92,
+   "error_pct": 23.0
+  },
+  "motorcycle atv": {
+   "value": 3.049,
+   "anchor": "baby sleep sack",
+   "reads": 21.74,
+   "anchor_reads": 68.92,
+   "error_pct": 3.0
+  },
+  "real estate mortgage": {
+   "value": 15.235,
+   "anchor": "baby sleep sack",
+   "reads": 69.81,
+   "anchor_reads": 44.3,
+   "error_pct": 1.8
+  },
+  "dog training courses": {
+   "value": 0.633,
+   "anchor": "motorcycle atv",
+   "reads": 6.96,
+   "anchor_reads": 33.51,
+   "error_pct": 8.7
+  },
+  "does health insurance cover therapy": {
+   "value": 0.592,
+   "anchor": "motorcycle atv",
+   "reads": 6.51,
+   "anchor_reads": 33.51,
+   "error_pct": 9.2
+  },
+  "bluetooth headset recommendations": {
+   "value": 0.005,
+   "anchor": "motorcycle atv",
+   "reads": 0.06,
+   "anchor_reads": 33.51,
+   "error_pct": 101.5
+  },
+  "phone with large buttons": {
+   "value": 0.036,
+   "anchor": "baby sleep sack",
+   "reads": 0.23,
+   "anchor_reads": 60.62,
+   "error_pct": 100.8
+  },
+  "novel writer": {
+   "value": 5.546,
+   "anchor": "baby sleep sack",
+   "reads": 34.77,
+   "anchor_reads": 60.62,
+   "error_pct": 2.3
+  },
+  "external hard drive 1tb": {
+   "value": 2.182,
+   "anchor": "baby sleep sack",
+   "reads": 12.4,
+   "anchor_reads": 54.92,
+   "error_pct": 4.9
+  },
+  "monitor lizard": {
+   "value": 6.181,
+   "anchor": "baby sleep sack",
+   "reads": 35.11,
+   "anchor_reads": 54.92,
+   "error_pct": 2.3
+  },
+  "dilution calculator mg/ml": {
+   "value": 0.004,
+   "anchor": "game assets",
+   "reads": 0.02,
+   "anchor_reads": 45.28,
+   "error_pct": 101.1
+  },
+  "best motorcycle off road": {
+   "value": 0.337,
+   "anchor": "game assets",
+   "reads": 1.58,
+   "anchor_reads": 45.28,
+   "error_pct": 32.7
+  },
+  "google docs error": {
+   "value": 2.065,
+   "anchor": "game assets",
+   "reads": 9.7,
+   "anchor_reads": 45.28,
+   "error_pct": 6.3
+  },
+  "fl studio": {
+   "value": 62.527,
+   "anchor": "game assets",
+   "reads": 66.7,
+   "anchor_reads": 10.28,
+   "error_pct": 5.6
+  },
+  "learn spanish": {
+   "value": 28.761,
+   "anchor": "game assets",
+   "reads": 30.68,
+   "anchor_reads": 10.28,
+   "error_pct": 6.5
+  },
+  "guest post website": {
+   "value": 0.0,
+   "anchor": "baby sleep sack",
+   "reads": 0,
+   "anchor_reads": 3.25,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "pokemon cards": {
+   "value": 207.637,
+   "anchor": "baby sleep sack",
+   "reads": 69.7,
+   "anchor_reads": 3.25,
+   "error_pct": 16.1
+  },
+  "final cut pro": {
+   "value": 20.998,
+   "anchor": "baby sleep sack",
+   "reads": 13.11,
+   "anchor_reads": 6.04,
+   "error_pct": 12.1
+  },
+  "how to use microsoft office": {
+   "value": 1.934,
+   "anchor": "baby sleep sack",
+   "reads": 1.21,
+   "anchor_reads": 6.04,
+   "error_pct": 49.7
+  },
+  "google docs app": {
+   "value": 13.898,
+   "anchor": "baby sleep sack",
+   "reads": 8.68,
+   "anchor_reads": 6.04,
+   "error_pct": 14.0
+  },
+  "raspberry pi": {
+   "value": 96.076,
+   "anchor": "baby sleep sack",
+   "reads": 60,
+   "anchor_reads": 6.04,
+   "error_pct": 9.1
+  },
+  "cover letter": {
+   "value": 93.382,
+   "anchor": "air fryer pork chops",
+   "reads": 18.94,
+   "anchor_reads": 1.98,
+   "error_pct": 27.9
+  },
+  "credit cards": {
+   "value": 368.504,
+   "anchor": "air fryer pork chops",
+   "reads": 74.75,
+   "anchor_reads": 1.98,
+   "error_pct": 25.9
+  },
+  "life insurance": {
+   "value": 412.144,
+   "anchor": "air fryer pork chops",
+   "reads": 82.81,
+   "anchor_reads": 1.96,
+   "error_pct": 26.1
+  },
+  "motion graphics": {
+   "value": 10.237,
+   "anchor": "air fryer pork chops",
+   "reads": 2.87,
+   "anchor_reads": 2.74,
+   "error_pct": 35.7
+  },
+  "crypto wallet": {
+   "value": 17.579,
+   "anchor": "air fryer pork chops",
+   "reads": 4.92,
+   "anchor_reads": 2.74,
+   "error_pct": 28.4
+  },
+  "android phone": {
+   "value": 210.07,
+   "anchor": "air fryer pork chops",
+   "reads": 58.85,
+   "anchor_reads": 2.74,
+   "error_pct": 19.1
+  },
+  "guitar tabs easy": {
+   "value": 1.789,
+   "anchor": "rv there yet",
+   "reads": 1.28,
+   "anchor_reads": 7.11,
+   "error_pct": 46.0
+  },
+  "home assistant": {
+   "value": 87.736,
+   "anchor": "rv there yet",
+   "reads": 62.91,
+   "anchor_reads": 7.11,
+   "error_pct": 7.8
+  },
+  "small business bookkeeping": {
+   "value": 4.96,
+   "anchor": "rv there yet",
+   "reads": 9.89,
+   "anchor_reads": 19.77,
+   "error_pct": 7.6
+  },
+  "honkai star rail": {
+   "value": 24.083,
+   "anchor": "rv there yet",
+   "reads": 48,
+   "anchor_reads": 19.77,
+   "error_pct": 3.6
+  },
+  "epic games launcher": {
+   "value": 7.214,
+   "anchor": "rv there yet",
+   "reads": 14.38,
+   "anchor_reads": 19.77,
+   "error_pct": 6.0
+  },
+  "react native tools": {
+   "value": 0.475,
+   "anchor": "rv there yet",
+   "reads": 0.19,
+   "anchor_reads": 3.94,
+   "error_pct": 112.7
+  },
+  "sheet music": {
+   "value": 207.249,
+   "anchor": "rv there yet",
+   "reads": 82.38,
+   "anchor_reads": 3.94,
+   "error_pct": 13.3
+  },
+  "resignation letter": {
+   "value": 21.978,
+   "anchor": "rv there yet",
+   "reads": 8.74,
+   "anchor_reads": 3.94,
+   "error_pct": 18.4
+  },
+  "roblox studio": {
+   "value": 39.921,
+   "anchor": "rv there yet",
+   "reads": 15.87,
+   "anchor_reads": 3.94,
+   "error_pct": 15.8
+  },
+  "xbox series x": {
+   "value": 137.742,
+   "anchor": "how to iphone mirror",
+   "reads": 58.57,
+   "anchor_reads": 4.32,
+   "error_pct": 12.4
+  },
+  "bleed graphic design": {
+   "value": 0.0,
+   "anchor": "where to watch love island",
+   "reads": 0,
+   "anchor_reads": 13.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "substance painter": {
+   "value": 4.442,
+   "anchor": "where to watch love island",
+   "reads": 5.64,
+   "anchor_reads": 13.13,
+   "error_pct": 12.7
+  },
+  "singing lessons": {
+   "value": 4.606,
+   "anchor": "where to watch love island",
+   "reads": 5.85,
+   "anchor_reads": 13.13,
+   "error_pct": 12.4
+  },
+  "calculus study plan": {
+   "value": 0.0,
+   "anchor": "where to watch love island",
+   "reads": 0,
+   "anchor_reads": 13.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "home inspection report": {
+   "value": 2.009,
+   "anchor": "where to watch love island",
+   "reads": 2.55,
+   "anchor_reads": 13.11,
+   "error_pct": 23.4
+  },
+  "dungeons and dragons": {
+   "value": 28.776,
+   "anchor": "where to watch love island",
+   "reads": 36.49,
+   "anchor_reads": 13.11,
+   "error_pct": 5.2
+  },
+  "sewing patterns": {
+   "value": 12.379,
+   "anchor": "where to watch love island",
+   "reads": 15.7,
+   "anchor_reads": 13.11,
+   "error_pct": 7.0
+  },
+  "cooking vegan food": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 2.36,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "particle models gcse": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 2.36,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "gaming mouse": {
+   "value": 85.557,
+   "anchor": "icd 10 codes",
+   "reads": 18.94,
+   "anchor_reads": 2.36,
+   "error_pct": 23.8
+  },
+  "award flights": {
+   "value": 8.859,
+   "anchor": "icd 10 codes",
+   "reads": 48.09,
+   "anchor_reads": 57.83,
+   "error_pct": 1.9
+  },
+  "office software make.com tour": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 5.08,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "machine learning gpu ram": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 5.08,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "google cloud": {
+   "value": 111.509,
+   "anchor": "icd 10 codes",
+   "reads": 53.13,
+   "anchor_reads": 5.08,
+   "error_pct": 10.8
   }
  },
  "pending": [
-  "turn off grid blender",
-  "diagnosis knee pain",
-  "lesson plan format",
-  "motorcycle atv",
-  "real estate mortgage",
-  "dog training courses",
-  "does health insurance cover therapy",
-  "bluetooth headset recommendations",
-  "phone with large buttons",
-  "dilution calculator mg/ml",
-  "best motorcycle off road",
-  "novel writer",
-  "external hard drive 1tb",
-  "monitor lizard",
-  "guest post website",
-  "google docs error",
-  "how to use microsoft office",
-  "fl studio",
-  "learn spanish",
-  "final cut pro",
-  "pokemon cards",
-  "google docs app",
-  "raspberry pi",
-  "cover letter",
-  "motion graphics",
-  "crypto wallet",
-  "credit cards",
-  "life insurance",
-  "guitar tabs easy",
-  "android phone",
-  "react native tools",
-  "home assistant",
-  "small business bookkeeping",
-  "honkai star rail",
-  "epic games launcher",
-  "sheet music",
-  "resignation letter",
-  "roblox studio",
-  "substance painter",
-  "singing lessons",
-  "xbox series x",
-  "bleed graphic design",
-  "home inspection report",
-  "calculus study plan",
-  "cooking vegan food",
-  "particle models gcse",
-  "dungeons and dragons",
-  "sewing patterns",
-  "gaming mouse",
-  "award flights",
-  "machine learning gpu ram",
-  "office software make.com tour",
   "negotiate salary offer",
-  "google cloud",
   "photo scanner",
   "spring boot",
   "engineering gd&t",
@@ -12852,6 +13178,523 @@
     "diagnosis knee pain",
     "turn off grid blender"
    ]
+  },
+  {
+   "at": 1789983743.0691452,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "turn off grid blender",
+    "diagnosis knee pain",
+    "lesson plan format",
+    "motorcycle atv"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.92,
+    "turn off grid blender": 0,
+    "diagnosis knee pain": 7.04,
+    "lesson plan format": 2.25,
+    "motorcycle atv": 21.74
+   }
+  },
+  {
+   "at": 1789983799.5414932,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "real estate mortgage",
+    "dog training courses",
+    "does health insurance cover therapy",
+    "bluetooth headset recommendations"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 44.3,
+    "real estate mortgage": 69.81,
+    "dog training courses": 2.92,
+    "does health insurance cover therapy": 2.72,
+    "bluetooth headset recommendations": 0.02
+   },
+   "requeued": [
+    "dog training courses",
+    "does health insurance cover therapy",
+    "bluetooth headset recommendations"
+   ]
+  },
+  {
+   "at": 1789983855.9856186,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "bluetooth headset recommendations",
+    "does health insurance cover therapy",
+    "dog training courses",
+    "phone with large buttons"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 68.91,
+    "bluetooth headset recommendations": 0.04,
+    "does health insurance cover therapy": 4.25,
+    "dog training courses": 4.62,
+    "phone with large buttons": 0.25
+   },
+   "requeued": [
+    "bluetooth headset recommendations",
+    "does health insurance cover therapy",
+    "dog training courses",
+    "phone with large buttons"
+   ]
+  },
+  {
+   "at": 1789983912.3206277,
+   "anchor": "motorcycle atv",
+   "batch": [
+    "phone with large buttons",
+    "dog training courses",
+    "does health insurance cover therapy",
+    "bluetooth headset recommendations"
+   ],
+   "ok": true,
+   "means": {
+    "motorcycle atv": 33.51,
+    "phone with large buttons": 0.4,
+    "dog training courses": 6.96,
+    "does health insurance cover therapy": 6.51,
+    "bluetooth headset recommendations": 0.06
+   },
+   "requeued": [
+    "phone with large buttons"
+   ]
+  },
+  {
+   "at": 1789983968.6604214,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "phone with large buttons",
+    "dilution calculator mg/ml",
+    "best motorcycle off road",
+    "novel writer"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 60.62,
+    "phone with large buttons": 0.23,
+    "dilution calculator mg/ml": 0.04,
+    "best motorcycle off road": 2.13,
+    "novel writer": 34.77
+   },
+   "requeued": [
+    "dilution calculator mg/ml",
+    "best motorcycle off road"
+   ]
+  },
+  {
+   "at": 1789984025.0113785,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "best motorcycle off road",
+    "dilution calculator mg/ml",
+    "external hard drive 1tb",
+    "monitor lizard"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 54.92,
+    "best motorcycle off road": 2.02,
+    "dilution calculator mg/ml": 0.04,
+    "external hard drive 1tb": 12.4,
+    "monitor lizard": 35.11
+   },
+   "requeued": [
+    "best motorcycle off road",
+    "dilution calculator mg/ml"
+   ]
+  },
+  {
+   "at": 1789984093.5723398,
+   "anchor": "game assets",
+   "batch": [
+    "dilution calculator mg/ml",
+    "best motorcycle off road",
+    "guest post website",
+    "google docs error"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.28,
+    "dilution calculator mg/ml": 0.02,
+    "best motorcycle off road": 1.58,
+    "guest post website": 0.75,
+    "google docs error": 9.7
+   },
+   "requeued": [
+    "guest post website"
+   ]
+  },
+  {
+   "at": 1789984150.2264047,
+   "anchor": "game assets",
+   "batch": [
+    "guest post website",
+    "how to use microsoft office",
+    "fl studio",
+    "learn spanish"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 10.28,
+    "guest post website": 0.17,
+    "how to use microsoft office": 2.02,
+    "fl studio": 66.7,
+    "learn spanish": 30.68
+   },
+   "requeued": [
+    "guest post website",
+    "how to use microsoft office"
+   ]
+  },
+  {
+   "at": 1789984206.6720417,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "how to use microsoft office",
+    "guest post website",
+    "final cut pro",
+    "pokemon cards"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 3.25,
+    "how to use microsoft office": 0.77,
+    "guest post website": 0,
+    "final cut pro": 7.11,
+    "pokemon cards": 69.7
+   },
+   "requeued": [
+    "how to use microsoft office",
+    "final cut pro"
+   ]
+  },
+  {
+   "at": 1789984263.0366642,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "final cut pro",
+    "how to use microsoft office",
+    "google docs app",
+    "raspberry pi"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 6.04,
+    "final cut pro": 13.11,
+    "how to use microsoft office": 1.21,
+    "google docs app": 8.68,
+    "raspberry pi": 60
+   }
+  },
+  {
+   "at": 1789984319.709335,
+   "anchor": "air fryer pork chops",
+   "batch": [
+    "cover letter",
+    "motion graphics",
+    "crypto wallet",
+    "credit cards"
+   ],
+   "ok": true,
+   "means": {
+    "air fryer pork chops": 1.98,
+    "cover letter": 18.94,
+    "motion graphics": 2.19,
+    "crypto wallet": 3.64,
+    "credit cards": 74.75
+   },
+   "requeued": [
+    "motion graphics",
+    "crypto wallet"
+   ]
+  },
+  {
+   "at": 1789984376.0627341,
+   "anchor": "air fryer pork chops",
+   "batch": [
+    "crypto wallet",
+    "motion graphics",
+    "life insurance",
+    "guitar tabs easy"
+   ],
+   "ok": true,
+   "means": {
+    "air fryer pork chops": 1.96,
+    "crypto wallet": 3.45,
+    "motion graphics": 2.04,
+    "life insurance": 82.81,
+    "guitar tabs easy": 0.08
+   },
+   "requeued": [
+    "crypto wallet",
+    "motion graphics",
+    "guitar tabs easy"
+   ]
+  },
+  {
+   "at": 1789984450.8408327,
+   "anchor": "air fryer pork chops",
+   "batch": [
+    "guitar tabs easy",
+    "motion graphics",
+    "crypto wallet",
+    "android phone"
+   ],
+   "ok": true,
+   "means": {
+    "air fryer pork chops": 2.74,
+    "guitar tabs easy": 0.53,
+    "motion graphics": 2.87,
+    "crypto wallet": 4.92,
+    "android phone": 58.85
+   },
+   "requeued": [
+    "guitar tabs easy"
+   ]
+  },
+  {
+   "at": 1789984507.1872194,
+   "anchor": "rv there yet",
+   "batch": [
+    "guitar tabs easy",
+    "react native tools",
+    "home assistant",
+    "small business bookkeeping"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 7.11,
+    "guitar tabs easy": 1.28,
+    "react native tools": 0.6,
+    "home assistant": 62.91,
+    "small business bookkeeping": 3.55
+   },
+   "requeued": [
+    "react native tools",
+    "small business bookkeeping"
+   ]
+  },
+  {
+   "at": 1789984563.6226044,
+   "anchor": "rv there yet",
+   "batch": [
+    "small business bookkeeping",
+    "react native tools",
+    "honkai star rail",
+    "epic games launcher"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.77,
+    "small business bookkeeping": 9.89,
+    "react native tools": 1.79,
+    "honkai star rail": 48,
+    "epic games launcher": 14.38
+   },
+   "requeued": [
+    "react native tools"
+   ]
+  },
+  {
+   "at": 1789984620.1493726,
+   "anchor": "rv there yet",
+   "batch": [
+    "react native tools",
+    "sheet music",
+    "resignation letter",
+    "roblox studio"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 3.94,
+    "react native tools": 0.19,
+    "sheet music": 82.38,
+    "resignation letter": 8.74,
+    "roblox studio": 15.87
+   }
+  },
+  {
+   "at": 1789984676.5457509,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "substance painter",
+    "singing lessons",
+    "xbox series x",
+    "bleed graphic design"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 4.32,
+    "substance painter": 1.89,
+    "singing lessons": 1.98,
+    "xbox series x": 58.57,
+    "bleed graphic design": 0
+   },
+   "requeued": [
+    "substance painter",
+    "singing lessons",
+    "bleed graphic design"
+   ]
+  },
+  {
+   "at": 1789984732.8839207,
+   "anchor": "where to watch love island",
+   "batch": [
+    "bleed graphic design",
+    "singing lessons",
+    "substance painter",
+    "home inspection report"
+   ],
+   "ok": true,
+   "means": {
+    "where to watch love island": 13.11,
+    "bleed graphic design": 0,
+    "singing lessons": 5.85,
+    "substance painter": 5.64,
+    "home inspection report": 2.57
+   },
+   "requeued": [
+    "singing lessons",
+    "substance painter",
+    "home inspection report"
+   ]
+  },
+  {
+   "at": 1789984815.0817971,
+   "anchor": "where to watch love island",
+   "batch": [
+    "home inspection report",
+    "substance painter",
+    "singing lessons",
+    "calculus study plan"
+   ],
+   "ok": true,
+   "means": {
+    "where to watch love island": 13.13,
+    "home inspection report": 2.57,
+    "substance painter": 5.64,
+    "singing lessons": 5.85,
+    "calculus study plan": 0
+   },
+   "requeued": [
+    "home inspection report",
+    "calculus study plan"
+   ]
+  },
+  {
+   "at": 1789984871.4572015,
+   "anchor": "where to watch love island",
+   "batch": [
+    "calculus study plan",
+    "home inspection report",
+    "cooking vegan food",
+    "particle models gcse"
+   ],
+   "ok": true,
+   "means": {
+    "where to watch love island": 13.11,
+    "calculus study plan": 0,
+    "home inspection report": 2.55,
+    "cooking vegan food": 0.09,
+    "particle models gcse": 0
+   },
+   "requeued": [
+    "cooking vegan food",
+    "particle models gcse"
+   ]
+  },
+  {
+   "at": 1789984932.5419288,
+   "anchor": "where to watch love island",
+   "batch": [
+    "particle models gcse",
+    "cooking vegan food",
+    "dungeons and dragons",
+    "sewing patterns"
+   ],
+   "ok": true,
+   "means": {
+    "where to watch love island": 13.11,
+    "particle models gcse": 0.02,
+    "cooking vegan food": 0.09,
+    "dungeons and dragons": 36.49,
+    "sewing patterns": 15.7
+   },
+   "requeued": [
+    "particle models gcse",
+    "cooking vegan food"
+   ]
+  },
+  {
+   "at": 1789984988.890582,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "cooking vegan food",
+    "particle models gcse",
+    "gaming mouse",
+    "award flights"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 2.36,
+    "cooking vegan food": 0,
+    "particle models gcse": 0,
+    "gaming mouse": 18.94,
+    "award flights": 2.04
+   },
+   "requeued": [
+    "award flights"
+   ]
+  },
+  {
+   "at": 1789985045.239202,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "award flights",
+    "machine learning gpu ram",
+    "office software make.com tour",
+    "negotiate salary offer"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 57.83,
+    "award flights": 48.09,
+    "machine learning gpu ram": 0.04,
+    "office software make.com tour": 0,
+    "negotiate salary offer": 4.08
+   },
+   "requeued": [
+    "machine learning gpu ram",
+    "office software make.com tour",
+    "negotiate salary offer"
+   ]
+  },
+  {
+   "at": 1789985101.5594032,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "negotiate salary offer",
+    "office software make.com tour",
+    "machine learning gpu ram",
+    "google cloud"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 5.08,
+    "negotiate salary offer": 0.04,
+    "office software make.com tour": 0,
+    "machine learning gpu ram": 0,
+    "google cloud": 53.13
+   },
+   "requeued": [
+    "negotiate salary offer"
+   ]
   }
  ],
  "anchors": [
@@ -13496,8 +14339,59 @@
   "small business llc": 1,
   "union budget total": 3,
   "how many times train legs": 2,
-  "diagnosis knee pain": 2,
-  "lesson plan format": 2,
-  "turn off grid blender": 1
+  "diagnosis knee pain": 3,
+  "lesson plan format": 3,
+  "turn off grid blender": 2,
+  "motorcycle atv": 1,
+  "real estate mortgage": 1,
+  "dog training courses": 3,
+  "does health insurance cover therapy": 3,
+  "bluetooth headset recommendations": 3,
+  "phone with large buttons": 3,
+  "dilution calculator mg/ml": 3,
+  "best motorcycle off road": 3,
+  "novel writer": 1,
+  "external hard drive 1tb": 1,
+  "monitor lizard": 1,
+  "guest post website": 3,
+  "google docs error": 1,
+  "how to use microsoft office": 3,
+  "fl studio": 1,
+  "learn spanish": 1,
+  "final cut pro": 2,
+  "pokemon cards": 1,
+  "google docs app": 1,
+  "raspberry pi": 1,
+  "cover letter": 1,
+  "motion graphics": 3,
+  "crypto wallet": 3,
+  "credit cards": 1,
+  "life insurance": 1,
+  "guitar tabs easy": 3,
+  "android phone": 1,
+  "react native tools": 3,
+  "home assistant": 1,
+  "small business bookkeeping": 2,
+  "honkai star rail": 1,
+  "epic games launcher": 1,
+  "sheet music": 1,
+  "resignation letter": 1,
+  "roblox studio": 1,
+  "substance painter": 3,
+  "singing lessons": 3,
+  "xbox series x": 1,
+  "bleed graphic design": 2,
+  "home inspection report": 3,
+  "calculus study plan": 2,
+  "cooking vegan food": 3,
+  "particle models gcse": 3,
+  "dungeons and dragons": 1,
+  "sewing patterns": 1,
+  "gaming mouse": 1,
+  "award flights": 2,
+  "machine learning gpu ram": 2,
+  "office software make.com tour": 2,
+  "negotiate salary offer": 2,
+  "google cloud": 1
  }
 }

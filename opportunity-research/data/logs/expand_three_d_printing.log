@@ -1,12 +1,14 @@
 {"seed": "bambu lab", "skipped": "already expanded"}
-{"seed": "3d printer prusa", "new_queries": 558, "suggestions_seen": 1844}
+{"seed": "3d printer prusa", "skipped": "already expanded"}
+{"seed": "ender 3", "new_queries": 1490, "suggestions_seen": 2149}
 {"seed": "3d printer cura", "skipped": "already expanded"}
-{"seed": "3d printer prusaslicer", "new_queries": 323, "suggestions_seen": 1616}
+{"seed": "3d printer prusaslicer", "skipped": "already expanded"}
+{"seed": "3d printer orcaslicer", "new_queries": 417, "suggestions_seen": 1781}
 {"seed": "3d printer stringing", "skipped": "already expanded"}
 {"seed": "layer shift", "skipped": "already expanded"}
+{"seed": "bed adhesion", "new_queries": 467, "suggestions_seen": 1213}
 {"seed": "3d printer pla", "skipped": "already expanded"}
-{"seed": "3d printer petg", "new_queries": 430, "suggestions_seen": 1842}
+{"seed": "3d printer petg", "skipped": "already expanded"}
+{"seed": "3d printer abs", "new_queries": 522, "suggestions_seen": 1728}
 {"seed": "stl files", "skipped": "already expanded"}
-{"seed": "3d printer thingiverse", "new_queries": 401, "suggestions_seen": 1748}
-{"seed": "bed leveling", "skipped": "already expanded"}
-{"seed": "flow calibration", "new_queries": 554, "suggestions_seen": 1350}
+{"seed": "3d printer thingiverse", "skipped": "already expanded"}

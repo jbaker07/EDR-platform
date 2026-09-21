@@ -1,12 +1,17 @@
 {"seed": "blender", "skipped": "already expanded"}
-{"seed": "blender render", "new_queries": 1030, "suggestions_seen": 1660}
+{"seed": "blender render", "skipped": "already expanded"}
+{"seed": "blender modifier", "new_queries": 564, "suggestions_seen": 1297}
 {"seed": "fusion 360", "skipped": "already expanded"}
-{"seed": "cad solidworks", "new_queries": 599, "suggestions_seen": 1158}
+{"seed": "cad solidworks", "skipped": "already expanded"}
+{"seed": "freecad", "new_queries": 1233, "suggestions_seen": 1837}
 {"seed": "3d modeling zbrush", "skipped": "already expanded"}
-{"seed": "substance painter", "new_queries": 1073, "suggestions_seen": 1846}
+{"seed": "substance painter", "skipped": "already expanded"}
+{"seed": "uv unwrap", "new_queries": 692, "suggestions_seen": 1401}
 {"seed": "3d modeling cycles", "skipped": "already expanded"}
-{"seed": "3d modeling eevee", "new_queries": 546, "suggestions_seen": 1369}
+{"seed": "3d modeling eevee", "skipped": "already expanded"}
+{"seed": "3d modeling arnold", "new_queries": 492, "suggestions_seen": 1119}
 {"seed": "3d modeling fbx", "skipped": "already expanded"}
-{"seed": "3d modeling obj", "new_queries": 510, "suggestions_seen": 1583}
+{"seed": "3d modeling obj", "skipped": "already expanded"}
+{"seed": "3d modeling gltf", "new_queries": 472, "suggestions_seen": 1114}
 {"seed": "3d modeling houdini", "skipped": "already expanded"}
-{"seed": "3d modeling particles", "new_queries": 534, "suggestions_seen": 1155}
+{"seed": "3d modeling particles", "skipped": "already expanded"}
