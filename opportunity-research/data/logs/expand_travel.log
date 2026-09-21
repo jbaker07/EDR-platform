@@ -1,12 +1,11 @@
 {"seed": "travel itinerary", "skipped": "already expanded"}
-{"seed": "travel checklist", "new_queries": 300, "suggestions_seen": 909}
+{"seed": "travel checklist", "skipped": "already expanded"}
+{"seed": "best time to visit", "new_queries": 1257, "suggestions_seen": 1995}
 {"seed": "cheap flights", "skipped": "already expanded"}
-{"seed": "award flights", "new_queries": 425, "suggestions_seen": 710}
+{"seed": "award flights", "skipped": "already expanded"}
+{"seed": "credit card points", "new_queries": 1132, "suggestions_seen": 1931}
 {"seed": "visa requirements", "skipped": "already expanded"}
-{"seed": "passport renewal", "new_queries": 661, "suggestions_seen": 824}
+{"seed": "passport renewal", "skipped": "already expanded"}
+{"seed": "travel esta", "new_queries": 773, "suggestions_seen": 1204}
 {"seed": "travel airbnb", "skipped": "already expanded"}
-{"seed": "travel hotel", "new_queries": 658, "suggestions_seen": 863}
-{"seed": "packing list", "skipped": "already expanded"}
-{"seed": "carry on size", "new_queries": 544, "suggestions_seen": 1051}
-{"seed": "moving abroad", "skipped": "already expanded"}
-{"seed": "digital nomad", "new_queries": 395, "suggestions_seen": 688}
+{"seed": "travel hotel", "skipped": "already expanded"}

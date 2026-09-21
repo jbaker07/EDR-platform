@@ -1,14 +1,21 @@
 {"seed": "workout plan", "skipped": "already expanded"}
-{"seed": "fitness deadlift", "new_queries": 709, "suggestions_seen": 1100}
+{"seed": "fitness deadlift", "skipped": "already expanded"}
+{"seed": "fitness squat", "new_queries": 771, "suggestions_seen": 1123}
 {"seed": "running plan", "skipped": "already expanded"}
-{"seed": "marathon training", "new_queries": 822, "suggestions_seen": 1417}
+{"seed": "marathon training", "skipped": "already expanded"}
+{"seed": "cycling training", "new_queries": 912, "suggestions_seen": 1851}
 {"seed": "pull ups", "skipped": "already expanded"}
-{"seed": "push ups", "new_queries": 954, "suggestions_seen": 1173}
+{"seed": "push ups", "skipped": "already expanded"}
+{"seed": "fitness calisthenics", "new_queries": 775, "suggestions_seen": 1213}
 {"seed": "protein intake", "skipped": "already expanded"}
-{"seed": "fitness creatine", "new_queries": 478, "suggestions_seen": 661}
+{"seed": "fitness creatine", "skipped": "already expanded"}
+{"seed": "calorie deficit", "new_queries": 1215, "suggestions_seen": 1841}
 {"seed": "knee pain", "skipped": "already expanded"}
-{"seed": "back pain", "new_queries": 1117, "suggestions_seen": 1334}
+{"seed": "back pain", "skipped": "already expanded"}
+{"seed": "plantar fasciitis", "new_queries": 1420, "suggestions_seen": 1936}
 {"seed": "garmin training", "skipped": "already expanded"}
-{"seed": "fitness strava", "new_queries": 410, "suggestions_seen": 875}
+{"seed": "fitness strava", "skipped": "already expanded"}
+{"seed": "heart rate zones", "new_queries": 897, "suggestions_seen": 1764}
 {"seed": "health symptoms", "skipped": "already expanded"}
-{"seed": "health medication", "new_queries": 604, "suggestions_seen": 764}
+{"seed": "health medication", "skipped": "already expanded"}
+{"seed": "health dosage", "new_queries": 659, "suggestions_seen": 915}

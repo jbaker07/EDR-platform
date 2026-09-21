@@ -1,14 +1,21 @@
 {"seed": "sourdough starter", "skipped": "already expanded"}
-{"seed": "baking bread", "new_queries": 1284, "suggestions_seen": 1755}
+{"seed": "baking bread", "skipped": "already expanded"}
+{"seed": "baking cake", "new_queries": 1334, "suggestions_seen": 1715}
 {"seed": "sous vide", "skipped": "already expanded"}
-{"seed": "smoking meat", "new_queries": 808, "suggestions_seen": 1352}
+{"seed": "smoking meat", "skipped": "already expanded"}
+{"seed": "cast iron", "new_queries": 1694, "suggestions_seen": 2298}
 {"seed": "substitute for", "skipped": "already expanded"}
-{"seed": "cups to grams", "new_queries": 535, "suggestions_seen": 1031}
+{"seed": "cups to grams", "skipped": "already expanded"}
+{"seed": "oven temperature", "new_queries": 1081, "suggestions_seen": 1686}
 {"seed": "meal prep", "skipped": "already expanded"}
-{"seed": "weekly meal plan", "new_queries": 523, "suggestions_seen": 1252}
+{"seed": "weekly meal plan", "skipped": "already expanded"}
+{"seed": "grocery list", "new_queries": 1163, "suggestions_seen": 1729}
 {"seed": "cooking keto", "skipped": "already expanded"}
-{"seed": "cooking vegan", "new_queries": 567, "suggestions_seen": 904}
+{"seed": "cooking vegan", "skipped": "already expanded"}
+{"seed": "gluten free", "new_queries": 1661, "suggestions_seen": 2171}
 {"seed": "drink cocktail", "skipped": "already expanded"}
-{"seed": "drink coffee", "new_queries": 681, "suggestions_seen": 959}
+{"seed": "drink coffee", "skipped": "already expanded"}
+{"seed": "drink espresso", "new_queries": 806, "suggestions_seen": 1327}
 {"seed": "cooking canning", "skipped": "already expanded"}
-{"seed": "cooking fermentation", "new_queries": 306, "suggestions_seen": 578}
+{"seed": "cooking fermentation", "skipped": "already expanded"}
+{"seed": "cooking freezing", "new_queries": 717, "suggestions_seen": 1153}

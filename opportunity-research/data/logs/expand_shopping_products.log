@@ -1,10 +1,9 @@
 {"seed": "product best", "skipped": "already expanded"}
-{"seed": "product vs", "new_queries": 574, "suggestions_seen": 808}
+{"seed": "product vs", "skipped": "already expanded"}
+{"seed": "product review", "new_queries": 1122, "suggestions_seen": 1703}
 {"seed": "size chart", "skipped": "already expanded"}
-{"seed": "shoe size conversion", "new_queries": 298, "suggestions_seen": 890}
+{"seed": "shoe size conversion", "skipped": "already expanded"}
+{"seed": "ring size", "new_queries": 1325, "suggestions_seen": 1888}
 {"seed": "price history", "skipped": "already expanded"}
-{"seed": "price drop", "new_queries": 567, "suggestions_seen": 907}
-{"seed": "what is this", "new_queries": 104, "suggestions_seen": 911}
-{"seed": "identify product", "new_queries": 393, "suggestions_seen": 684}
-{"seed": "product mattress", "skipped": "already expanded"}
-{"seed": "product sofa", "new_queries": 507, "suggestions_seen": 667}
+{"seed": "price drop", "skipped": "already expanded"}
+{"seed": "return policy", "new_queries": 1205, "suggestions_seen": 1707}

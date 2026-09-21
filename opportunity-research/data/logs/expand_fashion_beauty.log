@@ -1,8 +1,8 @@
 {"seed": "skincare routine", "skipped": "already expanded"}
-{"seed": "beauty retinol", "new_queries": 411, "suggestions_seen": 606}
+{"seed": "beauty retinol", "skipped": "already expanded"}
+{"seed": "beauty acne", "new_queries": 847, "suggestions_seen": 1175}
 {"seed": "beauty makeup", "skipped": "already expanded"}
-{"seed": "foundation shade", "new_queries": 334, "suggestions_seen": 678}
+{"seed": "foundation shade", "skipped": "already expanded"}
+{"seed": "beauty nails", "new_queries": 996, "suggestions_seen": 1330}
 {"seed": "beauty outfit", "skipped": "already expanded"}
-{"seed": "capsule wardrobe", "new_queries": 367, "suggestions_seen": 765}
-{"seed": "stain removal", "skipped": "already expanded"}
-{"seed": "wash symbols", "new_queries": 275, "suggestions_seen": 746}
+{"seed": "capsule wardrobe", "skipped": "already expanded"}

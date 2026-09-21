@@ -7,3 +7,7 @@
 {"seed": "writing kdp", "skipped": "already expanded"}
 {"seed": "self publishing", "skipped": "already expanded"}
 {"source_error": "bing", "probe": "how to book cover design", "error": "RemoteDisconnected: Remote end closed connection without response"}
+{"seed": "book cover", "new_queries": 1389, "suggestions_seen": 2046}
+{"seed": "writing headline", "skipped": "already expanded"}
+{"seed": "copywriting", "skipped": "already expanded"}
+{"seed": "product description", "new_queries": 803, "suggestions_seen": 1362}

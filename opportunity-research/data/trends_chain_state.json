@@ -5396,16 +5396,46 @@
    "reads": 13.53,
    "anchor_reads": 51.79,
    "error_pct": 4.7
+  },
+  "books manga anime": {
+   "value": 0.738,
+   "anchor": "docker desktop",
+   "reads": 3.81,
+   "anchor_reads": 57.09,
+   "error_pct": 14.0
+  },
+  "device ip address": {
+   "value": 4.494,
+   "anchor": "docker desktop",
+   "reads": 23.21,
+   "anchor_reads": 57.09,
+   "error_pct": 3.0
+  },
+  "photography iso aperture shutter speed": {
+   "value": 0.179,
+   "anchor": "docker desktop",
+   "reads": 0.92,
+   "anchor_reads": 57.09,
+   "error_pct": 55.0
+  },
+  "canva design app free download": {
+   "value": 0.009,
+   "anchor": "docker desktop",
+   "reads": 0.02,
+   "anchor_reads": 23.3,
+   "error_pct": 102.1
+  },
+  "kitchen remodel": {
+   "value": 23.186,
+   "anchor": "docker desktop",
+   "reads": 48.87,
+   "anchor_reads": 23.3,
+   "error_pct": 3.2
   }
  },
  "pending": [
-  "photography iso aperture shutter speed",
-  "books manga anime",
-  "device ip address",
-  "canva design app free download",
   "coffee machine names",
   "asana work management",
-  "kitchen remodel",
   "icd 10 cm code generator",
   "soc 2 compliance",
   "cups to grams",
@@ -14676,6 +14706,73 @@
     "books manga anime",
     "photography iso aperture shutter speed"
    ]
+  },
+  {
+   "at": 1789989295.5886736,
+   "anchor": "docker desktop",
+   "batch": [
+    "photography iso aperture shutter speed",
+    "books manga anime",
+    "device ip address",
+    "canva design app free download"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 57.09,
+    "photography iso aperture shutter speed": 0.79,
+    "books manga anime": 3.81,
+    "device ip address": 23.21,
+    "canva design app free download": 0
+   },
+   "requeued": [
+    "photography iso aperture shutter speed",
+    "canva design app free download"
+   ]
+  },
+  {
+   "at": 1789989357.2172065,
+   "anchor": "docker desktop",
+   "batch": [
+    "canva design app free download",
+    "photography iso aperture shutter speed",
+    "coffee machine names",
+    "asana work management"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 57.09,
+    "canva design app free download": 0.02,
+    "photography iso aperture shutter speed": 0.92,
+    "coffee machine names": 1.32,
+    "asana work management": 1.11
+   },
+   "requeued": [
+    "canva design app free download",
+    "coffee machine names",
+    "asana work management"
+   ]
+  },
+  {
+   "at": 1789989418.589098,
+   "anchor": "docker desktop",
+   "batch": [
+    "asana work management",
+    "coffee machine names",
+    "canva design app free download",
+    "kitchen remodel"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 23.3,
+    "asana work management": 0.49,
+    "coffee machine names": 0.64,
+    "canva design app free download": 0.02,
+    "kitchen remodel": 48.87
+   },
+   "requeued": [
+    "asana work management",
+    "coffee machine names"
+   ]
   }
  ],
  "anchors": [
@@ -15427,8 +15524,13 @@
   "termite repair": 3,
   "editing in h264": 2,
   "3d printer prusa software": 2,
-  "books manga anime": 2,
+  "books manga anime": 3,
   "music amplifier": 1,
-  "photography iso aperture shutter speed": 1
+  "photography iso aperture shutter speed": 3,
+  "device ip address": 1,
+  "canva design app free download": 3,
+  "coffee machine names": 2,
+  "asana work management": 2,
+  "kitchen remodel": 1
  }
 }

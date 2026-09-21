@@ -1,10 +1,15 @@
 {"seed": "hiking trail", "skipped": "already expanded"}
-{"seed": "backpacking gear", "new_queries": 756, "suggestions_seen": 1732}
+{"seed": "backpacking gear", "skipped": "already expanded"}
+{"seed": "hiking tent", "new_queries": 699, "suggestions_seen": 1312}
 {"seed": "fishing", "skipped": "already expanded"}
-{"seed": "fishing license", "new_queries": 882, "suggestions_seen": 1272}
+{"seed": "fishing license", "skipped": "already expanded"}
+{"seed": "fishing lure", "new_queries": 1158, "suggestions_seen": 1764}
 {"seed": "outdoor kayak", "skipped": "already expanded"}
-{"seed": "outdoor surfing", "new_queries": 363, "suggestions_seen": 517}
+{"seed": "outdoor surfing", "skipped": "already expanded"}
+{"seed": "outdoor skiing", "new_queries": 707, "suggestions_seen": 957}
 {"seed": "soccer drills", "skipped": "already expanded"}
-{"seed": "outdoor basketball", "new_queries": 544, "suggestions_seen": 1010}
+{"seed": "outdoor basketball", "skipped": "already expanded"}
+{"seed": "golf swing", "new_queries": 1404, "suggestions_seen": 2091}
 {"seed": "rock climbing", "skipped": "already expanded"}
-{"seed": "trail running", "new_queries": 702, "suggestions_seen": 1032}
+{"seed": "trail running", "skipped": "already expanded"}
+{"seed": "outdoor triathlon", "new_queries": 550, "suggestions_seen": 860}
