@@ -9,7 +9,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import yaml  # noqa: E402
 
-from pipeline import clean, cluster, expand, score, store  # noqa: E402
+from pipeline import clean, cluster, demand_free, expand, score, shortlist, store  # noqa: E402
+from pipeline.sources import trends_chain  # noqa: E402
 from pipeline.sources import kp_import, serp, stackexchange, trends  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,6 +83,25 @@ def cmd_import_kp(a):
     print(f"imported {n} keywords from {a.file}")
 
 
+def cmd_chain(a):
+    """Place the head terms of the largest clusters on the Trends scale, a few steps per call (slow cadence)."""
+    con = store.connect()
+    ch = trends_chain.Chain(geo=a.geo, cadence_s=a.cadence)
+    if not ch.state["scale"]:
+        ch.set_root(a.root, 100.0)
+    ids = [r[0] for r in con.execute("""SELECT c.cluster_id FROM clusters c JOIN cluster_members m ON m.cluster_id=c.cluster_id
+                                        WHERE c.cluster_id!='_variants' GROUP BY c.cluster_id ORDER BY COUNT(m.query) DESC LIMIT ?""", (a.top,))]
+    heads = [h for h in (demand_free.head_term(con, cid) for cid in ids) if h]
+    ch.add_terms(heads)
+    done = ch.run(max_steps=a.steps, con=con)
+    print(json.dumps({"steps": done, "placed": len(ch.state["scale"]), "pending": len(ch.state["pending"]),
+                      "last": ch.state["log"][-1] if ch.state["log"] else None}))
+
+
+def cmd_shortlist(a):
+    print("wrote", shortlist.write(store.connect(), top=a.top))
+
+
 def cmd_stats(a):
     con = store.connect()
     for row in con.execute("SELECT status, COUNT(*) FROM queries GROUP BY status"):
@@ -105,6 +125,9 @@ def main():
     s = sub.add_parser("serp"); s.add_argument("--limit", type=int, default=20); s.set_defaults(fn=cmd_serp)
     sc = sub.add_parser("score"); sc.add_argument("--top", type=int, default=30); sc.set_defaults(fn=cmd_score)
     k = sub.add_parser("import-kp"); k.add_argument("file"); k.add_argument("--geo", default="US"); k.add_argument("--lang", default="en"); k.add_argument("--note", default=""); k.set_defaults(fn=cmd_import_kp)
+    ch = sub.add_parser("chain"); ch.add_argument("--top", type=int, default=200); ch.add_argument("--steps", type=int, default=8)
+    ch.add_argument("--cadence", type=float, default=90.0); ch.add_argument("--geo", default="US"); ch.add_argument("--root", default="sourdough starter"); ch.set_defaults(fn=cmd_chain)
+    sl = sub.add_parser("shortlist"); sl.add_argument("--top", type=int, default=100); sl.set_defaults(fn=cmd_shortlist)
     sub.add_parser("stats").set_defaults(fn=cmd_stats)
     a = p.parse_args()
     a.fn(a)
