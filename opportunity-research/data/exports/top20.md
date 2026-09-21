@@ -82,14 +82,20 @@ does, the gap shrinks to presentation and long-tail pages. Second risk: vendor p
 
 
 **19. Evidence quality / confidence.** Fragmentation and competitor evidence: moderate (18 proxy results, 6 of 8 pages fetched, two blocked). Demand
-evidence: weak on the free route (25-member pass-1 cluster plus a 26-member sibling, no Trends placement); the
-product-specific long tail is inferred from the shape of the vendor lists, not measured.
+evidence: weak on the free route (25-member pass-1 cluster plus a 26-member sibling). Placed on the Trends chain
+after the analysis: "cpu motherboard compatibility" 0.5 (±10%) against "sourdough starter" 100 and the brand phrase
+"pcpartpicker" 12.0 (±2%); the related phrases "motherboard cpu support list" and "bios update for new cpu" read
+near zero. The head phrase is small and the incumbent's brand is searched about 24 times more often; the
+product-level long tail is inferred from the shape of the vendor lists, not measured.
  Open questions from the competitor record: pcpartpicker.com blocked both fetch attempts, so whether its compatibility filter already covers CPU-to-board pairings with BIOS caveats - the core of the opportunity - is unverified and is the single biggest gap in this analysis | asrock.com returned an empty body, so the structure of a board maker's CPU support list (fields, BIOS columns, whether it is scrapeable) was not directly observed, only described second-hand by pcguide.com | no AMD-side equivalent of Intel's compatibility tool appeared in the checked results; whether AMD publishes one is unknown | the Intel Product Compatibility Tool itself was not fetched (only the support article pointing to it), so its coverage, currency and whether it surfaces BIOS requirements are unknown
 
-**20. Verdict.** Finalist and provisional #1. Strongest combination in the reviewed set of a reproducible structured dataset, an
-AI-resistant lookup layer, high commercial intent and a large product-level long tail. Two checks are required
-before committing: verify PCPartPicker's BIOS handling in a browser, and buy one month of keyword data for the
-board- and CPU-level queries to size the demand.
+**20. Verdict.** Finalist and provisional #1 on the structure of the problem (reproducible structured dataset, AI-resistant lookup
+layer, high commercial intent, product-level long tail), now explicitly conditional: PCPartPicker could not be
+read (bot protection) and on general knowledge already gives a coarse "BIOS update may be required" answer, and
+every free demand signal for the head phrases is small. Two checks are required before committing: a person
+verifies PCPartPicker's BIOS handling in a browser (ten minutes, steps in pcpartpicker_conclusion.md), and one
+month of keyword data sizes twenty board-plus-CPU phrases. If PCPartPicker shows minimum BIOS versions per pair,
+the opportunity narrows to long-tail pages and explanation and should not be built as a standalone site.
 
 
 

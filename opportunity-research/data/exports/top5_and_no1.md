@@ -56,6 +56,23 @@ has unverified competitors; the visa engine has the highest correctness cost in 
 clusters hold 25 and 26 members and neither head term is placed on the Trends chain. The recommendation rests on the
 structure of the problem and the shape of the data, not on a measured volume.
 
+## Demand check after placement (added after the Trends chain reached the finalists)
+
+The exact head phrases of the finalists were placed on the Trends chain after the ranking was made. All are small:
+"cpu motherboard compatibility" 0.5, "best settings for rivals" 0.6, "stl files for 3d printing" 0.6, "how to move
+abroad" 0.7, "best pc for modding" and "minecraft modpack requirements" near zero with unreliable error, against
+"sourdough starter" 100, "excel formulas" 10.5, "obd2 codes" 1.5, "roof leaking" 4.7 and the brand phrase
+"pcpartpicker" 12.0. Two consequences, stated plainly:
+
+- None of the five is a head-term opportunity. Each is a long-tail bet: many product-, game-, file- or country-specific
+  phrasings that no free source sums. That is consistent with the brief's problem-family framing, and it means the
+  absolute size of every finalist is unmeasured, not merely imprecise.
+- For the #1, the incumbent's brand phrase is searched about 24 times more often than the generic problem phrase, so
+  most people with the problem already go to PCPartPicker. The #1 stands only as a narrow data gap (minimum BIOS
+  version per pair, per-pair landing pages) beside a strong incumbent; see pcpartpicker_conclusion.md. The ranking
+  among the five does not change, because it was made on data structure and resilience rather than on head-phrase
+  demand, but the first thing to buy is one month of keyword data for twenty product-name phrasings per finalist.
+
 ## A family seen across domains, not ranked
 
 604 stored queries combine "mod" with compatibility, conflict, crash or "not working" across at least five games

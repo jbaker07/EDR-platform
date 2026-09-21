@@ -5431,9 +5431,47 @@
    "reads": 48.87,
    "anchor_reads": 23.3,
    "error_pct": 3.2
+  },
+  "cpu motherboard compatibility": {
+   "value": 0.507,
+   "anchor": "motorcycle atv",
+   "reads": 5.55,
+   "anchor_reads": 33.36,
+   "error_pct": 10.5
+  },
+  "motherboard cpu support list": {
+   "value": 0.024,
+   "anchor": "motorcycle atv",
+   "reads": 0.26,
+   "anchor_reads": 33.36,
+   "error_pct": 101.5
+  },
+  "bios update for new cpu": {
+   "value": 0.045,
+   "anchor": "motorcycle atv",
+   "reads": 0.49,
+   "anchor_reads": 33.36,
+   "error_pct": 101.5
+  },
+  "minecraft modpack requirements": {
+   "value": 0.041,
+   "anchor": "motorcycle atv",
+   "reads": 0.45,
+   "anchor_reads": 33.36,
+   "error_pct": 101.5
+  },
+  "pcpartpicker": {
+   "value": 12.0,
+   "anchor": "docker desktop",
+   "reads": 46.55,
+   "anchor_reads": 42.89,
+   "error_pct": 2.2
   }
  },
  "pending": [
+  "kdp royalty calculator",
+  "stl file repair",
+  "best settings for marvel rivals",
   "coffee machine names",
   "asana work management",
   "icd 10 cm code generator",
@@ -14785,6 +14823,95 @@
    ],
    "ok": false,
    "error": "no data (throttled or unknown terms)"
+  },
+  {
+   "at": 1790019717.61992,
+   "anchor": "docker desktop",
+   "batch": [
+    "cpu motherboard compatibility",
+    "motherboard cpu support list",
+    "bios update for new cpu",
+    "minecraft modpack requirements"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 57.21,
+    "cpu motherboard compatibility": 2.7,
+    "motherboard cpu support list": 0.13,
+    "bios update for new cpu": 0.28,
+    "minecraft modpack requirements": 0.23
+   },
+   "requeued": [
+    "cpu motherboard compatibility",
+    "motherboard cpu support list",
+    "bios update for new cpu",
+    "minecraft modpack requirements"
+   ]
+  },
+  {
+   "at": 1790019784.034241,
+   "anchor": "motorcycle atv",
+   "batch": [
+    "minecraft modpack requirements",
+    "bios update for new cpu",
+    "motherboard cpu support list",
+    "cpu motherboard compatibility"
+   ],
+   "ok": true,
+   "means": {
+    "motorcycle atv": 33.36,
+    "minecraft modpack requirements": 0.45,
+    "bios update for new cpu": 0.49,
+    "motherboard cpu support list": 0.26,
+    "cpu motherboard compatibility": 5.55
+   },
+   "requeued": [
+    "minecraft modpack requirements",
+    "bios update for new cpu",
+    "motherboard cpu support list",
+    "cpu motherboard compatibility"
+   ]
+  },
+  {
+   "at": 1790019850.401079,
+   "anchor": "motorcycle atv",
+   "batch": [
+    "cpu motherboard compatibility",
+    "motherboard cpu support list",
+    "bios update for new cpu",
+    "minecraft modpack requirements"
+   ],
+   "ok": true,
+   "means": {
+    "motorcycle atv": 33.36,
+    "cpu motherboard compatibility": 5.55,
+    "motherboard cpu support list": 0.26,
+    "bios update for new cpu": 0.49,
+    "minecraft modpack requirements": 0.45
+   }
+  },
+  {
+   "at": 1790019916.9606833,
+   "anchor": "docker desktop",
+   "batch": [
+    "best settings for marvel rivals",
+    "stl file repair",
+    "kdp royalty calculator",
+    "pcpartpicker"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 42.89,
+    "best settings for marvel rivals": 1.6,
+    "stl file repair": 0.04,
+    "kdp royalty calculator": 0.06,
+    "pcpartpicker": 46.55
+   },
+   "requeued": [
+    "best settings for marvel rivals",
+    "stl file repair",
+    "kdp royalty calculator"
+   ]
   }
  ],
  "anchors": [
@@ -15543,6 +15670,14 @@
   "canva design app free download": 3,
   "coffee machine names": 2,
   "asana work management": 2,
-  "kitchen remodel": 1
+  "kitchen remodel": 1,
+  "cpu motherboard compatibility": 3,
+  "motherboard cpu support list": 3,
+  "bios update for new cpu": 3,
+  "minecraft modpack requirements": 3,
+  "best settings for marvel rivals": 1,
+  "stl file repair": 1,
+  "kdp royalty calculator": 1,
+  "pcpartpicker": 1
  }
 }
