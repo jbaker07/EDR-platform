@@ -34,7 +34,8 @@ def build(con) -> list[dict]:
     # metrics come from the pass-1 candidate snapshot the analysis was done on; cluster ids change when the
     # store is re-clustered, so the pass-1 -> pass-2 mapping (majority vote of members) is attached separately
     metrics = {r["cluster_id"]: r for r in json.loads((ROOT / "data" / "exports" / "candidates_pass1.json").read_text())}
-    mapping_path = ROOT / "data" / "exports" / "cluster_map_pass1_to_pass2.json"
+    mapping_path = next((ROOT / "data" / "exports" / f"cluster_map_pass1_to_pass{n}.json" for n in (3, 2)
+                         if (ROOT / "data" / "exports" / f"cluster_map_pass1_to_pass{n}.json").exists()), ROOT / "missing")
     mapping = json.loads(mapping_path.read_text()) if mapping_path.exists() else {}
     out = []
     for path in sorted((ROOT / "data" / "top20").glob("c_*.yaml")):
@@ -52,7 +53,7 @@ def build(con) -> list[dict]:
 
 def write(con) -> Path:
     rows = build(con)
-    md = ["# Top 20 opportunities (free route; analysed on pass-1 clusters, mapped to pass-2)\n",
+    md = ["# Top 20 opportunities (free route; analysed on pass-1 clusters, mapped to the final pass)\n",
           "Every candidate carries the brief's twenty fields. Measured facts come from the research store (autocomplete "
           "corroboration, Google Trends chain, web-search proxy results, fetched competitor pages); inference and hypothesis "
           "are labelled. No monthly search volume, traffic, revenue or user count is stated anywhere, because none was measured.\n"]
@@ -75,7 +76,7 @@ def write(con) -> Path:
                   f"({m['problem_share']} share), {m['organic_problem_members']} of them volunteered by the engines on bare probes; intent mix "
                   + ", ".join(f"{k} {v}" for k, v in m["intents"].items()) + f"; subdomains touched: {', '.join(m['subdomains'])}. "
                   "Member counts reflect one seed per subdomain. "
-                  + (f"After pass 2 (two seeds per subdomain, re-clustered) the same problem maps to cluster `{r['mapping'].get('new_cluster_id')}` "
+                  + (f"After the final pass (three seeds per subdomain, re-clustered) the same problem maps to cluster `{r['mapping'].get('new_cluster_id')}` "
                      f"with {r['mapping'].get('new_size')} members ({r['mapping'].get('votes')} of the analysed members vote for it; a low vote "
                      f"means the recursive split ladder broke the pass-1 cluster apart, not that demand fell)." if r["mapping"] else "") + "\n")
         md.append(f"**5. Existing search workflow (from fetched pages).** {s.get('pieced_together_answer', 'n/a')}\n")
