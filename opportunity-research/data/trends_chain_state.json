@@ -1331,77 +1331,497 @@
    "reads": 9.74,
    "anchor_reads": 42.06,
    "error_pct": 6.3
+  },
+  "card game rules": {
+   "value": 14.859,
+   "anchor": "macos tahoe",
+   "reads": 38.4,
+   "anchor_reads": 29.81,
+   "error_pct": 3.0
+  },
+  "owasp web application testing": {
+   "value": 0.01,
+   "anchor": "macos tahoe",
+   "reads": 0.04,
+   "anchor_reads": 42.06,
+   "error_pct": 101.2
+  },
+  "android app development": {
+   "value": 3.773,
+   "anchor": "macos tahoe",
+   "reads": 13.75,
+   "anchor_reads": 42.06,
+   "error_pct": 4.8
+  },
+  "pc nintendo emulator": {
+   "value": 0.849,
+   "anchor": "macos tahoe",
+   "reads": 3.09,
+   "anchor_reads": 42.06,
+   "error_pct": 17.3
+  },
+  "controller not working on pc": {
+   "value": 1.216,
+   "anchor": "macos tahoe",
+   "reads": 4.43,
+   "anchor_reads": 42.06,
+   "error_pct": 12.5
+  },
+  "azure prometheus grafana": {
+   "value": 0.011,
+   "anchor": "unreal engine games",
+   "reads": 0.17,
+   "anchor_reads": 48.66,
+   "error_pct": 101.0
+  },
+  "board game costs": {
+   "value": 0.623,
+   "anchor": "unreal engine games",
+   "reads": 9.87,
+   "anchor_reads": 48.66,
+   "error_pct": 6.1
+  },
+  "how to read obd2 codes": {
+   "value": 0.005,
+   "anchor": "macos tahoe",
+   "reads": 0.02,
+   "anchor_reads": 42.04,
+   "error_pct": 101.2
+  },
+  "identify iphone model": {
+   "value": 0.414,
+   "anchor": "macos tahoe",
+   "reads": 1.51,
+   "anchor_reads": 42.04,
+   "error_pct": 34.3
+  },
+  "rest api vs api": {
+   "value": 5.551,
+   "anchor": "macos tahoe",
+   "reads": 20.23,
+   "anchor_reads": 42.04,
+   "error_pct": 3.7
+  },
+  "github actions schedule": {
+   "value": 1.274,
+   "anchor": "unreal engine games",
+   "reads": 20.13,
+   "anchor_reads": 48.58,
+   "error_pct": 3.5
+  },
+  "stringing a guitar": {
+   "value": 0.014,
+   "anchor": "unreal engine games",
+   "reads": 0.23,
+   "anchor_reads": 48.64,
+   "error_pct": 101.0
+  },
+  "unity animator controller": {
+   "value": 0.026,
+   "anchor": "unreal engine games",
+   "reads": 0.42,
+   "anchor_reads": 48.64,
+   "error_pct": 101.0
+  },
+  "chess opening theory": {
+   "value": 0.035,
+   "anchor": "unreal engine games",
+   "reads": 0.55,
+   "anchor_reads": 48.64,
+   "error_pct": 92.4
+  },
+  "unreal engine blueprints": {
+   "value": 0.375,
+   "anchor": "unreal engine games",
+   "reads": 5.92,
+   "anchor_reads": 48.58,
+   "error_pct": 9.5
+  },
+  "game maker studio": {
+   "value": 0.788,
+   "anchor": "unreal engine games",
+   "reads": 12.45,
+   "anchor_reads": 48.58,
+   "error_pct": 5.0
+  },
+  "elden ring builds": {
+   "value": 2.339,
+   "anchor": "unreal engine games",
+   "reads": 36.96,
+   "anchor_reads": 48.58,
+   "error_pct": 2.4
+  },
+  "vue js for beginners": {
+   "value": 0.005,
+   "anchor": "how to iphone mirror",
+   "reads": 0.04,
+   "anchor_reads": 72.47,
+   "error_pct": 100.7
+  },
+  "dnd 5e spells": {
+   "value": 4.918,
+   "anchor": "how to iphone mirror",
+   "reads": 35.08,
+   "anchor_reads": 72.47,
+   "error_pct": 2.1
+  },
+  "devops azure pipeline": {
+   "value": 1.513,
+   "anchor": "how to iphone mirror",
+   "reads": 10.79,
+   "anchor_reads": 72.47,
+   "error_pct": 5.3
+  },
+  "find rest api": {
+   "value": 0.848,
+   "anchor": "game assets",
+   "reads": 3.98,
+   "anchor_reads": 45.25,
+   "error_pct": 13.7
+  },
+  "github actions ci/cd": {
+   "value": 0.829,
+   "anchor": "unreal engine games",
+   "reads": 12.38,
+   "anchor_reads": 45.91,
+   "error_pct": 5.1
+  },
+  "owasp application security verification standard": {
+   "value": 0.239,
+   "anchor": "unreal engine games",
+   "reads": 3.57,
+   "anchor_reads": 45.91,
+   "error_pct": 15.1
+  },
+  "cities skylines maps": {
+   "value": 0.164,
+   "anchor": "unreal engine games",
+   "reads": 2.45,
+   "anchor_reads": 45.91,
+   "error_pct": 21.5
+  },
+  "java database connectivity": {
+   "value": 0.005,
+   "anchor": "chess openings",
+   "reads": 0.02,
+   "anchor_reads": 35.25,
+   "error_pct": 101.4
+  },
+  "maker's mark distillery tour": {
+   "value": 0.0,
+   "anchor": "chess openings",
+   "reads": 0,
+   "anchor_reads": 35.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "iphone planet wallpaper": {
+   "value": 0.0,
+   "anchor": "chess openings",
+   "reads": 0,
+   "anchor_reads": 35.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "docker /dev/shm": {
+   "value": 0.005,
+   "anchor": "chess openings",
+   "reads": 0.02,
+   "anchor_reads": 35.62,
+   "error_pct": 101.4
+  },
+  "docker helm registry": {
+   "value": 0.0,
+   "anchor": "chess openings",
+   "reads": 0,
+   "anchor_reads": 35.25,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "c# dictionary": {
+   "value": 1.527,
+   "anchor": "chess openings",
+   "reads": 5.64,
+   "anchor_reads": 35.25,
+   "error_pct": 10.3
+  },
+  "docker compose networks": {
+   "value": 0.256,
+   "anchor": "chess openings",
+   "reads": 0.94,
+   "anchor_reads": 35.11,
+   "error_pct": 54.4
+  },
+  "maker's mark making": {
+   "value": 0.0,
+   "anchor": "chess openings",
+   "reads": 0,
+   "anchor_reads": 18.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "minecraft tutorial castle": {
+   "value": 0.179,
+   "anchor": "chess openings",
+   "reads": 0.34,
+   "anchor_reads": 18.11,
+   "error_pct": 102.8
+  },
+  "minecraft house": {
+   "value": 38.873,
+   "anchor": "chess openings",
+   "reads": 73.83,
+   "anchor_reads": 18.11,
+   "error_pct": 3.4
+  },
+  "css not working in html": {
+   "value": 0.016,
+   "anchor": "game assets",
+   "reads": 0.08,
+   "anchor_reads": 45.23,
+   "error_pct": 101.1
+  },
+  "best magic the gathering deck": {
+   "value": 0.513,
+   "anchor": "unreal engine games",
+   "reads": 8.11,
+   "anchor_reads": 48.62,
+   "error_pct": 7.2
+  },
+  "how to emulate on pc": {
+   "value": 0.502,
+   "anchor": "unreal engine games",
+   "reads": 7.94,
+   "anchor_reads": 48.62,
+   "error_pct": 7.3
+  },
+  "free nmap scan": {
+   "value": 0.005,
+   "anchor": "unreal engine games",
+   "reads": 0.08,
+   "anchor_reads": 48.62,
+   "error_pct": 101.0
+  },
+  "docker vs podman": {
+   "value": 0.515,
+   "anchor": "game assets",
+   "reads": 2.42,
+   "anchor_reads": 45.23,
+   "error_pct": 21.8
+  },
+  "pottery mark identification": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 45.23,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "android studio emulator": {
+   "value": 1.215,
+   "anchor": "game assets",
+   "reads": 5.7,
+   "anchor_reads": 45.21,
+   "error_pct": 9.9
+  },
+  "regex programming": {
+   "value": 0.048,
+   "anchor": "game assets",
+   "reads": 0.23,
+   "anchor_reads": 45.21,
+   "error_pct": 101.1
+  },
+  "android studio update gradle version": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 45.21,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "docker error response from daemon": {
+   "value": 0.016,
+   "anchor": "game assets",
+   "reads": 0.08,
+   "anchor_reads": 45.21,
+   "error_pct": 101.1
+  },
+  "docker desktop": {
+   "value": 11.056,
+   "anchor": "game assets",
+   "reads": 51.85,
+   "anchor_reads": 45.21,
+   "error_pct": 2.1
+  },
+  "linux oracle": {
+   "value": 4.701,
+   "anchor": "game assets",
+   "reads": 22.06,
+   "anchor_reads": 45.23,
+   "error_pct": 3.4
+  },
+  "code prometheus fundamentals tips": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 45.21,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "android auto app not working": {
+   "value": 0.036,
+   "anchor": "game assets",
+   "reads": 0.17,
+   "anchor_reads": 45.21,
+   "error_pct": 101.1
+  },
+  "macos order": {
+   "value": 3.605,
+   "anchor": "game assets",
+   "reads": 16.91,
+   "anchor_reads": 45.21,
+   "error_pct": 4.1
+  },
+  "free dnd 5e adventures": {
+   "value": 0.005,
+   "anchor": "chess openings",
+   "reads": 0.02,
+   "anchor_reads": 35.23,
+   "error_pct": 101.4
+  },
+  "excel function or": {
+   "value": 3.494,
+   "anchor": "chess openings",
+   "reads": 12.91,
+   "anchor_reads": 35.23,
+   "error_pct": 5.3
+  },
+  "dnd 5e classes": {
+   "value": 1.778,
+   "anchor": "unreal engine games",
+   "reads": 28.04,
+   "anchor_reads": 48.47,
+   "error_pct": 2.8
+  },
+  "javascript active element": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 48.47,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "cities skylines vs simcity": {
+   "value": 0.006,
+   "anchor": "unreal engine games",
+   "reads": 0.09,
+   "anchor_reads": 48.47,
+   "error_pct": 101.0
+  },
+  "linux list usb devices": {
+   "value": 0.019,
+   "anchor": "unreal engine games",
+   "reads": 0.3,
+   "anchor_reads": 48.47,
+   "error_pct": 101.0
+  },
+  "best pc for steam": {
+   "value": 2.87,
+   "anchor": "steam page",
+   "reads": 16.66,
+   "anchor_reads": 51.49,
+   "error_pct": 4.0
+  },
+  "game fortnite lego": {
+   "value": 0.529,
+   "anchor": "unreal engine games",
+   "reads": 2.57,
+   "anchor_reads": 14.92,
+   "error_pct": 22.8
+  },
+  "free dnd 5e campaigns": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 14.92,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "all the equalizer settings": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 14.92,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "warhammer 40k total war": {
+   "value": 2.328,
+   "anchor": "unreal engine games",
+   "reads": 11.3,
+   "anchor_reads": 14.92,
+   "error_pct": 7.8
+  },
+  "warhammer 40k space marine 2": {
+   "value": 2.358,
+   "anchor": "unreal engine games",
+   "reads": 18.45,
+   "anchor_reads": 24.06,
+   "error_pct": 4.8
+  },
+  "obd2 code reader": {
+   "value": 3.084,
+   "anchor": "unreal engine games",
+   "reads": 24.13,
+   "anchor_reads": 24.06,
+   "error_pct": 4.2
+  },
+  "how to react js": {
+   "value": 0.731,
+   "anchor": "unreal engine games",
+   "reads": 11.51,
+   "anchor_reads": 48.42,
+   "error_pct": 5.4
+  },
+  "chess opening guide": {
+   "value": 0.026,
+   "anchor": "unreal engine games",
+   "reads": 0.42,
+   "anchor_reads": 48.42,
+   "error_pct": 101.0
+  },
+  "css won t load": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 48.42,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "power a controller not working": {
+   "value": 0.045,
+   "anchor": "unreal engine games",
+   "reads": 0.72,
+   "anchor_reads": 48.45,
+   "error_pct": 70.8
+  },
+  "cpu motherboard compatibility check": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 48.45,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "docker and kubernetes": {
+   "value": 1.156,
+   "anchor": "unreal engine games",
+   "reads": 18.23,
+   "anchor_reads": 48.45,
+   "error_pct": 3.8
   }
  },
  "pending": [
-  "owasp web application testing",
-  "card game rules",
-  "pc nintendo emulator",
-  "controller not working on pc",
-  "android app development",
-  "azure prometheus grafana",
-  "board game costs",
-  "how to read obd2 codes",
-  "identify iphone model",
-  "chess opening theory",
-  "rest api vs api",
-  "github actions schedule",
-  "unity animator controller",
-  "stringing a guitar",
-  "unreal engine blueprints",
-  "game maker studio",
-  "elden ring builds",
-  "vue js for beginners",
-  "find rest api",
-  "dnd 5e spells",
-  "devops azure pipeline",
-  "github actions ci/cd",
-  "owasp application security verification standard",
-  "cities skylines maps",
-  "java database connectivity",
-  "docker /dev/shm",
-  "iphone planet wallpaper",
-  "maker's mark distillery tour",
-  "c# dictionary",
-  "docker compose networks",
-  "docker helm registry",
-  "minecraft tutorial castle",
-  "maker's mark making",
-  "css not working in html",
-  "minecraft house",
-  "best magic the gathering deck",
-  "how to emulate on pc",
-  "free nmap scan",
-  "docker vs podman",
-  "android studio emulator",
-  "regex programming",
-  "pottery mark identification",
-  "docker error response from daemon",
-  "android studio update gradle version",
-  "docker desktop",
-  "android auto app not working",
-  "free dnd 5e adventures",
-  "code prometheus fundamentals tips",
-  "linux oracle",
-  "macos order",
-  "cities skylines vs simcity",
-  "linux list usb devices",
-  "excel function or",
-  "javascript active element",
-  "dnd 5e classes",
-  "all the equalizer settings",
-  "best pc for steam",
-  "free dnd 5e campaigns",
-  "game fortnite lego",
-  "warhammer 40k total war",
-  "warhammer 40k space marine 2",
-  "chess opening guide",
-  "obd2 code reader",
-  "how to react js",
-  "css won t load",
-  "power a controller not working",
-  "cpu motherboard compatibility check",
-  "docker and kubernetes",
   "c# cheat",
   "jetpack compose",
   "database postgresql",
@@ -4323,6 +4743,798 @@
    "requeued": [
     "owasp web application testing"
    ]
+  },
+  {
+   "at": 1789965038.862442,
+   "anchor": "macos tahoe",
+   "batch": [
+    "owasp web application testing",
+    "card game rules",
+    "pc nintendo emulator",
+    "controller not working on pc"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 29.81,
+    "owasp web application testing": 0.09,
+    "card game rules": 38.4,
+    "pc nintendo emulator": 2.19,
+    "controller not working on pc": 3.08
+   },
+   "requeued": [
+    "owasp web application testing",
+    "pc nintendo emulator",
+    "controller not working on pc"
+   ]
+  },
+  {
+   "at": 1789965095.2688155,
+   "anchor": "macos tahoe",
+   "batch": [
+    "controller not working on pc",
+    "pc nintendo emulator",
+    "owasp web application testing",
+    "android app development"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "controller not working on pc": 4.4,
+    "pc nintendo emulator": 3.09,
+    "owasp web application testing": 0.04,
+    "android app development": 13.75
+   },
+   "requeued": [
+    "controller not working on pc",
+    "pc nintendo emulator"
+   ]
+  },
+  {
+   "at": 1789965151.613242,
+   "anchor": "macos tahoe",
+   "batch": [
+    "pc nintendo emulator",
+    "controller not working on pc",
+    "azure prometheus grafana",
+    "board game costs"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "pc nintendo emulator": 3.09,
+    "controller not working on pc": 4.43,
+    "azure prometheus grafana": 0.04,
+    "board game costs": 2.28
+   },
+   "requeued": [
+    "azure prometheus grafana",
+    "board game costs"
+   ]
+  },
+  {
+   "at": 1789965207.954596,
+   "anchor": "macos tahoe",
+   "batch": [
+    "board game costs",
+    "azure prometheus grafana",
+    "how to read obd2 codes",
+    "identify iphone model"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "board game costs": 2.28,
+    "azure prometheus grafana": 0.04,
+    "how to read obd2 codes": 0.02,
+    "identify iphone model": 1.51
+   },
+   "requeued": [
+    "board game costs",
+    "azure prometheus grafana",
+    "how to read obd2 codes",
+    "identify iphone model"
+   ]
+  },
+  {
+   "at": 1789965264.297139,
+   "anchor": "unreal engine games",
+   "batch": [
+    "identify iphone model",
+    "how to read obd2 codes",
+    "azure prometheus grafana",
+    "board game costs"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.66,
+    "identify iphone model": 6.75,
+    "how to read obd2 codes": 0.11,
+    "azure prometheus grafana": 0.17,
+    "board game costs": 9.87
+   },
+   "requeued": [
+    "identify iphone model",
+    "how to read obd2 codes"
+   ]
+  },
+  {
+   "at": 1789965320.8759525,
+   "anchor": "macos tahoe",
+   "batch": [
+    "how to read obd2 codes",
+    "identify iphone model",
+    "chess opening theory",
+    "rest api vs api"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "how to read obd2 codes": 0.02,
+    "identify iphone model": 1.51,
+    "chess opening theory": 0.11,
+    "rest api vs api": 20.23
+   },
+   "requeued": [
+    "chess opening theory"
+   ]
+  },
+  {
+   "at": 1789965391.6376476,
+   "anchor": "unreal engine games",
+   "batch": [
+    "chess opening theory",
+    "github actions schedule",
+    "unity animator controller",
+    "stringing a guitar"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.58,
+    "chess opening theory": 0.55,
+    "github actions schedule": 20.13,
+    "unity animator controller": 0.42,
+    "stringing a guitar": 0.23
+   },
+   "requeued": [
+    "chess opening theory",
+    "unity animator controller",
+    "stringing a guitar"
+   ]
+  },
+  {
+   "at": 1789965448.0473287,
+   "anchor": "unreal engine games",
+   "batch": [
+    "stringing a guitar",
+    "unity animator controller",
+    "chess opening theory",
+    "unreal engine blueprints"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.64,
+    "stringing a guitar": 0.23,
+    "unity animator controller": 0.42,
+    "chess opening theory": 0.55,
+    "unreal engine blueprints": 5.92
+   },
+   "requeued": [
+    "unreal engine blueprints"
+   ]
+  },
+  {
+   "at": 1789965504.3611412,
+   "anchor": "unreal engine games",
+   "batch": [
+    "unreal engine blueprints",
+    "game maker studio",
+    "elden ring builds",
+    "vue js for beginners"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.58,
+    "unreal engine blueprints": 5.92,
+    "game maker studio": 12.45,
+    "elden ring builds": 36.96,
+    "vue js for beginners": 0.09
+   },
+   "requeued": [
+    "vue js for beginners"
+   ]
+  },
+  {
+   "at": 1789965560.716768,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "vue js for beginners",
+    "find rest api",
+    "dnd 5e spells",
+    "devops azure pipeline"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.47,
+    "vue js for beginners": 0.04,
+    "find rest api": 6.02,
+    "dnd 5e spells": 35.08,
+    "devops azure pipeline": 10.79
+   },
+   "requeued": [
+    "find rest api"
+   ]
+  },
+  {
+   "at": 1789965617.29583,
+   "anchor": "game assets",
+   "batch": [
+    "find rest api",
+    "github actions ci/cd",
+    "owasp application security verification standard",
+    "cities skylines maps"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.25,
+    "find rest api": 3.98,
+    "github actions ci/cd": 3.96,
+    "owasp application security verification standard": 1.15,
+    "cities skylines maps": 0.7
+   },
+   "requeued": [
+    "github actions ci/cd",
+    "owasp application security verification standard",
+    "cities skylines maps"
+   ]
+  },
+  {
+   "at": 1789965673.8113985,
+   "anchor": "game assets",
+   "batch": [
+    "cities skylines maps",
+    "owasp application security verification standard",
+    "github actions ci/cd",
+    "java database connectivity"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "cities skylines maps": 0.7,
+    "owasp application security verification standard": 1.15,
+    "github actions ci/cd": 3.96,
+    "java database connectivity": 0.02
+   },
+   "requeued": [
+    "cities skylines maps",
+    "owasp application security verification standard",
+    "github actions ci/cd",
+    "java database connectivity"
+   ]
+  },
+  {
+   "at": 1789965769.6876478,
+   "anchor": "unreal engine games",
+   "batch": [
+    "java database connectivity",
+    "github actions ci/cd",
+    "owasp application security verification standard",
+    "cities skylines maps"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 45.91,
+    "java database connectivity": 0.08,
+    "github actions ci/cd": 12.38,
+    "owasp application security verification standard": 3.57,
+    "cities skylines maps": 2.45
+   },
+   "requeued": [
+    "java database connectivity"
+   ]
+  },
+  {
+   "at": 1789965826.0310678,
+   "anchor": "chess openings",
+   "batch": [
+    "java database connectivity",
+    "docker /dev/shm",
+    "iphone planet wallpaper",
+    "maker's mark distillery tour"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 35.25,
+    "java database connectivity": 0.02,
+    "docker /dev/shm": 0.02,
+    "iphone planet wallpaper": 0,
+    "maker's mark distillery tour": 0
+   },
+   "requeued": [
+    "docker /dev/shm",
+    "iphone planet wallpaper",
+    "maker's mark distillery tour"
+   ]
+  },
+  {
+   "at": 1789965882.385923,
+   "anchor": "chess openings",
+   "batch": [
+    "maker's mark distillery tour",
+    "iphone planet wallpaper",
+    "docker /dev/shm",
+    "c# dictionary"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 35.11,
+    "maker's mark distillery tour": 0,
+    "iphone planet wallpaper": 0,
+    "docker /dev/shm": 0.02,
+    "c# dictionary": 5.57
+   },
+   "requeued": [
+    "docker /dev/shm",
+    "c# dictionary"
+   ]
+  },
+  {
+   "at": 1789965938.7202125,
+   "anchor": "chess openings",
+   "batch": [
+    "c# dictionary",
+    "docker /dev/shm",
+    "docker compose networks",
+    "docker helm registry"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 35.62,
+    "c# dictionary": 5.66,
+    "docker /dev/shm": 0.02,
+    "docker compose networks": 0.94,
+    "docker helm registry": 0
+   },
+   "requeued": [
+    "c# dictionary",
+    "docker compose networks",
+    "docker helm registry"
+   ]
+  },
+  {
+   "at": 1789965995.1129637,
+   "anchor": "chess openings",
+   "batch": [
+    "docker helm registry",
+    "docker compose networks",
+    "c# dictionary",
+    "minecraft tutorial castle"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 35.25,
+    "docker helm registry": 0,
+    "docker compose networks": 0.94,
+    "c# dictionary": 5.64,
+    "minecraft tutorial castle": 0.49
+   },
+   "requeued": [
+    "docker compose networks",
+    "minecraft tutorial castle"
+   ]
+  },
+  {
+   "at": 1789966051.4870102,
+   "anchor": "chess openings",
+   "batch": [
+    "minecraft tutorial castle",
+    "docker compose networks",
+    "maker's mark making",
+    "css not working in html"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 35.11,
+    "minecraft tutorial castle": 0.49,
+    "docker compose networks": 0.94,
+    "maker's mark making": 0,
+    "css not working in html": 0.04
+   },
+   "requeued": [
+    "minecraft tutorial castle",
+    "maker's mark making",
+    "css not working in html"
+   ]
+  },
+  {
+   "at": 1789966113.6042821,
+   "anchor": "chess openings",
+   "batch": [
+    "css not working in html",
+    "maker's mark making",
+    "minecraft tutorial castle",
+    "minecraft house"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 18.11,
+    "css not working in html": 0.04,
+    "maker's mark making": 0,
+    "minecraft tutorial castle": 0.34,
+    "minecraft house": 73.83
+   },
+   "requeued": [
+    "css not working in html"
+   ]
+  },
+  {
+   "at": 1789966169.9614313,
+   "anchor": "game assets",
+   "batch": [
+    "css not working in html",
+    "best magic the gathering deck",
+    "how to emulate on pc",
+    "free nmap scan"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "css not working in html": 0.08,
+    "best magic the gathering deck": 2.43,
+    "how to emulate on pc": 2.32,
+    "free nmap scan": 0.02
+   },
+   "requeued": [
+    "best magic the gathering deck",
+    "how to emulate on pc",
+    "free nmap scan"
+   ]
+  },
+  {
+   "at": 1789966226.3007998,
+   "anchor": "game assets",
+   "batch": [
+    "free nmap scan",
+    "how to emulate on pc",
+    "best magic the gathering deck",
+    "docker vs podman"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "free nmap scan": 0.02,
+    "how to emulate on pc": 2.32,
+    "best magic the gathering deck": 2.43,
+    "docker vs podman": 2.42
+   },
+   "requeued": [
+    "free nmap scan",
+    "how to emulate on pc",
+    "best magic the gathering deck",
+    "docker vs podman"
+   ]
+  },
+  {
+   "at": 1789966282.7269578,
+   "anchor": "unreal engine games",
+   "batch": [
+    "docker vs podman",
+    "best magic the gathering deck",
+    "how to emulate on pc",
+    "free nmap scan"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.62,
+    "docker vs podman": 7.75,
+    "best magic the gathering deck": 8.11,
+    "how to emulate on pc": 7.94,
+    "free nmap scan": 0.08
+   },
+   "requeued": [
+    "docker vs podman"
+   ]
+  },
+  {
+   "at": 1789966339.0885518,
+   "anchor": "game assets",
+   "batch": [
+    "docker vs podman",
+    "android studio emulator",
+    "regex programming",
+    "pottery mark identification"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "docker vs podman": 2.42,
+    "android studio emulator": 5.7,
+    "regex programming": 0.23,
+    "pottery mark identification": 0
+   },
+   "requeued": [
+    "android studio emulator",
+    "regex programming",
+    "pottery mark identification"
+   ]
+  },
+  {
+   "at": 1789966395.4613843,
+   "anchor": "game assets",
+   "batch": [
+    "pottery mark identification",
+    "regex programming",
+    "android studio emulator",
+    "docker error response from daemon"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "pottery mark identification": 0,
+    "regex programming": 0.23,
+    "android studio emulator": 5.66,
+    "docker error response from daemon": 0.08
+   },
+   "requeued": [
+    "regex programming",
+    "android studio emulator",
+    "docker error response from daemon"
+   ]
+  },
+  {
+   "at": 1789966467.775426,
+   "anchor": "game assets",
+   "batch": [
+    "docker error response from daemon",
+    "android studio emulator",
+    "regex programming",
+    "android studio update gradle version"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "docker error response from daemon": 0.08,
+    "android studio emulator": 5.7,
+    "regex programming": 0.23,
+    "android studio update gradle version": 0
+   },
+   "requeued": [
+    "docker error response from daemon",
+    "android studio update gradle version"
+   ]
+  },
+  {
+   "at": 1789966524.2085292,
+   "anchor": "game assets",
+   "batch": [
+    "android studio update gradle version",
+    "docker error response from daemon",
+    "docker desktop",
+    "android auto app not working"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "android studio update gradle version": 0,
+    "docker error response from daemon": 0.08,
+    "docker desktop": 51.85,
+    "android auto app not working": 0.17
+   },
+   "requeued": [
+    "android auto app not working"
+   ]
+  },
+  {
+   "at": 1789966580.572412,
+   "anchor": "game assets",
+   "batch": [
+    "android auto app not working",
+    "free dnd 5e adventures",
+    "code prometheus fundamentals tips",
+    "linux oracle"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "android auto app not working": 0.17,
+    "free dnd 5e adventures": 0.02,
+    "code prometheus fundamentals tips": 0,
+    "linux oracle": 22.06
+   },
+   "requeued": [
+    "android auto app not working",
+    "free dnd 5e adventures",
+    "code prometheus fundamentals tips"
+   ]
+  },
+  {
+   "at": 1789966636.9436955,
+   "anchor": "game assets",
+   "batch": [
+    "code prometheus fundamentals tips",
+    "free dnd 5e adventures",
+    "android auto app not working",
+    "macos order"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "code prometheus fundamentals tips": 0,
+    "free dnd 5e adventures": 0.02,
+    "android auto app not working": 0.17,
+    "macos order": 16.91
+   },
+   "requeued": [
+    "free dnd 5e adventures"
+   ]
+  },
+  {
+   "at": 1789966693.3189797,
+   "anchor": "chess openings",
+   "batch": [
+    "free dnd 5e adventures",
+    "cities skylines vs simcity",
+    "linux list usb devices",
+    "excel function or"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 35.23,
+    "free dnd 5e adventures": 0.02,
+    "cities skylines vs simcity": 0.02,
+    "linux list usb devices": 0.06,
+    "excel function or": 12.91
+   },
+   "requeued": [
+    "cities skylines vs simcity",
+    "linux list usb devices"
+   ]
+  },
+  {
+   "at": 1789966749.6898742,
+   "anchor": "chess openings",
+   "batch": [
+    "linux list usb devices",
+    "cities skylines vs simcity",
+    "javascript active element",
+    "dnd 5e classes"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 35.77,
+    "linux list usb devices": 0.06,
+    "cities skylines vs simcity": 0.02,
+    "javascript active element": 0,
+    "dnd 5e classes": 6.79
+   },
+   "requeued": [
+    "linux list usb devices",
+    "cities skylines vs simcity",
+    "javascript active element",
+    "dnd 5e classes"
+   ]
+  },
+  {
+   "at": 1789967402.3969982,
+   "anchor": "unreal engine games",
+   "batch": [
+    "dnd 5e classes",
+    "javascript active element",
+    "cities skylines vs simcity",
+    "linux list usb devices"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.47,
+    "dnd 5e classes": 28.04,
+    "javascript active element": 0,
+    "cities skylines vs simcity": 0.09,
+    "linux list usb devices": 0.3
+   }
+  },
+  {
+   "at": 1789967459.4361532,
+   "anchor": "steam page",
+   "batch": [
+    "all the equalizer settings",
+    "best pc for steam",
+    "free dnd 5e campaigns",
+    "game fortnite lego"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 51.49,
+    "all the equalizer settings": 0,
+    "best pc for steam": 16.66,
+    "free dnd 5e campaigns": 0,
+    "game fortnite lego": 3.04
+   },
+   "requeued": [
+    "all the equalizer settings",
+    "free dnd 5e campaigns",
+    "game fortnite lego"
+   ]
+  },
+  {
+   "at": 1789967515.8527317,
+   "anchor": "unreal engine games",
+   "batch": [
+    "game fortnite lego",
+    "free dnd 5e campaigns",
+    "all the equalizer settings",
+    "warhammer 40k total war"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 14.92,
+    "game fortnite lego": 2.57,
+    "free dnd 5e campaigns": 0,
+    "all the equalizer settings": 0,
+    "warhammer 40k total war": 11.3
+   }
+  },
+  {
+   "at": 1789967572.1996925,
+   "anchor": "unreal engine games",
+   "batch": [
+    "warhammer 40k space marine 2",
+    "chess opening guide",
+    "obd2 code reader",
+    "how to react js"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 24.06,
+    "warhammer 40k space marine 2": 18.45,
+    "chess opening guide": 0.19,
+    "obd2 code reader": 24.13,
+    "how to react js": 5.77
+   },
+   "requeued": [
+    "chess opening guide",
+    "how to react js"
+   ]
+  },
+  {
+   "at": 1789967628.5193677,
+   "anchor": "unreal engine games",
+   "batch": [
+    "how to react js",
+    "chess opening guide",
+    "css won t load",
+    "power a controller not working"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.42,
+    "how to react js": 11.51,
+    "chess opening guide": 0.42,
+    "css won t load": 0,
+    "power a controller not working": 0.72
+   },
+   "requeued": [
+    "power a controller not working"
+   ]
+  },
+  {
+   "at": 1789967684.982146,
+   "anchor": "unreal engine games",
+   "batch": [
+    "power a controller not working",
+    "cpu motherboard compatibility check",
+    "docker and kubernetes",
+    "c# cheat"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.45,
+    "power a controller not working": 0.72,
+    "cpu motherboard compatibility check": 0,
+    "docker and kubernetes": 18.23,
+    "c# cheat": 0.04
+   },
+   "requeued": [
+    "c# cheat"
+   ]
   }
  ],
  "anchors": [
@@ -4336,37 +5548,37 @@
   "game maker": 1,
   "excel formulas": 1,
   "genshin impact": 1,
-  "rest api vs api": 1,
-  "github actions schedule": 1,
-  "unity animator controller": 1,
+  "rest api vs api": 2,
+  "github actions schedule": 2,
+  "unity animator controller": 3,
   "linux os": 1,
-  "stringing a guitar": 1,
-  "unreal engine blueprints": 1,
+  "stringing a guitar": 3,
+  "unreal engine blueprints": 3,
   "stable diffusion": 1,
   "game ps5": 1,
-  "game maker studio": 1,
-  "elden ring builds": 1,
-  "vue js for beginners": 1,
+  "game maker studio": 2,
+  "elden ring builds": 2,
+  "vue js for beginners": 3,
   "devops azure": 1,
-  "find rest api": 1,
+  "find rest api": 3,
   "docker compose": 1,
   "warhammer 40k": 1,
-  "game fortnite lego": 1,
-  "warhammer 40k total war": 1,
+  "game fortnite lego": 3,
+  "warhammer 40k total war": 2,
   "game assets": 1,
   "sourdough starter recipe": 1,
-  "warhammer 40k space marine 2": 1,
-  "chess opening guide": 1,
-  "obd2 code reader": 1,
+  "warhammer 40k space marine 2": 2,
+  "chess opening guide": 3,
+  "obd2 code reader": 2,
   "game fortnite": 1,
-  "how to react js": 1,
-  "css won t load": 1,
-  "power a controller not working": 1,
+  "how to react js": 3,
+  "css won t load": 2,
+  "power a controller not working": 3,
   "aws lambda": 1,
-  "cpu motherboard compatibility check": 1,
-  "docker and kubernetes": 1,
+  "cpu motherboard compatibility check": 2,
+  "docker and kubernetes": 2,
   "chess openings": 1,
-  "c# cheat": 1,
+  "c# cheat": 2,
   "jetpack compose": 1,
   "database postgresql": 1,
   "java vs kotlin": 1,
@@ -4534,6 +5746,54 @@
   "android studio update gradle": 2,
   "minecraft servers": 1,
   "windows 11 media creation tool": 1,
-  "owasp web application testing": 1
+  "owasp web application testing": 3,
+  "card game rules": 1,
+  "pc nintendo emulator": 3,
+  "controller not working on pc": 3,
+  "android app development": 1,
+  "azure prometheus grafana": 3,
+  "board game costs": 3,
+  "how to read obd2 codes": 3,
+  "identify iphone model": 3,
+  "chess opening theory": 3,
+  "dnd 5e spells": 1,
+  "devops azure pipeline": 1,
+  "github actions ci/cd": 3,
+  "owasp application security verification standard": 3,
+  "cities skylines maps": 3,
+  "java database connectivity": 3,
+  "docker /dev/shm": 3,
+  "iphone planet wallpaper": 2,
+  "maker's mark distillery tour": 2,
+  "c# dictionary": 3,
+  "docker compose networks": 3,
+  "docker helm registry": 2,
+  "minecraft tutorial castle": 3,
+  "maker's mark making": 2,
+  "css not working in html": 3,
+  "minecraft house": 1,
+  "best magic the gathering deck": 3,
+  "how to emulate on pc": 3,
+  "free nmap scan": 3,
+  "docker vs podman": 3,
+  "android studio emulator": 3,
+  "regex programming": 3,
+  "pottery mark identification": 2,
+  "docker error response from daemon": 3,
+  "android studio update gradle version": 2,
+  "docker desktop": 1,
+  "android auto app not working": 3,
+  "free dnd 5e adventures": 3,
+  "code prometheus fundamentals tips": 2,
+  "linux oracle": 1,
+  "macos order": 1,
+  "cities skylines vs simcity": 3,
+  "linux list usb devices": 3,
+  "excel function or": 1,
+  "javascript active element": 2,
+  "dnd 5e classes": 2,
+  "all the equalizer settings": 2,
+  "best pc for steam": 1,
+  "free dnd 5e campaigns": 2
  }
 }

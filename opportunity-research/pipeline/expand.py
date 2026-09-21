@@ -7,6 +7,7 @@ source, probe string and rank, so a later reader can see why a query is in the d
 Depth-2 expansion re-probes the suggestions themselves, capped per seed.
 """
 from __future__ import annotations
+import json
 
 import string
 
@@ -41,6 +42,19 @@ def probes_for(seed: str, soup: bool = True) -> list[tuple[str, str]]:
     return out
 
 
+def _call(src: str, probe: str, hl: str, gl: str) -> list:
+    """One suggest call. A transport failure (reset, timeout, DNS) is logged and yields no results
+    rather than killing the whole domain worker; the probe is not retried, so the miss is visible
+    as an absent observation for that source."""
+    import sys
+    fn = suggest.SOURCES[src]
+    try:
+        return fn(probe, hl=hl, gl=gl) if src == "google" else fn(probe)
+    except Exception as e:  # noqa: BLE001 - any transport/parse failure
+        print(json.dumps({"source_error": src, "probe": probe, "error": f"{type(e).__name__}: {e}"[:200]}), file=sys.stderr)
+        return []
+
+
 def expand_seed(con, seed: str, *, domain: str, subdomain: str, sources=("google", "youtube", "bing"),
                 soup: bool = True, depth2_cap: int = 40, hl: str = "en", gl: str = "us") -> dict:
     """Returns counts. Depth 1: probes of the seed. Depth 2: the top depth-1 results re-probed bare."""
@@ -50,8 +64,7 @@ def expand_seed(con, seed: str, *, domain: str, subdomain: str, sources=("google
     found: dict[str, int] = {}
     for intent, probe in probes_for(seed, soup):
         for src in sources:
-            fn = suggest.SOURCES[src]
-            results = fn(probe, hl=hl, gl=gl) if src == "google" else fn(probe)
+            results = _call(src, probe, hl, gl)
             for r in results:
                 q = store.norm(r["query"])
                 if len(q) < 4:
@@ -70,8 +83,7 @@ def expand_seed(con, seed: str, *, domain: str, subdomain: str, sources=("google
     on_topic = {q: n for q, n in found.items() if seed_toks & set(canonical_key(q).split())}
     for q, _ in sorted(on_topic.items(), key=lambda kv: -kv[1])[:depth2_cap]:
         for src in sources:
-            fn = suggest.SOURCES[src]
-            results = fn(q, hl=hl, gl=gl) if src == "google" else fn(q)
+            results = _call(src, q, hl, gl)
             for r in results:
                 q2 = store.norm(r["query"])
                 if len(q2) < 4:

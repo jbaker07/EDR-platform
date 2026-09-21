@@ -51,3 +51,9 @@ Traceback (most recent call last):
   File "/usr/lib/python3.11/http/client.py", line 299, in _read_status
     raise RemoteDisconnected("Remote end closed connection without"
 http.client.RemoteDisconnected: Remote end closed connection without response
+{"seed": "small business llc", "skipped": "already expanded"}
+{"seed": "small business invoice", "skipped": "already expanded"}
+{"seed": "small business seo", "skipped": "already expanded"}
+{"seed": "small business instagram", "skipped": "already expanded"}
+{"seed": "small business shopify", "skipped": "already expanded"}
+{"seed": "small business stripe", "new_queries": 343, "suggestions_seen": 1492}
