@@ -1,0 +1,208 @@
+{
+ "cluster_id": "c_33091379",
+ "head_term": "maker's mark distillery",
+ "label": "distillery mark maker tour",
+ "domain": "collecting_antiques",
+ "members": 25,
+ "problem_members": 25,
+ "organic_problem_members": 5,
+ "intents": {
+  "generate": 22,
+  "calculate": 2,
+  "decide": 1
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 11,
+   "vendor": 2,
+   "unclassified": 5
+  },
+  "dominant_site": "maplehillmanor.com",
+  "dominant_share": 0.22,
+  "fragmented_share": 0.61,
+  "tool_hits": 0,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.28
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "maker's mark tour ky",
+  "maker's mark distillery",
+  "maker's mark distillery ky",
+  "maker's mark tours kentucky",
+  "maker's mark distillery tour",
+  "maker's mark distillery photos",
+  "maker's mark distillery address",
+  "maker's mark distillery history",
+  "maker's mark distillery tour ky",
+  "maker's mark distillery kentucky",
+  "maker's mark distillery location",
+  "best maker's mark distillery tour",
+  "maker's mark distillery tour cost",
+  "where is maker's mark in kentucky",
+  "maker's mark distillery tour length",
+  "maker's mark distillery tour reddit",
+  "maker's mark distillery tour review",
+  "maker's mark distillery tour address",
+  "maker's mark distillery tour booking",
+  "maker's mark distillery tour tickets",
+  "maker's mark distillery tours kentucky",
+  "maker's mark tours louisville kentucky",
+  "distilleries near maker's mark distillery",
+  "maker's mark distillery tour louisville ky",
+  "how many makers mark distilleries are there"
+ ],
+ "queries_checked": [
+  "best maker's mark distillery tour",
+  "maker's mark distillery tour"
+ ],
+ "serp": [
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 1,
+   "url": "https://www.tripadvisor.com/Attraction_Review-g39601-d108035-Reviews-Maker_s_Mark-Loretto_Kentucky.html",
+   "title": "Maker's Mark - All You SHOULD Know Before Going (2026 Reviews)",
+   "category": "editorial",
+   "site": "tripadvisor.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 2,
+   "url": "https://www.makersmark.com/distillery/visit-us",
+   "title": "Visit Us: Kentucky Distillery & Bourbon Tours | Maker's Mark\u00ae",
+   "category": "vendor",
+   "site": "makersmark.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 3,
+   "url": "https://mintjuleptours.com/makersmarkdistillery",
+   "title": "Maker's Mark Distillery Tours | Dip Your Own Bottle | Mint Julep",
+   "category": "editorial",
+   "site": "mintjuleptours.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 4,
+   "url": "https://mintjuleptours.com/louisville/blog/2025-06-27-red-wax-and-rolling-hills-why-youll-love-visiting-makers-mark",
+   "title": "Why You'll Love a Maker's Mark Tour | Mint Julep Experiences",
+   "category": "editorial",
+   "site": "mintjuleptours.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 5,
+   "url": "https://maplehillmanor.com/blog/makers-mark-tours-kentucky/",
+   "title": "Maker's Mark Tours - Kentucky Bourbon - Maple Hill Manor",
+   "category": "editorial",
+   "site": "maplehillmanor.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 6,
+   "url": "https://maplehillmanor.com/blog/2025/12/makers-mark-tours-kentucky/",
+   "title": "The Best Makers Mark Tours in Kentucky For 2026",
+   "category": "editorial",
+   "site": "maplehillmanor.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 7,
+   "url": "https://www.unfilteredkytours.com/makers-mark-tour",
+   "title": "Maker's Mark Distillery Tours | Unfiltered KY Bourbon Tours",
+   "category": "unclassified",
+   "site": "unfilteredkytours.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 8,
+   "url": "https://bourbontowntours.com/makers-mark-distillery-guide/",
+   "title": "Maker's Mark Distillery Tours & Guide [2026]",
+   "category": "editorial",
+   "site": "bourbontowntours.com"
+  },
+  {
+   "query": "best maker's mark distillery tour",
+   "rank": 9,
+   "url": "https://www.expedia.com/Destileria-Makers-Mark-Kentucky.d6091509.Guia-Turistica",
+   "title": "Maker's Mark Distillery Tours",
+   "category": "unclassified",
+   "site": "expedia.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 1,
+   "url": "https://www.makersmark.com/en-us/distillery/visit-us",
+   "title": "Visit Us: Kentucky Distillery & Bourbon Tours | Maker's Mark\u00ae",
+   "category": "vendor",
+   "site": "makersmark.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 2,
+   "url": "https://kybourbontrail.com/distillery/makers-mark-distillery-2/",
+   "title": "Maker's Mark Distillery | Kentucky Bourbon Trail\u00ae",
+   "category": "unclassified",
+   "site": "kybourbontrail.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 3,
+   "url": "https://www.tripadvisor.com/Attraction_Review-g39601-d108035-Reviews-Maker_s_Mark-Loretto_Kentucky.html",
+   "title": "Maker's Mark - All You SHOULD Know Before Going (2026 Reviews)",
+   "category": "editorial",
+   "site": "tripadvisor.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 4,
+   "url": "https://www.bourbonguy.com/blog/2014/10/2/makers-mark-beyond-the-mark-tour-and-cask-strength-review",
+   "title": "Maker's Mark: Beyond the Mark Tour and Cask Strength Review \u2014 BOURBON GUY",
+   "category": "editorial",
+   "site": "bourbonguy.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 5,
+   "url": "https://www.yelp.com/biz/makers-mark-distillery-loretto-4",
+   "title": "MAKER'S MARK DISTILLERY - Updated September 2026 - 3920 Photos - 1219 Reviews - 3350 Burk Spring Rd, Loretto, Kentucky - Tours - Phone Number - Yelp",
+   "category": "unclassified",
+   "site": "yelp.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 6,
+   "url": "https://maplehillmanor.com/blog/makers-mark-tours-kentucky/",
+   "title": "Maker's Mark Tours: Holiday & Seasonal Options",
+   "category": "editorial",
+   "site": "maplehillmanor.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 7,
+   "url": "https://maplehillmanor.com/blog/2025/12/makers-mark-tours-kentucky/",
+   "title": "The Best Makers Mark Tours in Kentucky For 2026",
+   "category": "editorial",
+   "site": "maplehillmanor.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 8,
+   "url": "https://bourbontowntours.com/makers-mark-distillery-guide/",
+   "title": "Maker's Mark Distillery Tours & Guide [2026]",
+   "category": "editorial",
+   "site": "bourbontowntours.com"
+  },
+  {
+   "query": "maker's mark distillery tour",
+   "rank": 9,
+   "url": "https://www.pbs.org/video/making-bourbon-tours-more-accessible-s1sqzx",
+   "title": "making bourbon tours more accessible s1sqzx",
+   "category": "unclassified",
+   "site": "pbs.org"
+  }
+ ]
+}

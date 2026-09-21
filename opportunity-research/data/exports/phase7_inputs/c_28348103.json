@@ -1,0 +1,224 @@
+{
+ "cluster_id": "c_28348103",
+ "head_term": "blog post",
+ "label": "post blog",
+ "domain": "writing_publishing",
+ "members": 68,
+ "problem_members": 38,
+ "organic_problem_members": 5,
+ "intents": {
+  "informational": 27,
+  "calculate": 10,
+  "generate": 8,
+  "decide": 6
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 12,
+   "tool": 4,
+   "vendor": 2
+  },
+  "dominant_site": "alternativeto.net",
+  "dominant_share": 0.17,
+  "fragmented_share": 0.67,
+  "tool_hits": 12,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.0
+ },
+ "trends_chain_value": 28.422,
+ "trends_error_pct": 4.0,
+ "sample_members": [
+  "blog post",
+  "blog post 1",
+  "fix blog post",
+  "blog post cost",
+  "blog post tips",
+  "best blog posts",
+  "blog post error",
+  "blog post guide",
+  "blog post ideas",
+  "blog post guides",
+  "blog post prices",
+  "review blog post",
+  "update blog post",
+  "blog post meaning",
+  "blog post updates",
+  "blog post examples",
+  "blog post per week",
+  "blog post template",
+  "blog post tutorial",
+  "blog posts example",
+  "video in blog post",
+  "blog post on reddit",
+  "fix blog post ideas",
+  "types of blog posts",
+  "blog post definition",
+  "blog post ideas list",
+  "good blog post ideas",
+  "blog post alternatives",
+  "blog post examples pdf",
+  "blog post list example",
+  "blog post template pdf",
+  "how much per blog post",
+  "best blog post examples",
+  "blog post cost per year",
+  "blog post template free",
+  "best blog post templates",
+  "blog post template ideas",
+  "blog posts for beginners",
+  "first blog post examples",
+  "free blog post generator"
+ ],
+ "queries_checked": [
+  "blog post alternatives",
+  "blog post template"
+ ],
+ "serp": [
+  {
+   "query": "blog post alternatives",
+   "rank": 1,
+   "url": "https://meetedgar.com/blog/need-a-break-from-writing-blog-posts-create-these-types-of-content-instead",
+   "title": "What to Do Instead of Blogging: 5 Alternative Content Ideas | MeetEdgar",
+   "category": "editorial",
+   "site": "meetedgar.com"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 2,
+   "url": "https://hostadvice.com/blog/blogging/alternatives-blogging/",
+   "title": "16 Alternatives to Blogging: What to Do Instead",
+   "category": "editorial",
+   "site": "hostadvice.com"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 3,
+   "url": "https://feather.so/blog/blogger-alternatives",
+   "title": "13 Best Blogger Alternatives For Simplified Blogging",
+   "category": "editorial",
+   "site": "feather.so"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 4,
+   "url": "https://venturz.co/blog/alternatives-to-blogging",
+   "title": "Top 15 Alternatives to Blogging that Are Worth it - Venturz",
+   "category": "editorial",
+   "site": "venturz.co"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 5,
+   "url": "https://tipsonblogging.com/2023/02/what-to-do-instead-of-blogging/",
+   "title": "I'd Use These 10 Alternatives to Blogging Again (2026)",
+   "category": "editorial",
+   "site": "tipsonblogging.com"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 6,
+   "url": "https://zapier.com/blog/best-blog-sites/",
+   "title": "The 5 best blog sites in 2026 | Zapier",
+   "category": "editorial",
+   "site": "zapier.com"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 7,
+   "url": "https://alternativeto.net/software/postagon",
+   "title": "Postagon AlternativesBlog Publishing Tools and other similar apps like Postagon",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 8,
+   "url": "https://alternativeto.net/software/postagon/?p=2",
+   "title": "Postagon Alternatives",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "blog post alternatives",
+   "rank": 9,
+   "url": "https://alternativeto.net/software/blog-designer--wordpress-blog-design-plugin",
+   "title": "Blog Designer Alternatives",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "blog post template",
+   "rank": 1,
+   "url": "https://thewritepractice.com/blog-post-elements/",
+   "title": "How to Write a Blog Post: The 3 Best Blog Post Templates",
+   "category": "editorial",
+   "site": "thewritepractice.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 2,
+   "url": "https://www.wordstream.com/blog/ws/2022/01/05/blog-post-templates",
+   "title": "9 Free Blog Post Templates Guaranteed to Drive Traffic",
+   "category": "editorial",
+   "site": "wordstream.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 3,
+   "url": "https://elements.envato.com/web-templates/blog",
+   "title": "Blog Website Templates - Envato",
+   "category": "editorial",
+   "site": "elements.envato.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 4,
+   "url": "https://twinsmommy.com/how-to-write-better-blog-post/",
+   "title": "My Blog Post Template to Creating Amazing Blog Posts (As a New Blogger) - Twins Mommy",
+   "category": "editorial",
+   "site": "twinsmommy.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 5,
+   "url": "https://www.canva.com/templates/s/blog/",
+   "title": "Free and customizable blog templates | Canva",
+   "category": "tool",
+   "site": "canva.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 6,
+   "url": "https://www.adobe.com/express/create/post/blog",
+   "title": "Free Online Blog Generator | Adobe Express",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 7,
+   "url": "https://www.wix.com/website/templates/html/blog",
+   "title": "Blog Website Templates | Wix.com",
+   "category": "editorial",
+   "site": "wix.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 8,
+   "url": "https://creativethemes.com/blocksy/starter-sites/blog-templates/",
+   "title": "Free Blog Website Templates (Responsive Designs) - Blocksy",
+   "category": "editorial",
+   "site": "creativethemes.com"
+  },
+  {
+   "query": "blog post template",
+   "rank": 9,
+   "url": "https://word.cloud.microsoft/create/en/blog/blog-post-template-AI/",
+   "title": "How to create a blog post template with AI \u2014 format and tips | Microsoft Word Blog",
+   "category": "vendor",
+   "site": "word.cloud.microsoft"
+  }
+ ]
+}

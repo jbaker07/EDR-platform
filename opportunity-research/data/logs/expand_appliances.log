@@ -1,4 +1,8 @@
-{"seed": "washing machine", "new_queries": 1939, "suggestions_seen": 2683}
-{"seed": "appliance dishwasher", "new_queries": 707, "suggestions_seen": 977}
-{"seed": "air fryer", "new_queries": 1762, "suggestions_seen": 2472}
-{"seed": "appliance parts", "new_queries": 951, "suggestions_seen": 1471}
+{"seed": "washing machine", "skipped": "already expanded"}
+{"seed": "dryer not heating", "new_queries": 747, "suggestions_seen": 1745}
+{"seed": "appliance dishwasher", "skipped": "already expanded"}
+{"seed": "refrigerator not cooling", "new_queries": 846, "suggestions_seen": 1954}
+{"seed": "air fryer", "skipped": "already expanded"}
+{"seed": "espresso machine", "new_queries": 1512, "suggestions_seen": 2162}
+{"seed": "appliance parts", "skipped": "already expanded"}
+{"seed": "model number", "new_queries": 1139, "suggestions_seen": 1619}

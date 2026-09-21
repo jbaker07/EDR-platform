@@ -1,0 +1,215 @@
+{
+ "cluster_id": "c_07650702",
+ "head_term": "warhammer 40k new edition",
+ "label": "edition 40k warhammer 10th",
+ "domain": "tabletop_hobby_games",
+ "members": 30,
+ "problem_members": 17,
+ "organic_problem_members": 5,
+ "intents": {
+  "informational": 13,
+  "track": 8,
+  "find": 3,
+  "how_to": 2
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 12,
+   "unclassified": 3,
+   "reference": 2,
+   "community": 1
+  },
+  "dominant_site": "tabletopbattles.com",
+  "dominant_share": 0.22,
+  "fragmented_share": 0.72,
+  "tool_hits": 1,
+  "vendor_share": 0.0,
+  "official_share": 0.0,
+  "unclassified_share": 0.17
+ },
+ "trends_chain_value": 0.172,
+ "trends_error_pct": 101.1,
+ "sample_members": [
+  "warhammer 40k 10 edition",
+  "warhammer 40k new edition",
+  "warhammer 40k 11th changes",
+  "warhammer 40k 11th edition",
+  "warhammer 40k next edition",
+  "warhammer 40k current edition",
+  "warhammer 40k edition changes",
+  "warhammer 40k orks 11th edition",
+  "what edition is warhammer 40k on",
+  "warhammer 40k edition differences",
+  "warhammer 40k new edition changes",
+  "warhammer 40k 10th edition changes",
+  "warhammer 40k 11th edition changes",
+  "warhammer 40k 11th edition vs 10th",
+  "warhammer 40k 10th edition problems",
+  "warhammer 40k ork codex 11th edition",
+  "warhammer 40k tier list 10th edition",
+  "how to play warhammer 40k 10th edition",
+  "how to play warhammer 40k 11th edition",
+  "warhammer 40k 10th edition differences",
+  "warhammer 40k 11th edition differences",
+  "warhammer 40k list builder 10th edition",
+  "warhammer 40k list builder 11th edition",
+  "warhammer 40k 10th edition rules changes",
+  "warhammer 40k 11th edition rules changes",
+  "warhammer 40k 10th edition points changes",
+  "warhammer 40k beginners guide 10th edition",
+  "warhammer 40k damage calculator 10th edition",
+  "warhammer 40k points calculator 10th edition",
+  "warhammer 40k 10th edition datasheet template"
+ ],
+ "queries_checked": [
+  "how to play warhammer 40k 11th edition",
+  "warhammer 40k 11th edition changes"
+ ],
+ "serp": [
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 1,
+   "url": "https://www.belloflostsouls.net/2026/06/warhammer-40k-things-to-remember-when-you-start-playing-11th-edition.html",
+   "title": "Warhammer 40K: Things To Remember When You Start Playing 11th Edition - Bell of Lost Souls",
+   "category": "editorial",
+   "site": "belloflostsouls.net"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 2,
+   "url": "https://www.thegamer.com/how-to-get-started-with-warhammer-40k-11th-edition/",
+   "title": "Picking Up Warhammer 40K's 11th Edition? Here's How To Get Started",
+   "category": "unclassified",
+   "site": "thegamer.com"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 3,
+   "url": "https://www.wargamer.com/warhammer-40k/11th-edition",
+   "title": "Warhammer 40k 11th edition starter guide - all the new rules explained by humans - Wargamer",
+   "category": "editorial",
+   "site": "wargamer.com"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 4,
+   "url": "https://thewarroom.vhx.tv/videos/how-to-play-11th-edition",
+   "title": "How to Play Warhammer 40,000 11th Edition - The War Room",
+   "category": "unclassified",
+   "site": "thewarroom.vhx.tv"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 5,
+   "url": "https://www.belloflostsouls.net/2026/05/warhammer-40k-new-11th-edition-world-eaters-rules-look-spicy.html",
+   "title": "Warhammer 40K: New 11th Edition World Eaters Rules Look SPICY! - Bell of Lost Souls",
+   "category": "editorial",
+   "site": "belloflostsouls.net"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 6,
+   "url": "https://en.wikipedia.org/wiki/Warhammer_40,000",
+   "title": "Warhammer 40,000",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 7,
+   "url": "https://www.tabletopbattles.com/11th-edition-40k-rules-deep-dive-core-concepts/",
+   "title": "[40k] 11th Edition Rules Deep Dive: Core Concepts - Tabletop Battles",
+   "category": "editorial",
+   "site": "tabletopbattles.com"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 8,
+   "url": "https://www.tabletopbattles.com/what-we-know-about-11th-edition-40k-so-far-recapping-the-new-rules-reveals-through-may-15th",
+   "title": "What We Know About 11th Edition 40k So Far: Recapping the New Rules Reveals Through May 15th - Tabletop Battles",
+   "category": "editorial",
+   "site": "tabletopbattles.com"
+  },
+  {
+   "query": "how to play warhammer 40k 11th edition",
+   "rank": 9,
+   "url": "https://steamcommunity.com/app/286160/discussions/0/592888933793174174",
+   "title": "Tabletop Simulator",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 1,
+   "url": "https://www.wargamer.com/warhammer-40k/11th-edition",
+   "title": "Warhammer 40k 11th edition starter guide - all the new rules explained by humans - Wargamer",
+   "category": "editorial",
+   "site": "wargamer.com"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 2,
+   "url": "https://spikeybits.com/warhammer-40k-11th-edition-rules/",
+   "title": "Warhammer 40k 11th Edition Rules: Release Date, Detachments + Every Change",
+   "category": "editorial",
+   "site": "spikeybits.com"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 3,
+   "url": "https://en.wikipedia.org/wiki/Codex_(Warhammer_40,000)",
+   "title": "Codex (Warhammer 40,000)",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 4,
+   "url": "https://spikeybits.com/11th-edition-roadmap-new-previews-battleforces-more-40k-rules-updates/",
+   "title": "11th Edition Roadmap, New Previews, Battleforces + More 40k Rules Updates",
+   "category": "editorial",
+   "site": "spikeybits.com"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 5,
+   "url": "https://flipsidegaming.com/blogs/warhammer/warhammer-40k-11th-edition-first-looks-flavor-vs-function",
+   "title": "Warhammer 40K 11th Edition First Looks: Flavor vs Function \u2013 Flipside Gaming",
+   "category": "editorial",
+   "site": "flipsidegaming.com"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 6,
+   "url": "https://grimslate.com/blog/warhammer-40k-11th-edition-everything-we-know",
+   "title": "Warhammer 40K 11th Edition \u2014 What Changed & How to Build Lists",
+   "category": "editorial",
+   "site": "grimslate.com"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 7,
+   "url": "https://hivecity.net/post/40k-11th-edition-rules",
+   "title": "Warhammer 40k 11th Edition: Every Major Rules Change You Need to Know Before June | Hive City",
+   "category": "unclassified",
+   "site": "hivecity.net"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 8,
+   "url": "https://www.tabletopbattles.com/40k-11-biggest-changes-in-11th-edition",
+   "title": "[40k] 11 Biggest Changes in 11th Edition - Tabletop Battles",
+   "category": "editorial",
+   "site": "tabletopbattles.com"
+  },
+  {
+   "query": "warhammer 40k 11th edition changes",
+   "rank": 9,
+   "url": "https://www.tabletopbattles.com/first-look-at-warhammer-40k-11th-edition-at-adepticon",
+   "title": "First Look at Warhammer 40K 11th Edition at AdeptiCon - Tabletop Battles",
+   "category": "editorial",
+   "site": "tabletopbattles.com"
+  }
+ ]
+}

@@ -1,6 +1,11 @@
-{"seed": "job resume", "new_queries": 1200, "suggestions_seen": 1716}
-{"seed": "interview questions", "new_queries": 1477, "suggestions_seen": 2071}
-{"seed": "job salary", "new_queries": 1194, "suggestions_seen": 1634}
-{"seed": "remote jobs", "new_queries": 1467, "suggestions_seen": 1963}
-{"seed": "job certification", "new_queries": 725, "suggestions_seen": 1113}
-{"seed": "performance review", "new_queries": 1117, "suggestions_seen": 1614}
+{"seed": "job resume", "skipped": "already expanded"}
+{"seed": "cover letter", "new_queries": 1376, "suggestions_seen": 2015}
+{"seed": "interview questions", "skipped": "already expanded"}
+{"seed": "coding interview", "new_queries": 879, "suggestions_seen": 1655}
+{"seed": "job salary", "skipped": "already expanded"}
+{"seed": "negotiate salary", "new_queries": 674, "suggestions_seen": 1164}
+{"seed": "remote jobs", "skipped": "already expanded"}
+{"seed": "job board", "new_queries": 1246, "suggestions_seen": 1664}
+{"seed": "job certification", "skipped": "already expanded"}
+{"seed": "job pmp", "new_queries": 621, "suggestions_seen": 895}
+{"seed": "performance review", "skipped": "already expanded"}

@@ -1,0 +1,225 @@
+{
+ "cluster_id": "c_08408999",
+ "head_term": "vue js for beginners",
+ "label": "vue js",
+ "domain": "software_dev_web",
+ "members": 43,
+ "problem_members": 27,
+ "organic_problem_members": 7,
+ "intents": {
+  "how_to": 15,
+  "informational": 14,
+  "generate": 3,
+  "alternative": 2
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "community": 7,
+   "unclassified": 6,
+   "editorial": 4,
+   "tool": 1
+  },
+  "dominant_site": "github.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.61,
+  "tool_hits": 10,
+  "vendor_share": 0.0,
+  "official_share": 0.0,
+  "unclassified_share": 0.33
+ },
+ "trends_chain_value": 0.005,
+ "trends_error_pct": 100.7,
+ "sample_members": [
+  "vue js cost",
+  "vue js list",
+  "vue js error",
+  "vue js guide",
+  "vue js update",
+  "is vue js free",
+  "vue js example",
+  "vue js examples",
+  "vue js template",
+  "vue js tutorial",
+  "vue js used for",
+  "vue js generator",
+  "vue js guide pdf",
+  "how to use vue js",
+  "vue js 3 tutorial",
+  "vue js calculator",
+  "vue js vs next js",
+  "is vue js any good",
+  "pdf js vue example",
+  "vue js example app",
+  "vue js not working",
+  "vue js alternatives",
+  "vue js tutorial pdf",
+  "best vue js tutorial",
+  "three js vue example",
+  "vue js compatibility",
+  "vue js for beginners",
+  "vue js template free",
+  "vue js 3 for beginners",
+  "vue js tutorial latest",
+  "vue js tutorial reddit",
+  "next js vue alternative",
+  "vue js tutorial youtube",
+  "vue js 3 for beginners pdf",
+  "best vue js tutorial reddit",
+  "vue js tutorial for beginners",
+  "vue js tutorial with examples",
+  "vue js templates free download",
+  "vue js 3 tutorial for beginners",
+  "vue js tutorial for beginners pdf"
+ ],
+ "queries_checked": [
+  "vue js calculator",
+  "vue js tutorial for beginners"
+ ],
+ "serp": [
+  {
+   "query": "vue js calculator",
+   "rank": 1,
+   "url": "https://lahiruprabodha.medium.com/build-a-calculator-with-vue-js-d9c1672bc162",
+   "title": "Build a Calculator with Vue.js | Medium",
+   "category": "community",
+   "site": "lahiruprabodha.medium.com"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 2,
+   "url": "https://www.npmjs.com/package/vue-input-calculator",
+   "title": "vue-input-calculator - npm",
+   "category": "unclassified",
+   "site": "npmjs.com"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 3,
+   "url": "https://github.com/el3um4s/vue-calc",
+   "title": "GitHub - el3um4s/vue-calc: A Simple VueJS's Calculator built with ElectronJS",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 4,
+   "url": "https://betterprogramming.pub/how-i-built-a-simple-calculator-with-vue-in-no-time-210b215a16eb",
+   "title": "Build a Simple Calculator With Vue.js in No Time | by Nana Kwame (Na'ame) Owusu | Better Programming",
+   "category": "unclassified",
+   "site": "betterprogramming.pub"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 5,
+   "url": "https://vuejsexamples.com/tag/calculator/",
+   "title": "Calculator - Vue.js Examples",
+   "category": "unclassified",
+   "site": "vuejsexamples.com"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 6,
+   "url": "https://www.geeksforgeeks.org/javascript/build-a-calculator-with-vuejs/",
+   "title": "Build a Calculator with VueJS - GeeksforGeeks",
+   "category": "editorial",
+   "site": "geeksforgeeks.org"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 7,
+   "url": "https://dustinpfister.github.io/2020/02/14/vuejs-example-calculator/",
+   "title": "vue calculator an example of vuejs and javaScript | Dustin John Pfister at github pages",
+   "category": "unclassified",
+   "site": "dustinpfister.github.io"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 8,
+   "url": "https://onlineblogzone.com/vue-js-calculator-tutorial/",
+   "title": "Vue.js Calculator Tutorial - Online Blog Zone",
+   "category": "editorial",
+   "site": "onlineblogzone.com"
+  },
+  {
+   "query": "vue js calculator",
+   "rank": 9,
+   "url": "https://github.com/vikpires/FRONT_calculator-vue",
+   "title": "FRONT calculator vue",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 1,
+   "url": "https://dev.to/marinamosti/hands-on-vuejs-for-beginners-part-1-2j2g",
+   "title": "Hands-on Vue.js for Beginners (Part 1) - DEV Community",
+   "category": "community",
+   "site": "dev.to"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 2,
+   "url": "https://www.geeksforgeeks.org/javascript/vue-js/",
+   "title": "Vue.js Tutorial - GeeksforGeeks",
+   "category": "editorial",
+   "site": "geeksforgeeks.org"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 3,
+   "url": "https://m.youtube.com/watch?v=zwvUAh91itA",
+   "title": "Vue.js for Beginners: Build Your First App in Under 12 Minutes!",
+   "category": "community",
+   "site": "m.youtube.com"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 4,
+   "url": "https://vuejs.org/tutorial/",
+   "title": "Tutorial | Vue.js",
+   "category": "unclassified",
+   "site": "vuejs.org"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 5,
+   "url": "https://www.w3schools.com/vue/",
+   "title": "Vue Tutorial",
+   "category": "editorial",
+   "site": "w3schools.com"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 6,
+   "url": "https://www.youtube.com/playlist?list=PL4cUxeGkcC9hYYGbV60Vq3IXYNfDk8At1",
+   "title": "Vue.js 3 Tutorial - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 7,
+   "url": "https://welearncode.com/beginners-guide-vue/",
+   "title": "A Complete Beginner's Guide to Vue \u00b7 We Learn Code",
+   "category": "unclassified",
+   "site": "welearncode.com"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 8,
+   "url": "https://medium.com/@devstree.ca/the-ultimate-guide-to-vue-js-development-for-beginners-2d3369736d5c",
+   "title": "the ultimate guide to vue js development for beginners 2d3369736d5c",
+   "category": "community",
+   "site": "medium.com"
+  },
+  {
+   "query": "vue js tutorial for beginners",
+   "rank": 9,
+   "url": "https://www.coursera.org/learn/packt-the-complete-vue-js-course-for-beginners-i44iy",
+   "title": "packt the complete vue js course for beginners i44iy",
+   "category": "tool",
+   "site": "coursera.org"
+  }
+ ]
+}

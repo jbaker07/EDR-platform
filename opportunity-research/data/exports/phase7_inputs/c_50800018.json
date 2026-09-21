@@ -1,0 +1,206 @@
+{
+ "cluster_id": "c_50800018",
+ "head_term": "export settings youtube",
+ "label": "export setting",
+ "domain": "video_editing",
+ "members": 21,
+ "problem_members": 21,
+ "organic_problem_members": 4,
+ "intents": {
+  "convert": 10,
+  "decide": 3,
+  "alternative": 3,
+  "calculate": 3
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "vendor": 5,
+   "community": 3,
+   "editorial": 9,
+   "unclassified": 1
+  },
+  "dominant_site": "adobe.com",
+  "dominant_share": 0.22,
+  "fragmented_share": 0.67,
+  "tool_hits": 0,
+  "vendor_share": 0.28,
+  "official_share": 0.0,
+  "unclassified_share": 0.06
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "export settings youtube",
+  "fix export settings youtube",
+  "best export settings youtube",
+  "free export settings youtube",
+  "export settings youtube slower",
+  "how many export settings youtube",
+  "how much export settings youtube",
+  "export settings for youtube video",
+  "export settings youtube templates",
+  "export settings for youtube reddit",
+  "export settings youtube not working",
+  "why is export settings youtube slow",
+  "export settings youtube alternatives",
+  "export settings youtube for beginners",
+  "why is export settings youtube better",
+  "how much export settings youtube video",
+  "best export settings for youtube videos",
+  "export settings youtube free alternatives",
+  "best export settings for youtube long video",
+  "export settings youtube cheaper alternative",
+  "export settings youtube compatible with youtube"
+ ],
+ "queries_checked": [
+  "best export settings youtube",
+  "export settings youtube"
+ ],
+ "serp": [
+  {
+   "query": "best export settings youtube",
+   "rank": 1,
+   "url": "https://www.adobe.com/creativecloud/video/hub/features/best-premiere-pro-export-settings-youtube.html",
+   "title": "The best Premiere export settings for YouTube",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 2,
+   "url": "https://forum.blackmagicdesign.com/viewtopic.php?f=21&t=177594",
+   "title": "Blackmagic Forum \u2022 View topic - best export settings for youtube and vimeo ?",
+   "category": "community",
+   "site": "forum.blackmagicdesign.com"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 3,
+   "url": "https://sfxengine.com/blog/best-export-settings-for-youtube",
+   "title": "The Best Export Settings for YouTube A Creator's Guide | SFX Engine",
+   "category": "editorial",
+   "site": "sfxengine.com"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 4,
+   "url": "https://pixflow.net/blog/best-export-settings-youtube-premiere-pro/",
+   "title": "Best Export Settings for YouTube in Premiere Pro (2026)",
+   "category": "editorial",
+   "site": "pixflow.net"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 5,
+   "url": "https://help.pic-time.com/en/articles/10029222-what-are-the-best-video-export-recommendations",
+   "title": "What are the best video export recommendations? | Pic-Time Help Center",
+   "category": "vendor",
+   "site": "help.pic-time.com"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 6,
+   "url": "https://www.alliandwill.com/blog/best-export-settings-for-youtube-uploads-davinci-resolve-export-tutorial",
+   "title": "Best Export Settings For YouTube Uploads DaVinci Resolve Export Tutorial \u2014 Alli and Will",
+   "category": "editorial",
+   "site": "alliandwill.com"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 7,
+   "url": "https://www.filmsupply.com/articles/export-professional-quality-videos/",
+   "title": "The Ultimate Guide to Exporting Professional-Quality Videos",
+   "category": "editorial",
+   "site": "filmsupply.com"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 8,
+   "url": "https://adobe.com/creativecloud/video/hub/features/best-premiere-pro-export-settings-youtube",
+   "title": "best premiere pro export settings youtube",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "best export settings youtube",
+   "rank": 9,
+   "url": "https://community.adobe.com/questions-729/4k-60fps-for-youtube-best-export-settings-to-use-in-2025-1419874",
+   "title": "4k 60fps for youtube best export settings to use in 2025 1419874",
+   "category": "community",
+   "site": "community.adobe.com"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 1,
+   "url": "https://www.adobe.com/creativecloud/video/hub/features/best-premiere-pro-export-settings-youtube.html",
+   "title": "The best Premiere export settings for YouTube",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 2,
+   "url": "https://www.animotica.com/blog/best-export-settings-for-youtube",
+   "title": "What are the Best Export Settings for YouTube? - Animotica Blog",
+   "category": "editorial",
+   "site": "animotica.com"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 3,
+   "url": "https://www.makeuseof.com/best-export-settings-youtube/",
+   "title": "What Are the Best Export Settings for YouTube?",
+   "category": "editorial",
+   "site": "makeuseof.com"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 4,
+   "url": "https://pixflow.net/blog/best-export-settings-youtube-premiere-pro/",
+   "title": "Best Export Settings for YouTube in Premiere Pro (2026)",
+   "category": "editorial",
+   "site": "pixflow.net"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 5,
+   "url": "https://sfxengine.com/blog/best-export-settings-for-youtube",
+   "title": "The Best Export Settings for YouTube A Creator's Guide | SFX Engine",
+   "category": "editorial",
+   "site": "sfxengine.com"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 6,
+   "url": "https://www.bwone.com/the-very-best-youtube-export-settings/",
+   "title": "The Very Best YouTube Export Settings - BWOne",
+   "category": "unclassified",
+   "site": "bwone.com"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 7,
+   "url": "https://www.wesjones.co/guides/the-best-premiere-pro-export-settings-for-youtube",
+   "title": "The Best Premiere Pro Export Settings for YouTube | wesjones.co",
+   "category": "editorial",
+   "site": "wesjones.co"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 8,
+   "url": "https://adobe.com/creativecloud/video/hub/features/best-premiere-pro-export-settings-youtube",
+   "title": "best premiere pro export settings youtube",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "export settings youtube",
+   "rank": 9,
+   "url": "https://community.adobe.com/t5/premiere-pro-discussions/export-settings-for-1080p-youtube-video/m-p/7724301/highlight/true",
+   "title": "community.adobe.com",
+   "category": "community",
+   "site": "community.adobe.com"
+  }
+ ]
+}

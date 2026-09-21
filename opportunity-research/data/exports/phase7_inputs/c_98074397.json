@@ -1,0 +1,228 @@
+{
+ "cluster_id": "c_98074397",
+ "head_term": "password manager",
+ "label": "password manager",
+ "domain": "cybersecurity",
+ "members": 96,
+ "problem_members": 47,
+ "organic_problem_members": 5,
+ "intents": {
+  "informational": 45,
+  "decide": 22,
+  "calculate": 7,
+  "find": 6
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 9,
+   "unclassified": 2,
+   "tool": 3,
+   "vendor": 1,
+   "official": 1,
+   "community": 1,
+   "aggregator": 1
+  },
+  "dominant_site": "tomsguide.com",
+  "dominant_share": 0.17,
+  "fragmented_share": 0.61,
+  "tool_hits": 3,
+  "vendor_share": 0.06,
+  "official_share": 0.06,
+  "unclassified_share": 0.11
+ },
+ "trends_chain_value": 84.544,
+ "trends_error_pct": 1.7,
+ "sample_members": [
+  "password manager",
+  "password manager app",
+  "best password manager",
+  "password manager cost",
+  "password manager free",
+  "password manager list",
+  "password manager cheap",
+  "password manager guide",
+  "password manager ideas",
+  "password manager tools",
+  "password manager video",
+  "better password manager",
+  "password manager online",
+  "password manager top 10",
+  "password manager update",
+  "top 3 password managers",
+  "top 5 password managers",
+  "cheaper password manager",
+  "password manager problem",
+  "password manager reviews",
+  "password manager updated",
+  "best password manager app",
+  "free password manager app",
+  "how much password manager",
+  "one password manager cost",
+  "password manager app list",
+  "password manager cheapest",
+  "password manager tutorial",
+  "top free password manager",
+  "types of password manager",
+  "best password manager cost",
+  "best password manager free",
+  "best password manager list",
+  "best password manager tool",
+  "good free password manager",
+  "password manager list free",
+  "password manager templates",
+  "best password managers tips",
+  "how to fix password manager",
+  "password manager definition"
+ ],
+ "queries_checked": [
+  "best password manager app",
+  "password manager problem"
+ ],
+ "serp": [
+  {
+   "query": "best password manager app",
+   "rank": 1,
+   "url": "https://www.techradar.com/best/password-manager",
+   "title": "Best password manager of 2026",
+   "category": "editorial",
+   "site": "techradar.com"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 2,
+   "url": "https://www.security.org/password-manager/best/",
+   "title": "The Best Password Managers of 2026: Based On Your Needs | Security.org",
+   "category": "unclassified",
+   "site": "security.org"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 3,
+   "url": "https://heimdalsecurity.com/blog/what-is-the-best-password-manager/",
+   "title": "What Is the Best Password Manager? Our Top 4 Options Analyzed",
+   "category": "editorial",
+   "site": "heimdalsecurity.com"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 4,
+   "url": "https://www.tomsguide.com/us/best-password-managers,review-3785.html",
+   "title": "The best password managers in 2026: The foolproof way to secure, store and autofill your passwords",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 5,
+   "url": "https://askleo.com/best-password-manager/",
+   "title": "What's the Best Password Manager in 2026? - Ask Leo!",
+   "category": "unclassified",
+   "site": "askleo.com"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 6,
+   "url": "https://tomsguide.com/best-picks/best-password-managers",
+   "title": "The best password managers in 2025",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 7,
+   "url": "https://alternativeto.net/software/mpass--secure-password-manager/?p=8",
+   "title": "mPass - Secure Password Manager Alternatives",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 8,
+   "url": "https://stackshare.io/upsync",
+   "title": "stackshare.io",
+   "category": "tool",
+   "site": "stackshare.io"
+  },
+  {
+   "query": "best password manager app",
+   "rank": 9,
+   "url": "https://alternativeto.net/software/password-secure-manager-app",
+   "title": "Password Secure Manager App AlternativesPassword Managers and other similar apps like Password Secure Manager App",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 1,
+   "url": "https://blog.hypr.com/problems-with-password-managers",
+   "title": "The 6 Biggest Problems with Password Managers",
+   "category": "editorial",
+   "site": "blog.hypr.com"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 2,
+   "url": "https://www.corbado.com/blog/password-managers-problem",
+   "title": "Why Password Managers Don't Solve the Password Problem",
+   "category": "editorial",
+   "site": "corbado.com"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 3,
+   "url": "https://www.codesections.com/blog/fixing-the-one-problem-with-password-managers/",
+   "title": "Fixing the One Problem With Password Managers | CodeSections",
+   "category": "editorial",
+   "site": "codesections.com"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 4,
+   "url": "https://support.google.com/chrome/thread/412184878/password-manager-issues?hl=en",
+   "title": "Password manager issues - Google Chrome Community",
+   "category": "vendor",
+   "site": "support.google.com"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 5,
+   "url": "https://www.makeuseof.com/common-password-manager-issues-how-to-fix-them/",
+   "title": "7 Common Password Manager Issues and How to Fix Them",
+   "category": "editorial",
+   "site": "makeuseof.com"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 6,
+   "url": "https://www.cmu.edu/iso/news/2019/password-manager.html",
+   "title": "Carnegie Mellon University",
+   "category": "official",
+   "site": "cmu.edu"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 7,
+   "url": "https://Dev.to/fromchiapasdev/password-managers-for-developers-52jo",
+   "title": "password managers for developers 52jo",
+   "category": "community",
+   "site": "dev.to"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 8,
+   "url": "https://www.scribd.com/document/789466881/Notes-and-Password-Manager",
+   "title": "0% found this document useful (0 votes)",
+   "category": "aggregator",
+   "site": "scribd.com"
+  },
+  {
+   "query": "password manager problem",
+   "rank": 9,
+   "url": "https://www.tomsguide.com/uk/us/password-managers-flaws-patched,news-19146.html",
+   "title": "Security Flaws Found in Five Password Managers",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  }
+ ]
+}

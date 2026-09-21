@@ -5,3 +5,10 @@
 {"seed": "ac not cooling", "skipped": "already expanded"}
 {"seed": "hvac furnace", "new_queries": 728, "suggestions_seen": 1198}
 {"seed": "drywall repair", "skipped": "already expanded"}
+{"seed": "home repair paint", "new_queries": 929, "suggestions_seen": 1420}
+{"seed": "roof leak", "skipped": "already expanded"}
+{"seed": "home repair gutter", "new_queries": 605, "suggestions_seen": 1528}
+{"seed": "door won't close", "skipped": "already expanded"}
+{"seed": "window replacement", "new_queries": 1382, "suggestions_seen": 1841}
+{"seed": "home repair mold", "skipped": "already expanded"}
+{"seed": "home repair termites", "new_queries": 628, "suggestions_seen": 1678}

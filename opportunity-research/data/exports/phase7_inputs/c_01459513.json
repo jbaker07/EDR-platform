@@ -1,0 +1,208 @@
+{
+ "cluster_id": "c_01459513",
+ "head_term": "zapier excel integration",
+ "label": "integration zapier office api",
+ "domain": "productivity_office",
+ "members": 22,
+ "problem_members": 12,
+ "organic_problem_members": 5,
+ "intents": {
+  "informational": 9,
+  "decide": 2,
+  "generate": 2,
+  "how_to": 2
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "vendor": 5,
+   "editorial": 9,
+   "tool": 1,
+   "community": 1,
+   "unclassified": 2
+  },
+  "dominant_site": "zapier.com",
+  "dominant_share": 0.22,
+  "fragmented_share": 0.56,
+  "tool_hits": 1,
+  "vendor_share": 0.28,
+  "official_share": 0.0,
+  "unclassified_share": 0.11
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "zapier excel integration",
+  "what is zapier integration",
+  "list of zapier integrations",
+  "zapier outlook integrations",
+  "office 365 zapier integration",
+  "zapier api integration pricing",
+  "zapier api integration reviews",
+  "zapier api integration examples",
+  "zapier api integration tutorial",
+  "how to create a zapier integration",
+  "office software zapier integration",
+  "zapier api integration alternatives",
+  "zapier api integration documentation",
+  "zapier api integration best practices",
+  "best office software zapier integration",
+  "free office software zapier integration",
+  "random office software zapier integration",
+  "improve office software zapier integration",
+  "generate office software zapier integration",
+  "identify office software zapier integration",
+  "office software zapier database integration",
+  "office software zapier performance integration"
+ ],
+ "queries_checked": [
+  "list of zapier integrations",
+  "zapier api integration tutorial"
+ ],
+ "serp": [
+  {
+   "query": "list of zapier integrations",
+   "rank": 1,
+   "url": "https://help.followupboss.com/hc/en-us/articles/4402378254999-Zapier-Integration-List",
+   "title": "Zapier Integration List \u2013 Follow Up Boss - Help Center",
+   "category": "vendor",
+   "site": "help.followupboss.com"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 2,
+   "url": "https://livesession.io/blog/best-zapier-integrations-for-websites-or-saas",
+   "title": "Best Zapier Integrations for Websites or SaaS in 2025 | LiveSession",
+   "category": "editorial",
+   "site": "livesession.io"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 3,
+   "url": "https://www.cloudtalk.io/blog/best-zapier-integrations/",
+   "title": "10 Best Zapier Integrations for Business Automation in 2026 - CloudTalk",
+   "category": "editorial",
+   "site": "cloudtalk.io"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 4,
+   "url": "https://bugbug.io/blog/test-automation-tools/best-zapier-integrations/",
+   "title": "Best Zapier Integrations and Apps for 2026",
+   "category": "editorial",
+   "site": "bugbug.io"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 5,
+   "url": "https://zapier.com/developer-platform",
+   "title": "Power your product or AI agent with 9,000 app integrations | Zapier",
+   "category": "editorial",
+   "site": "zapier.com"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 6,
+   "url": "https://zapier.com/",
+   "title": "Zapier: Automate AI Workflows, Agents, and Apps",
+   "category": "editorial",
+   "site": "zapier.com"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 7,
+   "url": "https://zapier.com/apps",
+   "title": "Integrations, App and Software Automation | Automate With Zapier",
+   "category": "editorial",
+   "site": "zapier.com"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 8,
+   "url": "https://krisp.ai/blog/zapier-integrations/",
+   "title": "The 25 Best Zapier Integrations for Easy Automation",
+   "category": "editorial",
+   "site": "krisp.ai"
+  },
+  {
+   "query": "list of zapier integrations",
+   "rank": 9,
+   "url": "https://block.fiverr.com/gigs/zapier-integration?page=4",
+   "title": "Browse categories",
+   "category": "tool",
+   "site": "block.fiverr.com"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 1,
+   "url": "https://docs.zapier.com/platform/quickstart/ui-tutorial",
+   "title": "Zapier Developer Platform UI quickstart tutorial",
+   "category": "vendor",
+   "site": "docs.zapier.com"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 2,
+   "url": "https://help.dealmaker.tech/api-zapier",
+   "title": "Tutorial: How to connect to the API via Zapier",
+   "category": "vendor",
+   "site": "help.dealmaker.tech"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 3,
+   "url": "https://medium.com/@abhidas/zapier-api-integration-b143d3f894e9",
+   "title": "Zapier API Integration. This is about how I integrated the\u2026 | by Abhinand Das | Medium",
+   "category": "community",
+   "site": "medium.com"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 4,
+   "url": "https://www.commonroom.io/docs/signals/custom-integrations/zapier-api/zapier-integration/",
+   "title": "Zapier Integration Guide | Common Room (Docs)",
+   "category": "vendor",
+   "site": "commonroom.io"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 5,
+   "url": "https://www.switchlabs.dev/resources/integrating-your-api-with-zapier:-a-step-by-step-guide",
+   "title": "Integrating Your API with Zapier: A Step-by-Step Guide",
+   "category": "unclassified",
+   "site": "switchlabs.dev"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 6,
+   "url": "https://zapier.com/blog/how-to-use-api/",
+   "title": "How to use an API: Guide for beginners [2025] | Zapier",
+   "category": "editorial",
+   "site": "zapier.com"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 7,
+   "url": "https://www.xray.tech/post/write-api-calls-zapier",
+   "title": "How to Write API calls in Zapier | XRAY Blog",
+   "category": "unclassified",
+   "site": "xray.tech"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 8,
+   "url": "https://help.letsdeel.com/hc/en-gb/articles/13327342277777-How-To-Use-Zapier-API-Integration",
+   "title": "How To Use Zapier API Integration \u2013 Deel",
+   "category": "vendor",
+   "site": "help.letsdeel.com"
+  },
+  {
+   "query": "zapier api integration tutorial",
+   "rank": 9,
+   "url": "https://hastewire.com/blog/zapier-rest-api-integration-beginners-guide",
+   "title": "Zapier + REST API Integration: Beginner's Guide",
+   "category": "editorial",
+   "site": "hastewire.com"
+  }
+ ]
+}

@@ -1,0 +1,214 @@
+{
+ "cluster_id": "c_17253937",
+ "head_term": "performance review comments",
+ "label": "employe performance comment ai",
+ "domain": "careers_jobs",
+ "members": 30,
+ "problem_members": 30,
+ "organic_problem_members": 5,
+ "intents": {
+  "optimize": 20,
+  "generate": 5,
+  "decide": 1,
+  "how_to": 1
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 13,
+   "official": 2,
+   "unclassified": 3
+  },
+  "dominant_site": "quantumworkplace.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.72,
+  "tool_hits": 0,
+  "vendor_share": 0.0,
+  "official_share": 0.11,
+  "unclassified_share": 0.17
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "performance review comments",
+  "good performance review comments",
+  "monitor performance of employees",
+  "performance review final comments",
+  "performance reviews for employees",
+  "performance reviews employees need",
+  "performance review general comments",
+  "performance review manager comments",
+  "performance reviews sample comments",
+  "performance review comments examples",
+  "performance review comments generator",
+  "performance review form for employees",
+  "performance review tips for employees",
+  "performance review guide for employees",
+  "performance review advice for employees",
+  "performance review format for employees",
+  "performance review compared to employees",
+  "how do performance reviews help employees",
+  "performance review comments for employees",
+  "performance review examples for employees",
+  "performance review template for employees",
+  "performance review checklist for employees",
+  "performance review calculator for employees",
+  "performance review problem solving comments",
+  "performance review compatible with employees",
+  "ai performance review generator for employees",
+  "free performance review template for employees",
+  "best performance review questions for employees",
+  "performance review comments for quality of work",
+  "free ai performance review generator for employees"
+ ],
+ "queries_checked": [
+  "performance review comments",
+  "performance review problem solving comments"
+ ],
+ "serp": [
+  {
+   "query": "performance review comments",
+   "rank": 1,
+   "url": "https://www.quantumworkplace.com/future-of-work/performance-review-examples-comments-phrases",
+   "title": "171 Performance Review Examples, Comments, Phrases",
+   "category": "editorial",
+   "site": "quantumworkplace.com"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 2,
+   "url": "https://www.rippling.com/blog/performance-review-phrases",
+   "title": "88 Essential Performance Review Phrases for Managers",
+   "category": "editorial",
+   "site": "rippling.com"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 3,
+   "url": "https://www.profit.co/blog/performance-management/50-employee-evaluation-comments-that-boost-performance/",
+   "title": "50 Employee Evaluation Comments that Boost Performance (performance review comments) | Profit.co",
+   "category": "editorial",
+   "site": "profit.co"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 4,
+   "url": "https://www.leapsome.com/blog/performance-review-phrases",
+   "title": "135 Performance Review Phrases & Examples for Evaluation",
+   "category": "editorial",
+   "site": "leapsome.com"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 5,
+   "url": "https://www.performyard.com/articles/performance-review-example-phrases-comments",
+   "title": "200+ Performance Review Phrases & Comments for 2026 | PerformYard",
+   "category": "editorial",
+   "site": "performyard.com"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 6,
+   "url": "https://www.southeastern.edu/admin/hr/ee_and_mngr_info/manager_information/ppr_comments/",
+   "title": "SAMPLE PERFORMANCE COMMENTS - Southeastern Louisiana University",
+   "category": "official",
+   "site": "southeastern.edu"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 7,
+   "url": "https://www.hibob.com/blog/performance-review-examples/",
+   "title": "150+ performance review examples and phrases: A manager's guide",
+   "category": "editorial",
+   "site": "hibob.com"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 8,
+   "url": "https://hr.mit.edu/performance/reviews",
+   "title": "Performance Reviews | MIT Human Resources",
+   "category": "official",
+   "site": "hr.mit.edu"
+  },
+  {
+   "query": "performance review comments",
+   "rank": 9,
+   "url": "https://www.personio.com/hr-lexicon/performance-review-phrases/",
+   "title": "118 performance review phrases to develop your team",
+   "category": "unclassified",
+   "site": "personio.com"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 1,
+   "url": "https://factorialhr.com/blog/performance-review-phrases/",
+   "title": "1000+ Performance Review Phrases for Employee Feedback | Factorial",
+   "category": "editorial",
+   "site": "factorialhr.com"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 2,
+   "url": "https://www.performyard.com/articles/performance-review-example-phrases-comments",
+   "title": "200+ Performance Review Phrases & Comments for 2026 | PerformYard",
+   "category": "editorial",
+   "site": "performyard.com"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 3,
+   "url": "https://www.betterup.com/blog/problem-solving-performance-review-phrases",
+   "title": "31 Examples of Problem Solving Performance Review Phrases",
+   "category": "editorial",
+   "site": "betterup.com"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 4,
+   "url": "https://www.quantumworkplace.com/future-of-work/performance-review-examples-comments-phrases",
+   "title": "171 Performance Review Examples, Comments, Phrases",
+   "category": "editorial",
+   "site": "quantumworkplace.com"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 5,
+   "url": "https://www.proprofstraining.com/blog/performance-review-examples/",
+   "title": "100+ Performance Review Examples for Smarter Appraisals",
+   "category": "editorial",
+   "site": "proprofstraining.com"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 6,
+   "url": "https://status.net/articles/performance-feedback-examples-reliability-integrity-problem-solving/",
+   "title": "174 Performance Feedback Examples (Reliability, Integrity, Problem Solving)",
+   "category": "editorial",
+   "site": "status.net"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 7,
+   "url": "https://status.net/articles/problem-solving-skills-performance-review-phrases-paragraphs-examples/",
+   "title": "Problem Solving Skills: 100 Performance Review Example Phrases",
+   "category": "editorial",
+   "site": "status.net"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 8,
+   "url": "https://simbline.com/phrases/performance-review/problem-solving",
+   "title": "Problem solving - Performance Review Sample Phrases And Examples",
+   "category": "unclassified",
+   "site": "simbline.com"
+  },
+  {
+   "query": "performance review problem solving comments",
+   "rank": 9,
+   "url": "https://performancereviewphrases.info/performance-review-phrases-for-problem-solving",
+   "title": "50+ Performance review phrases for Problem solving",
+   "category": "unclassified",
+   "site": "performancereviewphrases.info"
+  }
+ ]
+}

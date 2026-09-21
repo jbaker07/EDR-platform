@@ -1,0 +1,216 @@
+{
+ "cluster_id": "c_43126978",
+ "head_term": "door won't close",
+ "label": "close door",
+ "domain": "home_repair",
+ "members": 21,
+ "problem_members": 18,
+ "organic_problem_members": 5,
+ "intents": {
+  "fix": 16,
+  "informational": 3,
+  "how_to": 1,
+  "decide": 1
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "community": 7,
+   "editorial": 4,
+   "unclassified": 1,
+   "vendor": 1,
+   "official": 5,
+   "reference": 1
+  },
+  "dominant_site": "nyc.gov",
+  "dominant_share": 0.21,
+  "fragmented_share": 0.58,
+  "tool_hits": 0,
+  "vendor_share": 0.05,
+  "official_share": 0.26,
+  "unclassified_share": 0.05
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "door won't close",
+  "door hard to close",
+  "new door won't close",
+  "when one door closes",
+  "door closes on its own",
+  "door won't close at top",
+  "door won't close updated",
+  "should i close all doors",
+  "door won't close problems",
+  "door won't close templates",
+  "door won't close how to fix",
+  "door won't close all the way",
+  "door won't close cheaper way",
+  "door won't close not working",
+  "how to make a door close slower",
+  "new door won't close all the way",
+  "best door won't close all the way",
+  "free door won't close all the way",
+  "door won't close free alternatives",
+  "door won't close all the way reddit",
+  "how to fix door that won't close all the way"
+ ],
+ "queries_checked": [
+  "door won't close",
+  "should i close all doors"
+ ],
+ "serp": [
+  {
+   "query": "door won't close",
+   "rank": 1,
+   "url": "https://www.workshop.bunnings.com.au/discussion/278212/how-to-fix-door-that-wont-close-properly",
+   "title": "How to fix door that won't close properly? - Bunnings Workshop community",
+   "category": "community",
+   "site": "workshop.bunnings.com.au"
+  },
+  {
+   "query": "door won't close",
+   "rank": 2,
+   "url": "https://doorslosangeles.com/blog/how-to-fix-door-that-wont-close",
+   "title": "How to Fix a Door That Won't Close Properly",
+   "category": "editorial",
+   "site": "doorslosangeles.com"
+  },
+  {
+   "query": "door won't close",
+   "rank": 3,
+   "url": "https://www.workshop.bunnings.com.au/discussion/171608/how-to-fix-a-door-that-doesnt-close-and-latch",
+   "title": "How to fix a door that doesnt close and latch? - Bunnings Workshop community",
+   "category": "community",
+   "site": "workshop.bunnings.com.au"
+  },
+  {
+   "query": "door won't close",
+   "rank": 4,
+   "url": "https://www.facebook.com/groups/spottedinbg/posts/1549323836771890/",
+   "title": "How to fix a door that won't close?",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "door won't close",
+   "rank": 5,
+   "url": "https://www.facebook.com/groups/1099475564141008/posts/2213732006048686/",
+   "title": "How to fix a pre-hung door that won't close?",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "door won't close",
+   "rank": 6,
+   "url": "https://www.facebook.com/groups/1430412973863043/posts/4269887403248905/",
+   "title": "How to fix a door that doesn't close?",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "door won't close",
+   "rank": 7,
+   "url": "https://rustica.com/how-to-fix-door-wont-latch/",
+   "title": "How to Fix a Door That Won't Latch | 5 Common Fixes",
+   "category": "editorial",
+   "site": "rustica.com"
+  },
+  {
+   "query": "door won't close",
+   "rank": 8,
+   "url": "https://www.quora.com/What-can-be-done-to-fix-a-door-that-wont-close-properly-after-installing-new-hinges",
+   "title": "What can be done to fix a door that won't close properly after installing new hinges? - Quora",
+   "category": "community",
+   "site": "quora.com"
+  },
+  {
+   "query": "door won't close",
+   "rank": 9,
+   "url": "https://www.callcupcake.com/doors/common-door-problems/door-wont-close/",
+   "title": "Door Won't Close, Latch, or Stay Shut \u2014 Diagnosis and Correct Fix by Symptom - Cupcake Home Improvements",
+   "category": "unclassified",
+   "site": "callcupcake.com"
+  },
+  {
+   "query": "door won't close",
+   "rank": 10,
+   "url": "https://ushl.samsung.com/ph/support/home-appliances/how-to-fix-a-samsung-refrigerator-door-that-will-not-close-properly",
+   "title": "A Samsung refrigerator door will not close properly",
+   "category": "vendor",
+   "site": "ushl.samsung.com"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 1,
+   "url": "https://www.nyc.gov/site/hpd/services-and-information/self-closing-doors.page",
+   "title": "Self-Closing Doors - HPD",
+   "category": "official",
+   "site": "nyc.gov"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 2,
+   "url": "https://facilethings.com/blog/en/closing-doors",
+   "title": "Closing Doors Is Key to Your Productivity",
+   "category": "editorial",
+   "site": "facilethings.com"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 3,
+   "url": "https://www.quora.com/Is-it-normal-that-I-want-all-doors-in-my-house-to-be-closed-If-a-household-member-leaves-their-door-half-open-or-open-I-wont-be-able-relax-and-it-really-frustrates-me-to-the-point-that-Ill-have-to-get-up-and-close",
+   "title": "Is it normal that I want all doors in my house to be closed? If a household member leaves their door half open or open I won't be able relax and it really frustrates me to the point that I'll have to get up and close it. - Quora",
+   "category": "community",
+   "site": "quora.com"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 4,
+   "url": "https://en.wikipedia.org/wiki/Local_door_operation",
+   "title": "Local door operation",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 5,
+   "url": "https://www.nyc.gov/assets/fdny/downloads/pdf/codes/close-the-door.pdf",
+   "title": "close the door",
+   "category": "official",
+   "site": "nyc.gov"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 6,
+   "url": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/self-closing-doors-tenants.pdf",
+   "title": "self closing doors tenants",
+   "category": "official",
+   "site": "nyc.gov"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 7,
+   "url": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/self-closing-doors-owners.pdf",
+   "title": "self closing doors owners",
+   "category": "official",
+   "site": "nyc.gov"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 8,
+   "url": "https://www.aol.com/why-always-close-interior-doors-003000099.html",
+   "title": "Why You Should Always Close the Interior Doors in Your Home Before a Hurricane",
+   "category": "editorial",
+   "site": "aol.com"
+  },
+  {
+   "query": "should i close all doors",
+   "rank": 9,
+   "url": "https://www.canterbury.gov.uk/sites/default/files/2023-11/Fire%20door%20safety%20information%20sheet.pdf",
+   "title": "www.canterbury.gov.uk",
+   "category": "official",
+   "site": "canterbury.gov.uk"
+  }
+ ]
+}

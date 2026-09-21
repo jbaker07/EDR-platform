@@ -1,0 +1,224 @@
+{
+ "cluster_id": "c_63944196",
+ "head_term": "how to move abroad",
+ "label": "move abroad american uk",
+ "domain": "travel",
+ "members": 56,
+ "problem_members": 39,
+ "organic_problem_members": 8,
+ "intents": {
+  "how_to": 20,
+  "informational": 17,
+  "calculate": 10,
+  "decide": 7
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 11,
+   "unclassified": 6,
+   "official": 1
+  },
+  "dominant_site": "findawayabroad.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.61,
+  "tool_hits": 0,
+  "vendor_share": 0.0,
+  "official_share": 0.06,
+  "unclassified_share": 0.33
+ },
+ "trends_chain_value": 0.698,
+ "trends_error_pct": 37.9,
+ "sample_members": [
+  "how to move abroad",
+  "jobs to move abroad",
+  "move abroad calculator",
+  "best way to move abroad",
+  "how easy to move abroad",
+  "how much to move abroad",
+  "planning to move abroad",
+  "best jobs to move abroad",
+  "how to move abroad at 18",
+  "how to move abroad easily",
+  "best places to move abroad",
+  "how to move abroad from uk",
+  "remote jobs to move abroad",
+  "how many people move abroad",
+  "how to move abroad and work",
+  "how to move abroad for free",
+  "how to move abroad from usa",
+  "opportunities to move abroad",
+  "how hard is it to move abroad",
+  "how much money to move abroad",
+  "how to move abroad for a year",
+  "how to move abroad from india",
+  "how to move abroad with a dog",
+  "places to move abroad from uk",
+  "best jobs to move abroad reddit",
+  "americans looking to move abroad",
+  "how to move abroad with no money",
+  "how to move abroad without money",
+  "how to move abroad as an american",
+  "how to move abroad from uk reddit",
+  "where should americans move abroad",
+  "best places to move abroad from usa",
+  "how many people move abroad from uk",
+  "how much money to move abroad reddit",
+  "opportunities to move abroad from uk",
+  "easiest places to move abroad from uk",
+  "how hard is it to move abroad from uk",
+  "how many people move abroad each year",
+  "how to move abroad from india for job",
+  "opportunities to move and work abroad"
+ ],
+ "queries_checked": [
+  "best jobs to move abroad",
+  "how to move abroad"
+ ],
+ "serp": [
+  {
+   "query": "best jobs to move abroad",
+   "rank": 1,
+   "url": "https://www.william-russell.com/blog/top-10-international-expat-jobs-to-work-abroad/",
+   "title": "The 10 Best Jobs For Expats Who Want To Work Abroad | William Russell",
+   "category": "editorial",
+   "site": "william-russell.com"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 2,
+   "url": "https://www.findawayabroad.com/post/best-jobs-abroad",
+   "title": "11 Best Jobs Abroad to Easily Work Overseas - A Way Abroad",
+   "category": "editorial",
+   "site": "findawayabroad.com"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 3,
+   "url": "https://www.internationalinsurance.com/working-abroad/overseas-jobs/",
+   "title": "Overseas Jobs for Expats: Careers, Salaries and How to Find Work",
+   "category": "unclassified",
+   "site": "internationalinsurance.com"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 4,
+   "url": "https://preply.com/en/blog/best-jobs-to-work-abroad/",
+   "title": "11 Best Jobs to Work Abroad for Expats",
+   "category": "editorial",
+   "site": "preply.com"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 5,
+   "url": "https://www.sherpr.com/en-us/jobs-that-allow-you-to-move-abroad/",
+   "title": "Ultimate List of Jobs That Will Allow You To Move Abroad From The US",
+   "category": "unclassified",
+   "site": "sherpr.com"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 6,
+   "url": "https://expatnetwork.com/10-of-the-best-careers-to-go-into-if-you-want-to-live-abroad-or-move-countries-frequently/",
+   "title": "10 of the Best Careers to Go Into if You Want to Live Abroad or Move Countries Frequently - Expat Network",
+   "category": "unclassified",
+   "site": "expatnetwork.com"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 7,
+   "url": "https://www.afar.com/magazine/the-worlds-coolest-travel-jobs-and-how-to-get-them?p=2",
+   "title": "The Best Jobs for People Who Want to Travel and Live Abroad",
+   "category": "editorial",
+   "site": "afar.com"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 8,
+   "url": "https://archive-yaleglobal.yale.edu/node/45291",
+   "title": "A Year Abroad (or 3) as a Career Move",
+   "category": "official",
+   "site": "archive-yaleglobal.yale.edu"
+  },
+  {
+   "query": "best jobs to move abroad",
+   "rank": 9,
+   "url": "https://gulfnews.com/business/want-to-work-abroad-forget-the-us-or-canada-the-best-countries-for-expats-are-in-gcc-europe-1.1548140542646",
+   "title": "Want to work abroad? Forget the US or Canada, the best countries for expats are in GCC, Europe",
+   "category": "editorial",
+   "site": "gulfnews.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 1,
+   "url": "https://www.goabroad.com/articles/jobs-abroad/moving-abroad-for-work-like-a-champ",
+   "title": "How to Move Abroad with No Money | GoAbroad.com",
+   "category": "editorial",
+   "site": "goabroad.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 2,
+   "url": "https://www.gooverseas.com/blog/guide-to-moving-abroad",
+   "title": "How to Move Abroad in 2026: Live Overseas as an Expat | Go Overseas",
+   "category": "editorial",
+   "site": "gooverseas.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 3,
+   "url": "https://www.findawayabroad.com/post/how-to-move-to-another-country-asap-in-10-steps",
+   "title": "How to Move to Another Country ASAP in 10 Steps - A Way Abroad",
+   "category": "editorial",
+   "site": "findawayabroad.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 4,
+   "url": "https://www.greenbacktaxservices.com/knowledge-center/moving-abroad/",
+   "title": "Your Moving Abroad Checklist: Everything U.S. Expats Need Before the Big Move",
+   "category": "unclassified",
+   "site": "greenbacktaxservices.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 5,
+   "url": "https://whereintheworldisnina.com/move-out-of-the-usa/",
+   "title": "How To Move Out of The USA ASAP\u20147 Ways to Leave",
+   "category": "unclassified",
+   "site": "whereintheworldisnina.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 6,
+   "url": "https://expatsi.com/",
+   "title": "Support for Americans Moving Abroad",
+   "category": "unclassified",
+   "site": "expatsi.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 7,
+   "url": "https://onejourneyaway.com/blog/how-decide-make-leap-move-abroad",
+   "title": "How to Decide to Make the Leap to Move Abroad \u2014 One Journey Away | Edinburgh Travel Made Simple",
+   "category": "editorial",
+   "site": "onejourneyaway.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 8,
+   "url": "https://wise.com/gb/blog/moving-abroad-from-the-uk",
+   "title": "Moving abroad from the UK: Complete guide",
+   "category": "editorial",
+   "site": "wise.com"
+  },
+  {
+   "query": "how to move abroad",
+   "rank": 9,
+   "url": "https://wise.com/us/blog/move-abroad-from-the-us",
+   "title": "How to move abroad from the US: step by step",
+   "category": "editorial",
+   "site": "wise.com"
+  }
+ ]
+}

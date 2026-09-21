@@ -1,0 +1,220 @@
+{
+ "cluster_id": "c_06637354",
+ "head_term": "pc gaming emulator",
+ "label": "emulator gam pc",
+ "domain": "gaming_pc",
+ "members": 34,
+ "problem_members": 17,
+ "organic_problem_members": 3,
+ "intents": {
+  "informational": 12,
+  "decide": 6,
+  "commercial_nav": 5,
+  "alternative": 4
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 8,
+   "reference": 1,
+   "unclassified": 5,
+   "community": 3,
+   "tool": 1
+  },
+  "dominant_site": "retrododo.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.61,
+  "tool_hits": 1,
+  "vendor_share": 0.0,
+  "official_share": 0.0,
+  "unclassified_share": 0.28
+ },
+ "trends_chain_value": 0.05,
+ "trends_error_pct": 101.6,
+ "sample_members": [
+  "pc gaming emulator",
+  "best pc gaming emulator",
+  "fix pc gaming emulators",
+  "gaming pc emulator free",
+  "pc games emulator online",
+  "pc gaming emulator costs",
+  "pc games without emulator",
+  "pc gaming emulator updates",
+  "top gaming emulator for pc",
+  "pc gaming emulator download",
+  "pc gaming emulator problems",
+  "pc gaming emulator tutorial",
+  "how many pc gaming emulators",
+  "pc gaming emulator templates",
+  "top 5 gaming emulator for pc",
+  "top 10 gaming emulator for pc",
+  "best pc games without emulator",
+  "free pc games without emulator",
+  "pc gaming emulator not working",
+  "pc gaming emulator alternatives",
+  "best gaming emulator for pc free",
+  "pc gaming emulator cheaper price",
+  "pc gaming emulator compatibility",
+  "pc gaming emulator template free",
+  "best emulator for pc games reddit",
+  "emulator for pc games free download",
+  "pc gaming emulator alternative free",
+  "pc gaming emulator free alternatives",
+  "how much pc gaming emulator do i need",
+  "pc gaming emulator compatibility list",
+  "pc gaming emulator compatible with pc",
+  "pc gaming emulator cheaper alternative",
+  "best emulator games for pc free download",
+  "how to download pc games without emulator"
+ ],
+ "queries_checked": [
+  "best pc gaming emulator",
+  "fix pc gaming emulators"
+ ],
+ "serp": [
+  {
+   "query": "best pc gaming emulator",
+   "rank": 1,
+   "url": "https://retrododo.com/best-emulators-for-pc/",
+   "title": "The Best Emulators For PC Retro Gaming In 2026 [All Tested]",
+   "category": "editorial",
+   "site": "retrododo.com"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 2,
+   "url": "https://www.esports.net/news/best-emulators-for-pc/",
+   "title": "Best Emulators for PC in 2025 \u2013 A Complete Guide to the Top Retro Game Emulators for PC",
+   "category": "editorial",
+   "site": "esports.net"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 3,
+   "url": "https://beebom.com/best-emulators-for-pc/",
+   "title": "The Best Emulators for PC for Every Gamer in 2026 | Beebom",
+   "category": "editorial",
+   "site": "beebom.com"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 4,
+   "url": "https://en.wikipedia.org/wiki/PCSX2",
+   "title": "PCSX2",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 5,
+   "url": "https://fantasyanime.com/emuhelp/recommended-video-game-emulators-for-windows",
+   "title": "Recommended Video Game Emulators for Windows | Video Game Emulation for Newbies",
+   "category": "unclassified",
+   "site": "fantasyanime.com"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 6,
+   "url": "https://marksangryreview.com/best-android-emulators/",
+   "title": "Best Android Emulators for PC and Mac - Marks Angry Review",
+   "category": "editorial",
+   "site": "marksangryreview.com"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 7,
+   "url": "https://www.fonelora.com/blog/best-emulator-pc-gaming-guide.htm",
+   "title": "Best Emulator for PC: 2026 Gaming Guide",
+   "category": "editorial",
+   "site": "fonelora.com"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 8,
+   "url": "https://www.cloudemulator.net/blog/game-emulator-for-pc.htm",
+   "title": "5 Best Game Emulator for PC: Unleash Your Gaming Potential",
+   "category": "editorial",
+   "site": "cloudemulator.net"
+  },
+  {
+   "query": "best pc gaming emulator",
+   "rank": 9,
+   "url": "https://www.memuplay.com/",
+   "title": "MEmu - The Best Android Emulator for PC - Free Download",
+   "category": "unclassified",
+   "site": "memuplay.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 1,
+   "url": "https://forums.pcgamer.com/threads/question-about-gaming-emulators-for-pc.125881/",
+   "title": "Question about gaming emulators for PC | PC Gamer Forums",
+   "category": "community",
+   "site": "forums.pcgamer.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 2,
+   "url": "https://www.emulator-zone.com/doc.php/computer/",
+   "title": "Computer Emulators",
+   "category": "unclassified",
+   "site": "emulator-zone.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 3,
+   "url": "https://retrododo.com/best-emulators-for-pc/",
+   "title": "The Best Emulators For PC Retro Gaming In 2026 [All Tested]",
+   "category": "editorial",
+   "site": "retrododo.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 4,
+   "url": "https://www.youtube.com/watch?v=ZZw67gZ05yQ",
+   "title": "The Problematic Games Emulators Still Can\u2019t Fix - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 5,
+   "url": "https://www.logicalincrements.com/articles/build-pc-emulation-emulators-retro-gaming",
+   "title": "How to Build the Best PC for Emulation and Retro Gaming",
+   "category": "editorial",
+   "site": "logicalincrements.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 6,
+   "url": "https://en.softonic.com/downloads/emulator-games-for-windows",
+   "title": "Download Emulator Games For Windows - Best Software & Apps",
+   "category": "tool",
+   "site": "en.softonic.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 7,
+   "url": "https://tpa10.com/why-do-some-games-not-work-properly-on-emulators/",
+   "title": "Why Do Some Games Not Work Properly On Emulators: Fixes - TPA10",
+   "category": "unclassified",
+   "site": "tpa10.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 8,
+   "url": "https://events.nsv.nvidia.com/pc-for-old-games",
+   "title": "5 Ways Old Games PC",
+   "category": "unclassified",
+   "site": "events.nsv.nvidia.com"
+  },
+  {
+   "query": "fix pc gaming emulators",
+   "rank": 9,
+   "url": "https://github.com/pinguy/GamingStation-OS",
+   "title": "GamingStation OS",
+   "category": "community",
+   "site": "github.com"
+  }
+ ]
+}

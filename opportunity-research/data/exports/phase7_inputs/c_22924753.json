@@ -1,0 +1,225 @@
+{
+ "cluster_id": "c_22924753",
+ "head_term": "github actions",
+ "label": "action github",
+ "domain": "software_dev_ops",
+ "members": 80,
+ "problem_members": 50,
+ "organic_problem_members": 4,
+ "intents": {
+  "informational": 28,
+  "calculate": 19,
+  "how_to": 14,
+  "alternative": 6
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "vendor": 6,
+   "editorial": 6,
+   "community": 5,
+   "unclassified": 1
+  },
+  "dominant_site": "github.com",
+  "dominant_share": 0.28,
+  "fragmented_share": 0.61,
+  "tool_hits": 1,
+  "vendor_share": 0.33,
+  "official_share": 0.0,
+  "unclassified_share": 0.06
+ },
+ "trends_chain_value": 27.72,
+ "trends_error_pct": 3.9,
+ "sample_members": [
+  "github actions",
+  "github actions fix",
+  "github actions new",
+  "top github actions",
+  "best github actions",
+  "github actions cost",
+  "good github actions",
+  "github actions error",
+  "github actions guide",
+  "github actions tools",
+  "github quick actions",
+  "better github actions",
+  "github actions issues",
+  "github actions review",
+  "github actions update",
+  "github actions error 1",
+  "github actions example",
+  "github actions updates",
+  "list of github actions",
+  "github actions download",
+  "github actions examples",
+  "github actions problems",
+  "github actions tutorial",
+  "how many github actions",
+  "github actions cost free",
+  "github actions explained",
+  "github actions guide pdf",
+  "github actions templates",
+  "github actions very slow",
+  "best github actions reddit",
+  "github actions alternative",
+  "github actions cost reddit",
+  "github actions quick guide",
+  "how much github actions do",
+  "how to github actions work",
+  "list of all github actions",
+  "make github actions faster",
+  "why is github actions used",
+  "free github actions minutes",
+  "github actions alternatives"
+ ],
+ "queries_checked": [
+  "github actions cost",
+  "github actions tutorial"
+ ],
+ "serp": [
+  {
+   "query": "github actions cost",
+   "rank": 1,
+   "url": "https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions",
+   "title": "GitHub Actions billing - GitHub Docs",
+   "category": "vendor",
+   "site": "docs.github.com"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 2,
+   "url": "https://www.blacksmith.sh/blog/actions-pricing",
+   "title": "The GitHub Actions control plane is no longer free | Blacksmith",
+   "category": "editorial",
+   "site": "blacksmith.sh"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 3,
+   "url": "https://github.com/orgs/community/discussions/182164",
+   "title": "What will be the impact of the change in Actions pricing? \u00b7 community \u00b7 Discussion #182164",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 4,
+   "url": "https://github.com/orgs/community/discussions/182089",
+   "title": "Per minute charges for self hosted runners? Wtf? \u00b7 community \u00b7 Discussion #182089",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 5,
+   "url": "https://github.com/pricing/calculator",
+   "title": "Pricing Calculator \u00b7 GitHub",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 6,
+   "url": "https://github.blog/changelog/2025-12-16-coming-soon-simpler-pricing-and-a-better-experience-for-github-actions/",
+   "title": "Update to GitHub Actions pricing - GitHub Changelog",
+   "category": "vendor",
+   "site": "github.blog"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 7,
+   "url": "https://github.com/orgs/community/discussions/182186",
+   "title": "Updates to GitHub Actions pricing \u00b7 community \u00b7 Discussion #182186",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 8,
+   "url": "https://news.ycombinator.com/item?id=46291156",
+   "title": "Pricing Changes for GitHub Actions | Hacker News",
+   "category": "editorial",
+   "site": "news.ycombinator.com"
+  },
+  {
+   "query": "github actions cost",
+   "rank": 9,
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/product-billing/github-actions",
+   "title": "How use of GitHub Actions is measured",
+   "category": "vendor",
+   "site": "docs.github.com"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 1,
+   "url": "https://spacelift.io/blog/github-actions-tutorial",
+   "title": "GitHub Actions Tutorial \u2013 Getting Started & Examples",
+   "category": "editorial",
+   "site": "spacelift.io"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 2,
+   "url": "https://everhour.com/blog/github-actions-tutorial/",
+   "title": "GitHub Actions Tutorial: Complete CI/CD & Workflow Guide with Examples",
+   "category": "editorial",
+   "site": "everhour.com"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 3,
+   "url": "https://docs.github.com/en/actions/tutorials",
+   "title": "Tutorials for GitHub Actions - GitHub Docs",
+   "category": "vendor",
+   "site": "docs.github.com"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 4,
+   "url": "https://www.freecodecamp.org/news/learn-to-use-github-actions-step-by-step-guide/",
+   "title": "Learn to Use GitHub Actions: a Step-by-Step Guide",
+   "category": "editorial",
+   "site": "freecodecamp.org"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 5,
+   "url": "https://codefresh.io/learn/github-actions/github-actions-tutorial-and-examples/",
+   "title": "GitHub Actions Tutorial And Examples | Octopus Deploy",
+   "category": "unclassified",
+   "site": "codefresh.io"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 6,
+   "url": "https://docs.github.com/actions/quickstart",
+   "title": "Quickstart for GitHub Actions - GitHub Docs",
+   "category": "vendor",
+   "site": "docs.github.com"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 7,
+   "url": "https://www.geeksforgeeks.org/git/github-actions/",
+   "title": "GitHub Actions - GeeksforGeeks",
+   "category": "editorial",
+   "site": "geeksforgeeks.org"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 8,
+   "url": "https://github.blog/developer-skills/github/github-for-beginners-getting-started-with-github-actions/",
+   "title": "GitHub for Beginners: Getting started with GitHub Actions - The GitHub Blog",
+   "category": "vendor",
+   "site": "github.blog"
+  },
+  {
+   "query": "github actions tutorial",
+   "rank": 9,
+   "url": "https://github.com/features/actions",
+   "title": "GitHub Actions \u00b7 GitHub",
+   "category": "community",
+   "site": "github.com"
+  }
+ ]
+}

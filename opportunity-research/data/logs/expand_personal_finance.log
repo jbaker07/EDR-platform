@@ -1,6 +1,5 @@
-{"seed": "finance budget", "new_queries": 884, "suggestions_seen": 1402}
-{"seed": "tax return", "new_queries": 1621, "suggestions_seen": 2129}
-{"seed": "index fund", "new_queries": 1230, "suggestions_seen": 1837}
-{"seed": "credit score", "new_queries": 1594, "suggestions_seen": 2061}
-{"seed": "crypto bitcoin", "new_queries": 916, "suggestions_seen": 1359}
-{"seed": "health insurance", "new_queries": 1709, "suggestions_seen": 2313}
+{"seed": "finance budget", "skipped": "already expanded"}
+{"seed": "budget template", "new_queries": 1018, "suggestions_seen": 1508}
+{"seed": "tax return", "skipped": "already expanded"}
+{"seed": "tax deduction", "new_queries": 1327, "suggestions_seen": 1671}
+{"seed": "index fund", "skipped": "already expanded"}

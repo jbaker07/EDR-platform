@@ -1,0 +1,223 @@
+{
+ "cluster_id": "c_73257790",
+ "head_term": "best settings for rocket league",
+ "label": "rocket league setting controller",
+ "domain": "gaming_pc",
+ "members": 31,
+ "problem_members": 29,
+ "organic_problem_members": 4,
+ "intents": {
+  "decide": 22,
+  "fix": 7,
+  "informational": 2
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "unclassified": 5,
+   "community": 7,
+   "editorial": 6,
+   "vendor": 1
+  },
+  "dominant_site": "steamcommunity.com",
+  "dominant_share": 0.37,
+  "fragmented_share": 0.68,
+  "tool_hits": 0,
+  "vendor_share": 0.05,
+  "official_share": 0.0,
+  "unclassified_share": 0.26
+ },
+ "trends_chain_value": 0.453,
+ "trends_error_pct": 57.5,
+ "sample_members": [
+  "best settings for rocket league",
+  "best settings for pc rocket league",
+  "best settings for rocket league ps4",
+  "best settings for rocket league xbox",
+  "best slow settings for rocket league",
+  "best settings for rocket league video",
+  "best settings for rocket league camera",
+  "best settings for rocket league console",
+  "controller not working on rocket league",
+  "best settings for rocket league switch 2",
+  "what are good settings for rocket league",
+  "best settings for rocket league sideswipe",
+  "best settings calculator for rocket league",
+  "controller not working on rocket league pc",
+  "what's the best settings for rocket league",
+  "best settings for beginners in rocket league",
+  "the best rocket league settings in the world",
+  "best settings for rocket league on controller",
+  "best performance settings for rocket league pc",
+  "best settings for rocket league ps5 controller",
+  "best settings for rocket league nintendo switch",
+  "best settings for rocket league xbox controller",
+  "what are the best settings for rocket league ps5",
+  "why isn't my controller working on rocket league",
+  "best settings for rocket league keyboard and mouse",
+  "controller not working pc rocket league epic games",
+  "why isn't my controller working on rocket league pc",
+  "best settings for rocket league pc keyboard and mouse",
+  "how to fix controller not working on rocket league pc",
+  "why does my controller not work on rocket league epic games",
+  "how to fix controller not working on rocket league epic games"
+ ],
+ "queries_checked": [
+  "best settings for rocket league",
+  "controller not working on rocket league pc"
+ ],
+ "serp": [
+  {
+   "query": "best settings for rocket league",
+   "rank": 1,
+   "url": "https://www.thespike.gg/rocket-league/settings",
+   "title": "Best Rocket League settings",
+   "category": "unclassified",
+   "site": "thespike.gg"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 2,
+   "url": "https://www.trophi.ai/post/the-best-settings-for-rocket-league",
+   "title": "The Best Settings for Rocket League 2026 | trophi.ai",
+   "category": "unclassified",
+   "site": "trophi.ai"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 3,
+   "url": "https://steamcommunity.com/sharedfiles/filedetails/?l=koreana&id=1372492557",
+   "title": "Steam \ucee4\ubba4\ub2c8\ud2f0 :: \uac00\uc774\ub4dc :: The ULTIMATE Video Settings Guide & Best Video Settings for Competitive Rocket League",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 4,
+   "url": "https://www.instagram.com/popular/what-is-the-best-settings-for-rocket-league/",
+   "title": "What Is The Best Settings For Rocket League",
+   "category": "unclassified",
+   "site": "instagram.com"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 5,
+   "url": "https://blast.tv/rl/news/best-rocket-league-controller-settings",
+   "title": "The ultimate Rocket League settings for controller and keyboard in 2026",
+   "category": "editorial",
+   "site": "blast.tv"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 6,
+   "url": "https://dignitas.gg/articles/a-guide-to-the-best-rocket-league-controls-and-camera-settings",
+   "title": "A Guide To The Best Rocket League Controls And Camera Settings | Dignitas",
+   "category": "editorial",
+   "site": "dignitas.gg"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 7,
+   "url": "https://heresthethingblog.com/best-rocket-league-settings/",
+   "title": "Best Rocket League Settings for 2026",
+   "category": "editorial",
+   "site": "heresthethingblog.com"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 8,
+   "url": "https://skycoach.gg/blog/rocket-league/articles/rocket-league-best-settings",
+   "title": "Best Rocket League Settings - Camera, Graphics, Controller",
+   "category": "editorial",
+   "site": "skycoach.gg"
+  },
+  {
+   "query": "best settings for rocket league",
+   "rank": 9,
+   "url": "https://monitor.biology.washington.edu/?p=90030",
+   "title": "6+ Finest Digital camera Settings for Rocket League",
+   "category": "editorial",
+   "site": "monitor.biology.washington.edu"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 1,
+   "url": "https://www.epicgames.com/help/c-202300000001622/c-202300000001679/playstation-5-controller-not-working-in-rocket-league-on-pc-a202300000081795",
+   "title": "PlayStation 5 controller not working in Rocket League on PC - Rocket League Support",
+   "category": "vendor",
+   "site": "epicgames.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 2,
+   "url": "https://www.technobezz.com/how-to-fix-a-controller-not-working-in-rocket-league-on-pc",
+   "title": "Controller Not Working in Rocket League on PC? Fixes That Work | Technobezz",
+   "category": "unclassified",
+   "site": "technobezz.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 3,
+   "url": "https://www.minitool.com/news/rocket-league-controller-not-working.html",
+   "title": "Is Rocket League Controller Not Working? Here's How to Fix It! - MiniTool",
+   "category": "editorial",
+   "site": "minitool.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 4,
+   "url": "https://appuals.com/how-to-fix-rocket-league-not-recognizing-controller/",
+   "title": "How to Fix Rocket League not Recognizing Controller",
+   "category": "unclassified",
+   "site": "appuals.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 5,
+   "url": "https://steamcommunity.com/discussions/forum/1/1639788130278721087",
+   "title": "WooWoo Jun 15, 2019 @ 5:47am",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 6,
+   "url": "https://steamcommunity.com/discussions/forum/0/2254559285383433600?l=german",
+   "title": "XBOX ONE CONTROLLER NOT WORKING ON BO2 AND ROCKET LEAGUE",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 7,
+   "url": "https://steamcommunity.com/app/252950/discussions/0/541907675759887745",
+   "title": "Rocket League",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 8,
+   "url": "https://steamcommunity.com/discussions/forum/0/2254559285383433600",
+   "title": "Desperado May 12, 2020 @ 2:40pm",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 9,
+   "url": "https://steamcommunity.com/app/252950/discussions/0/1742230617608432424",
+   "title": "Rocket League",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "controller not working on rocket league pc",
+   "rank": 10,
+   "url": "https://steamcommunity.com/app/252950/discussions/0/350542683191704877",
+   "title": "Rocket League",
+   "category": "community",
+   "site": "steamcommunity.com"
+  }
+ ]
+}

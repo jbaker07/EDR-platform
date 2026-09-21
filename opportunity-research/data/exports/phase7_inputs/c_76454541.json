@@ -1,0 +1,205 @@
+{
+ "cluster_id": "c_76454541",
+ "head_term": "best job highest salary",
+ "label": "highest salary job has",
+ "domain": "careers_jobs",
+ "members": 22,
+ "problem_members": 11,
+ "organic_problem_members": 7,
+ "intents": {
+  "informational": 11,
+  "decide": 10,
+  "calculate": 1
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "official": 2,
+   "unclassified": 4,
+   "editorial": 12
+  },
+  "dominant_site": "nexford.edu",
+  "dominant_share": 0.06,
+  "fragmented_share": 0.67,
+  "tool_hits": 0,
+  "vendor_share": 0.0,
+  "official_share": 0.11,
+  "unclassified_share": 0.22
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "best job highest salary",
+  "what job highest salary",
+  "highest paying starting jobs",
+  "highest starting salary jobs",
+  "which job has highest salary",
+  "which job pays highest salary",
+  "indian job with highest salary",
+  "jobs with highest salary in uk",
+  "what is the highest paying job",
+  "which jobs have highest salary",
+  "highest job salary in australia",
+  "jobs with highest salary in usa",
+  "which job highest salary in dubai",
+  "jobs with highest salary in canada",
+  "which is the highest paid salary job",
+  "which job salary is highest in india",
+  "which job salary is highest in world",
+  "which job has highest salary in world",
+  "which job gives highest salary in india",
+  "job with highest salary in india per month",
+  "job with highest salary in the philippines",
+  "what job has highest salary in the philippines"
+ ],
+ "queries_checked": [
+  "best job highest salary",
+  "job with highest salary in india per month"
+ ],
+ "serp": [
+  {
+   "query": "best job highest salary",
+   "rank": 1,
+   "url": "https://www.nexford.edu/insights/highest-paying-jobs-in-the-world",
+   "title": "Top 15 Highest Paying Jobs In The World 2026 (Inc Salaries) | Nexford University",
+   "category": "official",
+   "site": "nexford.edu"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 2,
+   "url": "https://www.monster.com/career-advice/job-lists/highest-paying-jobs",
+   "title": "What Are the Highest Paying Jobs? 50 Options to Consider",
+   "category": "unclassified",
+   "site": "monster.com"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 3,
+   "url": "https://money.usnews.com/careers/best-jobs/rankings/best-paying-jobs",
+   "title": "Best-Paying Jobs - Careers - Money - U.S. News & World Report",
+   "category": "editorial",
+   "site": "money.usnews.com"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 4,
+   "url": "https://tripleten.com/blog/posts/what-job-makes-the-most-money",
+   "title": "What Job Makes the Most Money? The Ultimate Guide - tripleten.com/blog",
+   "category": "editorial",
+   "site": "tripleten.com"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 5,
+   "url": "https://www.indeed.com/career-advice/finding-a-job/top-100-highest-paying-jobs",
+   "title": "100 High-Paying Careers To Consider (With Average Salaries) | Indeed.com",
+   "category": "editorial",
+   "site": "indeed.com"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 6,
+   "url": "https://careers.usnews.com/best-jobs/rankings/best-paying-jobs",
+   "title": "Highest Paying Jobs of 2026 | US News Careers",
+   "category": "editorial",
+   "site": "careers.usnews.com"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 7,
+   "url": "https://www.careeronestop.org/Toolkit/Wages/highest-paying-careers.aspx",
+   "title": "Highest Paying Careers | Careers | CareerOneStop",
+   "category": "unclassified",
+   "site": "careeronestop.org"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 8,
+   "url": "https://ebsedu.org/blog/highest-paying-jobs-in-the-world/",
+   "title": "Highest Paying Jobs in the World 2026 | Top Global Careers & Salaries",
+   "category": "editorial",
+   "site": "ebsedu.org"
+  },
+  {
+   "query": "best job highest salary",
+   "rank": 9,
+   "url": "https://www.nbcnews.com/better/amp/ncna535896",
+   "title": "Doctors, Lawyers, Tech Workers Make Top-Paying Jobs List",
+   "category": "editorial",
+   "site": "nbcnews.com"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 1,
+   "url": "https://futurense.com/blog/most-paid-jobs-in-india",
+   "title": "Most Paid Jobs in India: Top Careers, Salaries & Future Scope",
+   "category": "editorial",
+   "site": "futurense.com"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 2,
+   "url": "https://www.almabetter.com/bytes/articles/top-highest-salary-jobs-in-india",
+   "title": "Top 10 Highest Salary Jobs in India 2026 [Latest & Trending]",
+   "category": "editorial",
+   "site": "almabetter.com"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 3,
+   "url": "https://www.gradding.com/blog/jobs/highest-paying-jobs-in-india",
+   "title": "Top 10 Highest Salary Jobs in India Per Month",
+   "category": "editorial",
+   "site": "gradding.com"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 4,
+   "url": "https://www.upgrad.com/blog/top-10-highest-paying-jobs-in-india/",
+   "title": "Highest Paying Jobs in India 2026: Salary & Top Careers",
+   "category": "editorial",
+   "site": "upgrad.com"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 5,
+   "url": "https://www.michaelpage.co.in/advice/career-advice/salary-and-negotiation/highest-paying-jobs-india",
+   "title": "Highest paying jobs in India: Top 10 for 2026 | Michael Page",
+   "category": "unclassified",
+   "site": "michaelpage.co.in"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 6,
+   "url": "https://www.itm.edu/blog/highest-paying-jobs-in-india/",
+   "title": "Top 10 Highest Paying Jobs in India 2026 - Salary & Career Scope",
+   "category": "official",
+   "site": "itm.edu"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 7,
+   "url": "https://www.mindgroom.in/blogs/highest-paying-jobs-in-india-unveiling-the-top-25-roles-their-lucrative-salaries",
+   "title": "Highest Paying Jobs in India 2026 | Top 25 High Salary Careers & Best Jobs",
+   "category": "editorial",
+   "site": "mindgroom.in"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 8,
+   "url": "https://salaryora.com/highest-salary-jobs-in-india-per-month/",
+   "title": "Highest Salary Jobs In India Per Month 2026 & Career Guide",
+   "category": "unclassified",
+   "site": "salaryora.com"
+  },
+  {
+   "query": "job with highest salary in india per month",
+   "rank": 9,
+   "url": "https://www.curominds.com/blog/highest-paying-jobs/",
+   "title": "Top 20 Highest Paying Jobs in India 2026 With Per Month Salary",
+   "category": "editorial",
+   "site": "curominds.com"
+  }
+ ]
+}

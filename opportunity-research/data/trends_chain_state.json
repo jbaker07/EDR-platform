@@ -3137,56 +3137,340 @@
    "reads": 7.64,
    "anchor_reads": 48.66,
    "error_pct": 7.6
+  },
+  "duolingo learn languages free": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 2.53,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "green card": {
+   "value": 210.852,
+   "anchor": "macos tahoe",
+   "reads": 46.21,
+   "anchor_reads": 2.53,
+   "error_pct": 20.9
+  },
+  "appliance parts": {
+   "value": 15.245,
+   "anchor": "pilot license",
+   "reads": 76.04,
+   "anchor_reads": 58.68,
+   "error_pct": 1.5
+  },
+  "ham radio deluxe": {
+   "value": 0.125,
+   "anchor": "pilot license",
+   "reads": 0.62,
+   "anchor_reads": 58.68,
+   "error_pct": 81.2
+  },
+  "best premiere pro export settings": {
+   "value": 0.076,
+   "anchor": "pilot license",
+   "reads": 0.38,
+   "anchor_reads": 58.68,
+   "error_pct": 100.9
+  },
+  "thank you notes": {
+   "value": 4.479,
+   "anchor": "pilot license",
+   "reads": 22.34,
+   "anchor_reads": 58.68,
+   "error_pct": 3.1
+  },
+  "care mold remediation": {
+   "value": 0.0,
+   "anchor": "pilot license",
+   "reads": 0,
+   "anchor_reads": 3.62,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "bluetooth headphones": {
+   "value": 89.647,
+   "anchor": "pilot license",
+   "reads": 27.6,
+   "anchor_reads": 3.62,
+   "error_pct": 15.6
+  },
+  "rv there yet": {
+   "value": 9.921,
+   "anchor": "pilot license",
+   "reads": 13.4,
+   "anchor_reads": 15.89,
+   "error_pct": 6.9
+  },
+  "drywall repair": {
+   "value": 25.416,
+   "anchor": "pilot license",
+   "reads": 34.32,
+   "anchor_reads": 15.89,
+   "error_pct": 4.6
+  },
+  "well being meditation": {
+   "value": 0.045,
+   "anchor": "pilot license",
+   "reads": 0.23,
+   "anchor_reads": 58.68,
+   "error_pct": 100.9
+  },
+  "duolingo spanish lessons": {
+   "value": 0.023,
+   "anchor": "pilot license",
+   "reads": 0.11,
+   "anchor_reads": 58.7,
+   "error_pct": 100.9
+  },
+  "small business seo": {
+   "value": 4.353,
+   "anchor": "pilot license",
+   "reads": 21.72,
+   "anchor_reads": 58.7,
+   "error_pct": 3.2
+  },
+  "running plan to lose weight": {
+   "value": 0.011,
+   "anchor": "pilot license",
+   "reads": 0.06,
+   "anchor_reads": 58.68,
+   "error_pct": 100.9
+  },
+  "landlord houses to rent": {
+   "value": 0.246,
+   "anchor": "pilot license",
+   "reads": 1.23,
+   "anchor_reads": 58.68,
+   "error_pct": 41.6
+  },
+  "job certifications": {
+   "value": 4.002,
+   "anchor": "pilot license",
+   "reads": 19.96,
+   "anchor_reads": 58.68,
+   "error_pct": 3.4
+  },
+  "design app figma": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 1.79,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "holiday christmas": {
+   "value": 72.015,
+   "anchor": "macos tahoe",
+   "reads": 11.19,
+   "anchor_reads": 1.79,
+   "error_pct": 32.4
+  },
+  "garden pruning": {
+   "value": 1.113,
+   "anchor": "unreal engine games",
+   "reads": 17.6,
+   "anchor_reads": 48.64,
+   "error_pct": 3.9
+  },
+  "office trello": {
+   "value": 0.116,
+   "anchor": "unreal engine games",
+   "reads": 1.83,
+   "anchor_reads": 48.64,
+   "error_pct": 28.3
+  },
+  "free thank you note template": {
+   "value": 0.005,
+   "anchor": "unreal engine games",
+   "reads": 0.08,
+   "anchor_reads": 48.64,
+   "error_pct": 101.0
+  },
+  "pet bird care": {
+   "value": 0.357,
+   "anchor": "macos tahoe",
+   "reads": 1.3,
+   "anchor_reads": 42.04,
+   "error_pct": 39.6
+  },
+  "blender improve render": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 42.02,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "icd 10 code list pdf": {
+   "value": 0.005,
+   "anchor": "macos tahoe",
+   "reads": 0.02,
+   "anchor_reads": 42.04,
+   "error_pct": 101.2
+  },
+  "microsoft fix it office": {
+   "value": 0.021,
+   "anchor": "macos tahoe",
+   "reads": 0.08,
+   "anchor_reads": 42.04,
+   "error_pct": 101.2
+  },
+  "photography exposure": {
+   "value": 2.786,
+   "anchor": "macos tahoe",
+   "reads": 10.15,
+   "anchor_reads": 42.04,
+   "error_pct": 6.1
+  },
+  "ham radio frequencies": {
+   "value": 0.826,
+   "anchor": "docker desktop",
+   "reads": 0.92,
+   "anchor_reads": 12.38,
+   "error_pct": 58.1
+  },
+  "photo backup": {
+   "value": 9.168,
+   "anchor": "docker desktop",
+   "reads": 10.26,
+   "anchor_reads": 12.38,
+   "error_pct": 8.9
+  },
+  "tomato plants": {
+   "value": 28.297,
+   "anchor": "docker desktop",
+   "reads": 31.68,
+   "anchor_reads": 12.38,
+   "error_pct": 5.6
+  },
+  "job salary": {
+   "value": 88.224,
+   "anchor": "docker desktop",
+   "reads": 67,
+   "anchor_reads": 8.4,
+   "error_pct": 6.7
+  },
+  "3d model converter fbx": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 42.04,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "weather forecast test": {
+   "value": 3.92,
+   "anchor": "macos tahoe",
+   "reads": 14.28,
+   "anchor_reads": 42.04,
+   "error_pct": 4.7
+  },
+  "kindle device": {
+   "value": 2.931,
+   "anchor": "macos tahoe",
+   "reads": 10.68,
+   "anchor_reads": 42.04,
+   "error_pct": 5.9
+  },
+  "free office word software": {
+   "value": 0.015,
+   "anchor": "docker desktop",
+   "reads": 0.08,
+   "anchor_reads": 56.96,
+   "error_pct": 100.9
+  },
+  "energy bills": {
+   "value": 4.783,
+   "anchor": "docker desktop",
+   "reads": 24.64,
+   "anchor_reads": 56.96,
+   "error_pct": 2.9
+  },
+  "what trucks require a cdl": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 57.74,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "how can i mix music": {
+   "value": 0.162,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.87,
+   "anchor_reads": 57.74,
+   "error_pct": 58.5
+  },
+  "soccer drills": {
+   "value": 5.935,
+   "anchor": "sourdough starter recipe",
+   "reads": 31.77,
+   "anchor_reads": 57.74,
+   "error_pct": 2.4
+  },
+  "heartbeat at 8 weeks": {
+   "value": 0.973,
+   "anchor": "sourdough starter recipe",
+   "reads": 5.21,
+   "anchor_reads": 57.74,
+   "error_pct": 10.5
+  },
+  "puppy training schedule": {
+   "value": 0.574,
+   "anchor": "sourdough starter recipe",
+   "reads": 3.08,
+   "anchor_reads": 57.74,
+   "error_pct": 17.1
+  },
+  "logo apple stuck": {
+   "value": 1.674,
+   "anchor": "sourdough starter recipe",
+   "reads": 8.96,
+   "anchor_reads": 57.74,
+   "error_pct": 6.4
+  },
+  "event planning database": {
+   "value": 0.067,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.36,
+   "anchor_reads": 57.74,
+   "error_pct": 100.9
+  },
+  "apple watch alternatives for iphone": {
+   "value": 0.081,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.43,
+   "anchor_reads": 57.74,
+   "error_pct": 100.9
+  },
+  "book writing plan": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 3.6,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "problems with rental property": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 3.6,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "laptop dell": {
+   "value": 106.824,
+   "anchor": "sourdough starter recipe",
+   "reads": 35.7,
+   "anchor_reads": 3.6,
+   "error_pct": 15.3
   }
  },
  "pending": [
-  "duolingo learn languages free",
-  "green card",
-  "ham radio deluxe",
-  "best premiere pro export settings",
-  "appliance parts",
-  "care mold remediation",
-  "thank you notes",
-  "well being meditation",
-  "bluetooth headphones",
-  "rv there yet",
-  "drywall repair",
-  "duolingo spanish lessons",
-  "running plan to lose weight",
-  "landlord houses to rent",
-  "small business seo",
-  "job certifications",
-  "design app figma",
-  "office trello",
-  "holiday christmas",
-  "free thank you note template",
-  "pet bird care",
-  "garden pruning",
-  "icd 10 code list pdf",
-  "blender improve render",
-  "microsoft fix it office",
-  "ham radio frequencies",
-  "photography exposure",
-  "photo backup",
-  "weather forecast test",
-  "tomato plants",
-  "free office word software",
-  "3d model converter fbx",
-  "job salary",
-  "kindle device",
-  "energy bills",
-  "what trucks require a cdl",
-  "how can i mix music",
-  "heartbeat at 8 weeks",
-  "puppy training schedule",
-  "soccer drills",
-  "event planning database",
-  "apple watch alternatives for iphone",
-  "logo apple stuck",
-  "problems with rental property",
-  "book writing plan",
   "logo design illustrator",
-  "laptop dell",
   "stl files",
   "device does not have bluetooth",
   "daw ableton",
@@ -8653,6 +8937,536 @@
    "requeued": [
     "duolingo learn languages free"
    ]
+  },
+  {
+   "at": 1789974036.6738331,
+   "anchor": "macos tahoe",
+   "batch": [
+    "duolingo learn languages free",
+    "green card",
+    "ham radio deluxe",
+    "best premiere pro export settings"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 2.53,
+    "duolingo learn languages free": 0,
+    "green card": 46.21,
+    "ham radio deluxe": 0,
+    "best premiere pro export settings": 0
+   },
+   "requeued": [
+    "ham radio deluxe",
+    "best premiere pro export settings"
+   ]
+  },
+  {
+   "at": 1789974093.066277,
+   "anchor": "pilot license",
+   "batch": [
+    "best premiere pro export settings",
+    "ham radio deluxe",
+    "appliance parts",
+    "care mold remediation"
+   ],
+   "ok": true,
+   "means": {
+    "pilot license": 58.68,
+    "best premiere pro export settings": 0.38,
+    "ham radio deluxe": 0.62,
+    "appliance parts": 76.04,
+    "care mold remediation": 0.32
+   },
+   "requeued": [
+    "best premiere pro export settings",
+    "ham radio deluxe",
+    "care mold remediation"
+   ]
+  },
+  {
+   "at": 1789974162.0415041,
+   "anchor": "pilot license",
+   "batch": [
+    "care mold remediation",
+    "ham radio deluxe",
+    "best premiere pro export settings",
+    "thank you notes"
+   ],
+   "ok": true,
+   "means": {
+    "pilot license": 58.68,
+    "care mold remediation": 0.32,
+    "ham radio deluxe": 0.62,
+    "best premiere pro export settings": 0.38,
+    "thank you notes": 22.34
+   },
+   "requeued": [
+    "care mold remediation"
+   ]
+  },
+  {
+   "at": 1789974218.516453,
+   "anchor": "pilot license",
+   "batch": [
+    "care mold remediation",
+    "well being meditation",
+    "bluetooth headphones",
+    "rv there yet"
+   ],
+   "ok": true,
+   "means": {
+    "pilot license": 3.62,
+    "care mold remediation": 0,
+    "well being meditation": 0,
+    "bluetooth headphones": 27.6,
+    "rv there yet": 2.98
+   },
+   "requeued": [
+    "well being meditation",
+    "rv there yet"
+   ]
+  },
+  {
+   "at": 1789974274.875526,
+   "anchor": "pilot license",
+   "batch": [
+    "rv there yet",
+    "well being meditation",
+    "drywall repair",
+    "duolingo spanish lessons"
+   ],
+   "ok": true,
+   "means": {
+    "pilot license": 15.89,
+    "rv there yet": 13.4,
+    "well being meditation": 0.02,
+    "drywall repair": 34.32,
+    "duolingo spanish lessons": 0
+   },
+   "requeued": [
+    "well being meditation",
+    "duolingo spanish lessons"
+   ]
+  },
+  {
+   "at": 1789974331.2357385,
+   "anchor": "pilot license",
+   "batch": [
+    "duolingo spanish lessons",
+    "well being meditation",
+    "running plan to lose weight",
+    "landlord houses to rent"
+   ],
+   "ok": true,
+   "means": {
+    "pilot license": 58.68,
+    "duolingo spanish lessons": 0.11,
+    "well being meditation": 0.23,
+    "running plan to lose weight": 0.06,
+    "landlord houses to rent": 1.23
+   },
+   "requeued": [
+    "duolingo spanish lessons",
+    "running plan to lose weight",
+    "landlord houses to rent"
+   ]
+  },
+  {
+   "at": 1789974427.354458,
+   "anchor": "pilot license",
+   "batch": [
+    "landlord houses to rent",
+    "running plan to lose weight",
+    "duolingo spanish lessons",
+    "small business seo"
+   ],
+   "ok": true,
+   "means": {
+    "pilot license": 58.7,
+    "landlord houses to rent": 1.23,
+    "running plan to lose weight": 0.06,
+    "duolingo spanish lessons": 0.11,
+    "small business seo": 21.72
+   },
+   "requeued": [
+    "landlord houses to rent",
+    "running plan to lose weight"
+   ]
+  },
+  {
+   "at": 1789974483.6931849,
+   "anchor": "pilot license",
+   "batch": [
+    "running plan to lose weight",
+    "landlord houses to rent",
+    "job certifications",
+    "design app figma"
+   ],
+   "ok": true,
+   "means": {
+    "pilot license": 58.68,
+    "running plan to lose weight": 0.06,
+    "landlord houses to rent": 1.23,
+    "job certifications": 19.96,
+    "design app figma": 4.02
+   },
+   "requeued": [
+    "design app figma"
+   ]
+  },
+  {
+   "at": 1789974540.1180372,
+   "anchor": "macos tahoe",
+   "batch": [
+    "design app figma",
+    "office trello",
+    "holiday christmas",
+    "free thank you note template"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 1.79,
+    "design app figma": 0,
+    "office trello": 0,
+    "holiday christmas": 11.19,
+    "free thank you note template": 0
+   },
+   "requeued": [
+    "office trello",
+    "free thank you note template"
+   ]
+  },
+  {
+   "at": 1789974596.4467227,
+   "anchor": "macos tahoe",
+   "batch": [
+    "free thank you note template",
+    "office trello",
+    "pet bird care",
+    "garden pruning"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "free thank you note template": 0.02,
+    "office trello": 0.4,
+    "pet bird care": 1.3,
+    "garden pruning": 4.06
+   },
+   "requeued": [
+    "free thank you note template",
+    "office trello",
+    "pet bird care",
+    "garden pruning"
+   ]
+  },
+  {
+   "at": 1789974652.792668,
+   "anchor": "unreal engine games",
+   "batch": [
+    "garden pruning",
+    "pet bird care",
+    "office trello",
+    "free thank you note template"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.64,
+    "garden pruning": 17.6,
+    "pet bird care": 5.85,
+    "office trello": 1.83,
+    "free thank you note template": 0.08
+   },
+   "requeued": [
+    "pet bird care"
+   ]
+  },
+  {
+   "at": 1789974709.1403208,
+   "anchor": "macos tahoe",
+   "batch": [
+    "pet bird care",
+    "icd 10 code list pdf",
+    "blender improve render",
+    "microsoft fix it office"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "pet bird care": 1.3,
+    "icd 10 code list pdf": 0.02,
+    "blender improve render": 0,
+    "microsoft fix it office": 0.08
+   },
+   "requeued": [
+    "icd 10 code list pdf",
+    "blender improve render",
+    "microsoft fix it office"
+   ]
+  },
+  {
+   "at": 1789974813.7037642,
+   "anchor": "macos tahoe",
+   "batch": [
+    "microsoft fix it office",
+    "blender improve render",
+    "icd 10 code list pdf",
+    "ham radio frequencies"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.02,
+    "microsoft fix it office": 0.08,
+    "blender improve render": 0,
+    "icd 10 code list pdf": 0.02,
+    "ham radio frequencies": 2.72
+   },
+   "requeued": [
+    "microsoft fix it office",
+    "icd 10 code list pdf",
+    "ham radio frequencies"
+   ]
+  },
+  {
+   "at": 1789974870.0595765,
+   "anchor": "macos tahoe",
+   "batch": [
+    "ham radio frequencies",
+    "icd 10 code list pdf",
+    "microsoft fix it office",
+    "photography exposure"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "ham radio frequencies": 2.68,
+    "icd 10 code list pdf": 0.02,
+    "microsoft fix it office": 0.08,
+    "photography exposure": 10.15
+   },
+   "requeued": [
+    "ham radio frequencies"
+   ]
+  },
+  {
+   "at": 1789974926.471197,
+   "anchor": "docker desktop",
+   "batch": [
+    "ham radio frequencies",
+    "photo backup",
+    "weather forecast test",
+    "tomato plants"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 12.38,
+    "ham radio frequencies": 0.92,
+    "photo backup": 10.26,
+    "weather forecast test": 4.38,
+    "tomato plants": 31.68
+   },
+   "requeued": [
+    "weather forecast test"
+   ]
+  },
+  {
+   "at": 1789974982.9402053,
+   "anchor": "docker desktop",
+   "batch": [
+    "weather forecast test",
+    "free office word software",
+    "3d model converter fbx",
+    "job salary"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 8.4,
+    "weather forecast test": 2.94,
+    "free office word software": 0,
+    "3d model converter fbx": 0,
+    "job salary": 67
+   },
+   "requeued": [
+    "weather forecast test",
+    "free office word software",
+    "3d model converter fbx"
+   ]
+  },
+  {
+   "at": 1789975040.006444,
+   "anchor": "macos tahoe",
+   "batch": [
+    "3d model converter fbx",
+    "free office word software",
+    "weather forecast test",
+    "kindle device"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "3d model converter fbx": 0,
+    "free office word software": 0.04,
+    "weather forecast test": 14.28,
+    "kindle device": 10.68
+   },
+   "requeued": [
+    "free office word software"
+   ]
+  },
+  {
+   "at": 1789975096.4303916,
+   "anchor": "docker desktop",
+   "batch": [
+    "free office word software",
+    "energy bills",
+    "what trucks require a cdl",
+    "how can i mix music"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 56.96,
+    "free office word software": 0.08,
+    "energy bills": 24.64,
+    "what trucks require a cdl": 0,
+    "how can i mix music": 0.81
+   },
+   "requeued": [
+    "what trucks require a cdl",
+    "how can i mix music"
+   ]
+  },
+  {
+   "at": 1789975290.6363811,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "how can i mix music",
+    "what trucks require a cdl",
+    "heartbeat at 8 weeks",
+    "puppy training schedule"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "how can i mix music": 0.87,
+    "what trucks require a cdl": 0,
+    "heartbeat at 8 weeks": 5.21,
+    "puppy training schedule": 3.08
+   },
+   "requeued": [
+    "how can i mix music",
+    "heartbeat at 8 weeks",
+    "puppy training schedule"
+   ]
+  },
+  {
+   "at": 1789975347.024665,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "puppy training schedule",
+    "heartbeat at 8 weeks",
+    "how can i mix music",
+    "soccer drills"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "puppy training schedule": 3.08,
+    "heartbeat at 8 weeks": 5.21,
+    "how can i mix music": 0.87,
+    "soccer drills": 31.77
+   },
+   "requeued": [
+    "puppy training schedule",
+    "heartbeat at 8 weeks"
+   ]
+  },
+  {
+   "at": 1789975403.3829846,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "heartbeat at 8 weeks",
+    "puppy training schedule",
+    "event planning database",
+    "apple watch alternatives for iphone"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "heartbeat at 8 weeks": 5.21,
+    "puppy training schedule": 3.08,
+    "event planning database": 0.36,
+    "apple watch alternatives for iphone": 0.43
+   },
+   "requeued": [
+    "event planning database",
+    "apple watch alternatives for iphone"
+   ]
+  },
+  {
+   "at": 1789975459.7575102,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "apple watch alternatives for iphone",
+    "event planning database",
+    "logo apple stuck",
+    "problems with rental property"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "apple watch alternatives for iphone": 0.43,
+    "event planning database": 0.36,
+    "logo apple stuck": 8.96,
+    "problems with rental property": 0.13
+   },
+   "requeued": [
+    "apple watch alternatives for iphone",
+    "event planning database",
+    "problems with rental property"
+   ]
+  },
+  {
+   "at": 1789975516.326057,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "problems with rental property",
+    "event planning database",
+    "apple watch alternatives for iphone",
+    "book writing plan"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "problems with rental property": 0.13,
+    "event planning database": 0.36,
+    "apple watch alternatives for iphone": 0.43,
+    "book writing plan": 3.58
+   },
+   "requeued": [
+    "problems with rental property",
+    "book writing plan"
+   ]
+  },
+  {
+   "at": 1789975572.893581,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "book writing plan",
+    "problems with rental property",
+    "logo design illustrator",
+    "laptop dell"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 3.6,
+    "book writing plan": 0,
+    "problems with rental property": 0,
+    "logo design illustrator": 0,
+    "laptop dell": 35.7
+   },
+   "requeued": [
+    "logo design illustrator"
+   ]
   }
  ],
  "anchors": [
@@ -9090,6 +9904,52 @@
   "protein intake": 1,
   "craft watercolor": 3,
   "best editing app for subtitles": 2,
-  "duolingo learn languages free": 2
+  "duolingo learn languages free": 3,
+  "green card": 1,
+  "ham radio deluxe": 3,
+  "best premiere pro export settings": 3,
+  "appliance parts": 1,
+  "care mold remediation": 3,
+  "thank you notes": 1,
+  "well being meditation": 3,
+  "bluetooth headphones": 1,
+  "rv there yet": 2,
+  "drywall repair": 1,
+  "duolingo spanish lessons": 3,
+  "running plan to lose weight": 3,
+  "landlord houses to rent": 3,
+  "small business seo": 1,
+  "job certifications": 1,
+  "design app figma": 2,
+  "office trello": 3,
+  "holiday christmas": 1,
+  "free thank you note template": 3,
+  "pet bird care": 3,
+  "garden pruning": 2,
+  "icd 10 code list pdf": 3,
+  "blender improve render": 2,
+  "microsoft fix it office": 3,
+  "ham radio frequencies": 3,
+  "photography exposure": 1,
+  "photo backup": 1,
+  "weather forecast test": 3,
+  "tomato plants": 1,
+  "free office word software": 3,
+  "3d model converter fbx": 2,
+  "job salary": 1,
+  "kindle device": 1,
+  "energy bills": 1,
+  "what trucks require a cdl": 2,
+  "how can i mix music": 3,
+  "heartbeat at 8 weeks": 3,
+  "puppy training schedule": 3,
+  "soccer drills": 1,
+  "event planning database": 3,
+  "apple watch alternatives for iphone": 3,
+  "logo apple stuck": 1,
+  "problems with rental property": 3,
+  "book writing plan": 2,
+  "logo design illustrator": 1,
+  "laptop dell": 1
  }
 }

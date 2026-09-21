@@ -1,0 +1,227 @@
+{
+ "cluster_id": "c_63216123",
+ "head_term": "game maker studio",
+ "label": "maker studio game",
+ "domain": "game_development",
+ "members": 24,
+ "problem_members": 21,
+ "organic_problem_members": 5,
+ "intents": {
+  "generate": 13,
+  "calculate": 4,
+  "commercial_nav": 3,
+  "how_to": 3
+ },
+ "fragmentation": {
+  "n": 20,
+  "categories": {
+   "reference": 1,
+   "community": 10,
+   "vendor": 3,
+   "tool": 2,
+   "marketplace": 3,
+   "editorial": 1
+  },
+  "dominant_site": "youtube.com",
+  "dominant_share": 0.3,
+  "fragmented_share": 0.55,
+  "tool_hits": 5,
+  "vendor_share": 0.15,
+  "official_share": 0.0,
+  "unclassified_share": 0.0
+ },
+ "trends_chain_value": 0.788,
+ "trends_error_pct": 5.0,
+ "sample_members": [
+  "game maker studio",
+  "game maker studio 1",
+  "game maker studio 2",
+  "game maker studio 3",
+  "game maker studio cost",
+  "game maker studio free",
+  "game maker studio list",
+  "game maker studio guide",
+  "game maker studio 2 cost",
+  "game maker studio 2 free",
+  "game maker studio 2 tips",
+  "game maker studio online",
+  "game maker studio 2 price",
+  "game maker studio 2 update",
+  "game maker studio examples",
+  "game maker studio tutorial",
+  "game maker studio 2 tutorial",
+  "how much is game maker studio",
+  "game maker studio alternatives",
+  "how much is game maker studio 2",
+  "how to update game maker studio",
+  "how to download game maker studio",
+  "game maker studio 2 beginner guide",
+  "where to download game maker studio 2"
+ ],
+ "queries_checked": [
+  "game maker studio",
+  "game maker studio 2 tutorial"
+ ],
+ "serp": [
+  {
+   "query": "game maker studio",
+   "rank": 1,
+   "url": "https://en.wikipedia.org/wiki/The_Game_Creators",
+   "title": "The Game Creators",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 2,
+   "url": "https://www.youtube.com/playlist?list=PL_hT--4HOvrdAGC6YHCqn_VR69GlR_rQw",
+   "title": "Game Maker Studio 2 - General Tutorials - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 3,
+   "url": "https://gamemaker.io/en",
+   "title": "GameMaker | Make 2D Games With The Free Engine",
+   "category": "vendor",
+   "site": "gamemaker.io"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 4,
+   "url": "https://gamemaker.io/fr/blog/introducing-gamemaker-studio-2",
+   "title": "GameMaker Studio 2: The Official Launch Guide | GameMaker",
+   "category": "vendor",
+   "site": "gamemaker.io"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 5,
+   "url": "https://www.sandbox.game/en/create/game-maker/",
+   "title": "The Sandbox - Game Maker",
+   "category": "tool",
+   "site": "sandbox.game"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 6,
+   "url": "https://itch.io/c/1107898/game-maker-studio",
+   "title": "game maker studio",
+   "category": "marketplace",
+   "site": "itch.io"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 7,
+   "url": "https://github.com:443/topics/gamemaker-studio",
+   "title": "gamemaker studio",
+   "category": "community",
+   "site": "github.com:443"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 8,
+   "url": "https://github.com/topics/gml?o=asc&s=forks",
+   "title": "github.com",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 9,
+   "url": "https://www.walmart.com/c/kp/gamemaker-studio",
+   "title": "Gamemaker Studio",
+   "category": "marketplace",
+   "site": "walmart.com"
+  },
+  {
+   "query": "game maker studio",
+   "rank": 10,
+   "url": "https://github.com/topics/gms2?l=yacc&o=asc&s=stars",
+   "title": "GameMaker Studio 2 Data Structure Benchmark",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 1,
+   "url": "https://careerkarma.com/blog/gamemaker-studio-2-tutorial/",
+   "title": "GameMaker Studio 2 Tutorial: A Simple Guide to GMS 2 | Career Karma",
+   "category": "editorial",
+   "site": "careerkarma.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 2,
+   "url": "https://www.udemy.com/course/gamemaker-studio-2-the-complete-guide/",
+   "title": "GameMaker Studio 2 - The Complete Guide",
+   "category": "tool",
+   "site": "udemy.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 3,
+   "url": "https://www.youtube.com/playlist?list=PLiagFqvgGpyjWPCV4YRPwjdYmjUkru_Fy",
+   "title": "Tutoriales Game Maker Studio 2",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 4,
+   "url": "https://forum.gamemaker.io/index.php?threads%2Flittle-town-gamemaker-studio-2-tutorial.85681%2F=",
+   "title": "OFFICIAL - Little Town - GameMaker Studio 2 Tutorial",
+   "category": "community",
+   "site": "forum.gamemaker.io"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 5,
+   "url": "https://www.youtube.com/playlist?list=PLQhdrgr47NF0jMDSJDW8soTyFVFaxjLm3",
+   "title": "Gamemaker Studio 2 Tutorials",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 6,
+   "url": "https://www.youtube.com/playlist?list=PLwfY1MeupeNZ11cAzjyiDFwAy58mWNKL7",
+   "title": "Beginner GameMaker Studio 2 Tutorials",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 7,
+   "url": "https://www.youtube.com/playlist?list=PLJKGfra8Jl0AW3rNuwcmi_aq_PdsjQtbu",
+   "title": "GameMaker Studio 2 Tutorials - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 8,
+   "url": "https://www.youtube.com/watch?v=nBCDzE9MDbk",
+   "title": "Beginner's Guide to GameMaker Studio 2 (UPDATED 2020) - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 9,
+   "url": "https://gamemaker.io/en/tutorials",
+   "title": "Learn How To Develop Games | GameMaker Tutorials",
+   "category": "vendor",
+   "site": "gamemaker.io"
+  },
+  {
+   "query": "game maker studio 2 tutorial",
+   "rank": 10,
+   "url": "https://itch.io/post/596424/view-in-topic",
+   "title": "view in topic",
+   "category": "marketplace",
+   "site": "itch.io"
+  }
+ ]
+}

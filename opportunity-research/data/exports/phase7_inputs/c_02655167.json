@@ -1,0 +1,234 @@
+{
+ "cluster_id": "c_02655167",
+ "head_term": "after effects",
+ "label": "effect after",
+ "domain": "video_editing",
+ "members": 113,
+ "problem_members": 58,
+ "organic_problem_members": 5,
+ "intents": {
+  "informational": 40,
+  "commercial_nav": 15,
+  "calculate": 13,
+  "alternative": 9
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "editorial": 8,
+   "tool": 3,
+   "unclassified": 3,
+   "community": 2,
+   "vendor": 3
+  },
+  "dominant_site": "helpx.adobe.com",
+  "dominant_share": 0.16,
+  "fragmented_share": 0.53,
+  "tool_hits": 3,
+  "vendor_share": 0.16,
+  "official_share": 0.0,
+  "unclassified_share": 0.16
+ },
+ "trends_chain_value": 129.564,
+ "trends_error_pct": 15.6,
+ "sample_members": [
+  "after effects",
+  "after effects fix",
+  "after effects free",
+  "after effects slow",
+  "after effects cheap",
+  "after effects guide",
+  "after effects issue",
+  "after effects price",
+  "after effects tools",
+  "after effects faster",
+  "after effects guides",
+  "after effects issues",
+  "after effects online",
+  "after effects review",
+  "after effects update",
+  "new in after effects",
+  "after effects meaning",
+  "after effects problem",
+  "after effects updates",
+  "after effects download",
+  "after effects examples",
+  "after effects template",
+  "after effects tutorial",
+  "after effects guide pdf",
+  "after effects templates",
+  "after effects update 26",
+  "best after effects year",
+  "after effects new update",
+  "after effects slow video",
+  "after effects tools list",
+  "best after effects tools",
+  "after effects alternative",
+  "after effects cost reddit",
+  "after effects free online",
+  "after effects new updates",
+  "after effects top effects",
+  "free after effects reddit",
+  "how much is after effects",
+  "how to work after effects",
+  "is after effects worth it"
+ ],
+ "queries_checked": [
+  "after effects alternative",
+  "after effects update"
+ ],
+ "serp": [
+  {
+   "query": "after effects alternative",
+   "rank": 1,
+   "url": "https://www.linearity.io/blog/after-effects-alternatives/",
+   "title": "Pros and cons: the 4 best After Effects alternatives",
+   "category": "editorial",
+   "site": "linearity.io"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 2,
+   "url": "https://expertphotography.com/10-best-adobe-after-effects-alternatives",
+   "title": "10 Best Adobe After Effects Alternatives in 2026 (Free & Paid!)",
+   "category": "editorial",
+   "site": "expertphotography.com"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 3,
+   "url": "https://www.xda-developers.com/free-adobe-after-effects-alternatives/",
+   "title": "6 free alternatives to Adobe After Effects for motion graphics and VFX",
+   "category": "editorial",
+   "site": "xda-developers.com"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 4,
+   "url": "https://artlist.io/blog/after-effects-alternatives/",
+   "title": "Find the Top Alternative Programs to After Effects | Artlist \u2014 Artlist Blog",
+   "category": "editorial",
+   "site": "artlist.io"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 5,
+   "url": "https://www.g2.com/products/adobe-after-effects/competitors/alternatives",
+   "title": "Top 10 Adobe After Effects Alternatives & Competitors in 2026 | G2",
+   "category": "tool",
+   "site": "g2.com"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 6,
+   "url": "https://www.lottielab.com/compare/after-effects-alternative",
+   "title": "Lottielab | A free alternative to Adobe After Effects",
+   "category": "unclassified",
+   "site": "lottielab.com"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 7,
+   "url": "https://www.xda-developers.com/free-open-source-adobe-after-effects-alternative/",
+   "title": "I found a free and open-source Adobe After Effects alternative, and it's really powerful",
+   "category": "editorial",
+   "site": "xda-developers.com"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 8,
+   "url": "https://www.alternativeto.net/software/adobe-after-effects/?p=4",
+   "title": "Adobe After Effects Alternatives",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "after effects alternative",
+   "rank": 9,
+   "url": "https://www.alternativeto.net/software/adobe-after-effects/?p=3",
+   "title": "Adobe After Effects Alternatives",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "after effects update",
+   "rank": 1,
+   "url": "https://nofilmschool.com/adobe-after-effects-update-2026",
+   "title": "What\u2019s New in After Effects? Here Are All of the Latest Motion Design, Compositing, and Animation Updates | No Film School",
+   "category": "unclassified",
+   "site": "nofilmschool.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 2,
+   "url": "https://community.adobe.com/announcements-527/after-effects-25-6-is-now-available-to-download-60888",
+   "title": "After Effects 25.6 is now available to download! | Community",
+   "category": "community",
+   "site": "community.adobe.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 3,
+   "url": "https://www.redsharknews.com/adobe-introduces-after-effects-25.4",
+   "title": "Adobe After Effects 25.4 Adds New Features and Workflow Enhancements",
+   "category": "editorial",
+   "site": "redsharknews.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 4,
+   "url": "https://helpx.adobe.com/after-effects/desktop/what-s-new/release-notes-after-effects.html",
+   "title": "Release Notes | After Effects | After Effects",
+   "category": "vendor",
+   "site": "helpx.adobe.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 5,
+   "url": "https://community.adobe.com/questions-529/how-do-i-update-after-effects-53165",
+   "title": "How do I update After Effects | Community",
+   "category": "community",
+   "site": "community.adobe.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 6,
+   "url": "https://helpx.adobe.com/after-effects/desktop/what-s-new/whats-new.html",
+   "title": "What's new in After Effects | After Effects",
+   "category": "vendor",
+   "site": "helpx.adobe.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 7,
+   "url": "https://helpx.adobe.com/after-effects/kb/fixed-issues.html",
+   "title": "Fixed issues in After Effects versions 17.x and later | After Effects",
+   "category": "vendor",
+   "site": "helpx.adobe.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 8,
+   "url": "https://www.newsshooter.com/2026/01/22/whats-new-in-adobe-after-effects-26-0/",
+   "title": "What's New in Adobe After Effects 26.0 - Newsshooter",
+   "category": "editorial",
+   "site": "newsshooter.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 9,
+   "url": "https://adobe-after-effects.en.softonic.com/",
+   "title": "Adobe After Effects - Download",
+   "category": "unclassified",
+   "site": "adobe-after-effects.en.softonic.com"
+  },
+  {
+   "query": "after effects update",
+   "rank": 10,
+   "url": "https://www.pluginplay.app/blog/whats-new-in-adobe-after-effects-2026",
+   "title": "What's new in Adobe After Effects 2026 | Plugin Play",
+   "category": "editorial",
+   "site": "pluginplay.app"
+  }
+ ]
+}

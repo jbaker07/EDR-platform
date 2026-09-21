@@ -1,0 +1,234 @@
+{
+ "cluster_id": "c_74700978",
+ "head_term": "obd2 codes",
+ "label": "obd2 cod scanner read",
+ "domain": "automotive",
+ "members": 56,
+ "problem_members": 42,
+ "organic_problem_members": 5,
+ "intents": {
+  "how_to": 19,
+  "informational": 10,
+  "find": 10,
+  "commercial_nav": 4
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "editorial": 5,
+   "unclassified": 8,
+   "community": 2,
+   "vendor": 3,
+   "aggregator": 1
+  },
+  "dominant_site": "autozone.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.42,
+  "tool_hits": 0,
+  "vendor_share": 0.16,
+  "official_share": 0.0,
+  "unclassified_share": 0.42
+ },
+ "trends_chain_value": 1.529,
+ "trends_error_pct": 3.2,
+ "sample_members": [
+  "obd2 codes",
+  "fix obd2 codes",
+  "obd2 codes pdf",
+  "free obd2 codes",
+  "obd2 codes list",
+  "obd2 error codes",
+  "random obd2 codes",
+  "convert obd2 codes",
+  "improve obd2 codes",
+  "obd2 codes meaning",
+  "fix obd2 codes list",
+  "how many obd2 codes",
+  "how much obd2 codes",
+  "identify obd2 codes",
+  "obd2 codes list pdf",
+  "obd2 no codes found",
+  "obd2 codes explained",
+  "obd2 codes list free",
+  "how to read obd2 codes",
+  "random obd2 codes list",
+  "convert obd2 codes list",
+  "how to check obd2 codes",
+  "how to clear obd2 codes",
+  "how to reset obd2 codes",
+  "improve obd2 codes list",
+  "obd2 check engine codes",
+  "obd2 scanner codes list",
+  "how much obd2 codes list",
+  "identify obd2 codes list",
+  "obd2 codes list download",
+  "obd2 codes list pdf free",
+  "obd2 scanner reset codes",
+  "where to find obd2 codes",
+  "obd2 scanner codes meaning",
+  "obd2 scanner codes list pdf",
+  "obd2 scanner no codes found",
+  "obd2 codes list download pdf",
+  "obd2 codes list free download",
+  "where to find obd2 codes list",
+  "how to read obd2 scanner codes"
+ ],
+ "queries_checked": [
+  "how to read obd2 codes",
+  "obd2 codes list"
+ ],
+ "serp": [
+  {
+   "query": "how to read obd2 codes",
+   "rank": 1,
+   "url": "https://www.autopi.io/blog/how-to-read-obd2-codes/",
+   "title": null,
+   "category": "editorial",
+   "site": "autopi.io"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 2,
+   "url": "https://www.greatwater360autocare.com/news/how-to-read-obd-ii-codes",
+   "title": null,
+   "category": "editorial",
+   "site": "greatwater360autocare.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 3,
+   "url": "https://uptake.com/topics/obd2-codes/",
+   "title": null,
+   "category": "unclassified",
+   "site": "uptake.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 4,
+   "url": "https://bobistheoilguy.com/forums/threads/obd-2-codes-explained-read-your-own-codes.130754/",
+   "title": null,
+   "category": "community",
+   "site": "bobistheoilguy.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 5,
+   "url": "https://www.carhop.com/news/how-to-read-a-car-code-scanner/",
+   "title": null,
+   "category": "editorial",
+   "site": "carhop.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 6,
+   "url": "https://www.kbb.com/obd-ii/",
+   "title": null,
+   "category": "unclassified",
+   "site": "kbb.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 7,
+   "url": "https://www.autozone.com/diy/diagnostic-trouble-codes/obd-2-code-list",
+   "title": null,
+   "category": "vendor",
+   "site": "autozone.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 8,
+   "url": "https://us.gooloo.com/blogs/basics/how-to-read-obd-codes",
+   "title": null,
+   "category": "editorial",
+   "site": "us.gooloo.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 9,
+   "url": "https://www.raiseahood.com/article-detail/how-to-read-diagnostic-codes-before-you-visit-the-shop",
+   "title": null,
+   "category": "unclassified",
+   "site": "raiseahood.com"
+  },
+  {
+   "query": "how to read obd2 codes",
+   "rank": 10,
+   "url": "https://www.scribd.com/document/669213974/Lab-Manual-2-Print",
+   "title": null,
+   "category": "aggregator",
+   "site": "scribd.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 1,
+   "url": "https://www.calamp.com/blog/obd2-codes/",
+   "title": "All You Need to Know About OBD2 Codes \u2013 CalAmp",
+   "category": "editorial",
+   "site": "calamp.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 2,
+   "url": "https://www.klavkarr.com/data-trouble-code-obd2.php",
+   "title": "OBD2 engine fault codes for all makes",
+   "category": "unclassified",
+   "site": "klavkarr.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 3,
+   "url": "https://www.autozone.com/diy/diagnostic-trouble-codes/obd-2-code-list",
+   "title": "OBD 2 Code List - AutoZone",
+   "category": "vendor",
+   "site": "autozone.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 4,
+   "url": "https://www.edmunds.com/obd-dtc/",
+   "title": "OBD-II Diagnostic Trouble Codes | Edmunds",
+   "category": "unclassified",
+   "site": "edmunds.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 5,
+   "url": "https://www.innova.com/pages/dtc-library",
+   "title": "OBD2 & OEM Diagnostic Trouble Codes Definitions \u2013 Innova",
+   "category": "unclassified",
+   "site": "innova.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 6,
+   "url": "https://repairpal.com/obd-ii-code-chart",
+   "title": "OBD-II Trouble Code Chart",
+   "category": "unclassified",
+   "site": "repairpal.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 7,
+   "url": "https://github.com/mytrile/obd-trouble-codes/blob/master/obd-trouble-codes.csv",
+   "title": "obd-trouble-codes/obd-trouble-codes.csv at master \u00b7 mytrile/obd-trouble-codes",
+   "category": "community",
+   "site": "github.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 8,
+   "url": "https://www.autonationhyundainorthrichlandhills.com/service/obd-ii-trouble-codes.htm",
+   "title": "Hyundai OBD-II Trouble Codes | AutoNation Hyundai North Richland Hills",
+   "category": "unclassified",
+   "site": "autonationhyundainorthrichlandhills.com"
+  },
+  {
+   "query": "obd2 codes list",
+   "rank": 9,
+   "url": "https://apps.apple.com/app/id1454079376",
+   "title": "Obd2 Codes List",
+   "category": "vendor",
+   "site": "apps.apple.com"
+  }
+ ]
+}

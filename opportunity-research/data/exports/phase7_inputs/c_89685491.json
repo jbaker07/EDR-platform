@@ -1,0 +1,227 @@
+{
+ "cluster_id": "c_89685491",
+ "head_term": "printer offline error",
+ "label": "offline printer",
+ "domain": "it_support",
+ "members": 42,
+ "problem_members": 25,
+ "organic_problem_members": 4,
+ "intents": {
+  "fix": 17,
+  "informational": 14,
+  "commercial_nav": 3,
+  "alternative": 3
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 5,
+   "marketplace": 3,
+   "reference": 1,
+   "community": 4,
+   "vendor": 4,
+   "unclassified": 1
+  },
+  "dominant_site": "ebay.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.5,
+  "tool_hits": 0,
+  "vendor_share": 0.22,
+  "official_share": 0.0,
+  "unclassified_share": 0.06
+ },
+ "trends_chain_value": 0.094,
+ "trends_error_pct": 101.1,
+ "sample_members": [
+  "printer offline fix",
+  "best offline printer",
+  "free printer offline",
+  "printer offline error",
+  "printer offline issue",
+  "printer offline price",
+  "printer offline issues",
+  "printer offline reddit",
+  "printer offline meaning",
+  "printer offline problem",
+  "printer offline updates",
+  "free printer offline fix",
+  "how many printer offline",
+  "how much printer offline",
+  "printer is still offline",
+  "fix printer offline issue",
+  "printer offline error fix",
+  "printer offline templates",
+  "printer offline to online",
+  "printer offline what to do",
+  "printer offline for only me",
+  "free printer offline problem",
+  "how many printer offline fix",
+  "how much printer offline fix",
+  "printer offline alternatives",
+  "printer offline cheaper price",
+  "printer offline for beginners",
+  "best printer offline to online",
+  "how to download printer offline",
+  "printer offline cheaper printer",
+  "printer offline compatible with",
+  "printer offline to online guide",
+  "use printer offline not working",
+  "how many printer offline problem",
+  "printer offline alternative free",
+  "printer offline list not working",
+  "printer offline free alternatives",
+  "printer offline problem how to fix",
+  "why are all of my printers offline",
+  "how to fix printer offline to online"
+ ],
+ "queries_checked": [
+  "best offline printer",
+  "printer offline error"
+ ],
+ "serp": [
+  {
+   "query": "best offline printer",
+   "rank": 1,
+   "url": "https://www.compandsave.com/blog/posts/best-non-wireless-printer-for-2025-fast-reliable-printing.html",
+   "title": "Best Non-Wireless Printer for 2025: Fast & Reliable Printing",
+   "category": "editorial",
+   "site": "compandsave.com"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 2,
+   "url": "https://www.dkoms.co.uk/blog-best-offline-printers-2026",
+   "title": "Best Offline Printers 2026: USB & Wi-Fi Options | DKOMS",
+   "category": "editorial",
+   "site": "dkoms.co.uk"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 3,
+   "url": "https://www.rtings.com/printer/reviews/best/by-features/wireless",
+   "title": "The 6 Best Wireless Printers of 2026 - RTINGS.com",
+   "category": "editorial",
+   "site": "rtings.com"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 4,
+   "url": "https://www.amazon.com/non-wireless-printer/s?k=non+wireless+printer",
+   "title": "Amazon.com: Non Wireless Printer",
+   "category": "marketplace",
+   "site": "amazon.com"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 5,
+   "url": "https://en.wikipedia.org/wiki/Xerox_1200",
+   "title": "Xerox 1200",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 6,
+   "url": "https://www.deskfinds.com/guide/best-printers-without-wifi",
+   "title": "Best Printers Without Wi-Fi in 2026 (Wired & Wifi-Off Picks) | DeskFinds",
+   "category": "editorial",
+   "site": "deskfinds.com"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 7,
+   "url": "https://www.quora.com/What-is-a-printer-that-works-HP-printers-stink-One-that-prints-and-scans-and-doesnt-go-offline-all-the-time",
+   "title": "What is a printer that works (HP printers stink)? One that prints and scans and doesn't go offline all the time. - Quora",
+   "category": "community",
+   "site": "quora.com"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 8,
+   "url": "https://ebay.com/t/HP-Envy-Color-Inkjet-Computer-Printers/1245/bn_5762655",
+   "title": "bn 5762655",
+   "category": "marketplace",
+   "site": "ebay.com"
+  },
+  {
+   "query": "best offline printer",
+   "rank": 9,
+   "url": "https://www.ebay.com/t/Inkjet-Wireless-Color-Computer-Printers/1245/bn_5762400",
+   "title": "bn 5762400",
+   "category": "marketplace",
+   "site": "ebay.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 1,
+   "url": "https://learn.microsoft.com/en-us/answers/questions/5635783/my-printer-keeps-going-offline-how-do-i-fix-this-i",
+   "title": "My printer keeps going offline. How do I fix this issue? - Microsoft Q&A",
+   "category": "vendor",
+   "site": "learn.microsoft.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 2,
+   "url": "https://support.hp.com/us-en/help/printer/printer-offline",
+   "title": "HP Printer Offline Issues - How to Fix | HP\u00ae Support",
+   "category": "vendor",
+   "site": "support.hp.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 3,
+   "url": "https://support.usa.canon.com/kb/s/article/ART180034",
+   "title": "Resolve Printer is Offline Or Not Responding - Windows",
+   "category": "vendor",
+   "site": "support.usa.canon.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 4,
+   "url": "https://support.microsoft.com/en-us/windows/hardware/printer/troubleshooting-offline-printer-problems-in-windows",
+   "title": "Troubleshooting offline printer problems in Windows | Microsoft Support",
+   "category": "vendor",
+   "site": "support.microsoft.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 5,
+   "url": "https://www.justanswer.com/printers/nqpxe-cannot-printer-work-says-offline.html",
+   "title": "How to Fix Printer Offline Issues: Expert Solutions",
+   "category": "community",
+   "site": "justanswer.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 6,
+   "url": "https://www.justanswer.com/printers/rh57h-ja-helped-connect-printer-showing-offline.html",
+   "title": "How to Fix & Prevent Printer Offline Errors | Q&A",
+   "category": "community",
+   "site": "justanswer.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 7,
+   "url": "https://www.paperpapers.com/news/why-is-my-printer-offline/",
+   "title": "Why is My Printer Offline | 4 Quick Fixes",
+   "category": "editorial",
+   "site": "paperpapers.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 8,
+   "url": "https://www.pollockcompany.com/why-is-my-printer-offline-solved/",
+   "title": "Why is My Printer Offline? Solved! - Pollock Company",
+   "category": "unclassified",
+   "site": "pollockcompany.com"
+  },
+  {
+   "query": "printer offline error",
+   "rank": 9,
+   "url": "https://qna.habr.com/user/printeroffline_error",
+   "title": "\u0417\u0430\u0434\u0430\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441",
+   "category": "community",
+   "site": "qna.habr.com"
+  }
+ ]
+}

@@ -1,0 +1,208 @@
+{
+ "cluster_id": "c_06057594",
+ "head_term": "best pc for modding",
+ "label": "modd gam pc minecraft",
+ "domain": "gaming_pc",
+ "members": 22,
+ "problem_members": 11,
+ "organic_problem_members": 3,
+ "intents": {
+  "informational": 10,
+  "how_to": 7,
+  "decide": 4,
+  "commercial_nav": 1
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "unclassified": 3,
+   "community": 6,
+   "editorial": 6,
+   "reference": 2,
+   "marketplace": 1
+  },
+  "dominant_site": "facebook.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.67,
+  "tool_hits": 0,
+  "vendor_share": 0.0,
+  "official_share": 0.0,
+  "unclassified_share": 0.17
+ },
+ "trends_chain_value": 0.005,
+ "trends_error_pct": 101.3,
+ "sample_members": [
+  "best pc for modding",
+  "download modded pc games",
+  "get into pc game modding",
+  "pc game modding tutorial",
+  "pc modding for beginners",
+  "what is modding in gaming",
+  "can xbox pc games be modded",
+  "how does modding games work",
+  "windows 10 modded for gaming",
+  "best free modded games for pc",
+  "how to get modded games on pc",
+  "best pc for modding and gaming",
+  "gaming pc for modded minecraft",
+  "how to play modded games on pc",
+  "modding pc games for beginners",
+  "free pc games that can be modded",
+  "how to get modded games on iphone",
+  "how to install modded games on pc",
+  "best gaming pc for modded minecraft",
+  "games that can be modded pc accounts",
+  "how to get modded mobile games on pc",
+  "how to get modded pokemon games on pc"
+ ],
+ "queries_checked": [
+  "best gaming pc for modded minecraft",
+  "how to play modded games on pc"
+ ],
+ "serp": [
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 1,
+   "url": "https://www.windowscentral.com/best-pre-built-pcs-minecraft",
+   "title": "Best pre-built PCs for playing Minecraft in 2026: Powerful gaming rigs and affordable desktops for the world's biggest game",
+   "category": "unclassified",
+   "site": "windowscentral.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 2,
+   "url": "https://community.microcenter.com/discussion/14428/best-laptop-for-heavily-modded-minecraft",
+   "title": "best laptop for heavily modded minecraft? \u2014 Micro Center",
+   "category": "community",
+   "site": "community.microcenter.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 3,
+   "url": "https://www.facebook.com/groups/1434615380513126/posts/1915204485787544/",
+   "title": "Budget gaming pc for modded minecraft?",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 4,
+   "url": "https://apexgamingpcs.com/blogs/apex-support/gaming-pc-minecraft",
+   "title": "Best PC for Minecraft & Hardware Specs \u2013 Apex Gaming PCs",
+   "category": "editorial",
+   "site": "apexgamingpcs.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 5,
+   "url": "https://www.quora.com/What-gaming-computer-should-I-buy-Looking-for-something-user-friendly-for-modded-Minecraft-servers-and-preferably-with-a-larger-screen",
+   "title": "What gaming computer should I buy? Looking for something user-friendly for modded Minecraft servers, and preferably with a larger screen. - Quora",
+   "category": "community",
+   "site": "quora.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 6,
+   "url": "https://siriuspowerpc.com/best-pc-for-minecraft/",
+   "title": "Best PC for Minecraft 2025 | Ultimate Guide to Choose the Best PC",
+   "category": "editorial",
+   "site": "siriuspowerpc.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 7,
+   "url": "https://siriuspowerpc.com/best-gaming-pc-for-minecraft/",
+   "title": "Best Gaming PC for Minecraft in 2025 | Sirius Power PC",
+   "category": "editorial",
+   "site": "siriuspowerpc.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 8,
+   "url": "https://grandgoldman.com/blogs/gaming/best-computer-for-minecraft",
+   "title": "10 Best Gaming Computers for Minecraft (Reviews) \u2013 Grand Goldman",
+   "category": "editorial",
+   "site": "grandgoldman.com"
+  },
+  {
+   "query": "best gaming pc for modded minecraft",
+   "rank": 9,
+   "url": "https://forums.tomsguide.com/members/invisipixel.1728832/recent-content",
+   "title": "Recent content by Invisipixel",
+   "category": "community",
+   "site": "forums.tomsguide.com"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 1,
+   "url": "https://www.howtogeek.com/modding-pc-games-has-never-been-easier-heres-how-to-do-it/",
+   "title": "Modding PC Games Has Never Been Easier, Here's How to Do It",
+   "category": "editorial",
+   "site": "howtogeek.com"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 2,
+   "url": "https://www.pcgamer.com/a-beginners-guide-to-mods/",
+   "title": "A beginner's guide to mods | PC Gamer",
+   "category": "unclassified",
+   "site": "pcgamer.com"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 3,
+   "url": "https://www.pcworld.com/article/407621/how-to-install-pc-game-mods.html",
+   "title": "How to install PC game mods: A beginner's guide | PCWorld",
+   "category": "editorial",
+   "site": "pcworld.com"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 4,
+   "url": "https://www.facebook.com/groups/915172753426846/posts/1226049705672481/",
+   "title": "How to get started with modded games on pc?",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 5,
+   "url": "https://www.quora.com/When-it-comes-to-PC-gaming-how-do-you-download-and-add-play-with-mods-on-certain-games-How-would-you-play-with-the-mods-on-a-Steam-game",
+   "title": "When it comes to PC gaming, how do you download and add/play with mods on certain games? How would you play with the mods on a Steam game? - Quora",
+   "category": "community",
+   "site": "quora.com"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 6,
+   "url": "https://en.wikipedia.org/wiki/Modding",
+   "title": "Modding",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 7,
+   "url": "https://en.wikipedia.org/wiki/Video_game_modding",
+   "title": "Video game modding",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 8,
+   "url": "https://builttofrag.com/game-mods-guide-complete-101-guide/",
+   "title": "Game Mods Guide 101: Complete PC Gamer's Guide",
+   "category": "unclassified",
+   "site": "builttofrag.com"
+  },
+  {
+   "query": "how to play modded games on pc",
+   "rank": 9,
+   "url": "https://itch.io/post/15097229",
+   "title": "itch.io",
+   "category": "marketplace",
+   "site": "itch.io"
+  }
+ ]
+}

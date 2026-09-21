@@ -1,5 +1,10 @@
-{"seed": "electronics arduino", "new_queries": 669, "suggestions_seen": 1041}
-{"seed": "electronics resistor", "new_queries": 506, "suggestions_seen": 797}
-{"seed": "electronics soldering", "new_queries": 618, "suggestions_seen": 1240}
-{"seed": "electronics battery", "new_queries": 717, "suggestions_seen": 933}
-{"seed": "electronics zigbee", "new_queries": 449, "suggestions_seen": 908}
+{"seed": "electronics arduino", "skipped": "already expanded"}
+{"seed": "raspberry pi", "new_queries": 1751, "suggestions_seen": 2367}
+{"seed": "electronics resistor", "skipped": "already expanded"}
+{"seed": "electronics capacitor", "new_queries": 519, "suggestions_seen": 878}
+{"seed": "electronics soldering", "skipped": "already expanded"}
+{"seed": "electronics multimeter", "new_queries": 660, "suggestions_seen": 1245}
+{"seed": "electronics battery", "skipped": "already expanded"}
+{"seed": "lithium battery", "new_queries": 1557, "suggestions_seen": 2224}
+{"seed": "electronics zigbee", "skipped": "already expanded"}
+{"seed": "home assistant automation", "new_queries": 709, "suggestions_seen": 2055}

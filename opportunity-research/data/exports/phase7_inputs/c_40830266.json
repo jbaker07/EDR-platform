@@ -1,0 +1,226 @@
+{
+ "cluster_id": "c_40830266",
+ "head_term": "pet bird care",
+ "label": "pet bird india kid",
+ "domain": "pets",
+ "members": 42,
+ "problem_members": 26,
+ "organic_problem_members": 3,
+ "intents": {
+  "decide": 13,
+  "informational": 13,
+  "calculate": 4,
+  "find": 4
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "unclassified": 8,
+   "community": 2,
+   "editorial": 5,
+   "marketplace": 1,
+   "official": 2
+  },
+  "dominant_site": "kaytee.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.39,
+  "tool_hits": 0,
+  "vendor_share": 0.0,
+  "official_share": 0.11,
+  "unclassified_share": 0.44
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "free pet bird",
+  "pet bird care",
+  "pet bird cost",
+  "best pet birds",
+  "pet bird guide",
+  "pet bird price",
+  "pet bird types",
+  "pet birds list",
+  "how to pet bird",
+  "how much pet bird",
+  "pet bird problems",
+  "pet bird template",
+  "pet bird checklist",
+  "pet bird care guide",
+  "pet bird types list",
+  "pet bird types small",
+  "best pet birds to own",
+  "how much pet bird cost",
+  "best pet birds for kids",
+  "pet birds cost in india",
+  "pet birds for beginners",
+  "pet birds list in india",
+  "pet birds price in india",
+  "where to find a pet bird",
+  "random pet bird generator",
+  "best pet birds for beginners",
+  "easy pet birds for beginners",
+  "good pet birds for beginners",
+  "pet bird types for beginners",
+  "small pet birds for beginners",
+  "random pet bird name generator",
+  "top 10 pet birds for beginners",
+  "which pet bird is best for home",
+  "best pet birds for home in india",
+  "best pet birds for kids in india",
+  "what do pet birds do in minecraft",
+  "best small pet birds for beginners",
+  "what kind of pet bird should i get",
+  "best pet birds for beginners reddit",
+  "best pet birds for beginners and kids"
+ ],
+ "queries_checked": [
+  "best pet birds for beginners",
+  "how to pet bird"
+ ],
+ "serp": [
+  {
+   "query": "best pet birds for beginners",
+   "rank": 1,
+   "url": "https://www.kaytee.com/learn-care/pet-birds/best-pet-birds-for-beginners",
+   "title": "Best Pet Birds For Beginners",
+   "category": "unclassified",
+   "site": "kaytee.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 2,
+   "url": "https://www.instagram.com/p/DMLbaYzsL62/?hl=en",
+   "title": "Best pet birds for beginners \ud83e\udd9c",
+   "category": "unclassified",
+   "site": "instagram.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 3,
+   "url": "https://www.fishlore.com/aquariumfishforum/threads/i-am-considering-a-bird-what-types-are-best-for-a-beginner.416915/",
+   "title": "I Am Considering A Bird, What Types Are Best For A Beginner? | Bird Forum",
+   "category": "community",
+   "site": "fishlore.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 4,
+   "url": "https://www.parrotforums.com/threads/best-beginner-bird-suggestions.104437/",
+   "title": "Best \"beginner bird\" suggestions",
+   "category": "community",
+   "site": "parrotforums.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 5,
+   "url": "https://allanspetcenter.com/best-bird-pet-for-beginners/",
+   "title": "The Best Bird Pets for Beginners - Allan's Pet Center",
+   "category": "unclassified",
+   "site": "allanspetcenter.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 6,
+   "url": "https://broomfieldvet.com/blog/best-pet-birds-for-beginners/",
+   "title": "Best Pet Birds for Beginners - Broomfield Veterinary Hospital",
+   "category": "editorial",
+   "site": "broomfieldvet.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 7,
+   "url": "https://www.thepethospitalsms.com/site/blog/2023/01/15/easiest-friendliest-birds",
+   "title": "Easiest & Friendliest Birds to Keep as Pets: Guide for Beginners",
+   "category": "editorial",
+   "site": "thepethospitalsms.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 8,
+   "url": "https://www.montevistavet.com/site/blog/2024/06/21/best-pet-birds",
+   "title": "Best Pet Bird for a Beginner | Turlock Vets",
+   "category": "editorial",
+   "site": "montevistavet.com"
+  },
+  {
+   "query": "best pet birds for beginners",
+   "rank": 9,
+   "url": "https://aol.com/best-pet-chicken-breeds-beginners-114500976.html",
+   "title": "Best Pet Chicken Breeds for Beginners (& Those to Avoid)",
+   "category": "editorial",
+   "site": "aol.com"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 1,
+   "url": "https://www.chewy.com/education/bird/general/how-to-pet-a-bird",
+   "title": "How To Pet a Bird | Chewy",
+   "category": "unclassified",
+   "site": "chewy.com"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 2,
+   "url": "https://www.petmd.com/bird/where-to-pet-your-bird",
+   "title": "Where To Pet Your Bird | PetMD",
+   "category": "unclassified",
+   "site": "petmd.com"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 3,
+   "url": "https://zupreem.com/how-to-pet-a-bird-5-simple-steps/",
+   "title": "How to Pet a Bird - 5 Simple Steps - ZuPreem Pet",
+   "category": "unclassified",
+   "site": "zupreem.com"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 4,
+   "url": "https://bestfriends.org/pet-care-resources/bird-handling-techniques-how-hold-bird",
+   "title": "Bird Handling Techniques: How to Hold a Bird",
+   "category": "unclassified",
+   "site": "bestfriends.org"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 5,
+   "url": "https://www.kaytee.com/learn-care/pet-birds/general-care",
+   "title": "General Care for Pet Birds",
+   "category": "unclassified",
+   "site": "kaytee.com"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 6,
+   "url": "https://birdtricksstore.com/blogs/parrot-care-blog/how-to-train-your-bird-to-let-you-pet-him",
+   "title": "How to TRAIN Your Bird to Let You Pet Him",
+   "category": "marketplace",
+   "site": "birdtricksstore.com"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 7,
+   "url": "https://www.westfieldanimal.com/site/blog/2022/03/15/do-birds-like-being-pet",
+   "title": "Do Birds Like Being Pet? | Westfield Vet",
+   "category": "editorial",
+   "site": "westfieldanimal.com"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 8,
+   "url": "https://www.cdc.gov/healthy-pets/about/birds.html",
+   "title": "www.cdc.gov",
+   "category": "official",
+   "site": "cdc.gov"
+  },
+  {
+   "query": "how to pet bird",
+   "rank": 9,
+   "url": "https://www.cdfa.ca.gov/AHFSS/Animal_Health/pdfs/pet_bird_care_and_disease_prevention.pdf",
+   "title": "pet bird care and disease prevention",
+   "category": "official",
+   "site": "cdfa.ca.gov"
+  }
+ ]
+}

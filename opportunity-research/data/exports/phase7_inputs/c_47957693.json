@@ -1,0 +1,225 @@
+{
+ "cluster_id": "c_47957693",
+ "head_term": "garden pruning",
+ "label": "prun garden tomato plant",
+ "domain": "gardening",
+ "members": 42,
+ "problem_members": 19,
+ "organic_problem_members": 4,
+ "intents": {
+  "informational": 23,
+  "decide": 7,
+  "find": 3,
+  "alternative": 2
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 7,
+   "unclassified": 9,
+   "marketplace": 1,
+   "official": 1
+  },
+  "dominant_site": "homesandgardens.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.39,
+  "tool_hits": 0,
+  "vendor_share": 0.0,
+  "official_share": 0.06,
+  "unclassified_share": 0.5
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "garden pruning",
+  "best garden pruning",
+  "garden pruning tips",
+  "garden pruning books",
+  "garden pruning guide",
+  "garden pruning tools",
+  "garden pruning errors",
+  "pruning garden plants",
+  "garden pruning problems",
+  "garden pruning schedule",
+  "garden pruning services",
+  "garden pruning databases",
+  "garden pruning templates",
+  "garden pruning tutorials",
+  "best garden pruning tools",
+  "garden pruning checklists",
+  "why is garden pruning bad",
+  "garden pruning not working",
+  "winter garden pruning tips",
+  "garden pruning alternatives",
+  "garden pruning new versions",
+  "garden plants winter pruning",
+  "garden plants order of pruning",
+  "garden pruning compatible with",
+  "garden pruning list for winter",
+  "epic gardening pruning tomatoes",
+  "garden pruning free alternatives",
+  "garden pruning list for planting",
+  "how do i garden pruning tomatoes",
+  "how many garden pruning tomatoes",
+  "how much garden pruning tomatoes",
+  "identify garden pruning tomatoes",
+  "garden pruning performance plants",
+  "garden pruning books for beginners",
+  "pruning guide all plants in garden",
+  "best gardening services for pruning",
+  "where to find garden pruning tomatoes",
+  "which garden tool is used for pruning",
+  "garden pruning tutorials for beginners",
+  "best gardening services for fall pruning"
+ ],
+ "queries_checked": [
+  "best garden pruning tools",
+  "garden pruning schedule"
+ ],
+ "serp": [
+  {
+   "query": "best garden pruning tools",
+   "rank": 1,
+   "url": "https://www.homesandgardens.com/gardens/best-pruning-tools",
+   "title": "Best Pruning Tools: Everything You Need for Different Tasks | Homes and Gardens",
+   "category": "editorial",
+   "site": "homesandgardens.com"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 2,
+   "url": "https://www.gardeningknowhow.com/garden-how-to/tools/best-pruners",
+   "title": "6 Best Garden Pruners Tried & Tested for Every Pruning Job | Gardening Know How",
+   "category": "editorial",
+   "site": "gardeningknowhow.com"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 3,
+   "url": "https://www.hgtv.com/shopping/outdoors/best-must-have-pruning-tools",
+   "title": "A Master Gardener's Guide to Must-Have Pruning Tools",
+   "category": "unclassified",
+   "site": "hgtv.com"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 4,
+   "url": "https://www.gardendesign.com/pruning/tools-for-pruning.html",
+   "title": "6 Essential Pruning Tools: Guide to Garden Pruning Equipment | Garden Design",
+   "category": "unclassified",
+   "site": "gardendesign.com"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 5,
+   "url": "https://garden.org/learn/articles/view/3922/Choosing-the-Right-Pruning-Tools/",
+   "title": "Choosing the Right Pruning Tools - Garden.org",
+   "category": "editorial",
+   "site": "garden.org"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 6,
+   "url": "https://www.hgtv.com/shopping/product-reviews/best-pruning-shears",
+   "title": "8 Best Pruning Shears of 2026, Tested and Reviewed",
+   "category": "unclassified",
+   "site": "hgtv.com"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 7,
+   "url": "https://www.gardengatemagazine.com/articles/how-to/prune/must-have-pruning-tools-for-gardeners/",
+   "title": "Must-Have Pruning Tools for Gardeners | Garden Gate",
+   "category": "editorial",
+   "site": "gardengatemagazine.com"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 8,
+   "url": "https://www.homesandgardens.com/gardens/essential-pruning-tools-for-your-yard",
+   "title": "A Guide to Essential Pruning Tools: Chosen and Reviewed by Homes & Gardens | Homes and Gardens",
+   "category": "editorial",
+   "site": "homesandgardens.com"
+  },
+  {
+   "query": "best garden pruning tools",
+   "rank": 9,
+   "url": "https://www.walmart.com/ip/17228322533",
+   "title": "www.walmart.com",
+   "category": "marketplace",
+   "site": "walmart.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 1,
+   "url": "https://libguides.nybg.org/pruningshrubs",
+   "title": "Home - Pruning Schedule for Shrubs: In the Nick of Time - Research Guides at New York Botanical Garden",
+   "category": "unclassified",
+   "site": "libguides.nybg.org"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 2,
+   "url": "https://www.swansonsnursery.com/blog/pruning-calendar",
+   "title": "Pruning Calendar \u2014 Seattle's Favorite Garden Store Since 1924 - Swansons Nursery",
+   "category": "editorial",
+   "site": "swansonsnursery.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 3,
+   "url": "https://www.gardeningknowhow.com/garden-how-to/info/general-pruning-calendar.htm",
+   "title": "When To Prune Plants \u2013 Best Pruning Times For Garden Plants | Gardening Know How",
+   "category": "editorial",
+   "site": "gardeningknowhow.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 4,
+   "url": "https://southernlivingplants.com/planting-care/timing-is-everything-your-complete-guide-to-pruning/",
+   "title": "Timing is everything: Your complete guide to pruning",
+   "category": "unclassified",
+   "site": "southernlivingplants.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 5,
+   "url": "https://www.gardenersworld.com/how-to/grow-plants/year-round-garden-pruning-guide/",
+   "title": "Year-Round Garden Pruning Guide | BBC Gardeners World Magazine",
+   "category": "unclassified",
+   "site": "gardenersworld.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 6,
+   "url": "https://spottsgardens.com/pruning-calendar-organic-garden-when-to-prune/",
+   "title": "When to Prune: The Garden Pruning Calendar - Spotts Garden Service",
+   "category": "unclassified",
+   "site": "spottsgardens.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 7,
+   "url": "https://thegoodearthgarden.com/when-and-what-to-prune/",
+   "title": "What and When to Prune | Good Earth Garden Center",
+   "category": "unclassified",
+   "site": "thegoodearthgarden.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 8,
+   "url": "https://www.almanac.com/bestday/prune-encourage-growth",
+   "title": "Best Days to Prune to Encourage Growth",
+   "category": "unclassified",
+   "site": "almanac.com"
+  },
+  {
+   "query": "garden pruning schedule",
+   "rank": 9,
+   "url": "https://camdocs.camden.gov.uk/CMWebDrawer/Record/9355505/file/document",
+   "title": "camdocs.camden.gov.uk",
+   "category": "official",
+   "site": "camdocs.camden.gov.uk"
+  }
+ ]
+}

@@ -1,0 +1,233 @@
+{
+ "cluster_id": "c_05810365",
+ "head_term": "renovation cost per square foot",
+ "label": "foot square renovation sq",
+ "domain": "real_estate_housing",
+ "members": 63,
+ "problem_members": 60,
+ "organic_problem_members": 3,
+ "intents": {
+  "calculate": 56,
+  "commercial_nav": 2,
+  "decide": 1,
+  "fix": 1
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "editorial": 9,
+   "tool": 5,
+   "unclassified": 4,
+   "community": 1
+  },
+  "dominant_site": "thisoldhouse.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.53,
+  "tool_hits": 6,
+  "vendor_share": 0.0,
+  "official_share": 0.0,
+  "unclassified_share": 0.21
+ },
+ "trends_chain_value": 0.876,
+ "trends_error_pct": 4.6,
+ "sample_members": [
+  "renovation cost per sq",
+  "woodwork cost per sq ft",
+  "renovation cost per foot",
+  "renovation cost per sq ft",
+  "renovation price per sq ft",
+  "how many tomatoes per sq ft",
+  "renovation cost per sq foot",
+  "renovation cost square foot",
+  "renovation cost per square foot",
+  "renovation price per square foot",
+  "smart house cost per square foot",
+  "square foot gardening irrigation",
+  "average renovation cost per sq ft",
+  "renovation cost per square foot nj",
+  "fix renovation cost per square foot",
+  "garden pruning cost per square foot",
+  "gut renovation cost per square foot",
+  "house cleaning cost per square foot",
+  "renovation cost per square foot nyc",
+  "renovation costs per square foot uk",
+  "bath renovation cost per square foot",
+  "best renovation cost per square foot",
+  "commercial renovation cost per sq ft",
+  "drip irrigation cost per square foot",
+  "free renovation cost per square foot",
+  "home renovation cost per square foot",
+  "house cleaning rates per square foot",
+  "renovation cost per square foot india",
+  "office renovation cost per square foot",
+  "random renovation cost per square foot",
+  "renovation cost per square foot canada",
+  "renovation cost per square foot london",
+  "bathtub renovation cost per square foot",
+  "convert renovation cost per square foot",
+  "improve renovation cost per square foot",
+  "renovation cost per square foot calgary",
+  "renovation cost per square foot chicago",
+  "renovation cost per square foot ontario",
+  "renovation cost per square foot toronto",
+  "cost of house renovation per square foot"
+ ],
+ "queries_checked": [
+  "best renovation cost per square foot",
+  "renovation cost per square foot"
+ ],
+ "serp": [
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 1,
+   "url": "https://www.thisoldhouse.com/home-finances/home-renovation-cost",
+   "title": "How Much Does Home Renovation Cost? (2026 Pricing)",
+   "category": "editorial",
+   "site": "thisoldhouse.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 2,
+   "url": "https://www.blockrenovation.com/guides/remodeling-costs-per-square-foot-by-room",
+   "title": "Remodeling Costs Per Square Foot by Room",
+   "category": "editorial",
+   "site": "blockrenovation.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 3,
+   "url": "https://www.angi.com/articles/complete-house-renovation-cost.htm",
+   "title": "How Much Does It Cost to Renovate a House? [2026 Data] | Angi",
+   "category": "tool",
+   "site": "angi.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 4,
+   "url": "https://gallerykbny.com/post/nyc-apartment-renovation-tips-costs-per-square-foot",
+   "title": "NYC Apartment Renovation Costs Per Square Foot",
+   "category": "unclassified",
+   "site": "gallerykbny.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 5,
+   "url": "https://homeguide.com/costs/house-remodeling-cost",
+   "title": "How Much Does It Cost to Remodel a House? (2026)",
+   "category": "unclassified",
+   "site": "homeguide.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 6,
+   "url": "https://www.wholehousefan.com/blogs/wholehousefans/home-renovation-cost-guide",
+   "title": "Home Renovation Cost Guide: 2026 Prices, Per-Sq-Ft, Tools",
+   "category": "editorial",
+   "site": "wholehousefan.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 7,
+   "url": "https://radfordbuildingcompany.com/blog/renovation-cost-per-square-foot/",
+   "title": "Renovation Cost Per Square Foot: 2026 Breakdown | Radford",
+   "category": "editorial",
+   "site": "radfordbuildingcompany.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 8,
+   "url": "https://goldenstatede.com/home-renovation-costs/",
+   "title": "How Much Do Home Renovation Costs in 2025? A Complete California Homeowner's Guide Golden State Digital Exchange",
+   "category": "unclassified",
+   "site": "goldenstatede.com"
+  },
+  {
+   "query": "best renovation cost per square foot",
+   "rank": 9,
+   "url": "https://colastudios.substack.com/p/heres-your-nyc-renovation-calculator",
+   "title": "heres your nyc renovation calculator",
+   "category": "community",
+   "site": "colastudios.substack.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 1,
+   "url": "https://www.thisoldhouse.com/home-finances/home-renovation-cost",
+   "title": "How Much Does Home Renovation Cost?",
+   "category": "editorial",
+   "site": "thisoldhouse.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 2,
+   "url": "https://www.blockrenovation.com/guides/remodeling-costs-per-square-foot-by-room",
+   "title": "Remodeling Costs Per Square Foot by Room",
+   "category": "editorial",
+   "site": "blockrenovation.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 3,
+   "url": "https://www.brickunderground.com/guides/how-to-renovate/average-NYC-renovation-cost-per-square-foot",
+   "title": "How much does the average NYC renovation cost?",
+   "category": "editorial",
+   "site": "brickunderground.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 4,
+   "url": "https://www.sofi.com/learn/content/average-cost-to-remodel-a-house/",
+   "title": "How Much Does It Cost to Remodel or Renovate a House?",
+   "category": "tool",
+   "site": "sofi.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 5,
+   "url": "https://sweeten.com/blog/home-renovation-cost-guides/cost-per-square-foot-new-york-city/",
+   "title": "Budget Guide to NYC Home Renovation Cost Per Square Foot",
+   "category": "editorial",
+   "site": "sweeten.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 6,
+   "url": "https://www.chase.com/personal/mortgage/education/owning-a-home/cost-to-remodel-house",
+   "title": "How Much Does It Cost to Remodel a House? | Chase",
+   "category": "unclassified",
+   "site": "chase.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 7,
+   "url": "https://radfordbuildingcompany.com/blog/renovation-cost-per-square-foot/",
+   "title": "Renovation Cost Per Square Foot: 2026 Breakdown | Radford",
+   "category": "editorial",
+   "site": "radfordbuildingcompany.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 8,
+   "url": "https://www.nerdwallet.com/home-ownership/home-improvement/learn/cost-renovate-house",
+   "title": "How Much Does it Cost to Renovate a House?",
+   "category": "tool",
+   "site": "nerdwallet.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 9,
+   "url": "https://www.homeadvisor.com/cost/additions-and-remodels/remodel-multiple-rooms/",
+   "title": "How Much Does a House Renovation Cost in 2025?",
+   "category": "tool",
+   "site": "homeadvisor.com"
+  },
+  {
+   "query": "renovation cost per square foot",
+   "rank": 10,
+   "url": "https://www.goodreads.com/author_blog_posts/16684069-the-costs-per-square-foot-of-renovating-in-nyc?tab=book",
+   "title": "The Costs Per Square Foot of Renovating in NYC",
+   "category": "tool",
+   "site": "goodreads.com"
+  }
+ ]
+}

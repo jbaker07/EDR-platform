@@ -1,0 +1,235 @@
+{
+ "cluster_id": "c_60022455",
+ "head_term": "unreal engine",
+ "label": "unreal engine",
+ "domain": "game_development",
+ "members": 131,
+ "problem_members": 72,
+ "organic_problem_members": 10,
+ "intents": {
+  "informational": 42,
+  "how_to": 23,
+  "calculate": 18,
+  "commercial_nav": 17
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "editorial": 8,
+   "reference": 2,
+   "unclassified": 1,
+   "community": 5,
+   "vendor": 2,
+   "marketplace": 1
+  },
+  "dominant_site": "youtube.com",
+  "dominant_share": 0.21,
+  "fragmented_share": 0.68,
+  "tool_hits": 0,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.05
+ },
+ "trends_chain_value": 39.762,
+ "trends_error_pct": 2.5,
+ "sample_members": [
+  "unreal engine",
+  "unreal engine 1",
+  "unreal engine 3",
+  "unreal engine 4",
+  "unreal engine 5",
+  "unreal engine 6",
+  "unreal engine 500",
+  "unreal engine cost",
+  "unreal engine free",
+  "unreal engine list",
+  "unreal engine slow",
+  "fix unreal engine 5",
+  "unreal engine error",
+  "unreal engine guide",
+  "unreal engine price",
+  "unreal engine tools",
+  "is unreal engine bad",
+  "unreal engine 4 vs 5",
+  "unreal engine 5 cost",
+  "unreal engine 5 slow",
+  "unreal engine 6 vs 5",
+  "unreal engine review",
+  "is unreal engine easy",
+  "unreal engine 4 guide",
+  "unreal engine 5 error",
+  "unreal engine 5 guide",
+  "unreal engine 5 price",
+  "unreal engine example",
+  "how many unreal engine",
+  "unreal engine 5 issues",
+  "unreal engine 5 update",
+  "unreal engine download",
+  "unreal engine examples",
+  "unreal engine problems",
+  "unreal engine template",
+  "unreal engine tutorial",
+  "do i need unreal engine",
+  "unreal engine error 500",
+  "unreal engine generator",
+  "unreal engine guide pdf"
+ ],
+ "queries_checked": [
+  "unreal engine 4 vs 5",
+  "unreal engine 5 tutorial"
+ ],
+ "serp": [
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 1,
+   "url": "https://www.juegostudio.com/blog/unreal-engine-4-vs-unreal-engine-5-differences-based-on-various-factors",
+   "title": "Unreal Engine 4 vs Unreal Engine 5: Should You Migrate Mid-Project?",
+   "category": "editorial",
+   "site": "juegostudio.com"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 2,
+   "url": "https://kevurugames.com/blog/the-difference-between-unreal-engine-4-5-sneak-peek/",
+   "title": "The Difference Between Unreal Engine 4 & 5: Sneak Peek With Kevuru Games -",
+   "category": "editorial",
+   "site": "kevurugames.com"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 3,
+   "url": "https://game-ace.com/blog/unreal-engine-4-vs-5/",
+   "title": "Unreal Engine 4 vs 5: Comparison - Game-Ace",
+   "category": "editorial",
+   "site": "game-ace.com"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 4,
+   "url": "https://en.wikipedia.org/wiki/Unreal_Engine_5",
+   "title": "Unreal Engine 5",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 5,
+   "url": "https://en.wikipedia.org/wiki/Unreal_Engine_4",
+   "title": "Unreal Engine 4",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 6,
+   "url": "https://www.theknowledgeacademy.com/blog/unreal-engine-4-vs-5/",
+   "title": "Unreal Engine 4 Vs 5: What's the Difference?",
+   "category": "editorial",
+   "site": "theknowledgeacademy.com"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 7,
+   "url": "https://ilogos.biz/unreal-engine-4-vs-5-a-comprehensive-comparison-for-game-developers/",
+   "title": "Unreal Engine 4 vs 5: Comparison for Game Developers",
+   "category": "unclassified",
+   "site": "ilogos.biz"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 8,
+   "url": "https://invogames.com/blog/unreal-engine-4-vs-5/",
+   "title": "Unreal Engine 4 vs 5: Performance, Graphics & System Requirements",
+   "category": "editorial",
+   "site": "invogames.com"
+  },
+  {
+   "query": "unreal engine 4 vs 5",
+   "rank": 9,
+   "url": "https://yaninagames.com/blog/unreal-engine-4-vs-5-which-to-choose-for-game-development/",
+   "title": "Unreal Engine 4 vs 5 \u2013 Which to Choose for Game Development? - Yaninagames",
+   "category": "editorial",
+   "site": "yaninagames.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 1,
+   "url": "https://kitbash3d.com/a/blog/how-to-use-unreal-engine-5-step-by-step-guide",
+   "title": "How to Use Unreal Engine 5: A Step-by-Step Guide [+ Video] \u2013 KitBash3D",
+   "category": "editorial",
+   "site": "kitbash3d.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 2,
+   "url": "https://www.youtube.com/c/StartUnrealEngine5/videos",
+   "title": "Unreal Engine 5 tutorial",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 3,
+   "url": "https://www.youtube.com/playlist?list=PLGEDpELN0zHDiStehu4bleZ7KVhOaGAUK",
+   "title": "Unreal Engine 5 Complete Tutorials",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 4,
+   "url": "https://www.unrealengine.com/blog/learn-unreal-engine-5-fast-with-these-new-courses",
+   "title": "Learn Unreal Engine 5 fast with these new courses",
+   "category": "editorial",
+   "site": "unrealengine.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 5,
+   "url": "https://www.youtube.com/watch?v=gBIFMoFkZP4&vl=en",
+   "title": "Unreal Engine 5 Beginner Tutorial | Getting Started (2026) - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 6,
+   "url": "https://forums.unrealengine.com/t/from-where-to-start-and-how-to-learn-ue-5-as-a-beginner/592537",
+   "title": "From where to start and how to learn UE 5 as a beginner? - Tutorial & Course Discussions - Epic Developer Community Forums",
+   "category": "community",
+   "site": "forums.unrealengine.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 7,
+   "url": "https://www.youtube.com/playlist?list=PLQN3U_-lMANPf-r5-yq865aVLLvTtSW5g",
+   "title": "Getting Started In Unreal Engine 5 - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 8,
+   "url": "https://dev.epicgames.com/documentation/unreal-engine/understanding-the-basics-of-unreal-engine?lang=en-US",
+   "title": "Understanding the Basics of Unreal Engine | Unreal Engine 5.8 Documentation | Epic Developer Community",
+   "category": "vendor",
+   "site": "dev.epicgames.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 9,
+   "url": "https://dev.epicgames.com/community/unreal-engine/learning",
+   "title": "Learning - Unreal Engine | Epic Developer Community",
+   "category": "vendor",
+   "site": "dev.epicgames.com"
+  },
+  {
+   "query": "unreal engine 5 tutorial",
+   "rank": 10,
+   "url": "https://gmd2.itch.io/ue5-simple-beginners-tutorial",
+   "title": "UE5 Simple Beginners Tutorial",
+   "category": "marketplace",
+   "site": "gmd2.itch.io"
+  }
+ ]
+}

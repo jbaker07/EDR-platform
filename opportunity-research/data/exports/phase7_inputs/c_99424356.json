@@ -1,0 +1,230 @@
+{
+ "cluster_id": "c_99424356",
+ "head_term": "apple watch ultra",
+ "label": "ultra apple watch",
+ "domain": "consumer_tech",
+ "members": 37,
+ "problem_members": 20,
+ "organic_problem_members": 6,
+ "intents": {
+  "informational": 15,
+  "compare": 10,
+  "how_to": 4,
+  "calculate": 4
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "editorial": 9,
+   "unclassified": 2,
+   "community": 6,
+   "vendor": 2
+  },
+  "dominant_site": "youtube.com",
+  "dominant_share": 0.32,
+  "fragmented_share": 0.79,
+  "tool_hits": 0,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.11
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "apple watch ultra",
+  "apple watch ultra 1",
+  "apple watch ultra 2",
+  "apple watch ultra 3",
+  "apple watch ultra 4",
+  "apple watch ultra 5",
+  "free apple watch ultra",
+  "apple watch ultra vs 10",
+  "apple watch ultra vs 11",
+  "apple watch ultra 3 slow",
+  "apple watch ultra 4 vs 3",
+  "apple watch ultra review",
+  "free apple watch ultra 3",
+  "apple watch 11 vs ultra 3",
+  "apple watch ultra 3 price",
+  "apple watch ultra 4 price",
+  "apple watch ultra 3 review",
+  "apple watch ultra 4 reddit",
+  "apple watch ultra 4 review",
+  "apple watch vs ultra reddit",
+  "apple watch tutorial ultra 3",
+  "how much apple watch ultra 3",
+  "how much apple watch ultra 4",
+  "apple watch ultra alternative",
+  "apple watch ultra 2 calculator",
+  "apple watch ultra 3 vs ultra 1",
+  "apple watch ultra 3 vs ultra 2",
+  "apple watch ultra 4 vs ultra 1",
+  "apple watch ultra 4 vs ultra 2",
+  "apple watch ultra for beginners",
+  "apple watch vs ultra difference",
+  "how much is apple watch ultra 2",
+  "apple watch ultra 2 for beginners",
+  "apple watch ultra 3 for beginners",
+  "apple watch ultra tutorial for beginners",
+  "apple watch ultra 2 tutorial for beginners",
+  "apple watch ultra 3 tutorial for beginners"
+ ],
+ "queries_checked": [
+  "apple watch 11 vs ultra 3",
+  "apple watch ultra tutorial for beginners"
+ ],
+ "serp": [
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 1,
+   "url": "https://www.cnn.com/cnn-underscored/reviews/apple-watch-series-11-vs-apple-watch-ultra-3",
+   "title": "Apple Watch Series 11 vs. Apple Watch Ultra 3 | CNN Underscored",
+   "category": "editorial",
+   "site": "cnn.com"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 2,
+   "url": "https://www.dcrainmaker.com/2025/09/apple-watch-ultra3-vs-apple-watch-series11-detailed-review.html",
+   "title": "Apple Watch Ultra 3 vs Apple Watch Series 11: Every Difference Detailed | DC Rainmaker",
+   "category": "unclassified",
+   "site": "dcrainmaker.com"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 3,
+   "url": "https://braceletsmartwatch.fr/en/blogs/blog/comparison-of-apple-watch-11-vs-apple-watch-ultra-3",
+   "title": "Comparison of Apple Watch 11 vs Apple Watch Ultra 3",
+   "category": "editorial",
+   "site": "braceletsmartwatch.fr"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 4,
+   "url": "https://www.phonearena.com/reviews/apple-watch-series-11-vs-watch-ultra-3_id7363",
+   "title": "Apple Watch Series 11 vs Apple Watch Ultra 3: The verdict is pretty clear",
+   "category": "editorial",
+   "site": "phonearena.com"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 5,
+   "url": "https://www.tomsguide.com/wellness/smartwatches/apple-watch-11-vs-apple-watch-ultra-3-which-one-should-you-buy",
+   "title": "Apple Watch 11 vs Apple Watch Ultra 3 \u2014 which one should you buy?",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 6,
+   "url": "https://www.tomsguide.com/wellness/smartwatches/apple-watch-11-vs-apple-watch-ultra-3-vs-apple-watch-se-3-which-one-should-you-buy",
+   "title": "Apple Watch 11 vs Ultra 3 vs SE 3 \u2014 here's how all the new Apple Watch models compare",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 7,
+   "url": "https://www.tomsguide.com/wellness/smartwatches/5-reasons-to-choose-the-apple-watch-ultra-3-over-the-apple-watch-series-11",
+   "title": "5 reasons to choose the Apple Watch Ultra 3 over the Apple Watch Series 11",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 8,
+   "url": "https://www.tomsguide.com/us/apple-watch-guide,review-2817-11.html",
+   "title": "Best Apple Watch in 2026: each model tested and rated by our experts",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "apple watch 11 vs ultra 3",
+   "rank": 9,
+   "url": "https://www.tomsguide.com/au/best-picks/best-apple-watch",
+   "title": "Best Apple Watch in 2025: Each model tested and rated by our experts",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 1,
+   "url": "https://www.youtube.com/watch?v=mkIxdgIO1es",
+   "title": "Apple Watch - Complete Beginners Guide (Apple Watch Ultra, Series 8, Series 7, & Watch SE) - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 2,
+   "url": "https://www.youtube.com/watch?v=ZLlE0iK2EA4",
+   "title": "Apple Watch Ultra - Complete Beginners Guide",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 3,
+   "url": "https://www.youtube.com/watch?v=Jjjp5u8jFjw",
+   "title": "Apple Watch Ultra - The Complete Beginners Guide - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 4,
+   "url": "https://www.youtube.com/watch?v=hogOIzZN-Io",
+   "title": "How To Use Apple Watch Ultra! (Complete Beginners Guide) - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 5,
+   "url": "https://support.apple.com/guide/watch/welcome/watchos",
+   "title": "Apple Watch User Guide - Apple Support",
+   "category": "vendor",
+   "site": "support.apple.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 6,
+   "url": "https://www.youtube.com/watch?v=njp0ykhLpsE",
+   "title": "How To Use Apple Watch Ultra 2! (Complete Beginners Guide) - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 7,
+   "url": "https://support.apple.com/en-us/docs/watch/300895",
+   "title": "Apple Watch Ultra Manuals and Downloads - Apple Support",
+   "category": "vendor",
+   "site": "support.apple.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 8,
+   "url": "https://www.youtube.com/watch?v=GNPGTaiKRzc",
+   "title": "How to use Apple Watch Ultra + Tips/Tricks! - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 9,
+   "url": "https://www.macobserver.com/tips/how-to/use-apple-watch/",
+   "title": "How to Use Apple Watch for Beginners (Step by Step)",
+   "category": "editorial",
+   "site": "macobserver.com"
+  },
+  {
+   "query": "apple watch ultra tutorial for beginners",
+   "rank": 10,
+   "url": "https://www.simplymac.com/apple-watch/apple-watch-ultra-setup",
+   "title": "Apple Watch Ultra Setup: A Complete Step\u2011by\u2011Step Guide - SimplyMac",
+   "category": "unclassified",
+   "site": "simplymac.com"
+  }
+ ]
+}

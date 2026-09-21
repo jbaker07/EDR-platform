@@ -1,0 +1,226 @@
+{
+ "cluster_id": "c_51963424",
+ "head_term": "wood stain remover",
+ "label": "stain wood apply furniture",
+ "domain": "diy_woodworking",
+ "members": 69,
+ "problem_members": 49,
+ "organic_problem_members": 4,
+ "intents": {
+  "how_to": 27,
+  "informational": 20,
+  "decide": 9,
+  "calculate": 7
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 9,
+   "unclassified": 5,
+   "vendor": 2,
+   "community": 1,
+   "marketplace": 1
+  },
+  "dominant_site": "rustica.com",
+  "dominant_share": 0.06,
+  "fragmented_share": 0.56,
+  "tool_hits": 0,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.28
+ },
+ "trends_chain_value": 1.916,
+ "trends_error_pct": 21.3,
+ "sample_members": [
+  "wood stain or oil",
+  "wood stain remover",
+  "fix wood water stain",
+  "oil based wood stain",
+  "wood stain table top",
+  "fix stained wood table",
+  "wood stain water based",
+  "how to remove old stain",
+  "how to stain remove oil",
+  "easy to apply wood stain",
+  "how to wood stain a door",
+  "best stain for wood doors",
+  "easiest wood stain to use",
+  "fastest way to stain wood",
+  "how to wood stain a table",
+  "how to wood stain decking",
+  "how to properly stain wood",
+  "wood deck stain calculator",
+  "best stain remover for wood",
+  "fastest way to remove stain",
+  "how to wood stain furniture",
+  "easy way to apply wood stain",
+  "stain removal wood furniture",
+  "best stain for wood furniture",
+  "wood stain oil vs water based",
+  "easy to use wood stain remover",
+  "how do you apply stain to wood",
+  "how much wood stain for a deck",
+  "how much wood stain for a door",
+  "how to stain wood with a brush",
+  "types of stains for wood decks",
+  "ways to remove oil stains best",
+  "wood stain remover not working",
+  "best method to apply wood stain",
+  "easiest way to apply wood stain",
+  "how much wood stain for a table",
+  "how to apply wood stain on deck",
+  "how to apply wood stain on door",
+  "how to apply wood stain remover",
+  "how to properly stain wood deck"
+ ],
+ "queries_checked": [
+  "how to wood stain a door",
+  "ways to remove oil stains best"
+ ],
+ "serp": [
+  {
+   "query": "how to wood stain a door",
+   "rank": 1,
+   "url": "https://rustica.com/how-to-stain-a-wood-door/",
+   "title": "How to Stain a Door | How to Stain a Wood Door",
+   "category": "editorial",
+   "site": "rustica.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 2,
+   "url": "https://realcraft.com/blogs/articles/how-to-stain-a-door",
+   "title": "How To Stain A Door - RealCraft",
+   "category": "editorial",
+   "site": "realcraft.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 3,
+   "url": "https://www.zar.com/blog/diy-door-makeover-how-to-stain-a-wood-door",
+   "title": "Mastering the Art: How to Stain Your Wood Door Like a Pro",
+   "category": "editorial",
+   "site": "zar.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 4,
+   "url": "https://simply2moms.com/the-best-way-to-stain-a-custom-wood-door/",
+   "title": "The Best Way to Stain a Custom Wood Door \u2013 Simply2moms",
+   "category": "unclassified",
+   "site": "simply2moms.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 5,
+   "url": "https://tribblepainting.com/how-to-stain-a-wood-door/",
+   "title": "How to Stain a Wood Door: 9 Easy Steps You Can Follow\ud83d\udeaa\u2728",
+   "category": "unclassified",
+   "site": "tribblepainting.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 6,
+   "url": "https://www.krosswood.com/blogs/krosswood-doors/a-step-by-step-guide-to-staining-your-wood-door-like-a-pro",
+   "title": "A Step-by-Step Guide to Staining Your Wood Door Like a Pro \u2013 Krosswood Doors",
+   "category": "editorial",
+   "site": "krosswood.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 7,
+   "url": "https://aquacoat.com/blogs/news/how-do-i-prepare-my-wooden-doors-for-staining",
+   "title": "Staining Wooden Doors - How to Prepare - Aqua Coat",
+   "category": "editorial",
+   "site": "aquacoat.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 8,
+   "url": "https://aristadoors.com/articles/stain-wood-door/",
+   "title": "How to Stain a Door: 7 Steps for a Perfect Finish | Arista Doors",
+   "category": "editorial",
+   "site": "aristadoors.com"
+  },
+  {
+   "query": "how to wood stain a door",
+   "rank": 9,
+   "url": "https://patents.google.com/patent/US6979475",
+   "title": "US6979475B2 - Process and product by-process for staining a fiberglass door - Google Patents",
+   "category": "vendor",
+   "site": "patents.google.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 1,
+   "url": "https://www.grove.co/blog/how-to-remove-oil-stains",
+   "title": "How to Get Oil Stains Out of Clothes Naturally, Step by Step | Grove Collaborative",
+   "category": "editorial",
+   "site": "grove.co"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 2,
+   "url": "https://www.apartmenttherapy.com/how-to-get-oil-out-of-clothes-36741448",
+   "title": "I Tried 4 Methods for Removing Oil Stains on Clothes | Apartment Therapy",
+   "category": "unclassified",
+   "site": "apartmenttherapy.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 3,
+   "url": "https://tide.com/en-us/how-to-wash-clothes/how-to-remove-stains/general-oil-stains",
+   "title": "How to Get Oil Stains Out of Clothes: Successful & Easy Methods",
+   "category": "unclassified",
+   "site": "tide.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 4,
+   "url": "https://food52.com/story/24154-how-to-get-rid-of-grease-stains",
+   "title": "How to Get Oil Out of Clothes - Best Grease Stains Removal Hack",
+   "category": "unclassified",
+   "site": "food52.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 5,
+   "url": "https://www.whirlpool.com/blog/washers-and-dryers/how-to-get-grease-and-oil-stains-out.html",
+   "title": "How to Get Oil & Grease Out of Clothes | Whirlpool",
+   "category": "editorial",
+   "site": "whirlpool.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 6,
+   "url": "https://www.tomsguide.com/how-to/how-to-remove-oil-stains-from-clothes",
+   "title": "How to remove oil stains from clothes without ruining them",
+   "category": "editorial",
+   "site": "tomsguide.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 7,
+   "url": "https://issuu.com/spotless_magic_world/docs/spotless-how_to_get_olive_oil_stains_out_of_carpet",
+   "title": "Spotless-How to Get Olive Oil Stains Out of Carpet & Fabric (1)",
+   "category": "vendor",
+   "site": "issuu.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 8,
+   "url": "https://forums.mikeholt.com/threads/cleaning-tips.53620/post-868262",
+   "title": "Cleaning tips",
+   "category": "community",
+   "site": "forums.mikeholt.com"
+  },
+  {
+   "query": "ways to remove oil stains best",
+   "rank": 9,
+   "url": "https://www.ebay.com/motors/blog/?p=1155023",
+   "title": "How to Remove Car Oil From a Driveway",
+   "category": "marketplace",
+   "site": "ebay.com"
+  }
+ ]
+}

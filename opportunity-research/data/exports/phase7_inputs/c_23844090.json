@@ -1,0 +1,226 @@
+{
+ "cluster_id": "c_23844090",
+ "head_term": "small business seo",
+ "label": "seo business small",
+ "domain": "small_business",
+ "members": 43,
+ "problem_members": 24,
+ "organic_problem_members": 5,
+ "intents": {
+  "informational": 19,
+  "decide": 8,
+  "calculate": 7,
+  "alternative": 3
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "unclassified": 6,
+   "editorial": 9,
+   "vendor": 1,
+   "official": 1,
+   "community": 1
+  },
+  "dominant_site": "businesswitchacademy.substack.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.56,
+  "tool_hits": 1,
+  "vendor_share": 0.06,
+  "official_share": 0.06,
+  "unclassified_share": 0.33
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "small business seo",
+  "business seo small tips",
+  "small business seo cost",
+  "small business seo guide",
+  "small business seo tools",
+  "small business seo errors",
+  "small business seo guides",
+  "small business seo reddit",
+  "small business seo reviews",
+  "small business seo updates",
+  "business seo small examples",
+  "small business seo problems",
+  "small business seo software",
+  "small business seo tutorial",
+  "best small business seo tips",
+  "small business seo templates",
+  "best seo for a small business",
+  "best small business seo guide",
+  "free small business seo tools",
+  "why is small business seo bad",
+  "how many small business seo do",
+  "small business seo not working",
+  "small business seo alternatives",
+  "small business seo for beginners",
+  "small business seo software free",
+  "small business seo template free",
+  "best seo tools for small business",
+  "how many small business seo tools",
+  "small business seo cost per month",
+  "small business seo generator free",
+  "best seo for small business online",
+  "how much is seo for small business",
+  "is seo worth it for small business",
+  "small business seo compatible with",
+  "best seo software for small business",
+  "small business seo free alternatives",
+  "small business seo compatibility list",
+  "small business seo compatibility tool",
+  "small business seo cheaper alternative",
+  "small business seo tutorial for beginners"
+ ],
+ "queries_checked": [
+  "how much does seo cost for a small business",
+  "is seo worth it for small business"
+ ],
+ "serp": [
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 1,
+   "url": "https://www.nutshell.com/marketing/resources/cost-of-seo",
+   "title": "SEO Pricing Guide: What's The Cost of SEO? | Nutshell",
+   "category": "unclassified",
+   "site": "nutshell.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 2,
+   "url": "https://www.indoormedia.com/blog/average-cost-of-local-seo-for-small-business/",
+   "title": "Know The Average Cost Of Local Seo For Small Business",
+   "category": "editorial",
+   "site": "indoormedia.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 3,
+   "url": "https://seoprofy.com/blog/seo-pricing/",
+   "title": "SEO Pricing Guide: How Much Does SEO Cost in 2026?",
+   "category": "editorial",
+   "site": "seoprofy.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 4,
+   "url": "https://foxxr.com/blog/how-much-does-seo-cost/",
+   "title": "SEO Pricing Guide: How Much Does SEO Cost In 2026?",
+   "category": "editorial",
+   "site": "foxxr.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 5,
+   "url": "https://builtrightdigital.com/seo-cost-small-businesses/",
+   "title": "How Much Does SEO Cost for a Small Business? (2026 Pricing)",
+   "category": "unclassified",
+   "site": "builtrightdigital.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 6,
+   "url": "https://thinkpodagency.com/seo-cost-small-business/",
+   "title": "How Much Does SEO Cost For Small Businesses? | ThinkPod Agency",
+   "category": "unclassified",
+   "site": "thinkpodagency.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 7,
+   "url": "https://www.webfx.com/seo/pricing/",
+   "title": "SEO Pricing: How Much Does SEO Cost? [+Free Calculator]",
+   "category": "unclassified",
+   "site": "webfx.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 8,
+   "url": "https://webbdigitalservices.com/website-blog/small-business-seo-cost/",
+   "title": "How Much Does SEO Cost for Small Businesses? - Webb Digital Services",
+   "category": "editorial",
+   "site": "webbdigitalservices.com"
+  },
+  {
+   "query": "how much does seo cost for a small business",
+   "rank": 9,
+   "url": "https://ahrefs.com/blog/seo-pricing",
+   "title": "The conference for marketers ready to win in 2026",
+   "category": "vendor",
+   "site": "ahrefs.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 1,
+   "url": "https://www.entrepreneur.com/growing-a-business/is-seo-worth-it-for-small-businesses/470804",
+   "title": "Is SEO Worth It for Small Businesses? Here's What You Need to Know.",
+   "category": "unclassified",
+   "site": "entrepreneur.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 2,
+   "url": "https://www.benchmarkone.com/blog/seo-startups-small-businesses/",
+   "title": "Is SEO Worth It for Startups and Small Businesses?",
+   "category": "editorial",
+   "site": "benchmarkone.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 3,
+   "url": "https://innovation.fortlewis.edu/news/why-seo-is-important-for-small-businesses",
+   "title": "10 Reasons Why SEO Is Important for Small Businesses \u2014 Center for Innovation",
+   "category": "official",
+   "site": "innovation.fortlewis.edu"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 4,
+   "url": "https://www.liveplan.com/blog/planning/seo-benefits-small-businesses",
+   "title": "8 Benefits of SEO for Small Business \u2014 2026 Guide | LivePlan",
+   "category": "editorial",
+   "site": "liveplan.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 5,
+   "url": "https://www.quora.com/Is-SEO-really-worth-it-for-small-and-medium-businesses-1",
+   "title": "Is SEO really worth it for small and medium businesses? - Quora",
+   "category": "community",
+   "site": "quora.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 6,
+   "url": "https://www.grizzlymarketing.com/is-seo-worth-it-for-small-business/",
+   "title": "Is SEO worth it for small businesses? \u22c6 Grizzly New Marketing, Inc. New York",
+   "category": "unclassified",
+   "site": "grizzlymarketing.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 7,
+   "url": "https://www.laurajawadmarketing.com/blog/is-seo-worth-it-for-small-businesses/",
+   "title": "Is SEO Worth It For Small Businesses In 2026?",
+   "category": "editorial",
+   "site": "laurajawadmarketing.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 8,
+   "url": "https://businesswitchacademy.substack.com/p/is-seo-worth-it-for-small-businesses",
+   "title": "Is SEO Worth It for Small Businesses? Here's What to Consider",
+   "category": "editorial",
+   "site": "businesswitchacademy.substack.com"
+  },
+  {
+   "query": "is seo worth it for small business",
+   "rank": 9,
+   "url": "https://businesswitchacademy.substack.com/p/is-seo-worth-it-for-small-businesses/comments",
+   "title": "\ud83e\ude84Magically Thriving Business\ud83d\udcb8 from Business Witch Academy",
+   "category": "editorial",
+   "site": "businesswitchacademy.substack.com"
+  }
+ ]
+}

@@ -1,0 +1,225 @@
+{
+ "cluster_id": "c_56316349",
+ "head_term": "roof leaking",
+ "label": "roof leak repair flat",
+ "domain": "home_repair",
+ "members": 77,
+ "problem_members": 36,
+ "organic_problem_members": 5,
+ "intents": {
+  "informational": 41,
+  "how_to": 14,
+  "fix": 11,
+  "calculate": 4
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "community": 1,
+   "marketplace": 2,
+   "unclassified": 6,
+   "editorial": 9
+  },
+  "dominant_site": "smi.engin.umich.edu",
+  "dominant_share": 0.17,
+  "fragmented_share": 0.56,
+  "tool_hits": 0,
+  "vendor_share": 0.0,
+  "official_share": 0.0,
+  "unclassified_share": 0.33
+ },
+ "trends_chain_value": 4.731,
+ "trends_error_pct": 2.8,
+ "sample_members": [
+  "roof leaking",
+  "roof leaking fix",
+  "random roof leaks",
+  "improve roof leaks",
+  "roof leaks and more",
+  "convert roof leaking",
+  "flat roof is leaking",
+  "roof leaking problem",
+  "roof leaking fix cost",
+  "how much are roof leaks",
+  "roof leaking repair kit",
+  "water leaking from roof",
+  "my metal roof is leaking",
+  "roof leaking repair cost",
+  "flat roof leaking at edge",
+  "leaking roof repair paint",
+  "roof leaking in apartment",
+  "which roof leaks the best",
+  "convert roof leaking water",
+  "flat roof leaking problems",
+  "how to repair leaking roof",
+  "quick fix for leaking roof",
+  "roof stop leaking products",
+  "the roof is leaking chords",
+  "why is my new roof leaking",
+  "flat roof leaking in winter",
+  "leaking roof repair service",
+  "the roof is leaking meaning",
+  "water test for leaking roof",
+  "fix leaking roof from outside",
+  "flat roof leaking from inside",
+  "how to fix a leaking flat roof",
+  "how to fix leaking roof sheets",
+  "roof leaking after replacement",
+  "roof leaking after roof repair",
+  "water leaking from roof of car",
+  "how to fix a leaking metal roof",
+  "how to stop a flat roof leaking",
+  "how to stop a roof from leaking",
+  "leaking roof repair service diy"
+ ],
+ "queries_checked": [
+  "how to stop a metal roof from leaking",
+  "roof leaking fix"
+ ],
+ "serp": [
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 1,
+   "url": "https://www.garagejournal.com/forum/threads/how-to-stop-nailed-on-metal-roof-from-leaking.73363/",
+   "title": "How to stop nailed on metal roof from leaking | The Garage Journal",
+   "category": "community",
+   "site": "garagejournal.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 2,
+   "url": "https://www.lowes.com/n/how-to/how-to-repair-metal-roof",
+   "title": "How to Repair Metal Roof: Simple Fixes",
+   "category": "marketplace",
+   "site": "lowes.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 3,
+   "url": "https://www.americanweatherstar.com/5-common-causes-of-metal-roof-leaks-repair-options/",
+   "title": "5 Common Causes of Metal Roof Leaks & Repair Options | American WeatherStar",
+   "category": "unclassified",
+   "site": "americanweatherstar.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 4,
+   "url": "https://smrhomepros.com/metal-roof-leak-repair/",
+   "title": "Metal Roof Leak Repair: 5 Ways To Stop Leaks | SMR HomePros",
+   "category": "unclassified",
+   "site": "smrhomepros.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 5,
+   "url": "https://apmhexseal.com/blog/common-causes-of-metal-roof-leaks/",
+   "title": "Common Causes of Metal Roof Leaks - APM Hexseal Corporation",
+   "category": "editorial",
+   "site": "apmhexseal.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 6,
+   "url": "https://metalrp.com/how-to-prevent-your-metal-roof-from-leaking/",
+   "title": "How to Prevent Your Metal Roof from Leaking - Metal Roof Pros",
+   "category": "unclassified",
+   "site": "metalrp.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 7,
+   "url": "https://peb.steelprogroup.com/steel-structure/building/metal-roof-leaking/",
+   "title": "12 Methods That Help Repair All Your Metal Roof Leaks",
+   "category": "unclassified",
+   "site": "peb.steelprogroup.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 8,
+   "url": "https://12stonesroofing.com/blog/no-more-drips-how-to-permanently-stop-leaks-on-any-metal-roof/",
+   "title": "Stop Leaks on Metal Roof: 5 Permanent Fixes",
+   "category": "editorial",
+   "site": "12stonesroofing.com"
+  },
+  {
+   "query": "how to stop a metal roof from leaking",
+   "rank": 9,
+   "url": "https://smi.engin.umich.edu/how-to-repair-roof-leak",
+   "title": "Stop Roof Leaks: Quick Fix Guide",
+   "category": "editorial",
+   "site": "smi.engin.umich.edu"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 1,
+   "url": "https://goldengrouproofing.com/blog/leaky-roof-problems-quick-fixes",
+   "title": "How to Fix a Roof Leak: 8 DIY Quick Fixes",
+   "category": "editorial",
+   "site": "goldengrouproofing.com"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 2,
+   "url": "https://www.statefarm.com/simple-insights/residence/roof-leak",
+   "title": "Leaking Roof: Here's What to Do",
+   "category": "unclassified",
+   "site": "statefarm.com"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 3,
+   "url": "https://www.lowes.com/n/how-to/how-to-repair-a-leaky-roof",
+   "title": "How to Repair a Leaky Roof",
+   "category": "marketplace",
+   "site": "lowes.com"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 4,
+   "url": "https://www.servpro.com/resources/storm-damage/how-to-find-and-repair-a-roof-leak",
+   "title": "Finding and repairing a leaky roof | SERVPRO",
+   "category": "unclassified",
+   "site": "servpro.com"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 5,
+   "url": "https://reconroof.com/blog/roof-leak-repair/",
+   "title": "10 Roof Leak Repair Tips To Use In A Pinch",
+   "category": "editorial",
+   "site": "reconroof.com"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 6,
+   "url": "https://www.harbertroofing.com/blogs/how-to-repair-a-leaking-roof-from-the-inside",
+   "title": "How to Repair a Leaking Roof from the Inside | Emergency Roof Leak Guide - Harbert Roofing",
+   "category": "editorial",
+   "site": "harbertroofing.com"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 7,
+   "url": "https://goldshieldexteriors.com/blog/how-to-fix-roof-leaks-from-the-inside",
+   "title": "Fix Roof Leak From Inside: 7 Emergency Steps",
+   "category": "editorial",
+   "site": "goldshieldexteriors.com"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 8,
+   "url": "https://smi.engin.umich.edu/roof-leaking-repair",
+   "title": "10 Tips to Fix a Leaky Roof",
+   "category": "editorial",
+   "site": "smi.engin.umich.edu"
+  },
+  {
+   "query": "roof leaking fix",
+   "rank": 9,
+   "url": "https://smi.engin.umich.edu/roof-leak-repair-cost",
+   "title": "Fixing Roof Leaks: 3 Easy Ways",
+   "category": "editorial",
+   "site": "smi.engin.umich.edu"
+  }
+ ]
+}

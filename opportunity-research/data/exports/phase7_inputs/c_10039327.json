@@ -1,0 +1,216 @@
+{
+ "cluster_id": "c_10039327",
+ "head_term": "does notion work with microsoft",
+ "label": "notion microsoft similar loop",
+ "domain": "productivity_office",
+ "members": 31,
+ "problem_members": 19,
+ "organic_problem_members": 10,
+ "intents": {
+  "alternative": 15,
+  "informational": 12,
+  "compatibility": 2,
+  "how_to": 1
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "vendor": 6,
+   "unclassified": 2,
+   "editorial": 5,
+   "tool": 5
+  },
+  "dominant_site": "g2.com",
+  "dominant_share": 0.22,
+  "fragmented_share": 0.28,
+  "tool_hits": 5,
+  "vendor_share": 0.33,
+  "official_share": 0.0,
+  "unclassified_share": 0.11
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "microsoft to do notion",
+  "notion app for microsoft",
+  "does microsoft own notion",
+  "microsoft tool like notion",
+  "software similar to notion",
+  "microsoft similar to notion",
+  "microsoft version of notion",
+  "what is microsoft notion ai",
+  "microsoft version of notion ai",
+  "does notion work with microsoft",
+  "microsoft 365 version of notion",
+  "microsoft alternative to notion",
+  "microsoft app similar to notion",
+  "microsoft loop similar to notion",
+  "microsoft replacement for notion",
+  "microsoft tool similar to notion",
+  "notion alternative microsoft 365",
+  "what is microsoft loop vs notion",
+  "what microsoft app is like notion",
+  "what program is similar to notion",
+  "does notion work with microsoft 365",
+  "is notion compatible with microsoft",
+  "microsoft product similar to notion",
+  "microsoft replacement for notion ai",
+  "is there a microsoft app like notion",
+  "microsoft alternative to notion free",
+  "microsoft version of notion tutorial",
+  "is loop microsoft's version of notion",
+  "is there a microsoft version of notion",
+  "what is microsoft loop is it like notion",
+  "is there a microsoft alternative to notion"
+ ],
+ "queries_checked": [
+  "does notion work with microsoft",
+  "microsoft app similar to notion"
+ ],
+ "serp": [
+  {
+   "query": "does notion work with microsoft",
+   "rank": 1,
+   "url": "https://www.notion.com/blog/notion-available-in-microsoft-store-on-windows",
+   "title": "Notion is now available in the Microsoft Store on Windows",
+   "category": "vendor",
+   "site": "notion.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 2,
+   "url": "https://www.notion.com/connections/onedrive",
+   "title": "Notion \u2013 The AI workspace that works for you.",
+   "category": "vendor",
+   "site": "notion.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 3,
+   "url": "https://apps.microsoft.com/detail/xpdbvss44r0l9h?hl=en-US&gl=US",
+   "title": "Notion - Download and install on Windows | Microsoft Store",
+   "category": "vendor",
+   "site": "apps.microsoft.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 4,
+   "url": "https://www.notion.com/help/notion-ai-connector-for-microsoft-teams",
+   "title": "Notion AI connector for Microsoft Teams | Notion Help \u2013 Notion Help Center",
+   "category": "vendor",
+   "site": "notion.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 5,
+   "url": "https://learn.microsoft.com/en-us/entra/identity/saas-apps/notion-tutorial",
+   "title": "Configure Notion for Single sign-on with Microsoft Entra ID - Microsoft Entra ID | Microsoft Learn",
+   "category": "vendor",
+   "site": "learn.microsoft.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 6,
+   "url": "https://integrately.com/integrations/microsoft-office-365/notion",
+   "title": "Microsoft Office 365 + Notion Integration: Connect in 1 Click | Integrately",
+   "category": "unclassified",
+   "site": "integrately.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 7,
+   "url": "https://christine-payton.com/microsot-vs-notion/",
+   "title": "Notion vs Microsoft Loop & Microsoft Lists: A Comparison of Features",
+   "category": "editorial",
+   "site": "christine-payton.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 8,
+   "url": "https://learn.microsoft.com/en-us/connectors/notionip/",
+   "title": "Notion (Independent Publisher) - Connectors | Microsoft Learn",
+   "category": "vendor",
+   "site": "learn.microsoft.com"
+  },
+  {
+   "query": "does notion work with microsoft",
+   "rank": 9,
+   "url": "https://g2.com/products/standard-notes/competitors/alternatives",
+   "title": "g2.com",
+   "category": "tool",
+   "site": "g2.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 1,
+   "url": "https://www.nuclino.com/solutions/microsoft-loop-vs-notion",
+   "title": "Microsoft Loop vs Notion: Comparison and Review (2026)",
+   "category": "unclassified",
+   "site": "nuclino.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 2,
+   "url": "https://zapier.com/blog/best-notion-alternatives/",
+   "title": "The 9 best Notion alternatives in 2026 | Zapier",
+   "category": "editorial",
+   "site": "zapier.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 3,
+   "url": "https://clickup.com/blog/notion-alternatives/",
+   "title": "15 Best Notion Alternatives & Competitors in 2026",
+   "category": "editorial",
+   "site": "clickup.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 4,
+   "url": "https://alternativeto.net/software/notion/",
+   "title": "Best Notion Alternatives: Top Note-taking Tools in 2026 | AlternativeTo",
+   "category": "tool",
+   "site": "alternativeto.net"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 5,
+   "url": "https://ones.com/blog/microsoft-tools-vs-notion-alternatives/",
+   "title": "Can Microsoft's Tools Truly Replace Notion? Top Alternatives",
+   "category": "editorial",
+   "site": "ones.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 6,
+   "url": "https://christine-payton.com/microsot-vs-notion/",
+   "title": "Notion vs Microsoft Loop & Microsoft Lists: A Comparison of Features",
+   "category": "editorial",
+   "site": "christine-payton.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 7,
+   "url": "https://g2.com/products/supernotes/competitors/alternatives",
+   "title": "g2.com",
+   "category": "tool",
+   "site": "g2.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 8,
+   "url": "https://g2.com/products/simplenote/competitors/alternatives",
+   "title": "g2.com",
+   "category": "tool",
+   "site": "g2.com"
+  },
+  {
+   "query": "microsoft app similar to notion",
+   "rank": 9,
+   "url": "https://g2.com/products/standard-notes/competitors/alternatives",
+   "title": "g2.com",
+   "category": "tool",
+   "site": "g2.com"
+  }
+ ]
+}

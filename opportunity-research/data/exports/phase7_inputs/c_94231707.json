@@ -1,0 +1,234 @@
+{
+ "cluster_id": "c_94231707",
+ "head_term": "cities skylines",
+ "label": "skylin city",
+ "domain": "gaming_titles",
+ "members": 120,
+ "problem_members": 63,
+ "organic_problem_members": 3,
+ "intents": {
+  "informational": 48,
+  "how_to": 11,
+  "track": 9,
+  "commercial_nav": 9
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "community": 11,
+   "marketplace": 2,
+   "editorial": 1,
+   "unclassified": 3,
+   "vendor": 2
+  },
+  "dominant_site": "steamcommunity.com",
+  "dominant_share": 0.32,
+  "fragmented_share": 0.63,
+  "tool_hits": 0,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.16
+ },
+ "trends_chain_value": 16.21,
+ "trends_error_pct": 4.8,
+ "sample_members": [
+  "cities skylines",
+  "cities skylines 1",
+  "cities skylines 2",
+  "cities skylines 3",
+  "cities skylines fast",
+  "cities skylines free",
+  "cities skylines list",
+  "cities skylines cheap",
+  "cities skylines error",
+  "cities skylines guide",
+  "fix cities skylines 2",
+  "cities skylines 1 vs 2",
+  "cities skylines 2 slow",
+  "cities skylines 2 tips",
+  "cities skylines reddit",
+  "cities skylines review",
+  "cities skylines update",
+  "fixing cities skylines",
+  "free cities skylines 1",
+  "free cities skylines 2",
+  "cities skylines 2 guide",
+  "cities skylines example",
+  "cities skylines updates",
+  "is cities skylines good",
+  "cities skylines 1 update",
+  "cities skylines 2 reddit",
+  "cities skylines 2 review",
+  "cities skylines 2 update",
+  "cities skylines cheapest",
+  "cities skylines download",
+  "cities skylines problems",
+  "cities skylines template",
+  "cities skylines top tips",
+  "cities skylines tutorial",
+  "how many cities skylines",
+  "how much cities skylines",
+  "tips for cities skylines",
+  "cities skylines 2 cheaper",
+  "cities skylines 2 updates",
+  "cities skylines error fix"
+ ],
+ "queries_checked": [
+  "cities skylines 1 vs 2",
+  "cities skylines 2 update"
+ ],
+ "serp": [
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 1,
+   "url": "https://www.facebook.com/groups/CitiesSkylinesConsole/posts/2772582439555880/",
+   "title": "Cities Skylines 2 vs Skylines 1 Comparison and ...",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 2,
+   "url": "https://www.tiktok.com/discover/city-skylines-2-vs-1",
+   "title": "City Skylines 2 Vs 1 | TikTok",
+   "category": "community",
+   "site": "tiktok.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 3,
+   "url": "https://store.steampowered.com/app/949230/Cities_Skylines_II/",
+   "title": "Save 30% on Cities: Skylines II on Steam",
+   "category": "marketplace",
+   "site": "store.steampowered.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 4,
+   "url": "https://screenrant.com/cities-skylines-2-gameplay-differences-first-game-comparison/",
+   "title": "10 Biggest Differences In Cities: Skylines 2 From The Original",
+   "category": "editorial",
+   "site": "screenrant.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 5,
+   "url": "https://www.facebook.com/groups/CitiesSkylinesConsole/posts/2977134179100704/",
+   "title": "City Skyline 1 or 2: Which is the best?",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 6,
+   "url": "https://chillplacegaming.com/cities-skylines-1-vs-cities-skylines-ii/",
+   "title": "What's Really Different: Cities: Skylines 1 vs. Cities: Skylines II - Chill Place Gaming",
+   "category": "unclassified",
+   "site": "chillplacegaming.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 7,
+   "url": "https://steamcommunity.com/app/949230/discussions/0/3951406499780521441",
+   "title": "Cities: Skylines II",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 8,
+   "url": "https://steamcommunity.com/app/949230/discussions/0/4362372646222598084",
+   "title": "Cities: Skylines II",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "cities skylines 1 vs 2",
+   "rank": 9,
+   "url": "https://steamcommunity.com/app/949230/discussions/0/4339860800345423699",
+   "title": "Cities: Skylines II",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 1,
+   "url": "https://forum.paradoxplaza.com/forum/forums/cities-skylines-2.1147/",
+   "title": "Cities: Skylines 2 | Paradox Interactive Forums",
+   "category": "community",
+   "site": "forum.paradoxplaza.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 2,
+   "url": "https://steamdb.info/app/949230/patchnotes/",
+   "title": "Cities: Skylines II Patches and Updates \u00b7 SteamDB",
+   "category": "unclassified",
+   "site": "steamdb.info"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 3,
+   "url": "https://cs2.paradoxwikis.com/Patches",
+   "title": "Patches - Cities Skylines 2 Wiki",
+   "category": "unclassified",
+   "site": "cs2.paradoxwikis.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 4,
+   "url": "https://store.steampowered.com/news/app/949230",
+   "title": "Cities: Skylines II - Steam News Hub",
+   "category": "marketplace",
+   "site": "store.steampowered.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 5,
+   "url": "https://www.paradoxinteractive.com/games/cities-skylines-ii/news/patch-notes-first-frost",
+   "title": "Patch Notes - 1.5.4f1 First Frost - Paradox Interactive",
+   "category": "vendor",
+   "site": "paradoxinteractive.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 6,
+   "url": "https://www.paradoxinteractive.com/games/cities-skylines-ii/news/patch-notes-spring-cleaning",
+   "title": "Patch 1.5.7f1 - Spring Cleaning - Paradox Interactive",
+   "category": "vendor",
+   "site": "paradoxinteractive.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 7,
+   "url": "https://www.facebook.com/CitiesSkylines/photos/we-have-a-new-patch-coming-up-and-we-want-to-give-you-a-first-look-at-whats-to-c/1289734076661923/",
+   "title": "Cities: Skylines",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 8,
+   "url": "https://steamcommunity.com/sharedfiles/filedetails/changelog/2862973068",
+   "title": "Cities: Skylines",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 9,
+   "url": "https://steamcommunity.com/sharedfiles/filedetails/changelog/812125426?p=1",
+   "title": "Cities: Skylines",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "cities skylines 2 update",
+   "rank": 10,
+   "url": "https://steamcommunity.com/sharedfiles/filedetails/changelog/1498036881?l=english",
+   "title": "Cities: Skylines",
+   "category": "community",
+   "site": "steamcommunity.com"
+  }
+ ]
+}

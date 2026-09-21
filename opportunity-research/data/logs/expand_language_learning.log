@@ -1,4 +1,8 @@
-{"seed": "language learning duolingo", "new_queries": 639, "suggestions_seen": 1480}
-{"seed": "language learning conjugation", "new_queries": 580, "suggestions_seen": 1307}
-{"seed": "language learning translate", "new_queries": 984, "suggestions_seen": 1429}
-{"seed": "language learning ielts", "new_queries": 900, "suggestions_seen": 1686}
+{"seed": "language learning duolingo", "skipped": "already expanded"}
+{"seed": "learn spanish", "new_queries": 1249, "suggestions_seen": 1712}
+{"seed": "language learning conjugation", "skipped": "already expanded"}
+{"seed": "language learning grammar", "new_queries": 823, "suggestions_seen": 1662}
+{"seed": "language learning translate", "skipped": "already expanded"}
+{"seed": "language learning meaning", "new_queries": 796, "suggestions_seen": 1414}
+{"seed": "language learning ielts", "skipped": "already expanded"}
+{"seed": "language learning toefl", "new_queries": 574, "suggestions_seen": 1593}

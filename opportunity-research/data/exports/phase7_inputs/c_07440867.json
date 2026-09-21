@@ -1,0 +1,227 @@
+{
+ "cluster_id": "c_07440867",
+ "head_term": "unity builds",
+ "label": "build unity",
+ "domain": "game_development",
+ "members": 33,
+ "problem_members": 19,
+ "organic_problem_members": 3,
+ "intents": {
+  "informational": 13,
+  "fix": 6,
+  "optimize": 3,
+  "calculate": 2
+ },
+ "fragmentation": {
+  "n": 19,
+  "categories": {
+   "community": 8,
+   "vendor": 7,
+   "reference": 1,
+   "marketplace": 2,
+   "editorial": 1
+  },
+  "dominant_site": "discussions.unity.com",
+  "dominant_share": 0.26,
+  "fragmented_share": 0.47,
+  "tool_hits": 1,
+  "vendor_share": 0.37,
+  "official_share": 0.0,
+  "unclassified_share": 0.0
+ },
+ "trends_chain_value": 0.133,
+ "trends_error_pct": 101.6,
+ "sample_members": [
+  "unity builds",
+  "fast unity build",
+  "fix unity builds",
+  "unity best build",
+  "unity build list",
+  "unity build slow",
+  "unity build costs",
+  "unity build error",
+  "unity build guide",
+  "unity build tools",
+  "unity build an app",
+  "unity build issues",
+  "unity build update",
+  "unity faster build",
+  "unity build example",
+  "how to build unity 6",
+  "unity build problems",
+  "fix unity build error",
+  "free build with unity",
+  "unity build templates",
+  "unity build very slow",
+  "how much unity building",
+  "unity build not working",
+  "unity building tutorial",
+  "unity build alternatives",
+  "unity building generator",
+  "unity build for beginners",
+  "unity build calculator app",
+  "fix unity build not working",
+  "unity build compatible with",
+  "unity build compatibility list",
+  "unity build update not working",
+  "what unity build should i download"
+ ],
+ "queries_checked": [
+  "unity build error",
+  "unity building tutorial"
+ ],
+ "serp": [
+  {
+   "query": "unity build error",
+   "rank": 1,
+   "url": "https://forum.unity.com/threads/unity-build-errors.663364/",
+   "title": "Unity build errors - Unity Engine - Unity Discussions",
+   "category": "community",
+   "site": "forum.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 2,
+   "url": "https://discussions.unity.com/t/unity-build-error/246863",
+   "title": "Unity Build error - Questions & Answers - Unity Discussions",
+   "category": "community",
+   "site": "discussions.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 3,
+   "url": "https://discussions.unity.com/t/build-error/917053",
+   "title": "Build Error - Unity Engine - Unity Discussions",
+   "category": "community",
+   "site": "discussions.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 4,
+   "url": "https://discussions.unity.com/t/build-fails-without-errors/908699",
+   "title": "Build fails without errors - Unity Engine - Unity Discussions",
+   "category": "community",
+   "site": "discussions.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 5,
+   "url": "https://forum.unity.com/threads/build-completed-with-a-result-of-failed.530641/",
+   "title": "Build completed with a result of 'Failed' (701069) - Mobile - Unity Discussions",
+   "category": "community",
+   "site": "forum.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 6,
+   "url": "https://docs.unity.com/en-us/build-automation/check-build-results/troubleshoot-build-failures/overview",
+   "title": "Troubleshoot common issues \u2022 Build Automation",
+   "category": "vendor",
+   "site": "docs.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 7,
+   "url": "https://discussions.unity.com/t/unity-build-fails-for-no-reason/928869",
+   "title": "Unity Build fails for no reason - Unity Engine - Unity Discussions",
+   "category": "community",
+   "site": "discussions.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 8,
+   "url": "https://discussions.unity.com/t/unity-build-failing-without-showing-any-other-errors/1699736",
+   "title": "Unity Build Failing without showing any other errors - Unity Engine - Unity Discussions",
+   "category": "community",
+   "site": "discussions.unity.com"
+  },
+  {
+   "query": "unity build error",
+   "rank": 9,
+   "url": "https://en.wikipedia.org/wiki/Unity_build",
+   "title": "Unity build",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "unity build error",
+   "rank": 10,
+   "url": "https://itch.io/post/13539455",
+   "title": "itch.io",
+   "category": "marketplace",
+   "site": "itch.io"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 1,
+   "url": "https://learn.unity.com/pathway/game-development/unit/get-started-in-unity",
+   "title": "Get started in Unity - Unity Learn",
+   "category": "vendor",
+   "site": "learn.unity.com"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 2,
+   "url": "https://learn.unity.com/tutorial/start-learning-unity",
+   "title": "Start learning Unity - Unity Learn",
+   "category": "vendor",
+   "site": "learn.unity.com"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 3,
+   "url": "https://gamedevacademy.org/unity-city-building-game-tutorial/",
+   "title": "Create A Unity City Builder Game From Scratch - GameDev Academy",
+   "category": "editorial",
+   "site": "gamedevacademy.org"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 4,
+   "url": "https://learn.unity.com/course/roll-a-ball/tutorial/building-the-game?version=6.0",
+   "title": "Building the Game - Unity Learn",
+   "category": "vendor",
+   "site": "learn.unity.com"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 5,
+   "url": "https://learn.unity.com/tutorials",
+   "title": "Unity Learn",
+   "category": "vendor",
+   "site": "learn.unity.com"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 6,
+   "url": "https://learn.unity.com/",
+   "title": "Learn game development w/ Unity | Courses & tutorials in game design, VR, AR, & Real-time 3D | Unity Learn",
+   "category": "vendor",
+   "site": "learn.unity.com"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 7,
+   "url": "https://unity.com/learn/get-started",
+   "title": "Getting Started with Unity: How to Use Unity | Unity",
+   "category": "vendor",
+   "site": "unity.com"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 8,
+   "url": "https://carmel-2.itch.io/unity-world-building-project",
+   "title": "View all by Carmel_2",
+   "category": "marketplace",
+   "site": "carmel-2.itch.io"
+  },
+  {
+   "query": "unity building tutorial",
+   "rank": 9,
+   "url": "https://github.com/humbertodias/unity-calc-lua/blob/master/README.md",
+   "title": "github.com",
+   "category": "community",
+   "site": "github.com"
+  }
+ ]
+}

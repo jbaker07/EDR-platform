@@ -1,0 +1,227 @@
+{
+ "cluster_id": "c_96742201",
+ "head_term": "houdini render setting",
+ "label": "houdini render animation import",
+ "domain": "three_d_animation",
+ "members": 26,
+ "problem_members": 21,
+ "organic_problem_members": 5,
+ "intents": {
+  "how_to": 18,
+  "informational": 5,
+  "convert": 3
+ },
+ "fragmentation": {
+  "n": 20,
+  "categories": {
+   "vendor": 8,
+   "editorial": 1,
+   "community": 6,
+   "unclassified": 1,
+   "marketplace": 4
+  },
+  "dominant_site": "sidefx.com",
+  "dominant_share": 0.35,
+  "fragmented_share": 0.35,
+  "tool_hits": 0,
+  "vendor_share": 0.4,
+  "official_share": 0.0,
+  "unclassified_share": 0.05
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "houdini quick render",
+  "how to export houdini",
+  "houdini render setting",
+  "import fbx into houdini",
+  "how to render in houdini",
+  "houdini fbx character import",
+  "houdini import fbx animation",
+  "houdini karma render settings",
+  "houdini karma render tutorial",
+  "how to render fire in houdini",
+  "how to render hair in houdini",
+  "how to render image in houdini",
+  "how to render in houdini karma",
+  "how to render video in houdini",
+  "how to export mesh from houdini",
+  "houdini render geometry settings",
+  "how to loop animation in houdini",
+  "how to make animation in houdini",
+  "how to render sequence in houdini",
+  "how to export animation in houdini",
+  "how to import animation in houdini",
+  "how to render animation in houdini",
+  "how to render simulation in houdini",
+  "how to slow down animation in houdini",
+  "houdini karma render geometry settings",
+  "how to import alembic animation in houdini"
+ ],
+ "queries_checked": [
+  "how to render in houdini",
+  "import fbx into houdini"
+ ],
+ "serp": [
+  {
+   "query": "how to render in houdini",
+   "rank": 1,
+   "url": "https://www.sidefx.com/docs/houdini/render/render.html",
+   "title": "How to render using Mantra",
+   "category": "vendor",
+   "site": "sidefx.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 2,
+   "url": "https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_for_houdini_ah_getting_started_ah_Rendering_Your_First_Scene_html",
+   "title": "Rendering Your First Scene - Arnold for Houdini",
+   "category": "vendor",
+   "site": "help.autodesk.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 3,
+   "url": "https://www.sidefx.com/tutorials/houdini-isnt-scary-part-4-rendering-setup/",
+   "title": "Houdini Isn't Scary | Part 4 | Rendering Setup | SideFX",
+   "category": "vendor",
+   "site": "sidefx.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 4,
+   "url": "https://www.sidefx.com/docs/houdini/render/index.html",
+   "title": "Mantra rendering",
+   "category": "vendor",
+   "site": "sidefx.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 5,
+   "url": "https://vagon.io/blog/rendering-tips-sidefx-houdini",
+   "title": "Tips for Faster Rendering in Houdini SideFX",
+   "category": "editorial",
+   "site": "vagon.io"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 6,
+   "url": "https://www.youtube.com/watch?v=GZoMb4xcml0&pp=0gcJCdgAo7VqN5tD",
+   "title": "How to Render in Karma XPU | Houdini Tutorial - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 7,
+   "url": "https://rmanwiki-26.pixar.com/space/RFH26/19268213/Rendering+in+Houdini",
+   "title": "Rendering in Houdini",
+   "category": "unclassified",
+   "site": "rmanwiki-26.pixar.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 8,
+   "url": "https://www.youtube.com/watch?v=L3SUQMKGtb8",
+   "title": "Houdini is HIP - Part 4: Rendering - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 9,
+   "url": "https://www.youtube.com/watch?v=a6rR1iOZ0tQ",
+   "title": "Houdini Isn't Scary - Part 5: Rendering - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "how to render in houdini",
+   "rank": 10,
+   "url": "https://liemtnh.gumroad.com/l/ujkyh",
+   "title": "liemtnh.gumroad.com",
+   "category": "marketplace",
+   "site": "liemtnh.gumroad.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 1,
+   "url": "https://www.sidefx.com/tutorials/import-fbx-characters-into-houdini-4-methods-you-need-to-know/",
+   "title": "Import FBX Characters | SideFX",
+   "category": "vendor",
+   "site": "sidefx.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 2,
+   "url": "https://www.sidefx.com/docs/houdini/io/fbx.html",
+   "title": "Reading and writing Filmbox (FBX) files",
+   "category": "vendor",
+   "site": "sidefx.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 3,
+   "url": "https://www.sidefx.com/docs/houdini/ref/windows/import_fbx.html",
+   "title": "FBX Import Window",
+   "category": "vendor",
+   "site": "sidefx.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 4,
+   "url": "https://www.sidefx.com/docs/houdini/nodes/sop/kinefx--fbxcharacterimport.html",
+   "title": "FBX Character Import geometry node",
+   "category": "vendor",
+   "site": "sidefx.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 5,
+   "url": "https://www.youtube.com/watch?v=yne_eDBlRcw",
+   "title": "Import FBX Characters into Houdini | 4 Methods You Need to Know - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 6,
+   "url": "https://www.youtube.com/watch?v=mVN74ike5es",
+   "title": "Import fbx with animation in houdini - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 7,
+   "url": "https://julianabreu.gumroad.com/l/HouTexImport",
+   "title": "julianabreu.gumroad.com",
+   "category": "marketplace",
+   "site": "julianabreu.gumroad.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 8,
+   "url": "https://doduyanh.gumroad.com/l/ypggt",
+   "title": "HDA - Quick Imports All Alembic",
+   "category": "marketplace",
+   "site": "doduyanh.gumroad.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 9,
+   "url": "https://steamcommunity.com/app/502570/discussions/0/1751268142243435604/?l=greek",
+   "title": "Houdini Indie",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "import fbx into houdini",
+   "rank": 10,
+   "url": "https://pavlovich.gumroad.com/l/RvVRG",
+   "title": "pavlovich.gumroad.com",
+   "category": "marketplace",
+   "site": "pavlovich.gumroad.com"
+  }
+ ]
+}

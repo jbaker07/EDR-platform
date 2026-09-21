@@ -1,0 +1,206 @@
+{
+ "cluster_id": "c_33099565",
+ "head_term": "android app development",
+ "label": "development android game",
+ "domain": "software_dev_mobile",
+ "members": 20,
+ "problem_members": 11,
+ "organic_problem_members": 3,
+ "intents": {
+  "informational": 8,
+  "how_to": 6,
+  "calculate": 3,
+  "commercial_nav": 1
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 8,
+   "unclassified": 2,
+   "tool": 3,
+   "community": 3,
+   "vendor": 2
+  },
+  "dominant_site": "medium.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.61,
+  "tool_hits": 3,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.11
+ },
+ "trends_chain_value": 3.773,
+ "trends_error_pct": 4.8,
+ "sample_members": [
+  "android app development",
+  "android app development cost",
+  "free android app development",
+  "android app development guide",
+  "android app development price",
+  "android app development tools",
+  "android app development software",
+  "android app development tutorial",
+  "android template app development",
+  "android app development guide pdf",
+  "android app development calculator",
+  "android app development to do list",
+  "android app development tutorial pdf",
+  "android app development for beginners",
+  "how much android app development cost",
+  "android app development for beginners pdf",
+  "android development tutorial for beginners",
+  "android app development tutorial for beginners",
+  "android game development tutorial for beginners",
+  "android app development tutorial for beginners your first app"
+ ],
+ "queries_checked": [
+  "android app development cost",
+  "android app development tutorial"
+ ],
+ "serp": [
+  {
+   "query": "android app development cost",
+   "rank": 1,
+   "url": "https://www.couchbase.com/blog/app-development-costs/",
+   "title": "App Development Cost: A Complete Pricing Guide and Breakdown",
+   "category": "editorial",
+   "site": "couchbase.com"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 2,
+   "url": "https://www.uptech.team/blog/android-app-development-cost",
+   "title": "How Much Does Android App Development Cost? | Uptech",
+   "category": "editorial",
+   "site": "uptech.team"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 3,
+   "url": "https://riseuplabs.com/android-app-development-cost/",
+   "title": "Android App Development Cost: 2026 Breakdown - Riseup Labs",
+   "category": "unclassified",
+   "site": "riseuplabs.com"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 4,
+   "url": "https://www.zoho.com/creator/application-development/the-cost-of-app-development.html",
+   "title": "How much does app development cost in 2026?",
+   "category": "tool",
+   "site": "zoho.com"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 5,
+   "url": "http://www.simpalm.com/blog/android-app-development-cost",
+   "title": "Android App Development Cost 2026 - Complete Guide | Simpalm",
+   "category": "editorial",
+   "site": "simpalm.com"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 6,
+   "url": "https://www.businessofapps.com/app-developers/research/app-development-cost/",
+   "title": "App Development Cost (2026) - Business of Apps",
+   "category": "unclassified",
+   "site": "businessofapps.com"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 7,
+   "url": "https://www.8ration.com/blogs/how-much-does-it-cost-to-develop-an-android-app/",
+   "title": "Android App Development Cost in 2026: A Detailed Guide",
+   "category": "editorial",
+   "site": "8ration.com"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 8,
+   "url": "https://appinventiv.com/blog/android-app-development-cost/",
+   "title": "Estimating Android App Development Time and Cost",
+   "category": "editorial",
+   "site": "appinventiv.com"
+  },
+  {
+   "query": "android app development cost",
+   "rank": 9,
+   "url": "https://www.digisoftsolution.com/blog/android-app-development-cost",
+   "title": "Android App Development Cost in 2026 - Full Breakdown",
+   "category": "editorial",
+   "site": "digisoftsolution.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 1,
+   "url": "https://medium.com/@smacwareindia/android-app-development-tutorial-for-beginners-a62266147bce",
+   "title": "Android App Development Tutorial For Beginners | by smacware | Medium",
+   "category": "community",
+   "site": "medium.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 2,
+   "url": "https://www.geeksforgeeks.org/android/android-tutorial/",
+   "title": "Android Tutorial - GeeksforGeeks",
+   "category": "editorial",
+   "site": "geeksforgeeks.org"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 3,
+   "url": "https://www.youtube.com/playlist?list=PLEiEAq2VkUULG4j7aDpamb6b5Ym3RFQOj",
+   "title": "Android App Development Tutorial Videos [2026 Updated]",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 4,
+   "url": "https://developer.android.com/courses",
+   "title": "Training | Get started | Android Developers",
+   "category": "vendor",
+   "site": "developer.android.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 5,
+   "url": "https://www.tutorialspoint.com/android/index.htm",
+   "title": "Android Tutorial",
+   "category": "editorial",
+   "site": "tutorialspoint.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 6,
+   "url": "https://www.udemy.com/topic/android-development/",
+   "title": "Top Android Development Courses Online - Updated [September 2026]",
+   "category": "tool",
+   "site": "udemy.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 7,
+   "url": "https://developer.android.com/get-started/overview",
+   "title": "Build your first app | Get started | Android Developers",
+   "category": "vendor",
+   "site": "developer.android.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 8,
+   "url": "https://medium.com/@kathybuilds/building-an-android-app-in-10-minutes-2746247fc6f",
+   "title": "Building an Android app: in 10 minutes | by Kathy Li | Medium",
+   "category": "community",
+   "site": "medium.com"
+  },
+  {
+   "query": "android app development tutorial",
+   "rank": 9,
+   "url": "https://www.goodreads.com/work/quotes/125501180",
+   "title": "Android App Development Tutorial . Build your first app. Quotes",
+   "category": "tool",
+   "site": "goodreads.com"
+  }
+ ]
+}

@@ -1,0 +1,212 @@
+{
+ "cluster_id": "c_25613146",
+ "head_term": "cpu motherboard compatibility",
+ "label": "motherboard cpu",
+ "domain": "pc_building",
+ "members": 25,
+ "problem_members": 12,
+ "organic_problem_members": 3,
+ "intents": {
+  "informational": 13,
+  "decide": 3,
+  "find": 2,
+  "alternative": 2
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "editorial": 7,
+   "tool": 1,
+   "unclassified": 3,
+   "community": 3,
+   "vendor": 3,
+   "reference": 1
+  },
+  "dominant_site": "cgdirector.com",
+  "dominant_share": 0.11,
+  "fragmented_share": 0.56,
+  "tool_hits": 1,
+  "vendor_share": 0.17,
+  "official_share": 0.0,
+  "unclassified_share": 0.17
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "new cpu and motherboard",
+  "best motherboard for cpu",
+  "cpu motherboard compatibility",
+  "motherboard and cpu difference",
+  "cpu compatible with motherboard",
+  "cpu motherboard compatible list",
+  "cpu motherboard compatible errors",
+  "cpu motherboard compatible guides",
+  "how to get cpu out of motherboard",
+  "cpu motherboard compatibility list",
+  "cpu motherboard compatibility tool",
+  "cpu motherboard compatible updates",
+  "cpu motherboard compatible problems",
+  "cpu motherboard compatibility reddit",
+  "cpu motherboard compatible templates",
+  "can any cpu work with any motherboard",
+  "cpu motherboard compatible cheaper one",
+  "cpu motherboard compatible not working",
+  "best cpu compatible with my motherboard",
+  "cpu motherboard compatible alternatives",
+  "are motherboards compatible with all cpu",
+  "cpu motherboard compatible for beginners",
+  "cpu and motherboard compatibility calculator",
+  "cpu motherboard compatible free alternatives",
+  "cpu motherboard compatible compatibility best"
+ ],
+ "queries_checked": [
+  "best cpu compatible with my motherboard",
+  "cpu motherboard compatibility list"
+ ],
+ "serp": [
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 1,
+   "url": "https://www.cgdirector.com/cpu-motherboard-compatibility/",
+   "title": "How To Find Out Which CPU is compatible With Your Motherboard",
+   "category": "editorial",
+   "site": "cgdirector.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 2,
+   "url": "https://www.xda-developers.com/what-cpus-compatible-motherboard/",
+   "title": "What CPUs are compatible with my motherboard?",
+   "category": "editorial",
+   "site": "xda-developers.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 3,
+   "url": "https://pcpartpicker.com/forums/topic/429165-motherboard-cpu-compatibility",
+   "title": "Motherboard + CPU compatibility - PCPartPicker",
+   "category": "tool",
+   "site": "pcpartpicker.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 4,
+   "url": "https://apexgamingpcs.com/blogs/apex-support/what-cpus-compatible-with-motherboard",
+   "title": "How to Tell What CPU is Compatible with Your Motherboard \u2013 Apex Gaming PCs",
+   "category": "editorial",
+   "site": "apexgamingpcs.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 5,
+   "url": "https://shimetadevice.com/cpu-and-motherboard-compatibility-guide/",
+   "title": "CPU and Motherboard Compatibility Guide - How to Choose",
+   "category": "editorial",
+   "site": "shimetadevice.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 6,
+   "url": "https://techquills.com/compatible-cpu-for-motherboard/",
+   "title": "Compatible CPU for Motherboard \u2013 Find the Right Match in 2025",
+   "category": "unclassified",
+   "site": "techquills.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 7,
+   "url": "https://steamcommunity.com/discussions/forum/11/282992562606617790",
+   "title": "EverBlink Nov 2, 2016 @ 4:03pm",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 8,
+   "url": "https://steamcommunity.com/discussions/forum/11/1744478429682061620",
+   "title": "vin Nov 23, 2018 @ 1:54pm",
+   "category": "community",
+   "site": "steamcommunity.com"
+  },
+  {
+   "query": "best cpu compatible with my motherboard",
+   "rank": 9,
+   "url": "https://forums.tomsguide.com/threads/motherboard-cpu-compatibility.265903/post-1201727",
+   "title": "Motherboard cpu compatibility",
+   "category": "community",
+   "site": "forums.tomsguide.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 1,
+   "url": "https://www.cgdirector.com/cpu-motherboard-compatibility/",
+   "title": "How To Find Out Which CPU is compatible With Your Motherboard",
+   "category": "editorial",
+   "site": "cgdirector.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 2,
+   "url": "https://www.intel.com/content/www/us/en/support/articles/000005909/processors/intel-core-processors.html",
+   "title": "How to Find Compatible Motherboards for Your Intel\u00ae Boxed Desktop Processor",
+   "category": "vendor",
+   "site": "intel.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 3,
+   "url": "https://www.pcguide.com/cpu/how-to/tell-if-compatible-with-motherboard/",
+   "title": "How to tell if a CPU is compatible with your motherboard - PC Guide",
+   "category": "editorial",
+   "site": "pcguide.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 4,
+   "url": "https://en.wikipedia.org/wiki/Hardware_compatibility_list",
+   "title": "Hardware compatibility list",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 5,
+   "url": "https://pcguide101.com/cpu/what-cpu-is-compatible-with-my-motherboard/",
+   "title": "What CPU is Compatible with My Motherboard? - PC Guide 101",
+   "category": "unclassified",
+   "site": "pcguide101.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 6,
+   "url": "https://shimetadevice.com/cpu-and-motherboard-compatibility-guide/",
+   "title": "CPU and Motherboard Compatibility Guide - How to Choose",
+   "category": "editorial",
+   "site": "shimetadevice.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 7,
+   "url": "https://www.teamgroupinc.com/en/support/compatibility/by-motherboard/",
+   "title": "Compatibility Check by Motherboard | TEAMGROUP",
+   "category": "vendor",
+   "site": "teamgroupinc.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 8,
+   "url": "https://www.asrock.com/support/cpu.asp",
+   "title": "ASRock > CPU Support List",
+   "category": "vendor",
+   "site": "asrock.com"
+  },
+  {
+   "query": "cpu motherboard compatibility list",
+   "rank": 9,
+   "url": "https://www.tensorscience.com/motherboards-compatible-processors",
+   "title": "Motherboards by compatible processors (2024) - TensorScience",
+   "category": "unclassified",
+   "site": "tensorscience.com"
+  }
+ ]
+}

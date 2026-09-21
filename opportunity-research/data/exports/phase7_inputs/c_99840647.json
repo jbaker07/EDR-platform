@@ -1,0 +1,226 @@
+{
+ "cluster_id": "c_99840647",
+ "head_term": "apple watch series 10",
+ "label": "sery apple watch",
+ "domain": "consumer_tech",
+ "members": 50,
+ "problem_members": 26,
+ "organic_problem_members": 4,
+ "intents": {
+  "informational": 21,
+  "how_to": 11,
+  "calculate": 9,
+  "commercial_nav": 3
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "marketplace": 2,
+   "vendor": 2,
+   "editorial": 5,
+   "community": 4,
+   "unclassified": 5
+  },
+  "dominant_site": "nbcnews.com",
+  "dominant_share": 0.17,
+  "fragmented_share": 0.5,
+  "tool_hits": 0,
+  "vendor_share": 0.11,
+  "official_share": 0.0,
+  "unclassified_share": 0.28
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "apple watch series",
+  "apple watch series 3",
+  "apple watch series 6",
+  "apple watch series 7",
+  "apple watch series 8",
+  "apple watch series 9",
+  "apple watch series 10",
+  "apple watch series 11",
+  "apple watch series 12",
+  "best apple watch series",
+  "apple watch series 10 new",
+  "apple watch list of series",
+  "apple watch guide series 10",
+  "apple watch guide series 11",
+  "apple watch series 10 price",
+  "apple watch series 10 vs 12",
+  "apple watch series 11 price",
+  "apple watch series 11 vs 10",
+  "apple watch series 11 vs 12",
+  "apple watch series 12 price",
+  "how many apple watch series",
+  "apple watch review series 11",
+  "apple watch series 10 review",
+  "apple watch series 12 reddit",
+  "apple watch series 12 review",
+  "apple watch tutorial series 3",
+  "apple watch tutorial series 7",
+  "apple watch tutorial series 8",
+  "apple watch tutorial series 9",
+  "how much apple watch series 3",
+  "how much apple watch series 7",
+  "how much apple watch series 9",
+  "apple watch tutorial series 10",
+  "apple watch tutorial series 11",
+  "how much apple watch series 10",
+  "how much apple watch series 11",
+  "apple watch series 10 calculator",
+  "what is apple watch latest series",
+  "how much apple watch cost series 7",
+  "apple watch for beginners series 10"
+ ],
+ "queries_checked": [
+  "apple watch tutorial series 10",
+  "how much apple watch series 10"
+ ],
+ "serp": [
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 1,
+   "url": "https://www.amazon.com/Apple-Watch-Guide-Step-Step/dp/B0DHN6Q71Y",
+   "title": "Amazon.com: Apple Watch Series 10 User Guide: The Comprehensive Step-by-Step Instruction and Illustrated Manual for Beginners & Seniors to Master the Apple Watch Series 10 with Tips and Tricks for watchOS 11: 9798339836667: Blaine, Shawn: Books",
+   "category": "marketplace",
+   "site": "amazon.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 2,
+   "url": "https://books.google.com/books/about/The_Complete_Apple_Watch_Series_10_Guide.html?id=Hw_aEQAAQBAJ",
+   "title": "The Complete Apple Watch Series 10 Guide: A Beginner's Walkthrough to ... - James A. Barreto - Google Books",
+   "category": "vendor",
+   "site": "books.google.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 3,
+   "url": "https://www.amazon.com/APPLE-WATCH-GUIDE-Step-Step/dp/B0DJM64DKT",
+   "title": "APPLE WATCH SERIES 10 USER GUIDE: The Complete Step-By-Step Manual On How To Master And Set Up Your New Apple Watch Series 10 For Both Beginners And Seniors With WatchOS 11 Tips And Tricks: M. Brown, Williams: 9798341432680: Amazon.com: Books",
+   "category": "marketplace",
+   "site": "amazon.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 4,
+   "url": "https://www.androidauthority.com/apple-watch-series-10-tips-3490976/",
+   "title": "Apple Watch Series 10 tips and tricks: Make the most of your device - Android Authority",
+   "category": "editorial",
+   "site": "androidauthority.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 5,
+   "url": "https://www.youtube.com/playlist?list=PLnyvbKrMKI0GkNfQdQT7CC8a0R3LrozdL",
+   "title": "Apple Watch Series 10 Tutorials - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 6,
+   "url": "https://www.youtube.com/watch?v=muTek2zRvsY&vl=en",
+   "title": "How To Use The Apple Watch Series 10 - Beginners Guide Tutorial & Tips - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 7,
+   "url": "https://support.apple.com/en-us/docs/watch/pl213",
+   "title": "Apple Watch Series 10 Manuals and Downloads - Apple Support",
+   "category": "vendor",
+   "site": "support.apple.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 8,
+   "url": "https://www.geeky-gadgets.com/mastering-your-apple-watch-series-10-a-beginners-handbook/",
+   "title": "Mastering Your Apple Watch Series 10: A Beginner's Handbook - Geeky Gadgets",
+   "category": "unclassified",
+   "site": "geeky-gadgets.com"
+  },
+  {
+   "query": "apple watch tutorial series 10",
+   "rank": 9,
+   "url": "https://howtouseyouriphone.com/apple-watch-series-10-tutorial/",
+   "title": "Mastering the Apple Watch Series 10 Tutorial: Beginner's Guide with Tips and Tricks - How to Use Your iPhone",
+   "category": "unclassified",
+   "site": "howtouseyouriphone.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 1,
+   "url": "https://prices.appleinsider.com/apple-watch-series-10",
+   "title": "Apple Watch Series 10 Price Best Deals Discounts On Sale",
+   "category": "unclassified",
+   "site": "prices.appleinsider.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 2,
+   "url": "https://www.nbcnews.com/select/shopping/apple-watch-10-sale-deal-amazon-rcna195371",
+   "title": "By the way, the Apple Watch Series 10 is at its lowest price ever right now",
+   "category": "editorial",
+   "site": "nbcnews.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 3,
+   "url": "https://www.nbcnews.com/select/shopping/apple-watch-series-10-review-rcna190476",
+   "title": "The Apple Watch Series 10 may have finally convinced me to wear an Apple Watch to sleep",
+   "category": "editorial",
+   "site": "nbcnews.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 4,
+   "url": "https://forums.macrumors.com/threads/apple-watch-series-10-hits-lowest-ever-price-of-299-on-amazon-plus-record-lows-on-se-models.2452439/",
+   "title": "Apple Watch Series 10 Hits Lowest-Ever Price of $299 on Amazon, Plus Record Lows on SE Models | MacRumors Forums",
+   "category": "community",
+   "site": "forums.macrumors.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 5,
+   "url": "https://www.bestbuy.com/site/searchpage.jsp?browsedCategory=pcmcat321000050004&id=pcat17071&qp=modelfamily_facet%3DModel+Family%7EApple+Watch+Series+10&st=categoryid%24pcmcat321000050004",
+   "title": "Apple Watch Series 10 Smartwatches - Best Buy",
+   "category": "unclassified",
+   "site": "bestbuy.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 6,
+   "url": "https://www.verizon.com/connected-smartwatches/apple-watch-series-10/",
+   "title": "Apple Watch Series 10: Colors, Price, Reviews | Verizon",
+   "category": "unclassified",
+   "site": "verizon.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 7,
+   "url": "https://macdailynews.substack.com/p/apple-watch-series-10-hits-a-record-low-price",
+   "title": "Apple Watch Series 10 hits a record-low price",
+   "category": "community",
+   "site": "macdailynews.substack.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 8,
+   "url": "https://www.nbcnews.com/select/amp/rcna195371",
+   "title": "Apple Watch Series 10 is at its lowest price ever right now",
+   "category": "editorial",
+   "site": "nbcnews.com"
+  },
+  {
+   "query": "how much apple watch series 10",
+   "rank": 9,
+   "url": "https://www.techradar.com/health-fitness/smartwatches/bag-the-apple-watch-series-10-for-only-usd299-this-memorial-day",
+   "title": "Bag the Apple Watch Series 10 for only $299 this Memorial Day",
+   "category": "editorial",
+   "site": "techradar.com"
+  }
+ ]
+}

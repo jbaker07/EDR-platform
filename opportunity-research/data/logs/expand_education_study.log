@@ -1,6 +1,12 @@
-{"seed": "study algebra", "new_queries": 724, "suggestions_seen": 1280}
-{"seed": "study chemistry", "new_queries": 939, "suggestions_seen": 1492}
-{"seed": "study essay", "new_queries": 833, "suggestions_seen": 1219}
-{"seed": "study sat", "new_queries": 1003, "suggestions_seen": 1450}
-{"seed": "study flashcards", "new_queries": 495, "suggestions_seen": 1267}
-{"seed": "lesson plan", "new_queries": 1376, "suggestions_seen": 1891}
+{"seed": "study algebra", "skipped": "already expanded"}
+{"seed": "study calculus", "new_queries": 667, "suggestions_seen": 1216}
+{"seed": "study chemistry", "skipped": "already expanded"}
+{"seed": "study physics", "new_queries": 942, "suggestions_seen": 1481}
+{"seed": "study essay", "skipped": "already expanded"}
+{"seed": "study citation", "new_queries": 713, "suggestions_seen": 1028}
+{"seed": "study sat", "skipped": "already expanded"}
+{"seed": "study act", "new_queries": 909, "suggestions_seen": 1414}
+{"seed": "study flashcards", "skipped": "already expanded"}
+{"seed": "study anki", "new_queries": 699, "suggestions_seen": 1316}
+{"seed": "lesson plan", "skipped": "already expanded"}
+{"seed": "study worksheet", "new_queries": 679, "suggestions_seen": 947}

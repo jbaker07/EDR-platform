@@ -1,0 +1,228 @@
+{
+ "cluster_id": "c_75513861",
+ "head_term": "excel formulas",
+ "label": "formula excel",
+ "domain": "data_ai",
+ "members": 93,
+ "problem_members": 53,
+ "organic_problem_members": 4,
+ "intents": {
+  "informational": 26,
+  "commercial_nav": 14,
+  "fix": 11,
+  "find": 10
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "aggregator": 3,
+   "unclassified": 5,
+   "editorial": 5,
+   "tool": 2,
+   "official": 1,
+   "vendor": 1,
+   "community": 1
+  },
+  "dominant_site": "scribd.com",
+  "dominant_share": 0.17,
+  "fragmented_share": 0.5,
+  "tool_hits": 2,
+  "vendor_share": 0.06,
+  "official_share": 0.06,
+  "unclassified_share": 0.28
+ },
+ "trends_chain_value": 10.545,
+ "trends_error_pct": 6.7,
+ "sample_members": [
+  "excel formulas",
+  "excel formula tool",
+  "excel formulas pdf",
+  "excel same formula",
+  "best excel formulas",
+  "excel formula guide",
+  "excel quick formula",
+  "free excel formulas",
+  "all formula of excel",
+  "excel formula errors",
+  "excel formula review",
+  "excel formula example",
+  "excel formula problem",
+  "faster excel formulas",
+  "excel formula list pdf",
+  "excel formula template",
+  "excel formula error 522",
+  "excel formula generator",
+  "excel formula guide pdf",
+  "excel formulas tutorial",
+  "free excel formulas pdf",
+  "how many excel formulas",
+  "which day excel formula",
+  "excel formula calculator",
+  "excel formula difference",
+  "excel formula list video",
+  "fix excel formula errors",
+  "fix excel formula online",
+  "free excel formula guide",
+  "excel formula errors list",
+  "excel formula not working",
+  "excel formula quick guide",
+  "excel formula slow update",
+  "how much formula in excel",
+  "excel all formula list pdf",
+  "excel formula tutorial pdf",
+  "excel formula won't update",
+  "how to excel formulas list",
+  "i need a formula for excel",
+  "excel all formulas tutorial"
+ ],
+ "queries_checked": [
+  "excel formula list with examples pdf",
+  "excel formulas tutorial"
+ ],
+ "serp": [
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 1,
+   "url": "https://www.scribd.com/document/713881654/All-important-Excel-Formulas-AtoZ-Library",
+   "title": "Comprehensive Excel Formulas Guide | PDF | Mathematics | Computer Data",
+   "category": "aggregator",
+   "site": "scribd.com"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 2,
+   "url": "https://www.exceldemy.com/wp-content/uploads/2021/09/Excel-Functions-List-v1.0.pdf",
+   "title": "102+ Useful Excel Formulas Cheat Sheet PDF + Free Download Excel Sheet",
+   "category": "unclassified",
+   "site": "exceldemy.com"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 3,
+   "url": "https://www.shastacoe.org/uploaded/Dept/it/training_docs/Excel/Excel_Advanced_Training_Packet.pdf",
+   "title": "Excel Advanced Contents",
+   "category": "editorial",
+   "site": "shastacoe.org"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 4,
+   "url": "https://www.scribd.com/document/769520299/Excel-Formulas-List-PDF",
+   "title": "Excel Formulas List PDF | PDF",
+   "category": "aggregator",
+   "site": "scribd.com"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 5,
+   "url": "https://www.scribd.com/document/842358198/Excel-Formulas-List",
+   "title": "Excel Formula Shortcuts Guide | PDF | Microsoft Excel | Software",
+   "category": "aggregator",
+   "site": "scribd.com"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 6,
+   "url": "https://exceljet.net/formulas",
+   "title": "Excel Formulas | Exceljet",
+   "category": "tool",
+   "site": "exceljet.net"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 7,
+   "url": "https://yodalearning.com/tutorials/excel-formulas-pdf/",
+   "title": "[PDF] 400+ Excel Formulas List | Excel Shortcut Keys PDF - Download Here",
+   "category": "unclassified",
+   "site": "yodalearning.com"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 8,
+   "url": "https://web.acd.ccac.edu/~ndowney/CIT140/Excel/Formulas.pdf",
+   "title": "Excel Formulas Cheat Sheet Page 1 of 7 Basic Formulas Formula Structure",
+   "category": "official",
+   "site": "web.acd.ccac.edu"
+  },
+  {
+   "query": "excel formula list with examples pdf",
+   "rank": 9,
+   "url": "https://www.excelsuperstar.org/wp-content/uploads/2018/06/Excel-Formulas-PDF.pdf",
+   "title": "Excel Formulas PDF",
+   "category": "unclassified",
+   "site": "excelsuperstar.org"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 1,
+   "url": "https://www.excel-university.com/excel-formulas-tutorial/",
+   "title": "Excel Formulas Tutorial: What are Formulas and How to Use Them",
+   "category": "unclassified",
+   "site": "excel-university.com"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 2,
+   "url": "https://www.datacamp.com/tutorial/basic-excel-formulas-for-everyone",
+   "title": "The 15 Basic Excel Formulas Everyone Needs to Know | DataCamp",
+   "category": "editorial",
+   "site": "datacamp.com"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 3,
+   "url": "https://www.geeksforgeeks.org/excel/basic-excel-formulas-and-functions/",
+   "title": "Top Excel Formulas and Functions You Should Know 2024 - GeeksforGeeks",
+   "category": "editorial",
+   "site": "geeksforgeeks.org"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 4,
+   "url": "https://www.excel-easy.com/introduction/formulas-functions.html",
+   "title": "Formulas and Functions in Excel - Complete Tutorial",
+   "category": "unclassified",
+   "site": "excel-easy.com"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 5,
+   "url": "https://support.microsoft.com/en-us/excel/get-started/overview-of-formulas-in-excel",
+   "title": "Overview of formulas in Excel | Microsoft Support",
+   "category": "vendor",
+   "site": "support.microsoft.com"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 6,
+   "url": "https://www.w3schools.com/excel/excel_formulas.php",
+   "title": "Excel Formulas",
+   "category": "editorial",
+   "site": "w3schools.com"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 7,
+   "url": "https://exceljet.net/formulas",
+   "title": "Excel Formulas | Exceljet",
+   "category": "tool",
+   "site": "exceljet.net"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 8,
+   "url": "https://www.youtube.com/playlist?list=PLzj7TwUeMQ3isgpmQEWFwWqFZ95Ih-AhA",
+   "title": "Top 10 Excel Functions & Formulas - YouTube",
+   "category": "community",
+   "site": "youtube.com"
+  },
+  {
+   "query": "excel formulas tutorial",
+   "rank": 9,
+   "url": "https://www.shastacoe.org/uploaded/Dept/it/training_docs/Excel/Excel_Introduction_to_Formulas.pdf",
+   "title": "Excel: Introduction to Formulas Table of Contents Formulas",
+   "category": "editorial",
+   "site": "shastacoe.org"
+  }
+ ]
+}
