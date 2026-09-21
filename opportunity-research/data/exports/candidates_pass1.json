@@ -826,6 +826,73 @@
   ]
  },
  {
+  "cluster_id": "c_33091379",
+  "label": "distillery mark maker tour",
+  "domain": "collecting_antiques",
+  "confidence": "unreviewed",
+  "members": 25,
+  "problem_members": 25,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 5,
+  "intents": {
+   "generate": 22,
+   "calculate": 2,
+   "decide": 1
+  },
+  "subdomains": [
+   "identification"
+  ],
+  "problem_examples": [
+   [
+    "maker's mark distillery tour",
+    "generate"
+   ],
+   [
+    "maker's mark distillery",
+    "generate"
+   ],
+   [
+    "maker's mark distillery photos",
+    "generate"
+   ],
+   [
+    "maker's mark tours kentucky",
+    "generate"
+   ],
+   [
+    "maker's mark distillery kentucky",
+    "generate"
+   ],
+   [
+    "maker's mark tour ky",
+    "generate"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "maker's mark distillery",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {
+   "n": 18,
+   "categories": {
+    "editorial": 11,
+    "vendor": 2,
+    "unclassified": 5
+   },
+   "dominant_site": "maplehillmanor.com",
+   "dominant_share": 0.22,
+   "fragmented_share": 0.61,
+   "tool_hits": 0,
+   "vendor_share": 0.11,
+   "official_share": 0.0,
+   "unclassified_share": 0.28
+  },
+  "queries_checked": [
+   "best maker's mark distillery tour",
+   "maker's mark distillery tour"
+  ]
+ },
+ {
   "cluster_id": "c_22924753",
   "label": "action github",
   "domain": "software_dev_ops",
@@ -1173,73 +1240,6 @@
   "queries_checked": [
    "vue js calculator",
    "vue js tutorial for beginners"
-  ]
- },
- {
-  "cluster_id": "c_33091379",
-  "label": "distillery mark maker tour",
-  "domain": "collecting_antiques",
-  "confidence": "unreviewed",
-  "members": 25,
-  "problem_members": 25,
-  "organic_problem_members": 5,
-  "corroborated_2plus": 5,
-  "intents": {
-   "generate": 22,
-   "calculate": 2,
-   "decide": 1
-  },
-  "subdomains": [
-   "identification"
-  ],
-  "problem_examples": [
-   [
-    "maker's mark distillery tour",
-    "generate"
-   ],
-   [
-    "maker's mark distillery",
-    "generate"
-   ],
-   [
-    "maker's mark distillery photos",
-    "generate"
-   ],
-   [
-    "maker's mark tours kentucky",
-    "generate"
-   ],
-   [
-    "maker's mark distillery kentucky",
-    "generate"
-   ],
-   [
-    "maker's mark tour ky",
-    "generate"
-   ]
-  ],
-  "problem_share": 1.0,
-  "head_term": "maker's mark distillery",
-  "trends_chain_value": null,
-  "trends_error_pct": null,
-  "fragmentation": {
-   "n": 18,
-   "categories": {
-    "editorial": 11,
-    "vendor": 2,
-    "unclassified": 5
-   },
-   "dominant_site": "maplehillmanor.com",
-   "dominant_share": 0.22,
-   "fragmented_share": 0.61,
-   "tool_hits": 15,
-   "vendor_share": 0.11,
-   "official_share": 0.0,
-   "unclassified_share": 0.28
-  },
-  "queries_checked": [
-   "best maker's mark distillery tour",
-   "maker's mark distillery tour"
   ]
  },
  {
@@ -2939,6 +2939,77 @@
   ]
  },
  {
+  "cluster_id": "c_77124544",
+  "label": "postgresql database",
+  "domain": "software_dev_web",
+  "confidence": "unreviewed",
+  "members": 48,
+  "problem_members": 45,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 6,
+  "intents": {
+   "find": 26,
+   "calculate": 4,
+   "decide": 3,
+   "commercial_nav": 3
+  },
+  "subdomains": [
+   "databases"
+  ],
+  "problem_examples": [
+   [
+    "database postgresql",
+    "find"
+   ],
+   [
+    "database postgresql tutorial",
+    "how_to"
+   ],
+   [
+    "database postgresql free",
+    "find"
+   ],
+   [
+    "database postgresql online",
+    "find"
+   ],
+   [
+    "database postgresql example",
+    "find"
+   ],
+   [
+    "database postgresql online free",
+    "find"
+   ]
+  ],
+  "problem_share": 0.94,
+  "head_term": "database postgresql",
+  "trends_chain_value": 5.577,
+  "trends_error_pct": 3.0,
+  "fragmentation": {
+   "n": 18,
+   "categories": {
+    "vendor": 5,
+    "community": 1,
+    "unclassified": 5,
+    "official": 1,
+    "editorial": 5,
+    "aggregator": 1
+   },
+   "dominant_site": "w3schools.com",
+   "dominant_share": 0.17,
+   "fragmented_share": 0.39,
+   "tool_hits": 0,
+   "vendor_share": 0.28,
+   "official_share": 0.06,
+   "unclassified_share": 0.28
+  },
+  "queries_checked": [
+   "database postgresql",
+   "database postgresql tutorial"
+  ]
+ },
+ {
   "cluster_id": "c_38358966",
   "label": "stl fil print 3d",
   "domain": "three_d_printing",
@@ -3219,6 +3290,79 @@
   ]
  },
  {
+  "cluster_id": "c_00649614",
+  "label": "minecraft seed world 1.21",
+  "domain": "gaming_titles",
+  "confidence": "unreviewed",
+  "members": 79,
+  "problem_members": 71,
+  "organic_problem_members": 0,
+  "corroborated_2plus": 24,
+  "intents": {
+   "how_to": 32,
+   "decide": 18,
+   "track": 9,
+   "generate": 6
+  },
+  "subdomains": [
+   "java_kotlin",
+   "minecraft"
+  ],
+  "problem_examples": [
+   [
+    "best java seeds",
+    "decide"
+   ],
+   [
+    "best java seeds 1.21",
+    "decide"
+   ],
+   [
+    "best java minecraft seeds",
+    "decide"
+   ],
+   [
+    "best java seeds for survival",
+    "decide"
+   ],
+   [
+    "where to find minecraft seed",
+    "find"
+   ],
+   [
+    "minecraft tutorial world seed",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.9,
+  "head_term": "random minecraft seed",
+  "trends_chain_value": 0.224,
+  "trends_error_pct": 39.4,
+  "fragmentation": {
+   "n": 18,
+   "categories": {
+    "unclassified": 5,
+    "editorial": 6,
+    "marketplace": 3,
+    "community": 1,
+    "tool": 1,
+    "official": 1,
+    "vendor": 1
+   },
+   "dominant_site": "m.indiamart.com",
+   "dominant_share": 0.11,
+   "fragmented_share": 0.39,
+   "tool_hits": 2,
+   "vendor_share": 0.06,
+   "official_share": 0.06,
+   "unclassified_share": 0.28
+  },
+  "queries_checked": [
+   "best java seeds",
+   "where to find minecraft seed"
+  ]
+ },
+ {
   "cluster_id": "c_02894523",
   "label": "sat study",
   "domain": "education_study",
@@ -3285,79 +3429,6 @@
   "queries_checked": [
    "best sat study",
    "how to study for sat in one week"
-  ]
- },
- {
-  "cluster_id": "c_00649614",
-  "label": "minecraft seed world 1.21",
-  "domain": "gaming_titles",
-  "confidence": "unreviewed",
-  "members": 79,
-  "problem_members": 71,
-  "organic_problem_members": 0,
-  "corroborated_2plus": 24,
-  "intents": {
-   "how_to": 32,
-   "decide": 18,
-   "track": 9,
-   "generate": 6
-  },
-  "subdomains": [
-   "java_kotlin",
-   "minecraft"
-  ],
-  "problem_examples": [
-   [
-    "best java seeds",
-    "decide"
-   ],
-   [
-    "best java seeds 1.21",
-    "decide"
-   ],
-   [
-    "best java minecraft seeds",
-    "decide"
-   ],
-   [
-    "best java seeds for survival",
-    "decide"
-   ],
-   [
-    "where to find minecraft seed",
-    "find"
-   ],
-   [
-    "minecraft tutorial world seed",
-    "how_to"
-   ]
-  ],
-  "problem_share": 0.9,
-  "head_term": "random minecraft seed",
-  "trends_chain_value": 0.224,
-  "trends_error_pct": 39.4,
-  "fragmentation": {
-   "n": 18,
-   "categories": {
-    "unclassified": 5,
-    "editorial": 6,
-    "marketplace": 3,
-    "community": 1,
-    "tool": 1,
-    "official": 1,
-    "vendor": 1
-   },
-   "dominant_site": "m.indiamart.com",
-   "dominant_share": 0.11,
-   "fragmented_share": 0.39,
-   "tool_hits": 3,
-   "vendor_share": 0.06,
-   "official_share": 0.06,
-   "unclassified_share": 0.28
-  },
-  "queries_checked": [
-   "best java seeds",
-   "where to find minecraft seed"
   ]
  },
  {
@@ -3496,77 +3567,6 @@
   "queries_checked": [
    "running plan for beginners",
    "running plan to get faster"
-  ]
- },
- {
-  "cluster_id": "c_77124544",
-  "label": "postgresql database",
-  "domain": "software_dev_web",
-  "confidence": "unreviewed",
-  "members": 48,
-  "problem_members": 45,
-  "organic_problem_members": 6,
-  "corroborated_2plus": 6,
-  "intents": {
-   "find": 26,
-   "calculate": 4,
-   "decide": 3,
-   "commercial_nav": 3
-  },
-  "subdomains": [
-   "databases"
-  ],
-  "problem_examples": [
-   [
-    "database postgresql",
-    "find"
-   ],
-   [
-    "database postgresql tutorial",
-    "how_to"
-   ],
-   [
-    "database postgresql free",
-    "find"
-   ],
-   [
-    "database postgresql online",
-    "find"
-   ],
-   [
-    "database postgresql example",
-    "find"
-   ],
-   [
-    "database postgresql online free",
-    "find"
-   ]
-  ],
-  "problem_share": 0.94,
-  "head_term": "database postgresql",
-  "trends_chain_value": 5.577,
-  "trends_error_pct": 3.0,
-  "fragmentation": {
-   "n": 18,
-   "categories": {
-    "vendor": 5,
-    "community": 1,
-    "unclassified": 5,
-    "official": 1,
-    "editorial": 5,
-    "aggregator": 1
-   },
-   "dominant_site": "w3schools.com",
-   "dominant_share": 0.17,
-   "fragmented_share": 0.39,
-   "tool_hits": 6,
-   "vendor_share": 0.28,
-   "official_share": 0.06,
-   "unclassified_share": 0.28
-  },
-  "queries_checked": [
-   "database postgresql",
-   "database postgresql tutorial"
   ]
  },
  {
@@ -6384,6 +6384,77 @@
   ]
  },
  {
+  "cluster_id": "c_86165214",
+  "label": "mark maker open source",
+  "domain": "collecting_antiques",
+  "confidence": "unreviewed",
+  "members": 49,
+  "problem_members": 42,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 9,
+  "intents": {
+   "generate": 24,
+   "calculate": 6,
+   "alternative": 5,
+   "fix": 4
+  },
+  "subdomains": [
+   "identification"
+  ],
+  "problem_examples": [
+   [
+    "maker's mark",
+    "generate"
+   ],
+   [
+    "maker's mark 46",
+    "generate"
+   ],
+   [
+    "maker's mark review",
+    "generate"
+   ],
+   [
+    "how much does maker's mark cost",
+    "calculate"
+   ],
+   [
+    "maker's mark 101",
+    "generate"
+   ],
+   [
+    "best makers mark",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.86,
+  "head_term": "maker's mark",
+  "trends_chain_value": 6.205,
+  "trends_error_pct": 4.0,
+  "fragmentation": {
+   "n": 18,
+   "categories": {
+    "unclassified": 6,
+    "official": 1,
+    "tool": 3,
+    "marketplace": 4,
+    "reference": 3,
+    "vendor": 1
+   },
+   "dominant_site": "wine-searcher.com",
+   "dominant_share": 0.17,
+   "fragmented_share": 0.0,
+   "tool_hits": 5,
+   "vendor_share": 0.06,
+   "official_share": 0.06,
+   "unclassified_share": 0.33
+  },
+  "queries_checked": [
+   "how much does maker's mark cost",
+   "maker's mark"
+  ]
+ },
+ {
   "cluster_id": "c_36948105",
   "label": "lmp pregnancy nadu tamil",
   "domain": "parenting_family",
@@ -6516,77 +6587,6 @@
   "queries_checked": [
    "create flashcards to study",
    "study flashcards maker"
-  ]
- },
- {
-  "cluster_id": "c_86165214",
-  "label": "mark maker open source",
-  "domain": "collecting_antiques",
-  "confidence": "unreviewed",
-  "members": 49,
-  "problem_members": 42,
-  "organic_problem_members": 5,
-  "corroborated_2plus": 9,
-  "intents": {
-   "generate": 24,
-   "calculate": 6,
-   "alternative": 5,
-   "fix": 4
-  },
-  "subdomains": [
-   "identification"
-  ],
-  "problem_examples": [
-   [
-    "maker's mark",
-    "generate"
-   ],
-   [
-    "maker's mark 46",
-    "generate"
-   ],
-   [
-    "maker's mark review",
-    "generate"
-   ],
-   [
-    "how much does maker's mark cost",
-    "calculate"
-   ],
-   [
-    "maker's mark 101",
-    "generate"
-   ],
-   [
-    "best makers mark",
-    "decide"
-   ]
-  ],
-  "problem_share": 0.86,
-  "head_term": "maker's mark",
-  "trends_chain_value": 6.205,
-  "trends_error_pct": 4.0,
-  "fragmentation": {
-   "n": 18,
-   "categories": {
-    "unclassified": 6,
-    "official": 1,
-    "tool": 3,
-    "marketplace": 4,
-    "reference": 3,
-    "vendor": 1
-   },
-   "dominant_site": "wine-searcher.com",
-   "dominant_share": 0.17,
-   "fragmented_share": 0.0,
-   "tool_hits": 16,
-   "vendor_share": 0.06,
-   "official_share": 0.06,
-   "unclassified_share": 0.33
-  },
-  "queries_checked": [
-   "how much does maker's mark cost",
-   "maker's mark"
   ]
  },
  {

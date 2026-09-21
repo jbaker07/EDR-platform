@@ -5,3 +5,5 @@
 {"seed": "3d printer stringing", "skipped": "already expanded"}
 {"seed": "layer shift", "skipped": "already expanded"}
 {"seed": "3d printer pla", "skipped": "already expanded"}
+{"seed": "3d printer petg", "new_queries": 430, "suggestions_seen": 1842}
+{"seed": "stl files", "skipped": "already expanded"}

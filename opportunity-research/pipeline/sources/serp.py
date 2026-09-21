@@ -35,7 +35,8 @@ PATTERNS = [
     ("editorial", r"blog|/articles?/|magazine|news|/guide/|/guides/|lifehacker|thespruce|bobvila|familyhandyman|wikihow|ifixit|allrecipes|seriouseats"),
 ]
 FALLBACK = "unclassified"
-TOOL_TITLE = re.compile(r"\b(calculator|generator|template|templates|maker|converter|checker|finder|planner|database|tracker|simulator|"
+# title words that name a tool page; "maker's" (a brand) and "database" (a product category) are excluded as false positives
+TOOL_TITLE = re.compile(r"\b(calculator|generator|template|templates|maker(?!'s)|converter|checker|finder|planner|tracker|simulator|"
                         r"lookup|estimator|builder|free tool|online tool)\b", re.I)
 
 
