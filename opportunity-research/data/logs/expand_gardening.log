@@ -1,12 +1,11 @@
 {"seed": "tomato plant", "skipped": "already expanded"}
-{"seed": "when to plant", "new_queries": 1337, "suggestions_seen": 1780}
+{"seed": "when to plant", "skipped": "already expanded"}
+{"seed": "seed starting", "new_queries": 966, "suggestions_seen": 1466}
 {"seed": "houseplant", "skipped": "already expanded"}
-{"seed": "houseplant monstera", "new_queries": 623, "suggestions_seen": 1086}
+{"seed": "houseplant monstera", "skipped": "already expanded"}
+{"seed": "yellow leaves", "new_queries": 902, "suggestions_seen": 1460}
 {"seed": "lawn care", "skipped": "already expanded"}
-{"seed": "grass seed", "new_queries": 1316, "suggestions_seen": 1836}
+{"seed": "grass seed", "skipped": "already expanded"}
+{"seed": "lawn fertilizer", "new_queries": 868, "suggestions_seen": 1544}
 {"seed": "garden pruning", "skipped": "already expanded"}
-{"seed": "tree disease", "new_queries": 762, "suggestions_seen": 1375}
-{"seed": "garden aphids", "skipped": "already expanded"}
-{"seed": "plant disease", "new_queries": 913, "suggestions_seen": 1517}
-{"seed": "garden irrigation", "skipped": "already expanded"}
-{"seed": "garden sprinkler", "new_queries": 841, "suggestions_seen": 1505}
+{"seed": "tree disease", "skipped": "already expanded"}

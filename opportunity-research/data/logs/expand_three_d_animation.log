@@ -15,3 +15,4 @@
 {"seed": "3d modeling gltf", "new_queries": 472, "suggestions_seen": 1114}
 {"seed": "3d modeling houdini", "skipped": "already expanded"}
 {"seed": "3d modeling particles", "skipped": "already expanded"}
+{"seed": "cloth simulation", "new_queries": 491, "suggestions_seen": 1032}

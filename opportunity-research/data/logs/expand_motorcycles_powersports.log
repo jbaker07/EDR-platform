@@ -1,8 +1,12 @@
 {"seed": "motorcycle maintenance", "skipped": "already expanded"}
-{"seed": "motorcycle won't start", "new_queries": 599, "suggestions_seen": 1880}
+{"seed": "motorcycle won't start", "skipped": "already expanded"}
+{"seed": "chain tension", "new_queries": 805, "suggestions_seen": 1526}
 {"seed": "bike repair", "skipped": "already expanded"}
-{"seed": "bike size", "new_queries": 1061, "suggestions_seen": 1685}
+{"seed": "bike size", "skipped": "already expanded"}
+{"seed": "gear ratio", "new_queries": 1053, "suggestions_seen": 1746}
 {"seed": "motorcycle atv", "skipped": "already expanded"}
-{"seed": "jet ski", "new_queries": 1560, "suggestions_seen": 2036}
+{"seed": "jet ski", "skipped": "already expanded"}
+{"seed": "motorcycle snowmobile", "new_queries": 562, "suggestions_seen": 956}
 {"seed": "rv", "skipped": "already expanded"}
-{"seed": "camper van", "new_queries": 1571, "suggestions_seen": 1982}
+{"seed": "camper van", "skipped": "already expanded"}
+{"seed": "trailer wiring", "new_queries": 910, "suggestions_seen": 1772}

@@ -12,3 +12,7 @@
 {"seed": "3d printer abs", "new_queries": 522, "suggestions_seen": 1728}
 {"seed": "stl files", "skipped": "already expanded"}
 {"seed": "3d printer thingiverse", "skipped": "already expanded"}
+{"seed": "3d printer printables", "new_queries": 754, "suggestions_seen": 1422}
+{"seed": "bed leveling", "skipped": "already expanded"}
+{"seed": "flow calibration", "skipped": "already expanded"}
+{"seed": "pressure advance", "new_queries": 671, "suggestions_seen": 1244}

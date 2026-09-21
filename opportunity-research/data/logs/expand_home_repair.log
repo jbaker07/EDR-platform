@@ -1,14 +1,17 @@
 {"seed": "leaking faucet", "skipped": "already expanded"}
-{"seed": "toilet running", "new_queries": 937, "suggestions_seen": 1401}
+{"seed": "toilet running", "skipped": "already expanded"}
+{"seed": "water heater", "new_queries": 1722, "suggestions_seen": 2359}
 {"seed": "outlet not working", "skipped": "already expanded"}
 {"seed": "circuit breaker", "skipped": "already expanded"}
+{"seed": "electrical wiring", "new_queries": 1255, "suggestions_seen": 1869}
 {"seed": "ac not cooling", "skipped": "already expanded"}
-{"seed": "hvac furnace", "new_queries": 728, "suggestions_seen": 1198}
+{"seed": "hvac furnace", "skipped": "already expanded"}
+{"seed": "hvac thermostat", "new_queries": 825, "suggestions_seen": 1404}
 {"seed": "drywall repair", "skipped": "already expanded"}
-{"seed": "home repair paint", "new_queries": 929, "suggestions_seen": 1420}
+{"seed": "home repair paint", "skipped": "already expanded"}
+{"seed": "home repair tile", "new_queries": 759, "suggestions_seen": 1669}
 {"seed": "roof leak", "skipped": "already expanded"}
-{"seed": "home repair gutter", "new_queries": 605, "suggestions_seen": 1528}
+{"seed": "home repair gutter", "skipped": "already expanded"}
+{"seed": "home repair siding", "new_queries": 681, "suggestions_seen": 1739}
 {"seed": "door won't close", "skipped": "already expanded"}
-{"seed": "window replacement", "new_queries": 1382, "suggestions_seen": 1841}
-{"seed": "home repair mold", "skipped": "already expanded"}
-{"seed": "home repair termites", "new_queries": 628, "suggestions_seen": 1678}
+{"seed": "window replacement", "skipped": "already expanded"}

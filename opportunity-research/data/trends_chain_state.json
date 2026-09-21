@@ -4998,54 +4998,334 @@
    "reads": 53.13,
    "anchor_reads": 5.08,
    "error_pct": 10.8
+  },
+  "negotiate salary offer": {
+   "value": 0.708,
+   "anchor": "icd 10 codes",
+   "reads": 1,
+   "anchor_reads": 15.04,
+   "error_pct": 53.3
+  },
+  "spring boot": {
+   "value": 30.219,
+   "anchor": "icd 10 codes",
+   "reads": 42.66,
+   "anchor_reads": 15.04,
+   "error_pct": 4.5
+  },
+  "photo scanner": {
+   "value": 5.477,
+   "anchor": "sourdough starter recipe",
+   "reads": 29.32,
+   "anchor_reads": 57.74,
+   "error_pct": 2.6
+  },
+  "cpt code list": {
+   "value": 2.178,
+   "anchor": "sourdough starter recipe",
+   "reads": 11.66,
+   "anchor_reads": 57.74,
+   "error_pct": 5.2
+  },
+  "replacing pull ups": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 3.74,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "engineering gd&t": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 3.74,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "espresso machine": {
+   "value": 149.182,
+   "anchor": "icd 10 codes",
+   "reads": 52.32,
+   "anchor_reads": 3.74,
+   "error_pct": 14.3
+  },
+  "ssl certificate": {
+   "value": 21.397,
+   "anchor": "icd 10 codes",
+   "reads": 34.91,
+   "anchor_reads": 17.38,
+   "error_pct": 4.3
+  },
+  "acrylic painting": {
+   "value": 12.988,
+   "anchor": "icd 10 codes",
+   "reads": 21.19,
+   "anchor_reads": 17.38,
+   "error_pct": 5.2
+  },
+  "2fa security code": {
+   "value": 0.016,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.02,
+   "anchor_reads": 12.94,
+   "error_pct": 103.9
+  },
+  "nba 2k26": {
+   "value": 49.55,
+   "anchor": "sourdough starter recipe",
+   "reads": 59.47,
+   "anchor_reads": 12.94,
+   "error_pct": 4.7
+  },
+  "stable diffusion webui": {
+   "value": 0.95,
+   "anchor": "docker desktop",
+   "reads": 2.77,
+   "anchor_reads": 32.28,
+   "error_pct": 19.6
+  },
+  "brand guidelines": {
+   "value": 20.555,
+   "anchor": "docker desktop",
+   "reads": 60.02,
+   "anchor_reads": 32.28,
+   "error_pct": 2.4
+  },
+  "2fa security zerodha": {
+   "value": 0.0,
+   "anchor": "docker desktop",
+   "reads": 0,
+   "anchor_reads": 57.09,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "workout plan for beginners female": {
+   "value": 0.018,
+   "anchor": "docker desktop",
+   "reads": 0.09,
+   "anchor_reads": 57.09,
+   "error_pct": 100.9
+  },
+  "database mysql": {
+   "value": 5.429,
+   "anchor": "docker desktop",
+   "reads": 28.04,
+   "anchor_reads": 57.09,
+   "error_pct": 2.7
+  },
+  "push ups frozen": {
+   "value": 0.0,
+   "anchor": "docker desktop",
+   "reads": 0,
+   "anchor_reads": 57.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "self publishing": {
+   "value": 5.676,
+   "anchor": "docker desktop",
+   "reads": 29.32,
+   "anchor_reads": 57.11,
+   "error_pct": 2.6
+  },
+  "photography iso": {
+   "value": 2.571,
+   "anchor": "docker desktop",
+   "reads": 13.28,
+   "anchor_reads": 57.11,
+   "error_pct": 4.6
+  },
+  "burp suite": {
+   "value": 2.403,
+   "anchor": "docker desktop",
+   "reads": 12.42,
+   "anchor_reads": 57.11,
+   "error_pct": 4.9
+  },
+  "fitness strava": {
+   "value": 1.325,
+   "anchor": "icd 10 codes",
+   "reads": 10.32,
+   "anchor_reads": 82.94,
+   "error_pct": 5.4
+  },
+  "nmap security scanner": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 82.96,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "termites repair": {
+   "value": 0.218,
+   "anchor": "icd 10 codes",
+   "reads": 1.7,
+   "anchor_reads": 82.91,
+   "error_pct": 30.0
+  },
+  "graphic design guide": {
+   "value": 0.8,
+   "anchor": "icd 10 codes",
+   "reads": 6.23,
+   "anchor_reads": 82.91,
+   "error_pct": 8.6
+  },
+  "warhammer 40k changes": {
+   "value": 0.07,
+   "anchor": "icd 10 codes",
+   "reads": 0.55,
+   "anchor_reads": 82.92,
+   "error_pct": 92.0
+  },
+  "electronics capacitors": {
+   "value": 0.204,
+   "anchor": "icd 10 codes",
+   "reads": 1.58,
+   "anchor_reads": 82.92,
+   "error_pct": 32.2
+  },
+  "final cut pro ai features": {
+   "value": 0.026,
+   "anchor": "icd 10 codes",
+   "reads": 0.04,
+   "anchor_reads": 15.51,
+   "error_pct": 103.2
+  },
+  "finger joint jig": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 15.51,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "nba 2k": {
+   "value": 34.068,
+   "anchor": "icd 10 codes",
+   "reads": 49.6,
+   "anchor_reads": 15.51,
+   "error_pct": 4.2
+  },
+  "excel vlookup list": {
+   "value": 0.0,
+   "anchor": "icd 10 codes",
+   "reads": 0,
+   "anchor_reads": 3.94,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "brake pads": {
+   "value": 135.775,
+   "anchor": "icd 10 codes",
+   "reads": 50.26,
+   "anchor_reads": 3.94,
+   "error_pct": 13.7
+  },
+  "drink coffee": {
+   "value": 82.421,
+   "anchor": "sourdough starter recipe",
+   "reads": 68.64,
+   "anchor_reads": 8.98,
+   "error_pct": 6.3
+  },
+  "router bits": {
+   "value": 5.448,
+   "anchor": "sourdough starter recipe",
+   "reads": 29.17,
+   "anchor_reads": 57.74,
+   "error_pct": 2.6
+  },
+  "book playlists": {
+   "value": 0.296,
+   "anchor": "sourdough starter recipe",
+   "reads": 1.58,
+   "anchor_reads": 57.74,
+   "error_pct": 32.4
+  },
+  "devops grafana": {
+   "value": 0.022,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.04,
+   "anchor_reads": 18.32,
+   "error_pct": 102.7
+  },
+  "study act": {
+   "value": 31.252,
+   "anchor": "sourdough starter recipe",
+   "reads": 53.09,
+   "anchor_reads": 18.32,
+   "error_pct": 3.7
+  },
+  "wildlife photography lenses": {
+   "value": 0.056,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.3,
+   "anchor_reads": 57.74,
+   "error_pct": 100.9
+  },
+  "lithium battery for trolling motor": {
+   "value": 0.878,
+   "anchor": "sourdough starter recipe",
+   "reads": 4.7,
+   "anchor_reads": 57.74,
+   "error_pct": 11.5
+  },
+  "backpacking gear": {
+   "value": 2.403,
+   "anchor": "sourdough starter recipe",
+   "reads": 12.87,
+   "anchor_reads": 57.74,
+   "error_pct": 4.8
+  },
+  "sewing patterns uk": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 57.83,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "electrician charge": {
+   "value": 1.305,
+   "anchor": "sourdough starter recipe",
+   "reads": 7,
+   "anchor_reads": 57.83,
+   "error_pct": 8.0
+  },
+  "mod manager total war": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 5.91,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "senior tablet phone": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 5.91,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "jet ski": {
+   "value": 63.464,
+   "anchor": "sourdough starter recipe",
+   "reads": 34.75,
+   "anchor_reads": 5.91,
+   "error_pct": 9.9
+  },
+  "window replacement": {
+   "value": 76.349,
+   "anchor": "sourdough starter recipe",
+   "reads": 41.81,
+   "anchor_reads": 5.91,
+   "error_pct": 9.7
   }
  },
  "pending": [
-  "negotiate salary offer",
-  "photo scanner",
-  "spring boot",
-  "engineering gd&t",
-  "replacing pull ups",
-  "cpt code list",
-  "2fa security code",
-  "espresso machine",
-  "ssl certificate",
-  "stable diffusion webui",
-  "acrylic painting",
-  "workout plan for beginners female",
-  "nba 2k26",
-  "2fa security zerodha",
-  "brand guidelines",
-  "push ups frozen",
-  "database mysql",
-  "self publishing",
-  "photography iso",
-  "burp suite",
-  "nmap security scanner",
-  "termites repair",
-  "fitness strava",
-  "graphic design guide",
-  "warhammer 40k changes",
-  "electronics capacitors",
-  "final cut pro ai features",
-  "finger joint jig",
-  "excel vlookup list",
-  "nba 2k",
-  "brake pads",
-  "router bits",
-  "book playlists",
-  "devops grafana",
-  "drink coffee",
-  "wildlife photography lenses",
-  "lithium battery for trolling motor",
-  "study act",
-  "sewing patterns uk",
-  "electrician charge",
-  "backpacking gear",
-  "senior tablet phone",
-  "mod manager total war",
-  "jet ski",
-  "window replacement",
   "marathon training",
   "knee pain and clicking",
   "podcast hosting",
@@ -13695,6 +13975,509 @@
    "requeued": [
     "negotiate salary offer"
    ]
+  },
+  {
+   "at": 1789985173.5931463,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "negotiate salary offer",
+    "photo scanner",
+    "spring boot",
+    "engineering gd&t"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 15.04,
+    "negotiate salary offer": 1,
+    "photo scanner": 7.7,
+    "spring boot": 42.66,
+    "engineering gd&t": 0.02
+   },
+   "requeued": [
+    "photo scanner",
+    "engineering gd&t"
+   ]
+  },
+  {
+   "at": 1789985229.9327612,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "engineering gd&t",
+    "photo scanner",
+    "replacing pull ups",
+    "cpt code list"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "engineering gd&t": 0.26,
+    "photo scanner": 29.32,
+    "replacing pull ups": 0,
+    "cpt code list": 11.66
+   },
+   "requeued": [
+    "engineering gd&t",
+    "replacing pull ups"
+   ]
+  },
+  {
+   "at": 1789985286.3473206,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "replacing pull ups",
+    "engineering gd&t",
+    "2fa security code",
+    "espresso machine"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 3.74,
+    "replacing pull ups": 0,
+    "engineering gd&t": 0,
+    "2fa security code": 0,
+    "espresso machine": 52.32
+   },
+   "requeued": [
+    "2fa security code"
+   ]
+  },
+  {
+   "at": 1789985342.7351067,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "2fa security code",
+    "ssl certificate",
+    "stable diffusion webui",
+    "acrylic painting"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 17.38,
+    "2fa security code": 0.02,
+    "ssl certificate": 34.91,
+    "stable diffusion webui": 1.51,
+    "acrylic painting": 21.19
+   },
+   "requeued": [
+    "2fa security code",
+    "stable diffusion webui"
+   ]
+  },
+  {
+   "at": 1789985399.3181996,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "stable diffusion webui",
+    "2fa security code",
+    "workout plan for beginners female",
+    "nba 2k26"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 12.94,
+    "stable diffusion webui": 1.11,
+    "2fa security code": 0.02,
+    "workout plan for beginners female": 0,
+    "nba 2k26": 59.47
+   },
+   "requeued": [
+    "stable diffusion webui",
+    "workout plan for beginners female"
+   ]
+  },
+  {
+   "at": 1789985455.7014546,
+   "anchor": "docker desktop",
+   "batch": [
+    "workout plan for beginners female",
+    "stable diffusion webui",
+    "2fa security zerodha",
+    "brand guidelines"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 32.28,
+    "workout plan for beginners female": 0.06,
+    "stable diffusion webui": 2.77,
+    "2fa security zerodha": 0,
+    "brand guidelines": 60.02
+   },
+   "requeued": [
+    "workout plan for beginners female",
+    "2fa security zerodha"
+   ]
+  },
+  {
+   "at": 1789985524.3090217,
+   "anchor": "docker desktop",
+   "batch": [
+    "2fa security zerodha",
+    "workout plan for beginners female",
+    "push ups frozen",
+    "database mysql"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 57.09,
+    "2fa security zerodha": 0,
+    "workout plan for beginners female": 0.09,
+    "push ups frozen": 0,
+    "database mysql": 28.04
+   },
+   "requeued": [
+    "push ups frozen"
+   ]
+  },
+  {
+   "at": 1789985580.6539237,
+   "anchor": "docker desktop",
+   "batch": [
+    "push ups frozen",
+    "self publishing",
+    "photography iso",
+    "burp suite"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 57.11,
+    "push ups frozen": 0,
+    "self publishing": 29.32,
+    "photography iso": 13.28,
+    "burp suite": 12.42
+   }
+  },
+  {
+   "at": 1789985636.99198,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "nmap security scanner",
+    "termites repair",
+    "fitness strava",
+    "graphic design guide"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 82.94,
+    "nmap security scanner": 0,
+    "termites repair": 1.7,
+    "fitness strava": 10.32,
+    "graphic design guide": 6.23
+   },
+   "requeued": [
+    "nmap security scanner",
+    "termites repair",
+    "graphic design guide"
+   ]
+  },
+  {
+   "at": 1789985693.331625,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "graphic design guide",
+    "termites repair",
+    "nmap security scanner",
+    "warhammer 40k changes"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 82.96,
+    "graphic design guide": 6.23,
+    "termites repair": 1.7,
+    "nmap security scanner": 0,
+    "warhammer 40k changes": 0.55
+   },
+   "requeued": [
+    "graphic design guide",
+    "termites repair",
+    "warhammer 40k changes"
+   ]
+  },
+  {
+   "at": 1789985749.6913128,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "warhammer 40k changes",
+    "termites repair",
+    "graphic design guide",
+    "electronics capacitors"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 82.91,
+    "warhammer 40k changes": 0.55,
+    "termites repair": 1.7,
+    "graphic design guide": 6.23,
+    "electronics capacitors": 1.58
+   },
+   "requeued": [
+    "warhammer 40k changes",
+    "electronics capacitors"
+   ]
+  },
+  {
+   "at": 1789985806.057862,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "electronics capacitors",
+    "warhammer 40k changes",
+    "final cut pro ai features",
+    "finger joint jig"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 82.92,
+    "electronics capacitors": 1.58,
+    "warhammer 40k changes": 0.55,
+    "final cut pro ai features": 0.15,
+    "finger joint jig": 0.04
+   },
+   "requeued": [
+    "electronics capacitors",
+    "final cut pro ai features",
+    "finger joint jig"
+   ]
+  },
+  {
+   "at": 1789985880.965711,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "finger joint jig",
+    "final cut pro ai features",
+    "electronics capacitors",
+    "excel vlookup list"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 82.92,
+    "finger joint jig": 0.04,
+    "final cut pro ai features": 0.15,
+    "electronics capacitors": 1.58,
+    "excel vlookup list": 1.66
+   },
+   "requeued": [
+    "finger joint jig",
+    "final cut pro ai features",
+    "excel vlookup list"
+   ]
+  },
+  {
+   "at": 1789985937.471713,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "excel vlookup list",
+    "final cut pro ai features",
+    "finger joint jig",
+    "nba 2k"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 15.51,
+    "excel vlookup list": 0.3,
+    "final cut pro ai features": 0.04,
+    "finger joint jig": 0,
+    "nba 2k": 49.6
+   },
+   "requeued": [
+    "excel vlookup list"
+   ]
+  },
+  {
+   "at": 1789985993.9260516,
+   "anchor": "icd 10 codes",
+   "batch": [
+    "excel vlookup list",
+    "brake pads",
+    "router bits",
+    "book playlists"
+   ],
+   "ok": true,
+   "means": {
+    "icd 10 codes": 3.94,
+    "excel vlookup list": 0,
+    "brake pads": 50.26,
+    "router bits": 2,
+    "book playlists": 0
+   },
+   "requeued": [
+    "router bits",
+    "book playlists"
+   ]
+  },
+  {
+   "at": 1789986050.3655431,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "book playlists",
+    "router bits",
+    "devops grafana",
+    "drink coffee"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 8.98,
+    "book playlists": 0.08,
+    "router bits": 4.55,
+    "devops grafana": 0,
+    "drink coffee": 68.64
+   },
+   "requeued": [
+    "book playlists",
+    "router bits",
+    "devops grafana"
+   ]
+  },
+  {
+   "at": 1789986106.743038,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "devops grafana",
+    "router bits",
+    "book playlists",
+    "wildlife photography lenses"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "devops grafana": 0.09,
+    "router bits": 29.17,
+    "book playlists": 1.58,
+    "wildlife photography lenses": 0.3
+   },
+   "requeued": [
+    "devops grafana",
+    "wildlife photography lenses"
+   ]
+  },
+  {
+   "at": 1789986163.1442742,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "wildlife photography lenses",
+    "devops grafana",
+    "lithium battery for trolling motor",
+    "study act"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 18.32,
+    "wildlife photography lenses": 0.09,
+    "devops grafana": 0.04,
+    "lithium battery for trolling motor": 1.51,
+    "study act": 53.09
+   },
+   "requeued": [
+    "wildlife photography lenses",
+    "lithium battery for trolling motor"
+   ]
+  },
+  {
+   "at": 1789986228.2484128,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "lithium battery for trolling motor",
+    "wildlife photography lenses",
+    "sewing patterns uk",
+    "electrician charge"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "lithium battery for trolling motor": 4.75,
+    "wildlife photography lenses": 0.3,
+    "sewing patterns uk": 0.02,
+    "electrician charge": 7.04
+   },
+   "requeued": [
+    "lithium battery for trolling motor",
+    "sewing patterns uk",
+    "electrician charge"
+   ]
+  },
+  {
+   "at": 1789986289.8101637,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "electrician charge",
+    "sewing patterns uk",
+    "lithium battery for trolling motor",
+    "backpacking gear"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "electrician charge": 7.02,
+    "sewing patterns uk": 0.02,
+    "lithium battery for trolling motor": 4.7,
+    "backpacking gear": 12.87
+   },
+   "requeued": [
+    "electrician charge",
+    "sewing patterns uk"
+   ]
+  },
+  {
+   "at": 1789986351.0330067,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "sewing patterns uk",
+    "electrician charge",
+    "senior tablet phone",
+    "mod manager total war"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.83,
+    "sewing patterns uk": 0,
+    "electrician charge": 7,
+    "senior tablet phone": 0.3,
+    "mod manager total war": 0
+   },
+   "requeued": [
+    "senior tablet phone",
+    "mod manager total war"
+   ]
+  },
+  {
+   "at": 1789986420.509592,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "mod manager total war",
+    "senior tablet phone",
+    "jet ski",
+    "window replacement"
+   ],
+   "ok": false,
+   "error": "no data (throttled or unknown terms)"
+  },
+  {
+   "at": 1789986440.1501527,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "mod manager total war",
+    "senior tablet phone",
+    "jet ski",
+    "window replacement"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 5.91,
+    "mod manager total war": 0,
+    "senior tablet phone": 0,
+    "jet ski": 34.75,
+    "window replacement": 41.81
+   }
+  },
+  {
+   "at": 1789986510.9666615,
+   "anchor": "docker desktop",
+   "batch": [
+    "marathon training",
+    "knee pain and clicking",
+    "podcast hosting",
+    "fix laptop battery"
+   ],
+   "ok": false,
+   "error": "no data (throttled or unknown terms)"
   }
  ],
  "anchors": [
@@ -14391,7 +15174,51 @@
   "award flights": 2,
   "machine learning gpu ram": 2,
   "office software make.com tour": 2,
-  "negotiate salary offer": 2,
-  "google cloud": 1
+  "negotiate salary offer": 3,
+  "google cloud": 1,
+  "photo scanner": 2,
+  "spring boot": 1,
+  "engineering gd&t": 3,
+  "replacing pull ups": 2,
+  "cpt code list": 1,
+  "2fa security code": 3,
+  "espresso machine": 1,
+  "ssl certificate": 1,
+  "stable diffusion webui": 3,
+  "acrylic painting": 1,
+  "workout plan for beginners female": 3,
+  "nba 2k26": 1,
+  "2fa security zerodha": 2,
+  "brand guidelines": 1,
+  "push ups frozen": 2,
+  "database mysql": 1,
+  "self publishing": 1,
+  "photography iso": 1,
+  "burp suite": 1,
+  "nmap security scanner": 2,
+  "termites repair": 3,
+  "fitness strava": 1,
+  "graphic design guide": 3,
+  "warhammer 40k changes": 3,
+  "electronics capacitors": 3,
+  "final cut pro ai features": 3,
+  "finger joint jig": 3,
+  "excel vlookup list": 3,
+  "nba 2k": 1,
+  "brake pads": 1,
+  "router bits": 3,
+  "book playlists": 3,
+  "devops grafana": 3,
+  "drink coffee": 1,
+  "wildlife photography lenses": 3,
+  "lithium battery for trolling motor": 3,
+  "study act": 1,
+  "sewing patterns uk": 3,
+  "electrician charge": 3,
+  "backpacking gear": 1,
+  "senior tablet phone": 2,
+  "mod manager total war": 2,
+  "jet ski": 1,
+  "window replacement": 1
  }
 }
