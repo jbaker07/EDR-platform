@@ -49,10 +49,11 @@ evidence_confidence: |
   near zero. The head phrase is small and the incumbent's brand is searched about 24 times more often; the
   product-level long tail is inferred from the shape of the vendor lists, not measured.
 verdict: |
-  Finalist and provisional #1 on the structure of the problem (reproducible structured dataset, AI-resistant lookup
-  layer, high commercial intent, product-level long tail), now explicitly conditional: PCPartPicker could not be
-  read (bot protection) and on general knowledge already gives a coarse "BIOS update may be required" answer, and
-  every free demand signal for the head phrases is small. Two checks are required before committing: a person
-  verifies PCPartPicker's BIOS handling in a browser (ten minutes, steps in pcpartpicker_conclusion.md), and one
-  month of keyword data sizes twenty board-plus-CPU phrases. If PCPartPicker shows minimum BIOS versions per pair,
-  the opportunity narrows to long-tail pages and explanation and should not be built as a standalone site.
+  Withdrawn as a standalone opportunity after the founder's browser check (2026-09-21): PCPartPicker's part list
+  shows, for an MSI B450 TOMAHAWK MAX with a Ryzen 5 5600X, "supports the ... Processor with BIOS version Latest
+  Beta BIOS. If the motherboard is using an older BIOS version, updating the BIOS will be necessary", so the
+  incumbent already holds a per-pair BIOS-support field. The residual gap is precision (a placeholder value rather
+  than a version and date, at least for this pairing), a board-first table, and search-landing pages per pair: a
+  content layer the incumbent could add at will, not a missing dataset. Kept in the Top 20 as the best-evidenced
+  example of "the data exists at an incumbent, the pages do not", ranked below the finalists whose incumbents are
+  still unverified.

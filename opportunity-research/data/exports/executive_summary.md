@@ -77,18 +77,21 @@ tool in the checked results; advertising fit; maintenance cost.
 | 4 | STL printability check and repair | 0.39 | 0 | 5 of 8 | 0.6 |
 | 5 | move-abroad visa eligibility by passport and occupation | 0.61 | 0 | 7 of 8 | 0.7 |
 
-**#1, conditional.** A cross-brand database of which CPUs each motherboard accepts, with the minimum BIOS version, a
-"flash before install" flag, and a page per board, per CPU and per pair. Why: the board makers publish the underlying
-tables; four editorial pages in the results restate the same method and defer to those tables; the only CPU-first tool
-is Intel-only and dated 2023; the BIOS step, which two fetched pages say decides whether the machine boots, appears
-nowhere as data; the lookup cannot be answered from memory by a chat assistant without being wrong in a way that stops
-a PC booting; the audience is buying hardware.
+**#1, withdrawn after verification.** The provisional #1 was a cross-brand database of which CPUs each motherboard
+accepts, with the minimum BIOS version and a page per pair. The founder ran the browser check on 2026-09-21: a
+PCPartPicker part list with an MSI B450 TOMAHAWK MAX and a Ryzen 5 5600X shows the incumbent's own warning that the
+board "supports the ... Processor with BIOS version Latest Beta BIOS. If the motherboard is using an older BIOS
+version, updating the BIOS will be necessary to support the CPU." The incumbent already holds a per-pair BIOS-support
+field, and its brand phrase is searched about 24 times more often than the generic problem phrase. The residual gap
+(a more precise version string, a board-first table, search-landing pages per pair) is a content layer the incumbent
+could add at will, so a standalone site is not justified. The record is kept as the best-evidenced example of "the
+data exists at an incumbent, the pages do not".
 
-Why conditional: PCPartPicker could not be read (bot protection blocked every fetch), its brand phrase is searched
-about 24 times more often than the generic problem phrase, and on general knowledge (unverified) it already shows a
-coarse "BIOS update may be required" note. The gap is therefore narrow: exact minimum BIOS versions and per-pair landing
-pages beside a strong incumbent. A ten-minute browser check (in `pcpartpicker_conclusion.md`) and one month of keyword
-data for twenty board-plus-CPU phrases decide it.
+**Where that leaves the finalists.** No finalist has a verified-open incumbent picture; each of 2 to 5 carries the
+same kind of risk (modpack platforms and launcher wikis; prosettings.net, thespike.gg, trophi.ai; online STL repair
+tools; visa-service sites and government checkers). The free route delivered a well-evidenced shortlist, not a
+verified winner. The next step is a ten-minute browser check per finalist, listed in `top5_and_no1.md`, before any
+spend on keyword data.
 
 **Why not the others as #1.** The modpack database needs continuous manual measurement; the settings database faces at
 least three unverified incumbents (prosettings.net, thespike.gg, trophi.ai) and low-CPC traffic; the STL utility is a
@@ -147,11 +150,10 @@ fragmentation of all, fully AI-replaceable).
 
 ## 8. What to do next, in order
 
-1. Ten minutes in a browser on PCPartPicker (steps in `pcpartpicker_conclusion.md`).
+1. Ten-minute browser checks on the incumbents of finalists 2 to 5 (steps in `top5_and_no1.md`); PCPartPicker is done.
 2. About $50 of keyword data for twenty product-name phrasings per finalist; the pipeline re-scores automatically
    when volumes are imported (`import-kp`, or the SERP-data adapter).
-3. If the compatibility gap is open and the long tail is real, prototype with three board vendors' lists and measure
-   indexing; if it is closed, take the modpack-requirements or settings family to the same test.
+3. For whichever finalist survives its check, prototype the data layer and measure indexing before building more.
 4. Optionally raise the web-search budget in the environment settings and check the 25 unchecked Top 100 rows and the
    mod-compatibility family.
 

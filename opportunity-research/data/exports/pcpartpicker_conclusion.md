@@ -39,7 +39,35 @@ could close it. The #1 recommendation therefore stands only as a narrow data gap
 head-phrase demand that is small on every free signal; its case rests on the long tail of product-name queries, which
 this route cannot size.
 
-## Ten-minute verification for a person with a browser
+## Browser check by the founder (2026-09-21, screenshots transcribed)
+
+A part list with an MSI B450 TOMAHAWK MAX ATX AM4 motherboard and an AMD Ryzen 5 5600X showed an orange
+compatibility banner ("Warning! These parts have potential issues") and, under "Potential Issues":
+
+> "Warning: The MSI B450 TOMAHAWK MAX ATX AM4 Motherboard supports the AMD Ryzen 5 5600X 3.7 GHz 6-Core Processor
+> with BIOS version Latest Beta BIOS. If the motherboard is using an older BIOS version, updating the BIOS will be
+> necessary to support the CPU."
+
+together with a "Motherboard Usage" diagram linking the CPU socket to the CPU with the warning marker. This is
+measured fact from the incumbent's own page.
+
+What it establishes: PCPartPicker holds a per-board, per-CPU BIOS-support field and surfaces it inside the builder.
+The background-knowledge paragraph above, which assumed only a generic note, was wrong on that point. What the check
+also shows: the value for this pairing is "Latest Beta BIOS", not a specific version string with a date, so the
+precision of that field is unknown across pairings; and the information is shown inside a part list, not on a
+page that a search for "b450 tomahawk max 5600x bios version" would land on.
+
+## Revised conclusion (inference, after the browser check)
+
+The core data gap claimed for the #1 is closed at the incumbent: the dominant destination already maps board × CPU to
+a BIOS-support value and warns when an update is needed. What remains is (a) a precision gap, if many pairings read
+"Latest Beta BIOS" rather than a version and date, (b) a board-first table of all supported CPUs with versions, and
+(c) search-landing pages per pair. Those are a content and presentation layer, not a missing dataset, and the
+incumbent could add them at will. A standalone compatibility site is therefore not justified on this evidence; the
+#1 is withdrawn as a standalone opportunity and recorded as "gap closed by the incumbent, residual is SEO landing
+pages". Checks 2 and 3 below remain useful only to size that residual.
+
+## Ten-minute verification for a person with a browser (check 1 done; 2 to 4 optional)
 
 1. Build a list on pcpartpicker.com with an AMD B450 board and a Ryzen 5 5600X (and an AM5 B650 board with the newest
    Ryzen). Copy the exact compatibility note text. Does it name a minimum BIOS version, or only "may need an update"?

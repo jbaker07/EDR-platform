@@ -89,13 +89,14 @@ near zero. The head phrase is small and the incumbent's brand is searched about 
 product-level long tail is inferred from the shape of the vendor lists, not measured.
  Open questions from the competitor record: pcpartpicker.com blocked both fetch attempts, so whether its compatibility filter already covers CPU-to-board pairings with BIOS caveats - the core of the opportunity - is unverified and is the single biggest gap in this analysis | asrock.com returned an empty body, so the structure of a board maker's CPU support list (fields, BIOS columns, whether it is scrapeable) was not directly observed, only described second-hand by pcguide.com | no AMD-side equivalent of Intel's compatibility tool appeared in the checked results; whether AMD publishes one is unknown | the Intel Product Compatibility Tool itself was not fetched (only the support article pointing to it), so its coverage, currency and whether it surfaces BIOS requirements are unknown
 
-**20. Verdict.** Finalist and provisional #1 on the structure of the problem (reproducible structured dataset, AI-resistant lookup
-layer, high commercial intent, product-level long tail), now explicitly conditional: PCPartPicker could not be
-read (bot protection) and on general knowledge already gives a coarse "BIOS update may be required" answer, and
-every free demand signal for the head phrases is small. Two checks are required before committing: a person
-verifies PCPartPicker's BIOS handling in a browser (ten minutes, steps in pcpartpicker_conclusion.md), and one
-month of keyword data sizes twenty board-plus-CPU phrases. If PCPartPicker shows minimum BIOS versions per pair,
-the opportunity narrows to long-tail pages and explanation and should not be built as a standalone site.
+**20. Verdict.** Withdrawn as a standalone opportunity after the founder's browser check (2026-09-21): PCPartPicker's part list
+shows, for an MSI B450 TOMAHAWK MAX with a Ryzen 5 5600X, "supports the ... Processor with BIOS version Latest
+Beta BIOS. If the motherboard is using an older BIOS version, updating the BIOS will be necessary", so the
+incumbent already holds a per-pair BIOS-support field. The residual gap is precision (a placeholder value rather
+than a version and date, at least for this pairing), a board-first table, and search-landing pages per pair: a
+content layer the incumbent could add at will, not a missing dataset. Kept in the Top 20 as the best-evidenced
+example of "the data exists at an incumbent, the pages do not", ranked below the finalists whose incumbents are
+still unverified.
 
 
 

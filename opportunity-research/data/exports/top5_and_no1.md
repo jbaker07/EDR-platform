@@ -73,6 +73,31 @@ abroad" 0.7, "best pc for modding" and "minecraft modpack requirements" near zer
   among the five does not change, because it was made on data structure and resilience rather than on head-phrase
   demand, but the first thing to buy is one month of keyword data for twenty product-name phrasings per finalist.
 
+## Update after the founder's browser check of PCPartPicker (2026-09-21)
+
+Check 1 was run: a part list with an MSI B450 TOMAHAWK MAX and a Ryzen 5 5600X shows the incumbent's own warning that
+the board "supports the ... Processor with BIOS version Latest Beta BIOS. If the motherboard is using an older BIOS
+version, updating the BIOS will be necessary to support the CPU." PCPartPicker therefore already holds a per-pair
+BIOS-support field. The #1 is withdrawn as a standalone opportunity: the residual (a more precise version string, a
+board-first table, per-pair landing pages) is a content layer beside a dominant incumbent, not a missing dataset.
+Details and the revised conclusion are in pcpartpicker_conclusion.md.
+
+Consequence for the ranking: no finalist now has a verified-open incumbent picture. Finalists 2 to 5 were ranked on
+the same structure-of-data reasoning and each carries an unverified incumbent risk of the same kind (modpack platforms
+and launcher wikis; prosettings.net, thespike.gg, trophi.ai; online STL repair tools; visa-service sites and
+government eligibility checkers). The free route has delivered a well-evidenced shortlist, not a verified winner. The
+next step is the same ten-minute browser check for each of the four, in the order listed, before any spend on
+keyword data:
+
+1. Modpack requirements: open a large modpack's page on CurseForge or Modrinth and note whether it states RAM and
+   CPU requirements; search "all the mods 10 ram requirements" and record who answers.
+2. Settings family: open prosettings.net's page for Marvel Rivals or Rocket League; note whether values are
+   platform-branched, patch-dated and importable; search "best rocket league settings ps5" and record the top ten.
+3. STL checker: search "repair stl file online free", open the first tool, upload a small STL and note whether it
+   reports manifold, wall-thickness and unit problems before repair.
+4. Visa eligibility: search "am i eligible to move to portugal from the us checker"; open expatsi.com and one
+   government eligibility checker; note whether either returns routes for a stated nationality and occupation.
+
 ## A family seen across domains, not ranked
 
 604 stored queries combine "mod" with compatibility, conflict, crash or "not working" across at least five games
