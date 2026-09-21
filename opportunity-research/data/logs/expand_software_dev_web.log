@@ -12,3 +12,12 @@
 {"seed": "c# asp.net", "new_queries": 740, "suggestions_seen": 1251}
 {"seed": "programming golang", "skipped": "already expanded"}
 {"seed": "programming rust", "skipped": "already expanded"}
+{"seed": "programming c++", "new_queries": 1173, "suggestions_seen": 1603}
+{"seed": "php", "skipped": "already expanded"}
+{"seed": "php laravel", "skipped": "already expanded"}
+{"seed": "wordpress plugin", "new_queries": 1228, "suggestions_seen": 1816}
+{"seed": "database postgresql", "skipped": "already expanded"}
+{"seed": "database mysql", "skipped": "already expanded"}
+{"seed": "database sqlite", "new_queries": 880, "suggestions_seen": 1382}
+{"seed": "rest api", "skipped": "already expanded"}
+{"seed": "programming graphql", "skipped": "already expanded"}

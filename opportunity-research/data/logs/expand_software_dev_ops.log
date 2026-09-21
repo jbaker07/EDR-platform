@@ -12,3 +12,10 @@
 {"seed": "devops jenkins", "new_queries": 381, "suggestions_seen": 852}
 {"seed": "linux", "skipped": "already expanded"}
 {"seed": "linux ubuntu", "skipped": "already expanded"}
+{"seed": "bash script", "new_queries": 1137, "suggestions_seen": 1694}
+{"seed": "git", "skipped": "already expanded"}
+{"seed": "git merge", "skipped": "already expanded"}
+{"seed": "git rebase", "new_queries": 878, "suggestions_seen": 1464}
+{"seed": "devops prometheus", "skipped": "already expanded"}
+{"seed": "devops grafana", "skipped": "already expanded"}
+{"seed": "devops logging", "new_queries": 420, "suggestions_seen": 924}

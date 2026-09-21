@@ -31,27 +31,28 @@ def _measured(con, cid: str) -> dict:
 
 
 def build(con) -> list[dict]:
-    metrics = {r["cluster_id"]: r for r in rank.metrics(con, min_members=1)}
+    # metrics come from the pass-1 candidate snapshot the analysis was done on; cluster ids change when the
+    # store is re-clustered, so the pass-1 -> pass-2 mapping (majority vote of members) is attached separately
+    metrics = {r["cluster_id"]: r for r in json.loads((ROOT / "data" / "exports" / "candidates_pass1.json").read_text())}
+    mapping_path = ROOT / "data" / "exports" / "cluster_map_pass1_to_pass2.json"
+    mapping = json.loads(mapping_path.read_text()) if mapping_path.exists() else {}
     out = []
     for path in sorted((ROOT / "data" / "top20").glob("c_*.yaml")):
         a = yaml.safe_load(path.read_text())
         cid = a["cluster_id"]
         m = metrics[cid]
         comp = yaml.safe_load((ROOT / "data" / "competitors" / f"{cid}.yaml").read_text())
-        corr = dict(con.execute("""SELECT m.query, COUNT(DISTINCT o.source) FROM cluster_members m JOIN observations o ON o.query=m.query
-                                   WHERE m.cluster_id=? GROUP BY m.query""", (cid,)).fetchall())
-        members = sorted(corr.items(), key=lambda kv: -kv[1])
-        rep = [q for q, _ in members if intent_of(q) not in ("informational", "commercial_nav")][:8] or [q for q, _ in members[:8]]
+        rep = [q for q, _ in m.get("problem_examples", [])][:8]
         f = m["fragmentation"]
         out.append({"authored": a, "metrics": m, "competitors": comp, "representative": rep,
-                    "fragmentation": f})
+                    "fragmentation": f, "mapping": mapping.get(cid, {})})
     out.sort(key=lambda r: r["authored"].get("rank", 999))
     return out
 
 
 def write(con) -> Path:
     rows = build(con)
-    md = ["# Top 20 opportunities (free route, pass-1 evidence)\n",
+    md = ["# Top 20 opportunities (free route; analysed on pass-1 clusters, mapped to pass-2)\n",
           "Every candidate carries the brief's twenty fields. Measured facts come from the research store (autocomplete "
           "corroboration, Google Trends chain, web-search proxy results, fetched competitor pages); inference and hypothesis "
           "are labelled. No monthly search volume, traffic, revenue or user count is stated anywhere, because none was measured.\n"]
@@ -73,7 +74,10 @@ def write(con) -> Path:
         md.append(f"**4. Aggregate cluster demand (measured, pass 1).** {m['members']} member queries, {m['problem_members']} with task intent "
                   f"({m['problem_share']} share), {m['organic_problem_members']} of them volunteered by the engines on bare probes; intent mix "
                   + ", ".join(f"{k} {v}" for k, v in m["intents"].items()) + f"; subdomains touched: {', '.join(m['subdomains'])}. "
-                  "Member counts reflect one seed per subdomain and will change in later passes.\n")
+                  "Member counts reflect one seed per subdomain. "
+                  + (f"After pass 2 (two seeds per subdomain, re-clustered) the same problem maps to cluster `{r['mapping'].get('new_cluster_id')}` "
+                     f"with {r['mapping'].get('new_size')} members ({r['mapping'].get('votes')} of the analysed members vote for it; a low vote "
+                     f"means the recursive split ladder broke the pass-1 cluster apart, not that demand fell)." if r["mapping"] else "") + "\n")
         md.append(f"**5. Existing search workflow (from fetched pages).** {s.get('pieced_together_answer', 'n/a')}\n")
         comps = c.get("competitors", [])
         md.append(f"**6. Major competitors ({len(comps)} reviewed, {c.get('pages_fetched')} pages fetched, {c.get('pages_failed')} failed).**\n")

@@ -1,10 +1,2 @@
 {"seed": "dnd 5e", "skipped": "already expanded"}
-{"seed": "dungeons and dragons", "new_queries": 1420, "suggestions_seen": 2360}
-{"seed": "board game rules", "skipped": "already expanded"}
-{"seed": "board game catan", "new_queries": 567, "suggestions_seen": 1905}
-{"seed": "magic the gathering", "skipped": "already expanded"}
-{"seed": "pokemon cards", "new_queries": 1663, "suggestions_seen": 2267}
-{"seed": "warhammer 40k", "skipped": "already expanded"}
-{"seed": "miniature painting", "new_queries": 914, "suggestions_seen": 1624}
-{"seed": "chess opening", "skipped": "already expanded"}
-{"seed": "chess puzzle", "new_queries": 795, "suggestions_seen": 1472}
+{"seed": "dungeons and dragons", "skipped": "already expanded"}
