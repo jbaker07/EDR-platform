@@ -1,2 +1,4 @@
-{"seed": "retro pc", "new_queries": 910, "suggestions_seen": 1484}
-{"seed": "windows xp", "new_queries": 1505, "suggestions_seen": 2122}
+{"seed": "retro pc", "skipped": "already expanded"}
+{"seed": "commodore 64", "new_queries": 304, "suggestions_seen": 725}
+{"seed": "windows xp", "skipped": "already expanded"}
+{"seed": "old software", "new_queries": 363, "suggestions_seen": 684}

@@ -1,4 +1,8 @@
-{"seed": "hobby science telescope", "new_queries": 694, "suggestions_seen": 1308}
-{"seed": "weather radar", "new_queries": 1325, "suggestions_seen": 1756}
-{"seed": "bird identification", "new_queries": 775, "suggestions_seen": 1487}
-{"seed": "ham radio", "new_queries": 1397, "suggestions_seen": 1946}
+{"seed": "hobby science telescope", "skipped": "already expanded"}
+{"seed": "hobby science astrophotography", "new_queries": 202, "suggestions_seen": 782}
+{"seed": "weather radar", "skipped": "already expanded"}
+{"seed": "hobby science barometer", "new_queries": 219, "suggestions_seen": 1277}
+{"seed": "bird identification", "skipped": "already expanded"}
+{"seed": "plant identification", "new_queries": 380, "suggestions_seen": 799}
+{"seed": "ham radio", "skipped": "already expanded"}
+{"seed": "hobby science sdr", "new_queries": 177, "suggestions_seen": 253}

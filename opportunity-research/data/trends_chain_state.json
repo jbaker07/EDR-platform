@@ -3863,63 +3863,380 @@
    "reads": 2.08,
    "anchor_reads": 13.11,
    "error_pct": 27.9
+  },
+  "air fryer costco ninja": {
+   "value": 1.027,
+   "anchor": "unreal engine games",
+   "reads": 13.43,
+   "anchor_reads": 40.21,
+   "error_pct": 5.0
+  },
+  "moving abroad": {
+   "value": 2.305,
+   "anchor": "unreal engine games",
+   "reads": 30.15,
+   "anchor_reads": 40.21,
+   "error_pct": 2.9
+  },
+  "best product selling app": {
+   "value": 0.212,
+   "anchor": "how to iphone mirror",
+   "reads": 1.51,
+   "anchor_reads": 72.42,
+   "error_pct": 33.8
+  },
+  "how do i learn algebra": {
+   "value": 0.024,
+   "anchor": "how to iphone mirror",
+   "reads": 0.17,
+   "anchor_reads": 72.42,
+   "error_pct": 100.7
+  },
+  "3d printer plate": {
+   "value": 2.38,
+   "anchor": "how to iphone mirror",
+   "reads": 16.96,
+   "anchor_reads": 72.42,
+   "error_pct": 3.6
+  },
+  "index funds fidelity": {
+   "value": 3.744,
+   "anchor": "how to iphone mirror",
+   "reads": 26.68,
+   "anchor_reads": 72.42,
+   "error_pct": 2.6
+  },
+  "sewing machines": {
+   "value": 10.375,
+   "anchor": "rv there yet",
+   "reads": 9.06,
+   "anchor_reads": 8.66,
+   "error_pct": 11.3
+  },
+  "fishing rod": {
+   "value": 67.977,
+   "anchor": "rv there yet",
+   "reads": 59.34,
+   "anchor_reads": 8.66,
+   "error_pct": 6.6
+  },
+  "gamemaker pathfinding": {
+   "value": 0.0,
+   "anchor": "rv there yet",
+   "reads": 0,
+   "anchor_reads": 19.72,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "windows xp iso": {
+   "value": 0.845,
+   "anchor": "rv there yet",
+   "reads": 1.68,
+   "anchor_reads": 19.72,
+   "error_pct": 32.3
+  },
+  "holiday winter background": {
+   "value": 0.104,
+   "anchor": "rv there yet",
+   "reads": 0.21,
+   "anchor_reads": 19.72,
+   "error_pct": 102.5
+  },
+  "song identifying game": {
+   "value": 0.009,
+   "anchor": "rv there yet",
+   "reads": 0.02,
+   "anchor_reads": 19.72,
+   "error_pct": 102.5
+  },
+  "cheap flights to puerto rico": {
+   "value": 2.257,
+   "anchor": "rv there yet",
+   "reads": 4.49,
+   "anchor_reads": 19.74,
+   "error_pct": 13.7
+  },
+  "photo exposure": {
+   "value": 3.335,
+   "anchor": "rv there yet",
+   "reads": 6.64,
+   "anchor_reads": 19.75,
+   "error_pct": 10.1
+  },
+  "llm and gpt": {
+   "value": 0.635,
+   "anchor": "rv there yet",
+   "reads": 1.26,
+   "anchor_reads": 19.74,
+   "error_pct": 42.1
+  },
+  "sourdough bread plan": {
+   "value": 0.36,
+   "anchor": "rv there yet",
+   "reads": 0.72,
+   "anchor_reads": 19.74,
+   "error_pct": 72.3
+  },
+  "premiere pro adobe": {
+   "value": 14.028,
+   "anchor": "rv there yet",
+   "reads": 27.91,
+   "anchor_reads": 19.74,
+   "error_pct": 4.3
+  },
+  "screw size guide": {
+   "value": 0.256,
+   "anchor": "how to iphone mirror",
+   "reads": 0.83,
+   "anchor_reads": 33.02,
+   "error_pct": 61.7
+  },
+  "google docs guide": {
+   "value": 4.28,
+   "anchor": "how to iphone mirror",
+   "reads": 13.91,
+   "anchor_reads": 33.02,
+   "error_pct": 5.1
+  },
+  "cheap flights to las vegas": {
+   "value": 5.331,
+   "anchor": "how to iphone mirror",
+   "reads": 17.32,
+   "anchor_reads": 33.02,
+   "error_pct": 4.4
+  },
+  "card value": {
+   "value": 94.809,
+   "anchor": "rv there yet",
+   "reads": 70.32,
+   "anchor_reads": 7.36,
+   "error_pct": 7.5
+  },
+  "renovation cost for bathroom": {
+   "value": 0.436,
+   "anchor": "rv there yet",
+   "reads": 0.87,
+   "anchor_reads": 19.74,
+   "error_pct": 60.1
+  },
+  "story writing plan": {
+   "value": 0.512,
+   "anchor": "rv there yet",
+   "reads": 1.02,
+   "anchor_reads": 19.75,
+   "error_pct": 51.6
+  },
+  "3d printer filament guide": {
+   "value": 0.085,
+   "anchor": "rv there yet",
+   "reads": 0.17,
+   "anchor_reads": 19.75,
+   "error_pct": 102.5
+  },
+  "local service haircuts": {
+   "value": 0.0,
+   "anchor": "rv there yet",
+   "reads": 0,
+   "anchor_reads": 3.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "icd 10 code platelet": {
+   "value": 0.0,
+   "anchor": "rv there yet",
+   "reads": 0,
+   "anchor_reads": 3.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "size chart": {
+   "value": 205.335,
+   "anchor": "rv there yet",
+   "reads": 64.43,
+   "anchor_reads": 3.11,
+   "error_pct": 16.8
+  },
+  "excel compare dates": {
+   "value": 0.048,
+   "anchor": "unreal engine games",
+   "reads": 0.75,
+   "anchor_reads": 48.58,
+   "error_pct": 67.3
+  },
+  "fix sewing machine bobbin": {
+   "value": 0.037,
+   "anchor": "how to iphone mirror",
+   "reads": 0.26,
+   "anchor_reads": 72.36,
+   "error_pct": 100.7
+  },
+  "garden irrigation system diy": {
+   "value": 0.045,
+   "anchor": "how to iphone mirror",
+   "reads": 0.32,
+   "anchor_reads": 72.36,
+   "error_pct": 100.7
+  },
+  "shopify small business cost": {
+   "value": 0.183,
+   "anchor": "how to iphone mirror",
+   "reads": 1.3,
+   "anchor_reads": 72.36,
+   "error_pct": 39.1
+  },
+  "engineering tolerance": {
+   "value": 1.166,
+   "anchor": "how to iphone mirror",
+   "reads": 8.3,
+   "anchor_reads": 72.36,
+   "error_pct": 6.7
+  },
+  "music production vs": {
+   "value": 3.499,
+   "anchor": "how to iphone mirror",
+   "reads": 24.92,
+   "anchor_reads": 72.38,
+   "error_pct": 2.7
+  },
+  "electronics lithium": {
+   "value": 1.367,
+   "anchor": "how to iphone mirror",
+   "reads": 9.74,
+   "anchor_reads": 72.38,
+   "error_pct": 5.8
+  },
+  "does notion work with microsoft": {
+   "value": 0.0,
+   "anchor": "rv there yet",
+   "reads": 0,
+   "anchor_reads": 19.74,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "how to value vinyl records": {
+   "value": 0.019,
+   "anchor": "rv there yet",
+   "reads": 0.04,
+   "anchor_reads": 19.74,
+   "error_pct": 102.5
+  },
+  "language learning translation": {
+   "value": 0.825,
+   "anchor": "rv there yet",
+   "reads": 1.64,
+   "anchor_reads": 19.74,
+   "error_pct": 33.0
+  },
+  "fine wire gauges": {
+   "value": 0.009,
+   "anchor": "rv there yet",
+   "reads": 0.02,
+   "anchor_reads": 19.74,
+   "error_pct": 102.5
+  },
+  "vocal range": {
+   "value": 12.102,
+   "anchor": "rv there yet",
+   "reads": 24.08,
+   "anchor_reads": 19.74,
+   "error_pct": 4.6
+  },
+  "product best for dark spots": {
+   "value": 0.445,
+   "anchor": "how to iphone mirror",
+   "reads": 3.17,
+   "anchor_reads": 72.36,
+   "error_pct": 16.5
+  },
+  "blenders sunglasses": {
+   "value": 4.624,
+   "anchor": "how to iphone mirror",
+   "reads": 32.92,
+   "anchor_reads": 72.36,
+   "error_pct": 2.2
+  },
+  "baby sleep regression": {
+   "value": 2.729,
+   "anchor": "unreal engine games",
+   "reads": 43.17,
+   "anchor_reads": 48.62,
+   "error_pct": 2.2
+  },
+  "candle wax plant": {
+   "value": 0.115,
+   "anchor": "unreal engine games",
+   "reads": 1.81,
+   "anchor_reads": 48.62,
+   "error_pct": 28.6
+  },
+  "anker solar solix 3": {
+   "value": 0.234,
+   "anchor": "unreal engine games",
+   "reads": 3.7,
+   "anchor_reads": 48.62,
+   "error_pct": 14.5
+  },
+  "best serum for eye bags": {
+   "value": 0.104,
+   "anchor": "rv there yet",
+   "reads": 0.21,
+   "anchor_reads": 19.74,
+   "error_pct": 102.5
+  },
+  "monitor flickering after power outage": {
+   "value": 0.0,
+   "anchor": "rv there yet",
+   "reads": 0,
+   "anchor_reads": 19.74,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "freight rates database": {
+   "value": 0.019,
+   "anchor": "rv there yet",
+   "reads": 0.04,
+   "anchor_reads": 19.74,
+   "error_pct": 102.5
+  },
+  "visa documents for china": {
+   "value": 0.294,
+   "anchor": "rv there yet",
+   "reads": 0.58,
+   "anchor_reads": 19.74,
+   "error_pct": 88.0
+  },
+  "ac not cooling but running": {
+   "value": 0.683,
+   "anchor": "rv there yet",
+   "reads": 1.36,
+   "anchor_reads": 19.74,
+   "error_pct": 39.3
+  },
+  "3d printer problem": {
+   "value": 0.19,
+   "anchor": "rv there yet",
+   "reads": 0.38,
+   "anchor_reads": 19.74,
+   "error_pct": 102.5
+  },
+  "car boat vehicle": {
+   "value": 0.683,
+   "anchor": "rv there yet",
+   "reads": 1.36,
+   "anchor_reads": 19.74,
+   "error_pct": 39.3
+  },
+  "rest api vs grpc": {
+   "value": 0.009,
+   "anchor": "rv there yet",
+   "reads": 0.02,
+   "anchor_reads": 19.74,
+   "error_pct": 102.5
   }
  },
  "pending": [
-  "how do i learn algebra",
-  "best product selling app",
-  "air fryer costco ninja",
-  "moving abroad",
-  "3d printer plate",
-  "index funds fidelity",
-  "windows xp iso",
-  "gamemaker pathfinding",
-  "sewing machines",
-  "fishing rod",
-  "holiday winter background",
-  "song identifying game",
-  "cheap flights to puerto rico",
-  "photo exposure",
-  "llm and gpt",
-  "sourdough bread plan",
-  "screw size guide",
-  "premiere pro adobe",
-  "google docs guide",
-  "renovation cost for bathroom",
-  "cheap flights to las vegas",
-  "card value",
-  "story writing plan",
-  "3d printer filament guide",
-  "icd 10 code platelet",
-  "local service haircuts",
-  "size chart",
-  "excel compare dates",
-  "fix sewing machine bobbin",
-  "garden irrigation system diy",
-  "shopify small business cost",
-  "engineering tolerance",
-  "music production vs",
-  "does notion work with microsoft",
-  "how to value vinyl records",
-  "electronics lithium",
-  "language learning translation",
-  "fine wire gauges",
-  "product best for dark spots",
-  "vocal range",
-  "candle wax plant",
-  "blenders sunglasses",
-  "anker solar solix 3",
-  "best serum for eye bags",
-  "baby sleep regression",
-  "monitor flickering after power outage",
-  "freight rates database",
-  "visa documents for china",
-  "ac not cooling but running",
-  "3d printer problem",
-  "car boat vehicle",
-  "rest api vs grpc",
-  "washing machine heart",
   "holiday winterize rv",
+  "washing machine heart",
   "garden pruning saw",
   "men hair fix best product",
   "laptop won t turn on",
@@ -10634,6 +10951,670 @@
     "best product selling app",
     "how do i learn algebra"
    ]
+  },
+  {
+   "at": 1789977443.1515768,
+   "anchor": "unreal engine games",
+   "batch": [
+    "how do i learn algebra",
+    "best product selling app",
+    "air fryer costco ninja",
+    "moving abroad"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 40.21,
+    "how do i learn algebra": 0.21,
+    "best product selling app": 2.89,
+    "air fryer costco ninja": 13.43,
+    "moving abroad": 30.15
+   },
+   "requeued": [
+    "how do i learn algebra",
+    "best product selling app"
+   ]
+  },
+  {
+   "at": 1789977499.5075717,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "best product selling app",
+    "how do i learn algebra",
+    "3d printer plate",
+    "index funds fidelity"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.42,
+    "best product selling app": 1.51,
+    "how do i learn algebra": 0.17,
+    "3d printer plate": 16.96,
+    "index funds fidelity": 26.68
+   }
+  },
+  {
+   "at": 1789977555.937397,
+   "anchor": "rv there yet",
+   "batch": [
+    "windows xp iso",
+    "gamemaker pathfinding",
+    "sewing machines",
+    "fishing rod"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 8.66,
+    "windows xp iso": 0.89,
+    "gamemaker pathfinding": 0,
+    "sewing machines": 9.06,
+    "fishing rod": 59.34
+   },
+   "requeued": [
+    "windows xp iso",
+    "gamemaker pathfinding"
+   ]
+  },
+  {
+   "at": 1789977613.0118952,
+   "anchor": "rv there yet",
+   "batch": [
+    "gamemaker pathfinding",
+    "windows xp iso",
+    "holiday winter background",
+    "song identifying game"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.72,
+    "gamemaker pathfinding": 0,
+    "windows xp iso": 1.68,
+    "holiday winter background": 0.21,
+    "song identifying game": 0.02
+   },
+   "requeued": [
+    "windows xp iso",
+    "holiday winter background",
+    "song identifying game"
+   ]
+  },
+  {
+   "at": 1789977669.5598981,
+   "anchor": "rv there yet",
+   "batch": [
+    "song identifying game",
+    "holiday winter background",
+    "windows xp iso",
+    "cheap flights to puerto rico"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.72,
+    "song identifying game": 0.02,
+    "holiday winter background": 0.21,
+    "windows xp iso": 1.68,
+    "cheap flights to puerto rico": 4.49
+   },
+   "requeued": [
+    "song identifying game",
+    "holiday winter background",
+    "cheap flights to puerto rico"
+   ]
+  },
+  {
+   "at": 1789977725.914034,
+   "anchor": "rv there yet",
+   "batch": [
+    "cheap flights to puerto rico",
+    "holiday winter background",
+    "song identifying game",
+    "photo exposure"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.72,
+    "cheap flights to puerto rico": 4.49,
+    "holiday winter background": 0.21,
+    "song identifying game": 0.02,
+    "photo exposure": 6.64
+   },
+   "requeued": [
+    "cheap flights to puerto rico",
+    "photo exposure"
+   ]
+  },
+  {
+   "at": 1789977833.1669,
+   "anchor": "rv there yet",
+   "batch": [
+    "photo exposure",
+    "cheap flights to puerto rico",
+    "llm and gpt",
+    "sourdough bread plan"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "photo exposure": 6.64,
+    "cheap flights to puerto rico": 4.49,
+    "llm and gpt": 1.26,
+    "sourdough bread plan": 0.74
+   },
+   "requeued": [
+    "photo exposure",
+    "llm and gpt",
+    "sourdough bread plan"
+   ]
+  },
+  {
+   "at": 1789977889.866029,
+   "anchor": "rv there yet",
+   "batch": [
+    "sourdough bread plan",
+    "llm and gpt",
+    "photo exposure",
+    "screw size guide"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.75,
+    "sourdough bread plan": 0.72,
+    "llm and gpt": 1.26,
+    "photo exposure": 6.64,
+    "screw size guide": 0.64
+   },
+   "requeued": [
+    "sourdough bread plan",
+    "llm and gpt",
+    "screw size guide"
+   ]
+  },
+  {
+   "at": 1789977946.534979,
+   "anchor": "rv there yet",
+   "batch": [
+    "screw size guide",
+    "llm and gpt",
+    "sourdough bread plan",
+    "premiere pro adobe"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "screw size guide": 0.64,
+    "llm and gpt": 1.26,
+    "sourdough bread plan": 0.72,
+    "premiere pro adobe": 27.91
+   },
+   "requeued": [
+    "screw size guide"
+   ]
+  },
+  {
+   "at": 1789978003.1738183,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "screw size guide",
+    "google docs guide",
+    "renovation cost for bathroom",
+    "cheap flights to las vegas"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 33.02,
+    "screw size guide": 0.83,
+    "google docs guide": 13.91,
+    "renovation cost for bathroom": 1.34,
+    "cheap flights to las vegas": 17.32
+   },
+   "requeued": [
+    "renovation cost for bathroom"
+   ]
+  },
+  {
+   "at": 1789978059.6161966,
+   "anchor": "rv there yet",
+   "batch": [
+    "renovation cost for bathroom",
+    "card value",
+    "story writing plan",
+    "3d printer filament guide"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 7.36,
+    "renovation cost for bathroom": 0.09,
+    "card value": 70.32,
+    "story writing plan": 0.26,
+    "3d printer filament guide": 0
+   },
+   "requeued": [
+    "renovation cost for bathroom",
+    "story writing plan",
+    "3d printer filament guide"
+   ]
+  },
+  {
+   "at": 1789978116.365149,
+   "anchor": "rv there yet",
+   "batch": [
+    "3d printer filament guide",
+    "story writing plan",
+    "renovation cost for bathroom",
+    "icd 10 code platelet"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "3d printer filament guide": 0.17,
+    "story writing plan": 1.02,
+    "renovation cost for bathroom": 0.87,
+    "icd 10 code platelet": 0.02
+   },
+   "requeued": [
+    "3d printer filament guide",
+    "story writing plan",
+    "icd 10 code platelet"
+   ]
+  },
+  {
+   "at": 1789978264.537489,
+   "anchor": "rv there yet",
+   "batch": [
+    "icd 10 code platelet",
+    "story writing plan",
+    "3d printer filament guide",
+    "local service haircuts"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.75,
+    "icd 10 code platelet": 0.02,
+    "story writing plan": 1.02,
+    "3d printer filament guide": 0.17,
+    "local service haircuts": 0.04
+   },
+   "requeued": [
+    "icd 10 code platelet",
+    "local service haircuts"
+   ]
+  },
+  {
+   "at": 1789978321.0401301,
+   "anchor": "rv there yet",
+   "batch": [
+    "local service haircuts",
+    "icd 10 code platelet",
+    "size chart",
+    "excel compare dates"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 3.11,
+    "local service haircuts": 0,
+    "icd 10 code platelet": 0,
+    "size chart": 64.43,
+    "excel compare dates": 0
+   },
+   "requeued": [
+    "excel compare dates"
+   ]
+  },
+  {
+   "at": 1789978377.6154757,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "excel compare dates",
+    "fix sewing machine bobbin",
+    "garden irrigation system diy",
+    "shopify small business cost"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.36,
+    "excel compare dates": 0.28,
+    "fix sewing machine bobbin": 0.26,
+    "garden irrigation system diy": 0.32,
+    "shopify small business cost": 1.3
+   },
+   "requeued": [
+    "excel compare dates",
+    "fix sewing machine bobbin",
+    "garden irrigation system diy",
+    "shopify small business cost"
+   ]
+  },
+  {
+   "at": 1789978434.089946,
+   "anchor": "unreal engine games",
+   "batch": [
+    "shopify small business cost",
+    "garden irrigation system diy",
+    "fix sewing machine bobbin",
+    "excel compare dates"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.58,
+    "shopify small business cost": 2.98,
+    "garden irrigation system diy": 0.77,
+    "fix sewing machine bobbin": 0.58,
+    "excel compare dates": 0.75
+   },
+   "requeued": [
+    "shopify small business cost",
+    "garden irrigation system diy",
+    "fix sewing machine bobbin"
+   ]
+  },
+  {
+   "at": 1789978490.6890292,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "fix sewing machine bobbin",
+    "garden irrigation system diy",
+    "shopify small business cost",
+    "engineering tolerance"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.36,
+    "fix sewing machine bobbin": 0.26,
+    "garden irrigation system diy": 0.32,
+    "shopify small business cost": 1.3,
+    "engineering tolerance": 8.3
+   }
+  },
+  {
+   "at": 1789978547.114839,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "music production vs",
+    "does notion work with microsoft",
+    "how to value vinyl records",
+    "electronics lithium"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.38,
+    "music production vs": 24.92,
+    "does notion work with microsoft": 0,
+    "how to value vinyl records": 0.08,
+    "electronics lithium": 9.74
+   },
+   "requeued": [
+    "does notion work with microsoft",
+    "how to value vinyl records"
+   ]
+  },
+  {
+   "at": 1789978626.6251838,
+   "anchor": "rv there yet",
+   "batch": [
+    "how to value vinyl records",
+    "does notion work with microsoft",
+    "language learning translation",
+    "fine wire gauges"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "how to value vinyl records": 0.04,
+    "does notion work with microsoft": 0,
+    "language learning translation": 1.64,
+    "fine wire gauges": 0.02
+   },
+   "requeued": [
+    "how to value vinyl records",
+    "language learning translation",
+    "fine wire gauges"
+   ]
+  },
+  {
+   "at": 1789978682.980489,
+   "anchor": "rv there yet",
+   "batch": [
+    "fine wire gauges",
+    "language learning translation",
+    "how to value vinyl records",
+    "product best for dark spots"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "fine wire gauges": 0.02,
+    "language learning translation": 1.64,
+    "how to value vinyl records": 0.04,
+    "product best for dark spots": 1
+   },
+   "requeued": [
+    "fine wire gauges",
+    "language learning translation",
+    "product best for dark spots"
+   ]
+  },
+  {
+   "at": 1789978739.3815758,
+   "anchor": "rv there yet",
+   "batch": [
+    "product best for dark spots",
+    "language learning translation",
+    "fine wire gauges",
+    "vocal range"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "product best for dark spots": 0.98,
+    "language learning translation": 1.64,
+    "fine wire gauges": 0.02,
+    "vocal range": 24.08
+   },
+   "requeued": [
+    "product best for dark spots"
+   ]
+  },
+  {
+   "at": 1789978795.7264423,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "product best for dark spots",
+    "candle wax plant",
+    "blenders sunglasses",
+    "anker solar solix 3"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.36,
+    "product best for dark spots": 3.17,
+    "candle wax plant": 0.83,
+    "blenders sunglasses": 32.92,
+    "anker solar solix 3": 1.68
+   },
+   "requeued": [
+    "candle wax plant",
+    "anker solar solix 3"
+   ]
+  },
+  {
+   "at": 1789978852.0880554,
+   "anchor": "rv there yet",
+   "batch": [
+    "anker solar solix 3",
+    "candle wax plant",
+    "best serum for eye bags",
+    "baby sleep regression"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "anker solar solix 3": 0.53,
+    "candle wax plant": 0.3,
+    "best serum for eye bags": 0.21,
+    "baby sleep regression": 5.49
+   },
+   "requeued": [
+    "anker solar solix 3",
+    "candle wax plant",
+    "best serum for eye bags",
+    "baby sleep regression"
+   ]
+  },
+  {
+   "at": 1789978908.5988386,
+   "anchor": "unreal engine games",
+   "batch": [
+    "baby sleep regression",
+    "best serum for eye bags",
+    "candle wax plant",
+    "anker solar solix 3"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.62,
+    "baby sleep regression": 43.17,
+    "best serum for eye bags": 1.19,
+    "candle wax plant": 1.81,
+    "anker solar solix 3": 3.7
+   },
+   "requeued": [
+    "best serum for eye bags"
+   ]
+  },
+  {
+   "at": 1789978990.028344,
+   "anchor": "rv there yet",
+   "batch": [
+    "best serum for eye bags",
+    "monitor flickering after power outage",
+    "freight rates database",
+    "visa documents for china"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "best serum for eye bags": 0.21,
+    "monitor flickering after power outage": 0,
+    "freight rates database": 0.04,
+    "visa documents for china": 0.58
+   },
+   "requeued": [
+    "monitor flickering after power outage",
+    "freight rates database",
+    "visa documents for china"
+   ]
+  },
+  {
+   "at": 1789979046.3745925,
+   "anchor": "rv there yet",
+   "batch": [
+    "visa documents for china",
+    "freight rates database",
+    "monitor flickering after power outage",
+    "ac not cooling but running"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "visa documents for china": 0.58,
+    "freight rates database": 0.04,
+    "monitor flickering after power outage": 0,
+    "ac not cooling but running": 1.38
+   },
+   "requeued": [
+    "visa documents for china",
+    "freight rates database",
+    "ac not cooling but running"
+   ]
+  },
+  {
+   "at": 1789979102.7126436,
+   "anchor": "rv there yet",
+   "batch": [
+    "ac not cooling but running",
+    "freight rates database",
+    "visa documents for china",
+    "3d printer problem"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "ac not cooling but running": 1.36,
+    "freight rates database": 0.04,
+    "visa documents for china": 0.58,
+    "3d printer problem": 0.38
+   },
+   "requeued": [
+    "ac not cooling but running",
+    "3d printer problem"
+   ]
+  },
+  {
+   "at": 1789979159.1181693,
+   "anchor": "rv there yet",
+   "batch": [
+    "3d printer problem",
+    "ac not cooling but running",
+    "car boat vehicle",
+    "rest api vs grpc"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "3d printer problem": 0.38,
+    "ac not cooling but running": 1.36,
+    "car boat vehicle": 1.36,
+    "rest api vs grpc": 0.02
+   },
+   "requeued": [
+    "3d printer problem",
+    "car boat vehicle",
+    "rest api vs grpc"
+   ]
+  },
+  {
+   "at": 1789979215.4879808,
+   "anchor": "rv there yet",
+   "batch": [
+    "rest api vs grpc",
+    "car boat vehicle",
+    "3d printer problem",
+    "washing machine heart"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "rest api vs grpc": 0.02,
+    "car boat vehicle": 1.36,
+    "3d printer problem": 0.38,
+    "washing machine heart": 5.38
+   },
+   "requeued": [
+    "rest api vs grpc",
+    "car boat vehicle",
+    "washing machine heart"
+   ]
+  },
+  {
+   "at": 1789979271.8242774,
+   "anchor": "rv there yet",
+   "batch": [
+    "washing machine heart",
+    "car boat vehicle",
+    "rest api vs grpc",
+    "holiday winterize rv"
+   ],
+   "ok": true,
+   "means": {
+    "rv there yet": 19.74,
+    "washing machine heart": 5.36,
+    "car boat vehicle": 1.36,
+    "rest api vs grpc": 0.02,
+    "holiday winterize rv": 0
+   },
+   "requeued": [
+    "washing machine heart",
+    "holiday winterize rv"
+   ]
   }
  ],
  "anchors": [
@@ -11172,9 +12153,59 @@
   "writing headline plans": 2,
   "where to watch love island": 1,
   "swiss beauty makeup stick": 2,
-  "air fryer costco ninja": 2,
-  "moving abroad": 2,
-  "best product selling app": 1,
-  "how do i learn algebra": 1
+  "air fryer costco ninja": 3,
+  "moving abroad": 3,
+  "best product selling app": 3,
+  "how do i learn algebra": 3,
+  "3d printer plate": 1,
+  "index funds fidelity": 1,
+  "windows xp iso": 3,
+  "gamemaker pathfinding": 2,
+  "sewing machines": 1,
+  "fishing rod": 1,
+  "holiday winter background": 3,
+  "song identifying game": 3,
+  "cheap flights to puerto rico": 3,
+  "photo exposure": 3,
+  "llm and gpt": 3,
+  "sourdough bread plan": 3,
+  "screw size guide": 3,
+  "premiere pro adobe": 1,
+  "google docs guide": 1,
+  "renovation cost for bathroom": 3,
+  "cheap flights to las vegas": 1,
+  "card value": 1,
+  "story writing plan": 3,
+  "3d printer filament guide": 3,
+  "icd 10 code platelet": 3,
+  "local service haircuts": 2,
+  "size chart": 1,
+  "excel compare dates": 3,
+  "fix sewing machine bobbin": 3,
+  "garden irrigation system diy": 3,
+  "shopify small business cost": 3,
+  "engineering tolerance": 1,
+  "music production vs": 1,
+  "does notion work with microsoft": 2,
+  "how to value vinyl records": 3,
+  "electronics lithium": 1,
+  "language learning translation": 3,
+  "fine wire gauges": 3,
+  "product best for dark spots": 3,
+  "vocal range": 1,
+  "candle wax plant": 3,
+  "blenders sunglasses": 1,
+  "anker solar solix 3": 3,
+  "best serum for eye bags": 3,
+  "baby sleep regression": 2,
+  "monitor flickering after power outage": 2,
+  "freight rates database": 3,
+  "visa documents for china": 3,
+  "ac not cooling but running": 3,
+  "3d printer problem": 3,
+  "car boat vehicle": 3,
+  "rest api vs grpc": 3,
+  "washing machine heart": 2,
+  "holiday winterize rv": 1
  }
 }

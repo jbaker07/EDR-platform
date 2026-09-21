@@ -1,0 +1,212 @@
+{
+ "cluster_id": "c_05174339",
+ "head_term": "kdp self publishing",
+ "label": "publish kdp amazon book",
+ "domain": "writing_publishing",
+ "members": 25,
+ "problem_members": 17,
+ "organic_problem_members": 3,
+ "intents": {
+  "how_to": 12,
+  "informational": 7,
+  "calculate": 2,
+  "alternative": 1
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "reference": 1,
+   "editorial": 6,
+   "community": 2,
+   "vendor": 7,
+   "marketplace": 1,
+   "tool": 1
+  },
+  "dominant_site": "kdp.amazon.com",
+  "dominant_share": 0.39,
+  "fragmented_share": 0.44,
+  "tool_hits": 2,
+  "vendor_share": 0.39,
+  "official_share": 0.0,
+  "unclassified_share": 0.0
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "kdp self publishing",
+  "kdp publishing tools",
+  "amazon kdp publishing",
+  "publish a book on kdp",
+  "what is kdp publishing",
+  "writing kdp vs publishing",
+  "how much is kdp publishing",
+  "step by step kdp publishing",
+  "how does kdp publishing work",
+  "how to publish on kindle kdp",
+  "alternative to kdp publishing",
+  "how to publish a novel on kdp",
+  "how to publish amazon kdp book",
+  "kdp publishing price calculator",
+  "best software for kdp publishing",
+  "how to format for kdp publishing",
+  "how to publish kdp book in india",
+  "how to publish a book free with kdp",
+  "how to self publish with amazon kdp",
+  "how to publish on amazon kdp for free",
+  "how to format kdp self published books",
+  "how to format a book for kdp publishing",
+  "how much does it cost to publish with kdp",
+  "how to publish on amazon kdp from nigeria",
+  "how to publish on amazon kdp step by step"
+ ],
+ "queries_checked": [
+  "how much is kdp publishing",
+  "how to format for kdp publishing"
+ ],
+ "serp": [
+  {
+   "query": "how much is kdp publishing",
+   "rank": 1,
+   "url": "https://en.wikipedia.org/wiki/Kindle_Direct_Publishing",
+   "title": "Kindle Direct Publishing",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 2,
+   "url": "https://bookbeam.io/blog/cost-to-publish-on-amazon-kdp/",
+   "title": "How Much Does It Cost to Publish on Amazon KDP? - BookBeam",
+   "category": "editorial",
+   "site": "bookbeam.io"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 3,
+   "url": "https://reedsy.com/blog/guide/kdp/cost-to-publish-a-book-on-amazon/",
+   "title": "How Much Does It Cost to Publish a Book on Amazon?",
+   "category": "editorial",
+   "site": "reedsy.com"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 4,
+   "url": "https://www.zonguru.com/blog/how-much-does-it-cost-to-publish-a-book-on-amazon",
+   "title": "KDP 101: How Much Does It Cost to Publish a Book on Amazon",
+   "category": "editorial",
+   "site": "zonguru.com"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 5,
+   "url": "https://www.quora.com/What-is-the-cost-of-publishing-a-book-through-Amazon-KDP-Print",
+   "title": "What is the cost of publishing a book through Amazon KDP Print? - Quora",
+   "category": "community",
+   "site": "quora.com"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 6,
+   "url": "https://blog.bookbaby.com/how-to-self-publish/self-publishing/hidden-costs-of-amazon-kdp-publishing",
+   "title": "The Hidden Costs of Amazon KDP Publishing Authors Should Know",
+   "category": "editorial",
+   "site": "blog.bookbaby.com"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 7,
+   "url": "https://www.woodbridgepublishers.com/blogs/how-much-does-it-cost-to-publish-a-book-on-amazon/",
+   "title": "How Much Does It Cost to Publish A Book on Amazon?",
+   "category": "editorial",
+   "site": "woodbridgepublishers.com"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 8,
+   "url": "https://kdp.amazon.com/en_US/help/topic/G201834340",
+   "title": "Paperback Printing Cost",
+   "category": "vendor",
+   "site": "kdp.amazon.com"
+  },
+  {
+   "query": "how much is kdp publishing",
+   "rank": 9,
+   "url": "https://sahitya777.gumroad.com/l/KDPPublishing",
+   "title": "sahitya777.gumroad.com",
+   "category": "marketplace",
+   "site": "sahitya777.gumroad.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 1,
+   "url": "https://bookbeam.io/blog/how-to-format-a-book-for-kdp/",
+   "title": "How to Format a Book for KDP: Guide for KDP Book Formatting - BookBeam",
+   "category": "editorial",
+   "site": "bookbeam.io"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 2,
+   "url": "https://kdp.amazon.com/en_US/help/topic/G202187840",
+   "title": "2 \u2013 Prepare Your Manuscript",
+   "category": "vendor",
+   "site": "kdp.amazon.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 3,
+   "url": "https://kdp.amazon.com/en_US/help/topic/G201834190",
+   "title": "Format Your Paperback",
+   "category": "vendor",
+   "site": "kdp.amazon.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 4,
+   "url": "https://kdp.amazon.com/help?topicId=G200645680",
+   "title": "eBook Manuscript Formatting Guide",
+   "category": "vendor",
+   "site": "kdp.amazon.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 5,
+   "url": "https://kdp.amazon.com/en_US/help/topic/G200645680",
+   "title": "eBook Manuscript Formatting Guide - Kindle Direct Publishing",
+   "category": "vendor",
+   "site": "kdp.amazon.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 6,
+   "url": "https://arfield22.medium.com/formatting-your-book-for-amazons-kdp-89c6eb08b426",
+   "title": "Formatting Your Book for Amazon's KDP | by Amber Field | Medium",
+   "category": "community",
+   "site": "arfield22.medium.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 7,
+   "url": "https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6",
+   "title": "Set Trim Size, Bleed, and Margins",
+   "category": "vendor",
+   "site": "kdp.amazon.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 8,
+   "url": "https://kdp.amazon.com/en_US/help/topic/G201834230",
+   "title": "Paperback and Hardcover Manuscript Templates",
+   "category": "vendor",
+   "site": "kdp.amazon.com"
+  },
+  {
+   "query": "how to format for kdp publishing",
+   "rank": 9,
+   "url": "https://dribbble.com/rkdesignbd/shots",
+   "title": "1. I will format and publish your book for amazon kindle or paperba amazon kdp book format book publish on",
+   "category": "tool",
+   "site": "dribbble.com"
+  }
+ ]
+}

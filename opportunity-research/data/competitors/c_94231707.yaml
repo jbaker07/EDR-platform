@@ -1,0 +1,189 @@
+cluster_id: c_94231707
+head_term: cities skylines
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 4
+pages_failed: 4
+competitors:
+  - name: "Paradox Interactive - Patch Notes 1.5.4f1 First Frost"
+    url: https://www.paradoxinteractive.com/games/cities-skylines-ii/news/patch-notes-first-frost
+    site: paradoxinteractive.com
+    kind: vendor
+    fetch_status: ok
+    solves: "The publisher's authoritative notes for one named patch: gameplay fixes, HUD redesign, visual and weather changes, autosaves enabled by default, plus an explicit statement about mod and savegame compatibility and a list of known issues."
+    does_not_solve: "Covers a single patch only - a reader asking 'what is the latest update' or 'what changed since I stopped playing' gets no version history, no index of other patches, and no way to compare versions."
+    workflow_remaining: "Launch the game, let it update to this version, optionally connect a Paradox account to claim the promotional building, and check separately whether this is still the newest patch."
+    business_model: "Publisher-owned marketing and support content for a paid game, with a 'Buy now' path, an account-linked in-game reward, and an email list that carries offers."
+    currency: "Dated 2026-02-18 on the page"
+    coverage: "One patch version, 1.5.4f1, across gameplay, UI, visuals and miscellaneous fixes, with known issues listed."
+    dominates_serp: "2 of 19 checked results"
+    needs_install: yes
+    needs_account: no
+    data_reproducible: "inference: no - patch notes originate with the publisher and cannot be derived from any public dataset, only copied from here; the version history around them can be reconstructed from store and depot metadata, but the human-readable change descriptions cannot."
+    ai_replaceable: "inference: weak for current patches - an assistant cannot know what shipped after its training data, and patch notes are exactly the volatile, citation-required content it should defer on; strong only for explaining what a change means."
+    why_still_searching: "inference: one page per patch means users must keep searching to find which patch is current, and the queries in this cluster ('cities skylines 2 update', 'cities skylines 2 updates') are asking for the timeline, not for one entry in it."
+    evidence:
+      - "This patch has minimal impacts on mods, and loading of old savegames is supported."
+      - "Reduced bicycle trips by 80%."
+      - "New design for the main HUD with more focus on demand bars."
+      - "Enabled autosaves by default."
+      - "Connect your Paradox account in game and plop the castle from the Parks & Recreation build menu."
+      - "2026-02-18"
+  - name: "ScreenRant - 10 Biggest Differences In Cities: Skylines 2 From The Original"
+    url: https://screenrant.com/cities-skylines-2-gameplay-differences-first-game-comparison/
+    site: screenrant.com
+    kind: editorial
+    fetch_status: ok
+    solves: "A ranked list of ten named differences between the two games - camera modes, map themes, climate and seasons, building upgrades, the Expansion Points progression, AI, cross-platform mods, economy, building tools and map size."
+    does_not_solve: "Written at launch, so it does not reflect three years of patches; it does not address the performance complaints, price or DLC-library questions implied by the cluster's members, and it is a feature list rather than a buy recommendation for a specific player."
+    workflow_remaining: "Verify which of these claims still hold after later patches, check current mod availability, compare prices and owned DLC, and decide which game to play."
+    business_model: "Ad-supported publisher content with a premium subscription tier and a marketing email list."
+    currency: "Published Oct 24, 2023, 9:31 AM EDT - the sequel's release day; no update date shown"
+    coverage: "Ten gameplay and presentation differences between Cities: Skylines and Cities: Skylines II as of launch."
+    dominates_serp: "1 of 19 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - every claim is an observable property of two publicly available games, so the comparison could be rebuilt and, unlike this article, kept current."
+    ai_replaceable: "inference: largely yes for the launch-era feature comparison, which is stable and widely written up; an assistant would also be likelier to flag that the state of play has changed since 2023."
+    why_still_searching: "inference: the article froze on release day, notes the mod system was 'currently in beta', and says nothing about the performance and patch history that drive the 1-vs-2 question today."
+    evidence:
+      - "Published Oct 24, 2023, 9:31 AM EDT"
+      - "five times larger playable area"
+      - "Milestones are instead unlocked by Expansion Points"
+      - "allows free mods to be supported on both PC and console"
+      - "Weather patterns are then tied into the climate"
+      - "Subscribe to receive newsletter and marketing emails"
+  - name: "Steam store - Cities: Skylines II"
+    url: https://store.steampowered.com/app/949230/Cities_Skylines_II/
+    site: store.steampowered.com
+    kind: marketplace
+    fetch_status: ok
+    solves: "Current price and discount, release date, and two aggregate review scores - recent and all-time - which together are the closest thing in the checked results to a live signal on whether the sequel is in good shape."
+    does_not_solve: "No comparison with the first game, no patch history on this page, and no explanation of why the all-time and recent scores diverge; it sells rather than answers."
+    workflow_remaining: "Sign in to a Steam account, buy and install the game, research gameplay elsewhere, and decide which DLC to add."
+    business_model: "Storefront selling the game, with a time-limited discount and in-game purchases disclosed."
+    currency: "Release date shown as 'Released Oct 24, 2023'; recent reviews are scoped to the last 30 days, but no page update date is shown"
+    coverage: "One product listing - price, reviews, release date, DLC and system requirements; no coverage of the predecessor or of version history."
+    dominates_serp: "2 of 19 checked results"
+    needs_install: yes
+    needs_account: yes
+    data_reproducible: "inference: partly - price and release date are public, but the review corpus and its aggregate scores are Steam's own platform data and cannot be rebuilt from outside; third parties can only re-read what Steam publishes."
+    ai_replaceable: "inference: no for the live numbers - an assistant cannot know today's discount or this month's review score and must send the user here; yes for the surrounding context."
+    why_still_searching: "inference: the divergence between 'Mostly Positive (835)' recently and 'Mixed (34,703)' overall is exactly the ambiguity that drives the cluster's 1-vs-2 and 'is cities skylines good' queries, and the store page does not explain it."
+    evidence:
+      - "Recent Reviews: Mostly Positive (835) - 73% of the 835 user reviews in the last 30 days are positive."
+      - "English Reviews: Mixed (34,703) - 57% of the 34,703 user reviews for this game are positive."
+      - "SPECIAL PROMOTION! Offer ends in -30% $49.99 $34.99"
+      - "Includes in-game purchases"
+      - "Released Oct 24, 2023"
+      - "Sign in to add this item to your wishlist"
+  - name: "Facebook group post - Cities Skylines Console community"
+    url: https://www.facebook.com/groups/CitiesSkylinesConsole/posts/2772582439555880/
+    site: facebook.com
+    kind: community
+    fetch_status: ok
+    solves: "A player's impression of sentiment in the sequel's community; the only content retrieved was one line reporting that another group is full of daily complaints."
+    does_not_solve: "No specifics, no comparison of features, no patch information, no console-specific detail beyond the group's name; the post states a mood, not an answer."
+    workflow_remaining: "Join the other group or find another source to learn what the complaints actually are, then still decide between the two games."
+    business_model: "unknown - not stated on the page"
+    currency: "unknown - no date was visible on the fetched page"
+    coverage: "A single post and its immediate context in one console-focused group."
+    dominates_serp: "3 of 19 checked results"
+    needs_install: no
+    needs_account: unknown
+    data_reproducible: "inference: no - group posts are platform-locked social content; the sentiment they express could be measured independently from public review text, but these specific posts could not be rebuilt."
+    ai_replaceable: "inference: an assistant cannot report what a private-ish group is saying this week, but it also could not do worse than a one-line complaint-about-complaints; the page's informational value is near zero either way."
+    why_still_searching: "inference: three of nineteen checked results come from Facebook and the one that loaded contains no substance, so the searcher leaves with sentiment and no facts."
+    evidence:
+      - "This skylines 2 group im in is full of people complaining about it basically everyday"
+      - "Console Community"
+      - "Cities: Skylines Official"
+  - name: "SteamDB - Cities: Skylines II Patches and Updates"
+    url: https://steamdb.info/app/949230/patchnotes/
+    site: steamdb.info
+    kind: unclassified
+    fetch_status: "failed: HTTP 403 Forbidden, response body not retrieved"
+    solves: "From the search-result title only: a listing of Cities: Skylines II patches and updates."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown from the fetch; a patch timeline of this kind would rest on Steam's own public depot and news feeds, which are observable by anyone polling them, so the timeline itself is reproducible even though this site's copy could not be read."
+    ai_replaceable: "inference: no - a live version timeline is current-state data an assistant cannot hold, which is why it ranks second for an update query."
+    why_still_searching: "inference: unknown - the site returns 403 to automated readers; whether human visitors are also blocked or challenged could not be determined."
+    evidence:
+      - "The server returned HTTP 403 Forbidden."
+  - name: "Cities Skylines 2 Wiki - Patches"
+    url: https://cs2.paradoxwikis.com/Patches
+    site: cs2.paradoxwikis.com
+    kind: unclassified
+    fetch_status: "failed: the page returned a loading error on two attempts - 'A required part of this site couldn't load' - and no wiki content was retrieved"
+    solves: "From the search-result title only: a wiki page collecting Cities: Skylines 2 patches."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: "unknown; the only monetisation-adjacent text retrieved was the error page's instruction to 'disable any ad blockers'"
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes in principle - a wiki patch index is a community transcription of the publisher's own notes, so it can be rebuilt by anyone reading the same public notes."
+    ai_replaceable: "inference: no for the timeline itself, which is current-state data; the wiki's advantage over the publisher is aggregation, which an assistant cannot maintain but a crawler can."
+    why_still_searching: "inference: the page did not render for an automated reader and demands ad-blocker changes, which is the kind of friction that also loses human visitors; unconfirmed for real browsers."
+    evidence:
+      - "A required part of this site couldn't load"
+      - "disable any ad blockers"
+  - name: "Paradox Interactive Forums - Cities: Skylines 2"
+    url: https://forum.paradoxplaza.com/forum/forums/cities-skylines-2.1147/
+    site: forum.paradoxplaza.com
+    kind: community
+    fetch_status: "failed: the page returned a loading error on two attempts - 'A required part of this site couldn't load' - and no thread listing was retrieved"
+    solves: "From the search-result title only: the publisher's official forum section for Cities: Skylines 2, which ranks first for the update query."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: no - forum discussion is user-generated content tied to this platform; the official announcements inside it are reproducible, the discussion is not."
+    ai_replaceable: "inference: no for live player reports and dev responses, which are current and specific; an assistant can summarise known issues but not today's thread."
+    why_still_searching: "inference: a forum index is a list of conversations, not an answer, so a user asking 'what changed in the latest update' must still read threads; also unreadable to automated clients at fetch time."
+    evidence:
+      - "A required part of this site couldn't load. This may be due to a browser extension, network issues, or browser settings."
+  - name: "TikTok - City Skylines 2 Vs 1 discover page"
+    url: https://www.tiktok.com/discover/city-skylines-2-vs-1
+    site: tiktok.com
+    kind: community
+    fetch_status: "failed: only the site title 'TikTok - Make Your Day' rendered; no video captions, dates or metadata retrieved"
+    solves: "From the search-result title only: a topic feed of short videos comparing Cities Skylines 2 and 1."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 19 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: no - a platform-native video feed is not a dataset and cannot be rebuilt elsewhere."
+    ai_replaceable: "inference: no in kind - users go to short video for visual side-by-sides an assistant cannot show; the factual content of such clips is, however, thin."
+    why_still_searching: "inference: a feed of short clips gives impressions rather than a settled comparison; unconfirmed, since the page did not load."
+    evidence:
+      - "TikTok - Make Your Day"
+synthesis:
+  pieced_together_answer: "The answer is scattered across formats, and the aggregating pages are the ones that would not load. Authoritative but single-patch change information is on paradoxinteractive.com, dated 2026-02-18, one page per patch with its own known-issues list. The version timeline that would turn those into an answer to 'what is the latest update' is supposedly on steamdb.info and cs2.paradoxwikis.com, and neither could be fetched. Live sentiment and price are on the Steam store page, where the split between 'Mostly Positive (835)' in the last 30 days and 'Mixed (34,703)' overall is itself the unanswered question. The feature comparison between the two games is on screenrant.com but frozen at 'Published Oct 24, 2023', the sequel's release day, so it predates three years of patching. Everything after that is social - Facebook, TikTok, Steam discussions, the Paradox forum - eleven of nineteen checked results are community pages, and the one that rendered offered only 'full of people complaining about it basically everyday'."
+  single_destination_would_need: "A maintained, dated version timeline for both titles that links each patch to what it changed and to what players reported afterwards, sitting next to a comparison that is versioned rather than frozen at launch - 'as of patch 1.5.7f1, here is where CS2 now beats or still trails CS1 on performance, mods, economy and DLC' - plus current price and review trend for both games and their DLC. In other words it must answer 'should I buy 1 or 2 today, at this price, on this hardware' rather than 'what shipped in October 2023'. No checked result combines the change history, the sentiment trend and the comparison."
+  existing_tools_that_do_this: "None found in the checked results that could be verified - the input file records tool_hits of 0. Two candidate databases ranked (SteamDB's patch list and the Cities Skylines 2 wiki's Patches page) but both failed to fetch, so whether either is maintained and complete is unknown. The Steam store page is the only live data source that loaded, and it covers price and reviews, not changes."
+  data_source_and_reproducibility: "Mixed. The change descriptions originate with Paradox and can only be copied, not derived - though they are published openly and are trivially crawlable, which is presumably how the wiki and SteamDB pages exist. Build and release timing is observable from Steam's public depot and news feeds. Review scores and their trend are Steam's own platform data, readable but not rebuildable. Player sentiment is spread over Facebook, TikTok, Steam discussions and the Paradox forum, three of which blocked or failed to render for an automated reader, so any product depending on scraping community sentiment faces real collection risk."
+  ai_resilience: "High for the live half, low for the static half. A chat assistant cannot state today's patch version, today's discount or this month's review trend, and should not guess at them - which is why an update query returns a forum, a database and a wiki rather than an explainer. But the launch-era 1-vs-2 feature comparison is exactly the stable, widely-written-up material an assistant reproduces well, and the ScreenRant article adds nothing an assistant would not say. A defensible destination here is a freshness product, not a knowledge product."
+  open_questions:
+    - "Whether SteamDB's patch list and the cs2 wiki's Patches page are actually complete and current - both ranked for the update query and neither could be read, so the existing-coverage picture for this cluster is materially incomplete."
+    - "Whether the 403 and the loading errors affect real visitors or only automated clients, which decides whether those pages are genuine competitors or only nominal ones."
+    - "Why recent Steam reviews (73% positive, last 30 days) diverge so sharply from all-time (57%), and whether that recovery is what the 1-vs-2 searchers are trying to establish."
+    - "Whether the cluster's 'not working', 'error fix' and 'slow' members are patch-version-specific, which would make a version-to-known-issues index the real product."
+    - "How much of this demand is console-specific - the top-ranked Facebook result is a console group - and whether console patch timelines are documented anywhere that ranked."

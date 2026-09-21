@@ -1,0 +1,187 @@
+cluster_id: c_96742201
+head_term: houdini render setting
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 4
+pages_failed: 4
+competitors:
+  - name: "SideFX Houdini docs - How to render using Mantra"
+    url: https://www.sidefx.com/docs/houdini/render/render.html
+    site: sidefx.com
+    kind: vendor
+    fetch_status: ok
+    solves: "The vendor's own rendering walkthrough: preview rendering in the Render view / IPR, starting a final render, setting up a render node with camera and lights, controlling object visibility, and setting output resolution and frame range."
+    does_not_solve: "The page's stated subject is Mantra; the fetched content names no Karma or Karma XPU settings, which is what many of the cluster's members ask for ('houdini karma render settings', 'how to render in houdini karma'). It gives no numeric recipe for a given scene and no troubleshooting for a render that comes out wrong beyond the black-render note."
+    workflow_remaining: "Open or build a scene in Houdini, add lights and a camera, create and wire a render node, choose and tune sampling and output settings for the specific shot, then run the render and judge the result."
+    business_model: "Vendor documentation supporting a paid 3D application; no pricing, subscription, ads or affiliate links appeared on the page."
+    currency: "Versioned rather than dated - the page is labelled 'Houdini 22.0'; no last-updated date shown"
+    coverage: "Rendering with Mantra across preview and final output, including deep camera maps; breadth across the other renderers users actually reach for (Karma, Arnold, Redshift, RenderMan) is not covered on this page."
+    dominates_serp: "7 of 20 checked results"
+    needs_install: yes
+    needs_account: unknown
+    data_reproducible: "inference: the behaviour being documented belongs to proprietary software, so the facts can only be re-derived by running Houdini; anyone could re-document it, but no public dataset exists to rebuild it from."
+    ai_replaceable: "inference: partly - an assistant can explain the node graph and why a render is black, but it cannot see the user's scene, and because parameters change per Houdini version the assistant risks describing a version the user does not have, which the docs at least label."
+    why_still_searching: "inference: the docs are organised by renderer and feature rather than by the user's goal, are version-pinned, and cover Mantra while much of the cluster asks about Karma - so users go to YouTube for someone doing it on screen."
+    evidence:
+      - "Mantra is the highly advanced renderer included with Houdini."
+      - "You should use the physically based rendering engine unless you have a good reason to use another engine."
+      - "In general, rendering in Houdini uses a camera defining the viewpoint to render from, lights to illuminate the scene."
+      - "If you don't have lights in the scene the render will come out black."
+      - "The Render view, sometimes called the IPR (interactive photorealistic render) view."
+      - "Houdini 22.0"
+  - name: "Arnold for Houdini - Rendering Your First Scene (Autodesk Help)"
+    url: https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_for_houdini_ah_getting_started_ah_Rendering_Your_First_Scene_html
+    site: help.autodesk.com
+    kind: vendor
+    fetch_status: "failed: the URL resolved to a 404 error page ('Looks like we lost your page'), so no documentation content was retrieved"
+    solves: "From the search-result title only: getting-started documentation for rendering a first scene with Arnold for Houdini."
+    does_not_solve: "unknown - but the link that ranks second for 'how to render in houdini' is dead at fetch time, which by itself blocks the task."
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 20 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - plug-in documentation for proprietary software would have to be re-derived by using the plug-in rather than rebuilt from a public dataset."
+    ai_replaceable: "inference: unknown from the fetch; note that a dead documentation link is precisely the case where users fall back on an assistant or a video."
+    why_still_searching: "inference: a high-ranking result that returns an error page sends the user straight back to the search results."
+    evidence:
+      - "Well... this is embarrassing. Looks like we lost your page."
+      - "Check your URL for typos"
+  - name: "Vagon - Tips for Faster Rendering in Houdini SideFX"
+    url: https://vagon.io/blog/rendering-tips-sidefx-houdini
+    site: vagon.io
+    kind: editorial
+    fetch_status: ok
+    solves: "A list of concrete settings to change to speed up rendering, with menu paths - sampling steps, motion factor in the Dicing sub-tab, tile size under optimisation preferences, cache limit - plus which third-party render engines to consider."
+    does_not_solve: "Optimisation advice for an existing render, not instructions for producing a first render; no FBX or import coverage; no per-scene numbers, and the reader must decide which tips apply to their scene."
+    workflow_remaining: "Apply each setting inside Houdini, judge the quality/speed trade-off for the actual shot, and decide whether to install and learn a different render engine or move the job to a cloud machine."
+    business_model: "Content marketing for the site's own paid cloud-rendering service, with account-creation calls to action."
+    currency: "Published on April 25, 2021 and Updated on December 10, 2023 per the page"
+    coverage: "Render-speed tuning across Mantra settings, hardware/GPU choices, render engines and render farms; correctness or look-development settings are not the subject."
+    dominates_serp: "1 of 20 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes in substance - these are observations about published Houdini menus that any experienced user could re-derive and rewrite; there is no proprietary dataset behind the article, only the cloud service it advertises."
+    ai_replaceable: "inference: largely yes - a chat assistant can list the same optimisation levers and reason about the trade-offs; what it cannot do is benchmark the user's actual scene, which this article also does not do."
+    why_still_searching: "inference: the advice is generic and now years old relative to the current Houdini version, and it ends by steering the reader toward paying for cloud machines rather than fixing the scene."
+    evidence:
+      - "Rendering > Mantra > Sampling steps"
+      - "Reducing unnecessary subdivisions"
+      - "Switch to GPU Rendering"
+      - "Set Your Cache Limit"
+      - "By shifting your rendering tasks to Vagon's powerful cloud PCs, you unlock a new level of speed"
+      - "Published on April 25, 2021"
+  - name: "How to Render in Karma XPU | Houdini Tutorial (YouTube)"
+    url: https://www.youtube.com/watch?v=yne_eDBlRcw
+    site: youtube.com
+    kind: community
+    fetch_status: "failed: only YouTube's footer navigation was returned on two attempts; no video title, description, date or metadata retrieved"
+    solves: "From the search-result title only: a video demonstrating importing FBX characters into Houdini, described as four methods."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "5 of 20 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - screen-recorded demonstrations of proprietary software are not a dataset; the underlying steps are reproducible by anyone with the software, but the recordings are not."
+    ai_replaceable: "inference: unknown from the fetch; note that video is the format an assistant least replaces, because users choose it to watch where the buttons are rather than to read what they do."
+    why_still_searching: "inference: unknown from the fetch; the fact that five of twenty checked results are YouTube suggests the written documentation is not settling these questions."
+    evidence:
+      - "I cannot answer your questions based on the provided content. The page excerpt shows only YouTube's footer navigation and legal links"
+  - name: "RenderMan for Houdini 26 wiki - Rendering in Houdini"
+    url: https://rmanwiki-26.pixar.com/space/RFH26/19268213/Rendering+in+Houdini
+    site: rmanwiki-26.pixar.com
+    kind: unclassified
+    fetch_status: ok
+    solves: "Positions itself as the index of RenderMan-for-Houdini rendering features for frames and sequences, with a list of sub-topics."
+    does_not_solve: "The substantive content did not render - the body is macro placeholders rather than instructions - so the page itself teaches nothing; it is also renderer-specific rather than about Houdini's built-in rendering."
+    workflow_remaining: "Navigate into the child topics to find actual procedures, then install and license RenderMan for Houdini and carry out the render."
+    business_model: "unknown - no pricing, subscription, ads or affiliate links appeared on the page."
+    currency: "unknown - no last-updated date or version date shown on the page (the version appears only in the host name and URL path)"
+    coverage: "Claims to cover the rendering features used for frames and sequences in Houdini; the actual list of covered topics did not load."
+    dominates_serp: "1 of 20 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: no public dataset underlies it - it documents a commercial renderer's own behaviour, which can only be re-derived by running that renderer."
+    ai_replaceable: "inference: an index page with unrendered content is trivially outperformed by an assistant, which at least answers the question asked; the renderer-specific parameter details behind it are less so."
+    why_still_searching: "inference: the user arrives at a table of contents whose contents did not load, one more click from an answer, so the search continues."
+    evidence:
+      - "Houdini exposes all the useful features used for render frames and sequences."
+      - "Below are the topics covered as well as some descriptions of features"
+      - "Macro (children)"
+  - name: "HouTexImport (Gumroad - julianabreu)"
+    url: https://julianabreu.gumroad.com/l/HouTexImport
+    site: julianabreu.gumroad.com
+    kind: marketplace
+    fetch_status: "failed: HTTP 404 Not Found, response body not retrieved"
+    solves: "From the search-result title only: a Gumroad product listing surfaced for 'import fbx into houdini'; the product's nature could not be confirmed."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: "unknown from the page; inference: a Gumroad product page is a paid or pay-what-you-want digital download by construction, but no price could be read."
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 20 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - a Houdini asset is authored work rather than a dataset; an equivalent tool could be built by anyone who knows the software."
+    ai_replaceable: "inference: no in principle - an assistant cannot hand over a working asset file - though it can explain the manual steps the asset automates."
+    why_still_searching: "inference: a dead product link at rank 7 returns the user to the search results; more generally a paid one-off asset does not answer a how-to question."
+    evidence:
+      - "The server returned HTTP 404 Not Found."
+  - name: "HDA - Quick Imports All Alembic (Gumroad - doduyanh)"
+    url: https://doduyanh.gumroad.com/l/ypggt
+    site: doduyanh.gumroad.com
+    kind: marketplace
+    fetch_status: "failed: only the page title rendered; no description, price, requirements or date retrieved"
+    solves: "From the title alone: a Houdini Digital Asset offering quick import of Alembic files, matching the cluster member 'how to import alembic animation in houdini'."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: "unknown from the page; inference: a Gumroad listing is a paid or name-your-price download by construction, but no price could be read."
+    currency: unknown
+    coverage: "unknown beyond the title's claim of covering Alembic imports."
+    dominates_serp: "1 of 20 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - an HDA is authored work, not a dataset; the import behaviour it wraps is available in Houdini to anyone willing to build the network themselves."
+    ai_replaceable: "inference: no - an assistant cannot deliver a working digital asset, though it can describe how to wire the equivalent nodes."
+    why_still_searching: "inference: paid single-purpose assets are surfacing for plain how-to queries, which suggests the free path is not obvious enough; unconfirmed, since the listing did not load."
+    evidence:
+      - "HDA - Quick Imports All Alembic"
+  - name: "Steam Community - Houdini Indie discussion"
+    url: https://steamcommunity.com/app/502570/discussions/0/1751268142243435604/?l=greek
+    site: steamcommunity.com
+    kind: community
+    fetch_status: ok
+    solves: "A SideFX staff answer in a user thread about exporting from Houdini to the Source Engine, including the workaround of routing FBX through Blender."
+    does_not_solve: "It is about exporting out of Houdini to a game engine, not importing FBX into Houdini, so it does not answer the query it ranked for; it also confirms an absent feature rather than providing a method."
+    workflow_remaining: "Export FBX from Houdini, then find or build a converter to the formats Source accepts, or install Blender and learn its Source exporter."
+    business_model: "unknown - no pricing, subscription, ads or affiliate links appeared on the page; the thread sits on a storefront's community section and a 'trial license' is referenced in the staff reply."
+    currency: "Dated posts from 2019 - '4 Δεκ 2019, 9:15' and '4 Δεκ 2019, 10:42'"
+    coverage: "One narrow question about Source Engine export; no general FBX import or render coverage."
+    dominates_serp: "1 of 20 checked results"
+    needs_install: yes
+    needs_account: yes
+    data_reproducible: "inference: the thread's value is a vendor employee's statement about what the product does not do - not reproducible from a dataset, only from asking the vendor again."
+    ai_replaceable: "inference: an assistant can describe the Houdini-to-Blender-to-Source route, but a dated vendor statement about a missing feature is the kind of claim an assistant should not invent, so the thread retains some value as a citation."
+    why_still_searching: "inference: the thread is seven years old, in a Greek-language URL variant, and answers a different question than the searcher asked."
+    evidence:
+      - "Houdini does not currently have a built-in import/export system for bringing assets into Source Engine"
+      - "you would need to convert exported files, like FBX, to the formats Source Engine accepts"
+      - "Blender has an exporter for Source Engine so one workflow could be to create assets in Houdini"
+      - "4 Δεκ 2019, 9:15"
+synthesis:
+  pieced_together_answer: "The pieces sit on different sites and in different formats. Conceptual setup - camera, lights, render node, IPR preview, 'If you don't have lights in the scene the render will come out black.' - is on sidefx.com, pinned to 'Houdini 22.0' and written for Mantra. Speed tuning with actual menu paths ('Rendering > Mantra > Sampling steps', 'Set Your Cache Limit') is on vagon.io, last updated December 2023 and ending in a pitch for cloud machines. Renderer-specific settings for Arnold and RenderMan are supposedly on help.autodesk.com and rmanwiki-26.pixar.com, but the first returned a 404 and the second returned an unrendered index. The demonstrations users evidently prefer are on YouTube - five of the twenty checked results - and could not be read. Paid one-off import assets sit on three separate Gumroad seller subdomains. The one community thread that loaded answers a different question than it ranked for. A user therefore assembles concept from the docs, current settings from a blog, and the actual click path from video."
+  single_destination_would_need: "A goal-indexed, version-aware reference that starts from what the user is trying to produce - a still, a sequence, a fire sim, hair, an imported FBX character with its animation intact - and gives the node path, the parameter values and the current-version screenshot for the renderer they actually use (Karma and Karma XPU first, since that is what the cluster asks for, then Arnold, Redshift, RenderMan), together with a diagnostic path for the common failure states (black frame, missing skeleton on FBX import, sequence rendering only one frame). It would also have to state which Houdini version each instruction was verified against, because the vendor docs are version-pinned and the blog advice is not dated to a version at all."
+  existing_tools_that_do_this: "None found in the checked results. There is no calculator, database or interactive settings tool anywhere in the twenty checked results - the input file records tool_hits of 0. The closest things to tooling are paid Houdini Digital Assets sold on Gumroad seller subdomains (an Alembic quick-import HDA, and two further Gumroad listings not fetched) and Vagon's cloud-rendering service, which changes where the render runs rather than what the settings should be."
+  data_source_and_reproducibility: "The underlying facts are the behaviour of proprietary software - Houdini and its render engines - so nothing here can be rebuilt from an open dataset; it can only be re-derived by running the software and recording what each parameter does, version by version. That makes the content expensive to produce but also means the vendor is not the only possible source: the docs page carries no date, the third-party pages carry dates but no version label, and the version-to-behaviour mapping that users actually need is not published as data anywhere in the checked results."
+  ai_resilience: "Moderate. A chat assistant handles the conceptual questions - what a render node is, why a frame is black, what sampling trades against - at least as well as these pages. It is weaker exactly where this cluster hurts: naming the parameter in the version the user has installed, and showing where it is on screen, which is why five of twenty checked results are video. An assistant also cannot deliver a working HDA. A destination built on verified, version-stamped parameter paths plus failure diagnosis is resilient; one built on explaining rendering concepts is not."
+  open_questions:
+    - "Whether the Karma and Karma XPU settings the cluster keeps asking about are documented anywhere that ranks - the top-ranked vendor page fetched covers Mantra, and the one Karma video could not be read."
+    - "What is actually inside the three Gumroad listings (two of which failed to load) and whether paid assets are substituting for missing free documentation on FBX and Alembic import."
+    - "Why a 404 page holds rank 2 for 'how to render in houdini' - whether the Autodesk documentation moved or the search proxy's index is stale."
+    - "How often Houdini version changes invalidate published instructions, which determines whether a version-stamped reference could be maintained at reasonable cost."
+    - "What the FBX-import failure modes actually are in practice (skeletons, animation, materials, scale), since no fetched page that loaded addressed FBX import at all."

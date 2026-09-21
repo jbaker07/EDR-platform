@@ -1,3 +1,6 @@
-{"seed": "shipping rates", "new_queries": 993, "suggestions_seen": 1593}
-{"seed": "inventory management", "new_queries": 1446, "suggestions_seen": 2001}
-{"seed": "shipping supplier", "new_queries": 916, "suggestions_seen": 1310}
+{"seed": "shipping rates", "skipped": "already expanded"}
+{"seed": "package tracking", "new_queries": 404, "suggestions_seen": 608}
+{"seed": "inventory management", "skipped": "already expanded"}
+{"seed": "shipping barcode", "new_queries": 301, "suggestions_seen": 462}
+{"seed": "shipping supplier", "skipped": "already expanded"}
+{"seed": "shipping alibaba", "new_queries": 334, "suggestions_seen": 731}

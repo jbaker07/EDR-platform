@@ -3,3 +3,8 @@
 {"seed": "size chart", "skipped": "already expanded"}
 {"seed": "shoe size conversion", "new_queries": 298, "suggestions_seen": 890}
 {"seed": "price history", "skipped": "already expanded"}
+{"seed": "price drop", "new_queries": 567, "suggestions_seen": 907}
+{"seed": "what is this", "new_queries": 104, "suggestions_seen": 911}
+{"seed": "identify product", "new_queries": 393, "suggestions_seen": 684}
+{"seed": "product mattress", "skipped": "already expanded"}
+{"seed": "product sofa", "new_queries": 507, "suggestions_seen": 667}

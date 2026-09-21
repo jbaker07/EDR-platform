@@ -1,5 +1,10 @@
-{"seed": "engineering tolerance", "new_queries": 314, "suggestions_seen": 769}
-{"seed": "wire gauge", "new_queries": 963, "suggestions_seen": 1604}
-{"seed": "concrete mix", "new_queries": 1232, "suggestions_seen": 1730}
-{"seed": "dilution calculator", "new_queries": 540, "suggestions_seen": 1148}
-{"seed": "engineering fea", "new_queries": 606, "suggestions_seen": 1084}
+{"seed": "engineering tolerance", "skipped": "already expanded"}
+{"seed": "engineering gd&t", "new_queries": 277, "suggestions_seen": 702}
+{"seed": "wire gauge", "skipped": "already expanded"}
+{"seed": "nec code", "new_queries": 479, "suggestions_seen": 778}
+{"seed": "concrete mix", "skipped": "already expanded"}
+{"seed": "engineering rebar", "new_queries": 293, "suggestions_seen": 530}
+{"seed": "dilution calculator", "skipped": "already expanded"}
+{"seed": "engineering molarity", "new_queries": 285, "suggestions_seen": 646}
+{"seed": "engineering fea", "skipped": "already expanded"}
+{"seed": "engineering cfd", "new_queries": 223, "suggestions_seen": 569}

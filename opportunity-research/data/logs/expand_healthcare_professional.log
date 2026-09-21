@@ -1,4 +1,8 @@
-{"seed": "healthcare nclex", "new_queries": 619, "suggestions_seen": 843}
-{"seed": "icd 10 code", "new_queries": 1413, "suggestions_seen": 1922}
-{"seed": "drug interactions", "new_queries": 834, "suggestions_seen": 1350}
-{"seed": "healthcare therapy", "new_queries": 813, "suggestions_seen": 1081}
+{"seed": "healthcare nclex", "skipped": "already expanded"}
+{"seed": "nursing school", "new_queries": 810, "suggestions_seen": 929}
+{"seed": "icd 10 code", "skipped": "already expanded"}
+{"seed": "cpt code", "new_queries": 641, "suggestions_seen": 766}
+{"seed": "drug interactions", "skipped": "already expanded"}
+{"seed": "pharmacy technician", "new_queries": 626, "suggestions_seen": 781}
+{"seed": "healthcare therapy", "skipped": "already expanded"}
+{"seed": "healthcare anxiety", "new_queries": 320, "suggestions_seen": 494}

@@ -1,5 +1,10 @@
-{"seed": "book recommendations", "new_queries": 1010, "suggestions_seen": 1603}
-{"seed": "where to watch", "new_queries": 1890, "suggestions_seen": 2202}
-{"seed": "song identify", "new_queries": 890, "suggestions_seen": 1289}
-{"seed": "anime watch order", "new_queries": 691, "suggestions_seen": 1476}
-{"seed": "audiobook", "new_queries": 1439, "suggestions_seen": 1950}
+{"seed": "book recommendations", "skipped": "already expanded"}
+{"seed": "reading order", "new_queries": 572, "suggestions_seen": 823}
+{"seed": "where to watch", "skipped": "already expanded"}
+{"seed": "book streaming", "new_queries": 306, "suggestions_seen": 510}
+{"seed": "song identify", "skipped": "already expanded"}
+{"seed": "book playlist", "new_queries": 339, "suggestions_seen": 509}
+{"seed": "anime watch order", "skipped": "already expanded"}
+{"seed": "book manga", "new_queries": 361, "suggestions_seen": 480}
+{"seed": "audiobook", "skipped": "already expanded"}
+{"seed": "podcast recommendations", "new_queries": 367, "suggestions_seen": 798}

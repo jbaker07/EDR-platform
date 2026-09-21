@@ -1,0 +1,198 @@
+cluster_id: c_05174339
+head_term: kdp self publishing
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 6
+pages_failed: 2
+competitors:
+  - name: "Kindle Direct Publishing Help - 2 - Prepare Your Manuscript"
+    url: https://kdp.amazon.com/en_US/help/topic/G202187840
+    site: kdp.amazon.com
+    kind: vendor
+    fetch_status: ok
+    solves: "The platform's own manuscript-preparation instructions: template downloads, eBook vs print formatting steps, trim size guidance and a recommendation to submit a PDF interior."
+    does_not_solve: "No cost or price figures appeared on the fetched page (pricing 'not stated'); no calculator; no check of the reader's own file before upload; no date to confirm the specs are current."
+    workflow_remaining: "Download templates, install Kindle Create, reflow the manuscript to spec, pick a trim size, convert the interior to PDF, upload and pass KDP's review - and re-edit and resubmit if review fails."
+    business_model: "Vendor-owned help content for Amazon's publishing platform; no pricing, subscription, ads or affiliate links appeared on the page. Inference: the page exists to funnel authors into uploading to KDP."
+    currency: "unknown - no last-updated or published date shown on the page"
+    coverage: "Manuscript preparation for both eBook and print formats, including templates, trim size and PDF conversion; breadth beyond that is unknown from this page."
+    dominates_serp: "7 of 18 checked results"
+    needs_install: yes
+    needs_account: yes
+    data_reproducible: "inference: the formatting specs and templates are published by Amazon and could be restated from public pages, but Amazon is the sole source of truth and can change them unilaterally, so a rebuilt copy would always lag the original."
+    ai_replaceable: "inference: an assistant can recite the steps and the 6x9 default, but it cannot download the template, run Kindle Create, or confirm the file will pass KDP's review, so it replaces the reading but not the doing."
+    why_still_searching: "inference: the page hands the user more software ('Download and install Kindle Create.') and a pass/fail review loop rather than a finished file, and shows no date, so users look elsewhere for a shorter path and for confirmation the instructions are current."
+    evidence:
+      - "Download and install Kindle Create."
+      - "If it doesn't pass review, you'll need to edit your files, and resubmit them."
+      - 'The most common trim size for books in the U.S. is 6" x 9".'
+      - "For the best results, we recommend you convert your interior manuscript file to a PDF."
+      - "If your file is in any other format, visit Create a PDF file."
+  - name: "rkdesignbd shots (Dribbble portfolio)"
+    url: https://dribbble.com/rkdesignbd/shots
+    site: dribbble.com
+    kind: tool
+    fetch_status: ok
+    solves: "Offers a freelance designer who will do the KDP formatting for the user - ebook and paperback formatting, children's book formatting and A+ content shown as portfolio samples."
+    does_not_solve: "No instructions, no specifications, no prices for the service, and no cost information for KDP publishing itself; the page is work samples, not a method."
+    workflow_remaining: "Sign up, get in touch with the designer, agree scope and price off-page, hand over the manuscript and cover files, then still upload and publish on KDP."
+    business_model: "Marketplace/portfolio monetised through paid design services with a promotional discount on the platform's payments."
+    currency: "unknown - no last-updated or published date shown; the page carries a copyright line only"
+    coverage: "Portfolio breadth only: Kindle/paperback formatting, children's book formatting and Amazon A+ content; no stated scope of service or turnaround."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: yes
+    data_reproducible: "inference: there is no dataset here - it is one freelancer's work samples - so nothing to rebuild; an equivalent directory of formatters could be assembled from public freelance marketplaces."
+    ai_replaceable: "inference: an assistant cannot replace a human doing the formatting work, but it also cannot be replaced by this page, which answers no question; the page and an assistant serve different needs."
+    why_still_searching: "inference: a searcher who typed a how-to query lands on a sales portfolio with no prices and no answer, so the search continues."
+    evidence:
+      - "I will format and publish your book for amazon kindle or paperba"
+      - "I will create enticing a plus content for amazon kdp"
+      - "format childrens book for KDP, childrens book formatting"
+      - "Get 20% off your first payment for design and development services on Dribbble. Use code WELCOME20"
+      - "Get in touch"
+  - name: "Kindle Direct Publishing (Wikipedia)"
+    url: https://en.wikipedia.org/wiki/Kindle_Direct_Publishing
+    site: en.wikipedia.org
+    kind: reference
+    fetch_status: ok
+    solves: "Background on what KDP is, the price range an author may set, the historical revenue split, and how the KDP Select fund pays per page read."
+    does_not_solve: "Gives no current fee schedule, no printing-cost formula, no formatting instructions and no way to compute what a specific book would cost; figures quoted are historical."
+    workflow_remaining: "Go to the KDP site, create an account, upload the manuscript and work out actual current costs and royalties elsewhere."
+    business_model: "Non-commercial encyclopedia; no pricing, subscription or affiliate links stated. It does describe Amazon's subscription product - 'a monthly subscription service' - as subject matter, not as its own revenue."
+    currency: "Last edited 12 August 2026 per the page footer"
+    coverage: "Encyclopedic overview of the programme including KDP Select and Kindle Unlimited, with dated figures from 2009, 2014, 2015 and 2019."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - it is a citation-based summary of public press coverage and Amazon announcements, so the same article could be reassembled from the same public sources."
+    ai_replaceable: "inference: largely yes - a chat assistant answers 'what is KDP' and the historical royalty split at least as well, and the page is already a compilation rather than primary data."
+    why_still_searching: "inference: the numbers on the page are dated milestones ('was $1.2 million in April 2014'), not what the user will actually be charged this year, so a cost-seeker must keep looking."
+    evidence:
+      - "Authors can upload documents in several formats for delivery via the KDP website and charge between $0.99 and $200.00 for their works."
+      - "Amazon keeps 65% of the revenue from all e-book sales"
+      - "per-page rate of about half a cent"
+      - "KDP Select books are included in Kindle Unlimited, a monthly subscription service that allows unlimited reading of e-books."
+      - "This page was last edited on 12 August 2026, at 21:00 (UTC)."
+  - name: "BookBeam - How Much Does It Cost to Publish on Amazon KDP?"
+    url: https://bookbeam.io/blog/cost-to-publish-on-amazon-kdp/
+    site: bookbeam.io
+    kind: editorial
+    fetch_status: ok
+    solves: "A budget breakdown of the real costs around a free KDP upload: editing, formatting, cover design, per-unit print cost, delivery fees and ads, with dollar ranges and a summary table."
+    does_not_solve: "The ranges are not tied to the user's own book - no interactive calculator, no per-title print-cost computation from trim size and page count, and no formatting instructions."
+    workflow_remaining: "Pick and hire the editors, designers and formatters, get an actual quote, format the manuscript, publish on KDP and run any advertising themselves."
+    business_model: "Content marketing for the site's own software: free tools and a Chrome extension leading to a paid product, with login/signup on the page; ads are discussed as an author cost, not as the site's revenue."
+    currency: "unknown - no published or updated date visible on the fetched page"
+    coverage: "Cost categories across the whole self-publishing chain - proofreading, line editing, developmental editing, formatting, cover design, print unit cost, delivery fees, PPC ads - plus an overall spend range."
+    dominates_serp: "2 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: yes - the figures are market price ranges for freelance services plus Amazon's published fees, both of which could be resampled from public marketplaces and Amazon help pages; the harder-to-copy asset is the site's own book-market tooling, not this article."
+    ai_replaceable: "inference: mostly yes for the ranges, which an assistant can state as well; not for anything requiring current, verifiable per-market fee tables, which the article itself does not date."
+    why_still_searching: "inference: the article answers 'roughly what will this cost me' but not 'what will MY 300-page 6x9 paperback cost', so users continue to a calculator or to KDP's own tables."
+    evidence:
+      - "Signing up and uploading a book to Amazon KDP costs nothing"
+      - "Proofreading: $200 to $500; Line Editing: $500 to $1,200; Developmental Editing: $1,000 or more"
+      - "most serious self-publishers invest between $800 and $3,000"
+      - "delivery fees (typically $0.15/MB)"
+      - "Print-on-demand production costs, which are deducted from your royalty"
+      - "Use BookBeam's free tools to research your market, optimize your strategy"
+  - name: "Reedsy - How Much Does It Cost to Publish a Book on Amazon?"
+    url: https://reedsy.com/blog/guide/kdp/cost-to-publish-a-book-on-amazon/
+    site: reedsy.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Explains that KDP itself is free to use and shows the mechanics of the two charges that actually bite - the per-megabyte delivery fee and the printing formula, worked through with a numeric example."
+    does_not_solve: "Still an article, not a calculator; the reader has to plug in their own page count and file size by hand, and the formatting side of the cluster is not covered here."
+    workflow_remaining: "Upload the manuscript to KDP, format the files properly, set a list price, and market the book."
+    business_model: "Editorial content feeding a marketplace of paid freelancers plus the site's own writing app, with repeated signup prompts."
+    currency: "Last updated on Oct 23, 2025 per the page"
+    coverage: "Costs of publishing on Amazon end to end, with named fee mechanics for the US and Canada and a worked print-cost example; marketing and professional services are pointed to rather than priced in detail."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: unknown
+    data_reproducible: "inference: yes - the delivery fee and printing formula come straight from Amazon's published fee tables, so any site could reproduce the same worked example; the defensible asset is Reedsy's freelancer marketplace, not the arithmetic."
+    ai_replaceable: "inference: yes for the formula and the worked example, which an assistant can compute on demand for the user's own page count - arguably better than a static example; no for the marketplace of vetted professionals behind it."
+    why_still_searching: "inference: the page proves the arithmetic exists but makes the reader do it, and it sits behind signup prompts and service upsells, so users keep hunting for a calculator that just returns a number."
+    evidence:
+      - "publishing a book on Amazon through their Kindle Direct Publishing program is free"
+      - "In the USA and Canada, you are charged $0.15 per megabyte on each ebook sold"
+      - "$1.00 [fixed cost] + (300 x $0.012) [per page cost] = $4.60"
+      - "delivery and printing fees are automatically deducted from royalties made on each sale"
+      - "Last updated on Oct 23, 2025"
+      - "The world's best editors, designers, and marketers are on Reedsy. Come meet them."
+  - name: "ZonGuru - KDP 101: How Much Does It Cost to Publish a Book on Amazon"
+    url: https://www.zonguru.com/blog/how-much-does-it-cost-to-publish-a-book-on-amazon
+    site: zonguru.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Per-unit pricing for each outsourced step (per page and per word editing rates, proofreading, cover, formatting, ISBN) plus the claim that KDP account setup and publishing are free."
+    does_not_solve: "No calculator, no per-title print cost derived from the user's specs, no formatting how-to; the wide formatting range quoted ($200 to $3,000) does not narrow the decision."
+    workflow_remaining: "Write, hire out editing, commission cover art, format the book, create the KDP account, upload, price and market it."
+    business_model: "Blog content promoting the site's own subscription Amazon seller toolkit with a free trial and repeated calls to action."
+    currency: "Posted June 24, 2022 and 'Updated on April 16, 2026' per the page"
+    coverage: "Full cost chain from editing to royalties, with a note that commission rates vary by country - relevant to the cluster's India and Nigeria queries, though the specific rates per country are not given here."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: no
+    needs_account: no
+    data_reproducible: "inference: yes - freelance rate ranges and Amazon's published royalty tiers are public, so the article's substance is reproducible; only the site's seller-data product is not."
+    ai_replaceable: "inference: yes for the rate ranges and the 'publishing is free' framing; an assistant would also flag that per-country royalty rates vary, which is as far as this page goes."
+    why_still_searching: "inference: the page says rates differ by country but does not give them, and its formatting estimate spans an order of magnitude, so users in non-US markets and users wanting a real number search on."
+    evidence:
+      - "Publishing a book on Kindle is completely free."
+      - "Amazon is committed to simplifying the publishing process for indie authors and doesn't charge them anything for setting up or maintaining a KDP account."
+      - "self-publishers on Amazon enjoy up to 70% in royalties"
+      - "Amazon has different commission rates...for different countries"
+      - "Zonguru's Amazon toolkit starts from $24/month"
+      - "Updated on April 16, 2026"
+  - name: "Quora - What is the cost of publishing a book through Amazon KDP Print?"
+    url: https://www.quora.com/What-is-the-cost-of-publishing-a-book-through-Amazon-KDP-Print
+    site: quora.com
+    kind: community
+    fetch_status: "failed: HTTP 403 Forbidden on two attempts, response body not retrieved"
+    solves: "From the search-result title only: a user-answered question on the cost of publishing a book through Amazon KDP Print."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - the page could not be read; crowd answers on a public Q&A site are generally personal accounts rather than a dataset, so there would be little to rebuild."
+    ai_replaceable: "inference: unknown - but a cost question of this shape is the kind an assistant answers directly, so a crowd thread's advantage would have to lie in lived, current specifics the page could not be read to confirm."
+    why_still_searching: "inference: unknown - the page itself blocks automated readers, and if it also gates or paginates answers for visitors, searchers would bounce; not verifiable from the failed fetch."
+    evidence:
+      - "The server returned HTTP 403 Forbidden."
+  - name: "BookBaby Blog - The Hidden Costs of Amazon KDP Publishing"
+    url: https://blog.bookbaby.com/how-to-self-publish/self-publishing/hidden-costs-of-amazon-kdp-publishing
+    site: blog.bookbaby.com
+    kind: editorial
+    fetch_status: "failed: empty response body on two attempts (no page text returned)"
+    solves: "From the search-result title only: an article on costs of Amazon KDP publishing that authors may not anticipate."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - could not be read; an article of this kind would rest on Amazon's public fee tables plus the publisher's own service pricing, both public."
+    ai_replaceable: "inference: unknown - could not be read."
+    why_still_searching: "inference: unknown - could not be read."
+    evidence:
+      - "I cannot answer these questions because the web page content provided is empty."
+synthesis:
+  pieced_together_answer: "No fetched page answers the cluster end to end. The platform rules and file requirements live on kdp.amazon.com ('Download and install Kindle Create.', the 6x9 default, 'convert your interior manuscript file to a PDF'). The claim that publishing is free lives on the third-party blogs ('Signing up and uploading a book to Amazon KDP costs nothing' - BookBeam; 'publishing a book on Amazon through their Kindle Direct Publishing program is free' - Reedsy). The actual fee mechanics live on Reedsy ('$0.15 per megabyte on each ebook sold'; '$1.00 [fixed cost] + (300 x $0.012) [per page cost] = $4.60'). Price ranges for the work the author must outsource live on BookBeam ('Proofreading: $200 to $500'), ZonGuru ('$2.50 and $5 for a page') and their summary tables. Royalty context lives on Wikipedia ('Amazon keeps 65% of the revenue'). Someone to do the formatting instead of the author lives on dribbble.com. A reader wanting one number for their own book must visit at least three of these and do the arithmetic themselves."
+  single_destination_would_need: "One page that takes the book's inputs - trim size, page count, ink and paper, target marketplaces, file size, list price - and returns the printing cost, delivery fee, royalty at 35% and 70%, and break-even price, with each fee traced to a dated Amazon source; then, in the same place, a manuscript checker that ingests the author's DOCX or PDF and reports the specific margin, bleed, trim and embedded-font problems that would fail KDP review, and emits a compliant file. The cost side and the file side are currently on different sites, and neither side is interactive anywhere in the checked results."
+  existing_tools_that_do_this: "None found in the checked results does both. Partial tools named on the fetched pages: Kindle Create (Amazon's own formatting app, requires download and install), BookBeam's 'free tools' and Chrome extension, ZonGuru's subscription toolkit ('starts from $24/month'), Reedsy Studio plus the Reedsy freelancer marketplace, and a freelance formatting service on Dribbble. No interactive KDP cost calculator appeared in the 18 checked results, despite 'kdp publishing price calculator' being a cluster member."
+  data_source_and_reproducibility: "The load-bearing numbers - print cost formula, per-megabyte delivery fee, royalty tiers, trim sizes, margin and bleed specs - are published by Amazon and are already being restated verbatim by every third-party page checked, so the data is fully reproducible from public sources; the cost is keeping it current per marketplace, which is exactly where the fetched pages are weak (kdp.amazon.com showed no date at all, BookBeam showed none, Wikipedia's figures are dated 2009-2019). Service price ranges are self-reported market estimates and cannot be verified from the pages."
+  ai_resilience: "Low to moderate for the explanatory half: a chat assistant states the formula, computes the example and lists the cost ranges at least as well as these articles, and the Wikipedia and blog layers are largely displaced. Resilience comes from the two things an assistant cannot do from the chat window - inspecting the author's actual manuscript file against KDP's review rules, and guaranteeing a dated, per-marketplace fee table that is correct today. A destination built on file validation plus current fee data is defensible; one built on restating the formula is not."
+  open_questions:
+    - "Whether Amazon's printing-cost and delivery-fee tables differ enough by marketplace to make the India and Nigeria queries in this cluster a distinct, unserved need - the fetched pages state only that rates vary by country without giving them."
+    - "What the two unreadable pages (Quora 403, BookBaby empty) contain, and whether the community answer on Quora is where the real per-title numbers are being traded."
+    - "How often KDP changes the fee tables and specs, which determines whether a cached calculator can stay correct - unknown, since the KDP help page carries no date."
+    - "Whether the KDP manuscript review failure modes are documented publicly in enough detail to build a pre-flight checker, or whether they can only be learned by submitting and failing."
+    - "Whether searchers for 'how to format' want instructions or want the job done for them - the presence of a freelance formatting portfolio at rank 9 suggests some demand for the latter, but volume is unknown."

@@ -1,4 +1,8 @@
-{"seed": "wedding planning", "new_queries": 1212, "suggestions_seen": 1822}
-{"seed": "gift ideas", "new_queries": 1458, "suggestions_seen": 1947}
-{"seed": "dating profile", "new_queries": 955, "suggestions_seen": 1644}
-{"seed": "thank you note", "new_queries": 1296, "suggestions_seen": 1940}
+{"seed": "wedding planning", "skipped": "already expanded"}
+{"seed": "wedding budget", "new_queries": 421, "suggestions_seen": 688}
+{"seed": "gift ideas", "skipped": "already expanded"}
+{"seed": "gift for", "new_queries": 633, "suggestions_seen": 839}
+{"seed": "dating profile", "skipped": "already expanded"}
+{"seed": "relationship advice", "new_queries": 346, "suggestions_seen": 766}
+{"seed": "thank you note", "skipped": "already expanded"}
+{"seed": "condolence message", "new_queries": 376, "suggestions_seen": 575}

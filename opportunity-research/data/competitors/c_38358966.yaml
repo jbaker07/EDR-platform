@@ -1,0 +1,183 @@
+cluster_id: c_38358966
+head_term: stl files for 3d printing
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 5
+pages_failed: 3
+competitors:
+  - name: "Adobe - STL files explained"
+    url: https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html
+    site: adobe.com
+    kind: vendor
+    fetch_status: ok
+    solves: "Explains what an STL file is, its history, its uses and its advantages and disadvantages, and gives step-by-step instructions for producing one in Adobe Photoshop."
+    does_not_solve: "Gives no printability checks (wall thickness, manifold geometry, export tolerance), no repair path, and no route to existing model libraries; the how-to is locked to one paid application."
+    workflow_remaining: "Visitor must obtain the software, model the object themselves, export it, and then separately validate and slice it for a printer."
+    business_model: "Vendor funnel for Adobe Creative Cloud subscription plans, promoted throughout the page with links to purchase pages."
+    currency: "unknown - no published or updated date stated on the page"
+    coverage: "STL format basics and a single-application workflow; the page describes itself as a comprehensive guide to STL files."
+    dominates_serp: "4 of 18 checked results"
+    needs_install: "yes - the stated workflow requires Adobe Photoshop on desktop"
+    needs_account: "unknown (not stated for reading; an Adobe subscription is required for the described workflow)"
+    data_reproducible: "inference: yes - the STL format is an old, openly documented specification and the explainer content carries no proprietary dataset; the page's advantage is domain authority and ad spend, not data."
+    ai_replaceable: "inference: yes, almost entirely - 'what is an STL file' is a definitional question with a stable answer, and an assistant answers it without the subscription pitch."
+    why_still_searching: "inference: the page ranks for design intent but answers a definitional question and routes the reader into buying Photoshop, which is not the tool most 3D printing users want; they continue to CAD-specific and free-software sources."
+    evidence:
+      - "This step-by-step guide shows you how to create an STL file for a 3D model with Adobe Photoshop"
+      - "Get 20+ Creative Cloud apps, including Photoshop on desktop and iPad"
+      - "You can use STL files in some of the following ways: 3D printing"
+  - name: "A.T. Still University LibGuide - Create 3D STL Files"
+    url: https://guides.atsu.edu/3Dprinting/create
+    site: guides.atsu.edu
+    kind: official
+    fetch_status: ok
+    solves: "A curated comparison table of 3D modelling software graded by user level, with the file formats each supports and the platforms it runs on, plus links to tutorials."
+    does_not_solve: "Does not teach modelling, does not say which tool fits a given object, and does not state cost for the tools listed."
+    workflow_remaining: "Visitor must choose a tool, install or open it, learn its interface, model or import the object, and export as STL - the page itself provides no tutorial content of its own."
+    business_model: "University library guide; no pricing, subscription, ads or affiliate links stated."
+    currency: '"Last Updated: Sep 10, 2026 2:43 PM"'
+    coverage: 'A software recommendation table spanning beginner to professional levels, with a pointer outward - "Wikipedia has an extensive list of 3D modeling software, some free, some not."'
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "varies - the table lists browser-based options alongside Windows, Mac and Linux desktop software"
+    needs_account: "unknown - not stated"
+    data_reproducible: "inference: yes and cheaply - a software comparison table (name, user level, platform, formats, price) is assembled entirely from vendors' own public pages, and the page itself points at Wikipedia as the fuller source."
+    ai_replaceable: "inference: partly - an assistant can recommend software for a described task, but a maintained, dated comparison table with current platform and format support is a live-data artefact an assistant answers less reliably."
+    why_still_searching: "inference: the page stops at tool selection; the searcher's real task ('how to design STL files') begins after the tool is chosen, so they move on to tutorials for the specific tool they picked."
+    evidence:
+      - "Wikipedia has an extensive list of 3D modeling software, some free, some not."
+      - "Last Updated: Sep 10, 2026 2:43 PM"
+  - name: "Wikipedia - FDM printing file formats"
+    url: https://en.wikipedia.org/wiki/FDM_printing_file_formats
+    site: en.wikipedia.org
+    kind: reference
+    fetch_status: ok
+    solves: "Neutral reference comparison of the file formats used in FDM printing and what each encodes."
+    does_not_solve: "Offers no model files, no software links, no design or repair guidance, and nothing addressing 'best' in the shopping sense the query implies."
+    workflow_remaining: "Visitor must independently find a model repository or CAD tool; the page provides neither."
+    business_model: "Non-commercial encyclopedia; no pricing, subscription, ads or affiliate links stated."
+    currency: '"This page was last edited on 11 September 2026, at 14:20 (UTC)."'
+    coverage: "Five formats - STL, 3MF, AMF, OBJ and STEP."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes by definition - it is a community-maintained article on open, published format specifications; the content is freely licensed."
+    ai_replaceable: "inference: yes - format comparison is static factual content that a chat assistant reproduces in full, and this page is plausibly already in its training data."
+    why_still_searching: "inference: it ranks first for 'best stl files' but answers a different question - the searcher wants files to download, not a format taxonomy - so the click is a near-certain bounce."
+    evidence:
+      - "STL files recreate the geometry of a 3D CAD model using a mesh of triangles, which approximate the shape"
+      - "3MF is designed to be the solution for modern 3D printing, offering better features and being completely open-source"
+      - "This page was last edited on 11 September 2026, at 14:20 (UTC)."
+  - name: "Cults3D - Best STL files for 3D printers"
+    url: https://cults3d.com/en/guides/best-stl-files
+    site: cults3d.com
+    kind: editorial
+    fetch_status: ok
+    solves: "Curated monthly collections of verified printable STL models, backed by a large searchable marketplace, with community signals (downloads, views, likes) used as the selection filter."
+    does_not_solve: "The guide page does not explain the free-versus-paid split, licensing terms, or anything about printing the file once downloaded."
+    workflow_remaining: "Visitor must pick a model, work out whether it is free or paid, download it, then slice it and set up their printer - the page does not address slicing, supports or printer settings."
+    business_model: "Marketplace with advertising - the page carries 'Advertising' labels and headings referring to 'free STL files'; the free-versus-paid model is not explained on this page."
+    currency: "Monthly collections with the most recent labelled August 2026; no explicit last-updated timestamp stated."
+    coverage: 'The site states "3.7M designs".'
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "unknown - a Sign in option exists but the page does not state whether downloading requires it"
+    data_reproducible: "inference: no - the asset is a user-generated catalogue of millions of uploaded models plus the download/like signals used to rank them. Both the supply side (designers) and the engagement data are network effects that cannot be rebuilt from public sources."
+    ai_replaceable: "inference: no - a chat assistant cannot hand over a printable mesh file; at most it can name repositories. This is the most AI-resilient competitor in the cluster."
+    why_still_searching: "inference: 'best' is subjective and the catalogue is enormous, so discovery keeps failing - users re-search by object, and separately search again for how to fix or print what they downloaded, which this page does not cover."
+    evidence:
+      - "Download 3D Print Verified STL Models of August 2026"
+      - "3.7M designs"
+      - "3D model has already met with the approval of community members (number of downloads, views, likes...)"
+      - "Advertising"
+  - name: "Protolabs - How to Design STL Files for 3D Printing in Your CAD Program"
+    url: https://www.protolabs.com/resources/design-tips/how-to-design-stl-files-for-3d-printing-in-your-cad-program/
+    site: protolabs.com
+    kind: unclassified
+    fetch_status: ok
+    solves: "The concrete export requirements most explainers omit - tessellation and tolerance settings, matching units on export and upload, and the single-solid-body requirement for a printable file."
+    does_not_solve: "Does not teach modelling itself, does not cover repairing a broken mesh, and covers only a few named CAD programs."
+    workflow_remaining: "Visitor must apply the settings inside their own CAD package, export, verify units and body count, and then either slice locally or upload to a service."
+    business_model: "Lead generation for the company's own manufacturing service - 'Have a design ready for 3D printing? Upload it now for an instant quote.'"
+    currency: "unknown - no published or updated date stated on the page"
+    coverage: "Three CAD programs with linked resources - CREO, Solidworks and AutoCAD - with the caveat that procedures vary by package."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "yes - the guidance presumes the reader already has a CAD program"
+    needs_account: "unknown - not stated for reading; uploading for a quote is offered"
+    data_reproducible: "inference: yes - export settings and the single-body rule are documented in each CAD vendor's own help pages; the per-program mapping is compilable from public documentation."
+    ai_replaceable: "inference: partly - an assistant can recite the general rules and typical menu paths, but version-specific export dialogs drift, and a wrong answer costs a failed print rather than being merely unhelpful."
+    why_still_searching: "inference: it covers three CAD programs out of the many the ATSU table lists, and gives no validation step, so users with another package - or a file that still fails - keep searching for their specific program and for repair tools."
+    evidence:
+      - "STL is considered the preferred and standard file type to use for 3D printing."
+      - "Whichever units are used to export the STL are the units that should be selected when uploading."
+      - "In order to print successfully, the STL file needs to have a single, solid body."
+      - "Have a design ready for 3D printing? Upload it now for an instant quote."
+      - "Exact procedures and language can vary by CAD software, however most have the same basic functions."
+  - name: "MyMiniFactory"
+    url: https://www.myminifactory.com/
+    site: myminifactory.com
+    kind: unclassified
+    fetch_status: "failed: HTTP 403 Forbidden on two attempts"
+    solves: "unknown - from the SERP title only, a site to discover STL files and 3D printer models."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    ai_replaceable: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    why_still_searching: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    evidence:
+      - "SERP title only (fetch failed): Discover STL files for 3D printing ideas and high-quality 3D printer models. | MyMiniFactory"
+  - name: "Autodesk - 3D Modeling Software for 3D Printing"
+    url: https://www.autodesk.com/solutions/3d-modeling-for-3d-printing
+    site: autodesk.com
+    kind: vendor
+    fetch_status: "failed: HTTP 403 Forbidden on two attempts"
+    solves: "unknown - from the SERP title only, a vendor solutions page for 3D modeling software for 3D printing."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    ai_replaceable: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    why_still_searching: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    evidence:
+      - "SERP title only (fetch failed): 3D Modeling Software for 3D Printing | Autodesk"
+  - name: "Markforged - Guide to STL 3D Print Files"
+    url: https://markforged.com/resources/blog/how-to-create-high-quality-stl-files-for-3d-prints
+    site: markforged.com
+    kind: editorial
+    fetch_status: "failed: HTTP 403 Forbidden on two attempts"
+    solves: "unknown - from the SERP title only, a guide to creating high-quality STL files for better 3D printing."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    ai_replaceable: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    why_still_searching: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    evidence:
+      - "SERP title only (fetch failed): Guide to STL 3D Print Files for Better 3D Printing | Markforged"
+synthesis:
+  pieced_together_answer: "The cluster's two checked queries are really one workflow broken across four page types. Format definition sits on en.wikipedia.org (STL, 3MF, AMF, OBJ, STEP) and adobe.com. Tool selection sits on guides.atsu.edu, a dated library table of modelling software by user level and platform, which then defers outward to Wikipedia. The export settings that decide whether a file actually prints sit on protolabs.com - tessellation and tolerance, matching units, and 'the STL file needs to have a single, solid body' - and only for CREO, Solidworks and AutoCAD. Ready-made files sit on cults3d.com with '3.7M designs'. Nothing fetched covers repair of a broken mesh, slicing, or printer settings, although the member queries ask for all of them ('how to repair stl files for 3d printing', 'stl files converter 3d printing', 'stl files checklist 3d printing')."
+  single_destination_would_need: "A file-to-print path in one place - upload or pick a model, get an automatic printability check (manifold geometry, wall thickness, units, single body, overhangs), an automated repair, and per-CAD-program export instructions for whatever tool the user actually has, ending in slicer-ready output. The evidence gap is sharp: protolabs.com names the failure conditions but offers no way to test a file against them, and cults3d.com hands over files without saying anything about printing them."
+  existing_tools_that_do_this: "None found in the checked results for the design and repair half - the input file records tool_hits 0. For the finding half, two marketplaces appeared: Cults3D (fetched, '3.7M designs') and MyMiniFactory and Gambody (SERP entries only, not fetched or fetched unsuccessfully). Autodesk and Adobe appear as software vendors, not as STL validation or repair tools."
+  data_source_and_reproducibility: "inference: sharply split. The explainer layer is fully reproducible - the STL specification is open, format comparisons are on Wikipedia under a free licence, and export settings are in each CAD vendor's public documentation, so adobe.com, protolabs.com, guides.atsu.edu and the Wikipedia page rest on nothing proprietary. The marketplace layer is not reproducible: cults3d.com's asset is millions of user-uploaded models plus the community signals it ranks them by, which is a two-sided network, not a dataset. A printability-checking tool would need no licensed data at all - only computational geometry over the user's own file."
+  ai_resilience: "inference: the explainer half is highly exposed and the artefact half is not. 'What is an STL file', 'which software should I use' and 'how do I export' are stable questions a chat assistant answers well, which puts adobe.com, the Wikipedia page and much of protolabs.com at risk. What a chat assistant cannot do is hand over a mesh file, run geometry checks on a user's binary STL, or repair it - so the marketplace and any validation or repair utility sit on the resilient side. The defensible position in this cluster is the operation on the file, not the writing about the file."
+  open_questions:
+    - "MyMiniFactory, Autodesk and Markforged all returned 403 twice, so three of the eight selected competitors - including the cluster's second marketplace - are evidenced only by SERP title."
+    - "adobe.com holds 4 of 18 checked results with the same explainer content appearing under multiple URLs; whether that dominance is editorial strength or URL duplication is unknown from the pages fetched."
+    - "Whether free tools already perform automated STL repair and printability checking is unknown - no such tool appeared in the checked results, but the checked queries were not repair queries."
+    - "Cults3D's free-versus-paid split and licensing terms are not explained on the fetched page, so the marketplace's actual economics are unknown."
+    - "No fetched page stated any traffic, download count, revenue or market-share figure; the only quantity stated anywhere was Cults3D's '3.7M designs'."

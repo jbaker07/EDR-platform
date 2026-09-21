@@ -1,2 +1,4 @@
-{"seed": "holiday christmas", "new_queries": 1264, "suggestions_seen": 1573}
-{"seed": "holiday winterize", "new_queries": 748, "suggestions_seen": 1000}
+{"seed": "holiday christmas", "skipped": "already expanded"}
+{"seed": "halloween costume", "new_queries": 704, "suggestions_seen": 829}
+{"seed": "holiday winterize", "skipped": "already expanded"}
+{"seed": "spring cleaning", "new_queries": 387, "suggestions_seen": 854}

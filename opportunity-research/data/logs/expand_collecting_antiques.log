@@ -1,5 +1,10 @@
-{"seed": "coin value", "new_queries": 988, "suggestions_seen": 1458}
-{"seed": "card value", "new_queries": 1049, "suggestions_seen": 1555}
-{"seed": "antique value", "new_queries": 601, "suggestions_seen": 1198}
-{"seed": "vinyl record value", "new_queries": 602, "suggestions_seen": 1476}
+{"seed": "coin value", "skipped": "already expanded"}
+{"seed": "error coin", "new_queries": 330, "suggestions_seen": 771}
+{"seed": "card value", "skipped": "already expanded"}
+{"seed": "pokemon card value", "new_queries": 347, "suggestions_seen": 755}
+{"seed": "antique value", "skipped": "already expanded"}
+{"seed": "antique vintage", "new_queries": 335, "suggestions_seen": 563}
+{"seed": "vinyl record value", "skipped": "already expanded"}
+{"seed": "first edition book", "new_queries": 523, "suggestions_seen": 1120}
 {"seed": "maker's mark", "skipped": "already expanded"}
+{"seed": "pottery mark", "skipped": "already expanded"}

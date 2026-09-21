@@ -1,4 +1,8 @@
-{"seed": "real estate mortgage", "new_queries": 1249, "suggestions_seen": 1871}
-{"seed": "rent", "new_queries": 1846, "suggestions_seen": 2401}
-{"seed": "renovation cost", "new_queries": 765, "suggestions_seen": 1396}
-{"seed": "real estate landlord", "new_queries": 1156, "suggestions_seen": 1630}
+{"seed": "real estate mortgage", "skipped": "already expanded"}
+{"seed": "home inspection", "new_queries": 730, "suggestions_seen": 922}
+{"seed": "rent", "skipped": "already expanded"}
+{"seed": "apartment hunting", "new_queries": 313, "suggestions_seen": 818}
+{"seed": "renovation cost", "skipped": "already expanded"}
+{"seed": "kitchen remodel", "new_queries": 677, "suggestions_seen": 905}
+{"seed": "real estate landlord", "skipped": "already expanded"}
+{"seed": "rental property", "new_queries": 818, "suggestions_seen": 1025}

@@ -1,5 +1,10 @@
-{"seed": "baby sleep", "new_queries": 1492, "suggestions_seen": 1907}
-{"seed": "kids activities", "new_queries": 1070, "suggestions_seen": 1396}
-{"seed": "pregnancy week", "new_queries": 1016, "suggestions_seen": 1419}
-{"seed": "elder care", "new_queries": 1255, "suggestions_seen": 1650}
-{"seed": "cleaning schedule", "new_queries": 824, "suggestions_seen": 1518}
+{"seed": "baby sleep", "skipped": "already expanded"}
+{"seed": "feeding schedule", "new_queries": 371, "suggestions_seen": 929}
+{"seed": "kids activities", "skipped": "already expanded"}
+{"seed": "crafts for kids", "new_queries": 602, "suggestions_seen": 1014}
+{"seed": "pregnancy week", "skipped": "already expanded"}
+{"seed": "due date", "new_queries": 689, "suggestions_seen": 880}
+{"seed": "elder care", "skipped": "already expanded"}
+{"seed": "parenting caregiver", "new_queries": 248, "suggestions_seen": 437}
+{"seed": "cleaning schedule", "skipped": "already expanded"}
+{"seed": "chore chart", "new_queries": 446, "suggestions_seen": 843}

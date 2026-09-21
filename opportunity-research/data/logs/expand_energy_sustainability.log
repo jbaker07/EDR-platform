@@ -1,3 +1,6 @@
-{"seed": "solar panels", "new_queries": 1800, "suggestions_seen": 2375}
-{"seed": "energy bill", "new_queries": 1322, "suggestions_seen": 1780}
-{"seed": "off grid", "new_queries": 1458, "suggestions_seen": 2012}
+{"seed": "solar panels", "skipped": "already expanded"}
+{"seed": "solar calculator", "new_queries": 367, "suggestions_seen": 861}
+{"seed": "energy bill", "skipped": "already expanded"}
+{"seed": "home energy insulation", "new_queries": 613, "suggestions_seen": 1272}
+{"seed": "off grid", "skipped": "already expanded"}
+{"seed": "home energy generator", "new_queries": 558, "suggestions_seen": 1246}

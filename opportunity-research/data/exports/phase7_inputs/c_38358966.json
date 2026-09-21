@@ -1,0 +1,217 @@
+{
+ "cluster_id": "c_38358966",
+ "head_term": "stl files for 3d printing",
+ "label": "stl fil print 3d",
+ "domain": "three_d_printing",
+ "members": 30,
+ "problem_members": 18,
+ "organic_problem_members": 4,
+ "intents": {
+  "informational": 10,
+  "how_to": 5,
+  "decide": 2,
+  "calculate": 2
+ },
+ "fragmentation": {
+  "n": 18,
+  "categories": {
+   "reference": 1,
+   "unclassified": 4,
+   "editorial": 4,
+   "community": 3,
+   "vendor": 5,
+   "official": 1
+  },
+  "dominant_site": "adobe.com",
+  "dominant_share": 0.22,
+  "fragmented_share": 0.39,
+  "tool_hits": 0,
+  "vendor_share": 0.28,
+  "official_share": 0.06,
+  "unclassified_share": 0.22
+ },
+ "trends_chain_value": null,
+ "trends_error_pct": null,
+ "sample_members": [
+  "stl files for 3d printing",
+  "stl files changes 3d printing",
+  "best stl files for 3d printing",
+  "identify stl files 3d printing",
+  "stl files for 3d printing free",
+  "stl files problems 3d printing",
+  "stl files tutorial 3d printing",
+  "stl files checklist 3d printing",
+  "stl files converter 3d printing",
+  "fixing stl files for 3d printing",
+  "random stl files for 3d printing",
+  "improve stl files for 3d printing",
+  "stl files for 3d printing meaning",
+  "how many stl files for 3d printing",
+  "how much stl files for 3d printing",
+  "stl files for 3d printing software",
+  "best stl files for 3d printing free",
+  "stl files for beginners 3d printing",
+  "does stl files work with 3d printing",
+  "free stl files for 3d printing reddit",
+  "how to open stl files for 3d printing",
+  "open source stl files for 3d printing",
+  "how to design stl files for 3d printing",
+  "how to repair stl files for 3d printing",
+  "stl files for 3d printing free download",
+  "where to find stl files for 3d printing",
+  "what stl files do i have for 3d printing",
+  "how to download stl files for 3d printing",
+  "making stl files for 3d printing free guide",
+  "how to use blender to make stl files for 3d printing"
+ ],
+ "queries_checked": [
+  "best stl files for 3d printing",
+  "how to design stl files for 3d printing"
+ ],
+ "serp": [
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 1,
+   "url": "https://en.wikipedia.org/wiki/FDM_printing_file_formats",
+   "title": "FDM printing file formats",
+   "category": "reference",
+   "site": "en.wikipedia.org"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 2,
+   "url": "https://www.myminifactory.com/",
+   "title": "Discover STL files for 3D printing ideas and high-quality 3D printer models. | MyMiniFactory",
+   "category": "unclassified",
+   "site": "myminifactory.com"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 3,
+   "url": "https://cults3d.com/en/guides/best-stl-files",
+   "title": "Best STL files for 3D printers\u30fbCults",
+   "category": "editorial",
+   "site": "cults3d.com"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 4,
+   "url": "https://www.gambody.com/",
+   "title": "Gambody: The Best Place to Buy STL files for 3D printing",
+   "category": "unclassified",
+   "site": "gambody.com"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 5,
+   "url": "https://www.wenext.com/blog/3D-Printing/free-3d-models-for-printing",
+   "title": "Top 10 Websites for Free STL Files - Free 3D Models for Printing | Wenext",
+   "category": "editorial",
+   "site": "wenext.com"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 6,
+   "url": "https://www.facebook.com/groups/3dprintingforbeginnersandpros/posts/1205295971400593/",
+   "title": "What's the best website for stl files?",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 7,
+   "url": "https://stldenise3d.com/where-to-find-the-best-stl-files-for-3d-printing/",
+   "title": "Top Sites to Find 3D Printable STL Files (Free & Paid) \u22c6 stlDenise3D",
+   "category": "unclassified",
+   "site": "stldenise3d.com"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 8,
+   "url": "https://www.adobe.com/in/creativecloud/roc/blog/design/stl-files-3d-printing.html",
+   "title": "stl files 3d printing",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "best stl files for 3d printing",
+   "rank": 9,
+   "url": "https://www.adobe.com/in/creativecloud/roc/blog/design/stl-files-3d-printing",
+   "title": "stl files 3d printing",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 1,
+   "url": "https://www.protolabs.com/resources/design-tips/how-to-design-stl-files-for-3d-printing-in-your-cad-program/",
+   "title": "How to Design STL Files for 3D Printing in Your CAD Program",
+   "category": "unclassified",
+   "site": "protolabs.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 2,
+   "url": "https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html",
+   "title": "STL files explained | Learn about the STL file format | Adobe",
+   "category": "vendor",
+   "site": "adobe.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 3,
+   "url": "https://markforged.com/resources/blog/how-to-create-high-quality-stl-files-for-3d-prints",
+   "title": "Guide to STL 3D Print Files for Better 3D Printing | Markforged",
+   "category": "editorial",
+   "site": "markforged.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 4,
+   "url": "https://www.creality.com/blog/how-to-make-3d-files-for-printing",
+   "title": "How to Make 3D Files for Printing?",
+   "category": "editorial",
+   "site": "creality.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 5,
+   "url": "https://forum.snapmaker.com/t/what-software-to-create-stl-file-for-3d-printing/11503",
+   "title": "What software to create STL file for 3d printing - Snapmaker 2.0 (3-in-1) - Snapmaker: where creation happens",
+   "category": "community",
+   "site": "forum.snapmaker.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 6,
+   "url": "https://guides.atsu.edu/3Dprinting/create",
+   "title": "Create 3D STL Files - 3D Printing Services - LibGuides at A.T. Still University of Health Sciences",
+   "category": "official",
+   "site": "guides.atsu.edu"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 7,
+   "url": "https://www.autodesk.com/solutions/3d-modeling-for-3d-printing",
+   "title": "3D Modeling Software for 3D Printing | Autodesk",
+   "category": "vendor",
+   "site": "autodesk.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 8,
+   "url": "https://www.facebook.com/groups/2490092477886690/posts/4664112103818039/",
+   "title": "How to create 3D printing STL files for beginners",
+   "category": "community",
+   "site": "facebook.com"
+  },
+  {
+   "query": "how to design stl files for 3d printing",
+   "rank": 9,
+   "url": "https://www.adobe.com/in/creativecloud/roc/blog/design/stl-files-3d-printing.html",
+   "title": "stl files 3d printing",
+   "category": "vendor",
+   "site": "adobe.com"
+  }
+ ]
+}

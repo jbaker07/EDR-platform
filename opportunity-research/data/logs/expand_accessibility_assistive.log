@@ -1,2 +1,4 @@
-{"seed": "screen reader", "new_queries": 949, "suggestions_seen": 1496}
-{"seed": "large button phone", "new_queries": 556, "suggestions_seen": 1665}
+{"seed": "screen reader", "skipped": "already expanded"}
+{"seed": "hearing aid", "new_queries": 866, "suggestions_seen": 997}
+{"seed": "large button phone", "skipped": "already expanded"}
+{"seed": "senior tablet", "new_queries": 181, "suggestions_seen": 541}

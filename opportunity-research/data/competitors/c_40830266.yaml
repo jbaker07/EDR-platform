@@ -1,0 +1,191 @@
+cluster_id: c_40830266
+head_term: pet bird care
+analyst_date: "2026-09-21"
+evidence_basis: "web-search proxy results (US-only tool, not Google) collected 2026-09-21; pages fetched 2026-09-21"
+pages_fetched: 6
+pages_failed: 2
+competitors:
+  - name: "CDC - Birds (Healthy Pets, Healthy People)"
+    url: https://www.cdc.gov/healthy-pets/about/birds.html
+    site: cdc.gov
+    kind: official
+    fetch_status: ok
+    solves: "Covers the public-health side of keeping a pet bird - disease risk, how to pick a healthy bird, and hygiene/housing precautions."
+    does_not_solve: "Does not compare species for suitability, does not give prices, and does not teach handling or taming; it frames birds as a zoonotic risk, not as a purchase decision."
+    workflow_remaining: "Visitor must still choose a species, find a seller or rescue, locate an avian vet, check local law, and learn day-to-day care elsewhere; the page only points at the need - 'Learn about the different types of birds and their personalities and attention needs.'"
+    business_model: "Government public-health information; no pricing, subscription, ads or affiliate links stated."
+    currency: '"April 15, 2024"'
+    coverage: 'Pet birds broadly (parrots, budgies, parakeets) and a small number of named diseases; the page states scale - "Recent estimates say that over 5 million households in the United States have pet birds."'
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: the zoonosis facts are public-domain government content and freely restatable, but the authority of a CDC page is not reproducible - its value is the institutional byline, not the data."
+    ai_replaceable: "inference: yes on content, no on trust - an assistant can state the same precautions, but users seeking an official health answer specifically want the .gov source."
+    why_still_searching: "inference: the page answers a question most searchers were not asking; someone typing 'how to pet bird' or 'best pet birds for beginners' wants species choice, cost and handling, so they keep searching after the health warnings."
+    evidence:
+      - "Pet birds can sometimes carry germs that can make people sick."
+      - "Recent estimates say that over 5 million households in the United States have pet birds."
+      - "Learn about the different types of birds and their personalities and attention needs."
+      - "Birds should have smooth, sleek, and soft feathers that are free of debris or droppings."
+      - "April 15, 2024"
+  - name: "Kaytee - Best Pet Birds For Beginners"
+    url: https://www.kaytee.com/learn-care/pet-birds/best-pet-birds-for-beginners
+    site: kaytee.com
+    kind: unclassified
+    fetch_status: ok
+    solves: "Shortlists beginner-friendly species with a note on temperament and lifespan, and lists the supplies a first-time owner needs."
+    does_not_solve: "No cost figures, no availability, no interactive matching to the user's situation (space, noise tolerance, children, hours at home); the page hands the decision back to the reader."
+    workflow_remaining: "Visitor must ask at a local store or rescue, consult a vet, buy habitat and supplies, and arrange transport - 'As you browse your local pet store or animal rescue groups, ask about these types of birds.'"
+    business_model: "Brand content for a bird-products manufacturer; the page recommends its own branded supplies, e.g. 'Kaytee Walnut Litter. Both are safe, inexpensive, easy to replace'."
+    currency: "unknown - no published or updated date stated in the visible content"
+    coverage: "Six beginner species named on the page: Canary, Cockatiel, Dove, Finch, Lovebird and Parakeet."
+    dominates_serp: "2 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes - species temperament, size, noise and lifespan are widely published in avicultural references and vet sources; a structured species table could be rebuilt without this page."
+    ai_replaceable: "inference: yes and better - a chat assistant can take the user's constraints and narrow six species to one, which this static list cannot do."
+    why_still_searching: "inference: the list ends on a non-answer ('The best pet birds are the ones you're curious about...'), gives no cost or sourcing, and is written by a supplies brand, so users keep sampling vet blogs and forums for a decisive recommendation."
+    evidence:
+      - "As you browse your local pet store or animal rescue groups, ask about these types of birds."
+      - "Kaytee Walnut Litter. Both are safe, inexpensive, easy to replace"
+      - "The best pet birds are the ones you're curious about and have the time and space to care for properly."
+      - "Ask friends and your veterinarian for their insight and recommendations too!"
+      - "Finches have a short 5-year lifespan, a perfect starter bird for those wondering if feathered friends are best!"
+  - name: "Chewy - How To Pet a Bird"
+    url: https://www.chewy.com/education/bird/general/how-to-pet-a-bird
+    site: chewy.com
+    kind: unclassified
+    fetch_status: ok
+    solves: "Teaches where on the body a bird may be touched, how to read its body language, and gives species-specific handling notes."
+    does_not_solve: "Cannot tell the reader whether their own particular bird is ready; the page itself makes trust the precondition."
+    workflow_remaining: "Visitor must practise with their own bird over time and interpret its reactions live - 'A lot of the time, it comes down to how much trust you have with the bird.'"
+    business_model: "Retailer content marketing with in-page commerce - product cards with ratings and 'Add to Cart' buttons for perches and playgrounds."
+    currency: '"Updated Jun. 3, 2025"'
+    coverage: "Names six species specifically - parakeets, cockatiels, lovebirds, conures, African greys and macaws."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no (not required to read; an account is needed for the store functions)"
+    data_reproducible: "inference: yes - the head-and-neck-only rule and the hormonal reason behind it are standard avian-vet guidance published in many places, so the text is reproducible; the attached product catalogue is not."
+    ai_replaceable: "inference: yes for the rule, no for the diagnosis - an assistant restates the technique instantly, but neither it nor the page can see the bird's posture in the moment."
+    why_still_searching: "inference: handling is a skill, not a fact; readers who follow the steps and get bitten or refused come back searching again, and the commerce framing makes them look for a vet-authored second opinion."
+    evidence:
+      - "Stick to the head, cheek, and neck areas. These preferred areas are where birds typically preen one another."
+      - "A lot of the time, it comes down to how much trust you have with the bird."
+      - "Don't cup your entire hand around your parakeet...Instead, use your pointer finger."
+      - "Updated Jun. 3, 2025"
+  - name: "PetMD - Where To Pet Your Bird"
+    url: https://www.petmd.com/bird/where-to-pet-your-bird
+    site: petmd.com
+    kind: unclassified
+    fetch_status: ok
+    solves: "Vet-reviewed guidance on the only safe petting zones and the hormonal reason the rest of the body is off limits."
+    does_not_solve: "Does not go species by species and does not cover taming a bird that will not be touched at all."
+    workflow_remaining: "Visitor must practise and learn their individual bird's body language - the page states this takes patience."
+    business_model: "Ad/affiliate-supported publisher content with retailer product links (bird treats, toys, rope perches)."
+    currency: '"Updated Mar. 3, 2025" and "Reviewed by Sandra C. Mitchell, DVM, DABVP"'
+    coverage: 'References parakeets/budgies specifically while noting "each species is unique"; no species count stated.'
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes on substance - the same avian-behaviour guidance is in vet literature; the differentiator is the named DVM reviewer, which is an editorial cost rather than a rebuildable dataset."
+    ai_replaceable: "inference: yes on substance - the whole article reduces to two rules an assistant can state; the vet-reviewed byline is the only part that resists."
+    why_still_searching: "inference: it answers 'where' but not 'how to get there' with a bird that is not yet tame, so users move on to training content and forums."
+    evidence:
+      - "The most common areas birds like to be pet are around their head and neck, which are also the only areas you should pet your bird."
+      - "Remember, anywhere below your bird's neck area is hands-off for petting and should be avoided."
+      - "Petting below the neck area can stimulate a bird's hormones and lead to breeding behavior."
+      - "Updated Mar. 3, 2025"
+  - name: "ZuPreem - How to Pet a Bird - 5 Simple Steps"
+    url: https://zupreem.com/how-to-pet-a-bird-5-simple-steps/
+    site: zupreem.com
+    kind: unclassified
+    fetch_status: ok
+    solves: "A five-step sequence for approaching and petting a bird, written by a licensed vet technician, and it is candid that the attempt may fail."
+    does_not_solve: "Does not give a timeline, a troubleshooting path for a bird that refuses, or species-specific variation beyond a parrot focus."
+    workflow_remaining: "Visitor must repeat the steps over an extended period with no guarantee - 'some birds simply don't like touch. Knowing how to pet a bird isn't a guarantee'."
+    business_model: "Brand content for a bird-food manufacturer promoting its own product categories; an email signup is offered."
+    currency: 'Published "August 30, 2023"; Modified "February 2, 2024"'
+    coverage: "Primarily parrots, with general applicability to other birds; no species count stated."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "no"
+    needs_account: "no"
+    data_reproducible: "inference: yes - the steps restate common avian behaviour advice; nothing on the page is proprietary data."
+    ai_replaceable: "inference: yes - a five-step behavioural procedure with no data lookup is exactly what a chat assistant delivers, and it can adapt the steps to the user's described bird."
+    why_still_searching: "inference: the page admits the method may not work, which sends the reader onward to training courses, forums and videos looking for the case that matches their bird."
+    evidence:
+      - "By Lindsey Newman, LVT"
+      - "Birds are slow to adjust to change, and it's counterproductive to your relationship to force physical touch"
+      - "Petting the wings, back, chest, and legs can cause behavioral problems in most birds"
+      - "some birds simply don't like touch. Knowing how to pet a bird isn't a guarantee"
+  - name: "Instagram post - Best pet birds for beginners (@murphthemacaw)"
+    url: https://www.instagram.com/p/DMLbaYzsL62/?hl=en
+    site: instagram.com
+    kind: unclassified
+    fetch_status: ok
+    solves: "A short social post on beginner birds plus a comment thread where owners contest the picks from lived experience."
+    does_not_solve: "No structured comparison, no care detail, no costs; the substance is gated behind a login prompt."
+    workflow_remaining: "Visitor must log in or install the app to see the full post and thread, then verify the crowd opinions elsewhere."
+    business_model: "Social platform; the fetched content shows a brand comment promoting a product ('Try our air dried vegetables for some variety') - no pricing or affiliate disclosure stated on the post."
+    currency: '"July 16, 2025"'
+    coverage: "Not stated; commenters name individual species such as conures and cockatiels."
+    dominates_serp: "1 of 18 checked results"
+    needs_install: "unknown (app install not required to view the web page, but a login is prompted)"
+    needs_account: 'yes - "Log in to like or comment." and "Sign up for Instagram to stay in the loop"'
+    data_reproducible: "inference: no for the content itself - the value is a specific creator's audience and their replies, which cannot be rebuilt; but it carries no reference dataset worth rebuilding."
+    ai_replaceable: "inference: partly - an assistant gives a better structured answer, but it cannot supply the social proof and dissent ('Conures ARE NOT for Beginners') that makes owners trust a recommendation."
+    why_still_searching: "inference: a login wall plus a comment thread that contradicts the post leaves the question unsettled, so the user searches on for a source that reconciles the disagreement."
+    evidence:
+      - "Best pet birds for beginners"
+      - "Conures ARE NOT for Beginners"
+      - "Log in to like or comment."
+      - "July 16, 2025"
+  - name: "Fishlore Bird Forum - I Am Considering A Bird, What Types Are Best For A Beginner?"
+    url: https://www.fishlore.com/aquariumfishforum/threads/i-am-considering-a-bird-what-types-are-best-for-a-beginner.416915/
+    site: fishlore.com
+    kind: community
+    fetch_status: "failed: HTTP 403 Forbidden on two attempts"
+    solves: "unknown - from the SERP title only, a forum thread asking which bird types suit a beginner."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    ai_replaceable: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    why_still_searching: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    evidence:
+      - "SERP title only (fetch failed): I Am Considering A Bird, What Types Are Best For A Beginner? | Bird Forum"
+  - name: "CDFA - Pet Bird Care and Disease Prevention (PDF)"
+    url: https://www.cdfa.ca.gov/AHFSS/Animal_Health/pdfs/pet_bird_care_and_disease_prevention.pdf
+    site: cdfa.ca.gov
+    kind: official
+    fetch_status: "failed: PDF downloaded (940.5KB) but returned no extractable text on two attempts"
+    solves: "unknown - from the SERP title only, a state agriculture department document on pet bird care and disease prevention."
+    does_not_solve: unknown
+    workflow_remaining: unknown
+    business_model: unknown
+    currency: unknown
+    coverage: unknown
+    dominates_serp: "1 of 18 checked results"
+    needs_install: unknown
+    needs_account: unknown
+    data_reproducible: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    ai_replaceable: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    why_still_searching: "inference: unknown - page content was not retrievable, so no judgement is supportable."
+    evidence:
+      - "SERP title only (fetch failed): pet bird care and disease prevention"
+synthesis:
+  pieced_together_answer: "No fetched page covers more than one slice. Species shortlisting sits on kaytee.com (six named species) and, contested, in the Instagram comment thread ('Conures ARE NOT for Beginners'). Handling technique sits on petmd.com and chewy.com, which agree on the same rule ('the only areas you should pet your bird' - head and neck) and on zupreem.com as a five-step procedure. Health and zoonosis risk sits on cdc.gov. Supplies sit on the two brand sites, attached to their own products. Cost, local availability, and legality appear on none of the pages fetched, although the cluster's member queries repeatedly ask for price ('pet bird cost', 'pet birds price in india') and the input records four 'calculate' intents."
+  single_destination_would_need: "A species-matching decision tool that takes the household's constraints (noise tolerance, hours away, children, space, budget, country) and returns a ranked species shortlist with a total cost of ownership - purchase price, cage, food, and avian vet - plus a first-90-days handling and taming plan and a local avian-vet and rescue lookup. It would have to reconcile the disagreement the Instagram thread shows between marketing shortlists and owner experience, and cover the non-US demand visible in the member queries."
+  existing_tools_that_do_this: "None found in the checked results - the input file records tool_hits 0 and vendor_share 0.0, and every page fetched was an article, a brand care page, a government advisory or a social post; no quiz, selector, cost calculator or database was found. Member queries explicitly ask for artefacts that do not appear ('pet bird checklist', 'pet bird template', 'random pet bird generator')."
+  data_source_and_reproducibility: "inference: highly reproducible. The core dataset is a species table - size, lifespan, noise, talking ability, handling tolerance, space and cost - and the fetched pages already expose fragments of it (kaytee.com states 'Finches have a short 5-year lifespan'). Avian-vet and zoonosis guidance is public-domain government material (cdc.gov). The two genuinely non-reproducible assets are the named-DVM review on petmd.com and the owner community whose dissent appears in the Instagram comments; price and local availability would require ongoing first-party collection, and no fetched page supplies them."
+  ai_resilience: "inference: low for the informational half, higher for the situated half. 'Where do I pet a bird' and 'which species suits a beginner' are stable, low-stakes explainers that a chat assistant answers at least as well as any page fetched, and better where the user's constraints matter. What survives is anything requiring live local data (breeder and rescue availability, current prices, an avian vet nearby), anything requiring trust signatures (vet-reviewed, CDC), and the community dissent that tells a buyer which published shortlist is wrong."
+  open_questions:
+    - "The CDFA PDF is one of the two official results and could not be parsed; whether it contains a structured care or disease reference is unknown."
+    - "The Fishlore thread returned 403 twice, so the community half of this SERP - which the Instagram comments suggest disagrees with the brand pages - is only partially evidenced."
+    - "Many member queries are India-specific ('pet birds price in india', 'best pet birds for home in india') but the checked results are US sites; whether a separate competitor set serves that market is unknown, since the evidence basis is a US-only search tool."
+    - "Cost appears in the member queries but on none of the pages fetched; where users currently get price data is unknown."
+    - "Several member queries are off-intent ('what do pet birds do in minecraft'); how much of the cluster's volume is genuine pet-ownership demand is unknown."
