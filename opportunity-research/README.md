@@ -268,6 +268,28 @@ the visible metrics, with reasoning written out per finalist.
 ./health.sh                                                      # queries, per-source rate in the last 10 minutes, workers alive
 ```
 
+## 4b. What the free route produced (2026-09-21)
+
+| stage | result |
+|---|---|
+| expansion | 3 passes, 3 seeds per subdomain, 921 seeds over 307 subdomains in 60 domains; Google, YouTube and Bing autocomplete with 14 intent-probe families and on-topic depth 2 |
+| raw queries | 346,793 after pass 1; 576,772 after pass 2; see `stats` for the pass-3 total |
+| cleaning (pass 3) | 647,999 kept; 141,035 variants; 25,148 off-topic; 16,047 navigational; 15,508 news; 2,466 celebrity; 1,891 non-productizable |
+| clustering | IDF-weighted Jaccard components with recursive splitting; 17,514 clusters at pass 1, 28,918 at pass 2 (pass 3 in `clusters.json`) |
+| relative demand | Google Trends chain: about 760 head terms on one scale (root anchor = 100) with per-placement rounding error; Trends throttled the chain to a few steps per burst in the final hours |
+| fragmentation | 200 representative queries from 168 candidate clusters through the web-search proxy (the tool's 200-call session budget); 94 clusters with results; curated site classes |
+| competitors | 24 clusters, up to 8 pages each, twelve questions with quotes; `data/competitors/` |
+| deliverables | `data/exports/shortlist_pass1_top100.md`, `candidates_pass{1,2,3}.md`, `top20.md`, `top5_and_no1.md`, `intent_matrix_pass{2,3}.md` |
+
+Known limitations of the checkpoints: the delta export captures new rows only, so `status` values written by
+`clean` on older rows are not in the deltas; after `python -m pipeline.checkpoint restore`, run `clean` again
+(it is deterministic) and `cluster` to rebuild the derived tables.
+
+Cluster ids are a hash of the label and member count, so they change on every re-clustering. The analysed
+pass-1 clusters are mapped to later passes by majority vote of their members
+(`data/exports/cluster_map_pass1_to_pass{2,3}.json`); a low vote means the recursive split ladder broke the
+pass-1 cluster into several smaller ones as the store grew, not that demand fell.
+
 ## 5. What is deliberately not in this design
 
 - No volume estimates from autocomplete presence, Trends indexes, Stack Exchange counts
