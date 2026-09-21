@@ -1,0 +1,44 @@
+cluster_id: c_28504254
+head_term: best settings for rivals
+rank: 3
+problem: |
+  Players want the best in-game settings for a specific game on their device and platform (PC, console, mobile),
+  current for the latest patch, with a sensitivity that fits their own mouse or stick. The head term itself covers
+  two games (Marvel Rivals and Roblox RIVALS) and no fetched page disambiguates; every fetched page is a static
+  value list that ends at "type these in by hand" and admits there is no universal sensitivity.
+proposed_free_resource: |
+  A per-game, per-platform settings database with a version stamp per patch, device-branched values, a sensitivity
+  converter driven by the player's DPI and monitor, pasteable or importable configs where the game supports them,
+  and sourced pro configurations with dates; the same schema across many games.
+why_users_choose_it: |
+  One dated, platform-specific, importable answer instead of three articles per game, each from a different year and
+  one of them funded by a boosting shop. Inference.
+indexable_pages: |
+  One page per game x platform x patch, plus per-pro configurations and per-device sensitivity pages: hundreds of
+  games, thousands of pages, with a new page each patch. Hypothesis on counts.
+repeat_use: |
+  High for active players: every patch, every new game, every hardware change. Inference.
+advertising_suitability: |
+  High volume, low CPC gaming audience; peripheral (mouse, controller, monitor) affiliate fit is good. Inference.
+other_monetization: |
+  Peripheral affiliates, coaching or boosting referrals (reputational risk), pro-team sponsorships. Hypothesis.
+maintenance: |
+  Per-patch editorial upkeep across many games; values are readable from the games' own menus, so collection is
+  cheap but never finished. Measured: fetched pages carry April and September 2026 dates precisely because values drift.
+ai_threat: |
+  A value list with rationale is close to the ideal chat answer; resistance comes only from patch currency,
+  measured benchmarks and importable artifacts. Inference: low to moderate resilience.
+direct_answer_threat: |
+  High for "best sensitivity for X" style questions; lower for per-device tables and import codes. Inference.
+primary_risk: |
+  Established settings databases exist in the results but were not verified here: prosettings.net served a static
+  guide at the fetched URL, and thespike.gg and trophi.ai ranked first and second for the Rocket League sibling
+  cluster but were outside the selection rule. If one of them already does the per-platform, per-patch job, the
+  opportunity is a feature gap, not a site.
+evidence_confidence: |
+  Fragmentation evidence strong for the checked queries (0.89 fragmented share, no tool hits); competitor evidence
+  incomplete (two plausible databases unverified); demand evidence weak (35-member cluster, head term at 0.6 on the
+  Trends chain, which is low).
+verdict: |
+  Finalist by fragmentation and repeat use, held back by unverified incumbents and low-CPC monetization. Verify
+  prosettings.net and thespike.gg in a browser before advancing further.

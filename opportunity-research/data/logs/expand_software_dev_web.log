@@ -21,3 +21,10 @@
 {"seed": "database sqlite", "new_queries": 880, "suggestions_seen": 1382}
 {"seed": "rest api", "skipped": "already expanded"}
 {"seed": "programming graphql", "skipped": "already expanded"}
+{"seed": "programming oauth", "new_queries": 513, "suggestions_seen": 893}
+{"seed": "css", "skipped": "already expanded"}
+{"seed": "css tailwind", "skipped": "already expanded"}
+{"seed": "css flexbox", "new_queries": 688, "suggestions_seen": 1354}
+{"seed": "programming regex", "skipped": "already expanded"}
+{"seed": "programming json", "skipped": "already expanded"}
+{"seed": "programming yaml", "new_queries": 495, "suggestions_seen": 852}

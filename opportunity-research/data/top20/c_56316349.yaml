@@ -1,0 +1,35 @@
+cluster_id: c_56316349
+head_term: roof leaking
+rank: 18
+problem: |
+  A homeowner has a leak and needs to locate it, contain it, repair it by roof type, and know the cost. Diagnosis
+  appears in passing on two contractor blogs, emergency containment on two near-duplicate pages, permanent repair
+  split by roof type across vendor and contractor pages, cost on one page as an unsourced single-market range; every
+  commercial page ends at one metro's phone number.
+proposed_free_resource: |
+  A leak locator and repair planner: interior drip position, roof type, pitch and recent weather narrow the entry
+  point; explicit emergency-versus-permanent branching; material quantity and a local cost estimate; hand-off to
+  contractors by service area.
+why_users_choose_it: |
+  Diagnosis and a number instead of seven cause lists and a phone number. Inference.
+indexable_pages: |
+  Roof type x symptom x region pages: thousands. Hypothesis.
+repeat_use: |
+  Low. Inference.
+advertising_suitability: |
+  Very high CPC (roofing leads), which is also why the SERP is contractor content. Inference.
+other_monetization: |
+  Contractor leads, material affiliates. Hypothesis.
+maintenance: |
+  Advice static; cost data must be assembled from quotes, not scraped.
+ai_threat: |
+  High for the advice layer; local pricing and a hireable contractor resist. Inference.
+direct_answer_threat: |
+  High. Inference.
+primary_risk: |
+  Lead-gen incumbents (HomeAdvisor, Angi) dominate the monetisable step and the differentiating cost data is not
+  publicly available; the dominant checked site (3 of 18 results) could not be fetched.
+evidence_confidence: |
+  Fragmentation 0.56 measured, no tool hits; 7 of 8 pages fetched; demand weak (77 members, head term at 4.7 on the chain).
+verdict: |
+  Top 20 as a high-CPC example; not a finalist because the product would be another article set without the cost data.

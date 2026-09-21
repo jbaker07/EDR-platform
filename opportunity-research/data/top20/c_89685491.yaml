@@ -1,0 +1,30 @@
+cluster_id: c_89685491
+head_term: printer offline error
+rank: 23
+problem: |
+  A printer shows offline. The OS layer, the brand layer and the lived-case layer sit on three sites; vendor fixes
+  delegate to installed utilities; nothing connects the symptom to the reader's configuration.
+proposed_free_resource: |
+  A configuration-branched diagnostic across brands with a replacement decision path.
+why_users_choose_it: |
+  Branching instead of every step. Inference.
+indexable_pages: |
+  Brand x OS x symptom pages: hundreds. Hypothesis.
+repeat_use: |
+  Low to moderate. Inference.
+advertising_suitability: |
+  Consumer hardware, moderate CPC. Inference.
+other_monetization: |
+  Printer and ink affiliates. Hypothesis.
+maintenance: |
+  Low.
+ai_threat: |
+  Very high for text; the resilient part requires local execution the web cannot do. Inference.
+direct_answer_threat: |
+  High. Inference.
+primary_risk: |
+  Vendors own the fix and the diagnostics; the durable part needs local software.
+evidence_confidence: |
+  Fragmentation 0.50 measured; 3 of 8 pages failed; demand weak.
+verdict: |
+  Reviewed, not advanced.

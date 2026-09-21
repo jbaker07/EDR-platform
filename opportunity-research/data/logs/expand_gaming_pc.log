@@ -9,3 +9,10 @@
 {"seed": "game pass pc", "new_queries": 1194, "suggestions_seen": 1947}
 {"seed": "pc gaming mods", "skipped": "already expanded"}
 {"seed": "mod manager", "skipped": "already expanded"}
+{"seed": "mod not working", "new_queries": 858, "suggestions_seen": 1991}
+{"seed": "pc gaming emulator", "skipped": "already expanded"}
+{"seed": "pc gaming retroarch", "skipped": "already expanded"}
+{"seed": "dolphin emulator", "new_queries": 1154, "suggestions_seen": 1789}
+{"seed": "controller not working", "skipped": "already expanded"}
+{"seed": "gaming mouse", "skipped": "already expanded"}
+{"seed": "keyboard remap", "new_queries": 523, "suggestions_seen": 1165}

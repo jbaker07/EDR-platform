@@ -1,0 +1,42 @@
+cluster_id: c_74700978
+head_term: obd2 codes
+rank: 8
+problem: |
+  A driver has a diagnostic trouble code and wants to know what it means for their vehicle, whether it is safe to
+  drive, the likely cause, how to confirm it and what the fix costs. Definitions are commodity (a public CSV holds
+  3,071 rows); the two top-ranked "list" results are not lists; no fetched page goes past the definition to cause,
+  severity or fix, and the fullest coverage is a paid iOS app.
+proposed_free_resource: |
+  A code-to-vehicle diagnostic reference: every generic and manufacturer-specific code, narrowed by year, make and
+  model, with ranked causes and a stated basis, severity, confirming tests, parts and labour estimates and clearing
+  guidance, all free and dated.
+why_users_choose_it: |
+  The fetched pages stop at the definition and route to a mechanic or a product; a page that carries the reader to
+  a decision would end the search. Inference.
+indexable_pages: |
+  Code x vehicle pages: thousands of codes times popular models gives tens of thousands of long-tail pages. Hypothesis.
+repeat_use: |
+  Moderate: each new code, each vehicle in the household. Inference.
+advertising_suitability: |
+  High: automotive repair has strong commercial intent (parts, scanners, local repair leads). Inference.
+other_monetization: |
+  Parts and scanner affiliates, repair-shop leads. Hypothesis.
+maintenance: |
+  Generic table static; manufacturer-specific tiers compiled from service literature; cause-and-fix data must be
+  built from repair outcomes, which no fetched page publishes.
+ai_threat: |
+  Definitions are the most replaceable content in the set; vehicle-scoped diagnosis with verified outcomes is not,
+  but it is also the part nobody has the data for. Inference.
+direct_answer_threat: |
+  Very high for "what does P0420 mean"; lower for vehicle-specific pages. Inference.
+primary_risk: |
+  Entrenched lookup sites exist but were not fetched here: the dominant checked site (AutoZone) blocked fetching,
+  and four lookup-style destinations (klavkarr, edmunds, innova, repairpal) fell outside the selection rule. This is
+  a saturated category at the definition level; the underserved subproblem is the diagnosis layer, and its data is
+  hard to obtain.
+evidence_confidence: |
+  Moderate fragmentation (0.42), incomplete competitor coverage, weak demand evidence (56-member cluster, head term
+  1.5 on the chain although the generic term is certainly larger than the chain suggests for this narrow phrasing).
+verdict: |
+  Retained in the Top 20 for the diagnosis-layer gap; not a finalist because the definition layer is saturated and
+  the differentiating data does not exist to collect.

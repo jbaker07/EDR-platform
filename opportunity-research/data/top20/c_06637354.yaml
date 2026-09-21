@@ -1,0 +1,38 @@
+cluster_id: c_06637354
+head_term: pc gaming emulator
+rank: 13
+problem: |
+  A player wants to run console games on a PC: which emulator, whether their machine can run it, the BIOS or
+  firmware prerequisites, per-game compatibility and fixes when it fails. Choosing is answered three times over with
+  overlapping listicles; downloads sit on a directory; prerequisites appear on one page; per-game compatibility,
+  hardware sizing and a symptom-to-fix path are absent from every fetched page.
+proposed_free_resource: |
+  A game-first emulation guide: enter the game and your PC specs, get the emulator and build, whether the machine is
+  fast enough, prerequisites with a legal path, a known-good settings profile and a symptom-driven fix path tied to
+  emulator version.
+why_users_choose_it: |
+  Choosing, setup, compatibility and troubleshooting in one flow instead of four sites. Inference.
+indexable_pages: |
+  Per game x emulator x version compatibility pages: thousands. Hypothesis.
+repeat_use: |
+  Moderate to high (each game, each emulator update). Inference.
+advertising_suitability: |
+  Constrained: ad networks are cautious with emulation and ROM-adjacent content; hardware affiliates fit. Inference.
+other_monetization: |
+  Hardware affiliates, controller affiliates. Hypothesis.
+maintenance: |
+  Per-game compatibility must be tested or aggregated from emulator projects' wikis; continuous. Measured: the choice
+  layer is commodity across three fetched sites.
+ai_threat: |
+  High for "best emulator"; lower for current per-game behaviour on a named build and machine-specific diagnosis. Inference.
+direct_answer_threat: |
+  High for the head term. Inference.
+primary_risk: |
+  Emulator projects maintain their own compatibility databases (not present in the checked results, not verified
+  here), and legality plus ad-policy exposure limit monetisation. The cluster also mixes retro-console and
+  Android-on-PC senses of "emulator".
+evidence_confidence: |
+  Fragmentation 0.61 measured; 3 of 8 pages failed; demand weak (34 members, Trends placement unreliable).
+verdict: |
+  Top 20 on fragmentation; excluded from finalists for monetisation and legal constraints and likely project-run
+  compatibility databases.

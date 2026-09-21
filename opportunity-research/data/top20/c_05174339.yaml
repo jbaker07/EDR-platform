@@ -1,0 +1,42 @@
+cluster_id: c_05174339
+head_term: kdp self publishing
+rank: 7
+problem: |
+  A self-publishing author needs to know what publishing on Amazon KDP will cost for their specific book and
+  whether their manuscript file will pass review. The platform rules live on the vendor's undated help page; the
+  fee mechanics and worked examples live on three third-party blogs that each sell their own tooling; no interactive
+  calculator or manuscript checker appeared in the checked results despite "kdp publishing price calculator" being
+  a cluster member.
+proposed_free_resource: |
+  A KDP cost and compliance tool: enter trim size, page count, ink, marketplaces, file size and list price to get
+  printing cost, delivery fee, royalty at each tier and break-even price, each fee cited to a dated Amazon source;
+  plus a manuscript checker that reports margin, bleed, trim and font problems and emits a compliant file.
+why_users_choose_it: |
+  A number for their book and a pass/fail on their file, instead of a formula on a blog and a vendor page with no
+  prices. Inference.
+indexable_pages: |
+  Per trim size x page count x marketplace cost pages, per-error formatting pages, per-tool comparison pages:
+  thousands. Hypothesis.
+repeat_use: |
+  Moderate: each book, each price change, each marketplace. Inference.
+advertising_suitability: |
+  Author-services audience with strong purchase intent (editing, covers, courses, tools); good CPC. Inference.
+other_monetization: |
+  Service-marketplace affiliates, premium file conversion, course referrals. Hypothesis.
+maintenance: |
+  Fee tables must track Amazon's changes per marketplace; formatting rules change rarely. Measured: the vendor page
+  shows no date and blogs restate fees verbatim.
+ai_threat: |
+  The formula and cost ranges are fully replaceable; inspecting the actual manuscript and guaranteeing a current
+  fee table are not. Inference.
+direct_answer_threat: |
+  High for "is kdp free" and the royalty percentages. Inference.
+primary_risk: |
+  Amazon's own Kindle Create and its help pages own the formatting step, and KDP's fee pages may already include
+  a calculator (not present in the checked results, not verified); tool vendors (BookBeam, Reedsy, ZonGuru) have
+  partial tools behind subscriptions.
+evidence_confidence: |
+  Fragmentation 0.44 measured with 2 tool hits; 6 of 8 pages fetched; demand weak (cluster small in pass 1).
+verdict: |
+  Top 20, close to finalist: reproducible fee data plus a file-validation utility, in a category where the
+  vendor's own calculator is the main unknown.

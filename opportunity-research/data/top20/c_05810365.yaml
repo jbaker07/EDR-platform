@@ -1,0 +1,36 @@
+cluster_id: c_05810365
+head_term: renovation cost per square foot
+rank: 16
+problem: |
+  A homeowner wants a defensible renovation cost for their rooms, finish level and location. National ranges on
+  three fetched pages disagree while citing the same upstream source; room-level rates sit on one page; local rates
+  only for New York; every calculator routes into a contractor sales funnel and one site says outright that it does
+  not compute individual costs.
+proposed_free_resource: |
+  A scoped estimator: rooms, square footage per room, finish level and location produce one number with a stated
+  range, dated methodology and local multipliers, with contingency and permit steps, and no contact-detail gate.
+why_users_choose_it: |
+  The arithmetic and localisation every fetched page leaves to the reader. Inference.
+indexable_pages: |
+  Room x finish x city pages: thousands. Hypothesis.
+repeat_use: |
+  Low. Inference.
+advertising_suitability: |
+  Very high CPC category (home services); lead-gen dominated. Inference.
+other_monetization: |
+  Contractor leads (the incumbents' model), financing affiliates. Hypothesis.
+maintenance: |
+  National layer rebuildable from published sources; the scarce input is local bid data the marketplaces generate and
+  do not publish.
+ai_threat: |
+  High: an assistant restates the ranges and does the multiplication; only transaction-grounded local data resists. Inference.
+direct_answer_threat: |
+  High for national ranges. Inference.
+primary_risk: |
+  Saturated lead-gen category (HomeAdvisor, Angi, Block) with calculators already present (6 tool hits in the checked
+  results); the differentiating data is proprietary to the incumbents.
+evidence_confidence: |
+  Fragmentation 0.53 measured with 6 tool hits; 7 of 8 pages fetched; demand weak (63 members, head term at 1 on the chain).
+verdict: |
+  Top 20 as a documented example of "competitors exist but withhold the number"; not a finalist given incumbents
+  and data access.

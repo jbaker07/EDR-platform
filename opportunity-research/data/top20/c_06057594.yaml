@@ -1,0 +1,46 @@
+cluster_id: c_06057594
+head_term: best pc for modding
+rank: 2
+problem: |
+  Players of modded games (modded Minecraft dominates the members) need to know what hardware a specific modpack
+  needs, how much RAM to allocate, and how to install and run the pack on their launcher. Every fetched hardware page
+  is written by a seller of hardware and gives a generic floor; both how-to pages state that no universal install
+  instructions exist; no page is specific to the pack the user actually has.
+proposed_free_resource: |
+  A per-modpack requirements database: for each named pack and version, the measured RAM allocation and CPU
+  single-thread target, tested frame times on a few reference machines, the launcher it runs on, known conflicts,
+  and a hardware shortlist priced from live retail data; plus the install path for that pack on that launcher.
+why_users_choose_it: |
+  Today the answer is generic while the user's situation is specific, and two fetched pages say so in their own
+  words. A page for "this pack, this version" replaces a Reddit thread, a vendor blog and a launcher wiki. Inference.
+indexable_pages: |
+  One page per modpack version (thousands on the major modpack platforms), per launcher guide, and per
+  hardware-tier recommendation; pack-name queries are a natural long tail. Hypothesis on counts.
+repeat_use: |
+  Moderate: players change packs and packs update; a "does my machine run pack X" check is repeated. Inference.
+advertising_suitability: |
+  High for the hardware side (GPU, RAM, prebuilt intent, affiliate-friendly); the install side is a gaming
+  audience with lower CPC. Inference; no CPC measured.
+other_monetization: |
+  Hardware affiliate links, server-hosting affiliates for multiplayer packs, sponsored prebuilt listings. Hypothesis.
+maintenance: |
+  High: the measured layer requires running packs on reference hardware each time a pack updates; the install
+  guides decay with launcher changes (one fetched page still recommends a 2017 launcher). Measurement cost is the
+  central cost of this product.
+ai_threat: |
+  Explanation and generic install steps are fully replaceable, and an assistant can be asked about one game and
+  one mod; what an assistant cannot do is measure a pack's real requirements or quote current prices. Inference.
+direct_answer_threat: |
+  "How much RAM for modded Minecraft" will be answered inline; per-pack measured pages are less absorbable. Inference.
+primary_risk: |
+  The defensible asset is measurement, which must be produced continuously; without it the site is another
+  affiliate listicle. Community threads that hold the lived answers (Micro Center, Quora, Facebook) could not be
+  read, so the strength of the community answer is unknown.
+evidence_confidence: |
+  Moderate on fragmentation (18 proxy results, 5 of 8 pages fetched); weak on demand (22-member pass-1 cluster,
+  Trends placement unreliable). The cluster also mixes a piracy-adjacent strand ("download modded pc games") that
+  would have to be excluded from any ad-supported site.
+verdict: |
+  Finalist. Clear unmet specific need with a measurable, defensible dataset; ranked below the compatibility
+  database because its maintenance is manual measurement rather than automated collection, and its demand
+  evidence is thinner.

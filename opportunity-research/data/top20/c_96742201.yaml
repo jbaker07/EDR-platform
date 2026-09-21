@@ -1,0 +1,33 @@
+cluster_id: c_96742201
+head_term: houdini render setting
+rank: 19
+problem: |
+  A Houdini user needs the render settings and node paths for their renderer and version, and fixes for black
+  frames, missing FBX skeletons and single-frame sequences. The vendor doc is pinned to one version and one
+  renderer; renderer-specific docs returned dead or unrendered pages; speed tuning sits on a cloud vendor's blog;
+  five of twenty checked results are videos; the only tools are paid one-off assets.
+proposed_free_resource: |
+  A goal-indexed, version-stamped reference: what you are producing, which renderer, get node paths, parameter
+  values and current screenshots, plus a failure-state diagnostic, each entry naming the version it was verified on.
+why_users_choose_it: |
+  The parameter in the version they have, on screen, instead of a video and a stale doc. Inference.
+indexable_pages: |
+  Goal x renderer x version pages: hundreds to low thousands. Hypothesis.
+repeat_use: |
+  Moderate for professionals. Inference.
+advertising_suitability: |
+  Small professional audience; sponsorship over display. Inference.
+other_monetization: |
+  Asset sales, training referrals, cloud-render affiliates. Hypothesis.
+maintenance: |
+  High: content is re-derived by running proprietary software per version.
+ai_threat: |
+  Moderate: concepts replaceable, version-specific paths and screenshots less so. Inference.
+direct_answer_threat: |
+  Low. Inference.
+primary_risk: |
+  Niche audience and expensive content production; 4 of 8 pages failed so the competitor picture is half-evidenced.
+evidence_confidence: |
+  Fragmentation 0.35 measured; 4 of 8 pages failed; demand weak (26-member cluster).
+verdict: |
+  Top 20 as the documentation-gap archetype for professional software; not a finalist for audience size.

@@ -1,0 +1,36 @@
+cluster_id: c_50800018
+head_term: export settings youtube
+rank: 12
+problem: |
+  A creator wants the exact export settings for their editor and version to upload to YouTube, and help when the
+  export fails or looks wrong. The generic numbers are duplicated on every fetched page; the editor-specific click
+  paths are split across sites and years (2021 to 2026, one undated); no page computes a bitrate from the source
+  clip, offers a preset file, or addresses the "not working" and "slow" members.
+proposed_free_resource: |
+  A per-editor, per-version export guide with a bitrate calculator driven by resolution, frame rate and length,
+  downloadable preset files, an explanation of YouTube's re-encoding, and a symptom path for failed or oversized
+  exports, each page dated and tied to a named editor build.
+why_users_choose_it: |
+  The exact dialog for their editor version plus a preset they can import, instead of a generic table and ads. Inference.
+indexable_pages: |
+  Editor x version x target (long-form, Shorts, 4K60) pages: hundreds, plus calculator pages. Hypothesis.
+repeat_use: |
+  Low to moderate: revisited on editor updates and new delivery formats. Inference.
+advertising_suitability: |
+  Creator audience, moderate CPC (software, hardware, storage); vendor sponsorship fit. Inference.
+other_monetization: |
+  Software and hardware affiliates, preset packs. Hypothesis.
+maintenance: |
+  Re-verify menu paths and screenshots per editor release; values restate YouTube's public guidance. Measured decay
+  in the fetched pages.
+ai_threat: |
+  High for the head question; resilience only in presets, calculators tied to the user's footage, and failure
+  diagnosis. Inference.
+direct_answer_threat: |
+  High: "best bitrate for 1080p youtube" is a one-line inline answer. Inference.
+primary_risk: |
+  A small, AI-exposed problem; the durable parts (presets, diagnostics) are features rather than a site.
+evidence_confidence: |
+  Fragmentation 0.67 measured; competitor coverage good (7 of 8 fetched); demand weak (21 members, no Trends placement).
+verdict: |
+  Top 20, not a finalist: real fragmentation but a narrow, largely AI-replaceable problem.

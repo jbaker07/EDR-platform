@@ -1,0 +1,32 @@
+cluster_id: c_17253937
+head_term: performance review comments
+rank: 24
+problem: |
+  A manager needs finished, rating-consistent review wording grounded in specific evidence. Phrase banks on HR-software
+  blogs hand personalisation back to the reader; rating-anchored wording is on one university page; the member queries
+  ask for a generator by name.
+proposed_free_resource: |
+  A review-writing assistant taking role, rating scale, competencies and observed evidence, emitting finished text with
+  a defensible-language check.
+why_users_choose_it: |
+  It does the step every page refuses. Inference.
+indexable_pages: |
+  Competency x rating x role pages: thousands. Hypothesis.
+repeat_use: |
+  Periodic (review cycles). Inference.
+advertising_suitability: |
+  HR-software audience, high CPC; the incumbents are those vendors' content teams. Inference.
+other_monetization: |
+  HRIS affiliates, premium templates. Hypothesis.
+maintenance: |
+  Minimal.
+ai_threat: |
+  Maximal: the proposed product is a chat assistant use case and general assistants already do it. Inference.
+direct_answer_threat: |
+  High. Inference.
+primary_risk: |
+  No defensible layer outside an employer's own system.
+evidence_confidence: |
+  Fragmentation 0.72 measured, 8 of 8 pages fetched; demand weak.
+verdict: |
+  Reviewed, not advanced: the most AI-exposed cluster in the set despite the highest fragmentation.

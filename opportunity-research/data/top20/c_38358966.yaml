@@ -1,0 +1,42 @@
+cluster_id: c_38358966
+head_term: stl files for 3d printing
+rank: 4
+problem: |
+  Someone with a 3D printer needs a printable file: find or design a model, export it correctly from their CAD
+  program, and make sure the mesh actually prints. Format explainers and a dated software table sit on reference
+  and vendor pages; the export rules that decide printability are on one page and cover three CAD programs;
+  marketplaces hand over files without saying anything about printing them; nothing fetched checks or repairs a mesh.
+proposed_free_resource: |
+  A file-to-print utility: upload a model, get an automatic printability report (manifold geometry, wall thickness,
+  units, single body, overhangs), an automated repair, per-CAD-program export instructions for the tool the user
+  has, and slicer-ready output; alongside a curated finder across the marketplaces.
+why_users_choose_it: |
+  It operates on the user's own file, which no fetched page does, and answers "will this print" before a failed
+  print costs hours of filament. Inference.
+indexable_pages: |
+  Per-CAD-program export guides, per-error repair pages (non-manifold, inverted normals, thin walls), per-printer
+  settings pages and model-category finder pages: thousands. Hypothesis.
+repeat_use: |
+  High: every new model and every new print. Inference.
+advertising_suitability: |
+  Good: maker audience with continuous consumable and hardware purchases (filament, printers, upgrades). Inference.
+other_monetization: |
+  Filament and printer affiliates, marketplace referrals, premium batch repair. Hypothesis.
+maintenance: |
+  Low for the geometry engine (computational, no licensed data); moderate for per-CAD export guides. Measured: the
+  explainer layer rests on open specifications.
+ai_threat: |
+  Explainers are fully exposed; running geometry checks and repairs on a binary file is not something a chat
+  window does. Inference, and the strongest resilience argument in the set after the settings-data clusters.
+direct_answer_threat: |
+  High for "what is an stl file"; nil for the file operation. Inference.
+primary_risk: |
+  Online STL repair and validation tools exist outside the checked results (not searched for or verified here);
+  three of eight selected pages blocked fetching, so the tool landscape is under-evidenced. The finder half faces
+  marketplaces with millions of models and network effects.
+evidence_confidence: |
+  Fragmentation 0.39 measured with no tool hits; 5 of 8 pages fetched; demand weak (30-member cluster, no Trends
+  placement). Competitor coverage for repair tools is incomplete.
+verdict: |
+  Finalist by resilience and repeat use: a computational utility with no licensed data and a natural long tail of
+  error and export pages. Verify existing online repair tools before advancing.

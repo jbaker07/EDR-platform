@@ -1,0 +1,41 @@
+cluster_id: c_07440867
+head_term: unity builds
+rank: 10
+problem: |
+  A Unity developer's build fails, sometimes with an error string and sometimes silently, and the fix depends on the
+  exact Unity, package and platform-SDK versions. Fixes live in one-off forum threads pinned to 2018-2022 versions;
+  the vendor's own troubleshooting page covers only its cloud build service and is a year stale; nothing indexes
+  error strings across versions or handles the silent-failure case.
+proposed_free_resource: |
+  A version-aware build-error index: paste the error or log, state Unity version, target platform and key packages,
+  get ranked causes for that combination, fix steps, whether it is a known regression, and what changed since it
+  last worked; covering local Editor builds and cloud builds together.
+why_users_choose_it: |
+  One lookup instead of scanning years-old threads for a matching error string. Inference.
+indexable_pages: |
+  One page per error string x version family, plus per-package regression pages: thousands, growing with each
+  release. Hypothesis.
+repeat_use: |
+  High for active developers (every upgrade breaks something). Inference.
+advertising_suitability: |
+  Developer audience: modest display CPC, strong fit for asset-store and tooling sponsors. Inference.
+other_monetization: |
+  Asset-store affiliates, sponsored tooling, a paid log analyser. Hypothesis.
+maintenance: |
+  Continuous ingestion of forum threads and release notes; freshness is the asset since fetched threads are three
+  years stale. Whether the forum's terms permit re-indexing is unknown.
+ai_threat: |
+  High for pasteable error strings, which assistants already resolve well; lower for silent failures and
+  version-combination regressions that need the artifact. Inference.
+direct_answer_threat: |
+  Moderate: engines surface a single forum thread inline; the version-combination answer is less absorbable. Inference.
+primary_risk: |
+  Chat assistants are already the default first stop for pasted build errors; the resilient slice (silent failures,
+  log analysis) is the hardest to build.
+evidence_confidence: |
+  Fragmentation moderate (0.47, vendor share 0.37); competitor coverage complete for the checked set (7 of 7
+  fetched); demand weak (33-member cluster) and the head term splits between compile failures and city-building
+  tutorials.
+verdict: |
+  Retained in the Top 20 as the best example of a developer error-index family; not a finalist because the AI
+  threat is the most direct in the set.

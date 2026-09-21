@@ -1,0 +1,31 @@
+cluster_id: c_10039327
+head_term: does notion work with microsoft
+rank: 21
+problem: |
+  Whether a note-taking app works inside a Microsoft 365 tenant (sign-in, SSO, connectors, plans) and what
+  Microsoft's own equivalent is. The compatibility half is answered only by first-party admin documentation on paid
+  tiers; the substitution half only by vendor-owned listicles; no page serves both, and the directory sites failed to load.
+proposed_free_resource: |
+  An interop matrix per tenant tier plus a like-for-like Loop, OneNote, Lists and Notion comparison with migration notes.
+why_users_choose_it: |
+  Both halves for the same reader. Inference.
+indexable_pages: |
+  Per app-pair and per feature comparison pages: hundreds. Hypothesis.
+repeat_use: |
+  Low. Inference.
+advertising_suitability: |
+  B2B software, high CPC. Inference.
+other_monetization: |
+  Software affiliates. Hypothesis.
+maintenance: |
+  Moderate; first-party sources carry update metadata.
+ai_threat: |
+  High: the substitution half is a one-sentence answer. Inference.
+direct_answer_threat: |
+  High. Inference.
+primary_risk: |
+  Vendor-owned answers and review directories (G2, AlternativeTo, both blocked) already cover it.
+evidence_confidence: |
+  Fragmentation 0.28 measured with 5 tool hits; 3 of 8 pages failed; demand weak.
+verdict: |
+  Reviewed, not advanced: vendor-owned and AI-exposed.

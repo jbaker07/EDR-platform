@@ -1,0 +1,52 @@
+cluster_id: c_25613146
+head_term: cpu motherboard compatibility
+rank: 1
+problem: |
+  A PC builder or upgrader holds a specific motherboard (or CPU) and needs to know which CPUs (or boards) it accepts,
+  and whether the pairing boots without a BIOS update. The socket-and-chipset explanation is everywhere; the per-model
+  answer with the minimum BIOS revision is only on each board maker's own support list, one vendor at a time, and the
+  BIOS step is the one the fetched pages say decides whether the machine boots at all.
+proposed_free_resource: |
+  A cross-brand compatibility database: one page per motherboard model and one per CPU, each listing every supported
+  pairing with the minimum BIOS version, its release date, and a "flash before install" flag, plus board-first and
+  CPU-first lookups and a plain explanation of socket, chipset, TDP and BIOS for the pairing viewed. Built from the
+  vendors' published CPU support lists (the fetched pages describe a consistent "Brand Name, BIOS version, Date" format).
+why_users_choose_it: |
+  The pieced-together path today is four editorial pages saying "check the vendor list", then a vendor page per board,
+  then guessing about BIOS. One page that already merged those lists across Intel and AMD and answered the BIOS
+  question would end the search in one click. Inference: the value is the data table, not the advice.
+indexable_pages: |
+  One page per motherboard model (thousands of current and legacy boards) and per CPU (hundreds), plus pair pages for
+  every supported combination (tens of thousands), each a legitimate long-tail entry point ("does ryzen 5 5600x work
+  with b450 tomahawk", "b550 bios version for 5800x3d"). Hypothesis: page count is bounded by vendor list coverage.
+repeat_use: |
+  Low per user (a build or upgrade every few years) but recurring across the audience with every CPU generation and
+  BIOS release; a "BIOS changed" feed per board is the only obvious return mechanism. Inference.
+advertising_suitability: |
+  High: hardware purchase intent, product-specific pages, standard display ads plus retailer affiliate links on every
+  pair page. Inference from intent; no CPC was measured.
+other_monetization: |
+  Retail affiliate links, a compatibility API for shops and forums, sponsored vendor placements. Hypothesis.
+maintenance: |
+  Continuous but automatable: re-crawl vendor support lists on a schedule and diff BIOS entries; new CPU launches need
+  new rows within days. Measured obstacle: two vendor pages blocked or emptied automated fetches in this task.
+ai_threat: |
+  The explanatory layer is fully replaceable by a chat assistant. The lookup layer is not, because the correct
+  answer is per-model, changes with firmware releases and a stale answer stops a PC booting; assistants with live
+  retrieval would cite the database rather than replace it. Inference.
+direct_answer_threat: |
+  Socket-level questions ("does am4 fit b550") will be answered inline by search engines; the BIOS-version and
+  pair-level questions require a table and are less likely to be absorbed. Inference.
+primary_risk: |
+  PCPartPicker already runs a compatibility checker inside its build tool and is the best-known destination; it
+  blocked both fetch attempts, so whether it already surfaces minimum BIOS versions per pair is unverified. If it
+  does, the gap shrinks to presentation and long-tail pages. Second risk: vendor pages resisting automated collection.
+evidence_confidence: |
+  Fragmentation and competitor evidence: moderate (18 proxy results, 6 of 8 pages fetched, two blocked). Demand
+  evidence: weak on the free route (25-member pass-1 cluster plus a 26-member sibling, no Trends placement); the
+  product-specific long tail is inferred from the shape of the vendor lists, not measured.
+verdict: |
+  Finalist and provisional #1. Strongest combination in the reviewed set of a reproducible structured dataset, an
+  AI-resistant lookup layer, high commercial intent and a large product-level long tail. Two checks are required
+  before committing: verify PCPartPicker's BIOS handling in a browser, and buy one month of keyword data for the
+  board- and CPU-level queries to size the demand.

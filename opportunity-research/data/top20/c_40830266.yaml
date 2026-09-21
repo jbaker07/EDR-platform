@@ -1,0 +1,35 @@
+cluster_id: c_40830266
+head_term: pet bird care
+rank: 17
+problem: |
+  A prospective or new bird owner wants to choose a species that fits their household and know what it costs and
+  how to handle it. Species shortlists sit on a feed brand's page and are contradicted by owners on social media;
+  handling rules are duplicated across three sites; zoonosis warnings sit on a government page; cost and local
+  availability appear nowhere although members ask for price repeatedly.
+proposed_free_resource: |
+  A species-matching selector: household constraints (noise, hours away, children, space, budget, country) produce a
+  ranked shortlist with total cost of ownership, a first-90-days handling plan, and a local avian-vet and rescue
+  lookup; reconciling brand shortlists with owner experience.
+why_users_choose_it: |
+  A decision with a cost attached instead of a brand's six-species list. Inference.
+indexable_pages: |
+  Per species x constraint pages, per-country cost pages, per-vet locality pages: thousands. Hypothesis.
+repeat_use: |
+  Low after the decision; care-plan pages recur. Inference.
+advertising_suitability: |
+  Pet audience with ongoing supply purchases; moderate CPC; brand sponsorship. Inference.
+other_monetization: |
+  Supply affiliates, vet-finder leads, insurance affiliates. Hypothesis.
+maintenance: |
+  Species table stable; prices and local availability need first-party collection.
+ai_threat: |
+  Informational half fully replaceable; live local data, trust signatures and community dissent resist. Inference.
+direct_answer_threat: |
+  High for "best pet bird for beginners". Inference.
+primary_risk: |
+  Low-stakes explainer category where engines and assistants answer the entry queries; the resilient data (prices,
+  local availability) is expensive to collect.
+evidence_confidence: |
+  Fragmentation 0.39 measured; 6 of 8 pages fetched; demand weak (42-member cluster, members mix US and Indian markets).
+verdict: |
+  Top 20 as an example of the selector-plus-cost pattern; not a finalist.

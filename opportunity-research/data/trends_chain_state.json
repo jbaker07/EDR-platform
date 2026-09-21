@@ -4297,24 +4297,109 @@
    "reads": 12.6,
    "anchor_reads": 19.72,
    "error_pct": 6.5
+  },
+  "performance review comments": {
+   "value": 1.337,
+   "anchor": "baby sleep sack",
+   "reads": 7.66,
+   "anchor_reads": 55.38,
+   "error_pct": 7.4
+  },
+  "smart tv source": {
+   "value": 3.696,
+   "anchor": "baby sleep sack",
+   "reads": 21.17,
+   "anchor_reads": 55.38,
+   "error_pct": 3.3
+  },
+  "where to find firewall settings": {
+   "value": 0.0,
+   "anchor": "baby sleep sack",
+   "reads": 0,
+   "anchor_reads": 64.23,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "computer outlook": {
+   "value": 9.106,
+   "anchor": "baby sleep sack",
+   "reads": 60.49,
+   "anchor_reads": 64.23,
+   "error_pct": 1.6
+  },
+  "stl files for 3d printing": {
+   "value": 0.647,
+   "anchor": "game assets",
+   "reads": 3.04,
+   "anchor_reads": 45.26,
+   "error_pct": 17.6
+  },
+  "fishing costa rica": {
+   "value": 1.865,
+   "anchor": "game assets",
+   "reads": 8.75,
+   "anchor_reads": 45.26,
+   "error_pct": 6.8
+  },
+  "why is rent so high": {
+   "value": 0.498,
+   "anchor": "game assets",
+   "reads": 2.34,
+   "anchor_reads": 45.28,
+   "error_pct": 22.5
+  },
+  "soccer games schedule world cup": {
+   "value": 1.751,
+   "anchor": "game assets",
+   "reads": 8.23,
+   "anchor_reads": 45.28,
+   "error_pct": 7.2
+  },
+  "holiday winter sun": {
+   "value": 0.08,
+   "anchor": "game assets",
+   "reads": 0.38,
+   "anchor_reads": 45.3,
+   "error_pct": 101.1
+  },
+  "meal prep breakfast": {
+   "value": 5.003,
+   "anchor": "game assets",
+   "reads": 23.51,
+   "anchor_reads": 45.3,
+   "error_pct": 3.2
+  },
+  "laptop screen extender": {
+   "value": 3.216,
+   "anchor": "game assets",
+   "reads": 15.11,
+   "anchor_reads": 45.3,
+   "error_pct": 4.4
+  },
+  "owasp web security testing guide": {
+   "value": 0.329,
+   "anchor": "screen reader",
+   "reads": 0.96,
+   "anchor_reads": 28.09,
+   "error_pct": 53.7
+  },
+  "shipping rates": {
+   "value": 20.073,
+   "anchor": "screen reader",
+   "reads": 58.79,
+   "anchor_reads": 28.09,
+   "error_pct": 2.6
+  },
+  "air fryer pork chops": {
+   "value": 9.766,
+   "anchor": "screen reader",
+   "reads": 28.6,
+   "anchor_reads": 28.09,
+   "error_pct": 3.5
   }
  },
  "pending": [
-  "performance review comments",
-  "smart tv source",
-  "stl files for 3d printing",
-  "where to find firewall settings",
-  "why is rent so high",
-  "computer outlook",
-  "fishing costa rica",
-  "holiday winter sun",
-  "soccer games schedule world cup",
-  "owasp web security testing guide",
-  "meal prep breakfast",
-  "laptop screen extender",
-  "shipping rates",
   "music production podcast",
-  "air fryer pork chops",
   "3d modeling zbrush",
   "crop rotation in agriculture",
   "electronics battery charger",
@@ -12044,6 +12129,136 @@
     "smart tv source",
     "performance review comments"
    ]
+  },
+  {
+   "at": 1789982049.428452,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "performance review comments",
+    "smart tv source",
+    "stl files for 3d printing",
+    "where to find firewall settings"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 55.38,
+    "performance review comments": 7.66,
+    "smart tv source": 21.17,
+    "stl files for 3d printing": 3.91,
+    "where to find firewall settings": 0
+   },
+   "requeued": [
+    "stl files for 3d printing",
+    "where to find firewall settings"
+   ]
+  },
+  {
+   "at": 1789982105.8339124,
+   "anchor": "baby sleep sack",
+   "batch": [
+    "where to find firewall settings",
+    "stl files for 3d printing",
+    "why is rent so high",
+    "computer outlook"
+   ],
+   "ok": true,
+   "means": {
+    "baby sleep sack": 64.23,
+    "where to find firewall settings": 0,
+    "stl files for 3d printing": 4.43,
+    "why is rent so high": 3.36,
+    "computer outlook": 60.49
+   },
+   "requeued": [
+    "stl files for 3d printing",
+    "why is rent so high"
+   ]
+  },
+  {
+   "at": 1789982162.199497,
+   "anchor": "game assets",
+   "batch": [
+    "why is rent so high",
+    "stl files for 3d printing",
+    "fishing costa rica",
+    "holiday winter sun"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.26,
+    "why is rent so high": 2.34,
+    "stl files for 3d printing": 3.04,
+    "fishing costa rica": 8.75,
+    "holiday winter sun": 0.38
+   },
+   "requeued": [
+    "why is rent so high",
+    "holiday winter sun"
+   ]
+  },
+  {
+   "at": 1789982218.587996,
+   "anchor": "game assets",
+   "batch": [
+    "holiday winter sun",
+    "why is rent so high",
+    "soccer games schedule world cup",
+    "owasp web security testing guide"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.28,
+    "holiday winter sun": 0.38,
+    "why is rent so high": 2.34,
+    "soccer games schedule world cup": 8.23,
+    "owasp web security testing guide": 1.53
+   },
+   "requeued": [
+    "holiday winter sun",
+    "owasp web security testing guide"
+   ]
+  },
+  {
+   "at": 1789982274.971832,
+   "anchor": "game assets",
+   "batch": [
+    "owasp web security testing guide",
+    "holiday winter sun",
+    "meal prep breakfast",
+    "laptop screen extender"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.3,
+    "owasp web security testing guide": 1.53,
+    "holiday winter sun": 0.38,
+    "meal prep breakfast": 23.51,
+    "laptop screen extender": 15.11
+   },
+   "requeued": [
+    "owasp web security testing guide"
+   ]
+  },
+  {
+   "at": 1789982331.3408148,
+   "anchor": "screen reader",
+   "batch": [
+    "owasp web security testing guide",
+    "shipping rates",
+    "music production podcast",
+    "air fryer pork chops"
+   ],
+   "ok": true,
+   "means": {
+    "screen reader": 28.09,
+    "owasp web security testing guide": 0.96,
+    "shipping rates": 58.79,
+    "music production podcast": 0.58,
+    "air fryer pork chops": 28.6
+   },
+   "requeued": [
+    "music production podcast"
+   ]
   }
  ],
  "anchors": [
@@ -12642,8 +12857,21 @@
   "hicks meditation wellbeing": 3,
   "inventory management system": 3,
   "warehouse management jobs": 3,
-  "performance review comments": 2,
-  "smart tv source": 2,
-  "ac not cooling": 1
+  "performance review comments": 3,
+  "smart tv source": 3,
+  "ac not cooling": 1,
+  "stl files for 3d printing": 3,
+  "where to find firewall settings": 2,
+  "why is rent so high": 3,
+  "computer outlook": 1,
+  "fishing costa rica": 1,
+  "holiday winter sun": 3,
+  "soccer games schedule world cup": 1,
+  "owasp web security testing guide": 3,
+  "meal prep breakfast": 1,
+  "laptop screen extender": 1,
+  "shipping rates": 1,
+  "music production podcast": 1,
+  "air fryer pork chops": 1
  }
 }

@@ -1,0 +1,36 @@
+cluster_id: c_51963424
+head_term: wood stain remover
+rank: 14
+problem: |
+  Two jobs share a result page: applying stain to a door or deck (how much product, which colour on which species,
+  real cure and recoat times) and removing stains. Four vendor blogs repeat the same procedure and none states
+  quantity or colour-on-species; "wood deck stain calculator" is an explicit member with no calculator in the results.
+proposed_free_resource: |
+  A stain quantity and species guide: coverage-rate and cure-time data compiled across brands from technical data
+  sheets, a calculator from door or deck dimensions, photographic colour-on-species samples, and a disambiguating
+  entry for apply versus strip versus remove.
+why_users_choose_it: |
+  A number and a colour decision instead of four identical procedures that defer to the product label. Inference.
+indexable_pages: |
+  Product x species x surface pages plus calculators: thousands, if the data-sheet compilation is broad. Hypothesis.
+repeat_use: |
+  Low (seasonal projects). Inference.
+advertising_suitability: |
+  Home-improvement audience, good CPC, retailer affiliates. Inference.
+other_monetization: |
+  Retailer affiliates, brand sponsorship. Hypothesis.
+maintenance: |
+  Data-sheet compilation refreshed per product line; colour samples must be produced physically.
+ai_threat: |
+  Procedure fully replaceable; product-specific coverage and cure data plus photographic samples resist. Inference.
+direct_answer_threat: |
+  High for "how much stain for a deck" generic answers. Inference.
+primary_risk: |
+  Paint and stain manufacturers publish their own coverage calculators (known to exist, not in the checked results,
+  not verified here); the removal half of the cluster was never checked.
+evidence_confidence: |
+  Fragmentation 0.56 measured but on an ambiguous head term; 2 of 8 pages failed; demand weak (69 members with a
+  head term that misnames the cluster).
+verdict: |
+  Top 20 for the calculator gap; not a finalist because manufacturers likely own the calculator and the cluster
+  is two problems.

@@ -1,0 +1,31 @@
+cluster_id: c_43126978
+head_term: door won't close
+rank: 22
+problem: |
+  A door does not close or latch. The head term is ambiguous across mechanical repair, fire-door and self-closing
+  legal obligations, appliance doors and a productivity metaphor; the repair content is a contractor's cause list;
+  four of eight pages failed to fetch.
+proposed_free_resource: |
+  A symptom-driven door diagnostic with renter routing to local obligations.
+why_users_choose_it: |
+  One ranked cause and adjustment instead of an eleven-step list. Inference.
+indexable_pages: |
+  Symptom x door type pages, per-jurisdiction obligation pages: hundreds. Hypothesis.
+repeat_use: |
+  Low. Inference.
+advertising_suitability: |
+  Home-improvement audience, moderate CPC. Inference.
+other_monetization: |
+  Hardware affiliates, handyman leads. Hypothesis.
+maintenance: |
+  Low; jurisdiction compilation is the only data work.
+ai_threat: |
+  Very high: cause lists conditioned on symptoms are exactly what an assistant does. Inference.
+direct_answer_threat: |
+  High. Inference.
+primary_risk: |
+  No data asset; ambiguous demand.
+evidence_confidence: |
+  Fragmentation 0.58 measured but on an ambiguous term; 4 of 8 pages failed; demand weak.
+verdict: |
+  Reviewed, not advanced.

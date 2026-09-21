@@ -1,0 +1,38 @@
+cluster_id: c_73257790
+head_term: best settings for rocket league
+rank: 11
+problem: |
+  Same family as the Marvel Rivals cluster: platform-specific in-game settings for one title, plus "controller not
+  working" troubleshooting that splits by launcher and controller model. Settings advice is spread across dated
+  affiliate and boosting-funded blogs that turn keyboard players away; the authoritative troubleshooting source
+  (the publisher) and the lived-experience corpus (Steam community, 7 of 19 checked results) both blocked fetching.
+proposed_free_resource: |
+  The per-game settings database described for cluster 3, applied to this title: platform-branched values
+  including keyboard-and-mouse, dated pro configurations, a sensitivity converter, and a symptom-first controller
+  diagnostic branching on launcher and controller model.
+why_users_choose_it: |
+  One dated, platform-branched page instead of a 2020 pro guide, a boosting shop's table and a Steam-only fix list. Inference.
+indexable_pages: |
+  Per platform, per controller model, per patch for this title; the family's page count is the point. Hypothesis.
+repeat_use: |
+  High for active players. Inference.
+advertising_suitability: |
+  Gaming audience, low CPC, peripheral affiliates. Inference.
+other_monetization: |
+  Peripheral affiliates; coaching referrals carry reputational risk. Hypothesis.
+maintenance: |
+  Per patch; controller support changes with publisher releases. Measured: fetched pages dated 2020 to 2026.
+ai_threat: |
+  Settings lists are archetypal chat answers; the troubleshooting half resists only where the publisher's
+  authoritative answer or a matching user report is needed. Inference.
+direct_answer_threat: |
+  High for settings, moderate for troubleshooting. Inference.
+primary_risk: |
+  thespike.gg and trophi.ai ranked first and second for the head term and were not fetched (categorised
+  unclassified); either may already be the database this cluster lacks.
+evidence_confidence: |
+  Fragmentation 0.68 measured; competitor evidence incomplete (3 of 8 pages failed, both top-ranked results
+  unverified); demand weak (31 members, Trends placement unreliable).
+verdict: |
+  Kept as the second member of the settings family; its rank depends entirely on what the two unverified
+  top-ranked sites already do.

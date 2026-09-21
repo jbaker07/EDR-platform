@@ -1,0 +1,34 @@
+cluster_id: c_01459513
+head_term: zapier excel integration
+rank: 20
+problem: |
+  A user wants to know whether app X connects to app Y through an automation platform, on which plan, with which
+  triggers, and what to do when no connector exists. Partial hand-picked lists sit on vendor blogs; the build path
+  sits in the platform's developer docs; per-vendor walkthroughs are tied to one product; the head term's Excel
+  half was answered by no fetched page.
+proposed_free_resource: |
+  A searchable app-pair index (does X connect to Y, trigger and action detail, plan and cost implications, known
+  breakages) joined to per-pair setup walkthroughs and an escape hatch to the developer route.
+why_users_choose_it: |
+  Live pair-level facts instead of ten-item editorial picks. Inference.
+indexable_pages: |
+  Pair pages across a catalogue the fetched pages size at 7,000 to 9,000 apps: tens of thousands. Hypothesis.
+repeat_use: |
+  Moderate (each new automation). Inference.
+advertising_suitability: |
+  B2B software audience with high CPC. Inference.
+other_monetization: |
+  Platform affiliates, consultant leads. Hypothesis.
+maintenance: |
+  Catalogue changes continuously; vendor help centres blocked automated fetching (3 of 8 pages).
+ai_threat: |
+  Conceptual half replaceable; live pair support on a given plan resists. Inference.
+direct_answer_threat: |
+  Moderate. Inference.
+primary_risk: |
+  The platform's own app directory (ranked 5th to 7th on the list query, not fetched) almost certainly already
+  serves the pair question; this is a vendor-owned catalogue.
+evidence_confidence: |
+  Fragmentation 0.56 measured; 5 of 8 pages fetched; the checked queries did not cover the Excel half; demand weak.
+verdict: |
+  Last of the Top 20: real fragmentation in editorial, but the vendor's directory is the likely complete answer.

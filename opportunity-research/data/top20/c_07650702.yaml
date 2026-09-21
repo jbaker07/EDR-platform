@@ -1,0 +1,41 @@
+cluster_id: c_07650702
+head_term: warhammer 40k new edition
+rank: 6
+problem: |
+  Players of a tabletop wargame need to know what changed in the new edition, whether their faction's rules are
+  still valid, current points, and how to build a legal list. The explanation, the change tracker (mixed with
+  rumour), the list validator and the opinion pieces are on four different sites; the community thread names the
+  wrong current edition.
+proposed_free_resource: |
+  A maintained, dated, per-rule reference: a searchable edition diff, a per-faction status table (which codex, which
+  edition's rules), points with change dates, a confirmed-versus-rumoured flag on everything, and a list builder
+  validating against the same numbers.
+why_users_choose_it: |
+  Currency and arithmetic in one place; the fetched pages show each part exists somewhere and nothing holds more
+  than two parts. Inference.
+indexable_pages: |
+  Per faction, per unit, per rule, per edition-change entry: thousands of pages with a natural long tail. Hypothesis.
+repeat_use: |
+  High for active players (every points update, every codex release, every list built). Inference.
+advertising_suitability: |
+  Hobby audience with strong purchase intent (miniatures, paints, retailers); moderate CPC. Inference.
+other_monetization: |
+  Retailer affiliates, premium list-builder features. Hypothesis.
+maintenance: |
+  Continuous, event-driven (publisher releases); data decays fast. Measured: one fetched thread is a year stale.
+ai_threat: |
+  The most AI-resistant cluster in the set: currency after any training cutoff and validation against live points
+  data both defeat a memory-based assistant. Inference supported by the fetched thread's wrong-edition statement.
+direct_answer_threat: |
+  Low for rule-level and points-level detail; moderate for "when did 11th edition release". Inference.
+primary_risk: |
+  Rights: restating rules and points text verbatim is a copyright exposure against a litigious rights holder, and
+  the publisher's own free app already covers list building and points (described on a fetched page, not verified).
+  GrimSlate already offers a free validating builder.
+evidence_confidence: |
+  Fragmentation strong (0.72); competitor evidence incomplete (the dominant site, 4 of 18 results, could not be
+  fetched); demand: the generic "warhammer 40k" head is at 61 on the Trends chain, but that is the brand, not the
+  problem, and the cluster has 30 members.
+verdict: |
+  Serious candidate with the best AI resilience, capped by rights risk and an official app. Not a finalist unless
+  the legal position on restated rules and points is confirmed.

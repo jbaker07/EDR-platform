@@ -1,0 +1,37 @@
+cluster_id: c_94231707
+head_term: cities skylines
+rank: 15
+problem: |
+  Players of a city-building game series want to know what the latest patch changed, whether the sequel is now
+  better than the original, whether their mods still work, and whether it is worth buying today. The publisher
+  posts one dated page per patch with no timeline; the aggregating patch databases both failed to load; the
+  comparison that ranks is frozen at launch; the store page shows a sentiment split it does not explain.
+proposed_free_resource: |
+  A maintained version timeline for both titles linking each patch to its changes, mod breakage reports and the
+  review trend afterwards, next to a versioned comparison ("as of patch X") with current prices; the mod
+  compatibility half connects to the cross-game mod-compatibility family noted in the report.
+why_users_choose_it: |
+  Freshness: today's patch, today's price, this month's sentiment, in one place. Inference.
+indexable_pages: |
+  Per patch, per mod, per DLC pages for two titles: hundreds. Hypothesis.
+repeat_use: |
+  High for active players around each patch. Inference.
+advertising_suitability: |
+  Gaming audience, low CPC; store affiliates. Inference.
+other_monetization: |
+  Store affiliates, hardware affiliates. Hypothesis.
+maintenance: |
+  Event-driven per patch; community sentiment collection faces bot-blocking (three of four community sources failed).
+ai_threat: |
+  Low for the live half (an assistant cannot state today's patch or price), high for the launch-era comparison. Inference.
+direct_answer_threat: |
+  Moderate. Inference.
+primary_risk: |
+  SteamDB and the game's wiki likely already provide the patch timeline (both ranked, both failed to fetch); this is
+  a single-franchise problem unless generalised to a per-game patch-and-mod tracker.
+evidence_confidence: |
+  Fragmentation 0.63 measured; 4 of 8 pages failed including both candidate databases; demand: the head term is a
+  game brand at 16 on the Trends chain, not the problem.
+verdict: |
+  Top 20 as the clearest "freshness product" example and as a bridge to the mod-compatibility family; not a
+  finalist on its own.

@@ -1,0 +1,39 @@
+cluster_id: c_47957693
+head_term: garden pruning
+rank: 9
+problem: |
+  A gardener wants to know when and how to prune each plant they own, for their climate, this year. Timing tables
+  are scoped to one hardiness zone or one region; the portable decision rule sits on one nursery page; tool
+  categories and affiliate product picks sit elsewhere; no fetched page combines the user's plants, location and
+  the calendar.
+proposed_free_resource: |
+  A plant-keyed pruning planner: enter your plants (or identify from a photo) and location, get a dated task list
+  for the year naming the cut, how much to remove and the tool for that branch diameter, with mistiming warnings
+  for plants that flower on old wood; built from public extension-service and botanic-garden tables plus
+  frost-date and hardiness data.
+why_users_choose_it: |
+  A calendar for their garden instead of a zone-limited table and a regional blog. Inference.
+indexable_pages: |
+  Per species x region pages (thousands of species), per-month regional pages, per-tool pages. Hypothesis.
+repeat_use: |
+  High and seasonal: the planner fires every year, and users add plants. Inference.
+advertising_suitability: |
+  Gardening audience with seasonal purchases (tools, plants, supplies); moderate CPC. Inference.
+other_monetization: |
+  Tool and plant retailer affiliates, premium reminders. Hypothesis.
+maintenance: |
+  Low: horticultural timing rules are stable; species coverage grows over time.
+ai_threat: |
+  Single-plant timing questions are fully replaceable; the stateful planner (your plants, your zone, reminders) and
+  photo identification are not. Inference.
+direct_answer_threat: |
+  High for "when to prune hydrangeas". Inference.
+primary_risk: |
+  Planner apps and extension-service calendars exist outside the checked results (not verified); the search entry
+  points are single-plant questions that engines answer inline, so the stateful product must be reached through
+  per-species pages.
+evidence_confidence: |
+  Fragmentation 0.39 measured, no tool hits; 5 of 8 pages fetched; demand weak (42-member cluster, no Trends placement).
+verdict: |
+  Top 20: reproducible data, repeat use and low maintenance, held below the finalists by the direct-answer threat
+  on its entry queries.

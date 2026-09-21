@@ -1,0 +1,42 @@
+cluster_id: c_63944196
+head_term: how to move abroad
+rank: 5
+problem: |
+  A person wants to know whether and how they can move to another country: which visa routes they qualify for given
+  nationality, occupation and income, what it costs, and which jobs would take them. Every fetched page defers the
+  actual question ("check with a local embassy") and monetises adjacent products; four of seven are generic job lists.
+proposed_free_resource: |
+  An eligibility engine: enter passport, occupation, qualifications, income and household, get the visa routes
+  you qualify for in each candidate country with current requirements, fees, timelines and a document checklist,
+  plus cost-of-move and cost-of-living comparisons, each fact cited to the issuing authority.
+why_users_choose_it: |
+  It answers the question every fetched page refuses, with citations to primary sources, instead of a ten-step
+  generic guide plus a job listicle. Inference.
+indexable_pages: |
+  One page per origin x destination x route (thousands), per occupation-to-country pathway, and per country cost
+  profile. Hypothesis on counts.
+repeat_use: |
+  Moderate: a long decision cycle with many return visits, then a progress checklist. Inference.
+advertising_suitability: |
+  High-value adjacent categories (insurance, money transfer, relocation, language tutoring) appear as the
+  monetisation of every fetched page, which indicates advertiser appetite; no CPC measured.
+other_monetization: |
+  Insurance and transfer affiliates, relocation-service leads, premium checklist. Hypothesis.
+maintenance: |
+  Very high: dozens of jurisdictions in legal language, changing frequently; errors have real consequences. This is
+  a sustained data operation, not a scrape. Measured: the fetched pages carry no sourcing for their salary figures.
+ai_threat: |
+  Generic steps and job lists are fully replaceable; verified current eligibility with citations is not. Inference.
+direct_answer_threat: |
+  Moderate: engines will answer "can a US citizen move to Portugal" generically; per-route detail with fees and
+  timelines is harder to absorb. Inference.
+primary_risk: |
+  Maintenance burden and liability for wrong eligibility answers; unverified incumbents (expatsi.com ranked sixth
+  for the head term and was not fetched; visa-service companies did not appear in the checked results but are
+  known to exist and were not searched for).
+evidence_confidence: |
+  Fragmentation moderate (0.61, no tools in results); competitor research incomplete for this category; demand weak
+  (56-member cluster, head term at 1 on the Trends chain) and the members mix US, UK and Indian origins.
+verdict: |
+  Serious candidate, not a finalist on this evidence: the product is credible and AI-resistant, but the cost of
+  correctness across jurisdictions is the highest in the set and the incumbent landscape is unexplored.
