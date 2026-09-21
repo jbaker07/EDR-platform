@@ -13,7 +13,7 @@ import re
 from collections import Counter, defaultdict
 
 from pipeline import store
-from pipeline.clean import canonical_key
+from pipeline.clean import topic_key
 
 INTENT = [
     ("fix", r"\b(not working|won'?t|can'?t|doesn'?t|isn'?t|error|fix|stuck|broken|fail|crash|problem|issue|missing|freez|lag)\b"),
@@ -94,7 +94,7 @@ def run(con, threshold: float = 0.5, min_size: int = 3, domain: str | None = Non
     where = "WHERE status='kept'" + (" AND domain=?" if domain else "")
     rows = con.execute(f"SELECT query, domain, subdomain FROM queries {where}", (domain,) if domain else ()).fetchall()
     qs = [r[0] for r in rows]
-    keys = [set(canonical_key(q).split()) for q in qs]
+    keys = [set(topic_key(q).split()) for q in qs]
     import math
     df = Counter(t for ks in keys for t in ks)
     n = max(len(qs), 1)

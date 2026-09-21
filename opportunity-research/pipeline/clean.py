@@ -19,17 +19,32 @@ CELEB = re.compile(r"\b(net worth|girlfriend|boyfriend|husband|wife|dating|heigh
 NEWS = re.compile(r"\b(20(1|2)\d|today|yesterday|breaking|live score|election|schedule tonight|release date|leak(ed)?)\b")
 ADULT = re.compile(r"\b(porn|xxx|sex|nsfw|hentai|onlyfans|escort)\b")
 NONPROD = re.compile(r"\b(lyrics|meaning in (hindi|tamil|telugu|urdu|spanish)|synonym|antonym|pronunciation|translate to)\b")
+# Intent and generic words are removed from the canonical key so clusters form around the TOPIC;
+# intent is classified separately from the raw query (cluster.intent_of).
+GENERIC = {"best", "better", "than", "faster", "fast", "slow", "slower", "free", "cheap", "cheaper", "cheapest", "vs", "versus",
+           "alternative", "alternatives", "fix", "fixes", "fixing", "error", "errors", "problem", "problems", "issue", "issues",
+           "working", "work", "works", "tutorial", "tutorials", "guide", "guides", "calculator", "generator", "template", "templates",
+           "list", "top", "new", "latest", "update", "updates", "updated", "review", "reviews", "price", "prices", "cost", "costs",
+           "near", "online", "download", "pdf", "app", "apps", "software", "tool", "tools", "tips", "ideas", "idea", "examples",
+           "example", "meaning", "definition", "difference", "differences", "between", "without", "per", "need", "needed", "much",
+           "many", "long", "good", "bad", "easy", "hard", "simple", "quick", "way", "ways", "used", "using", "use", "uses", "type",
+           "types", "kind", "kinds", "explained", "explain", "beginner", "beginners", "compatible", "compatibility", "worth", "reddit",
+           "youtube", "video", "videos", "2024", "2025", "2026", "year", "month", "week", "day", "days", "hours", "minutes", "vs.",
+           "one", "two", "three", "first", "last", "next", "all", "any", "every", "some", "more", "most", "less", "least", "very",
+           "really", "still", "also", "just", "only", "own", "same", "different", "other", "another", "each", "both"}
 STOP = {"the", "a", "an", "to", "of", "in", "on", "for", "with", "and", "or", "is", "are", "my", "your", "i", "how", "do", "does",
         "what", "why", "which", "when", "where", "can", "cant", "can't", "wont", "won't", "not", "no", "it", "its", "this", "that",
         "at", "by", "from", "into", "vs", "versus", "be", "should", "you", "me", "up", "out", "get", "make", "use", "using"}
 
 
-def canonical_key(q: str) -> str:
-    """Order-free, stopword-free, crudely stemmed token key; equal keys are variants of one search."""
+def canonical_key(q: str, drop_generic: bool = False) -> str:
+    """Order-free, stopword-free, crudely stemmed token key; equal keys are variants of one search.
+    With drop_generic=True (the TOPIC key used for clustering) intent and generic words are removed too,
+    so 'best X' and 'fix X' share a topic but remain distinct searches."""
     toks = re.findall(r"[a-z0-9+#.']+", q.lower())
     out = []
     for t in toks:
-        if t in STOP:
+        if t in STOP or (drop_generic and (t in GENERIC or t.isdigit())):
             continue
         t = t.replace("'", "")
         if len(t) > 4 and t.endswith("ies"):
@@ -44,6 +59,10 @@ def canonical_key(q: str) -> str:
             t = t[:-2]
         out.append(t)
     return " ".join(sorted(set(out)))
+
+
+def topic_key(q: str) -> str:
+    return canonical_key(q, drop_generic=True)
 
 
 def classify(q: str) -> str:

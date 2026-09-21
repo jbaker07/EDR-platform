@@ -13,14 +13,32 @@ import json
 from collections import Counter
 
 
+QUESTION_WORDS = ("how ", "why ", "what ", "when ", "where ", "which ", "who ", "can ", "does ", "do ", "is ", "are ", "should ")
+
+
 def head_term(con, cluster_id: str) -> str | None:
+    """A Trends-suitable head: 1-3 tokens, not a question, containing the label's top token,
+    preferring members suggested by several engines. Falls back to the label's top two tokens."""
     label = con.execute("SELECT label FROM clusters WHERE cluster_id=?", (cluster_id,)).fetchone()
     if not label:
         return None
-    toks = label[0].split()[:2]
+    top = label[0].split()[:2]
     members = [r[0] for r in con.execute("SELECT query FROM cluster_members WHERE cluster_id=?", (cluster_id,))]
-    cands = [m for m in members if all(t[:4] in m for t in toks)]
-    return min(cands or members, key=len) if (cands or members) else None
+    if not members:
+        return None
+    q = ",".join("?" * len(members))
+    corr = {row[0]: row[1] for row in con.execute(f"SELECT query, COUNT(DISTINCT source) FROM observations WHERE query IN ({q}) GROUP BY query", members)}
+    from pipeline.clean import canonical_key, topic_key
+    def ok(m):
+        # short, not a question, carries the label's top token, and contains no generic/intent word
+        return (1 <= len(m.split()) <= 3 and not m.startswith(QUESTION_WORDS) and top[0][:4] in m
+                and canonical_key(m) == topic_key(m))
+    cands = [m for m in members if ok(m)]
+    if cands:
+        return max(cands, key=lambda m: (corr.get(m, 0), -len(m)))
+    # no short non-question member: take the most corroborated member of at most 5 tokens, else nothing
+    short = [m for m in members if len(m.split()) <= 5]
+    return max(short, key=lambda m: (corr.get(m, 0), -len(m))) if short else None
 
 
 def signals(con, cluster_id: str) -> dict:

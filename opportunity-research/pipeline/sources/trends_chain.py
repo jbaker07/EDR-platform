@@ -46,15 +46,20 @@ class Chain:
         self.save()
 
     def _pick_anchor(self, hint: str | None = None) -> str:
-        """Prefer a mid-scale anchor so most terms read between 8 and 100."""
+        """Prefer a mid-scale anchor that itself read reliably (>= 10 on its own placement, error <= 25%)."""
         if hint and hint in self.state["scale"]:
             return hint
-        placed = sorted(self.state["scale"].items(), key=lambda kv: kv[1]["value"])
-        return placed[len(placed) // 2][0]
+        reliable = [(t, v) for t, v in self.state["scale"].items()
+                    if v.get("anchor") is None or ((v.get("reads") or 0) >= 10 and (v.get("error_pct") or 0) <= 25)]
+        placed = sorted(reliable, key=lambda kv: kv[1]["value"])
+        return placed[len(placed) // 2][0] if placed else self.state["anchors"][0]
 
     def step(self, anchor: str | None = None) -> dict | None:
         if not self.state["pending"]:
             return None
+        last = self.state["log"][-1] if self.state["log"] else None
+        if last and "anchor read 0" in str(last.get("error", "")):
+            anchor = self.state["anchors"][0]
         anchor = self._pick_anchor(anchor)
         batch = self.state["pending"][:4]
         series = trends.interest_over_time([anchor] + batch, geo=self.geo)
@@ -69,16 +74,27 @@ class Chain:
         a_mean = means[0]
         a_val = self.state["scale"][anchor]["value"]
         rec["means"] = dict(zip([anchor] + batch, [round(m, 2) for m in means]))
+        if a_mean <= 0:
+            # the anchor read zero: it is unusable at this scale; mark it and retry the batch against the root
+            self.state["scale"][anchor]["unreliable"] = True
+            rec["error"] = "anchor read 0; batch retried against the root next step"
+            self.state["log"].append(rec)
+            self.save()
+            return rec
         for term, m in zip(batch, means[1:]):
             self.state["pending"].remove(term)
-            if a_mean <= 0:
-                # the anchor itself vanished at this scale: the batch is larger than the anchor; re-anchor upward
-                self.state["pending"].append(term)
-                rec.setdefault("requeued", []).append(term)
+            tries = self.state.setdefault("tries", {}).get(term, 0) + 1
+            self.state["tries"][term] = tries
+            if m == 0:
+                if tries < 2:
+                    self.state["pending"].append(term)     # one retry against a smaller anchor
+                    rec.setdefault("requeued", []).append(term)
+                else:
+                    self.state["scale"][term] = {"value": 0.0, "anchor": anchor, "reads": 0, "anchor_reads": round(a_mean, 2),
+                                                 "error_pct": 100.0, "below_scale": True}
                 continue
-            if m < 8 and m > 0:
-                # too small against this anchor: place provisionally and re-queue with a smaller anchor later
-                self.state["pending"].append(term)
+            if m < 8 and tries < 3:
+                self.state["pending"].append(term)          # too small here: retry with a smaller anchor
                 rec.setdefault("requeued", []).append(term)
                 continue
             value = a_val * (m / a_mean)

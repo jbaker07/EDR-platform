@@ -12,7 +12,7 @@ for table in ("queries", "observations", "metrics", "serp", "clusters", "cluster
 n = con.execute("SELECT COUNT(*) FROM queries").fetchone()[0]
 print(f"checkpoint: {n} queries")
 PY
-cd .. && git add opportunity-research/data/exports opportunity-research/data/logs 2>/dev/null || true
+cd .. && git add opportunity-research/data/exports opportunity-research/data/logs opportunity-research/pipeline opportunity-research/*.sh opportunity-research/README.md opportunity-research/taxonomy opportunity-research/data/pilot_notes.md opportunity-research/data/trends_chain_state.json 2>/dev/null || true
 git -c user.name="Jermaine Baker" -c user.email="jermainebaker1512@gmail.com" commit -q -m "opportunity-research: expansion checkpoint $(date -u +%Y-%m-%dT%H:%MZ)
 
 Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
