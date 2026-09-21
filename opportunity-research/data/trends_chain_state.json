@@ -1,0 +1,2480 @@
+{
+ "scale": {
+  "sourdough starter": {
+   "value": 100.0,
+   "anchor": null,
+   "reads": null,
+   "error_pct": 0.0
+  },
+  "visual studio": {
+   "value": 64.112,
+   "anchor": "sourdough starter",
+   "reads": 38.36,
+   "anchor_reads": 59.83,
+   "error_pct": 2.1
+  },
+  "xbox one": {
+   "value": 156.459,
+   "anchor": "sourdough starter",
+   "reads": 59.19,
+   "anchor_reads": 37.83,
+   "error_pct": 2.2
+  },
+  "magic the gathering": {
+   "value": 58.202,
+   "anchor": "sourdough starter",
+   "reads": 34.81,
+   "anchor_reads": 59.81,
+   "error_pct": 2.3
+  },
+  "github actions": {
+   "value": 27.72,
+   "anchor": "sourdough starter",
+   "reads": 16.58,
+   "anchor_reads": 59.83,
+   "error_pct": 3.9
+  },
+  "iphone 17 pro max": {
+   "value": 284.373,
+   "anchor": "visual studio",
+   "reads": 46.11,
+   "anchor_reads": 10.4,
+   "error_pct": 5.9
+  },
+  "circuit breaker": {
+   "value": 51.356,
+   "anchor": "sourdough starter",
+   "reads": 30.72,
+   "anchor_reads": 59.81,
+   "error_pct": 2.5
+  },
+  "unreal engine": {
+   "value": 39.762,
+   "anchor": "visual studio",
+   "reads": 31.98,
+   "anchor_reads": 51.57,
+   "error_pct": 2.5
+  },
+  "cities skylines": {
+   "value": 16.21,
+   "anchor": "visual studio",
+   "reads": 13.04,
+   "anchor_reads": 51.57,
+   "error_pct": 4.8
+  },
+  "android studio": {
+   "value": 22.591,
+   "anchor": "visual studio",
+   "reads": 18.17,
+   "anchor_reads": 51.57,
+   "error_pct": 3.7
+  },
+  "password manager": {
+   "value": 84.544,
+   "anchor": "visual studio",
+   "reads": 68,
+   "anchor_reads": 51.57,
+   "error_pct": 1.7
+  },
+  "game maker": {
+   "value": 22.398,
+   "anchor": "magic the gathering",
+   "reads": 18.75,
+   "anchor_reads": 48.74,
+   "error_pct": 3.7
+  },
+  "excel formulas": {
+   "value": 10.545,
+   "anchor": "magic the gathering",
+   "reads": 8.83,
+   "anchor_reads": 48.74,
+   "error_pct": 6.7
+  },
+  "genshin impact": {
+   "value": 82.785,
+   "anchor": "magic the gathering",
+   "reads": 69.32,
+   "anchor_reads": 48.74,
+   "error_pct": 1.7
+  },
+  "linux os": {
+   "value": 13.644,
+   "anchor": "magic the gathering",
+   "reads": 17.81,
+   "anchor_reads": 75.98,
+   "error_pct": 3.5
+  },
+  "stable diffusion": {
+   "value": 20.764,
+   "anchor": "magic the gathering",
+   "reads": 11.21,
+   "anchor_reads": 31.42,
+   "error_pct": 6.1
+  },
+  "game ps5": {
+   "value": 99.87,
+   "anchor": "magic the gathering",
+   "reads": 53.91,
+   "anchor_reads": 31.42,
+   "error_pct": 2.5
+  },
+  "devops azure": {
+   "value": 15.985,
+   "anchor": "magic the gathering",
+   "reads": 20.87,
+   "anchor_reads": 75.98,
+   "error_pct": 3.1
+  },
+  "docker compose": {
+   "value": 31.805,
+   "anchor": "circuit breaker",
+   "reads": 34.62,
+   "anchor_reads": 55.91,
+   "error_pct": 2.3
+  },
+  "warhammer 40k": {
+   "value": 61.547,
+   "anchor": "circuit breaker",
+   "reads": 67,
+   "anchor_reads": 55.91,
+   "error_pct": 1.6
+  },
+  "game assets": {
+   "value": 9.64,
+   "anchor": "circuit breaker",
+   "reads": 10.49,
+   "anchor_reads": 55.89,
+   "error_pct": 5.7
+  },
+  "sourdough starter recipe": {
+   "value": 10.784,
+   "anchor": "circuit breaker",
+   "reads": 11.74,
+   "anchor_reads": 55.89,
+   "error_pct": 5.2
+  },
+  "game fortnite": {
+   "value": 31.308,
+   "anchor": "unreal engine",
+   "reads": 37.66,
+   "anchor_reads": 47.83,
+   "error_pct": 2.4
+  },
+  "aws lambda": {
+   "value": 13.092,
+   "anchor": "unreal engine",
+   "reads": 15.75,
+   "anchor_reads": 47.85,
+   "error_pct": 4.2
+  },
+  "chess openings": {
+   "value": 9.537,
+   "anchor": "docker compose",
+   "reads": 11.66,
+   "anchor_reads": 38.89,
+   "error_pct": 5.6
+  },
+  "macos tahoe": {
+   "value": 11.537,
+   "anchor": "docker compose",
+   "reads": 14.11,
+   "anchor_reads": 38.91,
+   "error_pct": 4.8
+  },
+  "llm chatgpt": {
+   "value": 4.237,
+   "anchor": "game fortnite",
+   "reads": 8.64,
+   "anchor_reads": 63.85,
+   "error_pct": 6.6
+  },
+  "chess openings names": {
+   "value": 0.0,
+   "anchor": "game fortnite",
+   "reads": 0,
+   "anchor_reads": 63.85,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "circuit breaker box": {
+   "value": 3.238,
+   "anchor": "game fortnite",
+   "reads": 6.6,
+   "anchor_reads": 63.85,
+   "error_pct": 8.4
+  },
+  "devops azure pricing": {
+   "value": 0.333,
+   "anchor": "game fortnite",
+   "reads": 0.68,
+   "anchor_reads": 63.85,
+   "error_pct": 74.4
+  },
+  "layer shift test": {
+   "value": 0.0,
+   "anchor": "chess openings",
+   "reads": 0,
+   "anchor_reads": 36.02,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "macos schedule startup": {
+   "value": 0.025,
+   "anchor": "chess openings",
+   "reads": 0.09,
+   "anchor_reads": 36.02,
+   "error_pct": 101.4
+  },
+  "chess openings book": {
+   "value": 0.13,
+   "anchor": "game fortnite",
+   "reads": 0.26,
+   "anchor_reads": 63.85,
+   "error_pct": 100.8
+  },
+  "unity shaders": {
+   "value": 0.453,
+   "anchor": "game fortnite",
+   "reads": 0.92,
+   "anchor_reads": 63.85,
+   "error_pct": 54.9
+  },
+  "board game rules": {
+   "value": 6.106,
+   "anchor": "game fortnite",
+   "reads": 12.45,
+   "anchor_reads": 63.85,
+   "error_pct": 4.8
+  },
+  "android studio vs xcode": {
+   "value": 0.0,
+   "anchor": "board game rules",
+   "reads": 0,
+   "anchor_reads": 40.85,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "javascript basics for react js": {
+   "value": 0.0,
+   "anchor": "board game rules",
+   "reads": 0,
+   "anchor_reads": 40.85,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "javascript angular": {
+   "value": 0.615,
+   "anchor": "board game rules",
+   "reads": 4.11,
+   "anchor_reads": 40.85,
+   "error_pct": 13.4
+  },
+  "security nmap": {
+   "value": 0.453,
+   "anchor": "game fortnite",
+   "reads": 0.92,
+   "anchor_reads": 63.89,
+   "error_pct": 54.9
+  },
+  "games like terraria": {
+   "value": 0.24,
+   "anchor": "board game rules",
+   "reads": 1.6,
+   "anchor_reads": 40.83,
+   "error_pct": 32.4
+  },
+  "what is a next.js project": {
+   "value": 0.113,
+   "anchor": "board game rules",
+   "reads": 0.75,
+   "anchor_reads": 40.83,
+   "error_pct": 67.5
+  },
+  "programming golang": {
+   "value": 0.198,
+   "anchor": "board game rules",
+   "reads": 1.32,
+   "anchor_reads": 40.83,
+   "error_pct": 39.1
+  },
+  "stringing machine tennis": {
+   "value": 0.398,
+   "anchor": "game fortnite",
+   "reads": 0.81,
+   "anchor_reads": 63.87,
+   "error_pct": 62.4
+  },
+  "game maker rpg": {
+   "value": 1.656,
+   "anchor": "board game rules",
+   "reads": 11.08,
+   "anchor_reads": 40.83,
+   "error_pct": 5.7
+  },
+  "game terraria": {
+   "value": 3.705,
+   "anchor": "board game rules",
+   "reads": 24.77,
+   "anchor_reads": 40.83,
+   "error_pct": 3.2
+  },
+  "chess opening moves": {
+   "value": 0.612,
+   "anchor": "board game rules",
+   "reads": 4.09,
+   "anchor_reads": 40.83,
+   "error_pct": 13.4
+  },
+  "genshin impact interactive": {
+   "value": 0.55,
+   "anchor": "github actions",
+   "reads": 0.62,
+   "anchor_reads": 31.4,
+   "error_pct": 81.9
+  },
+  "magic the gathering cards": {
+   "value": 8.563,
+   "anchor": "github actions",
+   "reads": 9.7,
+   "anchor_reads": 31.4,
+   "error_pct": 6.7
+  },
+  "gradle android": {
+   "value": 3.585,
+   "anchor": "game terraria",
+   "reads": 24.77,
+   "anchor_reads": 25.6,
+   "error_pct": 4.0
+  },
+  "windows 11 update assistant": {
+   "value": 0.778,
+   "anchor": "game terraria",
+   "reads": 5.38,
+   "anchor_reads": 25.6,
+   "error_pct": 11.3
+  },
+  "next.js version": {
+   "value": 1.638,
+   "anchor": "game terraria",
+   "reads": 11.32,
+   "anchor_reads": 25.6,
+   "error_pct": 6.4
+  },
+  "game making checklist": {
+   "value": 0.0,
+   "anchor": "android studio",
+   "reads": 0,
+   "anchor_reads": 8.28,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "games ps5": {
+   "value": 120.262,
+   "anchor": "android studio",
+   "reads": 44.09,
+   "anchor_reads": 8.28,
+   "error_pct": 7.2
+  },
+  "git compare branches": {
+   "value": 0.0,
+   "anchor": "android studio",
+   "reads": 0,
+   "anchor_reads": 20.89,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "dnd 5e": {
+   "value": 81.038,
+   "anchor": "android studio",
+   "reads": 74.92,
+   "anchor_reads": 20.89,
+   "error_pct": 3.1
+  },
+  "app development using flutter": {
+   "value": 0.0,
+   "anchor": "github actions",
+   "reads": 0,
+   "anchor_reads": 21.58,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "epic games fortnite ps5": {
+   "value": 0.872,
+   "anchor": "github actions",
+   "reads": 0.68,
+   "anchor_reads": 21.58,
+   "error_pct": 75.9
+  },
+  "check engine light": {
+   "value": 103.078,
+   "anchor": "github actions",
+   "reads": 80.26,
+   "anchor_reads": 21.58,
+   "error_pct": 2.9
+  },
+  "fc 24 mods career mode": {
+   "value": 0.0,
+   "anchor": "github actions",
+   "reads": 0,
+   "anchor_reads": 31.4,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "android app icon generator": {
+   "value": 0.0,
+   "anchor": "github actions",
+   "reads": 0,
+   "anchor_reads": 31.4,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "c# calculator visual studio": {
+   "value": 0.0,
+   "anchor": "github actions",
+   "reads": 0,
+   "anchor_reads": 31.4,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "cities skylines mods": {
+   "value": 0.916,
+   "anchor": "github actions",
+   "reads": 1.04,
+   "anchor_reads": 31.4,
+   "error_pct": 49.8
+  },
+  "python list comprehension": {
+   "value": 1.433,
+   "anchor": "github actions",
+   "reads": 1.62,
+   "anchor_reads": 31.4,
+   "error_pct": 32.4
+  },
+  "pc gaming emulator": {
+   "value": 0.05,
+   "anchor": "github actions",
+   "reads": 0.06,
+   "anchor_reads": 31.4,
+   "error_pct": 101.6
+  },
+  "circuit breaker pattern": {
+   "value": 0.35,
+   "anchor": "github actions",
+   "reads": 0.4,
+   "anchor_reads": 31.4,
+   "error_pct": 101.6
+  },
+  "unity builds": {
+   "value": 0.133,
+   "anchor": "github actions",
+   "reads": 0.15,
+   "anchor_reads": 31.4,
+   "error_pct": 101.6
+  },
+  "javascript react framework": {
+   "value": 0.0,
+   "anchor": "github actions",
+   "reads": 0,
+   "anchor_reads": 31.42,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "xcode ios app icon": {
+   "value": 0.0,
+   "anchor": "github actions",
+   "reads": 0,
+   "anchor_reads": 31.42,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "unity animator": {
+   "value": 0.816,
+   "anchor": "github actions",
+   "reads": 0.92,
+   "anchor_reads": 31.42,
+   "error_pct": 55.7
+  },
+  "windows 11 key": {
+   "value": 15.533,
+   "anchor": "github actions",
+   "reads": 17.6,
+   "anchor_reads": 31.42,
+   "error_pct": 4.4
+  },
+  "how to iphone mirror": {
+   "value": 10.162,
+   "anchor": "github actions",
+   "reads": 11.51,
+   "anchor_reads": 31.4,
+   "error_pct": 5.9
+  },
+  "firewall rules": {
+   "value": 4.377,
+   "anchor": "android studio",
+   "reads": 8.57,
+   "anchor_reads": 44.21,
+   "error_pct": 7.0
+  },
+  "grid based pathfinding": {
+   "value": 0.0,
+   "anchor": "android studio",
+   "reads": 0,
+   "anchor_reads": 44.21,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "unity navmesh": {
+   "value": 0.241,
+   "anchor": "android studio",
+   "reads": 0.47,
+   "anchor_reads": 44.21,
+   "error_pct": 101.1
+  },
+  "docker kubernetes course": {
+   "value": 0.01,
+   "anchor": "android studio",
+   "reads": 0.02,
+   "anchor_reads": 44.21,
+   "error_pct": 101.1
+  },
+  "circuit breaker panel": {
+   "value": 3.123,
+   "anchor": "gradle android",
+   "reads": 21.57,
+   "anchor_reads": 24.75,
+   "error_pct": 4.3
+  },
+  "honkai star rail article": {
+   "value": 0.071,
+   "anchor": "gradle android",
+   "reads": 0.49,
+   "anchor_reads": 24.75,
+   "error_pct": 102.0
+  },
+  "javascript svelte": {
+   "value": 0.048,
+   "anchor": "android studio",
+   "reads": 0.09,
+   "anchor_reads": 44.21,
+   "error_pct": 101.1
+  },
+  "best settings for rocket league": {
+   "value": 0.453,
+   "anchor": "android studio",
+   "reads": 0.89,
+   "anchor_reads": 44.21,
+   "error_pct": 57.5
+  },
+  "linux distros": {
+   "value": 8.379,
+   "anchor": "android studio",
+   "reads": 16.4,
+   "anchor_reads": 44.21,
+   "error_pct": 4.2
+  },
+  "sourdough bread problems": {
+   "value": 0.03,
+   "anchor": "circuit breaker panel",
+   "reads": 0.53,
+   "anchor_reads": 54.36,
+   "error_pct": 95.6
+  },
+  "docker database postgres": {
+   "value": 0.249,
+   "anchor": "game maker",
+   "reads": 0.6,
+   "anchor_reads": 54.38,
+   "error_pct": 83.7
+  },
+  "c# vs c++": {
+   "value": 0.179,
+   "anchor": "game maker",
+   "reads": 0.43,
+   "anchor_reads": 54.38,
+   "error_pct": 100.9
+  },
+  "best php editor": {
+   "value": 0.078,
+   "anchor": "game maker",
+   "reads": 0.19,
+   "anchor_reads": 54.38,
+   "error_pct": 100.9
+  },
+  "linux vs windows": {
+   "value": 5.603,
+   "anchor": "game maker",
+   "reads": 13.6,
+   "anchor_reads": 54.38,
+   "error_pct": 4.6
+  }
+ },
+ "pending": [
+  "3d game assets blender",
+  "github actions runners",
+  "xcode ios app tutorial",
+  "prometheus devops \u043a\u0443\u0440\u0441",
+  "php to usd",
+  "linux commands",
+  "unity plane movement",
+  "best settings for rivals",
+  "warhammer 40k new edition",
+  "minecraft seeds",
+  "warhammer 40k rogue trader",
+  "printer offline error",
+  "c# replace",
+  "jetpack projects",
+  "cost of gaming pc",
+  "rest api documentation",
+  "pc gaming mods",
+  "machine learning pytorch",
+  "javascript react",
+  "password manager google",
+  "airflow machine learning",
+  "devops azure certification",
+  "deep learning pytorch",
+  "best warhammer 40k army",
+  "java calculator code",
+  "password manager pro",
+  "board game rule",
+  "cities skylines dlc",
+  "rest api example spring boot",
+  "what is angular js",
+  "steam page",
+  "improve minecraft performance",
+  "javascript vue",
+  "game for playstation 5",
+  "fps drops",
+  "kali linux new version",
+  "android studio versions",
+  "printer offline windows 11",
+  "magic the gathering secret lair",
+  "github actions certification",
+  "jetpack compose navigation",
+  "layer shift",
+  "genshin impact characters",
+  "android gradle plugin version",
+  "php exception handling",
+  "security gdpr",
+  "docker container",
+  "password keeper pc",
+  "password manager norton",
+  "steam official web page",
+  "vue js reactive",
+  "dnd 5e character sheet",
+  "php programmer",
+  "azure monitor prometheus",
+  "unity build for ios",
+  "magic the gathering arena",
+  "iptables rules order",
+  "dnd 5e vs pathfinder 2e",
+  "improve iphone camera",
+  "css tutorial apna college",
+  "unity animator any state",
+  "obd2 codes",
+  "elden ring cost",
+  "fix steam games",
+  "pc gaming emulator for android",
+  "macos sequoia",
+  "docker for windows",
+  "java minecraft",
+  "ea fc 24 steam",
+  "unity animation generator",
+  "how to write regex",
+  "fc 24 microsoft store",
+  "excel formulas for dates",
+  "godot engine",
+  "macos tutorial for windows users",
+  "css vs tailwind",
+  "obd code",
+  "check engine light catalytic converter",
+  "warhammer 40k factions",
+  "godot vscode",
+  "game dev pathfinding",
+  "dnd 5e book pdf",
+  "pubg best settings ps5",
+  "world edit in minecraft free",
+  "pottery marks",
+  "random c# syntax",
+  "docker helm",
+  "java update windows 11",
+  "genshin impact vs wuthering waves",
+  "macos golden gate",
+  "rest api question",
+  "unreal engine games",
+  "rest api client",
+  "firewall rule maker",
+  "php orm",
+  "php guide for web development",
+  "best pc for modding",
+  "obd2 code guide",
+  "android studio update gradle",
+  "minecraft servers",
+  "windows 11 media creation tool",
+  "owasp web application testing",
+  "card game rules",
+  "pc nintendo emulator",
+  "controller not working on pc",
+  "android app development",
+  "azure prometheus grafana",
+  "board game costs",
+  "how to read obd2 codes",
+  "identify iphone model",
+  "chess opening theory",
+  "rest api vs api",
+  "github actions schedule",
+  "unity animator controller",
+  "stringing a guitar",
+  "unreal engine blueprints",
+  "game maker studio",
+  "elden ring builds",
+  "vue js for beginners",
+  "find rest api",
+  "dnd 5e spells",
+  "devops azure pipeline",
+  "github actions ci/cd",
+  "owasp application security verification standard",
+  "cities skylines maps",
+  "java database connectivity",
+  "docker /dev/shm",
+  "iphone planet wallpaper",
+  "maker's mark distillery tour",
+  "c# dictionary",
+  "docker compose networks",
+  "docker helm registry",
+  "minecraft tutorial castle",
+  "maker's mark making",
+  "css not working in html",
+  "minecraft house",
+  "best magic the gathering deck",
+  "how to emulate on pc",
+  "free nmap scan",
+  "docker vs podman",
+  "android studio emulator",
+  "regex programming",
+  "pottery mark identification",
+  "docker error response from daemon",
+  "android studio update gradle version",
+  "docker desktop",
+  "android auto app not working",
+  "free dnd 5e adventures",
+  "code prometheus fundamentals tips",
+  "linux oracle",
+  "macos order",
+  "cities skylines vs simcity",
+  "linux list usb devices",
+  "excel function or",
+  "javascript active element",
+  "dnd 5e classes",
+  "all the equalizer settings",
+  "best pc for steam",
+  "free dnd 5e campaigns",
+  "game fortnite lego",
+  "warhammer 40k total war",
+  "warhammer 40k space marine 2",
+  "chess opening guide",
+  "obd2 code reader",
+  "how to react js",
+  "css won t load",
+  "power a controller not working",
+  "cpu motherboard compatibility check",
+  "docker and kubernetes",
+  "c# cheat",
+  "jetpack compose",
+  "database postgresql",
+  "java vs kotlin",
+  "owasp security",
+  "maker's mark",
+  "pc gaming steam"
+ ],
+ "log": [
+  {
+   "at": 1789956443.0817347,
+   "anchor": "sourdough starter",
+   "batch": [
+    "programming golang",
+    "best settings for fortnite",
+    "linux distros",
+    "my outlet stopped working"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.85,
+    "programming golang": 0.04,
+    "best settings for fortnite": 1.49,
+    "linux distros": 4.96,
+    "my outlet stopped working": 0
+   },
+   "requeued": [
+    "programming golang",
+    "best settings for fortnite",
+    "linux distros"
+   ]
+  },
+  {
+   "at": 1789956529.5022066,
+   "anchor": "sourdough starter",
+   "batch": [
+    "angular js vs node",
+    "stringing a guitar",
+    "why is c# so popular",
+    "is vue js free"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.87,
+    "angular js vs node": 0,
+    "stringing a guitar": 0,
+    "why is c# so popular": 0,
+    "is vue js free": 0
+   }
+  },
+  {
+   "at": 1789956615.8460963,
+   "anchor": "why is c# so popular",
+   "batch": [
+    "circuit breaker box",
+    "best badminton stringing",
+    "best c# books",
+    "vscode github actions"
+   ],
+   "ok": true,
+   "means": {
+    "why is c# so popular": 0,
+    "circuit breaker box": 46.28,
+    "best badminton stringing": 0,
+    "best c# books": 1.3,
+    "vscode github actions": 0
+   },
+   "requeued": [
+    "circuit breaker box",
+    "best badminton stringing",
+    "best c# books",
+    "vscode github actions"
+   ]
+  },
+  {
+   "at": 1789956702.287992,
+   "anchor": "why is c# so popular",
+   "batch": [
+    "sourdough starter ratio",
+    "c# cheat sheet",
+    "how to linux in windows 11",
+    "godot c# visual studio"
+   ],
+   "ok": true,
+   "means": {
+    "why is c# so popular": 0,
+    "sourdough starter ratio": 60.92,
+    "c# cheat sheet": 0.17,
+    "how to linux in windows 11": 22.17,
+    "godot c# visual studio": 0
+   },
+   "requeued": [
+    "sourdough starter ratio",
+    "c# cheat sheet",
+    "how to linux in windows 11",
+    "godot c# visual studio"
+   ]
+  },
+  {
+   "at": 1789956788.666394,
+   "anchor": "why is c# so popular",
+   "batch": [
+    "c# to json",
+    "c# problem solving",
+    "java full course",
+    "steam page"
+   ],
+   "ok": true,
+   "means": {
+    "why is c# so popular": 0,
+    "c# to json": 4.77,
+    "c# problem solving": 0,
+    "java full course": 0.43,
+    "steam page": 51.53
+   },
+   "requeued": [
+    "c# to json",
+    "c# problem solving",
+    "java full course",
+    "steam page"
+   ]
+  },
+  {
+   "at": 1789956875.1773255,
+   "anchor": "why is c# so popular",
+   "batch": [
+    "circuit breaker pattern in microservices c#",
+    "google play app review",
+    "docker error response from daemon",
+    "layer shift test print"
+   ],
+   "ok": true,
+   "means": {
+    "why is c# so popular": 0,
+    "circuit breaker pattern in microservices c#": 0,
+    "google play app review": 38.74,
+    "docker error response from daemon": 0.06,
+    "layer shift test print": 0
+   },
+   "requeued": [
+    "circuit breaker pattern in microservices c#",
+    "google play app review",
+    "docker error response from daemon",
+    "layer shift test print"
+   ]
+  },
+  {
+   "at": 1789957015.6583622,
+   "anchor": "sourdough starter",
+   "batch": [
+    "golang programming language",
+    "best settings fast",
+    "best linux os",
+    "outlet work"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.81,
+    "golang programming language": 0,
+    "best settings fast": 0.79,
+    "best linux os": 1.32,
+    "outlet work": 6.51
+   },
+   "requeued": [
+    "golang programming language",
+    "best settings fast",
+    "best linux os",
+    "outlet work"
+   ]
+  },
+  {
+   "at": 1789957097.0703316,
+   "anchor": "sourdough starter",
+   "batch": [
+    "javascript node js",
+    "stringing a guitar",
+    "popular so",
+    "vue js template"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.92,
+    "javascript node js": 0,
+    "stringing a guitar": 0,
+    "popular so": 28,
+    "vue js template": 0
+   },
+   "requeued": [
+    "javascript node js",
+    "stringing a guitar",
+    "vue js template"
+   ]
+  },
+  {
+   "at": 1789957178.4005494,
+   "anchor": "sourdough starter",
+   "batch": [
+    "circuit breaker box",
+    "stringing machine",
+    "best c# books",
+    "github actions workflow"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.81,
+    "circuit breaker box": 1.89,
+    "stringing machine": 0.47,
+    "best c# books": 0,
+    "github actions workflow": 1.96
+   },
+   "requeued": [
+    "circuit breaker box",
+    "stringing machine",
+    "best c# books",
+    "github actions workflow"
+   ]
+  },
+  {
+   "at": 1789957264.3588655,
+   "anchor": "sourdough starter",
+   "batch": [
+    "sourdough starter feeding",
+    "c# cheat",
+    "window linux",
+    "visual studio"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.83,
+    "sourdough starter feeding": 2.85,
+    "c# cheat": 0,
+    "window linux": 2.64,
+    "visual studio": 38.36
+   },
+   "requeued": [
+    "sourdough starter feeding",
+    "c# cheat",
+    "window linux"
+   ]
+  },
+  {
+   "at": 1789957345.844983,
+   "anchor": "visual studio",
+   "batch": [
+    "c# to json",
+    "c# problem solving",
+    "free python course",
+    "create steam page"
+   ],
+   "ok": true,
+   "means": {
+    "visual studio": 73.36,
+    "c# to json": 0.94,
+    "c# problem solving": 0,
+    "free python course": 1.66,
+    "create steam page": 0.02
+   },
+   "requeued": [
+    "c# to json",
+    "c# problem solving",
+    "free python course",
+    "create steam page"
+   ]
+  },
+  {
+   "at": 1789957427.2510293,
+   "anchor": "visual studio",
+   "batch": [
+    "circuit breaker microservices",
+    "google apps store",
+    "daemon response",
+    "print shift"
+   ],
+   "ok": true,
+   "means": {
+    "visual studio": 73.34,
+    "circuit breaker microservices": 0,
+    "google apps store": 7.66,
+    "daemon response": 0,
+    "print shift": 2.75
+   },
+   "requeued": [
+    "circuit breaker microservices",
+    "google apps store",
+    "daemon response",
+    "print shift"
+   ]
+  },
+  {
+   "at": 1789957508.6195745,
+   "anchor": "visual studio",
+   "batch": [
+    "java new version",
+    "jetpack compose navigation",
+    "maker's mark 46",
+    "bedrock crossplay"
+   ],
+   "ok": true,
+   "means": {
+    "visual studio": 73.36,
+    "java new version": 0.85,
+    "jetpack compose navigation": 0,
+    "maker's mark 46": 0.34,
+    "bedrock crossplay": 0.98
+   },
+   "requeued": [
+    "java new version",
+    "jetpack compose navigation",
+    "maker's mark 46",
+    "bedrock crossplay"
+   ]
+  },
+  {
+   "at": 1789957609.1647391,
+   "anchor": "sourdough starter",
+   "batch": [
+    "mak software",
+    "maker's mark tour",
+    "azure devops server",
+    "xbox one"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 37.83,
+    "mak software": 0,
+    "maker's mark tour": 0,
+    "azure devops server": 0.11,
+    "xbox one": 59.19
+   },
+   "requeued": [
+    "mak software",
+    "maker's mark tour",
+    "azure devops server"
+   ]
+  },
+  {
+   "at": 1789957670.5608854,
+   "anchor": "sourdough starter",
+   "batch": [
+    "github actions runners",
+    "fix android phone",
+    "docker kubernetes course",
+    "league fps drops"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.81,
+    "github actions runners": 0.43,
+    "fix android phone": 4.77,
+    "docker kubernetes course": 0,
+    "league fps drops": 0
+   },
+   "requeued": [
+    "github actions runners",
+    "fix android phone",
+    "docker kubernetes course",
+    "league fps drops"
+   ]
+  },
+  {
+   "at": 1789957732.0069222,
+   "anchor": "sourdough starter",
+   "batch": [
+    "plugin gradle",
+    "develop app",
+    "better than",
+    "app developer xcode"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 12.15,
+    "plugin gradle": 0.42,
+    "develop app": 0.17,
+    "better than": 78.94,
+    "app developer xcode": 0
+   },
+   "requeued": [
+    "plugin gradle",
+    "develop app",
+    "app developer xcode"
+   ]
+  },
+  {
+   "at": 1789957793.6462297,
+   "anchor": "xbox one",
+   "batch": [
+    "fps drops cs2",
+    "github actions ci/cd",
+    "docker /dev/shm",
+    "position breaker"
+   ],
+   "ok": true,
+   "means": {
+    "xbox one": 59.21,
+    "fps drops cs2": 0,
+    "github actions ci/cd": 0.21,
+    "docker /dev/shm": 0,
+    "position breaker": 0.19
+   },
+   "requeued": [
+    "fps drops cs2",
+    "github actions ci/cd",
+    "docker /dev/shm",
+    "position breaker"
+   ]
+  },
+  {
+   "at": 1789957855.364848,
+   "anchor": "xbox one",
+   "batch": [
+    "than faster",
+    "godot random number",
+    "maker's mark whiskey",
+    "java database connectivity"
+   ],
+   "ok": true,
+   "means": {
+    "xbox one": 59.17,
+    "than faster": 35.92,
+    "godot random number": 0,
+    "maker's mark whiskey": 0.08,
+    "java database connectivity": 0
+   },
+   "requeued": [
+    "godot random number",
+    "maker's mark whiskey",
+    "java database connectivity"
+   ]
+  },
+  {
+   "at": 1789958183.6077468,
+   "anchor": "sourdough starter",
+   "batch": [
+    "unreal engine 4",
+    "cities skylines 2",
+    "android studio error",
+    "password manager free"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.81,
+    "unreal engine 4": 1.4,
+    "cities skylines 2": 4.58,
+    "android studio error": 0.02,
+    "password manager free": 1.43
+   },
+   "requeued": [
+    "unreal engine 4",
+    "cities skylines 2",
+    "android studio error",
+    "password manager free"
+   ]
+  },
+  {
+   "at": 1789958245.0818613,
+   "anchor": "sourdough starter",
+   "batch": [
+    "game maker free",
+    "excel formulas",
+    "magic the gathering",
+    "genshin impact list"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.81,
+    "game maker free": 1.25,
+    "excel formulas": 6.25,
+    "magic the gathering": 34.81,
+    "genshin impact list": 2.13
+   },
+   "requeued": [
+    "game maker free",
+    "excel formulas",
+    "genshin impact list"
+   ]
+  },
+  {
+   "at": 1789958306.529077,
+   "anchor": "sourdough starter",
+   "batch": [
+    "github actions",
+    "rest api example",
+    "github actions schedule",
+    "unity animator controller"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.83,
+    "github actions": 16.58,
+    "rest api example": 1.32,
+    "github actions schedule": 0.81,
+    "unity animator controller": 0
+   },
+   "requeued": [
+    "rest api example",
+    "github actions schedule",
+    "unity animator controller"
+   ]
+  },
+  {
+   "at": 1789958367.873281,
+   "anchor": "visual studio",
+   "batch": [
+    "iphone 17 pro max",
+    "sourdough starter fast",
+    "best linux os",
+    "stringing a guitar"
+   ],
+   "ok": true,
+   "means": {
+    "visual studio": 10.4,
+    "iphone 17 pro max": 46.11,
+    "sourdough starter fast": 0,
+    "best linux os": 0.08,
+    "stringing a guitar": 0
+   },
+   "requeued": [
+    "sourdough starter fast",
+    "best linux os",
+    "stringing a guitar"
+   ]
+  },
+  {
+   "at": 1789958429.2419496,
+   "anchor": "sourdough starter",
+   "batch": [
+    "unreal engine blueprints",
+    "stable diffusion guide",
+    "game ps5 free",
+    "circuit breaker"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter": 59.81,
+    "unreal engine blueprints": 0,
+    "stable diffusion guide": 0.49,
+    "game ps5 free": 2.4,
+    "circuit breaker": 30.72
+   },
+   "requeued": [
+    "unreal engine blueprints",
+    "stable diffusion guide",
+    "game ps5 free"
+   ]
+  },
+  {
+   "at": 1789958517.8937194,
+   "anchor": "visual studio",
+   "batch": [
+    "unreal engine",
+    "cities skylines",
+    "android studio",
+    "password manager"
+   ],
+   "ok": true,
+   "means": {
+    "visual studio": 51.57,
+    "unreal engine": 31.98,
+    "cities skylines": 13.04,
+    "android studio": 18.17,
+    "password manager": 68
+   }
+  },
+  {
+   "at": 1789958579.6772323,
+   "anchor": "magic the gathering",
+   "batch": [
+    "game maker",
+    "excel formulas",
+    "genshin impact",
+    "rest api vs api"
+   ],
+   "ok": true,
+   "means": {
+    "magic the gathering": 48.74,
+    "game maker": 18.75,
+    "excel formulas": 8.83,
+    "genshin impact": 69.32,
+    "rest api vs api": 4.64
+   },
+   "requeued": [
+    "rest api vs api"
+   ]
+  },
+  {
+   "at": 1789958641.108636,
+   "anchor": "magic the gathering",
+   "batch": [
+    "github actions schedule",
+    "unity animator controller",
+    "linux os",
+    "stringing a guitar"
+   ],
+   "ok": true,
+   "means": {
+    "magic the gathering": 75.98,
+    "github actions schedule": 1.68,
+    "unity animator controller": 0.04,
+    "linux os": 17.81,
+    "stringing a guitar": 0
+   },
+   "requeued": [
+    "github actions schedule",
+    "unity animator controller",
+    "stringing a guitar"
+   ]
+  },
+  {
+   "at": 1789958702.763807,
+   "anchor": "magic the gathering",
+   "batch": [
+    "unreal engine blueprints",
+    "stable diffusion",
+    "game ps5",
+    "game maker studio"
+   ],
+   "ok": true,
+   "means": {
+    "magic the gathering": 31.42,
+    "unreal engine blueprints": 0,
+    "stable diffusion": 11.21,
+    "game ps5": 53.91,
+    "game maker studio": 0.28
+   },
+   "requeued": [
+    "unreal engine blueprints",
+    "game maker studio"
+   ]
+  },
+  {
+   "at": 1789958764.1481078,
+   "anchor": "magic the gathering",
+   "batch": [
+    "elden ring builds",
+    "vue js for beginners",
+    "devops azure",
+    "find rest api"
+   ],
+   "ok": true,
+   "means": {
+    "magic the gathering": 75.98,
+    "elden ring builds": 3.06,
+    "vue js for beginners": 0,
+    "devops azure": 20.87,
+    "find rest api": 1.13
+   },
+   "requeued": [
+    "elden ring builds",
+    "vue js for beginners",
+    "find rest api"
+   ]
+  },
+  {
+   "at": 1789958854.8535895,
+   "anchor": "circuit breaker",
+   "batch": [
+    "docker compose",
+    "warhammer 40k",
+    "game fortnite lego",
+    "warhammer 40k total war"
+   ],
+   "ok": true,
+   "means": {
+    "circuit breaker": 55.91,
+    "docker compose": 34.62,
+    "warhammer 40k": 67,
+    "game fortnite lego": 0.55,
+    "warhammer 40k total war": 2.47
+   },
+   "requeued": [
+    "game fortnite lego",
+    "warhammer 40k total war"
+   ]
+  },
+  {
+   "at": 1789958911.279825,
+   "anchor": "circuit breaker",
+   "batch": [
+    "game assets",
+    "sourdough starter recipe",
+    "warhammer 40k space marine 2",
+    "chess opening guide"
+   ],
+   "ok": true,
+   "means": {
+    "circuit breaker": 55.89,
+    "game assets": 10.49,
+    "sourdough starter recipe": 11.74,
+    "warhammer 40k space marine 2": 2.57,
+    "chess opening guide": 0.02
+   },
+   "requeued": [
+    "warhammer 40k space marine 2",
+    "chess opening guide"
+   ]
+  },
+  {
+   "at": 1789958967.765522,
+   "anchor": "unreal engine",
+   "batch": [
+    "obd2 code reader",
+    "game fortnite",
+    "how to react js",
+    "css won t load"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine": 47.83,
+    "obd2 code reader": 3.66,
+    "game fortnite": 37.66,
+    "how to react js": 0.83,
+    "css won t load": 0
+   },
+   "requeued": [
+    "obd2 code reader",
+    "how to react js",
+    "css won t load"
+   ]
+  },
+  {
+   "at": 1789959024.132821,
+   "anchor": "unreal engine",
+   "batch": [
+    "power a controller not working",
+    "aws lambda",
+    "cpu motherboard compatibility check",
+    "docker and kubernetes"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine": 47.85,
+    "power a controller not working": 0,
+    "aws lambda": 15.75,
+    "cpu motherboard compatibility check": 0,
+    "docker and kubernetes": 1.43
+   },
+   "requeued": [
+    "power a controller not working",
+    "cpu motherboard compatibility check",
+    "docker and kubernetes"
+   ]
+  },
+  {
+   "at": 1789959080.4895127,
+   "anchor": "docker compose",
+   "batch": [
+    "chess openings",
+    "c# cheat",
+    "jetpack compose",
+    "database postgresql"
+   ],
+   "ok": true,
+   "means": {
+    "docker compose": 38.89,
+    "chess openings": 11.66,
+    "c# cheat": 0,
+    "jetpack compose": 3.45,
+    "database postgresql": 6.85
+   },
+   "requeued": [
+    "c# cheat",
+    "jetpack compose",
+    "database postgresql"
+   ]
+  },
+  {
+   "at": 1789959136.8229077,
+   "anchor": "docker compose",
+   "batch": [
+    "java vs kotlin",
+    "owasp security",
+    "maker's mark",
+    "pc gaming steam"
+   ],
+   "ok": true,
+   "means": {
+    "docker compose": 38.91,
+    "java vs kotlin": 0.23,
+    "owasp security": 6.04,
+    "maker's mark": 7.66,
+    "pc gaming steam": 5.96
+   },
+   "requeued": [
+    "java vs kotlin",
+    "owasp security",
+    "maker's mark",
+    "pc gaming steam"
+   ]
+  },
+  {
+   "at": 1789959216.4348636,
+   "anchor": "docker compose",
+   "batch": [
+    "circuit breaker box",
+    "devops azure pricing",
+    "macos tahoe",
+    "llm chatgpt"
+   ],
+   "ok": true,
+   "means": {
+    "docker compose": 38.91,
+    "circuit breaker box": 3.92,
+    "devops azure pricing": 0.42,
+    "macos tahoe": 14.11,
+    "llm chatgpt": 5.17
+   },
+   "requeued": [
+    "circuit breaker box",
+    "devops azure pricing",
+    "llm chatgpt"
+   ]
+  },
+  {
+   "at": 1789959272.745321,
+   "anchor": "game fortnite",
+   "batch": [
+    "llm chatgpt",
+    "devops azure pricing",
+    "circuit breaker box",
+    "chess openings names"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.85,
+    "llm chatgpt": 8.64,
+    "devops azure pricing": 0.68,
+    "circuit breaker box": 6.6,
+    "chess openings names": 0
+   },
+   "requeued": [
+    "devops azure pricing",
+    "circuit breaker box",
+    "chess openings names"
+   ]
+  },
+  {
+   "at": 1789959329.1372876,
+   "anchor": "game fortnite",
+   "batch": [
+    "chess openings names",
+    "circuit breaker box",
+    "devops azure pricing",
+    "macos schedule startup"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.85,
+    "chess openings names": 0,
+    "circuit breaker box": 6.6,
+    "devops azure pricing": 0.68,
+    "macos schedule startup": 0.08
+   },
+   "requeued": [
+    "macos schedule startup"
+   ]
+  },
+  {
+   "at": 1789959385.5163898,
+   "anchor": "game fortnite",
+   "batch": [
+    "macos schedule startup",
+    "chess openings book",
+    "layer shift test",
+    "unity shaders"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.85,
+    "macos schedule startup": 0.08,
+    "chess openings book": 0.26,
+    "layer shift test": 0,
+    "unity shaders": 0.92
+   },
+   "requeued": [
+    "macos schedule startup",
+    "chess openings book",
+    "layer shift test",
+    "unity shaders"
+   ]
+  },
+  {
+   "at": 1789959441.855026,
+   "anchor": "chess openings",
+   "batch": [
+    "unity shaders",
+    "layer shift test",
+    "chess openings book",
+    "macos schedule startup"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 36.02,
+    "unity shaders": 1.45,
+    "layer shift test": 0,
+    "chess openings book": 0.38,
+    "macos schedule startup": 0.09
+   },
+   "requeued": [
+    "unity shaders",
+    "chess openings book"
+   ]
+  },
+  {
+   "at": 1789959498.208943,
+   "anchor": "game fortnite",
+   "batch": [
+    "chess openings book",
+    "unity shaders",
+    "javascript angular",
+    "board game rules"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.85,
+    "chess openings book": 0.26,
+    "unity shaders": 0.92,
+    "javascript angular": 1.19,
+    "board game rules": 12.45
+   },
+   "requeued": [
+    "javascript angular"
+   ]
+  },
+  {
+   "at": 1789959722.839161,
+   "anchor": "game fortnite",
+   "batch": [
+    "javascript angular",
+    "javascript basics for react js",
+    "security nmap",
+    "android studio vs xcode"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.87,
+    "javascript angular": 1.19,
+    "javascript basics for react js": 0,
+    "security nmap": 0.91,
+    "android studio vs xcode": 0
+   },
+   "requeued": [
+    "javascript angular",
+    "javascript basics for react js",
+    "security nmap",
+    "android studio vs xcode"
+   ]
+  },
+  {
+   "at": 1789959779.2016928,
+   "anchor": "board game rules",
+   "batch": [
+    "android studio vs xcode",
+    "security nmap",
+    "javascript basics for react js",
+    "javascript angular"
+   ],
+   "ok": true,
+   "means": {
+    "board game rules": 40.85,
+    "android studio vs xcode": 0,
+    "security nmap": 3.02,
+    "javascript basics for react js": 0,
+    "javascript angular": 4.11
+   },
+   "requeued": [
+    "security nmap"
+   ]
+  },
+  {
+   "at": 1789959835.7577388,
+   "anchor": "game fortnite",
+   "batch": [
+    "security nmap",
+    "games like terraria",
+    "what is a next.js project",
+    "programming golang"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.89,
+    "security nmap": 0.92,
+    "games like terraria": 0.6,
+    "what is a next.js project": 0.26,
+    "programming golang": 0.49
+   },
+   "requeued": [
+    "games like terraria",
+    "what is a next.js project",
+    "programming golang"
+   ]
+  },
+  {
+   "at": 1789959892.137874,
+   "anchor": "game fortnite",
+   "batch": [
+    "programming golang",
+    "what is a next.js project",
+    "games like terraria",
+    "stringing machine tennis"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.87,
+    "programming golang": 0.49,
+    "what is a next.js project": 0.26,
+    "games like terraria": 0.6,
+    "stringing machine tennis": 0.81
+   },
+   "requeued": [
+    "programming golang",
+    "what is a next.js project",
+    "games like terraria",
+    "stringing machine tennis"
+   ]
+  },
+  {
+   "at": 1789959948.4535222,
+   "anchor": "board game rules",
+   "batch": [
+    "stringing machine tennis",
+    "games like terraria",
+    "what is a next.js project",
+    "programming golang"
+   ],
+   "ok": true,
+   "means": {
+    "board game rules": 40.83,
+    "stringing machine tennis": 2.43,
+    "games like terraria": 1.6,
+    "what is a next.js project": 0.75,
+    "programming golang": 1.32
+   },
+   "requeued": [
+    "stringing machine tennis"
+   ]
+  },
+  {
+   "at": 1789960004.7225516,
+   "anchor": "game fortnite",
+   "batch": [
+    "stringing machine tennis",
+    "game maker rpg",
+    "game terraria",
+    "chess opening moves"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.87,
+    "stringing machine tennis": 0.81,
+    "game maker rpg": 3.45,
+    "game terraria": 7.62,
+    "chess opening moves": 1.21
+   },
+   "requeued": [
+    "game maker rpg",
+    "game terraria",
+    "chess opening moves"
+   ]
+  },
+  {
+   "at": 1789960086.2434509,
+   "anchor": "game fortnite",
+   "batch": [
+    "chess opening moves",
+    "game terraria",
+    "game maker rpg",
+    "genshin impact interactive"
+   ],
+   "ok": true,
+   "means": {
+    "game fortnite": 63.87,
+    "chess opening moves": 1.21,
+    "game terraria": 7.62,
+    "game maker rpg": 3.45,
+    "genshin impact interactive": 1.04
+   },
+   "requeued": [
+    "chess opening moves",
+    "game terraria",
+    "game maker rpg",
+    "genshin impact interactive"
+   ]
+  },
+  {
+   "at": 1789960142.5654516,
+   "anchor": "board game rules",
+   "batch": [
+    "genshin impact interactive",
+    "game maker rpg",
+    "game terraria",
+    "chess opening moves"
+   ],
+   "ok": true,
+   "means": {
+    "board game rules": 40.83,
+    "genshin impact interactive": 3.45,
+    "game maker rpg": 11.08,
+    "game terraria": 24.77,
+    "chess opening moves": 4.09
+   },
+   "requeued": [
+    "genshin impact interactive"
+   ]
+  },
+  {
+   "at": 1789960198.9268672,
+   "anchor": "github actions",
+   "batch": [
+    "genshin impact interactive",
+    "windows 11 update assistant",
+    "next.js version",
+    "magic the gathering cards"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "genshin impact interactive": 0.62,
+    "windows 11 update assistant": 0.96,
+    "next.js version": 1.81,
+    "magic the gathering cards": 9.7
+   },
+   "requeued": [
+    "windows 11 update assistant",
+    "next.js version"
+   ]
+  },
+  {
+   "at": 1789960255.2588174,
+   "anchor": "github actions",
+   "batch": [
+    "next.js version",
+    "windows 11 update assistant",
+    "game making checklist",
+    "gradle android"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.42,
+    "next.js version": 1.81,
+    "windows 11 update assistant": 0.96,
+    "game making checklist": 0,
+    "gradle android": 4.04
+   },
+   "requeued": [
+    "next.js version",
+    "windows 11 update assistant",
+    "game making checklist",
+    "gradle android"
+   ]
+  },
+  {
+   "at": 1789960311.6366541,
+   "anchor": "game terraria",
+   "batch": [
+    "gradle android",
+    "game making checklist",
+    "windows 11 update assistant",
+    "next.js version"
+   ],
+   "ok": true,
+   "means": {
+    "game terraria": 25.6,
+    "gradle android": 24.77,
+    "game making checklist": 0.04,
+    "windows 11 update assistant": 5.38,
+    "next.js version": 11.32
+   },
+   "requeued": [
+    "game making checklist"
+   ]
+  },
+  {
+   "at": 1789960368.0704668,
+   "anchor": "android studio",
+   "batch": [
+    "game making checklist",
+    "epic games fortnite ps5",
+    "git compare branches",
+    "games ps5"
+   ],
+   "ok": true,
+   "means": {
+    "android studio": 8.28,
+    "game making checklist": 0,
+    "epic games fortnite ps5": 0.06,
+    "git compare branches": 0,
+    "games ps5": 44.09
+   },
+   "requeued": [
+    "epic games fortnite ps5",
+    "git compare branches"
+   ]
+  },
+  {
+   "at": 1789960450.4610903,
+   "anchor": "android studio",
+   "batch": [
+    "git compare branches",
+    "epic games fortnite ps5",
+    "dnd 5e",
+    "app development using flutter"
+   ],
+   "ok": true,
+   "means": {
+    "android studio": 20.89,
+    "git compare branches": 0,
+    "epic games fortnite ps5": 0.89,
+    "dnd 5e": 74.92,
+    "app development using flutter": 0
+   },
+   "requeued": [
+    "epic games fortnite ps5",
+    "app development using flutter"
+   ]
+  },
+  {
+   "at": 1789960506.885224,
+   "anchor": "github actions",
+   "batch": [
+    "app development using flutter",
+    "epic games fortnite ps5",
+    "check engine light",
+    "fc 24 mods career mode"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 21.58,
+    "app development using flutter": 0,
+    "epic games fortnite ps5": 0.68,
+    "check engine light": 80.26,
+    "fc 24 mods career mode": 0
+   },
+   "requeued": [
+    "fc 24 mods career mode"
+   ]
+  },
+  {
+   "at": 1789960563.3394,
+   "anchor": "github actions",
+   "batch": [
+    "fc 24 mods career mode",
+    "c# calculator visual studio",
+    "cities skylines mods",
+    "android app icon generator"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "fc 24 mods career mode": 0,
+    "c# calculator visual studio": 0,
+    "cities skylines mods": 1.04,
+    "android app icon generator": 0
+   },
+   "requeued": [
+    "c# calculator visual studio",
+    "cities skylines mods",
+    "android app icon generator"
+   ]
+  },
+  {
+   "at": 1789960619.6540854,
+   "anchor": "github actions",
+   "batch": [
+    "android app icon generator",
+    "cities skylines mods",
+    "c# calculator visual studio",
+    "python list comprehension"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "android app icon generator": 0,
+    "cities skylines mods": 1.04,
+    "c# calculator visual studio": 0,
+    "python list comprehension": 1.62
+   },
+   "requeued": [
+    "cities skylines mods",
+    "python list comprehension"
+   ]
+  },
+  {
+   "at": 1789960676.0025804,
+   "anchor": "github actions",
+   "batch": [
+    "python list comprehension",
+    "cities skylines mods",
+    "pc gaming emulator",
+    "circuit breaker pattern"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "python list comprehension": 1.62,
+    "cities skylines mods": 1.04,
+    "pc gaming emulator": 0.06,
+    "circuit breaker pattern": 0.4
+   },
+   "requeued": [
+    "python list comprehension",
+    "pc gaming emulator",
+    "circuit breaker pattern"
+   ]
+  },
+  {
+   "at": 1789960732.400294,
+   "anchor": "github actions",
+   "batch": [
+    "circuit breaker pattern",
+    "pc gaming emulator",
+    "python list comprehension",
+    "unity builds"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "circuit breaker pattern": 0.4,
+    "pc gaming emulator": 0.06,
+    "python list comprehension": 1.62,
+    "unity builds": 0.15
+   },
+   "requeued": [
+    "circuit breaker pattern",
+    "pc gaming emulator",
+    "unity builds"
+   ]
+  },
+  {
+   "at": 1789960796.4246418,
+   "anchor": "github actions",
+   "batch": [
+    "unity builds",
+    "pc gaming emulator",
+    "circuit breaker pattern",
+    "unity animator"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "unity builds": 0.15,
+    "pc gaming emulator": 0.06,
+    "circuit breaker pattern": 0.4,
+    "unity animator": 0.92
+   },
+   "requeued": [
+    "unity builds",
+    "unity animator"
+   ]
+  },
+  {
+   "at": 1789960852.7657475,
+   "anchor": "github actions",
+   "batch": [
+    "unity animator",
+    "unity builds",
+    "xcode ios app icon",
+    "javascript react framework"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "unity animator": 0.92,
+    "unity builds": 0.15,
+    "xcode ios app icon": 0,
+    "javascript react framework": 0
+   },
+   "requeued": [
+    "unity animator",
+    "xcode ios app icon",
+    "javascript react framework"
+   ]
+  },
+  {
+   "at": 1789960909.1955168,
+   "anchor": "github actions",
+   "batch": [
+    "javascript react framework",
+    "xcode ios app icon",
+    "unity animator",
+    "windows 11 key"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.42,
+    "javascript react framework": 0,
+    "xcode ios app icon": 0,
+    "unity animator": 0.92,
+    "windows 11 key": 17.6
+   }
+  },
+  {
+   "at": 1789960965.5980022,
+   "anchor": "github actions",
+   "batch": [
+    "unity navmesh",
+    "docker kubernetes course",
+    "firewall rules",
+    "how to iphone mirror"
+   ],
+   "ok": true,
+   "means": {
+    "github actions": 31.4,
+    "unity navmesh": 0.13,
+    "docker kubernetes course": 0,
+    "firewall rules": 4.91,
+    "how to iphone mirror": 11.51
+   },
+   "requeued": [
+    "unity navmesh",
+    "docker kubernetes course",
+    "firewall rules"
+   ]
+  },
+  {
+   "at": 1789961021.9598706,
+   "anchor": "android studio",
+   "batch": [
+    "firewall rules",
+    "docker kubernetes course",
+    "unity navmesh",
+    "grid based pathfinding"
+   ],
+   "ok": true,
+   "means": {
+    "android studio": 44.21,
+    "firewall rules": 8.57,
+    "docker kubernetes course": 0.02,
+    "unity navmesh": 0.47,
+    "grid based pathfinding": 0
+   },
+   "requeued": [
+    "docker kubernetes course",
+    "unity navmesh",
+    "grid based pathfinding"
+   ]
+  },
+  {
+   "at": 1789961078.31345,
+   "anchor": "android studio",
+   "batch": [
+    "grid based pathfinding",
+    "unity navmesh",
+    "docker kubernetes course",
+    "honkai star rail article"
+   ],
+   "ok": true,
+   "means": {
+    "android studio": 44.21,
+    "grid based pathfinding": 0,
+    "unity navmesh": 0.47,
+    "docker kubernetes course": 0.02,
+    "honkai star rail article": 0.21
+   },
+   "requeued": [
+    "honkai star rail article"
+   ]
+  },
+  {
+   "at": 1789961139.832666,
+   "anchor": "android studio",
+   "batch": [
+    "honkai star rail article",
+    "circuit breaker panel",
+    "javascript svelte",
+    "best settings for rocket league"
+   ],
+   "ok": true,
+   "means": {
+    "android studio": 44.21,
+    "honkai star rail article": 0.21,
+    "circuit breaker panel": 6.11,
+    "javascript svelte": 0.09,
+    "best settings for rocket league": 0.89
+   },
+   "requeued": [
+    "honkai star rail article",
+    "circuit breaker panel",
+    "javascript svelte",
+    "best settings for rocket league"
+   ]
+  },
+  {
+   "at": 1789961196.1555676,
+   "anchor": "gradle android",
+   "batch": [
+    "best settings for rocket league",
+    "javascript svelte",
+    "circuit breaker panel",
+    "honkai star rail article"
+   ],
+   "ok": true,
+   "means": {
+    "gradle android": 24.75,
+    "best settings for rocket league": 2.66,
+    "javascript svelte": 0.26,
+    "circuit breaker panel": 21.57,
+    "honkai star rail article": 0.49
+   },
+   "requeued": [
+    "best settings for rocket league",
+    "javascript svelte"
+   ]
+  },
+  {
+   "at": 1789961252.5657027,
+   "anchor": "android studio",
+   "batch": [
+    "javascript svelte",
+    "best settings for rocket league",
+    "sourdough bread problems",
+    "linux distros"
+   ],
+   "ok": true,
+   "means": {
+    "android studio": 44.21,
+    "javascript svelte": 0.09,
+    "best settings for rocket league": 0.89,
+    "sourdough bread problems": 0.08,
+    "linux distros": 16.4
+   },
+   "requeued": [
+    "sourdough bread problems"
+   ]
+  },
+  {
+   "at": 1789961308.8998284,
+   "anchor": "game maker",
+   "batch": [
+    "sourdough bread problems",
+    "docker database postgres",
+    "c# vs c++",
+    "best php editor"
+   ],
+   "ok": true,
+   "means": {
+    "game maker": 54.38,
+    "sourdough bread problems": 0.08,
+    "docker database postgres": 0.6,
+    "c# vs c++": 0.43,
+    "best php editor": 0.19
+   },
+   "requeued": [
+    "sourdough bread problems",
+    "docker database postgres",
+    "c# vs c++",
+    "best php editor"
+   ]
+  },
+  {
+   "at": 1789961365.2426074,
+   "anchor": "circuit breaker panel",
+   "batch": [
+    "best php editor",
+    "c# vs c++",
+    "docker database postgres",
+    "sourdough bread problems"
+   ],
+   "ok": true,
+   "means": {
+    "circuit breaker panel": 54.36,
+    "best php editor": 1.15,
+    "c# vs c++": 2.74,
+    "docker database postgres": 4.04,
+    "sourdough bread problems": 0.53
+   },
+   "requeued": [
+    "best php editor",
+    "c# vs c++",
+    "docker database postgres"
+   ]
+  },
+  {
+   "at": 1789961421.6101305,
+   "anchor": "game maker",
+   "batch": [
+    "docker database postgres",
+    "c# vs c++",
+    "best php editor",
+    "linux vs windows"
+   ],
+   "ok": true,
+   "means": {
+    "game maker": 54.38,
+    "docker database postgres": 0.6,
+    "c# vs c++": 0.43,
+    "best php editor": 0.19,
+    "linux vs windows": 13.6
+   }
+  }
+ ],
+ "anchors": [
+  "sourdough starter"
+ ],
+ "tries": {
+  "unreal engine": 1,
+  "cities skylines": 1,
+  "android studio": 1,
+  "password manager": 1,
+  "game maker": 1,
+  "excel formulas": 1,
+  "genshin impact": 1,
+  "rest api vs api": 1,
+  "github actions schedule": 1,
+  "unity animator controller": 1,
+  "linux os": 1,
+  "stringing a guitar": 1,
+  "unreal engine blueprints": 1,
+  "stable diffusion": 1,
+  "game ps5": 1,
+  "game maker studio": 1,
+  "elden ring builds": 1,
+  "vue js for beginners": 1,
+  "devops azure": 1,
+  "find rest api": 1,
+  "docker compose": 1,
+  "warhammer 40k": 1,
+  "game fortnite lego": 1,
+  "warhammer 40k total war": 1,
+  "game assets": 1,
+  "sourdough starter recipe": 1,
+  "warhammer 40k space marine 2": 1,
+  "chess opening guide": 1,
+  "obd2 code reader": 1,
+  "game fortnite": 1,
+  "how to react js": 1,
+  "css won t load": 1,
+  "power a controller not working": 1,
+  "aws lambda": 1,
+  "cpu motherboard compatibility check": 1,
+  "docker and kubernetes": 1,
+  "chess openings": 1,
+  "c# cheat": 1,
+  "jetpack compose": 1,
+  "database postgresql": 1,
+  "java vs kotlin": 1,
+  "owasp security": 1,
+  "maker's mark": 1,
+  "pc gaming steam": 1,
+  "circuit breaker box": 3,
+  "devops azure pricing": 3,
+  "macos tahoe": 1,
+  "llm chatgpt": 2,
+  "chess openings names": 2,
+  "macos schedule startup": 3,
+  "chess openings book": 3,
+  "layer shift test": 2,
+  "unity shaders": 3,
+  "javascript angular": 3,
+  "board game rules": 1,
+  "javascript basics for react js": 2,
+  "security nmap": 3,
+  "android studio vs xcode": 2,
+  "games like terraria": 3,
+  "what is a next.js project": 3,
+  "programming golang": 3,
+  "stringing machine tennis": 3,
+  "game maker rpg": 3,
+  "game terraria": 3,
+  "chess opening moves": 3,
+  "genshin impact interactive": 3,
+  "windows 11 update assistant": 3,
+  "next.js version": 3,
+  "magic the gathering cards": 1,
+  "game making checklist": 3,
+  "gradle android": 2,
+  "epic games fortnite ps5": 3,
+  "git compare branches": 2,
+  "games ps5": 1,
+  "dnd 5e": 1,
+  "app development using flutter": 2,
+  "check engine light": 1,
+  "fc 24 mods career mode": 2,
+  "c# calculator visual studio": 2,
+  "cities skylines mods": 3,
+  "android app icon generator": 2,
+  "python list comprehension": 3,
+  "pc gaming emulator": 3,
+  "circuit breaker pattern": 3,
+  "unity builds": 3,
+  "unity animator": 3,
+  "xcode ios app icon": 2,
+  "javascript react framework": 2,
+  "windows 11 key": 1,
+  "unity navmesh": 3,
+  "docker kubernetes course": 3,
+  "firewall rules": 2,
+  "how to iphone mirror": 1,
+  "grid based pathfinding": 2,
+  "honkai star rail article": 3,
+  "circuit breaker panel": 2,
+  "javascript svelte": 3,
+  "best settings for rocket league": 3,
+  "sourdough bread problems": 3,
+  "linux distros": 1,
+  "docker database postgres": 3,
+  "c# vs c++": 3,
+  "best php editor": 3,
+  "linux vs windows": 1
+ }
+}

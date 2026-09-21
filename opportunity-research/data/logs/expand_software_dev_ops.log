@@ -1,0 +1,7 @@
+{"seed": "docker", "skipped": "already expanded"}
+{"seed": "aws lambda", "skipped": "already expanded"}
+{"seed": "devops azure", "new_queries": 1326, "suggestions_seen": 1909}
+{"seed": "github actions", "new_queries": 1197, "suggestions_seen": 1855}
+{"seed": "linux", "new_queries": 2015, "suggestions_seen": 2666}
+{"seed": "git", "new_queries": 1943, "suggestions_seen": 2481}
+{"seed": "devops prometheus", "new_queries": 498, "suggestions_seen": 753}

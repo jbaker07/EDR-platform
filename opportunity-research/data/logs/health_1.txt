@@ -1,0 +1,4 @@
+queries 21020
+last 5 min ('suggest:bing', 5349)
+last 5 min ('suggest:google', 6632)
+last 5 min ('suggest:youtube', 3769)

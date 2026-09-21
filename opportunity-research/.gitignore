@@ -1,4 +1,11 @@
 .venv/
+__pycache__/
+# The repository root ignores every data/ directory; re-include ours, then exclude the bulky parts.
+!data/
 data/raw/
 data/*.db
-__pycache__/
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+data/exports/raw_*.csv.gz
+!data/logs/*.log
