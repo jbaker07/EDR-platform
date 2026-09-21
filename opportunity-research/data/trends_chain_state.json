@@ -3544,57 +3544,332 @@
    "reads": 8.83,
    "anchor_reads": 72.36,
    "error_pct": 6.4
+  },
+  "vinyl record price guide": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 48.66,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "generate chord progression fl studio": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 48.66,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "convert linux to windows": {
+   "value": 0.267,
+   "anchor": "unreal engine games",
+   "reads": 4.23,
+   "anchor_reads": 48.66,
+   "error_pct": 12.9
+  },
+  "math study plan": {
+   "value": 0.477,
+   "anchor": "how to iphone mirror",
+   "reads": 2.21,
+   "anchor_reads": 47.04,
+   "error_pct": 23.7
+  },
+  "what is language learning": {
+   "value": 11.14,
+   "anchor": "how to iphone mirror",
+   "reads": 51.57,
+   "anchor_reads": 47.04,
+   "error_pct": 2.0
+  },
+  "video editing subtitles": {
+   "value": 0.0,
+   "anchor": "how to iphone mirror",
+   "reads": 0,
+   "anchor_reads": 5.4,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "class a cdl vehicles": {
+   "value": 0.0,
+   "anchor": "how to iphone mirror",
+   "reads": 0,
+   "anchor_reads": 5.4,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "knee pain": {
+   "value": 149.587,
+   "anchor": "how to iphone mirror",
+   "reads": 79.43,
+   "anchor_reads": 5.4,
+   "error_pct": 9.9
+  },
+  "hiking trails": {
+   "value": 47.905,
+   "anchor": "sourdough starter recipe",
+   "reads": 68.23,
+   "anchor_reads": 15.36,
+   "error_pct": 4.0
+  },
+  "duolingo app for learning english": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 7.92,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "song identify google": {
+   "value": 0.282,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.21,
+   "anchor_reads": 7.92,
+   "error_pct": 106.3
+  },
+  "apple watch ultra": {
+   "value": 64.293,
+   "anchor": "sourdough starter recipe",
+   "reads": 47.25,
+   "anchor_reads": 7.92,
+   "error_pct": 7.4
+  },
+  "davinci resolve format": {
+   "value": 0.591,
+   "anchor": "docker desktop",
+   "reads": 0.81,
+   "anchor_reads": 15.17,
+   "error_pct": 64.9
+  },
+  "beauty makeup": {
+   "value": 27.351,
+   "anchor": "docker desktop",
+   "reads": 37.53,
+   "anchor_reads": 15.17,
+   "error_pct": 4.6
+  },
+  "engineering features": {
+   "value": 12.535,
+   "anchor": "docker desktop",
+   "reads": 46.7,
+   "anchor_reads": 41.19,
+   "error_pct": 2.3
+  },
+  "electronics soldering": {
+   "value": 1.406,
+   "anchor": "what is language learning",
+   "reads": 6.51,
+   "anchor_reads": 51.58,
+   "error_pct": 8.7
+  },
+  "beauty outfits": {
+   "value": 1.125,
+   "anchor": "what is language learning",
+   "reads": 5.21,
+   "anchor_reads": 51.58,
+   "error_pct": 10.6
+  },
+  "roof leakage repair": {
+   "value": 0.0,
+   "anchor": "what is language learning",
+   "reads": 0,
+   "anchor_reads": 51.57,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "water cooler plant": {
+   "value": 0.595,
+   "anchor": "what is language learning",
+   "reads": 2.75,
+   "anchor_reads": 51.57,
+   "error_pct": 19.1
+  },
+  "video games for pc": {
+   "value": 1.736,
+   "anchor": "what is language learning",
+   "reads": 8.04,
+   "anchor_reads": 51.57,
+   "error_pct": 7.2
+  },
+  "fix washing machine not draining": {
+   "value": 5.324,
+   "anchor": "what is language learning",
+   "reads": 19.43,
+   "anchor_reads": 40.66,
+   "error_pct": 3.8
+  },
+  "how to clean battery acid": {
+   "value": 0.513,
+   "anchor": "docker desktop",
+   "reads": 2.64,
+   "anchor_reads": 56.98,
+   "error_pct": 19.8
+  },
+  "finance budgeting": {
+   "value": 2.746,
+   "anchor": "docker desktop",
+   "reads": 14.15,
+   "anchor_reads": 56.98,
+   "error_pct": 4.4
+  },
+  "best cat litter for kittens": {
+   "value": 0.161,
+   "anchor": "docker desktop",
+   "reads": 0.83,
+   "anchor_reads": 56.96,
+   "error_pct": 61.1
+  },
+  "give icd 10 codes": {
+   "value": 0.007,
+   "anchor": "docker desktop",
+   "reads": 0.04,
+   "anchor_reads": 56.96,
+   "error_pct": 100.9
+  },
+  "baby sleep sack": {
+   "value": 9.668,
+   "anchor": "docker desktop",
+   "reads": 49.81,
+   "anchor_reads": 56.96,
+   "error_pct": 1.9
+  },
+  "how to remove junk stains": {
+   "value": 0.014,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.08,
+   "anchor_reads": 57.74,
+   "error_pct": 100.9
+  },
+  "embroidery machine supplies": {
+   "value": 0.039,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.21,
+   "anchor_reads": 57.74,
+   "error_pct": 100.9
+  },
+  "air conditioner not cooling house": {
+   "value": 0.113,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.6,
+   "anchor_reads": 57.74,
+   "error_pct": 83.7
+  },
+  "farm chickens minecraft": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 57.72,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "running workout 5k": {
+   "value": 0.049,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.26,
+   "anchor_reads": 57.72,
+   "error_pct": 100.9
+  },
+  "3d modelling tank": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 36.92,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "bluetooth earbuds recommendations": {
+   "value": 0.028,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.09,
+   "anchor_reads": 36.92,
+   "error_pct": 101.4
+  },
+  "elder care": {
+   "value": 13.418,
+   "anchor": "sourdough starter recipe",
+   "reads": 45.94,
+   "anchor_reads": 36.92,
+   "error_pct": 2.4
+  },
+  "legal driving limit": {
+   "value": 2.15,
+   "anchor": "docker desktop",
+   "reads": 11.08,
+   "anchor_reads": 56.96,
+   "error_pct": 5.4
+  },
+  "crypto bitcoin news": {
+   "value": 5.826,
+   "anchor": "docker desktop",
+   "reads": 30.02,
+   "anchor_reads": 56.96,
+   "error_pct": 2.5
+  },
+  "car value calculator south africa": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 57.74,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "laptop won't shut down": {
+   "value": 0.042,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.23,
+   "anchor_reads": 57.74,
+   "error_pct": 100.9
+  },
+  "drink cocktails": {
+   "value": 5.536,
+   "anchor": "sourdough starter recipe",
+   "reads": 29.64,
+   "anchor_reads": 57.74,
+   "error_pct": 2.6
+  },
+  "where to watch love island": {
+   "value": 10.341,
+   "anchor": "how to iphone mirror",
+   "reads": 13.11,
+   "anchor_reads": 12.89,
+   "error_pct": 7.7
+  },
+  "writing headline plans": {
+   "value": 0.0,
+   "anchor": "where to watch love island",
+   "reads": 0,
+   "anchor_reads": 13.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "meal prep ideas high protein": {
+   "value": 1.399,
+   "anchor": "where to watch love island",
+   "reads": 1.77,
+   "anchor_reads": 13.11,
+   "error_pct": 32.0
+  },
+  "swiss beauty makeup stick": {
+   "value": 0.0,
+   "anchor": "where to watch love island",
+   "reads": 0,
+   "anchor_reads": 13.11,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "photo camera review": {
+   "value": 1.637,
+   "anchor": "where to watch love island",
+   "reads": 2.08,
+   "anchor_reads": 13.11,
+   "error_pct": 27.9
   }
  },
  "pending": [
-  "convert linux to windows",
-  "generate chord progression fl studio",
-  "math study plan",
-  "vinyl record price guide",
-  "class a cdl vehicles",
-  "video editing subtitles",
-  "what is language learning",
-  "knee pain",
-  "song identify google",
-  "duolingo app for learning english",
-  "davinci resolve format",
-  "hiking trails",
-  "apple watch ultra",
-  "electronics soldering",
-  "beauty makeup",
-  "beauty outfits",
-  "engineering features",
-  "water cooler plant",
-  "roof leakage repair",
-  "how to clean battery acid",
-  "video games for pc",
-  "fix washing machine not draining",
-  "best cat litter for kittens",
-  "give icd 10 codes",
-  "finance budgeting",
-  "how to remove junk stains",
-  "embroidery machine supplies",
-  "baby sleep sack",
-  "air conditioner not cooling house",
-  "running workout 5k",
-  "farm chickens minecraft",
-  "bluetooth earbuds recommendations",
-  "3d modelling tank",
-  "laptop won't shut down",
-  "elder care",
-  "legal driving limit",
-  "car value calculator south africa",
-  "crypto bitcoin news",
-  "meal prep ideas high protein",
-  "drink cocktails",
-  "photo camera review",
-  "writing headline plans",
-  "where to watch love island",
-  "swiss beauty makeup stick",
+  "how do i learn algebra",
+  "best product selling app",
   "air fryer costco ninja",
   "moving abroad",
-  "best product selling app",
-  "how do i learn algebra",
   "3d printer plate",
   "index funds fidelity",
   "windows xp iso",
@@ -3711,7 +3986,9 @@
   "novel writer",
   "external hard drive 1tb",
   "monitor lizard",
-  "guest post website"
+  "guest post website",
+  "google docs error",
+  "how to use microsoft office"
  ],
  "log": [
   {
@@ -9825,6 +10102,538 @@
    "requeued": [
     "convert linux to windows"
    ]
+  },
+  {
+   "at": 1789976012.6538706,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "convert linux to windows",
+    "generate chord progression fl studio",
+    "math study plan",
+    "vinyl record price guide"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.4,
+    "convert linux to windows": 1.89,
+    "generate chord progression fl studio": 0,
+    "math study plan": 3.38,
+    "vinyl record price guide": 0
+   },
+   "requeued": [
+    "convert linux to windows",
+    "generate chord progression fl studio",
+    "math study plan",
+    "vinyl record price guide"
+   ]
+  },
+  {
+   "at": 1789976069.1947675,
+   "anchor": "unreal engine games",
+   "batch": [
+    "vinyl record price guide",
+    "math study plan",
+    "generate chord progression fl studio",
+    "convert linux to windows"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.66,
+    "vinyl record price guide": 0,
+    "math study plan": 7.51,
+    "generate chord progression fl studio": 0,
+    "convert linux to windows": 4.23
+   },
+   "requeued": [
+    "math study plan"
+   ]
+  },
+  {
+   "at": 1789976125.5944164,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "math study plan",
+    "class a cdl vehicles",
+    "video editing subtitles",
+    "what is language learning"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 47.04,
+    "math study plan": 2.21,
+    "class a cdl vehicles": 0.04,
+    "video editing subtitles": 0.45,
+    "what is language learning": 51.57
+   },
+   "requeued": [
+    "class a cdl vehicles",
+    "video editing subtitles"
+   ]
+  },
+  {
+   "at": 1789976182.0688143,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "video editing subtitles",
+    "class a cdl vehicles",
+    "knee pain",
+    "song identify google"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 5.4,
+    "video editing subtitles": 0,
+    "class a cdl vehicles": 0,
+    "knee pain": 79.43,
+    "song identify google": 0.04
+   },
+   "requeued": [
+    "song identify google"
+   ]
+  },
+  {
+   "at": 1789976238.501575,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "song identify google",
+    "duolingo app for learning english",
+    "davinci resolve format",
+    "hiking trails"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 15.36,
+    "song identify google": 0.79,
+    "duolingo app for learning english": 0,
+    "davinci resolve format": 0.85,
+    "hiking trails": 68.23
+   },
+   "requeued": [
+    "song identify google",
+    "duolingo app for learning english",
+    "davinci resolve format"
+   ]
+  },
+  {
+   "at": 1789976295.1729827,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "davinci resolve format",
+    "duolingo app for learning english",
+    "song identify google",
+    "apple watch ultra"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 7.92,
+    "davinci resolve format": 0.32,
+    "duolingo app for learning english": 0,
+    "song identify google": 0.21,
+    "apple watch ultra": 47.25
+   },
+   "requeued": [
+    "davinci resolve format"
+   ]
+  },
+  {
+   "at": 1789976366.5596888,
+   "anchor": "docker desktop",
+   "batch": [
+    "davinci resolve format",
+    "electronics soldering",
+    "beauty makeup",
+    "beauty outfits"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 15.17,
+    "davinci resolve format": 0.81,
+    "electronics soldering": 1.91,
+    "beauty makeup": 37.53,
+    "beauty outfits": 1.58
+   },
+   "requeued": [
+    "electronics soldering",
+    "beauty outfits"
+   ]
+  },
+  {
+   "at": 1789976422.9095473,
+   "anchor": "docker desktop",
+   "batch": [
+    "beauty outfits",
+    "electronics soldering",
+    "engineering features",
+    "water cooler plant"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 41.19,
+    "beauty outfits": 4.34,
+    "electronics soldering": 5.3,
+    "engineering features": 46.7,
+    "water cooler plant": 2.25
+   },
+   "requeued": [
+    "beauty outfits",
+    "electronics soldering",
+    "water cooler plant"
+   ]
+  },
+  {
+   "at": 1789976479.2812123,
+   "anchor": "what is language learning",
+   "batch": [
+    "water cooler plant",
+    "electronics soldering",
+    "beauty outfits",
+    "roof leakage repair"
+   ],
+   "ok": true,
+   "means": {
+    "what is language learning": 51.58,
+    "water cooler plant": 2.75,
+    "electronics soldering": 6.51,
+    "beauty outfits": 5.21,
+    "roof leakage repair": 0
+   },
+   "requeued": [
+    "water cooler plant",
+    "roof leakage repair"
+   ]
+  },
+  {
+   "at": 1789976535.7159934,
+   "anchor": "what is language learning",
+   "batch": [
+    "roof leakage repair",
+    "water cooler plant",
+    "how to clean battery acid",
+    "video games for pc"
+   ],
+   "ok": true,
+   "means": {
+    "what is language learning": 51.57,
+    "roof leakage repair": 0,
+    "water cooler plant": 2.75,
+    "how to clean battery acid": 2.34,
+    "video games for pc": 8.04
+   },
+   "requeued": [
+    "how to clean battery acid"
+   ]
+  },
+  {
+   "at": 1789976592.0948386,
+   "anchor": "what is language learning",
+   "batch": [
+    "how to clean battery acid",
+    "fix washing machine not draining",
+    "best cat litter for kittens",
+    "give icd 10 codes"
+   ],
+   "ok": true,
+   "means": {
+    "what is language learning": 40.66,
+    "how to clean battery acid": 1.79,
+    "fix washing machine not draining": 19.43,
+    "best cat litter for kittens": 0.6,
+    "give icd 10 codes": 0.02
+   },
+   "requeued": [
+    "how to clean battery acid",
+    "best cat litter for kittens",
+    "give icd 10 codes"
+   ]
+  },
+  {
+   "at": 1789976648.6625445,
+   "anchor": "docker desktop",
+   "batch": [
+    "give icd 10 codes",
+    "best cat litter for kittens",
+    "how to clean battery acid",
+    "finance budgeting"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 56.98,
+    "give icd 10 codes": 0.04,
+    "best cat litter for kittens": 0.83,
+    "how to clean battery acid": 2.64,
+    "finance budgeting": 14.15
+   },
+   "requeued": [
+    "give icd 10 codes",
+    "best cat litter for kittens"
+   ]
+  },
+  {
+   "at": 1789976717.7956603,
+   "anchor": "docker desktop",
+   "batch": [
+    "best cat litter for kittens",
+    "give icd 10 codes",
+    "how to remove junk stains",
+    "embroidery machine supplies"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 56.96,
+    "best cat litter for kittens": 0.83,
+    "give icd 10 codes": 0.04,
+    "how to remove junk stains": 0.08,
+    "embroidery machine supplies": 0.17
+   },
+   "requeued": [
+    "how to remove junk stains",
+    "embroidery machine supplies"
+   ]
+  },
+  {
+   "at": 1789976774.136518,
+   "anchor": "docker desktop",
+   "batch": [
+    "embroidery machine supplies",
+    "how to remove junk stains",
+    "baby sleep sack",
+    "air conditioner not cooling house"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 56.96,
+    "embroidery machine supplies": 0.17,
+    "how to remove junk stains": 0.08,
+    "baby sleep sack": 49.81,
+    "air conditioner not cooling house": 0.58
+   },
+   "requeued": [
+    "embroidery machine supplies",
+    "how to remove junk stains",
+    "air conditioner not cooling house"
+   ]
+  },
+  {
+   "at": 1789976830.476959,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "air conditioner not cooling house",
+    "how to remove junk stains",
+    "embroidery machine supplies",
+    "running workout 5k"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "air conditioner not cooling house": 0.6,
+    "how to remove junk stains": 0.08,
+    "embroidery machine supplies": 0.21,
+    "running workout 5k": 0.26
+   },
+   "requeued": [
+    "air conditioner not cooling house",
+    "running workout 5k"
+   ]
+  },
+  {
+   "at": 1789976886.861944,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "running workout 5k",
+    "air conditioner not cooling house",
+    "farm chickens minecraft",
+    "bluetooth earbuds recommendations"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "running workout 5k": 0.26,
+    "air conditioner not cooling house": 0.6,
+    "farm chickens minecraft": 0,
+    "bluetooth earbuds recommendations": 0.15
+   },
+   "requeued": [
+    "running workout 5k",
+    "farm chickens minecraft",
+    "bluetooth earbuds recommendations"
+   ]
+  },
+  {
+   "at": 1789976943.221524,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "bluetooth earbuds recommendations",
+    "farm chickens minecraft",
+    "running workout 5k",
+    "3d modelling tank"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.72,
+    "bluetooth earbuds recommendations": 0.15,
+    "farm chickens minecraft": 0,
+    "running workout 5k": 0.26,
+    "3d modelling tank": 0
+   },
+   "requeued": [
+    "bluetooth earbuds recommendations",
+    "3d modelling tank"
+   ]
+  },
+  {
+   "at": 1789976999.556161,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "3d modelling tank",
+    "bluetooth earbuds recommendations",
+    "laptop won't shut down",
+    "elder care"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 36.92,
+    "3d modelling tank": 0,
+    "bluetooth earbuds recommendations": 0.09,
+    "laptop won't shut down": 0.11,
+    "elder care": 45.94
+   },
+   "requeued": [
+    "laptop won't shut down"
+   ]
+  },
+  {
+   "at": 1789977074.050245,
+   "anchor": "docker desktop",
+   "batch": [
+    "laptop won't shut down",
+    "legal driving limit",
+    "car value calculator south africa",
+    "crypto bitcoin news"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 56.96,
+    "laptop won't shut down": 0.23,
+    "legal driving limit": 11.08,
+    "car value calculator south africa": 0,
+    "crypto bitcoin news": 30.02
+   },
+   "requeued": [
+    "laptop won't shut down",
+    "car value calculator south africa"
+   ]
+  },
+  {
+   "at": 1789977130.4374785,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "car value calculator south africa",
+    "laptop won't shut down",
+    "meal prep ideas high protein",
+    "drink cocktails"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "car value calculator south africa": 0,
+    "laptop won't shut down": 0.23,
+    "meal prep ideas high protein": 7.25,
+    "drink cocktails": 29.64
+   },
+   "requeued": [
+    "meal prep ideas high protein"
+   ]
+  },
+  {
+   "at": 1789977186.8016498,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "meal prep ideas high protein",
+    "photo camera review",
+    "writing headline plans",
+    "where to watch love island"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 12.89,
+    "meal prep ideas high protein": 1.77,
+    "photo camera review": 2.08,
+    "writing headline plans": 0,
+    "where to watch love island": 13.11
+   },
+   "requeued": [
+    "meal prep ideas high protein",
+    "photo camera review",
+    "writing headline plans"
+   ]
+  },
+  {
+   "at": 1789977243.1585846,
+   "anchor": "where to watch love island",
+   "batch": [
+    "writing headline plans",
+    "photo camera review",
+    "meal prep ideas high protein",
+    "swiss beauty makeup stick"
+   ],
+   "ok": true,
+   "means": {
+    "where to watch love island": 13.11,
+    "writing headline plans": 0,
+    "photo camera review": 2.08,
+    "meal prep ideas high protein": 1.77,
+    "swiss beauty makeup stick": 0
+   },
+   "requeued": [
+    "photo camera review",
+    "swiss beauty makeup stick"
+   ]
+  },
+  {
+   "at": 1789977299.534227,
+   "anchor": "where to watch love island",
+   "batch": [
+    "swiss beauty makeup stick",
+    "photo camera review",
+    "air fryer costco ninja",
+    "moving abroad"
+   ],
+   "ok": true,
+   "means": {
+    "where to watch love island": 13.11,
+    "swiss beauty makeup stick": 0,
+    "photo camera review": 2.08,
+    "air fryer costco ninja": 1.25,
+    "moving abroad": 2.91
+   },
+   "requeued": [
+    "air fryer costco ninja",
+    "moving abroad"
+   ]
+  },
+  {
+   "at": 1789977355.8695543,
+   "anchor": "where to watch love island",
+   "batch": [
+    "moving abroad",
+    "air fryer costco ninja",
+    "best product selling app",
+    "how do i learn algebra"
+   ],
+   "ok": true,
+   "means": {
+    "where to watch love island": 13.09,
+    "moving abroad": 2.91,
+    "air fryer costco ninja": 1.25,
+    "best product selling app": 0.21,
+    "how do i learn algebra": 0
+   },
+   "requeued": [
+    "moving abroad",
+    "air fryer costco ninja",
+    "best product selling app",
+    "how do i learn algebra"
+   ]
   }
  ],
  "anchors": [
@@ -10318,7 +11127,54 @@
   "is notion on windows": 3,
   "protein intake to build muscle": 3,
   "zapier office": 2,
-  "convert linux to windows": 1,
-  "apple watch se 3 44mm": 1
+  "convert linux to windows": 3,
+  "apple watch se 3 44mm": 1,
+  "generate chord progression fl studio": 2,
+  "math study plan": 3,
+  "vinyl record price guide": 2,
+  "class a cdl vehicles": 2,
+  "video editing subtitles": 2,
+  "what is language learning": 1,
+  "knee pain": 1,
+  "song identify google": 3,
+  "duolingo app for learning english": 2,
+  "davinci resolve format": 3,
+  "hiking trails": 1,
+  "apple watch ultra": 1,
+  "electronics soldering": 3,
+  "beauty makeup": 1,
+  "beauty outfits": 3,
+  "engineering features": 1,
+  "water cooler plant": 3,
+  "roof leakage repair": 2,
+  "how to clean battery acid": 3,
+  "video games for pc": 1,
+  "fix washing machine not draining": 1,
+  "best cat litter for kittens": 3,
+  "give icd 10 codes": 3,
+  "finance budgeting": 1,
+  "how to remove junk stains": 3,
+  "embroidery machine supplies": 3,
+  "baby sleep sack": 1,
+  "air conditioner not cooling house": 3,
+  "running workout 5k": 3,
+  "farm chickens minecraft": 2,
+  "bluetooth earbuds recommendations": 3,
+  "3d modelling tank": 2,
+  "laptop won't shut down": 3,
+  "elder care": 1,
+  "legal driving limit": 1,
+  "car value calculator south africa": 2,
+  "crypto bitcoin news": 1,
+  "meal prep ideas high protein": 3,
+  "drink cocktails": 1,
+  "photo camera review": 3,
+  "writing headline plans": 2,
+  "where to watch love island": 1,
+  "swiss beauty makeup stick": 2,
+  "air fryer costco ninja": 2,
+  "moving abroad": 2,
+  "best product selling app": 1,
+  "how do i learn algebra": 1
  }
 }

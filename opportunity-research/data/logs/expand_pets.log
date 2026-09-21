@@ -1,5 +1,10 @@
-{"seed": "dog training", "new_queries": 1441, "suggestions_seen": 1952}
-{"seed": "cat litter", "new_queries": 1322, "suggestions_seen": 1909}
-{"seed": "aquarium", "new_queries": 1725, "suggestions_seen": 2110}
-{"seed": "pet parrot", "new_queries": 850, "suggestions_seen": 1391}
-{"seed": "vet cost", "new_queries": 933, "suggestions_seen": 1339}
+{"seed": "dog training", "skipped": "already expanded"}
+{"seed": "dog puppy", "new_queries": 1320, "suggestions_seen": 1625}
+{"seed": "cat litter", "skipped": "already expanded"}
+{"seed": "cat not eating", "new_queries": 661, "suggestions_seen": 1372}
+{"seed": "aquarium", "skipped": "already expanded"}
+{"seed": "fish tank", "new_queries": 969, "suggestions_seen": 1218}
+{"seed": "pet parrot", "skipped": "already expanded"}
+{"seed": "pet hamster", "new_queries": 524, "suggestions_seen": 857}
+{"seed": "vet cost", "skipped": "already expanded"}
+{"seed": "pet insurance", "new_queries": 846, "suggestions_seen": 1106}

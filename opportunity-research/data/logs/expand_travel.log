@@ -1,6 +1,7 @@
-{"seed": "travel itinerary", "new_queries": 974, "suggestions_seen": 1630}
-{"seed": "cheap flights", "new_queries": 1457, "suggestions_seen": 1813}
-{"seed": "visa requirements", "new_queries": 1147, "suggestions_seen": 1511}
-{"seed": "travel airbnb", "new_queries": 862, "suggestions_seen": 1088}
-{"seed": "packing list", "new_queries": 1099, "suggestions_seen": 1631}
-{"seed": "moving abroad", "new_queries": 844, "suggestions_seen": 1575}
+{"seed": "travel itinerary", "skipped": "already expanded"}
+{"seed": "travel checklist", "new_queries": 300, "suggestions_seen": 909}
+{"seed": "cheap flights", "skipped": "already expanded"}
+{"seed": "award flights", "new_queries": 425, "suggestions_seen": 710}
+{"seed": "visa requirements", "skipped": "already expanded"}
+{"seed": "passport renewal", "new_queries": 661, "suggestions_seen": 824}
+{"seed": "travel airbnb", "skipped": "already expanded"}

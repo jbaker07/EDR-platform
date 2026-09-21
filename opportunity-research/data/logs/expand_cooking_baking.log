@@ -1,7 +1,14 @@
 {"seed": "sourdough starter", "skipped": "already expanded"}
-{"seed": "sous vide", "new_queries": 1232, "suggestions_seen": 1823}
-{"seed": "substitute for", "new_queries": 1353, "suggestions_seen": 1713}
-{"seed": "meal prep", "new_queries": 1591, "suggestions_seen": 2167}
-{"seed": "cooking keto", "new_queries": 642, "suggestions_seen": 1099}
-{"seed": "drink cocktail", "new_queries": 952, "suggestions_seen": 1306}
-{"seed": "cooking canning", "new_queries": 639, "suggestions_seen": 1069}
+{"seed": "baking bread", "new_queries": 1284, "suggestions_seen": 1755}
+{"seed": "sous vide", "skipped": "already expanded"}
+{"seed": "smoking meat", "new_queries": 808, "suggestions_seen": 1352}
+{"seed": "substitute for", "skipped": "already expanded"}
+{"seed": "cups to grams", "new_queries": 535, "suggestions_seen": 1031}
+{"seed": "meal prep", "skipped": "already expanded"}
+{"seed": "weekly meal plan", "new_queries": 523, "suggestions_seen": 1252}
+{"seed": "cooking keto", "skipped": "already expanded"}
+{"seed": "cooking vegan", "new_queries": 567, "suggestions_seen": 904}
+{"seed": "drink cocktail", "skipped": "already expanded"}
+{"seed": "drink coffee", "new_queries": 681, "suggestions_seen": 959}
+{"seed": "cooking canning", "skipped": "already expanded"}
+{"seed": "cooking fermentation", "new_queries": 306, "suggestions_seen": 578}

@@ -7,3 +7,6 @@
 {"seed": "credit score", "skipped": "already expanded"}
 {"seed": "credit card", "new_queries": 1834, "suggestions_seen": 2537}
 {"seed": "crypto bitcoin", "skipped": "already expanded"}
+{"seed": "crypto wallet", "new_queries": 1147, "suggestions_seen": 1721}
+{"seed": "health insurance", "skipped": "already expanded"}
+{"seed": "life insurance", "new_queries": 1695, "suggestions_seen": 2316}

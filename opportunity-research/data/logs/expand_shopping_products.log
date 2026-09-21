@@ -1,5 +1,5 @@
-{"seed": "product best", "new_queries": 1335, "suggestions_seen": 1663}
-{"seed": "size chart", "new_queries": 1338, "suggestions_seen": 1993}
-{"seed": "price history", "new_queries": 991, "suggestions_seen": 1613}
-{"seed": "what is this", "new_queries": 1649, "suggestions_seen": 1767}
-{"seed": "product mattress", "new_queries": 655, "suggestions_seen": 815}
+{"seed": "product best", "skipped": "already expanded"}
+{"seed": "product vs", "new_queries": 574, "suggestions_seen": 808}
+{"seed": "size chart", "skipped": "already expanded"}
+{"seed": "shoe size conversion", "new_queries": 298, "suggestions_seen": 890}
+{"seed": "price history", "skipped": "already expanded"}

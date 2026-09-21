@@ -1,7 +1,14 @@
-{"seed": "workout plan", "new_queries": 1339, "suggestions_seen": 1803}
-{"seed": "running plan", "new_queries": 1015, "suggestions_seen": 1524}
-{"seed": "pull ups", "new_queries": 1616, "suggestions_seen": 2186}
-{"seed": "protein intake", "new_queries": 1145, "suggestions_seen": 1696}
-{"seed": "knee pain", "new_queries": 1455, "suggestions_seen": 1934}
-{"seed": "garmin training", "new_queries": 957, "suggestions_seen": 1764}
-{"seed": "health symptoms", "new_queries": 720, "suggestions_seen": 1171}
+{"seed": "workout plan", "skipped": "already expanded"}
+{"seed": "fitness deadlift", "new_queries": 709, "suggestions_seen": 1100}
+{"seed": "running plan", "skipped": "already expanded"}
+{"seed": "marathon training", "new_queries": 822, "suggestions_seen": 1417}
+{"seed": "pull ups", "skipped": "already expanded"}
+{"seed": "push ups", "new_queries": 954, "suggestions_seen": 1173}
+{"seed": "protein intake", "skipped": "already expanded"}
+{"seed": "fitness creatine", "new_queries": 478, "suggestions_seen": 661}
+{"seed": "knee pain", "skipped": "already expanded"}
+{"seed": "back pain", "new_queries": 1117, "suggestions_seen": 1334}
+{"seed": "garmin training", "skipped": "already expanded"}
+{"seed": "fitness strava", "new_queries": 410, "suggestions_seen": 875}
+{"seed": "health symptoms", "skipped": "already expanded"}
+{"seed": "health medication", "new_queries": 604, "suggestions_seen": 764}
