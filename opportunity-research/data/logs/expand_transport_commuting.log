@@ -1,6 +1,9 @@
 {"seed": "train schedule", "skipped": "already expanded"}
-{"seed": "bus route", "new_queries": 702, "suggestions_seen": 912}
+{"seed": "bus route", "skipped": "already expanded"}
+{"seed": "metro map", "new_queries": 1070, "suggestions_seen": 1610}
 {"seed": "parking ticket", "skipped": "already expanded"}
-{"seed": "transit toll", "new_queries": 427, "suggestions_seen": 568}
+{"seed": "transit toll", "skipped": "already expanded"}
+{"seed": "congestion charge", "new_queries": 1034, "suggestions_seen": 1446}
 {"seed": "electric scooter", "skipped": "already expanded"}
-{"seed": "e-bike laws", "new_queries": 341, "suggestions_seen": 626}
+{"seed": "e-bike laws", "skipped": "already expanded"}
+{"seed": "bike lane", "new_queries": 994, "suggestions_seen": 1566}

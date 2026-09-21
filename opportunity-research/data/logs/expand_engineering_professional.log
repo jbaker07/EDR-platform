@@ -1,10 +1,15 @@
 {"seed": "engineering tolerance", "skipped": "already expanded"}
-{"seed": "engineering gd&t", "new_queries": 277, "suggestions_seen": 702}
+{"seed": "engineering gd&t", "skipped": "already expanded"}
+{"seed": "engineering bearing", "new_queries": 557, "suggestions_seen": 911}
 {"seed": "wire gauge", "skipped": "already expanded"}
-{"seed": "nec code", "new_queries": 479, "suggestions_seen": 778}
+{"seed": "nec code", "skipped": "already expanded"}
+{"seed": "load calculation", "new_queries": 845, "suggestions_seen": 1592}
 {"seed": "concrete mix", "skipped": "already expanded"}
-{"seed": "engineering rebar", "new_queries": 293, "suggestions_seen": 530}
+{"seed": "engineering rebar", "skipped": "already expanded"}
+{"seed": "load bearing", "new_queries": 980, "suggestions_seen": 1599}
 {"seed": "dilution calculator", "skipped": "already expanded"}
-{"seed": "engineering molarity", "new_queries": 285, "suggestions_seen": 646}
+{"seed": "engineering molarity", "skipped": "already expanded"}
+{"seed": "lab safety", "new_queries": 929, "suggestions_seen": 1538}
 {"seed": "engineering fea", "skipped": "already expanded"}
-{"seed": "engineering cfd", "new_queries": 223, "suggestions_seen": 569}
+{"seed": "engineering cfd", "skipped": "already expanded"}
+{"seed": "engineering matlab", "new_queries": 524, "suggestions_seen": 1066}

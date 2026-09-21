@@ -6,3 +6,7 @@
 {"seed": "security deposit", "new_queries": 1194, "suggestions_seen": 1647}
 {"seed": "renovation cost", "skipped": "already expanded"}
 {"seed": "kitchen remodel", "skipped": "already expanded"}
+{"seed": "home value", "new_queries": 1067, "suggestions_seen": 1435}
+{"seed": "real estate landlord", "skipped": "already expanded"}
+{"seed": "rental property", "skipped": "already expanded"}
+{"seed": "airbnb hosting", "new_queries": 720, "suggestions_seen": 1268}

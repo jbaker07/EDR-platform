@@ -1,4 +1,6 @@
 {"seed": "screen reader", "skipped": "already expanded"}
-{"seed": "hearing aid", "new_queries": 866, "suggestions_seen": 997}
+{"seed": "hearing aid", "skipped": "already expanded"}
+{"seed": "accessibility wheelchair", "new_queries": 728, "suggestions_seen": 1139}
 {"seed": "large button phone", "skipped": "already expanded"}
-{"seed": "senior tablet", "new_queries": 181, "suggestions_seen": 541}
+{"seed": "senior tablet", "skipped": "already expanded"}
+{"seed": "medical alert", "new_queries": 1058, "suggestions_seen": 1593}

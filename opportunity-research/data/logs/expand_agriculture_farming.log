@@ -1,6 +1,9 @@
 {"seed": "farm chickens", "skipped": "already expanded"}
-{"seed": "farm goats", "new_queries": 368, "suggestions_seen": 604}
+{"seed": "farm goats", "skipped": "already expanded"}
+{"seed": "farm beekeeping", "new_queries": 600, "suggestions_seen": 947}
 {"seed": "crop rotation", "skipped": "already expanded"}
-{"seed": "soil test", "new_queries": 460, "suggestions_seen": 611}
+{"seed": "soil test", "skipped": "already expanded"}
+{"seed": "farm greenhouse", "new_queries": 738, "suggestions_seen": 1056}
 {"seed": "farm homestead", "skipped": "already expanded"}
-{"seed": "farm canning", "new_queries": 204, "suggestions_seen": 613}
+{"seed": "farm canning", "skipped": "already expanded"}
+{"seed": "root cellar", "new_queries": 710, "suggestions_seen": 1512}

@@ -1,6 +1,9 @@
 {"seed": "shipping rates", "skipped": "already expanded"}
-{"seed": "package tracking", "new_queries": 404, "suggestions_seen": 608}
+{"seed": "package tracking", "skipped": "already expanded"}
+{"seed": "shipping customs", "new_queries": 613, "suggestions_seen": 1073}
 {"seed": "inventory management", "skipped": "already expanded"}
-{"seed": "shipping barcode", "new_queries": 301, "suggestions_seen": 462}
+{"seed": "shipping barcode", "skipped": "already expanded"}
+{"seed": "shipping sku", "new_queries": 653, "suggestions_seen": 854}
 {"seed": "shipping supplier", "skipped": "already expanded"}
-{"seed": "shipping alibaba", "new_queries": 334, "suggestions_seen": 731}
+{"seed": "shipping alibaba", "skipped": "already expanded"}
+{"seed": "lead time", "new_queries": 1075, "suggestions_seen": 1686}

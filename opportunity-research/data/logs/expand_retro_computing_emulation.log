@@ -1,4 +1,6 @@
 {"seed": "retro pc", "skipped": "already expanded"}
-{"seed": "commodore 64", "new_queries": 304, "suggestions_seen": 725}
+{"seed": "commodore 64", "skipped": "already expanded"}
+{"seed": "retro computer amiga", "new_queries": 415, "suggestions_seen": 1418}
 {"seed": "windows xp", "skipped": "already expanded"}
-{"seed": "old software", "new_queries": 363, "suggestions_seen": 684}
+{"seed": "old software", "skipped": "already expanded"}
+{"seed": "dos games", "new_queries": 800, "suggestions_seen": 1356}

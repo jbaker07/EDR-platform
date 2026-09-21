@@ -3,3 +3,7 @@
 {"seed": "battery storage", "new_queries": 1130, "suggestions_seen": 1716}
 {"seed": "energy bill", "skipped": "already expanded"}
 {"seed": "home energy insulation", "skipped": "already expanded"}
+{"seed": "heat pump", "new_queries": 1611, "suggestions_seen": 2210}
+{"seed": "off grid", "skipped": "already expanded"}
+{"seed": "home energy generator", "skipped": "already expanded"}
+{"seed": "home energy propane", "new_queries": 742, "suggestions_seen": 1316}

@@ -1,6 +1,9 @@
 {"seed": "pilot license", "skipped": "already expanded"}
-{"seed": "flight simulator", "new_queries": 808, "suggestions_seen": 1018}
+{"seed": "flight simulator", "skipped": "already expanded"}
+{"seed": "drone license", "new_queries": 830, "suggestions_seen": 1334}
 {"seed": "vehicle boat", "skipped": "already expanded"}
-{"seed": "outboard motor", "new_queries": 733, "suggestions_seen": 1022}
+{"seed": "outboard motor", "skipped": "already expanded"}
+{"seed": "boat trailer", "new_queries": 1303, "suggestions_seen": 1905}
 {"seed": "vehicle cdl", "skipped": "already expanded"}
-{"seed": "truck driver", "new_queries": 851, "suggestions_seen": 990}
+{"seed": "truck driver", "skipped": "already expanded"}
+{"seed": "dot regulations", "new_queries": 605, "suggestions_seen": 1191}

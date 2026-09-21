@@ -1,4 +1,6 @@
 {"seed": "habit tracker", "skipped": "already expanded"}
-{"seed": "morning routine", "new_queries": 420, "suggestions_seen": 838}
+{"seed": "morning routine", "skipped": "already expanded"}
+{"seed": "wellbeing journaling", "new_queries": 512, "suggestions_seen": 906}
 {"seed": "wellbeing meditation", "skipped": "already expanded"}
-{"seed": "wellbeing yoga", "new_queries": 299, "suggestions_seen": 406}
+{"seed": "wellbeing yoga", "skipped": "already expanded"}
+{"seed": "wellbeing tarot", "new_queries": 430, "suggestions_seen": 746}

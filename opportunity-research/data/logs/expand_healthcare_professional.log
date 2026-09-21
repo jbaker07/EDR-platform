@@ -1,8 +1,12 @@
 {"seed": "healthcare nclex", "skipped": "already expanded"}
-{"seed": "nursing school", "new_queries": 810, "suggestions_seen": 929}
+{"seed": "nursing school", "skipped": "already expanded"}
+{"seed": "dosage calculation", "new_queries": 816, "suggestions_seen": 1501}
 {"seed": "icd 10 code", "skipped": "already expanded"}
-{"seed": "cpt code", "new_queries": 641, "suggestions_seen": 766}
+{"seed": "cpt code", "skipped": "already expanded"}
+{"seed": "medical billing", "new_queries": 1488, "suggestions_seen": 2082}
 {"seed": "drug interactions", "skipped": "already expanded"}
-{"seed": "pharmacy technician", "new_queries": 626, "suggestions_seen": 781}
+{"seed": "pharmacy technician", "skipped": "already expanded"}
+{"seed": "medication list", "new_queries": 874, "suggestions_seen": 1448}
 {"seed": "healthcare therapy", "skipped": "already expanded"}
-{"seed": "healthcare anxiety", "new_queries": 320, "suggestions_seen": 494}
+{"seed": "healthcare anxiety", "skipped": "already expanded"}
+{"seed": "healthcare adhd", "new_queries": 669, "suggestions_seen": 824}
